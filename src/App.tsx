@@ -14,13 +14,14 @@ import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
 import SearchRestaurants from "./pages/SearchRestaurants";
 import RestaurantResults from "./pages/RestaurantResults";
+import RestaurantProfile from "./pages/RestaurantProfile"; // Importando a nova página
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
-import ClaimRestaurant from "./pages/ClaimRestaurant"; // Importando a nova página
+import ClaimRestaurant from "./pages/ClaimRestaurant";
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -75,11 +76,15 @@ const AppRoutes = () => {
         path="/restaurant-results"
         element={session ? <RestaurantResults /> : <AuthPage />}
       />
+      <Route
+        path="/restaurant-profile/:id"
+        element={session ? <RestaurantProfile /> : <AuthPage />}
+      />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
-      <Route path="/claim-restaurant" element={<ClaimRestaurant />} /> {/* Nova Rota */}
+      <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       
       {/* Admin Routes */}
