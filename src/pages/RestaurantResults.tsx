@@ -4,7 +4,7 @@ import { Search, MapPin, Star, Utensils, Filter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useNearbyRestaurants } from "@/hooks/useNearbyRestaurants";
+import { useNearbyRestaurants, NearbyRestaurant } from "@/hooks/useNearbyRestaurants";
 import { formatDistance } from "@/services/geocoding";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -58,7 +58,7 @@ const RestaurantResults = () => {
     navigate(`/search-restaurants?lat=${userLat}&lon=${userLon}&distance=${maxDistance}&search=${searchQuery}`);
   };
 
-  const renderRestaurantCard = (restaurant: useNearbyRestaurants['restaurants'][0]) => (
+  const renderRestaurantCard = (restaurant: NearbyRestaurant) => (
     <Card key={restaurant.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
       <img src={restaurant.image_url || "https://via.placeholder.com/500x200?text=Sem+Imagem"} alt={restaurant.name} className="w-full h-48 object-cover" />
       <CardHeader>

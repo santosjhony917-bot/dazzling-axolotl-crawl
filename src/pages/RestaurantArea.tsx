@@ -13,7 +13,10 @@ import { createPageUrl } from "@/utils/url";
 const RestaurantArea = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isRestaurant, isPremium, isLoading: isRoleLoading } = useUserRole();
+  // Corrigido: Usar isFreeRestaurant ou isPremiumRestaurant para verificar se é restaurante
+  const { isPremiumRestaurant, isFreeRestaurant, isLoading: isRoleLoading } = useUserRole();
+  const isRestaurant = isPremiumRestaurant || isFreeRestaurant;
+  const isPremium = isPremiumRestaurant;
   const { restaurant, loading: restaurantLoading } = useRestaurantProfile();
 
   // Determine the current tab for the bottom navigation

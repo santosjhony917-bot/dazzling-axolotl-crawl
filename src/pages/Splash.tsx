@@ -34,7 +34,6 @@ export default function Splash() {
               <defs id="SvgjsDefs1021"></defs>
               <g 
                 id="SvgjsG1022" 
-                featurekey="symbolFeature-0" 
                 transform="matrix(-0.8516934432348191,0,0,0.8516934432348191,73.28311603595398,-1.4947229025838524)" 
                 fill="#ffffff"
               >
@@ -49,7 +48,6 @@ export default function Splash() {
               </g>
               <g 
                 id="SvgjsG1023" 
-                featurekey="nameFeature-0" 
                 transform="matrix(1.8539589009150723,0,0,1.8539589009150723,73.77297375895583,-6.764341104707199)" 
                 fill="#ffffff"
               >

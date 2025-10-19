@@ -125,15 +125,16 @@ export default function RestaurantSignup() {
     
     try {
       // 1. Sign up the user
-      const { data, error: signUpError } = await supabase.auth.signUp(
-        { email, password },
-        {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email, 
+        password,
+        options: {
           data: {
             full_name: restaurantName,
             is_restaurant: true,
           },
         }
-      );
+      });
 
       if (signUpError) {
         throw signUpError;

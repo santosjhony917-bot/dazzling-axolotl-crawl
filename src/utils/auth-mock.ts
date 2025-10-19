@@ -41,7 +41,9 @@ export async function mockLoginWithRole(role: AppRole) {
   }
 
   // 4. Define o role no mock da API (para simular o backend retornando o role)
-  await base44.auth.updateMe({ user_role: role });
+  // Corrigido: O mock da API aceita 'customer' | 'restaurant'. Mapeamos roles de restaurante para 'restaurant'.
+  const mockRole = role.includes('restaurant') ? 'restaurant' : 'customer';
+  await base44.auth.updateMe({ user_role: mockRole });
   console.log(`Mock Auth: Successfully logged in as ${role}.`);
 }
 

@@ -22,7 +22,7 @@ import { WeekSchedule, DaySchedule } from "@/types/schedule";
 import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton"; // Importando o botão
+import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton";
 
 // Definindo a interface do estado de edição fora do componente para clareza
 interface EditingFieldState {
@@ -34,14 +34,86 @@ interface EditingFieldState {
   placeholder?: string;
   validationSchema?: z.ZodString;
   mask?: (value: string) => string;
-  currentValue: string; // Adicionando currentValue aqui para consistência
+  currentValue: string;
 }
 
-// Definindo o schema de validação de URL fora da função para simplificar o escopo
+// Máscaras
+const phoneMask = (value: string) => {
+  const numbers = value.replace(/\D/g, '');
+  if (numbers.length <= 10) {
+    return numbers.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  }
+  return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+};
+
+const cnpjMask = (value: string) => {
+  const numbers = value.replace(/\D/g, '');
+  return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+};
+
+// Validações
+const validations = {
+  name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100, "Nome muito longo"),
+  address: z.string().min(10, "Endereço incompleto"),
+  phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
+  email: z.string().email("E-mail inválido"),
+  cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido"),
+};
+
+// Schema de validação de URL
 const urlValidationSchema = z.string().url('URL inválida').regex(
   /^https?:\/\//,
   'URL deve começar com http:// ou https://'
 ).optional().or(z.literal(''));
+
+// Format schedule for display (função auxiliar)
+const formatScheduleDisplay = (schedule: WeekSchedule): string => {
+  const days = Object.entries(schedule) as [keyof WeekSchedule, DaySchedule][];
+  const openDays = days.filter(([_, day]) => day.isOpen);
+  
+  if (openDays.length === 0) return "Fechado";
+  
+  const groups: string[] = [];
+  let currentGroup: string[] = [];
+  let currentSlots: string = "";
+  
+  const dayAbbr: Record<keyof WeekSchedule, string> = {
+    monday: "Seg",
+    tuesday: "Ter",
+    wednesday: "Qua",
+    thursday: "Qui",
+    friday: "Sex",
+    saturday: "Sáb",
+    sunday: "Dom",
+  };
+  
+  openDays.forEach(([day, daySchedule], index) => {
+    const slotsStr = daySchedule.slots.map(s => `${s.start}-${s.end}`).join(", ");
+    
+    if (slotsStr === currentSlots && currentGroup.length > 0) {
+      currentGroup.push(dayAbbr[day]);
+    } else {
+      if (currentGroup.length > 0) {
+        const range = currentGroup.length > 1 
+          ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+          : currentGroup[0];
+        groups.push(`${range}: ${currentSlots}`);
+      }
+      currentGroup = [dayAbbr[day]];
+      currentSlots = slotsStr;
+    }
+    
+    if (index === openDays.length - 1) {
+      const range = currentGroup.length > 1 
+        ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+        : currentGroup[0];
+      groups.push(`${range}: ${currentSlots}`);
+    }
+  });
+  
+  return groups.join(" | ");
+};
+
 
 const RestaurantProfile = () => {
   const navigate = useNavigate();
@@ -49,7 +121,9 @@ const RestaurantProfile = () => {
   const { logout } = useUser();
   const { signOut } = useAuth();
   const { restaurant, loading: restaurantLoading, updateRestaurant } = useRestaurantProfile();
-  const { isPremium, isAdmin } = useUserRole();
+  // Corrigido: useUserRole retorna isPremiumRestaurant e isFreeRestaurant, não isPremium
+  const { isPremiumRestaurant, isAdmin } = useUserRole();
+  const isPremium = isPremiumRestaurant; // Usar uma variável local para simplificar o código
   const { uploadImage, uploading } = useImageUpload();
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
@@ -93,78 +167,6 @@ const RestaurantProfile = () => {
       setSchedule(restaurant.opening_hours);
     }
   }, [restaurant?.opening_hours]);
-
-  // Format schedule for display
-  const formatScheduleDisplay = (schedule: WeekSchedule): string => {
-    const days = Object.entries(schedule) as [keyof WeekSchedule, DaySchedule][];
-    const openDays = days.filter(([_, day]) => day.isOpen);
-    
-    if (openDays.length === 0) return "Fechado";
-    
-    // Group consecutive days with same schedule
-    const groups: string[] = [];
-    let currentGroup: string[] = [];
-    let currentSlots: string = "";
-    
-    const dayAbbr: Record<keyof WeekSchedule, string> = {
-      monday: "Seg",
-      tuesday: "Ter",
-      wednesday: "Qua",
-      thursday: "Qui",
-      friday: "Sex",
-      saturday: "Sáb",
-      sunday: "Dom",
-    };
-    
-    openDays.forEach(([day, daySchedule], index) => {
-      const slotsStr = daySchedule.slots.map(s => `${s.start}-${s.end}`).join(", ");
-      
-      if (slotsStr === currentSlots && currentGroup.length > 0) {
-        currentGroup.push(dayAbbr[day]);
-      } else {
-        if (currentGroup.length > 0) {
-          const range = currentGroup.length > 1 
-            ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
-            : currentGroup[0];
-          groups.push(`${range}: ${currentSlots}`);
-        }
-        currentGroup = [dayAbbr[day]];
-        currentSlots = slotsStr;
-      }
-      
-      if (index === openDays.length - 1) {
-        const range = currentGroup.length > 1 
-          ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
-          : currentGroup[0];
-        groups.push(`${range}: ${currentSlots}`);
-      }
-    });
-    
-    return groups.join(" | ");
-  };
-
-  // Máscaras
-  const phoneMask = (value: string) => {
-    const numbers = value.replace(/\D/g, '');
-    if (numbers.length <= 10) {
-      return numbers.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-    }
-    return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-  };
-
-  const cnpjMask = (value: string) => {
-    const numbers = value.replace(/\D/g, '');
-    return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-  };
-
-  // Validações
-  const validations = {
-    name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100, "Nome muito longo"),
-    address: z.string().min(10, "Endereço incompleto"),
-    phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
-    email: z.string().email("E-mail inválido"),
-    cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido"),
-  };
 
   const handleEdit = (field: keyof typeof restaurantData | 'cnpj' | 'whatsapp' | 'ifood' | 'other') => {
     // Special handling for address - use EditAddressDialog
@@ -679,7 +681,7 @@ const RestaurantProfile = () => {
           
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
             <button 
-              onClick={() => navigate('/restaurant-area/menu')} {/* Rota atualizada */}
+              onClick={() => navigate('/restaurant-area/menu')} 
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <UtensilsCrossed className="h-5 w-5 text-[#E47948]" />
@@ -691,7 +693,7 @@ const RestaurantProfile = () => {
             </button>
             
             <button 
-              onClick={() => navigate('/restaurant-area/categories')} {/* Rota atualizada */}
+              onClick={() => navigate('/restaurant-area/categories')} 
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <Package className="h-5 w-5 text-[#E47948]" />
