@@ -76,7 +76,6 @@ export default function Welcome() {
               </g>
             </svg>
           </div>
-          <h1 className="text-[#022D68] text-3xl font-bold tracking-tight">FilterFood</h1>
         </motion.div>
 
         {/* Welcome Text */}
