@@ -176,8 +176,9 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
           <Input
             value={location.phone}
             onChange={(e) => onUpdate(location.id, 'phone', e.target.value)}
-            placeholder="Telefone de contato (opcional)"
+            placeholder="Telefone de contato (obrigatório)"
             className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            required // Tornando obrigatório
           />
         </div>
       </div>

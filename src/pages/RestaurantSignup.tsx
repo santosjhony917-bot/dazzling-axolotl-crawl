@@ -69,7 +69,8 @@ export default function RestaurantSignup() {
         !loc.street.trim() || 
         !loc.number.trim() || 
         !loc.city.trim() || 
-        !loc.state.trim()
+        !loc.state.trim() ||
+        !loc.phone.trim() // Adicionando validação do telefone
       );
       
       if (locations.length === 0) {
@@ -78,7 +79,7 @@ export default function RestaurantSignup() {
       }
       
       if (invalidLocation) {
-        showError("Preencha todos os campos obrigatórios (CEP, Rua, Número, Cidade, Estado) para todas as filiais.");
+        showError("Preencha todos os campos obrigatórios (CEP, Rua, Número, Cidade, Estado, Telefone) para todas as filiais.");
         return false;
       }
     } else if (step === 3) {
