@@ -80,7 +80,7 @@ export default function CustomerLogin() {
             </div>
 
             <div className="mt-4 space-y-4">
-              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg rounded-full shadow-lg hover:bg-[#E47948]/90 transition-opacity shadow-[#E47948]/50">
+              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg rounded-full hover:bg-[#E47948]/90 transition-opacity">
                 Entrar
               </Button>
 

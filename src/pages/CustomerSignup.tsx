@@ -94,7 +94,7 @@ export default function CustomerSignup() {
             </div>
 
             <div className="mt-6 space-y-4">
-              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg hover:bg-[#E47948]/90 rounded-full shadow-lg shadow-[#E47948]/50">
+              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg hover:bg-[#E47948]/90 rounded-full">
                 Criar conta
               </Button>
 
