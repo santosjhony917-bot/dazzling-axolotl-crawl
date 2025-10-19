@@ -46,6 +46,7 @@ const RestaurantProfile = () => {
   const { isPremium, isAdmin } = useUserRole();
   const { uploadImage, uploading } = useImageUpload();
   
+  // CORRIGIDO: Usando a interface definida
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
 
   const [isEditingHours, setIsEditingHours] = useState(false);
