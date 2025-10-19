@@ -57,7 +57,7 @@ export default function RestaurantLogin() {
       <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
         <Card className="w-full shadow-xl border-none rounded-xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-[#022D68] tracking-tight text-4xl font-extrabold leading-tight">
+            <CardTitle className="text-[#022D68] tracking-tight text-4xl font-bold leading-tight">
               Acesse sua conta
             </CardTitle>
             <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
@@ -67,7 +67,7 @@ export default function RestaurantLogin() {
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <Input
-                className="h-14 text-base"
+                className="h-12 text-base rounded-full"
                 placeholder="E-mail"
                 type="email"
                 value={email}
@@ -77,7 +77,7 @@ export default function RestaurantLogin() {
               />
               <div className="relative">
                 <Input
-                  className="h-14 text-base pr-12"
+                  className="h-12 text-base pr-12 rounded-full"
                   placeholder="Senha"
                   type={passwordVisible ? "text" : "password"}
                   value={password}
@@ -105,7 +105,7 @@ export default function RestaurantLogin() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg hover:bg-[#E47948]/90 rounded-lg shadow-lg shadow-[#E47948]/50"
+                className="w-full bg-[#E47948] text-white font-bold h-12 text-lg hover:bg-[#E47948]/90 rounded-full shadow-lg shadow-[#E47948]/50"
               >
                 {loading ? "Entrando..." : "Entrar"}
               </Button>
