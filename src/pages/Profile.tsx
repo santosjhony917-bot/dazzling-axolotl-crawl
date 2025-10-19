@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { User, LogOut, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,15 @@ import CustomerBottomNav from '@/components/restaurant/CustomerBottomNav'; // Im
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { role, isLoading, userId } = useUserRole();
+  const { role, isLoading, userId, isPremiumRestaurant, isFreeRestaurant } = useUserRole();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isPremiumRestaurant || isFreeRestaurant) {
+        navigate('/restaurant-area/profile-menu', { replace: true });
+      }
+    }
+  }, [isLoading, isPremiumRestaurant, isFreeRestaurant, navigate]);
 
   const handleSignOut = async () => {
     await mockLogout();
