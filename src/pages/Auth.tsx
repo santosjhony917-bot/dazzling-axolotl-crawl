@@ -28,6 +28,7 @@ const AuthPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); // Novo estado
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -45,24 +46,31 @@ const AuthPage = () => {
     e.preventDefault();
     setLoading(true);
 
-    let error;
-
     if (isSignUp) {
+      if (password !== confirmPassword) {
+        showError('As senhas não coincidem.');
+        setLoading(false);
+        return;
+      }
+      
       // Use explicit two-argument signature for signUp to prevent flowType error
       const result = await supabase.auth.signUp({ email, password });
-      error = result.error;
+      const error = result.error;
+
+      if (error) {
+        showError(error.message);
+      } else {
+        showSuccess('Cadastro realizado! Verifique seu e-mail para confirmar sua conta.');
+        setIsSignUp(false); // Switch back to login view
+      }
     } else {
       const result = await supabase.auth.signInWithPassword({ email, password });
-      error = result.error;
+      const error = result.error;
+      
+      if (error) {
+        showError(error.message);
+      }
     }
-
-    if (error) {
-      showError(error.message);
-    } else if (isSignUp) {
-      showSuccess('Cadastro realizado! Verifique seu e-mail para confirmar sua conta.');
-      setIsSignUp(false); // Switch back to login view
-    }
-    // On successful login, the onAuthStateChange listener will handle the redirect.
     
     setLoading(false);
   };
@@ -109,7 +117,7 @@ const AuthPage = () => {
           <CardContent>
             <form onSubmit={handleAuthAction} className="space-y-4">
               <Input 
-                className="h-14 text-base" 
+                className="h-14 text-base rounded-full" 
                 placeholder="E-mail" 
                 type="email"
                 value={email}
@@ -120,7 +128,7 @@ const AuthPage = () => {
               
               <div className="relative">
                 <Input 
-                  className="h-14 text-base pr-12" 
+                  className="h-14 text-base pr-12 rounded-full" 
                   placeholder="Senha" 
                   type={passwordVisible ? 'text' : 'password'}
                   value={password}
@@ -136,6 +144,28 @@ const AuthPage = () => {
                   {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+
+              {isSignUp && (
+                <div className="relative">
+                  <Input 
+                    className="h-14 text-base pr-12 rounded-full" 
+                    placeholder="Confirmar Senha" 
+                    type={passwordVisible ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    disabled={loading}
+                  />
+                  {/* Reusing the visibility toggle for the confirmation field */}
+                  <button 
+                    type="button" 
+                    className="text-gray-500 absolute inset-y-0 right-0 flex items-center justify-center pr-4 hover:text-[#022D68] transition-colors" 
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+              )}
 
               {!isSignUp && (
                 <div className="flex justify-end">
