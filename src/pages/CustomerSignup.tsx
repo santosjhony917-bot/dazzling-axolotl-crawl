@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,6 +14,7 @@ import {
 export default function CustomerSignup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -25,6 +26,14 @@ export default function CustomerSignup() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4">
+      <Button
+        onClick={() => navigate(-1)}
+        variant="ghost"
+        className="absolute top-4 left-4 h-12 w-12 rounded-full"
+      >
+        <ArrowLeft className="h-6 w-6 text-gray-600" />
+      </Button>
+
       <header className="flex flex-col items-center justify-center pt-16 pb-6 w-full max-w-sm">
         <div className="w-36 h-auto drop-shadow-md">
           <svg viewBox="125 -5 100 110" className="w-36 h-auto">
