@@ -14,7 +14,7 @@ import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
 import SearchRestaurants from "./pages/SearchRestaurants";
 import RestaurantResults from "./pages/RestaurantResults";
-import RestaurantProfile from "./pages/RestaurantProfile"; // Importando a nova página
+import RestaurantProfile from "./pages/RestaurantProfile";
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
@@ -22,8 +22,9 @@ import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
-import RestaurantHome from "./pages/RestaurantHome"; // Importando RestaurantHome
-import Profile from "./pages/Profile"; // Importando a nova página Profile
+import RestaurantHome from "./pages/RestaurantHome";
+import Profile from "./pages/Profile";
+import RestaurantProfileMenu from "./pages/RestaurantProfileMenu"; // Importando a nova página
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -84,12 +85,13 @@ const AppRoutes = () => {
       />
       <Route
         path="/restaurant-profile/:id"
-        element={<RestaurantProfile />} // Restrição removida aqui
+        element={<RestaurantProfile />}
       />
-      <Route path="/profile" element={session ? <Profile /> : <AuthPage />} /> {/* Nova rota de perfil */}
+      <Route path="/profile" element={session ? <Profile /> : <AuthPage />} />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
-      <Route path="/restaurant-home" element={<RestaurantHome />} /> {/* Rota correta para o dashboard do restaurante */}
-      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> {/* Mantendo a rota antiga por segurança, mas deve ser removida */}
+      <Route path="/restaurant-home" element={<RestaurantHome />} />
+      <Route path="/restaurant-profile-menu" element={<RestaurantProfileMenu />} /> {/* Nova rota de perfil do restaurante */}
+      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/claim-restaurant" element={<ClaimRestaurant />} />

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { mockLogout } from "@/utils/auth-mock";
 import { useUserRole } from "@/hooks/useUserRole";
 import { Skeleton } from "@/components/ui/skeleton";
-import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o novo componente
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o componente correto
 
 // Mock Data (será substituído por dados reais do restaurante logado)
 const highlights = [

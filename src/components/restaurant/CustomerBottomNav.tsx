@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BarChart3, User, Crown } from 'lucide-react';
+import { Home, Search, User, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -11,16 +11,18 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/restaurant-home', label: 'Início', icon: Home },
-  { path: '/restaurant-stats', label: 'Estatísticas', icon: BarChart3 },
-  { path: '/upgrade', label: 'Premium', icon: Crown },
-  { path: '/restaurant-profile-menu', label: 'Perfil', icon: User },
+  { path: '/home', label: 'Início', icon: Home },
+  { path: '/search-restaurants', label: 'Buscar', icon: Search },
+  { path: '/upgrade', label: 'Upgrade', icon: Crown },
+  { path: '/profile', label: 'Perfil', icon: User },
 ];
 
-const RestaurantBottomNav: React.FC = () => {
+const CustomerBottomNav: React.FC = () => {
   const location = useLocation();
   
+  // Mapeia rotas para garantir que o item correto seja ativado
   const getActivePath = (path: string) => {
+    if (path === '/home' && location.pathname === '/') return true;
     return location.pathname.startsWith(path);
   };
 
@@ -31,6 +33,7 @@ const RestaurantBottomNav: React.FC = () => {
           const isActive = getActivePath(item.path);
           const Icon = item.icon;
           
+          // Tratamento especial para o botão Upgrade (terceiro item)
           const isUpgradeButton = item.path === '/upgrade';
 
           return (
@@ -64,4 +67,4 @@ const RestaurantBottomNav: React.FC = () => {
   );
 };
 
-export default RestaurantBottomNav;
+export default CustomerBottomNav;

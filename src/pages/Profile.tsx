@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { mockLogout } from '@/utils/auth-mock';
 import { useUserRole } from '@/hooks/useUserRole';
 import { Skeleton } from '@/components/ui/skeleton';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import CustomerBottomNav from '@/components/restaurant/CustomerBottomNav'; // Importando o componente correto
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -99,7 +99,7 @@ export default function Profile() {
           </div>
         </motion.div>
       </main>
-      <RestaurantBottomNav />
+      <CustomerBottomNav />
     </div>
   );
 }

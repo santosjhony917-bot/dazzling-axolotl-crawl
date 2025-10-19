@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o novo componente
+import CustomerBottomNav from "@/components/restaurant/CustomerBottomNav"; // Importando o componente correto
 
 export default function Index() {
   const navigate = useNavigate();
@@ -152,7 +152,7 @@ export default function Index() {
         </div>
       </div>
       <MadeWithDyad />
-      <RestaurantBottomNav />
+      <CustomerBottomNav />
     </div>
   );
 }
