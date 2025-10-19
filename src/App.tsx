@@ -12,14 +12,23 @@ import NotFound from "./pages/NotFound";
 import Splash from "./pages/Splash";
 import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
-import SearchRestaurants from "./pages/SearchRestaurants"; // Novo
-import RestaurantResults from "./pages/RestaurantResults"; // Renomeado/Atualizado
+import SearchRestaurants from "./pages/SearchRestaurants";
+import RestaurantResults from "./pages/RestaurantResults";
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
+
+// Admin Pages
+import AdminRoute from "./components/admin/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageAdmins from "./pages/admin/ManageAdmins";
+import EditRestaurant from "./pages/admin/EditRestaurant";
+import PopularCategories from "./pages/admin/PopularCategories";
+import Files from "./pages/admin/Files";
+import ImportMenu from "./pages/admin/ImportMenu";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +79,15 @@ const AppRoutes = () => {
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      
+      {/* Admin Routes */}
+      <Route path="/admin/dashboard" element={<AdminRoute title="Dashboard"><AdminDashboard /></AdminRoute>} />
+      <Route path="/admin/edit-restaurant" element={<AdminRoute title="Gerenciar Restaurantes"><EditRestaurant /></AdminRoute>} />
+      <Route path="/admin/manage-admins" element={<AdminRoute title="Gerenciar Administradores"><ManageAdmins /></AdminRoute>} />
+      <Route path="/admin/popular-categories" element={<AdminRoute title="Categorias Populares"><PopularCategories /></AdminRoute>} />
+      <Route path="/admin/files" element={<AdminRoute title="Gerenciamento de Arquivos"><Files /></AdminRoute>} />
+      <Route path="/admin/import" element={<AdminRoute title="Importar Cardápio"><ImportMenu /></AdminRoute>} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
