@@ -53,10 +53,10 @@ export default function Onboarding() {
   const completeOnboarding = async () => {
     try {
       await base44.auth.updateMe({ onboarding_completed: true });
-      navigate(createPageUrl('home'));
+      navigate(createPageUrl('welcome'));
     } catch (error) {
       console.error('Error completing onboarding:', error);
-      navigate(createPageUrl('home'));
+      navigate(createPageUrl('welcome'));
     }
   };
 

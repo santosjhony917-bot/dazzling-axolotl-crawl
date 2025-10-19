@@ -9,7 +9,7 @@ export default function Splash() {
   // Auto-navigate after 2 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate(createPageUrl("welcome"));
+      navigate(createPageUrl("onboarding"));
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
