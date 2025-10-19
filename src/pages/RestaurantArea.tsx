@@ -33,7 +33,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
       <div className="flex flex-col justify-center text-left flex-grow pr-4">
         <p className={`text-lg font-semibold leading-snug line-clamp-1 ${textColor}`}>{title}</p>
         {/* Removendo /80 para garantir que a descrição seja totalmente branca quando textColor for branco */}
-        <p className={`text-sm font-normal leading-normal line-clamp-2 ${textColor} mt-0.5`}>{description}</p>
+        <p className={`text-sm font-normal leading-normal line-clamp-2 ${textColor} mt-0.5 opacity-90`}>{description}</p>
       </div>
       <div className="shrink-0">
         <div className={`flex size-6 items-center justify-center ${iconColor}`}>
@@ -44,19 +44,21 @@ const ActionCard: React.FC<ActionCardProps> = ({
   );
 };
 
-// Componente de Cabeçalho
+// Componente de Cabeçalho ajustado para o novo padrão
 const RestaurantAreaHeader = ({ navigate }: { navigate: ReturnType<typeof useNavigate> }) => (
-  <header className="sticky top-0 z-10 bg-[#f5f7f8] w-full border-b border-gray-100">
-    <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
-      <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-[#022D68] hover:bg-[#022D68]/5">
-        <ArrowLeft className="h-6 w-6" />
-      </Button>
-      <div className="flex items-center gap-1">
-        <MapPin className="text-[#022D68] w-5 h-5" />
-        <h2 className="text-[#022D68] text-xl font-bold leading-tight tracking-[-0.015em]">FilterFood</h2>
-      </div>
-      <div className="size-10 shrink-0"></div> {/* Placeholder para centralização */}
+  <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => navigate(-1)}
+      className="text-[#022D68] hover:bg-[#022D68]/5"
+    >
+      <ArrowLeft className="h-6 w-6" />
+    </Button>
+    <div className="flex items-center gap-2">
+      <h2 className="text-[#022D68] text-xl font-bold">Área do Restaurante</h2>
     </div>
+    <div className="w-10"></div> {/* Placeholder para alinhamento */}
   </header>
 );
 
@@ -85,11 +87,15 @@ export default function RestaurantArea() {
           transition={{ duration: 0.5 }}
           className="w-full text-center mb-10"
         >
-          <div className="flex items-center justify-center size-24 bg-[#022D68]/10 rounded-full mx-auto mb-6">
-            <Utensils className="text-[#022D68] w-10 h-10" />
+          <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mx-auto mb-4">
+            <Utensils className="text-[#022D68] w-8 h-8" />
           </div>
-          <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">Área do Restaurante</h1>
-          <p className="text-gray-600 text-base font-normal leading-normal pt-1">Gerencie seu estabelecimento</p>
+          <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
+            Gerencie seu Estabelecimento
+          </h1>
+          <p className="text-gray-600 text-base font-normal leading-normal pt-1">
+            Escolha uma opção abaixo para continuar.
+          </p>
         </motion.div>
         
         {/* Action Cards */}
