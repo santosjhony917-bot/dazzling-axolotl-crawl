@@ -35,7 +35,7 @@ export default function Welcome() {
       await base44.auth.updateMe({ user_role: role });
       
       if (role === 'customer') {
-        navigate(createPageUrl('customer-signup'));
+        navigate(createPageUrl('customer-login'));
       } else {
         navigate(createPageUrl('restaurant-signup'));
       }
