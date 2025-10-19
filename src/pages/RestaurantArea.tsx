@@ -26,7 +26,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
 }) => {
   return (
     <div 
-      className={`flex items-center gap-4 p-4 rounded-lg shadow-sm cursor-pointer transition-all hover:shadow-md ${bgColor}`}
+      className={`flex items-center gap-4 p-4 rounded-xl shadow-md cursor-pointer transition-all hover:shadow-lg ${bgColor}`}
       onClick={onClick}
     >
       <div className="flex flex-col justify-center text-left flex-grow">
@@ -71,7 +71,7 @@ export default function RestaurantArea() {
         <div className="flex items-center justify-center size-24 bg-[#022D68]/10 rounded-full mb-6">
           <Utensils className="text-[#022D68] w-10 h-10" />
         </div>
-        <h1 className="text-[#022D68] tracking-light text-3xl font-bold leading-tight">Área do Restaurante</h1>
+        <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">Área do Restaurante</h1>
         <p className="text-gray-600 text-base font-normal leading-normal pt-1">Gerencie seu estabelecimento</p>
         
         <div className="w-full max-w-md mt-10 space-y-4">
@@ -94,7 +94,7 @@ export default function RestaurantArea() {
             icon={Plus}
             iconColor="text-[#022D68]"
             bgColor="bg-white"
-            textColor="text-gray-800"
+            textColor="text-[#022D68]" // Usando a cor primária para o texto principal
             onClick={handleRegisterRestaurant}
           />
 
@@ -105,7 +105,7 @@ export default function RestaurantArea() {
             icon={Mail}
             iconColor="text-[#022D68]"
             bgColor="bg-white"
-            textColor="text-gray-800"
+            textColor="text-[#022D68]" // Usando a cor primária para o texto principal
             onClick={handleEmailLogin}
           />
         </div>
