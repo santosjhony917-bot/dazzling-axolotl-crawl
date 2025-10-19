@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createPageUrl } from "@/utils/url";
 
 export default function CustomerSignup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -27,7 +28,7 @@ export default function CustomerSignup() {
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4">
       <Button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(createPageUrl('welcome'))}
         variant="ghost"
         className="absolute top-4 left-4 h-12 w-12 rounded-full"
       >
