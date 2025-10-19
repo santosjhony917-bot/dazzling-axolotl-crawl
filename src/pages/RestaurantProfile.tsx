@@ -93,7 +93,6 @@ const RestaurantProfile = () => {
     <div className={cn("relative h-full rounded-xl overflow-hidden", item.span)}>
       <img className="w-full h-full object-cover" alt={item.caption} src={item.imageUrl} />
       <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
-        {/* Note: text-shadow utility is not defined in our tailwind config, using standard text-white */}
         <p className="text-white text-sm font-semibold">{item.caption}</p>
       </div>
     </div>
@@ -177,7 +176,7 @@ const RestaurantProfile = () => {
       {/* Main Content Area */}
       <div className="pt-28 px-4 pb-8 max-w-md mx-auto w-full">
         
-        {/* Action Buttons */}
+        {/* Action Buttons - Rounded Full */}
         <div className="flex w-full gap-2 justify-center">
           <Button className="flex-1 rounded-full h-10 px-3 bg-[#022D68] text-white text-sm font-bold hover:bg-[#022D68]/90">Seguir</Button>
           <Button variant="outline" className="flex-1 rounded-full h-10 px-3 border border-[#022D68] text-[#022D68] text-sm font-bold hover:bg-[#022D68]/5">Contatos</Button>
@@ -187,7 +186,7 @@ const RestaurantProfile = () => {
         {/* Navigation Tabs (Menu, Promotions, Photos, Reviews) */}
         <div className="mt-6">
           <div className="flex border-b border-gray-200">
-            <a className="flex flex-1 flex-col items-center justify-center border-b-2 border-[#022D68] pb-3" href="#">
+            <a className="flex flex-1 flex-col items-center justify-center border-b-2 border-[#022D68] pb-3 transition-colors" href="#">
               <p className="text-sm font-bold text-[#022D68]">Cardápio</p>
             </a>
             <a className="flex flex-1 flex-col items-center justify-center border-b-2 border-transparent pb-3 hover:border-gray-300 transition-colors" href="#">
@@ -207,15 +206,15 @@ const RestaurantProfile = () => {
           <h2 className="text-lg font-bold text-[#022D68]">Peça agora pelo seu canal favorito</h2>
           <div className="grid grid-cols-3 gap-4 mt-4">
             <div className="flex flex-col items-center gap-2 rounded-lg bg-white p-4 shadow-sm border border-gray-200">
-              <MessageSquare className="w-7 h-7 text-[#022D68]" />
+              <MessageSquare className="w-7 h-7 text-[#E47948]" /> {/* Usando cor de destaque */}
               <p className="text-xs font-semibold text-gray-700">WhatsApp</p>
             </div>
             <div className="flex flex-col items-center gap-2 rounded-lg bg-white p-4 shadow-sm border border-gray-200">
-              <BookOpen className="w-7 h-7 text-[#022D68]" />
+              <BookOpen className="w-7 h-7 text-[#E47948]" /> {/* Usando cor de destaque */}
               <p className="text-xs font-semibold text-gray-700">iFood</p>
             </div>
             <div className="flex flex-col items-center gap-2 rounded-lg bg-white p-4 shadow-sm border border-gray-200">
-              <Receipt className="w-7 h-7 text-[#022D68]" />
+              <Receipt className="w-7 h-7 text-[#E47948]" /> {/* Usando cor de destaque */}
               <p className="text-xs font-semibold text-gray-700">Anota aí</p>
             </div>
           </div>
@@ -239,7 +238,7 @@ const RestaurantProfile = () => {
             <p className="font-bold text-white">Cardápio Premium</p>
           </div>
           
-          {/* Category Filters */}
+          {/* Category Filters - Using outline variant for inactive */}
           <div className="mt-4 flex gap-2 overflow-x-auto pb-2 whitespace-nowrap">
             {data.menuCategories.map((category) => (
               <Button
@@ -265,7 +264,7 @@ const RestaurantProfile = () => {
             ))}
           </div>
           
-          <a className="mt-4 block text-center text-sm font-bold text-[#022D68] hover:underline" href="#">Ver cardápio completo</a>
+          <a className="mt-4 block text-center text-sm font-bold text-[#E47948] hover:underline" href="#">Ver cardápio completo</a>
         </div>
 
         {/* Information Section */}
@@ -274,16 +273,16 @@ const RestaurantProfile = () => {
           <div className="mt-4 space-y-4">
             {/* Address */}
             <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-[#022D68] shrink-0" />
+              <MapPin className="w-5 h-5 text-[#E47948] shrink-0" /> {/* Usando cor de destaque */}
               <p className="text-sm text-gray-600">
                 {data.address} - 
-                <a className="font-bold text-[#022D68] hover:underline ml-1" href={data.mapLink}>Ver no mapa</a>
+                <a className="font-bold text-[#E47948] hover:underline ml-1" href={data.mapLink}>Ver no mapa</a>
               </p>
             </div>
             
             {/* Hours */}
             <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-[#022D68] shrink-0" />
+              <Clock className="w-5 h-5 text-[#E47948] shrink-0" /> {/* Usando cor de destaque */}
               <p className="text-sm text-gray-600">
                 {data.openingHours} 
                 <span className={cn("ml-2 font-bold", data.isOpen ? "text-green-600" : "text-red-600")}>
@@ -294,7 +293,7 @@ const RestaurantProfile = () => {
             
             {/* Payment Methods */}
             <div className="flex items-start gap-3">
-              <CreditCard className="w-5 h-5 text-[#022D68] pt-1 shrink-0" />
+              <CreditCard className="w-5 h-5 text-[#E47948] pt-1 shrink-0" /> {/* Usando cor de destaque */}
               <div>
                 <p className="text-sm font-bold text-[#022D68]">Formas de Pagamento</p>
                 <div className="flex flex-wrap items-center gap-3 mt-2">
