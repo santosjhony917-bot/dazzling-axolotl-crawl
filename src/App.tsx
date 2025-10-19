@@ -26,7 +26,9 @@ import ClaimRestaurant from "./pages/ClaimRestaurant";
 import RestaurantHome from "./pages/RestaurantHome";
 import Profile from "./pages/Profile";
 import RestaurantProfile from "./pages/RestaurantProfile";
-import RestaurantAreaHub from "./pages/RestaurantAreaHub"; // Novo import
+import RestaurantAreaHub from "./pages/RestaurantAreaHub";
+import RestaurantMenu from "./pages/RestaurantMenu"; // Novo import
+import RestaurantCategories from "./pages/RestaurantCategories"; // Novo import
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -108,6 +110,8 @@ const AppRoutes = () => {
         <Route index element={<RestaurantHome />} /> {/* Rota padrão dentro do layout */}
         <Route path="home" element={<RestaurantHome />} />
         <Route path="profile-menu" element={<RestaurantProfile />} />
+        <Route path="menu" element={<RestaurantMenu />} /> {/* Nova Rota */}
+        <Route path="categories" element={<RestaurantCategories />} /> {/* Nova Rota */}
         {/* Adicione outras sub-rotas aqui (ex: stats, menu, orders) */}
       </Route>
       

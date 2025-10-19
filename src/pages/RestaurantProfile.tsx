@@ -42,7 +42,7 @@ const RestaurantProfile = () => {
     placeholder?: string;
     validationSchema?: z.ZodString;
     mask?: (value: string) => string;
-  } | null>(null);
+  } | null>(editingField);
 
   const [isEditingHours, setIsEditingHours] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
@@ -678,7 +678,7 @@ const RestaurantProfile = () => {
           
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
             <button 
-              onClick={() => navigate('/restaurant-menu')}
+              onClick={() => navigate('/restaurant-area/menu')} {/* Rota atualizada */}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <UtensilsCrossed className="h-5 w-5 text-[#E47948]" />
@@ -690,7 +690,7 @@ const RestaurantProfile = () => {
             </button>
             
             <button 
-              onClick={() => navigate('/restaurant-categories')}
+              onClick={() => navigate('/restaurant-area/categories')} {/* Rota atualizada */}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <Package className="h-5 w-5 text-[#E47948]" />
@@ -857,17 +857,19 @@ const RestaurantProfile = () => {
           <h2 className="text-base font-bold text-foreground mb-4">Suporte e Conta</h2>
           
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-            <button 
-              onClick={() => navigate("/admin/dashboard")} // Link para o Admin Dashboard
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Crown className="h-5 w-5 text-red-600" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-red-600">Acessar Painel Admin</p>
-                <p className="text-xs text-muted-foreground">Gerenciamento de sistema (Apenas Admin)</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
+            {isAdmin && (
+              <button 
+                onClick={() => navigate("/admin/dashboard")} // Link para o Admin Dashboard
+                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+              >
+                <Crown className="h-5 w-5 text-red-600" />
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-medium text-red-600">Acessar Painel Admin</p>
+                  <p className="text-xs text-muted-foreground">Gerenciamento de sistema (Apenas Admin)</p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </button>
+            )}
 
             <button 
               onClick={() => navigate("/restaurant-help-center")}
