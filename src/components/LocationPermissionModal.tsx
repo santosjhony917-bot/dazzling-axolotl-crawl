@@ -12,12 +12,15 @@ const LOCATION_PERMISSION_KEY = 'locationPermissionGranted';
 const MOCK_LOCATION_KEY = 'useMockLocation';
 
 export const checkLocationPreference = (): 'granted' | 'mock' | 'unset' => {
+  // Verifica se o usuário já escolheu usar o GPS
   if (localStorage.getItem(LOCATION_PERMISSION_KEY) === 'true') {
     return 'granted';
   }
+  // Verifica se o usuário já escolheu usar a localização mock
   if (localStorage.getItem(MOCK_LOCATION_KEY) === 'true') {
     return 'mock';
   }
+  // Se nenhuma preferência foi definida
   return 'unset';
 };
 
@@ -28,12 +31,14 @@ export default function LocationPermissionModal({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    // Apenas abre o modal se a preferência for 'unset'
     if (checkLocationPreference() === 'unset') {
       setIsOpen(true);
     }
   }, []);
 
   const handleGrant = () => {
+    // Define a preferência como concedida
     localStorage.setItem(LOCATION_PERMISSION_KEY, 'true');
     localStorage.removeItem(MOCK_LOCATION_KEY);
     setIsOpen(false);
@@ -41,14 +46,14 @@ export default function LocationPermissionModal({
   };
 
   const handleMock = () => {
+    // Define a preferência como mock
     localStorage.setItem(MOCK_LOCATION_KEY, 'true');
     localStorage.removeItem(LOCATION_PERMISSION_KEY);
     setIsOpen(false);
     onUseMockLocation();
   };
 
-  if (!isOpen) return null;
-
+  // Usamos Dialog para controlar a visibilidade
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-[425px] rounded-xl p-6">
