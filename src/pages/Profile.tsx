@@ -7,17 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { mockLogout } from '@/utils/auth-mock';
 import { useUserRole } from '@/hooks/useUserRole';
 import { Skeleton } from '@/components/ui/skeleton';
-import CustomerBottomNav from '@/components/restaurant/CustomerBottomNav'; // Importando o componente correto
+import CustomerBottomNav from '@/components/restaurant/CustomerBottomNav';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { role, isLoading, userId, isPremiumRestaurant, isFreeRestaurant } = useUserRole();
+  const { role, isLoading, userId, isPremiumRestaurant, isFreeRestaurant, isCustomer } = useUserRole();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (isPremiumRestaurant || isFreeRestaurant) {
-        navigate('/restaurant-area/profile-menu', { replace: true });
-      }
+    if (!isLoading && (isPremiumRestaurant || isFreeRestaurant)) {
+      navigate('/restaurant-area/profile-menu', { replace: true });
     }
   }, [isLoading, isPremiumRestaurant, isFreeRestaurant, navigate]);
 
@@ -26,7 +24,7 @@ export default function Profile() {
     navigate('/auth');
   };
 
-  if (isLoading) {
+  if (isLoading || isPremiumRestaurant || isFreeRestaurant) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
         <Skeleton className="h-10 w-full mb-8" />
@@ -36,7 +34,6 @@ export default function Profile() {
     );
   }
 
-  // Mock data for display
   const mockProfile = {
     name: "Usuário FilterFood",
     email: userId ? `user-${userId.substring(0, 4)}@example.com` : "email@exemplo.com",
@@ -107,7 +104,7 @@ export default function Profile() {
           </div>
         </motion.div>
       </main>
-      <CustomerBottomNav />
+      {isCustomer && <CustomerBottomNav />}
     </div>
   );
 }

@@ -29,6 +29,7 @@ import RestaurantProfile from "./pages/RestaurantProfile";
 import RestaurantAreaHub from "./pages/RestaurantAreaHub";
 import RestaurantMenu from "./pages/RestaurantMenu"; // Novo import
 import RestaurantCategories from "./pages/RestaurantCategories"; // Novo import
+import AuthRedirector from "./components/AuthRedirector"; // Importar o novo componente
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -57,14 +58,12 @@ const AppRoutes = () => {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (_event === "SIGNED_IN" && session) {
-        // Redireciona usuários logados para a página inicial do cliente (/home)
-        // Se for um restaurante, o login na página /restaurant-login já redireciona para /restaurant-home
-        // Se for um cliente, redireciona para /home
-        // Nota: A lógica de role deve ser refinada, mas por enquanto, se logou, vai para /home
-        navigate("/home");
+        // Redirecionamento agora será tratado pelo AuthRedirector
+        // Ao invés de redirecionar para /home aqui, vamos para uma rota que aciona o AuthRedirector
+        navigate("/auth-redirect", { replace: true });
       } else if (_event === "SIGNED_OUT") {
         // Redireciona para a tela de autenticação geral
-        navigate("/auth");
+        navigate("/auth", { replace: true });
       }
     });
 
@@ -83,6 +82,7 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/auth-redirect" element={<AuthRedirector />} /> {/* Nova rota para o redirecionador */}
       
       {/* Rotas do Cliente (requerem sessão) */}
       <Route
