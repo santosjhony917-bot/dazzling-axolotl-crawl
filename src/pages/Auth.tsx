@@ -144,7 +144,7 @@ const AuthPage = () => {
               <Button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                className="flex w-full items-center justify-center rounded-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
               >
                 <span className="truncate">
                   {loading ? 'Aguarde...' : (isSignUp ? 'Cadastrar' : 'Entrar')}
