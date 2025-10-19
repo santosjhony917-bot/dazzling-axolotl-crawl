@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MapPin, Phone, X, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { fetchAddressSuggestions, formatCEP, isCEP } from '@/services/geocoding';
-import { showError } from '@/utils/toast';
+import { formatCEP, isCEP } from '@/services/geocoding';
+import { showError, showSuccess } from '@/utils/toast';
+import axios from 'axios';
 
 interface Location {
   id: number;
@@ -25,76 +26,45 @@ interface LocationCardProps {
 const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemove }) => {
   const [isSearchingCep, setIsSearchingCep] = useState(false);
 
-  // Effect to handle CEP lookup
+  const handleCepLookup = useCallback(async (cep: string) => {
+    const cleanedCep = cep.replace(/\D/g, '');
+    if (cleanedCep.length !== 8) return;
+
+    setIsSearchingCep(true);
+    
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
+      const data = response.data;
+
+      if (!data.erro) {
+        onUpdate(location.id, 'street', data.logradouro || '');
+        onUpdate(location.id, 'neighborhood', data.bairro || '');
+        onUpdate(location.id, 'city', data.localidade || '');
+        onUpdate(location.id, 'state', data.uf || '');
+        showSuccess("Endereço preenchido automaticamente!");
+      } else {
+        showError("CEP não encontrado.");
+      }
+    } catch (error) {
+      console.error("CEP lookup failed:", error);
+      showError("Erro ao buscar CEP. Verifique sua conexão ou o CEP digitado.");
+    } finally {
+      setIsSearchingCep(false);
+    }
+  }, [location.id, onUpdate]);
+
+  // Debounce effect for CEP input
   useEffect(() => {
     const cleanedCep = location.cep.replace(/\D/g, '');
     
     if (cleanedCep.length === 8) {
-      handleCepLookup(cleanedCep);
+      const timer = setTimeout(() => {
+        handleCepLookup(location.cep);
+      }, 500); // Wait 500ms after typing stops
+      
+      return () => clearTimeout(timer);
     }
-  }, [location.cep]);
-
-  const handleCepLookup = async (cep: string) => {
-    setIsSearchingCep(true);
-    try {
-      // Using fetchAddressSuggestions which prioritizes ViaCEP lookup for 8-digit CEPs
-      const suggestions = await fetchAddressSuggestions(cep);
-
-      if (suggestions.length > 0) {
-        const addressData = suggestions[0];
-        
-        // We need to reverse geocode the address string back to GeocodedAddress structure
-        // Since fetchAddressSuggestions returns AddressSuggestion, we need to parse the address string
-        // For simplicity and relying on the existing structure, we assume the first suggestion is the best match.
-        
-        // Note: The current implementation of fetchAddressSuggestions returns a complex label/address string.
-        // We need a dedicated function to parse the full address from ViaCEP/Nominatim into our Location fields.
-        
-        // Since ViaCEP data is only available internally in fetchViaCEP, we'll simulate parsing the address string
-        // or rely on the fact that ViaCEP returns structured data (which is handled inside fetchViaCEP).
-        
-        // Let's refactor the logic to directly use a dedicated CEP lookup function if possible, 
-        // but for now, we rely on the structure returned by fetchAddressSuggestions when a CEP is provided.
-        
-        // Since we cannot easily extract structured data (street, city, state) from the AddressSuggestion object 
-        // without modifying the geocoding service to expose the raw ViaCEP result, 
-        // I will implement a simplified parsing based on the `address` field, or assume the `fetchAddressSuggestions` 
-        // for CEP returns a highly accurate result that we can use to update the fields.
-        
-        // Given the constraints, I will modify the logic to use the `geocodeAddress` utility 
-        // to get coordinates and then rely on the user to fill in the number/street if necessary, 
-        // but for CEP, we need the structured data.
-        
-        // Since the existing `fetchAddressSuggestions` handles CEP lookup internally via `fetchViaCEP`, 
-        // I will assume the `fetchViaCEP` logic is sound and try to extract the structured data from the suggestion.
-        
-        // Re-implementing CEP lookup directly here for structured data:
-        const response = await fetch(`https://viacep.com.br/ws/${cleanedCep}/json/`);
-        const data = await response.json();
-
-        if (!data.erro) {
-          onUpdate(location.id, 'street', data.logradouro || '');
-          onUpdate(location.id, 'neighborhood', data.bairro || '');
-          onUpdate(location.id, 'city', data.localidade || '');
-          onUpdate(location.id, 'state', data.uf || '');
-          // Number is usually not returned by CEP services, so we leave it empty for user input
-          showSuccess("Endereço preenchido automaticamente!");
-        } else {
-          showError("CEP não encontrado.");
-        }
-      } else {
-        // If suggestions are empty, it means ViaCEP failed or the query was not a valid CEP
-        if (isCEP(location.cep)) {
-             showError("CEP não encontrado.");
-        }
-      }
-    } catch (error) {
-      console.error("CEP lookup failed:", error);
-      showError("Erro ao buscar CEP.");
-    } finally {
-      setIsSearchingCep(false);
-    }
-  };
+  }, [location.cep, handleCepLookup]);
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -148,6 +118,18 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.number}
             onChange={(e) => onUpdate(location.id, 'number', e.target.value)}
             placeholder="Número"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            required
+          />
+        </div>
+
+        {/* Bairro */}
+        <div className="flex items-center gap-2">
+          <span className="w-5 h-5 text-[#E47948] shrink-0 text-center font-bold text-sm">B</span>
+          <Input
+            value={location.neighborhood}
+            onChange={(e) => onUpdate(location.id, 'neighborhood', e.target.value)}
+            placeholder="Bairro"
             className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
             required
           />
