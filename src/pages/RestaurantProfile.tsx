@@ -22,6 +22,7 @@ import { WeekSchedule, DaySchedule } from "@/types/schedule";
 import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton"; // Importando o botão
 
 const RestaurantProfile = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const RestaurantProfile = () => {
   const { logout } = useUser();
   const { signOut } = useAuth();
   const { restaurant, loading: restaurantLoading, updateRestaurant } = useRestaurantProfile();
-  const { isPremium } = useUserRole();
+  const { isPremium, isAdmin } = useUserRole();
   const { uploadImage, uploading } = useImageUpload();
   
   const [editingField, setEditingField] = useState<{
@@ -178,7 +179,6 @@ const RestaurantProfile = () => {
         type: "tel" as const,
         placeholder: "(11) 98765-4321",
         validationSchema: validations.phone,
-        mask: phoneMask,
         currentValue: restaurantData.phone, // Mocked
       },
       email: {
@@ -523,7 +523,7 @@ const RestaurantProfile = () => {
                 <p className="text-sm font-bold text-foreground">Ver meu perfil público</p>
                 <p className="text-xs text-muted-foreground">Visualize como os clientes veem seu restaurante</p>
               </div>
-              <ChevronRight className="h-5 w-5 text-[#6C757D]" />
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
             </button>
           </Card>
         </div>
@@ -858,6 +858,18 @@ const RestaurantProfile = () => {
           
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
             <button 
+              onClick={() => navigate("/admin/dashboard")} // Link para o Admin Dashboard
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Crown className="h-5 w-5 text-red-600" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-red-600">Acessar Painel Admin</p>
+                <p className="text-xs text-muted-foreground">Gerenciamento de sistema (Apenas Admin)</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
               onClick={() => navigate("/restaurant-help-center")}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
@@ -904,6 +916,9 @@ const RestaurantProfile = () => {
             </button>
           </Card>
         </div>
+        
+        {/* Botão de Promoção a Admin (Apenas para Dev) */}
+        <PromoteToAdminButton />
       </div>
 
       {/* Edit Field Dialog */}
