@@ -12,13 +12,14 @@ import NotFound from "./pages/NotFound";
 import Splash from "./pages/Splash";
 import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
-import FindRestaurants from "./pages/FindRestaurants";
+import SearchRestaurants from "./pages/SearchRestaurants"; // Novo
+import RestaurantResults from "./pages/RestaurantResults"; // Renomeado/Atualizado
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
-import RestaurantArea from "./pages/RestaurantArea"; // Importando a nova página
+import RestaurantArea from "./pages/RestaurantArea";
 
 const queryClient = new QueryClient();
 
@@ -57,8 +58,12 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route
-        path="/find-restaurants"
-        element={session ? <FindRestaurants /> : <AuthPage />}
+        path="/search-restaurants"
+        element={session ? <SearchRestaurants /> : <AuthPage />}
+      />
+      <Route
+        path="/restaurant-results"
+        element={session ? <RestaurantResults /> : <AuthPage />}
       />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
