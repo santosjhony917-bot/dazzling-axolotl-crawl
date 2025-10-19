@@ -1,11 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Edit, BarChart3, ChevronRight, Star, LogOut } from "lucide-react";
+import { MapPin, Edit, BarChart3, ChevronRight, Star, LogOut, Home, Search, User, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { mockLogout } from "@/utils/auth-mock";
 import { useUserRole } from "@/hooks/useUserRole";
 import { Skeleton } from "@/components/ui/skeleton";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o novo componente
 
 // Mock Data (será substituído por dados reais do restaurante logado)
 const highlights = [
@@ -47,7 +48,7 @@ const RestaurantHome = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white pb-4 max-w-md mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-24 max-w-md mx-auto">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-lg border-b border-gray-100 px-4 py-4">
         <div className="flex items-center justify-between">
@@ -57,7 +58,7 @@ const RestaurantHome = () => {
             </div>
             <div>
               <p className="text-xs text-gray-500 font-medium">Localização Principal</p>
-              <h2 className="text-sm font-bold text-[#022D68]">João Pessoa, PB</h2>
+              <h2 className="text-sm font-bold text-[#022D68]">Seu Restaurante</h2>
             </div>
           </div>
           <Button onClick={handleSignOut} variant="ghost" size="icon" className="w-10 h-10 rounded-full bg-red-100 hover:bg-red-200">
@@ -185,6 +186,7 @@ const RestaurantHome = () => {
           ))}
         </div>
       </div>
+      <RestaurantBottomNav />
     </div>
   );
 };

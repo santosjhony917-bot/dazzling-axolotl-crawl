@@ -1,10 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Store, Edit, BarChart3, ChevronRight, Star, Search } from "lucide-react";
+import { MapPin, Store, ChevronRight, Star, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o novo componente
 
 export default function Index() {
   const navigate = useNavigate();
@@ -151,6 +152,7 @@ export default function Index() {
         </div>
       </div>
       <MadeWithDyad />
+      <RestaurantBottomNav />
     </div>
   );
 }
