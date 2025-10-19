@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 
 const primaryColor = "#022D68";
-const accentColor = "#E47948";
 
 const LocationIcon = ({ color }: { color: string }) => (
   <svg viewBox="125 -5 100 110" className="w-36 h-auto">
@@ -63,7 +62,7 @@ export default function CustomerLogin() {
                 />
                 <button
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
+                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#022D68] transition-colors"
                   type="button"
                 >
                   {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -81,7 +80,7 @@ export default function CustomerLogin() {
             </div>
 
             <div className="mt-4 space-y-4">
-              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg rounded-lg shadow-lg hover:bg-[#E47948]/90 transition-opacity shadow-[#E47948]/50">
+              <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg rounded-full shadow-lg hover:bg-[#E47948]/90 transition-opacity shadow-[#E47948]/50">
                 Entrar
               </Button>
 
@@ -94,7 +93,7 @@ export default function CustomerLogin() {
 
               <Button
                 variant="outline"
-                className="w-full h-auto py-3.5 text-base font-semibold"
+                className="w-full h-auto py-3.5 text-base font-semibold rounded-full"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-5 h-5 mr-2">
                   <path fill="#EA4335" d="M24 9.5c3.94 0 7.1 1.64 9.26 3.02l6.84-6.84C36.49 2.34 30.71 0 24 0 14.64 0 6.6 5.4 2.69 13.22l7.97 6.19C12.23 13.66 17.66 9.5 24 9.5z"/>
@@ -106,7 +105,7 @@ export default function CustomerLogin() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full h-auto py-3.5 text-base font-semibold"
+                className="w-full h-auto py-3.5 text-base font-semibold rounded-full"
               >
                 <i className="fa-brands fa-apple w-5 h-5 mr-2"></i>
                 Continuar com Apple
@@ -117,8 +116,7 @@ export default function CustomerLogin() {
               Não tem uma conta?
               <Link
                 to="/customer-signup"
-                className="font-bold hover:underline ml-1 transition-colors"
-                style={{ color: accentColor }}
+                className="font-bold text-[#022D68] hover:underline ml-1 transition-colors"
               >
                 Criar conta
               </Link>
