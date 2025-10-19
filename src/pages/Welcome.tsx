@@ -86,7 +86,7 @@ export default function Welcome() {
             Bem-vindo!
           </h1>
           <p className="text-[#032d63] text-base font-normal leading-normal pb-3 pt-1">
-            Para começar, escolha seu perfil:
+            Escolha como deseja usar o filterfood
           </p>
         </motion.div>
 
