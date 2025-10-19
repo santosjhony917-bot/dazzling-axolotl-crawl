@@ -42,7 +42,7 @@ const RestaurantProfile = () => {
     placeholder?: string;
     validationSchema?: z.ZodString;
     mask?: (value: string) => string;
-  } | null>(editingField);
+  } | null>(null); // CORRIGIDO: Inicializando com null
 
   const [isEditingHours, setIsEditingHours] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
