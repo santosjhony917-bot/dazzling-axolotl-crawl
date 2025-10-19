@@ -39,7 +39,7 @@ export default function RestaurantLogin() {
       showError(error.message || "Ocorreu um erro ao fazer login.");
     } else {
       // TODO: Add logic to check if user is a restaurant owner before redirecting
-      navigate("/restaurant-dashboard");
+      navigate("/restaurant-home"); // CORRIGIDO: Redirecionando para /restaurant-home
     }
     setLoading(false);
   };
@@ -50,7 +50,7 @@ export default function RestaurantLogin() {
       // Usamos o role 'free_restaurant' como padrão para o login mock
       await mockLoginWithRole('free_restaurant');
       showSuccess("Login de Restaurante (Mock) realizado com sucesso!");
-      navigate("/restaurant-dashboard");
+      navigate("/restaurant-home"); // CORRIGIDO: Redirecionando para /restaurant-home
     } catch (error) {
       showError((error as Error).message || "Falha no login mock.");
     } finally {
