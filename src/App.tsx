@@ -22,6 +22,7 @@ import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
+import RestaurantHome from "./pages/RestaurantHome"; // Importando RestaurantHome
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -49,7 +50,11 @@ const AppRoutes = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      if (_event === "SIGNED_OUT") {
+      if (_event === "SIGNED_IN" && session) {
+        // Redireciona usuários logados para a página de busca de restaurantes (padrão cliente)
+        // Se for um restaurante, o login na página /restaurant-login já redireciona para /restaurant-home
+        navigate("/search-restaurants");
+      } else if (_event === "SIGNED_OUT") {
         navigate("/auth");
       }
     });
@@ -81,7 +86,8 @@ const AppRoutes = () => {
         element={<RestaurantProfile />} // Restrição removida aqui
       />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
-      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
+      <Route path="/restaurant-home" element={<RestaurantHome />} /> {/* Rota correta para o dashboard do restaurante */}
+      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> {/* Mantendo a rota antiga por segurança, mas deve ser removida */}
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
