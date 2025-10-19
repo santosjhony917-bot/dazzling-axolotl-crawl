@@ -1,6 +1,9 @@
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, MapPin, Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 // Mock data for restaurants
 const mockRestaurants = [
@@ -55,15 +58,25 @@ const mockRestaurants = [
 ];
 
 const FindRestaurants = () => {
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/auth');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-800">Restaurantes</h1>
-            <div className="flex items-center gap-2 text-gray-600">
-              <MapPin className="w-5 h-5" />
-              <span>São Paulo, SP</span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-gray-600">
+                <MapPin className="w-5 h-5" />
+                <span>São Paulo, SP</span>
+              </div>
+              <Button onClick={handleSignOut} variant="outline">Sair</Button>
             </div>
           </div>
           <div className="mt-4 relative">
