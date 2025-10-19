@@ -51,9 +51,9 @@ const AppRoutes = () => {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (_event === "SIGNED_IN" && session) {
-        // Redireciona usuários logados para a página de busca de restaurantes (padrão cliente)
+        // Redireciona usuários logados para a página inicial do cliente (/home)
         // Se for um restaurante, o login na página /restaurant-login já redireciona para /restaurant-home
-        navigate("/search-restaurants");
+        navigate("/home");
       } else if (_event === "SIGNED_OUT") {
         navigate("/auth");
       }
