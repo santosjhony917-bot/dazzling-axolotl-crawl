@@ -99,3 +99,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Utility classes to hide scrollbar */
+.hide-scrollbar {
+  /* For Webkit browsers (Chrome, Safari) */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
