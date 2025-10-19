@@ -31,10 +31,20 @@ const mockSendEmail = async (data: { to: string; subject: string; body: string }
   return { success: true };
 };
 
+const mockClearRole = async () => {
+  console.log("Mock API: Clearing user role");
+  if (mockUser) {
+    mockUser.user_role = undefined;
+  }
+  await new Promise(resolve => setTimeout(resolve, 100));
+  return { success: true };
+};
+
 export const base44 = {
   auth: {
     updateMe: mockUpdateMe,
     me: mockMe,
+    clearRole: mockClearRole,
   },
   integrations: {
     Core: {

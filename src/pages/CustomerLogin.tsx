@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { createPageUrl } from "@/utils/url";
+import { base44 } from "@/api/base44Client";
 
 const primaryColor = "#022D68";
 
@@ -31,10 +32,15 @@ export default function CustomerLogin() {
     setPasswordVisible(!passwordVisible);
   };
 
+  const handleBack = async () => {
+    await base44.auth.clearRole();
+    navigate(createPageUrl("welcome"));
+  };
+
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4">
       <Button
-        onClick={() => navigate(createPageUrl('welcome'))}
+        onClick={handleBack}
         variant="ghost"
         className="absolute top-4 left-4 h-12 w-12 rounded-full"
       >
