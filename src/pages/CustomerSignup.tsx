@@ -49,10 +49,10 @@ export default function CustomerSignup() {
       <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
         <Card className="w-full shadow-xl border-none rounded-xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-[#022D68] tracking-tight text-4xl font-extrabold leading-tight">
+            <CardTitle className="text-[#022D68] text-3xl font-bold mb-3">
               Crie sua conta
             </CardTitle>
-            <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
+            <CardDescription className="text-gray-600 text-lg font-medium leading-normal">
               Comece a explorar os melhores restaurantes!
             </CardDescription>
           </CardHeader>
