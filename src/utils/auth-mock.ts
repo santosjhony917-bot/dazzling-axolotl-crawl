@@ -34,8 +34,16 @@ export async function mockLoginWithRole(role: AppRole) {
     console.error("Mock Auth Signin Error:", signInError.message);
     throw signInError;
   }
+  
+  // 4. Define o role no banco de dados (Supabase RPC)
+  const { error: roleError } = await supabase.rpc('set_user_role', { new_role: role });
+  
+  if (roleError) {
+    console.error("Mock Auth Role Assignment Error:", roleError.message);
+    throw roleError;
+  }
 
-  // 4. Define o role no mock da API (para simular o backend retornando o role)
+  // 5. Define o role no mock da API (para simular o backend retornando o role)
   await base44.auth.updateMe({ user_role: role });
   console.log(`Mock Auth: Successfully logged in as ${role}.`);
 }
