@@ -13,6 +13,7 @@ import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import CustomerSignup from "./pages/CustomerSignup";
+import CustomerLogin from "./pages/CustomerLogin";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/restaurant-signup" element={<RestaurantSignup />} />
           <Route path="/restaurant-login" element={<RestaurantLogin />} />
           <Route path="/customer-signup" element={<CustomerSignup />} />
+          <Route path="/customer-login" element={<CustomerLogin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

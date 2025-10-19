@@ -11,16 +11,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function CustomerSignup() {
+export default function CustomerLogin() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
   return (
@@ -40,10 +35,10 @@ export default function CustomerSignup() {
         <Card className="w-full shadow-xl border-none rounded-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-[#022D68] tracking-tight text-4xl font-extrabold leading-tight">
-              Crie sua conta
+              Entrar na conta
             </CardTitle>
             <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
-              Comece a explorar os melhores restaurantes!
+              Que bom te ver de volta!
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -67,25 +62,11 @@ export default function CustomerSignup() {
                   {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-              <div className="relative">
-                <Input
-                  className="h-14 text-base pr-12"
-                  placeholder="Confirmar Senha"
-                  type={confirmPasswordVisible ? "text" : "password"}
-                />
-                <button
-                  onClick={toggleConfirmPasswordVisibility}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#E47948] transition-colors"
-                  type="button"
-                >
-                  {confirmPasswordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
             </div>
 
             <div className="mt-6 space-y-4">
               <Button className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto text-lg hover:bg-[#E47948]/90 rounded-lg shadow-lg shadow-[#E47948]/50">
-                Criar conta
+                Entrar
               </Button>
 
               <div className="relative flex items-center justify-center pt-2">
@@ -117,12 +98,12 @@ export default function CustomerSignup() {
             </div>
 
             <p className="pt-6 text-center text-base text-gray-600">
-              Já tem uma conta?
+              Não tem uma conta?
               <Link
-                to="/customer-login"
+                to="/customer-signup"
                 className="font-bold text-[#E47948] hover:underline ml-1"
               >
-                Entrar
+                Crie uma
               </Link>
             </p>
           </CardContent>
