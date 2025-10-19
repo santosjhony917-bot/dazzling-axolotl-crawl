@@ -18,6 +18,7 @@ import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
+import RestaurantArea from "./pages/RestaurantArea"; // Importando a nova página
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const AppRoutes = () => {
         path="/find-restaurants"
         element={session ? <FindRestaurants /> : <AuthPage />}
       />
+      <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />

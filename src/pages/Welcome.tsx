@@ -60,7 +60,7 @@ export default function Welcome() {
           </Button>
 
           <Button
-            onClick={() => handleNavigation('/restaurant-login')}
+            onClick={() => handleNavigation('/restaurant-area')}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all"
           >
             <span className="truncate">Sou restaurante</span>
