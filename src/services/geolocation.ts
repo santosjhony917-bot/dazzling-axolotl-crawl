@@ -8,15 +8,19 @@ interface AddressDetails {
   street?: string;
   pedestrian?: string;
   footway?: string;
+  path?: string; // Adicionado para fallback
   suburb?: string;
   neighbourhood?: string;
   quarter?: string;
   residential?: string;
+  borough?: string; // Adicionado para fallback
+  city_district?: string; // Adicionado para fallback
   city?: string;
   town?: string;
   village?: string;
   municipality?: string;
   county?: string;
+  state_district?: string; // Adicionado para fallback
   postcode?: string;
   state?: string;
 }
@@ -31,7 +35,7 @@ export interface GeocodedAddress {
   lon: number;
 }
 
-// Helper to find the best available field for a location component
+// Helper para encontrar o melhor campo disponível
 const findBestField = (details: AddressDetails, keys: (keyof AddressDetails)[]): string => {
   for (const key of keys) {
     if (details[key]) {
@@ -44,21 +48,25 @@ const findBestField = (details: AddressDetails, keys: (keyof AddressDetails)[]):
 export async function reverseGeocode(lat: number, lon: number): Promise<GeocodedAddress> {
   const url = `${NOMINATIM_URL}?format=jsonv2&lat=${lat}&lon=${lon}&addressdetails=1`;
 
-  // Using axios for consistency
-  const response = await axios.get(url);
+  const response = await axios.get(url, {
+    headers: {
+      'User-Agent': 'FilterFood Restaurant App', // Header customizado para Nominatim
+    }
+  });
   const data = response.data;
 
   if (!data || !data.address) {
     throw new Error("Failed to fetch reverse geocode data or address not found.");
   }
 
-  const details: AddressDetails = data.address || {};
+  const addr: AddressDetails = data.address || {};
 
-  const street = findBestField(details, ['road', 'street', 'pedestrian', 'footway']);
-  const neighborhood = findBestField(details, ['suburb', 'neighbourhood', 'quarter', 'residential']);
-  const city = findBestField(details, ['city', 'town', 'village', 'municipality', 'county']);
-  const cep = details.postcode || "";
-  const state = details.state || "";
+  // Implementando fallbacks robustos
+  const street = findBestField(addr, ['road', 'street', 'pedestrian', 'footway', 'path']);
+  const neighborhood = findBestField(addr, ['suburb', 'neighbourhood', 'quarter', 'residential', 'borough', 'city_district']);
+  const city = findBestField(addr, ['city', 'town', 'village', 'municipality', 'county', 'state_district']);
+  const cep = addr.postcode || "";
+  const state = addr.state || "";
 
   return {
     street,

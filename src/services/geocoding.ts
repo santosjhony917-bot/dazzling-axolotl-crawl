@@ -14,7 +14,7 @@ export interface AddressSuggestion {
 
 export function isCEP(query: string): boolean {
   const cleaned = query.replace(/\D/g, '');
-  return cleaned.length === 8;
+  return /^\d{8}$/.test(cleaned);
 }
 
 export function formatCEP(cep: string): string {
@@ -66,8 +66,13 @@ async function fetchViaCEP(cep: string): Promise<GeocodedAddress | null> {
 
 export async function geocodeAddress(address: string): Promise<{ lat: number; lon: number } | null> {
   try {
-    const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(address)}&limit=1`;
-    const response = await axios.get(url);
+    // Adicionando User-Agent e countrycodes=br
+    const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(address)}&limit=1&countrycodes=br`;
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'FilterFood Restaurant App',
+      }
+    });
     const data = response.data;
 
     if (data.length > 0) {
@@ -106,8 +111,13 @@ export async function fetchAddressSuggestions(query: string): Promise<AddressSug
 
   // 2. Nominatim Search (for street/address query)
   try {
-    const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(cleanedQuery)}&limit=5&addressdetails=1`;
-    const response = await axios.get(url);
+    // Adicionando countrycodes=br para priorizar resultados no Brasil
+    const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(cleanedQuery)}&limit=5&addressdetails=1&countrycodes=br`;
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'FilterFood Restaurant App',
+      }
+    });
     
     response.data.forEach((item: any) => {
       const address = item.address || {};
