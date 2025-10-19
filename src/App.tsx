@@ -23,6 +23,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
 import RestaurantHome from "./pages/RestaurantHome"; // Importando RestaurantHome
+import Profile from "./pages/Profile"; // Importando a nova página Profile
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -85,6 +86,7 @@ const AppRoutes = () => {
         path="/restaurant-profile/:id"
         element={<RestaurantProfile />} // Restrição removida aqui
       />
+      <Route path="/profile" element={session ? <Profile /> : <AuthPage />} /> {/* Nova rota de perfil */}
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-home" element={<RestaurantHome />} /> {/* Rota correta para o dashboard do restaurante */}
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> {/* Mantendo a rota antiga por segurança, mas deve ser removida */}
