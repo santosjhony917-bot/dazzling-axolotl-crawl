@@ -1,0 +1,114 @@
+## Lógica de Métricas para a Dyad
+
+**Instrução:** Replicar a lógica de exibição de métricas (visitors, followers), a lógica de verificação de localização (`hasLocation`) e o fluxo de busca de concorrentes próximos (`handleSearchNearbyClick` e funções relacionadas).
+
+### 1. RestaurantDashboard.tsx (Trecho Relevante)
+
+**Nota:** A Dyad deve analisar o uso dos hooks `useUserRole`, `useRestaurantProfile`, `useMenuItems`, `useNearbyRestaurantsByRole` e o componente `MetricsCard` para entender como os dados de métricas são buscados e exibidos.
+
+```tsx
+// Imports de Hooks e Componentes (A Dyad deve replicar a funcionalidade, não os componentes Shadcn/ui)
+import { User, Utensils, Share2, Camera, Edit, Plus, Trash2, ArrowRight, Settings, Star, Search, MapPin, Sparkles, Store, Loader2, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+// ... outros imports
+
+import { useUserRole } from "@/hooks/useUserRole";
+import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
+import { useMenuItems } from "@/hooks/useMenuItems";
+import { useNearbyRestaurantsByRole } from "@/hooks/useNearbyRestaurantsByRole";
+import { MetricsCard } from "@/components/MetricsCard";
+// ...
+
+const RestaurantDashboard = () => {
+  // ... state declarations
+  
+  const { isPremium } = useUserRole();
+  const { restaurant, loading: profileLoading, updateRestaurant } = useRestaurantProfile();
+  // ... outros hooks
+
+  // Check if location is defined - more permissive check
+  const hasLocation = !!(restaurant?.address || restaurant?.city || (restaurant?.latitude && restaurant?.longitude));
+  
+  // Fetch nearby premium restaurants (limit to 3) - Lógica de busca de concorrentes
+  const { restaurants: nearbyRestaurants, loading: loadingNearby } = useNearbyRestaurantsByRole({
+    maxDistanceKm: 20,
+    requiredRole: 'premium_restaurant',
+    enabled: hasLocation && !!restaurant,
+  });
+
+  // Show skeleton while loading critical data
+  if (profileLoading || !restaurant) {
+    // ... return skeleton
+  }
+  
+  // ... outras funções (handleShare, handleChannelClick, etc.)
+
+  const handleSearchNearbyClick = () => {
+    if (!hasLocation) {
+      // ... toast error
+      return;
+    }
+    setShowLocationOptions(true);
+  };
+  
+  // ... handleSearchByRestaurantLocation e handleSearchByCurrentLocation (Lógica de navegação com parâmetros de localização)
+
+  return (
+    <div className="min-h-screen pb-24" style={{ backgroundColor: '#F5F5F5' }}>
+      {/* ... Header e Top Bar */}
+
+      {/* Location Alert - Only shown when NO location */}
+      {!hasLocation && (
+        // ... Card de alerta de localização
+      )}
+
+      {/* Action Buttons */}
+      {/* ... Botões de Editar Perfil e Cardápio */}
+
+      {/* Customer Search Simulation Card - Only show when location is defined */}
+      {hasLocation && (
+        // ... Card de Simulação de Busca
+      )}
+
+      {/* Metrics Card - Lógica de exibição de métricas */}
+      <MetricsCard 
+        visitors={restaurant?.visitors || 0}
+        followers={restaurant?.followers || 0}
+        className="mt-4"
+      />
+
+      {/* Nearby Premium Restaurants Section - Lógica de exibição de concorrentes */}
+      {hasLocation && (
+        // ... Seção de Restaurantes Próximos (usa nearbyRestaurants)
+      )}
+      
+      {/* ... Restante do código (BottomNav, Dialogs, etc.) */}
+    </div>
+  );
+};
+
+export default RestaurantDashboard;
+```
+
+### 2. Estrutura de Dados de Métricas (Baseado em `MetricsCard` e `useRestaurantProfile`)
+
+A Dyad deve replicar a estrutura de dados que contém `visitors` e `followers` no perfil do restaurante.
+
+```typescript
+// Estrutura de Perfil do Restaurante (Simplificada)
+interface RestaurantProfile {
+    // ... outros campos
+    visitors: number; // Métrica 1
+    followers: number; // Métrica 2
+    // ... campos de localização (address, city, latitude, longitude)
+}
+```
+
+### 3. Hooks de Acesso a Dados (useRestaurantProfile, useNearbyRestaurantsByRole)
+
+A Dyad deve replicar a **funcionalidade** desses hooks, que provavelmente fazem chamadas ao Supabase para buscar os dados:
+
+*   **`useRestaurantProfile`**: Busca o perfil do restaurante logado, incluindo `visitors` e `followers`.
+*   **`useNearbyRestaurantsByRole`**: Busca restaurantes próximos (usando a localização do restaurante ou a localização atual do usuário) com base em um `maxDistanceKm` e um `requiredRole` (ex: 'premium_restaurant'). A Dyad deve replicar a lógica de **cálculo de distância geográfica** e **filtragem por raio**.
