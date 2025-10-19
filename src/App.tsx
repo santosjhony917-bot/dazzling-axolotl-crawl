@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Splash from "./pages/Splash";
 import Onboarding from "./pages/Onboarding";
+import Welcome from "./pages/Welcome";
+import FindRestaurants from "./pages/FindRestaurants";
+import RestaurantDashboard from "./pages/RestaurantDashboard";
+import RestaurantSignup from "./pages/RestaurantSignup";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +22,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Splash />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/home" element={<Index />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/find-restaurants" element={<FindRestaurants />} />
+          <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
+          <Route path="/restaurant-signup" element={<RestaurantSignup />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
