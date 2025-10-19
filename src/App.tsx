@@ -16,7 +16,6 @@ import Welcome from "./pages/Welcome";
 import SearchRestaurants from "./pages/SearchRestaurants";
 import RestaurantResults from "./pages/RestaurantResults";
 import RestaurantProfilePublic from "./pages/RestaurantProfilePublic";
-import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
@@ -27,9 +26,10 @@ import RestaurantHome from "./pages/RestaurantHome";
 import Profile from "./pages/Profile";
 import RestaurantProfile from "./pages/RestaurantProfile";
 import RestaurantAreaHub from "./pages/RestaurantAreaHub";
-import RestaurantMenu from "./pages/RestaurantMenu"; // Novo import
-import RestaurantCategories from "./pages/RestaurantCategories"; // Novo import
-import AuthRedirector from "./components/AuthRedirector"; // Importar o novo componente
+import RestaurantMenu from "./pages/RestaurantMenu";
+import RestaurantCategories from "./pages/RestaurantCategories";
+import AuthRedirector from "./components/AuthRedirector";
+import RestaurantFreeProfile from "./pages/RestaurantFreeProfile";
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -82,7 +82,7 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/auth-redirect" element={<AuthRedirector />} /> {/* Nova rota para o redirecionador */}
+      <Route path="/auth-redirect" element={<AuthRedirector />} />
       
       {/* Rotas do Cliente (requerem sessão) */}
       <Route
@@ -107,18 +107,18 @@ const AppRoutes = () => {
 
       {/* Área do Restaurante (Requer role de restaurante) - Usando RestaurantArea como Layout */}
       <Route path="/restaurant-area" element={<RestaurantArea />}>
-        <Route index element={<RestaurantHome />} /> {/* Rota padrão dentro do layout */}
-        <Route path="home" element={<RestaurantHome />} />
+        <Route index element={<RestaurantFreeProfile />} />
+        <Route path="home" element={<RestaurantFreeProfile />} />
         <Route path="profile-menu" element={<RestaurantProfile />} />
-        <Route path="menu" element={<RestaurantMenu />} /> {/* Nova Rota */}
-        <Route path="categories" element={<RestaurantCategories />} /> {/* Nova Rota */}
+        <Route path="menu" element={<RestaurantMenu />} />
+        <Route path="categories" element={<RestaurantCategories />} />
         {/* Adicione outras sub-rotas aqui (ex: stats, menu, orders) */}
       </Route>
       
-      {/* Rotas de Dashboard (Antigas, mantidas por compatibilidade, mas devem ser movidas para sub-rotas de /restaurant-area) */}
-      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
-      <Route path="/restaurant-home" element={<RestaurantHome />} />
-      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} />
+      {/* Rotas de Dashboard (Antigas, removidas) */}
+      {/* <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> */}
+      {/* <Route path="/restaurant-home" element={<RestaurantHome />} /> */}
+      {/* <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} /> */}
 
 
       {/* Admin Routes */}
