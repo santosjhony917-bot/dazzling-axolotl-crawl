@@ -31,41 +31,31 @@ export function useRestaurantProfile() {
   const fetchRestaurant = async (id: string) => {
     setLoading(true);
     setError(null);
-    
-    // Mock data structure for initial load
-    const mockData: RestaurantProfileData = {
-      id: id,
-      name: "Cachorro Quente do Zé",
-      address: "Rua Fictícia, 123",
-      city: "João Pessoa",
-      state: "PB",
-      cep: "58039-000",
-      neighborhood: "Tambaú",
-      category: "Lanches",
-      logo_url: null,
-      cover_image_url: null,
-      whatsapp_url: null,
-      ifood_url: null,
-      other_url: null,
-      latitude: -7.1195,
-      longitude: -34.8450,
-      opening_hours: {
-        monday: { isOpen: false, slots: [] },
-        tuesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
-        wednesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
-        thursday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
-        friday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
-        saturday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
-        sunday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
-      },
-    };
-    
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-
     try {
+      // Mock data structure for initial load
+      const mockData: RestaurantProfileData = {
+        id: id,
+        name: "Cachorro Quente do Zé",
+        address: "Rua Fictícia, 123",
+        city: "João Pessoa",
+        state: "PB",
+        cep: "58039-000",
+        neighborhood: "Tambaú",
+        category: "Lanches",
+        logo_url: null,
+        cover_image_url: null,
+        whatsapp_url: null,
+        ifood_url: null,
+        other_url: null,
+        latitude: -7.1195,
+        longitude: -34.8450,
+        opening_hours: null,
+      };
+      
       // In a real app, we would fetch from the 'restaurants' table
-      // For now, we use mock data based on the user ID
+      // const { data, error } = await supabase.from('restaurants').select('*').eq('user_id', id).single();
+      
+      // Mocking successful fetch
       setRestaurant(mockData);
 
     } catch (e) {
@@ -79,7 +69,6 @@ export function useRestaurantProfile() {
     if (!isRoleLoading && userId) {
       fetchRestaurant(userId);
     } else if (!isRoleLoading && !userId) {
-      // If not logged in, stop loading and set null
       setLoading(false);
     }
   }, [userId, isRoleLoading]);
