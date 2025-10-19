@@ -25,9 +25,20 @@ const mockMe = async () => {
     throw new Error("User not found or role not set.");
 }
 
+const mockSendEmail = async (data: { to: string; subject: string; body: string }) => {
+  console.log(`Mock API: Sending email to ${data.to} with subject "${data.subject}"`);
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+  return { success: true };
+};
+
 export const base44 = {
   auth: {
     updateMe: mockUpdateMe,
     me: mockMe,
+  },
+  integrations: {
+    Core: {
+      SendEmail: mockSendEmail,
+    },
   },
 };
