@@ -46,7 +46,6 @@ const RestaurantProfile = () => {
   const { isPremium, isAdmin } = useUserRole();
   const { uploadImage, uploading } = useImageUpload();
   
-  // CORRIGIDO: Usando a interface definida
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
 
   const [isEditingHours, setIsEditingHours] = useState(false);
@@ -168,6 +167,11 @@ const RestaurantProfile = () => {
       return;
     }
 
+    const urlValidationSchema = z.string().url('URL inválida').regex(
+      /^https?:\/\//,
+      'URL deve começar com http:// ou https://'
+    ).optional().or(z.literal(''));
+
     const fieldConfig: Record<string, any> = {
       name: {
         title: "Nome Comercial",
@@ -209,10 +213,7 @@ const RestaurantProfile = () => {
         fieldName: "URL do WhatsApp",
         icon: <MessageSquare className="h-6 w-6 text-[#25D366]" />,
         placeholder: "https://wa.me/5511987654321",
-        validationSchema: z.string().url('URL inválida').regex(
-          /^https?:\/\//,
-          'URL deve começar com http:// ou https://'
-        ).optional().or(z.literal('')),
+        validationSchema: urlValidationSchema,
         currentValue: restaurant?.whatsapp_url || "",
       },
       ifood: {
@@ -220,10 +221,7 @@ const RestaurantProfile = () => {
         fieldName: "URL do iFood",
         icon: <Package className="h-6 w-6 text-[#EA1D2C]" />,
         placeholder: "https://www.ifood.com.br/...",
-        validationSchema: z.string().url('URL inválida').regex(
-          /^https?:\/\//,
-          'URL deve começar com http:// ou https://'
-        ).optional().or(z.literal('')),
+        validationSchema: urlValidationSchema,
         currentValue: restaurant?.ifood_url || "",
       },
       other: {
@@ -231,10 +229,7 @@ const RestaurantProfile = () => {
         fieldName: "URL de outro canal",
         icon: <UtensilsCrossed className="h-6 w-6 text-[#022D68]" />,
         placeholder: "https://...",
-        validationSchema: z.string().url('URL inválida').regex(
-          /^https?:\/\//,
-          'URL deve começar com http:// ou https://'
-        ).optional().or(z.literal('')),
+        validationSchema: urlValidationSchema,
         currentValue: restaurant?.other_url || "",
       },
     };
