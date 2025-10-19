@@ -108,11 +108,7 @@ export default function CustomerSignup() {
                 variant="outline"
                 className="w-full h-auto py-3.5 text-base font-semibold"
               >
-                <img
-                  alt="Apple logo"
-                  className="w-5 h-5 mr-2"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa9zdce7JX7qyLE7MHZRDCLDEypMrIjmncBj3OiT_MdRjRrxVaNINNOOOcQnSDTCqggqCs6eCt52KyasKj78zJmXWjH5oLdXhuWtgPh4uvovHvjmHIaQu_LHNxvbkiE-hxUsRupgVQ5swPjWl27wJ4vADpyS2L7Pq_IKi8ld7dcR_Es1mW2d5-U8IQD5hAhQJPdwVY2_QAzh9QvDDWa-TN7Xa4Y8Umm0KGS7Fvmr2RAdvFtvB9Zp8QgiL5O5a15v_c6CjzH7ldm9_H"
-                />
+                <i className="fa-brands fa-apple w-5 h-5 mr-2"></i>
                 Continuar com Apple
               </Button>
             </div>
