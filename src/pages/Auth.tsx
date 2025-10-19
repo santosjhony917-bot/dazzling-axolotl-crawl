@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { showError, showSuccess } from '@/utils/toast';
 import {
   Card,
@@ -145,12 +145,15 @@ const AuthPage = () => {
                 </div>
               )}
               
-              <Button 
+              <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#E47948] text-white font-bold py-3.5 h-auto rounded-lg shadow-lg shadow-[#E47948]/50 hover:bg-[#E47948]/90 transition-colors text-lg"
+                className="flex w-full items-center justify-center rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
               >
-                {loading ? 'Aguarde...' : (isSignUp ? 'Cadastrar' : 'Entrar')}
+                <span className="truncate">
+                  {loading ? 'Aguarde...' : (isSignUp ? 'Cadastrar' : 'Entrar')}
+                </span>
+                {!loading && <ArrowRight className="w-5 h-5" />}
               </Button>
             </form>
 
