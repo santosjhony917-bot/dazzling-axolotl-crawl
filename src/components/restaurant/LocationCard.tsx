@@ -36,8 +36,10 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
       const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
       const data = response.data;
 
+      console.log("ViaCEP response data:", data); // Adicionado para depuração
+
       if (!data.erro) {
-        // Only update fields if they are returned by the API
+        // Only update fields if they are returned by the API and are not empty
         if (data.logradouro) onUpdate(location.id, 'street', data.logradouro);
         if (data.bairro) onUpdate(location.id, 'neighborhood', data.bairro);
         if (data.localidade) onUpdate(location.id, 'city', data.localidade);
@@ -61,14 +63,12 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
     
     if (cleanedCep.length === 8) {
       const timer = setTimeout(() => {
-        // Sempre tenta a busca se o CEP for válido e debounced.
-        // A função handleCepLookup decidirá quais campos atualizar.
         handleCepLookup(location.cep);
-      }, 500); // Espera 500ms após a digitação parar
+      }, 500); 
       
       return () => clearTimeout(timer);
     }
-  }, [location.cep, handleCepLookup]); // Removidas as dependências location.street e location.city
+  }, [location.cep, handleCepLookup]); 
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
