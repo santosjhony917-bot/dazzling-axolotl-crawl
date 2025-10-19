@@ -25,6 +25,7 @@ interface LocationCardProps {
 
 const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemove }) => {
   const [isSearchingCep, setIsSearchingCep] = useState(false);
+  const [lastSearchedCep, setLastSearchedCep] = useState<string | null>(null); // Novo estado
 
   const handleCepLookup = useCallback(async (cep: string) => {
     const cleanedCep = cep.replace(/\D/g, '');
@@ -53,12 +54,15 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
         if (data.uf) onUpdate(location.id, 'state', data.uf);
         
         showSuccess("Endereço preenchido automaticamente!");
+        setLastSearchedCep(cleanedCep); // Atualiza o último CEP pesquisado com sucesso
       } else {
         showError("CEP não encontrado.");
+        setLastSearchedCep(null); // Limpa o último CEP pesquisado se houver erro
       }
     } catch (error) {
       console.error("CEP lookup failed:", error);
       showError("Erro ao buscar CEP. Verifique sua conexão.");
+      setLastSearchedCep(null); // Limpa o último CEP pesquisado se houver erro
     } finally {
       setIsSearchingCep(false);
     }
@@ -68,14 +72,15 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
   useEffect(() => {
     const cleanedCep = location.cep.replace(/\D/g, '');
     
-    if (cleanedCep.length === 8) {
+    // Só dispara a busca se o CEP tiver 8 dígitos e for diferente do último CEP pesquisado com sucesso
+    if (cleanedCep.length === 8 && cleanedCep !== lastSearchedCep) {
       const timer = setTimeout(() => {
         handleCepLookup(location.cep);
       }, 500); 
       
       return () => clearTimeout(timer);
     }
-  }, [location.cep, handleCepLookup]); 
+  }, [location.cep, handleCepLookup, lastSearchedCep]); // Adiciona lastSearchedCep como dependência
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
