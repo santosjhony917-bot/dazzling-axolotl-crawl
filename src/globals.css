@@ -68,6 +68,7 @@
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
+
     --muted-foreground: 215 20.2% 65.1%;
 
     --accent: 217.2 32.6% 17.5%;
@@ -97,6 +98,11 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Aplicando zoom de 120% para melhor visualização em desenvolvimento */
+    transform: scale(1.2);
+    transform-origin: top left;
+    width: calc(100% / 1.2);
+    height: calc(100% / 1.2);
     overflow: auto;
   }
 }
