@@ -11,6 +11,7 @@ interface Location {
   cep: string;
   street: string;
   number: string;
+  complement: string; // Novo campo
   neighborhood: string;
   city: string;
   state: string;
@@ -25,7 +26,7 @@ interface LocationCardProps {
 
 const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemove }) => {
   const [isSearchingCep, setIsSearchingCep] = useState(false);
-  const [lastSearchedCep, setLastSearchedCep] = useState<string | null>(null); // Novo estado
+  const [lastSearchedCep, setLastSearchedCep] = useState<string | null>(null);
 
   const handleCepLookup = useCallback(async (cep: string) => {
     const cleanedCep = cep.replace(/\D/g, '');
@@ -37,32 +38,26 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
       const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
       const data = response.data;
 
-      console.log("ViaCEP response data:", data); // Log da resposta completa da API
+      console.log("ViaCEP response data:", data);
 
       if (!data.erro) {
-        // Logs detalhados para cada campo antes de chamar onUpdate
-        console.log(`Attempting to update street with: "${data.logradouro}"`);
         if (data.logradouro) onUpdate(location.id, 'street', data.logradouro);
-        
-        console.log(`Attempting to update neighborhood with: "${data.bairro}"`);
         if (data.bairro) onUpdate(location.id, 'neighborhood', data.bairro);
-        
-        console.log(`Attempting to update city with: "${data.localidade}"`);
         if (data.localidade) onUpdate(location.id, 'city', data.localidade);
-        
-        console.log(`Attempting to update state with: "${data.uf}"`);
         if (data.uf) onUpdate(location.id, 'state', data.uf);
         
+        // O ViaCEP não retorna complemento, então não o atualizamos aqui.
+        
         showSuccess("Endereço preenchido automaticamente!");
-        setLastSearchedCep(cleanedCep); // Atualiza o último CEP pesquisado com sucesso
+        setLastSearchedCep(cleanedCep);
       } else {
         showError("CEP não encontrado.");
-        setLastSearchedCep(null); // Limpa o último CEP pesquisado se houver erro
+        setLastSearchedCep(null);
       }
     } catch (error) {
       console.error("CEP lookup failed:", error);
       showError("Erro ao buscar CEP. Verifique sua conexão.");
-      setLastSearchedCep(null); // Limpa o último CEP pesquisado se houver erro
+      setLastSearchedCep(null);
     } finally {
       setIsSearchingCep(false);
     }
@@ -72,7 +67,6 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
   useEffect(() => {
     const cleanedCep = location.cep.replace(/\D/g, '');
     
-    // Só dispara a busca se o CEP tiver 8 dígitos e for diferente do último CEP pesquisado com sucesso
     if (cleanedCep.length === 8 && cleanedCep !== lastSearchedCep) {
       const timer = setTimeout(() => {
         handleCepLookup(location.cep);
@@ -80,7 +74,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
       
       return () => clearTimeout(timer);
     }
-  }, [location.cep, handleCepLookup, lastSearchedCep]); // Adiciona lastSearchedCep como dependência
+  }, [location.cep, handleCepLookup, lastSearchedCep]);
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -109,6 +103,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68] pr-12"
             maxLength={9}
             disabled={isSearchingCep}
+            required
           />
           {isSearchingCep && (
             <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-[#E47948]" />
@@ -136,6 +131,17 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             placeholder="Número"
             className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
             required
+          />
+        </div>
+        
+        {/* Complemento (Novo Campo) */}
+        <div className="flex items-center gap-2">
+          <span className="w-5 h-5 text-[#E47948] shrink-0 text-center font-bold text-sm">C</span>
+          <Input
+            value={location.complement}
+            onChange={(e) => onUpdate(location.id, 'complement', e.target.value)}
+            placeholder="Complemento (Ex: Sala 101, Bloco B)"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
           />
         </div>
 
@@ -178,7 +184,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             onChange={(e) => onUpdate(location.id, 'phone', e.target.value)}
             placeholder="Telefone de contato (obrigatório)"
             className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
-            required // Tornando obrigatório
+            required
           />
         </div>
       </div>

@@ -17,6 +17,7 @@ interface Location {
   cep: string;
   street: string;
   number: string;
+  complement: string; // Novo campo
   neighborhood: string;
   city: string;
   state: string;
@@ -31,7 +32,7 @@ export default function RestaurantSignup() {
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
   const [locations, setLocations] = useState<Location[]>([
-    { id: 1, cep: "", street: "", number: "", neighborhood: "", city: "", state: "", phone: "" }
+    { id: 1, cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: "" }
   ]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +45,7 @@ export default function RestaurantSignup() {
 
   const addLocation = () => {
     const newId = Math.max(...locations.map(l => l.id), 0) + 1;
-    setLocations([...locations, { id: newId, cep: "", street: "", number: "", neighborhood: "", city: "", state: "", phone: "" }]);
+    setLocations([...locations, { id: newId, cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: "" }]);
   };
 
   const removeLocation = (id: number) => {
@@ -70,7 +71,7 @@ export default function RestaurantSignup() {
         !loc.number.trim() || 
         !loc.city.trim() || 
         !loc.state.trim() ||
-        !loc.phone.trim() // Adicionando validação do telefone
+        !loc.phone.trim()
       );
       
       if (locations.length === 0) {
@@ -85,6 +86,10 @@ export default function RestaurantSignup() {
     } else if (step === 3) {
       if (!email || !password || !confirmPassword) {
         showError("Preencha todos os campos de acesso.");
+        return false;
+      }
+      if (password.length < 6) {
+        showError("A senha deve ter pelo menos 6 caracteres.");
         return false;
       }
       if (password !== confirmPassword) {
@@ -249,9 +254,10 @@ export default function RestaurantSignup() {
                 type={passwordVisible ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Crie uma senha"
+                placeholder="Crie uma senha (mínimo 6 caracteres)"
                 className="h-14 pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
                 required
+                minLength={6}
               />
               <button
                 onClick={togglePasswordVisibility}
@@ -330,7 +336,7 @@ export default function RestaurantSignup() {
       {/* Main Content */}
       <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mb-4">
+          <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mx-auto mb-4">
             <Store className="w-8 h-8 text-[#022D68]" />
           </div>
           <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
