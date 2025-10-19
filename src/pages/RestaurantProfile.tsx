@@ -121,9 +121,9 @@ const RestaurantProfile = () => {
   const { logout } = useUser();
   const { signOut } = useAuth();
   const { restaurant, loading: restaurantLoading, updateRestaurant } = useRestaurantProfile();
-  // Corrigido: useUserRole retorna isPremiumRestaurant e isFreeRestaurant, não isPremium
+  // Usando a desestruturação correta da correção anterior
   const { isPremiumRestaurant, isAdmin } = useUserRole();
-  const isPremium = isPremiumRestaurant; // Usar uma variável local para simplificar o código
+  const isPremium = isPremiumRestaurant; 
   const { uploadImage, uploading } = useImageUpload();
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
@@ -152,7 +152,7 @@ const RestaurantProfile = () => {
   };
 
   // Schedule data (using mock initial state if not loaded from DB)
-  const [schedule, setSchedule] = useState<WeekSchedule>(restaurant?.opening_hours || {
+  const initialSchedule: WeekSchedule = {
     monday: { isOpen: false, slots: [] },
     tuesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
     wednesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
@@ -160,7 +160,9 @@ const RestaurantProfile = () => {
     friday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
     saturday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
     sunday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
-  });
+  };
+  
+  const [schedule, setSchedule] = useState<WeekSchedule>(initialSchedule);
 
   useEffect(() => {
     if (restaurant?.opening_hours) {
@@ -191,6 +193,7 @@ const RestaurantProfile = () => {
         type: "tel" as const,
         placeholder: "(11) 98765-4321",
         validationSchema: validations.phone,
+        mask: phoneMask,
         currentValue: restaurantData.phone, // Mocked
       },
       email: {
