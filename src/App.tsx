@@ -26,6 +26,7 @@ import ClaimRestaurant from "./pages/ClaimRestaurant";
 import RestaurantHome from "./pages/RestaurantHome";
 import Profile from "./pages/Profile";
 import RestaurantProfile from "./pages/RestaurantProfile";
+import RestaurantAreaHub from "./pages/RestaurantAreaHub"; // Novo import
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -56,8 +57,11 @@ const AppRoutes = () => {
       if (_event === "SIGNED_IN" && session) {
         // Redireciona usuários logados para a página inicial do cliente (/home)
         // Se for um restaurante, o login na página /restaurant-login já redireciona para /restaurant-home
+        // Se for um cliente, redireciona para /home
+        // Nota: A lógica de role deve ser refinada, mas por enquanto, se logou, vai para /home
         navigate("/home");
       } else if (_event === "SIGNED_OUT") {
+        // Redireciona para a tela de autenticação geral
         navigate("/auth");
       }
     });
@@ -76,6 +80,9 @@ const AppRoutes = () => {
       <Route path="/home" element={<Index />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      
+      {/* Rotas do Cliente (requerem sessão) */}
       <Route
         path="/search-restaurants"
         element={session ? <SearchRestaurants /> : <AuthPage />}
@@ -89,15 +96,27 @@ const AppRoutes = () => {
         element={<RestaurantProfilePublic />}
       />
       <Route path="/profile" element={session ? <Profile /> : <AuthPage />} />
-      <Route path="/restaurant-area" element={<RestaurantArea />} />
-      <Route path="/restaurant-home" element={<RestaurantHome />} />
-      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} />
-      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
+      
+      {/* Hub de Acesso ao Restaurante (Não requer sessão) */}
+      <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      {/* Área do Restaurante (Requer role de restaurante) - Usando RestaurantArea como Layout */}
+      <Route path="/restaurant-area" element={<RestaurantArea />}>
+        <Route index element={<RestaurantHome />} /> {/* Rota padrão dentro do layout */}
+        <Route path="home" element={<RestaurantHome />} />
+        <Route path="profile-menu" element={<RestaurantProfile />} />
+        {/* Adicione outras sub-rotas aqui (ex: stats, menu, orders) */}
+      </Route>
       
+      {/* Rotas de Dashboard (Antigas, mantidas por compatibilidade, mas devem ser movidas para sub-rotas de /restaurant-area) */}
+      <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
+      <Route path="/restaurant-home" element={<RestaurantHome />} />
+      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} />
+
+
       {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<AdminRoute title="Dashboard"><AdminDashboard /></AdminRoute>} />
       <Route path="/admin/edit-restaurant" element={<AdminRoute title="Gerenciar Restaurantes"><EditRestaurant /></AdminRoute>} />

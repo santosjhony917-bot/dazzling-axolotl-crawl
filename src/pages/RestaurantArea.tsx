@@ -8,19 +8,20 @@ import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { Skeleton } from "@/components/ui/skeleton";
+import { createPageUrl } from "@/utils/url";
 
 const RestaurantArea = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isRestaurant, isPremium } = useUserRole();
+  const { isRestaurant, isPremium, isLoading: isRoleLoading } = useUserRole();
   const { restaurant, loading: restaurantLoading } = useRestaurantProfile();
 
   // Determine the current tab for the bottom navigation
   const getSelectedTab = (pathname: string) => {
-    if (pathname.startsWith('/restaurant-home')) return 'home';
-    if (pathname.startsWith('/restaurant-menu')) return 'menu';
-    if (pathname.startsWith('/restaurant-orders')) return 'orders';
-    if (pathname.startsWith('/restaurant-profile-menu')) return 'perfil';
+    if (pathname.includes('/restaurant-home')) return 'home';
+    if (pathname.includes('/restaurant-stats')) return 'stats';
+    if (pathname.includes('/upgrade')) return 'upgrade';
+    if (pathname.includes('/restaurant-profile-menu')) return 'perfil';
     return 'home';
   };
 
@@ -28,39 +29,32 @@ const RestaurantArea = () => {
 
   // Determine header content based on the current route
   const getHeaderContent = () => {
-    switch (location.pathname) {
-      case '/restaurant-home':
-        return { title: "Início", showSearch: true, showNotifications: true };
-      case '/restaurant-menu':
-        return { title: "Cardápio", showSearch: false, showNotifications: false };
-      case '/restaurant-orders':
-        return { title: "Pedidos", showSearch: false, showNotifications: true };
-      case '/restaurant-profile-menu':
+    // Usamos location.pathname para verificar a sub-rota
+    if (location.pathname.includes('/restaurant-profile-menu')) {
         return { title: "Meu Perfil", showSearch: false, showNotifications: false };
-      default:
-        return { title: "Área do Restaurante", showSearch: false, showNotifications: false };
     }
+    if (location.pathname.includes('/restaurant-stats')) {
+        return { title: "Estatísticas", showSearch: false, showNotifications: true };
+    }
+    // Default para Home
+    return { title: restaurant?.name || "Área do Restaurante", showSearch: true, showNotifications: true };
   };
 
   const { title, showSearch, showNotifications } = getHeaderContent();
 
-  if (restaurantLoading) {
+  // Se o usuário não for um restaurante e não estiver carregando, redireciona para o hub
+  if (!isRoleLoading && !isRestaurant) {
+    // Se o usuário está logado, mas não tem a role de restaurante, ele deve ser redirecionado
+    // para o hub para fazer login ou reivindicar.
+    navigate(createPageUrl('restaurant-area-hub'), { replace: true });
+    return null;
+  }
+
+  if (isRoleLoading || restaurantLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
         <Skeleton className="h-12 w-full mb-4" />
         <Skeleton className="h-40 w-full rounded-lg mb-4" />
-        <Skeleton className="h-6 w-3/4 mb-2" />
-        <Skeleton className="h-20 w-full rounded-lg" />
-      </div>
-    );
-  }
-
-  if (!isRestaurant) {
-    // Should ideally redirect to login or home if not a restaurant
-    return (
-      <div className="p-4 text-center">
-        <p>Acesso negado. Você não está logado como restaurante.</p>
-        <Button onClick={() => navigate('/welcome')} className="mt-4">Voltar</Button>
       </div>
     );
   }
@@ -72,7 +66,7 @@ const RestaurantArea = () => {
         <Button 
           variant="ghost"
           size="icon"
-          onClick={() => navigate('/welcome')} // Alterado para navegar para /welcome
+          onClick={() => navigate(createPageUrl('welcome'))}
           className="text-[#022D68]"
         >
           <ArrowLeft className="h-5 w-5" />
@@ -106,7 +100,7 @@ const RestaurantArea = () => {
         </div>
       )}
 
-      {/* Main Content Area */}
+      {/* Main Content Area - Renders the matched sub-route (e.g., RestaurantHome) */}
       <main className="flex-1 overflow-y-auto w-full max-w-md mx-auto">
         <Outlet />
       </main>
