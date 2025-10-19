@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { MapPin, Phone, X, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { formatCEP, isCEP } from '@/services/geocoding';
+import { formatCEP } from '@/services/geocoding';
 import { showError, showSuccess } from '@/utils/toast';
 import axios from 'axios';
 
@@ -37,17 +37,20 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
       const data = response.data;
 
       if (!data.erro) {
-        onUpdate(location.id, 'street', data.logradouro || '');
-        onUpdate(location.id, 'neighborhood', data.bairro || '');
-        onUpdate(location.id, 'city', data.localidade || '');
-        onUpdate(location.id, 'state', data.uf || '');
+        // Only update fields if they are returned by the API
+        if (data.logradouro) onUpdate(location.id, 'street', data.logradouro);
+        if (data.bairro) onUpdate(location.id, 'neighborhood', data.bairro);
+        if (data.localidade) onUpdate(location.id, 'city', data.localidade);
+        if (data.uf) onUpdate(location.id, 'state', data.uf);
+        
+        // Show success only once after successful update
         showSuccess("Endereço preenchido automaticamente!");
       } else {
         showError("CEP não encontrado.");
       }
     } catch (error) {
       console.error("CEP lookup failed:", error);
-      showError("Erro ao buscar CEP. Verifique sua conexão ou o CEP digitado.");
+      showError("Erro ao buscar CEP. Verifique sua conexão.");
     } finally {
       setIsSearchingCep(false);
     }
@@ -59,12 +62,18 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
     
     if (cleanedCep.length === 8) {
       const timer = setTimeout(() => {
-        handleCepLookup(location.cep);
+        // Check if the address fields are already filled (to prevent unnecessary lookups if user manually edited)
+        if (!location.street && !location.city) {
+            handleCepLookup(location.cep);
+        } else {
+            // If fields are already filled, only search if the CEP itself changed significantly
+            handleCepLookup(location.cep);
+        }
       }, 500); // Wait 500ms after typing stops
       
       return () => clearTimeout(timer);
     }
-  }, [location.cep, handleCepLookup]);
+  }, [location.cep, handleCepLookup, location.street, location.city]); // Added dependencies for better control
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
