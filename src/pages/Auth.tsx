@@ -20,13 +20,6 @@ const GoogleIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const AppleIcon = ({ className }: { className?: string }) => (
-  <svg className={className} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <title>Apple</title>
-    <path d="M12.15,2.56c-2.13,0-4.13,1.4-5.12,3.83-2.21,5.22,1.26,11.18,3.67,14.37,1.13,1.5,2.31,3.24,4.06,3.21,1.69-.03,2.61-1.05,4.06-3.21,2.41-3.19,5.88-9.15,3.67-14.37-1.13-2.73-3.53-4.22-5.88-4.22-2.7,0-4.6,1.78-5.88,1.78s-3.18-1.78-5.88-1.78c-2.35,0-4.75,1.49-5.88,4.22-2.21,5.22,1.26,11.18,3.67,14.37,1.13,1.5,2.31,3.24,4.06,3.21,1.69-.03,2.61-1.05,4.06-3.21,1.23-1.65,2.02-3.03,2.83-4.42-1.9-1.14-3.03-3.48-2.8-6.1.29-3.3,2.73-5.63,5.85-5.92-0.02-.05-0.04-.1-0.06-.15-2.13-3.35-5.85-4.34-7.95-2.48-0.02,0.02-0.04,0.04-0.06,0.06-1.98-1.34-4.22-1.38-5.88-1.38Z" />
-  </svg>
-);
-
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -168,7 +161,7 @@ const AuthPage = () => {
                   <GoogleIcon className="w-7 h-7" />
                 </Button>
                 <Button type="button" onClick={() => handleOAuthLogin('apple')} variant="outline" size="icon" className="h-14 w-14 rounded-full shadow-sm" disabled={loading}>
-                  <AppleIcon className="w-7 h-7" />
+                  <i className="fa-brands fa-apple text-3xl"></i>
                 </Button>
               </div>
             </div>
