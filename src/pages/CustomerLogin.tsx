@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createPageUrl } from "@/utils/url";
 
 const primaryColor = "#022D68";
 
@@ -24,6 +25,7 @@ const LocationIcon = ({ color }: { color: string }) => (
 
 export default function CustomerLogin() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -31,6 +33,14 @@ export default function CustomerLogin() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4">
+      <Button
+        onClick={() => navigate(createPageUrl('welcome'))}
+        variant="ghost"
+        className="absolute top-4 left-4 h-12 w-12 rounded-full"
+      >
+        <ArrowLeft className="h-6 w-6 text-gray-600" />
+      </Button>
+
       <header className="flex flex-col items-center justify-center pt-16 pb-6 w-full max-w-sm">
         <div className="w-24 h-auto drop-shadow-md">
           <LocationIcon color={primaryColor} />
