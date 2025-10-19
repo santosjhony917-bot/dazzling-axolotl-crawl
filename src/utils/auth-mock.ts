@@ -1,4 +1,3 @@
-import { base44 } from "@/api/base44Client";
 import { supabase } from "@/integrations/supabase/client";
 import { AppRole } from "@/hooks/useUserRole";
 import { showSuccess } from "./toast";
@@ -16,7 +15,6 @@ export async function mockLoginWithRole(role: AppRole) {
 
   // 1. Garante um estado limpo
   await supabase.auth.signOut();
-  await base44.auth.clearRole();
 
   // 2. Chama a Edge Function para criar/confirmar o usuário e definir a role
   const response = await fetch(MOCK_AUTH_URL, {
@@ -42,8 +40,6 @@ export async function mockLoginWithRole(role: AppRole) {
 
   // 4. Define o role no mock da API (para simular o backend retornando o role)
   // Corrigido: O mock da API aceita 'customer' | 'restaurant'. Mapeamos roles de restaurante para 'restaurant'.
-  const mockRole = role.includes('restaurant') ? 'restaurant' : 'customer';
-  await base44.auth.updateMe({ user_role: mockRole });
   console.log(`Mock Auth: Successfully logged in as ${role}.`);
 }
 
@@ -51,6 +47,5 @@ export async function mockLoginWithRole(role: AppRole) {
  * Simula o logout.
  */
 export async function mockLogout() {
-  await base44.auth.clearRole();
   await supabase.auth.signOut();
 }
