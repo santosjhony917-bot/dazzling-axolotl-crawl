@@ -32,7 +32,8 @@ const ActionCard: React.FC<ActionCardProps> = ({
     >
       <div className="flex flex-col justify-center text-left flex-grow pr-4">
         <p className={`text-lg font-semibold leading-snug line-clamp-1 ${textColor}`}>{title}</p>
-        <p className={`text-sm font-normal leading-normal line-clamp-2 ${textColor}/80 mt-0.5`}>{description}</p>
+        {/* Removendo /80 para garantir que a descrição seja totalmente branca quando textColor for branco */}
+        <p className={`text-sm font-normal leading-normal line-clamp-2 ${textColor} mt-0.5`}>{description}</p>
       </div>
       <div className="shrink-0">
         <div className={`flex size-6 items-center justify-center ${iconColor}`}>
@@ -98,7 +99,7 @@ export default function RestaurantArea() {
           className="w-full space-y-4"
         >
           
-          {/* Reivindicar restaurante / Acessar conta (Destaque Laranja) */}
+          {/* Acessar conta (Destaque Laranja) */}
           <ActionCard
             title="Acessar minha conta"
             description="Login com e-mail e senha"
@@ -120,7 +121,7 @@ export default function RestaurantArea() {
             onClick={handleRegisterRestaurant}
           />
           
-          {/* Login com e-mail (Opção secundária, mantendo o ícone de envelope) */}
+          {/* Reivindicar restaurante existente */}
           <ActionCard
             title="Reivindicar restaurante existente"
             description="Atualizar cardápio e acesso"
