@@ -38,7 +38,13 @@ async function fetchViaCEP(cep: string): Promise<GeocodedAddress | null> {
     if (data.erro) return null;
 
     // ViaCEP provides address details but not coordinates. We need to geocode the full address.
-    const fullAddress = `${data.logradouro}, ${data.bairro}, ${data.localidade}, ${data.uf}`;
+    // Ensure we have enough data before geocoding
+    if (!data.logradouro || !data.localidade || !data.uf) {
+        console.warn("ViaCEP returned incomplete address data.");
+        return null;
+    }
+    
+    const fullAddress = `${data.logradouro}, ${data.bairro || ''}, ${data.localidade}, ${data.uf}`;
     const coords = await geocodeAddress(fullAddress);
 
     if (!coords) return null;

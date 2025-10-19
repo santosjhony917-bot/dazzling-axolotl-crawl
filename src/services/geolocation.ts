@@ -44,11 +44,13 @@ const findBestField = (details: AddressDetails, keys: (keyof AddressDetails)[]):
 export async function reverseGeocode(lat: number, lon: number): Promise<GeocodedAddress> {
   const url = `${NOMINATIM_URL}?format=jsonv2&lat=${lat}&lon=${lon}&addressdetails=1`;
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error("Failed to fetch reverse geocode data.");
+  // Using axios for consistency
+  const response = await axios.get(url);
+  const data = response.data;
+
+  if (!data || !data.address) {
+    throw new Error("Failed to fetch reverse geocode data or address not found.");
   }
-  const data = await response.json();
 
   const details: AddressDetails = data.address || {};
 
