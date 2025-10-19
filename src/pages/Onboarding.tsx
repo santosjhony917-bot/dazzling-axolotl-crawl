@@ -82,7 +82,7 @@ export default function Onboarding() {
   const screen = onboardingScreens[currentScreen];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-[#f5f7f8]">
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentScreen}
@@ -107,7 +107,7 @@ export default function Onboarding() {
             <div className="flex w-full justify-between items-center px-4 pb-4 mt-auto">
               <button
                 onClick={skipOnboarding}
-                className="text-white/80 text-base font-medium hover:text-white transition-colors"
+                className="text-gray-600 text-base font-medium hover:text-gray-800 transition-colors"
               >
                 Pular
               </button>
@@ -122,7 +122,7 @@ export default function Onboarding() {
                       opacity: currentScreen === index ? 1 : 0.4
                     }}
                     className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-white' : 'bg-white/40'
+                      currentScreen === index ? 'bg-[#032d63]' : 'bg-[#032d63]/40'
                     }`}
                   />
                 ))}
@@ -132,7 +132,7 @@ export default function Onboarding() {
               <div className="w-32">
                 <Button
                   onClick={handleNext}
-                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
                 >
                   <span className="truncate">
                     {currentScreen === onboardingScreens.length - 1 ? 'Começar' : 'Próximo'}

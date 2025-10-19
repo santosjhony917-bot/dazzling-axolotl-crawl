@@ -24,57 +24,70 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
 }) => {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
-      {/* BACKGROUND (Image and Gradient) */}
+      {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <img
-          alt={title}
-          className="w-full h-full object-cover"
+        <img 
+          alt="Background" 
+          className="w-full h-full object-cover" 
           src={backgroundImage}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f5f7f8]/40" />
       </div>
 
-      {/* SCREEN CONTENT */}
-      <div className="relative flex flex-col h-full p-6 pt-10 text-white">
-        <div className="flex-grow"></div>
-
-        {/* MAIN TEXT BLOCK */}
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col justify-end items-center text-center pb-8"
-        >
-          <h1 className="text-white tracking-tight text-4xl md:text-5xl font-bold leading-tight">
+      {/* Content Panel */}
+      <motion.div 
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="relative flex flex-col h-full justify-end"
+      >
+        <div className="w-full bg-[#f5f7f8] min-h-[65%] rounded-t-[3rem] p-6 pt-10 flex flex-col items-center text-center shadow-2xl">
+          <motion.h1 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-[#032d63] tracking-tight text-4xl font-bold leading-tight"
+          >
             {title}
-          </h1>
-          <p className="text-white/90 text-lg font-normal leading-normal max-w-md mt-4 px-4">
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-gray-600 text-base font-normal leading-normal max-w-md mt-4 px-4"
+          >
             {description}
-          </p>
+          </motion.p>
 
+          {/* Features */}
           {features && (
-            <div className="mt-8 flex justify-center gap-6 md:gap-8">
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex w-full justify-around mt-10 mb-12 max-w-sm"
+            >
               {features.map((feature, index) => (
-                <motion.div
+                <motion.div 
                   key={index}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.5 + index * 0.1, duration: 0.4, type: "spring" }}
                   className="flex flex-col items-center gap-2"
                 >
-                  <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full">
-                    <feature.icon className="w-6 h-6 text-white" />
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#f5e9e2]">
+                    <feature.icon className="w-8 h-8 text-[#E47948]" />
                   </div>
-                  <span className="text-sm font-medium text-white/90">{feature.label}</span>
+                  <span className="text-[#032d63] text-sm font-medium">{feature.label}</span>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-        </motion.div>
 
-        {/* Children will render the footer here */}
-        {children}
-      </div>
+          {children}
+        </div>
+      </motion.div>
     </div>
   );
 };
