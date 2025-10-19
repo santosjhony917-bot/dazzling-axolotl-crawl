@@ -9,7 +9,7 @@ import { createPageUrl } from '@/utils/url';
 
 const onboardingScreens = [
   {
-    title: "Bem-vindo ao FoodCompare",
+    title: "FoodCompare",
     description: "Descubra os melhores restaurantes perto de você. Compare preços, avalie opções e encontre sua próxima refeição perfeita.",
     backgroundImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
     features: [
