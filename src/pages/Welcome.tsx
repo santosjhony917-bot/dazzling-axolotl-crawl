@@ -1,59 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { base44 } from '@/api/base44Client';
-import { createPageUrl } from '@/utils/url';
 
 export default function Welcome() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkUserRole();
-  }, []);
-
-  const checkUserRole = async () => {
-    try {
-      const user = await base44.auth.me();
-      
-      if (user.user_role === 'customer') {
-          navigate(createPageUrl('find-restaurants'));
-      } else if (user.user_role === 'restaurant') {
-          navigate(createPageUrl('restaurant-dashboard'));
-      }
-    } catch (error) {
-      // User is not logged in or has no role, stay on this page
-      console.log('User has no role, staying on welcome page.');
-    } finally {
-      setLoading(false);
-    }
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
-
-  const handleRoleSelection = async (role: 'customer' | 'restaurant') => {
-    try {
-      await base44.auth.updateMe({ user_role: role });
-      
-      if (role === 'customer') {
-        navigate(createPageUrl('restaurant-login'));
-      } else {
-        navigate(createPageUrl('restaurant-signup'));
-      }
-    } catch (error) {
-      console.error('Error saving user role:', error);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="w-16 h-16 bg-[#E47948]/20 rounded-full" />
-          <div className="h-4 w-32 bg-[#022D68]/20 rounded" />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-white">
@@ -98,14 +53,14 @@ export default function Welcome() {
           className="flex flex-col gap-4 w-full max-w-md px-4 py-3 mt-6"
         >
           <Button
-            onClick={() => handleRoleSelection('customer')}
+            onClick={() => handleNavigation('/auth')}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-base font-bold leading-normal tracking-[0.015em] w-full transition-all hover:shadow-lg"
           >
             <span className="truncate">Encontrar Restaurantes</span>
           </Button>
 
           <Button
-            onClick={() => handleRoleSelection('restaurant')}
+            onClick={() => handleNavigation('/restaurant-login')}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all"
           >
             <span className="truncate">Sou restaurante</span>

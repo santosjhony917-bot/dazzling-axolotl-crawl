@@ -27,7 +27,7 @@ const AuthPage = () => {
         <Auth
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
-          providers={[]}
+          providers={['google', 'apple']}
           theme="light"
           localization={{
             variables: {
