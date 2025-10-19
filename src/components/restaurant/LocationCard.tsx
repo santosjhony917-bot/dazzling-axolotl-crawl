@@ -36,13 +36,20 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
       const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
       const data = response.data;
 
-      console.log("ViaCEP response data:", data); // Adicionado para depuração
+      console.log("ViaCEP response data:", data); // Log da resposta completa da API
 
       if (!data.erro) {
-        // Only update fields if they are returned by the API and are not empty
+        // Logs detalhados para cada campo antes de chamar onUpdate
+        console.log(`Attempting to update street with: "${data.logradouro}"`);
         if (data.logradouro) onUpdate(location.id, 'street', data.logradouro);
+        
+        console.log(`Attempting to update neighborhood with: "${data.bairro}"`);
         if (data.bairro) onUpdate(location.id, 'neighborhood', data.bairro);
+        
+        console.log(`Attempting to update city with: "${data.localidade}"`);
         if (data.localidade) onUpdate(location.id, 'city', data.localidade);
+        
+        console.log(`Attempting to update state with: "${data.uf}"`);
         if (data.uf) onUpdate(location.id, 'state', data.uf);
         
         showSuccess("Endereço preenchido automaticamente!");
