@@ -20,6 +20,7 @@ import RestaurantLogin from "./pages/RestaurantLogin";
 import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
+import ClaimRestaurant from "./pages/ClaimRestaurant"; // Importando a nova página
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -78,6 +79,7 @@ const AppRoutes = () => {
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
+      <Route path="/claim-restaurant" element={<ClaimRestaurant />} /> {/* Nova Rota */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
       
       {/* Admin Routes */}

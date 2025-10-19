@@ -69,6 +69,7 @@ export default function RestaurantArea() {
   // Ações de navegação
   const handleLogin = () => navigate(createPageUrl('restaurant-login'));
   const handleRegisterRestaurant = () => navigate(createPageUrl('restaurant-signup'));
+  const handleClaimRestaurant = () => navigate(createPageUrl('claim-restaurant')); // Nova navegação
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-[#f5f7f8] font-sans antialiased">
@@ -129,7 +130,7 @@ export default function RestaurantArea() {
             iconColor="text-[#022D68]"
             bgColor="bg-white"
             textColor="text-[#022D68]"
-            onClick={handleLogin}
+            onClick={handleClaimRestaurant}
           />
         </motion.div>
       </main>
