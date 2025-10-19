@@ -45,9 +45,16 @@ const AuthPage = () => {
     e.preventDefault();
     setLoading(true);
 
-    const authFunction = isSignUp ? supabase.auth.signUp : supabase.auth.signInWithPassword;
-    
-    const { error } = await authFunction({ email, password });
+    let error;
+
+    if (isSignUp) {
+      // Use explicit two-argument signature for signUp to prevent flowType error
+      const result = await supabase.auth.signUp({ email, password });
+      error = result.error;
+    } else {
+      const result = await supabase.auth.signInWithPassword({ email, password });
+      error = result.error;
+    }
 
     if (error) {
       showError(error.message);
