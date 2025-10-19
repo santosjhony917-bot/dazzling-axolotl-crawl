@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
-import { createPageUrl } from "@/utils/url"; // Corrigido o import
+import { createPageUrl } from "@/utils/url";
 import { ArrowLeft, Store, PlusCircle, Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,12 @@ import { showError, showSuccess } from "@/utils/toast";
 // Tipagem para a localização
 interface Location {
   id: number;
-  address: string;
+  cep: string;
+  street: string;
+  number: string;
+  neighborhood: string;
+  city: string;
+  state: string;
   phone: string;
 }
 
@@ -26,7 +31,7 @@ export default function RestaurantSignup() {
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
   const [locations, setLocations] = useState<Location[]>([
-    { id: 1, address: "", phone: "" }
+    { id: 1, cep: "", street: "", number: "", neighborhood: "", city: "", state: "", phone: "" }
   ]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,14 +44,14 @@ export default function RestaurantSignup() {
 
   const addLocation = () => {
     const newId = Math.max(...locations.map(l => l.id), 0) + 1;
-    setLocations([...locations, { id: newId, address: "", phone: "" }]);
+    setLocations([...locations, { id: newId, cep: "", street: "", number: "", neighborhood: "", city: "", state: "", phone: "" }]);
   };
 
   const removeLocation = (id: number) => {
     setLocations(locations.filter(loc => loc.id !== id));
   };
 
-  const updateLocation = (id: number, field: 'address' | 'phone', value: string) => {
+  const updateLocation = (id: number, field: keyof Location, value: string) => {
     setLocations(locations.map(loc => 
       loc.id === id ? { ...loc, [field]: value } : loc
     ));
@@ -59,9 +64,21 @@ export default function RestaurantSignup() {
         return false;
       }
     } else if (step === 2) {
-      const hasValidLocation = locations.some(loc => loc.address.trim());
-      if (!hasValidLocation) {
-        showError("Pelo menos um endereço de filial é obrigatório.");
+      const invalidLocation = locations.find(loc => 
+        !loc.cep.replace(/\D/g, '').length || 
+        !loc.street.trim() || 
+        !loc.number.trim() || 
+        !loc.city.trim() || 
+        !loc.state.trim()
+      );
+      
+      if (locations.length === 0) {
+        showError("Pelo menos uma filial é obrigatória.");
+        return false;
+      }
+      
+      if (invalidLocation) {
+        showError("Preencha todos os campos obrigatórios (CEP, Rua, Número, Cidade, Estado) para todas as filiais.");
         return false;
       }
     } else if (step === 3) {
@@ -116,9 +133,7 @@ export default function RestaurantSignup() {
         throw signUpError;
       }
 
-      // 2. Insert restaurant data (simplified for now, full logic would be in a backend function/trigger)
-      // In a real app, we'd use an RPC or a trigger to handle restaurant creation and role assignment.
-      // For now, we rely on the user metadata and email confirmation.
+      // TODO: Implement RPC call to create restaurant and locations in the database
       
       showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
       navigate(createPageUrl('restaurant-login'));
@@ -384,7 +399,7 @@ export default function RestaurantSignup() {
                 disabled={loading}
                 className={`flex-1 h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold rounded-full text-lg ${currentStep === 1 ? 'w-full' : ''}`}
               >
-                {currentStep === 1 ? "Próximo" : "Salvar e Continuar"}
+                {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
               </Button>
             ) : (
               <Button
