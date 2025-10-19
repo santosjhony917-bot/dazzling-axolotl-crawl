@@ -84,7 +84,7 @@ export default function ClaimRestaurant() {
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
       
-      {/* Header/Botão Voltar */}
+      {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
@@ -94,7 +94,10 @@ export default function ClaimRestaurant() {
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <div className="w-10"></div> {/* Placeholder para alinhamento */}
+        <div className="flex items-center gap-2">
+          <h2 className="text-[#022D68] text-xl font-bold">Reivindicar</h2>
+        </div>
+        <div className="w-10"></div>
       </header>
 
       <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
@@ -104,23 +107,21 @@ export default function ClaimRestaurant() {
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          {/* Icon */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto">
-            <div className="w-36 h-auto drop-shadow-md">
-              <Utensils className="w-12 h-12 text-[#022D68] mx-auto" />
+          {/* Icon and Title */}
+          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
+            <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mb-4">
+              <Utensils className="w-8 h-8 text-[#022D68]" />
             </div>
+            <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
+              Reivindicar Restaurante
+            </h1>
+            <p className="text-gray-600 text-base mt-1">
+              Use o código de acesso fornecido pela FilterFood.
+            </p>
           </div>
 
           <Card className="w-full shadow-xl border-none rounded-xl">
-            <CardHeader className="text-center">
-              <CardTitle className="text-[#022D68] tracking-tight text-4xl font-bold leading-tight">
-                Reivindicar Restaurante
-              </CardTitle>
-              <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
-                Use o código de acesso fornecido pela FilterFood.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="p-6 pt-4">
               <form onSubmit={handleClaim} className="space-y-4">
                 
                 {/* Código de Acesso */}
@@ -128,7 +129,7 @@ export default function ClaimRestaurant() {
                   <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso</label>
                   <Input
                     id="access-code"
-                    className="h-14 text-base rounded-full"
+                    className="h-14 text-base rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
                     placeholder="Insira o código aqui"
                     type="text"
                     value={accessCode}
@@ -144,7 +145,7 @@ export default function ClaimRestaurant() {
                   <label htmlFor="email" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">E-mail</label>
                   <Input
                     id="email"
-                    className="h-14 text-base rounded-full"
+                    className="h-14 text-base rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
                     placeholder="seuemail@exemplo.com"
                     type="email"
                     value={email}
@@ -160,7 +161,7 @@ export default function ClaimRestaurant() {
                   <div className="relative">
                     <Input
                       id="password"
-                      className="h-14 text-base pr-12 rounded-full"
+                      className="h-14 text-base pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
                       placeholder="Crie uma senha"
                       type={passwordVisible ? "text" : "password"}
                       value={password}
@@ -184,7 +185,7 @@ export default function ClaimRestaurant() {
                   <div className="relative">
                     <Input
                       id="confirm-password"
-                      className="h-14 text-base pr-12 rounded-full"
+                      className="h-14 text-base pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
                       placeholder="Confirme sua senha"
                       type={passwordVisible ? "text" : "password"}
                       value={confirmPassword}
@@ -219,7 +220,7 @@ export default function ClaimRestaurant() {
                 Já tem uma conta?
                 <Link
                   to={createPageUrl('restaurant-login')}
-                  className="font-bold text-[#022D68] hover:underline ml-1"
+                  className="font-bold text-[#E47948] hover:underline ml-1"
                 >
                   Fazer login
                 </Link>
