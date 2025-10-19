@@ -43,7 +43,6 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
         if (data.localidade) onUpdate(location.id, 'city', data.localidade);
         if (data.uf) onUpdate(location.id, 'state', data.uf);
         
-        // Show success only once after successful update
         showSuccess("Endereço preenchido automaticamente!");
       } else {
         showError("CEP não encontrado.");
@@ -62,18 +61,14 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
     
     if (cleanedCep.length === 8) {
       const timer = setTimeout(() => {
-        // Check if the address fields are already filled (to prevent unnecessary lookups if user manually edited)
-        if (!location.street && !location.city) {
-            handleCepLookup(location.cep);
-        } else {
-            // If fields are already filled, only search if the CEP itself changed significantly
-            handleCepLookup(location.cep);
-        }
-      }, 500); // Wait 500ms after typing stops
+        // Sempre tenta a busca se o CEP for válido e debounced.
+        // A função handleCepLookup decidirá quais campos atualizar.
+        handleCepLookup(location.cep);
+      }, 500); // Espera 500ms após a digitação parar
       
       return () => clearTimeout(timer);
     }
-  }, [location.cep, handleCepLookup, location.street, location.city]); // Added dependencies for better control
+  }, [location.cep, handleCepLookup]); // Removidas as dependências location.street e location.city
 
   const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
