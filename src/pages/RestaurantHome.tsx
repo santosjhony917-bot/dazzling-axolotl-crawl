@@ -186,7 +186,7 @@ const RestaurantHome = () => {
           ))}
         </div>
       </div>
-      <RestaurantBottomNav />
+      <RestaurantBottomNav selectedTab="home" />
     </div>
   );
 };

@@ -14,7 +14,7 @@ import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
 import SearchRestaurants from "./pages/SearchRestaurants";
 import RestaurantResults from "./pages/RestaurantResults";
-import RestaurantProfile from "./pages/RestaurantProfile";
+import RestaurantProfilePublic from "./pages/RestaurantProfile"; // Renomeado para evitar conflito
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
@@ -24,7 +24,7 @@ import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
 import RestaurantHome from "./pages/RestaurantHome";
 import Profile from "./pages/Profile";
-import RestaurantProfileMenu from "./pages/RestaurantProfileMenu"; // Importando a nova página
+import RestaurantProfile from "./pages/RestaurantProfile"; // Importando o novo componente de menu de perfil
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -85,12 +85,12 @@ const AppRoutes = () => {
       />
       <Route
         path="/restaurant-profile/:id"
-        element={<RestaurantProfile />}
+        element={<RestaurantProfilePublic />}
       />
       <Route path="/profile" element={session ? <Profile /> : <AuthPage />} />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-home" element={<RestaurantHome />} />
-      <Route path="/restaurant-profile-menu" element={<RestaurantProfileMenu />} /> {/* Nova rota de perfil do restaurante */}
+      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} /> {/* Rota atualizada */}
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
@@ -116,7 +116,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppRoutes />
+        <UserProvider> {/* Adicionando UserProvider */}
+          <AppRoutes />
+        </UserProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

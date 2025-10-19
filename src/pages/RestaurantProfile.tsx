@@ -1,182 +1,961 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Star, MapPin, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { useUser } from "@/contexts/UserContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
+import EditFieldDialog from "@/components/EditFieldDialog";
+import { EditHoursDialog } from "@/components/EditHoursDialog";
+import { EditAddressDialog } from "@/components/EditAddressDialog";
+import { ImageUploadButton } from "@/components/ImageUploadButton";
+import restaurantLogo from "@/assets/restaurant-logo.png";
+import { z } from "zod";
+import { WeekSchedule, DaySchedule } from "@/types/schedule";
+import { geocodeAddress } from "@/services/geocoding";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import RestaurantHeader from "../components/restaurant/RestaurantHeader";
-import OrderChannels from "../components/restaurant/OrderChannels";
-import PhotoGallery from "../components/restaurant/PhotoGallery";
-import MenuSection from "../components/restaurant/MenuSection";
-import RestaurantInfo from "../components/restaurant/RestaurantInfo";
-
-export default function RestaurantProfile() {
+const RestaurantProfile = () => {
   const navigate = useNavigate();
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { toast } = useToast();
+  const { logout } = useUser();
+  const { signOut } = useAuth();
+  const { restaurant, loading: restaurantLoading, updateRestaurant } = useRestaurantProfile();
+  const { isPremium } = useUserRole();
+  const { uploadImage, uploading } = useImageUpload();
+  
+  const [editingField, setEditingField] = useState<{
+    key: string;
+    title: string;
+    fieldName: string;
+    icon: React.ReactNode;
+    type?: "text" | "tel" | "email";
+    placeholder?: string;
+    validationSchema?: z.ZodString;
+    mask?: (value: string) => string;
+  } | null>(null);
 
+  const [isEditingHours, setIsEditingHours] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
+  
+  const [notifications, setNotifications] = useState({
+    orders: true,
+    visits: true,
+    followers: false,
+  });
+
+  // Restaurant data - agora vem do hook
   const restaurantData = {
-    id: 'nau',
-    name: 'NAU – Frutos do Mar',
-    isVerified: true,
-    rating: 4.7,
-    reviewsCount: 1200,
-    followersCount: 2834,
-    coverImageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
-    address: 'Av. Epitácio Pessoa, 1234 - Tambaú',
-    openingHours: '18:00 - 23:00',
-    isOpen: true,
-    categories: ['Entradas', 'Principais', 'Sobremesas', 'Bebidas'],
-    menuItems: [
-      {
-        id: '1',
-        name: 'Salada Caprese',
-        description: 'Tomate, mussarela de búfala, manjericão e azeite.',
-        price: 35.00,
-        imageUrl: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      },
-      {
-        id: '2',
-        name: 'Ceviche Clássico',
-        description: 'Peixe branco fresco, limão, coentro e pimenta.',
-        price: 45.00,
-        imageUrl: 'https://images.unsplash.com/photo-1626200419199-391ae4be7a41?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: false
-      },
-      {
-        id: '3',
-        name: 'Risoto de Camarão',
-        description: 'Arroz arbóreo, camarões frescos e ervas finas.',
-        price: 68.00,
-        // URL corrigida para uma imagem funcional
-        imageUrl: 'https://images.unsplash.com/photo-1519708227418-d6dc969a9974?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      }
-    ],
-    gallery: [
-      { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente aconchegante' },
-      { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária premium' },
-      { imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop', caption: 'Vista privilegiada' }
-    ]
+    name: restaurant?.name || "Restaurante",
+    address: restaurant?.address || "Endereço não cadastrado",
+    city: restaurant?.city || "",
+    state: restaurant?.state || "",
+    cep: restaurant?.cep || "",
+    neighborhood: restaurant?.neighborhood || "",
+    category: restaurant?.category || "",
+    phone: "", // Mocked for now, should come from restaurant object
+    email: "", // Mocked for now
+    cnpj: "", // Mocked for now
   };
 
+  // Schedule data (using mock initial state if not loaded from DB)
+  const [schedule, setSchedule] = useState<WeekSchedule>(restaurant?.opening_hours || {
+    monday: { isOpen: false, slots: [] },
+    tuesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
+    wednesday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
+    thursday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
+    friday: { isOpen: true, slots: [{ start: "11:00", end: "23:00" }] },
+    saturday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
+    sunday: { isOpen: true, slots: [{ start: "12:00", end: "00:00" }] },
+  });
+
+  useEffect(() => {
+    if (restaurant?.opening_hours) {
+      setSchedule(restaurant.opening_hours);
+    }
+  }, [restaurant?.opening_hours]);
+
+  // Format schedule for display
+  const formatScheduleDisplay = (schedule: WeekSchedule): string => {
+    const days = Object.entries(schedule) as [keyof WeekSchedule, DaySchedule][];
+    const openDays = days.filter(([_, day]) => day.isOpen);
+    
+    if (openDays.length === 0) return "Fechado";
+    
+    // Group consecutive days with same schedule
+    const groups: string[] = [];
+    let currentGroup: string[] = [];
+    let currentSlots: string = "";
+    
+    const dayAbbr: Record<keyof WeekSchedule, string> = {
+      monday: "Seg",
+      tuesday: "Ter",
+      wednesday: "Qua",
+      thursday: "Qui",
+      friday: "Sex",
+      saturday: "Sáb",
+      sunday: "Dom",
+    };
+    
+    openDays.forEach(([day, daySchedule], index) => {
+      const slotsStr = daySchedule.slots.map(s => `${s.start}-${s.end}`).join(", ");
+      
+      if (slotsStr === currentSlots && currentGroup.length > 0) {
+        currentGroup.push(dayAbbr[day]);
+      } else {
+        if (currentGroup.length > 0) {
+          const range = currentGroup.length > 1 
+            ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+            : currentGroup[0];
+          groups.push(`${range}: ${currentSlots}`);
+        }
+        currentGroup = [dayAbbr[day]];
+        currentSlots = slotsStr;
+      }
+      
+      if (index === openDays.length - 1) {
+        const range = currentGroup.length > 1 
+          ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+          : currentGroup[0];
+        groups.push(`${range}: ${currentSlots}`);
+      }
+    });
+    
+    return groups.join(" | ");
+  };
+
+  // Máscaras
+  const phoneMask = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 10) {
+      return numbers.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  };
+
+  const cnpjMask = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+  };
+
+  // Validações
+  const validations = {
+    name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100, "Nome muito longo"),
+    address: z.string().min(10, "Endereço incompleto"),
+    phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
+    email: z.string().email("E-mail inválido"),
+    cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido"),
+  };
+
+  const handleEdit = (field: keyof typeof restaurantData | 'cnpj' | 'whatsapp' | 'ifood' | 'other') => {
+    // Special handling for address - use EditAddressDialog
+    if (field === 'address') {
+      setIsEditingAddress(true);
+      return;
+    }
+
+    const fieldConfig: Record<string, any> = {
+      name: {
+        title: "Nome Comercial",
+        fieldName: "Nome do estabelecimento",
+        icon: <Building2 className="h-6 w-6 text-[#022D68]" />,
+        placeholder: "Ex: Pizzaria do Bairro",
+        validationSchema: validations.name,
+        currentValue: restaurant?.name || "",
+      },
+      phone: {
+        title: "Contato / WhatsApp",
+        fieldName: "Telefone",
+        icon: <Phone className="h-6 w-6 text-[#022D68]" />,
+        type: "tel" as const,
+        placeholder: "(11) 98765-4321",
+        validationSchema: validations.phone,
+        mask: phoneMask,
+        currentValue: restaurantData.phone, // Mocked
+      },
+      email: {
+        title: "E-mail",
+        fieldName: "E-mail de contato",
+        icon: <Mail className="h-6 w-6 text-[#022D68]" />,
+        type: "email" as const,
+        placeholder: "contato@restaurante.com",
+        validationSchema: validations.email,
+        currentValue: restaurantData.email, // Mocked
+      },
+      cnpj: {
+        title: "CNPJ",
+        fieldName: "CNPJ do estabelecimento",
+        icon: <FileText className="h-6 w-6 text-[#022D68]" />,
+        placeholder: "12.345.678/0001-90",
+        validationSchema: validations.cnpj,
+        mask: cnpjMask,
+        currentValue: restaurantData.cnpj, // Mocked
+      },
+      whatsapp: {
+        title: "Link WhatsApp",
+        fieldName: "URL do WhatsApp",
+        icon: <MessageSquare className="h-6 w-6 text-[#25D366]" />,
+        placeholder: "https://wa.me/5511987654321",
+        validationSchema: z.string().url('URL inválida').regex(
+          /^https?:\/\//,
+          'URL deve começar com http:// ou https://'
+        ).optional().or(z.literal('')),
+        currentValue: restaurant?.whatsapp_url || "",
+      },
+      ifood: {
+        title: "Link iFood",
+        fieldName: "URL do iFood",
+        icon: <Package className="h-6 w-6 text-[#EA1D2C]" />,
+        placeholder: "https://www.ifood.com.br/...",
+        validationSchema: z.string().url('URL inválida').regex(
+          /^https?:\/\//,
+          'URL deve começar com http:// ou https://'
+        ).optional().or(z.literal('')),
+        currentValue: restaurant?.ifood_url || "",
+      },
+      other: {
+        title: "Outro Link",
+        fieldName: "URL de outro canal",
+        icon: <UtensilsCrossed className="h-6 w-6 text-[#022D68]" />,
+        placeholder: "https://...",
+        validationSchema: z.string().url('URL inválida').regex(
+          /^https?:\/\//,
+          'URL deve começar com http:// ou https://'
+        ).optional().or(z.literal('')),
+        currentValue: restaurant?.other_url || "",
+      },
+    };
+
+    setEditingField({
+      key: field,
+      ...fieldConfig[field],
+      currentValue: fieldConfig[field].currentValue,
+    });
+  };
+
+  const handleSaveField = async (value: string) => {
+    if (!editingField) return;
+    
+    // Map field keys to database column names
+    const fieldMapping: Record<string, string> = {
+      whatsapp: 'whatsapp_url',
+      ifood: 'ifood_url',
+      other: 'other_url',
+    };
+    
+    const dbField = fieldMapping[editingField.key] || editingField.key;
+    
+    // Salvar no banco de dados
+    const { error } = await updateRestaurant({
+      [dbField]: value
+    });
+
+    if (error) {
+      toast({
+        title: "Erro ao salvar",
+        description: error,
+        variant: "destructive",
+      });
+      setEditingField(null);
+      return;
+    }
+
+    toast({
+      title: "Salvo com sucesso",
+      description: `${editingField.title} atualizado`,
+    });
+    
+    setEditingField(null);
+  };
+
+  const handleSaveHours = async (newSchedule: WeekSchedule) => {
+    setSchedule(newSchedule);
+    
+    // Salvar no banco de dados
+    const { error } = await updateRestaurant({
+      opening_hours: newSchedule
+    });
+
+    if (error) {
+      toast({
+        title: "Erro ao salvar",
+        description: error,
+        variant: "destructive",
+      });
+      throw new Error(error);
+    }
+  };
+
+  const handleLogout = async () => {
+    // Logout do Supabase
+    await signOut();
+    
+    // Limpar dados locais
+    logout();
+    
+    toast({
+      title: "Logout realizado",
+      description: "Até logo!",
+    });
+    
+    navigate("/welcome");
+  };
+
+  const handleUpgradeToPremium = () => {
+    navigate("/upgrade"); // Usando a rota genérica de upgrade
+  };
+
+  const handleUploadLogo = async (file: File) => {
+    if (!restaurant?.id) return;
+
+    const { url, error } = await uploadImage(file, 'restaurant-logos', restaurant.id);
+
+    if (error) {
+      toast({
+        title: "Erro no upload",
+        description: error,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (url) {
+      // Update restaurant logo in database
+      const { error: updateError } = await updateRestaurant({ logo_url: url });
+
+      if (updateError) {
+        toast({
+          title: "Erro ao salvar",
+          description: "Não foi possível atualizar o logo",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Logo atualizado!",
+        description: "Seu logo foi atualizado com sucesso",
+      });
+    }
+  };
+
+  const handleUploadCover = async (file: File) => {
+    if (!isPremium) {
+      toast({
+        title: "Recurso Premium",
+        description: "Faça upgrade para personalizar fotos de capa",
+        variant: "default",
+      });
+      navigate("/upgrade");
+      return;
+    }
+
+    if (!restaurant?.id) return;
+
+    const { url, error } = await uploadImage(file, 'restaurant-photos', restaurant.id, 'cover');
+
+    if (error) {
+      toast({
+        title: "Erro no upload",
+        description: error,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (url) {
+      // Update restaurant cover in database
+      const { error: updateError } = await updateRestaurant({ cover_image_url: url });
+
+      if (updateError) {
+        toast({
+          title: "Erro ao salvar",
+          description: "Não foi possível atualizar a capa",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Capa atualizada!",
+        description: "Sua foto de capa foi atualizada com sucesso",
+      });
+    }
+  };
+
+  if (restaurantLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
+        <Skeleton className="h-32 w-full rounded-b-[20px] mb-6" />
+        <div className="px-4 -mt-16 relative z-20">
+          <Card className="p-6 shadow-sm rounded-3xl">
+            <div className="flex items-start gap-4">
+              <Skeleton className="w-20 h-20 rounded-full" />
+              <div className="flex-1 space-y-2 pt-2">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-8 w-full rounded-full" />
+              </div>
+            </div>
+          </Card>
+        </div>
+        <div className="px-4 mt-6 space-y-8">
+          <Skeleton className="h-16 w-full rounded-3xl" />
+          <Skeleton className="h-96 w-full rounded-3xl" />
+        </div>
+        <RestaurantBottomNav selectedTab="perfil" />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Cover Image with Overlay Controls */}
-      <div className="relative w-full h-72">
-        <img
-          src={restaurantData.coverImageUrl}
-          alt={restaurantData.name}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-        
-        {/* Top Controls */}
-        <div className="absolute top-0 inset-x-0 p-4 flex justify-between items-center">
-          <Button
-            variant="ghost"
-            size="icon"
+    <div className="min-h-screen pb-20" style={{ backgroundColor: '#F5F5F5' }}>
+      {/* Header */}
+      <div className="relative h-32 overflow-hidden rounded-b-[20px] bg-gradient-to-r from-[#002E6D] to-[#014D9F]">
+        {restaurant?.cover_image_url && (
+          <img 
+            src={restaurant.cover_image_url} 
+            alt="Capa do Restaurante" 
+            className="w-full h-full object-cover absolute inset-0" 
+          />
+        )}
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute top-4 left-4 z-10">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-white hover:bg-white/10"
             onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
           >
-            <ArrowLeft className="w-5 h-5 text-gray-900" />
+            <ArrowLeft className="h-5 w-5" />
           </Button>
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
-            >
-              <Heart className="w-5 h-5 text-gray-900" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
-            >
-              <Share2 className="w-5 h-5 text-gray-900" />
-            </Button>
-          </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="relative -mt-12 px-4 pb-8 max-w-md mx-auto w-full">
-        <RestaurantHeader restaurant={restaurantData} />
-
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex gap-3 mt-6"
-        >
-          <Button
-            onClick={() => setIsFollowing(!isFollowing)}
-            className={cn(
-              "flex-1 rounded-full h-11 font-semibold shadow-md transition-all",
-              isFollowing
-                ? "bg-white text-[#022D68] border-2 border-[#022D68] hover:bg-gray-50"
-                : "bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            )}
-          >
-            {isFollowing ? "Seguindo" : "Seguir"}
-          </Button>
-          <Button
-            variant="outline"
-            className="flex-1 rounded-full h-11 font-semibold border-2 border-[#022D68] text-[#022D68] hover:bg-[#022D68]/5 shadow-md"
-          >
-            Contato
-          </Button>
-        </motion.div>
-
-        {/* Quick Info Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-2 gap-3 mt-6"
-        >
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-2 text-[#E47948] mb-1">
-              <Clock className="w-4 h-4" />
-              <span className="text-xs font-medium">Horário</span>
+      {/* Profile Header Card */}
+      <div className="px-4 -mt-16 relative z-20">
+        <Card className="p-6 shadow-sm rounded-3xl">
+          <div className="flex items-start gap-4">
+            {/* Restaurant Photo */}
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full bg-[#022D68] flex items-center justify-center overflow-hidden shadow-lg">
+                {restaurant?.logo_url ? (
+                  <img src={restaurant.logo_url} alt="Restaurant Logo" loading="lazy" className="w-full h-full object-cover" />
+                ) : (
+                  <img src={restaurantLogo} alt="Restaurant Logo" loading="lazy" className="w-full h-full object-cover" />
+                )}
+              </div>
+              <ImageUploadButton
+                onFileSelect={handleUploadLogo}
+                uploading={uploading}
+                variant="ghost"
+                size="icon"
+                className="absolute -bottom-1 -right-1 w-7 h-7 bg-[#E47948] rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform p-0"
+              >
+                <Camera className="h-3.5 w-3.5 text-white" />
+              </ImageUploadButton>
             </div>
-            <p className="text-sm font-bold text-[#022D68]">{restaurantData.openingHours}</p>
-            <span className="inline-block mt-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-              {restaurantData.isOpen ? "Aberto" : "Fechado"}
-            </span>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-2 text-[#E47948] mb-1">
-              <MapPin className="w-4 h-4" />
-              <span className="text-xs font-medium">Localização</span>
+
+            {/* Restaurant Info */}
+            <div className="flex-1">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <h1 className="text-lg font-bold text-foreground">{restaurantData.name}</h1>
+                  <p className="text-sm text-muted-foreground">Estabelecimento comercial</p>
+                </div>
+                <Badge 
+                  className={isPremium 
+                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white border-none flex items-center gap-1" 
+                    : "bg-[#E9ECEF] text-[#343A40]"
+                  }
+                >
+                  {isPremium && <Crown className="h-3 w-3" />}
+                  {isPremium ? "Premium" : "Plano Free"}
+                </Badge>
+              </div>
+              {isPremium ? (
+                <ImageUploadButton
+                  onFileSelect={handleUploadCover}
+                  uploading={uploading}
+                  variant="outline"
+                  size="sm"
+                  className="mt-3 text-xs"
+                >
+                  <Camera className="h-3 w-3 mr-1" />
+                  Alterar foto de capa
+                </ImageUploadButton>
+              ) : (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="mt-3 text-xs"
+                  onClick={handleUpgradeToPremium}
+                >
+                  🔒 Editar capa (Premium)
+                </Button>
+              )}
             </div>
-            <p className="text-sm font-bold text-[#022D68] line-clamp-2">
-              Tambaú, João Pessoa
-            </p>
-            <button className="mt-1 text-xs text-[#E47948] font-semibold hover:underline">
-              Ver mapa
-            </button>
           </div>
-        </motion.div>
-
-        {/* Order Channels */}
-        <OrderChannels />
-
-        {/* Photo Gallery */}
-        <PhotoGallery gallery={restaurantData.gallery} />
-
-        {/* Menu Section */}
-        <MenuSection 
-          categories={restaurantData.categories}
-          menuItems={restaurantData.menuItems}
-        />
-
-        {/* Restaurant Info */}
-        <RestaurantInfo restaurant={restaurantData} />
+        </Card>
       </div>
+
+      {/* Main Content */}
+      <div className="px-4 mt-6 space-y-8">
+        {/* Ver Meu Perfil Público */}
+        <div>
+          <Card className="bg-white border-border/10 shadow-sm rounded-3xl">
+            <button 
+              onClick={() => navigate(`/restaurant-profile/${restaurant?.id || 'mock-id'}`)}
+              className="w-full p-4 flex items-center gap-3 hover:bg-[#F8F9FA] transition-colors rounded-3xl"
+            >
+              <div className="w-12 h-12 rounded-full bg-[#E47948]/10 flex items-center justify-center">
+                <Eye className="h-6 w-6 text-[#E47948]" />
+              </div>
+              <div className="flex-1 text-left">
+                <p className="text-sm font-bold text-foreground">Ver meu perfil público</p>
+                <p className="text-xs text-muted-foreground">Visualize como os clientes veem seu restaurante</p>
+              </div>
+              <ChevronRight className="h-5 w-5 text-[#6C757D]" />
+            </button>
+          </Card>
+        </div>
+
+        {/* Informações do Estabelecimento */}
+        <div>
+          <h2 className="text-base font-bold text-foreground mb-4">Informações do Estabelecimento</h2>
+          
+          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
+            <button 
+              onClick={() => handleEdit('name')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Building2 className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">Nome Comercial</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.name}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => handleEdit('address')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <MapPin className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">Endereço</p>
+                <p className="text-sm font-medium text-foreground">
+                  {restaurantData.address || "Não cadastrado"}
+                </p>
+                {(restaurantData.neighborhood || restaurantData.city) && (
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {[restaurantData.neighborhood, restaurantData.city, restaurantData.state]
+                      .filter(Boolean)
+                      .join(', ')}
+                  </p>
+                )}
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => setIsEditingHours(true)}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Clock className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">Horários de funcionamento</p>
+                <p className="text-sm font-medium text-foreground">{formatScheduleDisplay(schedule)}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => handleEdit('phone')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Phone className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">Contato / WhatsApp</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.phone || "Não cadastrado"}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => handleEdit('email')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Mail className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">E-mail</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.email || "Não cadastrado"}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => handleEdit('cnpj')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <FileText className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-xs text-muted-foreground">CNPJ</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.cnpj || "Não cadastrado"}</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </Card>
+        </div>
+
+        {/* Canais de Pedido - Apenas Premium */}
+        {isPremium && (
+          <div>
+            <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
+              Canais de Pedido
+              <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white border-none text-[10px]">
+                Premium
+              </Badge>
+            </h2>
+            
+            <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
+              <button 
+                onClick={() => handleEdit('whatsapp')}
+                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+              >
+                <MessageSquare className="h-5 w-5 text-[#25D366]" />
+                <div className="flex-1 text-left">
+                  <p className="text-xs text-muted-foreground">Link WhatsApp</p>
+                  <p className="text-sm font-medium text-foreground">
+                    {restaurant?.whatsapp_url || "Não configurado"}
+                  </p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </button>
+
+              <button 
+                onClick={() => handleEdit('ifood')}
+                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+              >
+                <Package className="h-5 w-5 text-[#EA1D2C]" />
+                <div className="flex-1 text-left">
+                  <p className="text-xs text-muted-foreground">Link iFood</p>
+                  <p className="text-sm font-medium text-foreground">
+                    {restaurant?.ifood_url || "Não configurado"}
+                  </p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </button>
+
+              <button 
+                onClick={() => handleEdit('other')}
+                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+              >
+                <UtensilsCrossed className="h-5 w-5 text-[#022D68]" />
+                <div className="flex-1 text-left">
+                  <p className="text-xs text-muted-foreground">Outro Link</p>
+                  <p className="text-sm font-medium text-foreground">
+                    {restaurant?.other_url || "Não configurado"}
+                  </p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </button>
+            </Card>
+          </div>
+        )}
+
+        {/* Cardápio e Categorias */}
+        <div>
+          <h2 className="text-base font-bold text-foreground mb-4">Cardápio</h2>
+          
+          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
+            <button 
+              onClick={() => navigate('/restaurant-menu')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <UtensilsCrossed className="h-5 w-5 text-[#E47948]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-semibold text-foreground">Atualizar Cardápio</p>
+                <p className="text-xs text-muted-foreground">Adicionar, editar ou remover pratos</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+            
+            <button 
+              onClick={() => navigate('/restaurant-categories')}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Package className="h-5 w-5 text-[#E47948]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-semibold text-foreground">Gerenciar Categorias</p>
+                <p className="text-xs text-muted-foreground">Entradas, Pratos Principais, Bebidas, etc.</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </Card>
+        </div>
+
+        {/* Plano e Assinatura - Apenas para usuários Free */}
+        {!isPremium && (
+          <div>
+            <h2 className="text-base font-bold text-foreground mb-4">Plano e Assinatura</h2>
+            
+            <Card className="p-4 border-border/10 shadow-sm rounded-3xl">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
+                  <Crown className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-foreground">Plano atual: Free</h3>
+                  <p className="text-xs text-muted-foreground">Recursos básicos</p>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[#E47948]" />
+                  Desbloqueie com Premium:
+                </h4>
+                <ul className="space-y-1.5 text-xs text-muted-foreground">
+                  <li>💎 Destaque na busca</li>
+                  <li>🏆 Aparência personalizada</li>
+                  <li>📊 Estatísticas detalhadas</li>
+                  <li>🎨 Edição avançada de cardápio</li>
+                  <li>🔔 Notificações para seguidores</li>
+                </ul>
+              </div>
+
+              <Button 
+                onClick={handleUpgradeToPremium}
+                className="w-full bg-gradient-to-r from-yellow-400 to-amber-600 hover:from-yellow-500 hover:to-amber-700 text-white font-semibold shadow-md hover:shadow-lg transition-all"
+              >
+                <Crown className="h-4 w-4 mr-2" />
+                Ativar Premium
+              </Button>
+            </Card>
+          </div>
+        )}
+
+        {/* Plano e Assinatura - Para usuários Premium */}
+        {isPremium && (
+          <div>
+            <h2 className="text-base font-bold text-foreground mb-4">Plano e Assinatura</h2>
+            
+            <Card className="p-4 border-border/10 shadow-sm rounded-3xl">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
+                  <Crown className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-foreground">Plano Premium Ativo</h3>
+                  <p className="text-xs text-muted-foreground">Todos os recursos desbloqueados</p>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 mb-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Check className="h-4 w-4 text-green-600" />
+                  <p className="text-sm font-semibold text-foreground">Recursos Premium ativos:</p>
+                </div>
+                <ul className="space-y-1.5 text-xs text-muted-foreground ml-6">
+                  <li>✅ Destaque garantido nas buscas</li>
+                  <li>✅ Fotos de capa e ambiente</li>
+                  <li>✅ Badge verificado</li>
+                  <li>✅ Estatísticas completas</li>
+                  <li>✅ Suporte prioritário</li>
+                </ul>
+              </div>
+
+              <Button 
+                onClick={() => navigate('/restaurant-manage-subscription')}
+                variant="outline"
+                className="w-full"
+              >
+                <CreditCard className="h-4 w-4 mr-2" />
+                Gerenciar Assinatura
+              </Button>
+            </Card>
+          </div>
+        )}
+
+        {/* Preferências e Personalização */}
+        <div>
+          <h2 className="text-base font-bold text-foreground mb-4">Preferências e Personalização</h2>
+          
+          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <Bell className="h-5 w-5 text-[#022D68]" />
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Notificações e alertas</p>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-3 ml-8">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Alertas de pedidos</span>
+                  <Switch 
+                    checked={notifications.orders}
+                    onCheckedChange={(checked) => setNotifications({...notifications, orders: checked})}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Alertas de visitas</span>
+                  <Switch 
+                    checked={notifications.visits}
+                    onCheckedChange={(checked) => setNotifications({...notifications, visits: checked})}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Novos seguidores</span>
+                  <Switch 
+                    checked={notifications.followers}
+                    onCheckedChange={(checked) => setNotifications({...notifications, followers: checked})}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => {
+                if (isPremium) {
+                  navigate("/restaurant-integrations");
+                } else {
+                  toast({
+                    title: "Recurso Premium",
+                    description: "Faça upgrade para gerenciar seus canais de pedido",
+                    variant: "default",
+                  });
+                  navigate("/upgrade");
+                }
+              }}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <Package className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-foreground">Canais de Pedido</p>
+                <p className="text-xs text-muted-foreground">
+                  {isPremium ? "WhatsApp, iFood, Anota Aí" : "🔒 Premium: Gerenciar canais"}
+                </p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </Card>
+        </div>
+
+        {/* Suporte e Conta */}
+        <div>
+          <h2 className="text-base font-bold text-foreground mb-4">Suporte e Conta</h2>
+          
+          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
+            <button 
+              onClick={() => navigate("/restaurant-help-center")}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <HelpCircle className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-foreground">Central de Ajuda</p>
+                <p className="text-xs text-muted-foreground">Tutoriais e perguntas frequentes</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => navigate("/restaurant-support")}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <MessageSquare className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-foreground">Falar com o Suporte</p>
+                <p className="text-xs text-muted-foreground">Chat direto com equipe FilterFood</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={() => navigate("/restaurant-terms")}
+              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+            >
+              <FileCheck className="h-5 w-5 text-[#022D68]" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-foreground">Termos e Política de Privacidade</p>
+                <p className="text-xs text-muted-foreground">Leitura e aceite</p>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            </button>
+
+            <button 
+              onClick={handleLogout}
+              className="w-full p-4 flex items-center gap-3 hover:bg-red-50 transition-colors"
+            >
+              <LogOut className="h-5 w-5 text-red-600" />
+              <div className="flex-1 text-left">
+                <p className="text-sm font-medium text-red-600">Sair da conta</p>
+              </div>
+            </button>
+          </Card>
+        </div>
+      </div>
+
+      {/* Edit Field Dialog */}
+      {editingField && (
+        <EditFieldDialog
+          isOpen={true}
+          onClose={() => setEditingField(null)}
+          title={editingField.title}
+          fieldName={editingField.fieldName}
+          currentValue={editingField.currentValue}
+          icon={editingField.icon}
+          onSave={handleSaveField}
+          placeholder={editingField.placeholder}
+          type={editingField.type}
+          validationSchema={editingField.validationSchema}
+          mask={editingField.mask}
+        />
+      )}
+
+      {/* Edit Hours Dialog */}
+      <EditHoursDialog
+        open={isEditingHours}
+        onOpenChange={setIsEditingHours}
+        currentSchedule={schedule}
+        onSave={handleSaveHours}
+      />
+
+      {/* Edit Address Dialog */}
+      {restaurant?.id && (
+        <EditAddressDialog
+          open={isEditingAddress}
+          onOpenChange={setIsEditingAddress}
+          restaurantId={restaurant.id}
+          currentAddress={{
+            address: restaurant.address,
+            city: restaurant.city,
+            state: restaurant.state,
+            cep: restaurant.cep,
+            neighborhood: restaurant.neighborhood,
+            latitude: restaurant.latitude,
+            longitude: restaurant.longitude,
+          }}
+          onSave={() => {
+            // Force refetch after address save
+            window.location.reload();
+          }}
+        />
+      )}
+
+      <RestaurantBottomNav selectedTab="perfil" />
     </div>
   );
-}
+};
+
+export default RestaurantProfile;

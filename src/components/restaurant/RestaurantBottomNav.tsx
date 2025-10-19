@@ -8,19 +8,29 @@ interface NavItem {
   path: string;
   label: string;
   icon: React.ElementType;
+  key: string;
 }
 
 const navItems: NavItem[] = [
-  { path: '/restaurant-home', label: 'Início', icon: Home },
-  { path: '/restaurant-stats', label: 'Estatísticas', icon: BarChart3 },
-  { path: '/upgrade', label: 'Premium', icon: Crown },
-  { path: '/restaurant-profile-menu', label: 'Perfil', icon: User },
+  { path: '/restaurant-home', label: 'Início', icon: Home, key: 'home' },
+  { path: '/restaurant-stats', label: 'Estatísticas', icon: BarChart3, key: 'stats' },
+  { path: '/upgrade', label: 'Premium', icon: Crown, key: 'upgrade' },
+  { path: '/restaurant-profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
-const RestaurantBottomNav: React.FC = () => {
+interface RestaurantBottomNavProps {
+  selectedTab?: string;
+}
+
+const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }) => {
   const location = useLocation();
   
-  const getActivePath = (path: string) => {
+  const getActivePath = (path: string, key: string) => {
+    // Prioriza a prop selectedTab se fornecida
+    if (selectedTab) {
+      return selectedTab === key;
+    }
+    // Fallback para a rota atual
     return location.pathname.startsWith(path);
   };
 
@@ -28,7 +38,7 @@ const RestaurantBottomNav: React.FC = () => {
     <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-2xl">
       <div className="flex justify-around items-center h-20 px-2">
         {navItems.map((item) => {
-          const isActive = getActivePath(item.path);
+          const isActive = getActivePath(item.path, item.key);
           const Icon = item.icon;
           
           const isUpgradeButton = item.path === '/upgrade';
