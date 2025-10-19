@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { showError } from "@/utils/toast";
+import { createPageUrl } from "@/utils/url";
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -43,6 +44,19 @@ export default function RestaurantLogin() {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4">
+      
+      {/* Botão Voltar */}
+      <div className="absolute top-4 left-4">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={() => navigate(createPageUrl('restaurant-area'))}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+      </div>
+
       <header className="flex flex-col items-center justify-center pt-16 pb-6 w-full max-w-sm">
         <div className="w-36 h-auto drop-shadow-md">
           <svg viewBox="125 -5 100 110" className="w-36 h-auto">
