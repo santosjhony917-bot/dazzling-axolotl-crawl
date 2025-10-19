@@ -41,18 +41,32 @@ export default function SearchRestaurants() {
 
   const fetchLocation = async (useGPS: boolean) => {
     setLoadingLocation(true);
+    
+    if (!useGPS) {
+      // Se for para usar mock location, não tentamos o GPS
+      console.log("Usando localização mock (João Pessoa).");
+      handleLocationUpdate({
+        street: "Av. Epitácio Pessoa",
+        neighborhood: "Tambau",
+        city: "João Pessoa",
+        state: "PB",
+        cep: "58039-000",
+        lat: MOCK_LOCATION_COORDS.lat,
+        lon: MOCK_LOCATION_COORDS.lon,
+      });
+      return;
+    }
+
     try {
-      // getCurrentLocationAddress handles mock fallback internally if GPS fails or permission is denied
+      // Esta chamada dispara o prompt de permissão do navegador/dispositivo
       const addressData = await getCurrentLocationAddress();
       handleLocationUpdate(addressData);
-      if (useGPS) {
-        showSuccess("Localização atualizada via GPS!");
-      }
+      showSuccess("Localização atualizada via GPS!");
     } catch (error) {
-      console.error("Failed to fetch location:", error);
-      showError("Não foi possível obter sua localização. Usando localização padrão.");
+      console.error("Failed to fetch location via GPS:", error);
+      showError("Não foi possível obter sua localização via GPS. Usando localização padrão.");
       
-      // Fallback to mock location explicitly if getCurrentLocationAddress failed unexpectedly
+      // Fallback to mock location if GPS fails or permission is denied
       handleLocationUpdate({
         street: "Av. Epitácio Pessoa",
         neighborhood: "Tambau",
@@ -68,10 +82,13 @@ export default function SearchRestaurants() {
   useEffect(() => {
     const preference = checkLocationPreference();
     if (preference === 'unset') {
+      // Se a preferência não foi definida, mostramos o modal.
       setShowPermissionModal(true);
     } else if (preference === 'granted') {
+      // Se já foi concedida, tentamos buscar via GPS (o que pedirá a permissão se for a primeira vez na sessão)
       fetchLocation(true);
     } else if (preference === 'mock') {
+      // Se for para usar mock, usamos mock
       fetchLocation(false);
     }
   }, []);
@@ -91,6 +108,7 @@ export default function SearchRestaurants() {
       <LocationPermissionModal
         onPermissionGranted={() => {
           setShowPermissionModal(false);
+          // Quando concedido no modal, chamamos fetchLocation(true) que tentará o GPS
           fetchLocation(true);
         }}
         onUseMockLocation={() => {
