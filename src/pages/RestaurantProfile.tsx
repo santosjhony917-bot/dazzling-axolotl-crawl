@@ -49,7 +49,8 @@ export default function RestaurantProfile() {
         name: 'Risoto de Camarão',
         description: 'Arroz arbóreo, camarões frescos e ervas finas.',
         price: 68.00,
-        imageUrl: 'https://images.unsplash.com/photo-1633321702544-e81e8b0e5e38?q=80&w=2070&auto=format&fit=crop',
+        // URL corrigida para uma imagem funcional
+        imageUrl: 'https://images.unsplash.com/photo-1519708227418-d6dc969a9974?q=80&w=2070&auto=format&fit=crop',
         isFavorite: true
       }
     ],
