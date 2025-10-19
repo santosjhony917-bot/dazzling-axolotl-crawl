@@ -52,7 +52,7 @@ export default function ForgotPassword() {
         </Button>
 
         {/* Card Principal */}
-        <div className="bg-white rounded-3xl shadow-lg p-8">
+        <div className="bg-white rounded-3xl shadow-xl p-8">
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <div className="w-24 h-auto">
@@ -86,14 +86,14 @@ export default function ForgotPassword() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-14 rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                    className="h-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
                   />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-14 bg-[#E47948] hover:bg-[#E47948]/90 text-white rounded-full text-lg font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
+                  className="w-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white rounded-full text-lg font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
                 >
                   {loading ? "Enviando..." : "Enviar instruções"}
                 </Button>
@@ -142,10 +142,21 @@ export default function ForgotPassword() {
           <p className="text-center text-[#5f728c] text-sm mt-6">
             Lembrou sua senha?{" "}
             <button
-              onClick={() => navigate(createPageUrl("customer-login"))}
+              onClick={() => navigate(createPageUrl("auth"))}
               className="text-[#E47948] font-semibold hover:underline"
             >
               Fazer login
+            </button>
+          </p>
+        )}
+        {/* Ajustando o link de login para a página de autenticação geral */}
+        {success && (
+          <p className="text-center text-[#5f728c] text-sm mt-6">
+            <button
+              onClick={() => navigate(createPageUrl("auth"))}
+              className="text-[#E47948] font-semibold hover:underline"
+            >
+              Voltar para o login
             </button>
           </p>
         )}
