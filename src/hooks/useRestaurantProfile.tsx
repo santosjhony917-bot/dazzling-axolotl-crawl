@@ -32,31 +32,22 @@ export function useRestaurantProfile() {
     setLoading(true);
     setError(null);
     try {
-      // Mock data structure for initial load
-      const mockData: RestaurantProfileData = {
-        id: id,
-        name: "Cachorro Quente do Zé",
-        address: "Rua Fictícia, 123",
-        city: "João Pessoa",
-        state: "PB",
-        cep: "58039-000",
-        neighborhood: "Tambaú",
-        category: "Lanches",
-        logo_url: null,
-        cover_image_url: null,
-        whatsapp_url: null,
-        ifood_url: null,
-        other_url: null,
-        latitude: -7.1195,
-        longitude: -34.8450,
-        opening_hours: null,
-      };
+      // Fetch from the 'restaurants' table
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('user_id', id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+        throw new Error(error.message);
+      }
       
-      // In a real app, we would fetch from the 'restaurants' table
-      // const { data, error } = await supabase.from('restaurants').select('*').eq('user_id', id).single();
-      
-      // Mocking successful fetch
-      setRestaurant(mockData);
+      if (data) {
+        setRestaurant(data as RestaurantProfileData);
+      } else {
+        setRestaurant(null); // No restaurant found for this user
+      }
 
     } catch (e) {
       setError((e as Error).message);
@@ -76,11 +67,17 @@ export function useRestaurantProfile() {
   const updateRestaurant = async (updates: Partial<RestaurantProfileData>) => {
     if (!restaurant?.id) return { error: "Restaurante não encontrado." };
     
-    // Mocking update
-    setRestaurant(prev => ({ ...prev!, ...updates }));
-    
-    // In a real app:
-    // const { error } = await supabase.from('restaurants').update(updates).eq('id', restaurant.id);
+    const { error } = await supabase
+      .from('restaurants')
+      .update(updates)
+      .eq('id', restaurant.id);
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    // Refetch to get the latest data after update
+    await fetchRestaurant(restaurant.id);
     
     return { error: null };
   };

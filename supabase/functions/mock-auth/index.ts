@@ -70,6 +70,55 @@ serve(async (req) => {
         throw new Error(roleError.message);
     }
 
+    // NEW: If the role is a restaurant role, ensure a restaurant profile exists
+    if (role === 'free_restaurant' || role === 'premium_restaurant') {
+      const { data: existingRestaurant, error: fetchRestaurantError } = await supabaseAdmin
+        .from('restaurants')
+        .select('id')
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchRestaurantError && fetchRestaurantError.code !== 'PGRST116') { // PGRST116 means no rows found
+        console.error("Error fetching existing restaurant:", fetchRestaurantError);
+        throw new Error(fetchRestaurantError.message);
+      }
+
+      if (!existingRestaurant) {
+        // Create a new restaurant entry if one doesn't exist
+        const { error: insertRestaurantError } = await supabaseAdmin
+          .from('restaurants')
+          .insert({
+            user_id: user.id,
+            name: `Restaurante Mock (${role === 'free_restaurant' ? 'Free' : 'Premium'})`,
+            address: 'Rua Fictícia, 123',
+            city: 'João Pessoa',
+            state: 'PB',
+            cep: '58039-000',
+            neighborhood: 'Tambaú',
+            plan: role === 'premium_restaurant' ? 'premium' : 'free', // Map AppRole to restaurant_plan
+            category: 'Comida Variada',
+            latitude: -7.1195, // Example coordinates for João Pessoa
+            longitude: -34.8450,
+          });
+
+        if (insertRestaurantError) {
+          console.error("Error inserting new restaurant:", insertRestaurantError);
+          throw new Error(insertRestaurantError.message);
+        }
+      } else {
+        // If restaurant exists, ensure its plan matches the role
+        const { error: updateRestaurantPlanError } = await supabaseAdmin
+          .from('restaurants')
+          .update({ plan: role === 'premium_restaurant' ? 'premium' : 'free' })
+          .eq('user_id', user.id);
+
+        if (updateRestaurantPlanError) {
+          console.error("Error updating restaurant plan:", updateRestaurantPlanError);
+          throw new Error(updateRestaurantPlanError.message);
+        }
+      }
+    }
+
     // 5. Return success status. Client will perform signInWithPassword now.
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
