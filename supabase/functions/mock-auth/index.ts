@@ -33,20 +33,20 @@ serve(async (req) => {
       }
     );
 
+    let user;
+
     // 1. Check if user exists
     const { data: { users: existingUsers } } = await supabaseAdmin.auth.admin.listUsers({
         filter: `email eq '${email}'`,
         limit: 1
     });
     
-    let user;
-
     if (existingUsers && existingUsers.length > 0) {
         user = existingUsers[0];
-        // 2. Update user to ensure email is confirmed (if needed)
+        // 2. Update user to ensure email is confirmed and password is set
         await supabaseAdmin.auth.admin.updateUserById(user.id, {
             email_confirm: true,
-            password: password, // Ensure password is set correctly
+            password: password,
         });
     } else {
         // 3. Create user with confirmed email
@@ -62,7 +62,7 @@ serve(async (req) => {
         user = newUser;
     }
 
-    // 4. Assign role using RPC (must be called by the admin client)
+    // 4. Assign role using RPC
     const { error: roleError } = await supabaseAdmin.rpc('set_user_role', { new_role: role, user_id: user.id });
     
     if (roleError) {
@@ -70,14 +70,8 @@ serve(async (req) => {
         throw new Error(roleError.message);
     }
 
-    // 5. Return the user's JWT token for client-side login
-    const { data: { session }, error: sessionError } = await supabaseAdmin.auth.signInWithPassword({ email, password });
-
-    if (sessionError || !session) {
-        throw new Error(sessionError?.message || 'Failed to create session.');
-    }
-
-    return new Response(JSON.stringify({ token: session.access_token }), {
+    // 5. Return success status. Client will perform signInWithPassword now.
+    return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     });
