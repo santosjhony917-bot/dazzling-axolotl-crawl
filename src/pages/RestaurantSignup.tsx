@@ -29,16 +29,18 @@ export default function RestaurantSignup() {
     e.preventDefault();
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
+    // Correção: Usando a assinatura de dois argumentos para signUp:
+    // 1. Credenciais { email, password }
+    // 2. Opções { data: { metadata } }
+    const { data, error } = await supabase.auth.signUp(
+      { email, password },
+      {
         data: {
           full_name: restaurantName,
           is_restaurant: true, // Custom metadata
         },
-      },
-    });
+      }
+    );
 
     if (error) {
       showError(error.message || "Ocorreu um erro ao criar a conta.");
