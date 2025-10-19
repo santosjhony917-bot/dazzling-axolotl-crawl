@@ -7,37 +7,47 @@ import { AppRole } from "@/hooks/useUserRole";
  * Nota: No ambiente real, o role seria determinado pelo backend após o login.
  */
 export async function mockLoginWithRole(role: AppRole) {
+  const email = `mock-${role}@filterfood.com`;
+  const password = 'password';
+
   // 1. Limpa qualquer role anterior no mock
   await base44.auth.clearRole();
 
-  // 2. Simula o login no Supabase (necessário para o useUserRole funcionar)
-  // Usamos um email/senha mockados para simular um usuário autenticado
-  const { error: signInError } = await supabase.auth.signInWithPassword({
-    email: `mock-${role}@filterfood.com`,
-    password: 'password',
+  // 2. Tenta fazer login
+  let { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
   });
 
-  if (signInError) {
-    // Se o usuário mock não existir, criamos ele (apenas para garantir que o Supabase tenha um usuário)
-    if (signInError.message.includes('Invalid login credentials')) {
-      const { error: signUpError } = await supabase.auth.signUp({
-        email: `mock-${role}@filterfood.com`,
-        password: 'password',
-      });
-      if (signUpError) throw signUpError;
-      
-      // Tenta logar novamente após o cadastro
-      const { error: finalSignInError } = await supabase.auth.signInWithPassword({
-        email: `mock-${role}@filterfood.com`,
-        password: 'password',
-      });
-      if (finalSignInError) throw finalSignInError;
+  // 3. Se o login falhar com credenciais inválidas (usuário não existe), tenta cadastrar
+  if (signInError && signInError.message.includes('Invalid login credentials')) {
+    console.log(`Mock Auth: User ${email} not found. Attempting to sign up.`);
+    
+    const { error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    
+    if (signUpError) {
+      // Se o erro for que o usuário já existe, ignoramos o erro de cadastro e tentamos logar novamente
+      if (signUpError.message.includes('already exists')) {
+        console.log(`Mock Auth: User ${email} already exists. Retrying sign in.`);
+        ({ error: signInError } = await supabase.auth.signInWithPassword({ email, password }));
+      } else {
+        throw signUpError;
+      }
     } else {
-      throw signInError;
+      // Cadastro bem-sucedido, tenta logar
+      console.log(`Mock Auth: User ${email} signed up successfully. Signing in.`);
+      ({ error: signInError } = await supabase.auth.signInWithPassword({ email, password }));
     }
   }
 
-  // 3. Define o role no mock da API (para simular o backend retornando o role)
+  if (signInError) {
+    throw signInError;
+  }
+
+  // 4. Define o role no mock da API (para simular o backend retornando o role)
   await base44.auth.updateMe({ user_role: role });
 }
 
