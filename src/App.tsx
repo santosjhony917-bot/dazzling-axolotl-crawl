@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
+import { UserProvider } from "./contexts/UserContext"; // Importação adicionada
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -14,7 +15,7 @@ import Onboarding from "./pages/Onboarding";
 import Welcome from "./pages/Welcome";
 import SearchRestaurants from "./pages/SearchRestaurants";
 import RestaurantResults from "./pages/RestaurantResults";
-import RestaurantProfilePublic from "./pages/RestaurantProfile"; // Renomeado para evitar conflito
+import RestaurantProfilePublic from "./pages/RestaurantProfilePublic";
 import RestaurantDashboard from "./pages/RestaurantDashboard";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import RestaurantLogin from "./pages/RestaurantLogin";
@@ -24,7 +25,7 @@ import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
 import RestaurantHome from "./pages/RestaurantHome";
 import Profile from "./pages/Profile";
-import RestaurantProfile from "./pages/RestaurantProfile"; // Importando o novo componente de menu de perfil
+import RestaurantProfile from "./pages/RestaurantProfile";
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -90,7 +91,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={session ? <Profile /> : <AuthPage />} />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-home" element={<RestaurantHome />} />
-      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} /> {/* Rota atualizada */}
+      <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} />
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
@@ -116,7 +117,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <UserProvider> {/* Adicionando UserProvider */}
+        <UserProvider>
           <AppRoutes />
         </UserProvider>
       </BrowserRouter>
