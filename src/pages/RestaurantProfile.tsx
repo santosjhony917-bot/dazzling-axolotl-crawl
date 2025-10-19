@@ -310,7 +310,7 @@ const RestaurantProfile = () => {
   };
 
   const handleUpgradeToPremium = () => {
-    navigate("/upgrade"); // Usando a rota genérica de upgrade
+    navigate("/upgrade"); // Usando a rota correta
   };
 
   const handleUploadLogo = async (file: File) => {
@@ -354,7 +354,7 @@ const RestaurantProfile = () => {
         description: "Faça upgrade para personalizar fotos de capa",
         variant: "default",
       });
-      navigate("/upgrade");
+      navigate("/upgrade"); // Usando a rota correta
       return;
     }
 
@@ -835,7 +835,7 @@ const RestaurantProfile = () => {
                     description: "Faça upgrade para gerenciar seus canais de pedido",
                     variant: "default",
                   });
-                  navigate("/upgrade");
+                  navigate("/upgrade"); // Usando a rota correta
                 }
               }}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"

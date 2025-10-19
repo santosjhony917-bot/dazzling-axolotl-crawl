@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
-import { UserProvider } from "./contexts/UserContext"; // Importação adicionada
+import { UserProvider } from "./contexts/UserContext";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
