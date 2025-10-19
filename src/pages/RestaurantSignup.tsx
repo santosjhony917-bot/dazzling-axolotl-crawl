@@ -52,7 +52,7 @@ export default function RestaurantSignup() {
   };
 
   const updateLocation = (id: number, field: keyof Location, value: string) => {
-    setLocations(locations.map(loc => 
+    setLocations(prevLocations => prevLocations.map(loc => 
       loc.id === id ? { ...loc, [field]: value } : loc
     ));
   };
