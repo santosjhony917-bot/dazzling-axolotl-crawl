@@ -13,6 +13,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+const GoogleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <title>Google</title>
+    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.18-1.73 4.1-1.02 1.08-2.56 2.17-4.8 2.17-5.78 0-10.47-4.88-10.47-10.92S6.7 1.48 12.48 1.48c3.24 0 5.42 1.38 6.68 2.54l2.84-2.78C19.59 1.18 16.44 0 12.48 0 5.6 0 0 5.58 0 12.42s5.6 12.42 12.48 12.42c7.2 0 12.12-4.92 12.12-12.72 0-.8-.08-1.52-.24-2.22h-11.88z" />
+  </svg>
+);
+
+const AppleIcon = ({ className }: { className?: string }) => (
+  <svg className={className} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <title>Apple</title>
+    <path d="M12.15,2.56c-2.13,0-4.13,1.4-5.12,3.83-2.21,5.22,1.26,11.18,3.67,14.37,1.13,1.5,2.31,3.24,4.06,3.21,1.69-.03,2.61-1.05,4.06-3.21,2.41-3.19,5.88-9.15,3.67-14.37-1.13-2.73-3.53-4.22-5.88-4.22-2.7,0-4.6,1.78-5.88,1.78s-3.18-1.78-5.88-1.78c-2.35,0-4.75,1.49-5.88,4.22-2.21,5.22,1.26,11.18,3.67,14.37,1.13,1.5,2.31,3.24,4.06,3.21,1.69-.03,2.61-1.05,4.06-3.21,1.23-1.65,2.02-3.03,2.83-4.42-1.9-1.14-3.03-3.48-2.8-6.1.29-3.3,2.73-5.63,5.85-5.92-0.02-.05-0.04-.1-0.06-.15-2.13-3.35-5.85-4.34-7.95-2.48-0.02,0.02-0.04,0.04-0.06,0.06-1.98-1.34-4.22-1.38-5.88-1.38Z" />
+  </svg>
+);
+
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -135,11 +149,11 @@ const AuthPage = () => {
               </div>
               
               <Button type="button" onClick={() => handleOAuthLogin('google')} variant="outline" className="w-full h-auto py-3.5 text-base font-semibold shadow-sm" disabled={loading}>
-                <img alt="Google logo" className="w-5 h-5 mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHCwDd1qyknEolrO2aZiuyydN8N4wurGMGDy8v6xoXGLQ22jYf9FQQUMZk-5853NzvK3Kw_3ETaqGsE3AN2ebGniXdw-9nXGctNa9H-qjeLzlMqi7Nq7vY590IvUWRZTkmKfkncfU43c-Srn-ZMWFZhyNw9OCkHGuHTId5iziQyDmTuBSUEXOQaTn6eko8u6E_Jv617JSWhjGnu1cElM-AtVNDmhK87f2h6SexYYavDOOtmCwbtx1hcguIBVIuyDOO-uYggeLEADrV"/>
+                <GoogleIcon className="w-5 h-5 mr-2" />
                 Continuar com Google
               </Button>
               <Button type="button" onClick={() => handleOAuthLogin('apple')} variant="outline" className="w-full h-auto py-3.5 text-base font-semibold shadow-sm" disabled={loading}>
-                <img alt="Apple logo" className="w-5 h-5 mr-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa9zdce7JX7qyLE7MHZRDCLDEypMrIjmncBj3OiT_MdRjRrxVaNINNOOOcQnSDTCqggqCs6eCt52KyasKj78zJmXWjH5oLdXhuWtgPh4uvovHvjmHIaQu_LHNxvbkiE-hxUsRupgVQ5swPjWl27wJ4vADpyS2L7Pq_IKi8ld7dcR_Es1mW2d5-U8IQD5hAhQJPdwVY2_QAzh9QvDDWa-TN7Xa4Y8Umm0KGS7Fvmr2RAdvFtvB9Zp8QgiL5O5a15v_c6CjzH7ldm9_H"/>
+                <AppleIcon className="w-5 h-5 mr-2" />
                 Continuar com Apple
               </Button>
             </div>
