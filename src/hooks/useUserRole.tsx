@@ -13,14 +13,17 @@ const DEFAULT_ROLE: AppRole = 'customer';
 
 export function useUserRole() {
   const [userId, setUserId] = useState<string | null>(null);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch user ID initially
     supabase.auth.getUser().then(({ data }) => {
       setUserId(data.user?.id || null);
+      setIsInitialLoading(false);
     });
   }, []);
 
-  const { data: roles, isLoading, error, refetch } = useQuery<UserRole[], Error>({
+  const { data: roles, isLoading: isRolesLoading, error, refetch } = useQuery<UserRole[], Error>({
     queryKey: ['userRoles', userId],
     queryFn: async () => {
       if (!userId) return [];
@@ -58,7 +61,7 @@ export function useUserRole() {
     isPremiumRestaurant: currentRole === 'premium_restaurant',
     isFreeRestaurant: currentRole === 'free_restaurant',
     isCustomer: currentRole === 'customer',
-    isLoading,
+    isLoading: isInitialLoading || isRolesLoading, // Combine initial loading state
     error,
     refetch,
     userId,

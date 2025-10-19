@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useUserRole } from '@/hooks/useUserRole';
 import AdminLayout from './AdminLayout';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
 
 interface AdminRouteProps {
   children: React.ReactNode;
@@ -10,7 +12,7 @@ interface AdminRouteProps {
 }
 
 const AdminRoute: React.FC<AdminRouteProps> = ({ children, title }) => {
-  const { isAdmin, isLoading } = useUserRole();
+  const { isAdmin, isLoading, error } = useUserRole();
 
   if (isLoading) {
     // Simple full-screen loading skeleton
@@ -27,6 +29,21 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children, title }) => {
             <Skeleton className="h-40 w-full" />
           </div>
         </div>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="p-8 max-w-lg mx-auto mt-20">
+        <Alert variant="destructive">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle>Erro de Autenticação</AlertTitle>
+          <AlertDescription>
+            Não foi possível verificar suas permissões de administrador. Detalhes: {error.message}
+          </AlertDescription>
+        </Alert>
+        <Navigate to="/auth" replace />
       </div>
     );
   }
