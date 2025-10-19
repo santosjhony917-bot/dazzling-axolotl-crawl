@@ -24,6 +24,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton"; // Importando o botão
 
+// Definindo a interface do estado de edição fora do componente para clareza
+interface EditingFieldState {
+  key: string;
+  title: string;
+  fieldName: string;
+  icon: React.ReactNode;
+  type?: "text" | "tel" | "email";
+  placeholder?: string;
+  validationSchema?: z.ZodString;
+  mask?: (value: string) => string;
+  currentValue: string; // Adicionando currentValue aqui para consistência
+}
+
 const RestaurantProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -33,16 +46,7 @@ const RestaurantProfile = () => {
   const { isPremium, isAdmin } = useUserRole();
   const { uploadImage, uploading } = useImageUpload();
   
-  const [editingField, setEditingField] = useState<{
-    key: string;
-    title: string;
-    fieldName: string;
-    icon: React.ReactNode;
-    type?: "text" | "tel" | "email";
-    placeholder?: string;
-    validationSchema?: z.ZodString;
-    mask?: (value: string) => string;
-  } | null>(null); // CORRIGIDO: Inicializando com null
+  const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
 
   const [isEditingHours, setIsEditingHours] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
