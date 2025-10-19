@@ -35,7 +35,7 @@ export default function CustomerSignup() {
       </Button>
 
       <header className="flex flex-col items-center justify-center pt-16 pb-6 w-full max-w-sm">
-        <div className="w-28 h-auto drop-shadow-md">
+        <div className="w-24 h-auto drop-shadow-md">
           <svg viewBox="125 -5 100 110" className="w-full h-auto">
             <g transform="matrix(-1.022,0,0,1.022,227.94,-1.794)" fill="#022D68">
               <path d="M51.798,25.546c-5.767,0-10.458,4.692-10.458,10.459c0,4.981,3.971,14.129,10.458,14.129  c6.488,0,10.458-9.147,10.458-14.129C62.256,30.239,57.564,25.546,51.798,25.546z M51.798,44.633c-1.992,0-4.956-5.162-4.956-8.627  c0-2.732,2.224-4.957,4.956-4.957s4.957,2.225,4.957,4.957C56.755,39.471,53.79,44.633,51.798,44.633z"></path>
