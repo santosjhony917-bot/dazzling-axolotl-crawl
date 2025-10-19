@@ -84,140 +84,149 @@ export default function ClaimRestaurant() {
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
       
-      {/* Botão Voltar */}
-      <div className="absolute top-4 left-4">
-        <Button 
-          variant="ghost" 
-          size="icon" 
+      {/* Header/Botão Voltar */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={() => navigate(createPageUrl('restaurant-area'))}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-      </div>
-
-      <header className="flex flex-col items-center justify-center pt-16 pb-6 w-full max-w-sm">
-        <div className="w-36 h-auto drop-shadow-md">
-          <Utensils className="w-12 h-12 text-[#022D68] mx-auto" />
-        </div>
+        <div className="w-10"></div> {/* Placeholder para alinhamento */}
       </header>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
-        <Card className="w-full shadow-xl border-none rounded-xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-[#022D68] tracking-tight text-4xl font-bold leading-tight">
-              Reivindicar Restaurante
-            </CardTitle>
-            <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
-              Use o código de acesso fornecido pela FilterFood.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleClaim} className="space-y-4">
-              
-              {/* Código de Acesso */}
-              <div>
-                <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso</label>
-                <Input
-                  id="access-code"
-                  className="h-14 text-base rounded-full"
-                  placeholder="Insira o código aqui"
-                  type="text"
-                  value={accessCode}
-                  onChange={(e) => setAccessCode(e.target.value)}
-                  disabled={loading}
-                  required
-                />
-                <p className="text-gray-500 text-sm pt-1 pl-4">Este código é único para o seu estabelecimento.</p>
-              </div>
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full"
+        >
+          {/* Icon */}
+          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto">
+            <div className="w-36 h-auto drop-shadow-md">
+              <Utensils className="w-12 h-12 text-[#022D68] mx-auto" />
+            </div>
+          </div>
 
-              {/* E-mail */}
-              <div>
-                <label htmlFor="email" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">E-mail</label>
-                <Input
-                  id="email"
-                  className="h-14 text-base rounded-full"
-                  placeholder="seuemail@exemplo.com"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                  required
-                />
-              </div>
-
-              {/* Senha */}
-              <div>
-                <label htmlFor="password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Senha</label>
-                <div className="relative">
+          <Card className="w-full shadow-xl border-none rounded-xl">
+            <CardHeader className="text-center">
+              <CardTitle className="text-[#022D68] tracking-tight text-4xl font-bold leading-tight">
+                Reivindicar Restaurante
+              </CardTitle>
+              <CardDescription className="text-gray-600 text-lg font-medium leading-normal pt-2">
+                Use o código de acesso fornecido pela FilterFood.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleClaim} className="space-y-4">
+                
+                {/* Código de Acesso */}
+                <div>
+                  <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso</label>
                   <Input
-                    id="password"
-                    className="h-14 text-base pr-12 rounded-full"
-                    placeholder="Crie uma senha"
-                    type={passwordVisible ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    id="access-code"
+                    className="h-14 text-base rounded-full"
+                    placeholder="Insira o código aqui"
+                    type="text"
+                    value={accessCode}
+                    onChange={(e) => setAccessCode(e.target.value)}
                     disabled={loading}
                     required
                   />
-                  <button
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
-                    type="button"
-                  >
-                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
+                  <p className="text-gray-500 text-sm pt-1 pl-4">Este código é único para o seu estabelecimento.</p>
                 </div>
-              </div>
 
-              {/* Confirmar Senha */}
-              <div>
-                <label htmlFor="confirm-password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Confirmar Senha</label>
-                <div className="relative">
+                {/* E-mail */}
+                <div>
+                  <label htmlFor="email" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">E-mail</label>
                   <Input
-                    id="confirm-password"
-                    className="h-14 text-base pr-12 rounded-full"
-                    placeholder="Confirme sua senha"
-                    type={passwordVisible ? "text" : "password"}
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    id="email"
+                    className="h-14 text-base rounded-full"
+                    placeholder="seuemail@exemplo.com"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     disabled={loading}
                     required
                   />
-                  <button
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
-                    type="button"
-                  >
-                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
                 </div>
-              </div>
 
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-[#E47948] text-white font-bold h-12 text-lg hover:bg-[#E47948]/90 rounded-full shadow-lg shadow-[#E47948]/50 mt-6"
-              >
-                {loading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  "Reivindicar Restaurante"
-                )}
-              </Button>
-            </form>
+                {/* Senha */}
+                <div>
+                  <label htmlFor="password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Senha</label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      className="h-14 text-base pr-12 rounded-full"
+                      placeholder="Crie uma senha"
+                      type={passwordVisible ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading}
+                      required
+                    />
+                    <button
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
+                      type="button"
+                    >
+                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                </div>
 
-            <p className="pt-6 text-center text-base text-gray-600">
-              Já tem uma conta?
-              <Link
-                to={createPageUrl('restaurant-login')}
-                className="font-bold text-[#022D68] hover:underline ml-1"
-              >
-                Fazer login
-              </Link>
-            </p>
-          </CardContent>
-        </Card>
+                {/* Confirmar Senha */}
+                <div>
+                  <label htmlFor="confirm-password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Confirmar Senha</label>
+                  <div className="relative">
+                    <Input
+                      id="confirm-password"
+                      className="h-14 text-base pr-12 rounded-full"
+                      placeholder="Confirme sua senha"
+                      type={passwordVisible ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      disabled={loading}
+                      required
+                    />
+                    <button
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
+                      type="button"
+                    >
+                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-[#E47948] text-white font-bold h-12 text-lg hover:bg-[#E47948]/90 rounded-full shadow-lg shadow-[#E47948]/50 mt-6"
+                >
+                  {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Reivindicar Restaurante"
+                  )}
+                </Button>
+              </form>
+
+              <p className="pt-6 text-center text-base text-gray-600">
+                Já tem uma conta?
+                <Link
+                  to={createPageUrl('restaurant-login')}
+                  className="font-bold text-[#022D68] hover:underline ml-1"
+                >
+                  Fazer login
+                </Link>
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
       </main>
 
       {/* Footer */}
