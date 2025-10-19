@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Store, Edit, BarChart3, ChevronRight, Star } from "lucide-react";
+import { MapPin, Store, Edit, BarChart3, ChevronRight, Star, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { useNavigate } from "react-router-dom";
