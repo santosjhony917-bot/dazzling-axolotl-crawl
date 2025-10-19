@@ -37,6 +37,12 @@ interface EditingFieldState {
   currentValue: string; // Adicionando currentValue aqui para consistência
 }
 
+// Definindo o schema de validação de URL fora da função para simplificar o escopo
+const urlValidationSchema = z.string().url('URL inválida').regex(
+  /^https?:\/\//,
+  'URL deve começar com http:// ou https://'
+).optional().or(z.literal(''));
+
 const RestaurantProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -166,11 +172,6 @@ const RestaurantProfile = () => {
       setIsEditingAddress(true);
       return;
     }
-
-    const urlValidationSchema = z.string().url('URL inválida').regex(
-      /^https?:\/\//,
-      'URL deve começar com http:// ou https://'
-    ).optional().or(z.literal(''));
 
     const fieldConfig: Record<string, any> = {
       name: {
