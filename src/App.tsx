@@ -78,7 +78,7 @@ const AppRoutes = () => {
       />
       <Route
         path="/restaurant-profile/:id"
-        element={session ? <RestaurantProfile /> : <AuthPage />}
+        element={<RestaurantProfile />} // Restrição removida aqui
       />
       <Route path="/restaurant-area" element={<RestaurantArea />} />
       <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
