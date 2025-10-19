@@ -97,11 +97,6 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Aumenta o zoom da visualização */
-    transform: scale(1.2);
-    transform-origin: top left;
-    width: calc(100% / 1.2); /* Ajusta a largura para compensar o zoom */
-    height: calc(100% / 1.2); /* Ajusta a altura para compensar o zoom */
     overflow: auto;
   }
 }
