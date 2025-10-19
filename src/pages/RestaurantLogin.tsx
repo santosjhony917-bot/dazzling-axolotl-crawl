@@ -11,9 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import { showError } from "@/utils/toast";
+import { showError, showSuccess } from "@/utils/toast";
 import { createPageUrl } from "@/utils/url";
 import { motion } from "framer-motion";
+import { mockLoginWithRole } from "@/utils/auth-mock"; // Importando a função mock
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -41,6 +42,20 @@ export default function RestaurantLogin() {
       navigate("/restaurant-dashboard");
     }
     setLoading(false);
+  };
+  
+  const handleMockLogin = async () => {
+    setLoading(true);
+    try {
+      // Usamos o role 'free_restaurant' como padrão para o login mock
+      await mockLoginWithRole('free_restaurant');
+      showSuccess("Login de Restaurante (Mock) realizado com sucesso!");
+      navigate("/restaurant-dashboard");
+    } catch (error) {
+      showError((error as Error).message || "Falha no login mock.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -132,6 +147,18 @@ export default function RestaurantLogin() {
                   {!loading && <ArrowRight className="w-5 h-5" />}
                 </Button>
               </form>
+              
+              {/* Novo Botão de Login Rápido (Mock) */}
+              <div className="pt-4 border-t border-gray-200 mt-6">
+                <Button
+                  onClick={handleMockLogin}
+                  disabled={loading}
+                  variant="secondary"
+                  className="w-full bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-full h-12 font-bold"
+                >
+                  {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Login Rápido (Mock)"}
+                </Button>
+              </div>
 
               <p className="pt-6 text-center text-base text-gray-600">
                 Não tem uma conta?
