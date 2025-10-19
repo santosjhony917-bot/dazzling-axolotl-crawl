@@ -9,26 +9,19 @@ export async function mockLoginWithRole(role: AppRole) {
   const email = `mock-${role}@filterfood.com`;
   const password = 'password';
 
-  // 1. Limpa qualquer role anterior no mock
+  // 1. Garante um estado limpo
+  await supabase.auth.signOut();
   await base44.auth.clearRole();
 
-  // 2. Tenta obter o usuário. Se não existir, cadastra.
-  const { data: { user: existingUser } } = await supabase.auth.getUser();
-  
-  if (!existingUser || existingUser.email !== email) {
-    console.log(`Mock Auth: Checking if user ${email} exists...`);
-    
-    // Tenta cadastrar. Se já existir, o Supabase retornará um erro que podemos ignorar
-    // ou que será tratado pela tentativa de login subsequente.
-    const { error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+  // 2. Tenta cadastrar o usuário. Se já existir, o erro é ignorado.
+  const { error: signUpError } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
-    if (signUpError && !signUpError.message.includes('already exists')) {
-      console.error("Mock Auth Signup Error:", signUpError.message);
-      throw signUpError;
-    }
+  if (signUpError && !signUpError.message.includes('already exists')) {
+    console.error("Mock Auth Signup Error:", signUpError.message);
+    throw signUpError;
   }
 
   // 3. Tenta fazer login
