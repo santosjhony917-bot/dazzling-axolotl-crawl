@@ -14,7 +14,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { path: '/home', label: 'Início', icon: Home, key: 'home' },
   { path: '/search-restaurants', label: 'Buscar', icon: Search, key: 'search' },
-  { path: '/upgrade', label: 'Upgrade', icon: Crown, key: 'upgrade' },
+  // Removido: { path: '/upgrade', label: 'Upgrade', icon: Crown, key: 'upgrade' },
   { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
@@ -43,8 +43,8 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = ({ selectedTab }) =>
           const isActive = getActivePath(item.path, item.key);
           const Icon = item.icon;
           
-          // Tratamento especial para o botão Upgrade (terceiro item)
-          const isUpgradeButton = item.path === '/upgrade';
+          // Tratamento especial para o botão Upgrade (terceiro item) - Agora não existe mais
+          const isUpgradeButton = item.key === 'upgrade'; // Será sempre false
 
           return (
             <Link

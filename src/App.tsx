@@ -36,8 +36,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/search-restaurants" element={<SearchRestaurants />} />
         <Route path="/restaurant-results" element={<RestaurantResults />} />
-        {/* Rota de Upgrade de Cliente (mantida para acesso direto) */}
-        <Route path="/upgrade" element={<Upgrade />} /> 
+        {/* Rota de Upgrade de Cliente REMOVIDA */}
         <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
         
         {/* Rotas de Autenticação */}
