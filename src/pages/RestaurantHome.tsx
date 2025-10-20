@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check } from "lucide-react";
+import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check, Lock, Edit, Store, Badge as BadgeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,7 @@ import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
 import { createPageUrl } from "@/utils/url";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 
 // Definindo a interface do estado de edição fora do componente para clareza
@@ -467,6 +468,37 @@ const RestaurantProfile = () => {
     }
   };
 
+  // Componente auxiliar para renderizar itens de informação
+  const InfoItem: React.FC<{ label: string; value: string; icon: React.ElementType; onClick: () => void }> = ({ label, value, icon: Icon, onClick }) => (
+    <div className="p-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer" onClick={onClick}>
+      <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <Icon className="w-4 h-4 text-gray-400" />
+        {label}
+      </span>
+      <span className="text-sm font-bold text-gray-900 dark:text-gray-100 truncate max-w-[60%] text-right">
+        {value}
+      </span>
+    </div>
+  );
+
+  // Componente auxiliar para renderizar itens de link/navegação
+  const NavItem: React.FC<{ label: string; icon: React.ElementType; onClick: () => void; isPremiumLocked?: boolean }> = ({ label, icon: Icon, onClick, isPremiumLocked = false }) => (
+    <button 
+      onClick={onClick}
+      disabled={isPremiumLocked && !isPremium}
+      className={cn(
+        "w-full p-4 flex justify-between items-center transition-colors",
+        isPremiumLocked && !isPremium ? "text-highlight/50 cursor-not-allowed" : "text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+      )}
+    >
+      <span className="flex items-center gap-2 text-sm">
+        <Icon className={cn("w-5 h-5", isPremiumLocked && !isPremium ? "text-highlight/50" : "text-highlight")} />
+        {isPremiumLocked && !isPremium ? `🔒 Premium: ${label}` : label}
+      </span>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </button>
+  );
+
   if (restaurantLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
@@ -507,505 +539,315 @@ const RestaurantProfile = () => {
   }
 
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: '#F5F5F5' }}>
-      {/* Header */}
-      <div className="relative h-32 overflow-hidden rounded-b-[20px] bg-gradient-to-r from-[#002E6D] to-[#014D9F]">
-        {restaurant?.cover_image_url && (
-          <img 
-            src={restaurant.cover_image_url} 
-            alt="Capa do Restaurante" 
-            className="w-full h-full object-cover absolute inset-0" 
-          />
-        )}
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute top-4 left-4 z-10">
+    <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto">
+      <div className="relative bg-[#F5F5F7] dark:bg-[#0f1823] pb-28">
+        
+        {/* Cover Image Area */}
+        <div className="absolute top-0 left-0 w-full h-40 bg-gray-200 dark:bg-gray-800">
+          <div className="relative w-full h-full">
+            {restaurant?.cover_image_url && (
+              <img 
+                src={restaurant.cover_image_url} 
+                alt="Capa do Restaurante" 
+                className="w-full h-full object-cover absolute inset-0" 
+              />
+            )}
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              {isPremium ? (
+                <ImageUploadButton
+                  onFileSelect={handleUploadCover}
+                  uploading={uploading}
+                  variant="ghost"
+                  className="flex items-center gap-2 text-white dark:text-gray-200 text-sm font-semibold bg-gray-900/50 dark:bg-gray-900/70 py-2 px-4 rounded-lg shadow-md backdrop-blur-sm"
+                >
+                  <Camera className="w-4 h-4" />
+                  {uploading ? "Enviando..." : "Alterar capa"}
+                </ImageUploadButton>
+              ) : (
+                <Button 
+                  onClick={handleUpgradeToPremium}
+                  className="flex items-center gap-2 text-white dark:text-gray-200 text-sm font-semibold bg-gray-900/50 dark:bg-gray-900/70 py-2 px-4 rounded-lg shadow-md backdrop-blur-sm"
+                >
+                  <Lock className="w-4 h-4" />
+                  Editar capa (Premium)
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {/* Back Button */}
+        <div className="absolute top-4 left-4 z-30">
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-white hover:bg-white/10"
+            className="text-white hover:bg-white/10 bg-black/30 backdrop-blur-sm"
             onClick={() => navigate(createPageUrl("restaurant-area-hub"))}
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
         </div>
-      </div>
 
-      {/* Profile Header Card */}
-      <div className="px-4 -mt-16 relative z-20">
-        <Card className="p-6 shadow-sm rounded-3xl">
-          <div className="flex items-start gap-4">
-            {/* Restaurant Photo */}
-            <div className="relative">
-              <div className="w-20 h-20 rounded-full bg-[#022D68] flex items-center justify-center overflow-hidden shadow-lg">
-                {restaurant?.logo_url ? (
-                  <img src={restaurant.logo_url} alt="Restaurant Logo" loading="lazy" className="w-full h-full object-cover" />
-                ) : (
-                  <img src={restaurantLogo} alt="Restaurant Logo" loading="lazy" className="w-full h-full object-cover" />
-                )}
-              </div>
-              <ImageUploadButton
-                onFileSelect={handleUploadLogo}
-                uploading={uploading}
-                variant="ghost"
-                size="icon"
-                className="absolute -bottom-1 -right-1 w-7 h-7 bg-[#E47948] rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform p-0"
-              >
-                <Camera className="h-3.5 w-3.5 text-white" />
-              </ImageUploadButton>
-            </div>
-
-            {/* Restaurant Info */}
-            <div className="flex-1">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <h1 className="text-lg font-bold text-foreground">{restaurantData.name}</h1>
-                  <p className="text-sm text-muted-foreground">Estabelecimento comercial</p>
-                </div>
-                <Badge 
-                  className={isPremium 
-                    ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white border-none flex items-center gap-1" 
-                    : "bg-[#E9ECEF] text-[#343A40]"
-                  }
+        {/* Profile Card */}
+        <div className="relative pt-24 px-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+            <div className="flex items-center gap-4">
+              {/* Logo */}
+              <div className="relative flex-shrink-0">
+                <div 
+                  className="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-20 h-20 border-4 border-[#F5F5F7] dark:border-[#0f1823] -mt-12 overflow-hidden flex items-center justify-center"
                 >
-                  {isPremium && <Crown className="h-3 w-3" />}
-                  {isPremium ? "Premium" : "Plano Free"}
+                  {restaurant?.logo_url ? (
+                    <img src={restaurant.logo_url} alt="Restaurant Logo" loading="lazy" className="w-full h-full object-cover" />
+                  ) : (
+                    <Store className="w-10 h-10 text-[#022D68]" />
+                  )}
+                </div>
+                <ImageUploadButton
+                  onFileSelect={handleUploadLogo}
+                  uploading={uploading}
+                  variant="ghost"
+                  className="absolute bottom-0 right-0 bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 rounded-full p-1.5 flex items-center justify-center border border-gray-200 dark:border-gray-700"
+                >
+                  <Camera className="w-4 h-4" />
+                </ImageUploadButton>
+              </div>
+              
+              {/* Info */}
+              <div className="flex-1 flex flex-col">
+                <p className="text-[#022D68] dark:text-white text-xl font-bold">{restaurantData.name}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">Estabelecimento Comercial</p>
+              </div>
+              
+              {/* Badge */}
+              <div className="self-start">
+                <Badge 
+                  className={cn(
+                    "text-xs font-bold px-3 py-1 rounded-full border",
+                    isPremium 
+                      ? "bg-yellow-400 text-white border-yellow-600" 
+                      : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+                  )}
+                >
+                  {isPremium ? "Plano Premium" : "Plano Free"}
                 </Badge>
               </div>
-              {isPremium ? (
-                <ImageUploadButton
-                  onFileSelect={handleUploadCover}
-                  uploading={uploading}
-                  variant="outline"
-                  size="sm"
-                  className="mt-3 text-xs"
-                >
-                  <Camera className="h-3 w-3 mr-1" />
-                  Alterar foto de capa
-                </ImageUploadButton>
-              ) : (
+            </div>
+          </Card>
+        </div>
+        
+        {/* Ver Perfil Público Button */}
+        <div className="flex px-4 py-4">
+          <Button 
+            onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant?.id || 'mock-id'}`))}
+            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#E47948] text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-[#E47948]/90"
+          >
+            <Eye className="w-4 h-4" />
+            <span className="truncate">Ver meu perfil público</span>
+          </Button>
+        </div>
+        
+        {/* Detalhes do Estabelecimento */}
+        <div className="px-4 mt-0">
+          <Card className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <div className="flex justify-between items-center px-4 pt-4 pb-2">
+              <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Detalhes do Estabelecimento</h3>
+              <button 
+                onClick={() => toast({ title: "Em breve", description: "Edição rápida em desenvolvimento" })}
+                className="flex items-center gap-1 text-[#E47948] dark:text-[#E47948] text-sm font-semibold"
+              >
+                <Edit className="w-4 h-4" />
+                Editar
+              </button>
+            </div>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              <InfoItem 
+                label="Nome Comercial" 
+                value={restaurantData.name} 
+                icon={Store} 
+                onClick={() => handleEdit('name')}
+              />
+              <InfoItem 
+                label="Endereço" 
+                value={restaurantData.address} 
+                icon={MapPin} 
+                onClick={() => handleEdit('address')}
+              />
+              <InfoItem 
+                label="Horários" 
+                value={formatScheduleDisplay(schedule)} 
+                icon={Clock} 
+                onClick={() => setIsEditingHours(true)}
+              />
+              <InfoItem 
+                label="Contato/WhatsApp" 
+                value={restaurantData.phone} 
+                icon={Phone} 
+                onClick={() => handleEdit('phone')}
+              />
+              <InfoItem 
+                label="E-mail" 
+                value={restaurantData.email} 
+                icon={Mail} 
+                onClick={() => handleEdit('email')}
+              />
+              <InfoItem 
+                label="CNPJ" 
+                value={restaurantData.cnpj} 
+                icon={BadgeIcon} 
+                onClick={() => handleEdit('cnpj')}
+              />
+            </div>
+          </Card>
+        </div>
+        
+        {/* Cardápio */}
+        <div className="px-4 mt-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
+            <div className="p-4 space-y-3">
+              <Button 
+                onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
+                className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <UtensilsCrossed className="w-4 h-4" />
+                Atualizar Cardápio
+              </Button>
+              <Button 
+                onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
+                className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+              >
+                <Package className="w-4 h-4" />
+                Gerenciar Categorias
+              </Button>
+            </div>
+          </Card>
+        </div>
+        
+        {/* Plano e Assinatura */}
+        <div className="px-4 mt-4">
+          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-lg shadow-sm border border-yellow-400/30">
+            <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Plano e Assinatura</h3>
+            <div className="p-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-[#022D68] dark:text-white">{isPremium ? "Premium" : "Free"}</span></p>
+              
+              {!isPremium && (
+                <>
+                  <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg space-y-2 mb-4">
+                    <p className="text-sm font-semibold text-yellow-600 dark:text-yellow-400">Opções Premium:</p>
+                    <ul className="space-y-1.5 text-gray-700 dark:text-gray-300">
+                      <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-yellow-600" />Destaque nas buscas</li>
+                      <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-yellow-600" />Mais fotos no perfil e cardápio</li>
+                      <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-yellow-600" />Gerenciar canais de pedido (iFood, Rappi)</li>
+                    </ul>
+                  </div>
+                  <Button 
+                    onClick={handleUpgradeToPremium}
+                    className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-12 px-4 bg-[#E47948] text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-[#E47948]/40 hover:bg-[#E47948]/90"
+                  >
+                    <Crown className="w-5 h-5" />
+                    Ativar Premium
+                  </Button>
+                </>
+              )}
+              
+              {isPremium && (
                 <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="mt-3 text-xs"
-                  onClick={handleUpgradeToPremium}
+                  onClick={() => navigate(createPageUrl('restaurant-area/manage-subscription'))}
+                  variant="outline"
+                  className="w-full h-12 rounded-xl border-2 border-[#022D68] text-[#022D68] font-bold hover:bg-[#022D68]/5"
                 >
-                  🔒 Editar capa (Premium)
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  Gerenciar Assinatura
                 </Button>
               )}
             </div>
-          </div>
-        </Card>
-      </div>
-
-      {/* Main Content */}
-      <div className="px-4 mt-6 space-y-8">
-        {/* Ver Meu Perfil Público */}
-        <div>
-          <Card className="bg-white border-border/10 shadow-sm rounded-3xl">
-            <button 
-              onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant?.id || 'mock-id'}`))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-[#F8F9FA] transition-colors rounded-3xl"
-            >
-              <div className="w-12 h-12 rounded-full bg-[#E47948]/10 flex items-center justify-center">
-                <Eye className="h-6 w-6 text-[#E47948]" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="text-sm font-bold text-foreground">Ver meu perfil público</p>
-                <p className="text-xs text-muted-foreground">Visualize como os clientes veem seu restaurante</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
           </Card>
         </div>
-
-        {/* Informações do Estabelecimento */}
-        <div>
-          <h2 className="text-base font-bold text-foreground mb-4">Informações do Estabelecimento</h2>
-          
-          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-            <button 
-              onClick={() => handleEdit('name')}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Building2 className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">Nome Comercial</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.name}</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => handleEdit('address')}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <MapPin className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">Endereço</p>
-                <p className="text-sm font-medium text-foreground">
-                  {restaurantData.address || "Não cadastrado"}
-                </p>
-                {(restaurantData.neighborhood || restaurantData.city) && (
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {[restaurantData.neighborhood, restaurantData.city, restaurantData.state]
-                      .filter(Boolean)
-                      .join(', ')}
-                  </p>
-                )}
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => setIsEditingHours(true)}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Clock className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">Horários de funcionamento</p>
-                <p className="text-sm font-medium text-foreground">{formatScheduleDisplay(schedule)}</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => handleEdit('phone')}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Phone className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">Contato / WhatsApp</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.phone}</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => handleEdit('email')}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Mail className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">E-mail</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.email}</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => handleEdit('cnpj')}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <FileText className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-xs text-muted-foreground">CNPJ</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.cnpj}</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-          </Card>
-        </div>
-
-        {/* Canais de Pedido - Apenas Premium */}
-        {isPremium && (
-          <div>
-            <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
-              Canais de Pedido
-              <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white border-none text-[10px]">
-                Premium
-              </Badge>
-            </h2>
-            
-            <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-              <button 
-                onClick={() => handleEdit('whatsapp')}
-                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-              >
-                <MessageSquare className="h-5 w-5 text-[#25D366]" />
-                <div className="flex-1 text-left">
-                  <p className="text-xs text-muted-foreground">Link WhatsApp</p>
-                  <p className="text-sm font-medium text-foreground">
-                    {restaurant?.whatsapp_url || "Não configurado"}
-                  </p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </button>
-
-              <button 
-                onClick={() => handleEdit('ifood')}
-                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-              >
-                <Package className="h-5 w-5 text-[#EA1D2C]" />
-                <div className="flex-1 text-left">
-                  <p className="text-xs text-muted-foreground">Link iFood</p>
-                  <p className="text-sm font-medium text-foreground">
-                    {restaurant?.ifood_url || "Não configurado"}
-                  </p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </button>
-
-              <button 
-                onClick={() => handleEdit('other')}
-                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-              >
-                <UtensilsCrossed className="h-5 w-5 text-[#022D68]" />
-                <div className="flex-1 text-left">
-                  <p className="text-xs text-muted-foreground">Outro Link</p>
-                  <p className="text-sm font-medium text-foreground">
-                    {restaurant?.other_url || "Não configurado"}
-                  </p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </button>
-            </Card>
-          </div>
-        )}
-
-        {/* Cardápio e Categorias */}
-        <div>
-          <h2 className="text-base font-bold text-foreground mb-4">Cardápio</h2>
-          
-          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-            <button 
-              onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <UtensilsCrossed className="h-5 w-5 text-[#E47948]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-semibold text-foreground">Atualizar Cardápio</p>
-                <p className="text-xs text-muted-foreground">Adicionar, editar ou remover pratos</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-            
-            <button 
-              onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Package className="h-5 w-5 text-[#E47948]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-semibold text-foreground">Gerenciar Categorias</p>
-                <p className="text-xs text-muted-foreground">Entradas, Pratos Principais, Bebidas, etc.</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-          </Card>
-        </div>
-
-        {/* Plano e Assinatura - Apenas para usuários Free */}
-        {!isPremium && (
-          <div>
-            <h2 className="text-base font-bold text-foreground mb-4">Plano e Assinatura</h2>
-            
-            <Card className="p-4 border-border/10 shadow-sm rounded-3xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
-                  <Crown className="h-6 w-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-foreground">Plano atual: Free</h3>
-                  <p className="text-xs text-muted-foreground">Recursos básicos</p>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-4 mb-4">
-                <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#E47948]" />
-                  Desbloqueie com Premium:
-                </h4>
-                <ul className="space-y-1.5 text-xs text-muted-foreground">
-                  <li>💎 Destaque na busca</li>
-                  <li>🏆 Aparência personalizada</li>
-                  <li>📊 Estatísticas detalhadas</li>
-                  <li>🎨 Edição avançada de cardápio</li>
-                  <li>🔔 Notificações para seguidores</li>
-                </ul>
-              </div>
-
-              <Button 
-                onClick={handleUpgradeToPremium}
-                className="w-full bg-gradient-to-r from-yellow-400 to-amber-600 hover:from-yellow-500 hover:to-amber-700 text-white font-semibold shadow-md hover:shadow-lg transition-all"
-              >
-                <Crown className="h-4 w-4 mr-2" />
-                Ativar Premium
-              </Button>
-            </Card>
-          </div>
-        )}
-
-        {/* Plano e Assinatura - Para usuários Premium */}
-        {isPremium && (
-          <div>
-            <h2 className="text-base font-bold text-foreground mb-4">Plano e Assinatura</h2>
-            
-            <Card className="p-4 border-border/10 shadow-sm rounded-3xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
-                  <Crown className="h-6 w-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-foreground">Plano Premium Ativo</h3>
-                  <p className="text-xs text-muted-foreground">Todos os recursos desbloqueados</p>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 mb-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Check className="h-4 w-4 text-green-600" />
-                  <p className="text-sm font-semibold text-foreground">Recursos Premium ativos:</p>
-                </div>
-                <ul className="space-y-1.5 text-xs text-muted-foreground ml-6">
-                  <li>✅ Destaque garantido nas buscas</li>
-                  <li>✅ Fotos de capa e ambiente</li>
-                  <li>✅ Badge verificado</li>
-                  <li>✅ Estatísticas completas</li>
-                  <li>✅ Suporte prioritário</li>
-                </ul>
-              </div>
-
-              <Button 
-                onClick={() => navigate(createPageUrl('restaurant-area/manage-subscription'))}
-                variant="outline"
-                className="w-full"
-              >
-                <CreditCard className="h-4 w-4 mr-2" />
-                Gerenciar Assinatura
-              </Button>
-            </Card>
-          </div>
-        )}
-
+        
         {/* Preferências e Personalização */}
-        <div>
-          <h2 className="text-base font-bold text-foreground mb-4">Preferências e Personalização</h2>
-          
-          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <Bell className="h-5 w-5 text-[#022D68]" />
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Notificações e alertas</p>
-                  </div>
-                </div>
+        <div className="px-4 mt-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preferências e Personalização</h3>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              
+              {/* Switches */}
+              <div className="p-4 flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de pedidos</span>
+                <Switch 
+                  checked={notifications.orders}
+                  onCheckedChange={(checked) => setNotifications({...notifications, orders: checked})}
+                  className="data-[state=checked]:bg-[#E47948]"
+                />
               </div>
-              <div className="space-y-3 ml-8">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Alertas de pedidos</span>
-                  <Switch 
-                    checked={notifications.orders}
-                    onCheckedChange={(checked) => setNotifications({...notifications, orders: checked})}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Alertas de visitas</span>
-                  <Switch 
-                    checked={notifications.visits}
-                    onCheckedChange={(checked) => setNotifications({...notifications, visits: checked})}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Novos seguidores</span>
-                  <Switch 
-                    checked={notifications.followers}
-                    onCheckedChange={(checked) => setNotifications({...notifications, followers: checked})}
-                  />
-                </div>
+              <div className="p-4 flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de visitas</span>
+                <Switch 
+                  checked={notifications.visits}
+                  onCheckedChange={(checked) => setNotifications({...notifications, visits: checked})}
+                  className="data-[state=checked]:bg-[#E47948]"
+                />
+              </div>
+              <div className="p-4 flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Novos seguidores</span>
+                <Switch 
+                  checked={notifications.followers}
+                  onCheckedChange={(checked) => setNotifications({...notifications, followers: checked})}
+                  className="data-[state=checked]:bg-[#E47948]"
+                />
+              </div>
+              
+              {/* Canais de Pedido Link */}
+              <NavItem 
+                label="Gerenciar canais" 
+                icon={Lock} 
+                onClick={() => handleEdit('whatsapp')} // Usando whatsapp como proxy para abrir o modal de edição de canais
+                isPremiumLocked={true}
+              />
+            </div>
+          </Card>
+        </div>
+        
+        {/* Suporte e Conta */}
+        <div className="px-4 mt-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+            <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Suporte e Conta</h3>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              
+              {isAdmin && (
+                <NavItem 
+                  label="Acessar Painel Admin" 
+                  icon={Crown} 
+                  onClick={() => navigate(createPageUrl("admin/dashboard"))}
+                />
+              )}
+
+              <NavItem 
+                label="Central de Ajuda" 
+                icon={HelpCircle} 
+                onClick={() => navigate(createPageUrl("restaurant-area/help-center"))}
+              />
+              <NavItem 
+                label="Falar com o Suporte" 
+                icon={MessageSquare} 
+                onClick={() => navigate(createPageUrl("restaurant-area/support"))}
+              />
+              <NavItem 
+                label="Termos e Política de Privacidade" 
+                icon={FileCheck} 
+                onClick={() => navigate(createPageUrl("restaurant-area/terms"))}
+              />
+              
+              <div className="p-4">
+                <Button 
+                  onClick={handleLogout}
+                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-red-600/10 text-red-600 dark:bg-red-500/20 dark:text-red-500 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-red-600/20"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sair da conta
+                </Button>
               </div>
             </div>
-
-            <button 
-              onClick={() => {
-                if (isPremium) {
-                  navigate(createPageUrl("restaurant-area/integrations"));
-                } else {
-                  toast({
-                    title: "Recurso Premium",
-                    description: "Faça upgrade para gerenciar seus canais de pedido",
-                    variant: "default",
-                  });
-                  navigate(createPageUrl("upgrade"));
-                }
-              }}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <Package className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-foreground">Canais de Pedido</p>
-                <p className="text-xs text-muted-foreground">
-                  {isPremium ? "WhatsApp, iFood, Anota Aí" : "🔒 Premium: Gerenciar canais"}
-                </p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-          </Card>
-        </div>
-
-        {/* Suporte e Conta */}
-        <div>
-          <h2 className="text-base font-bold text-foreground mb-4">Suporte e Conta</h2>
-          
-          <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
-            {isAdmin && (
-              <button 
-                onClick={() => navigate(createPageUrl("admin/dashboard"))}
-                className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-              >
-                <Crown className="h-5 w-5 text-red-600" />
-                <div className="flex-1 text-left">
-                  <p className="text-sm font-medium text-red-600">Acessar Painel Admin</p>
-                  <p className="text-xs text-muted-foreground">Gerenciamento de sistema (Apenas Admin)</p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </button>
-            )}
-
-            <button 
-              onClick={() => navigate(createPageUrl("restaurant-area/help-center"))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <HelpCircle className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-foreground">Central de Ajuda</p>
-                <p className="text-xs text-muted-foreground">Tutoriais e perguntas frequentes</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => navigate(createPageUrl("restaurant-area/support"))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <MessageSquare className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-foreground">Falar com o Suporte</p>
-                <p className="text-xs text-muted-foreground">Chat direto com equipe FilterFood</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={() => navigate(createPageUrl("restaurant-area/terms"))}
-              className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
-            >
-              <FileCheck className="h-5 w-5 text-[#022D68]" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-foreground">Termos e Política de Privacidade</p>
-                <p className="text-xs text-muted-foreground">Leitura e aceite</p>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </button>
-
-            <button 
-              onClick={handleLogout}
-              className="w-full p-4 flex items-center gap-3 hover:bg-red-50 transition-colors"
-            >
-              <LogOut className="h-5 w-5 text-red-600" />
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-red-600">Sair da conta</p>
-              </div>
-            </button>
           </Card>
         </div>
       </div>
@@ -1054,7 +896,10 @@ const RestaurantProfile = () => {
         />
       )}
 
-      <RestaurantBottomNav selectedTab="home" />
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 max-w-md mx-auto z-30">
+        <RestaurantBottomNav selectedTab="perfil" />
+      </div>
     </div>
   );
 };

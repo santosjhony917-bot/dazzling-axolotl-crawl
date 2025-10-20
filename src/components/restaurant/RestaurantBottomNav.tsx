@@ -12,10 +12,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/restaurant-home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/restaurant-stats', label: 'Estatísticas', icon: BarChart3, key: 'stats' },
+  { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
+  { path: '/restaurant-area/stats', label: 'Estatísticas', icon: BarChart3, key: 'stats' },
   { path: '/upgrade', label: 'Premium', icon: Crown, key: 'upgrade' },
-  { path: '/restaurant-profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
+  { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
 interface RestaurantBottomNavProps {
@@ -62,7 +62,8 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
               />
               <span className={cn(
                 "text-sm font-medium",
-                isUpgradeButton && isActive && "font-bold"
+                isUpgradeButton && isActive && "font-bold",
+                isActive && item.key === 'perfil' && "font-bold text-[#022D68] dark:text-white" // Destaque para Perfil
               )}>
                 {item.label}
               </span>
