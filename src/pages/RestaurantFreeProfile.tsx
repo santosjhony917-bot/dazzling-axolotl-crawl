@@ -113,13 +113,6 @@ const RestaurantFreeProfile = () => {
             onClick={() => navigate(createPageUrl('restaurant-area/stats'))}
             colorClass="text-[#E47948]"
           />
-          <QuickActionButton
-            icon={User}
-            title="Editar"
-            subtitle="Perfil"
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
-            colorClass="text-[#022D68]"
-          />
         </div>
       </motion.div>
 

@@ -146,9 +146,9 @@ const RestaurantProfile = () => {
     cep: restaurant?.cep || "",
     neighborhood: restaurant?.neighborhood || "",
     category: restaurant?.category || "",
-    phone: restaurant?.phone || "",
-    email: restaurant?.email || "",
-    cnpj: restaurant?.cnpj || "",
+    phone: "Não cadastrado", // Mocked
+    email: "Não cadastrado", // Mocked
+    cnpj: "Não cadastrado",  // Mocked
   };
 
   // Schedule data (using mock initial state if not loaded from DB)
@@ -170,7 +170,7 @@ const RestaurantProfile = () => {
     }
   }, [restaurant?.opening_hours]);
 
-  const handleEdit = (field: 'name' | 'phone' | 'email' | 'cnpj' | 'whatsapp' | 'ifood' | 'other' | 'address') => {
+  const handleEdit = (field: 'name' | 'whatsapp' | 'ifood' | 'other' | 'address' | 'phone' | 'email' | 'cnpj') => {
     // Special handling for address - use EditAddressDialog
     if (field === 'address') {
       setIsEditingAddress(true);
@@ -185,34 +185,6 @@ const RestaurantProfile = () => {
         placeholder: "Ex: Pizzaria do Bairro",
         validationSchema: validations.name,
         currentValue: restaurant?.name || "",
-      },
-      phone: {
-        title: "Contato / WhatsApp",
-        fieldName: "Telefone",
-        icon: <Phone className="h-6 w-6 text-[#022D68]" />,
-        type: "tel" as const,
-        placeholder: "(11) 98765-4321",
-        validationSchema: validations.phone,
-        mask: phoneMask,
-        currentValue: restaurant?.phone || "",
-      },
-      email: {
-        title: "E-mail",
-        fieldName: "E-mail de contato",
-        icon: <Mail className="h-6 w-6 text-[#022D68]" />,
-        type: "email" as const,
-        placeholder: "contato@restaurante.com",
-        validationSchema: validations.email,
-        currentValue: restaurant?.email || "",
-      },
-      cnpj: {
-        title: "CNPJ",
-        fieldName: "CNPJ do estabelecimento",
-        icon: <FileText className="h-6 w-6 text-[#022D68]" />,
-        placeholder: "12.345.678/0001-90",
-        validationSchema: validations.cnpj,
-        mask: cnpjMask,
-        currentValue: restaurant?.cnpj || "",
       },
       whatsapp: {
         title: "Link WhatsApp",
@@ -253,9 +225,6 @@ const RestaurantProfile = () => {
     // Map field keys to database column names
     const fieldMapping: Record<string, string> = {
       name: 'name',
-      phone: 'phone',
-      email: 'email',
-      cnpj: 'cnpj',
       whatsapp: 'whatsapp_url',
       ifood: 'ifood_url',
       other: 'other_url',
@@ -595,7 +564,7 @@ const RestaurantProfile = () => {
               <Phone className="h-5 w-5 text-[#022D68]" />
               <div className="flex-1 text-left">
                 <p className="text-xs text-muted-foreground">Contato / WhatsApp</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.phone || "Não cadastrado"}</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.phone}</p>
               </div>
               <ChevronRight className="h-4 w-4 text-muted-foreground" />
             </button>
@@ -607,7 +576,7 @@ const RestaurantProfile = () => {
               <Mail className="h-5 w-5 text-[#022D68]" />
               <div className="flex-1 text-left">
                 <p className="text-xs text-muted-foreground">E-mail</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.email || "Não cadastrado"}</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.email}</p>
               </div>
               <ChevronRight className="h-4 w-4 text-muted-foreground" />
             </button>
@@ -619,7 +588,7 @@ const RestaurantProfile = () => {
               <FileText className="h-5 w-5 text-[#022D68]" />
               <div className="flex-1 text-left">
                 <p className="text-xs text-muted-foreground">CNPJ</p>
-                <p className="text-sm font-medium text-foreground">{restaurantData.cnpj || "Não cadastrado"}</p>
+                <p className="text-sm font-medium text-foreground">{restaurantData.cnpj}</p>
               </div>
               <ChevronRight className="h-4 w-4 text-muted-foreground" />
             </button>
@@ -973,7 +942,7 @@ const RestaurantProfile = () => {
             latitude: restaurant.latitude,
             longitude: restaurant.longitude,
           }}
-          onSave={refetch}
+          onSave={() => window.location.reload()}
         />
       )}
 

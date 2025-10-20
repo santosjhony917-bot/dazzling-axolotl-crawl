@@ -50,7 +50,7 @@ export default function RestaurantLogin() {
       // Usamos o role 'free_restaurant' como padrão para o login mock
       await mockLoginWithRole('free_restaurant');
       showSuccess("Login de Restaurante (Mock) realizado com sucesso!");
-      navigate("/restaurant-area/home"); // CORRIGIDO: Redirecionando para /restaurant-area/home
+      navigate("/restaurant-area/home"); // Mantido como estava antes da última alteração de fluxo
     } catch (error) {
       showError((error as Error).message || "Falha no login mock.");
     } finally {

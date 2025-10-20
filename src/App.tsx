@@ -30,11 +30,7 @@ import RestaurantMenu from "./pages/RestaurantMenu";
 import RestaurantCategories from "./pages/RestaurantCategories";
 import AuthRedirector from "./components/AuthRedirector";
 import RestaurantFreeProfile from "./pages/RestaurantFreeProfile";
-import RestaurantManageSubscription from "./pages/RestaurantManageSubscription";
-import RestaurantHelpCenter from "./pages/RestaurantHelpCenter";
-import RestaurantSupport from "./pages/RestaurantSupport";
-import RestaurantTerms from "./pages/RestaurantTerms";
-import RestaurantIntegrations from "./pages/RestaurantIntegrations";
+// Os imports das páginas de gerenciamento do restaurante foram removidos
 
 // Admin Pages
 import AdminRoute from "./components/admin/AdminRoute";
@@ -117,12 +113,6 @@ const AppRoutes = () => {
         <Route path="profile-menu" element={<RestaurantProfile />} />
         <Route path="menu" element={<RestaurantMenu />} />
         <Route path="categories" element={<RestaurantCategories />} />
-        <Route path="manage-subscription" element={<RestaurantManageSubscription />} />
-        <Route path="help-center" element={<RestaurantHelpCenter />} />
-        <Route path="support" element={<RestaurantSupport />} />
-        <Route path="terms" element={<RestaurantTerms />} />
-        <Route path="integrations" element={<RestaurantIntegrations />} />
-        {/* Adicione outras sub-rotas aqui (ex: stats, menu, orders) */}
       </Route>
       
       {/* Rotas de Dashboard (Antigas, removidas) */}
