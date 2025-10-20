@@ -33,6 +33,9 @@ const Upgrade: React.FC = () => {
       navigate(-1);
     }
   };
+  
+  const MOCK_COVER_URL = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop';
+  const MOCK_LOGO_URL = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop'; // Usando a mesma para mock de logo
 
   return (
     <div className={cn(
@@ -113,7 +116,7 @@ const Upgrade: React.FC = () => {
             <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
               <div 
                 className="relative h-24 bg-gray-300 dark:bg-gray-600 bg-center bg-cover" 
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop')", filter: 'grayscale(100%)' }}
+                style={{ backgroundImage: `url('${MOCK_COVER_URL}')`, filter: 'grayscale(100%)' }}
               >
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="absolute top-2 right-2 bg-gray-500/80 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
@@ -124,7 +127,7 @@ const Upgrade: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <div 
                     className="w-16 h-16 rounded-full border-4 border-white dark:border-gray-800 -mt-8 bg-center bg-cover" 
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop')", filter: 'grayscale(100%)' }}
+                    style={{ backgroundImage: `url('${MOCK_LOGO_URL}')`, filter: 'grayscale(100%)' }}
                   ></div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg text-primary dark:text-white">Seu Restaurante</h3>
@@ -153,7 +156,7 @@ const Upgrade: React.FC = () => {
             <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
               <div 
                 className="relative h-24 bg-cover bg-center" 
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop')" }}
+                style={{ backgroundImage: `url('${MOCK_COVER_URL}')` }}
               >
                 <div className="absolute inset-0 bg-black/30"></div>
                 <div className="absolute top-2 right-2 bg-highlight/80 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
@@ -165,7 +168,7 @@ const Upgrade: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <div 
                     className="w-16 h-16 rounded-full border-4 border-white dark:border-gray-800 -mt-8 bg-center bg-cover" 
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop')" }}
+                    style={{ backgroundImage: `url('${MOCK_LOGO_URL}')` }}
                   ></div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg text-primary dark:text-white">NAU - Frutos do Mar</h3>
