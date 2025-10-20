@@ -1,93 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { MapPin, LocateFixed } from 'lucide-react';
+import React from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { MapPin } from 'lucide-react';
+
+// Tipos de preferência de localização
+type LocationPreference = 'granted' | 'denied' | 'unset' | 'mock';
 
 interface LocationPermissionModalProps {
-  onPermissionGranted: () => void;
-  onUseMockLocation: () => void;
+  isOpen: boolean;
+  onGrant: () => void;
+  onDeny: () => void;
 }
 
-const LOCATION_PERMISSION_KEY = 'locationPermissionGranted';
-const MOCK_LOCATION_KEY = 'useMockLocation';
-
-export const checkLocationPreference = (): 'granted' | 'mock' | 'unset' => {
-  // Verifica se o usuário já escolheu usar o GPS
-  if (localStorage.getItem(LOCATION_PERMISSION_KEY) === 'true') {
-    return 'granted';
+// Função utilitária para verificar a preferência de localização
+export const checkLocationPreference = async (): Promise<LocationPreference> => {
+  // Em um ambiente real, você verificaria o localStorage ou a API de geolocalização.
+  const preference = localStorage.getItem('location_preference') as LocationPreference;
+  
+  if (preference === 'granted' || preference === 'denied' || preference === 'mock') {
+    return preference;
   }
-  // Verifica se o usuário já escolheu usar a localização mock
-  if (localStorage.getItem(MOCK_LOCATION_KEY) === 'true') {
-    return 'mock';
-  }
-  // Se nenhuma preferência foi definida
+  
+  // Usamos 'unset' para indicar que o usuário ainda não decidiu.
   return 'unset';
 };
 
-export default function LocationPermissionModal({
-  onPermissionGranted,
-  onUseMockLocation,
-}: LocationPermissionModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    // Apenas abre o modal se a preferência for 'unset'
-    if (checkLocationPreference() === 'unset') {
-      setIsOpen(true);
-    }
-  }, []);
-
+const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpen, onGrant, onDeny }) => {
+  
   const handleGrant = () => {
-    // Define a preferência como concedida
-    localStorage.setItem(LOCATION_PERMISSION_KEY, 'true');
-    localStorage.removeItem(MOCK_LOCATION_KEY);
-    setIsOpen(false);
-    onPermissionGranted();
+    localStorage.setItem('location_preference', 'granted');
+    onGrant();
   };
 
-  const handleMock = () => {
-    // Define a preferência como mock
-    localStorage.setItem(MOCK_LOCATION_KEY, 'true');
-    localStorage.removeItem(LOCATION_PERMISSION_KEY);
-    setIsOpen(false);
-    onUseMockLocation();
+  const handleDeny = () => {
+    localStorage.setItem('location_preference', 'denied');
+    onDeny();
   };
 
-  // Usamos Dialog para controlar a visibilidade
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && handleDeny()}>
       <DialogContent className="sm:max-w-[425px] rounded-xl p-6">
         <DialogHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <LocateFixed className="w-10 h-10 text-[#E47948]" />
+            <MapPin className="w-10 h-10 text-[#E47948]" />
           </div>
           <DialogTitle className="text-2xl font-bold text-[#022D68]">
-            Localização Necessária
+            Permissão de Localização
           </DialogTitle>
           <DialogDescription className="text-gray-600 mt-2">
             Para encontrar os melhores restaurantes próximos, precisamos da sua localização.
           </DialogDescription>
         </DialogHeader>
         
-        <div className="grid gap-4 py-4">
+        <div className="py-4 space-y-3">
           <Button 
             onClick={handleGrant}
-            className="w-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white rounded-full text-base font-bold shadow-lg"
+            className="w-full h-12 rounded-full bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold"
           >
-            <LocateFixed className="w-5 h-5 mr-2" />
-            Permitir acesso ao GPS
+            Permitir Localização
           </Button>
-          
           <Button 
-            onClick={handleMock}
+            onClick={handleDeny}
             variant="outline"
-            className="w-full h-12 border-2 border-[#022D68] text-[#022D68] hover:bg-[#022D68]/5 rounded-full text-base font-bold"
+            className="w-full h-12 rounded-full border-gray-300 text-gray-700 hover:bg-gray-100"
           >
-            <MapPin className="w-5 h-5 mr-2" />
-            Usar localização padrão (João Pessoa)
+            Agora Não
           </Button>
         </div>
+        
+        <DialogFooter className="text-center text-xs text-gray-500">
+          Você pode alterar esta permissão nas configurações do seu dispositivo a qualquer momento.
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default LocationPermissionModal;

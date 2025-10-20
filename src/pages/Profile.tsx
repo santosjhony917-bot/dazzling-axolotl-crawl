@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronRight, LogOut, Bell, Shield, CreditCard, HelpCircle, Settings, Globe, Moon, FileText, Edit, UserCircle, Phone, Calendar, MapPinned } from "lucide-react";
-import CustomerBottomNav from "@/components/restaurant/CustomerBottomNav";
+import CustomerBottomNav from "@/components/CustomerBottomNav"; // Importação atualizada
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -51,7 +51,7 @@ const Profile = () => {
   // User data
   const [userName, setUserName] = useState("João Dias");
   const [userPhone, setUserPhone] = useState("(11) 98765-4321");
-  const [userBirthdate, setUserBirthdate] = useState("15/03/1990");
+  const [userBirthdate, setBirthdate] = useState("15/03/1990");
   const [userAddress, setUserAddress] = useState("Rua das Flores, 123 - São Paulo, SP");
   
   const { toast } = useToast();
@@ -453,7 +453,7 @@ const Profile = () => {
         fieldName="Data de nascimento"
         currentValue={userBirthdate}
         icon={<Calendar className="h-6 w-6 text-primary" />}
-        onSave={setUserBirthdate}
+        onSave={setBirthdate}
         placeholder="DD/MM/AAAA"
         type="text"
         validationSchema={dateSchema}
