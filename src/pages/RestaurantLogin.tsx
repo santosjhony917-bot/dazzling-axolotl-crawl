@@ -97,7 +97,8 @@ export default function RestaurantLogin() {
       }
 
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
-      navigate("/restaurant-area/home"); 
+      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
+      navigate(createPageUrl("restaurant-area/profile-menu")); 
 
     } catch (error) {
       const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";
@@ -123,7 +124,8 @@ export default function RestaurantLogin() {
     
     showSuccess("Login de Teste realizado! Redirecionando para o painel.");
     setTimeout(() => {
-      navigate("/restaurant-area/home"); 
+      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
+      navigate(createPageUrl("restaurant-area/profile-menu")); 
     }, 500);
   };
 

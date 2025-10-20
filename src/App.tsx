@@ -17,6 +17,14 @@ import ClaimRestaurant from "./pages/ClaimRestaurant";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantResults from "./pages/RestaurantResults";
 import RestaurantProfilePublic from "./pages/RestaurantProfilePublic";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import EditRestaurant from "./pages/admin/EditRestaurant";
+import ManageAdmins from "./pages/admin/ManageAdmins";
+import PopularCategories from "./pages/admin/PopularCategories";
+import Files from "./pages/admin/Files";
+import ImportMenu from "./pages/admin/ImportMenu";
+import AdminLayout from "./components/admin/AdminLayout";
+
 
 export default function App() {
   return (
@@ -44,6 +52,7 @@ export default function App() {
         
         {/* Rotas Aninhadas da Área do Restaurante (Usando Layout) */}
         <Route path="/restaurant-area" element={<RestaurantArea />}>
+          {/* O perfil do restaurante é a tela principal da área logada */}
           <Route path="home" element={<RestaurantProfile />} />
           <Route path="profile-menu" element={<RestaurantProfile />} />
           <Route path="stats" element={<div>Estatísticas Placeholder</div>} />
@@ -57,13 +66,13 @@ export default function App() {
         </Route>
 
         {/* Rotas de Admin */}
-        <Route path="/admin" element={<RestaurantArea />}>
-          <Route path="dashboard" element={<div>Admin Dashboard Placeholder</div>} />
-          <Route path="edit-restaurant" element={<div>Edit Restaurant Placeholder</div>} />
-          <Route path="manage-admins" element={<div>Manage Admins Placeholder</div>} />
-          <Route path="popular-categories" element={<div>Popular Categories Placeholder</div>} />
-          <Route path="files" element={<div>Files Placeholder</div>} />
-          <Route path="import" element={<div>Import Menu Placeholder</div>} />
+        <Route path="/admin" element={<AdminLayout title="Painel Administrativo" children={undefined} />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="edit-restaurant" element={<EditRestaurant />} />
+          <Route path="manage-admins" element={<ManageAdmins />} />
+          <Route path="popular-categories" element={<PopularCategories />} />
+          <Route path="files" element={<Files />} />
+          <Route path="import" element={<ImportMenu />} />
         </Route>
 
         {/* Rota 404 */}
