@@ -20,6 +20,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Plus Jakarta Sans", "sans-serif"],
+        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"], // Adicionado
       },
       colors: {
         border: "hsl(var(--border))",
@@ -65,21 +66,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Adicionando cores customizadas do HTML
-        "highlight": "#E47948",
-        "background-light": "#F5F5F7",
-        "background-dark": "#0f1823",
-        "gold": {
-          "DEFAULT": "#D4AF37",
-          "light": "#F0E68C",
-          "dark": "#B8860B"
-        }
+        // Cores customizadas do novo design
+        "highlight": "#E47948", // Mantendo highlight como E47948
+        "background-light": "#F8F9FA", // Novo background light
+        "background-dark": "#111821", // Novo background dark
+        "text-light": "#111417", // Nova cor de texto
+        "text-dark": "#ffffff", // Nova cor de texto
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "1.5rem", // Adicionado do HTML
+        xl: "1.5rem", // Mantido
+        DEFAULT: "1rem", // Novo padrão
       },
       keyframes: {
         "accordion-down": {
