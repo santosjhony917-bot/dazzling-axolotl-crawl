@@ -51,10 +51,15 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
               >
                 <div className="relative">
                   {/* Efeito de brilho/pulse */}
-                  <div className="absolute inset-0 bg-[hsl(var(--orange-accent))] rounded-full blur-lg opacity-40 animate-pulse"></div>
+                  {/* Usando highlight/50 para o glow */}
+                  <div className="absolute inset-0 bg-highlight/50 rounded-full blur-lg opacity-40 animate-pulse"></div>
                   
-                  {/* Botão principal (círculo laranja) */}
-                  <div className="relative bg-highlight hover:bg-highlight/90 rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105">
+                  {/* Botão principal (círculo com gradiente) */}
+                  <div className={cn(
+                    "relative rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105",
+                    // Gradiente de laranja para um tom mais escuro de laranja/vermelho
+                    "bg-gradient-to-br from-[#E47948] to-[#D06A3F] hover:from-[#D06A3F] hover:to-[#E47948]"
+                  )}>
                     <Zap className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -71,15 +76,12 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
               to={createPageUrl(item.path.substring(1))}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-                // Ajuste aqui: Usando text-primary quando ativo para garantir visibilidade
                 isActive ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
-                // Removendo estilos específicos de 'upgrade' para botões normais
               )}
             >
               <Icon 
                 className={cn(
                   "w-6 h-6",
-                  // Removendo fill-accent, pois não queremos preenchimento para ícones normais
                 )} 
               />
               <span className="text-sm font-medium">
