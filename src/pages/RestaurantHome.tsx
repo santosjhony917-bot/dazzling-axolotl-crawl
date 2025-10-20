@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useImageUpload } from "@/hooks/useImageUpload";
-import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Corrigido o caminho do import
 import EditFieldDialog from "@/components/EditFieldDialog";
 import { EditHoursDialog } from "@/components/EditHoursDialog";
 import { EditAddressDialog } from "@/components/EditAddressDialog";
@@ -75,6 +75,9 @@ const RestaurantProfile = () => {
     phone: restaurant?.phone || "Não cadastrado",
     email: restaurant?.email || "Não cadastrado",
     cnpj: restaurant?.cnpj || "Não cadastrado",
+    whatsapp_url: restaurant?.whatsapp_url || "",
+    ifood_url: restaurant?.ifood_url || "",
+    other_url: restaurant?.other_url || "",
   };
 
   // Schedule data (using mock initial state if not loaded from DB)
