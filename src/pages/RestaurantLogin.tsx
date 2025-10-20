@@ -21,6 +21,7 @@ export default function RestaurantLogin() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [lastError, setLastError] = useState<string | null>(null);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -41,6 +42,7 @@ export default function RestaurantLogin() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setLastError(null);
     
     try {
       let userId: string | undefined;
@@ -49,25 +51,33 @@ export default function RestaurantLogin() {
         // Tenta o login normal
         userId = await attemptLogin(email, password);
       } catch (loginError) {
-        // Se o login falhar (ex: usuário não existe), tenta o cadastro
-        if ((loginError as Error).message.includes('Invalid login credentials') || (loginError as Error).message.includes('User not found')) {
-          
-          showSuccess("Usuário não encontrado. Tentando cadastrar...");
-          
-          const { error: signUpError } = await supabase.auth.signUp({
-            email,
-            password,
-          });
-
-          if (signUpError) {
-            throw signUpError;
-          }
-          
-          // Tenta o login novamente após o cadastro (para contornar a confirmação de e-mail em dev)
-          userId = await attemptLogin(email, password);
-        } else {
-          throw loginError;
+        const errorMessage = (loginError as Error).message;
+        
+        // Se o login falhar (ex: usuário não existe ou e-mail não confirmado)
+        if (errorMessage.includes('Invalid login credentials') || errorMessage.includes('Email not confirmed')) {
+          setLastError(errorMessage);
+          showError(errorMessage);
+          setLoading(false);
+          return;
         }
+        
+        // Se for outro erro, tenta o cadastro (fallback)
+        showSuccess("Usuário não encontrado. Tentando cadastrar...");
+        
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+
+        if (signUpError) {
+          throw signUpError;
+        }
+        
+        // Se o cadastro for bem-sucedido, o Supabase enviou o e-mail de confirmação.
+        setLastError("Conta criada! Verifique seu e-mail para confirmar e tente o login novamente.");
+        showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
+        setLoading(false);
+        return;
       }
 
       if (!userId) {
@@ -90,10 +100,31 @@ export default function RestaurantLogin() {
       navigate("/restaurant-area/home"); 
 
     } catch (error) {
-      showError((error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.");
+      const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";
+      setLastError(msg);
+      showError(msg);
     } finally {
       setLoading(false);
     }
+  };
+  
+  // Função de Login Forçado para Dev
+  const handleDevLogin = async () => {
+    setLoading(true);
+    // Simula a obtenção de um ID de usuário (mockado)
+    const userId = 'dev-test-user-id'; 
+    
+    // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
+    const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
+    
+    // Mockamos a atualização do Supabase para evitar erros de RLS/permissão
+    // Em um ambiente real, isso falharia se o usuário não estivesse autenticado.
+    // Aqui, apenas simulamos o sucesso.
+    
+    showSuccess("Login de Teste realizado! Redirecionando para o painel.");
+    setTimeout(() => {
+      navigate("/restaurant-area/home"); 
+    }, 500);
   };
 
   return (
@@ -186,6 +217,24 @@ export default function RestaurantLogin() {
                 </Button>
               </form>
               
+              {/* Botão de Login Forçado para Dev */}
+              <div className="pt-4">
+                <Button
+                  onClick={handleDevLogin}
+                  variant="secondary"
+                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-full"
+                  disabled={loading}
+                >
+                  Login de Teste (Dev)
+                </Button>
+              </div>
+
+              {lastError && (
+                <p className="pt-4 text-center text-sm text-red-500">
+                  {lastError}
+                </p>
+              )}
+
               <p className="pt-6 text-center text-base text-gray-600">
                 Não tem uma conta?
                 <Link
