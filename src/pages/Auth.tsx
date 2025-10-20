@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { motion } from 'framer-motion';
+import { createPageUrl } from '@/utils/url';
 
 const GoogleIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +38,8 @@ const AuthPage = () => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
-        navigate('/find-restaurants');
+        // Redireciona para a home do cliente
+        navigate(createPageUrl('home'));
       }
     });
     return () => subscription.unsubscribe();
@@ -69,6 +71,9 @@ const AuthPage = () => {
       
       if (error) {
         showError(error.message);
+      } else {
+        // Login bem-sucedido, redireciona para a home do cliente
+        navigate(createPageUrl('home'));
       }
     }
     
