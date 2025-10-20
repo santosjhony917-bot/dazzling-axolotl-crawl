@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Crown } from 'lucide-react';
+import { Home, Search, User, Crown, Zap } from 'lucide-react'; // Importando Zap
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -14,7 +14,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
   { path: '/restaurant-area/stats', label: 'Estatísticas', icon: Search, key: 'stats' }, // Reutilizando stats para a aba de busca
-  { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Crown, key: 'upgrade' },
+  { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Zap, key: 'upgrade' }, // Mudando o ícone para Zap
   { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
@@ -50,12 +50,15 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
                 className="flex flex-col items-center justify-center -mt-6 transition-colors duration-200"
               >
                 <div className="relative">
+                  {/* Efeito de brilho/pulse */}
                   <div className="absolute inset-0 bg-[hsl(var(--orange-accent))] rounded-full blur-lg opacity-40 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-br from-[hsl(var(--orange-accent))] to-[hsl(var(--orange-accent-hover))] hover:from-[hsl(var(--orange-accent-hover))] hover:to-[hsl(var(--orange-accent))] rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105">
-                    <Icon className="h-6 w-6 text-white" />
+                  
+                  {/* Botão principal (círculo laranja) */}
+                  <div className="relative bg-highlight hover:bg-highlight/90 rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-105">
+                    <Zap className="h-8 w-8 text-white" /> {/* Usando Zap */}
                   </div>
                 </div>
-                <span className="text-xs font-semibold mt-1 text-primary dark:text-text-dark">
+                <span className="text-sm font-semibold mt-1 text-highlight"> {/* Cor do texto ajustada para highlight */}
                   {item.label}
                 </span>
               </Link>
