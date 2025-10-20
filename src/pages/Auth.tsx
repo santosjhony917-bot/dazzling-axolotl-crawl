@@ -35,6 +35,7 @@ const AuthPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   // Redirect if user is already logged in
+  /*
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
@@ -44,6 +45,7 @@ const AuthPage = () => {
     });
     return () => subscription.unsubscribe();
   }, [navigate]);
+  */
 
   const handleAuthAction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
