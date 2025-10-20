@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
-import { UserProvider } from "./contexts/UserContext";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -28,12 +27,11 @@ import RestaurantProfile from "./pages/RestaurantProfile";
 import RestaurantAreaHub from "./pages/RestaurantAreaHub";
 import RestaurantMenu from "./pages/RestaurantMenu";
 import RestaurantCategories from "./pages/RestaurantCategories";
-import AuthRedirector from "./components/AuthRedirector";
-import RestaurantFreeProfile from "./pages/RestaurantFreeProfile";
+import RestaurantFreeProfile from "./pages/RestaurantFreeProfile"; // Adicionado
 // Os imports das páginas de gerenciamento do restaurante foram removidos
 
 // Admin Pages
-import AdminRoute from "./components/admin/AdminRoute";
+// import AdminRoute from "./components/admin/AdminRoute"; // Removido
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageAdmins from "./pages/admin/ManageAdmins";
 import EditRestaurant from "./pages/admin/EditRestaurant";
@@ -59,9 +57,8 @@ const AppRoutes = () => {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (_event === "SIGNED_IN" && session) {
-        // Redirecionamento agora será tratado pelo AuthRedirector
-        // Ao invés de redirecionar para /home aqui, vamos para uma rota que aciona o AuthRedirector
-        navigate("/auth-redirect", { replace: true });
+        // Redirecionamento removido, agora o usuário permanece na página atual ou é redirecionado manualmente
+        // navigate("/auth-redirect", { replace: true }); // Removido
       } else if (_event === "SIGNED_OUT") {
         // Redireciona para a tela de autenticação geral
         navigate("/auth", { replace: true });
@@ -83,22 +80,12 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/auth-redirect" element={<AuthRedirector />} />
       
-      {/* Rotas do Cliente (requerem sessão) */}
-      <Route
-        path="/search-restaurants"
-        element={session ? <SearchRestaurants /> : <AuthPage />}
-      />
-      <Route
-        path="/restaurant-results"
-        element={session ? <RestaurantResults /> : <AuthPage />}
-      />
-      <Route
-        path="/restaurant-profile/:id"
-        element={<RestaurantProfilePublic />}
-      />
-      <Route path="/profile" element={session ? <Profile /> : <AuthPage />} />
+      {/* Rotas do Cliente (agora acessíveis sem sessão) */}
+      <Route path="/search-restaurants" element={<SearchRestaurants />} />
+      <Route path="/restaurant-results" element={<RestaurantResults />} />
+      <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
+      <Route path="/profile" element={<Profile />} />
       
       {/* Hub de Acesso ao Restaurante (Não requer sessão) */}
       <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -106,7 +93,7 @@ const AppRoutes = () => {
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
 
-      {/* Área do Restaurante (Requer role de restaurante) - Usando RestaurantArea como Layout */}
+      {/* Área do Restaurante (agora acessível sem role de restaurante) */}
       <Route path="/restaurant-area" element={<RestaurantArea />}>
         <Route index element={<RestaurantFreeProfile />} />
         <Route path="home" element={<RestaurantFreeProfile />} />
@@ -121,13 +108,13 @@ const AppRoutes = () => {
       {/* <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} /> */}
 
 
-      {/* Admin Routes */}
-      <Route path="/admin/dashboard" element={<AdminRoute title="Dashboard"><AdminDashboard /></AdminRoute>} />
-      <Route path="/admin/edit-restaurant" element={<AdminRoute title="Gerenciar Restaurantes"><EditRestaurant /></AdminRoute>} />
-      <Route path="/admin/manage-admins" element={<AdminRoute title="Gerenciar Administradores"><ManageAdmins /></AdminRoute>} />
-      <Route path="/admin/popular-categories" element={<AdminRoute title="Categorias Populares"><PopularCategories /></AdminRoute>} />
-      <Route path="/admin/files" element={<AdminRoute title="Gerenciamento de Arquivos"><Files /></AdminRoute>} />
-      <Route path="/admin/import" element={<AdminRoute title="Importar Cardápio"><ImportMenu /></AdminRoute>} />
+      {/* Admin Routes (agora acessíveis sem AdminRoute) */}
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/edit-restaurant" element={<EditRestaurant />} />
+      <Route path="/admin/manage-admins" element={<ManageAdmins />} />
+      <Route path="/admin/popular-categories" element={<PopularCategories />} />
+      <Route path="/admin/files" element={<Files />} />
+      <Route path="/admin/import" element={<ImportMenu />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -140,9 +127,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <UserProvider>
-          <AppRoutes />
-        </UserProvider>
+        <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

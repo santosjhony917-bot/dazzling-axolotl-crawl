@@ -4,8 +4,6 @@ import { MapPin, Store, Edit, BarChart3, ChevronRight, Star, LogOut } from "luci
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { mockLogout } from "@/utils/auth-mock";
-import { useUserRole } from "@/hooks/useUserRole";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Mock Data (será substituído por dados reais do restaurante logado)
@@ -23,12 +21,12 @@ const nearbyRestaurants = [
 
 const RestaurantDashboard = () => {
   const navigate = useNavigate();
-  const { role, isLoading } = useUserRole();
+  const [isLoading, setIsLoading] = React.useState(true); // Adicionado para simular loading
   
-  const isPremium = role === 'premium_restaurant';
+  const isPremium = false; // Mockado como false
 
   const handleSignOut = async () => {
-    await mockLogout();
+    await supabase.auth.signOut(); // Usando signOut direto do Supabase
     navigate('/auth');
   };
 

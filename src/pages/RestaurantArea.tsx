@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
-import { useUserRole } from "@/hooks/useUserRole";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createPageUrl } from "@/utils/url";
@@ -14,9 +13,6 @@ const RestaurantArea = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // Corrigido: Usar isFreeRestaurant ou isPremiumRestaurant para verificar se é restaurante
-  const { isPremiumRestaurant, isFreeRestaurant, isLoading: isRoleLoading } = useUserRole();
-  const isRestaurant = isPremiumRestaurant || isFreeRestaurant;
-  const isPremium = isPremiumRestaurant;
   const { restaurant, loading: restaurantLoading } = useRestaurantProfile();
 
   // Determine the current tab for the bottom navigation
@@ -46,14 +42,14 @@ const RestaurantArea = () => {
   const { title, showSearch, showNotifications } = getHeaderContent();
 
   // Se o usuário não for um restaurante e não estiver carregando, redireciona para o hub
-  if (!isRoleLoading && !isRestaurant) {
-    // Se o usuário está logado, mas não tem a role de restaurante, ele deve ser redirecionado
-    // para o hub para fazer login ou reivindicar.
-    navigate(createPageUrl('restaurant-area-hub'), { replace: true });
-    return null;
-  }
+  // if (!isRoleLoading && !isRestaurant) { // Removido
+  //   // Se o usuário está logado, mas não tem a role de restaurante, ele deve ser redirecionado
+  //   // para o hub para fazer login ou reivindicar.
+  //   navigate(createPageUrl('restaurant-area-hub'), { replace: true });
+  //   return null;
+  // }
 
-  if (isRoleLoading || restaurantLoading) {
+  if (restaurantLoading) { // isRoleLoading removido
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
         <Skeleton className="h-12 w-full mb-4" />

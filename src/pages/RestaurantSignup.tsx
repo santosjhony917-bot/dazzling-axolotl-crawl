@@ -131,7 +131,7 @@ export default function RestaurantSignup() {
         options: {
           data: {
             full_name: restaurantName,
-            is_restaurant: true,
+            // is_restaurant: true, // Removido
           },
         }
       });

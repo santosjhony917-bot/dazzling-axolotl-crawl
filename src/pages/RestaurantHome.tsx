@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { MapPin, Edit, BarChart3, ChevronRight, Star, LogOut, Home, Search, User, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { mockLogout } from "@/utils/auth-mock";
-import { useUserRole } from "@/hooks/useUserRole";
+// import { mockLogout } from "@/utils/auth-mock"; // REMOVIDO
+// import { useUserRole } from "@/hooks/useUserRole"; // REMOVIDO
 import { Skeleton } from "@/components/ui/skeleton";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Importando o componente correto
+import { supabase } from '@/integrations/supabase/client'; // Adicionado para signOut
 
 // Mock Data (será substituído por dados reais do restaurante logado)
 const highlights = [
@@ -23,16 +24,19 @@ const nearbyRestaurants = [
 
 const RestaurantHome = () => {
   const navigate = useNavigate();
-  const { role, isLoading } = useUserRole();
+  // const { role, isLoading } = useUserRole(); // REMOVIDO
+  const [isLoading, setIsLoading] = React.useState(true); // Adicionado para simular loading
   
-  const isPremium = role === 'premium_restaurant';
+  // const isPremium = role === 'premium_restaurant'; // REMOVIDO
+  const isPremium = false; // Mockado como false
 
   const handleSignOut = async () => {
-    await mockLogout();
+    // await mockLogout(); // REMOVIDO
+    await supabase.auth.signOut(); // Usando signOut direto do Supabase
     navigate('/auth');
   };
 
-  if (isLoading) {
+  if (isLoading) { // isRoleLoading removido
     return (
       <div className="min-h-screen flex flex-col p-4 max-w-md mx-auto">
         <Skeleton className="h-16 w-full mb-6" />

@@ -6,10 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import { useUser } from "@/contexts/UserContext";
-import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
-import { useUserRole } from "@/hooks/useUserRole";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
@@ -22,7 +19,6 @@ import { WeekSchedule, DaySchedule } from "@/types/schedule";
 import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton";
 
 // Definindo a interface do estado de edição fora do componente para clareza
 interface EditingFieldState {
@@ -118,12 +114,9 @@ const formatScheduleDisplay = (schedule: WeekSchedule): string => {
 const RestaurantProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { logout } = useUser();
-  const { signOut } = useAuth();
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile();
-  // Usando a desestruturação correta da correção anterior
-  const { isPremiumRestaurant, isAdmin } = useUserRole();
-  const isPremium = isPremiumRestaurant; 
+  const isPremium = false; // Mockado como false, pois não há roles
+  const isAdmin = false; // Mockado como false
   const { uploadImage, uploading } = useImageUpload();
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
@@ -146,9 +139,9 @@ const RestaurantProfile = () => {
     cep: restaurant?.cep || "",
     neighborhood: restaurant?.neighborhood || "",
     category: restaurant?.category || "",
-    phone: "Não cadastrado", // Mocked
-    email: "Não cadastrado", // Mocked
-    cnpj: "Não cadastrado",  // Mocked
+    phone: restaurant?.phone || "Não cadastrado", // Usando dados reais
+    email: restaurant?.email || "Não cadastrado", // Usando dados reais
+    cnpj: restaurant?.cnpj || "Não cadastrado",  // Usando dados reais
   };
 
   // Schedule data (using mock initial state if not loaded from DB)
@@ -275,10 +268,9 @@ const RestaurantProfile = () => {
 
   const handleLogout = async () => {
     // Logout do Supabase
-    await signOut();
+    await supabase.auth.signOut(); // Usando signOut direto do Supabase
     
-    // Limpar dados locais
-    logout();
+    // Limpar dados locais (não há mais UserContext)
     
     toast({
       title: "Logout realizado",
@@ -899,7 +891,7 @@ const RestaurantProfile = () => {
         </div>
         
         {/* Botão de Promoção a Admin (Apenas para Dev) */}
-        <PromoteToAdminButton />
+        {/* <PromoteToAdminButton /> */}
       </div>
 
       {/* Edit Field Dialog */}

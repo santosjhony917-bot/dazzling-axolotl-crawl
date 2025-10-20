@@ -4,27 +4,35 @@ import { User, LogOut, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { mockLogout } from '@/utils/auth-mock';
-import { useUserRole } from '@/hooks/useUserRole';
 import { Skeleton } from '@/components/ui/skeleton';
 import CustomerBottomNav from '@/components/restaurant/CustomerBottomNav';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { role, isLoading, userId, isPremiumRestaurant, isFreeRestaurant, isCustomer } = useUserRole();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [userId, setUserId] = React.useState<string | null>(null);
+  const [currentRole, setCurrentRole] = React.useState<string>('customer');
 
   useEffect(() => {
-    if (!isLoading && (isPremiumRestaurant || isFreeRestaurant)) {
-      navigate('/restaurant-area/profile-menu', { replace: true });
-    }
-  }, [isLoading, isPremiumRestaurant, isFreeRestaurant, navigate]);
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUserId(user?.id || null);
+      setIsLoading(false);
+    };
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    // Redirecionamento removido
+  }, [navigate]);
 
   const handleSignOut = async () => {
-    await mockLogout();
+    await supabase.auth.signOut();
     navigate('/auth');
   };
 
-  if (isLoading || isPremiumRestaurant || isFreeRestaurant) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
         <Skeleton className="h-10 w-full mb-8" />
@@ -39,7 +47,7 @@ export default function Profile() {
     email: userId ? `user-${userId.substring(0, 4)}@example.com` : "email@exemplo.com",
     location: "João Pessoa, PB",
     phone: "(83) 99999-9999",
-    currentRole: role,
+    currentRole: currentRole,
   };
 
   return (
@@ -104,7 +112,7 @@ export default function Profile() {
           </div>
         </motion.div>
       </main>
-      {isCustomer && <CustomerBottomNav />}
+      <CustomerBottomNav />
     </div>
   );
 }

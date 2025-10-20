@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useUserRole } from './useUserRole';
 import { WeekSchedule } from '@/types/schedule';
 
 interface RestaurantProfileData {
@@ -20,13 +19,26 @@ interface RestaurantProfileData {
   latitude: number | null;
   longitude: number | null;
   opening_hours: WeekSchedule | null;
+  phone: string | null; // Adicionado
+  email: string | null; // Adicionado
+  cnpj: string | null;  // Adicionado
 }
 
 export function useRestaurantProfile() {
-  const { userId, isLoading: isRoleLoading } = useUserRole();
+  const [userId, setUserId] = useState<string | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
   const [restaurant, setRestaurant] = useState<RestaurantProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUserId(user?.id || null);
+      setIsUserLoading(false);
+    };
+    fetchUserId();
+  }, []);
 
   const fetchRestaurant = async (id: string) => {
     setLoading(true);
@@ -57,12 +69,12 @@ export function useRestaurantProfile() {
   };
 
   useEffect(() => {
-    if (!isRoleLoading && userId) {
+    if (!isUserLoading && userId) {
       fetchRestaurant(userId);
-    } else if (!isRoleLoading && !userId) {
+    } else if (!isUserLoading && !userId) {
       setLoading(false);
     }
-  }, [userId, isRoleLoading]);
+  }, [userId, isUserLoading]);
 
   const updateRestaurant = async (updates: Partial<RestaurantProfileData>) => {
     if (!restaurant?.id) return { error: "Restaurante não encontrado." };
@@ -84,7 +96,7 @@ export function useRestaurantProfile() {
 
   return {
     restaurant,
-    loading: loading || isRoleLoading,
+    loading: loading || isUserLoading,
     error,
     updateRestaurant,
     refetch: () => userId && fetchRestaurant(userId),

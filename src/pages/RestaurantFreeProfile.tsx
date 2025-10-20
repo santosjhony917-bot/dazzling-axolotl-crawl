@@ -3,12 +3,11 @@ import { motion } from "framer-motion";
 import { MapPin, Edit, BarChart3, LogOut, Crown, DollarSign, Star, TrendingUp, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { useUserRole } from "@/hooks/useUserRole";
 import { Skeleton } from "@/components/ui/skeleton";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
-import { useAuth } from "@/hooks/useAuth";
 import { createPageUrl } from "@/utils/url";
+import { supabase } from '@/integrations/supabase/client';
 
 // Subcomponent for Quick Action Buttons
 const QuickActionButton: React.FC<{ icon: React.ElementType; title: string; subtitle: string; onClick: () => void; colorClass: string }> = ({ icon: Icon, title, subtitle, onClick, colorClass }) => (
@@ -37,18 +36,29 @@ const PerformanceMetricCard: React.FC<{ icon: React.ElementType; title: string; 
 
 const RestaurantFreeProfile = () => {
   const navigate = useNavigate();
-  const { isLoading: isRoleLoading, role } = useUserRole();
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [role, setRole] = React.useState<string>('free_restaurant');
   const { restaurant, loading: isRestaurantProfileLoading } = useRestaurantProfile();
-  const { signOut } = useAuth();
 
-  const isLoading = isRoleLoading || isRestaurantProfileLoading;
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setRole('free_restaurant');
+      }
+      setIsLoading(false);
+    };
+    fetchUser();
+  }, []);
+
+  const combinedLoading = isLoading || isRestaurantProfileLoading;
 
   const handleSignOut = async () => {
-    await signOut();
+    await supabase.auth.signOut();
     navigate('/auth');
   };
 
-  if (isLoading) {
+  if (combinedLoading) {
     return (
       <div className="min-h-screen flex flex-col p-4 max-w-md mx-auto">
         <Skeleton className="h-16 w-full mb-6" />
@@ -67,6 +77,7 @@ const RestaurantFreeProfile = () => {
   const restaurantAddress = restaurant?.address || "Endereço não cadastrado";
   const restaurantCityState = [restaurant?.city, restaurant?.state].filter(Boolean).join(', ');
   const displayRole = role === 'free_restaurant' ? 'Restaurante - Plano Free' : 'Restaurante';
+  const isPremium = role === 'premium_restaurant';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-24 max-w-md mx-auto">
