@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Star, MapPin, Clock } from "lucide-react";
+import { ArrowLeft, Heart, Share2, Star, MapPin, Clock, Crown, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -10,54 +10,59 @@ import OrderChannels from "../components/restaurant/OrderChannels";
 import PhotoGallery from "../components/restaurant/PhotoGallery";
 import MenuSection from "../components/restaurant/MenuSection";
 import RestaurantInfo from "../components/restaurant/RestaurantInfo";
+import { createPageUrl } from "@/utils/url";
+
+// Componente de Banner de Upgrade Simples
+const FreeUpgradeBanner = () => (
+  <div className="mt-8 p-4 bg-yellow-50 border border-yellow-300 rounded-xl text-center shadow-md">
+    <Crown className="w-6 h-6 text-highlight mx-auto mb-2 fill-highlight/10" />
+    <h3 className="text-lg font-bold text-primary">Desbloqueie o Premium!</h3>
+    <p className="text-sm text-gray-600 mt-1 mb-3">
+      Seu restaurante pode ter mais destaque, fotos e canais de pedido.
+    </p>
+    <Button 
+      onClick={() => alert("Navegar para Upgrade")}
+      className="w-full h-10 rounded-full bg-highlight hover:bg-highlight/90 text-white text-sm font-bold"
+    >
+      <Lock className="w-4 h-4 mr-2" />
+      Ver Planos Premium
+    </Button>
+  </div>
+);
 
 export default function RestaurantProfilePublic() {
   const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
+  
+  // Mock: Definindo o restaurante como FREE para aplicar as restrições
+  const isPremium = false; 
 
   const restaurantData = {
     id: 'nau',
-    name: 'NAU – Frutos do Mar',
-    isVerified: true,
-    rating: 4.7,
-    reviewsCount: 1200,
-    followersCount: 2834,
-    coverImageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
+    name: 'Restaurante Sabor Divino', // Nome genérico para Free
+    isVerified: false, // Não verificado no Free
+    rating: 0, // Sem rating visível no Free
+    reviewsCount: 0,
+    followersCount: 0,
+    coverImageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80", // Imagem de capa
     address: 'Av. Epitácio Pessoa, 1234 - Tambaú',
     openingHours: '18:00 - 23:00',
     isOpen: true,
-    categories: ['Entradas', 'Principais', 'Sobremesas', 'Bebidas'],
+    categories: ['Pratos', 'Bebidas'],
     menuItems: [
       {
         id: '1',
-        name: 'Salada Caprese',
-        description: 'Tomate, mussarela de búfala, manjericão e azeite.',
+        name: 'Prato do Dia',
+        description: 'Descrição simples do prato.',
         price: 35.00,
         imageUrl: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      },
-      {
-        id: '2',
-        name: 'Ceviche Clássico',
-        description: 'Peixe branco fresco, limão, coentro e pimenta.',
-        price: 45.00,
-        imageUrl: 'https://images.unsplash.com/photo-1626200419199-391ae4be7a41?q=80&w=2070&auto=format&fit=crop',
         isFavorite: false
       },
-      {
-        id: '3',
-        name: 'Risoto de Camarão',
-        description: 'Arroz arbóreo, camarões frescos e ervas finas.',
-        price: 68.00,
-        // URL corrigida para uma imagem funcional
-        imageUrl: 'https://images.unsplash.com/photo-1519708227418-d6dc969a9974?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      }
     ],
     gallery: [
-      { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente aconchegante' },
-      { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária premium' },
-      { imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop', caption: 'Vista privilegiada' }
+      { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente' },
+      { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária' },
+      { imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop', caption: 'Vista' }
     ]
   };
 
@@ -68,7 +73,10 @@ export default function RestaurantProfilePublic() {
         <img
           src={restaurantData.coverImageUrl}
           alt={restaurantData.name}
-          className="w-full h-full object-cover"
+          className={cn(
+            "w-full h-full object-cover",
+            !isPremium && "grayscale opacity-70" // Efeito Free
+          )}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
         
@@ -103,7 +111,16 @@ export default function RestaurantProfilePublic() {
 
       {/* Main Content */}
       <div className="relative -mt-12 px-4 pb-8 max-w-md mx-auto w-full">
-        <RestaurantHeader restaurant={restaurantData} />
+        {/* Restaurant Header (Ajustado para Free) */}
+        <RestaurantHeader 
+          restaurant={{
+            ...restaurantData,
+            rating: isPremium ? restaurantData.rating : 0,
+            reviewsCount: isPremium ? restaurantData.reviewsCount : 0,
+            followersCount: isPremium ? restaurantData.followersCount : 0,
+            isVerified: isPremium ? restaurantData.isVerified : false,
+          }} 
+        />
 
         {/* Action Buttons */}
         <motion.div
@@ -131,7 +148,7 @@ export default function RestaurantProfilePublic() {
           </Button>
         </motion.div>
 
-        {/* Quick Info Cards */}
+        {/* Quick Info Cards (Mantidos, pois são informações básicas) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -162,19 +179,28 @@ export default function RestaurantProfilePublic() {
           </div>
         </motion.div>
 
-        {/* Order Channels */}
-        <OrderChannels />
+        {/* Order Channels - SUBSTITUÍDO POR BANNER NO FREE */}
+        {isPremium ? <OrderChannels /> : <FreeUpgradeBanner />}
 
-        {/* Photo Gallery */}
-        <PhotoGallery gallery={restaurantData.gallery} />
+        {/* Photo Gallery - SUBSTITUÍDO POR BANNER NO FREE */}
+        {isPremium ? <PhotoGallery gallery={restaurantData.gallery} /> : <FreeUpgradeBanner />}
 
-        {/* Menu Section */}
-        <MenuSection 
-          categories={restaurantData.categories}
-          menuItems={restaurantData.menuItems}
-        />
+        {/* Menu Section - SIMPLIFICADO NO FREE */}
+        <div className="mt-8">
+          <h2 className="text-lg font-bold text-[#022D68]">Cardápio Básico</h2>
+          {!isPremium && (
+            <div className="flex items-center gap-3 rounded-lg bg-gray-100 p-4 shadow-sm border border-gray-200 mt-4">
+              <Lock className="w-6 h-6 text-gray-500" />
+              <p className="font-medium text-gray-700">Cardápio completo e fotos de pratos são recursos Premium.</p>
+            </div>
+          )}
+          <MenuSection 
+            categories={isPremium ? restaurantData.categories : ['Pratos Principais']}
+            menuItems={isPremium ? restaurantData.menuItems : restaurantData.menuItems.slice(0, 1)} // Apenas 1 item no Free
+          />
+        </div>
 
-        {/* Restaurant Info */}
+        {/* Restaurant Info (Mantido) */}
         <RestaurantInfo restaurant={restaurantData} />
       </div>
     </div>
