@@ -14,6 +14,7 @@ const RestaurantArea = () => {
   const location = useLocation();
   
   // Para demonstração sem login, vamos mockar um restaurantId
+  // Mantemos o mock para que os dados do restaurante sejam carregados no RestaurantHome
   const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
   const { restaurant, loading: restaurantLoading } = useRestaurantProfile(restaurantId); 
 
@@ -42,19 +43,22 @@ const RestaurantArea = () => {
         return { title: "Estatísticas", showSearch: false, showNotifications: true };
     }
     // Default para Home (que agora é o perfil detalhado)
+    // Usamos um título padrão se o restaurante ainda estiver carregando ou não for encontrado
     return { title: restaurant?.name || "Meu Perfil", showSearch: false, showNotifications: true };
   };
 
   const { title, showSearch, showNotifications } = getHeaderContent();
 
-  if (restaurantLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
-        <Skeleton className="h-12 w-full mb-4" />
-        <Skeleton className="h-40 w-full rounded-lg mb-4" />
-      </div>
-    );
-  }
+  // Removemos o estado de carregamento aqui para permitir que o Outlet renderize
+  // O carregamento será tratado dentro do RestaurantHome.tsx
+  // if (restaurantLoading) {
+  //   return (
+  //     <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
+  //       <Skeleton className="h-12 w-full mb-4" />
+  //       <Skeleton className="h-40 w-full rounded-lg mb-4" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F5F5F5' }}>
