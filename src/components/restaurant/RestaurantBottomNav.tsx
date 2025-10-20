@@ -13,16 +13,17 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/restaurant-area/stats', label: 'Buscar', icon: Search, key: 'stats' }, // Reutilizando stats para a aba de busca
+  { path: '/restaurant-area/stats', label: 'Estatísticas', icon: Search, key: 'stats' }, // Reutilizando stats para a aba de busca
   { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Crown, key: 'upgrade' },
   { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
 interface RestaurantBottomNavProps {
   selectedTab?: string;
+  isFree?: boolean; // Nova prop para indicar se o plano é Free
 }
 
-const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }) => {
+const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, isFree = false }) => {
   const location = useLocation();
   
   const getActivePath = (path: string, key: string) => {
@@ -40,6 +41,26 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
           const Icon = item.icon;
           
           const isUpgradeButton = item.key === 'upgrade';
+
+          if (isUpgradeButton && isFree) {
+            return (
+              <Link
+                key={item.path}
+                to={createPageUrl(item.path.substring(1))}
+                className="flex flex-col items-center justify-center -mt-6 transition-colors duration-200"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[hsl(var(--orange-accent))] rounded-full blur-lg opacity-40 animate-pulse"></div>
+                  <div className="relative bg-gradient-to-br from-[hsl(var(--orange-accent))] to-[hsl(var(--orange-accent-hover))] hover:from-[hsl(var(--orange-accent-hover))] hover:to-[hsl(var(--orange-accent))] rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105">
+                    <Icon className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <span className="text-xs font-semibold mt-1 text-primary dark:text-text-dark">
+                  {item.label}
+                </span>
+              </Link>
+            );
+          }
 
           return (
             <Link

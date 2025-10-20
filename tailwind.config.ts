@@ -72,6 +72,9 @@ export default {
         "background-dark": "#111821", // Novo background dark
         "text-light": "#111417", // Nova cor de texto
         "text-dark": "#ffffff", // Nova cor de texto
+        // Novas cores para o botão de upgrade
+        "orange-accent": "24 84.2% 60.2%", // HSL para E47948
+        "orange-accent-hover": "24 90% 55%",
       },
       borderRadius: {
         lg: "var(--radius)",

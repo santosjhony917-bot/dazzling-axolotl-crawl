@@ -8,6 +8,7 @@ import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createPageUrl } from "@/utils/url";
+import { useUserRole } from "@/hooks/useUserRole"; // Importando useUserRole
 
 const RestaurantArea = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const RestaurantArea = () => {
   // Para demonstração sem login, vamos mockar um restaurantId
   const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
   const { restaurant, loading: restaurantLoading } = useRestaurantProfile(restaurantId); 
+  const { isPremium, isLoading: roleLoading } = useUserRole(); // Usando useUserRole
+  const isFree = !isPremium; // O restaurante é Free se não for Premium
 
   // Determine the current tab for the bottom navigation
   const getSelectedTab = (pathname: string) => {
@@ -56,6 +59,16 @@ const RestaurantArea = () => {
 
   const { title, showHeader } = getHeaderContent();
 
+  // Se estiver carregando o perfil ou o role, podemos mostrar um placeholder
+  if (restaurantLoading || roleLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8F9FA]">
+        <Skeleton className="h-10 w-40 mb-4" />
+        <p className="text-gray-500">Carregando área do restaurante...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F8F9FA' }}>
       
@@ -91,7 +104,7 @@ const RestaurantArea = () => {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 w-full max-w-md mx-auto z-30">
-        <RestaurantBottomNav selectedTab={selectedTab} />
+        <RestaurantBottomNav selectedTab={selectedTab} isFree={isFree} />
       </div>
     </div>
   );
