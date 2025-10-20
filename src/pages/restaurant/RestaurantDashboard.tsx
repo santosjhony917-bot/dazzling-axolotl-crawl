@@ -28,19 +28,6 @@ import HighlightCard from "@/components/restaurant/HighlightCard";
 import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
 import useEmblaCarousel from 'embla-carousel-react';
 
-// Definindo a interface do estado de edição fora do componente para clareza
-interface EditingFieldState {
-  key: string;
-  title: string;
-  fieldName: string;
-  icon: React.ReactNode;
-  type?: "text" | "tel" | "email";
-  placeholder?: string;
-  validationSchema?: z.ZodString;
-  mask?: (value: string) => string;
-  currentValue: string;
-}
-
 // Mock Data para o novo dashboard
 const mockHighlights = [
   { id: 'h1', name: 'Hambúrguer Gourmet', restaurantName: 'Burger Joint', price: 35.00, imageUrl: 'https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=2070&auto=format&fit=crop' },
@@ -77,7 +64,7 @@ const upgradeSlides = [
 ];
 
 
-const RestaurantHome = () => {
+const RestaurantDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -133,7 +120,7 @@ const RestaurantHome = () => {
           <Skeleton className="h-64 min-w-[280px] rounded-xl" />
           <Skeleton className="h-64 min-w-[280px] rounded-xl" />
         </div>
-        <RestaurantBottomNav selectedTab="home" />
+        <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
       </div>
     );
   }
@@ -208,7 +195,7 @@ const RestaurantHome = () => {
                         <p className="text-sm mt-1 max-w-xs">{slide.subtitle}</p>
                         <Button 
                           onClick={handleGoToUpgrade}
-                          className="bg-accent text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-accent/90"
+                          className="bg-highlight text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-highlight/90"
                         >
                           Saiba Mais
                         </Button>
@@ -279,10 +266,10 @@ const RestaurantHome = () => {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 w-full max-w-md mx-auto z-30">
-        <RestaurantBottomNav selectedTab="home" />
+        <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
       </div>
     </div>
   );
 };
 
-export default RestaurantHome;
+export default RestaurantDashboard;

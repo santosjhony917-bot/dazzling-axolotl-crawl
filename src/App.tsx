@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Profile from "./pages/Profile";
 import RestaurantArea from "./pages/RestaurantArea"; // Usando o layout principal da área do restaurante
-import RestaurantProfile from "./pages/RestaurantHome";
+import RestaurantDashboard from "./pages/restaurant/RestaurantDashboard"; // Novo nome
+import RestaurantProfileMenu from "./pages/restaurant/RestaurantProfileMenu"; // Novo arquivo de perfil detalhado
 import RestaurantLogin from "./pages/RestaurantLogin";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import Welcome from "./pages/Welcome";
@@ -53,9 +54,10 @@ export default function App() {
         
         {/* Rotas Aninhadas da Área do Restaurante (Usando Layout) */}
         <Route path="/restaurant-area" element={<RestaurantArea />}>
-          {/* O perfil do restaurante é a tela principal da área logada */}
-          <Route path="home" element={<RestaurantProfile />} />
-          <Route path="profile-menu" element={<RestaurantProfile />} />
+          {/* Dashboard (Home) */}
+          <Route path="home" element={<RestaurantDashboard />} />
+          {/* Perfil Detalhado (Menu de Edição) */}
+          <Route path="profile-menu" element={<RestaurantProfileMenu />} />
           <Route path="stats" element={<div>Estatísticas Placeholder</div>} />
           <Route path="menu" element={<RestaurantMenu />} />
           <Route path="categories" element={<RestaurantCategories />} />

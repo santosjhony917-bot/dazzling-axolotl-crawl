@@ -34,12 +34,13 @@ const RestaurantArea = () => {
   const selectedTab = getSelectedTab(location.pathname);
   
   // Verifica se a rota atual é a Home/Dashboard (que tem seu próprio header)
-  const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home') || location.pathname.endsWith('/restaurant-area/profile-menu');
+  const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home');
+  const isProfileMenuRoute = location.pathname.endsWith('/restaurant-area/profile-menu');
 
   // Determine header content based on the current route
   const getHeaderContent = () => {
-    if (isDashboardRoute) {
-        return { title: "", showHeader: false }; // Não mostra header no dashboard
+    if (isDashboardRoute || isProfileMenuRoute) {
+        return { title: "", showHeader: false }; // Não mostra header no dashboard ou no perfil detalhado
     }
     if (location.pathname.includes('/restaurant-area/menu')) {
         return { title: "Cardápio", showHeader: true };
@@ -72,7 +73,7 @@ const RestaurantArea = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#F8F9FA' }}>
       
-      {/* Header (Renderizado apenas em sub-rotas que não são o Dashboard) */}
+      {/* Header (Renderizado apenas em sub-rotas que não são o Dashboard/Perfil) */}
       {showHeader && (
         <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
           <Button 
@@ -97,7 +98,7 @@ const RestaurantArea = () => {
         </header>
       )}
 
-      {/* Main Content Area - Renders the matched sub-route (e.g., RestaurantHome) */}
+      {/* Main Content Area - Renders the matched sub-route (e.g., RestaurantDashboard) */}
       <main className="flex-1 overflow-y-auto w-full max-w-md mx-auto">
         <Outlet />
       </main>

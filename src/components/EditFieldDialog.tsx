@@ -17,11 +17,11 @@ interface EditFieldDialogProps {
   onSave: (value: string) => Promise<void> | void;
   placeholder?: string;
   type?: "text" | "tel" | "email";
-  validationSchema?: z.ZodString;
+  validationSchema?: z.ZodType<string>; // Alterado de z.ZodString para z.ZodType<string>
   mask?: (value: string) => string;
 }
 
-const defaultSchema = z.string().min(1, "Campo obrigatório");
+const defaultSchema: z.ZodType<string> = z.string().min(1, "Campo obrigatório");
 
 export default function EditFieldDialog({
   isOpen,
