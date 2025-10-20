@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useImageUpload } from "@/hooks/useImageUpload";
-import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav"; // Corrigido o caminho do import
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
 import { EditHoursDialog } from "@/components/EditHoursDialog";
 import { EditAddressDialog } from "@/components/EditAddressDialog";
@@ -485,7 +485,7 @@ const RestaurantProfile = () => {
   );
 
   // Componente auxiliar para renderizar itens de link/navegação
-  const NavItem: React.FC<{ label: string; icon: React.ElementType; onClick: () => void; isPremiumLocked?: boolean }> = ({ label, icon: Icon, onClick, isPremiumLocked = false }) => (
+  const NavItem: React.FC<{ label: string; icon: React.ElementType; onClick: () => void; isPremiumLocked?: boolean; description?: string }> = ({ label, icon: Icon, onClick, isPremiumLocked = false, description }) => (
     <button 
       onClick={onClick}
       disabled={isPremiumLocked && !isPremium}
@@ -494,9 +494,16 @@ const RestaurantProfile = () => {
         isPremiumLocked && !isPremium ? "text-highlight/50 cursor-not-allowed" : "text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50"
       )}
     >
-      <span className="flex items-center gap-2 text-sm">
-        <Icon className={cn("w-5 h-5", isPremiumLocked && !isPremium ? "text-highlight/50" : "text-highlight")} />
-        {isPremiumLocked && !isPremium ? `🔒 Premium: ${label}` : label}
+      <span className="flex items-center gap-3 text-left">
+        <Icon className={cn("w-5 h-5 shrink-0", isPremiumLocked && !isPremium ? "text-gray-400" : "text-[#022D68]")} />
+        <div>
+          <p className={cn("text-sm font-medium", isPremiumLocked && !isPremium ? "text-gray-500" : "text-foreground")}>
+            {isPremiumLocked && !isPremium ? `🔒 Premium: ${label}` : label}
+          </p>
+          {description && (
+            <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+          )}
+        </div>
       </span>
       <ChevronRight className="w-5 h-5 text-gray-400" />
     </button>
@@ -708,21 +715,19 @@ const RestaurantProfile = () => {
         <div className="px-4 mt-4">
           <Card className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
             <h3 className="text-[#022D68] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
-            <div className="p-4 space-y-3">
-              <Button 
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              <NavItem 
+                label="Atualizar Cardápio" 
+                description="Adicionar, editar ou remover pratos"
+                icon={UtensilsCrossed} 
                 onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-                className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <UtensilsCrossed className="w-4 h-4" />
-                Atualizar Cardápio
-              </Button>
-              <Button 
+              />
+              <NavItem 
+                label="Gerenciar Categorias" 
+                description="Entradas, Pratos Principais, Bebidas, etc."
+                icon={Package} 
                 onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
-                className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <Package className="w-4 h-4" />
-                Gerenciar Categorias
-              </Button>
+              />
             </div>
           </Card>
         </div>
@@ -775,35 +780,44 @@ const RestaurantProfile = () => {
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
               
               {/* Switches */}
-              <div className="p-4 flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de pedidos</span>
-                <Switch 
-                  checked={notifications.orders}
-                  onCheckedChange={(checked) => setNotifications({...notifications, orders: checked})}
-                  className="data-[state=checked]:bg-[#E47948]"
-                />
-              </div>
-              <div className="p-4 flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de visitas</span>
-                <Switch 
-                  checked={notifications.visits}
-                  onCheckedChange={(checked) => setNotifications({...notifications, visits: checked})}
-                  className="data-[state=checked]:bg-[#E47948]"
-                />
-              </div>
-              <div className="p-4 flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-400">Novos seguidores</span>
-                <Switch 
-                  checked={notifications.followers}
-                  onCheckedChange={(checked) => setNotifications({...notifications, followers: checked})}
-                  className="data-[state=checked]:bg-[#E47948]"
-                />
+              <div className="p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Bell className="h-5 w-5 text-[#022D68]" />
+                  <p className="text-sm font-medium text-foreground">Notificações e alertas</p>
+                </div>
+                <div className="space-y-3 ml-8">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Alertas de pedidos</span>
+                    <Switch 
+                      checked={notifications.orders}
+                      onCheckedChange={(checked) => setNotifications({...notifications, orders: checked})}
+                      className="data-[state=checked]:bg-[#E47948]"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Alertas de visitas</span>
+                    <Switch 
+                      checked={notifications.visits}
+                      onCheckedChange={(checked) => setNotifications({...notifications, visits: checked})}
+                      className="data-[state=checked]:bg-[#E47948]"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Novos seguidores</span>
+                    <Switch 
+                      checked={notifications.followers}
+                      onCheckedChange={(checked) => setNotifications({...notifications, followers: checked})}
+                      className="data-[state=checked]:bg-[#E47948]"
+                    />
+                  </div>
+                </div>
               </div>
               
               {/* Canais de Pedido Link */}
               <NavItem 
                 label="Gerenciar canais" 
-                icon={Lock} 
+                description={isPremium ? "WhatsApp, iFood, Anota Aí" : "Gerencie seus canais de pedido"}
+                icon={Package} 
                 onClick={() => handleEdit('whatsapp')} // Usando whatsapp como proxy para abrir o modal de edição de canais
                 isPremiumLocked={true}
               />
@@ -827,16 +841,19 @@ const RestaurantProfile = () => {
 
               <NavItem 
                 label="Central de Ajuda" 
+                description="Tutoriais e perguntas frequentes"
                 icon={HelpCircle} 
                 onClick={() => navigate(createPageUrl("restaurant-area/help-center"))}
               />
               <NavItem 
                 label="Falar com o Suporte" 
+                description="Chat direto com equipe FilterFood"
                 icon={MessageSquare} 
                 onClick={() => navigate(createPageUrl("restaurant-area/support"))}
               />
               <NavItem 
                 label="Termos e Política de Privacidade" 
+                description="Leitura e aceite"
                 icon={FileCheck} 
                 onClick={() => navigate(createPageUrl("restaurant-area/terms"))}
               />
