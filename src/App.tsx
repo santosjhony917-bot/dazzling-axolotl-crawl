@@ -21,17 +21,13 @@ import AuthPage from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import RestaurantArea from "./pages/RestaurantArea";
 import ClaimRestaurant from "./pages/ClaimRestaurant";
-import RestaurantHome from "./pages/RestaurantHome";
+import RestaurantHome from "./pages/RestaurantHome"; // Novo nome para o perfil detalhado
 import Profile from "./pages/Profile";
-import RestaurantProfile from "./pages/RestaurantProfile";
-import RestaurantAreaHub from "./pages/RestaurantAreaHub";
 import RestaurantMenu from "./pages/RestaurantMenu";
 import RestaurantCategories from "./pages/RestaurantCategories";
-import RestaurantFreeProfile from "./pages/RestaurantFreeProfile"; // Adicionado
-// Os imports das páginas de gerenciamento do restaurante foram removidos
+import RestaurantAreaHub from "./pages/RestaurantAreaHub"; // Importação adicionada
 
 // Admin Pages
-// import AdminRoute from "./components/admin/AdminRoute"; // Removido
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageAdmins from "./pages/admin/ManageAdmins";
 import EditRestaurant from "./pages/admin/EditRestaurant";
@@ -43,35 +39,6 @@ const queryClient = new QueryClient();
 
 const AppRoutes = () => {
   const navigate = useNavigate();
-  // Removendo estados e efeitos de autenticação
-  // const [session, setSession] = useState<Session | null>(null);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   supabase.auth.getSession().then(({ data: { session } }) => {
-  //     setSession(session);
-  //     setLoading(false);
-  //   });
-
-  //   const {
-  //     data: { subscription },
-  //   } = supabase.auth.onAuthStateChange((_event, session) => {
-  //     setSession(session);
-  //     if (_event === "SIGNED_IN" && session) {
-  //       // Redirecionamento removido, agora o usuário permanece na página atual ou é redirecionado manualmente
-  //       // navigate("/auth-redirect", { replace: true }); // Removido
-  //     } else if (_event === "SIGNED_OUT") {
-  //       // Redireciona para a tela de autenticação geral
-  //       navigate("/auth", { replace: true });
-  //     }
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, [navigate]);
-
-  // if (loading) {
-  //   return null; // Ou um componente de loading
-  // }
 
   return (
     <Routes>
@@ -81,36 +48,34 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-      {/* <Route path="/auth-redirect" element={<AuthRedirector />} /> */}
       
-      {/* Rotas do Cliente (agora acessíveis sem sessão) */}
+      {/* Rotas do Cliente */}
       <Route path="/search-restaurants" element={<SearchRestaurants />} />
       <Route path="/restaurant-results" element={<RestaurantResults />} />
       <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
       <Route path="/profile" element={<Profile />} />
       
-      {/* Hub de Acesso ao Restaurante (Não requer sessão) */}
+      {/* Hub de Acesso ao Restaurante */}
       <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
       <Route path="/restaurant-signup" element={<RestaurantSignup />} />
       <Route path="/restaurant-login" element={<RestaurantLogin />} />
       <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
 
-      {/* Área do Restaurante (agora acessível sem role de restaurante) */}
+      {/* Área do Restaurante (Rotas aninhadas) */}
       <Route path="/restaurant-area" element={<RestaurantArea />}>
-        <Route index element={<RestaurantFreeProfile />} />
-        <Route path="home" element={<RestaurantFreeProfile />} />
-        <Route path="profile-menu" element={<RestaurantProfile />} />
+        {/* A rota index e /home agora usam o perfil detalhado */}
+        <Route index element={<RestaurantHome />} />
+        <Route path="home" element={<RestaurantHome />} />
+        {/* Rotas de menu e categorias */}
         <Route path="menu" element={<RestaurantMenu />} />
         <Route path="categories" element={<RestaurantCategories />} />
+        {/* Rotas de perfil e estatísticas (a serem implementadas) */}
+        <Route path="profile-menu" element={<RestaurantHome />} />
+        <Route path="stats" element={<div>Estatísticas do Restaurante</div>} />
+        <Route path="upgrade" element={<div>Página de Upgrade Premium</div>} />
       </Route>
       
-      {/* Rotas de Dashboard (Antigas, removidas) */}
-      {/* <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> */}
-      {/* <Route path="/restaurant-home" element={<RestaurantHome />} /> */}
-      {/* <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} */}
-
-
-      {/* Admin Routes (agora acessíveis sem AdminRoute) */}
+      {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/admin/edit-restaurant" element={<EditRestaurant />} />
       <Route path="/admin/manage-admins" element={<ManageAdmins />} />
@@ -129,9 +94,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        {/* <UserProvider> */} {/* Removido */}
-          <AppRoutes />
-        {/* </UserProvider> */} {/* Removido */}
+        <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

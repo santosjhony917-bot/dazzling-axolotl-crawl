@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
-// import { useUserRole } from "@/hooks/useUserRole"; // Removido
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createPageUrl } from "@/utils/url";
@@ -13,20 +12,19 @@ import { createPageUrl } from "@/utils/url";
 const RestaurantArea = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // Corrigido: Usar isFreeRestaurant ou isPremiumRestaurant para verificar se é restaurante
-  // const { isPremiumRestaurant, isFreeRestaurant, isLoading: isRoleLoading } = useUserRole(); // Removido
-  // const isRestaurant = isPremiumRestaurant || isFreeRestaurant; // Removido
-  // const isPremium = isPremiumRestaurant; // Removido
-  // Para demonstração sem login, vamos mockar um restaurantId ou deixar null
-  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Exemplo de ID mockado
-  const { restaurant, loading: restaurantLoading } = useRestaurantProfile(restaurantId); // Passando ID mockado
+  
+  // Para demonstração sem login, vamos mockar um restaurantId
+  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
+  const { restaurant, loading: restaurantLoading } = useRestaurantProfile(restaurantId); 
 
   // Determine the current tab for the bottom navigation
   const getSelectedTab = (pathname: string) => {
-    if (pathname.includes('/restaurant-home')) return 'home';
-    if (pathname.includes('/restaurant-stats')) return 'stats';
+    if (pathname.includes('/restaurant-area/home')) return 'home';
+    if (pathname.includes('/restaurant-area/stats')) return 'stats';
     if (pathname.includes('/upgrade')) return 'upgrade';
-    if (pathname.includes('/restaurant-profile-menu')) return 'perfil';
+    if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
+    // Se estiver em /restaurant-area/menu ou /restaurant-area/categories, mantém 'home' ou 'perfil'
+    if (pathname.includes('/restaurant-area/menu') || pathname.includes('/restaurant-area/categories')) return 'home';
     return 'home';
   };
 
@@ -34,28 +32,22 @@ const RestaurantArea = () => {
 
   // Determine header content based on the current route
   const getHeaderContent = () => {
-    // Usamos location.pathname para verificar a sub-rota
-    if (location.pathname.includes('/restaurant-profile-menu')) {
-        return { title: "Meu Perfil", showSearch: false, showNotifications: false };
+    if (location.pathname.includes('/restaurant-area/menu')) {
+        return { title: "Cardápio", showSearch: false, showNotifications: false };
     }
-    if (location.pathname.includes('/restaurant-stats')) {
+    if (location.pathname.includes('/restaurant-area/categories')) {
+        return { title: "Gerenciar Categorias", showSearch: false, showNotifications: false };
+    }
+    if (location.pathname.includes('/restaurant-area/stats')) {
         return { title: "Estatísticas", showSearch: false, showNotifications: true };
     }
-    // Default para Home
-    return { title: restaurant?.name || "Área do Restaurante", showSearch: true, showNotifications: true };
+    // Default para Home (que agora é o perfil detalhado)
+    return { title: restaurant?.name || "Meu Perfil", showSearch: false, showNotifications: true };
   };
 
   const { title, showSearch, showNotifications } = getHeaderContent();
 
-  // Se o usuário não for um restaurante e não estiver carregando, redireciona para o hub
-  // if (!isRoleLoading && !isRestaurant) { // Removido
-  //   // Se o usuário está logado, mas não tem a role de restaurante, ele deve ser redirecionado
-  //   // para o hub para fazer login ou reivindicar.
-  //   navigate(createPageUrl('restaurant-area-hub'), { replace: true });
-  //   return null;
-  // }
-
-  if (restaurantLoading) { // isRoleLoading removido
+  if (restaurantLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-4 max-w-md mx-auto">
         <Skeleton className="h-12 w-full mb-4" />
