@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronRight, LogOut, Bell, Shield, CreditCard, HelpCircle, Settings, Globe, Moon, FileText, Edit, UserCircle, Phone, Calendar, MapPinned, ArrowLeft } from "lucide-react";
+import { ChevronRight, LogOut, Bell, Shield, CreditCard, HelpCircle, Settings, Globe, Moon, FileText, Edit, UserCircle, Phone, Calendar, MapPinned, ArrowLeft, Search, Home, Crown, Utensils } from "lucide-react";
 import CustomerBottomNav from "@/components/CustomerBottomNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,13 +7,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { z } from "zod";
 import EditFieldDialog from "@/components/EditFieldDialog";
 import { createPageUrl } from "@/utils/url";
+import { cn } from "@/lib/utils";
 
-// Validation schemas
+// Validation schemas (mantidos)
 const nameSchema = z.string()
   .trim()
   .min(3, "Nome deve ter no mínimo 3 caracteres")
@@ -31,16 +32,9 @@ const addressSchema = z.string()
   .min(10, "Endereço deve ter no mínimo 10 caracteres")
   .max(200, "Endereço deve ter no máximo 200 caracteres");
 
-// Mock assets (since I cannot access local assets like appLogo and heroWaves)
-const MOCK_APP_LOGO = "https://via.placeholder.com/40x40?text=FF";
-
 const Profile = () => {
-  const [selectedTab, setSelectedTab] = useState("perfil");
   const [promotionsEnabled, setPromotionsEnabled] = useState(true);
   const [offersEnabled, setOffersEnabled] = useState(true);
-  const [notificationsExpanded, setNotificationsExpanded] = useState(false);
-  const [settingsExpanded, setSettingsExpanded] = useState(false);
-  const [personalDataExpanded, setPersonalDataExpanded] = useState(true);
   
   // Edit dialog states
   const [editNameOpen, setEditNameOpen] = useState(false);
@@ -103,6 +97,43 @@ const Profile = () => {
       .replace(/(\d{2})(\d)/, '$1/$2')
       .slice(0, 10);
   };
+  
+  // Componente auxiliar para renderizar itens de informação
+  const InfoItem: React.FC<{ label: string; value: string; icon: React.ElementType; onClick: () => void }> = ({ label, value, icon: Icon, onClick }) => (
+    <div className="p-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer" onClick={onClick}>
+      <span className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <Icon className="w-4 h-4 text-gray-400" />
+        {label}
+      </span>
+      <span className="text-sm font-bold text-gray-900 dark:text-gray-100 truncate max-w-[60%] text-right">
+        {value}
+      </span>
+    </div>
+  );
+
+  // Componente auxiliar para renderizar itens de link/navegação
+  const NavItem: React.FC<{ label: string; icon: React.ElementType; onClick: () => void; description?: string }> = ({ label, icon: Icon, onClick, description }) => (
+    <button 
+      onClick={onClick}
+      className={cn(
+        "w-full p-4 flex justify-between items-center transition-colors text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+      )}
+    >
+      <span className="flex items-center gap-3 text-left">
+        <Icon className="w-5 h-5 shrink-0 text-[#022D68]" />
+        <div>
+          <p className="text-sm font-medium text-foreground">
+            {label}
+          </p>
+          {description && (
+            <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+          )}
+        </div>
+      </span>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </button>
+  );
+
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
@@ -114,7 +145,7 @@ const Profile = () => {
             variant="ghost" 
             size="icon" 
             className="text-white hover:bg-white/10"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate(createPageUrl("home"))}
           >
             <ArrowLeft className="h-6 w-6" />
           </Button>
@@ -123,7 +154,7 @@ const Profile = () => {
         </div>
       </header>
 
-      {/* User Info Card with Avatar - Integrated */}
+      {/* User Info Card with Avatar */}
       <div className="px-4 -mt-4 mb-6">
         <Card className="bg-white border border-border/10 rounded-3xl p-6 relative shadow-xl">
           <div className="flex items-center gap-4 mb-1">
@@ -149,286 +180,183 @@ const Profile = () => {
         </Card>
       </div>
 
-      {/* Personal Data Section */}
+      {/* Dados Pessoais Section */}
       <div className="px-4 mb-4 space-y-4">
-        <h2 className="text-base font-bold text-[#022D68]">Configurações da Conta</h2>
+        <h2 className="text-base font-bold text-[#022D68]">Dados Pessoais</h2>
         
-        {/* Dados Pessoais Toggle */}
-        <Card 
-          className="bg-white border border-border/10 p-4 cursor-pointer rounded-3xl transition-all active:scale-[0.98] shadow-sm"
-          onClick={() => setPersonalDataExpanded(!personalDataExpanded)}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#022D68]/10">
-                <UserCircle className="h-5 w-5 text-[#022D68]" />
+        <Card className="bg-white border border-border/10 rounded-3xl p-4 space-y-4 shadow-sm">
+          <div className="space-y-3">
+            
+            {/* Nome */}
+            <div className="flex items-start gap-3 pb-3 border-b border-border/50">
+              <UserCircle className="h-5 w-5 text-[#E47948] mt-0.5" />
+              <div className="flex-1">
+                <Label className="text-xs text-muted-foreground">Nome completo</Label>
+                <p className="text-sm font-medium text-foreground mt-0.5">{userName}</p>
               </div>
-              <div>
-                <h3 className="font-medium text-sm text-foreground">Dados pessoais</h3>
-                <p className="text-xs text-muted-foreground">Informações da sua conta</p>
+              <Button 
+                size="sm" 
+                variant="ghost"
+                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditNameOpen(true);
+                }}
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+
+            {/* Telefone */}
+            <div className="flex items-start gap-3 pb-3 border-b border-border/50">
+              <Phone className="h-5 w-5 text-[#E47948] mt-0.5" />
+              <div className="flex-1">
+                <Label className="text-xs text-muted-foreground">Telefone</Label>
+                <p className="text-sm font-medium text-foreground mt-0.5">{userPhone}</p>
+              </div>
+              <Button 
+                size="sm" 
+                variant="ghost"
+                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditPhoneOpen(true);
+                }}
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+
+            {/* CPF (Não editável) */}
+            <div className="flex items-start gap-3 pb-3 border-b border-border/50">
+              <FileText className="h-5 w-5 text-[#E47948] mt-0.5" />
+              <div className="flex-1">
+                <Label className="text-xs text-muted-foreground">CPF</Label>
+                <p className="text-sm font-medium text-foreground mt-0.5">123.456.789-00</p>
+              </div>
+              <div className="h-7 w-7 p-0 flex items-center justify-center">
+                <Shield className="h-3.5 w-3.5 text-gray-400" />
               </div>
             </div>
-            <ChevronRight className={`h-4 w-4 text-muted-foreground transition-transform ${personalDataExpanded ? 'rotate-90' : ''}`} />
+
+            {/* Data de nascimento */}
+            <div className="flex items-start gap-3 pb-3 border-b border-border/50">
+              <Calendar className="h-5 w-5 text-[#E47948] mt-0.5" />
+              <div className="flex-1">
+                <Label className="text-xs text-muted-foreground">Data de nascimento</Label>
+                <p className="text-sm font-medium text-foreground mt-0.5">{userBirthdate}</p>
+              </div>
+              <Button 
+                size="sm" 
+                variant="ghost"
+                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditBirthdateOpen(true);
+                }}
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+
+            {/* Endereço */}
+            <div className="flex items-start gap-3">
+              <MapPinned className="h-5 w-5 text-[#E47948] mt-0.5" />
+              <div className="flex-1">
+                <Label className="text-xs text-muted-foreground">Endereço</Label>
+                <p className="text-sm font-medium text-foreground mt-0.5">{userAddress}</p>
+              </div>
+              <Button 
+                size="sm" 
+                variant="ghost"
+                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditAddressOpen(true);
+                }}
+              >
+                <Edit className="h-3.5 w-3.5" />
+              </Button>
+            </div>
           </div>
         </Card>
-
-        {personalDataExpanded && (
-          <div className="space-y-3">
-            <Card className="bg-white border border-border/10 rounded-3xl p-4 space-y-4 mx-4 shadow-sm">
-              <div className="space-y-3">
-                
-                {/* Nome */}
-                <div className="flex items-start gap-3 pb-3 border-b border-border/50">
-                  <UserCircle className="h-5 w-5 text-[#E47948] mt-0.5" />
-                  <div className="flex-1">
-                    <Label className="text-xs text-muted-foreground">Nome completo</Label>
-                    <p className="text-sm font-medium text-foreground mt-0.5">{userName}</p>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    variant="ghost"
-                    className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditNameOpen(true);
-                    }}
-                  >
-                    <Edit className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-
-                {/* Telefone */}
-                <div className="flex items-start gap-3 pb-3 border-b border-border/50">
-                  <Phone className="h-5 w-5 text-[#E47948] mt-0.5" />
-                  <div className="flex-1">
-                    <Label className="text-xs text-muted-foreground">Telefone</Label>
-                    <p className="text-sm font-medium text-foreground mt-0.5">{userPhone}</p>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    variant="ghost"
-                    className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditPhoneOpen(true);
-                    }}
-                  >
-                    <Edit className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-
-                {/* CPF (Não editável) */}
-                <div className="flex items-start gap-3 pb-3 border-b border-border/50">
-                  <FileText className="h-5 w-5 text-[#E47948] mt-0.5" />
-                  <div className="flex-1">
-                    <Label className="text-xs text-muted-foreground">CPF</Label>
-                    <p className="text-sm font-medium text-foreground mt-0.5">123.456.789-00</p>
-                  </div>
-                  <div className="h-7 w-7 p-0 flex items-center justify-center">
-                    <Shield className="h-3.5 w-3.5 text-gray-400" />
-                  </div>
-                </div>
-
-                {/* Data de nascimento */}
-                <div className="flex items-start gap-3 pb-3 border-b border-border/50">
-                  <Calendar className="h-5 w-5 text-[#E47948] mt-0.5" />
-                  <div className="flex-1">
-                    <Label className="text-xs text-muted-foreground">Data de nascimento</Label>
-                    <p className="text-sm font-medium text-foreground mt-0.5">{userBirthdate}</p>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    variant="ghost"
-                    className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditBirthdateOpen(true);
-                    }}
-                  >
-                    <Edit className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-
-                {/* Endereço */}
-                <div className="flex items-start gap-3">
-                  <MapPinned className="h-5 w-5 text-[#E47948] mt-0.5" />
-                  <div className="flex-1">
-                    <Label className="text-xs text-muted-foreground">Endereço</Label>
-                    <p className="text-sm font-medium text-foreground mt-0.5">{userAddress}</p>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    variant="ghost"
-                    className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948]"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditAddressOpen(true);
-                    }}
-                  >
-                    <Edit className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        )}
       </div>
 
-      {/* Notifications Section */}
+      {/* Preferências Section */}
       <div className="px-4 mb-4 space-y-4">
         <h2 className="text-base font-bold text-[#022D68]">Preferências</h2>
         
-        <Card 
-          className="bg-white border border-border/10 p-4 cursor-pointer rounded-3xl transition-all active:scale-[0.98] shadow-sm"
-          onClick={() => setNotificationsExpanded(!notificationsExpanded)}
-        >
+        <Card className="bg-white border border-border/10 rounded-3xl p-4 space-y-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#E47948]/10">
-                <Bell className="h-5 w-5 text-[#E47948]" />
-              </div>
-              <div>
-                <h3 className="font-medium text-sm text-foreground">Notificações</h3>
-                <p className="text-xs text-muted-foreground">Promoções e ofertas personalizadas</p>
-              </div>
+            <div className="flex-1">
+              <Label htmlFor="promotions" className="text-sm font-medium text-foreground">
+                Promoções próximas
+              </Label>
+              <p className="text-xs text-muted-foreground">Receba ofertas de restaurantes na sua região</p>
             </div>
-            <ChevronRight className={`h-4 w-4 text-muted-foreground transition-transform ${notificationsExpanded ? 'rotate-90' : ''}`} />
+            <Switch 
+              id="promotions"
+              checked={promotionsEnabled}
+              onCheckedChange={setPromotionsEnabled}
+              className="data-[state=checked]:bg-[#E47948]"
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <Label htmlFor="offers" className="text-sm font-medium text-foreground">
+                Ofertas personalizadas
+              </Label>
+              <p className="text-xs text-muted-foreground">Sugestões baseadas nas suas preferências</p>
+            </div>
+            <Switch 
+              id="offers"
+              checked={offersEnabled}
+              onCheckedChange={setOffersEnabled}
+              className="data-[state=checked]:bg-[#E47948]"
+            />
           </div>
         </Card>
-
-        {notificationsExpanded && (
-          <div className="space-y-3">
-            <Card className="bg-white border border-border/10 rounded-3xl p-4 space-y-4 mx-4 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <Label htmlFor="promotions" className="text-sm font-medium text-foreground">
-                    Promoções próximas
-                  </Label>
-                  <p className="text-xs text-muted-foreground">Receba ofertas de restaurantes na sua região</p>
-                </div>
-                <Switch 
-                  id="promotions"
-                  checked={promotionsEnabled}
-                  onCheckedChange={setPromotionsEnabled}
-                  className="data-[state=checked]:bg-[#E47948]"
-                />
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <Label htmlFor="offers" className="text-sm font-medium text-foreground">
-                    Ofertas personalizadas
-                  </Label>
-                  <p className="text-xs text-muted-foreground">Sugestões baseadas nas suas preferências</p>
-                </div>
-                <Switch 
-                  id="offers"
-                  checked={offersEnabled}
-                  onCheckedChange={setOffersEnabled}
-                  className="data-[state=checked]:bg-[#E47948]"
-                />
-              </div>
-            </Card>
-          </div>
-        )}
       </div>
 
-      {/* Settings Section */}
+      {/* Geral e Suporte Section */}
       <div className="px-4 mb-4 space-y-4">
         <h2 className="text-base font-bold text-[#022D68]">Geral e Suporte</h2>
         
-        <Card
-          className="bg-white border border-border/10 p-4 cursor-pointer rounded-3xl transition-all active:scale-[0.98] shadow-sm"
-          onClick={() => setSettingsExpanded(!settingsExpanded)}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#022D68]/10">
-                <Settings className="h-5 w-5 text-[#022D68]" />
-              </div>
-              <div>
-                <h3 className="font-medium text-sm text-foreground">Configurações e Ajuda</h3>
-                <p className="text-xs text-muted-foreground">Idioma, tema, privacidade e suporte</p>
-              </div>
-            </div>
-            <ChevronRight className={`h-4 w-4 text-muted-foreground transition-all ${settingsExpanded ? 'rotate-90' : ''}`} />
-          </div>
+        <Card className="bg-white border border-border/10 rounded-3xl shadow-sm divide-y divide-gray-200 dark:divide-gray-700">
+          
+          {/* Idioma */}
+          <NavItem 
+            label="Idioma" 
+            description="Português (BR)"
+            icon={Globe} 
+            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+          />
+
+          {/* Tema */}
+          <NavItem 
+            label="Tema" 
+            description="Automático"
+            icon={Moon} 
+            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+          />
+
+          {/* Ajuda */}
+          <NavItem 
+            label="Central de Ajuda" 
+            description="Tutoriais e FAQ"
+            icon={HelpCircle} 
+            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+          />
+
+          {/* Privacidade */}
+          <NavItem 
+            label="Privacidade e LGPD" 
+            description="Política de privacidade e termos"
+            icon={Shield} 
+            onClick={() => toast({ title: "Política de privacidade", description: "Funcionalidade em desenvolvimento" })}
+          />
         </Card>
-
-        {settingsExpanded && (
-          <div className="space-y-3">
-            <Card className="bg-white border border-border/10 rounded-3xl p-4 space-y-4 mx-4 shadow-sm">
-              
-              {/* Idioma */}
-              <div 
-                className="flex items-center justify-between pb-3 border-b border-border/50 cursor-pointer hover:bg-gray-50 -mx-4 px-4 rounded-lg"
-                onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#E47948]/10 rounded-full flex items-center justify-center">
-                    <Globe className="h-5 w-5 text-[#E47948]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-sm text-foreground">Idioma</h3>
-                    <p className="text-xs text-muted-foreground">Português (BR)</p>
-                  </div>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-
-              {/* Tema */}
-              <div 
-                className="flex items-center justify-between pb-3 border-b border-border/50 cursor-pointer hover:bg-gray-50 -mx-4 px-4 rounded-lg"
-                onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#E47948]/10 rounded-full flex items-center justify-center">
-                    <Moon className="h-5 w-5 text-[#E47948]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-sm text-foreground">Tema</h3>
-                    <p className="text-xs text-muted-foreground">Automático</p>
-                  </div>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-
-              {/* Ajuda */}
-              <div 
-                className="flex items-center justify-between pb-3 border-b border-border/50 cursor-pointer hover:bg-gray-50 -mx-4 px-4 rounded-lg"
-                onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#E47948]/10 rounded-full flex items-center justify-center">
-                    <HelpCircle className="h-5 w-5 text-[#E47948]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-sm text-foreground">Central de Ajuda</h3>
-                    <p className="text-xs text-muted-foreground">Tutoriais e FAQ</p>
-                  </div>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-
-              {/* Privacidade */}
-              <div 
-                className="flex items-center justify-between cursor-pointer hover:bg-gray-50 -mx-4 px-4 rounded-lg"
-                onClick={() => toast({ title: "Política de privacidade", description: "Funcionalidade em desenvolvimento" })}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#E47948]/10 rounded-full flex items-center justify-center">
-                    <Shield className="h-5 w-5 text-[#E47948]" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-sm text-foreground">Privacidade e LGPD</h3>
-                    <p className="text-xs text-muted-foreground">Política de privacidade e termos</p>
-                  </div>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </div>
-            </Card>
-          </div>
-        )}
       </div>
 
       {/* Logout Button */}

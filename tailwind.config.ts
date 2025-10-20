@@ -28,7 +28,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#022D68", // Corrigido para o valor customizado
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -65,11 +65,21 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Adicionando cores customizadas do HTML
+        "highlight": "#E47948",
+        "background-light": "#F5F5F7",
+        "background-dark": "#0f1823",
+        "gold": {
+          "DEFAULT": "#D4AF37",
+          "light": "#F0E68C",
+          "dark": "#B8860B"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "1.5rem", // Adicionado do HTML
       },
       keyframes: {
         "accordion-down": {
