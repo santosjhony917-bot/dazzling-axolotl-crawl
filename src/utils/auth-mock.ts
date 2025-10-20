@@ -41,6 +41,8 @@ export async function mockLoginWithRole(role: AppRole) {
   // 4. Define o role no mock da API (para simular o backend retornando o role)
   // Corrigido: O mock da API aceita 'customer' | 'restaurant'. Mapeamos roles de restaurante para 'restaurant'.
   console.log(`Mock Auth: Successfully logged in as ${role}.`);
+  // Não é mais necessário navegar aqui, o AuthRedirector ou o fluxo normal do app cuidará disso.
+  // A navegação será feita pelo componente que chamou mockLoginWithRole, ou pelo AuthRedirector.
 }
 
 /**
