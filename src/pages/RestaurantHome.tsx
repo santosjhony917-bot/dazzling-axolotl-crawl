@@ -53,15 +53,52 @@ const mockNearbyRestaurants = [
   { id: 'r3', name: 'Le Petit Bistrot', cuisine: 'Francesa', distance: 3.1, rating: 4.6, imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop' },
 ];
 
+// Dados do Carrossel de Upgrade
+const upgradeSlides = [
+  {
+    title: "Torne-se Premium!",
+    subtitle: "Apareça para mais clientes e aumente suas vendas.",
+    imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop",
+    overlayColor: "bg-primary/70"
+  },
+  {
+    title: "Posição #1 Garantida",
+    subtitle: "Seu restaurante sempre no topo dos resultados de busca.",
+    imageUrl: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?q=80&w=2069&auto=format&fit=crop",
+    overlayColor: "bg-accent/70"
+  },
+  {
+    title: "Estatísticas de Lucro",
+    subtitle: "Acompanhe o desempenho e otimize seus ganhos.",
+    imageUrl: "https://images.unsplash.com/photo-1554224155-6726b1ff8582?q=80&w=2070&auto=format&fit=crop",
+    overlayColor: "bg-primary/70"
+  },
+];
+
+
 const RestaurantHome = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  
+  // --- Carrossel State ---
+  const [currentSlide, setCurrentSlide] = useState(0);
   
   // Mock restaurant ID for development until proper auth flow is implemented
   const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
   
   const { isPremium } = useUserRole(); // Using mock hook
+
+  // Lógica do Carrossel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % upgradeSlides.length);
+    }, 5000); // Troca a cada 5 segundos
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const activeSlide = upgradeSlides[currentSlide];
 
   // --- Funções de Navegação ---
   const handleGoToMenu = () => navigate(createPageUrl('restaurant-area/menu'));
@@ -142,17 +179,17 @@ const RestaurantHome = () => {
           </div>
         </div>
 
-        {/* Banner de Upgrade */}
+        {/* Banner de Upgrade (Carrossel) */}
         <div className="px-4 pb-5">
-          <div className="relative rounded-xl overflow-hidden bg-primary text-white">
+          <div className="relative rounded-xl overflow-hidden bg-primary text-white transition-all duration-500 ease-in-out">
             <div 
-              className="w-full bg-center bg-no-repeat aspect-[2.5/1] bg-cover flex flex-col p-6 items-start justify-center" 
-              style={{ backgroundImage: `url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop")` }}
+              className="w-full bg-center bg-no-repeat aspect-[2.5/1] bg-cover flex flex-col p-6 items-start justify-center transition-opacity duration-1000" 
+              style={{ backgroundImage: `url("${activeSlide.imageUrl}")` }}
             >
-              <div className="absolute inset-0 bg-primary/70"></div>
+              <div className={cn("absolute inset-0", activeSlide.overlayColor)}></div>
               <div className="relative z-10">
-                <h3 className="text-xl font-bold">Torne-se Premium!</h3>
-                <p className="text-sm mt-1 max-w-xs">Apareça para mais clientes e aumente suas vendas.</p>
+                <h3 className="text-xl font-bold">{activeSlide.title}</h3>
+                <p className="text-sm mt-1 max-w-xs">{activeSlide.subtitle}</p>
                 <Button 
                   onClick={handleGoToUpgrade}
                   className="bg-accent text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-accent/90"
@@ -161,11 +198,20 @@ const RestaurantHome = () => {
                 </Button>
               </div>
             </div>
+            
+            {/* Indicadores do Carrossel */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {/* Mock Indicators */}
-              <div className="w-2 h-2 rounded-full bg-white"></div>
-              <div className="w-2 h-2 rounded-full bg-white/50"></div>
-              <div className="w-2 h-2 rounded-full bg-white/50"></div>
+              {upgradeSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-colors duration-300",
+                    currentSlide === index ? "bg-white" : "bg-white/50"
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
