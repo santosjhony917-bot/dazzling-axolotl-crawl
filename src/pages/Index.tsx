@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import CustomerBottomNav from "@/components/restaurant/CustomerBottomNav"; // Importando o componente correto
+import CustomerBottomNav from "@/components/restaurant/CustomerBottomNav";
 import LocationPermissionModal, { checkLocationPreference } from "@/components/LocationPermissionModal";
 import { getCurrentLocationAddress, GeocodedAddress } from "@/services/geolocation";
 
@@ -17,18 +17,21 @@ export default function Index() {
   useEffect(() => {
     const loadLocation = async () => {
       const preference = checkLocationPreference();
+      
+      // Se a preferência não estiver definida, forçamos o uso da localização mockada
+      // para evitar o bloqueio do modal no desenvolvimento.
       if (preference === 'unset') {
-        // Modal will handle setting preference, then this effect will re-run
-        setLocationLoading(false);
-        return;
+        // Simula a escolha de usar a localização mockada
+        localStorage.setItem('useMockLocation', 'true');
       }
 
       try {
+        // getCurrentLocationAddress agora usará a preferência 'mock' se forçada acima
         const address = await getCurrentLocationAddress();
         setUserAddress(address);
       } catch (error) {
         console.error("Failed to get current location address:", error);
-        // Fallback to a default/mock address if real location fails
+        // Fallback para um endereço padrão se a obtenção falhar
         setUserAddress({
           street: "Rua Padrão",
           neighborhood: "Bairro Padrão",
@@ -46,9 +49,9 @@ export default function Index() {
     loadLocation();
   }, []);
 
+  // Funções de callback do modal (mantidas, mas o modal não deve mais aparecer se a preferência for forçada)
   const handleLocationGranted = () => {
     setLocationLoading(true);
-    // Re-run location loading after permission is granted
     const loadLocationAfterGrant = async () => {
       try {
         const address = await getCurrentLocationAddress();
@@ -64,10 +67,9 @@ export default function Index() {
 
   const handleUseMockLocation = () => {
     setLocationLoading(true);
-    // Re-run location loading after mock location is chosen
     const loadMockLocation = async () => {
       try {
-        const address = await getCurrentLocationAddress(); // This will now use mock
+        const address = await getCurrentLocationAddress();
         setUserAddress(address);
       } catch (error) {
         console.error("Failed to get mock location address:", error);
@@ -91,11 +93,12 @@ export default function Index() {
   ];
   
   const handleGoToRestaurantArea = () => {
-    navigate(createPageUrl('restaurant-area'));
+    navigate(createPageUrl('restaurant-area-hub'));
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-24 max-w-md mx-auto">
+      {/* O modal ainda é renderizado, mas não deve abrir se a preferência for definida no useEffect */}
       <LocationPermissionModal 
         onPermissionGranted={handleLocationGranted} 
         onUseMockLocation={handleUseMockLocation} 
