@@ -54,11 +54,11 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
                   <div className="absolute inset-0 bg-[hsl(var(--orange-accent))] rounded-full blur-lg opacity-40 animate-pulse"></div>
                   
                   {/* Botão principal (círculo laranja) */}
-                  <div className="relative bg-highlight hover:bg-highlight/90 rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-105">
-                    <Zap className="h-8 w-8 text-white" /> {/* Usando Zap */}
+                  <div className="relative bg-highlight hover:bg-highlight/90 rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105">
+                    <Zap className="h-6 w-6 text-white" /> {/* Tamanho reduzido */}
                   </div>
                 </div>
-                <span className="text-sm font-semibold mt-1 text-highlight"> {/* Cor do texto ajustada para highlight */}
+                <span className="text-sm font-semibold mt-1 text-highlight">
                   {item.label}
                 </span>
               </Link>
