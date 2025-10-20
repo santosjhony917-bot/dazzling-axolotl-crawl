@@ -11,28 +11,28 @@ import { Button } from "@/components/ui/button";
 import { MapPin } from 'lucide-react';
 
 // Tipos de preferência de localização
-type LocationPreference = 'granted' | 'denied' | 'unset' | 'mock';
+export type LocationPreference = 'granted' | 'denied' | 'unset' | 'mock';
 
 interface LocationPermissionModalProps {
   isOpen: boolean;
   onGrant: () => void;
   onDeny: () => void;
+  // Adicionando a prop onUseMockLocation que estava faltando
+  onUseMockLocation: () => void;
 }
 
-// Função utilitária para verificar a preferência de localização
-export const checkLocationPreference = async (): Promise<LocationPreference> => {
-  // Em um ambiente real, você verificaria o localStorage ou a API de geolocalização.
+// Função utilitária para verificar a preferência de localização (agora síncrona)
+export const checkLocationPreference = (): LocationPreference => {
   const preference = localStorage.getItem('location_preference') as LocationPreference;
   
   if (preference === 'granted' || preference === 'denied' || preference === 'mock') {
     return preference;
   }
   
-  // Usamos 'unset' para indicar que o usuário ainda não decidiu.
   return 'unset';
 };
 
-const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpen, onGrant, onDeny }) => {
+const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpen, onGrant, onDeny, onUseMockLocation }) => {
   
   const handleGrant = () => {
     localStorage.setItem('location_preference', 'granted');
@@ -42,6 +42,11 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
   const handleDeny = () => {
     localStorage.setItem('location_preference', 'denied');
     onDeny();
+  };
+  
+  const handleUseMock = () => {
+    localStorage.setItem('location_preference', 'mock');
+    onUseMockLocation();
   };
 
   return (
@@ -67,11 +72,18 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
             Permitir Localização
           </Button>
           <Button 
-            onClick={handleDeny}
+            onClick={handleUseMock}
             variant="outline"
             className="w-full h-12 rounded-full border-gray-300 text-gray-700 hover:bg-gray-100"
           >
-            Agora Não
+            Usar Localização Padrão
+          </Button>
+          <Button 
+            onClick={handleDeny}
+            variant="ghost"
+            className="w-full h-12 text-sm text-gray-500 hover:bg-gray-100"
+          >
+            Agora Não (Desativar)
           </Button>
         </div>
         

@@ -81,6 +81,7 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
 }
 
 export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
+  // checkLocationPreference agora é síncrona
   const preference = checkLocationPreference();
 
   if (preference === 'mock') {

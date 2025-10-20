@@ -80,12 +80,13 @@ export default function SearchRestaurants() {
   };
 
   useEffect(() => {
+    // checkLocationPreference agora é síncrona
     const preference = checkLocationPreference();
     if (preference === 'unset') {
       // Se a preferência não foi definida, mostramos o modal.
       setShowPermissionModal(true);
     } else if (preference === 'granted') {
-      // Se já foi concedida, tentamos buscar via GPS (o que pedirá a permissão se for a primeira vez na sessão)
+      // Se já foi concedida, tentamos buscar via GPS
       fetchLocation(true);
     } else if (preference === 'mock') {
       // Se for para usar mock, usamos mock
@@ -102,19 +103,30 @@ export default function SearchRestaurants() {
     
     navigate(`/restaurant-results?lat=${location.lat}&lon=${location.lon}&distance=${distance[0]}&search=${searchQuery}`);
   };
+  
+  const handlePermissionGranted = () => {
+    setShowPermissionModal(false);
+    fetchLocation(true);
+  };
+  
+  const handleUseMockLocation = () => {
+    setShowPermissionModal(false);
+    fetchLocation(false);
+  };
+  
+  const handlePermissionDenied = () => {
+    setShowPermissionModal(false);
+    // Se o usuário negar, usamos a localização mockada como fallback
+    fetchLocation(false);
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] flex flex-col">
       <LocationPermissionModal
-        onPermissionGranted={() => {
-          setShowPermissionModal(false);
-          // Quando concedido no modal, chamamos fetchLocation(true) que tentará o GPS
-          fetchLocation(true);
-        }}
-        onUseMockLocation={() => {
-          setShowPermissionModal(false);
-          fetchLocation(false);
-        }}
+        isOpen={showPermissionModal}
+        onGrant={handlePermissionGranted}
+        onDeny={handlePermissionDenied}
+        onUseMockLocation={handleUseMockLocation}
       />
 
       <header className="sticky top-0 z-10 bg-white shadow-sm">

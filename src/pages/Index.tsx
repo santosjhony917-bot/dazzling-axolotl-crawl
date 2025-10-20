@@ -22,9 +22,9 @@ const Index = () => {
   const [userLocation, setUserLocation] = useState("Localização Atual");
 
   useEffect(() => {
-    const checkLocation = async () => {
-      const preference = await checkLocationPreference();
-      if (preference === 'unknown') {
+    const checkLocation = () => {
+      const preference = checkLocationPreference();
+      if (preference === 'unset') {
         setLocationModalOpen(true);
       } else if (preference === 'granted') {
         // Simulate fetching location
@@ -43,6 +43,12 @@ const Index = () => {
   const handleLocationDenied = () => {
     setLocationModalOpen(false);
     setUserLocation("Localização Padrão");
+  };
+  
+  const handleUseMockLocation = () => {
+    setLocationModalOpen(false);
+    setUserLocation("Localização Padrão (Mock)");
+    showSuccess("Usando localização padrão.");
   };
 
   return (
@@ -113,6 +119,7 @@ const Index = () => {
         isOpen={locationModalOpen}
         onGrant={handleLocationGranted}
         onDeny={handleLocationDenied}
+        onUseMockLocation={handleUseMockLocation}
       />
     </div>
   );
