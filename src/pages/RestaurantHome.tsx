@@ -5,8 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/contexts/UserContext";
+import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
+import { useUserRole } from "@/hooks/useUserRole";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
@@ -16,9 +19,11 @@ import { ImageUploadButton } from "@/components/ImageUploadButton";
 import restaurantLogo from "@/assets/restaurant-logo.png";
 import { z } from "zod";
 import { WeekSchedule, DaySchedule } from "@/types/schedule";
+import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
-import { Skeleton } from "@/components/ui/skeleton";
 import { createPageUrl } from "@/utils/url";
+import { Skeleton } from "@/components/ui/skeleton";
+
 
 // Definindo a interface do estado de edição fora do componente para clareza
 interface EditingFieldState {
@@ -33,93 +38,17 @@ interface EditingFieldState {
   currentValue: string;
 }
 
-// Máscaras
-const phoneMask = (value: string) => {
-  const numbers = value.replace(/\D/g, '');
-  if (numbers.length <= 10) {
-    return numbers.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-  }
-  return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-};
-
-const cnpjMask = (value: string) => {
-  const numbers = value.replace(/\D/g, '');
-  return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-};
-
-// Validações
-const validations = {
-  name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100, "Nome muito longo"),
-  address: z.string().min(10, "Endereço incompleto"),
-  phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
-  email: z.string().email("E-mail inválido"),
-  cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido"),
-};
-
-// Schema de validação de URL
-const urlValidationSchema = z.string().url('URL inválida').regex(
-  /^https?:\/\//,
-  'URL deve começar com http:// ou https://'
-).optional().or(z.literal(''));
-
-// Format schedule for display (função auxiliar)
-const formatScheduleDisplay = (schedule: WeekSchedule): string => {
-  const days = Object.entries(schedule) as [keyof WeekSchedule, DaySchedule][];
-  const openDays = days.filter(([_, day]) => day.isOpen);
-  
-  if (openDays.length === 0) return "Fechado";
-  
-  const groups: string[] = [];
-  let currentGroup: string[] = [];
-  let currentSlots: string = "";
-  
-  const dayAbbr: Record<keyof WeekSchedule, string> = {
-    monday: "Seg",
-    tuesday: "Ter",
-    wednesday: "Qua",
-    thursday: "Qui",
-    friday: "Sex",
-    saturday: "Sáb",
-    sunday: "Dom",
-  };
-  
-  openDays.forEach(([day, daySchedule], index) => {
-    const slotsStr = daySchedule.slots.map(s => `${s.start}-${s.end}`).join(", ");
-    
-    if (slotsStr === currentSlots && currentGroup.length > 0) {
-      currentGroup.push(dayAbbr[day]);
-    } else {
-      if (currentGroup.length > 0) {
-        const range = currentGroup.length > 1 
-          ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
-          : currentGroup[0];
-        groups.push(`${range}: ${currentSlots}`);
-      }
-      currentGroup = [dayAbbr[day]];
-      currentSlots = slotsStr;
-    }
-    
-    if (index === openDays.length - 1) {
-      const range = currentGroup.length > 1 
-        ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
-        : currentGroup[0];
-      groups.push(`${range}: ${currentSlots}`);
-    }
-  });
-  
-  return groups.join(" | ");
-};
-
-
-const RestaurantHome = () => {
+const RestaurantProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  // Para demonstração sem login, vamos mockar um restaurantId
-  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Exemplo de ID mockado
-  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(restaurantId);
+  const { logout } = useUser();
+  const { signOut } = useAuth();
   
-  const isPremium = false; // Mockado como false
-  const isAdmin = false; // Mockado como false
+  // Mock restaurant ID for development until proper auth flow is implemented
+  const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
+  
+  const { isPremium, isAdmin } = useUserRole(); // Using mock hook
   const { uploadImage, uploading } = useImageUpload();
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
@@ -166,7 +95,86 @@ const RestaurantHome = () => {
     }
   }, [restaurant?.opening_hours]);
 
-  const handleEdit = (field: 'name' | 'whatsapp' | 'ifood' | 'other' | 'address' | 'phone' | 'email' | 'cnpj') => {
+  // Format schedule for display
+  const formatScheduleDisplay = (schedule: WeekSchedule): string => {
+    const days = Object.entries(schedule) as [keyof WeekSchedule, DaySchedule][];
+    const openDays = days.filter(([_, day]) => day.isOpen);
+    
+    if (openDays.length === 0) return "Fechado";
+    
+    // Group consecutive days with same schedule
+    const groups: string[] = [];
+    let currentGroup: string[] = [];
+    let currentSlots: string = "";
+    
+    const dayAbbr: Record<keyof WeekSchedule, string> = {
+      monday: "Seg",
+      tuesday: "Ter",
+      wednesday: "Qua",
+      thursday: "Qui",
+      friday: "Sex",
+      saturday: "Sáb",
+      sunday: "Dom",
+    };
+    
+    openDays.forEach(([day, daySchedule], index) => {
+      const slotsStr = daySchedule.slots.map(s => `${s.start}-${s.end}`).join(", ");
+      
+      if (slotsStr === currentSlots && currentGroup.length > 0) {
+        currentGroup.push(dayAbbr[day]);
+      } else {
+        if (currentGroup.length > 0) {
+          const range = currentGroup.length > 1 
+            ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+            : currentGroup[0];
+          groups.push(`${range}: ${currentSlots}`);
+        }
+        currentGroup = [dayAbbr[day]];
+        currentSlots = slotsStr;
+      }
+      
+      if (index === openDays.length - 1) {
+        const range = currentGroup.length > 1 
+          ? `${currentGroup[0]}-${currentGroup[currentGroup.length - 1]}`
+          : currentGroup[0];
+        groups.push(`${range}: ${currentSlots}`);
+      }
+    });
+    
+    return groups.join(" | ");
+  };
+
+  // Máscaras
+  const phoneMask = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 10) {
+      return numbers.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    }
+    return numbers.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  };
+
+  const cnpjMask = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    return numbers.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+  };
+
+  // Validações
+  const validations = {
+    name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100, "Nome muito longo"),
+    address: z.string().min(10, "Endereço incompleto"),
+    phone: z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido"),
+    email: z.string().email("E-mail inválido"),
+    cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido"),
+  };
+
+  // Schema de validação de URL
+  const urlValidationSchema = z.string().url('URL inválida').regex(
+    /^https?:\/\//,
+    'URL deve começar com http:// ou https://'
+  ).optional().or(z.literal(''));
+
+
+  const handleEdit = (field: 'name' | 'phone' | 'email' | 'cnpj' | 'whatsapp' | 'ifood' | 'other' | 'address') => {
     // Special handling for address - use EditAddressDialog
     if (field === 'address') {
       setIsEditingAddress(true);
@@ -181,6 +189,33 @@ const RestaurantHome = () => {
         placeholder: "Ex: Pizzaria do Bairro",
         validationSchema: validations.name,
         currentValue: restaurant?.name || "",
+      },
+      phone: {
+        title: "Contato / WhatsApp",
+        fieldName: "Telefone",
+        icon: <Phone className="h-6 w-6 text-[#022D68]" />,
+        type: "tel" as const,
+        placeholder: "(11) 98765-4321",
+        validationSchema: validations.phone,
+        mask: phoneMask,
+        currentValue: restaurant?.phone || "",
+      },
+      email: {
+        title: "E-mail",
+        fieldName: "E-mail de contato",
+        icon: <Mail className="h-6 w-6 text-[#022D68]" />,
+        placeholder: "contato@restaurante.com",
+        validationSchema: validations.email,
+        currentValue: restaurant?.email || "",
+      },
+      cnpj: {
+        title: "CNPJ",
+        fieldName: "CNPJ do estabelecimento",
+        icon: <FileText className="h-6 w-6 text-[#022D68]" />,
+        placeholder: "12.345.678/0001-90",
+        validationSchema: validations.cnpj,
+        mask: cnpjMask,
+        currentValue: restaurant?.cnpj || "",
       },
       whatsapp: {
         title: "Link WhatsApp",
@@ -206,34 +241,6 @@ const RestaurantHome = () => {
         validationSchema: urlValidationSchema,
         currentValue: restaurant?.other_url || "",
       },
-      phone: {
-        title: "Telefone de Contato",
-        fieldName: "Telefone",
-        icon: <Phone className="h-6 w-6 text-[#022D68]" />,
-        placeholder: "(83) 99999-9999",
-        type: "tel",
-        validationSchema: validations.phone,
-        mask: phoneMask,
-        currentValue: restaurant?.phone || "",
-      },
-      email: {
-        title: "E-mail de Contato",
-        fieldName: "E-mail",
-        icon: <Mail className="h-6 w-6 text-[#022D68]" />,
-        placeholder: "contato@restaurante.com",
-        type: "email",
-        validationSchema: validations.email,
-        currentValue: restaurant?.email || "",
-      },
-      cnpj: {
-        title: "CNPJ do Estabelecimento",
-        fieldName: "CNPJ",
-        icon: <FileText className="h-6 w-6 text-[#022D68]" />,
-        placeholder: "00.000.000/0000-00",
-        validationSchema: validations.cnpj,
-        mask: cnpjMask,
-        currentValue: restaurant?.cnpj || "",
-      },
     };
 
     setEditingField({
@@ -248,10 +255,10 @@ const RestaurantHome = () => {
     
     // Map field keys to database column names
     const fieldMapping: Record<string, string> = {
-      name: 'name',
       whatsapp: 'whatsapp_url',
       ifood: 'ifood_url',
       other: 'other_url',
+      name: 'name',
       phone: 'phone',
       email: 'email',
       cnpj: 'cnpj',
@@ -278,6 +285,49 @@ const RestaurantHome = () => {
       title: "Salvo com sucesso",
       description: `${editingField.title} atualizado`,
     });
+
+    // Se atualizou o endereço, buscar coordenadas automaticamente
+    if (editingField.key === 'address' && restaurant?.id) {
+      const addressParts = [
+        value, // novo endereço
+        restaurant.neighborhood,
+        restaurant.city,
+        restaurant.state,
+        restaurant.cep
+      ].filter(Boolean);
+
+      if (addressParts.length > 0) {
+        const fullAddress = addressParts.join(', ');
+        
+        toast({
+          title: "Buscando coordenadas...",
+          description: "Atualizando localização do restaurante",
+        });
+
+        try {
+          const geocoded = await geocodeAddress(fullAddress);
+          
+          if (geocoded) {
+            const { error: updateError } = await supabase
+              .from("restaurants")
+              .update({
+                latitude: geocoded.lat,
+                longitude: geocoded.lon,
+              })
+              .eq("id", restaurant.id);
+
+            if (!updateError) {
+              toast({
+                title: "Localização atualizada",
+                description: "Coordenadas encontradas com sucesso",
+              });
+            }
+          }
+        } catch (err) {
+          console.error('Erro ao buscar coordenadas:', err);
+        }
+      }
+    }
     
     setEditingField(null);
   };
@@ -301,7 +351,11 @@ const RestaurantHome = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    // Logout do Supabase
+    await signOut();
+    
+    // Limpar dados locais
+    logout();
     
     toast({
       title: "Logout realizado",
@@ -353,6 +407,9 @@ const RestaurantHome = () => {
         title: "Logo atualizado!",
         description: "Seu logo foi atualizado com sucesso",
       });
+
+      // Refetch to update UI
+      refetch();
     }
   };
 
@@ -404,6 +461,9 @@ const RestaurantHome = () => {
         title: "Capa atualizada!",
         description: "Sua foto de capa foi atualizada com sucesso",
       });
+
+      // Refetch to update UI
+      refetch();
     }
   };
 
@@ -708,7 +768,7 @@ const RestaurantHome = () => {
           
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
             <button 
-              onClick={() => navigate(createPageUrl('restaurant-area/menu'))} 
+              onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <UtensilsCrossed className="h-5 w-5 text-[#E47948]" />
@@ -720,7 +780,7 @@ const RestaurantHome = () => {
             </button>
             
             <button 
-              onClick={() => navigate(createPageUrl('restaurant-area/categories'))} 
+              onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <Package className="h-5 w-5 text-[#E47948]" />
@@ -999,4 +1059,4 @@ const RestaurantHome = () => {
   );
 };
 
-export default RestaurantHome;
+export default RestaurantProfile;

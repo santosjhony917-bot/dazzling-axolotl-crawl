@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Profile from "./pages/Profile";
-import RestaurantHome from "./pages/restaurant/RestaurantHome";
+import RestaurantProfile from "./pages/RestaurantHome"; // Renamed component in file
 import RestaurantLogin from "./pages/RestaurantLogin";
 import RestaurantSignup from "./pages/RestaurantSignup";
 import Welcome from "./pages/Welcome";
@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/welcome" element={<Welcome />} />
         
         {/* Rotas da Área do Restaurante */}
-        <Route path="/restaurant-area/home" element={<RestaurantHome />} />
+        <Route path="/restaurant-area/home" element={<RestaurantProfile />} />
         <Route path="/restaurant-area/login" element={<RestaurantLogin />} />
         <Route path="/restaurant-area/signup" element={<RestaurantSignup />} />
         
