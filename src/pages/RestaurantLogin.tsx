@@ -29,18 +29,44 @@ export default function RestaurantLogin() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
-      showError(error.message || "Ocorreu um erro ao fazer login.");
-    } else {
-      // TODO: Add logic to check if user is a restaurant owner before redirecting
-      navigate("/restaurant-area/home"); // CORRIGIDO: Redirecionando para /restaurant-area/home
+      if (error) {
+        throw error;
+      }
+      
+      const userId = data.user?.id;
+      if (!userId) {
+        throw new Error("Usuário logado, mas ID não encontrado.");
+      }
+
+      // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
+      // Isso simula o processo de atribuição de propriedade após o login/cadastro.
+      const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
+      
+      const { error: updateError } = await supabase
+        .from('restaurants')
+        .update({ user_id: userId })
+        .eq('id', MOCK_RESTAURANT_ID);
+
+      if (updateError) {
+        // Se falhar, apenas logamos o erro, mas permitimos o acesso para fins de teste
+        console.error("Falha ao vincular restaurante mockado ao usuário:", updateError);
+      }
+
+      showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
+      navigate("/restaurant-area/home"); 
+
+    } catch (error) {
+      showError((error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -133,18 +159,6 @@ export default function RestaurantLogin() {
                 </Button>
               </form>
               
-              {/* Novo Botão de Login Rápido (Mock) */}
-              {/* <div className="pt-4 border-t border-gray-200 mt-6">
-                <Button
-                  onClick={handleMockLogin}
-                  disabled={loading}
-                  variant="secondary"
-                  className="w-full bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-full h-12 font-bold"
-                >
-                  {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Login Rápido (Mock)"}
-                </Button>
-              </div> */}
-
               <p className="pt-6 text-center text-base text-gray-600">
                 Não tem uma conta?
                 <Link
