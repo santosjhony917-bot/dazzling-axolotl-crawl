@@ -14,7 +14,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
   { path: '/restaurant-area/stats', label: 'Estatísticas', icon: BarChart3, key: 'stats' },
-  { path: '/upgrade', label: 'Premium', icon: Crown, key: 'upgrade' },
+  { path: '/restaurant-area/upgrade', label: 'Premium', icon: Crown, key: 'upgrade' }, // Corrigido para rota aninhada
   { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
@@ -31,10 +31,7 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
       return selectedTab === key;
     }
     // Fallback para a rota atual
-    // Verifica se a rota atual começa com o caminho do item, exceto para /upgrade que é uma rota de nível superior
-    if (path === '/upgrade') {
-        return location.pathname === path;
-    }
+    // Verifica se a rota atual começa com o caminho do item
     return location.pathname.startsWith(path);
   };
 
@@ -45,7 +42,7 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
           const isActive = getActivePath(item.path, item.key);
           const Icon = item.icon;
           
-          const isUpgradeButton = item.path === '/upgrade';
+          const isUpgradeButton = item.key === 'upgrade';
 
           return (
             <Link
