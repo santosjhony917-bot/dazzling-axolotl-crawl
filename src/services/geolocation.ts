@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { checkLocationPreference } from '@/components/LocationPermissionModal'; // Import the checkLocationPreference function
 
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 const MOCK_LOCATION = { lat: -7.1195, lon: -34.8450 }; // João Pessoa, PB
@@ -80,9 +81,16 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
 }
 
 export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
+  const preference = checkLocationPreference();
+
+  if (preference === 'mock') {
+    console.warn("Using mock location based on user preference.");
+    return reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon);
+  }
+
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      console.warn("Geolocation is not supported by this browser. Using mock location.");
+      console.warn("Geolocation is not supported by this browser. Falling back to mock location.");
       return resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
     }
 
@@ -100,22 +108,14 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
           resolve(address);
         } catch (error) {
           console.error("Reverse geocoding failed:", error);
-          reject(new Error("Failed to determine address from coordinates."));
+          // If reverse geocoding fails, still try to use mock location as a last resort
+          resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
         }
       },
       (error) => {
         console.error("Geolocation error:", error);
-        
-        // Handle specific errors and fallback to mock location
-        if (error.code === error.PERMISSION_DENIED) {
-          console.warn("Permission denied. Using mock location.");
-          resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
-        } else if (error.code === error.POSITION_UNAVAILABLE || error.code === error.TIMEOUT) {
-          console.warn("Position unavailable or timeout. Using mock location.");
-          resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
-        } else {
-          reject(new Error(`Geolocation failed: ${error.message}`));
-        }
+        // If geolocation fails, use mock location
+        resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
       },
       options
     );

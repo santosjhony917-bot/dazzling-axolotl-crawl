@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Store, ChevronRight, Star, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,9 +6,77 @@ import { MadeWithDyad } from "@/components/made-with-dyad";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import CustomerBottomNav from "@/components/restaurant/CustomerBottomNav"; // Importando o componente correto
+import LocationPermissionModal, { checkLocationPreference } from "@/components/LocationPermissionModal";
+import { getCurrentLocationAddress, GeocodedAddress } from "@/services/geolocation";
 
 export default function Index() {
   const navigate = useNavigate();
+  const [userAddress, setUserAddress] = useState<GeocodedAddress | null>(null);
+  const [locationLoading, setLocationLoading] = useState(true);
+
+  useEffect(() => {
+    const loadLocation = async () => {
+      const preference = checkLocationPreference();
+      if (preference === 'unset') {
+        // Modal will handle setting preference, then this effect will re-run
+        setLocationLoading(false);
+        return;
+      }
+
+      try {
+        const address = await getCurrentLocationAddress();
+        setUserAddress(address);
+      } catch (error) {
+        console.error("Failed to get current location address:", error);
+        // Fallback to a default/mock address if real location fails
+        setUserAddress({
+          street: "Rua Padrão",
+          neighborhood: "Bairro Padrão",
+          city: "João Pessoa",
+          state: "PB",
+          cep: "58000-000",
+          lat: -7.1195,
+          lon: -34.8450,
+        });
+      } finally {
+        setLocationLoading(false);
+      }
+    };
+
+    loadLocation();
+  }, []);
+
+  const handleLocationGranted = () => {
+    setLocationLoading(true);
+    // Re-run location loading after permission is granted
+    const loadLocationAfterGrant = async () => {
+      try {
+        const address = await getCurrentLocationAddress();
+        setUserAddress(address);
+      } catch (error) {
+        console.error("Failed to get current location address after grant:", error);
+      } finally {
+        setLocationLoading(false);
+      }
+    };
+    loadLocationAfterGrant();
+  };
+
+  const handleUseMockLocation = () => {
+    setLocationLoading(true);
+    // Re-run location loading after mock location is chosen
+    const loadMockLocation = async () => {
+      try {
+        const address = await getCurrentLocationAddress(); // This will now use mock
+        setUserAddress(address);
+      } catch (error) {
+        console.error("Failed to get mock location address:", error);
+      } finally {
+        setLocationLoading(false);
+      }
+    };
+    loadMockLocation();
+  };
   
   const highlights = [
     { id: 1, name: 'Hambúrguer Gourmet', restaurant: 'Burger Joint', price: 35.00, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2070&auto=format&fit=crop' },
@@ -28,6 +96,10 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-24 max-w-md mx-auto">
+      <LocationPermissionModal 
+        onPermissionGranted={handleLocationGranted} 
+        onUseMockLocation={handleUseMockLocation} 
+      />
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-lg border-b border-gray-100 px-4 py-4">
         <div className="flex items-center justify-between">
@@ -37,7 +109,9 @@ export default function Index() {
             </div>
             <div>
               <p className="text-xs text-gray-500 font-medium">Sua Localização</p>
-              <h2 className="text-sm font-bold text-[#022D68]">João Pessoa, PB</h2>
+              <h2 className="text-sm font-bold text-[#022D68]">
+                {locationLoading ? "Carregando..." : userAddress?.city || "Localização Desconhecida"}
+              </h2>
             </div>
           </div>
           <Button 
