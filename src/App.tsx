@@ -24,6 +24,7 @@ import PopularCategories from "./pages/admin/PopularCategories";
 import Files from "./pages/admin/Files";
 import ImportMenu from "./pages/admin/ImportMenu";
 import AdminLayout from "./components/admin/AdminLayout";
+import Favorites from "./pages/Favorites"; // Importando a nova página
 
 
 export default function App() {
@@ -36,7 +37,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/search-restaurants" element={<SearchRestaurants />} />
         <Route path="/restaurant-results" element={<RestaurantResults />} />
-        {/* Rota de Upgrade de Cliente REMOVIDA */}
+        <Route path="/favorites" element={<Favorites />} /> {/* Nova Rota */}
         <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
         
         {/* Rotas de Autenticação */}

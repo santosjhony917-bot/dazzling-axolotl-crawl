@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Crown } from 'lucide-react';
+import { Home, Search, User, Heart } from 'lucide-react'; // Usando Heart para Favoritos
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -12,9 +12,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/home', label: 'Início', icon: Home, key: 'home' },
+  { path: '/home', label: 'Home', icon: Home, key: 'home' },
   { path: '/search-restaurants', label: 'Buscar', icon: Search, key: 'search' },
-  // Removido: { path: '/upgrade', label: 'Upgrade', icon: Crown, key: 'upgrade' },
+  { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' }, // Novo item Favoritos
   { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
@@ -33,40 +33,39 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = ({ selectedTab }) =>
     }
     // Fallback para a rota atual
     if (path === '/home' && location.pathname === '/') return true;
+    
+    // Lógica de ativação para rotas aninhadas ou específicas
+    if (key === 'favorites') {
+        // Rota de favoritos ainda não existe, mas podemos ativá-la se o path for exato
+        return location.pathname === path;
+    }
+    
     return location.pathname.startsWith(path);
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-2xl">
-      <div className="flex justify-around items-center h-20 px-2">
+    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 z-30 max-w-md mx-auto">
+      <div className="flex justify-around items-center h-16 px-2">
         {navItems.map((item) => {
           const isActive = getActivePath(item.path, item.key);
           const Icon = item.icon;
           
-          // Tratamento especial para o botão Upgrade (terceiro item) - Agora não existe mais
-          const isUpgradeButton = item.key === 'upgrade'; // Será sempre false
-
           return (
             <Link
               key={item.path}
               to={createPageUrl(item.path.substring(1))}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-                isActive ? "text-[#E47948]" : "text-[#022D68]/70 hover:text-[#022D68]",
-                isUpgradeButton && isActive && "bg-[#E47948]/10 rounded-full px-4 py-2",
-                isUpgradeButton && !isActive && "bg-transparent"
+                isActive ? "text-primary" : "text-[#5f728c] dark:text-gray-400 hover:text-primary"
               )}
             >
               <Icon 
                 className={cn(
                   "w-6 h-6",
-                  isUpgradeButton && isActive && "text-[#E47948] fill-[#E47948]/10"
+                  isActive && item.key === 'favorites' && "fill-primary" // Favoritos preenchido quando ativo
                 )} 
               />
-              <span className={cn(
-                "text-sm font-medium",
-                isUpgradeButton && isActive && "font-bold"
-              )}>
+              <span className="text-xs font-medium">
                 {item.label}
               </span>
             </Link>
