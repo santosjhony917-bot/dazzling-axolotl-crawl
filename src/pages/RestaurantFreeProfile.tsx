@@ -36,20 +36,10 @@ const PerformanceMetricCard: React.FC<{ icon: React.ElementType; title: string; 
 
 const RestaurantFreeProfile = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [role, setRole] = React.useState<string>('free_restaurant');
-  const { restaurant, loading: isRestaurantProfileLoading } = useRestaurantProfile();
-
-  React.useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setRole('free_restaurant');
-      }
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, []);
+  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef";
+  const { restaurant, loading: isRestaurantProfileLoading } = useRestaurantProfile(restaurantId);
 
   const combinedLoading = isLoading || isRestaurantProfileLoading;
 

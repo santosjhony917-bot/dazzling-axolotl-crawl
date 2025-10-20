@@ -10,18 +10,9 @@ import { supabase } from '@/integrations/supabase/client';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [userId, setUserId] = React.useState<string | null>(null);
   const [currentRole, setCurrentRole] = React.useState<string>('customer');
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUserId(user?.id || null);
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, []);
 
   useEffect(() => {
     // Redirecionamento removido

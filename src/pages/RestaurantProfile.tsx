@@ -6,7 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+// import { useUser } from "@/contexts/UserContext"; // Removido
+// import { useAuth } from "@/hooks/useAuth"; // Removido
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
+// import { useUserRole } from "@/hooks/useUserRole"; // Removido
 import { useImageUpload } from "@/hooks/useImageUpload";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
@@ -19,6 +22,7 @@ import { WeekSchedule, DaySchedule } from "@/types/schedule";
 import { geocodeAddress } from "@/services/geocoding";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+// import { PromoteToAdminButton } from "@/components/admin/PromoteToAdminButton"; // Removido
 
 // Definindo a interface do estado de edição fora do componente para clareza
 interface EditingFieldState {
@@ -114,7 +118,13 @@ const formatScheduleDisplay = (schedule: WeekSchedule): string => {
 const RestaurantProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile();
+  // const { logout } = useUser(); // Removido
+  // const { signOut } = useAuth(); // Removido
+  // Para demonstração sem login, vamos mockar um restaurantId
+  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Exemplo de ID mockado
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(restaurantId); // Passando ID mockado
+  // Usando a desestruturação correta da correção anterior
+  // const { isPremiumRestaurant, isAdmin } = useUserRole(); // Removido
   const isPremium = false; // Mockado como false, pois não há roles
   const isAdmin = false; // Mockado como false
   const { uploadImage, uploading } = useImageUpload();
@@ -271,6 +281,7 @@ const RestaurantProfile = () => {
     await supabase.auth.signOut(); // Usando signOut direto do Supabase
     
     // Limpar dados locais (não há mais UserContext)
+    // logout(); // Removido
     
     toast({
       title: "Logout realizado",
@@ -285,7 +296,14 @@ const RestaurantProfile = () => {
   };
 
   const handleUploadLogo = async (file: File) => {
-    if (!restaurant?.id) return;
+    if (!restaurant?.id) {
+      toast({
+        title: "Erro",
+        description: "Nenhum restaurante encontrado para fazer upload do logo.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const { url, error } = await uploadImage(file, 'restaurant-logos', restaurant.id);
 
@@ -329,7 +347,14 @@ const RestaurantProfile = () => {
       return;
     }
 
-    if (!restaurant?.id) return;
+    if (!restaurant?.id) {
+      toast({
+        title: "Erro",
+        description: "Nenhum restaurante encontrado para fazer upload da capa.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const { url, error } = await uploadImage(file, 'restaurant-photos', restaurant.id, 'cover');
 
@@ -382,6 +407,20 @@ const RestaurantProfile = () => {
           <Skeleton className="h-16 w-full rounded-3xl" />
           <Skeleton className="h-96 w-full rounded-3xl" />
         </div>
+        <RestaurantBottomNav selectedTab="perfil" />
+      </div>
+    );
+  }
+
+  // Se nenhum restaurante for encontrado, exibe uma mensagem
+  if (!restaurant) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 max-w-md mx-auto text-center">
+        <h2 className="text-xl font-bold text-[#022D68] mb-4">Nenhum Restaurante Encontrado</h2>
+        <p className="text-gray-600 mb-6">
+          Não foi possível carregar os dados do restaurante. Por favor, verifique o ID ou crie um novo restaurante.
+        </p>
+        <Button onClick={() => navigate("/restaurant-signup")}>Criar Restaurante</Button>
         <RestaurantBottomNav selectedTab="perfil" />
       </div>
     );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+// import { useUserRole } from './useUserRole'; // Removido
 import { WeekSchedule } from '@/types/schedule';
 
 interface RestaurantProfileData {
@@ -24,31 +25,33 @@ interface RestaurantProfileData {
   cnpj: string | null;  // Adicionado
 }
 
-export function useRestaurantProfile() {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [isUserLoading, setIsUserLoading] = useState(true);
+// Modificado para aceitar restaurantId opcional
+export function useRestaurantProfile(initialRestaurantId: string | null = null) {
+  // Removendo lógica de userId e isUserLoading
+  // const [userId, setUserId] = useState<string | null>(null);
+  // const [isUserLoading, setIsUserLoading] = useState(true);
   const [restaurant, setRestaurant] = useState<RestaurantProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUserId(user?.id || null);
-      setIsUserLoading(false);
-    };
-    fetchUserId();
-  }, []);
+  // Removendo useEffect para buscar userId
+  // useEffect(() => {
+  //   const fetchUserId = async () => {
+  //     const { data: { user } } = await supabase.auth.getUser();
+  //     setUserId(user?.id || null);
+  //     setIsUserLoading(false);
+  //   };
+  //   fetchUserId();
+  // }, []);
 
   const fetchRestaurant = async (id: string) => {
     setLoading(true);
     setError(null);
     try {
-      // Fetch from the 'restaurants' table
       const { data, error } = await supabase
         .from('restaurants')
         .select('*')
-        .eq('user_id', id)
+        .eq('id', id) // Agora busca por restaurant ID, não user ID
         .single();
 
       if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
@@ -58,7 +61,7 @@ export function useRestaurantProfile() {
       if (data) {
         setRestaurant(data as RestaurantProfileData);
       } else {
-        setRestaurant(null); // No restaurant found for this user
+        setRestaurant(null); // No restaurant found for this ID
       }
 
     } catch (e) {
@@ -69,12 +72,13 @@ export function useRestaurantProfile() {
   };
 
   useEffect(() => {
-    if (!isUserLoading && userId) {
-      fetchRestaurant(userId);
-    } else if (!isUserLoading && !userId) {
+    if (initialRestaurantId) { // Se um ID for fornecido, busca o restaurante
+      fetchRestaurant(initialRestaurantId);
+    } else { // Caso contrário, não há restaurante para buscar
       setLoading(false);
+      setRestaurant(null);
     }
-  }, [userId, isUserLoading]);
+  }, [initialRestaurantId]); // Depende do initialRestaurantId
 
   const updateRestaurant = async (updates: Partial<RestaurantProfileData>) => {
     if (!restaurant?.id) return { error: "Restaurante não encontrado." };
@@ -96,9 +100,9 @@ export function useRestaurantProfile() {
 
   return {
     restaurant,
-    loading: loading || isUserLoading,
+    loading: loading, // Simplificado
     error,
     updateRestaurant,
-    refetch: () => userId && fetchRestaurant(userId),
+    refetch: () => initialRestaurantId && fetchRestaurant(initialRestaurantId), // Refetch baseado no initialRestaurantId
   };
 }

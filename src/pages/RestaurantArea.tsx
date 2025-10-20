@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
+// import { useUserRole } from "@/hooks/useUserRole"; // Removido
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createPageUrl } from "@/utils/url";
@@ -13,7 +14,12 @@ const RestaurantArea = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // Corrigido: Usar isFreeRestaurant ou isPremiumRestaurant para verificar se é restaurante
-  const { restaurant, loading: restaurantLoading } = useRestaurantProfile();
+  // const { isPremiumRestaurant, isFreeRestaurant, isLoading: isRoleLoading } = useUserRole(); // Removido
+  // const isRestaurant = isPremiumRestaurant || isFreeRestaurant; // Removido
+  // const isPremium = isPremiumRestaurant; // Removido
+  // Para demonstração sem login, vamos mockar um restaurantId ou deixar null
+  const restaurantId = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Exemplo de ID mockado
+  const { restaurant, loading: restaurantLoading } = useRestaurantProfile(restaurantId); // Passando ID mockado
 
   // Determine the current tab for the bottom navigation
   const getSelectedTab = (pathname: string) => {

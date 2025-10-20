@@ -43,34 +43,35 @@ const queryClient = new QueryClient();
 
 const AppRoutes = () => {
   const navigate = useNavigate();
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Removendo estados e efeitos de autenticação
+  // const [session, setSession] = useState<Session | null>(null);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     setSession(session);
+  //     setLoading(false);
+  //   });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      if (_event === "SIGNED_IN" && session) {
-        // Redirecionamento removido, agora o usuário permanece na página atual ou é redirecionado manualmente
-        // navigate("/auth-redirect", { replace: true }); // Removido
-      } else if (_event === "SIGNED_OUT") {
-        // Redireciona para a tela de autenticação geral
-        navigate("/auth", { replace: true });
-      }
-    });
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     setSession(session);
+  //     if (_event === "SIGNED_IN" && session) {
+  //       // Redirecionamento removido, agora o usuário permanece na página atual ou é redirecionado manualmente
+  //       // navigate("/auth-redirect", { replace: true }); // Removido
+  //     } else if (_event === "SIGNED_OUT") {
+  //       // Redireciona para a tela de autenticação geral
+  //       navigate("/auth", { replace: true });
+  //     }
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, [navigate]);
+  //   return () => subscription.unsubscribe();
+  // }, [navigate]);
 
-  if (loading) {
-    return null; // Ou um componente de loading
-  }
+  // if (loading) {
+  //   return null; // Ou um componente de loading
+  // }
 
   return (
     <Routes>
@@ -80,6 +81,7 @@ const AppRoutes = () => {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      {/* <Route path="/auth-redirect" element={<AuthRedirector />} /> */}
       
       {/* Rotas do Cliente (agora acessíveis sem sessão) */}
       <Route path="/search-restaurants" element={<SearchRestaurants />} />
@@ -105,7 +107,7 @@ const AppRoutes = () => {
       {/* Rotas de Dashboard (Antigas, removidas) */}
       {/* <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} /> */}
       {/* <Route path="/restaurant-home" element={<RestaurantHome />} /> */}
-      {/* <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} /> */}
+      {/* <Route path="/restaurant-profile-menu" element={<RestaurantProfile />} */}
 
 
       {/* Admin Routes (agora acessíveis sem AdminRoute) */}
@@ -127,7 +129,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppRoutes />
+        {/* <UserProvider> */} {/* Removido */}
+          <AppRoutes />
+        {/* </UserProvider> */} {/* Removido */}
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
