@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Crown, Zap } from 'lucide-react'; // Importando Zap
+import { Home, Search, User, Crown, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -13,14 +13,14 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/restaurant-area/stats', label: 'Estatísticas', icon: Search, key: 'stats' }, // Reutilizando stats para a aba de busca
-  { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Zap, key: 'upgrade' }, // Mudando o ícone para Zap
+  { path: '/restaurant-area/stats', label: 'Estatísticas', icon: Search, key: 'stats' },
+  { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Zap, key: 'upgrade' },
   { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
 interface RestaurantBottomNavProps {
   selectedTab?: string;
-  isFree?: boolean; // Nova prop para indicar se o plano é Free
+  isFree?: boolean;
 }
 
 const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, isFree = false }) => {
@@ -55,7 +55,7 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
                   
                   {/* Botão principal (círculo laranja) */}
                   <div className="relative bg-highlight hover:bg-highlight/90 rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105">
-                    <Zap className="h-6 w-6 text-white" /> {/* Tamanho reduzido */}
+                    <Zap className="h-6 w-6 text-white" />
                   </div>
                 </div>
                 <span className="text-sm font-semibold mt-1 text-highlight">
@@ -71,16 +71,15 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
               to={createPageUrl(item.path.substring(1))}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-                isActive ? "text-accent" : "text-primary/70 dark:text-text-dark/70",
-                isUpgradeButton && isActive && "bg-accent/10 dark:bg-accent/20 rounded-full px-4 py-2",
-                isUpgradeButton && isActive && "text-accent font-bold",
-                isUpgradeButton && !isActive && "text-primary/70 dark:text-text-dark/70"
+                // Ajuste aqui: Usando text-primary quando ativo para garantir visibilidade
+                isActive ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
+                // Removendo estilos específicos de 'upgrade' para botões normais
               )}
             >
               <Icon 
                 className={cn(
                   "w-6 h-6",
-                  isUpgradeButton && isActive && "fill-accent"
+                  // Removendo fill-accent, pois não queremos preenchimento para ícones normais
                 )} 
               />
               <span className="text-sm font-medium">
