@@ -22,10 +22,10 @@ const RestaurantArea = () => {
   const getSelectedTab = (pathname: string) => {
     if (pathname.includes('/restaurant-area/home')) return 'home';
     if (pathname.includes('/restaurant-area/stats')) return 'stats';
-    if (pathname.includes('/upgrade')) return 'upgrade';
+    if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade'; // Adicionado
     if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
-    // Se estiver em /restaurant-area/menu ou /restaurant-area/categories, mantém 'home' ou 'perfil'
-    if (pathname.includes('/restaurant-area/menu') || pathname.includes('/restaurant-area/categories')) return 'home';
+    // Se estiver em /restaurant-area/menu ou /restaurant-area/categories, mantém 'perfil'
+    if (pathname.includes('/restaurant-area/menu') || pathname.includes('/restaurant-area/categories')) return 'perfil';
     return 'home';
   };
 
@@ -41,6 +41,9 @@ const RestaurantArea = () => {
     }
     if (location.pathname.includes('/restaurant-area/stats')) {
         return { title: "Estatísticas", showSearch: false, showNotifications: true };
+    }
+    if (location.pathname.includes('/restaurant-area/upgrade')) {
+        return { title: "Plano Premium", showSearch: false, showNotifications: false };
     }
     // Default para Home (que agora é o perfil detalhado)
     // Usamos um título padrão se o restaurante ainda estiver carregando ou não for encontrado
@@ -67,7 +70,7 @@ const RestaurantArea = () => {
         <Button 
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('welcome'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-[#022D68]"
         >
           <ArrowLeft className="h-5 w-5" />

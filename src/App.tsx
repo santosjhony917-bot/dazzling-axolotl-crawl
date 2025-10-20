@@ -36,7 +36,8 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/search-restaurants" element={<SearchRestaurants />} />
         <Route path="/restaurant-results" element={<RestaurantResults />} />
-        <Route path="/upgrade" element={<Upgrade />} />
+        {/* Rota de Upgrade de Cliente (mantida para acesso direto) */}
+        <Route path="/upgrade" element={<Upgrade />} /> 
         <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
         
         {/* Rotas de Autenticação */}
@@ -58,6 +59,8 @@ export default function App() {
           <Route path="stats" element={<div>Estatísticas Placeholder</div>} />
           <Route path="menu" element={<RestaurantMenu />} />
           <Route path="categories" element={<RestaurantCategories />} />
+          {/* Rota de Upgrade do Restaurante (agora aninhada) */}
+          <Route path="upgrade" element={<Upgrade />} /> 
           {/* Rotas de Suporte e Gerenciamento */}
           <Route path="manage-subscription" element={<div>Gerenciar Assinatura Placeholder</div>} />
           <Route path="help-center" element={<div>Central de Ajuda Placeholder</div>} />

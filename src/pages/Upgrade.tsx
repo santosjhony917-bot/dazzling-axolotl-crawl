@@ -2,9 +2,14 @@ import React from 'react';
 import { Crown, Check, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import CustomerBottomNav from '@/components/CustomerBottomNav';
+import { useLocation } from 'react-router-dom'; // Importando useLocation
 
 const Upgrade: React.FC = () => {
+  const location = useLocation();
+  
+  // Verifica se estamos na rota de cliente (nível superior) ou na rota aninhada do restaurante
+  const isRestaurantArea = location.pathname.startsWith('/restaurant-area');
+  
   const features = [
     "Busca prioritária",
     "Promoções exclusivas",
@@ -13,7 +18,8 @@ const Upgrade: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    // Ajustando o padding inferior para ser consistente com o layout pai
+    <div className={isRestaurantArea ? "pb-20 max-w-md mx-auto" : "min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto"}>
       <header className="pt-8 pb-6 text-center bg-white shadow-sm">
         <Crown className="w-10 h-10 text-[#E47948] mx-auto mb-2" />
         <h1 className="text-3xl font-bold text-[#022D68]">Faça Upgrade</h1>
@@ -49,8 +55,9 @@ const Upgrade: React.FC = () => {
           </CardContent>
         </Card>
       </main>
-
-      <CustomerBottomNav selectedTab="upgrade" />
+      
+      {/* O CustomerBottomNav foi removido daqui. Ele será renderizado apenas se a rota for /upgrade (cliente) */}
+      {/* Se estivermos na área do restaurante, o RestaurantArea.tsx renderiza o nav correto. */}
     </div>
   );
 };

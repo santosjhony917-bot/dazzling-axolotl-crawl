@@ -31,6 +31,10 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
       return selectedTab === key;
     }
     // Fallback para a rota atual
+    // Verifica se a rota atual começa com o caminho do item, exceto para /upgrade que é uma rota de nível superior
+    if (path === '/upgrade') {
+        return location.pathname === path;
+    }
     return location.pathname.startsWith(path);
   };
 
@@ -46,6 +50,7 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
           return (
             <Link
               key={item.path}
+              // Usamos createPageUrl para garantir o formato correto
               to={createPageUrl(item.path.substring(1))}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
@@ -63,7 +68,8 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab }
               <span className={cn(
                 "text-sm font-medium",
                 isUpgradeButton && isActive && "font-bold",
-                isActive && item.key === 'perfil' && "font-bold text-[#022D68] dark:text-white" // Destaque para Perfil
+                // Garante que o perfil do restaurante use a cor primária do restaurante
+                isActive && item.key === 'perfil' && "font-bold text-[#022D68] dark:text-white" 
               )}>
                 {item.label}
               </span>
