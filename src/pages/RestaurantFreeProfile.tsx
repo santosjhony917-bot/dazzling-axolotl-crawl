@@ -37,7 +37,7 @@ const PerformanceMetricCard: React.FC<{ icon: React.ElementType; title: string; 
 
 const RestaurantFreeProfile = () => {
   const navigate = useNavigate();
-  const { isLoading: isRoleLoading } = useUserRole();
+  const { isLoading: isRoleLoading, role } = useUserRole();
   const { restaurant, loading: isRestaurantProfileLoading } = useRestaurantProfile();
   const { signOut } = useAuth();
 
@@ -66,6 +66,7 @@ const RestaurantFreeProfile = () => {
   const restaurantName = restaurant?.name || "Seu Restaurante";
   const restaurantAddress = restaurant?.address || "Endereço não cadastrado";
   const restaurantCityState = [restaurant?.city, restaurant?.state].filter(Boolean).join(', ');
+  const displayRole = role === 'free_restaurant' ? 'Restaurante - Plano Free' : 'Restaurante';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pb-24 max-w-md mx-auto">
@@ -80,6 +81,7 @@ const RestaurantFreeProfile = () => {
               <p className="text-xs text-gray-500 font-medium">Localização Principal</p>
               <h2 className="text-sm font-bold text-[#022D68]">{restaurantName}</h2>
               <p className="text-xs text-gray-500">{restaurantAddress} {restaurantCityState && `(${restaurantCityState})`}</p>
+              <p className="text-xs text-gray-500 font-medium">{displayRole}</p>
             </div>
           </div>
           <Button onClick={handleSignOut} variant="ghost" size="icon" className="w-10 h-10 rounded-full bg-red-100 hover:bg-red-200">
@@ -89,7 +91,12 @@ const RestaurantFreeProfile = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="px-4 pt-4 pb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="px-4 pt-4 pb-6"
+      >
         <h2 className="text-xl font-bold text-[#022D68] mb-4">Ações Rápidas</h2>
         <div className="grid grid-cols-2 gap-3">
           <QuickActionButton
@@ -103,19 +110,20 @@ const RestaurantFreeProfile = () => {
             icon={BarChart3}
             title="Ver"
             subtitle="Estatísticas"
-            onClick={() => navigate(createPageUrl('restaurant-area/stats'))} // Assuming this route exists
+            onClick={() => navigate(createPageUrl('restaurant-area/stats'))}
             colorClass="text-[#E47948]"
           />
         </div>
-      </div>
+      </motion.div>
 
       {/* Premium Banner */}
-      <div className="px-4 pb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#022D68] to-[#022D68]/80 p-6 shadow-lg"
-        >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="px-4 pb-6"
+      >
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#022D68] to-[#022D68]/80 p-6 shadow-lg">
           <div className="relative z-10">
             <h3 className="text-xl font-bold text-white mb-2">Torne-se Premium!</h3>
             <p className="text-sm text-white/90 mb-4 max-w-xs">
@@ -130,11 +138,16 @@ const RestaurantFreeProfile = () => {
             <div className="w-2 h-2 rounded-full bg-white/50"></div>
             <div className="w-2 h-2 rounded-full bg-white/50"></div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
       {/* Performance Overview */}
-      <div className="px-4 pb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="px-4 pb-6"
+      >
         <h2 className="text-xl font-bold text-[#022D68] mb-4">Visão Geral de Performance</h2>
         <div className="grid grid-cols-2 gap-3">
           <PerformanceMetricCard icon={DollarSign} title="Vendas (7 dias)" value="R$ 1.250" colorClass="text-green-600" />
@@ -142,10 +155,15 @@ const RestaurantFreeProfile = () => {
           <PerformanceMetricCard icon={TrendingUp} title="Visitas (7 dias)" value="320" colorClass="text-blue-600" />
           <PerformanceMetricCard icon={Crown} title="Plano Atual" value="Free" colorClass="text-gray-500" />
         </div>
-      </div>
+      </motion.div>
 
       {/* Logout Button (redundant with header, but keeping for explicit request) */}
-      <div className="px-4 pb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="px-4 pb-6"
+      >
         <Button 
           onClick={handleSignOut} 
           variant="destructive" 
@@ -154,7 +172,7 @@ const RestaurantFreeProfile = () => {
           <LogOut className="w-5 h-5 mr-2" />
           Sair da Conta
         </Button>
-      </div>
+      </motion.div>
 
       <RestaurantBottomNav selectedTab="perfil" />
     </div>
