@@ -87,15 +87,10 @@ export default function RestaurantLogin() {
       // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
       const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
       
-      const { error: updateError } = await supabase
-        .from('restaurants')
-        .update({ user_id: userId })
-        .eq('id', MOCK_RESTAURANT_ID);
-
-      if (updateError) {
-        console.error("Falha ao vincular restaurante mockado ao usuário:", updateError);
-      }
-
+      // NOTE: Esta lógica de vinculação deve ser feita no backend (Edge Function/Trigger)
+      // para garantir que o user_id seja um UUID válido e que o usuário tenha permissão.
+      // Para fins de desenvolvimento, vamos apenas logar e navegar.
+      
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
       // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
       navigate(createPageUrl("restaurant-area/profile-menu")); 
@@ -113,14 +108,7 @@ export default function RestaurantLogin() {
   const handleDevLogin = async () => {
     setLoading(true);
     // Simula a obtenção de um ID de usuário (mockado)
-    const userId = 'dev-test-user-id'; 
-    
-    // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
-    const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
-    
-    // Mockamos a atualização do Supabase para evitar erros de RLS/permissão
-    // Em um ambiente real, isso falharia se o usuário não estivesse autenticado.
-    // Aqui, apenas simulamos o sucesso.
+    // const userId = 'dev-test-user-id'; // Não é mais necessário
     
     showSuccess("Login de Teste realizado! Redirecionando para o painel.");
     setTimeout(() => {
