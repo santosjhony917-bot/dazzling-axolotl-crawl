@@ -26,27 +26,55 @@ export default function RestaurantLogin() {
     setPasswordVisible(!passwordVisible);
   };
 
+  const attemptLogin = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+    return data.user?.id;
+  };
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      let userId: string | undefined;
 
-      if (error) {
-        throw error;
+      try {
+        // Tenta o login normal
+        userId = await attemptLogin(email, password);
+      } catch (loginError) {
+        // Se o login falhar (ex: usuário não existe), tenta o cadastro
+        if ((loginError as Error).message.includes('Invalid login credentials') || (loginError as Error).message.includes('User not found')) {
+          
+          showSuccess("Usuário não encontrado. Tentando cadastrar...");
+          
+          const { error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+          });
+
+          if (signUpError) {
+            throw signUpError;
+          }
+          
+          // Tenta o login novamente após o cadastro (para contornar a confirmação de e-mail em dev)
+          userId = await attemptLogin(email, password);
+        } else {
+          throw loginError;
+        }
       }
-      
-      const userId = data.user?.id;
+
       if (!userId) {
-        throw new Error("Usuário logado, mas ID não encontrado.");
+        throw new Error("Falha na autenticação. Tente novamente.");
       }
 
       // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
-      // Isso simula o processo de atribuição de propriedade após o login/cadastro.
       const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
       
       const { error: updateError } = await supabase
@@ -55,7 +83,6 @@ export default function RestaurantLogin() {
         .eq('id', MOCK_RESTAURANT_ID);
 
       if (updateError) {
-        // Se falhar, apenas logamos o erro, mas permitimos o acesso para fins de teste
         console.error("Falha ao vincular restaurante mockado ao usuário:", updateError);
       }
 
