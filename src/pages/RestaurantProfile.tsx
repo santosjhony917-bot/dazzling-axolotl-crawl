@@ -120,7 +120,7 @@ const RestaurantProfile = () => {
   const { toast } = useToast();
   const { logout } = useUser();
   const { signOut } = useAuth();
-  const { restaurant, loading: restaurantLoading, updateRestaurant } = useRestaurantProfile();
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile();
   // Usando a desestruturação correta da correção anterior
   const { isPremiumRestaurant, isAdmin } = useUserRole();
   const isPremium = isPremiumRestaurant; 
@@ -146,9 +146,9 @@ const RestaurantProfile = () => {
     cep: restaurant?.cep || "",
     neighborhood: restaurant?.neighborhood || "",
     category: restaurant?.category || "",
-    phone: "", // Mocked for now, should come from restaurant object
-    email: "", // Mocked for now
-    cnpj: "", // Mocked for now
+    phone: restaurant?.phone || "",
+    email: restaurant?.email || "",
+    cnpj: restaurant?.cnpj || "",
   };
 
   // Schedule data (using mock initial state if not loaded from DB)
@@ -170,7 +170,7 @@ const RestaurantProfile = () => {
     }
   }, [restaurant?.opening_hours]);
 
-  const handleEdit = (field: keyof typeof restaurantData | 'cnpj' | 'whatsapp' | 'ifood' | 'other') => {
+  const handleEdit = (field: 'name' | 'phone' | 'email' | 'cnpj' | 'whatsapp' | 'ifood' | 'other' | 'address') => {
     // Special handling for address - use EditAddressDialog
     if (field === 'address') {
       setIsEditingAddress(true);
@@ -194,7 +194,7 @@ const RestaurantProfile = () => {
         placeholder: "(11) 98765-4321",
         validationSchema: validations.phone,
         mask: phoneMask,
-        currentValue: restaurantData.phone, // Mocked
+        currentValue: restaurant?.phone || "",
       },
       email: {
         title: "E-mail",
@@ -203,7 +203,7 @@ const RestaurantProfile = () => {
         type: "email" as const,
         placeholder: "contato@restaurante.com",
         validationSchema: validations.email,
-        currentValue: restaurantData.email, // Mocked
+        currentValue: restaurant?.email || "",
       },
       cnpj: {
         title: "CNPJ",
@@ -212,7 +212,7 @@ const RestaurantProfile = () => {
         placeholder: "12.345.678/0001-90",
         validationSchema: validations.cnpj,
         mask: cnpjMask,
-        currentValue: restaurantData.cnpj, // Mocked
+        currentValue: restaurant?.cnpj || "",
       },
       whatsapp: {
         title: "Link WhatsApp",
@@ -252,6 +252,10 @@ const RestaurantProfile = () => {
     
     // Map field keys to database column names
     const fieldMapping: Record<string, string> = {
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+      cnpj: 'cnpj',
       whatsapp: 'whatsapp_url',
       ifood: 'ifood_url',
       other: 'other_url',
@@ -781,7 +785,7 @@ const RestaurantProfile = () => {
               </div>
 
               <Button 
-                onClick={() => navigate('/restaurant-manage-subscription')}
+                onClick={() => navigate('/restaurant-area/manage-subscription')}
                 variant="outline"
                 className="w-full"
               >
@@ -834,14 +838,14 @@ const RestaurantProfile = () => {
             <button 
               onClick={() => {
                 if (isPremium) {
-                  navigate("/restaurant-integrations");
+                  navigate("/restaurant-area/integrations");
                 } else {
                   toast({
                     title: "Recurso Premium",
                     description: "Faça upgrade para gerenciar seus canais de pedido",
                     variant: "default",
                   });
-                  navigate("/upgrade"); // Usando a rota correta
+                  navigate("/upgrade");
                 }
               }}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
@@ -865,7 +869,7 @@ const RestaurantProfile = () => {
           <Card className="divide-y border-border/10 shadow-sm rounded-3xl">
             {isAdmin && (
               <button 
-                onClick={() => navigate("/admin/dashboard")} // Link para o Admin Dashboard
+                onClick={() => navigate("/admin/dashboard")}
                 className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
               >
                 <Crown className="h-5 w-5 text-red-600" />
@@ -878,7 +882,7 @@ const RestaurantProfile = () => {
             )}
 
             <button 
-              onClick={() => navigate("/restaurant-help-center")}
+              onClick={() => navigate("/restaurant-area/help-center")}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <HelpCircle className="h-5 w-5 text-[#022D68]" />
@@ -890,7 +894,7 @@ const RestaurantProfile = () => {
             </button>
 
             <button 
-              onClick={() => navigate("/restaurant-support")}
+              onClick={() => navigate("/restaurant-area/support")}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <MessageSquare className="h-5 w-5 text-[#022D68]" />
@@ -902,7 +906,7 @@ const RestaurantProfile = () => {
             </button>
 
             <button 
-              onClick={() => navigate("/restaurant-terms")}
+              onClick={() => navigate("/restaurant-area/terms")}
               className="w-full p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors"
             >
               <FileCheck className="h-5 w-5 text-[#022D68]" />
@@ -969,10 +973,7 @@ const RestaurantProfile = () => {
             latitude: restaurant.latitude,
             longitude: restaurant.longitude,
           }}
-          onSave={() => {
-            // Force refetch after address save
-            window.location.reload();
-          }}
+          onSave={refetch}
         />
       )}
 

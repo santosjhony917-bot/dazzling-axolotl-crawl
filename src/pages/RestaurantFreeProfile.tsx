@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MapPin, Edit, BarChart3, LogOut, Crown, DollarSign, Star, TrendingUp } from "lucide-react";
+import { MapPin, Edit, BarChart3, LogOut, Crown, DollarSign, Star, TrendingUp, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -112,6 +112,13 @@ const RestaurantFreeProfile = () => {
             subtitle="Estatísticas"
             onClick={() => navigate(createPageUrl('restaurant-area/stats'))}
             colorClass="text-[#E47948]"
+          />
+          <QuickActionButton
+            icon={User}
+            title="Editar"
+            subtitle="Perfil"
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
+            colorClass="text-[#022D68]"
           />
         </div>
       </motion.div>

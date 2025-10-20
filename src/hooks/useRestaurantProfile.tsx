@@ -20,6 +20,9 @@ interface RestaurantProfileData {
   latitude: number | null;
   longitude: number | null;
   opening_hours: WeekSchedule | null;
+  phone: string | null; // Adicionado
+  email: string | null; // Adicionado
+  cnpj: string | null;  // Adicionado
 }
 
 export function useRestaurantProfile() {
