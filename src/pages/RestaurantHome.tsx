@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check, Lock, Edit, Store, Badge as BadgeIcon, BarChart3, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -26,6 +26,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import HighlightCard from "@/components/restaurant/HighlightCard";
 import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
+import useEmblaCarousel from 'embla-carousel-react';
 
 // Definindo a interface do estado de edição fora do componente para clareza
 interface EditingFieldState {
@@ -64,7 +65,7 @@ const upgradeSlides = [
   {
     title: "Posição #1 Garantida",
     subtitle: "Seu restaurante sempre no topo dos resultados de busca.",
-    imageUrl: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?q=80&w=2069&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1551782450-a2132b4ba213d?q=80&w=2069&auto=format&fit=crop",
     overlayColor: "bg-accent/70"
   },
   {
@@ -80,25 +81,36 @@ const RestaurantHome = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  // --- Carrossel State ---
-  const [currentSlide, setCurrentSlide] = useState(0);
-  
+  // --- Embla Carousel Setup ---
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   // Mock restaurant ID for development until proper auth flow is implemented
   const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
   
   const { isPremium } = useUserRole(); // Using mock hook
 
-  // Lógica do Carrossel
+  // Lógica de transição automática
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % upgradeSlides.length);
+    if (!emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      emblaApi.scrollNext();
     }, 5000); // Troca a cada 5 segundos
 
-    return () => clearInterval(interval);
-  }, []);
+    emblaApi.on('select', () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    });
 
-  const activeSlide = upgradeSlides[currentSlide];
+    return () => clearInterval(autoplay);
+  }, [emblaApi]);
+
+  // Lógica de clique nos indicadores
+  const scrollTo = useCallback((index: number) => {
+    emblaApi?.scrollTo(index);
+  }, [emblaApi]);
+
 
   // --- Funções de Navegação ---
   const handleGoToMenu = () => navigate(createPageUrl('restaurant-area/menu'));
@@ -181,21 +193,29 @@ const RestaurantHome = () => {
 
         {/* Banner de Upgrade (Carrossel) */}
         <div className="px-4 pb-5">
-          <div className="relative rounded-xl overflow-hidden bg-primary text-white transition-all duration-500 ease-in-out">
-            <div 
-              className="w-full bg-center bg-no-repeat aspect-[2.5/1] bg-cover flex flex-col p-6 items-start justify-center transition-opacity duration-1000" 
-              style={{ backgroundImage: `url("${activeSlide.imageUrl}")` }}
-            >
-              <div className={cn("absolute inset-0", activeSlide.overlayColor)}></div>
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold">{activeSlide.title}</h3>
-                <p className="text-sm mt-1 max-w-xs">{activeSlide.subtitle}</p>
-                <Button 
-                  onClick={handleGoToUpgrade}
-                  className="bg-accent text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-accent/90"
-                >
-                  Saiba Mais
-                </Button>
+          <div className="relative rounded-xl overflow-hidden bg-primary text-white">
+            <div className="embla" ref={emblaRef}>
+              <div className="embla__container flex">
+                {upgradeSlides.map((slide, index) => (
+                  <div key={index} className="embla__slide flex-shrink-0 w-full">
+                    <div 
+                      className="w-full bg-center bg-no-repeat aspect-[2.5/1] bg-cover flex flex-col p-6 items-start justify-center transition-opacity duration-1000" 
+                      style={{ backgroundImage: `url("${slide.imageUrl}")` }}
+                    >
+                      <div className={cn("absolute inset-0", slide.overlayColor)}></div>
+                      <div className="relative z-10">
+                        <h3 className="text-xl font-bold">{slide.title}</h3>
+                        <p className="text-sm mt-1 max-w-xs">{slide.subtitle}</p>
+                        <Button 
+                          onClick={handleGoToUpgrade}
+                          className="bg-accent text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-accent/90"
+                        >
+                          Saiba Mais
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
             
@@ -204,10 +224,10 @@ const RestaurantHome = () => {
               {upgradeSlides.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => scrollTo(index)}
                   className={cn(
                     "w-2 h-2 rounded-full transition-colors duration-300",
-                    currentSlide === index ? "bg-white" : "bg-white/50"
+                    selectedIndex === index ? "bg-white" : "bg-white/50"
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />
