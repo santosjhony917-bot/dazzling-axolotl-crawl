@@ -7,7 +7,7 @@ import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHead
 import { useUserRole } from '@/hooks/useUserRole';
 import { supabase } from '@/integrations/supabase/client';
 import { v4 as uuidv4 } from 'uuid';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner'; // Corrigido para usar sonner
 
 // Tipagem básica para o restaurante
 interface Restaurant {
