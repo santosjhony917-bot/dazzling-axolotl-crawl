@@ -3,14 +3,14 @@ import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Pencil, Upload, Loader2 } from 'lucide-react';
-import { ImageUploadButton } from '@/components/ImageUploadButton'; // Importação nomeada corrigida
+import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { supabase } from '@/integrations/supabase/client';
 import toast from 'react-hot-toast';
 
 interface ProfileHeaderManagementProps {
   restaurant: Restaurant;
-  onUpdate: (updates: Partial<Restaurant>) => Promise<void>;
+  onUpdate: (updates: Partial<Restaurant>) => Promise<{ error: string | null }>; // Tipo de retorno corrigido
 }
 
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
@@ -32,8 +32,12 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     if (publicUrl) {
       const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-      await onUpdate({ [updateKey]: publicUrl });
-      toast.success(`${type === 'logo' ? 'Logo' : 'Capa'} atualizada com sucesso!`);
+      const { error } = await onUpdate({ [updateKey]: publicUrl }); // Chama onUpdate e verifica o erro
+      if (error) {
+        toast.error(`Falha ao salvar URL da imagem: ${error}`);
+      } else {
+        toast.success(`${type === 'logo' ? 'Logo' : 'Capa'} atualizada com sucesso!`);
+      }
     } else {
       toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket.");
     }

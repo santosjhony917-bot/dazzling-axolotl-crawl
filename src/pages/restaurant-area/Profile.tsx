@@ -34,8 +34,8 @@ export default function RestaurantProfilePage() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<void> => {
-    if (!restaurant?.id) return;
+  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<{ error: string | null }> => { // Tipo de retorno ajustado
+    if (!restaurant?.id) return { error: "Restaurante não encontrado." };
 
     setIsSaving(true);
     const { data, error } = await supabase
@@ -50,15 +50,15 @@ export default function RestaurantProfilePage() {
     if (error) {
       console.error('Error updating restaurant:', error);
       toast.error('Erro ao salvar as alterações.');
-      return;
+      return { error: error.message }; // Retorna o erro
     }
 
     if (data) {
       refetch(); // Usa refetch do hook para atualizar o estado global
       toast.success('Informações atualizadas com sucesso!');
-      return;
+      return { error: null }; // Retorna sucesso
     }
-    return;
+    return { error: "Nenhum dado retornado após a atualização." }; // Caso inesperado
   }, [restaurant, refetch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
