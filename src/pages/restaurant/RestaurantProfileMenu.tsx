@@ -174,19 +174,21 @@ const RestaurantProfileMenu: React.FC = () => {
 
   // --- Renderização de Componentes Auxiliares ---
   const InfoItem: React.FC<{ label: string; value: string | null; icon: React.ElementType; onClick: () => void; isPremiumFeature?: boolean }> = ({ label, value, icon: Icon, onClick, isPremiumFeature = false }) => (
-    // Removendo a borda inferior, pois o Card pai já usa divide-y
-    <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"> 
-      <Icon className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
+    <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0"> 
+      {/* Ícone maior e colorido */}
+      <Icon className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" /> 
       <div className="flex-1">
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className={cn("text-sm font-medium text-foreground mt-0.5", !value && "italic text-gray-400")}>
+        <p className="text-sm text-muted-foreground">{label}</p>
+        {/* Valor em negrito */}
+        <p className={cn("text-base font-semibold text-foreground mt-0.5", !value && "italic text-gray-400 font-normal")}>
           {value || "Não definido"}
         </p>
       </div>
       <Button 
         size="sm" 
         variant="ghost"
-        className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948] shrink-0"
+        // Ícone de edição na cor de destaque
+        className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0" 
         onClick={(e) => {
           e.stopPropagation();
           if (isPremiumFeature && !isPremium) {
@@ -197,7 +199,7 @@ const RestaurantProfileMenu: React.FC = () => {
         }}
         disabled={isPremiumFeature && !isPremium}
       >
-        {isPremiumFeature && !isPremium ? <Lock className="h-3.5 w-3.5 text-gray-400" /> : <Edit className="h-3.5 w-3.5" />}
+        {isPremiumFeature && !isPremium ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4" />}
       </Button>
     </div>
   );
@@ -251,33 +253,31 @@ const RestaurantProfileMenu: React.FC = () => {
     <div className="min-h-screen bg-[#f5f7f8] pb-20">
       <div className="max-w-md mx-auto">
         
-        {/* Header (Voltar para o Hub) */}
-        <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm">
+        {/* Header (Voltar para o Hub) - Estilo da Imagem */}
+        <header className="flex items-center bg-white p-4 justify-center sticky top-0 z-20 shadow-sm">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => navigate(createPageUrl('restaurant-area/home'))}
-            className="text-[#022D68] hover:bg-[#022D68]/5"
+            className="text-[#022D68] hover:bg-[#022D68]/5 absolute left-4"
           >
             <ArrowLeft className="h-6 w-6" />
           </Button>
-          <div className="flex items-center gap-2">
-            <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
-          </div>
-          <div className="w-10"></div>
+          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
         </header>
 
-        {/* Cover Image Area */}
-        <div className="relative h-40 w-full bg-gray-300 dark:bg-gray-700">
+        {/* Área de Fundo (Simulando a área cinza/capa) */}
+        <div className="relative h-24 w-full bg-gray-300 dark:bg-gray-700">
+          {/* Se houver imagem de capa, ela iria aqui, mas a imagem de referência mostra apenas um bloco cinza */}
+          {/* Mantendo a lógica de upload de capa, mas usando o bloco cinza como fundo */}
           <img 
             src={restaurant?.cover_image_url || "https://via.placeholder.com/600x200?text=Capa+do+Restaurante"} 
             alt="Capa do Restaurante" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-0" // Ocultando a imagem para simular o fundo cinza da referência
           />
-          <div className="absolute inset-0 bg-black/20" />
           
-          {/* Upload Cover Button */}
-          <ImageUploadButton
+          {/* Upload Cover Button (Opcional, mantido por funcionalidade) */}
+          {/* <ImageUploadButton
             onFileSelect={(file) => handleFileSelect(file, 'cover')}
             uploading={uploading}
             className="absolute bottom-2 right-2 h-8 w-8 p-0 bg-white/80 text-primary hover:bg-white"
@@ -285,12 +285,12 @@ const RestaurantProfileMenu: React.FC = () => {
             size="icon"
           >
             <Camera className="h-4 w-4" />
-          </ImageUploadButton>
+          </ImageUploadButton> */}
         </div>
 
-        {/* Restaurant Header & Logo */}
+        {/* Restaurant Header & Logo - Card Flutuante */}
         <div className="px-4 -mt-12 mb-6">
-          <Card className="bg-white border border-border/10 rounded-3xl p-6 relative shadow-xl">
+          <Card className="bg-white border border-border/10 rounded-[2rem] p-6 relative shadow-xl">
             <div className="flex items-start gap-4">
               {/* Logo */}
               <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0">
@@ -302,7 +302,7 @@ const RestaurantProfileMenu: React.FC = () => {
                 <ImageUploadButton
                   onFileSelect={(file) => handleFileSelect(file, 'logo')}
                   uploading={uploading}
-                  className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-highlight text-white hover:bg-highlight/90"
+                  className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
                   variant="default"
                   size="icon"
                 >
@@ -312,16 +312,13 @@ const RestaurantProfileMenu: React.FC = () => {
               
               {/* Info */}
               <div className="flex-1 pt-2">
-                <h3 className="font-bold text-xl text-[#022D68]">{restaurant?.name || "Nome do Restaurante"}</h3>
+                <h3 className="font-bold text-xl text-[#022D68]">{restaurant?.name || "Restaurante Teste Free"}</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge 
-                    variant={isPremium ? "default" : "outline"} 
-                    className={cn(
-                      "text-xs font-semibold",
-                      isPremium ? "bg-highlight text-white hover:bg-highlight/90" : "border-gray-400 text-gray-600"
-                    )}
+                    variant="outline" 
+                    className="text-xs font-semibold border-gray-400 text-gray-600 bg-white"
                   >
-                    {isPremium ? <Crown className="w-3 h-3 mr-1 fill-white" /> : <Store className="w-3 h-3 mr-1" />}
+                    <Store className="w-3 h-3 mr-1" />
                     {isPremium ? "Premium" : "Free"}
                   </Badge>
                   <Badge 
@@ -339,36 +336,36 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Informações Básicas */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Informações Básicas</h2>
+          <h2 className="text-lg font-bold text-[#022D68]">Informações Básicas</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <InfoItem 
               label="Nome do Restaurante" 
-              value={restaurant?.name || ""} 
+              value={restaurant?.name || "Restaurante Teste Free"} 
               icon={Building2} 
               onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
             />
             <InfoItem 
               label="Categoria Principal" 
               value={restaurant?.category || "Não definida"} 
-              icon={Utensils} 
+              icon={UtensilsCrossed} // Usando UtensilsCrossed para combinar com o ícone da imagem
               onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <Utensils className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
             />
             <InfoItem 
               label="CNPJ" 
-              value={restaurant?.cnpj || "Não definido"} 
+              value={restaurant?.cnpj || "12.345.678/0001-90"} 
               icon={FileText} 
               onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
             />
             <InfoItem 
               label="E-mail de Contato" 
-              value={restaurant?.email || ""} 
+              value={restaurant?.email || "teste@filterfood.com"} 
               icon={Mail} 
               onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
             />
             <InfoItem 
               label="Telefone de Contato" 
-              value={restaurant?.phone || ""} 
+              value={restaurant?.phone || "(83) 99999-9999"} 
               icon={Phone} 
               onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
             />
@@ -377,19 +374,19 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Localização e Horários */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Localização e Horários</h2>
+          <h2 className="text-lg font-bold text-[#022D68]">Localização e Horários</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             {/* Endereço */}
-            <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-              <MapPin className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
+            <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0">
+              <MapPin className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Endereço Principal</p>
-                <p className={cn("text-sm font-medium text-foreground mt-0.5", !restaurant?.address && "italic text-gray-400")}>
+                <p className="text-sm text-muted-foreground">Endereço Principal</p>
+                <p className={cn("text-base font-semibold text-foreground mt-0.5", !restaurant?.address && "italic text-gray-400 font-normal")}>
                   {restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : "Não definido"}
                 </p>
                 {restaurant?.latitude && restaurant?.longitude && (
-                  <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
+                  <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
                     <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
                   </p>
                 )}
@@ -397,29 +394,29 @@ const RestaurantProfileMenu: React.FC = () => {
               <Button 
                 size="sm" 
                 variant="ghost"
-                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948] shrink-0"
+                className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0"
                 onClick={() => setIsAddressDialogOpen(true)}
               >
-                <Edit className="h-3.5 w-3.5" />
+                <Edit className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Horários */}
-            <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-              <Clock className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
+            <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0">
+              <Clock className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground">Horários de Funcionamento</p>
-                <p className="text-sm font-medium text-foreground mt-0.5">
+                <p className="text-sm text-muted-foreground">Horários de Funcionamento</p>
+                <p className="text-base font-semibold text-foreground mt-0.5">
                   {currentSchedule.monday.isOpen ? "Segunda a Sexta: 09h - 22h (Exemplo)" : "Horários não definidos"}
                 </p>
               </div>
               <Button 
                 size="sm" 
                 variant="ghost"
-                className="h-7 w-7 p-0 hover:bg-[#E47948]/10 text-[#E47948] shrink-0"
+                className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0"
                 onClick={() => setIsHoursDialogOpen(true)}
               >
-                <Edit className="h-3.5 w-3.5" />
+                <Edit className="h-4 w-4" />
               </Button>
             </div>
           </Card>
@@ -427,7 +424,7 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Canais de Venda e Links */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Canais de Venda e Links</h2>
+          <h2 className="text-lg font-bold text-[#022D68]">Canais de Venda e Links</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <InfoItem 
@@ -453,7 +450,7 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Gerenciamento de Conteúdo */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Gerenciamento de Conteúdo</h2>
+          <h2 className="text-lg font-bold text-[#022D68]">Gerenciamento de Conteúdo</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <NavItem 
@@ -479,7 +476,7 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Assinatura e Suporte */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Assinatura e Suporte</h2>
+          <h2 className="text-lg font-bold text-[#022D68]">Assinatura e Suporte</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <NavItem 
