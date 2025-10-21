@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import {
   Phone, Mail, FileText, Utensils, LogOut, Store, MapPin, Clock,
-  Edit, Eye, Crown, Lock, Camera, Package, HelpCircle, Shield, LifeBuoy, Bell, CheckCircle2, Trophy
+  Edit, Eye, Crown, Lock, Camera, Package, HelpCircle, Shield, LifeBuoy, Bell, CheckCircle2, Trophy, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
