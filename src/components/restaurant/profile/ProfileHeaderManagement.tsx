@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Eye, Camera, Check } from 'lucide-react';
+import { Lock, Eye, Camera, Check, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -35,6 +35,12 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
   const handleViewPublicProfile = () => {
     navigate(`/restaurant-profile/${restaurantId}`);
   };
+  
+  const handleUpgradeClick = () => {
+    if (!isPremium) {
+      navigate(createPageUrl('restaurant-area/upgrade'));
+    }
+  };
 
   return (
     <div className="w-full">
@@ -47,27 +53,33 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
         {/* Overlay para escurecer a imagem e garantir contraste */}
         {coverImageUrl && <div className="absolute inset-0 bg-black/30" />}
 
-        {/* Botão Editar Capa */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-          <ImageUploadButton
-            onFileSelect={(file) => handleFileSelect(file, 'cover')}
-            uploading={uploading}
-            disabled={!isPremium || uploading}
-            className={cn(
-              "h-10 px-4 rounded-full text-sm font-semibold transition-all",
-              isPremium ? "bg-white text-[#022D68] hover:bg-gray-100" : "bg-black/40 text-white backdrop-blur-sm hover:bg-black/50 cursor-not-allowed"
-            )}
-          >
-            {uploading ? (
-              "Enviando..."
-            ) : (
-              <>
-                {!isPremium && <Lock className="w-4 h-4 mr-2" />}
-                {isPremium && <Camera className="w-4 h-4 mr-2" />}
-                Editar capa (Premium)
-              </>
-            )}
-          </ImageUploadButton>
+        {/* Botão Editar Capa (Movido para o topo direito) */}
+        <div className="absolute top-4 right-4 z-10">
+          {isPremium ? (
+            <ImageUploadButton
+              onFileSelect={(file) => handleFileSelect(file, 'cover')}
+              uploading={uploading}
+              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-white text-[#022D68] hover:bg-gray-100"
+              disabled={uploading}
+            >
+              {uploading ? (
+                "Enviando..."
+              ) : (
+                <>
+                  <Camera className="w-4 h-4 mr-2" />
+                  Editar capa
+                </>
+              )}
+            </ImageUploadButton>
+          ) : (
+            <Button
+              onClick={handleUpgradeClick}
+              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-white text-[#022D68] hover:bg-gray-100"
+            >
+              <Crown className="w-4 h-4 mr-2 fill-yellow-500 text-yellow-500" />
+              Upgrade Premium
+            </Button>
+          )}
         </div>
       </div>
 
