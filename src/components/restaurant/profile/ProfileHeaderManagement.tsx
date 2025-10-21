@@ -32,26 +32,39 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     setUploading(true);
     
     const path = `${restaurant.id}/${type}`; 
+    let publicUrl: string | null = null;
 
-    const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
+    try {
+      console.log(`[Upload] Chamando upload da imagem para tipo: ${type}`);
+      publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
+      console.log(`[Upload] Resposta do upload: ${publicUrl ? 'Sucesso' : 'Falha'}`);
 
-    setUploading(false);
-
-    if (publicUrl) {
-      const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-      
-      // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
-      const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
-      
-      const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
-      
-      if (error) {
-        toast.error(`Imagem enviada, mas falha ao salvar URL: ${error}`);
+      if (publicUrl) {
+        const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
+        
+        // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
+        const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
+        
+        console.log(`[Update DB] Chamando updateRestaurant com URL: ${cacheBustedUrl}`);
+        const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
+        
+        if (error) {
+          toast.error(`Imagem enviada, mas falha ao salvar URL no DB: ${error}`);
+        } else {
+          toast.success("Imagem atualizada com sucesso!");
+        }
       } else {
-        toast.success("Imagem atualizada com sucesso!");
+        // Se publicUrl for null, o erro já foi logado em uploadFile, mas garantimos o toast.
+        toast.error("Falha ao fazer upload da imagem. Verifique o console para detalhes.");
       }
-    } else {
-      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket e as políticas RLS.");
+    } catch (e) {
+      const errorMessage = (e as Error).message || "Erro desconhecido durante o upload.";
+      console.error("[Upload] Erro fatal no handleFileSelect:", e);
+      toast.error(errorMessage);
+    } finally {
+      // OBRIGATÓRIO: Garantir que o estado de loading volte para false
+      setUploading(false);
+      console.log(`[Upload] Estado de uploading para ${type} resetado.`);
     }
   }, [restaurant.id, onUpdate]);
 
