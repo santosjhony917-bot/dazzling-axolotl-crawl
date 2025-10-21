@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { Button, ButtonProps } from '@/components/ui/button';
-import { Loader2, Camera } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ImageUploadButtonProps extends ButtonProps {
@@ -18,7 +17,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = () => {
+  const handleButtonClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -29,33 +28,30 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
     if (file) {
       onFileSelect(file);
     }
-    // Reset input value to allow re-uploading the same file
-    event.target.value = '';
+    // Reset input value to allow selecting the same file again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   return (
-    <>
+    <div className={cn("relative inline-block", className)}>
       <input
         type="file"
-        accept="image/*"
         ref={fileInputRef}
         onChange={handleFileChange}
+        accept="image/*"
         className="hidden"
         disabled={uploading}
       />
       <Button
-        type="button" // Garantindo que seja um botão normal
-        onClick={handleClick}
+        onClick={handleButtonClick}
         disabled={uploading}
-        className={cn("relative", className)}
+        className={className}
         {...props}
       >
-        {uploading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          children || <Camera className="h-4 w-4" />
-        )}
+        {children}
       </Button>
-    </>
+    </div>
   );
 };
