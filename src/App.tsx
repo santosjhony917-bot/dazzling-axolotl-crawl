@@ -11,6 +11,8 @@ import { AuthProvider } from './integrations/supabase/auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import RestaurantSignup from './pages/restaurant/RestaurantSignup';
 import WelcomePage from './pages/Welcome';
+import Profile from './pages/Profile'; // Importando Profile
+import Favorites from './pages/Favorites'; // Importando Favorites
 
 const App: React.FC = () => {
   return (
@@ -20,6 +22,12 @@ const App: React.FC = () => {
           <Route path="/" element={<Index />} />
           <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/login" element={<Login />} />
+          
+          {/* Rotas do Cliente */}
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/favorites" element={<ProtectedRoute element={<Favorites />} />} />
+          
+          {/* Rotas do Restaurante (Protegidas) */}
           <Route path="/restaurant/signup" element={<ProtectedRoute element={<RestaurantSignup />} />} />
           <Route path="/restaurant/profile" element={<ProtectedRoute element={<RestaurantProfileMenu />} />} />
           <Route path="/restaurant/profile/basic" element={<ProtectedRoute element={<RestaurantProfileBasic />} />} />
