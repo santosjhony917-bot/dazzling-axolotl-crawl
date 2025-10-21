@@ -80,17 +80,16 @@ const UpgradePage: React.FC = () => {
           </Button>
         </Card>
       </div>
-
-      {/* Card de Comparação (Como você é visto?) */}
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
+      
+      {/* Prévia do Perfil (MOVIDA PARA CÁ) */}
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-12">
         <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
         
         {/* Toggle Switch para Visualização */}
         <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
 
-        {/* Prévia do Perfil (MOVIDA PARA CÁ) */}
-        <div ref={previewRef} className="mt-4 mb-6">
+        <div ref={previewRef} className="mt-4">
           <h3 className="text-lg font-bold text-primary dark:text-white mb-2 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h3>
           {previewPlan === 'free' ? (
             <RestaurantProfilePreviewFree />
@@ -98,9 +97,13 @@ const UpgradePage: React.FC = () => {
             <RestaurantProfilePreviewPremium />
           )}
         </div>
+      </Card>
 
-        {/* Tabela de Comparação */}
-        <div className="overflow-x-auto mt-6">
+
+      {/* Tabela de Comparação */}
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
+        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-4">Comparação de Recursos</h2>
+        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead>
               <tr>
@@ -125,8 +128,6 @@ const UpgradePage: React.FC = () => {
           </table>
         </div>
       </Card>
-
-      {/* O div de prévia original foi removido daqui */}
     </div>
   );
 };
