@@ -15,6 +15,7 @@ import EditFieldDialog from "@/components/EditFieldDialog";
 import { EditHoursDialog } from "@/components/EditHoursDialog";
 import { EditAddressDialog } from "@/components/EditAddressDialog";
 import { ImageUploadButton } from "@/components/ImageUploadButton";
+import NavCardItem from "@/components/NavCardItem"; // Importando o novo componente
 import restaurantLogo from "@/assets/restaurant-logo.png";
 import { z } from "zod";
 import { WeekSchedule } from "@/types/schedule";
@@ -204,29 +205,7 @@ const RestaurantProfileMenu: React.FC = () => {
     </div>
   );
 
-  const NavItem: React.FC<{ label: string; icon: React.ElementType; onClick: () => void; description?: string }> = ({ label, icon: Icon, onClick, description }) => (
-    <button 
-      onClick={onClick}
-      className={cn(
-        // Ajustando padding e removendo hover para manter o fundo branco do card
-        "w-full py-3 px-4 flex justify-between items-center transition-colors text-gray-800 dark:text-gray-200"
-      )}
-    >
-      <span className="flex items-center gap-4 text-left">
-        {/* Ícone maior */}
-        <Icon className="w-6 h-6 shrink-0 text-[#022D68]" />
-        <div>
-          <p className="text-base font-medium text-foreground">
-            {label}
-          </p>
-          {description && (
-            <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
-          )}
-        </div>
-      </span>
-      <ChevronRight className="w-5 h-5 text-gray-400" />
-    </button>
-  );
+  // NavItem antigo removido, substituído por NavCardItem
 
   if (restaurantLoading || roleLoading) {
     return (
@@ -438,49 +417,47 @@ const RestaurantProfileMenu: React.FC = () => {
         </div>
 
         {/* Gerenciamento de Conteúdo */}
-        <div className="px-4 mb-6 space-y-4">
+        <div className="px-4 mb-6 space-y-3"> {/* Ajustando space-y para NavCardItem */}
           <h2 className="text-lg font-bold text-[#022D68]">Gerenciamento de Conteúdo</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
-            <NavItem 
-              label="Cardápio e Itens" 
-              description="Adicione, edite e remova pratos e produtos."
-              icon={Utensils} 
-              onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-            />
-            <NavItem 
-              label="Categorias do Cardápio" 
-              description="Organize seus itens em categorias."
-              icon={Package} 
-              onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
-            />
-            <NavItem 
-              label="Galeria de Fotos" 
-              description="Gerencie as imagens do seu restaurante."
-              icon={Camera} 
-              onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
-            />
-          </Card>
+          {/* Substituindo Card e NavItem por NavCardItem individual */}
+          <NavCardItem 
+            label="Cardápio e Itens" 
+            description="Adicione, edite e remova pratos e produtos."
+            icon={Utensils} 
+            onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
+          />
+          <NavCardItem 
+            label="Categorias do Cardápio" 
+            description="Organize seus itens em categorias."
+            icon={Package} 
+            onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
+          />
+          <NavCardItem 
+            label="Galeria de Fotos" 
+            description="Gerencie as imagens do seu restaurante."
+            icon={Camera} 
+            onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
+          />
         </div>
 
         {/* Assinatura e Suporte */}
-        <div className="px-4 mb-6 space-y-4">
+        <div className="px-4 mb-6 space-y-3"> {/* Ajustando space-y para NavCardItem */}
           <h2 className="text-lg font-bold text-[#022D68]">Assinatura e Suporte</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
-            <NavItem 
-              label="Plano Premium" 
-              description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
-              icon={Crown} 
-              onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-            />
-            <NavItem 
-              label="Central de Ajuda" 
-              description="Tutoriais e FAQ"
-              icon={HelpCircle} 
-              onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
-            />
-          </Card>
+          {/* Substituindo Card e NavItem por NavCardItem individual */}
+          <NavCardItem 
+            label="Plano Premium" 
+            description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
+            icon={Crown} 
+            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+          />
+          <NavCardItem 
+            label="Central de Ajuda" 
+            description="Tutoriais e FAQ"
+            icon={HelpCircle} 
+            onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
+          />
         </div>
 
         {/* Logout Button */}
