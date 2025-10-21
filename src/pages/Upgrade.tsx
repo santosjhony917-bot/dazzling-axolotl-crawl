@@ -1,202 +1,132 @@
-import React from 'react';
-import { Crown, CheckCircle, ArrowRight, ArrowLeft, Users, Utensils, Trophy } from 'lucide-react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Check, X, Crown, Zap, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
+import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfilePreviewFree';
+import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium';
+import { useUserRole } from '@/hooks/useUserRole';
+
+type PlanType = 'free' | 'premium';
 
 const Upgrade: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { isPremium } = useUserRole();
   
-  // Verifica se estamos na rota aninhada do restaurante
-  const isRestaurantArea = location.pathname.startsWith('/restaurant-area');
-  
+  // Estado para controlar qual prévia está sendo exibida
+  const [previewPlan, setPreviewPlan] = useState<PlanType>(isPremium ? 'premium' : 'free');
+
   const features = [
-    "Posição #1 Garantida",
-    "Branding Profissional",
-    "Estatísticas de Lucro",
-    "Cardápio Vendedor",
-    "Controle de Engajamento",
-    "Badge Premium",
-    "Suporte Expresso",
-    "Otimização de Pedidos",
+    { name: "Posicionamento no topo da busca", free: false, premium: true },
+    { name: "Destaque visual no perfil", free: false, premium: true },
+    { name: "Até 3 itens em Destaques", free: false, premium: true },
+    { name: "Link para iFood/Delivery App", free: false, premium: true },
+    { name: "Link para Site Próprio", free: false, premium: true },
+    { name: "Estatísticas de visualização", free: false, premium: true },
+    { name: "Suporte prioritário", free: false, premium: true },
+    { name: "Link para WhatsApp", free: true, premium: true },
+    { name: "1 item em Destaques", free: true, premium: false },
   ];
 
-  const handleGoBack = () => {
-    // Se estiver na área do restaurante, volta para o perfil do restaurante
-    if (isRestaurantArea) {
-      navigate(createPageUrl('restaurant-area/profile-menu'));
-    } else {
-      // Fallback seguro, embora esta rota não deva ser acessível para clientes
-      navigate(-1);
-    }
+  const handleSelectPlan = (plan: PlanType) => {
+    setPreviewPlan(plan);
   };
-  
-  const MOCK_COVER_URL = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop';
-  const MOCK_LOGO_URL = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop'; // Usando a mesma para mock de logo
 
   return (
-    <div className={cn(
-      "relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-gray-900",
-      isRestaurantArea ? "pb-20 max-w-md mx-auto" : "min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto"
-    )}>
+    <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
       
-      {/* Header */}
-      <div className="bg-primary dark:bg-primary text-white pt-6 pb-8">
-        <div className="relative px-4 text-center">
-          <button 
-            onClick={handleGoBack}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-200"
+      <h1 className="text-2xl font-bold text-primary text-center mb-2">
+        {isPremium ? "Seu Plano Atual: Premium" : "Faça Upgrade para Premium"}
+      </h1>
+      <p className="text-gray-600 text-center mb-6">
+        Desbloqueie o potencial máximo do seu restaurante.
+      </p>
+
+      {/* Card de Comparação (Como você é visto?) */}
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
+        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
+        
+        {/* Botões de Seleção de Prévia */}
+        <div className="flex justify-center gap-2 mb-6">
+          <Button
+            onClick={() => handleSelectPlan('free')}
+            variant={previewPlan === 'free' ? 'default' : 'outline'}
+            className={cn(
+              "flex-1 rounded-full font-semibold",
+              previewPlan === 'free' ? "bg-primary hover:bg-primary/90 text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"
+            )}
           >
-            <ArrowLeft className="w-6 h-6" />
-          </button>
-          <div className="flex flex-col items-center">
-            <Crown className="w-10 h-10 text-highlight fill mb-2" />
-            <h1 className="text-2xl font-bold">Seja Visto. Seja Premium</h1>
-            <p className="text-base text-gray-300 mt-1">Transforme Visitas em Pedidos Recorrentes</p>
-          </div>
+            <Zap className="w-4 h-4 mr-2" /> Visualização Free
+          </Button>
+          <Button
+            onClick={() => handleSelectPlan('premium')}
+            variant={previewPlan === 'premium' ? 'default' : 'outline'}
+            className={cn(
+              "flex-1 rounded-full font-semibold",
+              previewPlan === 'premium' ? "bg-highlight hover:bg-highlight/90 text-white" : "border-highlight text-highlight hover:bg-highlight/10"
+            )}
+          >
+            <Crown className="w-4 h-4 mr-2 fill-white" /> Visualização Premium
+          </Button>
         </div>
-      </div>
 
-      <div className="p-4 space-y-6">
+        {/* Prévia do Perfil */}
+        <div className="mt-4">
+          {previewPlan === 'free' ? (
+            <RestaurantProfilePreviewFree />
+          ) : (
+            <RestaurantProfilePreviewPremium />
+          )}
+        </div>
+      </Card>
+
+      {/* Tabela de Recursos */}
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
+        <h2 className="text-lg font-bold text-primary dark:text-white mb-4">Comparação de Recursos</h2>
         
-        {/* Card de Métricas */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
-          <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-4">As pessoas te procuram por aqui</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg p-4 text-center">
-              <Users className="w-8 h-8 text-primary dark:text-gray-300 mb-1" />
-              <p className="text-2xl font-bold text-primary dark:text-white">0</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Seguidores</p>
+        <div className="space-y-3">
+          {features.sort((a, b) => (b.premium ? 1 : -1) - (a.premium ? 1 : -1)).map((feature, index) => (
+            <div key={index} className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-3 last:border-b-0 last:pb-0">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex-1">{feature.name}</span>
+              
+              <div className="flex w-24 justify-around">
+                {/* Coluna Free */}
+                <div className="w-1/2 text-center">
+                  {feature.free ? (
+                    <Check className="w-5 h-5 text-green-500 mx-auto" />
+                  ) : (
+                    <X className="w-5 h-5 text-red-500 mx-auto" />
+                  )}
+                </div>
+                
+                {/* Coluna Premium */}
+                <div className="w-1/2 text-center">
+                  {feature.premium ? (
+                    <Check className="w-5 h-5 text-highlight mx-auto" />
+                  ) : (
+                    <X className="w-5 h-5 text-gray-400 mx-auto" />
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-700/50 rounded-lg p-4 text-center">
-              <Utensils className="w-8 h-8 text-primary dark:text-gray-300 mb-1" />
-              <p className="text-2xl font-bold text-primary dark:text-white">0</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Vistos no campo</p>
-            </div>
-          </div>
-        </Card>
-        
-        {/* Botão Ver Planos Premium */}
-        <Button 
-          onClick={() => alert("Navegar para Planos de Assinatura")}
-          className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-14 px-4 bg-gradient-to-r from-orange-400 to-highlight text-white text-lg font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:from-orange-500 hover:to-highlight/90"
-        >
-          Ver Planos Premium
-        </Button>
+          ))}
+        </div>
+      </Card>
 
-        {/* Card de Benefícios */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
-          <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-4">Mais de 80% dos restaurantes de João Pessoa já têm acesso:</h2>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500 fill-green-500/10" />
-                <p className="text-sm text-gray-700 dark:text-gray-300">{feature}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Card de Comparação (Como você é visto?) */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
-          <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
-          
-          {/* Toggle (Mocked for visual comparison) */}
-          <div className="bg-gray-100 dark:bg-gray-700/50 p-1 rounded-full flex mb-4">
-            <button className="w-1/2 py-2 text-center text-sm font-semibold rounded-full bg-primary text-white shadow">Free</button>
-            <button className="w-1/2 py-2 text-center text-sm font-semibold rounded-full text-highlight">Premium</button>
-          </div>
-          
-          <div className="space-y-4">
-            {/* Free Card */}
-            <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-              <div 
-                className="relative h-24 bg-gray-300 dark:bg-gray-600 bg-center bg-cover" 
-                style={{ backgroundImage: `url('${MOCK_COVER_URL}')`, filter: 'grayscale(100%)' }}
-              >
-                <div className="absolute inset-0 bg-black/40"></div>
-                <div className="absolute top-2 right-2 bg-gray-500/80 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                  FREE
-                </div>
-              </div>
-              <div className="p-3 bg-white dark:bg-gray-800">
-                <div className="flex items-start gap-3">
-                  <div 
-                    className="w-16 h-16 rounded-full border-4 border-white dark:border-gray-800 -mt-8 bg-center bg-cover" 
-                    style={{ backgroundImage: `url('${MOCK_LOGO_URL}')`, filter: 'grayscale(100%)' }}
-                  ></div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg text-primary dark:text-white">Seu Restaurante</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Tipo de Comida • $</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Trophy className="w-4 h-4 text-gray-400" />
-                      <p className="text-sm font-bold text-gray-500 dark:text-gray-400">--</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">(0 avaliações)</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="text-center">
-                    <p className="font-bold text-primary dark:text-white">0</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Seguidores</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="secondary" disabled className="rounded-full text-sm font-semibold cursor-not-allowed">Seguir</Button>
-                    <Button variant="outline" className="rounded-full text-sm font-semibold">Contato</Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Premium Card */}
-            <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-              <div 
-                className="relative h-24 bg-cover bg-center" 
-                style={{ backgroundImage: `url('${MOCK_COVER_URL}')` }}
-              >
-                <div className="absolute inset-0 bg-black/30"></div>
-                <div className="absolute top-2 right-2 bg-highlight/80 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                  <Crown className="w-3 h-3 fill-white" />
-                  PREMIUM
-                </div>
-              </div>
-              <div className="p-3 bg-white dark:bg-gray-800">
-                <div className="flex items-start gap-3">
-                  <div 
-                    className="w-16 h-16 rounded-full border-4 border-white dark:border-gray-800 -mt-8 bg-center bg-cover" 
-                    style={{ backgroundImage: `url('${MOCK_LOGO_URL}')` }}
-                  ></div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg text-primary dark:text-white">NAU - Frutos do Mar</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Frutos do Mar • $$</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Trophy className="w-4 h-4 text-yellow-500 fill-yellow-500/10" />
-                      <p className="text-sm font-bold text-gray-700 dark:text-gray-300">4.8</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">(2.3k avaliações)</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mt-3">
-                  <div className="text-center">
-                    <p className="font-bold text-primary dark:text-white">12.4k</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Seguidores</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button className="rounded-full text-sm font-semibold bg-highlight hover:bg-highlight/90 text-white">Seguir</Button>
-                    <Button variant="outline" className="rounded-full text-sm font-semibold">Contato</Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
-      
-      {/* O RestaurantBottomNav é renderizado pelo layout pai (RestaurantArea) */}
+      {/* CTA para Upgrade */}
+      {!isPremium && (
+        <div className="text-center mt-8">
+          <Button 
+            onClick={() => navigate(createPageUrl('checkout'))}
+            className="bg-highlight hover:bg-highlight/90 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-lg"
+          >
+            Assinar Plano Premium Agora <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
