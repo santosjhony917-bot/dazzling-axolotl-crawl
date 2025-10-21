@@ -8,10 +8,12 @@ import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/st
 import { supabase } from '@/integrations/supabase/client';
 import toast from 'react-hot-toast';
 
+// Definindo o tipo de retorno esperado para onUpdate
+type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string | null }>;
+
 interface ProfileHeaderManagementProps {
   restaurant: Restaurant;
-  // Tipo de retorno corrigido para refletir o retorno do hook useRestaurantProfile
-  onUpdate: (updates: Partial<Restaurant>) => Promise<{ error: string | null }>; 
+  onUpdate: UpdateFunction;
 }
 
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
@@ -24,7 +26,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
 
     setUploading(true);
-    const fileExtension = file.name.split('.').pop();
+    const fileExtension = file.name.split('.pop');
     const path = `${restaurant.id}/${type}.${fileExtension}`;
 
     const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
@@ -36,8 +38,9 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       const { error } = await onUpdate({ [updateKey]: publicUrl });
       
       if (error) {
-        // O onUpdate já exibe o toast, mas podemos logar o erro aqui se necessário
-        console.error("Error saving URL after upload:", error);
+        toast.error(`Imagem enviada, mas falha ao salvar URL: ${error}`);
+      } else {
+        toast.success("Imagem atualizada com sucesso!");
       }
     } else {
       toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket.");
