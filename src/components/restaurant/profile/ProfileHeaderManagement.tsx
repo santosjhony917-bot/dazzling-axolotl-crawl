@@ -23,6 +23,8 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
   const navigate = useNavigate();
 
   const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
+    console.log(`[DEBUG] handleFileSelect chamado para tipo: ${type}`); // DEBUG LOG
+    
     if (!restaurant.id) {
       toast.error("ID do restaurante não encontrado.");
       return;
