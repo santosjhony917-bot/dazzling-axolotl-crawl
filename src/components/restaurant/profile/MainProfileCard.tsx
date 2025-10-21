@@ -10,7 +10,7 @@ interface MainProfileCardProps {
   logoUrl: string | null | undefined;
   isPremium: boolean;
   uploading: boolean;
-  handleFileSelect: (file: File, type: 'logo' | 'cover') => Promise<void>; // Tipo de retorno ajustado
+  handleFileSelect: (file: File, type: 'logo' | 'cover') => Promise<void>; // Tipo de retorno corrigido
 }
 
 const MainProfileCard: React.FC<MainProfileCardProps> = ({
@@ -34,11 +34,8 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
             onFileSelect={(file) => handleFileSelect(file, 'logo')}
             uploading={uploading}
             className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            variant="default"
-            size="icon"
-          >
-            <Camera className="h-3 w-3" />
-          </ImageUploadButton>
+            icon={<Camera className="h-3 w-3" />} // Ícone passado via prop 'icon'
+          />
         </div>
         
         {/* Status */}

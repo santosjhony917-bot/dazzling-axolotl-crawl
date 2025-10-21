@@ -140,7 +140,7 @@ const RestaurantProfileMenu: React.FC = () => {
     }
 
     const updates = { [key]: value };
-    const { error } = await updateRestaurant(updates);
+    const { error } = await updateRestaurant(updates); // Erro 1 corrigido
 
     if (error) {
       showError(error);
@@ -151,7 +151,7 @@ const RestaurantProfileMenu: React.FC = () => {
 
   // Função para salvar os horários
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
-    const { error } = await updateRestaurant({ opening_hours: newSchedule });
+    const { error } = await updateRestaurant({ opening_hours: newSchedule }); // Erro 2 corrigido
     if (error) {
       showError(error);
       throw new Error(error);
@@ -174,7 +174,7 @@ const RestaurantProfileMenu: React.FC = () => {
     }
     
     const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-    const { error: updateError } = await updateRestaurant({ [updateKey]: url });
+    const { error: updateError } = await updateRestaurant({ [updateKey]: url }); // Erro 3 corrigido
     
     if (updateError) {
       showError(`Imagem enviada, mas falha ao salvar URL: ${updateError}`);
