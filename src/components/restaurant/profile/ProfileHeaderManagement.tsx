@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Pencil, Upload, Loader2 } from 'lucide-react';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
-import { supabase } from '@/integrations/supabase/client';
 import toast from 'react-hot-toast';
 
 // Definindo o tipo de retorno esperado para onUpdate
@@ -26,8 +25,17 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
 
     setUploading(true);
-    const fileExtension = file.name.split('.pop');
-    const path = `${restaurant.id}/${type}.${fileExtension}`;
+    
+    // CORREÇÃO: Usar split('.') e pop() para obter a extensão
+    const fileExt = file.name.split('.').pop();
+    if (!fileExt) {
+        toast.error("Não foi possível determinar a extensão do arquivo.");
+        setUploading(false);
+        return;
+    }
+    
+    // Construção do caminho: [restaurant.id]/[tipo].[extensao]
+    const path = `${restaurant.id}/${type}.${fileExt}`;
 
     const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
 
@@ -43,7 +51,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
         toast.success("Imagem atualizada com sucesso!");
       }
     } else {
-      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket.");
+      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket e as permissões.");
     }
   }, [restaurant.id, onUpdate]);
 
