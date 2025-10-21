@@ -40,7 +40,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
     <div className="w-full">
       {/* Área da Capa */}
       <div className={cn(
-        "relative w-full h-40 rounded-xl overflow-hidden bg-[#022D68] shadow-lg", // Removido mx-4
+        "relative w-full h-40 rounded-xl overflow-hidden bg-[#022D68] shadow-lg",
         coverImageUrl ? "bg-cover bg-center" : ""
       )} style={{ backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : 'none' }}>
         
@@ -73,7 +73,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
 
       {/* Card de Informações (Flutuante) */}
       {/* Ajustado para -mt-20 (80px) */}
-      <Card className="relative -mt-20 p-4 bg-white rounded-xl shadow-xl z-20"> {/* Removido mx-4 */}
+      <Card className="relative -mt-20 p-4 bg-white rounded-xl shadow-xl z-20">
         <div className="flex items-start gap-4">
           {/* Logo */}
           <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 shrink-0 shadow-md">
@@ -115,10 +115,10 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
       </Card>
 
       {/* Botão Ver Perfil Público - Ajustando padding para pt-12 (48px) */}
-      <div className="pt-12"> {/* Removido px-4 */}
+      <div className="pt-12">
         <Button
           onClick={handleViewPublicProfile}
-          className="w-full h-12 rounded-full bg-[#022D68] hover:bg-[#022D68]/90 text-white font-bold shadow-lg"
+          className="w-full h-12 rounded-full bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold shadow-lg active:scale-[0.98] transition-all"
         >
           <Eye className="h-5 w-5 mr-2" />
           Ver meu perfil público
