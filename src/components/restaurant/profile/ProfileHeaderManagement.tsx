@@ -18,7 +18,8 @@ interface ProfileHeaderManagementProps {
 }
 
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
-  const [uploading, setUploading] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
   const navigate = useNavigate();
 
   const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
@@ -27,6 +28,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       return;
     }
 
+    const setUploading = type === 'logo' ? setUploadingLogo : setUploadingCover;
     setUploading(true);
     
     const path = `${restaurant.id}/${type}`; 
@@ -38,6 +40,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     if (publicUrl) {
       const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
       
+      // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
       const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
       
       const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
@@ -48,7 +51,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
         toast.success("Imagem atualizada com sucesso!");
       }
     } else {
-      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket e as permissões.");
+      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket e as políticas RLS.");
     }
   }, [restaurant.id, onUpdate]);
 
@@ -72,13 +75,13 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
         )}
         <ImageUploadButton
           onFileSelect={(file) => handleFileSelect(file, 'cover')}
-          uploading={uploading}
+          uploading={uploadingCover}
           className="absolute top-4 right-4 h-8 w-8 p-0 bg-black/50 text-white hover:bg-black/70"
           icon={<Upload className="h-4 w-4" />}
         />
       </div>
 
-      <CardContent className="p-6 pt-0"> {/* Aumentado padding interno */}
+      <CardContent className="p-6 pt-0">
         {/* Logo/Avatar */}
         <div className="relative -mt-12 mb-4 w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
           {logoUrl ? (
@@ -94,15 +97,15 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
           )}
           <ImageUploadButton
             onFileSelect={(file) => handleFileSelect(file, 'logo')}
-            uploading={uploading}
+            uploading={uploadingLogo}
             className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            icon={uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+            icon={<Upload className="h-4 w-4" />}
           />
         </div>
 
         {/* Restaurant Info */}
-        <h1 className="text-2xl font-bold text-[#022D68]">{restaurant.name}</h1> {/* Suavizado para 2xl */}
-        <p className="text-sm text-gray-600 mt-1">{restaurant.address || "Endereço não definido"}</p> {/* Suavizado para text-gray-600 */}
+        <h1 className="text-2xl font-bold text-[#022D68]">{restaurant.name}</h1>
+        <p className="text-sm text-gray-600 mt-1">{restaurant.address || "Endereço não definido"}</p>
 
         {/* Actions/Status */}
         <div className="mt-4 flex items-center justify-between">
