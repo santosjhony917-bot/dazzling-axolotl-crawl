@@ -7,6 +7,8 @@ import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfile
 import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium';
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
 import { RestaurantPlan } from '@/types/restaurant';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 // Mock data for comparison table
 const features = [
@@ -19,15 +21,22 @@ const features = [
 ];
 
 const UpgradePage: React.FC = () => {
+  const navigate = useNavigate();
   const [previewPlan, setPreviewPlan] = useState<RestaurantPlan>('free');
   const previewRef = useRef<HTMLDivElement>(null);
 
   const handleSelectPlan = (plan: RestaurantPlan) => {
     setPreviewPlan(plan);
-    // Simulating scroll behavior if needed, though not strictly necessary for the preview component itself
+    // Simulating scroll behavior if needed
     if (previewRef.current) {
       previewRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  };
+  
+  const handleSubscribe = () => {
+    // Simulação de navegação para checkout/assinatura
+    alert("Iniciando processo de assinatura Premium!");
+    // navigate(createPageUrl('checkout')); // Exemplo de rota de checkout
   };
 
   return (
@@ -35,7 +44,26 @@ const UpgradePage: React.FC = () => {
       <h1 className="text-3xl font-bold text-primary dark:text-white mb-2">Impulsione seu Restaurante</h1>
       <p className="text-gray-600 dark:text-gray-400 mb-8">Escolha o plano que melhor se adapta ao seu negócio e comece a atrair mais clientes.</p>
 
-      {/* Seção de Preços */}
+      {/* 1. Prévia do Perfil (Visualização Central) */}
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-12">
+        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
+        
+        {/* Toggle Switch para Visualização */}
+        <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
+
+        <div ref={previewRef} className="mt-4">
+          <h3 className="text-lg font-bold text-primary dark:text-white mb-2 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h3>
+          {previewPlan === 'free' ? (
+            <RestaurantProfilePreviewFree />
+          ) : (
+            <RestaurantProfilePreviewPremium />
+          )}
+        </div>
+      </Card>
+
+      {/* 2. Seção de Preços (Comparação) */}
+      <h2 className="text-2xl font-bold text-primary dark:text-white mb-6 text-center">Escolha seu Plano</h2>
       <div className="grid md:grid-cols-2 gap-6 mb-12">
         {/* Plano Free */}
         <Card className="p-6 border-2 border-gray-200 dark:border-gray-700">
@@ -74,33 +102,15 @@ const UpgradePage: React.FC = () => {
           </ul>
           <Button 
             className="w-full bg-highlight text-white hover:bg-highlight/90"
-            onClick={() => handleSelectPlan('premium')}
+            onClick={handleSubscribe}
           >
             Assinar Premium <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </Card>
       </div>
-      
-      {/* Prévia do Perfil (MOVIDA PARA CÁ) */}
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-12">
-        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
-        
-        {/* Toggle Switch para Visualização */}
-        <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
-
-        <div ref={previewRef} className="mt-4">
-          <h3 className="text-lg font-bold text-primary dark:text-white mb-2 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h3>
-          {previewPlan === 'free' ? (
-            <RestaurantProfilePreviewFree />
-          ) : (
-            <RestaurantProfilePreviewPremium />
-          )}
-        </div>
-      </Card>
 
 
-      {/* Tabela de Comparação */}
+      {/* 3. Tabela de Comparação */}
       <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
         <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-4">Comparação de Recursos</h2>
         <div className="overflow-x-auto">
