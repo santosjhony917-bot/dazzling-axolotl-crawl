@@ -41,15 +41,6 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const navigate = useNavigate();
 
-  const handleNext = () => {
-    if (currentScreen < onboardingScreens.length - 1) {
-      setDirection(1);
-      setCurrentScreen(prev => prev + 1);
-    } else {
-      completeOnboarding();
-    }
-  };
-
   const completeOnboarding = async () => {
     try {
       await base44.auth.updateMe({ onboarding_completed: true });
@@ -57,6 +48,16 @@ export default function Onboarding() {
     } catch (error) {
       console.error('Error completing onboarding:', error);
       navigate(createPageUrl('welcome'));
+    }
+  };
+  
+  const handleNext = () => {
+    if (currentScreen < onboardingScreens.length - 1) {
+      setDirection(1);
+      setCurrentScreen(prev => prev + 1);
+    } else {
+      // Última tela: completa o onboarding
+      completeOnboarding();
     }
   };
 
@@ -79,7 +80,14 @@ export default function Onboarding() {
     })
   };
 
+  // Garante que screen seja válido antes de renderizar
   const screen = onboardingScreens[currentScreen];
+  
+  if (!screen) {
+    // Se por algum motivo o índice for inválido (ex: 3), navegamos imediatamente
+    completeOnboarding();
+    return null; 
+  }
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#f5f7f8]">
