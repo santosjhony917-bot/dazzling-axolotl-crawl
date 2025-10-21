@@ -41,6 +41,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
     
     // Construção do caminho: [restaurant.id]/[tipo].[extensao]
+    // Usamos um nome de arquivo fixo (logo/cover) para que o upsert funcione e sempre substitua o arquivo anterior.
     const path = `${restaurant.id}/${type}.${fileExt}`;
 
     const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
