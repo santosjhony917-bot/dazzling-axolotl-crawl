@@ -14,9 +14,11 @@ export function useImageUpload() {
     // const filePath = `${entityId}/${type}-${Date.now()}.${file.name.split('.').pop()}`;
     // const { data, error } = await supabase.storage.from(bucket).upload(filePath, file);
     
-    // Mocking success
+    // Mocking success: Return a unique URL to force image refresh
+    const uniqueUrl = `https://via.placeholder.com/150?text=${type}+${Date.now()}`;
+    
     setUploading(false);
-    return { url: 'https://via.placeholder.com/150', error: null };
+    return { url: uniqueUrl, error: null };
   };
 
   return {

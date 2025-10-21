@@ -44,6 +44,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
         disabled={uploading}
       />
       <Button
+        type="button" // Garantindo que seja um botão normal
         onClick={handleClick}
         disabled={uploading}
         className={cn("relative", className)}
