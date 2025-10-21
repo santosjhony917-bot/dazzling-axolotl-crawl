@@ -31,7 +31,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
 
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-lg font-bold text-[#022D68] px-1">Plano e Assinatura</h2>
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Plano e Assinatura</h2>
       
       <Card className="shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
         <CardContent className="p-0">

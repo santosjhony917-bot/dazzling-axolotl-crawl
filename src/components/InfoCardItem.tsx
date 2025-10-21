@@ -42,9 +42,9 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       className={cn(
         "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
         // Estilo Hub: Fundo cinza claro, arredondado, sombra sutil
-        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
+        "bg-white border-none rounded-xl shadow-md hover:shadow-lg", // Removida borda, adicionada shadow-md
         "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked && "opacity-70 cursor-not-allowed hover:shadow-sm"
+        isLocked && "opacity-70 cursor-not-allowed hover:shadow-md"
       )}
     >
       <div className="flex items-start gap-4 flex-1">
@@ -58,7 +58,7 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
           <p className="text-base font-bold text-[#022D68] leading-snug">
             {label}
           </p>
-          <p className={cn("text-sm text-gray-600 mt-0.5", !value && "italic text-gray-400 font-normal")}>
+          <p className={cn("text-sm text-gray-500 mt-0.5", !value && "italic text-gray-400 font-normal")}> {/* Suavizado para text-gray-500 */}
             {value || "Não definido"}
           </p>
           {extraContent}

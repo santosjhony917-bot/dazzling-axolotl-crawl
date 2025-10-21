@@ -40,7 +40,7 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
   
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-lg font-bold text-[#022D68] px-1">Localização e Horários</h2>
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Localização e Horários</h2>
       <InfoCardItem
         label="Endereço Principal"
         value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null}

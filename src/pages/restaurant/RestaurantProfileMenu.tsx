@@ -23,6 +23,7 @@ import LocationHoursSection from "@/components/restaurant/profile/LocationHoursS
 import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection.tsx";
 import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection.tsx";
 import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection.tsx";
+import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard"; // Importando o novo card
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -241,11 +242,11 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col w-full max-w-md pb-24">
-        <div className="w-full space-y-6">
+      <main className="flex-1 flex flex-col w-full max-w-md pb-32"> {/* Aumentado pb-24 para pb-32 */}
+        <div className="w-full space-y-8"> {/* Aumentado space-y-6 para space-y-8 */}
           
           {/* Container para ProfileHeaderManagement e Botão de Visualização Pública */}
-          <div className="px-4">
+          <div className="px-4 pt-4"> {/* Adicionado pt-4 para dar respiro no topo */}
             <ProfileHeaderManagement
               restaurant={restaurant}
               onUpdate={updateRestaurant}
@@ -253,7 +254,11 @@ const RestaurantProfileMenu: React.FC = () => {
           </div>
 
           {/* Seções de Informação - Adicionando padding lateral aqui */}
-          <div className="px-4 space-y-6">
+          <div className="px-4 space-y-8"> {/* Aumentado space-y-6 para space-y-8 */}
+            
+            {/* 1. Plano e Assinatura (Novo Card) */}
+            <SubscriptionCard isPremium={isPremium} />
+
             {/* 2. Informações Básicas */}
             <BasicInfoSection
               restaurant={restaurant}
@@ -289,7 +294,7 @@ const RestaurantProfileMenu: React.FC = () => {
             {/* 5. Gerenciamento de Conteúdo */}
             <ContentManagementSection navigate={navigate} />
 
-            {/* 6. Assinatura e Suporte */}
+            {/* 6. Suporte (Atualizado) */}
             <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
 
             {/* Logout Button */}

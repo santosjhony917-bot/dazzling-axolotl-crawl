@@ -29,7 +29,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
 }) => {
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-lg font-bold text-[#022D68] px-1">Informações Básicas</h2>
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Informações Básicas</h2>
       <InfoCardItem 
         label="Nome do Restaurante" 
         value={restaurant?.name || "Restaurante Teste Free"} 

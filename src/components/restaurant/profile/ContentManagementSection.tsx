@@ -13,7 +13,7 @@ interface ContentManagementSectionProps {
 const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate }) => {
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-lg font-bold text-[#022D68] px-1">Gerenciamento de Conteúdo</h2>
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gerenciamento de Conteúdo</h2>
       <NavCardItem 
         label="Cardápio e Itens" 
         description="Adicione, edite e remova pratos e produtos."

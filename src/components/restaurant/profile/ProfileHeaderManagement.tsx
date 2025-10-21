@@ -2,10 +2,12 @@ import React, { useState, useCallback } from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Pencil, Upload, Loader2 } from 'lucide-react';
+import { Pencil, Upload, Loader2, Eye } from 'lucide-react';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 // Definindo o tipo de retorno esperado para onUpdate
 type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string | null }>;
@@ -15,15 +17,9 @@ interface ProfileHeaderManagementProps {
   onUpdate: UpdateFunction;
 }
 
-// Helper para adicionar cache-busting
-const getCacheBustedUrl = (url: string | null | undefined) => {
-  if (!url) return null;
-  // Adiciona um timestamp para forçar o recarregamento
-  return `${url}?t=${Date.now()}`;
-};
-
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
   const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
 
   const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
     if (!restaurant.id) {
@@ -33,9 +29,6 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     setUploading(true);
     
-    // Usamos um nome de arquivo fixo (logo ou cover) para garantir que o upsert funcione
-    // e sempre substitua o arquivo anterior, independentemente da extensão.
-    // O Supabase Storage lida com o tipo MIME.
     const path = `${restaurant.id}/${type}`; 
 
     const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
@@ -45,7 +38,6 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     if (publicUrl) {
       const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
       
-      // Adicionamos um timestamp ao URL salvo no DB para garantir que o React recarregue a imagem
       const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
       
       const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
@@ -60,12 +52,11 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
   }, [restaurant.id, onUpdate]);
 
-  // O getCacheBustedUrl agora é usado apenas para exibição, pois o timestamp já está no URL do DB
   const logoUrl = restaurant.image_url;
   const coverImageUrl = restaurant.cover_image_url;
 
   return (
-    <Card className="relative overflow-hidden shadow-lg">
+    <Card className="relative overflow-hidden shadow-lg border-none rounded-xl">
       {/* Cover Image */}
       <div className="h-48 bg-gray-200 relative">
         {coverImageUrl ? (
@@ -87,7 +78,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
         />
       </div>
 
-      <CardContent className="p-6 pt-0">
+      <CardContent className="p-6 pt-0"> {/* Aumentado padding interno */}
         {/* Logo/Avatar */}
         <div className="relative -mt-12 mb-4 w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
           {logoUrl ? (
@@ -110,16 +101,21 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
         </div>
 
         {/* Restaurant Info */}
-        <h1 className="text-3xl font-bold text-gray-800">{restaurant.name}</h1>
-        <p className="text-sm text-gray-500 mt-1">{restaurant.address}</p>
+        <h1 className="text-2xl font-bold text-[#022D68]">{restaurant.name}</h1> {/* Suavizado para 2xl */}
+        <p className="text-sm text-gray-600 mt-1">{restaurant.address || "Endereço não definido"}</p> {/* Suavizado para text-gray-600 */}
 
         {/* Actions/Status */}
-        <div className="mt-4 flex items-center space-x-4">
+        <div className="mt-4 flex items-center justify-between">
           <span className={`px-3 py-1 text-xs font-semibold rounded-full ${restaurant.plan === 'premium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-600'}`}>
             Plano: {restaurant.plan.charAt(0).toUpperCase() + restaurant.plan.slice(1)}
           </span>
-          <Button variant="outline" size="sm">
-            <Pencil className="mr-2 h-4 w-4" /> Editar Informações
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="h-8 rounded-full border-2 border-[#E47948] text-[#E47948] hover:bg-[#E47948]/5"
+            onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+          >
+            <Eye className="mr-2 h-4 w-4" /> Visualizar Público
           </Button>
         </div>
       </CardContent>
