@@ -46,7 +46,7 @@ export default function RestaurantProfilePage() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  // Atualiza o tipo de retorno para satisfazer ProfileHeaderManagement
+  // Ajusta o tipo de retorno para Promise<{ error: string | null }>
   const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<{ error: string | null }> => {
     if (!restaurant?.id) {
       const msg = "Restaurante não encontrado.";
@@ -66,7 +66,7 @@ export default function RestaurantProfilePage() {
 
     if (error) {
       console.error('Error updating restaurant:', error);
-      const msg = 'Erro ao salvar as alterações.';
+      const msg = `Erro ao salvar as alterações: ${error.message}`;
       toast.error(msg);
       return { error: msg };
     }
