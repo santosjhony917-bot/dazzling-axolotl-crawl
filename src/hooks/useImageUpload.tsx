@@ -7,18 +7,35 @@ export function useImageUpload() {
   const uploadImage = async (file: File, bucket: string, entityId: string, type: 'logo' | 'cover' = 'logo') => {
     setUploading(true);
     
-    // Mocking upload delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    if (!file) {
+      setUploading(false);
+      return { url: null, error: new Error("Nenhum arquivo selecionado.") };
+    }
+
+    // Define o caminho do arquivo: [entityId]/[tipo]-[timestamp].[extensao]
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${entityId}/${type}-${Date.now()}.${fileExt}`;
     
-    // In a real app, we would upload to Supabase Storage
-    // const filePath = `${entityId}/${type}-${Date.now()}.${file.name.split('.').pop()}`;
-    // const { data, error } = await supabase.storage.from(bucket).upload(filePath, file);
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false, // Não sobrescreve automaticamente
+      });
+
+    if (error) {
+      setUploading(false);
+      return { url: null, error };
+    }
     
-    // Mocking success: Return a unique URL to force image refresh
-    const uniqueUrl = `https://via.placeholder.com/150?text=${type}+${Date.now()}`;
-    
+    // Obtém a URL pública do arquivo
+    const { data: publicUrlData } = supabase.storage
+      .from(bucket)
+      .getPublicUrl(filePath);
+
     setUploading(false);
-    return { url: uniqueUrl, error: null };
+    
+    return { url: publicUrlData.publicUrl, error: null };
   };
 
   return {
