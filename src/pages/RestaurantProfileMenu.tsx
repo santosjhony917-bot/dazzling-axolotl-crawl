@@ -217,7 +217,7 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col w-full max-w-md pb-24 overflow-x-hidden">
+      <main className="flex-1 flex flex-col w-full max-w-md pb-24">
         <div className="w-full space-y-6"> {/* Aumentado space-y para 6 */}
           
           {/* NOVO TOPO: ProfileHeaderManagement (já inclui mx-4) */}
