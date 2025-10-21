@@ -150,7 +150,7 @@ export default function RestaurantSignup() {
       }
       
       // 2. Se o cadastro for bem-sucedido, informamos o usuário para verificar o e-mail e redirecionamos para o login
-      showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
+      showSuccess("Conta criada! Verifique seu e-mail (incluindo a caixa de spam) para confirmar e prossiga para o login.");
       navigate(createPageUrl('restaurant-login'));
       
     } catch (error) {
