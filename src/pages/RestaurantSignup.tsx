@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import LocationCard from "@/components/restaurant/LocationCard";
 import { supabase } from "@/integrations/supabase/client";
+import { registerRestaurant } from "@/integrations/supabase/edgeFunctions"; // Importando a função de registro
 import { showError, showSuccess } from "@/utils/toast";
 
 // Tipagem para a localização
@@ -128,12 +129,6 @@ export default function RestaurantSignup() {
       const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email, 
         password,
-        options: {
-          data: {
-            // Passando o nome do restaurante como metadado do usuário
-            restaurant_name: restaurantName, 
-          },
-        }
       });
 
       if (signUpError) {
@@ -143,19 +138,26 @@ export default function RestaurantSignup() {
           if (signInError) throw signInError;
           
           showSuccess("Usuário já cadastrado. Login realizado com sucesso!");
-          navigate(createPageUrl('restaurant-area/profile-menu')); // Redireciona para o perfil se o login for bem-sucedido
-          return;
+          // Se o login for bem-sucedido, tentamos registrar o restaurante abaixo
+        } else {
+          throw signUpError;
         }
-        throw signUpError;
       }
       
-      // 2. Se o cadastro for bem-sucedido, informamos o usuário para verificar o e-mail e redirecionamos para o login
-      showSuccess("Conta criada! Verifique seu e-mail (incluindo a caixa de spam) para confirmar e prossiga para o login.");
-      navigate(createPageUrl('restaurant-login'));
+      // 2. Se o usuário foi criado ou logado, registramos o restaurante via Edge Function
+      const payload = {
+        restaurantName,
+        locations: locations.map(({ id, ...rest }) => rest), // Remove o ID local
+      };
+      
+      const registrationResult = await registerRestaurant(payload);
+      
+      showSuccess(`Restaurante cadastrado! ID: ${registrationResult.restaurantId}. Redirecionando para o painel.`);
+      navigate(createPageUrl('restaurant-area/profile-menu'));
       
     } catch (error) {
-      console.error("Signup error:", error);
-      showError((error as Error).message || "Ocorreu um erro ao criar a conta.");
+      console.error("Signup/Registration error:", error);
+      showError((error as Error).message || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
     } finally {
       setLoading(false);
     }
@@ -331,7 +333,13 @@ export default function RestaurantSignup() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area'))}
+          onClick={() => {
+            if (currentStep > 1) {
+              handleBack();
+            } else {
+              navigate(createPageUrl('restaurant-area'));
+            }
+          }}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="w-6 h-6" />
