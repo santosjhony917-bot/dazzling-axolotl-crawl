@@ -47,25 +47,17 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
               <Link
                 key={item.path}
                 to={createPageUrl(item.path.substring(1))}
-                className="flex flex-col items-center justify-center -mt-6 transition-colors duration-200"
+                className="flex flex-col items-center justify-center transition-colors duration-200"
               >
-                <div className="relative">
-                  {/* Efeito de brilho/pulse */}
-                  {/* Usando highlight/50 para o glow */}
-                  <div className="absolute inset-0 bg-highlight/50 rounded-full blur-lg opacity-40 animate-pulse"></div>
-                  
-                  {/* Botão principal (círculo com gradiente) */}
-                  <div className={cn(
-                    "relative rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-105",
-                    // Gradiente de laranja para um tom mais escuro de laranja/vermelho
-                    "bg-gradient-to-br from-[#E47948] to-[#D06A3F] hover:from-[#D06A3F] hover:to-[#E47948]"
-                  )}>
-                    <Zap className="h-6 w-6 text-white" />
-                  </div>
+                <div className={cn(
+                  "flex items-center justify-center rounded-full px-4 py-2 transition-all duration-300 hover:scale-[1.02]",
+                  "bg-highlight/10 dark:bg-highlight/20 text-highlight"
+                )}>
+                  <Icon className="h-6 w-6 mr-1" />
+                  <span className="text-sm font-bold">
+                    {item.label}
+                  </span>
                 </div>
-                <span className="text-sm font-semibold mt-1 text-highlight">
-                  {item.label}
-                </span>
               </Link>
             );
           }
