@@ -218,7 +218,7 @@ const RestaurantProfileMenu: React.FC = () => {
       </header>
 
       <main className="flex-1 flex flex-col w-full max-w-md pt-20 pb-24">
-        <div className="w-full space-y-3"> {/* Alterado de space-y-6 para space-y-3 */}
+        <div className="w-full space-y-3">
           
           {/* Icon and Title (Estilo Hub) */}
           <div className="flex flex-col items-center justify-center pb-2 w-full max-w-sm mx-auto text-center">
