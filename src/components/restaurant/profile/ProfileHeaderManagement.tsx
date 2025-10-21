@@ -23,15 +23,17 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
   const navigate = useNavigate();
 
   const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
-    console.log(`[DEBUG] handleFileSelect chamado para tipo: ${type}`); // DEBUG LOG
-    
     if (!restaurant.id) {
       toast.error("ID do restaurante não encontrado.");
       return;
     }
 
-    const setUploading = type === 'logo' ? setUploadingLogo : setUploadingCover;
-    setUploading(true);
+    const isLogo = type === 'logo';
+    if (isLogo) {
+      setUploadingLogo(true);
+    } else {
+      setUploadingCover(true);
+    }
     
     const path = `${restaurant.id}/${type}`; 
     let publicUrl: string | null = null;
@@ -42,7 +44,7 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       console.log(`[Upload] Resposta do upload: ${publicUrl ? 'Sucesso' : 'Falha'}`);
 
       if (publicUrl) {
-        const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
+        const updateKey = isLogo ? 'image_url' : 'cover_image_url';
         
         // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
         const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
@@ -56,7 +58,6 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
           toast.success("Imagem atualizada com sucesso!");
         }
       } else {
-        // Se publicUrl for null, o erro já foi logado em uploadFile, mas garantimos o toast.
         toast.error("Falha ao fazer upload da imagem. Verifique o console para detalhes.");
       }
     } catch (e) {
@@ -64,9 +65,10 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       console.error("[Upload] Erro fatal no handleFileSelect:", e);
       toast.error(errorMessage);
     } finally {
-      // OBRIGATÓRIO: Garantir que o estado de loading volte para false
-      setUploading(false);
-      console.log(`[Upload] Estado de uploading para ${type} resetado.`);
+      // CORREÇÃO: Garantir que AMBOS os estados de loading voltem para false
+      setUploadingLogo(false);
+      setUploadingCover(false);
+      console.log(`[Upload] Estados de uploading resetados.`);
     }
   }, [restaurant.id, onUpdate]);
 
