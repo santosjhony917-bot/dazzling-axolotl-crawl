@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 // Mock implementation for now
 export function useUserRole() {
-  const [isPremium, setIsPremium] = useState(false);
+  const [isPremium, setIsPremium] = useState(false); // Default to false (Free)
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 

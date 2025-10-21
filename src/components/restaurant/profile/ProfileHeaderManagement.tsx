@@ -72,6 +72,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
               )}
             </ImageUploadButton>
           ) : (
+            // Botão de Upgrade (Free) - Deve ser um Button simples
             <Button
               onClick={handleUpgradeClick}
               className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-[#022D68] text-white hover:bg-[#022D68]/90 shadow-lg"
