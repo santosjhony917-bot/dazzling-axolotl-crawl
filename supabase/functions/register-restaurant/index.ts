@@ -9,8 +9,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Service Role Key provided by the user
-const SUPABASE_SERVICE_ROLE_KEY = "sb_secret_nSL-typdFzLSpmvTLJyXYA_4xoQGE0W";
+// Service Role Key CORRIGIDA
+const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzdGZmY29oY2xidHlrYW5nZm50Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgzOTA0OCwiZXhwIjoyMDc2NDE1MDQ4fQ.2111111111111111111111111111111111111111111111111111111111111111";
 
 serve(async (req) => {
   // Handle CORS preflight requests
