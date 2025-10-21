@@ -220,16 +220,18 @@ const RestaurantProfileMenu: React.FC = () => {
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
         <div className="w-full space-y-6"> {/* Aumentado space-y para 6 */}
           
-          {/* NOVO TOPO: ProfileHeaderManagement (já inclui mx-4) */}
-          <ProfileHeaderManagement
-            restaurantName={restaurant?.name || "Restaurante Teste Free"}
-            logoUrl={restaurant?.logo_url}
-            coverImageUrl={restaurant?.cover_image_url}
-            isPremium={isPremium}
-            uploading={uploading}
-            handleFileSelect={handleFileSelect}
-            restaurantId={MOCK_RESTAURANT_ID}
-          />
+          {/* Container para ProfileHeaderManagement e Botão de Visualização Pública */}
+          <div className="px-4">
+            <ProfileHeaderManagement
+              restaurantName={restaurant?.name || "Restaurante Teste Free"}
+              logoUrl={restaurant?.logo_url}
+              coverImageUrl={restaurant?.cover_image_url}
+              isPremium={isPremium}
+              uploading={uploading}
+              handleFileSelect={handleFileSelect}
+              restaurantId={MOCK_RESTAURANT_ID}
+            />
+          </div>
 
           {/* Seções de Informação - Adicionando padding lateral aqui */}
           <div className="px-4 space-y-6">
