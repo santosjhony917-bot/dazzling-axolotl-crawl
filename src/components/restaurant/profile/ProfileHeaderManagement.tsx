@@ -33,16 +33,10 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     setUploading(true);
     
-    const fileExt = file.name.split('.').pop();
-    if (!fileExt) {
-        toast.error("Não foi possível determinar a extensão do arquivo.");
-        setUploading(false);
-        return;
-    }
-    
-    // Construção do caminho: [restaurant.id]/[tipo].[extensao]
-    // Usamos um nome de arquivo fixo (logo/cover) para que o upsert funcione e sempre substitua o arquivo anterior.
-    const path = `${restaurant.id}/${type}.${fileExt}`;
+    // Usamos um nome de arquivo fixo (logo ou cover) para garantir que o upsert funcione
+    // e sempre substitua o arquivo anterior, independentemente da extensão.
+    // O Supabase Storage lida com o tipo MIME.
+    const path = `${restaurant.id}/${type}`; 
 
     const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
 
@@ -50,7 +44,11 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     if (publicUrl) {
       const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-      const { error } = await onUpdate({ [updateKey]: publicUrl });
+      
+      // Adicionamos um timestamp ao URL salvo no DB para garantir que o React recarregue a imagem
+      const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
+      
+      const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
       
       if (error) {
         toast.error(`Imagem enviada, mas falha ao salvar URL: ${error}`);
@@ -62,8 +60,9 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
   }, [restaurant.id, onUpdate]);
 
-  const logoUrl = getCacheBustedUrl(restaurant.image_url);
-  const coverImageUrl = getCacheBustedUrl(restaurant.cover_image_url);
+  // O getCacheBustedUrl agora é usado apenas para exibição, pois o timestamp já está no URL do DB
+  const logoUrl = restaurant.image_url;
+  const coverImageUrl = restaurant.cover_image_url;
 
   return (
     <Card className="relative overflow-hidden shadow-lg">
