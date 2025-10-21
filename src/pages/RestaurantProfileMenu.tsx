@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react"; // Importa useEffect
+import React, { useState, useCallback, useEffect } from "react";
 import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ import LocationHoursSection from "@/components/restaurant/profile/LocationHoursS
 import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection.tsx";
 import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection.tsx";
 import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection.tsx";
+import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard"; // Importando o novo card
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -95,9 +96,7 @@ const RestaurantProfileMenu: React.FC = () => {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
 
-  // Todos os Hooks são chamados acima deste ponto.
-
-  // Lida com o redirecionamento para usuários não autenticados
+  // Se não estiver autenticado, redireciona para o login
   useEffect(() => {
     if (!authLoading && !user) {
       navigate(createPageUrl('restaurant-login'));
@@ -186,8 +185,7 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess("Imagem atualizada com sucesso!");
   };
 
-  // Renderiza o esqueleto de carregamento se ainda estiver carregando ou se o usuário não estiver autenticado
-  if (authLoading || restaurantLoading || roleLoading || (!authLoading && !user)) {
+  if (authLoading || restaurantLoading || roleLoading) {
     return (
       <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
         <Skeleton className="h-40 w-full rounded-xl mb-6" />
@@ -199,7 +197,6 @@ const RestaurantProfileMenu: React.FC = () => {
     );
   }
 
-  // Se o usuário estiver autenticado, mas nenhum restaurante for encontrado
   if (!restaurant) {
     return (
       <div className="p-8 text-center">
@@ -258,6 +255,10 @@ const RestaurantProfileMenu: React.FC = () => {
 
           {/* Seções de Informação - Adicionando padding lateral aqui */}
           <div className="px-4 space-y-6">
+            
+            {/* 1. Plano e Assinatura (Novo Card) */}
+            <SubscriptionCard isPremium={isPremium} />
+
             {/* 2. Informações Básicas */}
             <BasicInfoSection
               restaurant={restaurant}
@@ -293,7 +294,7 @@ const RestaurantProfileMenu: React.FC = () => {
             {/* 5. Gerenciamento de Conteúdo */}
             <ContentManagementSection navigate={navigate} />
 
-            {/* 6. Assinatura e Suporte */}
+            {/* 6. Suporte (Atualizado) */}
             <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
 
             {/* Logout Button */}

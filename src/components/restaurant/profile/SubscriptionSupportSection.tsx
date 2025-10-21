@@ -14,13 +14,8 @@ interface SubscriptionSupportSectionProps {
 const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-lg font-bold text-[#022D68] px-1">Assinatura e Suporte</h2>
-      <NavCardItem 
-        label="Plano Premium" 
-        description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
-        icon={Crown} 
-        onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-      />
+      <h2 className="text-lg font-bold text-[#022D68] px-1">Suporte</h2>
+      
       <NavCardItem 
         label="Central de Ajuda" 
         description="Tutoriais e FAQ"
