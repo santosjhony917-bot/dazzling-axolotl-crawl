@@ -18,20 +18,10 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Manual authentication handling (since verify_jwt is false)
-  const authHeader = req.headers.get("Authorization");
-  if (!authHeader) {
-    return new Response(JSON.stringify({ error: "Unauthorized: Missing Authorization header" }), {
-      status: 401,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
   try {
-    const { restaurantName, locations } = await req.json();
+    const { restaurantName, locations, email, password } = await req.json();
     
     // 1. Initialize Supabase client with Service Role Key
-    // This client bypasses RLS policies, allowing us to insert data securely from the backend.
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       SUPABASE_SERVICE_ROLE_KEY,
@@ -43,24 +33,36 @@ serve(async (req) => {
       }
     );
 
-    // 2. Get the user ID from the JWT token
-    const token = authHeader.replace("Bearer ", "");
-    const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
+    let userId: string;
+    
+    // 2. Check if user already exists
+    const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers({
+        filter: `email eq '${email}'`,
+    });
 
-    if (userError || !user) {
-      return new Response(JSON.stringify({ error: "Unauthorized: Invalid token or user not found" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+    if (existingUsers && existingUsers.users.length > 0) {
+        // User exists, use their ID
+        userId = existingUsers.users[0].id;
+    } else {
+        // 3. Create the user using the Service Role Key (skips email confirmation)
+        const { data: userData, error: userCreateError } = await supabaseAdmin.auth.admin.createUser({
+            email,
+            password,
+            email_confirm: true, // IMPORTANT: Automatically confirms the email
+        });
+
+        if (userCreateError) {
+            console.error("Supabase User Creation Error:", userCreateError);
+            return new Response(JSON.stringify({ error: "Failed to create user account." }), {
+                status: 400,
+                headers: { ...corsHeaders, "Content-Type": "application/json" },
+            });
+        }
+        userId = userData.user.id;
     }
     
-    const userId = user.id;
-    
-    // 3. Prepare restaurant data (using the first location for the main entry)
+    // 4. Prepare restaurant data (using the first location for the main entry)
     const mainLocation = locations[0];
-    
-    // Geocoding is complex in a simple edge function, so we rely on the frontend to provide coordinates 
-    // or we skip them for now, focusing on the core data insertion.
     
     const restaurantData = {
       user_id: userId,
@@ -71,11 +73,11 @@ serve(async (req) => {
       cep: mainLocation.cep,
       neighborhood: mainLocation.neighborhood,
       phone: mainLocation.phone,
-      email: user.email, // Use the user's auth email
+      email: email,
       // latitude and longitude are null initially, they will be updated later by the user in the profile menu
     };
 
-    // 4. Insert the main restaurant entry
+    // 5. Insert the main restaurant entry
     const { data: restaurantInsertData, error: insertError } = await supabaseAdmin
       .from("restaurants")
       .insert([restaurantData])
@@ -89,10 +91,18 @@ serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+    
+    // 6. Sign in the user immediately after successful creation/registration
+    const { error: signInError } = await supabaseAdmin.auth.signInWithPassword({ email, password });
+    
+    if (signInError) {
+        console.error("Supabase Sign In Error:", signInError);
+        // We proceed even if sign-in fails here, as the user is created and restaurant registered.
+    }
 
-    // 5. Return success
+    // 7. Return success
     return new Response(JSON.stringify({ 
-      message: "Restaurant registered successfully", 
+      message: "Restaurant and user registered successfully", 
       restaurantId: restaurantInsertData.id 
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

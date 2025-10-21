@@ -125,33 +125,17 @@ export default function RestaurantSignup() {
     setLoading(true);
     
     try {
-      // 1. Sign up the user
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email, 
-        password,
-      });
-
-      if (signUpError) {
-        // Se o erro for que o usuário já existe, tentamos fazer login
-        if (signUpError.message.includes('already exists')) {
-          const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-          if (signInError) throw signInError;
-          
-          showSuccess("Usuário já cadastrado. Login realizado com sucesso!");
-          // Se o login for bem-sucedido, tentamos registrar o restaurante abaixo
-        } else {
-          throw signUpError;
-        }
-      }
-      
-      // 2. Se o usuário foi criado ou logado, registramos o restaurante via Edge Function
+      // 1. Envia todos os dados para a Edge Function para criação segura do usuário e registro do restaurante.
       const payload = {
         restaurantName,
         locations: locations.map(({ id, ...rest }) => rest), // Remove o ID local
+        email,
+        password,
       };
       
       const registrationResult = await registerRestaurant(payload);
       
+      // 2. Se a Edge Function for bem-sucedida, o usuário já estará logado.
       showSuccess(`Restaurante cadastrado! ID: ${registrationResult.restaurantId}. Redirecionando para o painel.`);
       navigate(createPageUrl('restaurant-area/profile-menu'));
       
@@ -193,7 +177,7 @@ export default function RestaurantSignup() {
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 placeholder="Ex: Restaurante Sabor Divino"
-                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E477948] text-base"
                 required
               />
             </label>

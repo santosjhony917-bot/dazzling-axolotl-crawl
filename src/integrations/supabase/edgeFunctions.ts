@@ -16,6 +16,8 @@ interface RegisterRestaurantPayload {
     state: string;
     phone: string;
   }>;
+  email: string; // Novo campo
+  password: string; // Novo campo
 }
 
 interface RegisterRestaurantResponse {
@@ -24,17 +26,14 @@ interface RegisterRestaurantResponse {
 }
 
 export async function registerRestaurant(payload: RegisterRestaurantPayload): Promise<RegisterRestaurantResponse> {
-  const { data: { session } } = await supabase.auth.getSession();
-
-  if (!session) {
-    throw new Error("User must be authenticated to register a restaurant.");
-  }
-
+  // Não precisamos mais do token de sessão, pois a Edge Function usa a Service Role Key
+  // para criar o usuário e o restaurante.
+  
   const response = await fetch(EDGE_FUNCTION_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${session.access_token}`,
+      // Não enviamos mais o Authorization header, pois a autenticação é feita pelo payload
     },
     body: JSON.stringify(payload),
   });
