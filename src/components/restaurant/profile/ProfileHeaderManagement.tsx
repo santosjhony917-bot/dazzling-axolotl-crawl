@@ -74,10 +74,10 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
           ) : (
             <Button
               onClick={handleUpgradeClick}
-              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-white text-[#022D68] hover:bg-gray-100"
+              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-[#022D68] text-white hover:bg-[#022D68]/90 shadow-lg"
             >
-              <Crown className="w-4 h-4 mr-2 fill-yellow-500 text-yellow-500" />
-              Upgrade Premium
+              <Lock className="w-4 h-4 mr-2" />
+              Editar capa (Premium)
             </Button>
           )}
         </div>
