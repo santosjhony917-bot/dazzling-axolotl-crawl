@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { motion } from 'framer-motion';
 import { createPageUrl } from '@/utils/url';
+import { useAuth } from '@/hooks/useAuth'; // Importa o hook useAuth
 
 const GoogleIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -33,19 +34,15 @@ const AuthPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { user, isLoading: authLoading } = useAuth(); // Usa o hook useAuth
 
   // Redirect if user is already logged in
-  /*
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        // Redireciona para a home do cliente
-        navigate(createPageUrl('home'));
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [navigate]);
-  */
+    if (!authLoading && user) {
+      // Redireciona para a home do cliente se já estiver logado
+      navigate(createPageUrl('home'));
+    }
+  }, [user, authLoading, navigate]);
 
   const handleAuthAction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,8 +71,7 @@ const AuthPage = () => {
       if (error) {
         showError(error.message);
       } else {
-        // Login bem-sucedido, redireciona para a home do cliente
-        navigate(createPageUrl('home'));
+        // Login bem-sucedido, o useEffect acima cuidará do redirecionamento
       }
     }
     
@@ -92,6 +88,10 @@ const AuthPage = () => {
   };
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+
+  if (authLoading) {
+    return <div className="flex justify-center items-center min-h-screen">Carregando...</div>;
+  }
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
