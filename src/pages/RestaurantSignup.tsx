@@ -150,8 +150,16 @@ export default function RestaurantSignup() {
       navigate(createPageUrl('restaurant-area/profile-menu'));
       
     } catch (error) {
+      const errorMessage = (error as Error).message;
       console.error("Signup/Registration error:", error);
-      showError((error as Error).message || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
+      
+      if (errorMessage.includes('already been registered') || errorMessage.includes('Usuário já existe')) {
+        showError("Este e-mail já está em uso. Por favor, faça login na página de acesso do restaurante.");
+        // Redireciona para o login do restaurante
+        navigate(createPageUrl('restaurant-login'));
+      } else {
+        showError(errorMessage || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
+      }
     } finally {
       setLoading(false);
     }
