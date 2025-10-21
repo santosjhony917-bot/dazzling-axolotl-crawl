@@ -5,7 +5,6 @@ import { Utensils, Package, Camera } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showSuccess } from '@/utils/toast';
-import { cn } from '@/lib/utils'; // Importando cn
 
 interface ContentManagementSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -13,14 +12,7 @@ interface ContentManagementSectionProps {
 
 const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate }) => {
   return (
-    <Card 
-      className={cn(
-        "w-full p-6 transition-all",
-        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
-        "dark:bg-gray-800 dark:hover:bg-gray-700",
-        "mb-6"
-      )}
-    >
+    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-lg font-bold text-[#022D68]">Gerenciamento de Conteúdo</CardTitle>
       </CardHeader>

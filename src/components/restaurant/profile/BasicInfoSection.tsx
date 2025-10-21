@@ -3,7 +3,6 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import InfoCardItem from '@/components/InfoCardItem';
 import { Building2, UtensilsCrossed, FileText, Mail, Phone } from 'lucide-react';
 import { z } from 'zod';
-import { cn } from '@/lib/utils'; // Importando cn
 
 interface BasicInfoSectionProps {
   restaurant: any; // Simplificado para 'any'
@@ -29,14 +28,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
   cnpjSchema,
 }) => {
   return (
-    <Card 
-      className={cn(
-        "w-full p-6 transition-all",
-        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
-        "dark:bg-gray-800 dark:hover:bg-gray-700",
-        "mb-6"
-      )}
-    >
+    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-lg font-bold text-[#022D68]">Informações Básicas</CardTitle>
       </CardHeader>
