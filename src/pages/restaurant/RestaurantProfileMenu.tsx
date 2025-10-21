@@ -15,7 +15,8 @@ import EditFieldDialog from "@/components/EditFieldDialog";
 import { EditHoursDialog } from "@/components/EditHoursDialog";
 import { EditAddressDialog } from "@/components/EditAddressDialog";
 import { ImageUploadButton } from "@/components/ImageUploadButton";
-import NavCardItem from "@/components/NavCardItem"; // Importando o novo componente
+import NavCardItem from "@/components/NavCardItem"; 
+import InfoCardItem from "@/components/InfoCardItem"; // Importando o novo componente
 import restaurantLogo from "@/assets/restaurant-logo.png";
 import { z } from "zod";
 import { WeekSchedule } from "@/types/schedule";
@@ -173,39 +174,7 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess("Imagem atualizada com sucesso!");
   };
 
-  // --- Renderização de Componentes Auxiliares ---
-  const InfoItem: React.FC<{ label: string; value: string | null; icon: React.ElementType; onClick: () => void; isPremiumFeature?: boolean }> = ({ label, value, icon: Icon, onClick, isPremiumFeature = false }) => (
-    <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0"> 
-      {/* Ícone maior e colorido */}
-      <Icon className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" /> 
-      <div className="flex-1">
-        <p className="text-sm text-muted-foreground">{label}</p>
-        {/* Valor em negrito */}
-        <p className={cn("text-base font-semibold text-foreground mt-0.5", !value && "italic text-gray-400 font-normal")}>
-          {value || "Não definido"}
-        </p>
-      </div>
-      <Button 
-        size="sm" 
-        variant="ghost"
-        // Ícone de edição na cor de destaque
-        className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0" 
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isPremiumFeature && !isPremium) {
-            navigate(createPageUrl('restaurant-area/upgrade'));
-          } else {
-            onClick();
-          }
-        }}
-        disabled={isPremiumFeature && !isPremium}
-      >
-        {isPremiumFeature && !isPremium ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4" />}
-      </Button>
-    </div>
-  );
-
-  // NavItem antigo removido, substituído por NavCardItem
+  // --- InfoItem antigo removido ---
 
   if (restaurantLoading || roleLoading) {
     return (
@@ -303,124 +272,105 @@ const RestaurantProfileMenu: React.FC = () => {
         </div>
 
         {/* Informações Básicas */}
-        <div className="px-4 mb-6 space-y-4">
+        <div className="px-4 mb-6 space-y-3">
           <h2 className="text-lg font-bold text-[#022D68]">Informações Básicas</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
-            <InfoItem 
-              label="Nome do Restaurante" 
-              value={restaurant?.name || "Restaurante Teste Free"} 
-              icon={Building2} 
-              onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
-            />
-            <InfoItem 
-              label="Categoria Principal" 
-              value={restaurant?.category || "Não definida"} 
-              icon={UtensilsCrossed} 
-              onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <Utensils className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
-            />
-            <InfoItem 
-              label="CNPJ" 
-              value={restaurant?.cnpj || "12.345.678/0001-90"} 
-              icon={FileText} 
-              onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
-            />
-            <InfoItem 
-              label="E-mail de Contato" 
-              value={restaurant?.email || "teste@filterfood.com"} 
-              icon={Mail} 
-              onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
-            />
-            <InfoItem 
-              label="Telefone de Contato" 
-              value={restaurant?.phone || "(83) 99999-9999"} 
-              icon={Phone} 
-              onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
-            />
-          </Card>
+          <InfoCardItem 
+            label="Nome do Restaurante" 
+            value={restaurant?.name || "Restaurante Teste Free"} 
+            icon={Building2} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
+          />
+          <InfoCardItem 
+            label="Categoria Principal" 
+            value={restaurant?.category || "Não definida"} 
+            icon={UtensilsCrossed} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <Utensils className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
+          />
+          <InfoCardItem 
+            label="CNPJ" 
+            value={restaurant?.cnpj || "12.345.678/0001-90"} 
+            icon={FileText} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
+          />
+          <InfoCardItem 
+            label="E-mail de Contato" 
+            value={restaurant?.email || "teste@filterfood.com"} 
+            icon={Mail} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
+          />
+          <InfoCardItem 
+            label="Telefone de Contato" 
+            value={restaurant?.phone || "(83) 99999-9999"} 
+            icon={Phone} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
+          />
         </div>
 
         {/* Localização e Horários */}
-        <div className="px-4 mb-6 space-y-4">
+        <div className="px-4 mb-6 space-y-3">
           <h2 className="text-lg font-bold text-[#022D68]">Localização e Horários</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
-            {/* Endereço */}
-            <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0">
-              <MapPin className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm text-muted-foreground">Endereço Principal</p>
-                <p className={cn("text-base font-semibold text-foreground mt-0.5", !restaurant?.address && "italic text-gray-400 font-normal")}>
-                  {restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : "Não definido"}
-                </p>
-                {restaurant?.latitude && restaurant?.longitude && (
-                  <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
-                    <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
-                  </p>
-                )}
-              </div>
-              <Button 
-                size="sm" 
-                variant="ghost"
-                className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0"
-                onClick={() => setIsAddressDialogOpen(true)}
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-            </div>
+          {/* Endereço */}
+          <InfoCardItem
+            label="Endereço Principal"
+            value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null}
+            icon={MapPin}
+            isPremium={isPremium}
+            onClick={() => setIsAddressDialogOpen(true)}
+            extraContent={restaurant?.latitude && restaurant?.longitude ? (
+              <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
+                <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
+              </p>
+            ) : undefined}
+          />
 
-            {/* Horários */}
-            <div className="flex items-start gap-4 py-3 first:pt-0 last:pb-0">
-              <Clock className="h-6 w-6 text-[#E47948] mt-0.5 shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm text-muted-foreground">Horários de Funcionamento</p>
-                <p className="text-base font-semibold text-foreground mt-0.5">
-                  {currentSchedule.monday.isOpen ? "Segunda a Sexta: 09h - 22h (Exemplo)" : "Horários não definidos"}
-                </p>
-              </div>
-              <Button 
-                size="sm" 
-                variant="ghost"
-                className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0"
-                onClick={() => setIsHoursDialogOpen(true)}
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-            </div>
-          </Card>
+          {/* Horários */}
+          <InfoCardItem
+            label="Horários de Funcionamento"
+            value={currentSchedule.monday.isOpen ? "Segunda a Sexta: 09h - 22h (Exemplo)" : null}
+            icon={Clock}
+            isPremium={isPremium}
+            onClick={() => setIsHoursDialogOpen(true)}
+          />
         </div>
 
         {/* Canais de Venda e Links */}
-        <div className="px-4 mb-6 space-y-4">
+        <div className="px-4 mb-6 space-y-3">
           <h2 className="text-lg font-bold text-[#022D68]">Canais de Venda e Links</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
-            <InfoItem 
-              label="Link do WhatsApp" 
-              value={restaurant?.whatsapp_url || ""} 
-              icon={MessageSquare} 
-              onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, whatsappSchema, "text", undefined, "https://wa.me/5583999999999")}
-            />
-            <InfoItem 
-              label="Link do iFood/Delivery App" 
-              value={restaurant?.ifood_url || ""} 
-              icon={UtensilsCrossed} 
-              onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <UtensilsCrossed className="h-6 w-6 text-primary" />, ifoodSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
-            />
-            <InfoItem 
-              label="Outro Link (Ex: Site Próprio)" 
-              value={restaurant?.other_url || ""} 
-              icon={Globe} 
-              onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, otherUrlSchema, "text", undefined, "https://www.seusite.com.br")}
-            />
-          </Card>
+          <InfoCardItem 
+            label="Link do WhatsApp" 
+            value={restaurant?.whatsapp_url || ""} 
+            icon={MessageSquare} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, whatsappSchema, "text", undefined, "https://wa.me/5583999999999")}
+          />
+          <InfoCardItem 
+            label="Link do iFood/Delivery App" 
+            value={restaurant?.ifood_url || ""} 
+            icon={UtensilsCrossed} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <UtensilsCrossed className="h-6 w-6 text-primary" />, ifoodSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
+          />
+          <InfoCardItem 
+            label="Outro Link (Ex: Site Próprio)" 
+            value={restaurant?.other_url || ""} 
+            icon={Globe} 
+            isPremium={isPremium}
+            onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, otherUrlSchema, "text", undefined, "https://www.seusite.com.br")}
+          />
         </div>
 
         {/* Gerenciamento de Conteúdo */}
-        <div className="px-4 mb-6 space-y-3"> {/* Ajustando space-y para NavCardItem */}
+        <div className="px-4 mb-6 space-y-3">
           <h2 className="text-lg font-bold text-[#022D68]">Gerenciamento de Conteúdo</h2>
           
-          {/* Substituindo Card e NavItem por NavCardItem individual */}
           <NavCardItem 
             label="Cardápio e Itens" 
             description="Adicione, edite e remova pratos e produtos."
@@ -442,10 +392,9 @@ const RestaurantProfileMenu: React.FC = () => {
         </div>
 
         {/* Assinatura e Suporte */}
-        <div className="px-4 mb-6 space-y-3"> {/* Ajustando space-y para NavCardItem */}
+        <div className="px-4 mb-6 space-y-3">
           <h2 className="text-lg font-bold text-[#022D68]">Assinatura e Suporte</h2>
           
-          {/* Substituindo Card e NavItem por NavCardItem individual */}
           <NavCardItem 
             label="Plano Premium" 
             description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
