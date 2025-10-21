@@ -12,8 +12,11 @@ import { useAuth } from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { createPageUrl } from '@/utils/url'; // Importa createPageUrl
 
 export default function RestaurantProfilePage() {
+  const navigate = useNavigate(); // Declara useNavigate no topo
   const { user, isLoading: authLoading } = useAuth();
   const userId = user?.id || null;
   
@@ -22,6 +25,15 @@ export default function RestaurantProfilePage() {
   
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Restaurant>>({});
+
+  // Todos os Hooks são chamados acima deste ponto.
+
+  // Lida com o redirecionamento para usuários não autenticados
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate(createPageUrl('restaurant-login'));
+    }
+  }, [authLoading, user, navigate]);
 
   useEffect(() => {
     if (restaurant) {
@@ -34,8 +46,11 @@ export default function RestaurantProfilePage() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<{ error: string | null }> => { // Tipo de retorno ajustado
-    if (!restaurant?.id) return { error: "Restaurante não encontrado." };
+  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<void> => { // Tipo de retorno ajustado para Promise<void>
+    if (!restaurant?.id) {
+      toast.error("Restaurante não encontrado.");
+      return;
+    }
 
     setIsSaving(true);
     const { data, error } = await supabase
@@ -50,15 +65,17 @@ export default function RestaurantProfilePage() {
     if (error) {
       console.error('Error updating restaurant:', error);
       toast.error('Erro ao salvar as alterações.');
-      return { error: error.message }; // Retorna o erro
+      return;
     }
 
     if (data) {
-      refetch(); // Usa refetch do hook para atualizar o estado global
+      refetch();
       toast.success('Informações atualizadas com sucesso!');
-      return { error: null }; // Retorna sucesso
+      return;
     }
-    return { error: "Nenhum dado retornado após a atualização." }; // Caso inesperado
+    // Este caso idealmente não deve ser alcançado se data for null e não houver erro, mas para segurança:
+    toast.error("Nenhum dado retornado após a atualização.");
+    return;
   }, [restaurant, refetch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,7 +87,8 @@ export default function RestaurantProfilePage() {
     await handleUpdate(formData);
   };
 
-  if (authLoading || restaurantLoading) {
+  // Renderiza o esqueleto de carregamento se ainda estiver carregando ou se o usuário não estiver autenticado
+  if (authLoading || restaurantLoading || (!authLoading && !user)) {
     return (
       <div className="p-4 md:p-8 space-y-8 max-w-4xl mx-auto">
         <Skeleton className="h-40 w-full rounded-xl mb-6" />
@@ -80,6 +98,7 @@ export default function RestaurantProfilePage() {
     );
   }
 
+  // Se o usuário estiver autenticado, mas nenhum restaurante for encontrado
   if (!restaurant) {
     return (
       <div className="p-8 text-center">

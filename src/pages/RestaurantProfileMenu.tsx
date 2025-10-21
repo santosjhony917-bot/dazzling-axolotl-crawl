@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react"; // Importa useEffect
 import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -95,11 +95,14 @@ const RestaurantProfileMenu: React.FC = () => {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
 
-  // Se não estiver autenticado, redireciona para o login
-  if (!authLoading && !user) {
-    navigate(createPageUrl('restaurant-login'));
-    return null;
-  }
+  // Todos os Hooks são chamados acima deste ponto.
+
+  // Lida com o redirecionamento para usuários não autenticados
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate(createPageUrl('restaurant-login'));
+    }
+  }, [authLoading, user, navigate]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -139,12 +142,24 @@ const RestaurantProfileMenu: React.FC = () => {
         return;
     }
 
-    await updateRestaurant({ [key]: value }); // Chamada direta, sem desestruturar 'error'
+    const updates = { [key]: value };
+    const { error } = await updateRestaurant(updates);
+
+    if (error) {
+      showError(error);
+      throw new Error(error);
+    }
+    showSuccess(`${editingField.fieldName} atualizado com sucesso!`);
   };
 
   // Função para salvar os horários
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
-    await updateRestaurant({ opening_hours: newSchedule }); // Chamada direta, sem desestruturar 'error'
+    const { error } = await updateRestaurant({ opening_hours: newSchedule });
+    if (error) {
+      showError(error);
+      throw new Error(error);
+    }
+    showSuccess("Horários de funcionamento atualizados!");
   };
 
   // Função para upload de imagem
@@ -161,10 +176,18 @@ const RestaurantProfileMenu: React.FC = () => {
       return;
     }
     
-    await updateRestaurant({ [type === 'logo' ? 'image_url' : 'cover_image_url']: url }); // Chamada direta, sem desestruturar 'error'
+    const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
+    const { error: updateError } = await updateRestaurant({ [updateKey]: url });
+    
+    if (updateError) {
+      showError(`Imagem enviada, mas falha ao salvar URL: ${updateError}`);
+      return;
+    }
+    showSuccess("Imagem atualizada com sucesso!");
   };
 
-  if (authLoading || restaurantLoading || roleLoading) {
+  // Renderiza o esqueleto de carregamento se ainda estiver carregando ou se o usuário não estiver autenticado
+  if (authLoading || restaurantLoading || roleLoading || (!authLoading && !user)) {
     return (
       <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
         <Skeleton className="h-40 w-full rounded-xl mb-6" />
@@ -176,6 +199,7 @@ const RestaurantProfileMenu: React.FC = () => {
     );
   }
 
+  // Se o usuário estiver autenticado, mas nenhum restaurante for encontrado
   if (!restaurant) {
     return (
       <div className="p-8 text-center">

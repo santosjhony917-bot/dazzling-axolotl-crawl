@@ -54,11 +54,10 @@ export function useRestaurantProfile(userId: string | null = null) {
     }
   }, [userId]);
 
-  const updateRestaurant = async (updates: Partial<RestaurantProfileData>): Promise<{ error: string | null }> => {
+  const updateRestaurant = async (updates: Partial<RestaurantProfileData>): Promise<void> => {
     if (!restaurant?.id) {
-      const msg = "Restaurante não encontrado para atualização.";
-      toast.error(msg);
-      return { error: msg };
+      toast.error("Restaurante não encontrado para atualização.");
+      return;
     }
     
     const { error } = await supabase
@@ -67,15 +66,14 @@ export function useRestaurantProfile(userId: string | null = null) {
       .eq('id', restaurant.id);
 
     if (error) {
-      const msg = `Erro ao atualizar restaurante: ${error.message}`;
-      toast.error(msg);
-      return { error: msg };
+      toast.error(`Erro ao atualizar restaurante: ${error.message}`);
+      return;
     }
 
     // Refetch to get the latest data after update
     await fetchRestaurant(restaurant.user_id);
     toast.success("Restaurante atualizado com sucesso!");
-    return { error: null };
+    return;
   };
 
   return {
