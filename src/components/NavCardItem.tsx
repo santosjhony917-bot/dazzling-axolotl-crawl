@@ -1,7 +1,8 @@
 import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
+import { motion } from 'framer-motion'; // Adicionando motion
 
 interface NavCardItemProps {
   label: string;
@@ -12,12 +13,14 @@ interface NavCardItemProps {
 
 const NavCardItem: React.FC<NavCardItemProps> = ({ label, icon: Icon, onClick, description }) => {
   return (
-    <Card 
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
       onClick={onClick}
       className={cn(
         "w-full p-4 flex items-center justify-between transition-all cursor-pointer",
-        // Estilo do Hub: Fundo claro, borda sutil, sombra sutil
-        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md active:scale-[0.99]",
+        // Estilo Hub: Fundo cinza claro, arredondado, sombra sutil
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
         "dark:bg-gray-800 dark:hover:bg-gray-700"
       )}
     >
@@ -32,15 +35,15 @@ const NavCardItem: React.FC<NavCardItemProps> = ({ label, icon: Icon, onClick, d
           <p className="text-base font-bold text-[#022D68] leading-snug">
             {label}
           </p>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="text-sm text-gray-600 mt-0.5">
             {description}
           </p>
         </div>
       </div>
       
-      {/* Seta de Navegação */}
-      <ChevronRight className="w-5 h-5 text-gray-400 shrink-0" />
-    </Card>
+      {/* Seta de Navegação (ArrowLeft com rotate-180) */}
+      <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180 shrink-0" />
+    </motion.div>
   );
 };
 

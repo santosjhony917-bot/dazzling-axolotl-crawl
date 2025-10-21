@@ -1,8 +1,9 @@
 import React from 'react';
-import { Edit, Lock } from 'lucide-react';
+import { Edit, Lock, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion'; // Adicionando motion para efeitos de hover/tap
 
 interface InfoCardItemProps {
   label: string;
@@ -26,50 +27,55 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
   
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onClick();
+    if (!(isPremiumFeature && !isPremium)) {
+      onClick();
+    }
   };
 
+  const isLocked = isPremiumFeature && !isPremium;
+
   return (
-    <Card 
+    <motion.div
+      whileHover={{ scale: isLocked ? 1 : 1.01 }}
+      whileTap={{ scale: isLocked ? 1 : 0.99 }}
+      onClick={handleEditClick}
       className={cn(
         "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
-        // Estilo do Hub: Fundo claro, borda sutil, sombra sutil
-        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md active:scale-[0.99]",
-        "dark:bg-gray-800 dark:hover:bg-gray-700"
+        // Estilo Hub: Fundo cinza claro, arredondado, sombra sutil
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
+        "dark:bg-gray-800 dark:hover:bg-gray-700",
+        isLocked && "opacity-70 cursor-not-allowed hover:shadow-sm"
       )}
-      onClick={handleEditClick}
     >
       <div className="flex items-start gap-4 flex-1">
-        {/* Ícone Circular de Fundo Claro (Estilo NavCardItem) */}
-        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
+        {/* Ícone Circular (Estilo Hub) */}
+        <div className="w-10 h-10 bg-[#022D68]/10 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         
         {/* Texto */}
         <div className="flex-1 min-w-0">
-          {/* Label (Título do campo) - Estilo NavCardItem (Bold, Azul Escuro) */}
           <p className="text-base font-bold text-[#022D68] leading-snug">
             {label}
           </p>
-          {/* Value (Valor do campo) - Estilo NavCardItem (Muted/Description) */}
-          <p className={cn("text-sm text-muted-foreground mt-0.5", !value && "italic text-gray-400 font-normal")}>
+          <p className={cn("text-sm text-gray-600 mt-0.5", !value && "italic text-gray-400 font-normal")}>
             {value || "Não definido"}
           </p>
           {extraContent}
         </div>
       </div>
       
-      {/* Botão de Edição (Mantendo a cor de destaque para a ação) */}
+      {/* Botão de Ação (Edit/Lock) */}
       <Button 
         size="sm" 
         variant="ghost"
         className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0 ml-4" 
         onClick={handleEditClick}
-        disabled={isPremiumFeature && !isPremium}
+        disabled={isLocked}
       >
-        {isPremiumFeature && !isPremium ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4" />}
+        {isLocked ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4" />}
       </Button>
-    </Card>
+    </motion.div>
   );
 };
 

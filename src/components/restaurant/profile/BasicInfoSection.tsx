@@ -28,48 +28,44 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
   cnpjSchema,
 }) => {
   return (
-    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado shadow-xl para shadow-md e p-6 para p-4, removido mb-6 */}
-      <CardHeader className="p-0 mb-4">
-        <CardTitle className="text-lg font-bold text-[#022D68]">Informações Básicas</CardTitle>
-      </CardHeader>
-      <div className="space-y-3">
-        <InfoCardItem 
-          label="Nome do Restaurante" 
-          value={restaurant?.name || "Restaurante Teste Free"} 
-          icon={Building2} 
-          isPremium={isPremium}
-          onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
-        />
-        <InfoCardItem 
-          label="Categoria Principal" 
-          value={restaurant?.category || "Não definida"} 
-          icon={UtensilsCrossed} 
-          isPremium={isPremium}
-          onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <UtensilsCrossed className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
-        />
-        <InfoCardItem 
-          label="CNPJ" 
-          value={restaurant?.cnpj || "12.345.678/0001-90"} 
-          icon={FileText} 
-          isPremium={isPremium}
-          onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
-        />
-        <InfoCardItem 
-          label="E-mail de Contato" 
-          value={restaurant?.email || "teste@filterfood.com"} 
-          icon={Mail} 
-          isPremium={isPremium}
-          onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
-        />
-        <InfoCardItem 
-          label="Telefone de Contato" 
-          value={restaurant?.phone || "(83) 99999-9999"} 
-          icon={Phone} 
-          isPremium={isPremium}
-          onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
-        />
-      </div>
-    </Card>
+    <div className="w-full space-y-3">
+      <h2 className="text-lg font-bold text-[#022D68] px-1">Informações Básicas</h2>
+      <InfoCardItem 
+        label="Nome do Restaurante" 
+        value={restaurant?.name || "Restaurante Teste Free"} 
+        icon={Building2} 
+        isPremium={isPremium}
+        onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
+      />
+      <InfoCardItem 
+        label="Categoria Principal" 
+        value={restaurant?.category || "Não definida"} 
+        icon={UtensilsCrossed} 
+        isPremium={isPremium}
+        onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <UtensilsCrossed className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
+      />
+      <InfoCardItem 
+        label="CNPJ" 
+        value={restaurant?.cnpj || "12.345.678/0001-90"} 
+        icon={FileText} 
+        isPremium={isPremium}
+        onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
+      />
+      <InfoCardItem 
+        label="E-mail de Contato" 
+        value={restaurant?.email || "teste@filterfood.com"} 
+        icon={Mail} 
+        isPremium={isPremium}
+        onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
+      />
+      <InfoCardItem 
+        label="Telefone de Contato" 
+        value={restaurant?.phone || "(83) 99999-9999"} 
+        icon={Phone} 
+        isPremium={isPremium}
+        onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
+      />
+    </div>
   );
 };
 

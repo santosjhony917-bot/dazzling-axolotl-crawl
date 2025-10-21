@@ -39,35 +39,30 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
   const scheduleSummary = formatScheduleSummary(currentSchedule);
   
   return (
-    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado shadow-xl para shadow-md e p-6 para p-4, removido mb-6 */}
-      <CardHeader className="p-0 mb-4">
-        <CardTitle className="text-lg font-bold text-[#022D68]">Localização e Horários</CardTitle>
-      </CardHeader>
-      <div className="space-y-3">
-        {/* Endereço */}
-        <InfoCardItem
-          label="Endereço Principal"
-          value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null}
-          icon={MapPin}
-          isPremium={isPremium}
-          onClick={() => setIsAddressDialogOpen(true)}
-          extraContent={restaurant?.latitude && restaurant?.longitude ? (
-            <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
-              <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
-            </p>
-          ) : undefined}
-        />
+    <div className="w-full space-y-3">
+      <h2 className="text-lg font-bold text-[#022D68] px-1">Localização e Horários</h2>
+      <InfoCardItem
+        label="Endereço Principal"
+        value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null}
+        icon={MapPin}
+        isPremium={isPremium}
+        onClick={() => setIsAddressDialogOpen(true)}
+        extraContent={restaurant?.latitude && restaurant?.longitude ? (
+          <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
+            <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
+          </p>
+        ) : undefined}
+      />
 
-        {/* Horários */}
-        <InfoCardItem
-          label="Horários de Funcionamento"
-          value={scheduleSummary}
-          icon={Clock}
-          isPremium={isPremium}
-          onClick={() => setIsHoursDialogOpen(true)}
-        />
-      </div>
-    </Card>
+      {/* Horários */}
+      <InfoCardItem
+        label="Horários de Funcionamento"
+        value={scheduleSummary}
+        icon={Clock}
+        isPremium={isPremium}
+        onClick={() => setIsHoursDialogOpen(true)}
+      />
+    </div>
   );
 };
 

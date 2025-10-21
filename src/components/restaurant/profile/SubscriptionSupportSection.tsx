@@ -13,25 +13,21 @@ interface SubscriptionSupportSectionProps {
 
 const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
   return (
-    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado shadow-xl para shadow-md e p-6 para p-4, removido mb-6 */}
-      <CardHeader className="p-0 mb-4">
-        <CardTitle className="text-lg font-bold text-[#022D68]">Assinatura e Suporte</CardTitle>
-      </CardHeader>
-      <div className="space-y-3">
-        <NavCardItem 
-          label="Plano Premium" 
-          description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
-          icon={Crown} 
-          onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-        />
-        <NavCardItem 
-          label="Central de Ajuda" 
-          description="Tutoriais e FAQ"
-          icon={HelpCircle} 
-          onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
-        />
-      </div>
-    </Card>
+    <div className="w-full space-y-3">
+      <h2 className="text-lg font-bold text-[#022D68] px-1">Assinatura e Suporte</h2>
+      <NavCardItem 
+        label="Plano Premium" 
+        description={isPremium ? "Ativo. Gerencie sua assinatura." : "Seja visto por mais clientes!"}
+        icon={Crown} 
+        onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+      />
+      <NavCardItem 
+        label="Central de Ajuda" 
+        description="Tutoriais e FAQ"
+        icon={HelpCircle} 
+        onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
+      />
+    </div>
   );
 };
 
