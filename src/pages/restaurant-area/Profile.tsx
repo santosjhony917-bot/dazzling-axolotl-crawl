@@ -46,10 +46,12 @@ export default function RestaurantProfilePage() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<void> => { // Tipo de retorno ajustado para Promise<void>
+  // Atualiza o tipo de retorno para satisfazer ProfileHeaderManagement
+  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<{ error: string | null }> => {
     if (!restaurant?.id) {
-      toast.error("Restaurante não encontrado.");
-      return;
+      const msg = "Restaurante não encontrado.";
+      toast.error(msg);
+      return { error: msg };
     }
 
     setIsSaving(true);
@@ -64,18 +66,20 @@ export default function RestaurantProfilePage() {
 
     if (error) {
       console.error('Error updating restaurant:', error);
-      toast.error('Erro ao salvar as alterações.');
-      return;
+      const msg = 'Erro ao salvar as alterações.';
+      toast.error(msg);
+      return { error: msg };
     }
 
     if (data) {
       refetch();
       toast.success('Informações atualizadas com sucesso!');
-      return;
+      return { error: null };
     }
-    // Este caso idealmente não deve ser alcançado se data for null e não houver erro, mas para segurança:
-    toast.error("Nenhum dado retornado após a atualização.");
-    return;
+    
+    const msg = "Nenhum dado retornado após a atualização.";
+    toast.error(msg);
+    return { error: msg };
   }, [restaurant, refetch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
