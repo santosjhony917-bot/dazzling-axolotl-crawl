@@ -30,7 +30,6 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
 }) => {
   const navigate = useNavigate();
   const planLabel = isPremium ? 'Plano Premium' : 'Plano Free';
-  // Ajustando cores do badge para Free (cinza claro) e Premium (amarelo/laranja)
   const planColor = isPremium ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700';
 
   const handleViewPublicProfile = () => {
@@ -56,7 +55,6 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
             disabled={!isPremium || uploading}
             className={cn(
               "h-10 px-4 rounded-full text-sm font-semibold transition-all",
-              // Estilo do botão: branco se Premium, cinza escuro semi-transparente se Free
               isPremium ? "bg-white text-[#022D68] hover:bg-gray-100" : "bg-black/40 text-white backdrop-blur-sm hover:bg-black/50 cursor-not-allowed"
             )}
           >
@@ -64,9 +62,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
               "Enviando..."
             ) : (
               <>
-                {/* Cadeado aparece se não for Premium */}
                 {!isPremium && <Lock className="w-4 h-4 mr-2" />}
-                {/* Se for Premium, o ícone de cadeado não aparece, mas o texto sim */}
                 {isPremium && <Camera className="w-4 h-4 mr-2" />}
                 Editar capa (Premium)
               </>
@@ -76,7 +72,8 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
       </div>
 
       {/* Card de Informações (Flutuante) */}
-      <Card className="relative -mt-20 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
+      {/* Ajustado -mt-20 para -mt-28 para sobrepor mais a capa */}
+      <Card className="relative -mt-28 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
         <div className="flex items-start gap-4">
           {/* Logo */}
           <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 shrink-0 shadow-md">
