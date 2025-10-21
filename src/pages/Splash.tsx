@@ -7,14 +7,12 @@ export default function Splash() {
   const navigate = useNavigate();
 
   // Auto-navigate after 2 seconds
-  /*
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate(createPageUrl("onboarding"));
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
-  */
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
