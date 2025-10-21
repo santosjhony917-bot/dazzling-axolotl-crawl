@@ -37,7 +37,7 @@ const RestaurantProfilePreviewFree: React.FC = () => {
   const activeCategory = mockRestaurant.menu.find(cat => cat.active);
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg overflow-hidden bg-background-light dark:bg-background-dark">
+    <Card className="w-full max-w-md mx-auto border-2 border-gray-300 shadow-lg overflow-hidden bg-background-light dark:bg-background-dark">
       <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
         
         {/* Header do Restaurante */}
