@@ -1,57 +1,29 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-// import { useUserRole } from './useUserRole'; // Removido
 import { WeekSchedule } from '@/types/schedule';
+import { Restaurant } from '@/types/restaurant'; // Importando a tipagem Restaurant
 
-interface RestaurantProfileData {
-  id: string;
-  name: string;
-  address: string;
-  city: string;
-  state: string;
-  cep: string;
-  neighborhood: string;
-  category: string;
-  logo_url: string | null;
-  cover_image_url: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  latitude: number | null;
-  longitude: number | null;
+// Usando a interface Restaurant do types/restaurant.ts
+type RestaurantProfileData = Restaurant & {
+  category: string; // Adicionando category que estava faltando na interface Restaurant
   opening_hours: WeekSchedule | null;
-  phone: string | null; // Adicionado
-  email: string | null; // Adicionado
-  cnpj: string | null;  // Adicionado
-}
+};
 
-// Modificado para aceitar restaurantId opcional
-export function useRestaurantProfile(initialRestaurantId: string | null = null) {
-  // Removendo lógica de userId e isUserLoading
-  // const [userId, setUserId] = useState<string | null>(null);
-  // const [isUserLoading, setIsUserLoading] = useState(true);
+// Modificado para aceitar userId opcional
+export function useRestaurantProfile(userId: string | null = null) {
   const [restaurant, setRestaurant] = useState<RestaurantProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Removendo useEffect para buscar userId
-  // useEffect(() => {
-  //   const fetchUserId = async () => {
-  //     const { data: { user } } = await supabase.auth.getUser();
-  //     setUserId(user?.id || null);
-  //     setIsUserLoading(false);
-  //   };
-  //   fetchUserId();
-  // }, []);
 
   const fetchRestaurant = async (id: string) => {
     setLoading(true);
     setError(null);
     try {
+      // Busca pelo user_id
       const { data, error } = await supabase
         .from('restaurants')
         .select('*')
-        .eq('id', id) // Agora busca por restaurant ID, não user ID
+        .eq('user_id', id) 
         .single();
 
       if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
@@ -61,24 +33,25 @@ export function useRestaurantProfile(initialRestaurantId: string | null = null) 
       if (data) {
         setRestaurant(data as RestaurantProfileData);
       } else {
-        setRestaurant(null); // No restaurant found for this ID
+        setRestaurant(null); // No restaurant found for this user
       }
 
     } catch (e) {
       setError((e as Error).message);
+      setRestaurant(null);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (initialRestaurantId) { // Se um ID for fornecido, busca o restaurante
-      fetchRestaurant(initialRestaurantId);
-    } else { // Caso contrário, não há restaurante para buscar
+    if (userId) { // Se um ID de usuário for fornecido, busca o restaurante
+      fetchRestaurant(userId);
+    } else { // Se não houver ID de usuário (não logado), termina o carregamento
       setLoading(false);
       setRestaurant(null);
     }
-  }, [initialRestaurantId]); // Depende do initialRestaurantId
+  }, [userId]);
 
   const updateRestaurant = async (updates: Partial<RestaurantProfileData>) => {
     if (!restaurant?.id) return { error: "Restaurante não encontrado." };
@@ -93,16 +66,16 @@ export function useRestaurantProfile(initialRestaurantId: string | null = null) 
     }
 
     // Refetch to get the latest data after update
-    await fetchRestaurant(restaurant.id);
+    await fetchRestaurant(restaurant.user_id);
     
     return { error: null };
   };
 
   return {
     restaurant,
-    loading: loading, // Simplificado
+    loading: loading,
     error,
     updateRestaurant,
-    refetch: () => initialRestaurantId && fetchRestaurant(initialRestaurantId), // Refetch baseado no initialRestaurantId
+    refetch: () => userId && fetchRestaurant(userId),
   };
 }

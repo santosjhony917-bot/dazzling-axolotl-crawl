@@ -8,50 +8,33 @@ import { Loader2 } from 'lucide-react';
 import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
 import { Restaurant } from '@/types/restaurant';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth'; // Importação corrigida
+import { useAuth } from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function RestaurantProfilePage() {
-  const { user } = useAuth();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, isLoading: authLoading } = useAuth();
+  const userId = user?.id || null;
+  
+  // Usando o hook atualizado para buscar pelo user ID
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
+  
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Restaurant>>({});
 
-  const fetchRestaurant = useCallback(async () => {
-    if (!user?.id) return;
-
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('restaurants')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
-
-    if (error && error.code !== 'PGRST116') { // PGRST116 = No rows found
-      console.error('Error fetching restaurant:', error);
-      toast.error('Erro ao carregar dados do restaurante.');
-    } else if (data) {
-      setRestaurant(data);
-      setFormData(data);
-    } else {
-      // Handle case where restaurant doesn't exist yet (e.g., new user)
-      setRestaurant(null);
-      setFormData({});
-    }
-    setLoading(false);
-  }, [user?.id]);
-
   useEffect(() => {
-    fetchRestaurant();
-  }, [fetchRestaurant]);
+    if (restaurant) {
+      setFormData(restaurant);
+    }
+  }, [restaurant]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<void> => { // Tipo de retorno ajustado para void
+  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<void> => {
     if (!restaurant?.id) return;
 
     setIsSaving(true);
@@ -67,17 +50,16 @@ export default function RestaurantProfilePage() {
     if (error) {
       console.error('Error updating restaurant:', error);
       toast.error('Erro ao salvar as alterações.');
-      return; // Retorna void
+      return;
     }
 
     if (data) {
-      setRestaurant(data);
-      setFormData(data);
+      refetch(); // Usa refetch do hook para atualizar o estado global
       toast.success('Informações atualizadas com sucesso!');
-      return; // Retorna void
+      return;
     }
-    return; // Retorna void
-  }, [restaurant]);
+    return;
+  }, [restaurant, refetch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,10 +70,12 @@ export default function RestaurantProfilePage() {
     await handleUpdate(formData);
   };
 
-  if (loading) {
+  if (authLoading || restaurantLoading) {
     return (
-      <div className="flex justify-center items-center h-full p-8">
-        <Loader2 className="h-8 w-8 animate-spin text-[#E47948]" />
+      <div className="p-4 md:p-8 space-y-8 max-w-4xl mx-auto">
+        <Skeleton className="h-40 w-full rounded-xl mb-6" />
+        <Skeleton className="h-6 w-3/4 mb-4" />
+        <Skeleton className="h-64 w-full rounded-xl mb-6" />
       </div>
     );
   }

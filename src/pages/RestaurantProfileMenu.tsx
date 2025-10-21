@@ -13,8 +13,8 @@ import { EditAddressDialog } from "@/components/EditAddressDialog";
 import { z } from "zod";
 import { WeekSchedule } from "@/types/schedule";
 import { createPageUrl } from "@/utils/url";
-import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess } from "@/utils/toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Importando os novos componentes de seção
 import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
@@ -29,8 +29,8 @@ const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
 const emailSchema = z.string().email("E-mail inválido");
 const phoneSchema = z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido. Use o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
 const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido. Use o formato XX.XXX.XXX/XXXX-XX");
-const whatsappSchema = z.string().url("URL do WhatsApp inválida");
-const ifoodSchema = z.string().url("URL do iFood inválida");
+const whatsappSchema = z.string().url("URL do WhatsApp inválida").or(z.literal(''));
+const ifoodSchema = z.string().url("URL do iFood inválida").or(z.literal(''));
 const otherUrlSchema = z.string().url("URL inválida").or(z.literal(''));
 
 // --- Masks ---
@@ -58,7 +58,7 @@ const cnpjMask = (value: string) => {
     .slice(0, 18);
 };
 
-// Mock Schedule
+// Mock Schedule (Fallback)
 const mockSchedule: WeekSchedule = {
   monday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
   tuesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
@@ -83,16 +83,23 @@ interface EditingFieldState {
 
 const RestaurantProfileMenu: React.FC = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { signOut, user, isLoading: authLoading } = useAuth();
   
-  const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
-  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
+  // Usa o ID do usuário logado para buscar o perfil do restaurante
+  const userId = user?.id || null;
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
   const { isPremium, isLoading: roleLoading } = useUserRole();
   const { uploadImage, uploading } = useImageUpload();
 
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
+
+  // Se não estiver autenticado, redireciona para o login
+  if (!authLoading && !user) {
+    navigate(createPageUrl('restaurant-login'));
+    return null;
+  }
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -126,7 +133,8 @@ const RestaurantProfileMenu: React.FC = () => {
     
     const key = editingField.key as keyof typeof restaurant;
     
-    if (key === 'address' || key === 'city' || key === 'state' || key === 'cep' || key === 'neighborhood') {
+    // Prevenção de edição de campos de endereço por aqui
+    if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key)) {
         showError("Use o botão 'Editar Endereço' para atualizar a localização completa.");
         return;
     }
@@ -165,7 +173,7 @@ const RestaurantProfileMenu: React.FC = () => {
       return;
     }
     
-    const updateKey = type === 'logo' ? 'logo_url' : 'cover_image_url';
+    const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
     const { error: updateError } = await updateRestaurant({ [updateKey]: url });
     
     if (updateError) {
@@ -175,7 +183,7 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess("Imagem atualizada com sucesso!");
   };
 
-  if (restaurantLoading || roleLoading) {
+  if (authLoading || restaurantLoading || roleLoading) {
     return (
       <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
         <Skeleton className="h-40 w-full rounded-xl mb-6" />
@@ -187,15 +195,30 @@ const RestaurantProfileMenu: React.FC = () => {
     );
   }
 
-  const currentSchedule = restaurant?.opening_hours || mockSchedule;
+  if (!restaurant) {
+    return (
+      <div className="p-8 text-center">
+        <h2 className="text-xl font-semibold text-[#022D68]">Restaurante não encontrado</h2>
+        <p className="text-gray-600 mt-2">Parece que você ainda não tem um restaurante cadastrado ou vinculado a esta conta.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurant-signup'))} className="mt-4 bg-[#E47948] hover:bg-[#E47948]/90">
+          Cadastrar Novo Restaurante
+        </Button>
+        <Button onClick={handleSignOut} variant="ghost" className="mt-2 text-red-500">
+          Sair
+        </Button>
+      </div>
+    );
+  }
+
+  const currentSchedule = restaurant.opening_hours || mockSchedule;
   const currentAddress = {
-    address: restaurant?.address || '',
-    city: restaurant?.city || '',
-    state: restaurant?.state || '',
-    cep: restaurant?.cep || '',
-    neighborhood: restaurant?.neighborhood || '',
-    latitude: restaurant?.latitude || null,
-    longitude: restaurant?.longitude || null,
+    address: restaurant.address || '',
+    city: restaurant.city || '',
+    state: restaurant.state || '',
+    cep: restaurant.cep || '',
+    neighborhood: restaurant.neighborhood || '',
+    latitude: restaurant.latitude || null,
+    longitude: restaurant.longitude || null,
   };
 
   return (
@@ -218,18 +241,13 @@ const RestaurantProfileMenu: React.FC = () => {
       </header>
 
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
-        <div className="w-full space-y-6"> {/* Aumentado space-y para 6 */}
+        <div className="w-full space-y-6">
           
           {/* Container para ProfileHeaderManagement e Botão de Visualização Pública */}
           <div className="px-4">
             <ProfileHeaderManagement
-              restaurantName={restaurant?.name || "Restaurante Teste Free"}
-              logoUrl={restaurant?.logo_url}
-              coverImageUrl={restaurant?.cover_image_url}
-              isPremium={isPremium}
-              uploading={uploading}
-              handleFileSelect={handleFileSelect}
-              restaurantId={MOCK_RESTAURANT_ID}
+              restaurant={restaurant}
+              onUpdate={updateRestaurant}
             />
           </div>
 
@@ -322,7 +340,7 @@ const RestaurantProfileMenu: React.FC = () => {
       <EditAddressDialog
         open={isAddressDialogOpen}
         onOpenChange={setIsAddressDialogOpen}
-        restaurantId={MOCK_RESTAURANT_ID}
+        restaurantId={restaurant.id}
         currentAddress={currentAddress}
         onSave={refetch}
       />
