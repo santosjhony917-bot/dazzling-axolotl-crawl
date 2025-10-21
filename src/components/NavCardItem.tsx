@@ -16,13 +16,14 @@ const NavCardItem: React.FC<NavCardItemProps> = ({ label, icon: Icon, onClick, d
       onClick={onClick}
       className={cn(
         "w-full p-4 flex items-center justify-between transition-all cursor-pointer",
-        "bg-white border-none rounded-xl shadow-md hover:shadow-lg active:scale-[0.99]",
+        // Estilo do Hub: Fundo claro, borda sutil, sombra sutil
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md active:scale-[0.99]",
         "dark:bg-gray-800 dark:hover:bg-gray-700"
       )}
     >
       <div className="flex items-center gap-4">
-        {/* Ícone Circular de Fundo Claro */}
-        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
+        {/* Ícone Circular de Fundo Claro (Estilo Hub) */}
+        <div className="w-10 h-10 bg-[#022D68]/10 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         

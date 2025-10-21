@@ -232,8 +232,8 @@ const RestaurantProfileMenu: React.FC = () => {
             </p>
           </div>
 
-          {/* Card de Informações Principais (Logo e Status) */}
-          <Card className="w-full shadow-xl border-none rounded-xl p-6 mb-6">
+          {/* Card de Informações Principais (Logo e Status) - Usando bg-white e shadow-xl como no Hub Card */}
+          <Card className="w-full shadow-xl border-none rounded-xl p-6 mb-6 bg-white">
             <div className="flex items-start gap-4">
               {/* Logo */}
               <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-md">
