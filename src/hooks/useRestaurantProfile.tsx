@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { WeekSchedule } from '@/types/schedule';
-import { Restaurant } from '@/types/restaurant'; // Importando a tipagem Restaurant
-import toast from 'react-hot-toast'; // Importa toast
+import { Restaurant } from '@/types/restaurant';
+import toast from 'react-hot-toast';
 
 // Usando a interface Restaurant do types/restaurant.ts
-type RestaurantProfileData = Restaurant & {
-  category?: string; // Adicionando category que estava faltando na interface Restaurant, tornando-o opcional
-  opening_hours: WeekSchedule | null;
-};
+type RestaurantProfileData = Restaurant;
 
 // Modificado para aceitar userId opcional
 export function useRestaurantProfile(userId: string | null = null) {

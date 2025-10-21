@@ -1,3 +1,5 @@
+import { WeekSchedule } from "./schedule";
+
 export type RestaurantPlan = 'free' | 'basic' | 'premium';
 
 export interface Restaurant {
@@ -19,4 +21,11 @@ export interface Restaurant {
   phone: string | null;
   email: string | null;
   cnpj: string | null;
+  
+  // NEW FIELDS
+  category: string | null;
+  whatsapp_url: string | null;
+  ifood_url: string | null;
+  other_url: string | null;
+  opening_hours: WeekSchedule | null;
 }
