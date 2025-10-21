@@ -142,27 +142,16 @@ export default function RestaurantSignup() {
           if (signInError) throw signInError;
           
           showSuccess("Usuário já cadastrado. Login realizado com sucesso!");
-          navigate(createPageUrl('restaurant-login'));
+          navigate(createPageUrl('restaurant-area/profile-menu')); // Redireciona para o perfil se o login for bem-sucedido
           return;
         }
         throw signUpError;
       }
       
-      // 2. Se o cadastro for bem-sucedido, tentamos fazer login imediatamente
-      // Isso é um truque de desenvolvimento para ignorar a confirmação de e-mail.
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      // 2. Se o cadastro for bem-sucedido, informamos o usuário para verificar o e-mail
+      showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
+      navigate(createPageUrl('restaurant-login'));
       
-      if (signInError) {
-        // Se o login falhar após o cadastro (ex: confirmação pendente), informamos o usuário
-        showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
-        navigate(createPageUrl('restaurant-login'));
-        return;
-      }
-
-      // 3. Se o login for bem-sucedido, redirecionamos para a área do restaurante
-      showSuccess("Conta criada e login realizado! Redirecionando para o painel.");
-      navigate(createPageUrl('restaurant-area/home'));
-
     } catch (error) {
       console.error("Signup error:", error);
       showError((error as Error).message || "Ocorreu um erro ao criar a conta.");
