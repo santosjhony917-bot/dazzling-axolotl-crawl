@@ -21,7 +21,7 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   handleFileSelect,
 }) => {
   return (
-    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
+    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado shadow-xl para shadow-md e p-6 para p-4, removido mb-6 */}
       <div className="flex items-start gap-4">
         {/* Logo */}
         <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-md">

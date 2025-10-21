@@ -13,7 +13,7 @@ interface SubscriptionSupportSectionProps {
 
 const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
   return (
-    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
+    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado shadow-xl para shadow-md e p-6 para p-4, removido mb-6 */}
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-lg font-bold text-[#022D68]">Assinatura e Suporte</CardTitle>
       </CardHeader>
