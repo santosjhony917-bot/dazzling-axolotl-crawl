@@ -208,17 +208,19 @@ const RestaurantProfileMenu: React.FC = () => {
     <button 
       onClick={onClick}
       className={cn(
-        "w-full p-4 flex justify-between items-center transition-colors text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+        // Ajustando padding e removendo hover para manter o fundo branco do card
+        "w-full py-3 px-4 flex justify-between items-center transition-colors text-gray-800 dark:text-gray-200"
       )}
     >
-      <span className="flex items-center gap-3 text-left">
-        <Icon className="w-5 h-5 shrink-0 text-[#022D68]" />
+      <span className="flex items-center gap-4 text-left">
+        {/* Ícone maior */}
+        <Icon className="w-6 h-6 shrink-0 text-[#022D68]" />
         <div>
-          <p className="text-sm font-medium text-foreground">
+          <p className="text-base font-medium text-foreground">
             {label}
           </p>
           {description && (
-            <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+            <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
           )}
         </div>
       </span>
@@ -268,24 +270,11 @@ const RestaurantProfileMenu: React.FC = () => {
 
         {/* Área de Fundo (Simulando a área cinza/capa) */}
         <div className="relative h-24 w-full bg-gray-300 dark:bg-gray-700">
-          {/* Se houver imagem de capa, ela iria aqui, mas a imagem de referência mostra apenas um bloco cinza */}
-          {/* Mantendo a lógica de upload de capa, mas usando o bloco cinza como fundo */}
           <img 
             src={restaurant?.cover_image_url || "https://via.placeholder.com/600x200?text=Capa+do+Restaurante"} 
             alt="Capa do Restaurante" 
-            className="w-full h-full object-cover opacity-0" // Ocultando a imagem para simular o fundo cinza da referência
+            className="w-full h-full object-cover opacity-0" 
           />
-          
-          {/* Upload Cover Button (Opcional, mantido por funcionalidade) */}
-          {/* <ImageUploadButton
-            onFileSelect={(file) => handleFileSelect(file, 'cover')}
-            uploading={uploading}
-            className="absolute bottom-2 right-2 h-8 w-8 p-0 bg-white/80 text-primary hover:bg-white"
-            variant="ghost"
-            size="icon"
-          >
-            <Camera className="h-4 w-4" />
-          </ImageUploadButton> */}
         </div>
 
         {/* Restaurant Header & Logo - Card Flutuante */}
@@ -348,7 +337,7 @@ const RestaurantProfileMenu: React.FC = () => {
             <InfoItem 
               label="Categoria Principal" 
               value={restaurant?.category || "Não definida"} 
-              icon={UtensilsCrossed} // Usando UtensilsCrossed para combinar com o ícone da imagem
+              icon={UtensilsCrossed} 
               onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <Utensils className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
             />
             <InfoItem 
@@ -426,7 +415,7 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="px-4 mb-6 space-y-4">
           <h2 className="text-lg font-bold text-[#022D68]">Canais de Venda e Links</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
+          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <InfoItem 
               label="Link do WhatsApp" 
               value={restaurant?.whatsapp_url || ""} 
