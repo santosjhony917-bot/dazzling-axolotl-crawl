@@ -135,8 +135,18 @@ export default function RestaurantSignup() {
       
       const registrationResult = await registerRestaurant(payload);
       
-      // 2. Se a Edge Function for bem-sucedida, o usuário já estará logado.
-      showSuccess(`Restaurante cadastrado! ID: ${registrationResult.restaurantId}. Redirecionando para o painel.`);
+      // 2. A Edge Function retornou sucesso. Agora fazemos o login no cliente.
+      const { error: signInError } = await supabase.auth.signInWithPassword({ 
+        email: registrationResult.email, 
+        password: registrationResult.password 
+      });
+
+      if (signInError) {
+        // Se o login falhar, o usuário ainda está criado, mas precisamos de um erro claro.
+        throw new Error(`Registro concluído, mas falha ao fazer login: ${signInError.message}`);
+      }
+      
+      showSuccess(`Restaurante cadastrado! Redirecionando para o painel.`);
       navigate(createPageUrl('restaurant-area/profile-menu'));
       
     } catch (error) {
@@ -177,7 +187,7 @@ export default function RestaurantSignup() {
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 placeholder="Ex: Restaurante Sabor Divino"
-                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E477948] text-base"
+                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
                 required
               />
             </label>

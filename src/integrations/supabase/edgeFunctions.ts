@@ -16,24 +16,23 @@ interface RegisterRestaurantPayload {
     state: string;
     phone: string;
   }>;
-  email: string; // Novo campo
-  password: string; // Novo campo
+  email: string;
+  password: string;
 }
 
 interface RegisterRestaurantResponse {
   restaurantId: string;
   message: string;
+  email: string; // Adicionado
+  password: string; // Adicionado
 }
 
 export async function registerRestaurant(payload: RegisterRestaurantPayload): Promise<RegisterRestaurantResponse> {
-  // Não precisamos mais do token de sessão, pois a Edge Function usa a Service Role Key
-  // para criar o usuário e o restaurante.
   
   const response = await fetch(EDGE_FUNCTION_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Não enviamos mais o Authorization header, pois a autenticação é feita pelo payload
     },
     body: JSON.stringify(payload),
   });
