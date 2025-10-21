@@ -10,7 +10,8 @@ import toast from 'react-hot-toast';
 
 interface ProfileHeaderManagementProps {
   restaurant: Restaurant;
-  onUpdate: (updates: Partial<Restaurant>) => Promise<void>; // Tipo de retorno corrigido para Promise<void>
+  // Tipo de retorno corrigido para refletir o retorno do hook useRestaurantProfile
+  onUpdate: (updates: Partial<Restaurant>) => Promise<{ error: string | null }>; 
 }
 
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
@@ -32,7 +33,12 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     if (publicUrl) {
       const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-      await onUpdate({ [updateKey]: publicUrl }); // Chama onUpdate, que agora lida com toasts internamente
+      const { error } = await onUpdate({ [updateKey]: publicUrl });
+      
+      if (error) {
+        // O onUpdate já exibe o toast, mas podemos logar o erro aqui se necessário
+        console.error("Error saving URL after upload:", error);
+      }
     } else {
       toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket.");
     }
