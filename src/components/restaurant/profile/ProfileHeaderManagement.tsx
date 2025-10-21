@@ -15,6 +15,13 @@ interface ProfileHeaderManagementProps {
   onUpdate: UpdateFunction;
 }
 
+// Helper para adicionar cache-busting
+const getCacheBustedUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  // Adiciona um timestamp para forçar o recarregamento
+  return `${url}?t=${Date.now()}`;
+};
+
 export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
   const [uploading, setUploading] = useState(false);
 
@@ -26,7 +33,6 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
 
     setUploading(true);
     
-    // CORREÇÃO: Usar split('.') e pop() para obter a extensão
     const fileExt = file.name.split('.').pop();
     if (!fileExt) {
         toast.error("Não foi possível determinar a extensão do arquivo.");
@@ -55,13 +61,16 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
     }
   }, [restaurant.id, onUpdate]);
 
+  const logoUrl = getCacheBustedUrl(restaurant.image_url);
+  const coverImageUrl = getCacheBustedUrl(restaurant.cover_image_url);
+
   return (
     <Card className="relative overflow-hidden shadow-lg">
       {/* Cover Image */}
       <div className="h-48 bg-gray-200 relative">
-        {restaurant.cover_image_url ? (
+        {coverImageUrl ? (
           <img
-            src={restaurant.cover_image_url}
+            src={coverImageUrl}
             alt="Capa do Restaurante"
             className="w-full h-full object-cover"
           />
@@ -81,9 +90,9 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       <CardContent className="p-6 pt-0">
         {/* Logo/Avatar */}
         <div className="relative -mt-12 mb-4 w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
-          {restaurant.image_url ? (
+          {logoUrl ? (
             <img
-              src={restaurant.image_url}
+              src={logoUrl}
               alt="Logo do Restaurante"
               className="w-full h-full object-cover rounded-full"
             />
