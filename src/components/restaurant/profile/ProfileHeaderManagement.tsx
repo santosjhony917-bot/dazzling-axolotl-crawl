@@ -72,8 +72,8 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
       </div>
 
       {/* Card de Informações (Flutuante) */}
-      {/* Ajustado -mt-20 para -mt-28 para sobrepor mais a capa */}
-      <Card className="relative -mt-28 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
+      {/* Aumentando a margem negativa para garantir a sobreposição */}
+      <Card className="relative -mt-36 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
         <div className="flex items-start gap-4">
           {/* Logo */}
           <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 shrink-0 shadow-md">
