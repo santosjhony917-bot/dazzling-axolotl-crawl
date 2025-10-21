@@ -89,6 +89,16 @@ const UpgradePage: React.FC = () => {
         {/* Toggle Switch para Visualização */}
         <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
 
+        {/* Prévia do Perfil (MOVIDA PARA CÁ) */}
+        <div ref={previewRef} className="mt-4 mb-6">
+          <h3 className="text-lg font-bold text-primary dark:text-white mb-2 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h3>
+          {previewPlan === 'free' ? (
+            <RestaurantProfilePreviewFree />
+          ) : (
+            <RestaurantProfilePreviewPremium />
+          )}
+        </div>
+
         {/* Tabela de Comparação */}
         <div className="overflow-x-auto mt-6">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -116,15 +126,7 @@ const UpgradePage: React.FC = () => {
         </div>
       </Card>
 
-      {/* Prévia do Perfil */}
-      <div ref={previewRef} className="mt-8">
-        <h2 className="text-2xl font-bold text-primary dark:text-white mb-4 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h2>
-        {previewPlan === 'free' ? (
-          <RestaurantProfilePreviewFree />
-        ) : (
-          <RestaurantProfilePreviewPremium />
-        )}
-      </div>
+      {/* O div de prévia original foi removido daqui */}
     </div>
   );
 };
