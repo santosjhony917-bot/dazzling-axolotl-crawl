@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Eye, Camera } from 'lucide-react';
+import { Lock, Eye, Camera, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +30,8 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
 }) => {
   const navigate = useNavigate();
   const planLabel = isPremium ? 'Plano Premium' : 'Plano Free';
-  const planColor = isPremium ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-gray-200 hover:bg-gray-300 text-gray-700';
+  // Ajustando cores do badge para Free (cinza claro) e Premium (amarelo/laranja)
+  const planColor = isPremium ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700';
 
   const handleViewPublicProfile = () => {
     navigate(`/restaurant-profile/${restaurantId}`);
@@ -55,15 +56,19 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
             disabled={!isPremium || uploading}
             className={cn(
               "h-10 px-4 rounded-full text-sm font-semibold transition-all",
-              isPremium ? "bg-white text-[#022D68] hover:bg-gray-100" : "bg-gray-600/80 text-white cursor-not-allowed"
+              // Estilo do botão: branco se Premium, cinza escuro semi-transparente se Free
+              isPremium ? "bg-white text-[#022D68] hover:bg-gray-100" : "bg-black/40 text-white backdrop-blur-sm hover:bg-black/50 cursor-not-allowed"
             )}
           >
             {uploading ? (
               "Enviando..."
             ) : (
               <>
-                <Lock className="w-4 h-4 mr-2" />
-                Editar capa ({isPremium ? 'Premium' : 'Premium'})
+                {/* Cadeado aparece se não for Premium */}
+                {!isPremium && <Lock className="w-4 h-4 mr-2" />}
+                {/* Se for Premium, o ícone de cadeado não aparece, mas o texto sim */}
+                {isPremium && <Camera className="w-4 h-4 mr-2" />}
+                Editar capa (Premium)
               </>
             )}
           </ImageUploadButton>
@@ -71,7 +76,6 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
       </div>
 
       {/* Card de Informações (Flutuante) */}
-      {/* Ajustado -mt-16 para -mt-20 para sobrepor mais a capa */}
       <Card className="relative -mt-20 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
         <div className="flex items-start gap-4">
           {/* Logo */}
