@@ -26,8 +26,6 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
   
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Note: A lógica de navegação para upgrade deve ser tratada no componente pai (RestaurantProfileMenu)
-    // ou o onClick deve ser ajustado para receber a navegação. Por simplicidade, vamos manter a chamada onClick.
     onClick();
   };
 
@@ -41,22 +39,26 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       onClick={handleEditClick}
     >
       <div className="flex items-start gap-4 flex-1">
-        {/* Ícone Circular de Fundo Claro (Cor de destaque: #E47948) */}
-        <div className="w-10 h-10 bg-[#E47948]/10 rounded-full flex items-center justify-center shrink-0 text-[#E47948]">
+        {/* Ícone Circular de Fundo Claro (Estilo NavCardItem) */}
+        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         
         {/* Texto */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-muted-foreground">{label}</p>
-          <p className={cn("text-base text-foreground mt-0.5 leading-snug", !value && "italic text-gray-400 font-normal")}>
+          {/* Label (Título do campo) - Estilo NavCardItem (Bold, Azul Escuro) */}
+          <p className="text-base font-bold text-[#022D68] leading-snug">
+            {label}
+          </p>
+          {/* Value (Valor do campo) - Estilo NavCardItem (Muted/Description) */}
+          <p className={cn("text-sm text-muted-foreground mt-0.5", !value && "italic text-gray-400 font-normal")}>
             {value || "Não definido"}
           </p>
           {extraContent}
         </div>
       </div>
       
-      {/* Botão de Edição */}
+      {/* Botão de Edição (Mantendo a cor de destaque para a ação) */}
       <Button 
         size="sm" 
         variant="ghost"
