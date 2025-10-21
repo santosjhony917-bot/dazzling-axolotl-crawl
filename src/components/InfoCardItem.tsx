@@ -49,7 +49,7 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
         {/* Texto */}
         <div className="flex-1 min-w-0">
           <p className="text-sm text-muted-foreground">{label}</p>
-          <p className={cn("text-base font-bold text-foreground mt-0.5 leading-snug", !value && "italic text-gray-400 font-normal")}>
+          <p className={cn("text-base text-foreground mt-0.5 leading-snug", !value && "italic text-gray-400 font-normal")}>
             {value || "Não definido"}
           </p>
           {extraContent}
