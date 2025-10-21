@@ -1,134 +1,132 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, Crown, Zap, ArrowRight } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
 import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfilePreviewFree';
 import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium';
-import { useUserRole } from '@/hooks/useUserRole';
+import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
+import { RestaurantPlan } from '@/types/restaurant';
 
-type PlanType = 'free' | 'premium';
+// Mock data for comparison table
+const features = [
+  { name: 'Visualização Pública', free: 'Básica', premium: 'Completa (Capa, Galeria, Avaliações)' },
+  { name: 'Destaque na Busca', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
+  { name: 'Cardápio Detalhado', free: 'Simples', premium: 'Premium (Categorias, Destaques)' },
+  { name: 'Links de Contato', free: '1 (WhatsApp)', premium: 'Ilimitados (iFood, Site, etc.)' },
+  { name: 'Galeria de Fotos', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
+  { name: 'Avaliações e Notas', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
+];
 
-const Upgrade: React.FC = () => {
-  const navigate = useNavigate();
-  const { isPremium } = useUserRole();
-  
-  // Estado para controlar qual prévia está sendo exibida
-  const [previewPlan, setPreviewPlan] = useState<PlanType>(isPremium ? 'premium' : 'free');
+const UpgradePage: React.FC = () => {
+  const [previewPlan, setPreviewPlan] = useState<RestaurantPlan>('free');
+  const previewRef = useRef<HTMLDivElement>(null);
 
-  const features = [
-    { name: "Posicionamento no topo da busca", free: false, premium: true },
-    { name: "Destaque visual no perfil", free: false, premium: true },
-    { name: "Até 3 itens em Destaques", free: false, premium: true },
-    { name: "Link para iFood/Delivery App", free: false, premium: true },
-    { name: "Link para Site Próprio", free: false, premium: true },
-    { name: "Estatísticas de visualização", free: false, premium: true },
-    { name: "Suporte prioritário", free: false, premium: true },
-    { name: "Link para WhatsApp", free: true, premium: true },
-    { name: "1 item em Destaques", free: true, premium: false },
-  ];
-
-  const handleSelectPlan = (plan: PlanType) => {
+  const handleSelectPlan = (plan: RestaurantPlan) => {
     setPreviewPlan(plan);
+    // Simulating scroll behavior if needed, though not strictly necessary for the preview component itself
+    if (previewRef.current) {
+      previewRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
-      
-      <h1 className="text-2xl font-bold text-primary text-center mb-2">
-        {isPremium ? "Seu Plano Atual: Premium" : "Faça Upgrade para Premium"}
-      </h1>
-      <p className="text-gray-600 text-center mb-6">
-        Desbloqueie o potencial máximo do seu restaurante.
-      </p>
+    <div className="p-4 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-primary dark:text-white mb-2">Impulsione seu Restaurante</h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-8">Escolha o plano que melhor se adapta ao seu negócio e comece a atrair mais clientes.</p>
+
+      {/* Seção de Preços */}
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
+        {/* Plano Free */}
+        <Card className="p-6 border-2 border-gray-200 dark:border-gray-700">
+          <h2 className="text-2xl font-bold text-primary mb-2">Plano Free</h2>
+          <p className="text-4xl font-extrabold text-primary mb-4">R$ 0<span className="text-lg font-normal text-gray-500">/mês</span></p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">Ideal para começar e ter uma presença digital básica.</p>
+          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Perfil básico</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> 1 Link de contato</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Cardápio simples</li>
+          </ul>
+          <Button 
+            variant="outline" 
+            className="w-full border-primary text-primary hover:bg-primary/10"
+            onClick={() => handleSelectPlan('free')}
+          >
+            Manter Plano Free
+          </Button>
+        </Card>
+
+        {/* Plano Premium */}
+        <Card className="p-6 border-2 border-highlight shadow-xl relative bg-white dark:bg-gray-800">
+          <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
+            MAIS POPULAR
+          </div>
+          <h2 className="text-2xl font-bold text-highlight mb-2 flex items-center">
+            <Crown className="w-6 h-6 mr-2 fill-highlight" /> Plano Premium
+          </h2>
+          <p className="text-4xl font-extrabold text-highlight mb-4">R$ 49,90<span className="text-lg font-normal text-gray-500">/mês</span></p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">Maximize sua visibilidade e atraia clientes com recursos exclusivos.</p>
+          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Destaque nas buscas</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Galeria de fotos e avaliações</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Múltiplos links de contato</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Cardápio Premium detalhado</li>
+          </ul>
+          <Button 
+            className="w-full bg-highlight text-white hover:bg-highlight/90"
+            onClick={() => handleSelectPlan('premium')}
+          >
+            Assinar Premium <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </Card>
+      </div>
 
       {/* Card de Comparação (Como você é visto?) */}
       <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
         <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você é visto?</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Escolha como quer ser encontrado.</p>
         
-        {/* Botões de Seleção de Prévia */}
-        <div className="flex justify-center gap-2 mb-6">
-          <Button
-            onClick={() => handleSelectPlan('free')}
-            variant={previewPlan === 'free' ? 'default' : 'outline'}
-            className={cn(
-              "flex-1 rounded-full font-semibold",
-              previewPlan === 'free' ? "bg-primary hover:bg-primary/90 text-white" : "border-gray-300 text-gray-700 hover:bg-gray-50"
-            )}
-          >
-            <Zap className="w-4 h-4 mr-2" /> Visualização Free
-          </Button>
-          <Button
-            onClick={() => handleSelectPlan('premium')}
-            variant={previewPlan === 'premium' ? 'default' : 'outline'}
-            className={cn(
-              "flex-1 rounded-full font-semibold",
-              previewPlan === 'premium' ? "bg-highlight hover:bg-highlight/90 text-white" : "border-highlight text-highlight hover:bg-highlight/10"
-            )}
-          >
-            <Crown className="w-4 h-4 mr-2 fill-white" /> Visualização Premium
-          </Button>
-        </div>
+        {/* Toggle Switch para Visualização */}
+        <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
 
-        {/* Prévia do Perfil */}
-        <div className="mt-4">
-          {previewPlan === 'free' ? (
-            <RestaurantProfilePreviewFree />
-          ) : (
-            <RestaurantProfilePreviewPremium />
-          )}
+        {/* Tabela de Comparação */}
+        <div className="overflow-x-auto mt-6">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead>
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recurso</th>
+                <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Free</th>
+                <th className="px-4 py-3 text-center text-xs font-medium text-highlight uppercase tracking-wider">Premium</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              {features.map((feature) => (
+                <tr key={feature.name}>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{feature.name}</td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">
+                    {typeof feature.free === 'string' ? feature.free : feature.free}
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-highlight font-semibold">
+                    {typeof feature.premium === 'string' ? feature.premium : feature.premium}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </Card>
 
-      {/* Tabela de Recursos */}
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
-        <h2 className="text-lg font-bold text-primary dark:text-white mb-4">Comparação de Recursos</h2>
-        
-        <div className="space-y-3">
-          {features.sort((a, b) => (b.premium ? 1 : -1) - (a.premium ? 1 : -1)).map((feature, index) => (
-            <div key={index} className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-3 last:border-b-0 last:pb-0">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex-1">{feature.name}</span>
-              
-              <div className="flex w-24 justify-around">
-                {/* Coluna Free */}
-                <div className="w-1/2 text-center">
-                  {feature.free ? (
-                    <Check className="w-5 h-5 text-green-500 mx-auto" />
-                  ) : (
-                    <X className="w-5 h-5 text-red-500 mx-auto" />
-                  )}
-                </div>
-                
-                {/* Coluna Premium */}
-                <div className="w-1/2 text-center">
-                  {feature.premium ? (
-                    <Check className="w-5 h-5 text-highlight mx-auto" />
-                  ) : (
-                    <X className="w-5 h-5 text-gray-400 mx-auto" />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      {/* CTA para Upgrade */}
-      {!isPremium && (
-        <div className="text-center mt-8">
-          <Button 
-            onClick={() => navigate(createPageUrl('checkout'))}
-            className="bg-highlight hover:bg-highlight/90 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-lg"
-          >
-            Assinar Plano Premium Agora <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </div>
-      )}
+      {/* Prévia do Perfil */}
+      <div ref={previewRef} className="mt-8">
+        <h2 className="text-2xl font-bold text-primary dark:text-white mb-4 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h2>
+        {previewPlan === 'free' ? (
+          <RestaurantProfilePreviewFree />
+        ) : (
+          <RestaurantProfilePreviewPremium />
+        )}
+      </div>
     </div>
   );
 };
 
-export default Upgrade;
+export default UpgradePage;
