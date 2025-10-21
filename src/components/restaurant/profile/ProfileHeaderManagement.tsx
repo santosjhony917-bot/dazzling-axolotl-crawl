@@ -72,8 +72,8 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
       </div>
 
       {/* Card de Informações (Flutuante) */}
-      {/* Aumentando para -mt-40 (160px) para puxar o card para o topo da capa */}
-      <Card className="relative -mt-40 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
+      {/* Ajustado para -mt-28 (112px) para que o card comece 48px abaixo do topo da capa (160px - 112px) */}
+      <Card className="relative -mt-28 mx-4 p-4 bg-white rounded-xl shadow-xl z-20">
         <div className="flex items-start gap-4">
           {/* Logo */}
           <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 shrink-0 shadow-md">
@@ -114,8 +114,8 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
         </div>
       </Card>
 
-      {/* Botão Ver Perfil Público - Adicionando padding superior para compensar o card que subiu */}
-      <div className="px-4 pt-20"> {/* Adicionado pt-20 (80px) */}
+      {/* Botão Ver Perfil Público - Ajustando padding para pt-16 (64px) */}
+      <div className="px-4 pt-16">
         <Button
           onClick={handleViewPublicProfile}
           className="w-full h-12 rounded-full bg-[#022D68] hover:bg-[#022D68]/90 text-white font-bold shadow-lg"
