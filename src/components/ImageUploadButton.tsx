@@ -1,26 +1,20 @@
-import React, { useRef } from 'react';
-import { Button, ButtonProps } from '@/components/ui/button';
+import React, { useRef, useState, useMemo } from 'react';
+import { Button } from '@/components/ui/button';
+import { Upload, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface ImageUploadButtonProps extends ButtonProps {
-  onFileSelect: (file: File) => void;
+interface ImageUploadButtonProps {
+  onFileSelect: (file: File) => Promise<void>;
   uploading: boolean;
-  children?: React.ReactNode;
+  className?: string;
+  icon?: React.ReactNode; // Adiciona suporte para ícone customizado
 }
 
-export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
-  onFileSelect,
-  uploading,
-  children,
-  className,
-  ...props
-}) => {
+export function ImageUploadButton({ onFileSelect, uploading, className, icon }: ImageUploadButtonProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  const handleClick = () => {
+    fileInputRef.current?.click();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,30 +22,38 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
     if (file) {
       onFileSelect(file);
     }
-    // Reset input value to allow selecting the same file again
+    // Reset input value to allow re-uploading the same file
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
+  const displayIcon = useMemo(() => {
+    if (uploading) {
+      return <Loader2 className="h-4 w-4 animate-spin" />;
+    }
+    return icon || <Upload className="h-4 w-4" />;
+  }, [uploading, icon]);
+
   return (
-    <div className={cn("relative inline-block", className)}>
+    <>
       <input
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept="image/*"
         className="hidden"
+        accept="image/*"
         disabled={uploading}
       />
       <Button
-        onClick={handleButtonClick}
+        type="button"
+        onClick={handleClick}
+        className={cn("rounded-full", className)}
+        size="icon"
         disabled={uploading}
-        className={className}
-        {...props}
       >
-        {children}
+        {displayIcon}
       </Button>
-    </div>
+    </>
   );
-};
+}

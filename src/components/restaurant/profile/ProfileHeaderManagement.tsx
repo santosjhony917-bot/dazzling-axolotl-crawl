@@ -1,144 +1,103 @@
-import React from 'react';
-import { Lock, Eye, Camera, Check, Crown } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+import { Restaurant } from '@/types/restaurant';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { ImageUploadButton } from '@/components/ImageUploadButton';
-import restaurantLogo from "@/assets/restaurant-logo.png";
+import { Pencil, Upload, Loader2 } from 'lucide-react';
+import { ImageUploadButton } from '@/components/ImageUploadButton'; // Importação nomeada corrigida
+import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { supabase } from '@/integrations/supabase/client';
+import toast from 'react-hot-toast';
 
 interface ProfileHeaderManagementProps {
-  restaurantName: string;
-  logoUrl: string | null | undefined;
-  coverImageUrl: string | null | undefined;
-  isPremium: boolean;
-  uploading: boolean;
-  handleFileSelect: (file: File, type: 'logo' | 'cover') => void;
-  restaurantId: string;
+  restaurant: Restaurant;
+  onUpdate: (updates: Partial<Restaurant>) => Promise<void>;
 }
 
-const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({
-  restaurantName,
-  logoUrl,
-  coverImageUrl,
-  isPremium,
-  uploading,
-  handleFileSelect,
-  restaurantId,
-}) => {
-  const navigate = useNavigate();
-  const planLabel = isPremium ? 'Plano Premium' : 'Plano Free';
-  const planColor = isPremium ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700';
+export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
+  const [uploading, setUploading] = useState(false);
 
-  const handleViewPublicProfile = () => {
-    navigate(`/restaurant-profile/${restaurantId}`);
-  };
-  
-  const handleUpgradeClick = () => {
-    if (!isPremium) {
-      navigate(createPageUrl('restaurant-area/upgrade'));
+  const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
+    if (!restaurant.id) {
+      toast.error("ID do restaurante não encontrado.");
+      return;
     }
-  };
+
+    setUploading(true);
+    const fileExtension = file.name.split('.').pop();
+    const path = `${restaurant.id}/${type}.${fileExtension}`;
+
+    const publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
+
+    setUploading(false);
+
+    if (publicUrl) {
+      const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
+      await onUpdate({ [updateKey]: publicUrl });
+      toast.success(`${type === 'logo' ? 'Logo' : 'Capa'} atualizada com sucesso!`);
+    } else {
+      toast.error("Falha ao fazer upload da imagem. Verifique o nome do bucket.");
+    }
+  }, [restaurant.id, onUpdate]);
 
   return (
-    <div className="w-full">
-      {/* Área da Capa */}
-      <div className={cn(
-        "relative w-full h-40 rounded-xl overflow-hidden bg-[#022D68] shadow-lg",
-        coverImageUrl ? "bg-cover bg-center" : ""
-      )} style={{ backgroundImage: coverImageUrl ? `url(${coverImageUrl})` : 'none' }}>
-        
-        {/* Overlay para escurecer a imagem e garantir contraste */}
-        {coverImageUrl && <div className="absolute inset-0 bg-black/30" />}
-
-        {/* Botão Editar Capa (Movido para o topo direito) */}
-        <div className="absolute top-4 right-4 z-10">
-          {isPremium ? (
-            <ImageUploadButton
-              onFileSelect={(file) => handleFileSelect(file, 'cover')}
-              uploading={uploading}
-              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-white text-[#022D68] hover:bg-gray-100"
-              disabled={uploading}
-            >
-              {uploading ? (
-                "Enviando..."
-              ) : (
-                <>
-                  <Camera className="w-4 h-4 mr-2" />
-                  Editar capa
-                </>
-              )}
-            </ImageUploadButton>
-          ) : (
-            // Botão de Upgrade (Free) - Deve ser um Button simples
-            <Button
-              onClick={handleUpgradeClick}
-              className="h-10 px-4 rounded-full text-sm font-semibold transition-all bg-[#022D68] text-white hover:bg-[#022D68]/90 shadow-lg"
-            >
-              <Lock className="w-4 h-4 mr-2" />
-              Editar capa (Premium)
-            </Button>
-          )}
-        </div>
+    <Card className="relative overflow-hidden shadow-lg">
+      {/* Cover Image */}
+      <div className="h-48 bg-gray-200 relative">
+        {restaurant.cover_image_url ? (
+          <img
+            src={restaurant.cover_image_url}
+            alt="Capa do Restaurante"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            Adicionar Imagem de Capa
+          </div>
+        )}
+        <ImageUploadButton
+          onFileSelect={(file) => handleFileSelect(file, 'cover')}
+          uploading={uploading}
+          className="absolute top-4 right-4 h-8 w-8 p-0 bg-black/50 text-white hover:bg-black/70"
+          icon={<Upload className="h-4 w-4" />}
+        />
       </div>
 
-      {/* Card de Informações (Flutuante) */}
-      {/* Ajustado para -mt-20 (80px) */}
-      <Card className="relative -mt-20 p-4 bg-white rounded-xl shadow-xl z-20">
-        <div className="flex items-start gap-4">
-          {/* Logo */}
-          <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 shrink-0 shadow-md">
-            <img 
-              src={logoUrl || restaurantLogo} 
-              alt="Logo do Restaurante" 
+      <CardContent className="p-6 pt-0">
+        {/* Logo/Avatar */}
+        <div className="relative -mt-12 mb-4 w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
+          {restaurant.image_url ? (
+            <img
+              src={restaurant.image_url}
+              alt="Logo do Restaurante"
               className="w-full h-full object-cover rounded-full"
             />
-            <ImageUploadButton
-              onFileSelect={(file) => handleFileSelect(file, 'logo')}
-              uploading={uploading}
-              className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-              variant="default"
-              size="icon"
-            >
-              <Camera className="h-3 w-3" />
-            </ImageUploadButton>
-          </div>
-          
-          {/* Nome e Plano */}
-          <div className="flex-1 pt-1">
-            <h3 className="font-bold text-xl text-[#022D68] leading-tight">
-              {restaurantName}
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">Estabelecimento</p>
-            <p className="text-sm text-gray-600">Comercial</p>
-          </div>
-          
-          {/* Badge Plano */}
-          <Badge 
-            className={cn(
-              "text-xs font-semibold px-3 py-1 mt-1 shrink-0",
-              planColor
-            )}
-          >
-            {planLabel}
-          </Badge>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-600 rounded-full">
+              <Pencil className="h-6 w-6" />
+            </div>
+          )}
+          <ImageUploadButton
+            onFileSelect={(file) => handleFileSelect(file, 'logo')}
+            uploading={uploading}
+            className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
+            icon={uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+          />
         </div>
-      </Card>
 
-      {/* Botão Ver Perfil Público - Ajustando padding para pt-12 (48px) */}
-      <div className="pt-12">
-        <Button
-          onClick={handleViewPublicProfile}
-          className="w-full h-12 rounded-full bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold shadow-lg active:scale-[0.98] transition-all"
-        >
-          <Eye className="h-5 w-5 mr-2" />
-          Ver meu perfil público
-        </Button>
-      </div>
-    </div>
+        {/* Restaurant Info */}
+        <h1 className="text-3xl font-bold text-gray-800">{restaurant.name}</h1>
+        <p className="text-sm text-gray-500 mt-1">{restaurant.address}</p>
+
+        {/* Actions/Status */}
+        <div className="mt-4 flex items-center space-x-4">
+          <span className={`px-3 py-1 text-xs font-semibold rounded-full ${restaurant.plan === 'premium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-600'}`}>
+            Plano: {restaurant.plan.charAt(0).toUpperCase() + restaurant.plan.slice(1)}
+          </span>
+          <Button variant="outline" size="sm">
+            <Pencil className="mr-2 h-4 w-4" /> Editar Informações
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
-};
-
-export default ProfileHeaderManagement;
+}
