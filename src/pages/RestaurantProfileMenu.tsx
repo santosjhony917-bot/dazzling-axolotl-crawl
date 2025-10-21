@@ -199,7 +199,7 @@ const RestaurantProfileMenu: React.FC = () => {
   };
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
       {/* Header (Fixo no topo, estilo Hub) */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
