@@ -159,7 +159,7 @@ const Profile = () => {
         <Card className="bg-white border border-border/10 rounded-3xl p-6 relative shadow-xl">
           <div className="flex items-center gap-4 mb-1">
             <Avatar className="w-16 h-16 border-2 border-[#E47948]/10">
-              <AvatarImage src={user?.avatarUrl} />
+              <AvatarImage src={user?.user_metadata?.avatar_url as string} />
               <AvatarFallback className="bg-[#E47948] text-white text-xl font-bold">
                 {userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
               </AvatarFallback>
