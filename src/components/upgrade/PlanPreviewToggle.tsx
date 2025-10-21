@@ -1,55 +1,47 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { RestaurantPlan } from '@/types/restaurant';
+import { Crown } from 'lucide-react';
 
 interface PlanPreviewToggleProps {
-  previewPlan: RestaurantPlan;
-  setPreviewPlan: (plan: RestaurantPlan) => void;
+  activePlan: 'free' | 'premium';
+  handleToggle: (plan: 'free' | 'premium') => void;
 }
 
-const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ previewPlan, setPreviewPlan }) => {
-  const currentSlide = previewPlan === 'free' ? 0 : 1;
-
-  const handleToggle = (plan: RestaurantPlan) => {
-    setPreviewPlan(plan);
-    // Note: scrollToSlide logic is handled externally or is purely visual here.
-  };
+const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ activePlan, handleToggle }) => {
+  const isFreeActive = activePlan === 'free';
+  const isPremiumActive = activePlan === 'premium';
 
   return (
-    <div className="relative flex mb-4 p-1.5 bg-gradient-to-r from-gray-100 to-gray-50 rounded-full shadow-inner w-full max-w-sm mx-auto">
-      {/* Indicador Deslizante (fundo que se move) */}
-      <div 
+    <div className="relative p-1 bg-gray-200 dark:bg-gray-700 rounded-full flex w-full max-w-sm mx-auto shadow-inner">
+      
+      {/* Indicador de Fundo Ativo */}
+      <div
         className={cn(
-          "absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full transition-all duration-500 ease-out shadow-lg",
-          currentSlide === 0 
-            ? 'left-1.5 bg-white' 
-            : 'left-[calc(50%+1.5px)] bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600'
+          "absolute top-1 bottom-1 w-1/2 bg-white dark:bg-gray-800 rounded-full shadow-md transition-transform duration-500",
+          isPremiumActive ? 'translate-x-full' : 'translate-x-0'
         )}
       />
-      
-      {/* Botão "Versão Free" */}
+
+      {/* Botão "Versão Gratuita" */}
       <button
         onClick={() => handleToggle('free')}
         className={cn(
-          "relative z-10 flex-1 py-2.5 px-4 rounded-full text-sm font-semibold transition-all duration-500",
-          currentSlide === 0
-            ? 'text-[#022D68]'
-            : 'text-gray-500 hover:text-gray-700'
+          "relative z-10 flex-1 py-2.5 px-4 rounded-full text-sm font-semibold transition-colors duration-500",
+          isFreeActive ? 'text-primary dark:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-primary/80 dark:hover:text-white/80'
         )}
       >
-        Versão Free
+        Versão Gratuita
       </button>
-      
+
       {/* Botão "Versão Premium" */}
       <button
         onClick={() => handleToggle('premium')}
         className={cn(
-          "relative z-10 flex-1 py-2.5 px-4 rounded-full text-sm font-semibold transition-all duration-500",
-          currentSlide === 1
-            ? 'text-white'
-            : 'text-gray-500 hover:text-gray-700'
+          "relative z-10 flex-1 py-2.5 px-4 rounded-full text-sm font-semibold transition-colors duration-500 flex items-center justify-center gap-1",
+          isPremiumActive ? 'text-primary dark:text-white' : 'text-gray-600 dark:text-gray-400 hover:text-primary/80 dark:hover:text-white/80'
         )}
       >
+        <Crown className={cn("w-4 h-4 transition-colors", isPremiumActive ? 'text-highlight fill-highlight' : 'text-gray-500')} />
         Versão Premium
       </button>
     </div>
