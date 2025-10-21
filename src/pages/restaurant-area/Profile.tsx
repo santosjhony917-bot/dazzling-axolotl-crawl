@@ -6,8 +6,8 @@ import { Textarea } from '@/components/ui/textarea';
 import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
 import { useUserRole } from '@/hooks/useUserRole';
 import { supabase } from '@/integrations/supabase/client';
-import { v4 as uuidv4 } from 'uuid';
-import { toast } from 'sonner'; // Corrigido para usar sonner
+import { toast } from 'sonner';
+import { useImageUpload } from '@/hooks/useImageUpload'; // Importa o hook de upload
 
 // Tipagem básica para o restaurante
 interface Restaurant {
@@ -25,8 +25,8 @@ const BUCKET_NAME = 'restaurant_assets';
 const ProfilePage: React.FC = () => {
   const { isPremium, isLoading } = useUserRole();
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [uploading, setUploading] = useState(false);
   const [loadingRestaurant, setLoadingRestaurant] = useState(true);
+  const { uploadImage, uploading } = useImageUpload(); // Usa o hook de upload
 
   // Mock user ID for testing until full auth is implemented
   const mockUserId = '00000000-0000-0000-0000-000000000001'; 
@@ -75,33 +75,19 @@ const ProfilePage: React.FC = () => {
   const handleFileSelect = async (file: File, type: 'logo' | 'cover') => {
     if (!restaurant) return;
 
-    setUploading(true);
-    const fileExt = file.name.split('.').pop();
-    const filePath = `${restaurant.id}/${type}/${uuidv4()}.${fileExt}`;
-
     try {
-      // Upload file to Supabase Storage
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET_NAME)
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false,
-        });
+      // Usa o hook useImageUpload para fazer o upload
+      const { url, error: uploadError } = await uploadImage(file, BUCKET_NAME, restaurant.id, type);
 
       if (uploadError) {
         throw uploadError;
       }
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from(BUCKET_NAME)
-        .getPublicUrl(filePath);
-
       // Update restaurant record in the database
       const updateColumn = type === 'logo' ? 'logo_url' : 'cover_image_url';
       const { error: updateError } = await supabase
         .from('restaurants')
-        .update({ [updateColumn]: publicUrl, updated_at: new Date().toISOString() })
+        .update({ [updateColumn]: url, updated_at: new Date().toISOString() })
         .eq('id', restaurant.id);
 
       if (updateError) {
@@ -109,15 +95,14 @@ const ProfilePage: React.FC = () => {
       }
 
       // Update local state
-      setRestaurant(prev => prev ? { ...prev, [updateColumn]: publicUrl } : null);
+      setRestaurant(prev => prev ? { ...prev, [updateColumn]: url } : null);
       toast.success(`${type === 'logo' ? 'Logo' : 'Capa'} atualizada com sucesso!`);
 
     } catch (error) {
       console.error('Upload failed:', error);
       toast.error(`Falha ao enviar ${type === 'logo' ? 'logo' : 'capa'}.`);
-    } finally {
-      setUploading(false);
     }
+    // O estado 'uploading' é gerenciado internamente pelo hook useImageUpload
   };
 
   if (isLoading || loadingRestaurant || !restaurant) {

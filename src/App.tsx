@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
-import Layout from '@/layouts/Layout'; // Corrigido o caminho de importação
-import ProfilePage from './pages/restaurant-area/Profile'; // Importando a nova página
+import Layout from '@/layouts/Layout';
+import ProfilePage from '@/pages/restaurant-area/Profile'; // Corrigido o caminho de importação
 
 function App() {
   return (
