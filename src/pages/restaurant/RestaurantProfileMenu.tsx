@@ -17,7 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { showError, showSuccess } from "@/utils/toast";
 
 // Importando os novos componentes de seção
-import MainProfileCard from "@/components/restaurant/profile/MainProfileCard.tsx";
+import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
 import BasicInfoSection from "@/components/restaurant/profile/BasicInfoSection.tsx";
 import LocationHoursSection from "@/components/restaurant/profile/LocationHoursSection.tsx";
 import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection.tsx";
@@ -199,10 +199,10 @@ const RestaurantProfileMenu: React.FC = () => {
   };
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center">
       
       {/* Header (Fixo no topo, estilo Hub) */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"
@@ -217,29 +217,18 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col w-full max-w-md pt-20 pb-24">
+      <main className="flex-1 flex flex-col w-full max-w-md pt-4 pb-24">
         <div className="w-full space-y-3">
           
-          {/* Icon and Title (Estilo Hub) */}
-          <div className="flex flex-col items-center justify-center pb-2 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#E47948]/10 rounded-full mx-auto mb-4">
-              <Store className="w-8 h-8 text-[#E47948]" />
-            </div>
-            <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
-              {restaurant?.name || "Restaurante Teste Free"}
-            </h1>
-            <p className="text-gray-600 text-base mt-1">
-              Gerencie as informações do seu estabelecimento.
-            </p>
-          </div>
-
-          {/* 1. Card Principal (Logo e Status) */}
-          <MainProfileCard
+          {/* NOVO TOPO: ProfileHeaderManagement */}
+          <ProfileHeaderManagement
             restaurantName={restaurant?.name || "Restaurante Teste Free"}
             logoUrl={restaurant?.logo_url}
+            coverImageUrl={restaurant?.cover_image_url}
             isPremium={isPremium}
             uploading={uploading}
             handleFileSelect={handleFileSelect}
+            restaurantId={MOCK_RESTAURANT_ID}
           />
 
           {/* 2. Informações Básicas */}
@@ -281,7 +270,7 @@ const RestaurantProfileMenu: React.FC = () => {
           <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
 
           {/* Logout Button */}
-          <div className="mt-4 pt-6">
+          <div className="mt-4 pt-6 px-4">
             <Button
               onClick={handleSignOut}
               variant="outline"
