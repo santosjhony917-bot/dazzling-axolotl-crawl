@@ -174,7 +174,8 @@ const RestaurantProfileMenu: React.FC = () => {
 
   // --- Renderização de Componentes Auxiliares ---
   const InfoItem: React.FC<{ label: string; value: string | null; icon: React.ElementType; onClick: () => void; isPremiumFeature?: boolean }> = ({ label, value, icon: Icon, onClick, isPremiumFeature = false }) => (
-    <div className="flex items-start gap-3 pb-3 border-b border-border/50 last:border-b-0">
+    // Removendo a borda inferior, pois o Card pai já usa divide-y
+    <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"> 
       <Icon className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
       <div className="flex-1">
         <p className="text-xs text-muted-foreground">{label}</p>
@@ -340,7 +341,7 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="px-4 mb-6 space-y-4">
           <h2 className="text-base font-bold text-[#022D68]">Informações Básicas</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-4 shadow-lg">
+          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <InfoItem 
               label="Nome do Restaurante" 
               value={restaurant?.name || ""} 
@@ -378,9 +379,9 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="px-4 mb-6 space-y-4">
           <h2 className="text-base font-bold text-[#022D68]">Localização e Horários</h2>
           
-          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-4 shadow-lg">
+          <Card className="bg-white border border-border/10 rounded-xl p-4 space-y-0 shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             {/* Endereço */}
-            <div className="flex items-start gap-3 pb-3 border-b border-border/50">
+            <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
               <MapPin className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
               <div className="flex-1">
                 <p className="text-xs text-muted-foreground">Endereço Principal</p>
@@ -404,7 +405,7 @@ const RestaurantProfileMenu: React.FC = () => {
             </div>
 
             {/* Horários */}
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
               <Clock className="h-5 w-5 text-[#E47948] mt-0.5 shrink-0" />
               <div className="flex-1">
                 <p className="text-xs text-muted-foreground">Horários de Funcionamento</p>
@@ -424,9 +425,9 @@ const RestaurantProfileMenu: React.FC = () => {
           </Card>
         </div>
 
-        {/* Canais de Pedido */}
+        {/* Canais de Venda e Links */}
         <div className="px-4 mb-6 space-y-4">
-          <h2 className="text-base font-bold text-[#022D68]">Canais de Pedido (Links)</h2>
+          <h2 className="text-base font-bold text-[#022D68]">Canais de Venda e Links</h2>
           
           <Card className="bg-white border border-border/10 rounded-xl shadow-lg divide-y divide-gray-200 dark:divide-gray-700">
             <InfoItem 
