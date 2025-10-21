@@ -8,9 +8,10 @@ interface ImageUploadButtonProps {
   uploading: boolean;
   className?: string;
   icon?: React.ReactNode; // Adiciona suporte para ícone customizado
+  children?: React.ReactNode; // Adiciona suporte para children
 }
 
-export function ImageUploadButton({ onFileSelect, uploading, className, icon }: ImageUploadButtonProps) {
+export function ImageUploadButton({ onFileSelect, uploading, className, icon, children }: ImageUploadButtonProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -52,7 +53,7 @@ export function ImageUploadButton({ onFileSelect, uploading, className, icon }: 
         size="icon"
         disabled={uploading}
       >
-        {displayIcon}
+        {children || displayIcon} {/* Renderiza children se presente, senão o ícone */}
       </Button>
     </>
   );

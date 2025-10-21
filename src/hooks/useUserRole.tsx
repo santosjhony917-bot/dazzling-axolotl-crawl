@@ -12,16 +12,10 @@ export function useUserRole() {
     // or check the JWT claims.
     
     // Mocking logic:
-    // For demonstration, we set roles after a short delay.
-    const timer = setTimeout(() => {
-      // Example: Check if user ID matches a known admin/premium user if needed, 
-      // but for now, we default to non-premium/non-admin.
-      setIsPremium(false); 
-      setIsAdmin(false);
-      setIsLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
+    // For demonstration, we set roles immediately.
+    setIsPremium(false); 
+    setIsAdmin(false);
+    setIsLoading(false);
   }, []);
 
   return {

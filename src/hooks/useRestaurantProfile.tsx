@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { WeekSchedule } from '@/types/schedule';
 import { Restaurant } from '@/types/restaurant'; // Importando a tipagem Restaurant
+import toast from 'react-hot-toast'; // Importa toast
 
 // Usando a interface Restaurant do types/restaurant.ts
 type RestaurantProfileData = Restaurant & {
-  category: string; // Adicionando category que estava faltando na interface Restaurant
+  category?: string; // Adicionando category que estava faltando na interface Restaurant, tornando-o opcional
   opening_hours: WeekSchedule | null;
 };
 
@@ -53,8 +54,11 @@ export function useRestaurantProfile(userId: string | null = null) {
     }
   }, [userId]);
 
-  const updateRestaurant = async (updates: Partial<RestaurantProfileData>) => {
-    if (!restaurant?.id) return { error: "Restaurante não encontrado." };
+  const updateRestaurant = async (updates: Partial<RestaurantProfileData>): Promise<void> => {
+    if (!restaurant?.id) {
+      toast.error("Restaurante não encontrado para atualização.");
+      return;
+    }
     
     const { error } = await supabase
       .from('restaurants')
@@ -62,13 +66,14 @@ export function useRestaurantProfile(userId: string | null = null) {
       .eq('id', restaurant.id);
 
     if (error) {
-      return { error: error.message };
+      toast.error(`Erro ao atualizar restaurante: ${error.message}`);
+      return;
     }
 
     // Refetch to get the latest data after update
     await fetchRestaurant(restaurant.user_id);
-    
-    return { error: null };
+    toast.success("Restaurante atualizado com sucesso!");
+    return;
   };
 
   return {

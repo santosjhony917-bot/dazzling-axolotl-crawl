@@ -139,24 +139,12 @@ const RestaurantProfileMenu: React.FC = () => {
         return;
     }
 
-    const updates = { [key]: value };
-    const { error } = await updateRestaurant(updates);
-
-    if (error) {
-      showError(error);
-      throw new Error(error);
-    }
-    showSuccess(`${editingField.fieldName} atualizado com sucesso!`);
+    await updateRestaurant({ [key]: value }); // Chamada direta, sem desestruturar 'error'
   };
 
   // Função para salvar os horários
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
-    const { error } = await updateRestaurant({ opening_hours: newSchedule });
-    if (error) {
-      showError(error);
-      throw new Error(error);
-    }
-    showSuccess("Horários de funcionamento atualizados!");
+    await updateRestaurant({ opening_hours: newSchedule }); // Chamada direta, sem desestruturar 'error'
   };
 
   // Função para upload de imagem
@@ -173,14 +161,7 @@ const RestaurantProfileMenu: React.FC = () => {
       return;
     }
     
-    const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-    const { error: updateError } = await updateRestaurant({ [updateKey]: url });
-    
-    if (updateError) {
-      showError(`Imagem enviada, mas falha ao salvar URL: ${updateError}`);
-      return;
-    }
-    showSuccess("Imagem atualizada com sucesso!");
+    await updateRestaurant({ [type === 'logo' ? 'image_url' : 'cover_image_url']: url }); // Chamada direta, sem desestruturar 'error'
   };
 
   if (authLoading || restaurantLoading || roleLoading) {
