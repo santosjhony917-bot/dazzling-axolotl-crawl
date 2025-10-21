@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import InfoCardItem from '@/components/InfoCardItem';
 import { MapPin, Clock, Check } from 'lucide-react';
 import { WeekSchedule } from '@/types/schedule';
+import { cn } from '@/lib/utils'; // Importando cn
 
 interface LocationHoursSectionProps {
   restaurant: any;
@@ -39,7 +40,14 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
   const scheduleSummary = formatScheduleSummary(currentSchedule);
   
   return (
-    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
+    <Card 
+      className={cn(
+        "w-full p-6 transition-all",
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
+        "dark:bg-gray-800 dark:hover:bg-gray-700",
+        "mb-6"
+      )}
+    >
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-lg font-bold text-[#022D68]">Localização e Horários</CardTitle>
       </CardHeader>

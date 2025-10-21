@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Store, Camera, Check } from 'lucide-react';
 import restaurantLogo from "@/assets/restaurant-logo.png";
+import { cn } from '@/lib/utils'; // Importando cn
 
 interface MainProfileCardProps {
   restaurantName: string;
@@ -21,7 +22,14 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   handleFileSelect,
 }) => {
   return (
-    <Card className="w-full shadow-xl border-none rounded-xl p-6 bg-white dark:bg-gray-800 mb-6">
+    <Card 
+      className={cn(
+        "w-full p-6 transition-all",
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl shadow-sm hover:shadow-md",
+        "dark:bg-gray-800 dark:hover:bg-gray-700",
+        "mb-6"
+      )}
+    >
       <div className="flex items-start gap-4">
         {/* Logo */}
         <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-md">
