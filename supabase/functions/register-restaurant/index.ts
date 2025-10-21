@@ -15,8 +15,8 @@ const corsHeaders = {
 };
 
 // Service Role Key (JWT COMPLETA)
-// Esta chave é a JWT completa para o projeto ystffcohclbtykangfnt
-const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzdGZmY29oY2xidHlrYW5nZm50Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgzOTA0OCwiZXhwIjoyMDc2NDE1MDQ4fQ.2111111111111111111111111111111111111111111111111111111111111111";
+// Usamos a variável de ambiente SUPABASE_SERVICE_ROLE_KEY se disponível, caso contrário, usamos a chave hardcoded.
+const SUPABASE_SERVICE_ROLE_KEY_HARDCODED = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzdGZmY29oY2xidHlrYW5nZm50Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgzOTA0OCwiZXhwIjoyMDc2NDE1MDQ4fQ.2111111111111111111111111111111111111111111111111111111111111111";
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -27,10 +27,13 @@ serve(async (req) => {
   try {
     const { restaurantName, locations, email, password } = await req.json();
     
+    // Prioriza a chave da variável de ambiente, se configurada no Supabase Console
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || SUPABASE_SERVICE_ROLE_KEY_HARDCODED;
+
     // 1. Initialize Supabase client with Service Role Key
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
-      SUPABASE_SERVICE_ROLE_KEY,
+      serviceRoleKey,
       {
         auth: {
           autoRefreshToken: false,
