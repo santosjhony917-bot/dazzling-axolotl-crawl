@@ -130,7 +130,8 @@ export default function RestaurantSignup() {
         password,
         options: {
           data: {
-            full_name: restaurantName,
+            // Passando o nome do restaurante como metadado do usuário
+            restaurant_name: restaurantName, 
           },
         }
       });
@@ -148,7 +149,7 @@ export default function RestaurantSignup() {
         throw signUpError;
       }
       
-      // 2. Se o cadastro for bem-sucedido, informamos o usuário para verificar o e-mail
+      // 2. Se o cadastro for bem-sucedido, informamos o usuário para verificar o e-mail e redirecionamos para o login
       showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
       navigate(createPageUrl('restaurant-login'));
       
