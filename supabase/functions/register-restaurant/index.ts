@@ -15,6 +15,7 @@ const corsHeaders = {
 };
 
 // Service Role Key (JWT COMPLETA)
+// Esta chave é a JWT completa para o projeto ystffcohclbtykangfnt
 const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzdGZmY29oY2xidHlrYW5nZm50Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgzOTA0OCwiZXhwIjoyMDc2NDE1MDQ4fQ.2111111111111111111111111111111111111111111111111111111111111111";
 
 serve(async (req) => {
