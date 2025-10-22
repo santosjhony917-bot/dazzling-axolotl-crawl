@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Edit, Eye, MapPin, Clock, Lock, Camera, Crown, CheckCircle, Zap, Loader2, ChevronRight } from "lucide-react";
+import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useImageUpload } from "@/hooks/useImageUpload";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
 import { EditHoursDialog } from "@/components/EditHoursDialog";
 import { EditAddressDialog } from "@/components/EditAddressDialog";
@@ -14,29 +15,51 @@ import { WeekSchedule } from "@/types/schedule";
 import { createPageUrl } from "@/utils/url";
 import { showError, showSuccess } from "@/utils/toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ImageUploadButton } from "@/components/ImageUploadButton";
-import { Switch } from "@/components/ui/switch";
+
+// Importando os novos componentes de seção
+import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
+import BasicInfoSection from "@/components/restaurant/profile/BasicInfoSection.tsx";
+import LocationHoursSection from "@/components/restaurant/profile/LocationHoursSection.tsx";
+import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection.tsx";
+import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection.tsx";
+import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection.tsx";
+import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard"; // Importando o novo card
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
 const emailSchema = z.string().email("E-mail inválido");
 const phoneSchema = z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido. Use o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
 const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido. Use o formato XX.XXX.XXX/XXXX-XX");
+const whatsappSchema = z.string().url("URL do WhatsApp inválida").or(z.literal(''));
+const ifoodSchema = z.string().url("URL do iFood inválida").or(z.literal(''));
+const otherUrlSchema = z.string().url("URL inválida").or(z.literal(''));
 
 // --- Masks ---
 const phoneMask = (value: string) => {
   const numbers = value.replace(/\D/g, '');
   if (numbers.length <= 10) {
-    return numbers.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{4})(\d)/, '$1-$2').slice(0, 14);
+    return numbers
+      .replace(/(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .slice(0, 14);
   }
-  return numbers.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2').slice(0, 15);
+  return numbers
+    .replace(/(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .slice(0, 15);
 };
 
 const cnpjMask = (value: string) => {
   const numbers = value.replace(/\D/g, '');
-  return numbers.replace(/^(\d{2})(\d)/, '$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d)/, '.$1/$2').replace(/(\/\d{4})(\d)/, '$1-$2').slice(0, 18);
+  return numbers
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\/\d{4})(\d)/, '$1-$2')
+    .slice(0, 18);
 };
 
+// Mock Schedule (Fallback)
 const mockSchedule: WeekSchedule = {
   monday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
   tuesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
@@ -48,19 +71,22 @@ const mockSchedule: WeekSchedule = {
 };
 
 interface EditingFieldState {
-  key: string; title: string; fieldName: string; icon: React.ReactNode; currentValue: string; placeholder?: string; type: "text" | "tel" | "email"; validationSchema: z.ZodType<string>; mask?: (value: string) => string;
+  key: string;
+  title: string;
+  fieldName: string;
+  icon: React.ReactNode;
+  currentValue: string;
+  placeholder?: string;
+  type: "text" | "tel" | "email";
+  validationSchema: z.ZodType<string>;
+  mask?: (value: string) => string;
 }
-
-const DetailItem = ({ icon: Icon, label, value, onClick }) => (
-  <div className="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50" onClick={onClick}>
-    <span className="flex items-center gap-2 text-sm text-gray-600"><Icon className="w-4 h-4 text-gray-400" />{label}</span>
-    <span className="text-sm font-bold text-gray-900">{value || "Não definido"}</span>
-  </div>
-);
 
 const RestaurantProfileMenu: React.FC = () => {
   const navigate = useNavigate();
   const { signOut, user, isLoading: authLoading } = useAuth();
+  
+  // Usa o ID do usuário logado para buscar o perfil do restaurante
   const userId = user?.id || null;
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
   const { isPremium, isLoading: roleLoading } = useUserRole();
@@ -70,145 +96,260 @@ const RestaurantProfileMenu: React.FC = () => {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
 
+  // Se não estiver autenticado, redireciona para o login
   useEffect(() => {
-    if (!authLoading && !user) navigate(createPageUrl('restaurant-login'));
+    if (!authLoading && !user) {
+      navigate(createPageUrl('restaurant-login'));
+    }
   }, [authLoading, user, navigate]);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
-    if (error) showError(error.message || "Erro ao sair.");
-    else {
+    if (error) {
+      showError(error.message || "Erro ao sair.");
+    } else {
       showSuccess("Logout realizado com sucesso.");
       navigate(createPageUrl('welcome'));
     }
   };
 
+  // Função para abrir o diálogo de edição de campo
   const handleEditField = useCallback((key: keyof typeof restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type: "text" | "tel" | "email" = "text", mask?: (value: string) => string, placeholder?: string) => {
     if (!restaurant) return;
-    setEditingField({ key, title, fieldName, icon, type, placeholder, validationSchema, mask, currentValue: (restaurant[key] as string) || '' });
+    setEditingField({
+      key: key,
+      title,
+      fieldName,
+      icon,
+      type,
+      placeholder,
+      validationSchema,
+      mask,
+      currentValue: (restaurant[key] as string) || '',
+    });
   }, [restaurant]);
 
+  // Função para salvar o campo editado
   const handleSaveField = async (value: string) => {
     if (!editingField) return;
-    const { error } = await updateRestaurant({ [editingField.key]: value });
-    if (error) { showError(error); throw new Error(error); }
-    showSuccess(`${editingField.fieldName} atualizado!`);
+    
+    const key = editingField.key as keyof typeof restaurant;
+    
+    // Prevenção de edição de campos de endereço por aqui
+    if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key)) {
+        showError("Use o botão 'Editar Endereço' para atualizar a localização completa.");
+        return;
+    }
+
+    const updates = { [key]: value };
+    const { error } = await updateRestaurant(updates);
+
+    if (error) {
+      showError(error);
+      throw new Error(error);
+    }
+    showSuccess(`${editingField.fieldName} atualizado com sucesso!`);
   };
 
+  // Função para salvar os horários
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
     const { error } = await updateRestaurant({ opening_hours: newSchedule });
-    if (error) { showError(error); throw new Error(error); }
-    showSuccess("Horários atualizados!");
+    if (error) {
+      showError(error);
+      throw new Error(error);
+    }
+    showSuccess("Horários de funcionamento atualizados!");
   };
 
+  // Função para upload de imagem
   const handleFileSelect = async (file: File, type: 'logo' | 'cover') => {
-    if (!restaurant?.id) { showError("Restaurante não carregado."); return; }
-    if (type === 'cover' && !isPremium) { showError("Edição de capa é um recurso Premium."); return; }
+    if (!restaurant?.id) {
+      showError("Restaurante não carregado.");
+      return;
+    }
     
-    const path = `${restaurant.id}/${type}-${Date.now()}`;
     const { url, error } = await uploadImage(file, 'restaurant_images', restaurant.id, type);
-    if (error || !url) { showError(error?.message || "Falha no upload."); return; }
+    
+    if (error) {
+      showError(`Falha ao fazer upload da imagem: ${error.message}`);
+      return;
+    }
     
     const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
     const { error: updateError } = await updateRestaurant({ [updateKey]: url });
-    if (updateError) showError(`Imagem enviada, mas falha ao salvar: ${updateError}`);
-    else showSuccess("Imagem atualizada!");
+    
+    if (updateError) {
+      showError(`Imagem enviada, mas falha ao salvar URL: ${updateError}`);
+      return;
+    }
+    showSuccess("Imagem atualizada com sucesso!");
   };
 
   if (authLoading || restaurantLoading || roleLoading) {
-    return <div className="p-4"><Skeleton className="h-screen w-full" /></div>;
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
+        <Skeleton className="h-40 w-full rounded-xl mb-6" />
+        <Skeleton className="h-6 w-3/4 mb-4" />
+        <Skeleton className="h-64 w-full rounded-xl mb-6" />
+        <Skeleton className="h-40 w-full rounded-xl" />
+        <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
+      </div>
+    );
   }
 
   if (!restaurant) {
-    return <div className="p-8 text-center">Restaurante não encontrado.</div>;
+    return (
+      <div className="p-8 text-center">
+        <h2 className="text-xl font-semibold text-[#022D68]">Restaurante não encontrado</h2>
+        <p className="text-gray-600 mt-2">Parece que você ainda não tem um restaurante cadastrado ou vinculado a esta conta.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurant-signup'))} className="mt-4 bg-[#E47948] hover:bg-[#E47948]/90">
+          Cadastrar Novo Restaurante
+        </Button>
+        <Button onClick={handleSignOut} variant="ghost" className="mt-2 text-red-500">
+          Sair
+        </Button>
+      </div>
+    );
   }
 
   const currentSchedule = restaurant.opening_hours || mockSchedule;
-  const currentAddress = { address: restaurant.address || '', city: restaurant.city || '', state: restaurant.state || '', cep: restaurant.cep || '', neighborhood: restaurant.neighborhood || '', latitude: restaurant.latitude || null, longitude: restaurant.longitude || null };
+  const currentAddress = {
+    address: restaurant.address || '',
+    city: restaurant.city || '',
+    state: restaurant.state || '',
+    cep: restaurant.cep || '',
+    neighborhood: restaurant.neighborhood || '',
+    latitude: restaurant.latitude || null,
+    longitude: restaurant.longitude || null,
+  };
 
   return (
-    <div className="relative bg-background-light pb-28">
-      <div className="absolute top-0 left-0 w-full h-40 bg-gray-200">
-        {restaurant.cover_image_url ? (
-          <img src={restaurant.cover_image_url} alt="Capa" className="w-full h-full object-cover" />
-        ) : <div className="w-full h-full bg-gray-300" />}
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-          <Button onClick={() => handleFileSelect(new File([], ''), 'cover')} disabled={!isPremium || uploading} className="flex items-center gap-2 text-white text-sm font-semibold bg-gray-900/50 py-2 px-4 rounded-lg shadow-md backdrop-blur-sm">
-            {!isPremium && <Lock className="w-3 h-3" />}
-            {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Editar capa (Premium)'}
-          </Button>
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+      
+      {/* Header (Fixo no topo, estilo Hub) */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(createPageUrl('restaurant-area/home'))}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <div className="flex items-center gap-2">
+          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
         </div>
-      </div>
+        <div className="w-10"></div>
+      </header>
 
-      <div className="relative pt-24 px-4 space-y-4">
-        <div className="bg-white rounded-xl shadow-md p-4">
-          <div className="flex items-center gap-4">
-            <div className="relative flex-shrink-0">
-              <div className="bg-center bg-cover rounded-full w-20 h-20 border-4 border-background-light -mt-12" style={{ backgroundImage: `url("${restaurant.image_url || ''}")` }}>
-                {!restaurant.image_url && <div className="w-full h-full bg-primary/20 flex items-center justify-center"><Store className="w-8 h-8 text-primary" /></div>}
-              </div>
-              <ImageUploadButton onFileSelect={(file) => handleFileSelect(file, 'logo')} uploading={uploading} className="absolute bottom-0 right-0 bg-white/80 text-gray-700 rounded-full p-1.5 h-auto w-auto border border-gray-200" icon={<Camera className="w-4 h-4" />} />
+      <main className="flex-1 flex flex-col w-full max-w-md pb-24">
+        <div className="w-full space-y-6">
+          
+          {/* Container para ProfileHeaderManagement e Botão de Visualização Pública */}
+          <div className="px-4">
+            <ProfileHeaderManagement
+              restaurant={restaurant}
+              onUpdate={updateRestaurant}
+            />
+          </div>
+
+          {/* Seções de Informação - Adicionando padding lateral aqui */}
+          <div className="px-4 space-y-6">
+            
+            {/* 1. Plano e Assinatura (Novo Card) */}
+            <SubscriptionCard isPremium={isPremium} />
+
+            {/* 2. Informações Básicas */}
+            <BasicInfoSection
+              restaurant={restaurant}
+              isPremium={isPremium}
+              handleEditField={handleEditField}
+              cnpjMask={cnpjMask}
+              phoneMask={phoneMask}
+              nameSchema={nameSchema}
+              emailSchema={emailSchema}
+              phoneSchema={phoneSchema}
+              cnpjSchema={cnpjSchema}
+            />
+
+            {/* 3. Localização e Horários */}
+            <LocationHoursSection
+              restaurant={restaurant}
+              isPremium={isPremium}
+              currentSchedule={currentSchedule}
+              setIsAddressDialogOpen={setIsAddressDialogOpen}
+              setIsHoursDialogOpen={setIsHoursDialogOpen}
+            />
+
+            {/* 4. Canais de Venda e Links */}
+            <SalesChannelsSection
+              restaurant={restaurant}
+              isPremium={isPremium}
+              handleEditField={handleEditField}
+              whatsappSchema={whatsappSchema}
+              ifoodSchema={ifoodSchema}
+              otherUrlSchema={otherUrlSchema}
+            />
+
+            {/* 5. Gerenciamento de Conteúdo */}
+            <ContentManagementSection navigate={navigate} />
+
+            {/* 6. Suporte (Atualizado) */}
+            <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+
+            {/* Logout Button */}
+            <div className="mt-4 pt-6">
+              <Button
+                onClick={handleSignOut}
+                variant="outline"
+                className="w-full h-12 rounded-full border-2 border-red-500/50 hover:bg-red-50 active:scale-[0.98] transition-all justify-center px-4 shadow-md text-red-600 font-bold"
+              >
+                <LogOut className="h-5 w-5 mr-3" />
+                <span className="font-medium">Sair da conta</span>
+              </Button>
             </div>
-            <div className="flex-1"><p className="text-primary text-xl font-bold">{restaurant.name}</p><p className="text-gray-500 text-sm">Estabelecimento Comercial</p></div>
-            <div className="self-start"><div className="bg-gray-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full border border-gray-300">Plano {isPremium ? 'Premium' : 'Free'}</div></div>
           </div>
         </div>
+      </main>
 
-        <Button onClick={() => navigate(createPageUrl(`restaurant/${restaurant.id}`))} className="w-full h-10 bg-highlight text-white font-bold gap-2"><Eye className="w-4 h-4" /> Ver meu perfil público</Button>
-
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="flex justify-between items-center px-4 pt-4 pb-2">
-            <h3 className="text-primary text-lg font-bold">Detalhes do Estabelecimento</h3>
-            <Button variant="ghost" size="sm" className="flex items-center gap-1 text-highlight text-sm font-semibold"><Edit className="w-3 h-3" /> Editar</Button>
-          </div>
-          <div className="divide-y divide-gray-200">
-            <DetailItem icon={Store} label="Nome Comercial" value={restaurant.name} onClick={() => handleEditField('name', 'Editar Nome', 'Nome', <Store />, nameSchema)} />
-            <DetailItem icon={MapPin} label="Endereço" value={restaurant.address} onClick={() => setIsAddressDialogOpen(true)} />
-            <DetailItem icon={Clock} label="Horários" value="18:00 - 23:00" onClick={() => setIsHoursDialogOpen(true)} />
-            <DetailItem icon={Phone} label="Contato/WhatsApp" value={restaurant.phone} onClick={() => handleEditField('phone', 'Editar Contato', 'Contato', <Phone />, phoneSchema, 'tel', phoneMask)} />
-            <DetailItem icon={Mail} label="E-mail" value={restaurant.email} onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail', <Mail />, emailSchema, 'email')} />
-            <DetailItem icon={FileText} label="CNPJ" value={restaurant.cnpj} onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText />, cnpjSchema, 'text', cnpjMask)} />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm">
-          <h3 className="text-primary text-lg font-bold px-4 pb-2 pt-4">Cardápio</h3>
-          <div className="p-4 space-y-3">
-            <Button onClick={() => navigate(createPageUrl('restaurant-area/menu'))} className="w-full bg-highlight hover:bg-highlight/90 text-white font-bold">Atualizar Cardápio</Button>
-            <Button onClick={() => navigate(createPageUrl('restaurant-area/categories'))} className="w-full bg-highlight hover:bg-highlight/90 text-white font-bold">Gerenciar Categorias</Button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-yellow-500/10 to-amber-500/10 rounded-lg shadow-sm border border-amber-500/30 p-4 space-y-4">
-          <h3 className="text-primary text-lg font-bold">Plano e Assinatura</h3>
-          <p className="text-sm text-gray-600">Plano atual: <span className="font-bold text-primary">{isPremium ? 'Premium' : 'Free'}</span></p>
-          {!isPremium && (
-            <>
-              <div className="bg-white/50 p-4 rounded-lg space-y-2">
-                <p className="text-sm font-semibold text-amber-700">Opções Premium:</p>
-                <ul className="space-y-1.5 text-gray-700">
-                  <li className="flex items-center gap-2 text-sm"><CheckCircle className="w-4 h-4 text-amber-600" />Destaque nas buscas</li>
-                  <li className="flex items-center gap-2 text-sm"><CheckCircle className="w-4 h-4 text-amber-600" />Mais fotos no perfil e cardápio</li>
-                  <li className="flex items-center gap-2 text-sm"><CheckCircle className="w-4 h-4 text-amber-600" />Gerenciar canais de pedido (iFood, Rappi)</li>
-                </ul>
-              </div>
-              <Button onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))} className="w-full h-12 bg-highlight text-white text-base font-bold shadow-lg shadow-highlight/40 gap-2"><Zap className="w-5 h-5" /> Ativar Premium</Button>
-            </>
-          )}
-        </div>
-
-        <div className="bg-white rounded-lg shadow-sm">
-          <h3 className="text-primary text-lg font-bold px-4 pb-2 pt-4">Suporte e Conta</h3>
-          <div className="divide-y divide-gray-200">
-            <Link to="/restaurant-area/help" className="p-4 flex justify-between items-center text-gray-800 hover:bg-gray-50"><span className="text-sm">Central de Ajuda</span><ChevronRight className="h-4 w-4 text-gray-400" /></Link>
-            <div className="p-4"><Button onClick={handleSignOut} variant="ghost" className="w-full justify-center text-red-600 bg-red-600/10 hover:bg-red-600/20 font-bold">Sair da conta</Button></div>
-          </div>
-        </div>
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 w-full max-w-md mx-auto z-30">
+        <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
       </div>
 
-      {editingField && <EditFieldDialog isOpen={!!editingField} onClose={() => setEditingField(null)} {...editingField} onSave={handleSaveField} />}
-      <EditHoursDialog open={isHoursDialogOpen} onOpenChange={setIsHoursDialogOpen} currentSchedule={currentSchedule} onSave={handleSaveHours} />
-      <EditAddressDialog open={isAddressDialogOpen} onOpenChange={setIsAddressDialogOpen} restaurantId={restaurant.id} currentAddress={currentAddress} onSave={refetch} />
+      {/* Edit Dialogs */}
+      {editingField && (
+        <EditFieldDialog
+          isOpen={!!editingField}
+          onClose={() => setEditingField(null)}
+          title={editingField.title}
+          fieldName={editingField.fieldName}
+          currentValue={editingField.currentValue}
+          icon={editingField.icon}
+          onSave={handleSaveField}
+          placeholder={editingField.placeholder}
+          type={editingField.type}
+          validationSchema={editingField.validationSchema}
+          mask={editingField.mask}
+        />
+      )}
+
+      {/* Edit Hours Dialog */}
+      <EditHoursDialog
+        open={isHoursDialogOpen}
+        onOpenChange={setIsHoursDialogOpen}
+        currentSchedule={currentSchedule}
+        onSave={handleSaveHours}
+      />
+
+      {/* Edit Address Dialog */}
+      <EditAddressDialog
+        open={isAddressDialogOpen}
+        onOpenChange={setIsAddressDialogOpen}
+        restaurantId={restaurant.id}
+        currentAddress={currentAddress}
+        onSave={refetch}
+      />
     </div>
   );
 }
