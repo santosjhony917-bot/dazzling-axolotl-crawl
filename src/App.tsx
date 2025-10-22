@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RestaurantArea from '@/pages/RestaurantArea';
 import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
-import RestaurantProfileMenu from '@/pages/restaurant/RestaurantProfileMenu';
+import RestaurantProfileMenu from '@/pages/RestaurantProfileMenu';
 import RestaurantMenu from '@/pages/RestaurantMenu';
 import RestaurantCategories from '@/pages/RestaurantCategories';
 import UpgradePage from '@/pages/Upgrade';
@@ -16,6 +16,7 @@ import Favorites from '@/pages/Favorites';
 import Splash from '@/pages/Splash';
 import RestaurantSearch from '@/pages/restaurant/RestaurantSearch';
 import HelpCenter from '@/pages/restaurant/HelpCenter';
+import Onboarding from '@/pages/Onboarding'; // Importando o componente Onboarding
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Splash />} />
+        <Route path="/onboarding" element={<Onboarding />} /> {/* Rota do Onboarding */}
         <Route path="/search" element={<SearchRestaurants />} />
         <Route path="/results" element={<RestaurantResults />} />
         <Route path="/favorites" element={<Favorites />} />
