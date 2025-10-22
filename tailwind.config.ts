@@ -20,7 +20,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Plus Jakarta Sans", "sans-serif"],
-        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"],
+        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"], // Adicionado
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,7 +29,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#022D68",
+          DEFAULT: "#022D68", // Corrigido para o valor customizado
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -66,22 +66,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        highlight: "#E47948",
-        "background-light": "#F8F9FA",
-        "background-dark": "#111821",
-        "text-light": "#333333",
-        "text-dark": "#F5F5F5",
-        "text-secondary-light": "#5f728c",
-        "text-secondary-dark": "#a0aec0",
-        "orange-accent": "24 84.2% 60.2%",
+        // Cores customizadas do novo design
+        "highlight": "#E47948", // Mantendo highlight como E47948
+        "background-light": "#F8F9FA", // Novo background light
+        "background-dark": "#111821", // Novo background dark
+        "text-light": "#111417", // Nova cor de texto
+        "text-dark": "#ffffff", // Nova cor de texto
+        // Novas cores para o botão de upgrade
+        "orange-accent": "24 84.2% 60.2%", // HSL para E47948
         "orange-accent-hover": "24 90% 55%",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "1.5rem",
-        DEFAULT: "1rem",
+        xl: "1.5rem", // Mantido
+        DEFAULT: "1rem", // Novo padrão
       },
       keyframes: {
         "accordion-down": {

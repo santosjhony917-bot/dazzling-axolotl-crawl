@@ -5,7 +5,8 @@ import { useUserRole } from '@/hooks/useUserRole';
 
 const getSelectedTab = (pathname) => {
   if (pathname.includes('/restaurant-area/home')) return 'home';
-  if (pathname.includes('/restaurant-area/stats')) return 'search';
+  if (pathname.includes('/restaurant-area/stats')) return 'stats';
+  if (pathname.includes('/restaurant-area/menu')) return 'menu';
   if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade';
   if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
   return 'home';
