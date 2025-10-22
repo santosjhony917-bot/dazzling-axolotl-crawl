@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, SlidersHorizontal } from 'lucide-react';
+import PriceFilterDrawer from '@/components/PriceFilterDrawer';
+import { showInfo } from '@/utils/toast';
 
 // Mock data based on the HTML to represent search results
 const mockDishes = [
@@ -33,6 +35,20 @@ const mockDishes = [
 
 const RestaurantSearch = () => {
   const [searchType, setSearchType] = useState<'Pratos' | 'Restaurantes'>('Pratos');
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+
+  const handleFilterClick = () => {
+    if (searchType === 'Pratos') {
+      setIsFilterDrawerOpen(true);
+    } else {
+      showInfo("Filtros para restaurantes ainda não disponíveis.");
+    }
+  };
+
+  const handleApplyPriceFilter = (priceRange: [number, number]) => {
+    console.log("Aplicando filtro de preço:", priceRange);
+    // A lógica de filtro dos pratos será implementada aqui
+  };
 
   return (
     <div className="flex-1 bg-background-light dark:bg-background-dark">
@@ -46,7 +62,7 @@ const RestaurantSearch = () => {
               type="text"
             />
           </div>
-          <Button size="icon" className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-white">
+          <Button size="icon" className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-white" onClick={handleFilterClick}>
             <SlidersHorizontal className="h-6 w-6" />
           </Button>
         </div>
@@ -77,7 +93,7 @@ const RestaurantSearch = () => {
         </div>
       </div>
 
-      <main className="space-y-2 px-4">
+      <main className="space-y-2 px-4 pb-24">
         {searchType === 'Pratos' && mockDishes.map((dish, index) => (
           <div key={index} className="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
             <div className="flex items-start justify-between gap-4">
@@ -99,6 +115,12 @@ const RestaurantSearch = () => {
           </div>
         )}
       </main>
+
+      <PriceFilterDrawer
+        isOpen={isFilterDrawerOpen}
+        onOpenChange={setIsFilterDrawerOpen}
+        onApply={handleApplyPriceFilter}
+      />
     </div>
   );
 };
