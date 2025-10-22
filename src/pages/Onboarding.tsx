@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart } from 'lucide-react';
@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import OnboardingScreen from '../components/onboarding/OnboardingScreen';
 import { createPageUrl } from '@/utils/url';
+import { showError } from '@/utils/toast';
 
 const onboardingScreens = [
   {
@@ -39,15 +40,42 @@ const onboardingScreens = [
 export default function Onboarding() {
   const [currentScreen, setCurrentScreen] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
 
+  // Check if onboarding was already completed on initial load
+  useEffect(() => {
+    const checkOnboardingStatus = async () => {
+      try {
+        const userData = await base44.auth.me();
+        if (userData.onboarding_completed) {
+          console.log("Onboarding already completed, redirecting to welcome.");
+          navigate(createPageUrl('welcome'));
+        }
+      } catch (error) {
+        // If user is not found or any other error, proceed with onboarding
+        console.log("No user data found or error fetching, starting onboarding.");
+      }
+    };
+
+    checkOnboardingStatus();
+  }, [navigate]);
+
   const completeOnboarding = async () => {
+    if (isCompleting) return; // Prevent multiple clicks
+    
+    setIsCompleting(true);
     try {
       await base44.auth.updateMe({ onboarding_completed: true });
+      console.log("Onboarding marked as completed.");
       navigate(createPageUrl('welcome'));
     } catch (error) {
       console.error('Error completing onboarding:', error);
+      showError('Falha ao concluir o onboarding. Por favor, tente novamente.');
+      // Even if the API call fails, we still navigate to welcome to prevent being stuck
       navigate(createPageUrl('welcome'));
+    } finally {
+      setIsCompleting(false);
     }
   };
   
@@ -115,7 +143,8 @@ export default function Onboarding() {
             <div className="flex w-full justify-between items-center px-4 pb-4 mt-auto">
               <button
                 onClick={skipOnboarding}
-                className="text-gray-600 text-base font-medium hover:text-gray-800 transition-colors"
+                disabled={isCompleting}
+                className="text-gray-600 text-base font-medium hover:text-gray-800 transition-colors disabled:opacity-50"
               >
                 Pular
               </button>
@@ -140,10 +169,11 @@ export default function Onboarding() {
               <div className="w-32">
                 <Button
                   onClick={handleNext}
-                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                  disabled={isCompleting}
+                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
                 >
                   <span className="truncate">
-                    {currentScreen === onboardingScreens.length - 1 ? 'Começar' : 'Próximo'}
+                    {currentScreen === onboardingScreens.length - 1 ? (isCompleting ? 'Aguarde...' : 'Começar') : 'Próximo'}
                   </span>
                   <ArrowRight className="w-5 h-5" />
                 </Button>

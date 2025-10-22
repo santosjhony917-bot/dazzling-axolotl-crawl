@@ -18,7 +18,8 @@ const mockMe = async () => {
     console.log("Mock API: Fetching user");
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 500));
-    if (mockUser && mockUser.user_role) {
+    if (mockUser) {
+        // If the user object exists, return it, even if fields are undefined
         return mockUser;
     }
     // Simulate user not being logged in or not having a role
@@ -35,6 +36,7 @@ const mockClearRole = async () => {
   console.log("Mock API: Clearing user role");
   if (mockUser) {
     mockUser.user_role = undefined;
+    mockUser.onboarding_completed = undefined;
   }
   await new Promise(resolve => setTimeout(resolve, 100));
   return { success: true };
