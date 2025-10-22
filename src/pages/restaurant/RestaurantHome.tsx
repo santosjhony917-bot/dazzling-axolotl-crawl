@@ -1,8 +1,11 @@
 import React from 'react';
 import { Utensils } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import { useUserRole } from '@/hooks/useUserRole';
 
 const RestaurantHome: React.FC = () => {
+  const { isPremium } = useUserRole();
+
   return (
     <div className="min-h-screen bg-[#f5f7f8] p-4 pb-20 max-w-md mx-auto">
       <header className="pt-8 pb-6 text-center">
@@ -16,7 +19,7 @@ const RestaurantHome: React.FC = () => {
         <p className="text-sm text-gray-500 mt-2">Funcionalidades em desenvolvimento.</p>
       </div>
 
-      <RestaurantBottomNav selectedTab="home" />
+      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
     </div>
   );
 };

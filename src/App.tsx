@@ -23,6 +23,7 @@ import SearchRestaurants from '@/pages/SearchRestaurants';
 import RestaurantResults from '@/pages/RestaurantResults';
 import Favorites from '@/pages/Favorites';
 import Splash from '@/pages/Splash';
+import RestaurantSearch from '@/pages/restaurant/RestaurantSearch';
 
 
 function App() {
@@ -60,7 +61,7 @@ function App() {
             <Route path="profile-menu" element={<RestaurantProfileMenu />} />
             <Route path="menu" element={<RestaurantMenu />} />
             <Route path="categories" element={<RestaurantCategories />} />
-            <Route path="stats" element={<div>Estatísticas em breve</div>} />
+            <Route path="stats" element={<RestaurantSearch />} />
             <Route path="upgrade" element={<UpgradePage />} />
           </Route>
           

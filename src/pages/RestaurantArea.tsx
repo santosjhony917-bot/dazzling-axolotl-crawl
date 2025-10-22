@@ -36,10 +36,11 @@ const RestaurantArea = () => {
   // Verifica se a rota atual é a Home/Dashboard (que tem seu próprio header)
   const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home');
   const isProfileMenuRoute = location.pathname.endsWith('/restaurant-area/profile-menu');
+  const isStatsRoute = location.pathname.includes('/restaurant-area/stats');
 
   // Determine header content based on the current route
   const getHeaderContent = () => {
-    if (isDashboardRoute || isProfileMenuRoute) {
+    if (isDashboardRoute || isProfileMenuRoute || isStatsRoute) {
         return { title: "", showHeader: false }; // Não mostra header no dashboard ou no perfil detalhado
     }
     if (location.pathname.includes('/restaurant-area/menu')) {
@@ -49,7 +50,7 @@ const RestaurantArea = () => {
         return { title: "Gerenciar Categorias", showHeader: true };
     }
     if (location.pathname.includes('/restaurant-area/stats')) {
-        return { title: "Estatísticas", showHeader: true };
+        return { title: "Buscar", showHeader: false };
     }
     if (location.pathname.includes('/restaurant-area/upgrade')) {
         return { title: "Plano Premium", showHeader: true };

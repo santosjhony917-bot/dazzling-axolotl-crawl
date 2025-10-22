@@ -1,48 +1,48 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Crown, Zap } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Home, Search, User, Crown, Zap, Rocket } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
-interface NavItem {
-  path: string;
-  label: string;
-  icon: React.ElementType;
-  key: string;
-}
+const NavItem = ({ icon: Icon, label, path, isSelected }) => {
+  return (
+    <Link
+      to={path}
+      className={cn(
+        "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
+        isSelected ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
+      )}
+    >
+      <Icon 
+        className={cn(
+          "w-6 h-6",
+        )} 
+      />
+      <span className="text-sm font-medium">
+        {label}
+      </span>
+    </Link>
+  );
+};
 
-const navItems: NavItem[] = [
-  { path: '/restaurant-area/home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/restaurant-area/stats', label: 'Estatísticas', icon: Search, key: 'stats' },
-  { path: '/restaurant-area/upgrade', label: 'Upgrade', icon: Zap, key: 'upgrade' },
-  { path: '/restaurant-area/profile-menu', label: 'Perfil', icon: User, key: 'perfil' },
-];
-
-interface RestaurantBottomNavProps {
-  selectedTab?: string;
-  isFree?: boolean;
-}
-
-const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, isFree = false }) => {
-  const location = useLocation();
-  
-  const getActivePath = (path: string, key: string) => {
-    if (selectedTab) {
-      return selectedTab === key;
-    }
-    return location.pathname.startsWith(path);
-  };
+const RestaurantBottomNav = ({ selectedTab, isFree }) => {
+  const navItems = [
+    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
+    { id: 'stats', icon: Search, label: 'Buscar', path: createPageUrl('restaurant-area/stats') },
+    { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
+    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
+  ];
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const isActive = getActivePath(item.path, item.key);
-          const Icon = item.icon;
+          const isSelected = selectedTab === item.id;
           
-          const isUpgradeButton = item.key === 'upgrade';
+          const isUpgradeButton = item.id === 'upgrade';
 
           if (isUpgradeButton && isFree) {
+            const Icon = item.icon;
             return (
               <Link
                 key={item.path}
@@ -63,23 +63,13 @@ const RestaurantBottomNav: React.FC<RestaurantBottomNavProps> = ({ selectedTab, 
           }
 
           return (
-            <Link
+            <NavItem
               key={item.path}
-              to={createPageUrl(item.path.substring(1))}
-              className={cn(
-                "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-                isActive ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
-              )}
-            >
-              <Icon 
-                className={cn(
-                  "w-6 h-6",
-                )} 
-              />
-              <span className="text-sm font-medium">
-                {item.label}
-              </span>
-            </Link>
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              isSelected={isSelected}
+            />
           );
         })}
       </div>
