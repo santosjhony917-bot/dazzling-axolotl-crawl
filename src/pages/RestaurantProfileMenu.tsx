@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Edit, Eye, MapPin, Clock, Lock, Camera, Crown, CheckCircle, Zap } from "lucide-react";
+import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Edit, Eye, MapPin, Clock, Lock, Camera, Crown, CheckCircle, Zap, Loader2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { useUserRole } from "@/hooks/useUserRole";
