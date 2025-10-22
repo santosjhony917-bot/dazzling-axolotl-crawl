@@ -9,16 +9,14 @@ const NavItem = ({ icon: Icon, label, path, isSelected }) => {
     <Link
       to={path}
       className={cn(
-        "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-        isSelected ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
+        "flex flex-col items-center justify-center gap-1 transition-colors duration-200 w-16",
+        isSelected ? "text-primary" : "text-gray-500",
       )}
     >
       <Icon 
-        className={cn(
-          "w-6 h-6",
-        )} 
+        className={cn("w-6 h-6")} 
       />
-      <span className="text-sm font-medium">
+      <span className={cn("text-xs", isSelected && "font-bold")}>
         {label}
       </span>
     </Link>
@@ -26,52 +24,40 @@ const NavItem = ({ icon: Icon, label, path, isSelected }) => {
 };
 
 const RestaurantBottomNav = ({ selectedTab, isFree }) => {
+  const navigate = useNavigate();
+  
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
     { id: 'stats', icon: Search, label: 'Buscar', path: createPageUrl('restaurant-area/stats') },
-    { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
-      <div className="flex justify-around items-center h-20">
-        {navItems.map((item) => {
-          const isSelected = selectedTab === item.id;
-          
-          const isUpgradeButton = item.id === 'upgrade';
-
-          if (isUpgradeButton && isFree) {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.path}
-                to={createPageUrl(item.path.substring(1))}
-                className="flex flex-col items-center justify-center transition-colors duration-200"
-              >
-                <div className={cn(
-                  "flex items-center justify-center rounded-full px-4 py-2 transition-all duration-300 hover:scale-[1.02]",
-                  "bg-highlight/10 dark:bg-highlight/20 text-highlight"
-                )}>
-                  <Icon className="h-6 w-6 mr-1" />
-                  <span className="text-sm font-bold">
-                    {item.label}
-                  </span>
-                </div>
-              </Link>
-            );
-          }
-
-          return (
-            <NavItem
-              key={item.path}
-              icon={item.icon}
-              label={item.label}
-              path={item.path}
-              isSelected={isSelected}
-            />
-          );
-        })}
+    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto">
+      <div className="flex justify-around items-center h-16">
+        <NavItem {...navItems[0]} isSelected={selectedTab === navItems[0].id} />
+        <NavItem {...navItems[1]} isSelected={selectedTab === navItems[1].id} />
+        
+        {/* Botão de Upgrade Centralizado */}
+        <div className="relative -mt-8">
+          <button 
+            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+            className="w-16 h-16 rounded-full bg-highlight text-white flex flex-col items-center justify-center shadow-lg shadow-highlight/50"
+          >
+            <div className="relative">
+              <Zap className="w-7 h-7" />
+              {isFree && (
+                <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/75 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                </span>
+              )}
+            </div>
+            <span className="text-xs font-bold mt-0.5">Upgrade</span>
+          </button>
+        </div>
+        
+        <NavItem {...navItems[2]} isSelected={selectedTab === navItems[2].id} />
       </div>
     </div>
   );
