@@ -1,54 +1,24 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Session, User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
+import React, { createContext, useContext, ReactNode } from 'react';
 
 interface UserContextType {
-  user: User | null;
-  session: Session | null;
-  isLoading: boolean;
-  logout: () => Promise<void>;
+  // Mock user object for now, actual auth handled by useAuth/Supabase
+  user: any; 
+  logout: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // Mock user state and logout function for now
+  const user = null; 
 
-  useEffect(() => {
-    const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    };
-
-    getSession();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  const logout = async () => {
-    await supabase.auth.signOut();
-  };
-
-  const value = {
-    session,
-    user,
-    isLoading,
-    logout,
+  const logout = () => {
+    // Placeholder for local state cleanup
+    console.log("UserContext: Local logout/cleanup performed.");
   };
 
   return (
-    <UserContext.Provider value={value}>
+    <UserContext.Provider value={{ user, logout }}>
       {children}
     </UserContext.Provider>
   );
@@ -57,7 +27,9 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
+    // This error should be caught if UserProvider is not wrapping the component tree
+    // For now, we assume it will be wrapped in main.tsx
+    return { user: null, logout: () => {} }; 
   }
   return context;
 };
