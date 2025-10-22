@@ -66,7 +66,7 @@ const PriceFilterDrawer = ({ isOpen, onOpenChange, onApply }: PriceFilterDrawerP
             </DrawerClose>
           </DrawerHeader>
           <div className="p-4 space-y-8">
-            <div className="relative pt-4">
+            <div className="relative pt-4 px-2">
               <Slider
                 value={priceRange}
                 max={200}
