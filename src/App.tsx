@@ -17,7 +17,7 @@ import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import RestaurantArea from '@/pages/RestaurantArea';
 import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
-import RestaurantProfileMenu from '@/pages/restaurant/RestaurantProfileMenu';
+import RestaurantProfilePage from '@/pages/restaurant-area/Profile';
 import RestaurantMenu from '@/pages/RestaurantMenu';
 import RestaurantCategories from '@/pages/RestaurantCategories';
 import RestaurantSearch from '@/pages/restaurant/RestaurantSearch';
@@ -50,7 +50,7 @@ function App() {
           
           <Route path="/restaurant-area" element={<RestaurantArea />}>
             <Route path="home" element={<RestaurantDashboard />} />
-            <Route path="profile-menu" element={<RestaurantProfileMenu />} />
+            <Route path="profile-menu" element={<RestaurantProfilePage />} />
             <Route path="menu" element={<RestaurantMenu />} />
             <Route path="categories" element={<RestaurantCategories />} />
             <Route path="stats" element={<RestaurantSearch />} />
