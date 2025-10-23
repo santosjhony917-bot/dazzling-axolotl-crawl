@@ -76,7 +76,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
   const coverImageUrl = restaurant.cover_image_url;
 
   return (
-    <div className="relative w-full">
+    <div className="relative flex-shrink-0">
       {/* Cover Image Area (Hidden in this design, but kept for upload functionality) */}
       <div className="h-48 bg-gray-200 relative hidden">
         {coverImageUrl && (
