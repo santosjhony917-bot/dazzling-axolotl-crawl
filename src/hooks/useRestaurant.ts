@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { createClient } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/client";
 import toast from "react-hot-toast";
-
-const supabase = createClient();
 
 export type RestaurantPlan = "free" | "basic" | "premium";
 
