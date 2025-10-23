@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { createClient } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/client";
 import toast from "react-hot-toast";
-
-const supabase = createClient();
 
 interface UseImageUploadResult {
   handleImageUpload: (file: File, bucket: string) => Promise<string | null>;
