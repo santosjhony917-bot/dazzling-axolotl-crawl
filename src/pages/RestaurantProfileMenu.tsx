@@ -407,7 +407,7 @@ const RestaurantProfileMenu: React.FC = () => {
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
   const restaurantType = "Estabelecimento Comercial"; // Mocked value
   
-  // Revertendo a lógica de quebra de linha e usando o nome completo
+  // Usando o nome completo
   const displayName = restaurantName;
 
   return (
@@ -445,7 +445,7 @@ const RestaurantProfileMenu: React.FC = () => {
             
             {/* Card Principal Flutuante */}
             <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-              <div className="flex items-start gap-4"> {/* Alterado de items-center para items-start */}
+              <div className="flex items-start gap-3"> {/* Reduzindo o gap de 4 para 3 */}
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
                   restaurant={restaurant}
@@ -457,7 +457,7 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 relative pt-1"> {/* Ajustado pt-2 para pt-1 para subir o texto */}
+                <div className="flex-1 relative pt-1">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-16 line-clamp-2">
                       {displayName}
