@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, memo } from "react";
-import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Bell, Shield, Star, HelpCircle, MessageSquare, Camera, Check, Lock, Edit, Crown, Zap, Gem, Trophy, BarChart3, Pencil } from "lucide-react";
+import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Edit, Eye, ChevronRight, Lock, MessageSquare, Star, Bell, MapPin, Clock, Crown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
