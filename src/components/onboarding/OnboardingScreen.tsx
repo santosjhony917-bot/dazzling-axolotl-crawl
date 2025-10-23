@@ -11,7 +11,7 @@ interface OnboardingScreenProps {
   title: string;
   description: string;
   features: Feature[] | null;
-  backgroundImage: string;
+  backgroundImage: string; // Agora aceita uma URL
   children: React.ReactNode;
 }
 
@@ -29,7 +29,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
         <img 
           alt="Background" 
           className="w-full h-full object-cover" 
-          src={backgroundImage}
+          src={backgroundImage} // Usa a URL fornecida
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f5f7f8]/40" />
       </div>
