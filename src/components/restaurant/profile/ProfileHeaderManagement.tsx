@@ -2,12 +2,13 @@ import React, { useState, useCallback, memo } from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Pencil, Upload, Loader2, Eye } from 'lucide-react';
+import { Pencil, Upload, Loader2, Eye, Camera } from 'lucide-react';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
+import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets";
 
 // Definindo o tipo de retorno esperado para onUpdate
 type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string | null }>;
@@ -15,11 +16,21 @@ type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string 
 interface ProfileHeaderManagementProps {
   restaurant: Restaurant;
   onUpdate: UpdateFunction;
+  // Adicionando prop para controlar o estado de upload
+  uploadingLogo: boolean;
+  setUploadingLogo: (state: boolean) => void;
+  uploadingCover: boolean;
+  setUploadingCover: (state: boolean) => void;
 }
 
-const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ restaurant, onUpdate }) => {
-  const [uploadingLogo, setUploadingLogo] = useState(false);
-  const [uploadingCover, setUploadingCover] = useState(false);
+const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
+  restaurant, 
+  onUpdate, 
+  uploadingLogo, 
+  setUploadingLogo, 
+  uploadingCover, 
+  setUploadingCover 
+}) => {
   const navigate = useNavigate();
 
   const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
@@ -29,19 +40,13 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
     }
 
     const isLogo = type === 'logo';
-    if (isLogo) {
-      setUploadingLogo(true);
-    } else {
-      setUploadingCover(true);
-    }
+    isLogo ? setUploadingLogo(true) : setUploadingCover(true);
     
     const path = `${restaurant.id}/${type}`; 
     let publicUrl: string | null = null;
 
     try {
-      console.log(`[Upload] Chamando upload da imagem para tipo: ${type}`);
       publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
-      console.log(`[Upload] Resposta do upload: ${publicUrl ? 'Sucesso' : 'Falha'}`);
 
       if (publicUrl) {
         const updateKey = isLogo ? 'image_url' : 'cover_image_url';
@@ -49,7 +54,6 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
         // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
         const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
         
-        console.log(`[Update DB] Chamando updateRestaurant com URL: ${cacheBustedUrl}`);
         const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
         
         if (error) {
@@ -62,34 +66,27 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
       }
     } catch (e) {
       const errorMessage = (e as Error).message || "Erro desconhecido durante o upload.";
-      console.error("[Upload] Erro fatal no handleFileSelect:", e);
       toast.error(errorMessage);
     } finally {
-      // CORREÇÃO: Garantir que AMBOS os estados de loading voltem para false
-      setUploadingLogo(false);
-      setUploadingCover(false);
-      console.log(`[Upload] Estados de uploading resetados.`);
+      isLogo ? setUploadingLogo(false) : setUploadingCover(false);
     }
-  }, [restaurant.id, onUpdate]);
+  }, [restaurant.id, onUpdate, setUploadingLogo, setUploadingCover]);
 
   const logoUrl = restaurant.image_url;
   const coverImageUrl = restaurant.cover_image_url;
 
   return (
-    <Card className="relative overflow-hidden shadow-lg border-none rounded-xl">
-      {/* Cover Image */}
-      <div className="h-48 bg-gray-200 relative">
-        {coverImageUrl ? (
+    <div className="relative w-full">
+      {/* Cover Image Area (Hidden in this design, but kept for upload functionality) */}
+      <div className="h-48 bg-gray-200 relative hidden">
+        {coverImageUrl && (
           <img
             src={coverImageUrl}
             alt="Capa do Restaurante"
             className="w-full h-full object-cover"
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-500">
-            Adicionar Imagem de Capa
-          </div>
         )}
+        {/* Botão de upload de capa (será movido para o topo do menu) */}
         <ImageUploadButton
           onFileSelect={(file) => handleFileSelect(file, 'cover')}
           uploading={uploadingCover}
@@ -98,48 +95,27 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
         />
       </div>
 
-      <CardContent className="p-6 pt-0">
-        {/* Logo/Avatar */}
-        <div className="relative -mt-12 mb-4 w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt="Logo do Restaurante"
-              className="w-full h-full object-cover rounded-full"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-600 rounded-full">
-              <Pencil className="h-6 w-6" />
-            </div>
-          )}
-          <ImageUploadButton
-            onFileSelect={(file) => handleFileSelect(file, 'logo')}
-            uploading={uploadingLogo}
-            className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            icon={<Upload className="h-4 w-4" />}
+      {/* Logo Upload Button (Used inside the main card in the parent component) */}
+      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt="Logo do Restaurante"
+            className="w-full h-full object-cover rounded-full"
           />
-        </div>
-
-        {/* Restaurant Info */}
-        <h1 className="text-2xl font-bold text-[#022D68]">{restaurant.name}</h1>
-        <p className="text-sm text-gray-600 mt-1">{restaurant.address || "Endereço não definido"}</p>
-
-        {/* Actions/Status */}
-        <div className="mt-4 flex items-center justify-between">
-          <span className={`px-3 py-1 text-xs font-semibold rounded-full ${restaurant.plan === 'premium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-600'}`}>
-            Plano: {restaurant.plan.charAt(0).toUpperCase() + restaurant.plan.slice(1)}
-          </span>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="h-8 rounded-full border-2 border-[#E47948] text-[#E47948] hover:bg-[#E47948]/5"
-            onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
-          >
-            <Eye className="mr-2 h-4 w-4" /> Visualizar Público
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-600 rounded-full">
+            <Pencil className="h-6 w-6" />
+          </div>
+        )}
+        <ImageUploadButton
+          onFileSelect={(file) => handleFileSelect(file, 'logo')}
+          uploading={uploadingLogo}
+          className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
+          icon={<Camera className="h-3 w-3" />}
+        />
+      </div>
+    </div>
   );
 });
 

@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 // Importando os componentes de seção (agora simplificados para itens de lista)
 import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
@@ -85,14 +86,28 @@ interface EditingFieldState {
 // --- Componentes de Seção Refatorados para o Novo Design ---
 
 // 1. Detalhes do Estabelecimento (Basic Info)
-const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any }> = ({ restaurant, handleEditField }) => {
+const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any, setIsAddressDialogOpen: (open: boolean) => void, setIsHoursDialogOpen: (open: boolean) => void }> = ({ restaurant, handleEditField, setIsAddressDialogOpen, setIsHoursDialogOpen }) => {
+  
+  // Helper para formatar o resumo dos horários (copiado de LocationHoursSection)
+  const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
+    const openDays = days.filter(day => schedule[day]?.isOpen);
+    if (openDays.length === 0) return "Fechado";
+    const firstSlot = schedule[openDays[0]].slots[0];
+    if (!firstSlot) return "Horários definidos";
+    return `${firstSlot.start} - ${firstSlot.end}`;
+  };
+  
+  const currentSchedule = restaurant.opening_hours || mockSchedule;
+  const scheduleSummary = formatScheduleSummary(currentSchedule);
+  
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       <InfoCardItem 
         label="Nome Comercial" 
         value={restaurant?.name || "Restaurante Teste Free"} 
         icon={Store} 
-        isPremium={false} // Não é premium feature
+        isPremium={false}
         onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
       />
       <InfoCardItem
@@ -100,14 +115,14 @@ const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any }> = ({
         value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}` : "Não definido"}
         icon={MapPin}
         isPremium={false}
-        onClick={() => handleEditField('address', 'Editar Endereço', 'Endereço Principal', <MapPin className="h-6 w-6 text-primary" />, z.string().min(1))}
+        onClick={() => setIsAddressDialogOpen(true)}
       />
       <InfoCardItem
         label="Horários"
-        value="18:00 - 23:00" // Mocked summary
+        value={scheduleSummary}
         icon={Clock}
         isPremium={false}
-        onClick={() => handleEditField('opening_hours', 'Editar Horários', 'Horários de Funcionamento', <Clock className="h-6 w-6 text-primary" />, z.string().min(1))}
+        onClick={() => setIsHoursDialogOpen(true)}
       />
       <InfoCardItem 
         label="Contato/WhatsApp" 
@@ -139,48 +154,63 @@ const MenuSection: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ n
   <div className="p-4 space-y-3">
     <Button 
       onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-highlight hover:bg-highlight/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
     >
-      <Utensils className="w-4 h-4" />
+      <Utensils className="w-5 h-5 mr-2" />
       Atualizar Cardápio
     </Button>
     <Button 
       onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
-      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-highlight hover:bg-highlight/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
     >
-      <UtensilsCrossed className="w-4 h-4" />
+      <UtensilsCrossed className="w-5 h-5 mr-2" />
       Gerenciar Categorias
     </Button>
   </div>
 );
 
 // 3. Plano e Assinatura Section (SubscriptionCard - Novo Design)
-const SubscriptionCardNew: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
+const SubscriptionCardNew: React.FC<{ navigate: ReturnType<typeof useNavigate>, isPremium: boolean }> = ({ navigate, isPremium }) => {
   const handleUpgradeClick = () => navigate(createPageUrl('restaurant-area/upgrade'));
   
   return (
     <div className="bg-gradient-to-br from-yellow-50/50 to-yellow-100/50 dark:from-yellow-900/10 dark:to-yellow-900/20 rounded-xl shadow-sm border border-yellow-300 dark:border-yellow-700">
       <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Plano e Assinatura</h3>
       <div className="p-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-primary dark:text-white">Free</span></p>
-        <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg space-y-2 mb-4 border border-gray-200 dark:border-gray-700">
-          <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 flex items-center">
-            <Crown className="w-4 h-4 mr-1 fill-amber-500 text-amber-500" />
-            Opções Premium:
-          </p>
-          <ul className="space-y-1.5 text-gray-700 dark:text-gray-300">
-            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Destaque nas buscas</li>
-            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Mais fotos no perfil e cardápio</li>
-            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Gerenciar canais de pedido (iFood, Rappi)</li>
-          </ul>
-        </div>
-        <Button 
-          onClick={handleUpgradeClick}
-          className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
-        >
-          <Crown className="w-5 h-5 fill-white" />
-          Ativar Premium
-        </Button>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-primary dark:text-white">{isPremium ? 'Premium' : 'Free'}</span></p>
+        
+        {!isPremium && (
+          <>
+            <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg space-y-2 mb-4 border border-gray-200 dark:border-gray-700">
+              <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 flex items-center">
+                <Crown className="w-4 h-4 mr-1 fill-amber-500 text-amber-500" />
+                Opções Premium:
+              </p>
+              <ul className="space-y-1.5 text-gray-700 dark:text-gray-300">
+                <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Destaque nas buscas</li>
+                <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Mais fotos no perfil e cardápio</li>
+                <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Gerenciar canais de pedido (iFood, Rappi)</li>
+              </ul>
+            </div>
+            <Button 
+              onClick={handleUpgradeClick}
+              className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
+            >
+              <Crown className="w-5 h-5 fill-white" />
+              Ativar Premium
+            </Button>
+          </>
+        )}
+        
+        {isPremium && (
+          <Button 
+            onClick={handleUpgradeClick}
+            variant="outline"
+            className="w-full h-12 rounded-full border-2 border-[#022D68] text-[#022D68] font-bold hover:bg-[#022D68]/5"
+          >
+            Gerenciar Assinatura
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -246,9 +276,9 @@ const SupportAccountSection: React.FC<{ handleSignOut: () => void, navigate: Ret
     <div className="p-4">
       <button 
         onClick={handleSignOut}
-        className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-red-600/10 text-red-600 dark:bg-red-500/20 dark:text-red-500 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-red-600/20"
+        className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-red-600/10 text-red-600 dark:bg-red-500/20 dark:text-red-500 text-base font-bold leading-normal tracking-[0.015em] hover:bg-red-600/20"
       >
-        <LogOut className="w-4 h-4" />
+        <LogOut className="w-5 h-5 mr-2" />
         Sair da conta
       </button>
     </div>
@@ -268,6 +298,10 @@ const RestaurantProfileMenu: React.FC = () => {
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
+  
+  // Estados de upload movidos para o componente pai
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -329,28 +363,8 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess("Horários de funcionamento atualizados!");
   };
 
-  const handleFileSelect = async (file: File, type: 'logo' | 'cover') => {
-    if (!restaurant?.id) {
-      showError("Restaurante não carregado.");
-      return;
-    }
-    
-    const { url, error } = await uploadImage(file, 'restaurant_images', restaurant.id, type);
-    
-    if (error) {
-      showError(`Falha ao fazer upload da imagem: ${error.message}`);
-      return;
-    }
-    
-    const updateKey = type === 'logo' ? 'image_url' : 'cover_image_url';
-    const { error: updateError } = await updateRestaurant({ [updateKey]: url });
-    
-    if (updateError) {
-      showError(`Imagem enviada, mas falha ao salvar URL: ${updateError}`);
-      return;
-    }
-    showSuccess("Imagem atualizada com sucesso!");
-  };
+  // A lógica de upload de imagem foi movida para ProfileHeaderManagement, mas mantemos o estado de loading aqui
+  // para passar para o componente filho.
 
   if (authLoading || restaurantLoading || roleLoading) {
     return (
@@ -389,6 +403,9 @@ const RestaurantProfileMenu: React.FC = () => {
     latitude: restaurant.latitude || null,
     longitude: restaurant.longitude || null,
   };
+  
+  const restaurantName = restaurant.name || "Estabelecimento Comercial";
+  const restaurantType = "Estabelecimento Comercial"; // Mocked value
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
@@ -412,24 +429,60 @@ const RestaurantProfileMenu: React.FC = () => {
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
         <div className="w-full space-y-4">
           
-          {/* 1. Header Management (Capa e Logo) */}
-          <div className="px-4">
-            <ProfileHeaderManagement
-              restaurant={restaurant}
-              onUpdate={updateRestaurant}
-            />
-          </div>
-
-          {/* 2. Botão de Visualização Pública */}
-          <div className="flex px-4">
-            <Button 
-              onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
-              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-highlight text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-highlight/90"
+          {/* 1. Topo do Perfil (Capa e Logo) */}
+          <div className="relative w-full h-48 bg-gray-300 dark:bg-gray-700">
+            {/* Botão Editar Capa (Premium) */}
+            <Button
+              onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+              className="absolute top-4 right-4 h-8 px-3 bg-gray-700/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full hover:bg-gray-800/90 flex items-center gap-1"
             >
-              <Eye className="w-4 h-4" />
-              <span className="truncate">Ver meu perfil público</span>
+              <Lock className="w-3 h-3" />
+              Editar capa (Premium)
             </Button>
+            
+            {/* Card Principal Flutuante */}
+            <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+              <div className="flex items-start gap-4">
+                {/* Logo e Botão de Upload */}
+                <ProfileHeaderManagement
+                  restaurant={restaurant}
+                  onUpdate={updateRestaurant}
+                  uploadingLogo={uploadingLogo}
+                  setUploadingLogo={setUploadingLogo}
+                  uploadingCover={uploadingCover}
+                  setUploadingCover={setUploadingCover}
+                />
+                
+                {/* Info e Plano */}
+                <div className="flex-1 pt-2">
+                  <div className="flex justify-between items-start">
+                    <h3 className="font-bold text-xl text-[#022D68] leading-tight">{restaurantName}</h3>
+                    <Badge 
+                      variant="outline" 
+                      className="text-xs font-semibold border-gray-400 text-gray-600 bg-white"
+                    >
+                      Plano {isPremium ? "Premium" : "Free"}
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-1">{restaurantType}</p>
+                </div>
+              </div>
+              
+              {/* Botão Ver Perfil Público */}
+              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                <Button 
+                  onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
+                >
+                  <Eye className="w-5 h-5" />
+                  <span className="truncate">Ver meu perfil público</span>
+                </Button>
+              </div>
+            </Card>
           </div>
+          
+          {/* Espaçamento para o Card Flutuante */}
+          <div className="h-12"></div> 
 
           {/* 3. Detalhes do Estabelecimento (Card) */}
           <div className="px-4">
@@ -444,7 +497,12 @@ const RestaurantProfileMenu: React.FC = () => {
                   Editar
                 </button>
               </div>
-              <BasicInfoSection restaurant={restaurant} handleEditField={handleEditField} />
+              <BasicInfoSection 
+                restaurant={restaurant} 
+                handleEditField={handleEditField} 
+                setIsAddressDialogOpen={setIsAddressDialogOpen}
+                setIsHoursDialogOpen={setIsHoursDialogOpen}
+              />
             </Card>
           </div>
 
@@ -458,7 +516,7 @@ const RestaurantProfileMenu: React.FC = () => {
 
           {/* 5. Plano e Assinatura (Card) */}
           <div className="px-4">
-            <SubscriptionCardNew navigate={navigate} />
+            <SubscriptionCardNew navigate={navigate} isPremium={isPremium} />
           </div>
 
           {/* 6. Preferências e Personalização (Card) */}

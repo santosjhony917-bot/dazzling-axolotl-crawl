@@ -25,6 +25,10 @@ export default function RestaurantProfilePage() {
   
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Restaurant>>({});
+  
+  // Adicionando estados de upload para satisfazer as props do ProfileHeaderManagement
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
 
   // Todos os Hooks são chamados acima deste ponto.
 
@@ -120,6 +124,10 @@ export default function RestaurantProfilePage() {
       <ProfileHeaderManagement
         restaurant={restaurant}
         onUpdate={handleUpdate}
+        uploadingLogo={uploadingLogo}
+        setUploadingLogo={setUploadingLogo}
+        uploadingCover={uploadingCover}
+        setUploadingCover={setUploadingCover}
       />
 
       {/* Basic Information Form */}
