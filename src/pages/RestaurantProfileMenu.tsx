@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, memo } from "react";
-import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut } from "lucide-react";
+import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Bell, Shield, Star, HelpCircle, MessageSquare, Camera, Check, Lock, Edit, Crown, Zap, Gem, Trophy, BarChart3, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,15 +15,15 @@ import { WeekSchedule } from "@/types/schedule";
 import { createPageUrl } from "@/utils/url";
 import { showError, showSuccess } from "@/utils/toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
-// Importando os novos componentes de seção
+// Importando os componentes de seção (agora simplificados para itens de lista)
 import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
-import BasicInfoSection from "@/components/restaurant/profile/BasicInfoSection";
-import LocationHoursSection from "@/components/restaurant/profile/LocationHoursSection";
-import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection";
-import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection";
-import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection";
-import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard";
+import InfoCardItem from '@/components/InfoCardItem';
+import NavCardItem from '@/components/NavCardItem';
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -82,11 +82,184 @@ interface EditingFieldState {
   mask?: (value: string) => string;
 }
 
+// --- Componentes de Seção Refatorados para o Novo Design ---
+
+// 1. Detalhes do Estabelecimento (Basic Info)
+const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any }> = ({ restaurant, handleEditField }) => {
+  return (
+    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <InfoCardItem 
+        label="Nome Comercial" 
+        value={restaurant?.name || "Restaurante Teste Free"} 
+        icon={Store} 
+        isPremium={false} // Não é premium feature
+        onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
+      />
+      <InfoCardItem
+        label="Endereço"
+        value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}` : "Não definido"}
+        icon={MapPin}
+        isPremium={false}
+        onClick={() => handleEditField('address', 'Editar Endereço', 'Endereço Principal', <MapPin className="h-6 w-6 text-primary" />, z.string().min(1))}
+      />
+      <InfoCardItem
+        label="Horários"
+        value="18:00 - 23:00" // Mocked summary
+        icon={Clock}
+        isPremium={false}
+        onClick={() => handleEditField('opening_hours', 'Editar Horários', 'Horários de Funcionamento', <Clock className="h-6 w-6 text-primary" />, z.string().min(1))}
+      />
+      <InfoCardItem 
+        label="Contato/WhatsApp" 
+        value={restaurant?.phone || "(83) 99999-9999"} 
+        icon={Phone} 
+        isPremium={false}
+        onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
+      />
+      <InfoCardItem 
+        label="E-mail" 
+        value={restaurant?.email || "contato@zedog.com"} 
+        icon={Mail} 
+        isPremium={false}
+        onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
+      />
+      <InfoCardItem 
+        label="CNPJ" 
+        value={restaurant?.cnpj || "12.345.678/0001-99"} 
+        icon={FileText} 
+        isPremium={false}
+        onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask)}
+      />
+    </div>
+  );
+};
+
+// 2. Cardápio Section
+const MenuSection: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => (
+  <div className="p-4 space-y-3">
+    <Button 
+      onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
+      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-highlight hover:bg-highlight/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+    >
+      <Utensils className="w-4 h-4" />
+      Atualizar Cardápio
+    </Button>
+    <Button 
+      onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
+      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-highlight hover:bg-highlight/90 text-white text-sm font-bold leading-normal tracking-[0.015em]"
+    >
+      <UtensilsCrossed className="w-4 h-4" />
+      Gerenciar Categorias
+    </Button>
+  </div>
+);
+
+// 3. Plano e Assinatura Section (SubscriptionCard - Novo Design)
+const SubscriptionCardNew: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
+  const handleUpgradeClick = () => navigate(createPageUrl('restaurant-area/upgrade'));
+  
+  return (
+    <div className="bg-gradient-to-br from-yellow-50/50 to-yellow-100/50 dark:from-yellow-900/10 dark:to-yellow-900/20 rounded-xl shadow-sm border border-yellow-300 dark:border-yellow-700">
+      <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Plano e Assinatura</h3>
+      <div className="p-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-primary dark:text-white">Free</span></p>
+        <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg space-y-2 mb-4 border border-gray-200 dark:border-gray-700">
+          <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 flex items-center">
+            <Crown className="w-4 h-4 mr-1 fill-amber-500 text-amber-500" />
+            Opções Premium:
+          </p>
+          <ul className="space-y-1.5 text-gray-700 dark:text-gray-300">
+            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Destaque nas buscas</li>
+            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Mais fotos no perfil e cardápio</li>
+            <li className="flex items-center gap-2 text-sm"><Check className="w-4 h-4 text-amber-500" /> Gerenciar canais de pedido (iFood, Rappi)</li>
+          </ul>
+        </div>
+        <Button 
+          onClick={handleUpgradeClick}
+          className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
+        >
+          <Crown className="w-5 h-5 fill-white" />
+          Ativar Premium
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+// 4. Preferências e Personalização Section
+const PreferencesSection: React.FC = () => {
+  const [orderAlerts, setOrderAlerts] = useState(true);
+  const [visitAlerts, setVisitAlerts] = useState(true);
+  const [followerAlerts, setFollowerAlerts] = useState(false);
+  
+  return (
+    <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="p-4 flex justify-between items-center">
+        <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de pedidos</span>
+        <Switch 
+          checked={orderAlerts} 
+          onCheckedChange={setOrderAlerts} 
+          className="data-[state=checked]:bg-highlight" 
+        />
+      </div>
+      <div className="p-4 flex justify-between items-center">
+        <span className="text-sm text-gray-600 dark:text-gray-400">Alertas de visitas</span>
+        <Switch 
+          checked={visitAlerts} 
+          onCheckedChange={setVisitAlerts} 
+          className="data-[state=checked]:bg-highlight" 
+        />
+      </div>
+      <div className="p-4 flex justify-between items-center">
+        <span className="text-sm text-gray-600 dark:text-gray-400">Novos seguidores</span>
+        <Switch 
+          checked={followerAlerts} 
+          onCheckedChange={setFollowerAlerts} 
+          className="data-[state=checked]:bg-highlight" 
+        />
+      </div>
+      <div className="p-4 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => showError("Recurso Premium")}>
+        <span className="flex items-center gap-2 text-sm">
+          <Lock className="w-4 h-4" /> Premium: Gerenciar canais
+        </span>
+        <ChevronRight className="w-5 h-5" />
+      </div>
+    </div>
+  );
+};
+
+// 5. Suporte e Conta Section
+const SupportAccountSection: React.FC<{ handleSignOut: () => void, navigate: ReturnType<typeof useNavigate> }> = ({ handleSignOut, navigate }) => (
+  <div className="divide-y divide-gray-200 dark:divide-gray-700">
+    <a onClick={() => navigate(createPageUrl('restaurant-area/help'))} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
+      <span className="text-sm">Central de Ajuda</span>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </a>
+    <a onClick={() => showSuccess("Suporte em breve")} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
+      <span className="text-sm">Falar com o Suporte</span>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </a>
+    <a onClick={() => showSuccess("Termos em breve")} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
+      <span className="text-sm">Termos e Política de Privacidade</span>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </a>
+    <div className="p-4">
+      <button 
+        onClick={handleSignOut}
+        className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-xl h-10 px-4 bg-red-600/10 text-red-600 dark:bg-red-500/20 dark:text-red-500 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-red-600/20"
+      >
+        <LogOut className="w-4 h-4" />
+        Sair da conta
+      </button>
+    </div>
+  </div>
+);
+
+
 const RestaurantProfileMenu: React.FC = () => {
   const navigate = useNavigate();
   const { signOut, user, isLoading: authLoading } = useAuth();
   
-  // Usa o ID do usuário logado para buscar o perfil do restaurante
   const userId = user?.id || null;
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
   const { isPremium, isLoading: roleLoading } = useUserRole();
@@ -96,7 +269,6 @@ const RestaurantProfileMenu: React.FC = () => {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
 
-  // Se não estiver autenticado, redireciona para o login
   useEffect(() => {
     if (!authLoading && !user) {
       navigate(createPageUrl('restaurant-login'));
@@ -113,7 +285,6 @@ const RestaurantProfileMenu: React.FC = () => {
     }
   };
 
-  // Função para abrir o diálogo de edição de campo
   const handleEditField = useCallback((key: keyof typeof restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type: "text" | "tel" | "email" = "text", mask?: (value: string) => string, placeholder?: string) => {
     if (!restaurant) return;
     setEditingField({
@@ -129,13 +300,11 @@ const RestaurantProfileMenu: React.FC = () => {
     });
   }, [restaurant]);
 
-  // Função para salvar o campo editado
   const handleSaveField = async (value: string) => {
     if (!editingField) return;
     
     const key = editingField.key as keyof typeof restaurant;
     
-    // Prevenção de edição de campos de endereço por aqui
     if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key)) {
         showError("Use o botão 'Editar Endereço' para atualizar a localização completa.");
         return;
@@ -151,7 +320,6 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess(`${editingField.fieldName} atualizado com sucesso!`);
   };
 
-  // Função para salvar os horários
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
     const { error } = await updateRestaurant({ opening_hours: newSchedule });
     if (error) {
@@ -161,7 +329,6 @@ const RestaurantProfileMenu: React.FC = () => {
     showSuccess("Horários de funcionamento atualizados!");
   };
 
-  // Função para upload de imagem
   const handleFileSelect = async (file: File, type: 'logo' | 'cover') => {
     if (!restaurant?.id) {
       showError("Restaurante não carregado.");
@@ -243,9 +410,9 @@ const RestaurantProfileMenu: React.FC = () => {
       </header>
 
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
-        <div className="w-full space-y-6">
+        <div className="w-full space-y-4">
           
-          {/* Container para ProfileHeaderManagement e Botão de Visualização Pública */}
+          {/* 1. Header Management (Capa e Logo) */}
           <div className="px-4">
             <ProfileHeaderManagement
               restaurant={restaurant}
@@ -253,61 +420,61 @@ const RestaurantProfileMenu: React.FC = () => {
             />
           </div>
 
-          {/* Seções de Informação - Adicionando padding lateral aqui */}
-          <div className="px-4 space-y-6">
-            
-            {/* 1. Plano e Assinatura (Novo Card) */}
-            <SubscriptionCard isPremium={isPremium} />
+          {/* 2. Botão de Visualização Pública */}
+          <div className="flex px-4">
+            <Button 
+              onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+              className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-highlight text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-highlight/90"
+            >
+              <Eye className="w-4 h-4" />
+              <span className="truncate">Ver meu perfil público</span>
+            </Button>
+          </div>
 
-            {/* 2. Informações Básicas */}
-            <BasicInfoSection
-              restaurant={restaurant}
-              isPremium={isPremium}
-              handleEditField={handleEditField}
-              cnpjMask={cnpjMask}
-              phoneMask={phoneMask}
-              nameSchema={nameSchema}
-              emailSchema={emailSchema}
-              phoneSchema={phoneSchema}
-              cnpjSchema={cnpjSchema}
-            />
+          {/* 3. Detalhes do Estabelecimento (Card) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <div className="flex justify-between items-center px-4 pt-4 pb-2">
+                <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Detalhes do Estabelecimento</h3>
+                <button 
+                  onClick={() => setIsAddressDialogOpen(true)} // Usando o diálogo de endereço como ponto de entrada para edição
+                  className="flex items-center gap-1 text-highlight dark:text-highlight text-sm font-semibold hover:underline"
+                >
+                  <Edit className="w-4 h-4" />
+                  Editar
+                </button>
+              </div>
+              <BasicInfoSection restaurant={restaurant} handleEditField={handleEditField} />
+            </Card>
+          </div>
 
-            {/* 3. Localização e Horários */}
-            <LocationHoursSection
-              restaurant={restaurant}
-              isPremium={isPremium}
-              currentSchedule={currentSchedule}
-              setIsAddressDialogOpen={setIsAddressDialogOpen}
-              setIsHoursDialogOpen={setIsHoursDialogOpen}
-            />
+          {/* 4. Cardápio (Card) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
+              <MenuSection navigate={navigate} />
+            </Card>
+          </div>
 
-            {/* 4. Canais de Venda e Links */}
-            <SalesChannelsSection
-              restaurant={restaurant}
-              isPremium={isPremium}
-              handleEditField={handleEditField}
-              whatsappSchema={whatsappSchema}
-              ifoodSchema={ifoodSchema}
-              otherUrlSchema={otherUrlSchema}
-            />
+          {/* 5. Plano e Assinatura (Card) */}
+          <div className="px-4">
+            <SubscriptionCardNew navigate={navigate} />
+          </div>
 
-            {/* 5. Gerenciamento de Conteúdo */}
-            <ContentManagementSection navigate={navigate} />
+          {/* 6. Preferências e Personalização (Card) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preferências e Personalização</h3>
+              <PreferencesSection />
+            </Card>
+          </div>
 
-            {/* 6. Suporte (Atualizado) */}
-            <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
-
-            {/* Logout Button */}
-            <div className="mt-4 pt-6">
-              <Button
-                onClick={handleSignOut}
-                variant="outline"
-                className="w-full h-12 rounded-full border-2 border-red-500/50 hover:bg-red-50 active:scale-[0.98] transition-all justify-center px-4 shadow-md text-red-600 font-bold"
-              >
-                <LogOut className="h-5 w-5 mr-3" />
-                <span className="font-medium">Sair da conta</span>
-              </Button>
-            </div>
+          {/* 7. Suporte e Conta (Card) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Suporte e Conta</h3>
+              <SupportAccountSection handleSignOut={handleSignOut} navigate={navigate} />
+            </Card>
           </div>
         </div>
       </main>
