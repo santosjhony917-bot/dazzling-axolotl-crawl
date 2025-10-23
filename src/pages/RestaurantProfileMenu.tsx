@@ -110,6 +110,7 @@ export default function RestaurantProfileMenu() {
     label: string,
     value: string | number | null | undefined,
     key: keyof typeof restaurant,
+    placeholder: string,
     Icon?: React.ElementType,
     type: InputType = "text",
     isTextArea: boolean = false,
@@ -127,7 +128,7 @@ export default function RestaurantProfileMenu() {
         isTextArea={isTextArea}
       >
         <p className="max-w-xs truncate text-right text-sm font-semibold">
-          {value || `(${field.placeholder})`}
+          {value || `(${placeholder})`}
         </p>
       </EditFieldDialog>
     </div>
@@ -183,17 +184,18 @@ export default function RestaurantProfileMenu() {
 
           <Separator />
 
-          {renderField("Nome", restaurant.name, "name")}
+          {renderField("Nome", restaurant.name, "name", "Adicionar nome")}
           {renderField(
             "Descrição",
             restaurant.description,
             "description",
+            "Adicionar descrição",
             undefined,
             "text",
             true,
           )}
-          {renderField("CNPJ", restaurant.cnpj, "cnpj")}
-          {renderField("Categoria", restaurant.category, "category")}
+          {renderField("CNPJ", restaurant.cnpj, "cnpj", "Adicionar CNPJ")}
+          {renderField("Categoria", restaurant.category, "category", "Adicionar categoria")}
           <div className="flex items-center justify-between py-2">
             <p className="text-sm font-medium text-muted-foreground">Plano</p>
             <Badge className="capitalize">{restaurant.plan}</Badge>
@@ -212,6 +214,7 @@ export default function RestaurantProfileMenu() {
               field.label,
               restaurant[field.key as keyof typeof restaurant],
               field.key as keyof typeof restaurant,
+              field.placeholder,
               field.icon,
               field.type,
             ),
@@ -233,6 +236,7 @@ export default function RestaurantProfileMenu() {
               field.label,
               restaurant[field.key as keyof typeof restaurant],
               field.key as keyof typeof restaurant,
+              field.placeholder,
               undefined,
               field.type,
             ),
