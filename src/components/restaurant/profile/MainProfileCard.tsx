@@ -3,14 +3,14 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Store, Camera, Check } from 'lucide-react';
-import restaurantLogo from "@/assets/restaurant-logo.png";
+import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets"; // Importando a constante
 
 interface MainProfileCardProps {
   restaurantName: string;
   logoUrl: string | null | undefined;
   isPremium: boolean;
   uploading: boolean;
-  handleFileSelect: (file: File, type: 'logo' | 'cover') => Promise<void>; // Tipo de retorno corrigido
+  handleFileSelect: (file: File, type: 'logo' | 'cover') => Promise<void>;
 }
 
 const MainProfileCard: React.FC<MainProfileCardProps> = ({
@@ -21,12 +21,12 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   handleFileSelect,
 }) => {
   return (
-    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800"> {/* Alterado p-6 para p-4, removido mb-6 */}
+    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
         {/* Logo */}
         <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-md">
           <img 
-            src={logoUrl || restaurantLogo} 
+            src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
             alt="Logo do Restaurante" 
             className="w-full h-full object-cover rounded-full"
           />
@@ -34,7 +34,7 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
             onFileSelect={(file) => handleFileSelect(file, 'logo')}
             uploading={uploading}
             className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            icon={<Camera className="h-3 w-3" />} // Ícone passado via prop 'icon'
+            icon={<Camera className="h-3 w-3" />}
           />
         </div>
         

@@ -8,6 +8,7 @@ import { useNearbyRestaurants, NearbyRestaurant } from "@/hooks/useNearbyRestaur
 import { formatDistance } from "@/services/geocoding";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets"; // Importando a constante
 
 const RestaurantResults = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const RestaurantResults = () => {
 
   const renderRestaurantCard = (restaurant: NearbyRestaurant) => (
     <Card key={restaurant.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-      <img src={restaurant.image_url || "https://via.placeholder.com/500x200?text=Sem+Imagem"} alt={restaurant.name} className="w-full h-48 object-cover" />
+      <img src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} alt={restaurant.name} className="w-full h-48 object-cover" />
       <CardHeader>
         <CardTitle>{restaurant.name}</CardTitle>
       </CardHeader>

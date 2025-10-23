@@ -8,12 +8,13 @@ import { MapPin, Search, Utensils } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { showSuccess } from "@/utils/toast";
+import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets"; // Importando a constante
 
 // Mock data for demonstration
 const mockRestaurants = [
-  { id: 1, name: "Restaurante A", cuisine: "Italiana", rating: 4.5, distance: 1.2, imageUrl: "https://via.placeholder.com/150?text=Restaurante+A" },
-  { id: 2, name: "Churrascaria B", cuisine: "Churrasco", rating: 4.8, distance: 0.5, imageUrl: "https://via.placeholder.com/150?text=Churrascaria+B" },
-  { id: 3, name: "Japa C", cuisine: "Japonesa", rating: 4.2, distance: 2.1, imageUrl: "https://via.placeholder.com/150?text=Japa+C" },
+  { id: 1, name: "Restaurante A", cuisine: "Italiana", rating: 4.5, distance: 1.2, imageUrl: PLACEHOLDER_IMAGE_URL },
+  { id: 2, name: "Churrascaria B", cuisine: "Churrasco", rating: 4.8, distance: 0.5, imageUrl: PLACEHOLDER_IMAGE_URL },
+  { id: 3, name: "Japa C", cuisine: "Japonesa", rating: 4.2, distance: 2.1, imageUrl: PLACEHOLDER_IMAGE_URL },
 ];
 
 const Index = () => {
