@@ -445,7 +445,7 @@ const RestaurantProfileMenu: React.FC = () => {
             
             {/* Card Principal Flutuante */}
             <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-              <div className="flex items-start gap-2"> {/* Reduzindo o gap de 3 para 2 */}
+              <div className="flex items-start gap-0"> {/* Removendo o gap completamente */}
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
                   restaurant={restaurant}
@@ -457,9 +457,9 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 relative pt-1">
+                <div className="flex-1 relative pt-1 ml-[-0.5rem]"> {/* Adicionando margem negativa para puxar o texto */}
                   <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-16 line-clamp-2">
+                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-10 line-clamp-2"> {/* Reduzindo pr-16 para pr-10 */}
                       {displayName}
                     </h3>
                     <Badge 
