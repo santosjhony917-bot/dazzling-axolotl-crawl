@@ -1,80 +1,86 @@
-import React, { memo } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Crown, Zap, Rocket } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
+import { cn } from "@/lib/utils";
+import { Home, Menu, Rocket, Settings, ShoppingCart } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import React from "react";
 
-const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+const navItems = [
+  {
+    name: "Home",
+    href: "/restaurant",
+    icon: Home,
+  },
+  {
+    name: "Menu",
+    href: "/restaurant/menu",
+    icon: Menu,
+  },
+  {
+    name: "Upgrade",
+    href: "/restaurant/upgrade",
+    icon: Rocket,
+    isSpecial: true,
+  },
+  {
+    name: "Orders",
+    href: "/restaurant/orders",
+    icon: ShoppingCart,
+  },
+  {
+    name: "Settings",
+    href: "/restaurant/settings",
+    icon: Settings,
+  },
+];
+
+export function RestaurantBottomNav() {
+  const location = useLocation();
+  const pathname = location.pathname;
+
   return (
-    <Link
-      to={path}
-      className={cn(
-        "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-        isSelected ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70",
-      )}
-    >
-      <Icon 
-        className={cn(
-          "w-6 h-6",
-        )} 
-      />
-      <span className="text-sm font-medium">
-        {label}
-      </span>
-    </Link>
-  );
-});
-
-const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
-  const navItems = [
-    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'stats', icon: Search, label: 'Buscar', path: createPageUrl('restaurant-area/stats') },
-    { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
-    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
-  ];
-
-  return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
-      <div className="flex justify-around items-center h-20">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background p-2 shadow-lg md:hidden">
+      <div className="flex justify-around">
         {navItems.map((item) => {
-          const isSelected = selectedTab === item.id;
-          
-          const isUpgradeButton = item.id === 'upgrade';
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
 
-          if (isUpgradeButton && isFree) {
-            const Icon = item.icon;
+          if (item.isSpecial) {
             return (
               <Link
-                key={item.path}
-                to={createPageUrl(item.path.substring(1))}
-                className="flex flex-col items-center justify-center transition-colors duration-200"
+                key={item.name}
+                to={item.href}
+                className="relative -top-3 flex flex-col items-center gap-1.5 text-white"
               >
-                <div className={cn(
-                  "flex items-center justify-center rounded-full px-4 py-2 transition-all duration-300 hover:scale-[1.02]",
-                  "bg-highlight/10 dark:bg-highlight/20 text-highlight"
-                )}>
-                  <Icon className="h-6 w-6 mr-1" />
-                  <span className="text-sm font-bold">
-                    {item.label}
-                  </span>
+                <div
+                  className={cn(
+                    "flex size-14 items-center justify-center rounded-full bg-accent shadow-lg shadow-accent/50",
+                  )}
+                >
+                  <Icon className="size-6 text-white" />
                 </div>
+                <span className="text-xs font-bold text-accent">
+                  {item.name}
+                </span>
               </Link>
             );
           }
 
           return (
-            <NavItem
-              key={item.path}
-              icon={item.icon}
-              label={item.label}
-              path={item.path}
-              isSelected={isSelected}
-            />
+            <Link
+              key={item.name}
+              to={item.href}
+              className={cn(
+                "flex flex-col items-center gap-1 p-2 transition-colors",
+                isActive
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              <Icon className="size-5" />
+              <span className="text-xs">{item.name}</span>
+            </Link>
           );
         })}
       </div>
-    </div>
+    </nav>
   );
-});
-
-export default RestaurantBottomNav;
+}

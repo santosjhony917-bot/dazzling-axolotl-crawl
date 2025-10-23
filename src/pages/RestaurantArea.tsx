@@ -1,59 +1,75 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import { RestaurantBottomNav } from '@/components/restaurant/RestaurantBottomNav';
 import { Home, BarChart2, Utensils, Rocket, User, ArrowLeft } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
 import { useUserRole } from '@/hooks/useUserRole';
+import { RestaurantSidebar } from '@/components/restaurant/RestaurantSidebar';
 
-const getSelectedTab = (pathname) => {
-  if (pathname.includes('/restaurant-area/home')) return 'home';
-  if (pathname.includes('/restaurant-area/stats')) return 'stats';
-  if (pathname.includes('/restaurant-area/menu')) return 'menu';
-  if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade';
-  if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
-  return 'home';
-};
+const navItems = [
+  {
+    name: 'Dashboard',
+    href: '/restaurant',
+    icon: Home,
+  },
+  {
+    name: 'Analytics',
+    href: '/restaurant/analytics',
+    icon: BarChart2,
+  },
+  {
+    name: 'Menu',
+    href: '/restaurant/menu',
+    icon: Utensils,
+  },
+  {
+    name: 'Upgrade',
+    href: '/restaurant/upgrade',
+    icon: Rocket,
+  },
+  {
+    name: 'Settings',
+    href: '/restaurant/settings',
+    icon: User,
+  },
+];
 
-const RestaurantArea = () => {
+export default function RestaurantArea() {
   const location = useLocation();
-  const { isPremium } = useUserRole();
-  const selectedTab = getSelectedTab(location.pathname);
-  
-  const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home');
-  const isProfileMenuRoute = location.pathname.endsWith('/restaurant-area/profile-menu');
-  const isStatsRoute = location.pathname.includes('/restaurant-area/stats');
-  const isHelpRoute = location.pathname.includes('/restaurant-area/help');
+  const { signOut } = useAuth();
+  const { role } = useUserRole();
 
-  const getHeaderContent = () => {
-    if (isDashboardRoute || isProfileMenuRoute || isStatsRoute || isHelpRoute) {
-        return { title: "", showHeader: false };
-    }
-    if (location.pathname.includes('/restaurant-area/menu')) {
-        return { title: "Cardápio", showHeader: true };
-    }
-    if (location.pathname.includes('/restaurant-area/categories')) {
-        return { title: "Gerenciar Categorias", showHeader: true };
-    }
-    if (location.pathname.includes('/restaurant-area/upgrade')) {
-        return { title: "Plano Premium", showHeader: true };
-    }
-    return { title: "Meu Restaurante", showHeader: true };
-  };
+  const isRestaurant = role === 'restaurant' || role === 'premium_restaurant';
 
-  const { title, showHeader } = getHeaderContent();
+  if (!isRestaurant) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center p-4 text-center">
+        <h1 className="text-2xl font-bold">Acesso Negado</h1>
+        <p className="mt-2 text-muted-foreground">
+          Você não tem permissão para acessar a área do restaurante.
+        </p>
+        <Button onClick={signOut} className="mt-4">
+          Voltar ao Login
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
-      {showHeader && (
-        <header className="bg-white dark:bg-gray-800 shadow-sm p-4 flex items-center sticky top-0 z-10">
-          <ArrowLeft className="h-6 w-6 mr-4 cursor-pointer" onClick={() => window.history.back()} />
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h1>
-        </header>
-      )}
-      <main className="flex-1">
-        <Outlet />
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar for Desktop */}
+      <RestaurantSidebar navItems={navItems} location={location} signOut={signOut} />
+
+      {/* Main Content Area */}
+      <main className="flex-1 pb-16 md:ml-64 md:pb-0">
+        <div className="p-4 md:p-8">
+          <Outlet />
+        </div>
       </main>
-      <RestaurantBottomNav selectedTab={selectedTab} isFree={!isPremium} />
+
+      {/* Bottom Navigation for Mobile */}
+      <RestaurantBottomNav />
     </div>
   );
-};
-
-export default RestaurantArea;
+}

@@ -1,114 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Loader2 } from 'lucide-react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface EditFieldDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  fieldName: string;
-  currentValue: string;
-  icon: React.ReactNode;
-  onSave: (value: string) => Promise<void> | void;
-  placeholder?: string;
-  type?: "text" | "tel" | "email";
-  validationSchema?: z.ZodType<string>; // Alterado de z.ZodString para z.ZodType<string>
-  mask?: (value: string) => string;
+  initialValue: string | number;
+  onSave: (value: string | number) => void;
+  label: string;
+  type?: "text" | "number" | "email" | "tel";
+  isTextArea?: boolean;
+  children: React.ReactNode;
 }
 
-const defaultSchema: z.ZodType<string> = z.string().min(1, "Campo obrigatório");
-
 export default function EditFieldDialog({
-  isOpen,
-  onClose,
-  title,
-  fieldName,
-  currentValue,
-  icon,
+  initialValue,
   onSave,
-  placeholder,
+  label,
   type = "text",
-  validationSchema = defaultSchema,
-  mask,
+  isTextArea = false,
+  children,
 }: EditFieldDialogProps) {
-  const [loading, setLoading] = useState(false);
-  
-  const schema = z.object({
-    value: validationSchema,
-  });
-
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      value: currentValue,
-    },
-  });
+  const [value, setValue] = useState(String(initialValue));
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    setValue('value', currentValue);
-  }, [currentValue, setValue]);
+    setValue(String(initialValue));
+  }, [initialValue]);
 
-  const onSubmit = async (data: { value: string }) => {
-    setLoading(true);
-    try {
-      await onSave(data.value);
-      onClose();
-    } catch (e) {
-      // Error handling is done in the parent component (RestaurantProfile)
-    } finally {
-      setLoading(false);
+  const handleSave = () => {
+    // Basic validation for number type
+    let finalValue: string | number = value;
+    if (type === "number") {
+      finalValue = parseFloat(value);
+      if (isNaN(finalValue)) {
+        finalValue = value; // Keep as string if parsing fails
+      }
     }
+
+    onSave(finalValue);
+    setIsOpen(false);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let rawValue = e.target.value;
-    if (mask) {
-      rawValue = mask(rawValue);
-    }
-    setValue('value', rawValue, { shouldValidate: true });
-  };
+  const Component = isTextArea ? Textarea : Input;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <div className="flex items-center gap-3 mb-2">
-            {icon}
-            <DialogTitle className="text-xl font-bold text-primary">{title}</DialogTitle>
-          </div>
-          <DialogDescription>
-            Edite o campo {fieldName} do seu restaurante.
-          </DialogDescription>
+          <DialogTitle>Editar {label}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input
-            {...register('value')}
-            type={type}
-            placeholder={placeholder}
-            className="h-12 rounded-xl text-base"
-            onChange={mask ? handleInputChange : undefined}
+        <div className="grid gap-4 py-4">
+          <Component
+            id="edit-field"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            type={isTextArea ? undefined : type}
+            className="col-span-3"
           />
-          {errors.value && (
-            <p className="text-sm text-destructive">{errors.value.message}</p>
-          )}
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
-              Cancelar
-            </Button>
-            <Button type="submit" disabled={loading || !!errors.value}>
-              {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                "Salvar Alterações"
-              )}
-            </Button>
-          </DialogFooter>
-        </form>
+        </div>
+        <div className="flex justify-end">
+          <Button onClick={handleSave}>Salvar Alterações</Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
