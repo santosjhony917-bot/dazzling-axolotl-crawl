@@ -406,6 +406,11 @@ const RestaurantProfileMenu: React.FC = () => {
   
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
   const restaurantType = "Estabelecimento Comercial"; // Mocked value
+  
+  // Simulação da quebra de linha do nome (Ex: "Bodega do danilo")
+  const nameParts = restaurantName.split(' ');
+  const nameLine1 = nameParts.slice(0, 2).join(' ');
+  const nameLine2 = nameParts.slice(2).join(' ');
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
@@ -454,12 +459,16 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 pt-2">
+                <div className="flex-1 pt-2 relative">
                   <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-xl text-[#022D68] leading-tight">{restaurantName}</h3>
+                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-16">
+                      {nameLine1}
+                      {nameLine2 && <br />}
+                      {nameLine2}
+                    </h3>
                     <Badge 
                       variant="outline" 
-                      className="text-xs font-semibold border-gray-400 text-gray-600 bg-white"
+                      className="absolute top-0 right-0 text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1"
                     >
                       Plano {isPremium ? "Premium" : "Free"}
                     </Badge>
