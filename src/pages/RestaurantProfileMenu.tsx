@@ -445,7 +445,7 @@ const RestaurantProfileMenu: React.FC = () => {
             
             {/* Card Principal Flutuante */}
             <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-              <div className="flex items-start gap-3"> {/* Reduzindo o gap de 4 para 3 */}
+              <div className="flex items-start gap-2"> {/* Reduzindo o gap de 3 para 2 */}
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
                   restaurant={restaurant}
