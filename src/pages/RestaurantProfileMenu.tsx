@@ -457,19 +457,21 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 relative pt-1">
-                  <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-10 line-clamp-2">
-                      {displayName}
-                    </h3>
+                <div className="flex-1 pt-1">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-2xl text-[#022D68] leading-tight">
+                        {displayName}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">{restaurantType}</p>
+                    </div>
                     <Badge 
                       variant="outline" 
-                      className="absolute top-0 right-0 text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1"
+                      className="text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1 mt-1 flex-shrink-0"
                     >
                       Plano {isPremium ? "Premium" : "Free"}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">{restaurantType}</p>
                 </div>
               </div>
               
