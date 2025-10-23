@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
@@ -9,34 +9,36 @@ export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const getSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error getting session:", error);
-      }
-      setUser(session?.user || null);
-      setIsLoading(false);
-    };
+  const checkSession = useCallback(async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error) {
+      console.error("Error getting session:", error);
+    }
+    setUser(session?.user || null);
+    setIsLoading(false);
+  }, []);
 
-    getSession();
+  useEffect(() => {
+    checkSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
       setIsLoading(false);
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [checkSession]);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
       // Redireciona para a tela de boas-vindas ou login
       navigate(createPageUrl('welcome'));
     }
     return { error };
-  };
+  }, [navigate]);
 
   return {
     user,

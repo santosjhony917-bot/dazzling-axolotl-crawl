@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export function useImageUpload() {
   const [uploading, setUploading] = useState(false);
 
-  const uploadImage = async (file: File, bucket: string, entityId: string, type: 'logo' | 'cover' = 'logo') => {
+  const uploadImage = useCallback(async (file: File, bucket: string, entityId: string, type: 'logo' | 'cover' = 'logo') => {
     setUploading(true);
     
     if (!file) {
@@ -36,7 +36,7 @@ export function useImageUpload() {
     setUploading(false);
     
     return { url: publicUrlData.publicUrl, error: null };
-  };
+  }, []);
 
   return {
     uploadImage,

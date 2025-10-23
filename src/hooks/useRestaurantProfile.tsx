@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/restaurant';
 import toast from 'react-hot-toast';
@@ -12,7 +12,7 @@ export function useRestaurantProfile(userId: string | null = null) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchRestaurant = async (id: string) => {
+  const fetchRestaurant = useCallback(async (id: string) => {
     setLoading(true);
     setError(null);
     try {
@@ -39,7 +39,7 @@ export function useRestaurantProfile(userId: string | null = null) {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (userId) { // Se um ID de usuário for fornecido, busca o restaurante
@@ -48,9 +48,9 @@ export function useRestaurantProfile(userId: string | null = null) {
       setLoading(false);
       setRestaurant(null);
     }
-  }, [userId]);
+  }, [userId, fetchRestaurant]);
 
-  const updateRestaurant = async (updates: Partial<RestaurantProfileData>): Promise<{ error: string | null }> => {
+  const updateRestaurant = useCallback(async (updates: Partial<RestaurantProfileData>): Promise<{ error: string | null }> => {
     if (!restaurant?.id) {
       const msg = "Restaurante não encontrado para atualização.";
       toast.error(msg);
@@ -72,11 +72,11 @@ export function useRestaurantProfile(userId: string | null = null) {
     await fetchRestaurant(restaurant.user_id);
     toast.success("Restaurante atualizado com sucesso!");
     return { error: null };
-  };
+  }, [restaurant?.id, restaurant?.user_id, fetchRestaurant]);
 
   return {
     restaurant,
-    loading: loading,
+    loading,
     error,
     updateRestaurant,
     refetch: () => userId && fetchRestaurant(userId),
