@@ -14,4 +14,24 @@ export default defineConfig(() => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separa vendor libraries em chunks menores
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['lucide-react'],
+          'supabase-vendor': ['@supabase/supabase-js'],
+          'utils-vendor': ['zod', 'react-hook-form', '@hookform/resolvers/zod']
+        }
+      }
+    },
+    // Otimizações para reduzir o tamanho do bundle
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs em produção
+        drop_debugger: true, // Remove debuggers em produção
+      }
+    }
+  }
 }));

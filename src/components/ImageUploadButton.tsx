@@ -1,18 +1,18 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Upload, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ButtonProps } from '@/components/ui/button'; // Importa ButtonProps
+import { ButtonProps } from '@/components/ui/button';
 
-interface ImageUploadButtonProps extends ButtonProps { // Estende ButtonProps
+interface ImageUploadButtonProps extends ButtonProps {
   onFileSelect: (file: File) => Promise<void>;
   uploading: boolean;
   className?: string;
-  icon?: React.ReactNode; // Adiciona suporte para ícone customizado
-  children?: React.ReactNode; // Adiciona suporte para children
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export function ImageUploadButton({ onFileSelect, uploading, className, icon, children, ...props }: ImageUploadButtonProps) {
+export const ImageUploadButton = memo(({ onFileSelect, uploading, className, icon, children, ...props }: ImageUploadButtonProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -53,10 +53,10 @@ export function ImageUploadButton({ onFileSelect, uploading, className, icon, ch
         className={cn("rounded-full", className)}
         size="icon"
         disabled={uploading}
-        {...props} // Passa as props adicionais do botão
+        {...props}
       >
-        {children || displayIcon} {/* Renderiza children se presente, senão o ícone */}
+        {children || displayIcon}
       </Button>
     </>
   );
-}
+});

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import CustomerBottomNav from "@/components/CustomerBottomNav";
@@ -8,7 +8,24 @@ import { MapPin, Search, Utensils } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { showSuccess } from "@/utils/toast";
-import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets"; // Importando a constante
+import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
+
+// Componente memoizado para itens de restaurante
+const RestaurantItem = memo(({ restaurant }: { restaurant: any }) => (
+  <Card key={restaurant.id} className="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+    <img src={restaurant.imageUrl} alt={restaurant.name} className="w-full h-32 object-cover" />
+    <CardContent className="p-4">
+      <h2 className="text-lg font-semibold text-[#022D68]">{restaurant.name}</h2>
+      <p className="text-sm text-gray-600">{restaurant.cuisine}</p>
+      <div className="flex items-center justify-between mt-2 text-sm">
+        <span className="flex items-center text-[#E47948] font-medium">
+          ★ {restaurant.rating}
+        </span>
+        <span className="text-gray-500">{restaurant.distance} km</span>
+      </div>
+    </CardContent>
+  </Card>
+));
 
 // Mock data for demonstration
 const mockRestaurants = [
@@ -89,19 +106,7 @@ const Index = () => {
         {/* Restaurant List (Mock) */}
         <div className="space-y-4">
           {mockRestaurants.map((restaurant) => (
-            <Card key={restaurant.id} className="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-              <img src={restaurant.imageUrl} alt={restaurant.name} className="w-full h-32 object-cover" />
-              <CardContent className="p-4">
-                <h2 className="text-lg font-semibold text-[#022D68]">{restaurant.name}</h2>
-                <p className="text-sm text-gray-600">{restaurant.cuisine}</p>
-                <div className="flex items-center justify-between mt-2 text-sm">
-                  <span className="flex items-center text-[#E47948] font-medium">
-                    ★ {restaurant.rating}
-                  </span>
-                  <span className="text-gray-500">{restaurant.distance} km</span>
-                </div>
-              </CardContent>
-            </Card>
+            <RestaurantItem key={restaurant.id} restaurant={restaurant} />
           ))}
         </div>
         

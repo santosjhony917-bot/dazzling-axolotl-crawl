@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ interface ProfileHeaderManagementProps {
   onUpdate: UpdateFunction;
 }
 
-export default function ProfileHeaderManagement({ restaurant, onUpdate }: ProfileHeaderManagementProps) {
+const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ restaurant, onUpdate }) => {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
   const navigate = useNavigate();
@@ -141,4 +141,6 @@ export default function ProfileHeaderManagement({ restaurant, onUpdate }: Profil
       </CardContent>
     </Card>
   );
-}
+});
+
+export default ProfileHeaderManagement;

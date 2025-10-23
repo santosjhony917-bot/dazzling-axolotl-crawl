@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, memo } from "react";
 import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +18,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 // Importando os novos componentes de seção
 import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
-import BasicInfoSection from "@/components/restaurant/profile/BasicInfoSection.tsx";
-import LocationHoursSection from "@/components/restaurant/profile/LocationHoursSection.tsx";
-import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection.tsx";
-import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection.tsx";
-import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection.tsx";
-import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard"; // Importando o novo card
+import BasicInfoSection from "@/components/restaurant/profile/BasicInfoSection";
+import LocationHoursSection from "@/components/restaurant/profile/LocationHoursSection";
+import SalesChannelsSection from "@/components/restaurant/profile/SalesChannelsSection";
+import ContentManagementSection from "@/components/restaurant/profile/ContentManagementSection";
+import SubscriptionSupportSection from "@/components/restaurant/profile/SubscriptionSupportSection";
+import SubscriptionCard from "@/components/restaurant/profile/SubscriptionCard";
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -354,4 +354,4 @@ const RestaurantProfileMenu: React.FC = () => {
   );
 };
 
-export default RestaurantProfileMenu;
+export default memo(RestaurantProfileMenu);

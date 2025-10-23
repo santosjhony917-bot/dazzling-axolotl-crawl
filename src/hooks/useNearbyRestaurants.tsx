@@ -56,7 +56,7 @@ export function useNearbyRestaurants({
     queryFn: fetchNearbyRestaurants,
     enabled: enabled && userLat !== null && userLon !== null,
     staleTime: 5 * 60 * 1000, // 5 minutos
-    cacheTime: 10 * 60 * 1000, // 10 minutos
+    gcTime: 10 * 60 * 1000, // 10 minutos (substitui cacheTime)
   });
 
   return {

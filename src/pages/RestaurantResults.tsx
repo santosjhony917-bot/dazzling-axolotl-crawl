@@ -8,7 +8,7 @@ import { useNearbyRestaurants, NearbyRestaurant } from "@/hooks/useNearbyRestaur
 import { formatDistance } from "@/services/geocoding";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets"; // Importando a constante
+import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
 
 const RestaurantResults = () => {
   const navigate = useNavigate();
@@ -81,6 +81,9 @@ const RestaurantResults = () => {
     </Card>
   );
 
+  // Type assertion para garantir que restaurants seja tratado como array
+  const restaurantsArray = (restaurants || []) as NearbyRestaurant[];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm sticky top-0 z-10">
@@ -134,7 +137,7 @@ const RestaurantResults = () => {
           </div>
         )}
 
-        {!loading && !error && restaurants.length === 0 && (
+        {!loading && !error && restaurantsArray.length === 0 && (
           <div className="text-center p-8 text-gray-600">
             <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
@@ -145,9 +148,9 @@ const RestaurantResults = () => {
           </div>
         )}
 
-        {!loading && restaurants.length > 0 && (
+        {!loading && restaurantsArray.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {restaurants.map(renderRestaurantCard)}
+            {restaurantsArray.map(renderRestaurantCard)}
           </div>
         )}
       </main>
