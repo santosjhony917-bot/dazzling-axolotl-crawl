@@ -457,7 +457,7 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 relative pt-1 ml-[-1rem]"> {/* Aumentando a margem negativa para puxar o texto mais para a esquerda */}
+                <div className="flex-1 relative pt-1 ml-[-4rem]"> {/* MARGEM NEGATIVA AGRESSIVA APLICADA AQUI */}
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-10 line-clamp-2"> {/* Reduzindo pr-16 para pr-10 */}
                       {displayName}
