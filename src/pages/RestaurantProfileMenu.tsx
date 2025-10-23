@@ -407,10 +407,8 @@ const RestaurantProfileMenu: React.FC = () => {
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
   const restaurantType = "Estabelecimento Comercial"; // Mocked value
   
-  // Simulação da quebra de linha do nome (Ex: "Bodega do danilo")
-  const nameParts = restaurantName.split(' ');
-  const nameLine1 = nameParts.slice(0, 2).join(' ');
-  const nameLine2 = nameParts.slice(2).join(' ');
+  // Revertendo a lógica de quebra de linha e usando o nome completo
+  const displayName = restaurantName;
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
@@ -447,7 +445,7 @@ const RestaurantProfileMenu: React.FC = () => {
             
             {/* Card Principal Flutuante */}
             <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4"> {/* Alterado de items-center para items-start */}
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
                   restaurant={restaurant}
@@ -459,12 +457,10 @@ const RestaurantProfileMenu: React.FC = () => {
                 />
                 
                 {/* Info e Plano */}
-                <div className="flex-1 pt-2 relative">
+                <div className="flex-1 relative pt-1"> {/* Ajustado pt-2 para pt-1 para subir o texto */}
                   <div className="flex justify-between items-start">
-                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-16">
-                      {nameLine1}
-                      {nameLine2 && <br />}
-                      {nameLine2}
+                    <h3 className="font-bold text-2xl text-[#022D68] leading-tight pr-16 line-clamp-2">
+                      {displayName}
                     </h3>
                     <Badge 
                       variant="outline" 
