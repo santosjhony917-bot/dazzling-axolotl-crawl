@@ -352,6 +352,6 @@ const RestaurantProfileMenu: React.FC = () => {
       />
     </div>
   );
-}
+};
 
 export default RestaurantProfileMenu;
