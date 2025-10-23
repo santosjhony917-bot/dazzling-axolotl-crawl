@@ -430,7 +430,7 @@ const RestaurantProfileMenu: React.FC = () => {
         <div className="w-full space-y-4">
           
           {/* 1. Topo do Perfil (Capa e Logo) */}
-          <div className="relative w-full h-48 bg-gray-300 dark:bg-gray-700">
+          <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700">
             {/* Botão Editar Capa (Premium) */}
             <Button
               onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
@@ -441,7 +441,7 @@ const RestaurantProfileMenu: React.FC = () => {
             </Button>
             
             {/* Card Principal Flutuante */}
-            <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+            <Card className="absolute -bottom-16 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
               <div className="flex items-start gap-4">
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
@@ -482,7 +482,7 @@ const RestaurantProfileMenu: React.FC = () => {
           </div>
           
           {/* Espaçamento para o Card Flutuante */}
-          <div className="h-12"></div> 
+          <div className="h-20"></div> 
 
           {/* 3. Detalhes do Estabelecimento (Card) */}
           <div className="px-4">
