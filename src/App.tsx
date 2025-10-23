@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RestaurantArea from '@/pages/RestaurantArea';
 import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
-import RestaurantProfileMenu from '@/pages/restaurant/RestaurantProfileMenu';
+import RestaurantProfileMenu from '@/pages/RestaurantProfileMenu';
 import RestaurantMenu from '@/pages/RestaurantMenu';
 import RestaurantCategories from '@/pages/RestaurantCategories';
 import UpgradePage from '@/pages/Upgrade';
