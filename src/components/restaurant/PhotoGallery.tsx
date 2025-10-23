@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface GalleryItem {
@@ -10,17 +10,17 @@ interface PhotoGalleryProps {
   gallery: GalleryItem[];
 }
 
-const PhotoGallery: React.FC<PhotoGalleryProps> = ({ gallery }) => {
-  
-  const GalleryImage = ({ item, className }: { item: GalleryItem, className?: string }) => (
-    <div className={cn("relative h-full rounded-xl overflow-hidden", className)}>
-      <img className="w-full h-full object-cover" alt={item.caption} src={item.imageUrl} />
-      <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
-        <p className="text-white text-sm font-semibold">{item.caption}</p>
-      </div>
+const GalleryImage = memo(({ item, className }: { item: GalleryItem, className?: string }) => (
+  <div className={cn("relative h-full rounded-xl overflow-hidden", className)}>
+    <img className="w-full h-full object-cover" alt={item.caption} src={item.imageUrl} />
+    <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
+      <p className="text-white text-sm font-semibold">{item.caption}</p>
     </div>
-  );
+  </div>
+));
 
+const PhotoGallery: React.FC<PhotoGalleryProps> = memo(({ gallery }) => {
+  
   // Layout: 1 grande (col-span-2) e 2 pequenos (col-span-1)
   const largeItem = gallery[0];
   const smallItems = gallery.slice(1, 3);
@@ -38,6 +38,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ gallery }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PhotoGallery;

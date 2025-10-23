@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Search, User, Crown, Zap, Rocket } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
-const NavItem = ({ icon: Icon, label, path, isSelected }) => {
+const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
   return (
     <Link
       to={path}
@@ -23,9 +23,9 @@ const NavItem = ({ icon: Icon, label, path, isSelected }) => {
       </span>
     </Link>
   );
-};
+});
 
-const RestaurantBottomNav = ({ selectedTab, isFree }) => {
+const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
     { id: 'stats', icon: Search, label: 'Buscar', path: createPageUrl('restaurant-area/stats') },
@@ -75,6 +75,6 @@ const RestaurantBottomNav = ({ selectedTab, isFree }) => {
       </div>
     </div>
   );
-};
+});
 
 export default RestaurantBottomNav;

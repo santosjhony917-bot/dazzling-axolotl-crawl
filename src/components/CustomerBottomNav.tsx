@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Heart } from 'lucide-react'; // Usando Heart para Favoritos
+import { Home, Search, User, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -14,7 +14,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { path: '/home', label: 'Home', icon: Home, key: 'home' },
   { path: '/search-restaurants', label: 'Buscar', icon: Search, key: 'search' },
-  { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' }, // Novo item Favoritos
+  { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
   { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
 ];
 
@@ -22,7 +22,7 @@ interface CustomerBottomNavProps {
   selectedTab?: string;
 }
 
-const CustomerBottomNav: React.FC<CustomerBottomNavProps> = ({ selectedTab }) => {
+const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab }) => {
   const location = useLocation();
   
   // Mapeia rotas para garantir que o item correto seja ativado
@@ -74,6 +74,6 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = ({ selectedTab }) =>
       </div>
     </div>
   );
-};
+});
 
 export default CustomerBottomNav;

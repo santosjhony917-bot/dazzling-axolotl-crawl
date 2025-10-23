@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Utensils, BadgeCheck, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -14,7 +14,7 @@ interface RestaurantHeaderProps {
   restaurant: RestaurantData;
 }
 
-const RestaurantHeader: React.FC<RestaurantHeaderProps> = ({ restaurant }) => {
+const RestaurantHeader: React.FC<RestaurantHeaderProps> = memo(({ restaurant }) => {
   // Usando Utensils como ícone padrão, conforme o design original
   const ProfileIcon = Utensils; 
   
@@ -61,6 +61,6 @@ const RestaurantHeader: React.FC<RestaurantHeaderProps> = ({ restaurant }) => {
       </div>
     </div>
   );
-};
+});
 
 export default RestaurantHeader;

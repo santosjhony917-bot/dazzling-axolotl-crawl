@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CreditCard, QrCode, DollarSign } from 'lucide-react';
 
 interface PaymentMethod {
@@ -23,7 +23,7 @@ const mockPaymentMethods: PaymentMethod[] = [
   { icon: DollarSign, label: 'Dinheiro' },
 ];
 
-const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ restaurant }) => {
+const RestaurantInfo: React.FC<RestaurantInfoProps> = memo(({ restaurant }) => {
   // Usamos o endereço do mock, mas o restante das informações (horário, localização)
   // já estão nos Quick Info Cards na página principal. Aqui focamos em informações adicionais.
   
@@ -53,6 +53,6 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ restaurant }) => {
       </div>
     </div>
   );
-};
+});
 
 export default RestaurantInfo;

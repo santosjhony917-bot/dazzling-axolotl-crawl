@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Crown, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -17,7 +17,7 @@ interface MenuSectionProps {
   menuItems: MenuItem[];
 }
 
-const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
+const MenuItemCard: React.FC<{ item: MenuItem }> = memo(({ item }) => (
   <div className="flex items-center gap-4 rounded-xl bg-white p-3 shadow-sm">
     <img className="size-20 rounded-lg object-cover" alt={item.name} src={item.imageUrl} />
     <div className="flex-1">
@@ -34,9 +34,9 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
       </div>
     </div>
   </div>
-);
+));
 
-const MenuSection: React.FC<MenuSectionProps> = ({ categories, menuItems }) => {
+const MenuSection: React.FC<MenuSectionProps> = memo(({ categories, menuItems }) => {
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
   // Mock filtering logic (assuming all items belong to the first category for simplicity)
@@ -79,6 +79,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({ categories, menuItems }) => {
       <a className="mt-4 block text-center text-sm font-bold text-[#E47948] hover:underline" href="#">Ver cardápio completo</a>
     </div>
   );
-};
+});
 
 export default MenuSection;

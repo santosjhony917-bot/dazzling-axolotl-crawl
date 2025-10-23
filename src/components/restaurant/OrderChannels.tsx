@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { MessageSquare, BookOpen, Receipt } from 'lucide-react';
 
-const OrderChannels: React.FC = () => {
+const OrderChannels: React.FC = memo(() => {
   return (
     <div className="mt-8">
       <h2 className="text-lg font-bold text-[#022D68]">Peça agora pelo seu canal favorito</h2>
@@ -21,6 +21,6 @@ const OrderChannels: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default OrderChannels;
