@@ -441,7 +441,7 @@ const RestaurantProfileMenu: React.FC = () => {
             </Button>
             
             {/* Card Principal Flutuante */}
-            <Card className="absolute -bottom-16 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+            <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
               <div className="flex items-start gap-4">
                 {/* Logo e Botão de Upload */}
                 <ProfileHeaderManagement
