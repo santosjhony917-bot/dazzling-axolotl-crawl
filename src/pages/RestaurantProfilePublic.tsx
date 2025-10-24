@@ -1,240 +1,268 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Star, MapPin, Clock, Crown, Loader2, ServerCrash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { supabase } from "@/integrations/supabase/client";
-import { Restaurant } from "@/types/restaurant";
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { usePublicMenu } from '@/hooks/usePublicMenu'; // Importando o hook de menu público
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils/url';
+import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
+import { MapPin, Clock, Phone, Utensils, Crown, Check, Mail, FileText, Store, Building2, MessageSquare, Star } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { WeekSchedule } from '@/types/schedule';
+import { Restaurant } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types/menu';
 
-import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
-import OrderChannels from "@/components/restaurant/OrderChannels";
-import PhotoGallery from "@/components/restaurant/PhotoGallery";
-import RestaurantInfo from "@/components/restaurant/RestaurantInfo";
-import FreeProfileLayout from "@/components/FreeProfileLayout";
-import PublicMenuSection from "@/components/public/PublicMenuSection"; // Importando o novo componente
+// Mock Schedule (Fallback)
+const mockSchedule: WeekSchedule = {
+  monday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
+  tuesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
+  wednesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
+  thursday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
+  friday: { isOpen: true, slots: [{ start: '09:00', end: '23:00' }] },
+  saturday: { isOpen: true, slots: [{ start: '11:00', end: '23:00' }] },
+  sunday: { isOpen: false, slots: [] },
+};
 
-export default function RestaurantProfilePublic() {
+const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
+  const openDays = days.filter(day => schedule[day]?.isOpen);
+  if (openDays.length === 0) return "Fechado";
+  const firstSlot = schedule[openDays[0]].slots[0];
+  if (!firstSlot) return "Horários definidos";
+  return `${firstSlot.start} - ${firstSlot.end}`;
+};
+
+interface RestaurantProfilePublicProps {
+  restaurant: Restaurant;
+  menuCategories: (MenuCategory & { items: MenuItem[] })[];
+}
+
+const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ restaurant, menuCategories }) => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isFollowing, setIsFollowing] = useState(false);
-
-  // Busca o cardápio público (habilitado se o ID existir)
-  const { data: menuData, isLoading: isMenuLoading, error: menuError } = usePublicMenu(id || '');
-
-  useEffect(() => {
-    const fetchRestaurant = async () => {
-      if (!id) {
-        setError("ID do restaurante não fornecido.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        const { data, error } = await supabase
-          .from('restaurants')
-          .select('*')
-          .eq('id', id)
-          .single();
-
-        if (error) throw error;
-        if (data) setRestaurant(data as Restaurant);
-
-      } catch (err: any) {
-        console.error("Erro ao buscar restaurante:", err);
-        setError("Não foi possível carregar os dados do restaurante.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRestaurant();
-  }, [id]);
-
-  if (loading || isMenuLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-[#E47948]" />
-      </div>
-    );
-  }
-
-  if (error || !restaurant) {
-    return (
-      <div className="flex items-center justify-center h-screen p-4">
-        <Alert variant="destructive" className="max-w-lg">
-          <ServerCrash className="h-4 w-4" />
-          <AlertTitle>Erro</AlertTitle>
-          <AlertDescription>{error || "O restaurante que você está procurando não foi encontrado."}</AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-  
-  // --- Renderização Condicional ---
-  if (restaurant.plan === 'free') {
-    // Se o plano for Free, renderiza o layout Free, passando o menu
-    return (
-      <FreeProfileLayout 
-        restaurant={restaurant} 
-        menuCategories={menuData?.categories}
-      >
-        {/* Conteúdo extra, se houver */}
-      </FreeProfileLayout>
-    );
-  }
-
-  // --- Premium/Default Layout ---
-  
-  // Mock data necessário para componentes Premium que dependem de dados complexos (rating, gallery)
-  const premiumMockData = {
-    isVerified: true, // Mocked for now
-    rating: 4.7, // Mocked for now
-    reviewsCount: 1200, // Mocked for now
-    followersCount: 2834, // Mocked for now
-    coverImageUrl: restaurant.cover_image_url || "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
-    address: restaurant.address || 'Endereço não definido',
-    openingHours: '18:00 - 23:00', // Mocked for now
-    isOpen: true, // Mocked for now
-    gallery: [ // Mocked for now
-      { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente aconchegante' },
-      { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária premium' },
-      { imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop', caption: 'Vista privilegiada' }
-    ]
-  };
-  
-  // Combina dados reais do restaurante com mocks para o Premium
-  const displayData = {
-    ...restaurant,
-    ...premiumMockData,
-    name: restaurant.name,
-    address: restaurant.address,
-  };
+  const isPremium = restaurant.plan !== 'free';
+  const currentSchedule = restaurant.opening_hours || mockSchedule;
+  const scheduleSummary = formatScheduleSummary(currentSchedule);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white max-w-md mx-auto">
-      {/* Cover Image with Overlay Controls */}
-      <div className="relative w-full h-72">
-        <img
-          src={displayData.coverImageUrl}
-          alt={displayData.name}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-        
-        {/* Top Controls */}
-        <div className="absolute top-0 inset-x-0 p-4 flex justify-between items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-            className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
-          >
-            <ArrowLeft className="w-5 h-5 text-gray-900" />
-          </Button>
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
-            >
-              <Heart className="w-5 h-5 text-gray-900" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
-            >
-              <Share2 className="w-5 h-5 text-gray-900" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative -mt-12 px-4 pb-8">
-        <RestaurantHeader restaurant={displayData} />
-
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex gap-3 mt-6"
-        >
-          <Button
-            onClick={() => setIsFollowing(!isFollowing)}
-            className={cn(
-              "flex-1 rounded-full h-11 font-semibold shadow-md transition-all",
-              isFollowing
-                ? "bg-white text-[#022D68] border-2 border-[#022D68] hover:bg-gray-50"
-                : "bg-[#E47948] text-white hover:bg-[#E47948]/90"
-            )}
-          >
-            {isFollowing ? "Seguindo" : "Seguir"}
-          </Button>
-          <Button
-            variant="outline"
-            className="flex-1 rounded-full h-11 font-semibold border-2 border-[#022D68] text-[#022D68] hover:bg-[#022D68]/5 shadow-md"
-          >
-            Contato
-          </Button>
-        </motion.div>
-
-        {/* Quick Info Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-2 gap-3 mt-6"
-        >
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-2 text-[#E47948] mb-1">
-              <Clock className="w-4 h-4" />
-              <span className="text-xs font-medium">Horário</span>
-            </div>
-            <p className="text-sm font-bold text-[#022D68]">{displayData.openingHours}</p>
-            <span className="inline-block mt-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-              Aberto
-            </span>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-2 text-[#E47948] mb-1">
-              <MapPin className="w-4 h-4" />
-              <span className="text-xs font-medium">Localização</span>
-            </div>
-            <p className="text-sm font-bold text-[#022D68] line-clamp-2">
-              {displayData.city || 'Localização não definida'}
-            </p>
-            <button className="mt-1 text-xs text-[#E47948] font-semibold hover:underline">
-              Ver mapa
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Order Channels */}
-        <OrderChannels />
-
-        {/* Photo Gallery */}
-        <PhotoGallery gallery={displayData.gallery} />
-
-        {/* Menu Section (Usando dados reais) */}
-        {menuData && (
-          <div className="mt-8">
-            <PublicMenuSection categories={menuData.categories} />
-          </div>
+    <div className="w-full space-y-4">
+      
+      {/* 1. Topo do Perfil (Capa e Logo) */}
+      <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700">
+        {restaurant.cover_image_url && (
+            <img
+                src={restaurant.cover_image_url}
+                alt="Capa do Restaurante"
+                className="w-full h-full object-cover"
+            />
         )}
-
-        {/* Restaurant Info */}
-        <RestaurantInfo restaurant={displayData} />
+        
+        {/* Card Principal Flutuante */}
+        <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+          <div className="flex items-start gap-4">
+            {/* Logo */}
+            <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden border-4 border-white dark:border-gray-800 flex-shrink-0">
+              {restaurant.image_url ? (
+                <img src={restaurant.image_url} alt="Logo" className="w-full h-full object-cover" />
+              ) : (
+                <Store className="w-10 h-10 text-gray-500" />
+              )}
+            </div>
+            
+            {/* Info e Plano */}
+            <div className="flex-1 pt-1">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="font-bold text-2xl text-[#022D68] leading-tight">
+                    {restaurant.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 mt-1">{restaurant.category || "Estabelecimento Comercial"}</p>
+                </div>
+                <Badge 
+                  variant="outline" 
+                  className="text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1 mt-1 flex-shrink-0"
+                >
+                  Plano {isPremium ? "Premium" : "Free"}
+                </Badge>
+              </div>
+            </div>
+          </div>
+          
+          {/* Botões de Ação */}
+          <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+            <Button 
+              onClick={() => navigate(createPageUrl(`public-menu/${restaurant.id}`))}
+              className="flex-1 flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
+            >
+              <Utensils className="w-5 h-5" />
+              Ver Cardápio
+            </Button>
+            <Button 
+              variant="outline"
+              className="w-12 h-12 rounded-full border-2 border-gray-300 text-gray-600 hover:bg-gray-100"
+              onClick={() => alert('Favoritar em breve!')}
+            >
+              <Star className="w-5 h-5" />
+            </Button>
+          </div>
+        </Card>
       </div>
+      
+      {/* Espaçamento para o Card Flutuante */}
+      <div className="h-20"></div> 
+
+      {/* 2. Detalhes do Estabelecimento (Card) */}
+      <div className="px-4">
+        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-4">
+          <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Detalhes</h3>
+          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            
+            {/* Endereço */}
+            <div className="py-3 flex items-center gap-4">
+              <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{restaurant.address}, {restaurant.number} - {restaurant.neighborhood}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{restaurant.city} - {restaurant.state}</p>
+              </div>
+            </div>
+
+            {/* Horários */}
+            <div className="py-3 flex items-center gap-4">
+              <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Horário de Funcionamento</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{scheduleSummary}</p>
+              </div>
+            </div>
+
+            {/* Contato */}
+            {restaurant.phone && (
+              <div className="py-3 flex items-center gap-4">
+                <Phone className="w-5 h-5 text-highlight flex-shrink-0" />
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{restaurant.phone}</p>
+              </div>
+            )}
+            
+            {/* Canais de Pedido (Premium Feature Display) */}
+            {isPremium && (restaurant.whatsapp_url || restaurant.ifood_url) && (
+              <div className="py-3 space-y-2">
+                <h4 className="text-sm font-semibold text-primary dark:text-white flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" /> Canais de Pedido
+                </h4>
+                <div className="flex gap-3">
+                  {restaurant.whatsapp_url && (
+                    <a href={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" className="h-10 px-4 border-green-500 text-green-600 hover:bg-green-50/50">WhatsApp</Button>
+                    </a>
+                  )}
+                  {restaurant.ifood_url && (
+                    <a href={restaurant.ifood_url} target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" className="h-10 px-4 border-red-500 text-red-600 hover:bg-red-50/50">iFood</Button>
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </Card>
+      </div>
+
+      {/* 3. Descrição (Card) */}
+      {restaurant.description && (
+        <div className="px-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-2">
+            <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Sobre</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{restaurant.description}</p>
+          </Card>
+        </div>
+      )}
+      
+      {/* 4. Menu Preview (Card) - Only show if categories exist */}
+      {menuCategories.length > 0 && (
+        <div className="px-4">
+          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Destaques do Cardápio</h3>
+              <Button 
+                variant="link" 
+                onClick={() => navigate(createPageUrl(`public-menu/${restaurant.id}`))}
+                className="text-highlight p-0 h-auto text-sm font-semibold"
+              >
+                Ver Cardápio Completo
+              </Button>
+            </div>
+            
+            {/* Display first few items from the first category */}
+            {menuCategories[0].items.slice(0, 3).map(item => (
+              <div key={item.id} className="flex justify-between items-center border-b pb-2 last:border-b-0">
+                <div>
+                  <p className="font-medium text-gray-800 dark:text-gray-200">{item.name}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">{item.description}</p>
+                </div>
+                <p className="font-semibold text-highlight">R$ {item.price.toFixed(2).replace('.', ',')}</p>
+              </div>
+            ))}
+            
+          </Card>
+        </div>
+      )}
+      
     </div>
   );
-}
+};
+
+
+const RestaurantProfilePublic: React.FC = () => {
+  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const navigate = useNavigate();
+  
+  const { data: profileData, isLoading, error } = usePublicRestaurantProfile(restaurantId);
+
+  if (!restaurantId) {
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Perfil">
+        <div className="p-4 text-center text-red-500">ID do Restaurante não fornecido.</div>
+      </PublicRestaurantLayout>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Perfil">
+        <div className="p-4 space-y-6">
+          <Skeleton className="h-40 w-full rounded-xl mb-6" />
+          <Skeleton className="h-6 w-3/4 mb-4" />
+          <Skeleton className="h-64 w-full rounded-xl mb-6" />
+        </div>
+      </PublicRestaurantLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Perfil">
+        <div className="p-4 text-center text-red-500">Erro ao carregar o perfil.</div>
+      </PublicRestaurantLayout>
+    );
+  }
+
+  if (!profileData || !profileData.restaurant) {
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Perfil">
+        <div className="p-4 text-center text-gray-600">Restaurante não encontrado.</div>
+      </PublicRestaurantLayout>
+    );
+  }
+  
+  const { restaurant, categories } = profileData;
+
+  return (
+    <PublicRestaurantLayout restaurant={restaurant} title={restaurant.name} backPath="home">
+      <RestaurantProfileContent 
+        restaurant={restaurant} 
+        menuCategories={categories}
+      />
+    </PublicRestaurantLayout>
+  );
+};
+
+export default RestaurantProfilePublic;
