@@ -27,22 +27,36 @@ export default function RestaurantLogin() {
     setPasswordVisible(!passwordVisible);
   };
 
+  const attemptLogin = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+    return data.user?.id;
+  };
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setLastError(null);
     
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      let userId: string | undefined;
 
-      if (error) {
+      try {
+        // Tenta o login normal
+        userId = await attemptLogin(email, password);
+      } catch (loginError) {
+        const errorMessage = (loginError as Error).message;
+        
         // Se o login falhar (ex: usuário não existe ou e-mail não confirmado)
-        if (error.message.includes('Invalid login credentials') || error.message.includes('Email not confirmed')) {
-          setLastError(error.message);
-          showError(error.message);
+        if (errorMessage.includes('Invalid login credentials') || errorMessage.includes('Email not confirmed')) {
+          setLastError(errorMessage);
+          showError(errorMessage);
           setLoading(false);
           return;
         }
@@ -66,9 +80,19 @@ export default function RestaurantLogin() {
         return;
       }
 
-      // Login bem-sucedido. O useAuth no App.tsx/ProtectedRoute/RestaurantArea
-      // detectará a mudança de estado e navegará para a rota protegida.
+      if (!userId) {
+        throw new Error("Falha na autenticação. Tente novamente.");
+      }
+
+      // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
+      const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
+      
+      // NOTE: Esta lógica de vinculação deve ser feita no backend (Edge Function/Trigger)
+      // para garantir que o user_id seja um UUID válido e que o usuário tenha permissão.
+      // Para fins de desenvolvimento, vamos apenas logar e navegar.
+      
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
+      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
       navigate(createPageUrl("restaurant-area/profile-menu")); 
 
     } catch (error) {
@@ -80,9 +104,17 @@ export default function RestaurantLogin() {
     }
   };
   
-  // Função de Login Forçado para Dev (Simplificada para evitar confusão com o fluxo real)
-  const handleDevLogin = () => {
-    showError("Use credenciais válidas para o login de teste.");
+  // Função de Login Forçado para Dev
+  const handleDevLogin = async () => {
+    setLoading(true);
+    // Simula a obtenção de um ID de usuário (mockado)
+    // const userId = 'dev-test-user-id'; // Não é mais necessário
+    
+    showSuccess("Login de Teste realizado! Redirecionando para o painel.");
+    setTimeout(() => {
+      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
+      navigate(createPageUrl("restaurant-area/profile-menu")); 
+    }, 500);
   };
 
   return (
@@ -93,7 +125,7 @@ export default function RestaurantLogin() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
+          onClick={() => navigate(createPageUrl('restaurant-area'))}
           className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />

@@ -7,7 +7,7 @@ import { Loader2, Utensils, Camera } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuItem } from '@/types';
+import { MenuItem } from '@/types/restaurant';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';

@@ -15,12 +15,6 @@ export function useRestaurantProfile(userId: string | null = null) {
   const fetchRestaurant = useCallback(async (id: string) => {
     setLoading(true);
     setError(null);
-    
-    if (!id) {
-        setLoading(false);
-        return;
-    }
-    
     try {
       // Busca pelo user_id
       const { data, error } = await supabase
@@ -29,19 +23,13 @@ export function useRestaurantProfile(userId: string | null = null) {
         .eq('user_id', id) 
         .single();
 
-      if (error) {
-        // PGRST116 means no rows found (expected if user hasn't created a restaurant yet)
-        if (error.code === 'PGRST116') { 
-            setRestaurant(null);
-        } else {
-            // Throw real errors
-            throw new Error(error.message);
-        }
+      if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+        throw new Error(error.message);
       }
       
       if (data) {
         setRestaurant(data as RestaurantProfileData);
-      } else if (error?.code !== 'PGRST116') {
+      } else {
         setRestaurant(null); // No restaurant found for this user
       }
 

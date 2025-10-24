@@ -11,7 +11,7 @@ import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
-import { Restaurant } from '@/types';
+import { Restaurant } from '@/types/restaurant';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -117,11 +117,11 @@ const Home: React.FC = () => {
           </div>
         ) : restaurants.length > 0 ? (
           <div className="space-y-4">
-            {/* O tipo NearbyRestaurant é compatível com DisplayRestaurant em RestaurantCard */}
+            {/* O tipo NearbyRestaurant é um subconjunto de Restaurant, mas forçamos a tipagem para compatibilidade com RestaurantCard. */}
             {restaurants.map((restaurant) => (
               <RestaurantCard 
                 key={restaurant.id} 
-                restaurant={restaurant} 
+                restaurant={restaurant as unknown as Restaurant} 
                 onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
               />
             ))}
