@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
-  signOut: () => Promise<void>; // Adicionado signOut
+  signOut: () => Promise<{ error: Error | null }>; // Retorno atualizado
 }
 
 // Contexto criado em src/context/AuthContext.tsx
@@ -46,10 +46,11 @@ export const useProvideAuth = (): AuthContextType => {
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error('Error signing out:', error);
-      // Optionally show error toast
+      return { error };
     } else {
       setUser(null);
       setSession(null);
+      return { error: null };
     }
   };
 

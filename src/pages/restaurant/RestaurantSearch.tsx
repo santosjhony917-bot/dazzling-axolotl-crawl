@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
-import { Restaurant } from '@/types/restaurant';
+import { RestaurantWithDistance } from '@/types/restaurant'; // Importando o tipo correto
 import Header from '@/components/Header';
 import SearchToggle from '@/components/SearchToggle';
 
@@ -15,7 +15,7 @@ export default function RestaurantSearch() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState<RestaurantWithDistance[]>([]); // Usando o tipo correto
   const [searchType, setSearchType] = useState<SearchType>('restaurants');
   
   const { location } = useUserSearchLocation();
@@ -45,7 +45,7 @@ export default function RestaurantSearch() {
         console.error('Error fetching nearby restaurants:', error);
         setRestaurants([]);
       } else {
-        setRestaurants(data || []);
+        setRestaurants(data as RestaurantWithDistance[] || []); // Cast para o tipo correto
       }
     } catch (e) {
       console.error('Exception fetching nearby restaurants:', e);

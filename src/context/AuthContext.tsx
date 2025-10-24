@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
-  signOut: () => Promise<void>;
+  signOut: () => Promise<{ error: Error | null }>; // Tipo de retorno atualizado
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
