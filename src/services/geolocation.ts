@@ -3,6 +3,7 @@ import { checkLocationPreference } from '@/components/LocationPermissionModal'; 
 
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 const MOCK_LOCATION = { lat: -7.1195, lon: -34.8450 }; // João Pessoa, PB
+const LAST_SEARCH_LOCATION_KEY = 'last_search_location'; // Chave para localStorage
 
 interface AddressDetails {
   road?: string;
@@ -34,6 +35,8 @@ export interface GeocodedAddress {
   cep: string;
   lat: number;
   lon: number;
+  // Adicionando o campo de endereço formatado para persistência
+  formattedAddress: string; 
 }
 
 // Helper para encontrar o melhor campo disponível
@@ -68,6 +71,8 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
   const city = findBestField(addr, ['city', 'town', 'village', 'municipality', 'county', 'state_district']);
   const cep = addr.postcode || "";
   const state = addr.state || "";
+  
+  const formattedAddress = [street, neighborhood, city, state].filter(Boolean).join(', ');
 
   return {
     street,
@@ -77,6 +82,7 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
     cep,
     lat,
     lon,
+    formattedAddress,
   };
 }
 
@@ -121,4 +127,38 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
       options
     );
   });
+}
+
+// --- Funções de Persistência ---
+
+export function saveLastSearchLocation(location: GeocodedAddress) {
+  try {
+    const dataToSave = {
+      lat: location.lat,
+      lon: location.lon,
+      formattedAddress: location.formattedAddress,
+    };
+    localStorage.setItem(LAST_SEARCH_LOCATION_KEY, JSON.stringify(dataToSave));
+  } catch (e) {
+    console.error("Failed to save location to localStorage:", e);
+  }
+}
+
+export function loadLastSearchLocation(): { lat: number; lon: number; address: string } | null {
+  try {
+    const storedData = localStorage.getItem(LAST_SEARCH_LOCATION_KEY);
+    if (storedData) {
+      const data = JSON.parse(storedData);
+      if (data.lat && data.lon && data.formattedAddress) {
+        return {
+          lat: data.lat,
+          lon: data.lon,
+          address: data.formattedAddress,
+        };
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load location from localStorage:", e);
+  }
+  return null;
 }

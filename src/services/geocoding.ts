@@ -57,6 +57,7 @@ async function fetchViaCEP(cep: string): Promise<GeocodedAddress | null> {
       cep: formatCEP(data.cep),
       lat: coords.lat,
       lon: coords.lon,
+      formattedAddress: fullAddress, // Adicionado para satisfazer a interface GeocodedAddress
     };
   } catch (error) {
     console.error("ViaCEP fetch failed:", error);

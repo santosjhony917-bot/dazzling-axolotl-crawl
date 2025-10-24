@@ -6,10 +6,42 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import LocationPermissionModal, { checkLocationPreference } from '@/components/LocationPermissionModal';
-import { getCurrentLocationAddress, GeocodedAddress } from '@/services/geolocation';
+import { getCurrentLocationAddress, GeocodedAddress, saveLastSearchLocation, loadLastSearchLocation } from '@/services/geolocation';
 import { showError, showSuccess } from '@/utils/toast';
 
 const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
+const MOCK_ADDRESS = "Av. Epitácio Pessoa, Tambau, João Pessoa - PB";
+
+// Função para obter a localização inicial (prioriza URL, depois LocalStorage, depois Mock)
+const getInitialLocation = (initialLat: number | null, initialLon: number | null): { lat: number | null; lon: number | null; address: string } => {
+  const savedLocation = loadLastSearchLocation();
+  
+  if (initialLat !== null && initialLon !== null) {
+    // 1. Prioridade: Parâmetros da URL
+    return {
+      lat: initialLat,
+      lon: initialLon,
+      address: savedLocation?.address || "Localização obtida da URL", // Usamos o endereço salvo se existir
+    };
+  }
+  
+  if (savedLocation) {
+    // 2. Segunda Prioridade: Localização salva
+    return {
+      lat: savedLocation.lat,
+      lon: savedLocation.lon,
+      address: savedLocation.address,
+    };
+  }
+  
+  // 3. Fallback: Mock Location (para evitar nulls iniciais)
+  return {
+    lat: MOCK_LOCATION_COORDS.lat,
+    lon: MOCK_LOCATION_COORDS.lon,
+    address: MOCK_ADDRESS,
+  };
+};
+
 
 export default function SearchRestaurants() {
   const navigate = useNavigate();
@@ -22,20 +54,24 @@ export default function SearchRestaurants() {
 
   const [distance, setDistance] = useState<number[]>([initialDistance]);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [location, setLocation] = useState<{ lat: number | null; lon: number | null; address: string }>({
-    lat: initialLat,
-    lon: initialLon,
-    address: "Obtendo localização...",
-  });
+  
+  const [location, setLocation] = useState(getInitialLocation(initialLat, initialLon));
+  
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   const handleLocationUpdate = (addressData: GeocodedAddress) => {
+    const formattedAddress = addressData.formattedAddress;
+    
     setLocation({
       lat: addressData.lat,
       lon: addressData.lon,
-      address: `${addressData.street}, ${addressData.city} - ${addressData.state}`,
+      address: formattedAddress,
     });
+    
+    // Salva a nova localização no localStorage
+    saveLastSearchLocation(addressData);
+    
     setLoadingLocation(false);
   };
 
@@ -43,9 +79,8 @@ export default function SearchRestaurants() {
     setLoadingLocation(true);
     
     if (!useGPS) {
-      // Se for para usar mock location, não tentamos o GPS
-      console.log("Usando localização mock (João Pessoa).");
-      handleLocationUpdate({
+      // Se for para usar mock location, usamos o mock e salvamos
+      const mockAddressData: GeocodedAddress = {
         street: "Av. Epitácio Pessoa",
         neighborhood: "Tambau",
         city: "João Pessoa",
@@ -53,12 +88,14 @@ export default function SearchRestaurants() {
         cep: "58039-000",
         lat: MOCK_LOCATION_COORDS.lat,
         lon: MOCK_LOCATION_COORDS.lon,
-      });
+        formattedAddress: MOCK_ADDRESS,
+      };
+      handleLocationUpdate(mockAddressData);
       return;
     }
 
     try {
-      // Esta chamada dispara o prompt de permissão do navegador/dispositivo
+      // Tenta obter a localização real
       const addressData = await getCurrentLocationAddress();
       handleLocationUpdate(addressData);
       showSuccess("Localização atualizada via GPS!");
@@ -66,8 +103,8 @@ export default function SearchRestaurants() {
       console.error("Failed to fetch location via GPS:", error);
       showError("Não foi possível obter sua localização via GPS. Usando localização padrão.");
       
-      // Fallback to mock location if GPS fails or permission is denied
-      handleLocationUpdate({
+      // Fallback para mock location se GPS falhar
+      const mockAddressData: GeocodedAddress = {
         street: "Av. Epitácio Pessoa",
         neighborhood: "Tambau",
         city: "João Pessoa",
@@ -75,24 +112,29 @@ export default function SearchRestaurants() {
         cep: "58039-000",
         lat: MOCK_LOCATION_COORDS.lat,
         lon: MOCK_LOCATION_COORDS.lon,
-      });
+        formattedAddress: MOCK_ADDRESS,
+      };
+      handleLocationUpdate(mockAddressData);
     }
   };
 
   useEffect(() => {
-    // checkLocationPreference agora é síncrona
     const preference = checkLocationPreference();
+    
+    // Se já temos coordenadas válidas da URL ou do localStorage, não precisamos carregar, apenas parar o loading.
+    if (location.lat !== null && location.lon !== null) {
+        setLoadingLocation(false);
+        return;
+    }
+    
     if (preference === 'unset') {
-      // Se a preferência não foi definida, mostramos o modal.
       setShowPermissionModal(true);
     } else if (preference === 'granted') {
-      // Se já foi concedida, tentamos buscar via GPS
       fetchLocation(true);
-    } else if (preference === 'mock') {
-      // Se for para usar mock, usamos mock
+    } else if (preference === 'mock' || preference === 'denied') {
       fetchLocation(false);
     }
-  }, []);
+  }, []); // Executa apenas na montagem
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,7 +158,7 @@ export default function SearchRestaurants() {
   
   const handlePermissionDenied = () => {
     setShowPermissionModal(false);
-    // Se o usuário negar, usamos a localização mockada como fallback
+    // Se o usuário negar, usamos a localização mockada como fallback e salvamos
     fetchLocation(false);
   };
 

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { showSuccess } from "@/utils/toast";
 import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
+import { loadLastSearchLocation, getCurrentLocationAddress } from "@/services/geolocation"; // Importando loadLastSearchLocation
 
 // Componente memoizado para itens de restaurante
 const RestaurantItem = memo(({ restaurant }: { restaurant: any }) => (
@@ -40,21 +41,38 @@ const Index = () => {
   const [userLocation, setUserLocation] = useState("Localização Atual");
 
   useEffect(() => {
-    const checkLocation = () => {
+    const checkLocation = async () => {
       const preference = checkLocationPreference();
+      const savedLocation = loadLastSearchLocation();
+
+      if (savedLocation) {
+        setUserLocation(savedLocation.address);
+        // Se já temos uma localização salva, não abrimos o modal de permissão imediatamente.
+        return;
+      }
+
       if (preference === 'unset') {
         setLocationModalOpen(true);
       } else if (preference === 'granted') {
-        // Simulate fetching location
-        setUserLocation("Rua das Flores, 123");
+        // Tenta obter a localização real se a permissão foi concedida, mas não há dados salvos
+        try {
+          const addressData = await getCurrentLocationAddress();
+          setUserLocation(addressData.formattedAddress);
+        } catch (e) {
+          setUserLocation("Localização Padrão");
+        }
+      } else {
+        setUserLocation("Localização Padrão");
       }
     };
     checkLocation();
   }, []);
 
-  const handleLocationGranted = () => {
+  const handleLocationGranted = async () => {
     setLocationModalOpen(false);
-    setUserLocation("Rua das Flores, 123");
+    // Força a busca e salva no localStorage
+    const addressData = await getCurrentLocationAddress();
+    setUserLocation(addressData.formattedAddress);
     showSuccess("Localização definida com sucesso!");
   };
 
