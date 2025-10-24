@@ -100,7 +100,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.cep}
             onChange={handleCepChange}
             placeholder="CEP (Ex: 58039-000)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68] pr-12"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] pr-12"
             maxLength={9}
             disabled={isSearchingCep}
             required
@@ -117,7 +117,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.street}
             onChange={(e) => onUpdate(location.id, 'street', e.target.value)}
             placeholder="Rua / Avenida"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
             required
           />
         </div>
@@ -129,7 +129,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.number}
             onChange={(e) => onUpdate(location.id, 'number', e.target.value)}
             placeholder="Número"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
             required
           />
         </div>
@@ -141,7 +141,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.complement}
             onChange={(e) => onUpdate(location.id, 'complement', e.target.value)}
             placeholder="Complemento (Ex: Sala 101, Bloco B)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
           />
         </div>
 
@@ -152,7 +152,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.neighborhood}
             onChange={(e) => onUpdate(location.id, 'neighborhood', e.target.value)}
             placeholder="Bairro"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
             required
           />
         </div>
@@ -163,14 +163,14 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.city}
             onChange={(e) => onUpdate(location.id, 'city', e.target.value)}
             placeholder="Cidade"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
             required
           />
           <Input
             value={location.state}
             onChange={(e) => onUpdate(location.id, 'state', e.target.value)}
             placeholder="Estado (UF)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68] w-20 shrink-0"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] w-20 shrink-0"
             maxLength={2}
             required
           />
@@ -183,7 +183,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.phone}
             onChange={(e) => onUpdate(location.id, 'phone', e.target.value)}
             placeholder="Telefone de contato (obrigatório)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#022D68] focus:ring-[#022D68]"
+            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
             required
           />
         </div>

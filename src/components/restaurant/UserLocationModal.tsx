@@ -113,7 +113,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
             <Input
               {...register('search')}
               placeholder="Ex: Av. Epitácio Pessoa, João Pessoa"
-              className="h-12 rounded-xl text-base pr-10"
+              className="h-12 rounded-xl text-base pr-10 focus:border-highlight focus:ring-highlight"
               disabled={loading}
             />
             {loading && (
@@ -122,7 +122,11 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
             {errors.search && <p className="text-sm text-destructive mt-1">{errors.search.message}</p>}
           </div>
           
-          <Button type="submit" disabled={loading || !!errors.search} className="w-full">
+          <Button 
+            type="submit" 
+            disabled={loading || !!errors.search} 
+            className="w-full bg-primary hover:bg-primary/90"
+          >
             Buscar Endereço
           </Button>
         </form>

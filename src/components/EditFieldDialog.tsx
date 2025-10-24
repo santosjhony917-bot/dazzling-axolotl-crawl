@@ -90,7 +90,7 @@ export default function EditFieldDialog({
             {...register('value')}
             type={type}
             placeholder={placeholder}
-            className="h-12 rounded-xl text-base"
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
             onChange={mask ? handleInputChange : undefined}
           />
           {errors.value && (
@@ -100,7 +100,11 @@ export default function EditFieldDialog({
             <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading || !!errors.value}>
+            <Button 
+              type="submit" 
+              disabled={loading || !!errors.value}
+              className="bg-highlight hover:bg-highlight/90"
+            >
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

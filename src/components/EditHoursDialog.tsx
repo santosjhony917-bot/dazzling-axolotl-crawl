@@ -35,14 +35,14 @@ const TimeSlotInput: React.FC<{ slot: TimeSlot, onChange: (newSlot: TimeSlot) =>
       type="time"
       value={slot.start}
       onChange={(e) => onChange({ ...slot, start: e.target.value })}
-      className="h-9 text-sm"
+      className="h-9 text-sm focus:border-highlight focus:ring-highlight"
     />
     <span className="text-gray-500">-</span>
     <Input
       type="time"
       value={slot.end}
       onChange={(e) => onChange({ ...slot, end: e.target.value })}
-      className="h-9 text-sm"
+      className="h-9 text-sm focus:border-highlight focus:ring-highlight"
     />
     <Button type="button" variant="ghost" size="icon" onClick={onRemove} className="h-8 w-8 text-red-500 hover:bg-red-50">
       <X className="h-4 w-4" />
@@ -70,7 +70,7 @@ const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedu
   };
 
   return (
-    <Card className="p-4 shadow-sm">
+    <Card className="p-4 shadow-sm rounded-xl">
       <div className="flex items-center justify-between">
         <h4 className="font-semibold text-sm">{dayLabels[day]}</h4>
         <Switch checked={schedule.isOpen} onCheckedChange={handleToggleOpen} className="data-[state=checked]:bg-[#E47948]" />
@@ -85,7 +85,7 @@ const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedu
               onRemove={() => handleRemoveSlot(index)}
             />
           ))}
-          <Button type="button" variant="outline" size="sm" onClick={handleAddSlot} className="w-full h-8 text-xs">
+          <Button type="button" variant="outline" size="sm" onClick={handleAddSlot} className="w-full h-8 text-xs border-primary text-primary hover:bg-primary/5">
             <Plus className="h-3 w-3 mr-1" /> Adicionar Horário
           </Button>
         </div>
@@ -147,7 +147,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             Cancelar
           </Button>
-          <Button type="button" onClick={handleSave} disabled={loading}>
+          <Button type="button" onClick={handleSave} disabled={loading} className="bg-highlight hover:bg-highlight/90">
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
