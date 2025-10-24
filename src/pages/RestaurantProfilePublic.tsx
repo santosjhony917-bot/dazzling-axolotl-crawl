@@ -13,7 +13,7 @@ import OrderChannels from "@/components/restaurant/OrderChannels";
 import PhotoGallery from "@/components/restaurant/PhotoGallery";
 import MenuSection from "@/components/restaurant/MenuSection";
 import RestaurantInfo from "@/components/restaurant/RestaurantInfo";
-import FreeProfileLayout from "@/components/FreeProfileLayout"; // Importa o novo layout Free
+import FreeProfileLayout from "@/components/FreeProfileLayout"; // Importa o layout Free
 
 export default function RestaurantProfilePublic() {
   const navigate = useNavigate();

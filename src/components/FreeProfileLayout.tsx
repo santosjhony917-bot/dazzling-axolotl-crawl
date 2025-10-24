@@ -2,77 +2,117 @@ import React from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Info, Phone, MessageCircle } from 'lucide-react';
+import { Info, Phone, MessageCircle, MapPin, Clock, Utensils } from 'lucide-react';
+import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
+import { Button } from '@/components/ui/button';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
-  const { name, description, image_url, cover_image_url, address, phone, whatsapp_url } = restaurant;
+  const { name, description, image_url, address, phone, whatsapp_url, city, state } = restaurant;
+
+  // Mock de dados para o Header Público (o plano será 'Free' por padrão aqui)
+  const headerData = {
+    name: name || "Restaurante Free",
+    followersCount: 0, // Não exibido no Free, mas necessário para a interface
+    logoUrl: image_url || '',
+    isFollowing: false,
+    onFollowToggle: () => alert("Funcionalidade de seguir em desenvolvimento."),
+  };
+  
+  // Mock de Horários (para exibição simples)
+  const mockHours = "Seg-Sex: 09:00 - 18:00";
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
-      <Card className="w-full shadow-xl border-none rounded-2xl overflow-hidden">
-        {/* Header com Capa e Logo */}
-        <div className="relative">
-          <div className="h-48 bg-gray-200">
-            {cover_image_url ? (
-              <img src={cover_image_url} alt={`Capa de ${name}`} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-r from-gray-300 to-gray-400" />
-            )}
-          </div>
-          <div className="absolute top-24 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full bg-gray-100 border-4 border-white shadow-lg flex items-center justify-center">
-            {image_url ? (
-              <img src={image_url} alt={`Logo de ${name}`} className="w-full h-full object-cover rounded-full" />
-            ) : (
-              <span className="text-gray-500 text-sm">Sem Logo</span>
-            )}
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      
+      {/* Header Público (Logo, Nome, Botões) */}
+      <div className="bg-white shadow-md rounded-b-xl">
+        <RestaurantPublicHeader restaurant={headerData} />
+      </div>
 
-        {/* Conteúdo do Perfil */}
-        <CardContent className="p-6 pt-20 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#022D68]">{name}</h1>
-          {address && <p className="text-gray-500 mt-2">{address}</p>}
-
-          {description && (
-            <div className="mt-8 text-left border-t pt-6">
-              <h3 className="font-semibold text-xl text-[#022D68] mb-3">Sobre Nós</h3>
-              <p className="text-gray-700 whitespace-pre-wrap">{description}</p>
+      <main className="p-4 space-y-6">
+        
+        {/* Informações Essenciais */}
+        <Card className="shadow-md border-none rounded-xl p-4 space-y-4">
+          <h2 className="text-xl font-bold text-[#022D68]">Informações</h2>
+          
+          {/* Endereço */}
+          <div className="flex items-start gap-3">
+            <MapPin className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-[#022D68]">Localização</p>
+              <p className="text-sm text-gray-700">{address}, {city} - {state}</p>
             </div>
-          )}
-
+          </div>
+          
+          {/* Horários */}
+          <div className="flex items-start gap-3">
+            <Clock className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-[#022D68]">Horários</p>
+              <p className="text-sm text-gray-700">{mockHours}</p>
+            </div>
+          </div>
+          
+          {/* Contato */}
           {(phone || whatsapp_url) && (
-            <div className="mt-6 text-left border-t pt-6">
-              <h3 className="font-semibold text-xl text-[#022D68] mb-4">Contato</h3>
-              <div className="flex flex-col sm:flex-row gap-4">
-                {phone && (
-                  <a href={`tel:${phone}`} className="flex items-center gap-3 text-gray-700 hover:text-[#E47948] transition-colors">
-                    <Phone size={18} />
-                    <span>{phone}</span>
-                  </a>
-                )}
-                {whatsapp_url && (
-                  <a href={whatsapp_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 hover:text-[#E47948] transition-colors">
-                    <MessageCircle size={18} />
-                    <span>Chamar no WhatsApp</span>
-                  </a>
-                )}
+            <div className="flex items-start gap-3">
+              <Phone className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
+              <div>
+                <p className="text-sm font-bold text-[#022D68]">Contato</p>
+                <div className="flex flex-col sm:flex-row gap-2 mt-1">
+                  {phone && (
+                    <a href={`tel:${phone}`} className="text-sm text-gray-700 hover:text-[#E47948] transition-colors flex items-center gap-1">
+                      <Phone size={14} /> {phone}
+                    </a>
+                  )}
+                  {whatsapp_url && (
+                    <a href={whatsapp_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-700 hover:text-[#E47948] transition-colors flex items-center gap-1">
+                      <MessageCircle size={14} /> WhatsApp
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           )}
+        </Card>
 
-          <Alert className="mt-10 text-left">
-            <Info className="h-4 w-4" />
-            <AlertTitle>Este é um Perfil Gratuito</AlertTitle>
-            <AlertDescription>
-              Recursos como galeria de fotos, cardápio e promoções estão disponíveis para assinantes dos planos premium.
-            </AlertDescription>
-          </Alert>
-        </CardContent>
-      </Card>
+        {/* Descrição / Sobre Nós */}
+        {description && (
+          <Card className="shadow-md border-none rounded-xl p-4">
+            <h2 className="text-xl font-bold text-[#022D68] mb-3">Sobre Nós</h2>
+            <p className="text-gray-700 whitespace-pre-wrap text-sm">{description}</p>
+          </Card>
+        )}
+        
+        {/* Cardápio Limitado (Aviso) */}
+        <Card className="shadow-md border-none rounded-xl p-4 text-center bg-yellow-50 border-yellow-300">
+          <Utensils className="w-8 h-8 text-yellow-600 mx-auto mb-3" />
+          <h3 className="font-bold text-lg text-yellow-700">Cardápio Básico</h3>
+          <p className="text-sm text-yellow-800 mt-1">
+            O cardápio detalhado e a galeria de fotos são recursos exclusivos do Plano Premium.
+          </p>
+          <Button 
+            variant="default" 
+            className="mt-4 bg-[#022D68] hover:bg-[#022D68]/90 text-white rounded-full h-10 text-sm"
+            onClick={() => alert("Redirecionar para a página de Upgrade")}
+          >
+            Saiba mais sobre o Premium
+          </Button>
+        </Card>
+
+        {/* Aviso Geral (Mantido) */}
+        <Alert className="mt-6 text-left">
+          <Info className="h-4 w-4" />
+          <AlertTitle>Perfil Gratuito</AlertTitle>
+          <AlertDescription>
+            Este restaurante utiliza o plano Free. Para mais visibilidade e recursos, o proprietário pode fazer upgrade.
+          </AlertDescription>
+        </Alert>
+      </main>
     </div>
   );
 }
