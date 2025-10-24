@@ -27,6 +27,7 @@ import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
+import RestaurantStats from './pages/restaurant/RestaurantStats';
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
               <Route path="profile-menu" element={<RestaurantProfileMenu />} />
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
+              <Route path="stats" element={<RestaurantStats />} />
               {/* Adicione outras rotas da área do restaurante aqui */}
             </Route>
           </Route>
