@@ -80,8 +80,15 @@ export default function RestaurantProfilePublic() {
   
   // --- Renderização Condicional ---
   if (restaurant.plan === 'free') {
-    // Se o plano for Free, renderiza o layout Free
-    return <FreeProfileLayout restaurant={restaurant}><div></div></FreeProfileLayout>;
+    // Se o plano for Free, renderiza o layout Free, passando o menu
+    return (
+      <FreeProfileLayout 
+        restaurant={restaurant} 
+        menuCategories={menuData?.categories}
+      >
+        {/* Conteúdo extra, se houver */}
+      </FreeProfileLayout>
+    );
   }
 
   // --- Premium/Default Layout ---

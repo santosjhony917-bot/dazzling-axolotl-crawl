@@ -6,13 +6,16 @@ import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft, CreditC
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import PublicMenuSection from '@/components/public/PublicMenuSection';
+import { MenuCategory, MenuItem } from '@/types'; // Importando tipos de menu
 
 interface FreeProfileLayoutProps {
   restaurant?: Restaurant; // Tornando opcional
   children: React.ReactNode;
+  menuCategories?: (MenuCategory & { items: MenuItem[] })[]; // Novo: Dados do menu
 }
 
-export default function FreeProfileLayout({ restaurant, children }: FreeProfileLayoutProps) {
+export default function FreeProfileLayout({ restaurant, children, menuCategories = [] }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
   
   // Se não houver restaurante, renderiza um layout básico
@@ -117,11 +120,19 @@ export default function FreeProfileLayout({ restaurant, children }: FreeProfileL
           </Card>
         )}
         
+        {/* Seção do Cardápio Público */}
+        {menuCategories.length > 0 && (
+          <Card className="shadow-md border-none rounded-xl p-4">
+            <PublicMenuSection categories={menuCategories} />
+          </Card>
+        )}
+        
+        {/* Alerta de Recurso Premium (Mantido, mas movido para baixo do menu) */}
         <Card className="shadow-md border-none rounded-xl p-4 text-center bg-yellow-50 border-yellow-300">
           <Utensils className="w-8 h-8 text-yellow-600 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-yellow-700">Cardápio Básico</h3>
           <p className="text-sm text-yellow-800 mt-1">
-            O cardápio detalhado e a galeria de fotos são recursos exclusivos do Plano Premium.
+            A galeria de fotos e recursos de destaque são exclusivos do Plano Premium.
           </p>
           <Button 
             variant="default" 
