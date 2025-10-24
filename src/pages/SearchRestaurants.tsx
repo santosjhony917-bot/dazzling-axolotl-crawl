@@ -16,7 +16,7 @@ const MOCK_ADDRESS = "Av. Epitácio Pessoa, Tambau, João Pessoa - PB";
 const getInitialLocation = (initialLat: number | null, initialLon: number | null): { lat: number | null; lon: number | null; address: string } => {
   const savedLocation = loadLastSearchLocation();
   
-  // 1. Prioridade: Parâmetros da URL (se presentes, usamos o endereço salvo se existir)
+  // 1. Prioridade: Parâmetros da URL
   if (initialLat !== null && initialLon !== null) {
     return {
       lat: initialLat,
@@ -55,9 +55,13 @@ export default function SearchRestaurants() {
   const [distance, setDistance] = useState<number[]>([initialDistance]);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   
-  const [location, setLocation] = useState(getInitialLocation(initialLat, initialLon));
+  const initialLocation = getInitialLocation(initialLat, initialLon);
+  const [location, setLocation] = useState(initialLocation);
   
-  const [loadingLocation, setLoadingLocation] = useState(true);
+  // Se a localização inicial não for o mock padrão, consideramos que já carregou.
+  const isInitialMock = initialLocation.lat === MOCK_LOCATION_COORDS.lat && initialLocation.lon === MOCK_LOCATION_COORDS.lon;
+  const [loadingLocation, setLoadingLocation] = useState(isInitialMock);
+  
   const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   const handleLocationUpdate = (addressData: GeocodedAddress) => {
@@ -119,15 +123,14 @@ export default function SearchRestaurants() {
   };
 
   useEffect(() => {
-    const preference = checkLocationPreference();
-    
-    // Se já temos coordenadas válidas da URL ou do localStorage, apenas paramos o loading
-    if (location.lat !== null && location.lon !== null) {
-        setLoadingLocation(false);
+    // Se a localização inicial não for o mock padrão, não fazemos nada.
+    if (!isInitialMock) {
         return;
     }
     
-    // Se não temos localização inicial, disparamos a busca ou o modal
+    // Se for o mock padrão, verificamos a permissão e disparamos a busca.
+    const preference = checkLocationPreference();
+    
     if (preference === 'unset') {
       setShowPermissionModal(true);
     } else if (preference === 'granted') {
