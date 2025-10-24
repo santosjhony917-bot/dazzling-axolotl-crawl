@@ -1,172 +1,166 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { ArrowLeft, Utensils, Star, Clock, MapPin, Plus, TrendingUp, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3 } from 'lucide-react';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { useUserRole } from '@/hooks/useUserRole';
-import ActionCard from '@/components/restaurant/dashboard/ActionCard';
-import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
-import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
-import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 
-// Mock Data
-const mockHighlights = [
-  { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h2', name: "Moqueca de Camarão", restaurantName: "Restaurante Mar", price: 75.00, imageUrl: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h3', name: "Taco de Carnitas", restaurantName: "El Fuego", price: 28.00, imageUrl: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop" },
+// Tipagem simplificada para o prato
+interface Dish {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string; // Adicionando campo de imagem
+}
+
+// Dados mockados com imagens
+const mockDishes: Dish[] = [
+  {
+    id: 1,
+    name: "Feijoada Completa",
+    description: "A tradicional feijoada brasileira com carnes nobres e acompanhamentos.",
+    price: 45.90,
+    imageUrl: "https://images.unsplash.com/photo-1589302168068-964664d93fd4?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 2,
+    name: "Salmão Grelhado",
+    description: "Filé de salmão grelhado com molho de maracujá e purê de batatas.",
+    price: 65.00,
+    imageUrl: "https://images.unsplash.com/photo-1519708227418-d6dc969a9974?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 3,
+    name: "Picanha na Chapa",
+    description: "Picanha suculenta servida na chapa com arroz biro-biro.",
+    price: 78.50,
+    imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
 
-const mockCompetitors = [
-  { id: 'c1', name: "Trattoria del Ponte", cuisine: "Italiana", distance: 1.2, rating: 4.7, imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c2', name: "Sakura Sushi", cuisine: "Japonesa", distance: 2.5, rating: 4.9, imageUrl: "https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c3', name: "Le Petit Bistrot", cuisine: "Francesa", distance: 3.1, rating: 4.6, imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1974&auto=format&fit=crop" },
-];
+// Componente de Card de Prato (DishCard)
+const DishCard: React.FC<{ dish: Dish }> = ({ dish }) => (
+  <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+    <div className="relative h-32">
+      <img 
+        src={dish.imageUrl} 
+        alt={dish.name} 
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/20 flex items-end p-3">
+        <span className="text-white text-lg font-bold bg-highlight px-2 py-1 rounded-md">
+          R$ {dish.price.toFixed(2).replace('.', ',')}
+        </span>
+      </div>
+    </div>
+    <CardContent className="p-3">
+      <h3 className="text-lg font-semibold text-primary truncate">{dish.name}</h3>
+      <p className="text-sm text-gray-500 line-clamp-2 mt-1">{dish.description}</p>
+    </CardContent>
+  </Card>
+);
 
-const RestaurantDashboard = () => {
+
+export default function RestaurantDashboard() {
   const navigate = useNavigate();
-  const { location, isLoading, refetch } = useUserSearchLocation();
-  const { isPremium } = useUserRole();
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
-  const handleLocationSaved = () => {
-    refetch();
-  };
-  
-  const handleGoToStats = () => {
-    if (location.latitude === 0 && location.longitude === 0) {
-      alert("Por favor, defina sua localização de busca primeiro para ver estatísticas de concorrentes.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    // Navega para a tela de busca, passando a localização salva como parâmetros
-    navigate(`/restaurant-area/stats?lat=${location.latitude}&lon=${location.longitude}`);
-  };
-  
-  const handleEditMenu = () => {
-    navigate(createPageUrl('restaurant-area/menu'));
-  };
-  
-  const handleViewCompetitor = (id: string) => {
-    // Simula a navegação para o perfil público do concorrente
-    navigate(createPageUrl(`restaurant-profile/${id}`));
+  // Dados mockados do restaurante
+  const mockRestaurant = {
+    name: "Sabor Nordestino",
+    address: "Rua das Flores, 123 - Centro",
+    rating: 4.7,
+    openTime: "11:00",
+    closeTime: "23:00",
+    plan: "premium",
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      {/* Header (Localização e Ícone da Loja) */}
-      <header className="bg-white p-4 sticky top-0 z-10 shadow-sm">
-        <div className="flex items-center justify-between">
-          <div 
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => setIsLocationModalOpen(true)}
-          >
-            <MapPin className="h-6 w-6 text-[#022D68]" />
-            <div>
-              <p className="text-xs text-gray-500">Sua Localização</p>
-              {isLoading ? (
-                <div className="flex items-center text-sm font-bold text-[#022D68]">
-                  <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-                </div>
-              ) : (
-                <p className="text-base font-bold text-[#022D68] truncate max-w-[200px]">
-                  {location.address.split(',')[0] || "Definir Local"}
-                </p>
-              )}
+    <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen">
+      <Header 
+        title="Dashboard do Restaurante" 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }} 
+      />
+
+      <div className="p-4 space-y-6">
+        {/* Informações Principais */}
+        <Card className="shadow-lg border-t-4 border-highlight">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between text-2xl text-primary">
+              {mockRestaurant.name}
+              <Utensils className="w-6 h-6 text-highlight" />
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-gray-600">
+            <div className="flex items-center text-sm">
+              <MapPin className="w-4 h-4 mr-2 text-highlight" />
+              <span>{mockRestaurant.address}</span>
             </div>
-          </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl"
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
-          >
-            <Store className="h-6 w-6" />
+            <div className="flex items-center text-sm">
+              <Star className="w-4 h-4 mr-2 text-yellow-500 fill-yellow-500" />
+              <span>Avaliação: {mockRestaurant.rating} (500+)</span>
+            </div>
+            <div className="flex items-center text-sm">
+              <Clock className="w-4 h-4 mr-2 text-green-600" />
+              <span>Horário: {mockRestaurant.openTime} - {mockRestaurant.closeTime}</span>
+            </div>
+            <div className="flex items-center text-sm">
+              <DollarSign className="w-4 h-4 mr-2 text-indigo-600" />
+              <span className="capitalize">Plano Atual: {mockRestaurant.plan}</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Ações Rápidas */}
+        <div className="grid grid-cols-2 gap-4">
+          <Button className="h-12 bg-primary hover:bg-primary/90 text-white shadow-md">
+            <Plus className="w-5 h-5 mr-2" />
+            Novo Prato
+          </Button>
+          <Button variant="outline" className="h-12 border-primary text-primary hover:bg-primary/5">
+            <TrendingUp className="w-5 h-5 mr-2" />
+            Ver Estatísticas
           </Button>
         </div>
-      </header>
 
-      <main className="p-4 space-y-6">
-        
-        {/* Ações Rápidas (Editar Cardápio / Ver Estatísticas) */}
-        <div className="flex gap-4 pt-2">
-          <ActionCard 
-            title="Editar Cardápio" 
-            icon={Pencil} 
-            onClick={handleEditMenu}
-          />
-          <ActionCard 
-            title="Ver Estatísticas" 
-            icon={BarChart3} 
-            onClick={handleGoToStats}
-          />
-        </div>
-
-        {/* Banner Premium (Carousel) */}
-        <PremiumBanner />
+        <Separator />
 
         {/* Destaques do Dia */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Destaques do Dia</h2>
+            <h2 className="text-xl font-bold text-primary">Destaques do Dia</h2>
             <Button 
               variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
+              className="text-highlight p-0 h-auto"
+              onClick={() => console.log('Gerenciar Destaques')}
             >
-              Ver todos
+              Gerenciar
             </Button>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap pb-4">
-            <div className="flex space-x-4">
-              {mockHighlights.map((item) => (
-                <HighlightCard key={item.id} item={item} />
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-
-        {/* Restaurantes Próximos (Concorrentes) */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Restaurantes Próximos</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleGoToStats}
-            >
-              Ver todos
-            </Button>
-          </div>
-          <div className="space-y-3">
-            {mockCompetitors.map((item) => (
-              <NearbyCompetitorCard 
-                key={item.id} 
-                item={item} 
-                onClick={handleViewCompetitor} 
-              />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {mockDishes.map(dish => (
+              <DishCard key={dish.id} dish={dish} />
             ))}
           </div>
         </div>
-      </main>
 
-      {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
+        <Separator />
 
-      {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={location.address}
-        onLocationSaved={handleLocationSaved}
-      />
+        {/* Outras Seções (Exemplo) */}
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle className="text-lg text-primary">Gerenciamento de Pedidos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-500">Visualize e gerencie pedidos em tempo real.</p>
+            <Button className="mt-3 bg-highlight hover:bg-highlight/90">
+              Ir para Pedidos
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
-};
-
-export default RestaurantDashboard;
+}
