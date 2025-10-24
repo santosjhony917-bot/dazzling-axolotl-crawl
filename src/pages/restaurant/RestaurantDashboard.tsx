@@ -29,7 +29,6 @@ import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
 import useEmblaCarousel from 'embla-carousel-react';
 import LocationModal from "@/components/restaurant/LocationModal"; 
 import { Restaurant } from "@/types/restaurant"; // Importando o tipo Restaurant
-import { loadLastSearchLocation } from "@/services/geolocation"; // Importando a localização do cliente
 
 // Mock Data para o novo dashboard
 const mockHighlights = [
@@ -94,10 +93,7 @@ const RestaurantDashboard = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // --- Estado da Localização do Usuário (Cliente) ---
-  const [userCity, setUserCity] = useState("Buscando...");
-  
-  // --- Novo Estado para o Modal de Localização do Restaurante (mantido) ---
+  // --- Novo Estado para o Modal de Localização ---
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   // Mock restaurant ID for development until proper auth flow is implemented
@@ -108,20 +104,6 @@ const RestaurantDashboard = () => {
   const restaurant = fetchedRestaurant || MOCK_RESTAURANT_DATA;
   
   const { isPremium } = useUserRole(); // Using mock hook
-
-  // Efeito para carregar a localização do usuário (cliente)
-  useEffect(() => {
-    const savedLocation = loadLastSearchLocation();
-    if (savedLocation) {
-      // Exibe a cidade ou o endereço formatado
-      const parts = savedLocation.address.split(',').map(p => p.trim());
-      const cityState = parts.find(p => p.includes('-')) || parts[parts.length - 2] || savedLocation.address;
-      setUserCity(cityState);
-    } else {
-      setUserCity("Localização Padrão");
-    }
-  }, []);
-
 
   // Lógica de transição automática
   useEffect(() => {
@@ -152,8 +134,9 @@ const RestaurantDashboard = () => {
   
   // --- Dados do Restaurante (Simplificados para o Dashboard) ---
   const restaurantName = restaurant?.name || "Seu Restaurante";
-  
-  // Dados de localização do RESTAURANTE para o modal (ESTABILIZADO COM useMemo)
+  const locationLabel = restaurant?.city || "Localização Não Definida";
+
+  // Dados de localização para o modal (ESTABILIZADO COM useMemo)
   const currentLocationData = useMemo(() => ({
     cep: restaurant?.cep || '',
     street: restaurant?.address || '',
@@ -162,12 +145,6 @@ const RestaurantDashboard = () => {
     city: restaurant?.city || '',
     state: restaurant?.state || '',
   }), [restaurant]);
-
-  // Função para forçar o refresh da localização do usuário (cliente)
-  const handleRefreshUserLocation = () => {
-    // Navega para a tela de busca do cliente, que força a atualização do GPS/Mock e salva no localStorage
-    navigate(createPageUrl('search-restaurants'));
-  };
 
 
   if (restaurantLoading) {
@@ -190,19 +167,19 @@ const RestaurantDashboard = () => {
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark">
       <div className="flex-1 pb-24">
         
-        {/* Header de Localização (CLICÁVEL - AGORA PARA ATUALIZAR A BUSCA DO CLIENTE) */}
+        {/* Header de Localização (CLICÁVEL) */}
         <div 
           className="flex items-center p-4 justify-between bg-background-light dark:bg-background-dark cursor-pointer"
-          onClick={handleRefreshUserLocation} 
+          onClick={() => setIsLocationModalOpen(true)} 
         >
           <div className="flex items-center gap-2">
             <MapPin className="text-primary w-7 h-7" />
             <div>
               <p className="text-text-light/60 dark:text-text-dark/60 text-xs font-medium">
-                Localização de Busca
+                Sua Localização
               </p>
               <h2 className="text-primary dark:text-text-dark text-base font-bold leading-tight">
-                {userCity}
+                {locationLabel}
               </h2>
             </div>
           </div>
@@ -336,7 +313,7 @@ const RestaurantDashboard = () => {
         <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
       </div>
       
-      {/* Location Modal (Mantido, mas agora só é aberto via ProfileMenu para editar o endereço do restaurante) */}
+      {/* Location Modal */}
       {restaurant && (
         <LocationModal
           isOpen={isLocationModalOpen}
