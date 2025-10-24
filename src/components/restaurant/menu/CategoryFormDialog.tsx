@@ -6,7 +6,7 @@ import { Loader2, UtensilsCrossed } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuCategory } from '@/types/restaurant';
+import { MenuCategory } from '@/types';
 
 interface CategoryFormDialogProps {
   open: boolean;

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useMenuManagement } from '@/hooks/useMenuManagement';
-import { MenuCategory, MenuItem } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import CategoryFormDialog, { CategoryFormData } from '@/components/restaurant/menu/CategoryFormDialog';

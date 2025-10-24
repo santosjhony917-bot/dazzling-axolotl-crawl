@@ -1,19 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useCallback } from "react";
+import { Restaurant } from "@/types"; // Importando o tipo base Restaurant
 
 // Define the structure of the restaurant data returned by the RPC
-export interface NearbyRestaurant {
-  id: string;
-  user_id: string;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  address: string | null;
-  plan: 'free' | 'premium'; // Assuming restaurant_plan maps to these strings
-  created_at: string;
-  latitude: number;
-  longitude: number;
+export interface NearbyRestaurant extends Restaurant {
   distance_km: number;
 }
 
@@ -37,6 +28,7 @@ export function useNearbyRestaurants({
       throw new Error("User location is required.");
     }
 
+    // A RPC find_nearby_restaurants retorna todos os campos de 'restaurants' mais 'distance_km'.
     const { data, error } = await supabase.rpc('find_nearby_restaurants', {
       user_lat: userLat,
       user_lng: userLon,

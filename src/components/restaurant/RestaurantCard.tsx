@@ -1,10 +1,15 @@
 import React from 'react';
-import { Restaurant } from '@/types/restaurant';
+import { Restaurant } from '@/types';
 import { MapPin, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
+// Estende o tipo Restaurant para incluir o campo distance_km retornado pela RPC de busca
+interface DisplayRestaurant extends Restaurant {
+  distance_km: number | null;
+}
+
 interface RestaurantCardProps {
-  restaurant: Restaurant;
+  restaurant: DisplayRestaurant;
   onClick: () => void;
 }
 

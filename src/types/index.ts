@@ -30,5 +30,5 @@ export interface UserRole {
   role: AppRole;
 }
 
-// Exportando tipos de restaurante para garantir que todos os tipos estejam disponíveis
+// Exportando apenas Restaurant (MenuCategory e MenuItem já são exportados acima)
 export type { Restaurant };

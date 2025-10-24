@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory, MenuItem } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types';
 import { showError, showSuccess } from '@/utils/toast';
 
 // Tipos de dados para mutação (simplificados para o hook)

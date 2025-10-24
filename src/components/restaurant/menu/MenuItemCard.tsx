@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem } from '@/types/restaurant';
+import { MenuItem } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash2, Eye, EyeOff, Loader2 } from 'lucide-react';
