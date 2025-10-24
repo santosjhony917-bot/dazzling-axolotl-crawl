@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import HighlightCard from "@/components/restaurant/HighlightCard";
 import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
 import useEmblaCarousel from 'embla-carousel-react';
+import LocationModal from "@/components/restaurant/LocationModal"; // Importando o novo modal
 
 // Mock Data para o novo dashboard
 const mockHighlights = [
@@ -72,6 +73,9 @@ const RestaurantDashboard = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  // --- Novo Estado para o Modal de Localização ---
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+
   // Mock restaurant ID for development until proper auth flow is implemented
   const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
@@ -109,6 +113,17 @@ const RestaurantDashboard = () => {
   const restaurantName = restaurant?.name || "Seu Restaurante";
   const locationLabel = restaurant?.city || "Localização Não Definida";
 
+  // Dados de localização para o modal
+  const currentLocationData = {
+    cep: restaurant?.cep || '',
+    street: restaurant?.address || '',
+    number: '', // Número não está no schema principal, mas é necessário para geocoding
+    neighborhood: restaurant?.neighborhood || '',
+    city: restaurant?.city || '',
+    state: restaurant?.state || '',
+  };
+
+
   if (restaurantLoading) {
     return (
       <div className="min-h-screen bg-background-light p-4 pb-20 max-w-md mx-auto">
@@ -129,8 +144,11 @@ const RestaurantDashboard = () => {
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark">
       <div className="flex-1 pb-24">
         
-        {/* Header de Localização */}
-        <div className="flex items-center p-4 justify-between bg-background-light dark:bg-background-dark">
+        {/* Header de Localização (CLICÁVEL) */}
+        <div 
+          className="flex items-center p-4 justify-between bg-background-light dark:bg-background-dark cursor-pointer"
+          onClick={() => setIsLocationModalOpen(true)} // Adicionando o clique aqui
+        >
           <div className="flex items-center gap-2">
             <MapPin className="text-primary w-7 h-7" />
             <div>
@@ -268,6 +286,17 @@ const RestaurantDashboard = () => {
       <div className="fixed bottom-0 left-0 w-full max-w-md mx-auto z-30">
         <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
       </div>
+      
+      {/* Location Modal */}
+      {restaurant && (
+        <LocationModal
+          isOpen={isLocationModalOpen}
+          onClose={() => setIsLocationModalOpen(false)}
+          restaurantId={restaurant.id}
+          currentLocation={currentLocationData}
+          onSave={refetch}
+        />
+      )}
     </div>
   );
 };
