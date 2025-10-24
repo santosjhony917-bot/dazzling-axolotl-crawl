@@ -20,11 +20,9 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-
-// Importando os componentes de seção (agora simplificados para itens de lista)
 import ProfileHeaderManagement from "@/components/restaurant/profile/ProfileHeaderManagement";
 import InfoCardItem from '@/components/InfoCardItem';
-import NavCardItem from '@/components/NavCardItem';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader'; // Novo import
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -149,7 +147,7 @@ const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any, setIsA
   );
 };
 
-// 2. Cardápio Section
+// 2. Cardápio Section (Botão "Gerenciar Categorias" REMOVIDO)
 const MenuSection: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => (
   <div className="p-4 space-y-3">
     <Button 
@@ -158,13 +156,6 @@ const MenuSection: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ n
     >
       <Utensils className="w-5 h-5 mr-2" />
       Atualizar Cardápio
-    </Button>
-    <Button 
-      onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
-      className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
-    >
-      <UtensilsCrossed className="w-5 h-5 mr-2" />
-      Gerenciar Categorias
     </Button>
   </div>
 );
@@ -293,7 +284,7 @@ const RestaurantProfileMenu: React.FC = () => {
   const userId = user?.id || null;
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
   const { isPremium, isLoading: roleLoading } = useUserRole();
-  const { uploadImage, uploading } = useImageUpload();
+  const { uploading } = useImageUpload();
 
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
@@ -322,7 +313,7 @@ const RestaurantProfileMenu: React.FC = () => {
   const handleEditField = useCallback((key: keyof typeof restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type: "text" | "tel" | "email" = "text", mask?: (value: string) => string, placeholder?: string) => {
     if (!restaurant) return;
     setEditingField({
-      key: key,
+      key: key as string, // Type assertion to string for key access in EditingFieldState
       title,
       fieldName,
       icon,
@@ -330,7 +321,7 @@ const RestaurantProfileMenu: React.FC = () => {
       placeholder,
       validationSchema,
       mask,
-      currentValue: (restaurant[key] as string) || '',
+      currentValue: (restaurant[key as keyof typeof restaurant] as string) || '',
     });
   }, [restaurant]);
 
@@ -339,7 +330,7 @@ const RestaurantProfileMenu: React.FC = () => {
     
     const key = editingField.key as keyof typeof restaurant;
     
-    if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key)) {
+    if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key as string)) {
         showError("Use o botão 'Editar Endereço' para atualizar a localização completa.");
         return;
     }
@@ -362,9 +353,6 @@ const RestaurantProfileMenu: React.FC = () => {
     }
     showSuccess("Horários de funcionamento atualizados!");
   };
-
-  // A lógica de upload de imagem foi movida para ProfileHeaderManagement, mas mantemos o estado de loading aqui
-  // para passar para o componente filho.
 
   if (authLoading || restaurantLoading || roleLoading) {
     return (
@@ -405,35 +393,27 @@ const RestaurantProfileMenu: React.FC = () => {
   };
   
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
-  const restaurantType = "Estabelecimento Comercial"; // Mocked value
-  
-  // Usando o nome completo
+  const restaurantType = restaurant.category || "Estabelecimento Comercial";
   const displayName = restaurantName;
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
       {/* Header (Fixo no topo, estilo Hub) */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area/home'))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
-        </div>
-        <div className="w-10"></div>
-      </header>
+      <RestaurantAreaHeader title="Meu Perfil" icon={Store} backPath="restaurant-area/home" />
 
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
         <div className="w-full space-y-4">
           
           {/* 1. Topo do Perfil (Capa e Logo) */}
           <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700">
+            {restaurant.cover_image_url && (
+                <img
+                    src={restaurant.cover_image_url}
+                    alt="Capa do Restaurante"
+                    className="w-full h-full object-cover"
+                />
+            )}
             {/* Botão Editar Capa (Premium) */}
             <Button
               onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
