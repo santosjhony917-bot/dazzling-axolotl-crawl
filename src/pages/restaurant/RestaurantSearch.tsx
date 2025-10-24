@@ -1,126 +1,182 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Search, MapPin, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search, SlidersHorizontal } from 'lucide-react';
-import PriceFilterDrawer from '@/components/PriceFilterDrawer';
-import { showInfo } from '@/utils/toast';
+import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
+import useUserLocation from '@/hooks/useUserLocation';
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
 
-// Mock data based on the HTML to represent search results
-const mockDishes = [
-  {
-    name: 'Moqueca de Camarão',
-    description: 'Um ensopado tradicional de camarão cozido em leite de coco...',
-    price: 'R$ 59,90',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBHrWSThqCVyD4_3q8qCWnjKoMgb92ydHMOS9k6RKl60kzcqt9lX4DT-EOGU054R8G2lC4TxFQpP1Ky2fnAFVy7MlSMk3TKZkMCHKwb-9t_6ds0PbdxtCvAtAwwVo8VoMtbHZdT6gnt_K7O5DnObRUJk7awd-HPPn8lD5uVJaw-9-u6jcK2XXKr3NzitHmFJsR1WJLdQO_L9YcgC59Ih7jB7dlSMqe7mIijgKq85LbLVADfZGlLhWRVBQe01dD5LHp6-rBPnS0896I',
-  },
-  {
-    name: 'Picanha na Chapa',
-    description: 'Picanha fatiada e grelhada em chapa quente, servida com...',
-    price: 'R$ 79,90',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDBFUp3dj2NmpwAJGPx4ijsEPGu40WdrZjyOTvU1mvhN-pkRMO8QACUZltiNX9ZzOYEtZV0XyEY6vCMAvEPQMoLXYVxEqHGGJgZ0vqLbzjyAYLEgOkzfojlOdCeeHAKnKnNMgmB1Kmttsz8rwbqh8_yWxWAHk6BAZMvDhxtzskt1h6lugnxXAyByJfcrmm4giFM6axqZ8xsvq7lAVNvJpxeJipgjrrj0phUD4Pjyg55_ureoTAEchANlfuWOOGPIb9A6uqF3Ep-6bmL',
-  },
-  {
-    name: 'Escondidinho de Macaxeira',
-    description: 'Purê cremoso de macaxeira com recheio de carne de sol...',
-    price: 'R$ 45,00',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBCpX4-oINjbrT_ASnaBWmQkhZYtjQ3vu1RX9WojZxK9B5RBJJ6pCE4VNUsZIlwXiIeTsnq9BmNe9B5_G9oYLmZ5B8UDJZHiIPlxaGW2keeM35BUexNG8zZ_5p50njchIUdjSJPZwaXfw0V-Df0-nqvBNjYzyNhevXjfKM0Omvrp8NFj1cBLl79yh2_oM2n-X5Xb4iI3mLd-J3RxAnmc0EYLE_k8-lnInS7ZHOLM0mHaK8qWYzPE1BdW2tnWFuzoGAhgZwm2jHhjnL9',
-  },
-  {
-    name: 'Carne de Sol com Macaxeira',
-    description: 'Carne de sol desfiada e acebolada, acompanhada de macaxeira frita...',
-    price: 'R$ 65,50',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCwBKc5YM6IYmYrA2_LSuPwpsZ8CNJrneisUaHMswZAD8X_wom10O1WRQBqfZvWYi_7O4sz2ejh19RU6siKghj7mkE7rC2WxVWuWm7UaVVuIx7MQvpwbbXdvYKXnPKWooJsgBaIwNmmLQwoDtdbldFcRX4y27hI8lsdZaM89VXzQ3lXL_VaNFLVkeN7pKGIJ5I_UQiJkS34IYyBomvJKg0_SD1xt8mo5FUe1-z82fKioQNmlHUYn5grRokTTOVFuUYquAHOC4Bc1GMk',
-  },
-];
+// Definindo o tipo de retorno da função Supabase
+interface RestaurantResult {
+  id: string;
+  user_id: string;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  address: string | null;
+  plan: 'free' | 'basic' | 'premium';
+  created_at: string;
+  latitude: number | null;
+  longitude: number | null;
+  distance_km: number;
+  category: string | null;
+}
 
-const RestaurantSearch = () => {
-  const [searchType, setSearchType] = useState<'Pratos' | 'Restaurantes'>('Pratos');
-  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+const RestaurantSearch: React.FC = () => {
+  const [searchType, setSearchType] = useState<'Pratos' | 'Restaurantes'>('Restaurantes');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [results, setResults] = useState<RestaurantResult[]>([]);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
-  const handleFilterClick = () => {
-    if (searchType === 'Pratos') {
-      setIsFilterDrawerOpen(true);
-    } else {
-      showInfo("Filtros para restaurantes ainda não disponíveis.");
+  const { latitude, longitude, loading: loadingLocation, error: locationError } = useUserLocation();
+
+  const handleSearch = useCallback(async (lat: number, lng: number, query: string) => {
+    setLoadingSearch(true);
+    setSearchError(null);
+    setResults([]);
+
+    try {
+      // Chamando a função RPC do Supabase para buscar restaurantes próximos
+      const { data, error } = await supabase.rpc('find_nearby_restaurants', {
+        user_lat: lat,
+        user_lng: lng,
+        max_distance_km: 50, // Busca em um raio de 50km
+        search_query: query || null,
+      });
+
+      if (error) {
+        console.error('Erro ao buscar restaurantes:', error);
+        setSearchError('Não foi possível carregar os restaurantes. Tente novamente.');
+        return;
+      }
+
+      setResults(data as RestaurantResult[]);
+    } catch (e) {
+      console.error('Erro inesperado durante a busca:', e);
+      setSearchError('Ocorreu um erro inesperado.');
+    } finally {
+      setLoadingSearch(false);
+    }
+  }, []);
+
+  // Efeito para buscar automaticamente quando a localização estiver disponível e o tipo for 'Restaurantes'
+  useEffect(() => {
+    if (searchType === 'Restaurantes' && latitude !== null && longitude !== null) {
+      handleSearch(latitude, longitude, searchTerm);
+    }
+  }, [searchType, latitude, longitude]); // Dependências: tipo de busca, lat e lng
+
+  // Função para lidar com a busca manual (ex: ao clicar no botão de busca ou digitar)
+  const triggerSearch = () => {
+    if (searchType === 'Restaurantes' && latitude !== null && longitude !== null) {
+      handleSearch(latitude, longitude, searchTerm);
+    } else if (searchType === 'Restaurantes' && (loadingLocation || locationError)) {
+      setSearchError(locationError || 'Aguardando permissão de localização...');
     }
   };
 
-  const handleApplyPriceFilter = (priceRange: [number, number]) => {
-    console.log("Aplicando filtro de preço:", priceRange);
-    // A lógica de filtro dos pratos será implementada aqui
+  const displayLocationStatus = () => {
+    if (loadingLocation) return 'Obtendo localização...';
+    if (locationError) return 'Localização necessária para busca por proximidade.';
+    if (latitude && longitude) return 'Localização obtida.';
+    return 'Aguardando localização...';
   };
 
   return (
-    <div className="flex-1 bg-background-light dark:bg-background-dark">
-      <header className="sticky top-0 z-10 bg-background-light dark:bg-background-dark px-4 pt-6 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 h-5 w-5" />
-            <Input
-              className="w-full rounded-full border border-gray-200/80 dark:border-gray-700/80 bg-white dark:bg-gray-800 py-3 pl-12 pr-4 h-12 focus:ring-2 focus:ring-[#E47948] focus:border-transparent"
-              placeholder="Buscar pratos ou restaurantes..."
-              type="text"
-            />
-          </div>
-          <Button size="icon" className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-white" onClick={handleFilterClick}>
-            <SlidersHorizontal className="h-6 w-6" />
-          </Button>
-        </div>
-      </header>
+    <div className="p-4 max-w-md mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-primary dark:text-white">Buscar</h1>
 
-      <div className="flex px-4 py-3 bg-background-light dark:bg-background-dark">
-        <div className="flex h-12 flex-1 items-center justify-center rounded-full bg-gray-200/80 dark:bg-gray-800 p-1">
-          <button
-            onClick={() => setSearchType('Pratos')}
-            className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
-              searchType === 'Pratos'
-                ? 'bg-[#E47948] text-white'
-                : 'text-gray-500'
-            }`}
-          >
-            <span className="truncate">Pratos</span>
-          </button>
-          <button
-            onClick={() => setSearchType('Restaurantes')}
-            className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
-              searchType === 'Restaurantes'
-                ? 'bg-[#E47948] text-white'
-                : 'text-gray-500'
-            }`}
-          >
-            <span className="truncate">Restaurantes</span>
-          </button>
+      {/* Barra de Pesquisa */}
+      <div className="flex items-center space-x-2 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={`Buscar por ${searchType.toLowerCase()}...`}
+            className="pl-10 pr-4 py-2 w-full rounded-full border-gray-300 focus:border-primary focus:ring-primary dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                triggerSearch();
+              }
+            }}
+          />
         </div>
+        <button
+          onClick={triggerSearch}
+          disabled={loadingLocation || loadingSearch || !!locationError}
+          className="p-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50"
+        >
+          {loadingSearch ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
+        </button>
       </div>
 
-      <main className="space-y-2 px-4 pb-24">
-        {searchType === 'Pratos' && mockDishes.map((dish, index) => (
-          <div key={index} className="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex flex-col gap-1.5 flex-[2_2_0px]">
-                <p className="text-gray-800 dark:text-gray-100 text-base font-bold leading-tight">{dish.name}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">{dish.description}</p>
-                <p className="text-[#E47948] text-lg font-bold mt-2">{dish.price}</p>
-              </div>
-              <div
-                className="aspect-square w-28 flex-shrink-0 rounded-lg bg-cover bg-center"
-                style={{ backgroundImage: `url('${dish.image}')` }}
-              ></div>
-            </div>
-          </div>
-        ))}
-        {searchType === 'Restaurantes' && (
-          <div className="text-center py-10 text-gray-500">
-            <p>Busca por restaurantes ainda não implementada.</p>
+      {/* Status da Localização */}
+      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <MapPin className="w-4 h-4 mr-1" />
+        <span>{displayLocationStatus()}</span>
+      </div>
+
+      {/* Toggle de Tipo de Busca */}
+      <div className="bg-gray-100 dark:bg-zinc-700 p-1 rounded-full flex mb-6 h-10">
+        <button
+          onClick={() => setSearchType('Pratos')}
+          className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
+            searchType === 'Pratos'
+              ? 'bg-white dark:bg-zinc-800 text-primary shadow-md'
+              : 'text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-600'
+          }`}
+        >
+          Pratos
+        </button>
+        <button
+          onClick={() => setSearchType('Restaurantes')}
+          className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
+            searchType === 'Restaurantes'
+              ? 'bg-highlight text-white shadow-md'
+              : 'text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-600'
+          }`}
+        >
+          Restaurantes
+        </button>
+      </div>
+
+      {/* Resultados da Busca */}
+      <div className="mt-4">
+        {loadingSearch && (
+          <div className="flex justify-center items-center p-8">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         )}
-      </main>
 
-      <PriceFilterDrawer
-        isOpen={isFilterDrawerOpen}
-        onOpenChange={setIsFilterDrawerOpen}
-        onApply={handleApplyPriceFilter}
-      />
+        {searchError && (
+          <p className="text-center text-red-500 p-4">{searchError}</p>
+        )}
+
+        {!loadingSearch && !searchError && searchType === 'Restaurantes' && (
+          <>
+            {results.length > 0 ? (
+              results.map((restaurant) => (
+                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              ))
+            ) : (
+              <p className="text-center text-gray-500 p-4">
+                {latitude === null || longitude === null
+                  ? 'Aguardando localização para buscar restaurantes próximos.'
+                  : 'Nenhum restaurante encontrado na sua área.'}
+              </p>
+            )}
+          </>
+        )}
+
+        {searchType === 'Pratos' && (
+          <p className="text-center text-gray-500 p-4">
+            Funcionalidade de busca por pratos ainda não implementada.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
