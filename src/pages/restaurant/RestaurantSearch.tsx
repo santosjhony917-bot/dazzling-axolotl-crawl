@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Loader2, MapPin, ArrowLeft } from 'lucide-react';
+import { Search, Loader2, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
@@ -14,8 +14,8 @@ export default function RestaurantSearch() {
   const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   
-  // Usamos a localização salva, mas removemos a UI para alterá-la aqui.
-  const { location, isLoading: loadingLocation } = useUserSearchLocation();
+  // A localização continua sendo carregada e usada para a RPC
+  const { location } = useUserSearchLocation();
 
   const userLat = location?.latitude;
   const userLng = location?.longitude;
@@ -65,8 +65,6 @@ export default function RestaurantSearch() {
     }
   }, [searchQuery, userLat, userLng, fetchRestaurants]);
 
-  // Removido handleLocationSaved e UserLocationModal
-
   return (
     <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen">
       <Header 
@@ -75,18 +73,6 @@ export default function RestaurantSearch() {
       />
 
       <div className="p-4">
-        {/* Exibição da Localização Atual (Apenas leitura) */}
-        <div 
-          className="flex items-center p-3 bg-white rounded-xl shadow-md mb-6 border border-primary/10"
-        >
-          <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-highlight" />
-            <span className="text-sm font-medium text-primary truncate">
-              {loadingLocation ? "Carregando localização..." : currentAddress}
-            </span>
-          </div>
-        </div>
-
         {/* Barra de Pesquisa */}
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
