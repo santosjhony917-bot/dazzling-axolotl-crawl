@@ -16,17 +16,17 @@ const MOCK_ADDRESS = "Av. Epitácio Pessoa, Tambau, João Pessoa - PB";
 const getInitialLocation = (initialLat: number | null, initialLon: number | null): { lat: number | null; lon: number | null; address: string } => {
   const savedLocation = loadLastSearchLocation();
   
+  // 1. Prioridade: Parâmetros da URL (se presentes, usamos o endereço salvo se existir)
   if (initialLat !== null && initialLon !== null) {
-    // 1. Prioridade: Parâmetros da URL
     return {
       lat: initialLat,
       lon: initialLon,
-      address: savedLocation?.address || "Localização obtida da URL", // Usamos o endereço salvo se existir
+      address: savedLocation?.address || "Localização obtida da URL",
     };
   }
   
+  // 2. Segunda Prioridade: Localização salva no localStorage
   if (savedLocation) {
-    // 2. Segunda Prioridade: Localização salva
     return {
       lat: savedLocation.lat,
       lon: savedLocation.lon,
@@ -121,12 +121,13 @@ export default function SearchRestaurants() {
   useEffect(() => {
     const preference = checkLocationPreference();
     
-    // Se já temos coordenadas válidas da URL ou do localStorage, não precisamos carregar, apenas parar o loading.
+    // Se já temos coordenadas válidas da URL ou do localStorage, apenas paramos o loading
     if (location.lat !== null && location.lon !== null) {
         setLoadingLocation(false);
         return;
     }
     
+    // Se não temos localização inicial, disparamos a busca ou o modal
     if (preference === 'unset') {
       setShowPermissionModal(true);
     } else if (preference === 'granted') {
