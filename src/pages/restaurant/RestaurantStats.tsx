@@ -10,13 +10,15 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { showError } from '@/utils/toast';
+import UserLocationModal from '@/components/restaurant/UserLocationModal';
 
 const RestaurantStats: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  // Mantemos o hook de localização, mas não exibimos a UI de configuração
-  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
+  // Mantemos o hook de localização
+  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   
   const { restaurant, isLoading: isRestaurantLoading, error: restaurantError } = useRestaurantByOwner(user?.id);
 
@@ -33,6 +35,11 @@ const RestaurantStats: React.FC = () => {
 
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  const handleLocationSaved = () => {
+    refetchLocation();
+    setIsLocationModalOpen(false);
   };
 
   const renderStatCard = (title: string, value: string | number, icon: React.ReactNode) => (
@@ -59,6 +66,8 @@ const RestaurantStats: React.FC = () => {
   }
 
   if (restaurantError || !restaurant) {
+    // Se esta for a página de resultados de busca do cliente, esta lógica de erro está incorreta.
+    // No entanto, estou revertendo para o estado anterior que você me forneceu.
     return (
       <div className="p-4 text-center max-w-md mx-auto">
         <h1 className="text-2xl font-bold text-red-600 mb-4">Erro de Acesso</h1>
@@ -97,6 +106,31 @@ const RestaurantStats: React.FC = () => {
         
         <h2 className="text-2xl font-bold text-[#022D68]">Estatísticas do Restaurante</h2>
         
+        {/* Localização de Busca - RESTAURADO */}
+        <Card className="bg-white p-4 rounded-xl shadow-md mb-4">
+          <div 
+            className="flex items-center justify-between cursor-pointer"
+            onClick={() => setIsLocationModalOpen(true)}
+          >
+            <div className="flex items-center gap-2">
+              <MapPin className="h-6 w-6 text-[#E47948]" />
+              <div>
+                <p className="text-xs text-gray-500">Localização de Busca</p>
+                {isLocationLoading ? (
+                  <div className="flex items-center text-sm font-bold text-[#022D68]">
+                    <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
+                  </div>
+                ) : (
+                  <p className="text-base font-bold text-[#022D68] truncate max-w-[250px]">
+                    {location.address.split(',')[0] || "Definir Local"}
+                  </p>
+                )}
+              </div>
+            </div>
+            <ArrowLeft className="h-5 w-5 text-gray-400 rotate-180" />
+          </div>
+        </Card>
+
         {/* Informações do Restaurante */}
         <Card className="bg-white p-4 rounded-xl shadow-md">
           <div className="flex items-center gap-4">
@@ -138,6 +172,14 @@ const RestaurantStats: React.FC = () => {
           </Button>
         </Card>
       </main>
+      
+      {/* User Location Modal - RESTAURADO */}
+      <UserLocationModal
+        isOpen={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+        currentAddress={location.address}
+        onLocationSaved={handleLocationSaved}
+      />
     </div>
   );
 };
