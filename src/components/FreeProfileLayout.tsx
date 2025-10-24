@@ -1,79 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import React from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, ServerCrash, Info, Phone, MessageCircle } from 'lucide-react';
+import { Info, Phone, MessageCircle } from 'lucide-react';
 
-export default function RestaurantFreeProfile() {
-  const { id } = useParams<{ id: string }>();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface FreeProfileLayoutProps {
+  restaurant: Restaurant;
+}
 
-  useEffect(() => {
-    const fetchRestaurant = async () => {
-      if (!id) {
-        setError("ID do restaurante não fornecido.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        const { data, error } = await supabase
-          .from('restaurants')
-          .select('*')
-          .eq('id', id)
-          .single();
-
-        if (error) throw error;
-        if (data) setRestaurant(data);
-
-      } catch (err: any) {
-        console.error("Erro ao buscar restaurante:", err);
-        setError("Não foi possível carregar os dados do restaurante.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRestaurant();
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-[#E47948]" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen p-4">
-        <Alert variant="destructive" className="max-w-lg">
-          <ServerCrash className="h-4 w-4" />
-          <AlertTitle>Erro</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  if (!restaurant) {
-    return (
-      <div className="flex items-center justify-center h-screen p-4">
-        <Alert className="max-w-lg">
-          <Info className="h-4 w-4" />
-          <AlertTitle>Não encontrado</AlertTitle>
-          <AlertDescription>O restaurante que você está procurando não foi encontrado.</AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
+export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const { name, description, image_url, cover_image_url, address, phone, whatsapp_url } = restaurant;
 
   return (

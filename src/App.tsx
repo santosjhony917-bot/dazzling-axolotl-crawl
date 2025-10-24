@@ -22,7 +22,7 @@ const Favorites = lazy(() => import('./pages/Favorites'));
 const SearchRestaurants = lazy(() => import('./pages/SearchRestaurants'));
 const RestaurantResults = lazy(() => import('./pages/RestaurantResults'));
 const RestaurantProfilePublic = lazy(() => import('./pages/RestaurantProfilePublic'));
-const RestaurantFreeProfile = lazy(() => import('./pages/public/RestaurantFreeProfile'));
+const FreeProfileLayout = lazy(() => import('./components/FreeProfileLayout')); // Importa o componente renomeado
 
 // Rotas da Área do Restaurante
 const RestaurantAreaHub = lazy(() => import('./pages/RestaurantAreaHub'));
@@ -71,7 +71,7 @@ function App() {
             <Route path="/search-restaurants" element={<SearchRestaurants />} />
             <Route path="/restaurant-results" element={<RestaurantResults />} />
             <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
-            <Route path="/restaurant/:id" element={<RestaurantFreeProfile />} />
+            {/* Rota /restaurant/:id removida para evitar duplicação e erro de props */}
 
             {/* Rotas da Área do Restaurante */}
             <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />

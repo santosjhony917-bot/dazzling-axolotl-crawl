@@ -1,34 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Share2, Star, MapPin, Clock, Crown } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ArrowLeft, Heart, Share2, Star, MapPin, Clock, Crown, Loader2, ServerCrash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { Restaurant } from "@/types/restaurant";
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
 import OrderChannels from "@/components/restaurant/OrderChannels";
 import PhotoGallery from "@/components/restaurant/PhotoGallery";
 import MenuSection from "@/components/restaurant/MenuSection";
 import RestaurantInfo from "@/components/restaurant/RestaurantInfo";
+import FreeProfileLayout from "@/components/FreeProfileLayout"; // Importa o novo layout Free
 
 export default function RestaurantProfilePublic() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
 
-  // Mock data for a Premium restaurant profile
-  const restaurantData = {
-    id: 'nau',
-    name: 'NAU – Frutos do Mar',
-    isVerified: true,
-    rating: 4.7,
-    reviewsCount: 1200,
-    followersCount: 2834,
-    coverImageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
-    address: 'Av. Epitácio Pessoa, 1234 - Tambaú',
-    openingHours: '18:00 - 23:00',
-    isOpen: true,
-    categories: ['Entradas', 'Principais', 'Sobremesas', 'Bebidas'],
-    menuItems: [
+  useEffect(() => {
+    const fetchRestaurant = async () => {
+      if (!id) {
+        setError("ID do restaurante não fornecido.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) throw error;
+        if (data) setRestaurant(data as Restaurant);
+
+      } catch (err: any) {
+        console.error("Erro ao buscar restaurante:", err);
+        setError("Não foi possível carregar os dados do restaurante.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurant();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-[#E47948]" />
+      </div>
+    );
+  }
+
+  if (error || !restaurant) {
+    return (
+      <div className="flex items-center justify-center h-screen p-4">
+        <Alert variant="destructive" className="max-w-lg">
+          <ServerCrash className="h-4 w-4" />
+          <AlertTitle>Erro</AlertTitle>
+          <AlertDescription>{error || "O restaurante que você está procurando não foi encontrado."}</AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+  
+  // --- Renderização Condicional ---
+  if (restaurant.plan === 'free') {
+    // Se o plano for Free, renderiza o layout Free
+    return <FreeProfileLayout restaurant={restaurant} />;
+  }
+
+  // --- Premium/Default Layout (Usando dados reais e mocks para conteúdo dinâmico) ---
+  
+  // Mock data necessário para componentes Premium que dependem de dados complexos (rating, menu, gallery)
+  const premiumMockData = {
+    isVerified: true, // Mocked for now
+    rating: 4.7, // Mocked for now
+    reviewsCount: 1200, // Mocked for now
+    followersCount: 2834, // Mocked for now
+    coverImageUrl: restaurant.cover_image_url || "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
+    address: restaurant.address || 'Endereço não definido',
+    openingHours: '18:00 - 23:00', // Mocked for now
+    isOpen: true, // Mocked for now
+    categories: ['Entradas', 'Principais', 'Sobremesas', 'Bebidas'], // Mocked for now
+    menuItems: [ // Mocked for now
       {
         id: '1',
         name: 'Salada Caprese',
@@ -42,32 +107,33 @@ export default function RestaurantProfilePublic() {
         name: 'Ceviche Clássico',
         description: 'Peixe branco fresco, limão, coentro e pimenta.',
         price: 45.00,
-        imageUrl: 'https://images.unsplash.com/photo-1626200419199-391ae4be7a41?q=80&w=2070&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1626200419199-391ae4be7a41?q=80&w=2070&auto=format&fit-crop',
         isFavorite: false
       },
-      {
-        id: '3',
-        name: 'Risoto de Camarão',
-        description: 'Arroz arbóreo, camarões frescos e ervas finas.',
-        price: 68.00,
-        imageUrl: 'https://images.unsplash.com/photo-1633321702544-e81e8b0e5e38?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      }
     ],
-    gallery: [
+    gallery: [ // Mocked for now
       { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente aconchegante' },
       { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária premium' },
       { imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop', caption: 'Vista privilegiada' }
     ]
   };
+  
+  // Combina dados reais do restaurante com mocks para o Premium
+  const displayData = {
+    ...restaurant,
+    ...premiumMockData,
+    name: restaurant.name,
+    address: restaurant.address,
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white max-w-md mx-auto">
       {/* Cover Image with Overlay Controls */}
       <div className="relative w-full h-72">
         <img
-          src={restaurantData.coverImageUrl}
-          alt={restaurantData.name}
+          src={displayData.coverImageUrl}
+          alt={displayData.name}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
@@ -103,7 +169,7 @@ export default function RestaurantProfilePublic() {
 
       {/* Main Content */}
       <div className="relative -mt-12 px-4 pb-8">
-        <RestaurantHeader restaurant={restaurantData} />
+        <RestaurantHeader restaurant={displayData} />
 
         {/* Action Buttons */}
         <motion.div
@@ -143,7 +209,7 @@ export default function RestaurantProfilePublic() {
               <Clock className="w-4 h-4" />
               <span className="text-xs font-medium">Horário</span>
             </div>
-            <p className="text-sm font-bold text-[#022D68]">{restaurantData.openingHours}</p>
+            <p className="text-sm font-bold text-[#022D68]">{displayData.openingHours}</p>
             <span className="inline-block mt-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
               Aberto
             </span>
@@ -154,7 +220,7 @@ export default function RestaurantProfilePublic() {
               <span className="text-xs font-medium">Localização</span>
             </div>
             <p className="text-sm font-bold text-[#022D68] line-clamp-2">
-              Tambaú, João Pessoa
+              {displayData.city || 'Localização não definida'}
             </p>
             <button className="mt-1 text-xs text-[#E47948] font-semibold hover:underline">
               Ver mapa
@@ -166,16 +232,16 @@ export default function RestaurantProfilePublic() {
         <OrderChannels />
 
         {/* Photo Gallery */}
-        <PhotoGallery gallery={restaurantData.gallery} />
+        <PhotoGallery gallery={displayData.gallery} />
 
         {/* Menu Section */}
         <MenuSection 
-          categories={restaurantData.categories}
-          menuItems={restaurantData.menuItems}
+          categories={displayData.categories}
+          menuItems={displayData.menuItems}
         />
 
         {/* Restaurant Info */}
-        <RestaurantInfo restaurant={restaurantData} />
+        <RestaurantInfo restaurant={displayData} />
       </div>
     </div>
   );
