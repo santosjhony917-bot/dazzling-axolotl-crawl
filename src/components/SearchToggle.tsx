@@ -14,11 +14,11 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
   const isRestaurantsActive = activeType === 'restaurants';
 
   return (
-    <div className="flex w-full p-1 bg-gray-200 rounded-full mb-6 shadow-inner">
+    <div className="flex w-full p-1 bg-gray-200 rounded-xl mb-6 shadow-inner">
       <Button
         onClick={() => onToggle('dishes')}
         className={cn(
-          "flex-1 h-10 rounded-full text-base font-semibold transition-all duration-200",
+          "flex-1 h-10 rounded-xl text-base font-semibold transition-all duration-200",
           isDishesActive
             ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
@@ -30,7 +30,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
       <Button
         onClick={() => onToggle('restaurants')}
         className={cn(
-          "flex-1 h-10 rounded-full text-base font-semibold transition-all duration-200",
+          "flex-1 h-10 rounded-xl text-base font-semibold transition-all duration-200",
           isRestaurantsActive
             ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
