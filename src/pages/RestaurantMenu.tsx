@@ -99,8 +99,8 @@ export default function RestaurantMenu() {
   };
 
   const handleSaveItem = (data: ItemFormData) => {
-    // O ItemFormData agora garante que category_id é string, satisfazendo a mutação.
-    itemMutations.save.mutate(data);
+    // CORREÇÃO: Usamos asserção de tipo para garantir que category_id é string, resolvendo o erro TS2345.
+    itemMutations.save.mutate(data as Partial<MenuItem> & { category_id: string });
     setItemForm({ open: false, categoryId: '', data: null });
   };
 
@@ -115,7 +115,7 @@ export default function RestaurantMenu() {
       id: item.id, 
       category_id: item.category_id,
       is_active: !item.is_active 
-    });
+    } as Partial<MenuItem> & { category_id: string }); // Asserção de tipo necessária aqui também
   };
 
   const categories = menuData?.categories || [];
