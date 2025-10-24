@@ -1,48 +1,57 @@
-import { useState, useEffect, useCallback } from 'react';
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils/url";
-import { User } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Session, User } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
 
-export function useAuth() {
-  const navigate = useNavigate();
+interface AuthContextType {
+  user: User | null;
+  session: Session | null;
+  isLoading: boolean;
+  signOut: () => Promise<void>; // Adicionando signOut
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+interface SessionContextProviderProps {
+  children: ReactNode;
+}
+
+export const SessionContextProvider: React.FC<SessionContextProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const checkSession = useCallback(async () => {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    if (error) {
-      console.error("Error getting session:", error);
-    }
-    setUser(session?.user || null);
-    setIsLoading(false);
-  }, []);
-
   useEffect(() => {
-    checkSession();
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
+      setSession(session);
+      setUser(session?.user ?? null);
       setIsLoading(false);
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [checkSession]);
+    // Fetch initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+    });
 
-  const signOut = useCallback(async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
-      // Redireciona para a tela de boas-vindas ou login
-      navigate(createPageUrl('welcome'));
-    }
-    return { error };
-  }, [navigate]);
-
-  return {
-    user,
-    isLoading,
-    signOut,
+    return () => subscription.unsubscribe();
+  }, []);
+  
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
   };
-}
+
+  return (
+    <AuthContext.Provider value={{ user, session, isLoading, signOut: handleSignOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a SessionContextProvider');
+  }
+  return context;
+};
