@@ -47,17 +47,17 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
               <Link
                 key={item.path}
                 to={createPageUrl(item.path.substring(1))}
-                className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
+                className="flex flex-col items-center justify-center transition-colors duration-200"
               >
                 <div className={cn(
-                  "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
-                  "bg-highlight text-white"
+                  "flex items-center justify-center rounded-full px-4 py-2 transition-all duration-300 hover:scale-[1.02]",
+                  "bg-highlight/10 dark:bg-highlight/20 text-highlight"
                 )}>
-                  <Icon className="h-7 w-7" />
+                  <Icon className="h-6 w-6 mr-1" />
+                  <span className="text-sm font-bold">
+                    {item.label}
+                  </span>
                 </div>
-                <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
-                  {item.label}
-                </span>
               </Link>
             );
           }
