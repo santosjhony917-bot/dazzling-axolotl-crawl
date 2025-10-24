@@ -66,7 +66,7 @@ const upgradeSlides = [
 ];
 
 // Mock de dados de restaurante para fallback
-const MOCK_RESTAURANT_DATA: Restaurant = {
+const MOCK_RESTAURANT_DATA: Restaurant & { number?: string } = {
   id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
   user_id: "mock-user-id",
   name: "Restaurante Mockado",
@@ -74,6 +74,7 @@ const MOCK_RESTAURANT_DATA: Restaurant = {
   created_at: new Date().toISOString(),
   cep: "58039-000",
   address: "Av. Epitácio Pessoa",
+  number: "1000", // Adicionado para o mock
   neighborhood: "Tambau",
   city: "João Pessoa",
   state: "PB",
@@ -139,7 +140,7 @@ const RestaurantDashboard = () => {
   const currentLocationData = useMemo(() => ({
     cep: restaurant?.cep || '',
     street: restaurant?.address || '',
-    number: '', // Número não está no schema principal, mas é necessário para geocoding
+    number: (restaurant as any)?.number || '', // Lendo o novo campo 'number'
     neighborhood: restaurant?.neighborhood || '',
     city: restaurant?.city || '',
     state: restaurant?.state || '',

@@ -118,6 +118,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
         .from('restaurants')
         .update({
           address: data.street,
+          number: data.number, // <-- Adicionado o campo 'number'
           city: data.city,
           state: data.state,
           cep: data.cep,
