@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import RestaurantArea from './pages/RestaurantArea';
-import Dashboard from './pages/Dashboard';
+import RestaurantDashboard from './pages/restaurant/RestaurantDashboard'; // Importando do novo caminho
 import Settings from './pages/Settings';
 import Subscription from './pages/Subscription';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
-import MenuManagement from './pages/MenuManagement'; // Importando a nova página
+import MenuManagement from './pages/MenuManagement';
 import { SessionContextProvider } from './hooks/useAuth';
 import { Toaster } from './components/ui/toaster';
 
@@ -22,8 +22,8 @@ function App() {
           
           {/* Área Administrativa do Restaurante */}
           <Route path="/restaurant" element={<RestaurantArea />}>
-            <Route index element={<Dashboard />} />
-            <Route path="menu" element={<MenuManagement />} /> {/* Nova Rota */}
+            <Route index element={<RestaurantDashboard />} />
+            <Route path="menu" element={<MenuManagement />} />
             <Route path="settings" element={<Settings />} />
             <Route path="subscription" element={<Subscription />} />
           </Route>
