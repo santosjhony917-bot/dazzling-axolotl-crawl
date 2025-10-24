@@ -1,28 +1,33 @@
-export type RestaurantPlan = 'free' | 'premium' | 'enterprise';
+import { WeekSchedule } from './schedule';
+
+export type RestaurantPlan = 'free' | 'basic' | 'premium';
 
 export interface Restaurant {
   id: string;
   user_id: string;
   name: string;
-  description?: string | null;
-  image_url?: string | null; // Logo
-  cover_image_url?: string | null; // Capa
-  address?: string | null;
+  description: string | null;
+  image_url: string | null;
+  cover_image_url: string | null;
+  address: string | null;
+  number: string | null;
+  city: string | null;
+  state: string | null;
+  cep: string | null;
+  neighborhood: string | null;
+  phone: string | null;
+  email: string | null;
+  cnpj: string | null;
+  category: string | null;
+  whatsapp_url: string | null;
+  ifood_url: string | null;
+  other_url: string | null;
   plan: RestaurantPlan;
   created_at: string;
-  latitude?: number | null;
-  longitude?: number | null;
-  city?: string | null;
-  state?: string | null;
-  cep?: string | null;
-  neighborhood?: string | null;
-  phone?: string | null;
-  email?: string | null;
-  cnpj?: string | null;
-  category?: string | null;
-  whatsapp_url?: string | null;
-  ifood_url?: string | null;
-  other_url?: string | null;
-  opening_hours?: any | null;
-  number?: string | null; // <-- NOVO CAMPO
+  latitude: number | null;
+  longitude: number | null;
+  opening_hours: WeekSchedule | null;
+  
+  // Propriedade adicionada pela função RPC find_nearby_restaurants
+  distance_km?: number; 
 }

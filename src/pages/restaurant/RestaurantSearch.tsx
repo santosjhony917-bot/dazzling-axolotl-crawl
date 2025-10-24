@@ -1,184 +1,147 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, MapPin, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Loader2, MapPin, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
-import useUserLocation from '@/hooks/useUserLocation';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
+import RestaurantCard from '@/components/restaurant/RestaurantCard'; // Corrigido: Importação default
+import { Restaurant } from '@/types/restaurant';
+import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import Header from '@/components/Header';
 
-// Definindo o tipo de retorno da função Supabase
-interface RestaurantResult {
-  id: string;
-  user_id: string;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  address: string | null;
-  plan: 'free' | 'basic' | 'premium';
-  created_at: string;
-  latitude: number | null;
-  longitude: number | null;
-  distance_km: number;
-  category: string | null;
-}
+export default function RestaurantSearch() {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  
+  // Corrigido: Usando isLoading e refetch conforme definido no hook
+  const { location, isLoading: loadingLocation, refetch: fetchLocation } = useUserSearchLocation();
 
-const RestaurantSearch: React.FC = () => {
-  const [searchType, setSearchType] = useState<'Pratos' | 'Restaurantes'>('Restaurantes');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<RestaurantResult[]>([]);
-  const [loadingSearch, setLoadingSearch] = useState(false);
-  const [searchError, setSearchError] = useState<string | null>(null);
+  const userLat = location?.latitude;
+  const userLng = location?.longitude;
+  const currentAddress = location?.address || "Localização Padrão (João Pessoa)";
 
-  const { latitude, longitude, loading: loadingLocation, error: locationError } = useUserLocation();
-
-  const handleSearch = useCallback(async (lat: number, lng: number, query: string) => {
-    setLoadingSearch(true);
-    setSearchError(null);
-    setResults([]);
-
+  const fetchRestaurants = useCallback(async (lat: number, lng: number, query: string) => {
+    setLoading(true);
     try {
-      // Chamando a função RPC do Supabase para buscar restaurantes próximos
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: lat,
         user_lng: lng,
-        max_distance_km: 50, // Busca em um raio de 50km
-        search_query: query || null,
+        max_distance_km: 10, // Padrão de 10km
+        search_query: query.length > 0 ? query : null,
       });
 
       if (error) {
-        console.error('Erro ao buscar restaurantes:', error);
-        setSearchError('Não foi possível carregar os restaurantes. Tente novamente.');
-        return;
+        console.error('Error fetching nearby restaurants:', error);
+        setRestaurants([]);
+      } else {
+        setRestaurants(data || []);
       }
-
-      setResults(data as RestaurantResult[]);
     } catch (e) {
-      console.error('Erro inesperado durante a busca:', e);
-      setSearchError('Ocorreu um erro inesperado.');
+      console.error('Exception fetching nearby restaurants:', e);
+      setRestaurants([]);
     } finally {
-      setLoadingSearch(false);
+      setLoading(false);
     }
   }, []);
 
-  // Efeito para buscar automaticamente quando a localização estiver disponível e o tipo for 'Restaurantes'
+  // Initial fetch or fetch when location changes
   useEffect(() => {
-    if (searchType === 'Restaurantes' && latitude !== null && longitude !== null) {
-      handleSearch(latitude, longitude, searchTerm);
+    if (userLat && userLng) {
+      fetchRestaurants(userLat, userLng, searchQuery);
     }
-  }, [searchType, latitude, longitude]); // Dependências: tipo de busca, lat e lng
+  }, [userLat, userLng, fetchRestaurants]);
 
-  // Função para lidar com a busca manual (ex: ao clicar no botão de busca ou digitar)
-  const triggerSearch = () => {
-    if (searchType === 'Restaurantes' && latitude !== null && longitude !== null) {
-      handleSearch(latitude, longitude, searchTerm);
-    } else if (searchType === 'Restaurantes' && (loadingLocation || locationError)) {
-      setSearchError(locationError || 'Aguardando permissão de localização...');
+  // Handle search input change with debounce
+  useEffect(() => {
+    if (userLat && userLng) {
+      const handler = setTimeout(() => {
+        fetchRestaurants(userLat, userLng, searchQuery);
+      }, 500); // Debounce time
+
+      return () => {
+        clearTimeout(handler);
+      };
     }
-  };
+  }, [searchQuery, userLat, userLng, fetchRestaurants]);
 
-  const displayLocationStatus = () => {
-    if (loadingLocation) return 'Obtendo localização...';
-    if (locationError) return 'Localização necessária para busca por proximidade.';
-    if (latitude && longitude) return 'Localização obtida.';
-    return 'Aguardando localização...';
+  const handleLocationSaved = () => {
+    // Refetch location and restaurants after saving
+    fetchLocation();
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-primary dark:text-white">Buscar</h1>
+    <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen">
+      <Header 
+        title="Buscar Restaurantes" 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }} 
+      />
 
-      {/* Barra de Pesquisa */}
-      <div className="flex items-center space-x-2 mb-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+      <div className="p-4">
+        {/* Localização Atual */}
+        <div 
+          className="flex items-center justify-between p-3 bg-white rounded-xl shadow-md mb-4 cursor-pointer border border-primary/10"
+          onClick={() => setIsLocationModalOpen(true)}
+        >
+          <div className="flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-highlight" />
+            <span className="text-sm font-medium text-primary truncate">
+              {loadingLocation ? "Carregando localização..." : currentAddress}
+            </span>
+          </div>
+          <Button variant="ghost" size="sm" className="text-xs text-highlight hover:bg-highlight/10">
+            Mudar
+          </Button>
+        </div>
+
+        {/* Barra de Pesquisa */}
+        <div className="relative mb-6">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             type="text"
-            placeholder={`Buscar por ${searchType.toLowerCase()}...`}
-            className="pl-10 pr-4 py-2 w-full rounded-full border-gray-300 focus:border-primary focus:ring-primary dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                triggerSearch();
-              }
-            }}
+            placeholder="Pesquisar por nome do restaurante..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 h-12 rounded-full text-base focus:border-highlight focus:ring-highlight"
           />
         </div>
-        <button
-          onClick={triggerSearch}
-          disabled={loadingLocation || loadingSearch || !!locationError}
-          className="p-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50"
-        >
-          {loadingSearch ? <Loader2 className="h-5 w-5 animate-spin" /> : <Search className="h-5 w-5" />}
-        </button>
-      </div>
 
-      {/* Status da Localização */}
-      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <MapPin className="w-4 h-4 mr-1" />
-        <span>{displayLocationStatus()}</span>
-      </div>
+        {/* Resultados */}
+        <h2 className="text-lg font-bold mb-3 text-primary">
+          {searchQuery ? `Resultados para "${searchQuery}"` : "Restaurantes Próximos"}
+        </h2>
 
-      {/* Toggle de Tipo de Busca */}
-      <div className="bg-gray-100 dark:bg-zinc-700 p-1 rounded-full flex mb-6 h-10">
-        <button
-          onClick={() => setSearchType('Pratos')}
-          className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
-            searchType === 'Pratos'
-              ? 'bg-white dark:bg-zinc-800 text-primary shadow-md'
-              : 'text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-600'
-          }`}
-        >
-          Pratos
-        </button>
-        <button
-          onClick={() => setSearchType('Restaurantes')}
-          className={`flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all ${
-            searchType === 'Restaurantes'
-              ? 'bg-highlight text-white shadow-md'
-              : 'text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-600'
-          }`}
-        >
-          Restaurantes
-        </button>
-      </div>
-
-      {/* Resultados da Busca */}
-      <div className="mt-4">
-        {loadingSearch && (
-          <div className="flex justify-center items-center p-8">
+        {loading ? (
+          <div className="flex justify-center items-center h-40">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
-        )}
-
-        {searchError && (
-          <p className="text-center text-red-500 p-4">{searchError}</p>
-        )}
-
-        {!loadingSearch && !searchError && searchType === 'Restaurantes' && (
-          <>
-            {results.length > 0 ? (
-              results.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-              ))
-            ) : (
-              <p className="text-center text-gray-500 p-4">
-                {latitude === null || longitude === null
-                  ? 'Aguardando localização para buscar restaurantes próximos.'
-                  : 'Nenhum restaurante encontrado na sua área.'}
-              </p>
-            )}
-          </>
-        )}
-
-        {searchType === 'Pratos' && (
-          <p className="text-center text-gray-500 p-4">
-            Funcionalidade de busca por pratos ainda não implementada.
-          </p>
+        ) : restaurants.length > 0 ? (
+          <div className="space-y-4">
+            {restaurants.map((restaurant) => (
+              <RestaurantCard 
+                key={restaurant.id} 
+                restaurant={restaurant} 
+                onClick={() => navigate(`/restaurant/${restaurant.id}`)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-8 bg-white rounded-xl shadow-md">
+            <p className="text-gray-500">Nenhum restaurante encontrado na área de 10km.</p>
+            <p className="text-sm text-gray-400 mt-2">Tente mudar sua localização de busca.</p>
+          </div>
         )}
       </div>
+
+      <UserLocationModal
+        isOpen={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+        currentAddress={currentAddress}
+        onLocationSaved={handleLocationSaved}
+      />
     </div>
   );
-};
-
-export default RestaurantSearch;
+}
