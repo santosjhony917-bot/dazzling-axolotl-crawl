@@ -7,6 +7,7 @@ import { MapPin, Utensils, TrendingUp, DollarSign, Clock, ChevronRight, Loader2 
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import { useUserRole } from '@/hooks/useUserRole'; // Importando useUserRole
 
 // Mock Data
 const mockStats = {
@@ -15,18 +16,58 @@ const mockStats = {
   avgTime: 22,
 };
 
+// Helper Components (Definidos localmente para manter a estrutura)
+
+interface StatCardProps {
+  title: string;
+  value: string;
+  icon: React.ElementType;
+  color: string;
+}
+
+const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
+  <Card className="rounded-xl shadow-md text-center p-3">
+    <CardHeader className="p-0 pb-1">
+      <Icon className={`w-6 h-6 mx-auto ${color}`} />
+    </CardHeader>
+    <CardContent className="p-0">
+      <p className="text-xs font-medium text-gray-500">{title}</p>
+      <p className="text-lg font-bold text-[#022D68] mt-0.5">{value}</p>
+    </CardContent>
+  </Card>
+);
+
+interface ManagementLinkProps {
+  title: string;
+  description: string;
+  onClick: () => void;
+}
+
+const ManagementLink: React.FC<ManagementLinkProps> = ({ title, description, onClick }) => (
+  <Card 
+    className="rounded-xl shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+    onClick={onClick}
+  >
+    <CardContent className="p-4 flex items-center justify-between">
+      <div>
+        <h3 className="text-base font-semibold text-[#022D68]">{title}</h3>
+        <p className="text-sm text-gray-500 mt-0.5">{description}</p>
+      </div>
+      <ChevronRight className="w-5 h-5 text-gray-400" />
+    </CardContent>
+  </Card>
+);
+
+
 const RestaurantDashboard = () => {
   const navigate = useNavigate();
   const { location, isLoading, refetch } = useUserSearchLocation();
+  const { isPremium } = useUserRole(); // Usando o hook para determinar o plano
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   const handleLocationSaved = () => {
     refetch(); // Refresh location data after saving
   };
-  
-  // Assuming the dashboard user is not on a free plan for now, or we need to fetch this status.
-  // For the fix, we provide a boolean value.
-  const isFreePlan = false; 
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
@@ -38,7 +79,7 @@ const RestaurantDashboard = () => {
             variant="ghost" 
             size="icon" 
             className="text-[#022D68] hover:bg-[#022D68]/5"
-            onClick={() => navigate(createPageUrl('restaurant-profile'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           >
             <Utensils className="h-5 w-5" />
           </Button>
@@ -101,23 +142,23 @@ const RestaurantDashboard = () => {
           <ManagementLink 
             title="Gerenciar Cardápio" 
             description="Adicione, edite ou remova pratos e categorias." 
-            onClick={() => navigate(createPageUrl('restaurant-menu'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
           />
           <ManagementLink 
             title="Ver Pedidos Recentes" 
             description="Acompanhe o status dos pedidos em tempo real." 
-            onClick={() => navigate(createPageUrl('restaurant-orders'))}
+            onClick={() => alert('Funcionalidade de Pedidos em desenvolvimento')}
           />
           <ManagementLink 
             title="Configurações de Perfil" 
             description="Edite informações, horários e plano do restaurante." 
-            onClick={() => navigate(createPageUrl('restaurant-profile'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           />
         </div>
       </main>
 
       {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="dashboard" isFree={isFreePlan} />
+      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
 
       {/* User Location Modal */}
       <UserLocationModal
@@ -129,47 +170,5 @@ const RestaurantDashboard = () => {
     </div>
   );
 };
-
-// Helper Components (StatCard and ManagementLink remain unchanged)
-
-interface StatCardProps {
-  title: string;
-  value: string;
-  icon: React.ElementType;
-  color: string;
-}
-
-const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color }) => (
-  <Card className="rounded-xl shadow-md text-center p-3">
-    <CardHeader className="p-0 pb-1">
-      <Icon className={`w-6 h-6 mx-auto ${color}`} />
-    </CardHeader>
-    <CardContent className="p-0">
-      <p className="text-xs font-medium text-gray-500">{title}</p>
-      <p className="text-lg font-bold text-[#022D68] mt-0.5">{value}</p>
-    </CardContent>
-  </Card>
-);
-
-interface ManagementLinkProps {
-  title: string;
-  description: string;
-  onClick: () => void;
-}
-
-const ManagementLink: React.FC<ManagementLinkProps> = ({ title, description, onClick }) => (
-  <Card 
-    className="rounded-xl shadow-md cursor-pointer hover:shadow-lg transition-shadow"
-    onClick={onClick}
-  >
-    <CardContent className="p-4 flex items-center justify-between">
-      <div>
-        <h3 className="text-base font-semibold text-[#022D68]">{title}</h3>
-        <p className="text-sm text-gray-500 mt-0.5">{description}</p>
-      </div>
-      <ChevronRight className="w-5 h-5 text-gray-400" />
-    </CardContent>
-  </Card>
-);
 
 export default RestaurantDashboard;
