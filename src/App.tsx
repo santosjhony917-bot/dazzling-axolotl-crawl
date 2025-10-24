@@ -22,9 +22,7 @@ import Favorites from './pages/Favorites';
 import SearchRestaurants from './pages/SearchRestaurants';
 import RestaurantResults from './pages/RestaurantResults';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
-import RestaurantProfileMenu from './pages/restaurant/RestaurantProfileMenu'; // Hub de Perfil
-import MenuManager from './pages/restaurant/MenuManager'; // Gerenciador de Menu
-import RestaurantProfilePage from './pages/restaurant/Profile'; // Edição de Dados
+import RestaurantProfileMenu from './pages/RestaurantProfileMenu';
 import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import NotFound from './pages/NotFound';
@@ -68,10 +66,9 @@ function App() {
             <Route path="/restaurant-area" element={<RestaurantArea />}>
               <Route index element={<RestaurantDashboard />} />
               <Route path="home" element={<RestaurantDashboard />} />
-              <Route path="menu" element={<MenuManager />} />
-              <Route path="categories" element={<MenuManager />} />
+              <Route path="menu" element={<RestaurantMenu />} />
+              <Route path="categories" element={<RestaurantMenu />} /> {/* Redireciona para Menu */}
               <Route path="profile-menu" element={<RestaurantProfileMenu />} />
-              <Route path="profile" element={<RestaurantProfilePage />} /> {/* NOVA ROTA DE EDIÇÃO */}
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
               {/* Adicione outras rotas da área do restaurante aqui */}
