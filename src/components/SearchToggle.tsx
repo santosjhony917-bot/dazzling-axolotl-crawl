@@ -1,0 +1,46 @@
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+type SearchType = 'dishes' | 'restaurants';
+
+interface SearchToggleProps {
+  activeType: SearchType;
+  onToggle: (type: SearchType) => void;
+}
+
+const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => {
+  const isDishesActive = activeType === 'dishes';
+  const isRestaurantsActive = activeType === 'restaurants';
+
+  return (
+    <div className="flex w-full p-1 bg-gray-200 rounded-full mb-6 shadow-inner">
+      <Button
+        onClick={() => onToggle('dishes')}
+        className={cn(
+          "flex-1 h-10 rounded-full text-base font-semibold transition-all duration-200",
+          isDishesActive
+            ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
+            : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
+        )}
+        variant="ghost"
+      >
+        Pratos
+      </Button>
+      <Button
+        onClick={() => onToggle('restaurants')}
+        className={cn(
+          "flex-1 h-10 rounded-full text-base font-semibold transition-all duration-200",
+          isRestaurantsActive
+            ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
+            : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
+        )}
+        variant="ghost"
+      >
+        Restaurantes
+      </Button>
+    </div>
+  );
+};
+
+export default SearchToggle;

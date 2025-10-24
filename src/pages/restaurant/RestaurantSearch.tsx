@@ -7,14 +7,17 @@ import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Restaurant } from '@/types/restaurant';
 import Header from '@/components/Header';
+import SearchToggle from '@/components/SearchToggle'; // Importando o novo componente
+
+type SearchType = 'dishes' | 'restaurants';
 
 export default function RestaurantSearch() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [searchType, setSearchType] = useState<SearchType>('restaurants'); // Novo estado para o tipo de busca
   
-  // A localização continua sendo carregada e usada para a RPC
   const { location } = useUserSearchLocation();
 
   const userLat = location?.latitude;
@@ -22,6 +25,13 @@ export default function RestaurantSearch() {
   const currentAddress = location?.address || "Localização Padrão (João Pessoa)";
 
   const fetchRestaurants = useCallback(async (lat: number, lng: number, query: string) => {
+    if (searchType === 'dishes') {
+      // TODO: Implementar busca de pratos
+      setRestaurants([]);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
@@ -43,14 +53,14 @@ export default function RestaurantSearch() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [searchType]); // Adicionado searchType como dependência
 
-  // Initial fetch or fetch when location changes
+  // Initial fetch or fetch when location changes or searchType changes
   useEffect(() => {
     if (userLat && userLng) {
       fetchRestaurants(userLat, userLng, searchQuery);
     }
-  }, [userLat, userLng, fetchRestaurants]);
+  }, [userLat, userLng, fetchRestaurants, searchType]);
 
   // Handle search input change with debounce
   useEffect(() => {
@@ -63,7 +73,12 @@ export default function RestaurantSearch() {
         clearTimeout(handler);
       };
     }
-  }, [searchQuery, userLat, userLng, fetchRestaurants]);
+  }, [searchQuery, userLat, userLng, fetchRestaurants, searchType]);
+
+  const handleToggleSearch = (type: SearchType) => {
+    setSearchType(type);
+    setSearchQuery(''); // Limpa a busca ao trocar o tipo
+  };
 
   return (
     <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen">
@@ -73,21 +88,37 @@ export default function RestaurantSearch() {
       />
 
       <div className="p-4">
+        {/* Exibição da Localização Atual (Apenas leitura) */}
+        <div 
+          className="flex items-center p-3 bg-white rounded-xl shadow-md mb-6 border border-primary/10"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-primary truncate">
+              Busca baseada em: {currentAddress}
+            </span>
+          </div>
+        </div>
+
         {/* Barra de Pesquisa */}
-        <div className="relative mb-6">
+        <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
             type="text"
-            placeholder="Pesquisar por nome do restaurante..."
+            placeholder={`Pesquisar por ${searchType === 'dishes' ? 'prato' : 'restaurante'}...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 h-12 rounded-full text-base focus:border-highlight focus:ring-highlight"
           />
         </div>
+        
+        {/* Toggle de Busca */}
+        <SearchToggle activeType={searchType} onToggle={handleToggleSearch} />
 
         {/* Resultados */}
         <h2 className="text-lg font-bold mb-3 text-primary">
-          {searchQuery ? `Resultados para "${searchQuery}"` : "Restaurantes Próximos"}
+          {searchQuery 
+            ? `Resultados para "${searchQuery}" em ${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'}` 
+            : `${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'} Próximos`}
         </h2>
 
         {loading ? (
@@ -106,7 +137,9 @@ export default function RestaurantSearch() {
           </div>
         ) : (
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
-            <p className="text-gray-500">Nenhum restaurante encontrado na área de 10km.</p>
+            <p className="text-gray-500">
+              Nenhum {searchType === 'dishes' ? 'prato' : 'restaurante'} encontrado na área de 10km.
+            </p>
             <p className="text-sm text-gray-400 mt-2">A busca está baseada em: {currentAddress}</p>
           </div>
         )}
