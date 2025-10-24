@@ -10,6 +10,7 @@ import axios from 'axios';
 import { formatCEP, geocodeAddress } from '@/services/geocoding';
 import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
+import { saveLastRestaurantLocationInput, loadLastRestaurantLocationInput } from '@/services/localPersistence'; // Importando utilitários
 
 interface LocationData {
   cep: string;
@@ -41,19 +42,41 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
   const [loading, setLoading] = useState(false);
   const [isSearchingCep, setIsSearchingCep] = useState(false);
   
+  // Determina os valores iniciais, priorizando o DB, depois o localStorage
+  const getInitialValues = useCallback(() => {
+    // Se o DB tem dados (CEP ou Rua), usamos o DB
+    if (currentLocation.cep || currentLocation.street) {
+      return currentLocation;
+    }
+    
+    // Caso contrário, tentamos carregar do localStorage
+    const lastInput = loadLastRestaurantLocationInput();
+    if (lastInput) {
+      return {
+        ...currentLocation, // Mantém city/state/number vazios se não vierem do DB
+        cep: lastInput.cep,
+        street: lastInput.street,
+      };
+    }
+    
+    // Fallback para valores vazios
+    return currentLocation;
+  }, [currentLocation]);
+  
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<z.infer<typeof locationSchema>>({
     resolver: zodResolver(locationSchema),
-    defaultValues: currentLocation,
+    defaultValues: getInitialValues(),
   });
 
   const cepValue = watch('cep');
+  const streetValue = watch('street');
 
   // Reset form when modal opens/closes
   useEffect(() => {
     if (isOpen) {
-      reset(currentLocation);
+      reset(getInitialValues());
     }
-  }, [isOpen, currentLocation, reset]);
+  }, [isOpen, getInitialValues, reset]);
 
   const fetchViaCEP = useCallback(async (cep: string) => {
     const cleanedCep = cep.replace(/\D/g, '');
@@ -118,7 +141,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
         .from('restaurants')
         .update({
           address: data.street,
-          number: data.number, // <-- Adicionado o campo 'number'
+          number: data.number,
           city: data.city,
           state: data.state,
           cep: data.cep,
@@ -131,6 +154,9 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
       if (error) {
         throw new Error(error.message);
       }
+
+      // 3. Salva o CEP e a Rua no localStorage (para persistência do input)
+      saveLastRestaurantLocationInput({ cep: data.cep, street: data.street });
 
       showSuccess("Localização atualizada com sucesso!");
       onSave();
