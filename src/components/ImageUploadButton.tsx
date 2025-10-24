@@ -3,13 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Upload, Loader2, Camera } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ButtonProps } from '@/components/ui/button';
-import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { uploadFile } from '@/integrations/supabase/storage';
 import toast from 'react-hot-toast';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface ImageUploadButtonProps extends ButtonProps {
   onUploadComplete: (url: string) => void;
-  imageUrl?: string;
+  imageUrl?: string; // Mantido para compatibilidade, mas não usado para preview interno
   bucketName: string;
   folderPath: string;
   className?: string;
@@ -19,7 +18,7 @@ interface ImageUploadButtonProps extends ButtonProps {
 
 export const ImageUploadButton = memo(({ 
   onUploadComplete, 
-  imageUrl, 
+  imageUrl, // Não usado para preview interno
   bucketName, 
   folderPath, 
   className, 
@@ -51,7 +50,7 @@ export const ImageUploadButton = memo(({
 
       if (publicUrl) {
         onUploadComplete(publicUrl);
-        toast.success("Imagem enviada com sucesso!");
+        // toast.success("Imagem enviada com sucesso!"); // Toast movido para o componente pai (ProfileHeaderManagement)
       } else {
         toast.error("Falha ao fazer upload da imagem.");
       }
@@ -74,16 +73,8 @@ export const ImageUploadButton = memo(({
     return icon || <Camera className="h-4 w-4" />;
   }, [uploading, icon]);
 
-  const currentImageUrl = imageUrl || PLACEHOLDER_IMAGE_URL;
-
   return (
-    <div className="relative w-full h-24 flex items-center justify-center rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
-      <img 
-        src={currentImageUrl} 
-        alt="Preview" 
-        className="w-full h-full object-cover"
-      />
-      
+    <>
       <input
         type="file"
         ref={fileInputRef}
@@ -97,7 +88,7 @@ export const ImageUploadButton = memo(({
         type="button"
         onClick={handleClick}
         className={cn(
-          "absolute bottom-2 right-2 h-8 w-8 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 transition-all",
+          "h-8 w-8 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 transition-all",
           className
         )}
         size="icon"
@@ -106,6 +97,6 @@ export const ImageUploadButton = memo(({
       >
         {children || displayIcon}
       </Button>
-    </div>
+    </>
   );
 });

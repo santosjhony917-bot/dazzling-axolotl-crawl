@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets";
+import { cn } from '@/lib/utils';
 
 // Definindo o tipo de retorno esperado para onUpdate
 type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string | null }>;
@@ -78,8 +79,9 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
         />
       </div>
 
-      {/* Logo Upload Button (Used inside the main card in the parent component) */}
-      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md">
+      {/* Logo Upload Container */}
+      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md overflow-hidden">
+        {/* Imagem de Preview (Renderizada Apenas Uma Vez) */}
         {logoUrl ? (
           <img
             src={logoUrl}
@@ -91,14 +93,18 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
             <Pencil className="h-6 w-6" />
           </div>
         )}
-        <ImageUploadButton
-          imageUrl={logoUrl || undefined}
-          onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
-          bucketName={RESTAURANT_IMAGES_BUCKET}
-          folderPath={restaurant.id || 'temp'}
-          className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
-          icon={<Camera className="h-3 w-3" />}
-        />
+        
+        {/* Botão de Upload (Flutuante no canto) */}
+        <div className="absolute bottom-0 right-0 z-10">
+          <ImageUploadButton
+            imageUrl={logoUrl || undefined}
+            onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
+            bucketName={RESTAURANT_IMAGES_BUCKET}
+            folderPath={restaurant.id || 'temp'}
+            className="h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full"
+            icon={<Camera className="h-3 w-3" />}
+          />
+        </div>
       </div>
     </div>
   );
