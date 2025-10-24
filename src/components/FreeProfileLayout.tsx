@@ -2,15 +2,17 @@ import React from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Info, Phone, MessageCircle, MapPin, Clock, Utensils } from 'lucide-react';
+import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft } from 'lucide-react';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom'; // Importando useNavigate
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
+  const navigate = useNavigate(); // Inicializando useNavigate
   const { name, description, image_url, address, phone, whatsapp_url, city, state } = restaurant;
 
   // Mock de dados para o Header Público (o plano será 'Free' por padrão aqui)
@@ -28,7 +30,23 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       
-      {/* Header Público (Logo, Nome, Botões) */}
+      {/* Header Fixo com Botão Voltar */}
+      <header className="sticky top-0 z-20 bg-white shadow-sm p-4 flex items-center justify-between">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(-1)}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <h1 className="text-lg font-bold text-[#022D68] flex-1 text-center pr-10 truncate">
+          {name || "Perfil do Restaurante"}
+        </h1>
+        <div className="w-10"></div> {/* Placeholder para alinhamento */}
+      </header>
+
+      {/* Header Público (Logo, Nome, Botões) - Abaixo do Header Fixo */}
       <div className="bg-white shadow-md rounded-b-xl">
         <RestaurantPublicHeader restaurant={headerData} />
       </div>
