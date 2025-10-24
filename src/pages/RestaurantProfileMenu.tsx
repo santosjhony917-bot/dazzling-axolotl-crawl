@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, memo } from "react";
 import { ArrowLeft, Phone, Mail, FileText, UtensilsCrossed, Store, Globe, Building2, Utensils, LogOut, Edit, Eye, ChevronRight, Lock, MessageSquare, Star, Bell, MapPin, Clock, Crown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Adicionado Link
 import { useAuth } from "@/hooks/useAuth";
 import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
 import { useUserRole } from "@/hooks/useUserRole";
@@ -147,7 +147,7 @@ const BasicInfoSection: React.FC<{ restaurant: any, handleEditField: any, setIsA
   );
 };
 
-// 2. Cardápio Section (Botão "Gerenciar Categorias" REMOVIDO)
+// 2. Cardápio Section
 const MenuSection: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => (
   <div className="p-4 space-y-3">
     <Button 
@@ -260,10 +260,10 @@ const SupportAccountSection: React.FC<{ handleSignOut: () => void, navigate: Ret
       <span className="text-sm">Falar com o Suporte</span>
       <ChevronRight className="w-5 h-5 text-gray-400" />
     </a>
-    <a onClick={() => showSuccess("Termos em breve")} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
+    <Link to={createPageUrl('legal')} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
       <span className="text-sm">Termos e Política de Privacidade</span>
       <ChevronRight className="w-5 h-5 text-gray-400" />
-    </a>
+    </Link>
     <div className="p-4">
       <button 
         onClick={handleSignOut}
