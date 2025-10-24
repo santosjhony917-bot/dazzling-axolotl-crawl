@@ -1,164 +1,20 @@
-<!DOCTYPE html>
-<html class="light" lang="pt-BR"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Buscar - JP Food</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-<script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#022D68",
-                        "accent": "#E47948",
-                        "background-light": "#f5f7f8",
-                        "background-dark": "#0f1823",
-                        "text-light": "#333333",
-                        "text-dark": "#F5F5F5",
-                        "text-secondary-light": "#5f728c",
-                        "text-secondary-dark": "#a0aec0"
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "1rem",
-                        "xl": "1.5rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 24
-        }
-    </style>
-<style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dyad-generated-app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
-<body class="bg-background-light dark:bg-background-dark font-display">
-<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<div class="flex-1 pb-24">
-<header class="sticky top-0 z-10 bg-background-light dark:bg-background-dark px-4 pt-6 pb-4">
-<div class="flex items-center gap-3">
-<div class="relative flex-1">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark">search</span>
-<input class="w-full rounded-full border border-gray-200/80 dark:border-gray-700/80 bg-white dark:bg-gray-800 py-3 pl-12 pr-4 text-text-light dark:text-text-dark placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Buscar pratos ou restaurantes..." type="text"/>
-</div>
-<button class="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-accent text-white">
-<span class="material-symbols-outlined text-2xl">tune</span>
-</button>
-</div>
-</header>
-<div class="flex px-4 py-3 bg-background-light dark:bg-background-dark">
-<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-gray-200/80 dark:bg-gray-800 p-1">
-<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all has-[:checked]:bg-accent has-[:checked]:text-white text-text-secondary-light dark:text-text-secondary-dark has-[:checked]:dark:text-white">
-<span class="truncate">Pratos</span>
-<input class="invisible size-0" name="search-toggle" type="radio" value="Pratos"/>
-</label>
-<label class="flex h-full flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-sm font-bold leading-normal transition-all has-[:checked]:bg-accent has-[:checked]:text-white text-text-secondary-light dark:text-text-secondary-dark has-[:checked]:dark:text-white">
-<span class="truncate">Restaurantes</span>
-<input checked="" class="invisible size-0" name="search-toggle" type="radio" value="Restaurantes"/>
-</label>
-</div>
-</div>
-<main class="space-y-4 px-4">
-<div class="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
-<div class="flex items-start gap-4">
-<div class="aspect-[4/3] w-28 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Mangai Restaurante" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHNDsTKOAdSmnRoRq9Y0K2UD4RqczT4_EcqxNye_9ScXlG0XeHeZS_n3AuddlCEDNSOeTng8ME_HCemnMqyM26mFl8E8K_po4s6KmjA81mwTEB2ZJL7fGd6nrQ1eDfzQrGLUCreP1-jqHMOa8J_0M3xk0GA5StCu4pHcs3m32YPuuKESkI4fy9_01XII-gQHVw6xup4wPwCy0VfKKlJPkGO62vBK3tsya1OM4pMOokAZOz7n8lZmSWiKMkL4wAVbr82GhO9fEhFmv6');"></div>
-<div class="flex flex-col gap-1.5 flex-1">
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-tight">Mangai</p>
-<div class="flex items-center gap-1 text-sm text-text-secondary-light dark:text-text-secondary-dark">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold text-yellow-500">4.8</span>
-<span class="text-gray-400">(+500)</span>
-</div>
-<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal">Culinária Regional • 1.2km</p>
-</div>
-</div>
-</div>
-<div class="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
-<div class="flex items-start gap-4">
-<div class="aspect-[4/3] w-28 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Nau Frutos do Mar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuZzvBfAwaew659pU7kPSElrneCa7xD1xt5PFDCppGjXLci8qvbmqFKR-Gp0e2DaYmMBtKHTX3ffwE6EwDnCZ0CPlpfIqSnUAR0ZQ7NpUM3OCnKevDdkzuYp6NR1lWo7-oBcQkiLFslO_j895KZkhZ93z0aXL3Kk7m6abUsCH7oC4SdEgTxndTu6O1D0E-HjXHDyXydt46YipD2EmeGkBJh_di9LIWKITtSLgvMI_aGZ1g47QxogTVsaDMoGVg4Pv2wWdyR9DPkO9y');"></div>
-<div class="flex flex-col gap-1.5 flex-1">
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-tight">Nau Frutos do Mar</p>
-<div class="flex items-center gap-1 text-sm text-text-secondary-light dark:text-text-secondary-dark">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold text-yellow-500">4.9</span>
-<span class="text-gray-400">(+1k)</span>
-</div>
-<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal">Frutos do Mar • 2.5km</p>
-</div>
-</div>
-</div>
-<div class="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
-<div class="flex items-start gap-4">
-<div class="aspect-[4/3] w-28 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="The W Restaurante" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6MBOhilxEpPvs8qLBwGeP_kILVinhwg9Atk-0tvpdU0WMn8ItCZWz2OshzpNSmqgMeRFItR58y4ARMwhp9W-qlom60JMk0Ms6cPc48fL-jQoej82A3HRhkSHcfCznfJ6vB_rJl9mXe98TcXJRc7afaE3q0IwvibkQZdDt7YGznIYjKBWvhDh07QOFgXmH5f_43DutY2uD5nWHh6BbM8opWKihFi0rqLfIl__SzxwFWBpDr1b3kjLqdNkZMuIyzDfZ85NUIjgk3QaU');"></div>
-<div class="flex flex-col gap-1.5 flex-1">
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-tight">The W Restaurante</p>
-<div class="flex items-center gap-1 text-sm text-text-secondary-light dark:text-text-secondary-dark">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold text-yellow-500">4.7</span>
-<span class="text-gray-400">(+300)</span>
-</div>
-<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal">Contemporânea • 3.1km</p>
-</div>
-</div>
-</div>
-<div class="rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-white dark:bg-gray-800 p-4">
-<div class="flex items-start gap-4">
-<div class="aspect-[4/3] w-28 flex-shrink-0 rounded-lg bg-cover bg-center" data-alt="Famiglia Muccini" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAh1WFRGnLeCIxMMY4KQqklvwXtDmeG-MRZghw2iPlDAvXVuicuODOuG7iYZerpRbesz24TNrw0gLfLxurpX3zLIyZKt70vdCX7F97vSoBwOnyRAJUuDt026i1ErU-NUvqACQ9bsieLBFSJ_gHA910wqWiPRaXs1T21n_yqa5bNtiCn2LEKwMpGis00V17pkN2_UYZtB2SDbhvdVFf7t2Vs83v3-fETSKR_F42Sq7JRy-cyL83YNBTX8mSrntWKQfZZXbYTvlspLPHI');"></div>
-<div class="flex flex-col gap-1.5 flex-1">
-<p class="text-text-light dark:text-text-dark text-base font-bold leading-tight">Famiglia Muccini</p>
-<div class="flex items-center gap-1 text-sm text-text-secondary-light dark:text-text-secondary-dark">
-<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-bold text-yellow-500">4.6</span>
-<span class="text-gray-400">(+800)</span>
-</div>
-<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-normal">Italiana • 0.8km</p>
-</div>
-</div>
-</div>
-</main>
-</div>
-<nav class="fixed bottom-0 left-0 right-0 z-10 border-t border-gray-200/80 dark:border-gray-700/80 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-lg">
-<div class="flex h-20 items-center justify-around px-2">
-<a class="flex flex-col items-center gap-1.5 text-text-secondary-light dark:text-text-secondary-dark" href="#">
-<span class="material-symbols-outlined">home</span>
-<span class="text-xs font-medium">Início</span>
-</a>
-<a class="flex flex-col items-center gap-1.5 text-primary dark:text-accent" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
-<span class="text-xs font-bold">Buscar</span>
-</a>
-<a class="flex flex-col items-center gap-1.5 text-text-secondary-light dark:text-text-secondary-dark" href="#">
-<span class="material-symbols-outlined">favorite</span>
-<span class="text-xs font-medium">Favoritos</span>
-</a>
-<a class="flex flex-col items-center gap-1.5 text-text-secondary-light dark:text-text-secondary-dark" href="#">
-<span class="material-symbols-outlined">person</span>
-<span class="text-xs font-medium">Perfil</span>
-</a>
-</div>
-</nav>
-</div>
 
-</body></html>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
