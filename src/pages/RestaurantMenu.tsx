@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { UtensilsCrossed, Plus, ChevronDown, ChevronUp, Edit, Trash2, Loader2, Utensils } from 'lucide-react';
+import { UtensilsCrossed, Plus, ChevronDown, ChevronUp, Edit, Trash2, Loader2, Utensils, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,7 @@ import ItemFormDialog, { ItemFormData } from '@/components/restaurant/menu/ItemF
 import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
 import { z } from 'zod';
 import { showError } from '@/utils/toast';
+import { cn } from '@/lib/utils';
 
 // --- Schemas e Tipos de Formulário ---
 // Removendo a definição local de categorySchema e itemSchema, agora os tipos são importados.
@@ -126,6 +127,7 @@ export default function RestaurantMenu() {
           size="sm" 
           className="bg-[#E47948] hover:bg-[#E47948]/90 text-white"
           onClick={() => handleOpenCategoryForm()}
+          disabled={categoryMutations.save.isPending}
         >
           <Plus className="h-4 w-4 mr-2" />
           Nova Categoria
@@ -158,20 +160,39 @@ export default function RestaurantMenu() {
                     <div className="flex justify-between items-center w-full pr-4">
                       <div className="flex items-center gap-2">
                         <span className="font-medium text-primary">{category.name}</span>
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${category.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                        <span className={cn(
+                          "text-xs font-semibold px-2 py-0.5 rounded-full",
+                          category.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        )}>
                           {category.is_active ? 'Ativa' : 'Inativa'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-500">{groupedItems[category.id]?.length || 0} itens</span>
+                        
+                        {/* Toggle Ativo/Inativo */}
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          onClick={(e) => { e.stopPropagation(); handleToggleCategoryActive(category); }}
+                          className={cn("h-8 w-8", category.is_active ? "text-green-600 hover:bg-green-50" : "text-red-600 hover:bg-red-50")}
+                          disabled={categoryMutations.save.isPending}
+                        >
+                          {categoryMutations.save.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : (category.is_active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />)}
+                        </Button>
+                        
+                        {/* Editar */}
                         <Button 
                           size="icon" 
                           variant="ghost" 
                           onClick={(e) => { e.stopPropagation(); handleOpenCategoryForm(category); }}
                           className="h-8 w-8 text-primary hover:bg-primary/10"
+                          disabled={categoryMutations.save.isPending}
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
+                        
+                        {/* Deletar */}
                         <Button 
                           size="icon" 
                           variant="ghost" 
@@ -179,7 +200,7 @@ export default function RestaurantMenu() {
                           className="h-8 w-8 text-destructive hover:bg-destructive/10"
                           disabled={categoryMutations.delete.isPending}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          {categoryMutations.delete.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                         </Button>
                       </div>
                     </div>
@@ -192,6 +213,7 @@ export default function RestaurantMenu() {
                           size="sm" 
                           className="bg-[#022D68] hover:bg-[#022D68]/90 text-white h-8 text-xs"
                           onClick={() => handleOpenItemForm(category.id)}
+                          disabled={itemMutations.save.isPending}
                         >
                           <Plus className="h-3 w-3 mr-1" />
                           Novo Item
