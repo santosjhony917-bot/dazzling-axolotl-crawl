@@ -16,28 +16,30 @@ import { showError, showSuccess } from '@/utils/toast';
 interface ItemFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (data: z.infer<typeof itemSchema>) => void;
+  onSave: (data: ItemFormData) => void;
   isSaving: boolean;
   categoryId: string;
   initialData?: MenuItem | null;
 }
 
-const itemSchema = z.object({
+export const itemSchema = z.object({
   id: z.string().optional(),
-  category_id: z.string(),
+  category_id: z.string().min(1, "Category ID is required"), // Garantindo que é string obrigatória
   name: z.string().min(3, "O nome do item é obrigatório."),
-  description: z.string().max(255, "Máximo de 255 caracteres").optional(),
+  description: z.string().max(255, "Máximo de 255 caracteres").optional().nullable(),
   price: z.number().min(0.01, "O preço deve ser maior que zero."),
   image_url: z.string().url("URL de imagem inválida").or(z.literal('')).optional().nullable(),
   order_index: z.number().min(0, "A ordem deve ser 0 ou maior").optional(),
   is_active: z.boolean().optional(),
 });
 
+export type ItemFormData = z.infer<typeof itemSchema>;
+
 export default function ItemFormDialog({ open, onOpenChange, onSave, isSaving, categoryId, initialData }: ItemFormDialogProps) {
   const { uploadImage, uploading: isUploadingImage } = useImageUpload();
   const [previewImage, setPreviewImage] = useState<string | null>(initialData?.image_url || null);
 
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<z.infer<typeof itemSchema>>({
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<ItemFormData>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
       id: initialData?.id,
@@ -88,7 +90,7 @@ export default function ItemFormDialog({ open, onOpenChange, onSave, isSaving, c
     }
   };
 
-  const onSubmit = (data: z.infer<typeof itemSchema>) => {
+  const onSubmit = (data: ItemFormData) => {
     onSave(data);
   };
 

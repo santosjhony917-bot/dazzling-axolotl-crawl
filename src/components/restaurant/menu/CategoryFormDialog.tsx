@@ -11,20 +11,22 @@ import { MenuCategory } from '@/types/restaurant';
 interface CategoryFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (data: z.infer<typeof categorySchema>) => void;
+  onSave: (data: CategoryFormData) => void;
   isSaving: boolean;
   initialData?: MenuCategory | null;
 }
 
-const categorySchema = z.object({
+export const categorySchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3, "O nome da categoria é obrigatório."),
   order_index: z.number().min(0, "A ordem deve ser 0 ou maior").optional(),
   is_active: z.boolean().optional(),
 });
 
+export type CategoryFormData = z.infer<typeof categorySchema>;
+
 export default function CategoryFormDialog({ open, onOpenChange, onSave, isSaving, initialData }: CategoryFormDialogProps) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<z.infer<typeof categorySchema>>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
       id: initialData?.id,
@@ -45,7 +47,7 @@ export default function CategoryFormDialog({ open, onOpenChange, onSave, isSavin
     }
   }, [open, initialData, reset]);
 
-  const onSubmit = (data: z.infer<typeof categorySchema>) => {
+  const onSubmit = (data: CategoryFormData) => {
     onSave(data);
   };
 

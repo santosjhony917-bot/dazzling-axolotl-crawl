@@ -9,33 +9,14 @@ import { useMenuManagement } from '@/hooks/useMenuManagement';
 import { MenuCategory, MenuItem } from '@/types/restaurant';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
-import CategoryFormDialog from '@/components/restaurant/menu/CategoryFormDialog';
-import ItemFormDialog from '@/components/restaurant/menu/ItemFormDialog';
+import CategoryFormDialog, { CategoryFormData } from '@/components/restaurant/menu/CategoryFormDialog';
+import ItemFormDialog, { ItemFormData } from '@/components/restaurant/menu/ItemFormDialog';
 import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
 import { z } from 'zod';
 import { showError } from '@/utils/toast';
 
 // --- Schemas e Tipos de Formulário ---
-const categorySchema = z.object({ 
-  id: z.string().optional(), 
-  name: z.string(), 
-  order_index: z.number().optional(), 
-  is_active: z.boolean().optional() 
-});
-type CategoryFormData = z.infer<typeof categorySchema>;
-
-// Definindo o schema do item de forma que category_id seja obrigatório
-const itemSchema = z.object({ 
-  id: z.string().optional(), 
-  category_id: z.string().min(1, "Category ID is required"), // Garantindo que é string e obrigatório
-  name: z.string(), 
-  description: z.string().optional().nullable(), 
-  price: z.number(), 
-  image_url: z.string().optional().nullable(), 
-  order_index: z.number().optional(), 
-  is_active: z.boolean().optional() 
-});
-type ItemFormData = z.infer<typeof itemSchema>;
+// Removendo a definição local de categorySchema e itemSchema, agora os tipos são importados.
 
 // Tipos para o estado de edição
 type CategoryFormState = { open: boolean, data: MenuCategory | null };
@@ -99,8 +80,8 @@ export default function RestaurantMenu() {
   };
 
   const handleSaveItem = (data: ItemFormData) => {
-    // CORREÇÃO: Usamos asserção de tipo para garantir que category_id é string, resolvendo o erro TS2345.
-    itemMutations.save.mutate(data as Partial<MenuItem> & { category_id: string });
+    // Adicionando asserção de tipo para garantir que category_id é tratado como string obrigatória
+    itemMutations.save.mutate(data as ItemFormData & { category_id: string }); 
     setItemForm({ open: false, categoryId: '', data: null });
   };
 
