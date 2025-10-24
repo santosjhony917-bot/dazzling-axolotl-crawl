@@ -87,7 +87,8 @@ serve(async (req) => {
     const restaurantData = {
       user_id: userId,
       name: restaurantName,
-      address: `${mainLocation.street}, ${mainLocation.number} ${mainLocation.complement}`,
+      address: mainLocation.street, // Apenas a rua
+      number: mainLocation.number, // <-- NOVO CAMPO
       city: mainLocation.city,
       state: mainLocation.state,
       cep: mainLocation.cep,

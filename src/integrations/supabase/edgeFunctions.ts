@@ -9,7 +9,7 @@ interface RegisterRestaurantPayload {
   locations: Array<{
     cep: string;
     street: string;
-    number: string;
+    number: string; // <-- Adicionado
     complement: string;
     neighborhood: string;
     city: string;

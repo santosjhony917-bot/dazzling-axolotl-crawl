@@ -24,4 +24,5 @@ export interface Restaurant {
   ifood_url?: string | null;
   other_url?: string | null;
   opening_hours?: any | null;
+  number?: string | null; // <-- NOVO CAMPO
 }
