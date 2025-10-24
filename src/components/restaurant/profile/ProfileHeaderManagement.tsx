@@ -80,7 +80,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
       </div>
 
       {/* Logo Upload Container */}
-      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md overflow-hidden">
+      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md overflow-visible"> {/* Alterado overflow-hidden para overflow-visible */}
         {/* Imagem de Preview (Renderizada Apenas Uma Vez) */}
         {logoUrl ? (
           <img
@@ -95,7 +95,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
         )}
         
         {/* Botão de Upload (Flutuante no canto) */}
-        <div className="absolute bottom-0 right-0 z-10">
+        <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4"> {/* Adicionado translate para mover para fora */}
           <ImageUploadButton
             imageUrl={logoUrl || undefined}
             onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
