@@ -2,12 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Loader2, MapPin, ArrowLeft } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import RestaurantCard from '@/components/restaurant/RestaurantCard'; // Corrigido: Importação default
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Restaurant } from '@/types/restaurant';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import Header from '@/components/Header';
 
 export default function RestaurantSearch() {
@@ -15,10 +13,9 @@ export default function RestaurantSearch() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   
-  // Corrigido: Usando isLoading e refetch conforme definido no hook
-  const { location, isLoading: loadingLocation, refetch: fetchLocation } = useUserSearchLocation();
+  // Usamos a localização salva, mas removemos a UI para alterá-la aqui.
+  const { location, isLoading: loadingLocation } = useUserSearchLocation();
 
   const userLat = location?.latitude;
   const userLng = location?.longitude;
@@ -68,10 +65,7 @@ export default function RestaurantSearch() {
     }
   }, [searchQuery, userLat, userLng, fetchRestaurants]);
 
-  const handleLocationSaved = () => {
-    // Refetch location and restaurants after saving
-    fetchLocation();
-  };
+  // Removido handleLocationSaved e UserLocationModal
 
   return (
     <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen">
@@ -81,10 +75,9 @@ export default function RestaurantSearch() {
       />
 
       <div className="p-4">
-        {/* Localização Atual */}
+        {/* Exibição da Localização Atual (Apenas leitura) */}
         <div 
-          className="flex items-center justify-between p-3 bg-white rounded-xl shadow-md mb-4 cursor-pointer border border-primary/10"
-          onClick={() => setIsLocationModalOpen(true)}
+          className="flex items-center p-3 bg-white rounded-xl shadow-md mb-6 border border-primary/10"
         >
           <div className="flex items-center gap-2">
             <MapPin className="w-5 h-5 text-highlight" />
@@ -92,9 +85,6 @@ export default function RestaurantSearch() {
               {loadingLocation ? "Carregando localização..." : currentAddress}
             </span>
           </div>
-          <Button variant="ghost" size="sm" className="text-xs text-highlight hover:bg-highlight/10">
-            Mudar
-          </Button>
         </div>
 
         {/* Barra de Pesquisa */}
@@ -131,17 +121,10 @@ export default function RestaurantSearch() {
         ) : (
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
             <p className="text-gray-500">Nenhum restaurante encontrado na área de 10km.</p>
-            <p className="text-sm text-gray-400 mt-2">Tente mudar sua localização de busca.</p>
+            <p className="text-sm text-gray-400 mt-2">A busca está baseada em: {currentAddress}</p>
           </div>
         )}
       </div>
-
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={currentAddress}
-        onLocationSaved={handleLocationSaved}
-      />
     </div>
   );
 }
