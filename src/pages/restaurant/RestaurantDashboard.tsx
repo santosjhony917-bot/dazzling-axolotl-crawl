@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check, Lock, Edit, Store, Badge as BadgeIcon, BarChart3, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -135,15 +135,15 @@ const RestaurantDashboard = () => {
   const restaurantName = restaurant?.name || "Seu Restaurante";
   const locationLabel = restaurant?.city || "Localização Não Definida";
 
-  // Dados de localização para o modal
-  const currentLocationData = {
+  // Dados de localização para o modal (ESTABILIZADO COM useMemo)
+  const currentLocationData = useMemo(() => ({
     cep: restaurant?.cep || '',
     street: restaurant?.address || '',
     number: '', // Número não está no schema principal, mas é necessário para geocoding
     neighborhood: restaurant?.neighborhood || '',
     city: restaurant?.city || '',
     state: restaurant?.state || '',
-  };
+  }), [restaurant]);
 
 
   if (restaurantLoading) {
