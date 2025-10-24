@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
-import Login from './pages/Login';
+import Auth from './pages/Auth'; // Importação corrigida para Auth
 import ProtectedRoute from './components/ProtectedRoute';
 import RestaurantArea from './pages/RestaurantArea';
 import RestaurantDashboard from './pages/RestaurantDashboard';
 import RestaurantMenu from './pages/RestaurantMenu';
 import { AuthProvider } from './context/AuthContext';
 import ToastProvider from './components/ToastProvider';
-import PublicMenuPage from './pages/PublicMenuPage'; // Importando a nova página
+import PublicMenuPage from './pages/PublicMenuPage'; 
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/auth" element={<Auth />} /> {/* Rota ajustada para /auth */}
           
           {/* Rota Pública do Cardápio */}
           <Route path="/menu/:restaurantId" element={<PublicMenuPage />} />
