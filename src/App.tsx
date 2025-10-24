@@ -90,7 +90,7 @@ function App() {
             </Route>
 
             {/* Rotas do Admin */}
-            <Route path="/admin" element={<AdminLayout title="Dashboard" />}>
+            <Route path="/admin" element={<AdminLayout title="Dashboard" children={undefined} />}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="edit-restaurant" element={<EditRestaurant />} />
               <Route path="manage-admins" element={<ManageAdmins />} />
