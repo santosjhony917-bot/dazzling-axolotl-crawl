@@ -41,10 +41,10 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       onClick={handleEditClick}
       className={cn(
         "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
-        // Estilo Hub: Fundo cinza claro, arredondado, sombra sutil
-        "bg-white border-none rounded-xl shadow-md hover:shadow-lg", // Removida borda, adicionada shadow-md
+        // Estilo Hub: Fundo cinza claro, arredondado, sem sombra (o card pai tem sombra)
+        "bg-[#f5f7f8] border border-gray-200 rounded-xl hover:bg-gray-100", // Fundo cinza claro
         "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked && "opacity-70 cursor-not-allowed hover:shadow-md"
+        isLocked && "opacity-70 cursor-not-allowed hover:bg-[#f5f7f8]"
       )}
     >
       <div className="flex items-start gap-4 flex-1">
