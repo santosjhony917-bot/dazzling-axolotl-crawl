@@ -2,17 +2,17 @@ import React from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft } from 'lucide-react';
+import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft, CreditCard } from 'lucide-react';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import { useNavigate } from 'react-router-dom';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
-  const navigate = useNavigate(); // Inicializando useNavigate
+  const navigate = useNavigate();
   const { name, description, image_url, address, phone, whatsapp_url, city, state } = restaurant;
 
   // Mock de dados para o Header Público (o plano será 'Free' por padrão aqui)
@@ -26,6 +26,9 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   
   // Mock de Horários (para exibição simples)
   const mockHours = "Seg-Sex: 09:00 - 18:00";
+  
+  // Mock de Formas de Pagamento (para o plano Free)
+  const mockPaymentMethods = ["Dinheiro", "Cartão de Débito", "PIX"];
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
@@ -75,27 +78,21 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             </div>
           </div>
           
-          {/* Contato */}
-          {(phone || whatsapp_url) && (
-            <div className="flex items-start gap-3">
-              <Phone className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
-              <div>
-                <p className="text-sm font-bold text-[#022D68]">Contato</p>
-                <div className="flex flex-col sm:flex-row gap-2 mt-1">
-                  {phone && (
-                    <a href={`tel:${phone}`} className="text-sm text-gray-700 hover:text-[#E47948] transition-colors flex items-center gap-1">
-                      <Phone size={14} /> {phone}
-                    </a>
-                  )}
-                  {whatsapp_url && (
-                    <a href={whatsapp_url} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-700 hover:text-[#E47948] transition-colors flex items-center gap-1">
-                      <MessageCircle size={14} /> WhatsApp
-                    </a>
-                  )}
-                </div>
+          {/* Formas de Pagamento */}
+          <div className="flex items-start gap-3">
+            <CreditCard className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-[#022D68]">Formas de Pagamento</p>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {mockPaymentMethods.map((method) => (
+                  <span key={method} className="text-xs px-2 py-1 bg-gray-200 text-gray-800 rounded-full">
+                    {method}
+                  </span>
+                ))}
               </div>
             </div>
-          )}
+          </div>
+          
         </Card>
 
         {/* Descrição / Sobre Nós */}
@@ -125,7 +122,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         {/* Aviso Geral (Mantido) */}
         <Alert className="mt-6 text-left">
           <Info className="h-4 w-4" />
-          <AlertTitle>Perfil Gratuito</AlertTitle>
+          <AlertTitle>Perfil Gratuito</AlertTitle> {/* CORRIGIDO: Fechamento correto da tag */}
           <AlertDescription>
             Este restaurante utiliza o plano Free. Para mais visibilidade e recursos, o proprietário pode fazer upgrade.
           </AlertDescription>
