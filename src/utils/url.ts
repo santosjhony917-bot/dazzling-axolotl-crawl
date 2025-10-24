@@ -5,7 +5,7 @@
  * @returns A URL formatada (ex: '/home', '/profile', '/restaurant-area/home')
  */
 export const createPageUrl = (path: string): string => {
-  if (!path) return '/';
+  if (!path || path === 'index' || path === 'home') return '/home';
   
   // Remove barras iniciais e finais para padronização
   const cleanPath = path.replace(/^\/|\/$/g, '');
@@ -15,6 +15,6 @@ export const createPageUrl = (path: string): string => {
     return `/${cleanPath}`;
   }
   
-  // Para rotas de cliente (home, profile, search, etc.)
+  // Para rotas de cliente (profile, search, etc.)
   return `/${cleanPath}`;
 };
