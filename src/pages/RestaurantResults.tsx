@@ -6,9 +6,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useNearbyRestaurants, NearbyRestaurant } from "@/hooks/useNearbyRestaurants";
 import { formatDistance } from "@/services/geocoding";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
+import { createPageUrl } from "@/utils/url";
 
 const RestaurantResults = () => {
   const navigate = useNavigate();
@@ -37,9 +38,9 @@ const RestaurantResults = () => {
   });
 
   useEffect(() => {
-    // In a real app, we would reverse geocode the lat/lon here to get a readable address label
+    // Em um app real, faríamos o reverse geocode aqui.
     if (userLat && userLon) {
-      // Placeholder for reverse geocoding logic (using coordinates for now)
+      // Placeholder para reverse geocoding logic (usando coordenadas para agora)
       setCurrentLocationLabel(`(${userLat.toFixed(2)}, ${userLon.toFixed(2)})`);
     }
   }, [userLat, userLon]);
@@ -51,22 +52,30 @@ const RestaurantResults = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    // Note: The search query is automatically updated in the useQuery hook due to dependency change.
+    // O hook useNearbyRestaurants reagirá automaticamente a esta mudança via queryKey.
   };
 
   const handleGoToSearchPage = () => {
-    // Navigate back to the search configuration page
+    // Navega de volta para a página de configuração de busca
     navigate(`/search-restaurants?lat=${userLat}&lon=${userLon}&distance=${maxDistance}&search=${searchQuery}`);
+  };
+  
+  const handleViewRestaurant = (id: string) => {
+    navigate(createPageUrl(`restaurant-profile/${id}`));
   };
 
   const renderRestaurantCard = (restaurant: NearbyRestaurant) => (
-    <Card key={restaurant.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+    <Card 
+      key={restaurant.id} 
+      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+      onClick={() => handleViewRestaurant(restaurant.id)}
+    >
       <img src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} alt={restaurant.name} className="w-full h-48 object-cover" />
       <CardHeader>
         <CardTitle>{restaurant.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-gray-600">Cozinha (Plano: {restaurant.plan})</p>
+        <p className="text-sm text-gray-600">{restaurant.category || 'Cozinha Não Definida'} (Plano: {restaurant.plan})</p>
         <div className="flex justify-between items-center mt-2">
           <div className="flex items-center gap-1">
             <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
@@ -103,7 +112,7 @@ const RestaurantResults = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
               <Input
                 type="text"
-                placeholder="Buscar por nome..."
+                placeholder="Buscar por nome ou categoria..."
                 className="w-full pl-10 h-12 text-base rounded-full"
                 value={searchQuery}
                 onChange={handleSearchChange}
