@@ -1,28 +1,4 @@
-import { WeekSchedule } from './schedule';
-
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
-
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number;
-  is_active: boolean;
-  created_at: string;
-}
-
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number;
-  is_active: boolean;
-  created_at: string;
-  items?: MenuItem[]; // Opcional para carregar itens aninhados
-}
+export type RestaurantPlan = 'free' | 'premium';
 
 export interface Restaurant {
   id: string;
@@ -45,11 +21,13 @@ export interface Restaurant {
   ifood_url: string | null;
   other_url: string | null;
   plan: RestaurantPlan;
-  created_at: string;
   latitude: number | null;
   longitude: number | null;
-  opening_hours: WeekSchedule | null;
-  
-  // Propriedade adicionada pela função RPC find_nearby_restaurants
-  distance_km?: number; 
+  opening_hours: any | null; // JSONB type
+  created_at: string;
+}
+
+// Tipo usado quando o restaurante é retornado por uma função de proximidade (find_nearby_restaurants)
+export interface RestaurantWithDistance extends Restaurant {
+  distance_km: number;
 }
