@@ -175,7 +175,7 @@ export default function SearchRestaurants() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] flex flex-col">
+    <div className="min-h-screen bg-background-light flex flex-col">
       <LocationPermissionModal
         isOpen={showPermissionModal}
         onGrant={handlePermissionGranted}
@@ -185,10 +185,10 @@ export default function SearchRestaurants() {
 
       <header className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
-          <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-[#022D68] hover:bg-[#022D68]/5">
+          <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-primary hover:bg-primary/5">
             <ArrowLeft className="h-6 w-6" />
           </Button>
-          <h2 className="text-[#022D68] text-xl font-bold leading-tight tracking-[-0.015em]">Buscar Restaurantes</h2>
+          <h2 className="text-primary text-xl font-bold leading-tight tracking-[-0.015em]">Buscar Restaurantes</h2>
           <div className="size-10 shrink-0"></div>
         </div>
       </header>
@@ -202,8 +202,8 @@ export default function SearchRestaurants() {
         >
           {/* Localização Atual */}
           <div className="bg-white p-4 rounded-xl shadow-md">
-            <h3 className="text-lg font-semibold text-[#022D68] mb-3 flex items-center">
-              <MapPin className="w-5 h-5 mr-2 text-[#E47948]" />
+            <h3 className="text-lg font-semibold text-primary mb-3 flex items-center">
+              <MapPin className="w-5 h-5 mr-2 text-highlight" />
               Sua Localização
             </h3>
             <div className="flex items-center justify-between">
@@ -215,7 +215,7 @@ export default function SearchRestaurants() {
                 size="sm" 
                 onClick={() => fetchLocation(true)}
                 disabled={loadingLocation}
-                className="text-[#E47948] border-[#E47948] hover:bg-[#E47948]/5"
+                className="text-highlight border-highlight hover:bg-highlight/5 rounded-xl"
               >
                 <LocateFixed className="w-4 h-4 mr-1" />
                 {loadingLocation ? "Aguarde" : "Atualizar GPS"}
@@ -225,8 +225,8 @@ export default function SearchRestaurants() {
 
           {/* Filtro de Distância */}
           <div className="bg-white p-4 rounded-xl shadow-md">
-            <h3 className="text-lg font-semibold text-[#022D68] mb-4">
-              Distância Máxima: <span className="text-[#E47948]">{distance[0]} km</span>
+            <h3 className="text-lg font-semibold text-primary mb-4">
+              Distância Máxima: <span className="text-highlight">{distance[0]} km</span>
             </h3>
             <Slider
               defaultValue={[initialDistance]}
@@ -249,7 +249,7 @@ export default function SearchRestaurants() {
               <Input
                 type="text"
                 placeholder="Buscar por nome ou tipo de comida..."
-                className="w-full pl-10 h-12 text-base rounded-full"
+                className="w-full pl-10 h-12 text-base rounded-xl"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -258,7 +258,7 @@ export default function SearchRestaurants() {
             <Button
               type="submit"
               disabled={loadingLocation || location.lat === null}
-              className="w-full bg-[#022D68] text-white font-bold h-12 text-lg hover:bg-[#022D68]/90 rounded-full shadow-lg transition-all"
+              className="w-full bg-primary text-white font-bold h-12 text-lg hover:bg-primary/90 rounded-xl shadow-lg transition-all"
             >
               <Search className="w-5 h-5 mr-2" />
               {loadingLocation ? "Aguardando Localização..." : "Buscar Restaurantes"}

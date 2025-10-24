@@ -41,24 +41,24 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       onClick={handleEditClick}
       className={cn(
         "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
-        // Estilo Hub: Fundo cinza claro, arredondado, sombra sutil
-        "bg-white border-none rounded-xl shadow-md hover:shadow-lg", // Removida borda, adicionada shadow-md
+        // Estilo Hub: Fundo branco, arredondado, sombra sutil
+        "bg-white border-none rounded-xl shadow-sm hover:shadow-md", // Sombra mais suave
         "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked && "opacity-70 cursor-not-allowed hover:shadow-md"
+        isLocked && "opacity-70 cursor-not-allowed hover:shadow-sm"
       )}
     >
       <div className="flex items-start gap-4 flex-1">
         {/* Ícone Circular (Estilo Hub) */}
-        <div className="w-10 h-10 bg-[#022D68]/10 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
+        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         
         {/* Texto */}
         <div className="flex-1 min-w-0">
-          <p className="text-base font-bold text-[#022D68] leading-snug">
+          <p className="text-base font-bold text-primary leading-snug">
             {label}
           </p>
-          <p className={cn("text-sm text-gray-500 mt-0.5", !value && "italic text-gray-400 font-normal")}> {/* Suavizado para text-gray-500 */}
+          <p className={cn("text-sm text-text-secondary mt-0.5", !value && "italic text-gray-400 font-normal")}>
             {value || "Não definido"}
           </p>
           {extraContent}
@@ -69,7 +69,7 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       <Button 
         size="sm" 
         variant="ghost"
-        className="h-7 w-7 p-0 text-[#E47948] hover:bg-[#E47948]/10 shrink-0 ml-4" 
+        className="h-7 w-7 p-0 text-highlight hover:bg-highlight/10 shrink-0 ml-4 rounded-lg" 
         onClick={handleEditClick}
         disabled={isLocked}
       >

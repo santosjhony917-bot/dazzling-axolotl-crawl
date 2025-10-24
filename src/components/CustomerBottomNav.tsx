@@ -44,7 +44,7 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 z-30 max-w-md mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 z-30 max-w-md mx-auto rounded-t-xl shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
       <div className="flex justify-around items-center h-16 px-2">
         {navItems.map((item) => {
           const isActive = getActivePath(item.path, item.key);
@@ -55,14 +55,14 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
               key={item.path}
               to={createPageUrl(item.path.substring(1))}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 transition-colors duration-200",
-                isActive ? "text-primary" : "text-[#5f728c] dark:text-gray-400 hover:text-primary"
+                "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+                isActive ? "text-highlight" : "text-[#5f728c] dark:text-gray-400 hover:text-highlight"
               )}
             >
               <Icon 
                 className={cn(
                   "w-6 h-6",
-                  isActive && item.key === 'favorites' && "fill-primary" // Favoritos preenchido quando ativo
+                  isActive && item.key === 'favorites' && "fill-highlight" // Favoritos preenchido quando ativo
                 )} 
               />
               <span className="text-xs font-medium">

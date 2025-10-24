@@ -88,7 +88,7 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
         variant="ghost"
         size="icon"
         onClick={() => onRemove(location.id)}
-        className="absolute top-2 right-2 h-8 w-8 text-red-500 hover:bg-red-50"
+        className="absolute top-2 right-2 h-8 w-8 text-red-500 hover:bg-red-50 rounded-lg"
       >
         <X className="w-4 h-4" />
       </Button>
@@ -100,59 +100,59 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.cep}
             onChange={handleCepChange}
             placeholder="CEP (Ex: 58039-000)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] pr-12"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12"
             maxLength={9}
             disabled={isSearchingCep}
             required
           />
           {isSearchingCep && (
-            <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-[#E47948]" />
+            <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-highlight" />
           )}
         </div>
 
         {/* Rua */}
         <div className="flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-[#E47948] shrink-0" />
+          <MapPin className="w-5 h-5 text-highlight shrink-0" />
           <Input
             value={location.street}
             onChange={(e) => onUpdate(location.id, 'street', e.target.value)}
             placeholder="Rua / Avenida"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
             required
           />
         </div>
 
         {/* Número */}
         <div className="flex items-center gap-2">
-          <span className="w-5 h-5 text-[#E47948] shrink-0 text-center font-bold text-sm">#</span>
+          <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">#</span>
           <Input
             value={location.number}
             onChange={(e) => onUpdate(location.id, 'number', e.target.value)}
             placeholder="Número"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
             required
           />
         </div>
         
         {/* Complemento (Novo Campo) */}
         <div className="flex items-center gap-2">
-          <span className="w-5 h-5 text-[#E47948] shrink-0 text-center font-bold text-sm">C</span>
+          <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">C</span>
           <Input
             value={location.complement}
             onChange={(e) => onUpdate(location.id, 'complement', e.target.value)}
             placeholder="Complemento (Ex: Sala 101, Bloco B)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
           />
         </div>
 
         {/* Bairro */}
         <div className="flex items-center gap-2">
-          <span className="w-5 h-5 text-[#E47948] shrink-0 text-center font-bold text-sm">B</span>
+          <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">B</span>
           <Input
             value={location.neighborhood}
             onChange={(e) => onUpdate(location.id, 'neighborhood', e.target.value)}
             placeholder="Bairro"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
             required
           />
         </div>
@@ -163,14 +163,14 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
             value={location.city}
             onChange={(e) => onUpdate(location.id, 'city', e.target.value)}
             placeholder="Cidade"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
             required
           />
           <Input
             value={location.state}
             onChange={(e) => onUpdate(location.id, 'state', e.target.value)}
             placeholder="Estado (UF)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] w-20 shrink-0"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0"
             maxLength={2}
             required
           />
@@ -178,12 +178,12 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onUpdate, onRemov
 
         {/* Telefone */}
         <div className="flex items-center gap-2 pt-2">
-          <Phone className="w-5 h-5 text-[#E47948] shrink-0" />
+          <Phone className="w-5 h-5 text-highlight shrink-0" />
           <Input
             value={location.phone}
             onChange={(e) => onUpdate(location.id, 'phone', e.target.value)}
             placeholder="Telefone de contato (obrigatório)"
-            className="h-10 rounded-full text-sm border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+            className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
             required
           />
         </div>

@@ -118,7 +118,7 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[#f5f7f8]">
+    <div className="relative w-full h-screen overflow-hidden bg-background-light">
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentScreen}
@@ -159,7 +159,7 @@ export default function Onboarding() {
                       opacity: currentScreen === index ? 1 : 0.4
                     }}
                     className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-[#032d63]' : 'bg-[#032d63]/40'
+                      currentScreen === index ? 'bg-primary' : 'bg-primary/40'
                     }`}
                   />
                 ))}
@@ -170,7 +170,7 @@ export default function Onboarding() {
                 <Button
                   onClick={handleNext}
                   disabled={isCompleting}
-                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-[#032d63] hover:bg-[#032d63]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
+                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-primary hover:bg-primary/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
                 >
                   <span className="truncate">
                     {currentScreen === onboardingScreens.length - 1 ? (isCompleting ? 'Aguarde...' : 'Começar') : 'Próximo'}

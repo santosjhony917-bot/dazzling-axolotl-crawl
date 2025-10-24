@@ -118,7 +118,7 @@ export default function RestaurantLogin() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-[#f5f7f8] p-4 font-sans antialiased">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
       
       {/* Header/Botão Voltar */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
@@ -126,12 +126,12 @@ export default function RestaurantLogin() {
           variant="ghost"
           size="icon"
           onClick={() => navigate(createPageUrl('restaurant-area'))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Login</h2>
+          <h2 className="text-primary text-xl font-bold">Login</h2>
         </div>
         <div className="w-10"></div> {/* Placeholder para alinhamento */}
       </header>
@@ -145,13 +145,13 @@ export default function RestaurantLogin() {
         >
           {/* Icon and Title (Padrão Consistente) */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mx-auto mb-4">
-              <Utensils className="w-8 h-8 text-[#022D68]" />
+            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+              <Utensils className="w-8 h-8 text-primary" />
             </div>
-            <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
+            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
               Acesse sua conta
             </h1>
-            <p className="text-gray-600 text-base mt-1">
+            <p className="text-text-secondary text-base mt-1">
               Gerencie seu restaurante!
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function RestaurantLogin() {
             <CardContent className="p-6 pt-4">
               <form onSubmit={handleLogin} className="space-y-4">
                 <Input
-                  className="h-14 text-base rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
                   placeholder="E-mail"
                   type="email"
                   value={email}
@@ -170,7 +170,7 @@ export default function RestaurantLogin() {
                 />
                 <div className="relative">
                   <Input
-                    className="h-14 text-base pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
                     placeholder="Senha"
                     type={passwordVisible ? "text" : "password"}
                     value={password}
@@ -180,7 +180,7 @@ export default function RestaurantLogin() {
                   />
                   <button
                     onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors"
                     type="button"
                   >
                     {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -189,7 +189,7 @@ export default function RestaurantLogin() {
                 <div className="flex justify-end">
                   <Link
                     to="/forgot-password"
-                    className="text-sm font-medium text-[#022D68] hover:underline"
+                    className="text-sm font-medium text-primary hover:underline"
                   >
                     Esqueceu sua senha?
                   </Link>
@@ -198,7 +198,8 @@ export default function RestaurantLogin() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full items-center justify-center rounded-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                  variant="highlight"
+                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
                 >
                   <span className="truncate">
                     {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Entrar"}
@@ -212,7 +213,7 @@ export default function RestaurantLogin() {
                 <Button
                   onClick={handleDevLogin}
                   variant="secondary"
-                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-full"
+                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
                   disabled={loading}
                 >
                   Login de Teste (Dev)
@@ -229,7 +230,7 @@ export default function RestaurantLogin() {
                 Não tem uma conta?
                 <Link
                   to={createPageUrl('restaurant-signup')}
-                  className="font-bold text-[#E47948] hover:underline ml-1"
+                  className="font-bold text-highlight hover:underline ml-1"
                 >
                   Crie uma agora
                 </Link>

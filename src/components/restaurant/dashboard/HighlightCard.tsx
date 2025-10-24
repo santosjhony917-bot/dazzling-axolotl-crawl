@@ -25,7 +25,7 @@ const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
         style={{ backgroundImage: `url("${item.imageUrl}")` }}
       />
       <CardContent className="p-3 flex-1">
-        <p className="text-[#022D68] dark:text-white text-base font-bold leading-tight">
+        <p className="text-primary dark:text-white text-base font-bold leading-tight">
           {item.name}
         </p>
         <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal mt-0.5">

@@ -44,7 +44,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, toggleCollapse
           variant="ghost" 
           size="icon" 
           onClick={toggleCollapse}
-          className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-lg"
         >
           {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
         </Button>

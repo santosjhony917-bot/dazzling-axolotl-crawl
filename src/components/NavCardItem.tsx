@@ -20,22 +20,22 @@ const NavCardItem: React.FC<NavCardItemProps> = ({ label, icon: Icon, onClick, d
       className={cn(
         "w-full p-4 flex items-center justify-between transition-all cursor-pointer",
         // Estilo Hub: Fundo branco, arredondado, sombra sutil
-        "bg-white border-none rounded-xl shadow-md hover:shadow-lg", // Removida borda, adicionada shadow-md
+        "bg-white border-none rounded-xl shadow-sm hover:shadow-md", // Sombra mais suave
         "dark:bg-gray-800 dark:hover:bg-gray-700"
       )}
     >
       <div className="flex items-center gap-4">
         {/* Ícone Circular de Fundo Claro (Estilo Hub) */}
-        <div className="w-10 h-10 bg-[#022D68]/10 rounded-full flex items-center justify-center shrink-0 text-[#022D68] dark:bg-gray-700">
+        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         
         {/* Texto */}
         <div className="flex-1">
-          <p className="text-base font-bold text-[#022D68] leading-snug">
+          <p className="text-base font-bold text-primary leading-snug">
             {label}
           </p>
-          <p className="text-sm text-gray-500 mt-0.5"> {/* Suavizado para text-gray-500 */}
+          <p className="text-sm text-text-secondary mt-0.5">
             {description}
           </p>
         </div>

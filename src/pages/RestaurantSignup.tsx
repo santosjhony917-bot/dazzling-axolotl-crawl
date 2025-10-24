@@ -167,12 +167,12 @@ export default function RestaurantSignup() {
 
   const getStepIndicatorClass = (step: number) => {
     return step <= currentStep
-      ? "bg-[#E47948] text-white"
+      ? "bg-highlight text-white"
       : "bg-gray-200 text-gray-500";
   };
 
   const getStepTextClass = (step: number) => {
-    return step <= currentStep ? "text-[#022D68]" : "text-gray-500";
+    return step <= currentStep ? "text-primary" : "text-gray-500";
   };
 
   const renderStepContent = () => {
@@ -188,14 +188,14 @@ export default function RestaurantSignup() {
             className="space-y-6"
           >
             <label className="flex flex-col">
-              <p className="text-[#022D68] text-base font-medium mb-2">
+              <p className="text-primary text-base font-medium mb-2">
                 Nome do Restaurante
               </p>
               <Input
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 placeholder="Ex: Restaurante Sabor Divino"
-                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
                 required
               />
             </label>
@@ -212,7 +212,7 @@ export default function RestaurantSignup() {
             className="space-y-4"
           >
             <div className="mb-4">
-              <h3 className="text-[#022D68] text-lg font-bold mb-1">
+              <h3 className="text-primary text-lg font-bold mb-1">
                 Localização e Contato
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -231,7 +231,7 @@ export default function RestaurantSignup() {
               <Button
                 onClick={addLocation}
                 variant="outline"
-                className="w-full mt-6 h-12 border-2 border-[#022D68] text-[#022D68] hover:bg-[#022D68]/5 rounded-full font-bold"
+                className="w-full mt-6 h-12 border-2 border-primary text-primary hover:bg-primary/5 rounded-xl font-bold"
               >
                 <PlusCircle className="w-5 h-5 mr-2" />
                 Adicionar Nova Filial
@@ -250,31 +250,31 @@ export default function RestaurantSignup() {
             className="space-y-4"
           >
             <label className="flex flex-col">
-              <p className="text-[#022D68] text-base font-medium mb-2">Email de Acesso</p>
+              <p className="text-primary text-base font-medium mb-2">Email de Acesso</p>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Digite seu email"
-                className="h-14 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
                 required
               />
             </label>
             
             <div className="relative">
-              <p className="text-[#022D68] text-base font-medium mb-2">Senha</p>
+              <p className="text-primary text-base font-medium mb-2">Senha</p>
               <Input
                 type={passwordVisible ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Crie uma senha (mínimo 6 caracteres)"
-                className="h-14 pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
                 required
                 minLength={6}
               />
               <button
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors mt-7"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors mt-7"
                 type="button"
               >
                 {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -282,7 +282,7 @@ export default function RestaurantSignup() {
             </div>
             
             <div className="relative">
-              <p className="text-[#022D68] text-base font-medium mb-2">
+              <p className="text-primary text-base font-medium mb-2">
                 Confirmar Senha
               </p>
               <Input
@@ -290,12 +290,12 @@ export default function RestaurantSignup() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirme sua senha"
-                className="h-14 pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
                 required
               />
               <button
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors mt-7"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors mt-7"
                 type="button"
               >
                 {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -307,15 +307,15 @@ export default function RestaurantSignup() {
                 id="terms"
                 checked={acceptTerms}
                 onCheckedChange={(checked) => setAcceptTerms(!!checked)}
-                className="border-gray-400 mt-1 data-[state=checked]:bg-[#E47948] data-[state=checked]:text-white"
+                className="border-gray-400 mt-1 data-[state=checked]:bg-highlight data-[state=checked]:text-white"
               />
               <label className="ml-2 text-sm text-gray-600 leading-relaxed" htmlFor="terms">
                 Concordo com os{" "}
-                <a className="font-bold text-[#E47948] hover:underline" href="#">
+                <a className="font-bold text-highlight hover:underline" href="#">
                   termos de uso
                 </a>{" "}
                 e{" "}
-                <a className="font-bold text-[#E47948] hover:underline" href="#">
+                <a className="font-bold text-highlight hover:underline" href="#">
                   política de privacidade
                 </a>
                 .
@@ -329,7 +329,7 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] flex flex-col">
+    <div className="min-h-screen bg-background-light flex flex-col">
       {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm">
         <Button
@@ -342,12 +342,12 @@ export default function RestaurantSignup() {
               navigate(createPageUrl('restaurant-area'));
             }
           }}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="w-6 h-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Cadastro</h2>
+          <h2 className="text-primary text-xl font-bold">Cadastro</h2>
         </div>
         <div className="w-10"></div>
       </header>
@@ -355,10 +355,10 @@ export default function RestaurantSignup() {
       {/* Main Content */}
       <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mx-auto mb-4">
-            <Store className="w-8 h-8 text-[#022D68]" />
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <Store className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
+          <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
             Cadastrar Restaurante
           </h1>
           <p className="text-gray-600 text-base mt-1">
@@ -414,7 +414,7 @@ export default function RestaurantSignup() {
               <Button
                 onClick={handleBack}
                 variant="outline"
-                className="flex-1 h-12 border-2 border-[#022D68] text-[#022D68] font-bold rounded-full hover:bg-[#022D68]/5"
+                className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
               >
                 Voltar
               </Button>
@@ -423,7 +423,8 @@ export default function RestaurantSignup() {
               <Button
                 onClick={handleNext}
                 disabled={loading}
-                className={`flex-1 h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold rounded-full text-lg ${currentStep === 1 ? 'w-full' : ''}`}
+                variant="highlight"
+                className={`flex-1 h-12 rounded-xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
               >
                 {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
               </Button>
@@ -431,7 +432,7 @@ export default function RestaurantSignup() {
               <Button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="flex-1 h-12 bg-[#022D68] hover:bg-[#022D68]/90 text-white font-bold rounded-full text-lg"
+                className="flex-1 h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-lg"
               >
                 {loading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -445,7 +446,7 @@ export default function RestaurantSignup() {
             Já possui cadastro?{" "}
             <Link
               to={createPageUrl('restaurant-login')}
-              className="font-bold text-[#E47948] hover:underline"
+              className="font-bold text-highlight hover:underline"
             >
               Fazer login
             </Link>

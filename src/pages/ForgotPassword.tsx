@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background-light flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,14 +45,14 @@ export default function ForgotPassword() {
         <Button
           variant="ghost"
           onClick={() => navigate(-1)}
-          className="mb-6 text-[#022D68] hover:bg-[#022D68]/5"
+          className="mb-6 text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           Voltar
         </Button>
 
         {/* Card Principal */}
-        <div className="bg-white rounded-3xl shadow-xl p-8">
+        <div className="bg-white rounded-xl shadow-xl p-8">
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <div className="w-24 h-auto">
@@ -69,10 +69,10 @@ export default function ForgotPassword() {
             <>
               {/* Título */}
               <div className="text-center mb-8">
-                <h1 className="text-[#022D68] text-3xl font-bold mb-3">
+                <h1 className="text-primary text-3xl font-bold mb-3">
                   Esqueceu sua senha?
                 </h1>
-                <p className="text-[#5f728c] text-base">
+                <p className="text-text-secondary text-base">
                   Digite seu e-mail e enviaremos instruções para redefinir sua senha.
                 </p>
               </div>
@@ -86,14 +86,15 @@ export default function ForgotPassword() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] text-base"
+                    className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
                   />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-12 bg-[#E47948] hover:bg-[#E47948]/90 text-white rounded-full text-lg font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
+                  variant="highlight"
+                  className="w-full h-12 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
                 >
                   {loading ? "Enviando..." : "Enviar instruções"}
                 </Button>
@@ -120,16 +121,16 @@ export default function ForgotPassword() {
                   />
                 </svg>
               </div>
-              <h2 className="text-[#022D68] text-2xl font-bold mb-3">
+              <h2 className="text-primary text-2xl font-bold mb-3">
                 E-mail enviado!
               </h2>
-              <p className="text-[#5f728c] text-base mb-6">
+              <p className="text-text-secondary text-base mb-6">
                 Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
               </p>
               <Button
                 onClick={() => navigate(createPageUrl("customer-login"))}
                 variant="outline"
-                className="border-2 border-[#E47948] text-[#E47948] hover:bg-[#E47948]/5 rounded-full font-bold"
+                className="border-2 border-highlight text-highlight hover:bg-highlight/5 rounded-xl font-bold"
               >
                 Voltar para o login
               </Button>
@@ -139,11 +140,11 @@ export default function ForgotPassword() {
 
         {/* Link de ajuda */}
         {!success && (
-          <p className="text-center text-[#5f728c] text-sm mt-6">
+          <p className="text-center text-text-secondary text-sm mt-6">
             Lembrou sua senha?{" "}
             <button
               onClick={() => navigate(createPageUrl("auth"))}
-              className="text-[#E47948] font-semibold hover:underline"
+              className="text-highlight font-semibold hover:underline"
             >
               Fazer login
             </button>
@@ -151,10 +152,10 @@ export default function ForgotPassword() {
         )}
         {/* Ajustando o link de login para a página de autenticação geral */}
         {success && (
-          <p className="text-center text-[#5f728c] text-sm mt-6">
+          <p className="text-center text-text-secondary text-sm mt-6">
             <button
               onClick={() => navigate(createPageUrl("auth"))}
-              className="text-[#E47948] font-semibold hover:underline"
+              className="text-highlight font-semibold hover:underline"
             >
               Voltar para o login
             </button>

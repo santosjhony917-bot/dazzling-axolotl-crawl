@@ -20,7 +20,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Plus Jakarta Sans", "sans-serif"],
-        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"], // Adicionado
+        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,7 +29,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#022D68", // Corrigido para o valor customizado
+          DEFAULT: "#022D68",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -67,21 +67,22 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Cores customizadas do novo design
-        "highlight": "#E47948", // Mantendo highlight como E47948
-        "background-light": "#F8F9FA", // Novo background light
-        "background-dark": "#111821", // Novo background dark
-        "text-light": "#111417", // Nova cor de texto
-        "text-dark": "#ffffff", // Nova cor de texto
-        // Novas cores para o botão de upgrade
-        "orange-accent": "24 84.2% 60.2%", // HSL para E47948
+        "highlight": "#E47948",
+        "background-light": "#F9FAFB", // Ajustado para um cinza mais claro
+        "background-dark": "#111821",
+        "text-primary": "#022D68", // Novo alias para a cor primária de texto
+        "text-secondary": "#5f728c", // Novo alias para texto secundário
+        "text-light": "#111417",
+        "text-dark": "#ffffff",
+        "orange-accent": "24 84.2% 60.2%",
         "orange-accent-hover": "24 90% 55%",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        xl: "1.5rem", // Mantido
-        DEFAULT: "1rem", // Novo padrão
+        lg: "1rem", // Aumentado para 16px
+        md: "0.75rem", // 12px
+        sm: "0.5rem", // 8px
+        xl: "2rem", // 32px para elementos maiores
+        DEFAULT: "1rem",
       },
       keyframes: {
         "accordion-down": {
