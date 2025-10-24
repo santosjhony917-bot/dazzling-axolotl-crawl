@@ -25,4 +25,5 @@ export interface Restaurant {
   opening_hours: any | null; // jsonb type
   cover_image_url: string | null;
   number: string | null;
+  distance_km?: number; // Adicionado para compatibilidade com resultados de busca por proximidade
 }
