@@ -1,5 +1,3 @@
-import { WeekSchedule } from "./schedule";
-
 export type RestaurantPlan = 'free' | 'premium';
 
 export interface Restaurant {
@@ -8,9 +6,11 @@ export interface Restaurant {
   name: string;
   description: string | null;
   image_url: string | null;
-  cover_image_url: string | null;
   address: string | null;
-  number: string | null;
+  plan: RestaurantPlan;
+  created_at: string;
+  latitude: number | null;
+  longitude: number | null;
   city: string | null;
   state: string | null;
   cep: string | null;
@@ -22,12 +22,7 @@ export interface Restaurant {
   whatsapp_url: string | null;
   ifood_url: string | null;
   other_url: string | null;
-  plan: RestaurantPlan;
-  opening_hours: WeekSchedule | null;
-  created_at: string;
-  latitude: number | null;
-  longitude: number | null;
-  
-  // Adicionado para resultados de busca baseados em localização
-  distance_km?: number; 
+  opening_hours: any | null; // jsonb type
+  cover_image_url: string | null;
+  number: string | null;
 }
