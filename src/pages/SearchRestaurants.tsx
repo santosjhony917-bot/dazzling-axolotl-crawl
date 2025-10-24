@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Search, MapPin, LocateFixed } from 'lucide-react';
@@ -12,16 +12,24 @@ import { showError, showSuccess } from '@/utils/toast';
 const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
 const MOCK_ADDRESS = "Av. Epitácio Pessoa, Tambau, João Pessoa - PB";
 
-// Função para obter a localização inicial (prioriza URL, depois LocalStorage, depois Mock)
-const getInitialLocation = (initialLat: number | null, initialLon: number | null): { lat: number | null; lon: number | null; address: string } => {
+interface LocationState {
+  lat: number | null;
+  lon: number | null;
+  address: string;
+  isMock: boolean;
+}
+
+// Função para obter a localização inicial (prioriza URL, depois LocalStorage)
+const getInitialLocation = (initialLat: number | null, initialLon: number | null): LocationState => {
   const savedLocation = loadLastSearchLocation();
   
-  // 1. Prioridade: Parâmetros da URL
+  // 1. Prioridade: Parâmetros da URL (se presentes, usamos o endereço salvo se existir)
   if (initialLat !== null && initialLon !== null) {
     return {
       lat: initialLat,
       lon: initialLon,
       address: savedLocation?.address || "Localização obtida da URL",
+      isMock: false,
     };
   }
   
@@ -31,14 +39,16 @@ const getInitialLocation = (initialLat: number | null, initialLon: number | null
       lat: savedLocation.lat,
       lon: savedLocation.lon,
       address: savedLocation.address,
+      isMock: false,
     };
   }
   
-  // 3. Fallback: Mock Location (para evitar nulls iniciais)
+  // 3. Fallback: Estado inicial de busca (Mock)
   return {
-    lat: MOCK_LOCATION_COORDS.lat,
-    lon: MOCK_LOCATION_COORDS.lon,
-    address: MOCK_ADDRESS,
+    lat: null, // Começa como null para forçar a busca ou o modal
+    lon: null,
+    address: "Buscando localização...",
+    isMock: true,
   };
 };
 
@@ -55,22 +65,20 @@ export default function SearchRestaurants() {
   const [distance, setDistance] = useState<number[]>([initialDistance]);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   
-  const initialLocation = getInitialLocation(initialLat, initialLon);
-  const [location, setLocation] = useState(initialLocation);
+  const [location, setLocation] = useState<LocationState>(getInitialLocation(initialLat, initialLon));
   
-  // Se a localização inicial não for o mock padrão, consideramos que já carregou.
-  const isInitialMock = initialLocation.lat === MOCK_LOCATION_COORDS.lat && initialLocation.lon === MOCK_LOCATION_COORDS.lon;
-  const [loadingLocation, setLoadingLocation] = useState(isInitialMock);
-  
+  // O loadingLocation só é true se a localização for null E estivermos ativamente buscando
+  const [loadingLocation, setLoadingLocation] = useState(location.lat === null);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
 
-  const handleLocationUpdate = (addressData: GeocodedAddress) => {
+  const handleLocationUpdate = (addressData: GeocodedAddress, isMock: boolean = false) => {
     const formattedAddress = addressData.formattedAddress;
     
     setLocation({
       lat: addressData.lat,
       lon: addressData.lon,
       address: formattedAddress,
+      isMock: isMock,
     });
     
     // Salva a nova localização no localStorage
@@ -79,7 +87,7 @@ export default function SearchRestaurants() {
     setLoadingLocation(false);
   };
 
-  const fetchLocation = async (useGPS: boolean) => {
+  const fetchLocation = useCallback(async (useGPS: boolean) => {
     setLoadingLocation(true);
     
     if (!useGPS) {
@@ -94,14 +102,14 @@ export default function SearchRestaurants() {
         lon: MOCK_LOCATION_COORDS.lon,
         formattedAddress: MOCK_ADDRESS,
       };
-      handleLocationUpdate(mockAddressData);
+      handleLocationUpdate(mockAddressData, true);
       return;
     }
 
     try {
       // Tenta obter a localização real
       const addressData = await getCurrentLocationAddress();
-      handleLocationUpdate(addressData);
+      handleLocationUpdate(addressData, false);
       showSuccess("Localização atualizada via GPS!");
     } catch (error) {
       console.error("Failed to fetch location via GPS:", error);
@@ -118,17 +126,17 @@ export default function SearchRestaurants() {
         lon: MOCK_LOCATION_COORDS.lon,
         formattedAddress: MOCK_ADDRESS,
       };
-      handleLocationUpdate(mockAddressData);
+      handleLocationUpdate(mockAddressData, true);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    // Se a localização inicial não for o mock padrão, não fazemos nada.
-    if (!isInitialMock) {
+    // Se já temos coordenadas válidas (lidas do localStorage ou URL), não fazemos nada.
+    if (location.lat !== null) {
         return;
     }
     
-    // Se for o mock padrão, verificamos a permissão e disparamos a busca.
+    // Se location.lat é null, precisamos buscar ou mostrar o modal.
     const preference = checkLocationPreference();
     
     if (preference === 'unset') {
@@ -138,7 +146,7 @@ export default function SearchRestaurants() {
     } else if (preference === 'mock' || preference === 'denied') {
       fetchLocation(false);
     }
-  }, []); // Executa apenas na montagem
+  }, [location.lat, fetchLocation]); // Depende de location.lat para garantir que só rode se for null
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
