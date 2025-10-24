@@ -15,6 +15,7 @@ export interface NearbyRestaurant {
   latitude: number;
   longitude: number;
   distance_km: number;
+  category: string | null; // Adicionado para resolver o erro TS
 }
 
 interface UseNearbyRestaurantsParams {
