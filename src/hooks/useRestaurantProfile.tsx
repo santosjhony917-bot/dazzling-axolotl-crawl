@@ -1,54 +1,37 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/restaurant';
 import toast from 'react-hot-toast';
+import { useCallback } from 'react';
 
 // Usando a interface Restaurant do types/restaurant.ts
 type RestaurantProfileData = Restaurant;
 
-// Modificado para aceitar userId opcional
-export function useRestaurantProfile(userId: string | null = null) {
-  const [restaurant, setRestaurant] = useState<RestaurantProfileData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const RESTAURANT_PROFILE_QUERY_KEY = (userId: string) => ['restaurantProfile', userId];
 
-  const fetchRestaurant = useCallback(async (id: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      // Busca pelo user_id
-      const { data, error } = await supabase
+const fetchRestaurantByOwner = async (userId: string): Promise<RestaurantProfileData | null> => {
+    const { data, error } = await supabase
         .from('restaurants')
         .select('*')
-        .eq('user_id', id) 
-        .single();
+        .eq('user_id', userId) 
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
         throw new Error(error.message);
-      }
-      
-      if (data) {
-        setRestaurant(data as RestaurantProfileData);
-      } else {
-        setRestaurant(null); // No restaurant found for this user
-      }
-
-    } catch (e) {
-      setError((e as Error).message);
-      setRestaurant(null);
-    } finally {
-      setLoading(false);
     }
-  }, []);
+    
+    return data as RestaurantProfileData | null;
+};
 
-  useEffect(() => {
-    if (userId) { // Se um ID de usuário for fornecido, busca o restaurante
-      fetchRestaurant(userId);
-    } else { // Se não houver ID de usuário (não logado), termina o carregamento
-      setLoading(false);
-      setRestaurant(null);
-    }
-  }, [userId, fetchRestaurant]);
+export function useRestaurantProfile(userId: string | null = null) {
+  const queryClient = useQueryClient();
+  
+  const { data: restaurant, isLoading, error, refetch } = useQuery<RestaurantProfileData | null, Error>({
+    queryKey: RESTAURANT_PROFILE_QUERY_KEY(userId || 'null'),
+    queryFn: () => fetchRestaurantByOwner(userId!),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+  });
 
   const updateRestaurant = useCallback(async (updates: Partial<RestaurantProfileData>): Promise<{ error: string | null }> => {
     if (!restaurant?.id) {
@@ -60,7 +43,9 @@ export function useRestaurantProfile(userId: string | null = null) {
     const { error } = await supabase
       .from('restaurants')
       .update(updates)
-      .eq('id', restaurant.id);
+      .eq('id', restaurant.id)
+      .select()
+      .single();
 
     if (error) {
       const msg = `Erro ao atualizar restaurante: ${error.message}`;
@@ -68,17 +53,17 @@ export function useRestaurantProfile(userId: string | null = null) {
       return { error: msg };
     }
 
-    // Refetch to get the latest data after update
-    await fetchRestaurant(restaurant.user_id);
+    // Invalida a query para forçar o refetch e atualizar o estado local
+    queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_QUERY_KEY(restaurant.user_id!) });
     toast.success("Restaurante atualizado com sucesso!");
     return { error: null };
-  }, [restaurant?.id, restaurant?.user_id, fetchRestaurant]);
+  }, [restaurant, queryClient]);
 
   return {
     restaurant,
-    loading,
-    error,
+    loading: isLoading,
+    error: error ? error.message : null,
     updateRestaurant,
-    refetch: () => userId && fetchRestaurant(userId),
+    refetch,
   };
 }
