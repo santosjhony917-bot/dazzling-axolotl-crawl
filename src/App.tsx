@@ -90,14 +90,12 @@ function App() {
             </Route>
 
             {/* Rotas do Admin */}
-            <Route path="/admin" element={<AdminLayout title="Dashboard" />}>
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="edit-restaurant" element={<EditRestaurant />} />
-              <Route path="manage-admins" element={<ManageAdmins />} />
-              <Route path="popular-categories" element={<PopularCategories />} />
-              <Route path="files" element={<Files />} />
-              <Route path="import" element={<ImportMenu />} />
-            </Route>
+            <Route path="/admin" element={<AdminLayout title="Dashboard"><AdminDashboard /></AdminLayout>} />
+            <Route path="/admin/edit-restaurant" element={<AdminLayout title="Editar Restaurante"><EditRestaurant /></AdminLayout>} />
+            <Route path="/admin/manage-admins" element={<AdminLayout title="Gerenciar Administradores"><ManageAdmins /></AdminLayout>} />
+            <Route path="/admin/popular-categories" element={<AdminLayout title="Categorias Populares"><PopularCategories /></AdminLayout>} />
+            <Route path="/admin/files" element={<AdminLayout title="Arquivos"><Files /></AdminLayout>} />
+            <Route path="/admin/import" element={<AdminLayout title="Importar Cardápio"><ImportMenu /></AdminLayout>} />
 
             {/* Rota 404 */}
             <Route path="*" element={<NotFound />} />

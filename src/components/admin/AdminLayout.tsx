@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AdminSidebar from './AdminSidebar';
 import { Button } from '@/components/ui/button';
 import { LogOut, Menu } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -7,12 +6,14 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import AdminSidebar from './AdminSidebar';
 
 interface AdminLayoutProps {
   title: string;
+  children: React.ReactNode;
 }
 
-const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
+const AdminLayout: React.FC<AdminLayoutProps> = ({ title, children }) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -82,7 +83,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          <Outlet />
+          {children}
         </main>
       </div>
     </div>
