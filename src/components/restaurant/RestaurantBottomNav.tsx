@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Crown, Zap, Rocket } from 'lucide-react';
+import { Home, Search, User, Crown, Zap, Rocket, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -28,7 +28,7 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'stats', icon: Search, label: 'Buscar', path: createPageUrl('restaurant-area/stats') },
+    { id: 'stats', icon: BarChart3, label: 'Estatísticas', path: createPageUrl('restaurant-area/stats') }, // Corrigido para BarChart3 e Estatísticas
     { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];

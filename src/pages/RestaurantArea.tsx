@@ -3,9 +3,9 @@ import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { Home, BarChart2, Utensils, Rocket, User, ArrowLeft } from 'lucide-react';
 import { useUserRole } from '@/hooks/useUserRole';
 
-const getSelectedTab = (pathname) => {
+const getSelectedTab = (pathname: string) => {
   if (pathname.includes('/restaurant-area/home')) return 'home';
-  if (pathname.includes('/restaurant-area/stats')) return 'stats';
+  if (pathname.includes('/restaurant-area/stats')) return 'stats'; // Corrigido para 'stats'
   if (pathname.includes('/restaurant-area/menu')) return 'menu';
   if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade';
   if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
