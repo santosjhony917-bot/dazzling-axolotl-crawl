@@ -13,7 +13,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: '/home', label: 'Home', icon: Home, key: 'home' },
-  { path: '/search-restaurants', label: 'Buscar', icon: Search, key: 'search' },
+  { path: '/search-client', label: 'Buscar', icon: Search, key: 'search' }, // Rota atualizada
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
   { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
 ];
@@ -40,6 +40,7 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
         return location.pathname === path;
     }
     
+    // Verifica se a rota atual começa com o caminho do item
     return location.pathname.startsWith(path);
   };
 

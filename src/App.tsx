@@ -28,6 +28,7 @@ import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 import RestaurantStats from './pages/restaurant/RestaurantStats';
+import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Rotas Públicas de Busca */}
+          <Route path="/search-client" element={<ClientSearchPage />} /> {/* Nova Rota de Busca Avançada */}
           <Route path="/search-restaurants" element={<SearchRestaurants />} />
           <Route path="/restaurant-results" element={<RestaurantResults />} />
           
