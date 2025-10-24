@@ -15,6 +15,27 @@ import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
 import { z } from 'zod';
 import { showError } from '@/utils/toast';
 
+// --- Tipos de Formulário (Definidos fora da função para evitar erros de sintaxe) ---
+const categorySchema = z.object({ 
+  id: z.string().optional(), 
+  name: z.string(), 
+  order_index: z.number().optional(), 
+  is_active: z.boolean().optional() 
+});
+type CategoryFormData = z.infer<typeof categorySchema>;
+
+const itemSchema = z.object({ 
+  id: z.string().optional(), 
+  category_id: z.string(), // Tornando obrigatório aqui
+  name: z.string(), 
+  description: z.string().optional(), 
+  price: z.number(), 
+  image_url: z.string().optional().nullable(), 
+  order_index: z.number().optional(), 
+  is_active: z.boolean().optional() 
+});
+type ItemFormData = z.infer<typeof itemSchema>;
+
 // Tipos para o estado de edição
 type CategoryFormState = { open: boolean, data: MenuCategory | null };
 type ItemFormState = { open: boolean, categoryId: string, data: MenuItem | null };
@@ -48,7 +69,7 @@ export default function RestaurantMenu() {
     setCategoryForm({ open: true, data });
   };
 
-  const handleSaveCategory = (data: z.infer<typeof z.object({ id: z.string().optional(), name: z.string(), order_index: z.number().optional(), is_active: z.boolean().optional() })>) => {
+  const handleSaveCategory = (data: CategoryFormData) => {
     if (!restaurantId) {
       showError("ID do restaurante não encontrado.");
       return;
@@ -76,7 +97,7 @@ export default function RestaurantMenu() {
     setItemForm({ open: true, categoryId, data });
   };
 
-  const handleSaveItem = (data: z.infer<typeof z.object({ id: z.string().optional(), category_id: z.string(), name: z.string(), description: z.string().optional(), price: z.number(), image_url: z.string().optional().nullable(), order_index: z.number().optional(), is_active: z.boolean().optional() })>) => {
+  const handleSaveItem = (data: ItemFormData) => {
     itemMutations.save.mutate(data);
     setItemForm({ open: false, categoryId: '', data: null });
   };

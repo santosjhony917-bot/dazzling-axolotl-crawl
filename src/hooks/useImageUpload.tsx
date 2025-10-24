@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 export function useImageUpload() {
   const [uploading, setUploading] = useState(false);
 
-  const uploadImage = useCallback(async (file: File, bucket: string, entityId: string, type: 'logo' | 'cover' = 'logo') => {
+  const uploadImage = useCallback(async (file: File, bucket: string, entityId: string, type: 'logo' | 'cover' | 'item' = 'logo') => {
     setUploading(true);
     
     if (!file) {

@@ -72,6 +72,7 @@ export default function ItemFormDialog({ open, onOpenChange, onSave, isSaving, c
   const handleFileSelect = async (file: File) => {
     const entityId = initialData?.id || categoryId; // Usa o ID do item se existir, senão o da categoria
     
+    // Usando showLoading para obter um ID de toast para dismiss
     const uploadToastId = showSuccess("Iniciando upload da imagem...");
     
     try {
@@ -81,9 +82,9 @@ export default function ItemFormDialog({ open, onOpenChange, onSave, isSaving, c
       
       setValue('image_url', url, { shouldValidate: true });
       setPreviewImage(url);
-      showSuccess("Imagem enviada com sucesso!", uploadToastId);
+      showSuccess("Imagem enviada com sucesso!"); // Removido toastId
     } catch (e) {
-      showError(`Falha no upload: ${(e as Error).message}`, uploadToastId);
+      showError(`Falha no upload: ${(e as Error).message}`); // Removido toastId
     }
   };
 
