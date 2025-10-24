@@ -1,95 +1,106 @@
-import React from 'react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuCategory } from '@/types/menu';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import React, { useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
-
-const categorySchema = z.object({
-  name: z.string().min(1, 'O nome da categoria é obrigatório.'),
-});
-
-type CategoryFormValues = z.infer<typeof categorySchema>;
+import { Loader2, UtensilsCrossed } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MenuCategory } from '@/types/restaurant';
 
 interface CategoryFormDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: CategoryFormValues) => Promise<void>;
-  initialData?: MenuCategory;
-  isLoading: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSave: (data: CategoryFormData) => void;
+  isSaving: boolean;
+  initialData?: MenuCategory | null;
 }
 
-const CategoryFormDialog: React.FC<CategoryFormDialogProps> = ({ isOpen, onClose, onSave, initialData, isLoading }) => {
-  const form = useForm<CategoryFormValues>({
+export const categorySchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(3, "O nome da categoria é obrigatório."),
+  order_index: z.number().min(0, "A ordem deve ser 0 ou maior").optional(),
+  is_active: z.boolean().optional(),
+});
+
+export type CategoryFormData = z.infer<typeof categorySchema>;
+
+export default function CategoryFormDialog({ open, onOpenChange, onSave, isSaving, initialData }: CategoryFormDialogProps) {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
+      id: initialData?.id,
       name: initialData?.name || '',
+      order_index: initialData?.order_index || 0,
+      is_active: initialData?.is_active ?? true,
     },
   });
 
-  const onSubmit = async (data: CategoryFormValues) => {
-    await onSave(data);
-    form.reset();
+  useEffect(() => {
+    if (open) {
+      reset({
+        id: initialData?.id,
+        name: initialData?.name || '',
+        order_index: initialData?.order_index || 0,
+        is_active: initialData?.is_active ?? true,
+      });
+    }
+  }, [open, initialData, reset]);
+
+  const onSubmit = (data: CategoryFormData) => {
+    onSave(data);
   };
 
-  React.useEffect(() => {
-    if (initialData) {
-      form.reset({ name: initialData.name });
-    } else {
-      form.reset({ name: '' });
-    }
-  }, [initialData, form]);
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px] rounded-xl">
         <DialogHeader>
-          <DialogTitle>{initialData ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
+          <div className="flex items-center gap-3 mb-2">
+            <UtensilsCrossed className="h-6 w-6 text-primary" />
+            <DialogTitle className="text-xl font-bold text-primary">
+              {initialData ? 'Editar Categoria' : 'Nova Categoria'}
+            </DialogTitle>
+          </div>
+          <DialogDescription>
+            Defina o nome e a ordem de exibição da sua categoria.
+          </DialogDescription>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome da Categoria</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ex: Pizzas Clássicas" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <Input
+              {...register('name')}
+              placeholder="Nome da Categoria (Ex: Bebidas, Pizzas)"
+              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              disabled={isSaving}
             />
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
-                Cancelar
-              </Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : initialData ? (
-                  'Salvar Alterações'
-                ) : (
-                  'Criar Categoria'
-                )}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+            {errors.name && <p className="text-sm text-destructive mt-1">{errors.name.message}</p>}
+          </div>
+          
+          <div>
+            <Input
+              {...register('order_index', { valueAsNumber: true })}
+              type="number"
+              placeholder="Ordem de Exibição (0 para o topo)"
+              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              disabled={isSaving}
+            />
+            {errors.order_index && <p className="text-sm text-destructive mt-1">{errors.order_index.message}</p>}
+          </div>
+
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSaving}>
+              Cancelar
+            </Button>
+            <Button type="submit" disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
+              {isSaving ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Salvar Categoria"
+              )}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
-};
-
-export default CategoryFormDialog;
+}

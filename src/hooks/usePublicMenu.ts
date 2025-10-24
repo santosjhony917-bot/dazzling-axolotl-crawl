@@ -1,97 +1,51 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/restaurant';
-import { MenuCategory, MenuItem } from '@/types/menu';
+import { MenuCategory, MenuItem } from '@/types';
 
 interface PublicMenuData {
-  restaurant: Restaurant | null;
   categories: (MenuCategory & { items: MenuItem[] })[];
 }
 
-interface UsePublicMenuResult {
-  menuData: PublicMenuData | null;
-  isLoading: boolean;
-  error: string | null;
-}
+const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuData> => {
+  // 1. Buscar categorias ativas
+  const { data: categoriesData, error: categoriesError } = await supabase
+    .from('menu_categories')
+    .select('*')
+    .eq('restaurant_id', restaurantId)
+    .eq('is_active', true) // Filtra apenas categorias ativas
+    .order('order_index', { ascending: true });
 
-export function usePublicMenu(restaurantId: string | undefined): UsePublicMenuResult {
-  const [menuData, setMenuData] = useState<PublicMenuData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  if (categoriesError) throw categoriesError;
 
-  const fetchMenu = useCallback(async () => {
-    if (!restaurantId) {
-      setIsLoading(false);
-      return;
-    }
+  const categoryIds = categoriesData.map(c => c.id);
 
-    setIsLoading(true);
-    setError(null);
+  if (categoryIds.length === 0) {
+    return { categories: [] };
+  }
 
-    try {
-      // 1. Fetch Restaurant Profile
-      const { data: restaurant, error: restaurantError } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('id', restaurantId)
-        .single();
+  // 2. Buscar itens ativos pertencentes a essas categorias
+  const { data: itemsData, error: itemsError } = await supabase
+    .from('menu_items')
+    .select('*')
+    .in('category_id', categoryIds)
+    .eq('is_active', true) // Filtra apenas itens ativos
+    .order('order_index', { ascending: true });
 
-      if (restaurantError || !restaurant) throw new Error('Restaurante não encontrado.');
+  if (itemsError) throw itemsError;
 
-      // 2. Fetch Categories
-      const { data: categoryData, error: categoryError } = await supabase
-        .from('menu_categories')
-        .select('*')
-        .eq('restaurant_id', restaurantId)
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
+  // 3. Agrupar itens por categoria
+  const categoriesWithItems = categoriesData.map(category => ({
+    ...category,
+    items: itemsData.filter(item => item.category_id === category.id),
+  }));
 
-      if (categoryError) throw categoryError;
+  return { categories: categoriesWithItems };
+};
 
-      const categoryIds = categoryData.map(c => c.id);
-
-      // 3. Fetch Items
-      const { data: itemData, error: itemError } = await supabase
-        .from('menu_items')
-        .select('*')
-        .in('category_id', categoryIds)
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-
-      if (itemError) throw itemError;
-
-      // 4. Group items by category
-      const groupedItems = itemData.reduce((acc, item) => {
-        const categoryId = item.category_id;
-        if (!acc[categoryId]) {
-          acc[categoryId] = [];
-        }
-        acc[categoryId].push(item as MenuItem);
-        return acc;
-      }, {} as Record<string, MenuItem[]>);
-
-      // 5. Combine categories and items
-      const combinedData = categoryData.map(category => ({
-        ...(category as MenuCategory),
-        items: groupedItems[category.id] || [],
-      }));
-
-      setMenuData({
-        restaurant: restaurant as Restaurant,
-        categories: combinedData,
-      });
-
-    } catch (err) {
-      console.error('Error fetching public menu:', err);
-      setError('Falha ao carregar o cardápio público.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [restaurantId]);
-
-  useEffect(() => {
-    fetchMenu();
-  }, [fetchMenu]);
-
-  return { menuData, isLoading, error };
-}
+export const usePublicMenu = (restaurantId: string) => {
+  return useQuery<PublicMenuData, Error>({
+    queryKey: ['publicMenu', restaurantId],
+    queryFn: () => fetchPublicMenu(restaurantId),
+    enabled: !!restaurantId,
+  });
+};

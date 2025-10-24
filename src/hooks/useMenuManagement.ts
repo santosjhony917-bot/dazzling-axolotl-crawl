@@ -1,81 +1,169 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory, MenuItem } from '@/types/menu';
+import { MenuCategory, MenuItem } from '@/types/restaurant';
 import { showError, showSuccess } from '@/utils/toast';
 
-interface MenuData {
-  categories: (MenuCategory & { items: MenuItem[] })[];
-  isLoading: boolean;
-  error: string | null;
-  refetch: () => void;
-}
+// Tipos de dados para mutação (simplificados para o hook)
+type CategoryMutationData = Partial<MenuCategory> & { restaurant_id: string };
+type ItemMutationData = Partial<MenuItem> & { category_id: string };
 
-export function useMenuManagement(restaurantId: string | null): MenuData {
-  const [categories, setCategories] = useState<(MenuCategory & { items: MenuItem[] })[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const MENU_QUERY_KEY = 'restaurantMenu';
 
-  const fetchMenu = useCallback(async () => {
-    if (!restaurantId) {
-      setCategories([]);
-      setIsLoading(false);
-      return;
-    }
+/**
+ * Hook para gerenciar dados de menu (categorias e itens) de um restaurante.
+ * @param restaurantId O ID do restaurante.
+ */
+export const useMenuManagement = (restaurantId: string | null) => {
+  const queryClient = useQueryClient();
 
-    setIsLoading(true);
-    setError(null);
+  // 1. Query para buscar todos os dados do menu
+  const { data, isLoading, error } = useQuery({
+    queryKey: [MENU_QUERY_KEY, restaurantId],
+    queryFn: async () => {
+      if (!restaurantId) return { categories: [], items: [] };
 
-    try {
-      // 1. Fetch Categories
-      const { data: categoryData, error: categoryError } = await supabase
+      const { data: categoriesData, error: categoriesError } = await supabase
         .from('menu_categories')
         .select('*')
         .eq('restaurant_id', restaurantId)
         .order('order_index', { ascending: true });
 
-      if (categoryError) throw categoryError;
+      if (categoriesError) throw categoriesError;
 
-      const categoryIds = categoryData.map(c => c.id);
+      const categoryIds = categoriesData.map(c => c.id);
 
-      // 2. Fetch Items for those categories
-      const { data: itemData, error: itemError } = await supabase
+      const { data: itemsData, error: itemsError } = await supabase
         .from('menu_items')
         .select('*')
         .in('category_id', categoryIds)
         .order('order_index', { ascending: true });
 
-      if (itemError) throw itemError;
+      if (itemsError) throw itemsError;
 
-      // 3. Group items by category
-      const groupedItems = itemData.reduce((acc, item) => {
-        const categoryId = item.category_id;
-        if (!acc[categoryId]) {
-          acc[categoryId] = [];
+      return {
+        categories: categoriesData as MenuCategory[],
+        items: itemsData as MenuItem[],
+      };
+    },
+    enabled: !!restaurantId,
+  });
+
+  // Função de sucesso para invalidar o cache
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: [MENU_QUERY_KEY, restaurantId] });
+  };
+
+  // 2. Mutações para Categorias
+  const categoryMutations = {
+    save: useMutation({
+      mutationFn: async (data: CategoryMutationData) => {
+        const { id, ...rest } = data;
+        if (id) {
+          // Update
+          const { data: updatedData, error } = await supabase
+            .from('menu_categories')
+            .update(rest)
+            .eq('id', id)
+            .select()
+            .single();
+          if (error) throw error;
+          return updatedData;
+        } else {
+          // Insert
+          const { data: insertedData, error } = await supabase
+            .from('menu_categories')
+            .insert(rest)
+            .select()
+            .single();
+          if (error) throw error;
+          return insertedData;
         }
-        acc[categoryId].push(item as MenuItem);
-        return acc;
-      }, {} as Record<string, MenuItem[]>);
+      },
+      onSuccess: () => {
+        showSuccess("Categoria salva com sucesso!");
+        onSuccess();
+      },
+      onError: (err) => {
+        showError(`Falha ao salvar categoria: ${err.message}`);
+      },
+    }),
 
-      // 4. Combine categories and items
-      const combinedData = categoryData.map(category => ({
-        ...(category as MenuCategory),
-        items: groupedItems[category.id] || [],
-      }));
+    delete: useMutation({
+      mutationFn: async (categoryId: string) => {
+        const { error } = await supabase
+          .from('menu_categories')
+          .delete()
+          .eq('id', categoryId);
+        if (error) throw error;
+      },
+      onSuccess: () => {
+        showSuccess("Categoria deletada com sucesso!");
+        onSuccess();
+      },
+      onError: (err) => {
+        showError(`Falha ao deletar categoria: ${err.message}`);
+      },
+    }),
+  };
 
-      setCategories(combinedData);
+  // 3. Mutações para Itens
+  const itemMutations = {
+    save: useMutation({
+      mutationFn: async (data: ItemMutationData) => {
+        const { id, ...rest } = data;
+        if (id) {
+          // Update
+          const { data: updatedData, error } = await supabase
+            .from('menu_items')
+            .update(rest)
+            .eq('id', id)
+            .select()
+            .single();
+          if (error) throw error;
+          return updatedData;
+        } else {
+          // Insert
+          const { data: insertedData, error } = await supabase
+            .from('menu_items')
+            .insert(rest)
+            .select()
+            .single();
+          if (error) throw error;
+          return insertedData;
+        }
+      },
+      onSuccess: () => {
+        showSuccess("Item salvo com sucesso!");
+        onSuccess(); // Invalida o cache após salvar/inserir item
+      },
+      onError: (err) => {
+        showError(`Falha ao salvar item: ${err.message}`);
+      },
+    }),
 
-    } catch (err) {
-      console.error('Error fetching menu:', err);
-      setError('Falha ao carregar o cardápio.');
-      showError('Falha ao carregar o cardápio.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [restaurantId]);
+    delete: useMutation({
+      mutationFn: async (itemId: string) => {
+        const { error } = await supabase
+          .from('menu_items')
+          .delete()
+          .eq('id', itemId);
+        if (error) throw error;
+      },
+      onSuccess: () => {
+        showSuccess("Item deletado com sucesso!");
+        onSuccess(); // Invalida o cache após deletar item
+      },
+      onError: (err) => {
+        showError(`Falha ao deletar item: ${err.message}`);
+      },
+    }),
+  };
 
-  useEffect(() => {
-    fetchMenu();
-  }, [fetchMenu]);
-
-  return { categories, isLoading, error, refetch: fetchMenu };
-}
+  return {
+    menuData: data,
+    isLoading,
+    error,
+    categoryMutations,
+    itemMutations,
+  };
+};
