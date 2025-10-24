@@ -382,7 +382,7 @@ const Profile = () => {
         fieldName="Nome completo"
         currentValue={userName}
         icon={<UserCircle className="h-6 w-6 text-primary" />}
-        onSave={(value) => setUserName(String(value))}
+        onSave={setUserName}
         placeholder="Digite seu nome completo"
         validationSchema={nameSchema}
       />
@@ -394,7 +394,7 @@ const Profile = () => {
         fieldName="Telefone"
         currentValue={userPhone}
         icon={<Phone className="h-6 w-6 text-primary" />}
-        onSave={(value) => setUserPhone(String(value))}
+        onSave={setUserPhone}
         placeholder="(XX) XXXXX-XXXX"
         type="tel"
         validationSchema={phoneSchema}
@@ -408,7 +408,7 @@ const Profile = () => {
         fieldName="Data de nascimento"
         currentValue={userBirthdate}
         icon={<Calendar className="h-6 w-6 text-primary" />}
-        onSave={(value) => setUserBirthdate(String(value))}
+        onSave={setUserBirthdate}
         placeholder="DD/MM/AAAA"
         type="text"
         validationSchema={dateSchema}
@@ -422,7 +422,7 @@ const Profile = () => {
         fieldName="Endereço"
         currentValue={userAddress}
         icon={<MapPinned className="h-6 w-6 text-primary" />}
-        onSave={(value) => setUserAddress(String(value))}
+        onSave={setUserAddress}
         placeholder="Rua, número - Cidade, Estado"
         validationSchema={addressSchema}
       />

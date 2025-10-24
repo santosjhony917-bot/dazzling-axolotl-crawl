@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Loader2 } from 'lucide-react';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface EditFieldDialogProps {
   isOpen: boolean;
@@ -22,13 +14,14 @@ interface EditFieldDialogProps {
   fieldName: string;
   currentValue: string;
   icon: React.ReactNode;
-  onSave: (value: string) => void;
-  placeholder: string;
-  validationSchema: z.ZodType<string>;
-  type?: "text" | "tel" | "email" | "number"; // <-- 'number' adicionado
+  onSave: (value: string) => Promise<void> | void;
+  placeholder?: string;
+  type?: "text" | "tel" | "email";
+  validationSchema?: z.ZodType<string>; // Alterado de z.ZodString para z.ZodType<string>
   mask?: (value: string) => string;
-  isTextArea?: boolean;
 }
+
+const defaultSchema: z.ZodType<string> = z.string().min(1, "Campo obrigatório");
 
 export default function EditFieldDialog({
   isOpen,
@@ -39,70 +32,46 @@ export default function EditFieldDialog({
   icon,
   onSave,
   placeholder,
-  validationSchema,
   type = "text",
+  validationSchema = defaultSchema,
   mask,
-  isTextArea = false,
 }: EditFieldDialogProps) {
+  const [loading, setLoading] = useState(false);
   
-  const [isSaving, setIsSaving] = useState(false);
-
-  // Criação dinâmica do schema para o React Hook Form
-  const formSchema = z.object({
-    fieldValue: validationSchema,
+  const schema = z.object({
+    value: validationSchema,
   });
-  
-  type FormData = z.infer<typeof formSchema>;
 
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
     defaultValues: {
-      fieldValue: currentValue,
+      value: currentValue,
     },
   });
-  
-  // Observa o valor do campo para aplicar a máscara dinamicamente
-  const fieldValue = watch('fieldValue');
 
-  // Reseta o estado do formulário quando o diálogo abre ou o valor atual muda
   useEffect(() => {
-    if (isOpen) {
-      setValue('fieldValue', currentValue, { shouldValidate: false });
-    }
-  }, [isOpen, currentValue, setValue]);
+    setValue('value', currentValue);
+  }, [currentValue, setValue]);
 
-  // Lida com a mudança de input e aplica a máscara
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onSubmit = async (data: { value: string }) => {
+    setLoading(true);
+    try {
+      await onSave(data.value);
+      onClose();
+    } catch (e) {
+      // Error handling is done in the parent component (RestaurantProfile)
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let rawValue = e.target.value;
-    
     if (mask) {
       rawValue = mask(rawValue);
     }
-    
-    setValue('fieldValue', rawValue, { shouldValidate: true });
+    setValue('value', rawValue, { shouldValidate: true });
   };
-
-  const onSubmit = async (data: FormData) => {
-    setIsSaving(true);
-    try {
-      // Chama a função de salvamento externa
-      onSave(data.fieldValue);
-      
-      // Simula operação assíncrona
-      await new Promise(resolve => setTimeout(resolve, 300)); 
-      
-      onClose();
-    } catch (e) {
-      console.error("Erro ao salvar:", e);
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const Component = isTextArea ? Textarea : Input;
-  
-  // Determina o tipo de input para componentes não-textarea
-  const inputType = isTextArea ? undefined : type;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -112,35 +81,30 @@ export default function EditFieldDialog({
             {icon}
             <DialogTitle className="text-xl font-bold text-primary">{title}</DialogTitle>
           </div>
+          <DialogDescription>
+            Edite o campo {fieldName} do seu restaurante.
+          </DialogDescription>
         </DialogHeader>
-        
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="fieldValue" className="text-base font-medium text-primary">{fieldName}</Label>
-            <Component
-              id="fieldValue"
-              {...register('fieldValue')}
-              value={fieldValue}
-              onChange={handleInputChange}
-              type={inputType}
-              placeholder={placeholder}
-              className="h-12 rounded-xl text-base"
-              disabled={isSaving}
-            />
-            {errors.fieldValue && (
-              <p className="text-sm text-destructive">{errors.fieldValue.message}</p>
-            )}
-          </div>
-          
-          <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={onClose} disabled={isSaving}>
+          <Input
+            {...register('value')}
+            type={type}
+            placeholder={placeholder}
+            className="h-12 rounded-xl text-base"
+            onChange={mask ? handleInputChange : undefined}
+          />
+          {errors.value && (
+            <p className="text-sm text-destructive">{errors.value.message}</p>
+          )}
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSaving} className="bg-[#E47948] hover:bg-[#E47948]/90">
-              {isSaving ? (
+            <Button type="submit" disabled={loading || !!errors.value}>
+              {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                'Salvar Alterações'
+                "Salvar Alterações"
               )}
             </Button>
           </DialogFooter>

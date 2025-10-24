@@ -1,242 +1,275 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Users, Utensils, TrendingUp, Building2, FileText } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { ArrowLeft, Camera, Building2, MapPin, Clock, Phone, Mail, CreditCard, Bell, Package, HelpCircle, MessageSquare, FileCheck, LogOut, Crown, Sparkles, ChevronRight, FileText, UtensilsCrossed, Eye, Check, Lock, Edit, Store, Badge as BadgeIcon, BarChart3, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useImageUpload } from "@/hooks/useImageUpload";
-import { RestaurantBottomNav } from "@/components/restaurant/RestaurantBottomNav";
-import { useRestaurant } from "@/hooks/useRestaurant";
-import { useUserRole } from "@/hooks/useUserRole";
-import { Link } from "react-router-dom";
-import { Separator } from "@/components/ui/separator";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import EditableField from "@/components/EditableField";
+import { Switch } from "@/components/ui/switch";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/contexts/UserContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useRestaurantProfile } from "@/hooks/useRestaurantProfile";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import RestaurantBottomNav from "@/components/restaurant/RestaurantBottomNav";
+import EditFieldDialog from "@/components/EditFieldDialog";
+import { EditHoursDialog } from "@/components/EditHoursDialog";
+import { EditAddressDialog } from "@/components/EditAddressDialog";
+import { ImageUploadButton } from "@/components/ImageUploadButton";
+import restaurantLogo from "@/assets/restaurant-logo.png";
 import { z } from "zod";
+import { WeekSchedule, DaySchedule } from "@/types/schedule";
+import { geocodeAddress } from "@/services/geocoding";
+import { supabase } from "@/integrations/supabase/client";
+import { createPageUrl } from "@/utils/url";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import HighlightCard from "@/components/restaurant/HighlightCard";
+import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
+import useEmblaCarousel from 'embla-carousel-react';
 
-// Mock data for demonstration
-const mockStats = [
+// Mock Data para o novo dashboard
+const mockHighlights = [
+  { id: 'h1', name: 'Hambúrguer Gourmet', restaurantName: 'Burger Joint', price: 35.00, imageUrl: 'https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=2070&auto=format&fit=crop' },
+  { id: 'h2', name: 'Moqueca de Camarão', restaurantName: 'Restaurante do Mar', price: 75.00, imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop' },
+  { id: 'h3', name: 'Sushi Variado', restaurantName: 'Sushi House', price: 90.00, imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop' },
+];
+
+const mockNearbyRestaurants = [
+  { id: 'r1', name: 'Trattoria del Ponte', cuisine: 'Italiana', distance: 1.2, rating: 4.7, imageUrl: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop' },
+  { id: 'r2', name: 'Sakura Sushi', cuisine: 'Japonesa', distance: 2.5, rating: 4.9, imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop' },
+  { id: 'r3', name: 'Le Petit Bistrot', cuisine: 'Francesa', distance: 3.1, rating: 4.6, imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop' },
+];
+
+// Dados do Carrossel de Upgrade
+const upgradeSlides = [
   {
-    title: "Total Sales",
-    value: "R$ 45,231.89",
-    change: "+20.1% from last month",
-    icon: DollarSign,
+    title: "Torne-se Premium!",
+    subtitle: "Apareça para mais clientes e aumente suas vendas.",
+    imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop",
+    overlayColor: "bg-primary/70"
   },
   {
-    title: "New Customers",
-    value: "+2,350",
-    change: "+180.1% from last month",
-    icon: Users,
+    title: "Posição #1 Garantida",
+    subtitle: "Seu restaurante sempre no topo dos resultados de busca.",
+    imageUrl: "https://images.unsplash.com/photo-1551782450-a2132b4ba213d?q=80&w=2069&auto=format&fit=crop",
+    overlayColor: "bg-accent/70"
   },
   {
-    title: "Menu Items",
-    value: "124",
-    change: "+19% from last month",
-    icon: Utensils,
-  },
-  {
-    title: "Avg. Order Value",
-    value: "R$ 55.78",
-    change: "+1.2% from last month",
-    icon: TrendingUp,
+    title: "Estatísticas de Lucro",
+    subtitle: "Acompanhe o desempenho e otimize seus ganhos.",
+    imageUrl: "https://images.unsplash.com/photo-1554224155-6726b1ff8582?q=80&w=2070&auto=format&fit=crop",
+    overlayColor: "bg-primary/70"
   },
 ];
 
-// Schemas for validation
-const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres.");
-const descriptionSchema = z.string().max(500, "Descrição muito longa.").optional().or(z.literal(''));
+
+const RestaurantDashboard = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  // --- Embla Carousel Setup ---
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Mock restaurant ID for development until proper auth flow is implemented
+  const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
+  
+  const { isPremium } = useUserRole(); // Using mock hook
+
+  // Lógica de transição automática
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 5000); // Troca a cada 5 segundos
+
+    emblaApi.on('select', () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    });
+
+    return () => clearInterval(autoplay);
+  }, [emblaApi]);
+
+  // Lógica de clique nos indicadores
+  const scrollTo = useCallback((index: number) => {
+    emblaApi?.scrollTo(index);
+  }, [emblaApi]);
 
 
-export default function RestaurantDashboard() {
-  const { restaurant, isLoading, updateRestaurantField } = useRestaurant();
-  const { role } = useUserRole();
-  const { handleImageUpload } = useImageUpload();
+  // --- Funções de Navegação ---
+  const handleGoToMenu = () => navigate(createPageUrl('restaurant-area/menu'));
+  const handleGoToStats = () => navigate(createPageUrl('restaurant-area/stats'));
+  const handleGoToUpgrade = () => navigate(createPageUrl('restaurant-area/upgrade'));
+  const handleGoToRestaurantProfile = (id: string) => navigate(createPageUrl(`restaurant-profile/${id}`));
+  
+  // --- Dados do Restaurante (Simplificados para o Dashboard) ---
+  const restaurantName = restaurant?.name || "Seu Restaurante";
+  const locationLabel = restaurant?.city || "Localização Não Definida";
 
-  const isPremium = role === "premium_restaurant";
-
-  if (isLoading) {
+  if (restaurantLoading) {
     return (
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {mockStats.map((stat, index) => (
-            <Card key={index}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {stat.title}
-                </CardTitle>
-                <stat.icon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-8 w-3/4" />
-                <Skeleton className="mt-1 h-4 w-1/2" />
-              </CardContent>
-            </Card>
-          ))}
+      <div className="min-h-screen bg-background-light p-4 pb-20 max-w-md mx-auto">
+        <Skeleton className="h-16 w-full mb-4" />
+        <Skeleton className="h-20 w-full mb-6" />
+        <Skeleton className="h-40 w-full rounded-xl mb-6" />
+        <Skeleton className="h-6 w-3/4 mb-4" />
+        <div className="flex gap-4 overflow-x-auto">
+          <Skeleton className="h-64 min-w-[280px] rounded-xl" />
+          <Skeleton className="h-64 min-w-[280px] rounded-xl" />
         </div>
-        <Skeleton className="h-64 w-full" />
+        <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
       </div>
     );
   }
-
-  if (!restaurant) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <p className="text-lg text-muted-foreground">
-          Nenhum restaurante encontrado.
-        </p>
-      </div>
-    );
-  }
-
-  const handleCoverImageUpload = async (file: File) => {
-    const url = await handleImageUpload(file, "restaurant_covers");
-    if (url) {
-      // Note: updateRestaurantField expects string | number | null
-      updateRestaurantField("cover_image_url", url);
-    }
-  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">
-          {restaurant.name} Dashboard
-        </h1>
-        <Badge variant={isPremium ? "default" : "secondary"}>
-          {isPremium ? "Premium" : "Free Plan"}
-        </Badge>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {mockStats.map((stat, index) => (
-          <Card key={index}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {stat.title}
-              </CardTitle>
-              <stat.icon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">{stat.change}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Restaurant Profile Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Informações Básicas</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {/* Cover Image */}
-          <div className="relative h-48 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-800">
-            {restaurant.cover_image_url ? (
-              <img
-                src={restaurant.cover_image_url}
-                alt="Cover"
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center text-muted-foreground">
-                Adicione uma imagem de capa
-              </div>
-            )}
-            <div className="absolute bottom-2 right-2">
-              <Button
-                onClick={() =>
-                  document.getElementById("cover-image-upload")?.click()
-                }
-                size="sm"
-              >
-                {restaurant.cover_image_url ? "Mudar Imagem" : "Adicionar Imagem"}
-              </Button>
-              <input
-                id="cover-image-upload"
-                type="file"
-                accept="image/*"
-                hidden
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    handleCoverImageUpload(e.target.files[0]);
-                  }
-                }}
-              />
+    <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark">
+      <div className="flex-1 pb-24">
+        
+        {/* Header de Localização */}
+        <div className="flex items-center p-4 justify-between bg-background-light dark:bg-background-dark">
+          <div className="flex items-center gap-2">
+            <MapPin className="text-primary w-7 h-7" />
+            <div>
+              <p className="text-text-light/60 dark:text-text-dark/60 text-xs font-medium">
+                Sua Localização
+              </p>
+              <h2 className="text-primary dark:text-text-dark text-base font-bold leading-tight">
+                {locationLabel}
+              </h2>
             </div>
           </div>
+          <Button 
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
+            className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 w-12 bg-primary/10"
+            variant="ghost"
+            size="icon"
+          >
+            <Store className="text-primary w-7 h-7" />
+          </Button>
+        </div>
 
-          <Separator />
-
-          {/* Name */}
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-muted-foreground">Nome</p>
-            <EditableField
-              initialValue={restaurant.name}
-              onSave={(value) => updateRestaurantField("name", value)}
-              label="Nome do Restaurante"
-              validationSchema={nameSchema}
-              icon={<Building2 className="h-6 w-6 text-primary" />}
+        {/* Botões de Ação Rápida */}
+        <div className="px-4 pt-3 pb-5 bg-background-light dark:bg-background-dark">
+          <div className="grid grid-cols-2 gap-3">
+            <Button 
+              onClick={handleGoToMenu}
+              className="flex items-center justify-center w-full h-16 px-2 bg-white dark:bg-zinc-800 rounded-lg shadow-sm text-center hover:bg-gray-50 dark:hover:bg-zinc-700"
+              variant="ghost"
             >
-              <p className="font-semibold">{restaurant.name}</p>
-            </EditableField>
-          </div>
-
-          {/* Description */}
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-muted-foreground">
-              Descrição
-            </p>
-            <EditableField
-              initialValue={restaurant.description || ""}
-              onSave={(value) => updateRestaurantField("description", value)}
-              label="Descrição do Restaurante"
-              isTextArea={true}
-              validationSchema={descriptionSchema}
-              icon={<FileText className="h-6 w-6 text-primary" />}
+              <Edit className="text-primary w-5 h-5 mr-2" />
+              <div className="text-text-light dark:text-text-dark text-sm font-medium leading-tight text-center">
+                <span>Editar</span><br/><span>Cardápio</span>
+              </div>
+            </Button>
+            <Button 
+              onClick={handleGoToStats}
+              className="flex items-center justify-center w-full h-16 px-2 bg-white dark:bg-zinc-800 rounded-lg shadow-sm text-center hover:bg-gray-50 dark:hover:bg-zinc-700"
+              variant="ghost"
             >
-              <p className="max-w-xs truncate text-right text-sm text-gray-600 dark:text-gray-400">
-                {restaurant.description || "Adicionar descrição"}
-              </p>
-            </EditableField>
+              <BarChart3 className="text-accent w-5 h-5 mr-2" />
+              <div className="text-text-light dark:text-text-dark text-sm font-medium leading-tight text-center">
+                <span>Ver</span><br/><span>Estatísticas</span>
+              </div>
+            </Button>
           </div>
+        </div>
 
-          {/* Plan */}
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-muted-foreground">Plano</p>
-            <p className="font-semibold capitalize">{restaurant.plan}</p>
+        {/* Banner de Upgrade (Carrossel) */}
+        <div className="px-4 pb-5">
+          <div className="relative rounded-xl overflow-hidden bg-primary text-white">
+            <div className="embla" ref={emblaRef}>
+              <div className="embla__container flex">
+                {upgradeSlides.map((slide, index) => (
+                  <div key={index} className="embla__slide flex-shrink-0 w-full">
+                    <div 
+                      className="w-full bg-center bg-no-repeat aspect-[2.5/1] bg-cover flex flex-col p-6 items-start justify-center transition-opacity duration-1000" 
+                      style={{ backgroundImage: `url("${slide.imageUrl}")` }}
+                    >
+                      <div className={cn("absolute inset-0", slide.overlayColor)}></div>
+                      <div className="relative z-10">
+                        <h3 className="text-xl font-bold">{slide.title}</h3>
+                        <p className="text-sm mt-1 max-w-xs">{slide.subtitle}</p>
+                        <Button 
+                          onClick={handleGoToUpgrade}
+                          className="bg-highlight text-white font-semibold py-2 px-4 rounded-full text-sm mt-4 hover:bg-highlight/90"
+                        >
+                          Saiba Mais
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Indicadores do Carrossel */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {upgradeSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollTo(index)}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-colors duration-300",
+                    selectedIndex === index ? "bg-white" : "bg-white/50"
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* Link to Menu */}
-          <div className="pt-4">
-            <Link to="/restaurant-area/menu">
-              <Button className="w-full">Gerenciar Menu</Button>
-            </Link>
+        {/* Destaques do Dia */}
+        <div className="bg-background-light dark:bg-background-dark">
+          <div className="flex justify-between items-center px-4 pb-3 pt-0">
+            <h2 className="text-text-light dark:text-text-dark text-xl font-bold leading-tight">
+              Destaques do Dia
+            </h2>
+            <a className="text-accent text-sm font-semibold hover:underline" href="#">
+              Ver todos
+            </a>
           </div>
-        </CardContent>
-      </Card>
+          <div className="flex overflow-x-auto pb-4 hide-scrollbar">
+            <div className="flex items-stretch px-4 pt-0 gap-4">
+              {mockHighlights.map(item => (
+                <HighlightCard key={item.id} item={item} />
+              ))}
+            </div>
+          </div>
+        </div>
 
-      {/* Premium Feature Callout */}
-      {!isPremium && (
-        <Card className="border-accent bg-accent/10">
-          <CardHeader>
-            <CardTitle className="text-accent">
-              Desbloqueie Recursos Premium
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Faça upgrade para o plano Premium para acessar análises avançadas,
-              recursos de marketing e maior visibilidade.
-            </p>
-            <Link to="/restaurant-area/upgrade">
-              <Button className="mt-4 bg-accent hover:bg-accent/90">
-                Fazer Upgrade Agora
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      )}
+        {/* Restaurantes Próximos */}
+        <div className="bg-background-light dark:bg-background-dark px-4 py-5">
+          <div className="flex justify-between items-center pb-3">
+            <h2 className="text-text-light dark:text-text-dark text-xl font-bold leading-tight">
+              Restaurantes Próximos
+            </h2>
+            <a className="text-accent text-sm font-semibold hover:underline" href="#">
+              Ver todos
+            </a>
+          </div>
+          <div className="flex flex-col gap-4">
+            {mockNearbyRestaurants.map(item => (
+              <NearbyRestaurantCard 
+                key={item.id} 
+                item={item} 
+                onClick={() => handleGoToRestaurantProfile(item.id)} 
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 w-full max-w-md mx-auto z-30">
+        <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
+      </div>
     </div>
   );
-}
+};
+
+export default RestaurantDashboard;
