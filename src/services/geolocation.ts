@@ -87,8 +87,18 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
 }
 
 export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
-  // checkLocationPreference agora é síncrona
   const preference = checkLocationPreference();
+  const savedLocation = loadLastSearchLocation(); // Carrega a última localização salva
+
+  // Função de fallback para usar a localização salva ou o mock padrão
+  const fallbackToSavedOrMock = async () => {
+    if (savedLocation) {
+      console.warn("Geolocation failed. Falling back to saved location.");
+      return reverseGeocode(savedLocation.lat, savedLocation.lon);
+    }
+    console.warn("Geolocation failed. Falling back to mock location.");
+    return reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon);
+  };
 
   if (preference === 'mock') {
     console.warn("Using mock location based on user preference.");
@@ -97,8 +107,8 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
 
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      console.warn("Geolocation is not supported by this browser. Falling back to mock location.");
-      return resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
+      console.warn("Geolocation is not supported by this browser. Falling back to saved/mock location.");
+      return resolve(fallbackToSavedOrMock());
     }
 
     const options: PositionOptions = {
@@ -115,14 +125,14 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
           resolve(address);
         } catch (error) {
           console.error("Reverse geocoding failed:", error);
-          // If reverse geocoding fails, still try to use mock location as a last resort
-          resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
+          // Se o reverse geocoding falhar, usa o fallback
+          resolve(fallbackToSavedOrMock());
         }
       },
       (error) => {
         console.error("Geolocation error:", error);
-        // If geolocation fails, use mock location
-        resolve(reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon));
+        // Se o geolocation falhar, usa o fallback
+        resolve(fallbackToSavedOrMock());
       },
       options
     );
