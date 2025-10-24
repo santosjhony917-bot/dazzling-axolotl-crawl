@@ -3,14 +3,19 @@ import { Button } from "@/components/ui/button";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { RestaurantBottomNav } from "@/components/restaurant/RestaurantBottomNav";
 import EditFieldDialog from "@/components/EditFieldDialog";
+import EditableField from "@/components/EditableField"; // Importando EditableField
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Phone, Mail, Link as LinkIcon, Utensils } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { z } from "zod";
 
 type InputType = "text" | "number" | "email" | "tel";
+
+// Definindo um schema padrão para campos simples
+const defaultSchema = z.string().min(1, "Campo obrigatório.");
 
 export default function RestaurantProfileMenu() {
   const { restaurant, isLoading, updateRestaurantField } = useRestaurant();
@@ -120,17 +125,19 @@ export default function RestaurantProfileMenu() {
         {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
         <p className="text-sm font-medium text-muted-foreground">{label}</p>
       </div>
-      <EditFieldDialog
+      <EditableField
         initialValue={String(value || "")}
         onSave={(newValue) => updateRestaurantField(key, newValue)}
         label={label}
         type={type}
         isTextArea={isTextArea}
+        validationSchema={defaultSchema}
+        placeholder={placeholder}
       >
         <p className="max-w-xs truncate text-right text-sm font-semibold">
           {value || `(${placeholder})`}
         </p>
-      </EditFieldDialog>
+      </EditableField>
     </div>
   );
 

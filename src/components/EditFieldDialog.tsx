@@ -25,7 +25,7 @@ interface EditFieldDialogProps {
   onSave: (value: string) => void;
   placeholder: string;
   validationSchema: z.ZodType<string>;
-  type?: "text" | "tel" | "email";
+  type?: "text" | "tel" | "email" | "number"; // <-- 'number' adicionado
   mask?: (value: string) => string;
   isTextArea?: boolean;
 }

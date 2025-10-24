@@ -1,15 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Users, Utensils, TrendingUp } from "lucide-react";
+import { DollarSign, Users, Utensils, TrendingUp, Building2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { RestaurantBottomNav } from "@/components/restaurant/RestaurantBottomNav";
-import EditFieldDialog from "@/components/EditFieldDialog";
 import { useRestaurant } from "@/hooks/useRestaurant";
 import { useUserRole } from "@/hooks/useUserRole";
 import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import EditableField from "@/components/EditableField";
+import { z } from "zod";
 
 // Mock data for demonstration
 const mockStats = [
@@ -38,6 +39,11 @@ const mockStats = [
     icon: TrendingUp,
   },
 ];
+
+// Schemas for validation
+const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres.");
+const descriptionSchema = z.string().max(500, "Descrição muito longa.").optional().or(z.literal(''));
+
 
 export default function RestaurantDashboard() {
   const { restaurant, isLoading, updateRestaurantField } = useRestaurant();
@@ -84,6 +90,7 @@ export default function RestaurantDashboard() {
   const handleCoverImageUpload = async (file: File) => {
     const url = await handleImageUpload(file, "restaurant_covers");
     if (url) {
+      // Note: updateRestaurantField expects string | number | null
       updateRestaurantField("cover_image_url", url);
     }
   };
@@ -120,7 +127,7 @@ export default function RestaurantDashboard() {
       {/* Restaurant Profile Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Informações do Restaurante</CardTitle>
+          <CardTitle>Informações Básicas</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Cover Image */}
@@ -164,13 +171,15 @@ export default function RestaurantDashboard() {
           {/* Name */}
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-muted-foreground">Nome</p>
-            <EditFieldDialog
+            <EditableField
               initialValue={restaurant.name}
               onSave={(value) => updateRestaurantField("name", value)}
               label="Nome do Restaurante"
+              validationSchema={nameSchema}
+              icon={<Building2 className="h-6 w-6 text-primary" />}
             >
               <p className="font-semibold">{restaurant.name}</p>
-            </EditFieldDialog>
+            </EditableField>
           </div>
 
           {/* Description */}
@@ -178,16 +187,18 @@ export default function RestaurantDashboard() {
             <p className="text-sm font-medium text-muted-foreground">
               Descrição
             </p>
-            <EditFieldDialog
+            <EditableField
               initialValue={restaurant.description || ""}
               onSave={(value) => updateRestaurantField("description", value)}
               label="Descrição do Restaurante"
-              isTextArea
+              isTextArea={true}
+              validationSchema={descriptionSchema}
+              icon={<FileText className="h-6 w-6 text-primary" />}
             >
               <p className="max-w-xs truncate text-right text-sm text-gray-600 dark:text-gray-400">
                 {restaurant.description || "Adicionar descrição"}
               </p>
-            </EditFieldDialog>
+            </EditableField>
           </div>
 
           {/* Plan */}
@@ -198,7 +209,7 @@ export default function RestaurantDashboard() {
 
           {/* Link to Menu */}
           <div className="pt-4">
-            <Link to="/restaurant/menu">
+            <Link to="/restaurant-area/menu">
               <Button className="w-full">Gerenciar Menu</Button>
             </Link>
           </div>
@@ -218,7 +229,7 @@ export default function RestaurantDashboard() {
               Faça upgrade para o plano Premium para acessar análises avançadas,
               recursos de marketing e maior visibilidade.
             </p>
-            <Link to="/restaurant/upgrade">
+            <Link to="/restaurant-area/upgrade">
               <Button className="mt-4 bg-accent hover:bg-accent/90">
                 Fazer Upgrade Agora
               </Button>
