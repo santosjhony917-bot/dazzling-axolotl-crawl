@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { formatCEP } from '@/services/geocoding';
+import { formatCEP, geocodeAddress } from '@/services/geocoding';
 import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 
