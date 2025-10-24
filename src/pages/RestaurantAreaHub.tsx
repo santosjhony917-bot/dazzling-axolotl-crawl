@@ -98,8 +98,8 @@ export default function RestaurantAreaHub() {
       {/* Footer */}
       <footer className="w-full max-w-md mx-auto py-6">
         <div className="flex justify-center items-center gap-6">
-          <p className="text-gray-500 text-sm font-medium">Termos</p>
-          <p className="text-gray-500 text-sm font-medium">Privacidade (LGPD)</p>
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
         </div>
       </footer>
     </div>

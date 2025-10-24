@@ -25,6 +25,7 @@ import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 import RestaurantProfileMenu from './pages/RestaurantProfileMenu';
 import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
+import Legal from './pages/Legal'; // Import adicionado
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           <Route path="/" element={<Splash />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/welcome" element={<Welcome />} />
+          
+          {/* Páginas Legais */}
+          <Route path="/legal" element={<Legal />} />
           
           {/* Autenticação Cliente */}
           <Route path="/auth" element={<Auth />} />

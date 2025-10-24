@@ -70,7 +70,7 @@ export default function ClaimRestaurant() {
       // In a real app, the backend would handle the role assignment (e.g., 'premium_restaurant')
       // For now, we redirect to the dashboard.
       setTimeout(() => {
-        navigate(createPageUrl('restaurant-dashboard'));
+        navigate(createPageUrl('restaurant-area/profile-menu'));
       }, 1000);
 
     } catch (error) {
@@ -89,7 +89,7 @@ export default function ClaimRestaurant() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -233,8 +233,8 @@ export default function ClaimRestaurant() {
       {/* Footer */}
       <footer className="w-full max-w-md mx-auto py-6">
         <div className="flex justify-center items-center gap-6">
-          <p className="text-gray-500 text-sm font-medium">Termos</p>
-          <p className="text-gray-500 text-sm font-medium">Privacidade (LGPD)</p>
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
         </div>
       </footer>
     </div>

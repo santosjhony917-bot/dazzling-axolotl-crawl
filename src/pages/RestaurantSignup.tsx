@@ -311,13 +311,13 @@ export default function RestaurantSignup() {
               />
               <label className="ml-2 text-sm text-gray-600 leading-relaxed" htmlFor="terms">
                 Concordo com os{" "}
-                <a className="font-bold text-highlight hover:underline" href="#">
+                <Link to={createPageUrl('legal')} className="font-bold text-highlight hover:underline">
                   termos de uso
-                </a>{" "}
+                </Link>{" "}
                 e{" "}
-                <a className="font-bold text-highlight hover:underline" href="#">
+                <Link to={createPageUrl('legal')} className="font-bold text-highlight hover:underline">
                   política de privacidade
-                </a>
+                </Link>
                 .
               </label>
             </div>

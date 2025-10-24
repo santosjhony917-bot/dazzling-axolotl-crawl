@@ -13,6 +13,7 @@ import { z } from "zod";
 import EditFieldDialog from "@/components/EditFieldDialog";
 import { createPageUrl } from "@/utils/url";
 import { cn } from "@/lib/utils";
+import { showInfo } from "@/utils/toast"; // Importando showInfo
 
 // Validation schemas (mantidos)
 const nameSchema = z.string()
@@ -330,7 +331,7 @@ const Profile = () => {
             label="Idioma" 
             description="Português (BR)"
             icon={Globe} 
-            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+            onClick={() => showInfo("Funcionalidade em desenvolvimento")}
           />
 
           {/* Tema */}
@@ -338,7 +339,7 @@ const Profile = () => {
             label="Tema" 
             description="Automático"
             icon={Moon} 
-            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+            onClick={() => showInfo("Funcionalidade em desenvolvimento")}
           />
 
           {/* Ajuda */}
@@ -346,16 +347,18 @@ const Profile = () => {
             label="Central de Ajuda" 
             description="Tutoriais e FAQ"
             icon={HelpCircle} 
-            onClick={() => toast({ title: "Em breve", description: "Funcionalidade em desenvolvimento" })}
+            onClick={() => showInfo("Funcionalidade em desenvolvimento")}
           />
 
           {/* Privacidade */}
-          <NavItem 
-            label="Privacidade e LGPD" 
-            description="Política de privacidade e termos"
-            icon={Shield} 
-            onClick={() => toast({ title: "Política de privacidade", description: "Funcionalidade em desenvolvimento" })}
-          />
+          <Link to={createPageUrl('legal')} className="w-full">
+            <NavItem 
+              label="Privacidade e LGPD" 
+              description="Política de privacidade e termos"
+              icon={Shield} 
+              onClick={() => {}} // A navegação é feita pelo Link
+            />
+          </Link>
         </Card>
       </div>
 
