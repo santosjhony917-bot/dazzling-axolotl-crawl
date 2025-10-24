@@ -15,7 +15,7 @@ import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
 import { z } from 'zod';
 import { showError } from '@/utils/toast';
 
-// --- Tipos de Formulário (Definidos fora da função para evitar erros de sintaxe) ---
+// --- Schemas e Tipos de Formulário ---
 const categorySchema = z.object({ 
   id: z.string().optional(), 
   name: z.string(), 
@@ -24,11 +24,12 @@ const categorySchema = z.object({
 });
 type CategoryFormData = z.infer<typeof categorySchema>;
 
+// Definindo o schema do item de forma que category_id seja obrigatório
 const itemSchema = z.object({ 
   id: z.string().optional(), 
-  category_id: z.string(), // Tornando obrigatório aqui
+  category_id: z.string().min(1, "Category ID is required"), // Garantindo que é string e obrigatório
   name: z.string(), 
-  description: z.string().optional(), 
+  description: z.string().optional().nullable(), 
   price: z.number(), 
   image_url: z.string().optional().nullable(), 
   order_index: z.number().optional(), 
@@ -98,6 +99,7 @@ export default function RestaurantMenu() {
   };
 
   const handleSaveItem = (data: ItemFormData) => {
+    // O ItemFormData agora garante que category_id é string, satisfazendo a mutação.
     itemMutations.save.mutate(data);
     setItemForm({ open: false, categoryId: '', data: null });
   };
