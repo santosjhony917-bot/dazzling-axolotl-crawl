@@ -59,6 +59,7 @@ export default function RestaurantStats() {
     refetchRestaurants();
   };
 
+  // --- Etapa 2: Renderização da UI (Localização e Busca) ---
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       <RestaurantAreaHeader title="Análise de Mercado" icon={BarChart3} backPath="restaurant-area/home" />
@@ -111,7 +112,7 @@ export default function RestaurantStats() {
           </Button>
         </form>
 
-        {/* Resultados */}
+        {/* --- Etapa 3: Exibição dos Resultados e Modais --- */}
         <h2 className="text-xl font-bold text-[#022D68] mb-4">Concorrentes Próximos</h2>
         
         {(isRestaurantsLoading || isLocationLoading) ? (
