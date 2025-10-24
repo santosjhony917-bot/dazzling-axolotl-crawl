@@ -7,13 +7,14 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { Restaurant } from "@/types/restaurant";
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { usePublicMenu } from '@/hooks/usePublicMenu'; // Importando o hook de menu público
 
 import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
 import OrderChannels from "@/components/restaurant/OrderChannels";
 import PhotoGallery from "@/components/restaurant/PhotoGallery";
-import MenuSection from "@/components/restaurant/MenuSection";
 import RestaurantInfo from "@/components/restaurant/RestaurantInfo";
-import FreeProfileLayout from "@/components/FreeProfileLayout"; // Importa o layout Free
+import FreeProfileLayout from "@/components/FreeProfileLayout";
+import PublicMenuSection from "@/components/public/PublicMenuSection"; // Importando o novo componente
 
 export default function RestaurantProfilePublic() {
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ export default function RestaurantProfilePublic() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
+
+  // Busca o cardápio público (habilitado se o ID existir)
+  const { data: menuData, isLoading: isMenuLoading, error: menuError } = usePublicMenu(id || '');
 
   useEffect(() => {
     const fetchRestaurant = async () => {
@@ -54,7 +58,7 @@ export default function RestaurantProfilePublic() {
     fetchRestaurant();
   }, [id]);
 
-  if (loading) {
+  if (loading || isMenuLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-[#E47948]" />
@@ -76,13 +80,13 @@ export default function RestaurantProfilePublic() {
   
   // --- Renderização Condicional ---
   if (restaurant.plan === 'free') {
-    // Se o plano for Free, renderiza o layout Free com children vazio
+    // Se o plano for Free, renderiza o layout Free
     return <FreeProfileLayout restaurant={restaurant}><div></div></FreeProfileLayout>;
   }
 
-  // --- Premium/Default Layout (Usando dados reais e mocks para conteúdo dinâmico) ---
+  // --- Premium/Default Layout ---
   
-  // Mock data necessário para componentes Premium que dependem de dados complexos (rating, menu, gallery)
+  // Mock data necessário para componentes Premium que dependem de dados complexos (rating, gallery)
   const premiumMockData = {
     isVerified: true, // Mocked for now
     rating: 4.7, // Mocked for now
@@ -92,25 +96,6 @@ export default function RestaurantProfilePublic() {
     address: restaurant.address || 'Endereço não definido',
     openingHours: '18:00 - 23:00', // Mocked for now
     isOpen: true, // Mocked for now
-    categories: ['Entradas', 'Principais', 'Sobremesas', 'Bebidas'], // Mocked for now
-    menuItems: [ // Mocked for now
-      {
-        id: '1',
-        name: 'Salada Caprese',
-        description: 'Tomate, mussarela de búfala, manjericão e azeite.',
-        price: 35.00,
-        imageUrl: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?q=80&w=2070&auto=format&fit=crop',
-        isFavorite: true
-      },
-      {
-        id: '2',
-        name: 'Ceviche Clássico',
-        description: 'Peixe branco fresco, limão, coentro e pimenta.',
-        price: 45.00,
-        imageUrl: 'https://images.unsplash.com/photo-1626200419199-391ae4be7a41?q=80&w=2070&auto=format&fit-crop',
-        isFavorite: false
-      },
-    ],
     gallery: [ // Mocked for now
       { imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop', caption: 'Ambiente aconchegante' },
       { imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop', caption: 'Culinária premium' },
@@ -125,7 +110,6 @@ export default function RestaurantProfilePublic() {
     name: restaurant.name,
     address: restaurant.address,
   };
-
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white max-w-md mx-auto">
@@ -234,11 +218,12 @@ export default function RestaurantProfilePublic() {
         {/* Photo Gallery */}
         <PhotoGallery gallery={displayData.gallery} />
 
-        {/* Menu Section */}
-        <MenuSection 
-          categories={displayData.categories}
-          menuItems={displayData.menuItems}
-        />
+        {/* Menu Section (Usando dados reais) */}
+        {menuData && (
+          <div className="mt-8">
+            <PublicMenuSection categories={menuData.categories} />
+          </div>
+        )}
 
         {/* Restaurant Info */}
         <RestaurantInfo restaurant={displayData} />
