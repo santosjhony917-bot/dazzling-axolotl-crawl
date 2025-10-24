@@ -18,8 +18,45 @@ export default function RestaurantProfileMenu() {
     return <Loading />;
   }
 
-  if (error || !restaurant) {
-    return <ErrorMessage message="Não foi possível carregar o perfil do restaurante." />;
+  if (error) {
+    return <ErrorMessage message={`Erro ao carregar o perfil: ${error}`} />;
+  }
+  
+  if (!restaurant) {
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto p-4">
+        <header className="sticky top-0 z-20 bg-white shadow-sm p-4 flex items-center justify-between mb-6 rounded-xl">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(createPageUrl('restaurant-area/home'))}
+            className="text-[#022D68] hover:bg-[#022D68]/5"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <h1 className="text-lg font-bold text-[#022D68] flex-1 text-center pr-10 truncate">
+            Gerenciar Cardápio
+          </h1>
+          <div className="w-10"></div>
+        </header>
+        <Card className="shadow-xl border-none rounded-xl p-6 text-center">
+          <Utensils className="w-12 h-12 text-highlight mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-[#022D68]">Restaurante Não Encontrado</h2>
+          <p className="text-gray-600 mt-2">
+            Parece que sua conta de usuário não está vinculada a um restaurante.
+          </p>
+          <p className="text-sm text-gray-500 mt-1">
+            Se você acabou de se cadastrar, verifique se o processo foi concluído corretamente.
+          </p>
+          <Button
+            onClick={() => navigate(createPageUrl('restaurant-signup'))}
+            className="mt-6 bg-highlight hover:bg-highlight/90"
+          >
+            Tentar Cadastrar Novamente
+          </Button>
+        </Card>
+      </div>
+    );
   }
 
   return (
