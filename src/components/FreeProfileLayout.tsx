@@ -2,7 +2,7 @@ import React from 'react';
 import { Restaurant } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft, CreditCard } from 'lucide-react';
+import { Info, Phone, MessageCircle, MapPin, Clock, Utensils, ArrowLeft, CreditCard, Globe } from 'lucide-react';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +43,7 @@ export default function FreeProfileLayout({ restaurant, children, menuCategories
     );
   }
 
-  const { name, description, image_url, address, phone, whatsapp_url, city, state } = restaurant;
+  const { name, description, image_url, address, phone, whatsapp_url, city, state, ifood_url, other_url } = restaurant;
 
   // Mock de dados para o Header Público
   const headerData = {
@@ -120,9 +120,38 @@ export default function FreeProfileLayout({ restaurant, children, menuCategories
           </Card>
         )}
         
-        {/* Seção do Cardápio Público (NOVO) */}
+        {/* Seção do Cardápio Público */}
         <Card className="shadow-md border-none rounded-xl p-4">
           <PublicMenuSection categories={menuCategories} />
+        </Card>
+        
+        {/* NOVA SEÇÃO: Links e Redes Sociais */}
+        <Card className="shadow-md border-none rounded-xl p-4 space-y-4">
+          <h2 className="text-xl font-bold text-[#022D68]">Links e Pedidos</h2>
+          
+          {whatsapp_url ? (
+            <a href={whatsapp_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+              <MessageCircle size={20} className="text-green-600 shrink-0" />
+              <div>
+                <p className="text-sm font-bold text-green-700">WhatsApp</p>
+                <p className="text-xs text-green-600 truncate">{whatsapp_url}</p>
+              </div>
+            </a>
+          ) : (
+            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+              <MessageCircle size={20} className="text-gray-400 shrink-0" />
+              <p className="text-sm text-gray-500">WhatsApp não configurado.</p>
+            </div>
+          )}
+          
+          {/* Links Premium (iFood e Outros) */}
+          <div className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg border border-yellow-300 opacity-70">
+            <Globe size={20} className="text-yellow-700 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-yellow-800">Links Adicionais (Premium)</p>
+              <p className="text-xs text-yellow-700">iFood, Site Próprio, etc.</p>
+            </div>
+          </div>
         </Card>
         
         {/* Alerta de Recurso Premium */}
