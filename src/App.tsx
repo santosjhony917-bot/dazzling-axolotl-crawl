@@ -25,7 +25,7 @@ import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 import RestaurantProfileMenu from './pages/RestaurantProfileMenu';
 import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
-import Legal from './pages/Legal'; // Import adicionado
+import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -46,6 +46,10 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
+          {/* Rotas Públicas de Busca */}
+          <Route path="/search-restaurants" element={<SearchRestaurants />} />
+          <Route path="/restaurant-results" element={<RestaurantResults />} />
+          
           {/* Rotas Públicas de Restaurante */}
           <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
           <Route path="/restaurant-login" element={<RestaurantLogin />} />
@@ -61,8 +65,6 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/favorites" element={<Favorites />} />
-            <Route path="/search-restaurants" element={<SearchRestaurants />} />
-            <Route path="/restaurant-results" element={<RestaurantResults />} />
           </Route>
 
           {/* Rotas Protegidas da Área do Restaurante */}
