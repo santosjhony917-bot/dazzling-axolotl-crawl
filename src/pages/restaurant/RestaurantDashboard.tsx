@@ -27,7 +27,8 @@ import { cn } from "@/lib/utils";
 import HighlightCard from "@/components/restaurant/HighlightCard";
 import NearbyRestaurantCard from "@/components/restaurant/NearbyRestaurantCard";
 import useEmblaCarousel from 'embla-carousel-react';
-import LocationModal from "@/components/restaurant/LocationModal"; // Importando o novo modal
+import LocationModal from "@/components/restaurant/LocationModal"; 
+import { Restaurant } from "@/types/restaurant"; // Importando o tipo Restaurant
 
 // Mock Data para o novo dashboard
 const mockHighlights = [
@@ -64,6 +65,24 @@ const upgradeSlides = [
   },
 ];
 
+// Mock de dados de restaurante para fallback
+const MOCK_RESTAURANT_DATA: Restaurant = {
+  id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+  user_id: "mock-user-id",
+  name: "Restaurante Mockado",
+  plan: "free",
+  created_at: new Date().toISOString(),
+  cep: "58039-000",
+  address: "Av. Epitácio Pessoa",
+  neighborhood: "Tambau",
+  city: "João Pessoa",
+  state: "PB",
+  phone: "(83) 99999-9999",
+  // Adicionando coordenadas mockadas para completar o tipo Restaurant
+  latitude: -7.1195, 
+  longitude: -34.8450,
+};
+
 
 const RestaurantDashboard = () => {
   const navigate = useNavigate();
@@ -78,7 +97,10 @@ const RestaurantDashboard = () => {
 
   // Mock restaurant ID for development until proper auth flow is implemented
   const MOCK_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; 
-  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
+  const { restaurant: fetchedRestaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(MOCK_RESTAURANT_ID);
+  
+  // Usando fallback para garantir que o objeto restaurant exista para o modal
+  const restaurant = fetchedRestaurant || MOCK_RESTAURANT_DATA;
   
   const { isPremium } = useUserRole(); // Using mock hook
 
@@ -147,7 +169,7 @@ const RestaurantDashboard = () => {
         {/* Header de Localização (CLICÁVEL) */}
         <div 
           className="flex items-center p-4 justify-between bg-background-light dark:bg-background-dark cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)} // Adicionando o clique aqui
+          onClick={() => setIsLocationModalOpen(true)} 
         >
           <div className="flex items-center gap-2">
             <MapPin className="text-primary w-7 h-7" />
@@ -161,7 +183,10 @@ const RestaurantDashboard = () => {
             </div>
           </div>
           <Button 
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
+            onClick={(e) => {
+              e.stopPropagation(); // Previne que o clique no botão abra o modal
+              navigate(createPageUrl('restaurant-area/profile-menu'));
+            }}
             className="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 w-12 bg-primary/10"
             variant="ghost"
             size="icon"
