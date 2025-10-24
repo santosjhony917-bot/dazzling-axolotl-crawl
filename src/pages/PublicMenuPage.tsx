@@ -7,6 +7,7 @@ import MenuCategoryList from '@/components/menu/MenuCategoryList';
 import { Utensils } from 'lucide-react';
 
 const PublicMenuPage: React.FC = () => {
+  // Usando 'restaurantId' conforme definido na rota: /menu/:restaurantId
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const { menuData, isLoading, error } = usePublicMenu(restaurantId);
 

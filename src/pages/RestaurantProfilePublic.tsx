@@ -90,7 +90,7 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
           {/* Botões de Ação */}
           <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
             <Button 
-              onClick={() => navigate(createPageUrl(`public-menu/${restaurant.id}`))}
+              onClick={() => navigate(createPageUrl(`menu/${restaurant.id}`))}
               className="flex-1 flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
             >
               <Utensils className="w-5 h-5" />
@@ -184,7 +184,7 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Destaques do Cardápio</h3>
               <Button 
                 variant="link" 
-                onClick={() => navigate(createPageUrl(`public-menu/${restaurant.id}`))}
+                onClick={() => navigate(createPageUrl(`menu/${restaurant.id}`))}
                 className="text-highlight p-0 h-auto text-sm font-semibold"
               >
                 Ver Cardápio Completo
@@ -212,12 +212,14 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
 
 
 const RestaurantProfilePublic: React.FC = () => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
+  // Usando 'id' conforme definido na rota: /restaurant-profile/:id
+  const { id } = useParams<{ id: string }>(); 
   const navigate = useNavigate();
   
-  const { data: profileData, isLoading, error } = usePublicRestaurantProfile(restaurantId);
+  // Passamos 'id' para o hook
+  const { data: profileData, isLoading, error } = usePublicRestaurantProfile(id);
 
-  if (!restaurantId) {
+  if (!id) {
     return (
       <PublicRestaurantLayout restaurant={null} title="Perfil">
         <div className="p-4 text-center text-red-500">ID do Restaurante não fornecido.</div>
