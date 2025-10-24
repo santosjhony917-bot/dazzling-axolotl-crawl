@@ -7,7 +7,7 @@ import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Restaurant } from '@/types/restaurant';
 import Header from '@/components/Header';
-import SearchToggle from '@/components/SearchToggle'; // Importando o novo componente
+import SearchToggle from '@/components/SearchToggle';
 
 type SearchType = 'dishes' | 'restaurants';
 
@@ -16,7 +16,7 @@ export default function RestaurantSearch() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [searchType, setSearchType] = useState<SearchType>('restaurants'); // Novo estado para o tipo de busca
+  const [searchType, setSearchType] = useState<SearchType>('restaurants');
   
   const { location } = useUserSearchLocation();
 
@@ -53,7 +53,7 @@ export default function RestaurantSearch() {
     } finally {
       setLoading(false);
     }
-  }, [searchType]); // Adicionado searchType como dependência
+  }, [searchType]);
 
   // Initial fetch or fetch when location changes or searchType changes
   useEffect(() => {
@@ -88,17 +88,6 @@ export default function RestaurantSearch() {
       />
 
       <div className="p-4">
-        {/* Exibição da Localização Atual (Apenas leitura) */}
-        <div 
-          className="flex items-center p-3 bg-white rounded-xl shadow-md mb-6 border border-primary/10"
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-primary truncate">
-              Busca baseada em: {currentAddress}
-            </span>
-          </div>
-        </div>
-
         {/* Barra de Pesquisa */}
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -140,7 +129,8 @@ export default function RestaurantSearch() {
             <p className="text-gray-500">
               Nenhum {searchType === 'dishes' ? 'prato' : 'restaurante'} encontrado na área de 10km.
             </p>
-            <p className="text-sm text-gray-400 mt-2">A busca está baseada em: {currentAddress}</p>
+            {/* Removendo a exibição da localização aqui também, pois não deve ser visível */}
+            {/* <p className="text-sm text-gray-400 mt-2">A busca está baseada em: {currentAddress}</p> */}
           </div>
         )}
       </div>
