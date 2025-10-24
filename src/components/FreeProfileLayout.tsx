@@ -120,14 +120,12 @@ export default function FreeProfileLayout({ restaurant, children, menuCategories
           </Card>
         )}
         
-        {/* Seção do Cardápio Público */}
-        {menuCategories.length > 0 && (
-          <Card className="shadow-md border-none rounded-xl p-4">
-            <PublicMenuSection categories={menuCategories} />
-          </Card>
-        )}
+        {/* Seção do Cardápio Público (NOVO) */}
+        <Card className="shadow-md border-none rounded-xl p-4">
+          <PublicMenuSection categories={menuCategories} />
+        </Card>
         
-        {/* Alerta de Recurso Premium (Mantido, mas movido para baixo do menu) */}
+        {/* Alerta de Recurso Premium */}
         <Card className="shadow-md border-none rounded-xl p-4 text-center bg-yellow-50 border-yellow-300">
           <Utensils className="w-8 h-8 text-yellow-600 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-yellow-700">Cardápio Básico</h3>
