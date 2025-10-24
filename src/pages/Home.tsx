@@ -32,7 +32,7 @@ const Home: React.FC = () => {
     userLat,
     userLon,
     enabled: userLat !== null && userLon !== null,
-    searchQuery: searchQuery,
+    searchQuery: searchQuery, // Passa a query de busca
   });
 
   const handleLocationSaved = () => {
@@ -46,8 +46,9 @@ const Home: React.FC = () => {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // Navega para a página de resultados com os parâmetros de busca
-    navigate(`/restaurant-results?lat=${userLat}&lon=${userLon}&distance=10&search=${searchQuery}`);
+    // A busca é acionada automaticamente pelo hook useNearbyRestaurants quando searchQuery muda.
+    // Aqui, apenas garantimos que a refetch seja chamada se necessário (embora o debounce do input já cubra isso).
+    refetchRestaurants();
   };
 
   const handleOpenSearchConfig = () => {
