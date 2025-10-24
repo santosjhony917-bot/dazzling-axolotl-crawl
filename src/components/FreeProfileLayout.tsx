@@ -11,7 +11,7 @@ import { MenuCategory, MenuItem } from '@/types'; // Importando tipos de menu
 
 interface FreeProfileLayoutProps {
   restaurant?: Restaurant; // Tornando opcional
-  children: React.ReactNode;
+  children?: React.ReactNode; // Tornando opcional
   menuCategories?: (MenuCategory & { items: MenuItem[] })[]; // Novo: Dados do menu
 }
 
