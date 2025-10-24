@@ -1,169 +1,206 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory, MenuItem } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types';
 import { showError, showSuccess } from '@/utils/toast';
+import { useRestaurant } from './useRestaurant';
+import { useAuth } from '@/context/AuthContext';
 
-// Tipos de dados para mutação (simplificados para o hook)
-type CategoryMutationData = Partial<MenuCategory> & { restaurant_id: string };
-type ItemMutationData = Partial<MenuItem> & { category_id: string };
+export interface MenuManagementResult {
+  categories: (MenuCategory & { items: MenuItem[] })[];
+  isLoading: boolean;
+  error: string | null;
+  refetch: () => void;
+  addCategory: (name: string) => Promise<void>;
+  updateCategory: (id: string, name: string, is_active: boolean) => Promise<void>;
+  deleteCategory: (id: string) => Promise<void>;
+  addItem: (categoryId: string, item: Omit<MenuItem, 'id' | 'category_id' | 'created_at'>) => Promise<void>;
+  updateItem: (item: MenuItem) => Promise<void>;
+  deleteItem: (itemId: string) => Promise<void>;
+}
 
-const MENU_QUERY_KEY = 'restaurantMenu';
+export const useMenuManagement = (): MenuManagementResult => {
+  const { restaurant } = useRestaurant();
+  const { user } = useAuth();
+  const [categories, setCategories] = useState<(MenuCategory & { items: MenuItem[] })[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [refetchIndex, setRefetchIndex] = useState(0);
 
-/**
- * Hook para gerenciar dados de menu (categorias e itens) de um restaurante.
- * @param restaurantId O ID do restaurante.
- */
-export const useMenuManagement = (restaurantId: string | null) => {
-  const queryClient = useQueryClient();
+  const refetch = () => setRefetchIndex(prev => prev + 1);
 
-  // 1. Query para buscar todos os dados do menu
-  const { data, isLoading, error } = useQuery({
-    queryKey: [MENU_QUERY_KEY, restaurantId],
-    queryFn: async () => {
-      if (!restaurantId) return { categories: [], items: [] };
+  useEffect(() => {
+    if (!restaurant?.id) {
+      setIsLoading(false);
+      setCategories([]);
+      return;
+    }
 
-      const { data: categoriesData, error: categoriesError } = await supabase
-        .from('menu_categories')
-        .select('*')
-        .eq('restaurant_id', restaurantId)
-        .order('order_index', { ascending: true });
+    const fetchMenu = async () => {
+      setIsLoading(true);
+      setError(null);
 
-      if (categoriesError) throw categoriesError;
-
-      const categoryIds = categoriesData.map(c => c.id);
-
-      const { data: itemsData, error: itemsError } = await supabase
-        .from('menu_items')
-        .select('*')
-        .in('category_id', categoryIds)
-        .order('order_index', { ascending: true });
-
-      if (itemsError) throw itemsError;
-
-      return {
-        categories: categoriesData as MenuCategory[],
-        items: itemsData as MenuItem[],
-      };
-    },
-    enabled: !!restaurantId,
-  });
-
-  // Função de sucesso para invalidar o cache
-  const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: [MENU_QUERY_KEY, restaurantId] });
-  };
-
-  // 2. Mutações para Categorias
-  const categoryMutations = {
-    save: useMutation({
-      mutationFn: async (data: CategoryMutationData) => {
-        const { id, ...rest } = data;
-        if (id) {
-          // Update
-          const { data: updatedData, error } = await supabase
-            .from('menu_categories')
-            .update(rest)
-            .eq('id', id)
-            .select()
-            .single();
-          if (error) throw error;
-          return updatedData;
-        } else {
-          // Insert
-          const { data: insertedData, error } = await supabase
-            .from('menu_categories')
-            .insert(rest)
-            .select()
-            .single();
-          if (error) throw error;
-          return insertedData;
-        }
-      },
-      onSuccess: () => {
-        showSuccess("Categoria salva com sucesso!");
-        onSuccess();
-      },
-      onError: (err) => {
-        showError(`Falha ao salvar categoria: ${err.message}`);
-      },
-    }),
-
-    delete: useMutation({
-      mutationFn: async (categoryId: string) => {
-        const { error } = await supabase
+      try {
+        // 1. Fetch Categories
+        const { data: categoriesData, error: categoriesError } = await supabase
           .from('menu_categories')
-          .delete()
-          .eq('id', categoryId);
-        if (error) throw error;
-      },
-      onSuccess: () => {
-        showSuccess("Categoria deletada com sucesso!");
-        onSuccess();
-      },
-      onError: (err) => {
-        showError(`Falha ao deletar categoria: ${err.message}`);
-      },
-    }),
+          .select('*')
+          .eq('restaurant_id', restaurant.id)
+          .order('order_index', { ascending: true });
+
+        if (categoriesError) throw categoriesError;
+
+        const categoryIds = categoriesData.map(c => c.id);
+
+        // 2. Fetch Items
+        const { data: itemsData, error: itemsError } = await supabase
+          .from('menu_items')
+          .select('*')
+          .in('category_id', categoryIds)
+          .order('order_index', { ascending: true });
+
+        if (itemsError) throw itemsError;
+
+        // 3. Group items by category
+        const groupedCategories = categoriesData.map(category => ({
+          ...category,
+          items: itemsData.filter(item => item.category_id === category.id),
+        }));
+
+        setCategories(groupedCategories);
+
+      } catch (err: any) {
+        console.error('Error fetching menu:', err);
+        setError(err.message || 'Falha ao carregar o cardápio.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, [restaurant?.id, refetchIndex]);
+
+  // --- Category Management Functions ---
+
+  const addCategory = async (name: string) => {
+    if (!restaurant?.id) return;
+    const newOrderIndex = categories.length > 0 ? categories[categories.length - 1].order_index + 1 : 0;
+
+    const { error } = await supabase
+      .from('menu_categories')
+      .insert({
+        restaurant_id: restaurant.id,
+        name,
+        order_index: newOrderIndex,
+      });
+
+    if (error) {
+      showError('Erro ao adicionar categoria.');
+      console.error(error);
+    } else {
+      showSuccess('Categoria adicionada com sucesso!');
+      refetch();
+    }
   };
 
-  // 3. Mutações para Itens
-  const itemMutations = {
-    save: useMutation({
-      mutationFn: async (data: ItemMutationData) => {
-        const { id, ...rest } = data;
-        if (id) {
-          // Update
-          const { data: updatedData, error } = await supabase
-            .from('menu_items')
-            .update(rest)
-            .eq('id', id)
-            .select()
-            .single();
-          if (error) throw error;
-          return updatedData;
-        } else {
-          // Insert
-          const { data: insertedData, error } = await supabase
-            .from('menu_items')
-            .insert(rest)
-            .select()
-            .single();
-          if (error) throw error;
-          return insertedData;
-        }
-      },
-      onSuccess: () => {
-        showSuccess("Item salvo com sucesso!");
-        onSuccess(); // Invalida o cache após salvar/inserir item
-      },
-      onError: (err) => {
-        showError(`Falha ao salvar item: ${err.message}`);
-      },
-    }),
+  const updateCategory = async (id: string, name: string, is_active: boolean) => {
+    const { error } = await supabase
+      .from('menu_categories')
+      .update({ name, is_active })
+      .eq('id', id);
 
-    delete: useMutation({
-      mutationFn: async (itemId: string) => {
-        const { error } = await supabase
-          .from('menu_items')
-          .delete()
-          .eq('id', itemId);
-        if (error) throw error;
-      },
-      onSuccess: () => {
-        showSuccess("Item deletado com sucesso!");
-        onSuccess(); // Invalida o cache após deletar item
-      },
-      onError: (err) => {
-        showError(`Falha ao deletar item: ${err.message}`);
-      },
-    }),
+    if (error) {
+      showError('Erro ao atualizar categoria.');
+      console.error(error);
+    } else {
+      showSuccess('Categoria atualizada com sucesso!');
+      refetch();
+    }
+  };
+
+  const deleteCategory = async (id: string) => {
+    const { error } = await supabase
+      .from('menu_categories')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      showError('Erro ao deletar categoria.');
+      console.error(error);
+    } else {
+      showSuccess('Categoria deletada com sucesso!');
+      refetch();
+    }
+  };
+
+  // --- Item Management Functions ---
+
+  const addItem = async (categoryId: string, item: Omit<MenuItem, 'id' | 'category_id' | 'created_at'>) => {
+    const category = categories.find(c => c.id === categoryId);
+    const newOrderIndex = category?.items.length ? category.items[category.items.length - 1].order_index + 1 : 0;
+
+    const { error } = await supabase
+      .from('menu_items')
+      .insert({
+        ...item,
+        category_id: categoryId,
+        order_index: newOrderIndex,
+      });
+
+    if (error) {
+      showError('Erro ao adicionar item.');
+      console.error(error);
+    } else {
+      showSuccess('Item adicionado com sucesso!');
+      refetch();
+    }
+  };
+
+  const updateItem = async (item: MenuItem) => {
+    const { error } = await supabase
+      .from('menu_items')
+      .update({
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        image_url: item.image_url,
+        is_active: item.is_active,
+      })
+      .eq('id', item.id);
+
+    if (error) {
+      showError('Erro ao atualizar item.');
+      console.error(error);
+    } else {
+      showSuccess('Item atualizado com sucesso!');
+      refetch();
+    }
+  };
+
+  const deleteItem = async (itemId: string) => {
+    const { error } = await supabase
+      .from('menu_items')
+      .delete()
+      .eq('id', itemId);
+
+    if (error) {
+      showError('Erro ao deletar item.');
+      console.error(error);
+    } else {
+      showSuccess('Item deletado com sucesso!');
+      refetch();
+    }
   };
 
   return {
-    menuData: data,
+    categories,
     isLoading,
     error,
-    categoryMutations,
-    itemMutations,
+    refetch,
+    addCategory,
+    updateCategory,
+    deleteCategory,
+    addItem,
+    updateItem,
+    deleteItem,
   };
 };
