@@ -2,9 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import FreeProfileLayout from '@/components/FreeProfileLayout';
 import { usePublicMenu } from '@/hooks/usePublicMenu';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from '@/components/ui/separator';
 import { formatPrice } from '@/lib/utils';
 
 const PublicMenuPage: React.FC = () => {
@@ -13,7 +12,11 @@ const PublicMenuPage: React.FC = () => {
   const { data, isLoading, isError } = usePublicMenu(restaurantId || '');
 
   if (!restaurantId) {
-    return <FreeProfileLayout><div className="p-4 text-center text-red-500">ID do Restaurante não fornecido.</div></FreeProfileLayout>;
+    return (
+      <FreeProfileLayout>
+        <div className="p-4 text-center text-red-500">ID do Restaurante não fornecido.</div>
+      </FreeProfileLayout>
+    );
   }
 
   if (isLoading) {
@@ -30,7 +33,11 @@ const PublicMenuPage: React.FC = () => {
   }
 
   if (isError || !data) {
-    return <FreeProfileLayout><div className="p-4 text-center text-red-500">Erro ao carregar o cardápio.</div></FreeProfileLayout>;
+    return (
+      <FreeProfileLayout>
+        <div className="p-4 text-center text-red-500">Erro ao carregar o cardápio.</div>
+      </FreeProfileLayout>
+    );
   }
 
   const { categories } = data;

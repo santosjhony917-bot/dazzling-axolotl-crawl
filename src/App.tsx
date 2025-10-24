@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
-import Auth from './pages/Auth'; // Importação corrigida para Auth
+import Auth from './pages/Auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import RestaurantArea from './pages/RestaurantArea';
 import RestaurantDashboard from './pages/RestaurantDashboard';
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} /> {/* Rota ajustada para /auth */}
+          <Route path="/auth" element={<Auth />} />
           
           {/* Rota Pública do Cardápio */}
           <Route path="/menu/:restaurantId" element={<PublicMenuPage />} />

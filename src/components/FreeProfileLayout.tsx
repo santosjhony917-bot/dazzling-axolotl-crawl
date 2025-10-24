@@ -8,32 +8,54 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 interface FreeProfileLayoutProps {
-  restaurant: Restaurant;
+  restaurant?: Restaurant; // Tornando opcional
+  children: React.ReactNode;
 }
 
-export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
+export default function FreeProfileLayout({ restaurant, children }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
+  
+  // Se não houver restaurante, renderiza um layout básico
+  if (!restaurant) {
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+        <header className="sticky top-0 z-20 bg-white shadow-sm p-4 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="text-[#022D68] hover:bg-[#022D68]/5"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <h1 className="text-lg font-bold text-[#022D68] flex-1 text-center pr-10 truncate">
+            Perfil do Restaurante
+          </h1>
+          <div className="w-10"></div>
+        </header>
+        <main className="p-4">
+          {children}
+        </main>
+      </div>
+    );
+  }
+
   const { name, description, image_url, address, phone, whatsapp_url, city, state } = restaurant;
 
-  // Mock de dados para o Header Público (o plano será 'Free' por padrão aqui)
+  // Mock de dados para o Header Público
   const headerData = {
-    name: name || "Restaurante Free",
-    followersCount: 0, // Não exibido no Free, mas necessário para a interface
+    name: name || "Restaurante",
+    followersCount: 0,
     logoUrl: image_url || '',
     isFollowing: false,
-    onFollowToggle: () => alert("Funcionalidade de seguir em desenvolvimento."),
+    onFollowToggle: () => alert("Funcionalidade em desenvolvimento"),
   };
   
-  // Mock de Horários (para exibição simples)
   const mockHours = "Seg-Sex: 09:00 - 18:00";
-  
-  // Mock de Formas de Pagamento (para o plano Free)
   const mockPaymentMethods = ["Dinheiro", "Cartão de Débito", "PIX"];
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      
-      {/* Header Fixo com Botão Voltar */}
       <header className="sticky top-0 z-20 bg-white shadow-sm p-4 flex items-center justify-between">
         <Button
           variant="ghost"
@@ -46,21 +68,17 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         <h1 className="text-lg font-bold text-[#022D68] flex-1 text-center pr-10 truncate">
           {name || "Perfil do Restaurante"}
         </h1>
-        <div className="w-10"></div> {/* Placeholder para alinhamento */}
+        <div className="w-10"></div>
       </header>
 
-      {/* Header Público (Logo, Nome, Botões) - Abaixo do Header Fixo */}
       <div className="bg-white shadow-md rounded-b-xl">
         <RestaurantPublicHeader restaurant={headerData} />
       </div>
 
       <main className="p-4 space-y-6">
-        
-        {/* Informações Essenciais */}
         <Card className="shadow-md border-none rounded-xl p-4 space-y-4">
           <h2 className="text-xl font-bold text-[#022D68]">Informações</h2>
           
-          {/* Endereço */}
           <div className="flex items-start gap-3">
             <MapPin className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
             <div>
@@ -69,7 +87,6 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             </div>
           </div>
           
-          {/* Horários */}
           <div className="flex items-start gap-3">
             <Clock className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
             <div>
@@ -78,7 +95,6 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             </div>
           </div>
           
-          {/* Formas de Pagamento */}
           <div className="flex items-start gap-3">
             <CreditCard className="w-5 h-5 text-[#E47948] mt-1 shrink-0" />
             <div>
@@ -92,10 +108,8 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               </div>
             </div>
           </div>
-          
         </Card>
 
-        {/* Descrição / Sobre Nós */}
         {description && (
           <Card className="shadow-md border-none rounded-xl p-4">
             <h2 className="text-xl font-bold text-[#022D68] mb-3">Sobre Nós</h2>
@@ -103,7 +117,6 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           </Card>
         )}
         
-        {/* Cardápio Limitado (Aviso) */}
         <Card className="shadow-md border-none rounded-xl p-4 text-center bg-yellow-50 border-yellow-300">
           <Utensils className="w-8 h-8 text-yellow-600 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-yellow-700">Cardápio Básico</h3>
@@ -119,14 +132,15 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           </Button>
         </Card>
 
-        {/* Aviso Geral (Mantido) */}
         <Alert className="mt-6 text-left">
           <Info className="h-4 w-4" />
-          <AlertTitle>Perfil Gratuito</AlertTitle> {/* CORRIGIDO: Fechamento correto da tag */}
+          <AlertTitle>Perfil Gratuito</AlertTitle>
           <AlertDescription>
             Este restaurante utiliza o plano Free. Para mais visibilidade e recursos, o proprietário pode fazer upgrade.
           </AlertDescription>
         </Alert>
+        
+        {children}
       </main>
     </div>
   );
