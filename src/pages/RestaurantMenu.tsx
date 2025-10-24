@@ -1,225 +1,277 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, Utensils, Loader2, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { UtensilsCrossed, Plus, ChevronDown, ChevronUp, Edit, Trash2, Loader2, Utensils, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useMenuManagement } from '@/hooks/useMenuManagement';
-import { MenuCategory, MenuItem } from '@/types';
+import { MenuCategory, MenuItem } from '@/types/restaurant';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { useRestaurant } from '@/hooks/useRestaurant';
-import { Skeleton } from '@/components/ui/skeleton';
-import { showError, showSuccess } from '@/utils/toast';
-import { formatPrice } from '@/lib/utils';
-import CategoryFormDialog from '@/components/restaurant/menu/CategoryFormDialog';
-import ItemFormDialog from '@/components/restaurant/menu/ItemFormDialog';
+import CategoryFormDialog, { CategoryFormData } from '@/components/restaurant/menu/CategoryFormDialog';
+import ItemFormDialog, { ItemFormData } from '@/components/restaurant/menu/ItemFormDialog';
 import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
-import { useImageUpload } from '@/hooks/useImageUpload';
-import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { z } from 'zod';
+import { showError } from '@/utils/toast';
+import { cn } from '@/lib/utils';
 
-const RestaurantMenu: React.FC = () => {
+// --- Schemas e Tipos de Formulário ---
+// Removendo a definição local de categorySchema e itemSchema, agora os tipos são importados.
+
+// Tipos para o estado de edição
+type CategoryFormState = { open: boolean, data: MenuCategory | null };
+type ItemFormState = { open: boolean, categoryId: string, data: MenuItem | null };
+
+export default function RestaurantMenu() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: isRestaurantLoading } = useRestaurant();
+  const { user, isLoading: authLoading } = useAuth();
+  const { restaurant, loading: restaurantLoading } = useRestaurantProfile(user?.id);
   const restaurantId = restaurant?.id || null;
   
   const { 
-    categories, 
-    isLoading: isMenuLoading, 
-    error: menuError, 
-    refetch, 
-    addCategory, 
-    updateCategory, 
-    deleteCategory,
-    addItem,
-    updateItem,
-    deleteItem,
-  } = useMenuManagement();
+    menuData, 
+    isLoading: menuLoading, 
+    categoryMutations, 
+    itemMutations 
+  } = useMenuManagement(restaurantId);
 
-  const { uploadImage, uploading } = useImageUpload();
+  const [categoryForm, setCategoryForm] = useState<CategoryFormState>({ open: false, data: null });
+  const [itemForm, setItemForm] = useState<ItemFormState>({ open: false, categoryId: '', data: null });
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
-  // Dialog States
-  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
-  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  // Redirecionamento se não estiver logado ou sem restaurante
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/restaurant-login');
+    }
+  }, [authLoading, user, navigate]);
 
-  const handleOpenCategoryDialog = (category: MenuCategory | null = null) => {
-    setEditingCategory(category);
-    setIsCategoryDialogOpen(true);
+  // --- Handlers de Categoria ---
+  const handleOpenCategoryForm = (data: MenuCategory | null = null) => {
+    setCategoryForm({ open: true, data });
   };
 
-  const handleOpenItemDialog = (categoryId: string, item: MenuItem | null = null) => {
-    setSelectedCategoryId(categoryId);
-    setEditingItem(item);
-    setIsItemDialogOpen(true);
-  };
-
-  const handleSaveCategory = async (name: string, is_active: boolean) => {
+  const handleSaveCategory = (data: CategoryFormData) => {
     if (!restaurantId) {
       showError("ID do restaurante não encontrado.");
       return;
     }
-    if (editingCategory) {
-      await updateCategory(editingCategory.id, name, is_active);
-    } else {
-      await addCategory(name);
-    }
-    setIsCategoryDialogOpen(false);
+    categoryMutations.save.mutate({ ...data, restaurant_id: restaurantId });
+    setCategoryForm({ open: false, data: null });
   };
 
-  const handleSaveItem = async (itemData: Omit<MenuItem, 'id' | 'category_id' | 'created_at'>, file: File | null) => {
-    if (!selectedCategoryId) return;
-
-    let imageUrl = itemData.image_url;
-    
-    if (file) {
-      const toastId = showSuccess("Fazendo upload da imagem...");
-      try {
-        const { url, error } = await uploadImage(file, RESTAURANT_IMAGES_BUCKET, restaurantId!, 'item');
-        if (error) throw error;
-        imageUrl = url;
-        showSuccess("Upload concluído!");
-      } catch (e) {
-        showError("Falha no upload da imagem.");
-        return;
-      } finally {
-        // toast.dismiss(toastId); // Não é necessário se showSuccess/showError já gerenciam
-      }
+  const handleDeleteCategory = (categoryId: string) => {
+    if (window.confirm("Tem certeza que deseja deletar esta categoria? Todos os itens nela serão removidos.")) {
+      categoryMutations.delete.mutate(categoryId);
     }
-
-    const itemToSave = { ...itemData, image_url: imageUrl };
-
-    if (editingItem) {
-      await updateItem({ ...editingItem, ...itemToSave });
-    } else {
-      await addItem(selectedCategoryId, itemToSave);
-    }
-    setIsItemDialogOpen(false);
+  };
+  
+  const handleToggleCategoryActive = (category: MenuCategory) => {
+    categoryMutations.save.mutate({ 
+      id: category.id, 
+      restaurant_id: category.restaurant_id,
+      is_active: !category.is_active 
+    });
   };
 
-  if (isRestaurantLoading || isMenuLoading) {
-    return (
-      <div className="p-4 max-w-md mx-auto space-y-4">
-        <Skeleton className="h-12 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-      </div>
-    );
-  }
+  // --- Handlers de Item ---
+  const handleOpenItemForm = (categoryId: string, data: MenuItem | null = null) => {
+    setItemForm({ open: true, categoryId, data });
+  };
 
-  if (menuError) {
+  const handleSaveItem = (data: ItemFormData) => {
+    // Adicionando asserção de tipo para garantir que category_id é tratado como string obrigatória
+    itemMutations.save.mutate(data as ItemFormData & { category_id: string }); 
+    setItemForm({ open: false, categoryId: '', data: null });
+  };
+
+  const handleDeleteItem = (itemId: string) => {
+    if (window.confirm("Tem certeza que deseja deletar este item?")) {
+      itemMutations.delete.mutate(itemId);
+    }
+  };
+  
+  const handleToggleItemActive = (item: MenuItem) => {
+    itemMutations.save.mutate({ 
+      id: item.id, 
+      category_id: item.category_id,
+      is_active: !item.is_active 
+    } as Partial<MenuItem> & { category_id: string }); // Asserção de tipo necessária aqui também
+  };
+
+  const categories = menuData?.categories || [];
+  const items = menuData?.items || [];
+  
+  const groupedItems = items.reduce((acc, item) => {
+    if (!acc[item.category_id]) {
+      acc[item.category_id] = [];
+    }
+    acc[item.category_id].push(item);
+    return acc;
+  }, {} as Record<string, MenuItem[]>);
+
+  if (authLoading || restaurantLoading || menuLoading) {
     return (
-      <div className="p-4 text-center text-red-500">
-        Erro ao carregar o cardápio: {menuError}
+      <div className="p-4 space-y-6 pb-20 flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-[#022D68]" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <header className="sticky top-0 z-10 bg-white shadow-sm p-4 flex items-center justify-between">
-        <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-[#022D68] hover:bg-[#022D68]/5">
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-lg font-bold text-[#022D68] flex-1 text-center pr-10 truncate">
-          Gerenciar Cardápio
-        </h1>
+    <div className="p-4 space-y-6 pb-20 max-w-md mx-auto">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold text-[#022D68]">Gerenciar Cardápio</h2>
         <Button 
-          onClick={() => handleOpenCategoryDialog()}
-          className="bg-highlight hover:bg-highlight/90 text-white rounded-full h-10 px-4 text-sm font-bold"
+          size="sm" 
+          className="bg-[#E47948] hover:bg-[#E47948]/90 text-white"
+          onClick={() => handleOpenCategoryForm()}
+          disabled={categoryMutations.save.isPending}
         >
-          <Plus className="w-4 h-4 mr-1" /> Categoria
+          <Plus className="h-4 w-4 mr-2" />
+          Nova Categoria
         </Button>
-      </header>
+      </div>
 
-      <main className="p-4 space-y-6">
-        <Card className="shadow-md border-none rounded-xl p-4">
-          <CardContent className="p-0">
-            <h2 className="text-xl font-bold text-[#022D68] mb-4 flex items-center gap-2">
-              <Utensils className="w-6 h-6" /> Categorias ({categories.length})
-            </h2>
-            
-            {categories.length === 0 ? (
-              <div className="text-center p-6 bg-gray-50 rounded-lg">
-                <p className="text-gray-600">Comece adicionando sua primeira categoria de pratos.</p>
-              </div>
-            ) : (
-              <Accordion type="single" collapsible className="w-full">
-                {categories.map(category => (
-                  <AccordionItem key={category.id} value={category.id} className="border-b border-gray-200">
-                    <AccordionTrigger className="py-4 hover:no-underline">
-                      <div className="flex items-center justify-between w-full pr-4">
-                        <span className="font-semibold text-base text-gray-800">{category.name} ({category.items.length})</span>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${category.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                            {category.is_active ? 'Ativa' : 'Inativa'}
-                          </span>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-8 w-8 text-[#022D68] hover:bg-[#022D68]/10"
-                            onClick={(e) => { e.stopPropagation(); handleOpenCategoryDialog(category); }}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-8 w-8 text-red-500 hover:bg-red-50"
-                            onClick={(e) => { e.stopPropagation(); deleteCategory(category.id); }}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+      <Card className="shadow-xl rounded-xl border-none">
+        <CardHeader>
+          <CardTitle className="text-lg font-semibold flex items-center gap-2 text-[#022D68]">
+            <UtensilsCrossed className="h-5 w-5" />
+            Categorias Cadastradas ({categories.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          {categories.length === 0 ? (
+            <div className="p-6 text-center text-gray-500">
+              <p>Nenhuma categoria cadastrada. Comece adicionando uma!</p>
+            </div>
+          ) : (
+            <Accordion 
+              type="single" 
+              collapsible 
+              className="w-full"
+              value={expandedCategory || undefined}
+              onValueChange={(value) => setExpandedCategory(value)}
+            >
+              {categories.map(category => (
+                <AccordionItem key={category.id} value={category.id} className="border-b border-gray-100 dark:border-gray-700">
+                  <AccordionTrigger className="p-4 hover:no-underline">
+                    <div className="flex justify-between items-center w-full pr-4">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-primary">{category.name}</span>
+                        <span className={cn(
+                          "text-xs font-semibold px-2 py-0.5 rounded-full",
+                          category.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        )}>
+                          {category.is_active ? 'Ativa' : 'Inativa'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-gray-500">{groupedItems[category.id]?.length || 0} itens</span>
+                        
+                        {/* Toggle Ativo/Inativo */}
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          onClick={(e) => { e.stopPropagation(); handleToggleCategoryActive(category); }}
+                          className={cn("h-8 w-8", category.is_active ? "text-green-600 hover:bg-green-50" : "text-red-600 hover:bg-red-50")}
+                          disabled={categoryMutations.save.isPending}
+                        >
+                          {categoryMutations.save.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : (category.is_active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />)}
+                        </Button>
+                        
+                        {/* Editar */}
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          onClick={(e) => { e.stopPropagation(); handleOpenCategoryForm(category); }}
+                          className="h-8 w-8 text-primary hover:bg-primary/10"
+                          disabled={categoryMutations.save.isPending}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        
+                        {/* Deletar */}
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          onClick={(e) => { e.stopPropagation(); handleDeleteCategory(category.id); }}
+                          className="h-8 w-8 text-destructive hover:bg-destructive/10"
+                          disabled={categoryMutations.delete.isPending}
+                        >
+                          {categoryMutations.delete.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                        </Button>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="p-4 pt-0 bg-gray-50 dark:bg-gray-900/50">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center pt-2">
+                        <h4 className="text-sm font-semibold text-primary">Itens em {category.name}</h4>
+                        <Button 
+                          size="sm" 
+                          className="bg-[#022D68] hover:bg-[#022D68]/90 text-white h-8 text-xs"
+                          onClick={() => handleOpenItemForm(category.id)}
+                          disabled={itemMutations.save.isPending}
+                        >
+                          <Plus className="h-3 w-3 mr-1" />
+                          Novo Item
+                        </Button>
+                      </div>
+                      <Separator />
+                      
+                      {groupedItems[category.id]?.length > 0 ? (
+                        <div className="space-y-3">
+                          {groupedItems[category.id].map(item => (
+                            <MenuItemCard 
+                              key={item.id}
+                              item={item}
+                              onEdit={(i) => handleOpenItemForm(category.id, i)}
+                              onDelete={itemMutations.delete.mutate}
+                              onToggleActive={handleToggleItemActive}
+                              isDeleting={itemMutations.delete.isPending}
+                            />
+                          ))}
                         </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-4">
-                      <div className="space-y-3">
-                        {category.items.map(item => (
-                          <MenuItemCard 
-                            key={item.id} 
-                            item={item} 
-                            onEdit={() => handleOpenItemDialog(category.id, item)}
-                            onDelete={() => deleteItem(item.id)}
-                            onToggleActive={() => updateItem({ ...item, is_active: !item.is_active })}
-                          />
-                        ))}
-                      </div>
-                      <Button
-                        onClick={() => handleOpenItemDialog(category.id)}
-                        className="w-full mt-4 h-10 bg-primary hover:bg-primary/90 text-white rounded-xl text-sm font-bold"
-                      >
-                        <Plus className="w-4 h-4 mr-1" /> Adicionar Item
-                      </Button>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            )}
-          </CardContent>
-        </Card>
-      </main>
+                      ) : (
+                        <p className="text-sm text-gray-500 text-center py-4">Nenhum item nesta categoria.</p>
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
+        </CardContent>
+      </Card>
 
-      {/* Category Dialog */}
+      <div className="pt-4 text-center">
+        <Button 
+          variant="outline" 
+          onClick={() => navigate('/restaurant-area/profile-menu')}
+        >
+          Voltar ao Perfil
+        </Button>
+      </div>
+      
+      {/* Modals */}
       <CategoryFormDialog
-        open={isCategoryDialogOpen}
-        onOpenChange={setIsCategoryDialogOpen}
+        open={categoryForm.open}
+        onOpenChange={(open) => setCategoryForm({ open, data: null })}
         onSave={handleSaveCategory}
-        initialData={editingCategory}
-        isLoading={false} // Use mutation loading state if available
+        isSaving={categoryMutations.save.isPending}
+        initialData={categoryForm.data}
       />
-
-      {/* Item Dialog */}
+      
       <ItemFormDialog
-        open={isItemDialogOpen}
-        onOpenChange={setIsItemDialogOpen}
+        open={itemForm.open}
+        onOpenChange={(open) => setItemForm({ open, categoryId: '', data: null })}
         onSave={handleSaveItem}
-        initialData={editingItem}
-        isLoading={uploading}
+        isSaving={itemMutations.save.isPending}
+        categoryId={itemForm.categoryId}
+        initialData={itemForm.data}
       />
     </div>
   );
-};
-
-export default RestaurantMenu;
+}

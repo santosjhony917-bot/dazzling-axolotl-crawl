@@ -1,20 +1,17 @@
-import React, { createContext, useContext } from 'react';
-import { useProvideAuth, AuthContext as AuthContextDefinition } from '@/hooks/useAuth';
-import { User, Session } from '@supabase/supabase-js';
+import React, { createContext, useContext, ReactNode } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { User } from '@supabase/supabase-js';
 
 interface AuthContextType {
   user: User | null;
-  session: Session | null;
   isLoading: boolean;
-  signOut: () => Promise<{ error: Error | null }>; // Tipo de retorno atualizado
+  signOut: () => Promise<{ error: Error | null }>;
 }
 
-// Usamos o contexto definido em useAuth.ts
-const AuthContext = AuthContextDefinition as React.Context<AuthContextType | undefined>;
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const auth = useProvideAuth();
-  
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const auth = useAuth();
   return (
     <AuthContext.Provider value={auth}>
       {children}
@@ -22,11 +19,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Exportando useAuth para ser usado em toda a aplicação
-export const useAuth = () => {
+export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuthContext must be used within an AuthProvider');
   }
   return context;
 };

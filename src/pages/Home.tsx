@@ -7,11 +7,11 @@ import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import CustomerBottomNav from '@/components/CustomerBottomNav';
 import { createPageUrl } from '@/utils/url';
-import { useNearbyRestaurants, NearbyRestaurant } from '@/hooks/useNearbyRestaurants';
+import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
-import { RestaurantWithDistance } from '@/types/restaurant'; // Importando o tipo correto
+import { Restaurant } from '@/types/restaurant';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -117,11 +117,11 @@ const Home: React.FC = () => {
           </div>
         ) : restaurants.length > 0 ? (
           <div className="space-y-4">
-            {/* Usando o tipo correto RestaurantWithDistance */}
+            {/* O tipo NearbyRestaurant é um subconjunto de Restaurant, mas forçamos a tipagem para compatibilidade com RestaurantCard. */}
             {restaurants.map((restaurant) => (
               <RestaurantCard 
                 key={restaurant.id} 
-                restaurant={restaurant as RestaurantWithDistance} 
+                restaurant={restaurant as unknown as Restaurant} 
                 onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
               />
             ))}

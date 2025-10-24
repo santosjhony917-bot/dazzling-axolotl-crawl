@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
 import { Restaurant } from '@/types/restaurant';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,101 +16,182 @@ import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import { createPageUrl } from '@/utils/url'; // Importa createPageUrl
 
 export default function RestaurantProfilePage() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const { restaurant, loading, error, updateRestaurant, refetch } = useRestaurantProfile(user?.id);
+  const navigate = useNavigate(); // Declara useNavigate no topo
+  const { user, isLoading: authLoading } = useAuth();
+  const userId = user?.id || null;
   
+  // Usando o hook atualizado para buscar pelo user ID
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
+  
+  const [isSaving, setIsSaving] = useState(false);
+  const [formData, setFormData] = useState<Partial<Restaurant>>({});
+  
+  // Adicionando estados de upload para satisfazer as props do ProfileHeaderManagement
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
-  const [description, setDescription] = useState(restaurant?.description || '');
-  const [isSavingDescription, setIsSavingDescription] = useState(false);
+
+  // Todos os Hooks são chamados acima deste ponto.
+
+  // Lida com o redirecionamento para usuários não autenticados
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate(createPageUrl('restaurant-login'));
+    }
+  }, [authLoading, user, navigate]);
 
   useEffect(() => {
     if (restaurant) {
-      setDescription(restaurant.description || '');
+      setFormData(restaurant);
     }
   }, [restaurant]);
 
-  const handleSaveDescription = useCallback(async () => {
-    if (!restaurant || description === restaurant.description) return;
-    
-    setIsSavingDescription(true);
-    const { error } = await updateRestaurant({ description });
-    
-    if (!error) {
-      toast.success("Descrição atualizada!");
-    }
-    setIsSavingDescription(false);
-  }, [description, restaurant, updateRestaurant]);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
 
-  if (loading) {
+  // Ajusta o tipo de retorno para Promise<{ error: string | null }>
+  const handleUpdate = useCallback(async (updates: Partial<Restaurant>): Promise<{ error: string | null }> => {
+    if (!restaurant?.id) {
+      const msg = "Restaurante não encontrado.";
+      toast.error(msg);
+      return { error: msg };
+    }
+
+    setIsSaving(true);
+    const { data, error } = await supabase
+      .from('restaurants')
+      .update(updates)
+      .eq('id', restaurant.id)
+      .select()
+      .single();
+
+    setIsSaving(false);
+
+    if (error) {
+      console.error('Error updating restaurant:', error);
+      const msg = `Erro ao salvar as alterações: ${error.message}`;
+      toast.error(msg);
+      return { error: msg };
+    }
+
+    if (data) {
+      refetch();
+      toast.success('Informações atualizadas com sucesso!');
+      return { error: null };
+    }
+    
+    const msg = "Nenhum dado retornado após a atualização.";
+    toast.error(msg);
+    return { error: msg };
+  }, [restaurant, refetch]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!restaurant?.id) {
+      toast.error("Restaurante não carregado.");
+      return;
+    }
+    await handleUpdate(formData);
+  };
+
+  // Renderiza o esqueleto de carregamento se ainda estiver carregando ou se o usuário não estiver autenticado
+  if (authLoading || restaurantLoading || (!authLoading && !user)) {
     return (
-      <div className="p-4 max-w-md mx-auto space-y-4">
-        <Skeleton className="h-24 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
+      <div className="p-4 md:p-8 space-y-8 max-w-4xl mx-auto">
+        <Skeleton className="h-40 w-full rounded-xl mb-6" />
+        <Skeleton className="h-6 w-3/4 mb-4" />
+        <Skeleton className="h-64 w-full rounded-xl mb-6" />
       </div>
     );
   }
 
-  if (error || !restaurant) {
+  // Se o usuário estiver autenticado, mas nenhum restaurante for encontrado
+  if (!restaurant) {
     return (
-      <div className="p-4 text-center text-red-500">
-        <p>Erro ao carregar perfil: {error}</p>
-        <p>Certifique-se de que seu restaurante está cadastrado e vinculado à sua conta.</p>
-        <Button onClick={() => navigate(createPageUrl('restaurant-signup'))} className="mt-4">
-          Cadastrar Restaurante
-        </Button>
+      <div className="p-8 text-center">
+        <h2 className="text-xl font-semibold">Nenhum restaurante encontrado.</h2>
+        <p className="text-gray-500">Por favor, crie um restaurante ou verifique sua conta.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto p-4 space-y-6">
-      
-      {/* Header Principal (Logo e Status) */}
+    <div className="p-4 md:p-8 space-y-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-gray-800">Gerenciamento do Perfil</h1>
+
+      {/* Header Management (Logo and Cover) */}
       <ProfileHeaderManagement
-        restaurantName={restaurant.name}
-        logoUrl={restaurant.image_url}
-        isPremium={restaurant.plan === 'premium'}
-        uploading={uploadingLogo || uploadingCover}
-        handleFileSelect={async (file, type) => {
-          // Esta lógica será implementada no ProfileHeaderManagement
-          // Aqui apenas passamos o estado de upload
-        }}
+        restaurant={restaurant}
+        onUpdate={handleUpdate}
+        uploadingLogo={uploadingLogo}
+        setUploadingLogo={setUploadingLogo}
+        uploadingCover={uploadingCover}
+        setUploadingCover={setUploadingCover}
       />
 
-      {/* Descrição do Restaurante */}
-      <Card className="shadow-md border-none rounded-xl p-4">
-        <CardHeader className="p-0 mb-4">
-          <CardTitle className="text-xl font-bold text-[#022D68]">Sobre o Restaurante</CardTitle>
-          <CardDescription>Uma breve descrição que aparecerá no seu perfil público.</CardDescription>
+      {/* Basic Information Form */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Informações Básicas</CardTitle>
         </CardHeader>
-        <CardContent className="p-0 space-y-3">
-          <Textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Conte aos clientes sobre seu restaurante, sua culinária e seu diferencial."
-            rows={4}
-            className="rounded-xl text-base focus:border-highlight focus:ring-highlight"
-            disabled={isSavingDescription}
-          />
-          <Button
-            onClick={handleSaveDescription}
-            disabled={isSavingDescription || description === restaurant.description}
-            className="w-full h-10 bg-highlight hover:bg-highlight/90 text-white rounded-xl text-sm font-bold"
-          >
-            {isSavingDescription ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              "Salvar Descrição"
-            )}
-          </Button>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nome do Restaurante</Label>
+              <Input
+                id="name"
+                value={formData.name || ''}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Descrição</Label>
+              <Textarea
+                id="description"
+                value={formData.description || ''}
+                onChange={handleInputChange}
+                rows={4}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Telefone</Label>
+              <Input
+                id="phone"
+                value={formData.phone || ''}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email de Contato</Label>
+              <Input
+                id="email"
+                type="email"
+                value={formData.email || ''}
+                onChange={handleInputChange}
+              />
+            </div>
+            <Button type="submit" disabled={isSaving} className="bg-[#E47948] hover:bg-[#E47948]/90">
+              {isSaving ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                'Salvar Alterações'
+              )}
+            </Button>
+          </form>
         </CardContent>
       </Card>
-      
-      {/* Outras seções de perfil virão aqui */}
-      
+
+      {/* Address Information (Placeholder) */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Endereço e Localização</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-500">Funcionalidade de edição de endereço em desenvolvimento.</p>
+        </CardContent>
+      </Card>
     </div>
   );
 }
