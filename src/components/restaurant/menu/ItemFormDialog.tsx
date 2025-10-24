@@ -86,7 +86,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
                     <ImageUploadButton 
                       imageUrl={field.value}
                       onUploadComplete={(url) => field.onChange(url)}
-                      bucketName="menu_items"
+                      bucketName="restaurant_images" // Usando o bucket principal
                       folderPath={`${categoryId}/items`}
                     />
                   </FormControl>

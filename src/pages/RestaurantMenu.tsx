@@ -26,6 +26,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { supabase } from '@/integrations/supabase/client'; // <-- Import adicionado
 
 const RestaurantMenu: React.FC = () => {
   const navigate = useNavigate();

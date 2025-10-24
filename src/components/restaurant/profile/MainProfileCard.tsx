@@ -4,13 +4,15 @@ import { Badge } from '@/components/ui/badge';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Store, Camera, Check } from 'lucide-react';
 import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets"; // Importando a constante
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 
 interface MainProfileCardProps {
   restaurantName: string;
   logoUrl: string | null | undefined;
   isPremium: boolean;
   uploading: boolean;
-  handleFileSelect: (file: File, type: 'logo' | 'cover') => Promise<void>;
+  onLogoUploadComplete: (url: string) => void; // Nova prop para receber a URL
+  restaurantId: string; // Necessário para o folderPath
 }
 
 const MainProfileCard: React.FC<MainProfileCardProps> = ({
@@ -18,7 +20,8 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   logoUrl,
   isPremium,
   uploading,
-  handleFileSelect,
+  onLogoUploadComplete,
+  restaurantId,
 }) => {
   return (
     <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
@@ -31,8 +34,10 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
             className="w-full h-full object-cover rounded-full"
           />
           <ImageUploadButton
-            onFileSelect={(file) => handleFileSelect(file, 'logo')}
-            uploading={uploading}
+            imageUrl={logoUrl || undefined}
+            onUploadComplete={onLogoUploadComplete}
+            bucketName={RESTAURANT_IMAGES_BUCKET}
+            folderPath={restaurantId || 'temp'}
             className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
             icon={<Camera className="h-3 w-3" />}
           />

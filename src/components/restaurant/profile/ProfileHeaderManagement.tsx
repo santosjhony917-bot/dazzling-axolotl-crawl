@@ -33,44 +33,25 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
 }) => {
   const navigate = useNavigate();
 
-  const handleFileSelect = useCallback(async (file: File, type: 'logo' | 'cover') => {
-    if (!restaurant.id) {
-      toast.error("ID do restaurante não encontrado.");
-      return;
-    }
-
+  // Função auxiliar para salvar a URL no DB após o upload
+  const handleUrlUpdate = useCallback(async (url: string, type: 'logo' | 'cover') => {
     const isLogo = type === 'logo';
-    isLogo ? setUploadingLogo(true) : setUploadingCover(true);
+    const updateKey = isLogo ? 'image_url' : 'cover_image_url';
     
-    const path = `${restaurant.id}/${type}`; 
-    let publicUrl: string | null = null;
-
-    try {
-      publicUrl = await uploadFile(file, RESTAURANT_IMAGES_BUCKET, path);
-
-      if (publicUrl) {
-        const updateKey = isLogo ? 'image_url' : 'cover_image_url';
-        
-        // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
-        const cacheBustedUrl = `${publicUrl}?t=${Date.now()}`;
-        
-        const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
-        
-        if (error) {
-          toast.error(`Imagem enviada, mas falha ao salvar URL no DB: ${error}`);
-        } else {
-          toast.success("Imagem atualizada com sucesso!");
-        }
-      } else {
-        toast.error("Falha ao fazer upload da imagem. Verifique o console para detalhes.");
-      }
-    } catch (e) {
-      const errorMessage = (e as Error).message || "Erro desconhecido durante o upload.";
-      toast.error(errorMessage);
-    } finally {
-      isLogo ? setUploadingLogo(false) : setUploadingCover(false);
+    // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    
+    const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
+    
+    if (error) {
+      toast.error(`Imagem enviada, mas falha ao salvar URL no DB: ${error}`);
+    } else {
+      toast.success("Imagem atualizada com sucesso!");
     }
-  }, [restaurant.id, onUpdate, setUploadingLogo, setUploadingCover]);
+    
+    isLogo ? setUploadingLogo(false) : setUploadingCover(false);
+  }, [onUpdate, setUploadingLogo, setUploadingCover]);
+
 
   const logoUrl = restaurant.image_url;
   const coverImageUrl = restaurant.cover_image_url;
@@ -88,8 +69,10 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
         )}
         {/* Botão de upload de capa (será movido para o topo do menu) */}
         <ImageUploadButton
-          onFileSelect={(file) => handleFileSelect(file, 'cover')}
-          uploading={uploadingCover}
+          imageUrl={coverImageUrl || undefined}
+          onUploadComplete={(url) => handleUrlUpdate(url, 'cover')}
+          bucketName={RESTAURANT_IMAGES_BUCKET}
+          folderPath={restaurant.id || 'temp'}
           className="absolute top-4 right-4 h-8 w-8 p-0 bg-black/50 text-white hover:bg-black/70"
           icon={<Upload className="h-4 w-4" />}
         />
@@ -109,8 +92,10 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
           </div>
         )}
         <ImageUploadButton
-          onFileSelect={(file) => handleFileSelect(file, 'logo')}
-          uploading={uploadingLogo}
+          imageUrl={logoUrl || undefined}
+          onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
+          bucketName={RESTAURANT_IMAGES_BUCKET}
+          folderPath={restaurant.id || 'temp'}
           className="absolute bottom-0 right-0 h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90"
           icon={<Camera className="h-3 w-3" />}
         />
