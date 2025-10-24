@@ -1,75 +1,128 @@
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Search, ChevronDown, ChevronUp, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import { motion, AnimatePresence } from 'framer-motion';
+import { createPageUrl } from '@/utils/url';
 
-const faqItems = [
+// Dados Mock de FAQ
+const faqData = [
   {
-    question: "Como adiciono meu cardápio?",
-    answer: "Você pode adicionar e gerenciar seu cardápio na seção 'Cardápio' do seu painel. Lá você pode adicionar itens, categorias, preços e descrições."
+    id: 1,
+    question: "Como faço para atualizar meu cardápio?",
+    answer: "Você pode atualizar seu cardápio acessando a aba 'Cardápio' no menu inferior. Lá, você pode adicionar, editar ou remover categorias e itens.",
+    tags: ["cardápio", "menu", "edição"],
   },
   {
-    question: "Como funciona o plano Premium?",
-    answer: "O plano Premium oferece vantagens como destaque nas buscas, estatísticas avançadas, branding profissional e muito mais. Você pode ver todos os benefícios e assinar na tela de 'Upgrade'."
+    id: 2,
+    question: "Como mudo meu plano de Free para Premium?",
+    answer: "Vá para a aba 'Perfil' e clique em 'Ativar Premium' na seção 'Plano e Assinatura'. Você será redirecionado para a página de upgrade.",
+    tags: ["plano", "premium", "assinatura"],
   },
   {
-    question: "Posso alterar meu cardápio a qualquer momento?",
-    answer: "Sim! Seu cardápio é totalmente flexível. Você pode editar, adicionar ou remover itens e categorias sempre que precisar, e as alterações são refletidas em tempo real."
+    id: 3,
+    question: "Onde edito o endereço e horário de funcionamento?",
+    answer: "Na aba 'Perfil', na seção 'Detalhes do Estabelecimento', clique em 'Editar' para abrir os diálogos de edição de endereço e horários.",
+    tags: ["endereço", "horário", "perfil"],
   },
   {
-    question: "Quais são os métodos de pagamento aceitos?",
-    answer: "Aceitamos os principais cartões de crédito e débito para o pagamento da assinatura do plano Premium. Todo o processo é feito de forma segura através da nossa plataforma."
+    id: 4,
+    question: "Como faço para sair da minha conta?",
+    answer: "Na aba 'Perfil', role até o final da página e clique no botão 'Sair da conta'.",
+    tags: ["conta", "logout", "sair"],
   },
   {
-    question: "Como entro em contato com o suporte?",
-    answer: "Você pode entrar em contato com nosso suporte clicando no botão 'Falar com suporte' nesta página ou através do link na sua tela de perfil. Nossa equipe está disponível para ajudar!"
-  }
+    id: 5,
+    question: "Posso ter mais de uma filial cadastrada?",
+    answer: "Sim, o FilterFood suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
+    tags: ["filial", "localização", "cadastro"],
+  },
 ];
 
-const HelpCenter = () => {
-  const navigate = useNavigate();
+// Componente de Item de FAQ
+interface FaqItemProps {
+  question: string;
+  answer: string;
+}
+
+const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark">
-      <header className="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10 border-b border-gray-200 dark:border-gray-800">
-        <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-text-primary dark:text-white">
-          <ArrowLeft />
-        </Button>
-        <h1 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">
-          Central de Ajuda
-        </h1>
-      </header>
-      <main className="flex-1 px-4 py-6 pb-24">
-        <div className="space-y-6">
-          <h2 className="text-xl font-bold text-primary dark:text-white">Perguntas Frequentes (FAQ)</h2>
-          <Accordion type="single" collapsible className="w-full space-y-3">
-            {faqItems.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg px-2">
-                <AccordionTrigger className="p-4 font-medium text-left text-text-primary dark:text-white hover:no-underline">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="p-4 pt-0 text-text-secondary dark:text-gray-400">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-        <div className="mt-8 rounded-xl bg-primary p-6 text-center text-white">
-          <h3 className="text-xl font-bold">Não encontrou o que procura?</h3>
-          <p className="mt-2 text-sm text-blue-200">Nossa equipe está pronta para ajudar você.</p>
-          <Button className="mt-4 w-full rounded-full bg-white py-3 h-auto font-bold text-primary transition-colors hover:bg-gray-100">
-            Falar com suporte
-          </Button>
-        </div>
-      </main>
+    <div className="border-b border-gray-200 dark:border-gray-700">
+      <button
+        className="flex w-full items-center justify-between py-4 text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-base font-semibold text-primary dark:text-white">{question}</span>
+        {isOpen ? <ChevronUp className="w-5 h-5 text-highlight" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden pb-4"
+          >
+            <p className="text-sm text-gray-700 dark:text-gray-300">{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-export default HelpCenter;
+export default function HelpCenter() {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredFaqs = faqData.filter(faq =>
+    faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    faq.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    faq.tags.some(tag => tag.includes(searchTerm.toLowerCase()))
+  );
+
+  return (
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+      
+      {/* Header */}
+      <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurant-area/profile-menu" />
+
+      <main className="flex-1 w-full max-w-md p-4">
+        
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Pesquisar por palavra-chave (ex: cardápio, premium)"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-sm"
+            />
+          </div>
+        </div>
+
+        {/* FAQ List */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+          <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
+          
+          {filteredFaqs.length > 0 ? (
+            <div className="divide-y divide-gray-100 dark:divide-gray-700">
+              {filteredFaqs.map(faq => (
+                <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-8">Nenhum resultado encontrado para "{searchTerm}".</p>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
