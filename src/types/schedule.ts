@@ -1,6 +1,6 @@
 export interface TimeSlot {
-  start: string; // HH:MM
-  end: string;   // HH:MM
+  start: string; // e.g., "09:00"
+  end: string;   // e.g., "22:00"
 }
 
 export interface DaySchedule {

@@ -1,277 +1,391 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { UtensilsCrossed, Plus, ChevronDown, ChevronUp, Edit, Trash2, Loader2, Utensils, Eye, EyeOff } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useMenuManagement } from '@/hooks/useMenuManagement';
-import { MenuCategory, MenuItem } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types/menu';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Separator } from '@/components/ui/separator';
-import CategoryFormDialog, { CategoryFormData } from '@/components/restaurant/menu/CategoryFormDialog';
-import ItemFormDialog, { ItemFormData } from '@/components/restaurant/menu/ItemFormDialog';
+import { Button } from '@/components/ui/button';
+import { Loader2, Plus, Utensils, Trash2, Edit, ChevronDown } from 'lucide-react';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import { createPageUrl } from '@/utils/url';
+import { Skeleton } from '@/components/ui/skeleton';
+import { showError, showSuccess } from '@/utils/toast';
+import CategoryFormDialog from '@/components/restaurant/menu/CategoryFormDialog';
+import ItemFormDialog from '@/components/restaurant/menu/ItemFormDialog';
 import MenuItemCard from '@/components/restaurant/menu/MenuItemCard';
-import { z } from 'zod';
-import { showError } from '@/utils/toast';
-import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
-// --- Schemas e Tipos de Formulário ---
-// Removendo a definição local de categorySchema e itemSchema, agora os tipos são importados.
-
-// Tipos para o estado de edição
-type CategoryFormState = { open: boolean, data: MenuCategory | null };
-type ItemFormState = { open: boolean, categoryId: string, data: MenuItem | null };
-
-export default function RestaurantMenu() {
+const RestaurantMenu: React.FC = () => {
   const navigate = useNavigate();
   const { user, isLoading: authLoading } = useAuth();
-  const { restaurant, loading: restaurantLoading } = useRestaurantProfile(user?.id);
+  const userId = user?.id || null;
+  const { restaurant, loading: profileLoading } = useRestaurantProfile(userId);
   const restaurantId = restaurant?.id || null;
+
+  const { categories, isLoading: menuLoading, refetch } = useMenuManagement(restaurantId);
+
+  // Dialog States
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<MenuCategory | undefined>(undefined);
+  const [editingItem, setEditingItem] = useState<MenuItem | undefined>(undefined);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   
-  const { 
-    menuData, 
-    isLoading: menuLoading, 
-    categoryMutations, 
-    itemMutations 
-  } = useMenuManagement(restaurantId);
+  // Deletion States
+  const [isDeleteCategoryAlertOpen, setIsDeleteCategoryAlertOpen] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState<MenuCategory | null>(null);
+  const [isDeleteItemAlertOpen, setIsDeleteItemAlertOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<MenuItem | null>(null);
 
-  const [categoryForm, setCategoryForm] = useState<CategoryFormState>({ open: false, data: null });
-  const [itemForm, setItemForm] = useState<ItemFormState>({ open: false, categoryId: '', data: null });
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  // Loading States for CRUD operations
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  // Redirecionamento se não estiver logado ou sem restaurante
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/restaurant-login');
-    }
-  }, [authLoading, user, navigate]);
+  // --- Category CRUD Operations ---
 
-  // --- Handlers de Categoria ---
-  const handleOpenCategoryForm = (data: MenuCategory | null = null) => {
-    setCategoryForm({ open: true, data });
+  const handleOpenNewCategoryDialog = () => {
+    setEditingCategory(undefined);
+    setIsCategoryDialogOpen(true);
   };
 
-  const handleSaveCategory = (data: CategoryFormData) => {
+  const handleEditCategory = (category: MenuCategory) => {
+    setEditingCategory(category);
+    setIsCategoryDialogOpen(true);
+  };
+
+  const handleSaveCategory = useCallback(async (data: { name: string }) => {
     if (!restaurantId) {
-      showError("ID do restaurante não encontrado.");
+      showError("Restaurante não encontrado.");
       return;
     }
-    categoryMutations.save.mutate({ ...data, restaurant_id: restaurantId });
-    setCategoryForm({ open: false, data: null });
-  };
-
-  const handleDeleteCategory = (categoryId: string) => {
-    if (window.confirm("Tem certeza que deseja deletar esta categoria? Todos os itens nela serão removidos.")) {
-      categoryMutations.delete.mutate(categoryId);
+    setIsSaving(true);
+    try {
+      if (editingCategory) {
+        // Update
+        const { error } = await supabase
+          .from('menu_categories')
+          .update({ name: data.name })
+          .eq('id', editingCategory.id);
+        
+        if (error) throw error;
+        showSuccess('Categoria atualizada com sucesso!');
+      } else {
+        // Insert
+        const { error } = await supabase
+          .from('menu_categories')
+          .insert({ name: data.name, restaurant_id: restaurantId });
+        
+        if (error) throw error;
+        showSuccess('Categoria criada com sucesso!');
+      }
+      refetch();
+      setIsCategoryDialogOpen(false);
+    } catch (error) {
+      showError('Falha ao salvar a categoria.');
+      console.error('Category save error:', error);
+    } finally {
+      setIsSaving(false);
     }
-  };
-  
-  const handleToggleCategoryActive = (category: MenuCategory) => {
-    categoryMutations.save.mutate({ 
-      id: category.id, 
-      restaurant_id: category.restaurant_id,
-      is_active: !category.is_active 
-    });
+  }, [restaurantId, editingCategory, refetch]);
+
+  const handleDeleteCategory = (category: MenuCategory) => {
+    setCategoryToDelete(category);
+    setIsDeleteCategoryAlertOpen(true);
   };
 
-  // --- Handlers de Item ---
-  const handleOpenItemForm = (categoryId: string, data: MenuItem | null = null) => {
-    setItemForm({ open: true, categoryId, data });
-  };
+  const confirmDeleteCategory = useCallback(async () => {
+    if (!categoryToDelete) return;
+    setIsDeleting(true);
+    try {
+      const { error } = await supabase
+        .from('menu_categories')
+        .delete()
+        .eq('id', categoryToDelete.id);
 
-  const handleSaveItem = (data: ItemFormData) => {
-    // Adicionando asserção de tipo para garantir que category_id é tratado como string obrigatória
-    itemMutations.save.mutate(data as ItemFormData & { category_id: string }); 
-    setItemForm({ open: false, categoryId: '', data: null });
-  };
-
-  const handleDeleteItem = (itemId: string) => {
-    if (window.confirm("Tem certeza que deseja deletar este item?")) {
-      itemMutations.delete.mutate(itemId);
+      if (error) throw error;
+      showSuccess(`Categoria "${categoryToDelete.name}" e seus itens foram excluídos.`);
+      refetch();
+    } catch (error) {
+      showError('Falha ao excluir a categoria.');
+      console.error('Category delete error:', error);
+    } finally {
+      setIsDeleting(false);
+      setIsDeleteCategoryAlertOpen(false);
+      setCategoryToDelete(null);
     }
-  };
-  
-  const handleToggleItemActive = (item: MenuItem) => {
-    itemMutations.save.mutate({ 
-      id: item.id, 
-      category_id: item.category_id,
-      is_active: !item.is_active 
-    } as Partial<MenuItem> & { category_id: string }); // Asserção de tipo necessária aqui também
+  }, [categoryToDelete, refetch]);
+
+  // --- Item CRUD Operations ---
+
+  const handleOpenNewItemDialog = (categoryId: string) => {
+    setSelectedCategoryId(categoryId);
+    setEditingItem(undefined);
+    setIsItemDialogOpen(true);
   };
 
-  const categories = menuData?.categories || [];
-  const items = menuData?.items || [];
-  
-  const groupedItems = items.reduce((acc, item) => {
-    if (!acc[item.category_id]) {
-      acc[item.category_id] = [];
+  const handleEditItem = (item: MenuItem) => {
+    setSelectedCategoryId(item.category_id);
+    setEditingItem(item);
+    setIsItemDialogOpen(true);
+  };
+
+  const handleSaveItem = useCallback(async (data: any) => {
+    if (!selectedCategoryId) {
+      showError("Categoria não selecionada.");
+      return;
     }
-    acc[item.category_id].push(item);
-    return acc;
-  }, {} as Record<string, MenuItem[]>);
+    setIsSaving(true);
+    try {
+      const itemData = {
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        image_url: data.image_url,
+        category_id: selectedCategoryId,
+      };
 
-  if (authLoading || restaurantLoading || menuLoading) {
+      if (editingItem) {
+        // Update
+        const { error } = await supabase
+          .from('menu_items')
+          .update(itemData)
+          .eq('id', editingItem.id);
+        
+        if (error) throw error;
+        showSuccess('Item atualizado com sucesso!');
+      } else {
+        // Insert
+        const { error } = await supabase
+          .from('menu_items')
+          .insert(itemData);
+        
+        if (error) throw error;
+        showSuccess('Item criado com sucesso!');
+      }
+      refetch();
+      setIsItemDialogOpen(false);
+    } catch (error) {
+      showError('Falha ao salvar o item.');
+      console.error('Item save error:', error);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [selectedCategoryId, editingItem, refetch]);
+
+  const handleDeleteItem = (item: MenuItem) => {
+    setItemToDelete(item);
+    setIsDeleteItemAlertOpen(true);
+  };
+
+  const confirmDeleteItem = useCallback(async () => {
+    if (!itemToDelete) return;
+    setIsDeleting(true);
+    try {
+      const { error } = await supabase
+        .from('menu_items')
+        .delete()
+        .eq('id', itemToDelete.id);
+
+      if (error) throw error;
+      showSuccess(`Item "${itemToDelete.name}" excluído.`);
+      refetch();
+    } catch (error) {
+      showError('Falha ao excluir o item.');
+      console.error('Item delete error:', error);
+    } finally {
+      setIsDeleting(false);
+      setIsDeleteItemAlertOpen(false);
+      setItemToDelete(null);
+    }
+  }, [itemToDelete, refetch]);
+
+  // --- Loading and Error States ---
+
+  if (authLoading || profileLoading) {
     return (
-      <div className="p-4 space-y-6 pb-20 flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-[#022D68]" />
+      <div className="min-h-screen bg-[#f5f7f8] p-4 max-w-md mx-auto">
+        <RestaurantAreaHeader title="Cardápio" icon={Utensils} backPath="restaurant-area/perfil" />
+        <Skeleton className="h-10 w-full mt-4" />
+        <Skeleton className="h-40 w-full mt-4" />
+        <Skeleton className="h-40 w-full mt-4" />
+      </div>
+    );
+  }
+
+  if (!user || !restaurantId) {
+    return (
+      <div className="p-8 text-center">
+        <h2 className="text-xl font-semibold text-[#022D68]">Acesso Negado</h2>
+        <p className="text-gray-600 mt-2">Você precisa estar logado como proprietário de um restaurante para gerenciar o cardápio.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurant-login'))} className="mt-4 bg-[#E47948] hover:bg-[#E47948]/90">
+          Fazer Login
+        </Button>
       </div>
     );
   }
 
   return (
-    <div className="p-4 space-y-6 pb-20 max-w-md mx-auto">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold text-[#022D68]">Gerenciar Cardápio</h2>
-        <Button 
-          size="sm" 
-          className="bg-[#E47948] hover:bg-[#E47948]/90 text-white"
-          onClick={() => handleOpenCategoryForm()}
-          disabled={categoryMutations.save.isPending}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Nova Categoria
-        </Button>
-      </div>
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+      <RestaurantAreaHeader title="Cardápio" icon={Utensils} backPath="restaurant-area/perfil" />
 
-      <Card className="shadow-xl rounded-xl border-none">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold flex items-center gap-2 text-[#022D68]">
-            <UtensilsCrossed className="h-5 w-5" />
-            Categorias Cadastradas ({categories.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0">
-          {categories.length === 0 ? (
-            <div className="p-6 text-center text-gray-500">
-              <p>Nenhuma categoria cadastrada. Comece adicionando uma!</p>
-            </div>
-          ) : (
-            <Accordion 
-              type="single" 
-              collapsible 
-              className="w-full"
-              value={expandedCategory || undefined}
-              onValueChange={(value) => setExpandedCategory(value)}
-            >
-              {categories.map(category => (
-                <AccordionItem key={category.id} value={category.id} className="border-b border-gray-100 dark:border-gray-700">
-                  <AccordionTrigger className="p-4 hover:no-underline">
-                    <div className="flex justify-between items-center w-full pr-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-primary">{category.name}</span>
-                        <span className={cn(
-                          "text-xs font-semibold px-2 py-0.5 rounded-full",
-                          category.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                        )}>
-                          {category.is_active ? 'Ativa' : 'Inativa'}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-500">{groupedItems[category.id]?.length || 0} itens</span>
-                        
-                        {/* Toggle Ativo/Inativo */}
-                        <Button 
-                          size="icon" 
-                          variant="ghost" 
-                          onClick={(e) => { e.stopPropagation(); handleToggleCategoryActive(category); }}
-                          className={cn("h-8 w-8", category.is_active ? "text-green-600 hover:bg-green-50" : "text-red-600 hover:bg-red-50")}
-                          disabled={categoryMutations.save.isPending}
-                        >
-                          {categoryMutations.save.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : (category.is_active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />)}
-                        </Button>
-                        
-                        {/* Editar */}
-                        <Button 
-                          size="icon" 
-                          variant="ghost" 
-                          onClick={(e) => { e.stopPropagation(); handleOpenCategoryForm(category); }}
-                          className="h-8 w-8 text-primary hover:bg-primary/10"
-                          disabled={categoryMutations.save.isPending}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        
-                        {/* Deletar */}
-                        <Button 
-                          size="icon" 
-                          variant="ghost" 
-                          onClick={(e) => { e.stopPropagation(); handleDeleteCategory(category.id); }}
-                          className="h-8 w-8 text-destructive hover:bg-destructive/10"
-                          disabled={categoryMutations.delete.isPending}
-                        >
-                          {categoryMutations.delete.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                        </Button>
-                      </div>
+      <main className="flex-1 w-full max-w-md p-4 space-y-6">
+        
+        <Button 
+          onClick={handleOpenNewCategoryDialog}
+          className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
+        >
+          <Plus className="w-5 h-5 mr-2" />
+          Adicionar Nova Categoria
+        </Button>
+
+        {menuLoading ? (
+          <div className="space-y-4">
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
+          </div>
+        ) : categories.length === 0 ? (
+          <Alert className="border-dashed text-center">
+            <Utensils className="h-4 w-4" />
+            <AlertTitle>Cardápio Vazio</AlertTitle>
+            <AlertDescription>
+              Comece adicionando sua primeira categoria de menu.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <Accordion type="multiple" className="w-full space-y-4">
+            {categories.map(category => (
+              <Card key={category.id} className="shadow-md border-none">
+                <AccordionItem value={category.id} className="border-b-0">
+                  <AccordionTrigger className="flex items-center justify-between p-4 hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <Utensils className="w-5 h-5 text-primary" />
+                      <span className="font-bold text-lg text-primary">{category.name}</span>
                     </div>
+                    <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" />
                   </AccordionTrigger>
-                  <AccordionContent className="p-4 pt-0 bg-gray-50 dark:bg-gray-900/50">
+                  <AccordionContent className="p-4 pt-0 space-y-4">
+                    
+                    {/* Item List */}
                     <div className="space-y-3">
-                      <div className="flex justify-between items-center pt-2">
-                        <h4 className="text-sm font-semibold text-primary">Itens em {category.name}</h4>
-                        <Button 
-                          size="sm" 
-                          className="bg-[#022D68] hover:bg-[#022D68]/90 text-white h-8 text-xs"
-                          onClick={() => handleOpenItemForm(category.id)}
-                          disabled={itemMutations.save.isPending}
-                        >
-                          <Plus className="h-3 w-3 mr-1" />
-                          Novo Item
-                        </Button>
-                      </div>
-                      <Separator />
-                      
-                      {groupedItems[category.id]?.length > 0 ? (
-                        <div className="space-y-3">
-                          {groupedItems[category.id].map(item => (
-                            <MenuItemCard 
-                              key={item.id}
-                              item={item}
-                              onEdit={(i) => handleOpenItemForm(category.id, i)}
-                              onDelete={itemMutations.delete.mutate}
-                              onToggleActive={handleToggleItemActive}
-                              isDeleting={itemMutations.delete.isPending}
-                            />
-                          ))}
-                        </div>
+                      {category.items.length === 0 ? (
+                        <p className="text-sm text-gray-500 text-center p-4 border border-dashed rounded-lg">
+                          Nenhum item nesta categoria.
+                        </p>
                       ) : (
-                        <p className="text-sm text-gray-500 text-center py-4">Nenhum item nesta categoria.</p>
+                        category.items.map(item => (
+                          <MenuItemCard 
+                            key={item.id} 
+                            item={item} 
+                            onEdit={() => handleEditItem(item)} 
+                            onDelete={() => handleDeleteItem(item)} 
+                          />
+                        ))
                       )}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => handleOpenNewItemDialog(category.id)}
+                        className="flex-1 border-highlight text-highlight hover:bg-highlight/5"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Adicionar Item
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => handleEditCategory(category)}
+                        className="text-blue-500 hover:bg-blue-50"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={() => handleDeleteCategory(category)}
+                        className="text-red-500 hover:bg-red-50"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-              ))}
-            </Accordion>
-          )}
-        </CardContent>
-      </Card>
+              </Card>
+            ))}
+          </Accordion>
+        )}
+      </main>
 
-      <div className="pt-4 text-center">
-        <Button 
-          variant="outline" 
-          onClick={() => navigate('/restaurant-area/profile-menu')}
-        >
-          Voltar ao Perfil
-        </Button>
-      </div>
-      
-      {/* Modals */}
+      {/* Dialogs */}
       <CategoryFormDialog
-        open={categoryForm.open}
-        onOpenChange={(open) => setCategoryForm({ open, data: null })}
+        isOpen={isCategoryDialogOpen}
+        onClose={() => setIsCategoryDialogOpen(false)}
         onSave={handleSaveCategory}
-        isSaving={categoryMutations.save.isPending}
-        initialData={categoryForm.data}
+        initialData={editingCategory}
+        isLoading={isSaving}
       />
-      
+
       <ItemFormDialog
-        open={itemForm.open}
-        onOpenChange={(open) => setItemForm({ open, categoryId: '', data: null })}
+        isOpen={isItemDialogOpen}
+        onClose={() => setIsItemDialogOpen(false)}
         onSave={handleSaveItem}
-        isSaving={itemMutations.save.isPending}
-        categoryId={itemForm.categoryId}
-        initialData={itemForm.data}
+        initialData={editingItem}
+        isLoading={isSaving}
+        categoryId={selectedCategoryId || ''}
       />
+
+      {/* Delete Category Alert */}
+      <AlertDialog open={isDeleteCategoryAlertOpen} onOpenChange={setIsDeleteCategoryAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação excluirá permanentemente a categoria "{categoryToDelete?.name}" e todos os itens de menu associados.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteCategory} disabled={isDeleting} className="bg-red-600 hover:bg-red-700">
+              {isDeleting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Excluir Categoria'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Delete Item Alert */}
+      <AlertDialog open={isDeleteItemAlertOpen} onOpenChange={setIsDeleteItemAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação excluirá permanentemente o item "{itemToDelete?.name}".
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteItem} disabled={isDeleting} className="bg-red-600 hover:bg-red-700">
+              {isDeleting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Excluir Item'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
-}
+};
+
+export default RestaurantMenu;
