@@ -36,29 +36,7 @@ export default function Splash() {
         </div>
       </motion.div>
 
-      {/* Loading dots animation at the bottom */}
-      <motion.div 
-        className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex justify-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-      >
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            className="w-3 h-3 bg-white/70 rounded-full"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.7, 1, 0.7],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          />
-        ))}
-      </motion.div>
+      {/* Loading dots animation at the bottom (REMOVIDO) */}
     </div>
   );
 }
