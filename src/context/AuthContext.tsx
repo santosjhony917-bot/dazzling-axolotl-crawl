@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useProvideAuth } from '@/hooks/useAuth';
+import { useProvideAuth, AuthContext as AuthContextDefinition } from '@/hooks/useAuth';
 import { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
@@ -9,12 +9,12 @@ interface AuthContextType {
   signOut: () => Promise<{ error: Error | null }>; // Tipo de retorno atualizado
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// Usamos o contexto definido em useAuth.ts
+const AuthContext = AuthContextDefinition as React.Context<AuthContextType | undefined>;
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const auth = useProvideAuth();
   
-  // O erro 10 (Property 'signOut' is missing) é corrigido aqui porque useProvideAuth agora retorna signOut.
   return (
     <AuthContext.Provider value={auth}>
       {children}
@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Exportando useAuth aqui para garantir que todos os componentes o usem corretamente
+// Exportando useAuth para ser usado em toda a aplicação
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

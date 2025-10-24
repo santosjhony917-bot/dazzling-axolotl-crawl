@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/restaurant';
-import { useAuth } from './useAuth';
+import { useAuth } from '@/context/AuthContext'; // Importação corrigida
 
 interface UseRestaurantResult {
   restaurant: Restaurant | null;

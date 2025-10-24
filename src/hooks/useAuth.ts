@@ -12,13 +12,7 @@ interface AuthContextType {
 // Contexto criado em src/context/AuthContext.tsx
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+// REMOVIDO: export const useAuth = (): AuthContextType => { ... }
 
 export const useProvideAuth = (): AuthContextType => {
   const [user, setUser] = useState<User | null>(null);

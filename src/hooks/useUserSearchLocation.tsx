@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from './useAuth';
+import { useAuth } from '@/context/AuthContext';
 import { GeocodedAddress, reverseGeocode } from '@/services/geolocation';
 import { showError } from '@/utils/toast';
 
