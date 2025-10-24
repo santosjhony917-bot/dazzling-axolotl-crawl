@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Search, Utensils } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { showSuccess } from "@/utils/toast";
+import { showSuccess, showError } from "@/utils/toast";
 import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
-import { loadLastSearchLocation, getCurrentLocationAddress } from "@/services/geolocation"; // Importando loadLastSearchLocation
+import { loadLastSearchLocation, getCurrentLocationAddress, saveLastSearchLocation } from "@/services/geolocation"; // Importando saveLastSearchLocation
 
 // Componente memoizado para itens de restaurante
 const RestaurantItem = memo(({ restaurant }: { restaurant: any }) => (
@@ -38,7 +38,7 @@ const mockRestaurants = [
 const Index = () => {
   const navigate = useNavigate();
   const [locationModalOpen, setLocationModalOpen] = useState(false);
-  const [userLocation, setUserLocation] = useState("Localização Atual");
+  const [userLocation, setUserLocation] = useState("Buscando localização...");
 
   useEffect(() => {
     const checkLocation = async () => {
@@ -47,22 +47,28 @@ const Index = () => {
 
       if (savedLocation) {
         setUserLocation(savedLocation.address);
-        // Se já temos uma localização salva, não abrimos o modal de permissão imediatamente.
         return;
       }
 
       if (preference === 'unset') {
         setLocationModalOpen(true);
       } else if (preference === 'granted') {
-        // Tenta obter a localização real se a permissão foi concedida, mas não há dados salvos
         try {
           const addressData = await getCurrentLocationAddress();
           setUserLocation(addressData.formattedAddress);
+          saveLastSearchLocation(addressData); // Salva se for a primeira vez e o GPS funcionar
         } catch (e) {
           setUserLocation("Localização Padrão");
         }
       } else {
-        setUserLocation("Localização Padrão");
+        // Se 'denied' ou 'mock', usamos o mock e salvamos para persistir
+        try {
+            const addressData = await getCurrentLocationAddress(); // Isso usará o mock/fallback
+            setUserLocation(addressData.formattedAddress);
+            saveLastSearchLocation(addressData);
+        } catch (e) {
+            setUserLocation("Localização Padrão");
+        }
       }
     };
     checkLocation();
@@ -71,20 +77,40 @@ const Index = () => {
   const handleLocationGranted = async () => {
     setLocationModalOpen(false);
     // Força a busca e salva no localStorage
-    const addressData = await getCurrentLocationAddress();
-    setUserLocation(addressData.formattedAddress);
-    showSuccess("Localização definida com sucesso!");
+    try {
+        const addressData = await getCurrentLocationAddress();
+        setUserLocation(addressData.formattedAddress);
+        saveLastSearchLocation(addressData);
+        showSuccess("Localização definida com sucesso!");
+    } catch (e) {
+        setUserLocation("Localização Padrão");
+        showError("Falha ao obter localização GPS. Usando padrão.");
+    }
   };
 
-  const handleLocationDenied = () => {
+  const handleLocationDenied = async () => {
     setLocationModalOpen(false);
-    setUserLocation("Localização Padrão");
+    // Se negado, garante que o mock seja salvo para persistir
+    try {
+        const addressData = await getCurrentLocationAddress(); // Isso usará o mock/fallback
+        setUserLocation(addressData.formattedAddress);
+        saveLastSearchLocation(addressData);
+    } catch (e) {
+        setUserLocation("Localização Padrão");
+    }
   };
   
-  const handleUseMockLocation = () => {
+  const handleUseMockLocation = async () => {
     setLocationModalOpen(false);
-    setUserLocation("Localização Padrão (Mock)");
-    showSuccess("Usando localização padrão.");
+    // Se mock, garante que o mock seja salvo para persistir
+    try {
+        const addressData = await getCurrentLocationAddress(); // Isso usará o mock/fallback
+        setUserLocation(addressData.formattedAddress);
+        saveLastSearchLocation(addressData);
+        showSuccess("Usando localização padrão.");
+    } catch (e) {
+        setUserLocation("Localização Padrão");
+    }
   };
 
   return (
