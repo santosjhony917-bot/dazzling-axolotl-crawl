@@ -50,14 +50,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
           {/* Header */}
           <SheetHeader className="p-4 border-b relative flex-shrink-0">
             <SheetTitle className="text-xl font-bold text-[#022D68] text-center">Filtro de Distância</SheetTitle>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="absolute right-4 top-4 h-8 w-8 text-gray-500 hover:bg-gray-100"
-              onClick={onClose}
-            >
-              <X className="h-5 w-5" />
-            </Button>
+            {/* Removido o botão X redundante */}
           </SheetHeader>
           
           {/* Content */}
