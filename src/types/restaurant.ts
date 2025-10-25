@@ -1,4 +1,4 @@
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
 
 export interface Restaurant {
   id: string;

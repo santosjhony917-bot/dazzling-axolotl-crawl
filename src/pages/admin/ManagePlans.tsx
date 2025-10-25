@@ -21,10 +21,11 @@ import {
 } from '@/components/ui/alert-dialog';
 
 // Planos disponíveis para seleção manual
-const availablePlans: { value: RestaurantPlan, label: string, isPaid: boolean }[] = [
-  { value: 'free', label: 'Free', isPaid: false },
-  { value: 'basic', label: 'Basic', isPaid: true },
-  { value: 'premium', label: 'Premium', isPaid: true },
+const availablePlans: { value: RestaurantPlan, label: string, isPaid: boolean, isGift: boolean }[] = [
+  { value: 'free', label: 'Free', isPaid: false, isGift: false },
+  { value: 'basic', label: 'Basic', isPaid: true, isGift: false },
+  { value: 'premium', label: 'Premium', isPaid: true, isGift: false },
+  { value: 'premium_gift', label: 'Premium G (Cortesia)', isPaid: false, isGift: true },
 ];
 
 // Função para buscar todos os restaurantes
@@ -86,15 +87,47 @@ export default function ManagePlans() {
     return restaurants.filter(r => r.plan === filter);
   }, [restaurants, filter]);
 
-  const isPlanEditable = (plan: RestaurantPlan) => {
-    // Apenas planos 'free' são editáveis para upgrade manual
-    return plan === 'free';
+  const getPlanDetails = (plan: RestaurantPlan) => {
+    return availablePlans.find(p => p.value === plan) || availablePlans[0];
+  };
+
+  const isPlanEditable = (currentPlan: RestaurantPlan, targetPlan: RestaurantPlan) => {
+    const currentDetails = getPlanDetails(currentPlan);
+    const targetDetails = getPlanDetails(targetPlan);
+    
+    // Regra 1: Planos pagos (basic, premium) não podem ser rebaixados para free ou premium_gift.
+    if (currentDetails.isPaid && (targetPlan === 'free' || targetPlan === 'premium_gift')) {
+      return false;
+    }
+    
+    // Regra 2: Planos cortesia (premium_gift) não podem ser rebaixados para free.
+    if (currentDetails.isGift && targetPlan === 'free') {
+        return false;
+    }
+    
+    // Regra 3: Se o plano atual for pago ou cortesia, só pode ser alterado para outro plano pago/cortesia (upgrade ou lateral).
+    if ((currentDetails.isPaid || currentDetails.isGift) && targetPlan === 'free') {
+        return false;
+    }
+    
+    // Regra 4: Se o plano atual for Free, pode ir para qualquer outro.
+    if (currentPlan === 'free') {
+        return true;
+    }
+    
+    // Regra 5: Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia.
+    if (currentDetails.isPaid || currentDetails.isGift) {
+        return targetDetails.isPaid || targetDetails.isGift;
+    }
+    
+    return true;
   };
   
   const getPlanColor = (plan: RestaurantPlan) => {
     switch (plan) {
       case 'premium': return 'bg-amber-500 text-white';
       case 'basic': return 'bg-blue-500 text-white';
+      case 'premium_gift': return 'bg-green-500 text-white'; // Cor para cortesia
       case 'free': return 'bg-gray-200 text-gray-700';
       default: return 'bg-gray-200 text-gray-700';
     }
@@ -104,24 +137,21 @@ export default function ManagePlans() {
     const newPlanTyped = newPlan as RestaurantPlan;
     const currentPlan = restaurant.plan;
     
-    // Regra de Negócio: Planos pagos não podem ser rebaixados manualmente
-    const isCurrentPlanPaid = availablePlans.find(p => p.value === currentPlan)?.isPaid;
-    const isNewPlanFree = newPlanTyped === 'free';
-    
-    if (isCurrentPlanPaid && isNewPlanFree) {
-      showError("Restaurantes com planos pagos não podem ser rebaixados manualmente para Free.");
-      return;
+    if (currentPlan === newPlanTyped) return;
+
+    // Verifica se a transição é permitida
+    if (!isPlanEditable(currentPlan, newPlanTyped)) {
+        showError(`Não é possível rebaixar o plano ${currentPlan.toUpperCase()} para ${newPlanTyped.toUpperCase()}.`);
+        return;
     }
     
-    if (currentPlan !== newPlanTyped) {
-      setPendingChange({
-        id: restaurant.id,
-        name: restaurant.name,
-        currentPlan: currentPlan,
-        newPlan: newPlanTyped,
-      });
-      setIsAlertOpen(true);
-    }
+    setPendingChange({
+      id: restaurant.id,
+      name: restaurant.name,
+      currentPlan: currentPlan,
+      newPlan: newPlanTyped,
+    });
+    setIsAlertOpen(true);
   };
   
   const confirmPlanUpdate = () => {
@@ -140,7 +170,7 @@ export default function ManagePlans() {
           <CardTitle className="flex items-center gap-2 text-[#022D68]">
             <Crown className="w-6 h-6" /> Gerenciamento de Planos
           </CardTitle>
-          <CardDescription>Visualize e altere o plano de assinatura dos restaurantes (apenas para Free).</CardDescription>
+          <CardDescription>Visualize e altere o plano de assinatura dos restaurantes.</CardDescription>
         </CardHeader>
       </Card>
 
@@ -186,13 +216,13 @@ export default function ManagePlans() {
                   
                   <div className="flex items-center gap-3">
                     <div className={cn("px-3 py-1 rounded-full text-xs font-bold", getPlanColor(restaurant.plan))}>
-                      {restaurant.plan.toUpperCase()}
+                      {getPlanDetails(restaurant.plan).label.toUpperCase()}
                     </div>
                     
                     <Select 
                       value={restaurant.plan} 
                       onValueChange={(newPlan) => handlePlanChange(restaurant, newPlan)}
-                      disabled={!isPlanEditable(restaurant.plan) || updatePlanMutation.isPending}
+                      disabled={updatePlanMutation.isPending}
                     >
                       <SelectTrigger className="w-[120px] h-10">
                         <SelectValue placeholder="Alterar Plano" />
@@ -202,8 +232,8 @@ export default function ManagePlans() {
                           <SelectItem 
                             key={p.value} 
                             value={p.value}
-                            // Desabilita a opção se o plano atual for pago e o novo for Free
-                            disabled={!isPlanEditable(restaurant.plan) && p.value !== restaurant.plan}
+                            // Desabilita a opção se a transição não for permitida
+                            disabled={!isPlanEditable(restaurant.plan, p.value)}
                           >
                             {p.label}
                           </SelectItem>
@@ -228,8 +258,8 @@ export default function ManagePlans() {
             <AlertDialogDescription>
               Você tem certeza que deseja alterar o plano do restaurante 
               <span className="font-bold text-gray-900"> {pendingChange?.name}</span> de 
-              <span className="font-bold text-highlight"> {pendingChange?.currentPlan.toUpperCase()}</span> para 
-              <span className="font-bold text-highlight"> {pendingChange?.newPlan.toUpperCase()}</span>?
+              <span className="font-bold text-highlight"> {getPlanDetails(pendingChange?.currentPlan || 'free').label.toUpperCase()}</span> para 
+              <span className="font-bold text-highlight"> {getPlanDetails(pendingChange?.newPlan || 'free').label.toUpperCase()}</span>?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
