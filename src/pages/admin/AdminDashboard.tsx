@@ -11,6 +11,7 @@ const InstantMetricsTab = () => <CardContent>Implementar Ajustes de Métricas In
 const ScheduledMetricsTab = () => <CardContent>Implementar Agendamento de Métricas.</CardContent>;
 
 export default function AdminDashboard() {
+  console.log("AdminDashboard is rendering."); // <-- Log de verificação
   return (
     <div className="space-y-6">
       <Card>

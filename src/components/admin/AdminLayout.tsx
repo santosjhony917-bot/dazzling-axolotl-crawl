@@ -22,8 +22,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   
   const { user, isLoading, isAdmin, signOut } = useAuthContext();
 
+  console.log(`[AdminLayout] Loading: ${isLoading}, IsAdmin: ${isAdmin}, User: ${!!user}`);
+
   // 1. Se o carregamento inicial (Supabase Auth + TanStack Queries) estiver ativo, mostre o loader.
   if (isLoading) {
+    console.log("[AdminLayout] Showing Loader.");
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -32,10 +35,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   }
   
   // 2. Se o usuário não estiver autenticado OU não for admin, redirecione para o login.
-  // Como isLoading agora cobre a busca do papel, esta é a decisão final.
   if (!user || !isAdmin) {
+    console.log("[AdminLayout] Redirecting to Admin Login.");
     return <Navigate to={createPageUrl('admin/login')} replace />;
   }
+
+  console.log("[AdminLayout] Rendering full layout.");
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
