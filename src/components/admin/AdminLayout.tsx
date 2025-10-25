@@ -21,9 +21,25 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   
   const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const [isWaitingForRole, setIsWaitingForRole] = useState(true);
+
+  // Efeito para controlar o estado de espera
+  useEffect(() => {
+    if (!isLoading) {
+      // Se o carregamento inicial terminou, paramos de esperar.
+      setIsWaitingForRole(false);
+    } else if (user && !isAdmin) {
+      // Se o usuário está presente, mas não é admin, damos um pequeno tempo extra
+      // para o TanStack Query resolver o papel, caso o cache esteja desatualizado.
+      const timer = setTimeout(() => {
+        setIsWaitingForRole(false);
+      }, 500); // Espera 500ms extra
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, user, isAdmin]);
 
   // Proteção de Rota de Admin
-  if (isLoading) {
+  if (isLoading || isWaitingForRole) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -31,10 +47,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
     );
   }
   
-  // Se não estiver logado OU não for admin, redireciona para a página de login de admin
+  // Se não estiver logado OU não for admin (após a espera), redireciona para a página de login de admin
   if (!user || !isAdmin) {
-    // Não forçamos o logout aqui, apenas redirecionamos para o login de admin.
-    // O usuário pode estar logado como cliente/restaurante.
     return <Navigate to={createPageUrl('admin/login')} replace />;
   }
 
