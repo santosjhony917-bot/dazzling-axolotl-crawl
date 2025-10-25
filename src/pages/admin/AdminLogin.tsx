@@ -30,7 +30,7 @@ export default function AdminLogin() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       
       if (error) {
-        // Se o usuário não existir, tenta criar e definir o metadado de admin
+        // Se o erro for de credenciais inválidas, tentamos criar o usuário com o metadado de admin
         if (error.message.includes('Invalid login credentials')) {
             
             // Tenta criar o usuário com o metadado de admin
@@ -44,11 +44,15 @@ export default function AdminLogin() {
                 }
             });
             
-            if (signUpError) throw signUpError;
+            if (signUpError) {
+                // Se o erro for 'User already exists', significa que a senha está errada
+                if (signUpError.message.includes('User already exists')) {
+                    throw new Error("Usuário já existe. Verifique a senha.");
+                }
+                throw signUpError;
+            }
             
-            // Tenta logar novamente após o cadastro
-            const { error: signInAfterSignUpError } = await supabase.auth.signInWithPassword({ email, password });
-            if (signInAfterSignUpError) throw signInAfterSignUpError;
+            // Se o cadastro for bem-sucedido, o Supabase loga automaticamente.
             
         } else {
             throw error;

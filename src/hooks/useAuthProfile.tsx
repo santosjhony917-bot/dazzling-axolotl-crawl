@@ -47,8 +47,9 @@ const fetchUserRole = async (user: User): Promise<{ isPremium: boolean, isAdmin:
     // 1. Pelo metadado (definido no signup/login de teste)
     const isAdminByMetadata = user.user_metadata?.role === 'admin';
     
-    // 2. Pelo ID (para o caso de não ter metadado, mas ser o usuário de teste)
-    const isAdminByEmail = user.email === 'admin@test.com';
+    // 2. Pelo e-mail de admin de teste
+    const ADMIN_TEST_EMAIL = 'joaoedasilva018@gmail.com';
+    const isAdminByEmail = user.email === ADMIN_TEST_EMAIL;
     
     const isAdmin = isAdminByMetadata || isAdminByEmail;
     
@@ -74,14 +75,20 @@ export function useAuthProfile(): AuthProfileState {
   useEffect(() => {
     checkSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null);
       setAuthLoading(false);
       
       // Se o usuário acabou de fazer login ou se a sessão foi restaurada, forçamos o refetch do perfil
       if (session?.user) {
-          queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_KEY(session.user.id) });
-          queryClient.invalidateQueries({ queryKey: USER_ROLE_KEY(session.user.id) });
+          const userId = session.user.id;
+          queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_KEY(userId) });
+          queryClient.invalidateQueries({ queryKey: USER_ROLE_KEY(userId) });
+          
+          // Se for um evento de SIGNED_IN, garantimos que o novo perfil seja buscado imediatamente
+          if (event === 'SIGNED_IN') {
+              queryClient.refetchQueries({ queryKey: USER_ROLE_KEY(userId) });
+          }
       }
     });
 
