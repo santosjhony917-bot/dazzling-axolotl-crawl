@@ -17,6 +17,16 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
   
   const displayTitle = title || restaurant?.name || "Restaurante";
 
+  // Se o backPath for 'home', usamos navigate(-1) para voltar ao histórico.
+  // Caso contrário, navegamos para o caminho especificado.
+  const handleBack = () => {
+    if (backPath === 'home') {
+      navigate(-1);
+    } else {
+      navigate(createPageUrl(backPath));
+    }
+  };
+
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
@@ -25,7 +35,7 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl(backPath))}
+          onClick={handleBack}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="h-6 w-6" />

@@ -56,15 +56,15 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
             />
         )}
         
-        {/* Botão Voltar */}
-        <Button
+        {/* Botão Voltar REMOVIDO DAQUI, AGORA USAMOS APENAS O DO LAYOUT PAI */}
+        {/* <Button
           variant="ghost"
           size="icon"
           onClick={() => navigate(-1)}
           className="absolute top-4 left-4 text-white bg-black/30 hover:bg-black/50 rounded-full"
         >
           <ArrowLeft className="h-6 w-6" />
-        </Button>
+        </Button> */}
 
         {/* Card Principal Flutuante */}
         <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
