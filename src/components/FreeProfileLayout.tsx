@@ -252,10 +252,16 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
               {/* Botão Ver Perfil Público */}
               <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <Button 
-                  onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+                  onClick={() => {
+                    if (restaurant.id) {
+                      navigate(createPageUrl(`restaurant-profile/${restaurant.id}`));
+                    } else {
+                      showError("ID do restaurante não encontrado. Tente recarregar a página.");
+                    }
+                  }}
                   className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
                 >
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-5 h-5 mr-2" />
                   <span className="truncate">Ver meu perfil público</span>
                 </Button>
               </div>
@@ -288,7 +294,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                 />
                 <InfoCardItem
                   label="Endereço"
-                  value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}` : "Não definido"}
+                  value={restaurant?.address ? `${restaurant.address}, ${restaurant.number}` : "Não definido"}
                   icon={MapPin}
                   isPremium={isPremium}
                   onClick={() => setIsAddressDialogOpen(true)}
