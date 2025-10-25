@@ -67,11 +67,21 @@ export default function ManageAdmins() {
 
   const handleAddAdmin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!emailToAdd || !emailToAdd.includes('@')) {
+    
+    const trimmedEmail = emailToAdd.trim();
+    
+    if (!trimmedEmail || !trimmedEmail.includes('@')) {
       showError('Por favor, insira um e-mail válido.');
       return;
     }
-    addAdminMutation.mutate(emailToAdd);
+    
+    // Verifica se o usuário já é administrador (prevenção de erro comum)
+    if (admins?.some(admin => admin.email.toLowerCase() === trimmedEmail.toLowerCase())) {
+        showError(`O usuário ${trimmedEmail} já é um administrador.`);
+        return;
+    }
+    
+    addAdminMutation.mutate(trimmedEmail);
   };
 
   const handleRemoveClick = (user: AdminUser) => {
@@ -113,7 +123,7 @@ export default function ManageAdmins() {
             </div>
             <Button 
               type="submit" 
-              disabled={addAdminMutation.isPending || !emailToAdd}
+              disabled={addAdminMutation.isPending || !emailToAdd.trim()}
               className="bg-highlight hover:bg-highlight/90 h-10 px-4 flex items-center gap-2"
             >
               {addAdminMutation.isPending ? (
