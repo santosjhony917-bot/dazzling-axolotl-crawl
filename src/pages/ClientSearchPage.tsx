@@ -11,6 +11,7 @@ import { createPageUrl } from '@/utils/url';
 import { Restaurant } from '@/types/restaurant';
 import CustomerBottomNav from '@/components/CustomerBottomNav';
 import { useAuthContext } from '@/context/AuthContext'; // Importando o contexto
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // <-- Importação adicionada
 
 type SearchType = 'dishes' | 'restaurants';
 
@@ -98,7 +99,9 @@ export default function ClientSearchPage() {
 
         {/* Resultados */}
         <h2 className="text-lg font-bold mb-3 text-primary">
-          {searchType === 'dishes' ? 'Pratos em Destaque' : 'Restaurantes Próximos'}
+          {searchQuery 
+            ? `Resultados para "${searchQuery}" em ${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'}` 
+            : `${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'} Próximos`}
         </h2>
 
         {loading ? (
@@ -144,7 +147,7 @@ export default function ClientSearchPage() {
       {!isRestaurantUser && <CustomerBottomNav selectedTab="search" />}
       
       {/* Bottom Navigation - Renderiza apenas se for Restaurante */}
-      {isRestaurantUser && <RestaurantBottomNav selectedTab="stats" isFree={!restaurant.plan || restaurant.plan === 'free'} />}
+      {isRestaurantUser && restaurant && <RestaurantBottomNav selectedTab="stats" isFree={!restaurant.plan || restaurant.plan === 'free'} />}
     </div>
   );
 }
