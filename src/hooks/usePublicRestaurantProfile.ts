@@ -29,14 +29,20 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
     setError(null);
 
     try {
-      // 1. Fetch Restaurant Profile
+      // 1. Fetch Restaurant Profile - Using maybeSingle() to return null if not found
       const { data: restaurant, error: restaurantError } = await supabase
         .from('restaurants')
         .select('*')
         .eq('id', restaurantId)
-        .single();
+        .maybeSingle(); // <-- CORREÇÃO APLICADA
 
-      if (restaurantError || !restaurant) throw new Error('Restaurante não encontrado.');
+      if (restaurantError) throw restaurantError;
+
+      if (!restaurant) {
+        setError('Restaurante não encontrado.');
+        setData(null);
+        return;
+      }
 
       // 2. Fetch Categories (only active ones for public view)
       const { data: categoryData, error: categoryError } = await supabase
