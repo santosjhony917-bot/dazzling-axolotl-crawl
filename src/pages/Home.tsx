@@ -1,234 +1,202 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, DollarSign, Heart, Utensils, Filter, X } from 'lucide-react';
+import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByNameModal from '@/components/search/SearchByNameModal';
-import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/components/ui/use-toast';
-import { Restaurant } from '@/types/restaurant';
-import { findNearbyRestaurants } from '@/integrations/supabase/restaurants';
-import useUserLocation from '@/hooks/useUserLocation';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
+import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import CustomerBottomNav from '@/components/CustomerBottomNav';
 import { createPageUrl } from '@/utils/url';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
+import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import { Skeleton } from '@/components/ui/skeleton';
+import { showError, showSuccess } from '@/utils/toast';
+import { Restaurant } from '@/types/restaurant';
+import ActionCard from '@/components/restaurant/dashboard/ActionCard';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // Novo import
 
 const Home: React.FC = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const { location, isLoading: isLocationLoading, error: locationError, requestLocation } = useUserLocation();
+  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
+  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // Novo estado para o modal de distância
+  const [searchQuery, setSearchQuery] = React.useState('');
 
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
-  const [isNameModalOpen, setIsNameModalOpen] = useState(false);
-  const [filter, setFilter] = useState<{ minPrice: number | null, maxPrice: number | null }>({ minPrice: null, maxPrice: null });
+  const userLat = location.latitude;
+  const userLon = location.longitude;
 
-  const fetchRestaurants = useCallback(async (lat: number, lng: number, query: string = '') => {
-    setIsLoading(true);
-    try {
-      const data = await findNearbyRestaurants(lat, lng, 10, query);
-      setRestaurants(data);
-    } catch (err) {
-      console.error("Failed to fetch restaurants:", err);
-      toast({
-        title: "Erro de Conexão",
-        description: "Não foi possível carregar os restaurantes próximos.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [toast]);
+  // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
+  const { 
+    restaurants, 
+    loading: isRestaurantsLoading, 
+    error: restaurantsError, 
+    refetch: refetchRestaurants 
+  } = useNearbyRestaurants({
+    userLat,
+    userLon,
+    enabled: userLat !== null && userLon !== null,
+    searchQuery: searchQuery, // Passa a query de busca
+  });
 
-  useEffect(() => {
-    if (location.latitude !== null && location.longitude !== null) {
-      fetchRestaurants(location.latitude, location.longitude, searchQuery);
-    } else if (!isLocationLoading && !locationError) {
-      // If location is not available and not loading, prompt user
-      // This case is handled by the useUserLocation hook, but we ensure loading state is set.
-      setIsLoading(false);
-    }
-  }, [location, isLocationLoading, fetchRestaurants, searchQuery, locationError]);
-
-  const handleSearch = () => {
-    if (location.latitude !== null && location.longitude !== null) {
-      fetchRestaurants(location.latitude, location.longitude, searchQuery);
-    } else {
-      toast({
-        title: "Localização Necessária",
-        description: "Por favor, permita o acesso à sua localização para buscar restaurantes.",
-        variant: "default",
-      });
-    }
+  const handleLocationSaved = () => {
+    refetchLocation();
+    setIsLocationModalOpen(false);
+  };
+  
+  const handleSearchByPrice = () => {
+    setIsPriceModalOpen(true);
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    setFilter({ minPrice, maxPrice });
-    setIsPriceModalOpen(false);
-    // Re-fetch restaurants with price filter logic (if implemented in backend)
-    // For now, we rely on the search modal handling item search separately.
+    // TODO: Implementar a lógica de busca real com os filtros de preço
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
+    // Por enquanto, apenas fechamos o modal. A busca real virá depois.
   };
 
-  const handleClearFilter = () => {
-    setFilter({ minPrice: null, maxPrice: null });
-    setSearchQuery('');
-    if (location.latitude !== null && location.longitude !== null) {
-      fetchRestaurants(location.latitude, location.longitude, '');
+  const handleSearchNearby = () => {
+    setIsDistanceModalOpen(true);
+  };
+  
+  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    // TODO: Implementar a lógica de busca real com o filtro de distância
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
+    // A busca real virá depois.
+  };
+  
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (userLat === null || userLon === null) {
+      showError("Aguarde enquanto obtemos sua localização.");
+      return;
     }
+    // Redireciona para a página de busca completa
+    navigate(createPageUrl('search-client'));
   };
 
-  const handleNavigateToRestaurant = (id: string) => {
-    navigate(createPageUrl(`restaurant-profile/${id}`));
-  };
-
-  const handleNavigateToFavorites = () => {
-    if (user) {
-      navigate(createPageUrl('favorites'));
-    } else {
-      toast({
-        title: "Acesso Negado",
-        description: "Você precisa estar logado para ver seus favoritos.",
-        variant: "default",
-      });
-      navigate(createPageUrl('auth'));
+  const handleOpenSearchConfig = () => {
+    if (userLat === null || userLon === null) {
+      showError("Aguarde enquanto obtemos sua localização.");
+      return;
     }
+    // Navega para a página de configuração de busca (SearchRestaurants)
+    navigate(createPageUrl('search-restaurants'));
   };
-
-  const renderLoadingState = () => (
-    <div className="space-y-4">
-      {[...Array(3)].map((_, index) => (
-        <Card key={index} className="p-4">
-          <div className="flex space-x-4">
-            <Skeleton className="w-20 h-20 rounded-lg" />
-            <div className="flex-1 space-y-2">
-              <Skeleton className="h-4 w-3/4" />
-              <Skeleton className="h-3 w-full" />
-              <Skeleton className="h-3 w-1/2" />
-            </div>
-          </div>
-        </Card>
-      ))}
-    </div>
-  );
-
-  const renderLocationError = () => (
-    <Alert variant="destructive" className="mt-4">
-      <MapPin className="h-4 w-4" />
-      <AlertTitle>Localização Necessária</AlertTitle>
-      <AlertDescription>
-        Não foi possível obter sua localização. Por favor, verifique as permissões do seu dispositivo.
-        <Button onClick={requestLocation} className="mt-2 w-full">Tentar Novamente</Button>
-      </AlertDescription>
-    </Alert>
-  );
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      {/* Header e Busca Principal */}
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold text-primary dark:text-white">Filter Food</h1>
-        <Button variant="ghost" size="icon" onClick={handleNavigateToFavorites}>
-          <Heart className="w-6 h-6 text-red-500" />
-        </Button>
-      </div>
-
-      {/* Localização Atual */}
-      <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4">
-        <MapPin className="w-4 h-4 mr-1 text-highlight" />
-        <span>{location.latitude !== null ? `Localização: ${location.address || 'Coordenadas GPS'}` : 'Buscando localização...'}</span>
-      </div>
-
-      {/* Barra de Busca de Restaurantes */}
-      <div className="flex space-x-2 mb-6">
-        <Input
-          type="text"
-          placeholder="Buscar restaurantes por nome ou categoria..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-grow"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearch();
-            }
-          }}
-        />
-        <Button onClick={handleSearch} disabled={isLoading || isLocationLoading}>
-          <Search className="w-4 h-4" />
-        </Button>
-      </div>
-
-      {/* Ações Rápidas (Busca de Pratos) */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-        <Button 
-          variant="outline" 
-          className="flex-shrink-0"
-          onClick={() => setIsPriceModalOpen(true)}
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      
+      {/* Header com Localização */}
+      <header className="bg-white p-4 sticky top-0 z-10 shadow-sm">
+        <div 
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => setIsLocationModalOpen(true)}
         >
-          <DollarSign className="w-4 h-4 mr-2" /> Buscar Prato por Preço
-        </Button>
-        <Button 
-          variant="outline" 
-          className="flex-shrink-0"
-          onClick={() => setIsNameModalOpen(true)}
-        >
-          <Utensils className="w-4 h-4 mr-2" /> Buscar Prato por Nome
-        </Button>
-      </div>
-
-      {/* Filtros Ativos (Se houver) */}
-      {(filter.minPrice !== null || filter.maxPrice !== null || searchQuery) && (
-        <div className="flex items-center space-x-2 mb-4 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-          <Filter className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium">Filtros Ativos:</span>
-          {searchQuery && <Badge variant="secondary">{searchQuery}</Badge>}
-          {(filter.minPrice !== null || filter.maxPrice !== null) && (
-            <Badge variant="secondary">Preço: {filter.minPrice || '0'} - {filter.maxPrice || 'Max'}</Badge>
-          )}
-          <Button variant="ghost" size="icon" onClick={handleClearFilter} className="h-6 w-6 ml-auto">
-            <X className="w-4 h-4" />
-          </Button>
+          <MapPin className="h-6 w-6 text-[#E47948]" />
+          <div>
+            <p className="text-xs text-gray-500">Localização de Busca</p>
+            {isLocationLoading ? (
+              <div className="flex items-center text-sm font-bold text-[#022D68]">
+                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
+              </div>
+            ) : (
+              <p className="text-base font-bold text-[#022D68] truncate max-w-[250px]">
+                {location.address.split(',')[0] || "Definir Local"}
+              </p>
+            )}
+          </div>
         </div>
-      )}
-
-      {/* Lista de Restaurantes */}
-      <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Restaurantes Próximos</h2>
-      
-      {isLocationLoading && <p className="text-center text-gray-500">Aguardando permissão de localização...</p>}
-      {locationError && renderLocationError()}
-      
-      {isLoading && !locationError && renderLoadingState()}
-
-      {!isLoading && !locationError && restaurants.length === 0 && (
-        <p className="text-center text-gray-500 mt-8">Nenhum restaurante encontrado na sua área.</p>
-      )}
-
-      {!isLoading && restaurants.length > 0 && (
-        <div className="space-y-4">
-          {restaurants.map((restaurant) => (
-            <RestaurantCard 
-              key={restaurant.id} 
-              restaurant={restaurant} 
-              onClick={() => handleNavigateToRestaurant(restaurant.id)}
+        
+        {/* Barra de Busca */}
+        <form onSubmit={handleSearch} className="mt-4 flex gap-2">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Input
+              type="text"
+              placeholder="Buscar pratos ou restaurantes..."
+              className="w-full pl-10 h-12 text-base rounded-full"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-          ))}
+          </div>
+          <Button size="icon" variant="outline" className="h-12 w-12 rounded-full shrink-0" onClick={handleOpenSearchConfig}>
+              <Filter className="w-5 h-5" />
+          </Button>
+        </form>
+        
+        {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
+        <div className="flex gap-4 pt-4">
+          <ActionCard 
+            title="Buscar Prato|por Preço" 
+            icon={DollarSign} 
+            onClick={handleSearchByPrice}
+          />
+          <ActionCard 
+            title="Buscar Restaurantes|Próximos" 
+            icon={Compass} 
+            onClick={handleSearchNearby}
+          />
         </div>
-      )}
+      </header>
 
-      {/* Modais de Busca */}
-      <SearchByPriceModal 
-        isOpen={isPriceModalOpen} 
-        onClose={() => setIsPriceModalOpen(false)}
+      <main className="p-4 space-y-6">
+        <h2 className="text-xl font-bold text-[#022D68]">Restaurantes em Destaque</h2>
+        
+        {isRestaurantsLoading || isLocationLoading ? (
+          <div className="space-y-4">
+            <Skeleton className="w-full h-48 rounded-xl" />
+            <Skeleton className="w-full h-48 rounded-xl" />
+          </div>
+        ) : restaurantsError ? (
+          <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <p className="font-semibold">Erro ao carregar restaurantes:</p>
+            <p>{restaurantsError}</p>
+            <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
+          </div>
+        ) : restaurants.length > 0 ? (
+          <div className="space-y-4">
+            {/* O tipo NearbyRestaurant é um subconjunto de Restaurant, mas forçamos a tipagem para compatibilidade com RestaurantCard. */}
+            {restaurants.map((restaurant) => (
+              <RestaurantCard 
+                key={restaurant.id} 
+                restaurant={restaurant as unknown as Restaurant} 
+                onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-8 text-gray-600">
+            <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
+            <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>
+          </div>
+        )}
+      </main>
+
+      {/* Bottom Navigation */}
+      <CustomerBottomNav selectedTab="home" />
+
+      {/* User Location Modal */}
+      <UserLocationModal
+        isOpen={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+        currentAddress={location.address}
+        onLocationSaved={handleLocationSaved}
       />
-      <SearchByNameModal 
-        isOpen={isNameModalOpen} 
-        onClose={() => setIsNameModalOpen(false)}
+      
+      {/* Search By Price Modal */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
+      />
+      
+      {/* Search By Distance Modal */}
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );

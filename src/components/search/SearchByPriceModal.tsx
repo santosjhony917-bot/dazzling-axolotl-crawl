@@ -1,133 +1,179 @@
-import React, { useState } from 'react';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
-import { Input } from '@/components/ui/input';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { DollarSign, Search, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { searchMenuItems } from '@/integrations/supabase/menu';
-import { useToast } from '@/components/ui/use-toast';
-import { RestaurantMenuItem } from '@/types/menu';
-import MenuItemCard from '../MenuItemCard';
+import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { formatCurrency } from '@/utils/formatters';
 
 interface SearchByPriceModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onApplyFilter: (minPrice: number, maxPrice: number) => void;
 }
 
-const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose }) => {
-  const [maxPrice, setMaxPrice] = useState<string>('');
-  const [results, setResults] = useState<RestaurantMenuItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+// Faixas de preço predefinidas
+const PRICE_RANGES = [
+  { label: 'Até R$20', min: 0, max: 20 },
+  { label: 'R$20 - R$50', min: 20, max: 50 },
+  { label: 'R$50 - R$100', min: 50, max: 100 },
+  { label: 'Acima de R$100', min: 100, max: 500 }, // Max arbitrário alto
+];
 
-  const handleSearch = async () => {
-    const price = parseFloat(maxPrice);
-    if (isNaN(price) || price <= 0) {
-      toast({
-        title: "Erro de Busca",
-        description: "Por favor, insira um preço máximo válido.",
-        variant: "destructive",
-      });
-      return;
-    }
+const MIN_GLOBAL_PRICE = 0;
+const MAX_GLOBAL_PRICE = 500; // Limite superior para o slider
 
-    setIsLoading(true);
-    setResults([]);
+const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose, onApplyFilter }) => {
+  const [priceRange, setPriceRange] = useState<[number, number]>([20, 75]);
+  const [minInput, setMinInput] = useState('20,00');
+  const [maxInput, setMaxInput] = useState('75,00');
+  const [selectedRange, setSelectedRange] = useState<string | null>('R$20 - R$50');
+
+  // Sincroniza o estado do slider com os inputs
+  useEffect(() => {
+    setMinInput(formatCurrency(priceRange[0], false));
+    setMaxInput(formatCurrency(priceRange[1], false));
     
-    try {
-      // Since the backend function `search_menu_items` only takes a text query, 
-      // we will search using the price as a query and rely on the backend logic 
-      // or filter locally if the backend search is too broad.
-      // For now, we will use a mock search based on the price input for UI demonstration:
-      
-      // Mocking search results based on price input for UI demonstration:
-      const mockResults: RestaurantMenuItem[] = [
-        { item_id: '1', restaurant_id: 'res1', item_name: 'Prato Econômico', item_description: 'Até R$ 15', item_price: 14.99, item_image_url: null, restaurant_name: 'Restaurante A', restaurant_category: 'Fast Food' },
-        { item_id: '2', restaurant_id: 'res2', item_name: 'Prato Médio', item_description: 'Até R$ 30', item_price: 29.90, item_image_url: null, restaurant_name: 'Restaurante B', restaurant_category: 'Italiano' },
-        { item_id: '3', restaurant_id: 'res3', item_name: 'Prato Caro', item_description: 'Acima de R$ 50', item_price: 55.00, item_image_url: null, restaurant_name: 'Restaurante C', restaurant_category: 'Gourmet' },
-      ].filter(item => item.item_price <= price);
+    // Desseleciona a faixa rápida se o slider for movido manualmente
+    const currentRangeLabel = PRICE_RANGES.find(
+      r => r.min === priceRange[0] && r.max === priceRange[1]
+    )?.label || null;
+    
+    setSelectedRange(currentRangeLabel);
 
-      setResults(mockResults);
+  }, [priceRange]);
 
-      if (mockResults.length === 0) {
-        toast({
-          title: "Nenhum resultado",
-          description: `Não encontramos pratos até R$ ${price.toFixed(2)}.`,
-        });
-      }
-
-    } catch (error) {
-      console.error("Error searching menu items:", error);
-      toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao buscar os pratos.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSliderChange = (newRange: number[]) => {
+    setPriceRange([newRange[0], newRange[1]]);
   };
 
-  const handleClose = () => {
-    setMaxPrice('');
-    setResults([]);
+  const handleQuickRangeSelect = (range: typeof PRICE_RANGES[0]) => {
+    setPriceRange([range.min, range.max]);
+    setSelectedRange(range.label);
+  };
+
+  const handleInputBlur = (type: 'min' | 'max') => {
+    const value = type === 'min' ? minInput : maxInput;
+    const numericValue = parseFloat(value.replace(',', '.'));
+
+    if (isNaN(numericValue)) return;
+
+    if (type === 'min') {
+      const newMin = Math.max(MIN_GLOBAL_PRICE, Math.min(numericValue, priceRange[1]));
+      setPriceRange([newMin, priceRange[1]]);
+    } else {
+      const newMax = Math.min(MAX_GLOBAL_PRICE, Math.max(numericValue, priceRange[0]));
+      setPriceRange([priceRange[0], newMax]);
+    }
+  };
+  
+  const handleApply = () => {
+    onApplyFilter(priceRange[0], priceRange[1]);
     onClose();
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={handleClose}>
-      <SheetContent 
-        side="bottom" 
-        className={cn(
-          "rounded-t-2xl max-h-[90vh] p-0 flex flex-col",
-          "sm:max-w-md sm:mx-auto"
-        )}
-      >
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="bottom" className="rounded-t-2xl max-h-[90vh] p-0 flex flex-col">
         <SheetHeader className="p-4 border-b">
-          <SheetTitle className="text-xl font-bold text-[#022D68] flex items-center">
-            <DollarSign className="w-5 h-5 mr-2" /> Pesquisar por Preço
-          </SheetTitle>
-          <SheetDescription>
-            Encontre pratos que cabem no seu bolso. Digite o preço máximo.
-          </SheetDescription>
+          <SheetTitle className="text-xl font-bold text-[#022D68]">Pesquisar por Preço</SheetTitle>
         </SheetHeader>
-
-        <div className="p-4 flex-shrink-0">
-          <div className="flex space-x-2">
-            <Input
-              type="number"
-              placeholder="Preço Máximo (Ex: 25.00)"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="flex-grow"
-              step="0.01"
-            />
-            <Button onClick={handleSearch} disabled={isLoading}>
-              {isLoading ? 'Buscando...' : <Search className="w-4 h-4" />}
-            </Button>
+        
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
+          
+          {/* Slider de Faixa de Preço */}
+          <div className="space-y-4">
+            <div className="relative pt-4 pb-8">
+              <Slider
+                min={MIN_GLOBAL_PRICE}
+                max={MAX_GLOBAL_PRICE}
+                step={1}
+                value={priceRange}
+                onValueChange={handleSliderChange}
+                // Estilização do track e range (primeiro span e seu filho)
+                // Estilização do thumb (último span)
+                className="
+                  [&>span:first-child]:h-2 
+                  [&>span:first-child]:bg-gray-200 
+                  [&>span:first-child>span]:bg-[#E47948]
+                  [&>span:last-child]:h-5 
+                  [&>span:last-child]:w-5 
+                  [&>span:last-child]:bg-[#E47948] 
+                  [&>span:last-child]:border-2 
+                  [&>span:last-child]:border-white 
+                  [&>span:last-child]:shadow-md
+                "
+              />
+              <div className="flex justify-between mt-2 text-sm font-semibold text-gray-600">
+                <span>{formatCurrency(priceRange[0])}</span>
+                <span>{formatCurrency(priceRange[1])}</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className="flex-grow overflow-y-auto p-4">
-          {results.length > 0 ? (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Resultados Encontrados ({results.length})</h3>
-              {results.map((item) => (
-                <MenuItemCard key={item.item_id} item={item} />
+          {/* Inputs de Preço */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="min-price" className="text-sm font-medium text-gray-700">Preço Mínimo</Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
+                <Input
+                  id="min-price"
+                  value={minInput}
+                  onChange={(e) => setMinInput(e.target.value)}
+                  onBlur={() => handleInputBlur('min')}
+                  className="pl-8 text-base"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="max-price" className="text-sm font-medium text-gray-700">Preço Máximo</Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
+                <Input
+                  id="max-price"
+                  value={maxInput}
+                  onChange={(e) => setMaxInput(e.target.value)}
+                  onBlur={() => handleInputBlur('max')}
+                  className="pl-8 text-base"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Faixas de Preço Rápida */}
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Faixas de Preço</Label>
+            <div className="grid grid-cols-2 gap-3">
+              {PRICE_RANGES.map((range) => (
+                <Button
+                  key={range.label}
+                  variant="outline"
+                  className={`h-10 rounded-full text-sm font-semibold transition-colors ${
+                    selectedRange === range.label
+                      ? 'bg-[#E47948] text-white border-[#E47948] hover:bg-[#E47948]/90'
+                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                  }`}
+                  onClick={() => handleQuickRangeSelect(range)}
+                >
+                  {range.label}
+                </Button>
               ))}
             </div>
-          ) : (
-            !isLoading && (
-              <p className="text-center text-gray-500 mt-8">
-                {maxPrice ? 'Nenhum prato encontrado com esse preço máximo.' : 'Digite um preço e clique em buscar.'}
-              </p>
-            )
-          )}
+          </div>
         </div>
-
-        <div className="p-4 border-t flex justify-end flex-shrink-0">
-          <Button variant="outline" onClick={handleClose}>
-            <X className="w-4 h-4 mr-2" /> Fechar
+        
+        {/* Botão Aplicar Filtro */}
+        <div className="p-4 bg-white border-t shadow-lg flex-shrink-0">
+          <Button 
+            className="w-full h-12 bg-[#022D68] hover:bg-[#022D68]/90 text-lg font-semibold"
+            onClick={handleApply}
+          >
+            Aplicar Filtro
           </Button>
         </div>
       </SheetContent>
