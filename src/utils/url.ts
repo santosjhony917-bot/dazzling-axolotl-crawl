@@ -30,6 +30,7 @@ const PATHS = {
   'restaurant-area/upgrade': '/restaurant-area/upgrade',
   'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
   'restaurant-area/help': '/restaurant-area/help',
+  'restaurant-area/gallery': '/restaurant-area/gallery',
 
   // Public Restaurant Profile
   restaurantProfile: '/restaurant/:restaurantId',
