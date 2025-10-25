@@ -40,12 +40,6 @@ const columns = [
 // Chave de persistência
 const STORAGE_KEY = 'admin_upload_phase4_data';
 
-// Função para carregar dados do localStorage (apenas para persistência de input, não usado para inicialização)
-const loadInitialRows = (): RestaurantDataPhase4[] => {
-  // Não carregamos do localStorage para esta fase, pois a lista é dinâmica (restaurantes sem horários)
-  return [];
-};
-
 // Função utilitária para parsear a string de horário (ex: '09:00-12:00, 14:00-18:00')
 const parseTimeSlots = (timeString: string): DaySchedule => {
   const cleaned = timeString.trim().toLowerCase();
@@ -69,9 +63,25 @@ const parseTimeSlots = (timeString: string): DaySchedule => {
   return { isOpen: slots.length > 0, slots };
 };
 
+// Função para carregar dados do localStorage
+const loadPersistedRows = (): RestaurantDataPhase4[] | null => {
+  try {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      if (Array.isArray(parsedData) && parsedData.length > 0) {
+        return parsedData.map(row => ({ ...row, status: 'pending' }));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load data from localStorage:", e);
+  }
+  return null;
+};
+
 
 const UploadPhase4: React.FC = () => {
-  const [rows, setRows] = useState<RestaurantDataPhase4[]>(loadInitialRows);
+  const [rows, setRows] = useState<RestaurantDataPhase4[]>([]);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -80,6 +90,15 @@ const UploadPhase4: React.FC = () => {
   const fetchRestaurants = useCallback(async () => {
     setLoading(true);
     setErrors({});
+    
+    // Tenta carregar dados persistidos
+    const persistedRows = loadPersistedRows();
+    if (persistedRows) {
+        setRows(persistedRows);
+        setLoading(false);
+        return;
+    }
+    
     try {
       // Busca restaurantes onde opening_hours é NULL
       const { data, error } = await supabase
@@ -118,6 +137,19 @@ const UploadPhase4: React.FC = () => {
   useEffect(() => {
     fetchRestaurants();
   }, [fetchRestaurants]);
+  
+  // Efeito para salvar o estado no localStorage sempre que 'rows' mudar
+  useEffect(() => {
+    try {
+      // Salva apenas se houver dados e não estiver carregando
+      if (rows.length > 0 && !loading) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+      }
+    } catch (e) {
+      console.error("Failed to save data to localStorage:", e);
+    }
+  }, [rows, loading]);
+
 
   // 2. Handle Cell Update
   const handleUpdateCell = useCallback((id: string, key: keyof RestaurantDataPhase4, value: string) => {
@@ -180,7 +212,7 @@ const UploadPhase4: React.FC = () => {
         const daySchedule = parseTimeSlots(timeString);
         
         // Validação básica: se for aberto, deve ter slots válidos
-        if (daySchedule.isOpen && daySchedule.slots.length === 0) {
+        if (daySchedule.isOpen && daySchedule.slots.length === 0 && timeString.trim().toLowerCase() !== 'fechado') {
             newErrors[row.id] = `Erro na formatação do horário para ${dayKey}. Use HH:MM-HH:MM.`;
             hasError = true;
             break;
@@ -223,7 +255,10 @@ const UploadPhase4: React.FC = () => {
     }
 
     setIsUploading(false);
-    fetchRestaurants(); // Recarrega a lista para mostrar apenas os não processados
+    
+    // Limpa o localStorage e recarrega a lista para mostrar apenas os não processados
+    localStorage.removeItem(STORAGE_KEY);
+    fetchRestaurants(); 
   }, [rows, fetchRestaurants]);
 
   const rowsToProcess = useMemo(() => rows.filter(r => r.status === 'pending'), [rows]);
