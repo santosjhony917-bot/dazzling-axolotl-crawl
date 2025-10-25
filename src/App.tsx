@@ -95,7 +95,7 @@ function App() {
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            <Route path="stats" element={<ClientSearchPage />} />
+            <Route path="stats" element={<RestaurantSearch />} />
             <Route path="profile-menu" element={<RestaurantProfileMenu />} />
             <Route path="upgrade" element={<UpgradePage />} />
             <Route path="gallery" element={<GalleryManagement />} />
