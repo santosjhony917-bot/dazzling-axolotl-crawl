@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
@@ -19,6 +19,11 @@ export default function RestaurantProfilePage() {
   } = useRestaurantProfile(); 
   
   const { isPremium } = useAuthContext(); // Obtendo isPremium do contexto
+
+  // Scroll to top on mount/navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Wrapper para adaptar o tipo de retorno da mutação
   const wrappedUpdateRestaurant = useCallback(async (updates: Partial<any>): Promise<{ error: string | null }> => {
