@@ -1,50 +1,49 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile';
-import { Skeleton } from '@/components/ui/skeleton';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { createPageUrl } from '@/utils/url';
-import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
-import { MapPin, Clock, Phone, Utensils, Crown, Check, Mail, FileText, Store, Building2, MessageSquare, Star } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { WeekSchedule } from '@/types/schedule';
-import { Restaurant } from '@/types/restaurant';
-import { MenuCategory, MenuItem } from '@/types/menu';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
+import { showError } from '@/utils/toast';
+import { formatCurrency } from '@/utils/formatters';
+import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
+import FullMenuDisplay from '@/components/FullMenuDisplay';
 
-// Mock Schedule (Fallback)
-const mockSchedule: WeekSchedule = {
-  monday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
-  tuesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
-  wednesday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
-  thursday: { isOpen: true, slots: [{ start: '09:00', end: '22:00' }] },
-  friday: { isOpen: true, slots: [{ start: '09:00', end: '23:00' }] },
-  saturday: { isOpen: true, slots: [{ start: '11:00', end: '23:00' }] },
-  sunday: { isOpen: false, slots: [] },
-};
-
-const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
-  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
-  const openDays = days.filter(day => schedule[day]?.isOpen);
-  if (openDays.length === 0) return "Fechado";
-  const firstSlot = schedule[openDays[0]].slots[0];
-  if (!firstSlot) return "Horários definidos";
-  return `${firstSlot.start} - ${firstSlot.end}`;
-};
-
-interface RestaurantProfilePublicProps {
-  restaurant: Restaurant;
-  menuCategories: (MenuCategory & { items: MenuItem[] })[];
+// Componente para exibir o conteúdo principal do perfil (usado dentro do layout)
+interface RestaurantProfileContentProps {
+  restaurant: any;
+  menu: any[];
+  menuLoading: boolean;
 }
 
-const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ restaurant, menuCategories }) => {
+const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ restaurant, menu, menuLoading }) => {
   const navigate = useNavigate();
-  const isPremium = restaurant.plan !== 'free';
-  const currentSchedule = restaurant.opening_hours || mockSchedule;
-  const scheduleSummary = formatScheduleSummary(currentSchedule);
+  const isPremium = restaurant.plan === 'premium';
+
+  const formatScheduleSummary = (schedule: any): string => {
+    if (!schedule) return "Horários não definidos";
+    
+    // Obtém o nome completo do dia da semana em inglês (ex: 'Monday')
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+    
+    // Encontra a chave correspondente no objeto schedule (que usa 'monday', 'tuesday', etc.)
+    const fullDayKey = Object.keys(schedule).find(key => key === today) as keyof typeof schedule | undefined;
+
+    if (fullDayKey && schedule[fullDayKey]?.isOpen && schedule[fullDayKey].slots.length > 0) {
+      const slot = schedule[fullDayKey].slots[0];
+      return `Aberto hoje: ${slot.start} - ${slot.end}`;
+    }
+    return "Fechado hoje";
+  };
+
+  const scheduleSummary = formatScheduleSummary(restaurant.opening_hours);
 
   return (
-    <div className="w-full space-y-4">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
       {/* 1. Topo do Perfil (Capa e Logo) */}
       <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700">
@@ -56,15 +55,25 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
             />
         )}
         
+        {/* Botão Voltar */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(-1)}
+          className="absolute top-4 left-4 text-white bg-black/30 hover:bg-black/50 rounded-full"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+
         {/* Card Principal Flutuante */}
         <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
           <div className="flex items-start gap-4">
             {/* Logo */}
-            <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden border-4 border-white dark:border-gray-800 flex-shrink-0">
+            <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-800 flex-shrink-0">
               {restaurant.image_url ? (
                 <img src={restaurant.image_url} alt="Logo" className="w-full h-full object-cover" />
               ) : (
-                <Store className="w-10 h-10 text-gray-500" />
+                <Utensils className="w-full h-full p-4 text-gray-500" />
               )}
             </div>
             
@@ -75,34 +84,39 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
                   <h3 className="font-bold text-2xl text-[#022D68] leading-tight">
                     {restaurant.name}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1">{restaurant.category || "Estabelecimento Comercial"}</p>
+                  <p className="text-sm text-gray-500 mt-1">{restaurant.category}</p>
                 </div>
                 <Badge 
                   variant="outline" 
-                  className="text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1 mt-1 flex-shrink-0"
+                  className={`text-xs font-semibold rounded-full px-3 py-1 mt-1 flex-shrink-0 ${isPremium ? 'border-yellow-500 text-yellow-700 bg-yellow-50' : 'border-gray-400 text-gray-600 bg-white'}`}
                 >
-                  Plano {isPremium ? "Premium" : "Free"}
+                  {isPremium ? <Crown className="w-3 h-3 mr-1 fill-yellow-500 text-yellow-500" /> : null}
+                  {isPremium ? "Premium" : "Free"}
                 </Badge>
               </div>
             </div>
           </div>
           
-          {/* Botões de Ação */}
+          {/* Botões de Ação (WhatsApp, iFood, etc.) */}
           <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
-            <Button 
-              onClick={() => navigate(createPageUrl(`menu/${restaurant.id}`))}
-              className="flex-1 flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
-            >
-              <Utensils className="w-5 h-5" />
-              Ver Cardápio
-            </Button>
-            <Button 
-              variant="outline"
-              className="w-12 h-12 rounded-full border-2 border-gray-300 text-gray-600 hover:bg-gray-100"
-              onClick={() => alert('Favoritar em breve!')}
-            >
-              <Star className="w-5 h-5" />
-            </Button>
+            {restaurant.whatsapp_url && (
+              <Button 
+                onClick={() => window.open(restaurant.whatsapp_url, '_blank')}
+                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-green-500 hover:bg-green-600 text-white text-sm font-bold rounded-full"
+              >
+                <Phone className="w-4 h-4" />
+                WhatsApp
+              </Button>
+            )}
+            {restaurant.ifood_url && (
+              <Button 
+                onClick={() => window.open(restaurant.ifood_url, '_blank')}
+                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-full"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                iFood
+              </Button>
+            )}
           </div>
         </Card>
       </div>
@@ -110,159 +124,50 @@ const RestaurantProfileContent: React.FC<RestaurantProfilePublicProps> = ({ rest
       {/* Espaçamento para o Card Flutuante */}
       <div className="h-20"></div> 
 
-      {/* 2. Detalhes do Estabelecimento (Card) */}
-      <div className="px-4">
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-4">
-          <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Detalhes</h3>
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
-            
-            {/* Endereço */}
-            <div className="py-3 flex items-center gap-4">
-              <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{restaurant.address}, {restaurant.number} - {restaurant.neighborhood}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{restaurant.city} - {restaurant.state}</p>
-              </div>
-            </div>
-
-            {/* Horários */}
-            <div className="py-3 flex items-center gap-4">
-              <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Horário de Funcionamento</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{scheduleSummary}</p>
-              </div>
-            </div>
-
-            {/* Contato */}
-            {restaurant.phone && (
-              <div className="py-3 flex items-center gap-4">
-                <Phone className="w-5 h-5 text-highlight flex-shrink-0" />
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{restaurant.phone}</p>
-              </div>
-            )}
-            
-            {/* Canais de Pedido (Premium Feature Display) */}
-            {isPremium && (restaurant.whatsapp_url || restaurant.ifood_url) && (
-              <div className="py-3 space-y-2">
-                <h4 className="text-sm font-semibold text-primary dark:text-white flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" /> Canais de Pedido
-                </h4>
-                <div className="flex gap-3">
-                  {restaurant.whatsapp_url && (
-                    <a href={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" className="h-10 px-4 border-green-500 text-green-600 hover:bg-green-50/50">WhatsApp</Button>
-                    </a>
-                  )}
-                  {restaurant.ifood_url && (
-                    <a href={restaurant.ifood_url} target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" className="h-10 px-4 border-red-500 text-red-600 hover:bg-red-50/50">iFood</Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            )}
+      <div className="w-full max-w-md space-y-4 px-4 pb-24">
+        
+        {/* 2. Informações Básicas */}
+        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-3">
+          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+            <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />
+            <p className="text-sm">{restaurant.address || "Endereço não informado"}</p>
           </div>
-        </Card>
-      </div>
-
-      {/* 3. Descrição (Card) */}
-      {restaurant.description && (
-        <div className="px-4">
-          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-2">
-            <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Sobre</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{restaurant.description}</p>
-          </Card>
-        </div>
-      )}
-      
-      {/* 4. Menu Preview (Card) - Only show if categories exist */}
-      {menuCategories.length > 0 && (
-        <div className="px-4">
-          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Destaques do Cardápio</h3>
-              <Button 
-                variant="link" 
-                onClick={() => navigate(createPageUrl(`menu/${restaurant.id}`))}
-                className="text-highlight p-0 h-auto text-sm font-semibold"
-              >
-                Ver Cardápio Completo
-              </Button>
+          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+            <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
+            <p className="text-sm">{scheduleSummary}</p>
+          </div>
+          {restaurant.description && (
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-700">
+              <p className="text-sm text-gray-600 dark:text-gray-400">{restaurant.description}</p>
             </div>
-            
-            {/* Display first few items from the first category */}
-            {menuCategories[0].items.slice(0, 3).map(item => (
-              <div key={item.id} className="flex justify-between items-center border-b pb-2 last:border-b-0">
-                <div>
-                  <p className="font-medium text-gray-800 dark:text-gray-200">{item.name}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">{item.description}</p>
-                </div>
-                <p className="font-semibold text-highlight">R$ {item.price.toFixed(2).replace('.', ',')}</p>
-              </div>
-            ))}
-            
-          </Card>
-        </div>
-      )}
-      
+          )}
+        </Card>
+
+        {/* 3. Cardápio Completo (Substituindo Destaques) */}
+        <FullMenuDisplay menu={menu} loading={menuLoading} />
+
+      </div>
     </div>
   );
 };
 
 
 const RestaurantProfilePublic: React.FC = () => {
-  // Usando 'id' conforme definido na rota: /restaurant-profile/:id
-  const { id } = useParams<{ id: string }>(); 
-  const navigate = useNavigate();
-  
-  // Passamos 'id' para o hook
-  const { data: profileData, isLoading, error } = usePublicRestaurantProfile(id);
+  const { id } = useParams<{ id: string }>();
+  const { restaurant, loading, error } = useRestaurantProfile(id);
+  const { menu, loading: menuLoading } = useRestaurantMenu(id);
 
-  if (!id) {
-    return (
-      <PublicRestaurantLayout restaurant={null} title="Perfil">
-        <div className="p-4 text-center text-red-500">ID do Restaurante não fornecido.</div>
-      </PublicRestaurantLayout>
-    );
+  if (loading) {
+    return <PublicRestaurantLayout restaurant={null} title="Carregando...">Carregando perfil...</PublicRestaurantLayout>;
   }
 
-  if (isLoading) {
-    return (
-      <PublicRestaurantLayout restaurant={null} title="Perfil">
-        <div className="p-4 space-y-6">
-          <Skeleton className="h-40 w-full rounded-xl mb-6" />
-          <Skeleton className="h-6 w-3/4 mb-4" />
-          <Skeleton className="h-64 w-full rounded-xl mb-6" />
-        </div>
-      </PublicRestaurantLayout>
-    );
+  if (error || !restaurant) {
+    return <PublicRestaurantLayout restaurant={null} title="Erro">Erro ao carregar o perfil do restaurante.</PublicRestaurantLayout>;
   }
-
-  if (error) {
-    return (
-      <PublicRestaurantLayout restaurant={null} title="Perfil">
-        <div className="p-4 text-center text-red-500">Erro ao carregar o perfil.</div>
-      </PublicRestaurantLayout>
-    );
-  }
-
-  if (!profileData || !profileData.restaurant) {
-    return (
-      <PublicRestaurantLayout restaurant={null} title="Perfil">
-        <div className="p-4 text-center text-gray-600">Restaurante não encontrado.</div>
-      </PublicRestaurantLayout>
-    );
-  }
-  
-  const { restaurant, categories } = profileData;
 
   return (
-    <PublicRestaurantLayout restaurant={restaurant} title={restaurant.name} backPath="home">
-      <RestaurantProfileContent 
-        restaurant={restaurant} 
-        menuCategories={categories}
-      />
+    <PublicRestaurantLayout restaurant={restaurant} title={restaurant.name}>
+      <RestaurantProfileContent restaurant={restaurant} menu={menu} menuLoading={menuLoading} />
     </PublicRestaurantLayout>
   );
 };
