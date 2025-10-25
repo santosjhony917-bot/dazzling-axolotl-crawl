@@ -40,6 +40,10 @@ const RestaurantArea = () => {
   };
 
   const { title, showHeader } = getHeaderContent();
+  
+  // Condição para renderizar o BottomNav:
+  // Renderiza se não for a rota de stats (que renderiza o seu próprio nav)
+  const shouldRenderBottomNav = !isStatsRoute;
 
   return (
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
@@ -52,7 +56,10 @@ const RestaurantArea = () => {
       <main className="flex-1">
         <Outlet />
       </main>
-      {/* REMOVIDO: RestaurantBottomNav é renderizado nos componentes filhos (Dashboard, SearchPage) */}
+      
+      {shouldRenderBottomNav && (
+        <RestaurantBottomNav selectedTab={selectedTab} isFree={!isPremium} />
+      )}
     </div>
   );
 };
