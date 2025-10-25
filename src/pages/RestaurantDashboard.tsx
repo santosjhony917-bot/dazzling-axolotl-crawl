@@ -13,7 +13,9 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { showSuccess } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
 
 // Mock Data
 const mockHighlights = [
@@ -33,31 +35,41 @@ const RestaurantDashboard = () => {
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // Novo estado para o modal de distância
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
 
   const handleLocationSaved = () => {
     refetch();
   };
   
   const handleSearchByPrice = () => {
-    // Redireciona para a tela de busca unificada
-    navigate(createPageUrl('search-client'));
+    if (location.latitude === null || location.longitude === null) {
+      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsPriceModalOpen(true);
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // TODO: Implementar a lógica de busca real com os filtros de preço
-    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
+    navigate(createPageUrl('search-client'));
   };
 
   const handleSearchNearby = () => {
-    // Redireciona para a tela de busca unificada
-    navigate(createPageUrl('search-client'));
+    if (location.latitude === null || location.longitude === null) {
+      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsDistanceModalOpen(true);
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // TODO: Implementar a lógica de busca real com o filtro de distância
-    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
+    navigate(createPageUrl('search-client'));
   };
   
   const handleEditMenu = () => {
@@ -105,17 +117,17 @@ const RestaurantDashboard = () => {
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
+        {/* Ações Rápidas (BOTÕES DE BUSCA) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleSearchByPrice}
+            onClick={handleSearchByPrice} // Abre o modal de preço
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleSearchNearby}
+            onClick={handleSearchNearby} // Abre o modal de distância
           />
         </div>
 
@@ -176,9 +188,17 @@ const RestaurantDashboard = () => {
         onLocationSaved={handleLocationSaved}
       />
       
-      {/* Search By Price Modal (Removido) */}
-      
-      {/* Search By Distance Modal (Removido) */}
+      {/* Modais de Filtro */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
+      />
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
+      />
     </div>
   );
 };

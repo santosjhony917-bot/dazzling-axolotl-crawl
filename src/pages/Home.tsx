@@ -13,11 +13,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -60,8 +64,33 @@ const Home: React.FC = () => {
     navigate(createPageUrl('search-client'));
   };
   
-  const handleActionCardClick = () => {
-    // Redireciona para a busca unificada, onde os filtros serão aplicados
+  const handleSearchByPrice = () => {
+    if (userLat === null || userLon === null) {
+      showError("Defina sua localização primeiro para usar o filtro de preço.");
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsPriceModalOpen(true);
+  };
+
+  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
+    navigate(createPageUrl('search-client'));
+  };
+
+  const handleSearchNearby = () => {
+    if (userLat === null || userLon === null) {
+      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsDistanceModalOpen(true);
+  };
+  
+  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-client'));
   };
 
@@ -111,12 +140,12 @@ const Home: React.FC = () => {
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleActionCardClick}
+            onClick={handleSearchByPrice} // Abre o modal de preço
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleActionCardClick}
+            onClick={handleSearchNearby} // Abre o modal de distância
           />
         </div>
       </header>
@@ -166,7 +195,17 @@ const Home: React.FC = () => {
         onLocationSaved={handleLocationSaved}
       />
       
-      {/* Modais de filtro removidos, pois a busca unificada lida com isso */}
+      {/* Modais de Filtro */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
+      />
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
+      />
     </div>
   );
 };
