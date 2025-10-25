@@ -28,7 +28,8 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'stats', icon: BarChart3, label: 'Estatísticas', path: createPageUrl('restaurant-area/stats') }, // Corrigido para BarChart3 e Estatísticas
+    // O segundo botão deve ser a busca/análise de concorrentes
+    { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
     { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
