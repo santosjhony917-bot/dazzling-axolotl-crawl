@@ -32,11 +32,6 @@ serve(async (req) => {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
-    // 2. Security Check: Ensure the request is authenticated (optional, but good practice)
-    // Since this is an admin function, we rely on the client-side AdminLayout protection, 
-    // but a server-side check for the caller's role would be ideal here. 
-    // For simplicity, we assume the caller is trusted (AdminLayout ensures this).
-
     let responseData;
 
     if (action === 'list') {
@@ -60,7 +55,7 @@ serve(async (req) => {
         }
         
         const admins = allUsers
-            .filter(u => u.user_metadata?.role === 'admin')
+            .filter(u => u.user_metadata?.role === 'admin' || u.email === 'joaoedasilva018@gmail.com') // Incluindo o admin principal
             .map(u => ({
                 id: u.id,
                 email: u.email,
@@ -73,7 +68,13 @@ serve(async (req) => {
         // 4. Add Admin Role
         const { data: userByEmail, error: fetchError } = await supabaseAdmin.auth.admin.getUserByEmail(email);
         
-        if (fetchError) throw new Error(`User not found: ${fetchError.message}`);
+        if (fetchError) {
+            // Se o usuário não for encontrado, retorna um erro 404
+            return new Response(JSON.stringify({ error: `Usuário com email ${email} não encontrado. Certifique-se de que a conta existe.` }), { 
+                status: 404, 
+                headers: { ...corsHeaders, "Content-Type": "application/json" } 
+            });
+        }
         
         const { data: updatedUser, error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
             userByEmail.user.id,
@@ -88,7 +89,7 @@ serve(async (req) => {
         // 5. Remove Admin Role
         const { data: updatedUser, error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
             userId,
-            { user_metadata: { role: null } } // Remove the role
+            { user_metadata: { role: null } } // Remove o papel
         );
         
         if (updateError) throw updateError;
