@@ -1,78 +1,3 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Index from './pages/Index';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Profile from './pages/Profile';
-import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
-import RestaurantProfile from './pages/RestaurantProfile';
-import RestaurantMenu from './pages/restaurant/RestaurantMenu';
-import RestaurantSettings from './pages/restaurant/RestaurantSettings';
-import RestaurantSearch from './pages/restaurant/RestaurantSearch';
-import ClientSearchPage from './pages/ClientSearchPage';
-import RestaurantResultsPage from './pages/RestaurantResultsPage';
-import ClientFavoritesPage from './pages/ClientFavoritesPage';
-import { AuthContextProvider } from './context/AuthContext';
-import ToastProvider from './components/ToastProvider';
-import ProtectedRoute from './components/ProtectedRoute';
-import RestaurantMenuCategory from './pages/restaurant/RestaurantMenuCategory';
-import RestaurantMenuItem from './pages/restaurant/RestaurantMenuItem';
-import RestaurantGallery from './pages/restaurant/RestaurantGallery';
-
-function App() {
-  return (
-    <BrowserRouter>
-      <ToastProvider />
-      <AuthContextProvider>
-        <Routes>
-          {/* Rotas Públicas/Cliente */}
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/search" element={<ClientSearchPage />} />
-          <Route path="/results" element={<RestaurantResultsPage />} />
-          <Route path="/restaurant/:restaurantId" element={<RestaurantProfile />} />
-          
-          {/* Rotas Protegidas (Cliente) */}
-          <Route element={<ProtectedRoute allowedRoles={['authenticated']} />}>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/favorites" element={<ClientFavoritesPage />} />
-          </Route>
-
-          {/* Rotas Protegidas (Restaurante/Admin) */}
-          <Route element={<ProtectedRoute allowedRoles={['restaurant_owner']} />}>
-            <Route path="/restaurant/dashboard" element={<RestaurantDashboard />} />
-            <Route path="/restaurant/settings" element={<RestaurantSettings />} />
-            <Route path="/restaurant/search" element={<RestaurantSearch />} />
-            <Route path="/restaurant/menu" element={<RestaurantMenu />} />
-            <Route path="/restaurant/menu/category/:categoryId" element={<RestaurantMenuCategory />} />
-            <Route path="/restaurant/menu/item/:itemId" element={<RestaurantMenuItem />} />
-            <Route path="/restaurant/gallery" element={<RestaurantGallery />} />
-          </Route>
-        </Routes>
-      </AuthContextProvider>
-    </BrowserRouter>
-  );
-}
-
-export default App;
-```
-*Nota: O erro 13 e 14 indicavam que `allowedRoles` não existia em `IntrinsicAttributes` porque o `Route` não passa props para o componente dentro de `element` dessa forma. Ao definir `ProtectedRoute` como um componente que retorna `<Outlet />`, e usando-o como `element`, o React Router v6 permite que ele atue como um layout/wrapper de proteção.*
-
-### 3. Corrigindo Erros de Tipagem em `ClientFavoritesPage.tsx` (Erros 1, 2, 3)
-
-#### Erros 1 e 2: Tipagem de `FavoriteRestaurant`
-
-O erro ocorre porque o resultado do `select` do Supabase é um array de objetos que contêm o `id` do favorito e o objeto `restaurant` aninhado. O mapeamento estava incorreto.
-
-Vou corrigir a tipagem e o mapeamento para garantir que `mappedFavorites` seja um array de `FavoriteRestaurant`.
-
-#### Erro 3: Rota Incorreta
-
-O `createPageUrl` está sendo chamado com `'clientSearch'`, mas o tipo de rota esperado é `'search'`.
-
-<dyad-write path="src/pages/ClientFavoritesPage.tsx" description="Corrigindo a tipagem do mapeamento de favoritos e o nome da rota de busca.">
-```typescript
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Loader2, Utensils, MapPin, ArrowLeft } from 'lucide-react';
@@ -125,7 +50,7 @@ export default function ClientFavoritesPage() {
         )
       `)
       .eq('user_id', user.id)
-      .returns<SupabaseFavorite[]>(); // Usando returns para tipar o resultado
+      .returns<SupabaseFavorite[]>();
 
     if (error) {
       console.error('Error fetching favorites:', error);
@@ -140,7 +65,7 @@ export default function ClientFavoritesPage() {
           }
           return null;
         })
-        .filter((r): r is FavoriteRestaurant => r !== null); // O filtro agora funciona corretamente
+        .filter((r): r is FavoriteRestaurant => r !== null);
 
       setFavorites(mappedFavorites);
     }
@@ -189,7 +114,7 @@ export default function ClientFavoritesPage() {
             <Heart className="w-10 h-10 text-gray-300 mx-auto mb-4" />
             <p className="text-lg font-medium text-gray-600">Você ainda não tem favoritos.</p>
             <p className="text-sm text-gray-500 mt-1">Comece a buscar e salve seus restaurantes preferidos!</p>
-            <Button onClick={() => navigate(createPageUrl('search'))} className="mt-4"> {/* Corrigido para 'search' */}
+            <Button onClick={() => navigate(createPageUrl('search-restaurants'))} className="mt-4">
               <ArrowLeft className="w-4 h-4 mr-2 rotate-180" /> Buscar Restaurantes
             </Button>
           </div>
