@@ -38,6 +38,7 @@ import RestaurantSearch from './pages/restaurant/RestaurantSearch';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Home from './pages/Home';
 
 
 const queryClient = new QueryClient();

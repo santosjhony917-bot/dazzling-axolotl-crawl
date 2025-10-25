@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Lock, Share2, Loader2, LogOut } from 'lucide-react';
+import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Lock, Share2, Loader2, LogOut, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Restaurant } from '@/types/supabase';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
-import DetailedHoursDisplay from './DetailedHoursDisplay';
+import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay';
 import { WeekSchedule } from '@/types/schedule';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -13,6 +13,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showError, showInfo } from '@/utils/toast';
+import NavCardItem from '../NavCardItem'; // Importando NavCardItem
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -67,7 +68,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
   };
 
   const handleSignOut = async () => {
-    await signOut(); // FIX: Removed destructuring { error }
+    await signOut(); // FIX: Não desestrutura o erro, pois signOut não retorna { error }
   };
 
   const headerData = {
