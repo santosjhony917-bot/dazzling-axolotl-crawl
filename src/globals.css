@@ -106,3 +106,19 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Animação de Brilho Lento para o Bloco Emocional */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s infinite ease-in-out;
+}

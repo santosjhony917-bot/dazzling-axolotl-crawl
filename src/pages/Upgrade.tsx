@@ -1,156 +1,242 @@
 import React, { useState, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Info } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfilePreviewFree';
-import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium';
-import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
-import { RestaurantPlan } from '@/types/restaurant';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'framer-motion';
 
-// Mock data for comparison table
-const features = [
-  { name: 'Destaque na Busca', free: 'Não aparece', premium: 'Aparece no Topo' },
-  { name: 'Visualização Pública', free: 'Básica (Apenas Logo e Endereço)', premium: 'Completa (Capa, Galeria)' },
-  { name: 'Cardápio Detalhado', free: 'Simples', premium: 'Premium (Categorias, Destaques)' },
-  { name: 'Links de Contato', free: '1 (WhatsApp)', premium: 'Ilimitados (iFood, Site, etc.)' },
-  { name: 'Galeria de Fotos', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
-  { name: 'Avaliações e Notas', free: <X className="w-5 h-5 text-red-500" />, premium: <X className="w-5 h-5 text-red-500" /> }, // Removido do Premium
+// --- Mock Data ---
+const freeFeatures = [
+  { text: 'Visual limitado', icon: X, color: 'text-red-500' },
+  { text: 'Sem destaque na busca', icon: X, color: 'text-red-500' },
+  { text: 'Sem galeria de fotos', icon: X, color: 'text-red-500' },
+  { text: 'Sem estatísticas', icon: X, color: 'text-red-500' },
 ];
+
+const premiumFeatures = [
+  { text: 'Design atrativo e profissional', icon: Check, color: 'text-green-500' },
+  { text: 'Destaque nos resultados', icon: Star, color: 'text-amber-500' },
+  { text: 'Fotos, cardápio completo e links', icon: Check, color: 'text-green-500' },
+  { text: 'Envio de promoções e cupons', icon: Zap, color: 'text-amber-500' },
+  { text: 'Painel com estatísticas de visualizações', icon: Shield, color: 'text-green-500' },
+];
+
+// --- Componentes Auxiliares ---
+
+const PremiumCard: React.FC = () => (
+  <motion.div
+    initial={{ scale: 0.95, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
+    whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(228, 121, 72, 0.3), 0 10px 10px -5px rgba(228, 121, 72, 0.1)' }}
+    className="relative flex flex-col h-full p-6 bg-white rounded-xl shadow-2xl border-2 border-highlight"
+  >
+    <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
+      MAIS ESCOLHIDO
+    </div>
+    <div className="flex items-center justify-center size-12 rounded-full bg-highlight/10 mb-4">
+      <Crown className="w-6 h-6 text-highlight fill-highlight/50" />
+    </div>
+    <h3 className="text-xl font-bold text-highlight mb-4">Premium</h3>
+    <ul className="space-y-3 flex-1">
+      {premiumFeatures.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <li key={index} className="flex items-start gap-3 text-sm text-gray-800">
+            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
+            <span className="font-medium">{feature.text}</span>
+          </li>
+        );
+      })}
+    </ul>
+  </motion.div>
+);
+
+const FreeCard: React.FC = () => (
+  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-md">
+    <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4">
+      <Lock className="w-6 h-6 text-gray-500" />
+    </div>
+    <h3 className="text-xl font-bold text-primary mb-4">Free (Atual)</h3>
+    <ul className="space-y-3 flex-1">
+      {freeFeatures.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <li key={index} className="flex items-start gap-3 text-sm text-gray-600">
+            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
+            <span className="font-medium">{feature.text}</span>
+          </li>
+        );
+      })}
+    </ul>
+  </Card>
+);
 
 const UpgradePage: React.FC = () => {
   const navigate = useNavigate();
-  const [previewPlan, setPreviewPlan] = useState<RestaurantPlan>('free');
-  const previewRef = useRef<HTMLDivElement>(null);
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
-  const handleSelectPlan = (plan: RestaurantPlan) => {
-    setPreviewPlan(plan);
-    // Simulating scroll behavior if needed
-    if (previewRef.current) {
-      previewRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const handleSubscribe = () => {
+    setIsSubscribing(true);
+    // Simulação de navegação para checkout/assinatura
+    setTimeout(() => {
+      alert("Iniciando processo de assinatura Premium!");
+      setIsSubscribing(false);
+    }, 1500);
   };
   
-  const handleSubscribe = () => {
-    // Simulação de navegação para checkout/assinatura (App Store/Play Store)
-    alert("Iniciando processo de assinatura Premium via App Store/Play Store!");
-    // Em um app real, isso iniciaria o fluxo de compra in-app.
+  const handleViewPremiumRestaurants = () => {
+    // Simula a navegação para a lista de restaurantes Premium (ou busca)
+    navigate(createPageUrl('search-restaurants'));
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      {/* Título Principal */}
-      <h1 className="text-3xl font-bold text-primary dark:text-white mb-2">Seu restaurante merece o mesmo destaque dos grandes.</h1>
+    <div className="min-h-screen bg-white dark:bg-background-dark pb-20">
       
-      {/* Subtítulo */}
-      <p className="text-gray-600 dark:text-gray-400 mb-4">O Filter Food foi criado para dar visibilidade a quem se destaca. Agora é a sua vez de aparecer entre os mais procurados.</p>
-      
-      {/* Prova Social / Alerta de Padrão */}
-      <Alert className="mb-8 bg-yellow-50 border-yellow-300 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-700 dark:text-yellow-400">
-        <Info className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-        <AlertTitle className="font-bold text-yellow-800 dark:text-yellow-400">Padrão de Mercado</AlertTitle>
-        <AlertDescription>
-          📍 Mais de 70% dos restaurantes da cidade já são Premium. Não fique para trás!
-        </AlertDescription>
-      </Alert>
-
-      {/* 1. Prévia do Perfil (Visualização Central) */}
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-12">
-        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-2">Como você está sendo visto?</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">Compare a diferença entre ser básico e ser o destaque da cidade.</p>
+      {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
+      <motion.header
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative bg-[#022D68] text-white pt-16 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
+      >
+        {/* Gradiente Diagonal Suave */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#022D68] to-[#022D68]/80 opacity-90"></div>
         
-        {/* Toggle Switch para Visualização */}
-        <PlanPreviewToggle previewPlan={previewPlan} setPreviewPlan={handleSelectPlan} />
-
-        <div ref={previewRef} className="mt-4">
-          <h3 className="text-lg font-bold text-primary dark:text-white mb-2 text-center">Prévia do Perfil ({previewPlan === 'free' ? 'Free' : 'Premium'})</h3>
-          {previewPlan === 'free' ? (
-            <RestaurantProfilePreviewFree />
-          ) : (
-            <RestaurantProfilePreviewPremium />
-          )}
-        </div>
-      </Card>
-
-      {/* 2. Seção de Preços (Comparação) */}
-      <h2 className="text-2xl font-bold text-primary dark:text-white mb-6 text-center">Escolha seu Plano</h2>
-      <div className="grid md:grid-cols-1 gap-6 mb-12">
-        {/* Plano Free */}
-        <Card className="p-6 border-2 border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-primary mb-2">Plano Free</h2>
-          <p className="text-4xl font-extrabold text-primary mb-4">R$ 0<span className="text-lg font-normal text-gray-500">/mês</span></p>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">Ideal para começar, mas limita sua visibilidade e recursos de atração de clientes.</p>
-          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Perfil básico</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> 1 Link de contato</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Cardápio simples</li>
-          </ul>
-          <Button 
-            variant="outline" 
-            className="w-full border-primary text-primary hover:bg-primary/10"
-            onClick={() => handleSelectPlan('free')}
+        <div className="relative z-10 max-w-md mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-3xl font-extrabold leading-tight mb-3"
           >
-            Manter Plano Free (Invisível)
-          </Button>
-        </Card>
-
-        {/* Plano Premium */}
-        <Card className="p-6 border-2 border-highlight shadow-xl relative bg-white dark:bg-gray-800">
-          <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
-            MAIS POPULAR
+            Transforme seu perfil em um ímã de clientes 🍽️
+          </motion.h1>
+          <p className="text-base font-medium text-gray-200 mb-6">
+            Mais de 70% dos restaurantes da cidade já são Premium. O próximo destaque pode ser o seu.
+          </p>
+          
+          {/* Imagem Ilustrativa (Mock) */}
+          <div className="flex justify-center mb-6">
+            <motion.div
+              initial={{ scale: 0.8, rotate: -5 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
+              className="relative w-40 h-40 bg-white/10 rounded-xl shadow-2xl border border-white/20 flex items-center justify-center"
+            >
+              <Smartphone className="w-16 h-16 text-white/80" />
+              <div className="absolute inset-0 bg-white/5 opacity-5 rounded-xl" />
+              {/* Brilho sutil */}
+              <div className="absolute top-0 left-0 w-full h-full bg-white opacity-10 blur-sm" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
+            </motion.div>
           </div>
-          <h2 className="text-2xl font-bold text-highlight mb-2 flex items-center">
-            <Crown className="w-6 h-6 mr-2 fill-highlight" /> Plano Premium
-          </h2>
-          <p className="text-4xl font-extrabold text-highlight mb-4">R$ 49,90<span className="text-lg font-normal text-gray-500">/mês</span></p>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">Maximize sua visibilidade, apareça no topo das buscas e converta visitantes em clientes fiéis.</p>
-          <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Destaque nas buscas</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Galeria de fotos</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Múltiplos links de contato</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Cardápio Premium detalhado</li>
-          </ul>
+          
+          {/* Botão Pequeno */}
           <Button 
-            className="w-full bg-highlight text-white hover:bg-highlight/90"
-            onClick={handleSubscribe}
+            variant="link" 
+            onClick={handleViewPremiumRestaurants}
+            className="text-white/80 hover:text-white text-sm font-semibold p-0 h-auto flex items-center mx-auto"
           >
-            Assinar Premium <ArrowRight className="w-4 h-4 ml-2" />
+            Ver restaurantes Premium <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
-        </Card>
-      </div>
-
-
-      {/* 3. Tabela de Comparação */}
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6">
-        <h2 className="text-lg font-bold text-primary dark:text-white text-center mb-4">Comparação de Recursos</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead>
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recurso</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Free</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-highlight uppercase tracking-wider">Premium</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              {features.map((feature) => (
-                <tr key={feature.name}>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{feature.name}</td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">
-                    {typeof feature.free === 'string' ? feature.free : feature.free}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-highlight font-semibold">
-                    {typeof feature.premium === 'string' ? feature.premium : feature.premium}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
-      </Card>
+      </motion.header>
+
+      <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
+        
+        {/* 2. Comparativo Free vs Premium */}
+        <Card className="p-6 shadow-2xl border-none rounded-xl bg-white">
+          <h2 className="text-lg font-bold text-primary text-center mb-6">
+            Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
+          </h2>
+          <div className="grid grid-cols-2 gap-4">
+            <FreeCard />
+            <PremiumCard />
+          </div>
+        </Card>
+        
+        {/* 3. Bloco emocional com fundo azul e texto branco */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 bg-[#022D68] text-white p-8 rounded-xl shadow-xl relative overflow-hidden"
+        >
+          {/* Efeito Brilho Diagonal Suave */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent animate-pulse-slow" />
+          
+          <h2 className="relative z-10 text-center text-2xl font-extrabold leading-snug">
+            Os clientes confiam em quem aparece primeiro.
+            <br />
+            <span className="text-highlight">Deixe seu restaurante impossível de ignorar.</span>
+          </h2>
+        </motion.div>
+
+        {/* 4. Bloco de planos e botão de ação */}
+        <Card className="mt-12 p-6 shadow-2xl border-none rounded-xl bg-white">
+          <h2 className="text-xl font-bold text-primary text-center mb-4">
+            Assine o Premium e seja encontrado todos os dias.
+          </h2>
+          
+          <div className="text-center my-6">
+            <p className="text-5xl font-extrabold text-highlight">
+              R$ 37
+              <span className="text-xl font-normal text-gray-500"> / mês</span>
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              Sem fidelidade. Cancele quando quiser.
+            </p>
+          </div>
+
+          <motion.div
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Button
+              onClick={handleSubscribe}
+              disabled={isSubscribing}
+              className="w-full h-14 rounded-full text-lg font-bold text-white bg-[#E47948] hover:bg-[#E47948]/90 shadow-lg shadow-[#E47948]/50 transition-all"
+            >
+              {isSubscribing ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <>
+                  <Crown className="w-5 h-5 mr-2 fill-white" />
+                  Ativar Premium Agora
+                </>
+              )}
+            </Button>
+          </motion.div>
+          
+          {/* Ícones de Segurança */}
+          <div className="flex justify-center items-center gap-4 mt-4 text-gray-500 text-xs">
+            <div className="flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              Pagamento Seguro
+            </div>
+            <div className="flex items-center gap-1">
+              <CreditCard className="w-3 h-3" />
+              Via App Store/Play Store
+            </div>
+          </div>
+        </Card>
+      </main>
+      
+      {/* 5. Rodapé de Autoridade */}
+      <footer className="mt-12 bg-[#022D68] text-white p-8 rounded-t-3xl">
+        <div className="max-w-md mx-auto text-center">
+          <p className="text-lg font-bold mb-2">
+            Filter Food é o mapa gastronômico oficial da cidade.
+          </p>
+          <p className="text-sm text-gray-300">
+            Restaurantes Premium são vistos, lembrados e escolhidos primeiro.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
