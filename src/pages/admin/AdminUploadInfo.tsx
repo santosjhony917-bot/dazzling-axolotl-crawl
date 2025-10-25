@@ -4,9 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Upload, MapPin, UtensilsCrossed, Clock, DollarSign, Zap, BarChart } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout"; // Usando o AdminLayout correto
 import UploadPhase1 from "@/components/admin/UploadPhase1";
-import UploadPhase2 from "@/components/admin/UploadPhase2"; // NOVO IMPORT
+import UploadPhase2 from "@/components/admin/UploadPhase2";
+import UploadPhase3 from "@/components/admin/UploadPhase3"; // NOVO IMPORT
 // Placeholder components for other phases
-const UploadPhase3 = () => <Card className="p-6"><CardTitle>Fase 3: Cardápio</CardTitle><CardContent>Implementação da planilha de cardápio.</CardContent></Card>;
 const UploadPhase4 = () => <Card className="p-6"><CardTitle>Fase 4: Horários</CardTitle><CardContent>Implementação da planilha de horários.</CardContent></Card>;
 
 export default function AdminUploadInfo() {
