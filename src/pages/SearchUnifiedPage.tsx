@@ -8,7 +8,7 @@ import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
 import ClientLayout from '@/components/ClientLayout';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
+// import UserLocationModal from '@/components/restaurant/UserLocationModal'; // Removido
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthContext } from '@/context/AuthContext';
@@ -35,17 +35,18 @@ export default function SearchUnifiedPage() {
   const { user, restaurant } = useAuthContext();
   const isRestaurantOwner = !!restaurant;
   
-  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
+  // Mantemos o hook para obter a localização, mas removemos a interação de alteração
+  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
   
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  // const [isLocationModalOpen, setIsLocationModalOpen] = useState(false); // Removido
   const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
-  const currentAddress = location.address;
+  // const currentAddress = location.address; // Não é mais usado no UI
 
   // Define as props obrigatórias para ClientLayout
   const clientLayoutProps = { 
@@ -55,7 +56,6 @@ export default function SearchUnifiedPage() {
   };
   
   // Define as props a serem espalhadas, garantindo que sejam do tipo correto
-  // Se for proprietário de restaurante, não passamos props de ClientLayout
   const layoutProps = isRestaurantOwner ? {} : clientLayoutProps;
 
   // Lógica de Busca
@@ -75,10 +75,10 @@ export default function SearchUnifiedPage() {
     }));
   };
   
-  const handleLocationSaved = () => {
-    refetchLocation();
-    setIsLocationModalOpen(false);
-  };
+  // const handleLocationSaved = () => { // Removido
+  //   refetchLocation();
+  //   setIsLocationModalOpen(false);
+  // };
   
   const handleItemClick = (itemId: string, type: SearchType) => {
     if (type === 'restaurant') {
@@ -91,7 +91,7 @@ export default function SearchUnifiedPage() {
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de preço.");
-      setIsLocationModalOpen(true);
+      // Não abre modal, apenas informa que a localização é necessária
       return;
     }
     setIsPriceModalOpen(true);
@@ -105,7 +105,7 @@ export default function SearchUnifiedPage() {
   const handleSearchNearby = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de distância.");
-      setIsLocationModalOpen(true);
+      // Não abre modal, apenas informa que a localização é necessária
       return;
     }
     setIsDistanceModalOpen(true);
@@ -132,28 +132,7 @@ export default function SearchUnifiedPage() {
   const pageContent = (
     <div className="p-4 space-y-6">
       
-      {/* Localização Atual */}
-      <Card 
-        className="flex items-center justify-between p-3 shadow-sm cursor-pointer"
-        onClick={() => setIsLocationModalOpen(true)}
-      >
-        <div className="flex items-center gap-3">
-          <MapPin className="h-6 w-6 text-[#E47948]" />
-          <div>
-            <p className="text-xs text-gray-500">Localização de Busca</p>
-            {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-[#022D68]">
-                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-              </div>
-            ) : (
-              <p className="text-base font-bold text-[#022D68] truncate max-w-[250px]">
-                {currentAddress.split(',')[0] || "Definir Local"}
-              </p>
-            )}
-          </div>
-        </div>
-        <ChevronRight className="w-5 h-5 text-gray-500" />
-      </Card>
+      {/* O cartão de localização foi removido daqui */}
       
       {/* Barra de Busca e Filtro */}
       <form onSubmit={handleSearch} className="flex gap-2">
@@ -243,14 +222,6 @@ export default function SearchUnifiedPage() {
   return (
     <ClientLayout {...clientLayoutProps}>
       {pageContent}
-      
-      {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={currentAddress}
-        onLocationSaved={handleLocationSaved}
-      />
       
       {/* Modais de Filtro */}
       <SearchByPriceModal
