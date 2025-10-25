@@ -9,30 +9,31 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { geocodeAddress, formatCEP } from '@/services/geocoding';
 import axios from 'axios';
-import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
+import { saveUploadRecord } from '@/utils/uploadHistory';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 
-// Define a estrutura de dados para a Fase 2 (incluindo campos do DB e campos de referência)
+// Define a estrutura de dados para a Fase 2
 interface RestaurantDataPhase2 {
-  id: string;
-  name: string;
-  externalUrl: string; // NOVO CAMPO: URL Externa para referência
+  id: string | null; // Pode ser null se for uma nova linha
+  name: string; // Nome do Restaurante (agora editável/colável)
+  externalUrl: string; // Chave de ligação (URL Externa)
   cep: string;
-  address: string; // Rua/Avenida (Mapeia para DB: address)
-  number: string; // (Mapeia para DB: number)
-  complement: string; // (Referência, não mapeado para DB)
-  reference_point: string; // (Referência, não mapeado para DB)
-  neighborhood: string; // (Mapeia para DB: neighborhood)
-  city: string; // (Mapeia para DB: city)
-  state: string; // (Mapeia para DB: state)
+  address: string; // Rua/Avenida
+  number: string;
+  complement: string;
+  reference_point: string;
+  neighborhood: string;
+  city: string;
+  state: string;
   latitude: number | null;
   longitude: number | null;
   isGeocoded: boolean;
 }
 
-// Colunas da planilha (incluindo campos editáveis para colagem)
+// Colunas da planilha (Ajustadas para permitir colagem em todas as colunas de dados)
 const columns = [
-  { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '150px' },
-  { key: 'externalUrl', label: 'URL Externa', readOnly: true, width: '150px' }, // NOVO CAMPO
+  { key: 'externalUrl', label: 'URL Externa (Chave)', width: '150px' }, // Chave de busca
+  { key: 'name', label: 'Nome do Restaurante', width: '150px' },
   { key: 'cep', label: 'CEP', width: '100px' },
   { key: 'address', label: 'Rua/Avenida', width: '180px' },
   { key: 'number', label: 'Número', width: '80px' },
@@ -51,7 +52,7 @@ let rowIdCounter = 0;
 const generateRowId = () => `temp-${Math.random()}-${rowIdCounter++}`;
 
 const initialRow: RestaurantDataPhase2 = {
-  id: generateRowId(),
+  id: null,
   name: '',
   externalUrl: '',
   cep: '',
@@ -74,11 +75,10 @@ const loadPersistedRows = (): RestaurantDataPhase2[] | null => {
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       if (Array.isArray(parsedData) && parsedData.length > 0) {
-        // Garante que as linhas persistidas tenham todos os novos campos
         return parsedData.map(row => ({ 
-            ...initialRow, // Garante que todos os campos existam
+            ...initialRow,
             ...row, 
-            id: row.id || generateRowId(), 
+            id: row.id || null, // ID pode ser null se for novo
             isGeocoded: !!row.latitude && !!row.longitude 
         }));
       }
@@ -94,8 +94,11 @@ const UploadPhase2: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  // Mapeamento de URL Externa para ID e Nome (para validação e preenchimento)
+  const [urlToRestaurantData, setUrlToRestaurantData] = useState<Map<string, { id: string, name: string, isGeocoded: boolean }>>(new Map());
 
-  // 1. Fetch Restaurants without Coordinates
+  // 1. Fetch Existing Restaurants (para preencher e validar)
   const fetchRestaurants = useCallback(async () => {
     setLoading(true);
     setErrors({});
@@ -104,45 +107,51 @@ const UploadPhase2: React.FC = () => {
     const persistedRows = loadPersistedRows();
     if (persistedRows) {
         setRows(persistedRows);
-        setLoading(false);
-        return;
     }
     
     try {
-      // Busca restaurantes que não têm latitude OU longitude (ou ambos)
+      // Busca todos os restaurantes com URL externa e status de geocodificação
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name, external_url, cep, address, number, neighborhood, city, state, latitude, longitude')
-        .or('latitude.is.null,longitude.is.null')
-        .limit(50); // Limita para evitar sobrecarga
+        .select('id, name, external_url, latitude, longitude')
+        .not('external_url', 'is', null)
+        .limit(1000);
 
       if (error) throw error;
 
-      const initialRows: RestaurantDataPhase2[] = data.map(r => ({
-        id: r.id,
-        name: r.name,
-        externalUrl: r.external_url || '', // Mapeando o novo campo
-        cep: r.cep || '',
-        address: r.address || '',
-        number: r.number || '',
-        neighborhood: r.neighborhood || '',
-        city: r.city || '',
-        state: r.state || '',
-        latitude: r.latitude,
-        longitude: r.longitude,
-        complement: '', // Vazio por padrão
-        reference_point: '', // Vazio por padrão
-        isGeocoded: !!r.latitude && !!r.longitude,
-      }));
-
-      setRows(initialRows);
-      if (initialRows.length === 0) {
-        showSuccess("Todos os restaurantes existentes possuem coordenadas geográficas. Você pode adicionar linhas manualmente para novos uploads.");
-        // Adiciona uma linha vazia para permitir a colagem imediata
-        setRows([initialRow]);
+      const newUrlMap = new Map<string, { id: string, name: string, isGeocoded: boolean }>();
+      data.forEach(r => {
+        if (r.external_url) {
+          newUrlMap.set(r.external_url, { 
+            id: r.id, 
+            name: r.name, 
+            isGeocoded: !!r.latitude && !!r.longitude 
+          });
+        }
+      });
+      setUrlToRestaurantData(newUrlMap);
+      
+      // Se não houver dados persistidos, inicializa com os que precisam de geocodificação
+      if (!persistedRows) {
+          const rowsToGeocode = data
+            .filter(r => !r.latitude || !r.longitude)
+            .map(r => ({
+                ...initialRow,
+                id: r.id,
+                name: r.name,
+                externalUrl: r.external_url || '',
+                isGeocoded: false,
+            }));
+          
+          if (rowsToGeocode.length > 0) {
+              setRows(rowsToGeocode);
+          } else {
+              setRows([initialRow]); // Adiciona uma linha vazia para colagem manual
+          }
       }
+      
     } catch (e) {
-      showError("Falha ao carregar restaurantes para a Fase 2.");
+      showError("Falha ao carregar dados de referência para a Fase 2.");
       console.error("Fetch Phase 2 Error:", e);
     } finally {
       setLoading(false);
@@ -174,7 +183,20 @@ const UploadPhase2: React.FC = () => {
     }
     
     setRows(prevRows => 
-      prevRows.map(row => (row.id === id ? { ...row, [key]: newValue, isGeocoded: false } : row))
+      prevRows.map(row => {
+        if (row.id === id) {
+          const updatedRow = { ...row, [key]: newValue, isGeocoded: false };
+          
+          // Se a URL Externa for alterada, tenta preencher o nome e o ID
+          if (key === 'externalUrl') {
+            const data = urlToRestaurantData.get(newValue.trim());
+            updatedRow.name = data?.name || updatedRow.name;
+            updatedRow.id = data?.id || null;
+          }
+          return updatedRow;
+        }
+        return row;
+      })
     );
     
     // Se for CEP, tenta buscar o endereço via ViaCEP
@@ -203,9 +225,9 @@ const UploadPhase2: React.FC = () => {
         // Ignora erros de CEP, o usuário pode preencher manualmente
       }
     }
-  }, []);
+  }, [urlToRestaurantData]);
 
-  // 3. Handle Column Paste (similar to Phase 1)
+  // 3. Handle Column Paste
   const handleColumnPaste = useCallback((
     e: React.ClipboardEvent<HTMLInputElement>, 
     rowIndex: number, 
@@ -221,10 +243,6 @@ const UploadPhase2: React.FC = () => {
     setRows(prevRows => {
       const newRows = [...prevRows];
       
-      // Encontra o índice da coluna na lista de colunas
-      const colIndex = columns.findIndex(c => c.key === key);
-      if (colIndex === -1) return prevRows; // Coluna não encontrada
-
       for (let i = 0; i < values.length; i++) {
         const targetIndex = rowIndex + i;
         const value = values[i];
@@ -235,19 +253,37 @@ const UploadPhase2: React.FC = () => {
             finalValue = formatCEP(value);
           }
           
-          newRows[targetIndex] = { ...newRows[targetIndex], [key]: finalValue, isGeocoded: false };
+          const updatedRow = { ...newRows[targetIndex], [key]: finalValue, isGeocoded: false };
+          
+          // Se colarmos na coluna URL, tentamos preencher o nome e o ID
+          if (key === 'externalUrl') {
+            const data = urlToRestaurantData.get(finalValue.trim());
+            updatedRow.name = data?.name || updatedRow.name;
+            updatedRow.id = data?.id || null;
+          }
+          
+          newRows[targetIndex] = updatedRow;
+        } else {
+          // Adiciona nova linha se a colagem for além do final da tabela
+          const newRow: RestaurantDataPhase2 = { ...initialRow, id: generateRowId(), [key]: value, isGeocoded: false };
+          
+          if (key === 'externalUrl') {
+            const data = urlToRestaurantData.get(value.trim());
+            newRow.name = data?.name || newRow.name;
+            newRow.id = data?.id || null;
+          }
+          newRows.push(newRow);
         }
-        // Não adicionamos novas linhas aqui, apenas atualizamos as existentes
       }
       
       return newRows;
     });
     
     showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
-  }, []);
+  }, [urlToRestaurantData]);
   
   const handleAddRow = () => {
-    setRows(prevRows => [...prevRows, initialRow]);
+    setRows(prevRows => [...prevRows, { ...initialRow, id: generateRowId() }]);
   };
 
 
@@ -257,84 +293,101 @@ const UploadPhase2: React.FC = () => {
     const newErrors: Record<string, string> = {};
     const updates: RestaurantDataPhase2[] = [];
     let successCount = 0;
+    let insertCount = 0;
 
-    // Filtra linhas que têm ID de restaurante válido (não temporário) e precisam de geocodificação
-    const rowsToProcess = rows.filter(r => !r.isGeocoded && !r.id.startsWith('temp-'));
+    // Filtra linhas que têm URL Externa válida e precisam de processamento
+    const rowsToProcess = rows.filter(r => r.externalUrl && !r.isGeocoded);
 
     for (const row of rowsToProcess) {
-      // Usamos apenas os campos que o Nominatim precisa para geocodificar
       const fullAddress = `${row.address}, ${row.number}, ${row.neighborhood}, ${row.city}, ${row.state}, ${row.cep}`;
       
-      if (!row.address || !row.number || !row.city || !row.state || !row.cep) {
-        newErrors[row.id] = `Endereço incompleto para ${row.name}.`;
+      if (!row.address || !row.number || !row.city || !row.state || !row.cep || !row.name) {
+        newErrors[row.id || row.externalUrl] = `Dados de endereço ou nome incompletos para ${row.name || row.externalUrl}.`;
         continue;
       }
 
+      let geocoded = null;
       try {
-        const geocoded = await geocodeAddress(fullAddress);
-        
-        if (geocoded) {
-          updates.push({
-            ...row,
-            latitude: geocoded.lat,
-            longitude: geocoded.lon,
-            isGeocoded: true,
-          });
-          successCount++;
-        } else {
-          newErrors[row.id] = `Falha na geocodificação para ${row.name}.`;
-        }
+        geocoded = await geocodeAddress(fullAddress);
       } catch (e) {
-        newErrors[row.id] = `Erro de rede/serviço para ${row.name}.`;
+        newErrors[row.id || row.externalUrl] = `Erro de geocodificação para ${row.name}.`;
+        continue;
+      }
+      
+      if (!geocoded) {
+        newErrors[row.id || row.externalUrl] = `Falha na geocodificação para ${row.name}.`;
+        continue;
+      }
+      
+      // Se a geocodificação for bem-sucedida
+      const updatePayload = {
+        cep: row.cep,
+        address: row.address,
+        number: row.number,
+        neighborhood: row.neighborhood,
+        city: row.city,
+        state: row.state,
+        latitude: geocoded.lat,
+        longitude: geocoded.lon,
+      };
+      
+      const existingData = urlToRestaurantData.get(row.externalUrl);
+      
+      if (existingData) {
+        // UPDATE (Restaurante já existe)
+        const { error } = await supabase
+          .from('restaurants')
+          .update(updatePayload)
+          .eq('id', existingData.id);
+          
+        if (error) {
+          newErrors[row.id || row.externalUrl] = `Falha no DB (UPDATE) para ${row.name}: ${error.message}`;
+        } else {
+          successCount++;
+        }
+      } else {
+        // INSERT (Restaurante não existe - Fase 1 pulada)
+        const insertPayload: Partial<Restaurant> = {
+          ...updatePayload,
+          name: row.name,
+          external_url: row.externalUrl,
+          plan: 'free', // Padrão
+        };
+        
+        const { error } = await supabase
+          .from('restaurants')
+          .insert([insertPayload]);
+          
+        if (error) {
+          newErrors[row.id || row.externalUrl] = `Falha no DB (INSERT) para ${row.name}: ${error.message}`;
+        } else {
+          insertCount++;
+        }
       }
     }
     
     setErrors(newErrors);
 
-    if (updates.length > 0) {
-      // 5. Bulk Update Supabase
-      const updatePromises = updates.map(u => 
-        supabase
-          .from('restaurants')
-          .update({
-            cep: u.cep,
-            address: u.address,
-            number: u.number,
-            neighborhood: u.neighborhood,
-            city: u.city,
-            state: u.state,
-            latitude: u.latitude,
-            longitude: u.longitude,
-          })
-          .eq('id', u.id)
-      );
-
-      const results = await Promise.all(updatePromises);
-      const updateErrors = results.filter(r => r.error).map(r => r.error!.message);
+    if (successCount > 0 || insertCount > 0) {
+      const totalProcessed = successCount + insertCount;
+      showSuccess(`${totalProcessed} restaurantes processados. ${insertCount} inseridos, ${successCount} atualizados.`);
       
-      if (updateErrors.length > 0) {
-        showError(`Sucesso na geocodificação, mas falha no DB para ${updateErrors.length} itens.`);
-        console.error("Bulk Update Errors:", updateErrors);
-      } else {
-        showSuccess(`${successCount} restaurantes atualizados e geocodificados com sucesso!`);
-        
-        // SALVAR REGISTRO DE UPLOAD
-        saveUploadRecord({
-          phase: 2,
-          successCount: successCount,
-          details: `Geocodificação e atualização de endereço para ${successCount} restaurantes.`,
-        });
-      }
+      // SALVAR REGISTRO DE UPLOAD
+      saveUploadRecord({
+        phase: 2,
+        successCount: totalProcessed,
+        details: `Geocodificação: ${insertCount} inseridos, ${successCount} atualizados.`,
+      });
     } else if (Object.keys(newErrors).length === 0) {
-        showSuccess("Nenhum restaurante novo para geocodificar.");
+        showSuccess("Nenhum restaurante novo para processar.");
     }
 
     setIsUploading(false);
     localStorage.removeItem(STORAGE_KEY); // Limpa o cache após o upload
-    fetchRestaurants(); // Recarrega a lista para mostrar apenas os não processados
-  }, [rows, fetchRestaurants]);
+    fetchRestaurants(); // Recarrega a lista para refletir as mudanças
+  }, [rows, urlToRestaurantData, fetchRestaurants]);
 
-  const rowsToProcess = useMemo(() => rows.filter(r => !r.isGeocoded && !r.id.startsWith('temp-')), [rows]);
+  const rowsToProcess = useMemo(() => rows.filter(r => r.externalUrl && !r.isGeocoded), [rows]);
   
   // Define a largura da grade dinamicamente
   const gridTemplateColumns = columns.map(col => col.width).join(' ') + ' 100px'; // + Status
@@ -343,13 +396,13 @@ const UploadPhase2: React.FC = () => {
     return (
       <Card className="p-6 shadow-lg border-none rounded-xl bg-white dark:bg-gray-800 text-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
-        <p className="text-primary">Carregando restaurantes sem coordenadas...</p>
+        <p className="text-primary">Carregando dados de referência...</p>
       </Card>
     );
   }
   
   // Se a lista estiver vazia (apenas a linha inicial de mock), mostra a mensagem de concluído
-  const isListEmpty = rows.length === 0 || (rows.length === 1 && rows[0].id.startsWith('temp-'));
+  const isListEmpty = rows.length === 0 || (rows.length === 1 && !rows[0].externalUrl);
 
   if (isListEmpty && !loading) {
     return (
@@ -378,7 +431,7 @@ const UploadPhase2: React.FC = () => {
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-2xl font-bold text-primary">Fase 2: Endereços e Geocodificação</CardTitle>
         <CardDescription className="text-gray-600">
-          Preencha os dados de endereço para obter as coordenadas geográficas (Latitude/Longitude).
+          Preencha os dados de endereço para obter as coordenadas geográficas (Latitude/Longitude). Se a URL Externa não existir, o restaurante será criado.
         </CardDescription>
       </CardHeader>
       
@@ -404,7 +457,7 @@ const UploadPhase2: React.FC = () => {
                   key={row.id} 
                   className={cn(
                     "grid border-b border-gray-100 dark:border-gray-700 last:border-b-0",
-                    errors[row.id] && "bg-red-50 dark:bg-red-900/20"
+                    errors[row.id || row.externalUrl] && "bg-red-50 dark:bg-red-900/20"
                   )}
                   style={{ gridTemplateColumns: gridTemplateColumns }}
                 >
@@ -412,17 +465,16 @@ const UploadPhase2: React.FC = () => {
                     <Input
                       key={col.key}
                       value={String(row[col.key as keyof RestaurantDataPhase2] ?? '')}
-                      onChange={(e) => handleUpdateCell(row.id, col.key as keyof RestaurantDataPhase2, e.target.value)}
-                      onPaste={(e) => col.readOnly ? undefined : handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
+                      onChange={(e) => handleUpdateCell(row.id || row.externalUrl, col.key as keyof RestaurantDataPhase2, e.target.value)}
+                      onPaste={(e) => handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
                       className="h-10 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent text-sm"
                       placeholder={col.label}
-                      readOnly={col.readOnly}
                     />
                   ))}
                   <div className="flex items-center justify-center text-sm">
                     {row.isGeocoded ? (
                       <Check className="h-4 w-4 text-green-600" />
-                    ) : errors[row.id] ? (
+                    ) : errors[row.id || row.externalUrl] ? (
                       <AlertTriangle className="h-4 w-4 text-red-600" />
                     ) : (
                       <MapPin className="h-4 w-4 text-gray-400" />
