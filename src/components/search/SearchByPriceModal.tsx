@@ -76,8 +76,11 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="rounded-t-2xl max-h-[90vh] p-0 flex flex-col">
-        <div className="mx-auto w-full max-w-md flex flex-col flex-1">
+      <SheetContent 
+        side="bottom" 
+        className="rounded-t-2xl max-h-[90vh] p-0 flex flex-col mx-auto w-full max-w-md"
+      >
+        <div className="flex flex-col flex-1">
           <SheetHeader className="p-4 border-b flex-shrink-0">
             <SheetTitle className="text-xl font-bold text-[#022D68]">Pesquisar por Preço</SheetTitle>
           </SheetHeader>
