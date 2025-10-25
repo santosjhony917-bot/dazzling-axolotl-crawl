@@ -13,8 +13,7 @@ const ScheduledMetricsTab = () => <CardContent>Implementar Agendamento de Métri
 export default function AdminDashboard() {
   console.log("AdminDashboard is rendering.");
   return (
-    <div className="space-y-6 bg-primary p-6 rounded-xl">
-      <h1 className="text-4xl font-bold text-white text-center">ADMIN DASHBOARD ATIVO</h1>
+    <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-3xl text-[#022D68]">Central de Gerenciamento</CardTitle>
