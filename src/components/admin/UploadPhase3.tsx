@@ -8,12 +8,13 @@ import { cn } from '@/lib/utils';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
-import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
+import { saveUploadRecord } from '@/utils/uploadHistory';
 
 // Define a estrutura de dados para a Fase 3
 interface MenuItemDataPhase3 {
   id: string;
   restaurantId: string; // Chave de ligação (UUID)
+  restaurantName: string; // Nome para referência (somente leitura)
   categoryName: string;
   itemName: string;
   description: string;
@@ -24,17 +25,19 @@ interface MenuItemDataPhase3 {
 
 // Colunas da planilha (Ajustadas para a ordem solicitada, usando ID como chave)
 const columns = [
-  { key: 'restaurantId', label: 'ID do Restaurante (UUID)' }, // Mantido como chave
-  { key: 'categoryName', label: 'Categoria' },
-  { key: 'itemName', label: 'Nome do Prato' },
-  { key: 'description', label: 'Descrição' },
-  { key: 'price', label: 'Preço (Ex: 19.90)' },
-  { key: 'imageUrl', label: 'URL da Imagem (Opcional)' },
+  { key: 'restaurantId', label: 'ID do Restaurante (UUID)', readOnly: false, width: '150px' },
+  { key: 'restaurantName', label: 'Nome do Restaurante', readOnly: true, width: '150px' }, // Adicionado para referência
+  { key: 'categoryName', label: 'Categoria', readOnly: false, width: '120px' },
+  { key: 'itemName', label: 'Nome do Prato', readOnly: false, width: '180px' },
+  { key: 'description', label: 'Descrição', readOnly: false, width: '250px' },
+  { key: 'price', label: 'Preço (Ex: 19.90)', readOnly: false, width: '100px' },
+  { key: 'imageUrl', label: 'URL da Imagem (Opcional)', readOnly: false, width: '200px' },
 ];
 
 const initialRow: MenuItemDataPhase3 = {
   id: 'temp-0',
   restaurantId: '',
+  restaurantName: '',
   categoryName: '',
   itemName: '',
   description: '',
@@ -68,6 +71,11 @@ const UploadPhase3: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Mapeamento de ID para Nome para referência rápida
+  const restaurantIdToName = useMemo(() => {
+    return new Map(restaurants.map(r => [r.id, r.name]));
+  }, [restaurants]);
 
   // 1. Fetch existing restaurants (for reference/validation)
   const fetchRestaurants = useCallback(async () => {
@@ -103,14 +111,27 @@ const UploadPhase3: React.FC = () => {
 
   const handleUpdateCell = useCallback((id: string, key: keyof MenuItemDataPhase3, value: string) => {
     setRows(prevRows => 
-      prevRows.map(row => (row.id === id ? { ...row, [key]: value, status: 'pending' } : row))
+      prevRows.map(row => {
+        if (row.id === id) {
+          // Garante que o status seja mantido como um literal type
+          const updatedRow: MenuItemDataPhase3 = { ...row, [key]: value, status: 'pending' };
+          
+          // Atualiza o nome do restaurante se o ID for alterado e for válido
+          if (key === 'restaurantId') {
+            const name = restaurantIdToName.get(value.trim()) || '';
+            updatedRow.restaurantName = name;
+          }
+          return updatedRow;
+        }
+        return row;
+      })
     );
     setErrors(prev => {
       const newErrors = { ...prev };
       delete newErrors[id];
       return newErrors;
     });
-  }, []);
+  }, [restaurantIdToName]);
 
   const handleAddRow = () => {
     setRows(prevRows => [...prevRows, { ...initialRow, id: `temp-${Math.random()}` }]);
@@ -136,9 +157,21 @@ const UploadPhase3: React.FC = () => {
         const value = values[i];
         
         if (targetIndex < newRows.length) {
-          newRows[targetIndex] = { ...newRows[targetIndex], [key]: value, status: 'pending' };
+          const updatedRow: MenuItemDataPhase3 = { ...newRows[targetIndex], [key]: value, status: 'pending' };
+          newRows[targetIndex] = updatedRow;
+          
+          // Se colarmos na coluna ID, tentamos preencher o nome
+          if (key === 'restaurantId') {
+            const name = restaurantIdToName.get(value.trim()) || '';
+            newRows[targetIndex].restaurantName = name;
+          }
         } else {
           const newRow: MenuItemDataPhase3 = { ...initialRow, id: `temp-${Math.random()}`, [key]: value, status: 'pending' };
+          
+          if (key === 'restaurantId') {
+            const name = restaurantIdToName.get(value.trim()) || '';
+            newRow.restaurantName = name;
+          }
           newRows.push(newRow);
         }
       }
@@ -147,7 +180,7 @@ const UploadPhase3: React.FC = () => {
     });
     
     showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
-  }, []);
+  }, [restaurantIdToName]);
 
   const validateAndCleanData = useCallback((): { validRows: MenuItemDataPhase3[], newErrors: Record<string, string> } => {
     const newErrors: Record<string, string> = {};
@@ -326,20 +359,24 @@ const UploadPhase3: React.FC = () => {
         {/* Dica de Referência */}
         <Alert className="border-dashed text-sm">
           <UtensilsCrossed className="h-4 w-4" />
-          <AlertTitle>Restaurantes Disponíveis</AlertTitle>
+          <AlertTitle>Restaurantes Disponíveis (ID | Nome)</AlertTitle>
           <AlertDescription className="max-h-24 overflow-y-auto">
-            IDs: {restaurants.map(r => `${r.name} (${r.id.substring(0, 8)}...)`).join(' | ')}
+            {restaurants.map(r => `${r.id.substring(0, 8)}... | ${r.name}`).join(' | ')}
           </AlertDescription>
         </Alert>
 
         {/* Tabela de Entrada de Dados */}
         <div className="overflow-x-auto">
-          <div className="min-w-[1200px]">
+          <div className="min-w-[1400px]">
             {/* Cabeçalho da Tabela */}
-            <div className="grid grid-cols-6 bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white">
+            <div 
+              className="grid bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white"
+              style={{ gridTemplateColumns: gridTemplateColumns }}
+            >
               {columns.map(col => (
                 <div key={col.key} className="px-2 truncate">{col.label}</div>
               ))}
+              <div className="px-2 truncate text-center">Status</div>
             </div>
             
             {/* Linhas de Dados */}
@@ -348,20 +385,31 @@ const UploadPhase3: React.FC = () => {
                 <div 
                   key={row.id} 
                   className={cn(
-                    "grid grid-cols-6 border-b border-gray-100 dark:border-gray-700 last:border-b-0",
+                    "grid border-b border-gray-100 dark:border-gray-700 last:border-b-0",
                     errors[row.id] && "bg-red-50 dark:bg-red-900/20"
                   )}
+                  style={{ gridTemplateColumns: gridTemplateColumns }}
                 >
                   {columns.map(col => (
                     <Input
                       key={col.key}
                       value={row[col.key as keyof MenuItemDataPhase3] || ''}
                       onChange={(e) => handleUpdateCell(row.id, col.key as keyof MenuItemDataPhase3, e.target.value)}
-                      onPaste={(e) => handleColumnPaste(e, index, col.key as keyof MenuItemDataPhase3)}
+                      onPaste={(e) => col.readOnly ? undefined : handleColumnPaste(e, index, col.key as keyof MenuItemDataPhase3)}
                       className="h-10 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent text-sm"
                       placeholder={col.label}
+                      readOnly={col.readOnly}
                     />
                   ))}
+                  <div className="flex items-center justify-center text-sm">
+                    {row.status === 'success' ? (
+                      <Check className="h-4 w-4 text-green-600" />
+                    ) : errors[row.id] ? (
+                      <AlertTriangle className="h-4 w-4 text-red-600" />
+                    ) : (
+                      <UtensilsCrossed className="h-4 w-4 text-gray-400" />
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
