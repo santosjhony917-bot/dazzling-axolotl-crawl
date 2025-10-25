@@ -14,6 +14,7 @@ export interface Restaurant {
   longitude: number | null;
   city: string | null;
   state: string | null;
+  cep: string | null;
   cover_image_url: string | null;
   number: string | null;
   neighborhood: string | null;
