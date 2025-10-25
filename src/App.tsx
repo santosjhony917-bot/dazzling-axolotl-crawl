@@ -49,7 +49,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Rotas Públicas de Busca */}
-          <Route path="/search-client" element={<ClientSearchPage />} /> {/* Nova Rota de Busca Avançada */}
+          <Route path="/search-client" element={<ClientSearchPage />} /> {/* Rota principal de busca do cliente */}
           <Route path="/search-restaurants" element={<SearchRestaurants />} />
           <Route path="/restaurant-results" element={<RestaurantResults />} />
           
@@ -80,7 +80,8 @@ function App() {
               <Route path="profile-menu" element={<RestaurantProfileMenu />} />
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
-              <Route path="stats" element={<RestaurantStats />} />
+              {/* Mapeando a rota de 'stats' (Busca do Restaurante) para a página de busca do cliente */}
+              <Route path="stats" element={<ClientSearchPage />} /> 
               {/* Adicione outras rotas da área do restaurante aqui */}
             </Route>
           </Route>

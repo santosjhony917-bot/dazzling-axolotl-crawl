@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3 } from 'lucide-react';
+import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
@@ -43,8 +43,8 @@ const RestaurantDashboard = () => {
       setIsLocationModalOpen(true);
       return;
     }
-    // Navega para a tela de busca, passando a localização salva como parâmetros
-    navigate(`/restaurant-area/stats?lat=${location.latitude}&lon=${location.longitude}`);
+    // Navega para a tela de busca/análise (agora mapeada para ClientSearchPage)
+    navigate(createPageUrl('restaurant-area/stats'));
   };
   
   const handleEditMenu = () => {
@@ -100,8 +100,8 @@ const RestaurantDashboard = () => {
             onClick={handleEditMenu}
           />
           <ActionCard 
-            title="Ver Estatísticas" 
-            icon={BarChart3} 
+            title="Análise de Mercado" 
+            icon={Search} // Usando Search para refletir a busca
             onClick={handleGoToStats}
           />
         </div>
