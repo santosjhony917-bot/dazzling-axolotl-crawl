@@ -37,16 +37,20 @@ const fetchRestaurantByOwner = async (userId: string): Promise<Restaurant | null
 };
 
 // 2. Fetch User Role (Mocked/Simplified)
-const fetchUserRole = async (userId: string): Promise<{ isPremium: boolean, isAdmin: boolean }> => {
-    // Busca o perfil do restaurante (usando o cache se possível)
-    // Nota: Não podemos usar queryClient.getQueryData aqui, pois estamos fora do componente React.
-    // Vamos buscar diretamente o restaurante para determinar o plano.
-    const restaurant = await fetchRestaurantByOwner(userId);
+const fetchUserRole = async (user: User): Promise<{ isPremium: boolean, isAdmin: boolean }> => {
+    // Busca o perfil do restaurante
+    const restaurant = await fetchRestaurantByOwner(user.id);
     
     const isPremium = restaurant?.plan === 'premium';
     
-    // Mock: Apenas um usuário específico é admin (ex: o primeiro usuário criado)
-    const isAdmin = userId === 'mock-admin-id'; 
+    // Verifica se o usuário é admin:
+    // 1. Pelo metadado (definido no signup/login de teste)
+    const isAdminByMetadata = user.user_metadata?.role === 'admin';
+    
+    // 2. Pelo ID (para o caso de não ter metadado, mas ser o usuário de teste)
+    const isAdminByEmail = user.email === 'admin@test.com';
+    
+    const isAdmin = isAdminByMetadata || isAdminByEmail;
     
     return { isPremium, isAdmin };
 };
@@ -101,7 +105,7 @@ export function useAuthProfile(): AuthProfileState {
   // Query 2: User Roles (depende do perfil do restaurante)
   const { data: roles, isLoading: isRoleLoading, refetch: refetchRoles } = useQuery<{ isPremium: boolean, isAdmin: boolean }, Error>({
     queryKey: USER_ROLE_KEY(userId),
-    queryFn: () => fetchUserRole(user!.id),
+    queryFn: () => fetchUserRole(user!),
     enabled: enabled,
     staleTime: 5 * 60 * 1000,
   });

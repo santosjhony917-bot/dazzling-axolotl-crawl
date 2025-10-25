@@ -107,14 +107,55 @@ export default function RestaurantLogin() {
   // Função de Login Forçado para Dev
   const handleDevLogin = async () => {
     setLoading(true);
-    // Simula a obtenção de um ID de usuário (mockado)
-    // const userId = 'dev-test-user-id'; // Não é mais necessário
     
-    showSuccess("Login de Teste realizado! Redirecionando para o painel.");
-    setTimeout(() => {
-      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
-      navigate(createPageUrl("restaurant-area/profile-menu")); 
-    }, 500);
+    // Simula o login de um usuário de teste (que será tratado como admin no useAuthProfile)
+    try {
+        const { error } = await supabase.auth.signInWithPassword({
+            email: "admin@test.com",
+            password: "password",
+        });
+        
+        if (error) {
+            // Se o usuário não existir, cria um mock de admin
+            if (error.message.includes('Invalid login credentials')) {
+                const { error: signUpError } = await supabase.auth.signUp({
+                    email: "admin@test.com",
+                    password: "password",
+                    options: {
+                        data: {
+                            // Adiciona um metadado para simular o papel de admin
+                            role: 'admin' 
+                        }
+                    }
+                });
+                if (signUpError) throw signUpError;
+                
+                // Tenta logar novamente após o cadastro
+                await supabase.auth.signInWithPassword({
+                    email: "admin@test.com",
+                    password: "password",
+                });
+            } else {
+                throw error;
+            }
+        }
+        
+        // Define o ID do usuário de teste como 'mock-admin-id' para o useAuthProfile
+        // Nota: O useAuthProfile usa o ID real do Supabase, mas vamos garantir que o ID de teste seja conhecido.
+        // Para fins de teste, vamos apenas navegar, assumindo que o useAuthProfile fará o resto.
+        
+        showSuccess("Login de Admin de Teste realizado! Redirecionando para o painel.");
+        setTimeout(() => {
+            navigate(createPageUrl("admin/dashboard")); 
+        }, 500);
+
+    } catch (error) {
+        const msg = (error as Error).message || "Falha no login de Admin de Teste.";
+        setLastError(msg);
+        showError(msg);
+    } finally {
+        setLoading(false);
+    }
   };
 
   return (
@@ -209,14 +250,22 @@ export default function RestaurantLogin() {
               </form>
               
               {/* Botão de Login Forçado para Dev */}
-              <div className="pt-4">
+              <div className="pt-4 space-y-2">
                 <Button
                   onClick={handleDevLogin}
                   variant="secondary"
                   className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
                   disabled={loading}
                 >
-                  Login de Teste (Dev)
+                  Login de Admin de Teste
+                </Button>
+                <Button
+                  onClick={() => navigate(createPageUrl('auth'))}
+                  variant="secondary"
+                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
+                  disabled={loading}
+                >
+                  Login de Cliente
                 </Button>
               </div>
 
