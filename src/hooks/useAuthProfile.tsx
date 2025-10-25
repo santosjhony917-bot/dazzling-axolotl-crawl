@@ -101,7 +101,7 @@ export function useAuthProfile(): AuthProfileState {
   // --- Combined State and Actions ---
   
   const isLoading = authLoading || isRestaurantLoading || isRoleLoading;
-  const isPremium = roles?.isPremium ?? (restaurant?.plan === 'premium' ?? false); // Fallback para o perfil
+  const isPremium = roles?.isPremium ?? (restaurant?.plan === 'premium'); // Fallback para o perfil
   const isAdmin = roles?.isAdmin ?? false;
 
   const signOut = useCallback(async () => {
