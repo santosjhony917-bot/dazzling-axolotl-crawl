@@ -26,11 +26,18 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 });
 
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
+  
+  // Define o item central dinamicamente
+  const centralItem = isFree
+    ? { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') }
+    : { id: 'upgrade', icon: Crown, label: 'Assinatura', path: createPageUrl('restaurant-area/upgrade') }; // Muda ícone e label quando Premium
+
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    // O segundo botão deve ser a busca/análise de concorrentes
+    // Item 2: Busca/Estatísticas (Mantido como está)
     { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
-    { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') },
+    // Item 3: Upgrade/Gerenciamento (Central)
+    centralItem,
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
@@ -40,9 +47,9 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         {navItems.map((item) => {
           const isSelected = selectedTab === item.id;
           
-          const isUpgradeButton = item.id === 'upgrade';
+          const isCentralButton = item.id === 'upgrade';
 
-          if (isUpgradeButton && isFree) {
+          if (isCentralButton && isFree) {
             const Icon = item.icon;
             return (
               <Link
