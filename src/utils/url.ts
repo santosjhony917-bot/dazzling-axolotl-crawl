@@ -46,8 +46,7 @@ const PATHS = {
   'admin/edit-restaurant': '/admin/edit-restaurant', // Specific admin page
 };
 
-// Permite que PathKey seja uma chave estática OU uma string (para rotas dinâmicas)
-type PathKey = keyof typeof PATHS | string;
+export type PathKey = keyof typeof PATHS;
 type PathParams = Record<string, string | number | undefined>;
 
 /**
@@ -57,23 +56,7 @@ type PathParams = Record<string, string | number | undefined>;
  * @returns The generated URL string.
  */
 export const createPageUrl = (pathKey: PathKey, params?: PathParams): string => {
-  // Se a chave for uma string dinâmica (ex: 'restaurant-profile/123'), tentamos encontrar a rota base.
-  let path = PATHS[pathKey as keyof typeof PATHS];
-  
-  // Lógica para lidar com rotas dinâmicas como 'restaurant-profile/123'
-  if (!path) {
-    // Tenta encontrar a rota base se a chave for uma string interpolada
-    if (pathKey.startsWith('restaurant-profile/')) {
-      path = PATHS['restaurantProfile'];
-      // Extrai o ID para usar como parâmetro
-      const restaurantId = pathKey.split('/')[1];
-      params = { ...params, restaurantId };
-    } else if (pathKey.startsWith('restaurant-area/')) {
-        // Trata rotas aninhadas que são passadas como string
-        path = PATHS[pathKey as keyof typeof PATHS];
-    }
-  }
-  
+  const path = PATHS[pathKey];
   if (!path) {
     console.error(`Path key "${pathKey}" not found in PATHS.`);
     return '/';

@@ -1,24 +1,32 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 
-const mockBanners = [
+interface BannerItem {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  imageUrl: string;
+  actionPath: PathKey;
+}
+
+const mockBanners: BannerItem[] = [
   {
     title: "Torne-se Premium!",
     subtitle: "Apareça para mais clientes e aumente suas vendas.",
     buttonText: "Saiba Mais",
-    actionPath: 'restaurant-area/upgrade',
     imageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
+    actionPath: 'restaurant-area/upgrade',
   },
   {
     title: "Estatísticas Avançadas",
     subtitle: "Veja quem são seus concorrentes e como se destacar.",
     buttonText: "Ver Recursos",
-    actionPath: 'restaurant-area/upgrade',
     imageUrl: "https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=2070&auto=format&fit=crop",
+    actionPath: 'restaurant-area/upgrade',
   },
 ];
 

@@ -2,12 +2,12 @@ import React from 'react';
 import { ArrowLeft, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 
 interface RestaurantAreaHeaderProps {
   title: string;
   icon: LucideIcon;
-  backPath: string;
+  backPath: PathKey;
 }
 
 const RestaurantAreaHeader: React.FC<RestaurantAreaHeaderProps> = ({ title, icon: Icon, backPath }) => {

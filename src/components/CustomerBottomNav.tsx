@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Search, User, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 
 interface NavItem {
   path: string;
@@ -54,8 +54,7 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
           return (
             <Link
               key={item.path}
-              // FIX: Passa a string dinâmica para createPageUrl
-              to={createPageUrl(item.path.substring(1))}
+              to={createPageUrl(item.path.substring(1) as PathKey)}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
                 isActive ? "text-highlight" : "text-[#5f728c] dark:text-gray-400 hover:text-highlight"

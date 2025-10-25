@@ -4,12 +4,19 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Utensils, LogIn, UserPlus, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
+
+interface Option {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  path: PathKey;
+}
 
 export default function RestaurantAreaHub() {
   const navigate = useNavigate();
 
-  const options = [
+  const options: Option[] = [
     { 
       title: "Fazer Login", 
       description: "Acesse seu painel de controle.", 
@@ -24,7 +31,7 @@ export default function RestaurantAreaHub() {
     },
     { 
       title: "Reivindicar Restaurante", 
-      description: "Use seu código de acesso para assumir a gestão.", 
+      description: "Use o código de acesso fornecido pela FilterFood.", 
       icon: FileText, 
       path: 'claim-restaurant' 
     },
@@ -86,7 +93,7 @@ export default function RestaurantAreaHub() {
                       <h3 className="font-bold text-[#022D68]">{option.title}</h3>
                       <p className="text-sm text-gray-600">{option.description}</p>
                     </div>
-                    <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180 shrink-0" />
+                    <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180" />
                   </motion.div>
                 </Link>
               );

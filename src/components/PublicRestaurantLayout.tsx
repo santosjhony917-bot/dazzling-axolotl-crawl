@@ -2,14 +2,14 @@ import React from 'react';
 import { ArrowLeft, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 import { Restaurant } from '@/types/restaurant';
 
 interface PublicRestaurantLayoutProps {
   restaurant: Restaurant | null;
   children: React.ReactNode;
   title?: string; // Tornando opcional, pois pode ser derivado do restaurant.name
-  backPath?: string;
+  backPath?: PathKey;
 }
 
 const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaurant, children, title, backPath = 'home' }) => {
@@ -23,7 +23,6 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
     if (backPath === 'home') {
       navigate(-1);
     } else {
-      // FIX: backPath é uma string, que agora é aceita por createPageUrl
       navigate(createPageUrl(backPath));
     }
   };
