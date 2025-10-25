@@ -1,46 +1,62 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthContext } from "@/context/AuthContext";
-import { logError } from "@/utils/errorLogger"; // Importando o logger
+import { logError } from "@/utils/errorLogger";
+import { Restaurant } from "@/types/supabase"; // Importando o tipo Restaurant
 
 const FAVORITES_LIST_QUERY_KEY = ['userFavoritesList'];
 
-interface RestaurantDetails {
-  id: string;
-  name: string;
-  image_url: string | null;
-  category: string | null;
-  city: string | null;
-}
+interface RestaurantDetails extends Pick<Restaurant, 'id' | 'name' | 'image_url' | 'category' | 'city'> {}
 
 interface FavoriteRestaurant {
   restaurant_id: string;
-  restaurants: RestaurantDetails | null;
+  restaurants: RestaurantDetails;
 }
 
-const fetchUserFavorites = async (userId: string) => {
-  // Usando 'restaurants!inner' para forçar o join e garantir que a relação seja encontrada.
-  const { data, error } = await supabase
+const fetchUserFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
+  // 1. Buscar apenas os IDs dos restaurantes favoritos
+  const { data: favoriteData, error: favoriteError } = await supabase
     .from('user_favorites')
-    .select(`
-      restaurant_id,
-      restaurants!inner (
-        id,
-        name,
-        image_url,
-        category,
-        city
-      )
-    `)
+    .select('restaurant_id')
     .eq('user_id', userId);
 
-  if (error) {
-    // Loga o erro de relacionamento/cache
-    logError(error, { context: 'fetchUserFavorites' });
-    throw new Error(error.message);
+  if (favoriteError) {
+    logError(favoriteError, { context: 'fetchUserFavorites - Step 1' });
+    throw new Error(favoriteError.message);
   }
-  // Filtramos explicitamente para garantir que apenas objetos válidos sejam retornados
-  return data.filter(item => item.restaurants !== null) as unknown as FavoriteRestaurant[];
+  
+  const restaurantIds = favoriteData.map(f => f.restaurant_id);
+  
+  if (restaurantIds.length === 0) {
+    return [];
+  }
+
+  // 2. Buscar os detalhes dos restaurantes usando os IDs
+  const { data: restaurantData, error: restaurantError } = await supabase
+    .from('restaurants')
+    .select('id, name, image_url, category, city')
+    .in('id', restaurantIds);
+
+  if (restaurantError) {
+    logError(restaurantError, { context: 'fetchUserFavorites - Step 2' });
+    throw new Error(restaurantError.message);
+  }
+  
+  // 3. Mapear os resultados para o formato esperado
+  const restaurantMap = new Map(restaurantData.map(r => [r.id, r]));
+  
+  return favoriteData
+    .map(fav => {
+      const restaurant = restaurantMap.get(fav.restaurant_id);
+      if (restaurant) {
+        return {
+          restaurant_id: fav.restaurant_id,
+          restaurants: restaurant as RestaurantDetails,
+        };
+      }
+      return null;
+    })
+    .filter((item): item is FavoriteRestaurant => item !== null);
 };
 
 export function useUserFavoritesList() {
@@ -50,7 +66,6 @@ export function useUserFavoritesList() {
     queryKey: FAVORITES_LIST_QUERY_KEY,
     queryFn: () => fetchUserFavorites(user!.id),
     enabled: !!user && !isAuthLoading,
-    // Adicionando retry: 0 para evitar loops de erro em caso de falha de esquema
     retry: 0, 
   });
 
