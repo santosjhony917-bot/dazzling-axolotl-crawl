@@ -45,7 +45,8 @@ export async function addAdmin(email: string): Promise<void> {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error || `Failed to promote user ${email} to admin.`);
+    // Lança o erro com a mensagem detalhada da Edge Function
+    throw new Error(data.error || `Falha ao promover usuário ${email} para admin.`);
   }
 }
 
