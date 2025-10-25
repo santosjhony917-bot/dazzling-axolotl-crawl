@@ -109,7 +109,7 @@ const FullMenuDisplay: React.FC<FullMenuDisplayProps> = ({ menu, loading }) => {
             {category.name}
           </h3>
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
-            {(category.items || []).filter(item => item.is_active).map(item => (
+            {category.items.filter(item => item.is_active).map(item => (
               <PublicMenuItemCard key={item.id} item={item} />
             ))}
           </div>
