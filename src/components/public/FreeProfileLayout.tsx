@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Lock, Share2, Loader2 } from 'lucide-react';
+import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Lock, Share2, Loader2, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -53,17 +53,21 @@ const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => 
 };
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
-  const { user } = useAuthContext(); // FIX 1: Usando 'user'
+  const { user, signOut } = useAuthContext(); 
   const navigate = useNavigate();
-  const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(restaurant.id); // FIX 2: useFavorites agora aceita restaurant.id
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(restaurant.id); 
 
   const handleFollowToggle = () => {
-    if (!user) { // Verificação contra 'user'
+    if (!user) { 
       showInfo("Faça login para favoritar este restaurante.");
       navigate(createPageUrl('login'));
       return;
     }
-    toggleFavorite(); // FIX 3: toggleFavorite agora não aceita argumentos
+    toggleFavorite(); 
+  };
+
+  const handleSignOut = async () => {
+    await signOut(); // FIX: Removed destructuring { error }
   };
 
   const headerData = {
@@ -157,6 +161,16 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           <DetailedHoursDisplay schedule={restaurant.opening_hours as WeekSchedule} />
         )}
         
+        {/* Botão de Logout (Se o usuário estiver logado) */}
+        {user && (
+          <Button 
+            variant="outline" 
+            onClick={handleSignOut} 
+            className="w-full mt-6 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
+          >
+            <LogOut className="mr-2 h-4 w-4" /> Sair
+          </Button>
+        )}
       </div>
     </div>
   );

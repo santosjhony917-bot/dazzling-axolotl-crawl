@@ -21,11 +21,10 @@ interface RestaurantPublicHeaderProps {
 }
 
 const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaurant }) => {
-  const { id, name, followersCount, logoUrl, onFollowToggle } = restaurant;
+  const { id, name, followersCount, logoUrl } = restaurant;
   const { user } = useAuthContext();
   const navigate = useNavigate();
   
-  // Usando useFavorites com o ID do restaurante
   const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(id);
 
   const handleFavoriteClick = () => {
@@ -34,7 +33,6 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       navigate(createPageUrl('login'));
       return;
     }
-    // Chamando toggleFavorite sem argumentos
     toggleFavorite();
   };
 
@@ -53,8 +51,9 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
 
   return (
     <div className="px-4">
-      <div className="flex items-end justify-between">
-        {/* Logo */}
+      
+      {/* Contêiner da Logo Centralizada */}
+      <div className="flex justify-center">
         <div className="w-24 h-24 -mt-16 rounded-full border-4 border-white shadow-md overflow-hidden bg-white dark:bg-gray-800">
           <img 
             src={logoUrl || PLACEHOLDER_IMAGE_URL} 
@@ -62,36 +61,37 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
             className="w-full h-full object-cover"
           />
         </div>
-        
-        {/* Botões de Ação */}
-        <div className="flex gap-2 mb-2">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="rounded-full w-10 h-10 bg-white shadow-md hover:bg-gray-50"
-            onClick={handleShare}
-          >
-            <Share2 className="w-5 h-5 text-primary" />
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="rounded-full w-10 h-10 bg-white shadow-md hover:bg-gray-50"
-            onClick={handleFavoriteClick}
-            disabled={isFavoriteLoading}
-          >
-            {isFavoriteLoading ? (
-              <Loader2 className="w-5 h-5 animate-spin text-red-500" />
-            ) : (
-              <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
-            )}
-          </Button>
-        </div>
       </div>
       
-      {/* Nome e Seguidores */}
-      <div className="mt-2 pb-4 border-b border-gray-100">
+      {/* Botões de Ação (Posicionados no canto superior direito do contêiner pai) */}
+      {/* Ajustamos a posição dos botões para que fiquem no canto superior direito do contêiner principal (que é o div com rounded-t-3xl) */}
+      <div className="absolute top-4 right-4 flex gap-2">
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="rounded-full w-10 h-10 bg-white shadow-md hover:bg-gray-50"
+          onClick={handleShare}
+        >
+          <Share2 className="w-5 h-5 text-primary" />
+        </Button>
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="rounded-full w-10 h-10 bg-white shadow-md hover:bg-gray-50"
+          onClick={handleFavoriteClick}
+          disabled={isFavoriteLoading}
+        >
+          {isFavoriteLoading ? (
+            <Loader2 className="w-5 h-5 animate-spin text-red-500" />
+          ) : (
+            <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
+          )}
+        </Button>
+      </div>
+      
+      {/* Nome e Seguidores (Centralizados) */}
+      <div className="mt-2 pb-4 border-b border-gray-100 text-center">
         <h1 className="text-2xl font-extrabold text-gray-900">{name}</h1>
         <p className="text-sm text-gray-500 mt-1">{followersCount} seguidores</p>
       </div>

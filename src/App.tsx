@@ -1,113 +1,69 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
-import Home from './pages/Home'; // Usando Home como a tela principal do cliente
-import Auth from './pages/Auth';
-import ProtectedRoute from './components/ProtectedRoute';
-import RestaurantArea from './pages/RestaurantArea';
-import RestaurantDashboard from './pages/RestaurantDashboard';
-import RestaurantMenu from './pages/RestaurantMenu';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ToastProvider from './components/ToastProvider';
-import PublicMenuPage from './pages/PublicMenuPage'; 
-import Splash from './pages/Splash';
-import Onboarding from './pages/Onboarding';
-import Welcome from './pages/Welcome';
-import ForgotPassword from './pages/ForgotPassword';
-import RestaurantAreaHub from './pages/RestaurantAreaHub';
-import RestaurantLogin from './pages/RestaurantLogin';
-import RestaurantSignup from './pages/RestaurantSignup';
-import ClaimRestaurant from './pages/ClaimRestaurant';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
-import SearchRestaurants from './pages/SearchRestaurants';
-import RestaurantResults from './pages/RestaurantResults';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
+import RestaurantResults from './pages/RestaurantResults';
+import RestaurantDashboard from './pages/restaurant-area/Dashboard';
+import RestaurantProfilePage from './pages/restaurant-area/Profile';
+import GalleryManagement from './pages/restaurant/GalleryManagement';
+import RestaurantMenu from './pages/RestaurantMenu';
 import RestaurantProfileMenu from './pages/RestaurantProfileMenu';
-import Upgrade from './pages/Upgrade';
-import HelpCenter from './pages/restaurant/HelpCenter';
-import Legal from './pages/Legal';
-import NotFound from './pages/NotFound';
-import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
-import AdminLayout from './components/admin/AdminLayout'; // Importando AdminLayout
-import AdminDashboard from './pages/admin/AdminDashboard'; // Importando páginas Admin
-import ManageAdmins from './pages/admin/ManageAdmins';
-import EditRestaurant from './pages/admin/EditRestaurant';
-import PopularCategories from './pages/admin/PopularCategories';
-import Files from './pages/admin/Files';
-import ImportMenu from './pages/admin/ImportMenu';
-import AdminLogin from './pages/admin/AdminLogin'; // NOVO IMPORT
-import GalleryManagement from './pages/restaurant/GalleryManagement'; // NOVO IMPORT
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminRestaurants from './pages/admin/AdminRestaurants';
+import AdminPlans from './pages/admin/AdminPlans';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminSettings from './pages/admin/AdminSettings';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Router>
-      <ToastProvider />
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Routes>
-          {/* Fluxo Inicial */}
-          <Route path="/" element={<Splash />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/welcome" element={<Welcome />} />
-          
-          {/* Páginas Legais */}
-          <Route path="/legal" element={<Legal />} />
-          
-          {/* Autenticação Cliente */}
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          
-          {/* Rotas Públicas de Busca */}
-          <Route path="/search-client" element={<ClientSearchPage />} /> {/* Rota principal de busca do cliente */}
-          <Route path="/search-restaurants" element={<SearchRestaurants />} />
-          <Route path="/restaurant-results" element={<RestaurantResults />} />
-          
-          {/* Rotas Públicas de Restaurante */}
-          <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
-          <Route path="/restaurant-login" element={<RestaurantLogin />} />
-          <Route path="/restaurant-signup" element={<RestaurantSignup />} />
-          <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
-          
-          {/* Rotas Públicas de Perfil/Cardápio */}
-          <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
-          <Route path="/menu/:restaurantId" element={<PublicMenuPage />} />
+        <ToastProvider />
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
+            <Route path="/results" element={<RestaurantResults />} />
 
-          {/* Rotas Protegidas (Acessíveis a qualquer usuário logado) */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/home" element={<Home />} />
+            {/* Authenticated User Routes */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/favorites" element={<Favorites />} />
 
-            {/* Rotas Protegidas da Área do Restaurante */}
-            <Route path="/restaurant-area" element={<RestaurantArea />}>
-              <Route index element={<RestaurantDashboard />} />
-              <Route path="home" element={<RestaurantDashboard />} />
-              <Route path="menu" element={<RestaurantMenu />} />
-              <Route path="categories" element={<RestaurantMenu />} />
-              <Route path="profile-menu" element={<RestaurantProfileMenu />} />
-              <Route path="upgrade" element={<Upgrade />} />
-              <Route path="help" element={<HelpCenter />} />
-              <Route path="stats" element={<ClientSearchPage />} /> 
-              <Route path="gallery" element={<GalleryManagement />} /> {/* NOVA ROTA */}
-            </Route>
-          </Route>
-          
-          {/* Rotas da Área Administrativa (Proteção interna no AdminLayout) */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminLayout title="Painel Administrativo" />}>
-            <Route index element={<AdminDashboard />} /> 
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="manage-admins" element={<ManageAdmins />} />
-            <Route path="edit-restaurant" element={<EditRestaurant />} />
-            <Route path="popular-categories" element={<PopularCategories />} />
-            <Route path="files" element={<Files />} />
-            <Route path="import" element={<ImportMenu />} />
-          </Route>
+            {/* Restaurant Owner Routes */}
+            <Route path="/restaurant/dashboard" element={<RestaurantDashboard />} />
+            <Route path="/restaurant/profile" element={<RestaurantProfilePage />} />
+            <Route path="/restaurant/gallery" element={<GalleryManagement />} />
+            <Route path="/restaurant/menu" element={<RestaurantMenu />} />
+            <Route path="/restaurant/menu-profile" element={<RestaurantProfileMenu />} />
 
-          {/* Rota 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminLayout />}> {/* FIX: Removed title prop */}
+              <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="restaurants" element={<AdminRestaurants />} />
+              <Route path="plans" element={<AdminPlans />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="settings" element={<AdminSettings />} />
+            </Route>
+          </Routes>
+        </Router>
       </AuthProvider>
-    </Router>
+    </QueryClientProvider>
   );
 }
 

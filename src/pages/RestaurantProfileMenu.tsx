@@ -1,65 +1,34 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useAuth } from '@/hooks/useAuth';
+import React from 'react';
+import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import FreeProfileLayout from '@/components/FreeProfileLayout';
-import { createPageUrl } from '@/utils/url';
-import { showError } from '@/utils/toast';
-import { useUserRole } from '@/hooks/useUserRole'; // Importação mantida
+import { Loader2 } from 'lucide-react';
 
-const RestaurantProfileMenu: React.FC = () => {
-  const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuth();
-  const userId = user?.id || null;
-  
-  // Busca o restaurante pelo ID do usuário logado
-  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
-  
-  // CORREÇÃO: Usar o hook useUserRole que já tem a lógica correta (incluindo premium_gift)
-  const { isPremium } = useUserRole(); 
+// NOTE: This component seems to be intended for restaurant management, 
+// but is named generically. Assuming it's a management view for now.
 
-  // Lida com o redirecionamento para usuários não autenticados
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate(createPageUrl('restaurant-login'));
-    }
-  }, [authLoading, user, navigate]);
+export default function RestaurantProfileMenu() {
+  const { user } = useAuthContext();
+  // Removed userId argument and fixed property names
+  const { restaurant, isLoading: restaurantLoading, updateRestaurant, refetchProfile } = useRestaurantProfile(); 
+  const restaurantId = restaurant?.id || null;
 
-  if (authLoading || restaurantLoading) {
+  if (restaurantLoading) {
     return (
-      <div className="p-4 md:p-8 space-y-8 max-w-md mx-auto">
-        <Skeleton className="h-16 w-full" />
-        <Skeleton className="h-40 w-full rounded-xl mb-6" />
-        <Skeleton className="h-6 w-3/4 mb-4" />
-        <Skeleton className="h-64 w-full rounded-xl mb-6" />
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (!restaurant) {
-    // Se o usuário está logado, mas não tem restaurante (deve ser raro após o signup)
-    return (
-      <div className="p-8 text-center max-w-md mx-auto">
-        <h2 className="text-xl font-semibold text-[#022D68]">Nenhum restaurante encontrado.</h2>
-        <p className="text-gray-500">Por favor, verifique se o cadastro foi concluído ou entre em contato com o suporte.</p>
-        <Button onClick={() => navigate(createPageUrl('restaurant-signup'))} className="mt-4 bg-[#E47948] hover:bg-[#E47948]/90">
-          Tentar Cadastrar Novamente
-        </Button>
-      </div>
-    );
+    return <div className="p-4">Restaurante não encontrado ou acesso negado.</div>;
   }
 
   return (
-    <FreeProfileLayout 
-      restaurant={restaurant} 
-      updateRestaurant={updateRestaurant} 
-      refetch={refetch} 
-      isPremium={isPremium} 
-    />
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Gerenciar Perfil e Menu de {restaurant.name}</h1>
+      <p>Aqui você gerencia as configurações principais e o menu.</p>
+      {/* Implementação futura de gerenciamento de menu */}
+    </div>
   );
-};
-
-export default RestaurantProfileMenu;
+}

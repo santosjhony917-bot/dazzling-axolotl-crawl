@@ -4,18 +4,21 @@ import { useAuthContext } from "@/context/AuthContext";
 
 const FAVORITES_LIST_QUERY_KEY = ['userFavoritesList'];
 
+interface RestaurantDetails {
+  id: string;
+  name: string;
+  image_url: string | null;
+  category: string | null;
+  city: string | null;
+}
+
 interface FavoriteRestaurant {
   restaurant_id: string;
-  restaurants: {
-    id: string;
-    name: string;
-    image_url: string | null;
-    category: string | null;
-    city: string | null;
-  } | null;
+  restaurants: RestaurantDetails | null;
 }
 
 const fetchUserFavorites = async (userId: string) => {
+  // Using 'restaurants(*)' to fetch related restaurant details
   const { data, error } = await supabase
     .from('user_favorites')
     .select(`
@@ -31,7 +34,8 @@ const fetchUserFavorites = async (userId: string) => {
     .eq('user_id', userId);
 
   if (error) throw new Error(error.message);
-  return data.filter(item => item.restaurants !== null) as FavoriteRestaurant[];
+  // We cast the result to the expected array type
+  return data as FavoriteRestaurant[];
 };
 
 export function useUserFavoritesList() {
@@ -44,7 +48,7 @@ export function useUserFavoritesList() {
   });
 
   return {
-    favorites: data || [],
+    favorites: data?.filter(item => item.restaurants !== null) || [],
     isLoading: isLoading || isAuthLoading,
     error: error ? error.message : null,
   };

@@ -18,7 +18,7 @@ export default function RestaurantResults() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
-  const { signOut } = useAuthContext(); // Corrigido
+  const { signOut } = useAuthContext(); 
   const navigate = useNavigate();
 
   const lat = searchParams.get('lat');
