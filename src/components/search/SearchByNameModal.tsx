@@ -2,31 +2,30 @@ import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { DollarSign, Search, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { searchMenuItems } from '@/integrations/supabase/menu';
 import { useToast } from '@/components/ui/use-toast';
 import { RestaurantMenuItem } from '@/types/menu';
 import MenuItemCard from '../MenuItemCard';
+import { searchMenuItems } from '@/integrations/supabase/menu';
 
-interface SearchByPriceModalProps {
+interface SearchByNameModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose }) => {
-  const [maxPrice, setMaxPrice] = useState<string>('');
+const SearchByNameModal: React.FC<SearchByNameModalProps> = ({ isOpen, onClose }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [results, setResults] = useState<RestaurantMenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const handleSearch = async () => {
-    const price = parseFloat(maxPrice);
-    if (isNaN(price) || price <= 0) {
+    if (!searchTerm.trim()) {
       toast({
-        title: "Erro de Busca",
-        description: "Por favor, insira um preço máximo válido.",
-        variant: "destructive",
+        title: "Atenção",
+        description: "Por favor, digite um termo de busca.",
+        variant: "default",
       });
       return;
     }
@@ -35,24 +34,13 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
     setResults([]);
     
     try {
-      // Since the backend function `search_menu_items` only takes a text query, 
-      // we will search using the price as a query and rely on the backend logic 
-      // or filter locally if the backend search is too broad.
-      // For now, we will use a mock search based on the price input for UI demonstration:
-      
-      // Mocking search results based on price input for UI demonstration:
-      const mockResults: RestaurantMenuItem[] = [
-        { item_id: '1', restaurant_id: 'res1', item_name: 'Prato Econômico', item_description: 'Até R$ 15', item_price: 14.99, item_image_url: null, restaurant_name: 'Restaurante A', restaurant_category: 'Fast Food' },
-        { item_id: '2', restaurant_id: 'res2', item_name: 'Prato Médio', item_description: 'Até R$ 30', item_price: 29.90, item_image_url: null, restaurant_name: 'Restaurante B', restaurant_category: 'Italiano' },
-        { item_id: '3', restaurant_id: 'res3', item_name: 'Prato Caro', item_description: 'Acima de R$ 50', item_price: 55.00, item_image_url: null, restaurant_name: 'Restaurante C', restaurant_category: 'Gourmet' },
-      ].filter(item => item.item_price <= price);
+      const data = await searchMenuItems(searchTerm);
+      setResults(data);
 
-      setResults(mockResults);
-
-      if (mockResults.length === 0) {
+      if (data.length === 0) {
         toast({
           title: "Nenhum resultado",
-          description: `Não encontramos pratos até R$ ${price.toFixed(2)}.`,
+          description: `Não encontramos pratos com o termo "${searchTerm}".`,
         });
       }
 
@@ -69,7 +57,7 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
   };
 
   const handleClose = () => {
-    setMaxPrice('');
+    setSearchTerm('');
     setResults([]);
     onClose();
   };
@@ -85,22 +73,26 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
       >
         <SheetHeader className="p-4 border-b">
           <SheetTitle className="text-xl font-bold text-[#022D68] flex items-center">
-            <DollarSign className="w-5 h-5 mr-2" /> Pesquisar por Preço
+            <Search className="w-5 h-5 mr-2" /> Pesquisar por Nome
           </SheetTitle>
           <SheetDescription>
-            Encontre pratos que cabem no seu bolso. Digite o preço máximo.
+            Encontre pratos específicos em todos os restaurantes.
           </SheetDescription>
         </SheetHeader>
 
         <div className="p-4 flex-shrink-0">
           <div className="flex space-x-2">
             <Input
-              type="number"
-              placeholder="Preço Máximo (Ex: 25.00)"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
+              type="text"
+              placeholder="Nome do prato (Ex: Lasanha)"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-grow"
-              step="0.01"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
             />
             <Button onClick={handleSearch} disabled={isLoading}>
               {isLoading ? 'Buscando...' : <Search className="w-4 h-4" />}
@@ -119,7 +111,7 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
           ) : (
             !isLoading && (
               <p className="text-center text-gray-500 mt-8">
-                {maxPrice ? 'Nenhum prato encontrado com esse preço máximo.' : 'Digite um preço e clique em buscar.'}
+                {searchTerm ? 'Nenhum prato encontrado com esse nome.' : 'Digite o nome de um prato e clique em buscar.'}
               </p>
             )
           )}
@@ -135,4 +127,4 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
   );
 };
 
-export default SearchByPriceModal;
+export default SearchByNameModal;
