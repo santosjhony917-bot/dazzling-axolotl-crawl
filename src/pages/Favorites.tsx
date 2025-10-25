@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Utensils, MapPin, Loader2 } from 'lucide-react';
+import { Heart, Utensils, MapPin, Loader2, ArrowLeft } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
 import { useUserFavoritesList } from '@/hooks/useUserFavoritesList';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import ClientLayout from '@/components/ClientLayout'; // Importando o novo layout
+import ClientLayout from '@/components/ClientLayout';
 
 export default function Favorites() {
   const { user, isLoading: isAuthLoading, restaurant } = useAuthContext();
@@ -41,7 +41,7 @@ export default function Favorites() {
   }
 
   return (
-    <ClientLayout title="Meus Favoritos" selectedTab="favorites">
+    <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
       <div className="p-4 space-y-4">
         <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
           <Heart className="w-6 h-6 fill-red-500 text-red-500" /> Favoritos
@@ -54,7 +54,7 @@ export default function Favorites() {
             <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum favorito encontrado</h2>
             <p className="text-gray-600 mb-6">Comece a explorar e adicione seus restaurantes preferidos.</p>
-            <Button onClick={() => navigate(createPageUrl('home'))}>
+            <Button onClick={() => navigate(createPageUrl('search-client'))}>
               Explorar Restaurantes
             </Button>
           </div>
