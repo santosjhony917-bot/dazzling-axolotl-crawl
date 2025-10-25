@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Crown, Zap, Rocket, BarChart3 } from 'lucide-react';
+import { Home, Search, User, Heart, Rocket } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -27,16 +27,19 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
   
-  // Define o item central dinamicamente
-  const centralItem = isFree
-    ? { id: 'upgrade', icon: Rocket, label: 'Upgrade', path: createPageUrl('restaurant-area/upgrade') }
-    : { id: 'upgrade', icon: Crown, label: 'Assinatura', path: createPageUrl('restaurant-area/upgrade') }; // Muda ícone e label quando Premium
+  // Item central agora é sempre Favoritos
+  const centralItem = { 
+    id: 'favorites', 
+    icon: Heart, 
+    label: 'Favoritos', 
+    path: createPageUrl('favorites') 
+  };
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    // Item 2: Busca/Estatísticas (Mantido como está)
+    // Item 2: Busca/Estatísticas
     { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
-    // Item 3: Upgrade/Gerenciamento (Central)
+    // Item 3: Favoritos (Central)
     centralItem,
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
@@ -47,21 +50,21 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         {navItems.map((item) => {
           const isSelected = selectedTab === item.id;
           
-          const isCentralButton = item.id === 'upgrade';
+          const isCentralButton = item.id === 'favorites';
 
-          if (isCentralButton && isFree) {
+          if (isCentralButton) {
             const Icon = item.icon;
             return (
               <Link
                 key={item.path}
-                to={createPageUrl(item.path.substring(1))}
+                to={item.path}
                 className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
               >
                 <div className={cn(
                   "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
                   "bg-highlight text-white"
                 )}>
-                  <Icon className="h-7 w-7" />
+                  <Icon className={cn("h-7 w-7", isSelected && "fill-white")} />
                 </div>
                 <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
                   {item.label}
