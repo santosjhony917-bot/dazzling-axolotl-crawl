@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search } from 'lucide-react';
+import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, Eye } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
@@ -13,6 +13,8 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { useAuth } from '@/hooks/useAuth';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 
 // Mock Data
 const mockHighlights = [
@@ -29,22 +31,35 @@ const mockCompetitors = [
 
 const RestaurantDashboard = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  // Adicionando useRestaurantProfile para obter o ID do restaurante
+  const { restaurant } = useRestaurantProfile(user?.id || null);
+  
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   const handleLocationSaved = () => {
     refetch();
   };
   
+  // Função original para ir para estatísticas (mantida para o botão 'Ver todos' dos concorrentes)
   const handleGoToStats = () => {
     if (location.latitude === 0 && location.longitude === 0) {
       alert("Por favor, defina sua localização de busca primeiro para ver estatísticas de concorrentes.");
       setIsLocationModalOpen(true);
       return;
     }
-    // Navega para a tela de busca/análise (agora mapeada para ClientSearchPage)
     navigate(createPageUrl('restaurant-area/stats'));
+  };
+  
+  // Nova função para ver o perfil público
+  const handleViewPublicProfile = () => {
+    if (restaurant?.id) {
+      navigate(createPageUrl(`restaurant-profile/${restaurant.id}`));
+    } else {
+      alert("Aguarde o carregamento do perfil do restaurante.");
+    }
   };
   
   const handleEditMenu = () => {
@@ -92,17 +107,18 @@ const RestaurantDashboard = () => {
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (Editar Cardápio / Ver Estatísticas) */}
+        {/* Ações Rápidas (Editar Cardápio / Ver Perfil Público) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
             title="Editar Cardápio" 
             icon={Pencil} 
             onClick={handleEditMenu}
           />
+          {/* Este é o card que você pediu para mudar de 'Análise de Mercado' para 'Ver Perfil Público' */}
           <ActionCard 
-            title="Análise de Mercado" 
-            icon={Search} // Usando Search para refletir a busca
-            onClick={handleGoToStats}
+            title="Ver Perfil Público" 
+            icon={Eye} 
+            onClick={handleViewPublicProfile}
           />
         </div>
 
