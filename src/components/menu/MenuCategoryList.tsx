@@ -28,7 +28,8 @@ const PublicMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
 );
 
 const MenuCategoryList: React.FC<MenuCategoryListProps> = ({ categories }) => {
-  const activeCategories = categories.filter(c => c.is_active && c.items.some(i => i.is_active));
+  // CORREÇÃO: Garante que category.items é um array antes de chamar .some()
+  const activeCategories = categories.filter(c => c.is_active && (c.items || []).some(i => i.is_active));
 
   if (activeCategories.length === 0) {
     return (
@@ -52,7 +53,7 @@ const MenuCategoryList: React.FC<MenuCategoryListProps> = ({ categories }) => {
             </AccordionTrigger>
             <AccordionContent className="p-0">
               <div className="divide-y divide-gray-100 dark:divide-gray-700">
-                {category.items.filter(i => i.is_active).map(item => (
+                {(category.items || []).filter(i => i.is_active).map(item => (
                   <PublicMenuItemCard key={item.id} item={item} />
                 ))}
               </div>
