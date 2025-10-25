@@ -15,6 +15,7 @@ import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 interface RestaurantDataPhase2 {
   id: string;
   name: string;
+  externalUrl: string; // NOVO CAMPO: URL Externa para referência
   cep: string;
   address: string; // Rua/Avenida (Mapeia para DB: address)
   number: string; // (Mapeia para DB: number)
@@ -31,6 +32,7 @@ interface RestaurantDataPhase2 {
 // Colunas da planilha (incluindo campos editáveis para colagem)
 const columns = [
   { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '150px' },
+  { key: 'externalUrl', label: 'URL Externa', readOnly: true, width: '150px' }, // NOVO CAMPO
   { key: 'cep', label: 'CEP', width: '100px' },
   { key: 'address', label: 'Rua/Avenida', width: '180px' },
   { key: 'number', label: 'Número', width: '80px' },
@@ -51,6 +53,7 @@ const generateRowId = () => `temp-${Math.random()}-${rowIdCounter++}`;
 const initialRow: RestaurantDataPhase2 = {
   id: generateRowId(),
   name: '',
+  externalUrl: '',
   cep: '',
   address: '',
   number: '',
@@ -109,7 +112,7 @@ const UploadPhase2: React.FC = () => {
       // Busca restaurantes que não têm latitude OU longitude (ou ambos)
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name, cep, address, number, neighborhood, city, state, latitude, longitude')
+        .select('id, name, external_url, cep, address, number, neighborhood, city, state, latitude, longitude')
         .or('latitude.is.null,longitude.is.null')
         .limit(50); // Limita para evitar sobrecarga
 
@@ -118,6 +121,7 @@ const UploadPhase2: React.FC = () => {
       const initialRows: RestaurantDataPhase2[] = data.map(r => ({
         id: r.id,
         name: r.name,
+        externalUrl: r.external_url || '', // Mapeando o novo campo
         cep: r.cep || '',
         address: r.address || '',
         number: r.number || '',
@@ -381,7 +385,7 @@ const UploadPhase2: React.FC = () => {
       <div className="space-y-6">
         {/* Tabela de Entrada de Dados */}
         <div className="overflow-x-auto">
-          <div className="min-w-[1400px]">
+          <div className="min-w-[1600px]">
             {/* Cabeçalho da Tabela */}
             <div 
               className="grid bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white"
