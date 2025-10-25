@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, ShoppingCart, Globe } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,12 +17,14 @@ import ProfileHeaderManagement from './restaurant/profile/ProfileHeaderManagemen
 import InfoCardItem from './InfoCardItem';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useUserRole } from '@/hooks/useUserRole';
+import { cn } from '@/lib/utils'; // <-- Importação adicionada
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
 const emailSchema = z.string().email("E-mail inválido");
 const phoneSchema = z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido. Use o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
 const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido. Use o formato XX.XXX.XXX/XXXX-XX");
+const urlSchema = z.string().url("URL inválida").optional().or(z.literal('')); // Para links opcionais
 
 // --- Masks ---
 const phoneMask = (value: string) => {
@@ -44,8 +46,7 @@ const cnpjMask = (value: string) => {
   return numbers
     .replace(/^(\d{2})(\d)/, '$1.$2')
     .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-    .replace(/\.(\d{3})(\d)/, '.$1/$2')
-    .replace(/(\/\d{4})(\d)/, '$1-$2')
+    .replace(/\.(\d{3})(\d)/, '.$1-$2')
     .slice(0, 18);
 };
 
@@ -82,7 +83,6 @@ interface FreeProfileLayoutProps {
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updateRestaurant, refetch, isPremium }) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
-  const { isPremium: isUserPremium } = useUserRole(); // Assuming this is the user's role, not the restaurant's plan
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
@@ -143,11 +143,12 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
     showSuccess("Horários de funcionamento atualizados!");
   };
 
-  const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+  const formatScheduleSummary = (schedule: any): string | null => {
+    if (!schedule) return "Não definido";
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
     const openDays = days.filter(day => schedule[day]?.isOpen);
     if (openDays.length === 0) return "Fechado";
-    const firstSlot = schedule[openDays[0]].slots[0];
+    const firstSlot = schedule[openDays[0]]?.slots[0];
     if (!firstSlot) return "Horários definidos";
     return `${firstSlot.start} - ${firstSlot.end}`;
   };
@@ -203,10 +204,14 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             {/* Botão Editar Capa (Premium) */}
             <Button
               onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-              className="absolute top-4 right-4 h-8 px-3 bg-gray-700/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full hover:bg-gray-800/90 flex items-center gap-1"
+              className={cn(
+                "absolute top-4 right-4 h-8 px-3 bg-gray-700/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full hover:bg-gray-800/90 flex items-center gap-1",
+                !isPremium && "opacity-80"
+              )}
+              disabled={!isPremium}
             >
-              <Lock className="w-3 h-3" />
-              Editar capa (Premium)
+              {!isPremium && <Lock className="w-3 h-3" />}
+              Editar capa {isPremium ? '' : '(Premium)'}
             </Button>
             
             {/* Card Principal Flutuante */}
@@ -233,7 +238,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                     </div>
                     <Badge 
                       variant="outline" 
-                      className="text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1 mt-1 flex-shrink-0"
+                      className={cn(
+                        "text-xs font-semibold rounded-full px-3 py-1 mt-1 flex-shrink-0",
+                        isPremium ? "border-highlight text-highlight bg-yellow-50" : "border-gray-400 text-gray-600 bg-white"
+                      )}
                     >
                       Plano {isPremium ? "Premium" : "Free"}
                     </Badge>
@@ -257,7 +265,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
           {/* Espaçamento para o Card Flutuante */}
           <div className="h-20"></div> 
 
-          {/* 2. Detalhes do Estabelecimento (Card) - MOVIDO PARA CIMA */}
+          {/* 2. Detalhes do Estabelecimento (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <div className="flex justify-between items-center px-4 pt-4 pb-2">
@@ -275,49 +283,81 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   label="Nome Comercial" 
                   value={restaurant?.name || "Restaurante Teste Free"} 
                   icon={Store} 
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
                 />
                 <InfoCardItem
                   label="Endereço"
                   value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}` : "Não definido"}
                   icon={MapPin}
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => setIsAddressDialogOpen(true)}
                 />
                 <InfoCardItem
                   label="Horários"
                   value={scheduleSummary}
                   icon={Clock}
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => setIsHoursDialogOpen(true)}
                 />
                 <InfoCardItem 
                   label="Contato/WhatsApp" 
                   value={restaurant?.phone || "(83) 99999-9999"} 
                   icon={Phone} 
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
                 />
                 <InfoCardItem 
                   label="E-mail" 
                   value={restaurant?.email || "contato@zedog.com"} 
                   icon={Mail} 
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
                 />
                 <InfoCardItem 
                   label="CNPJ" 
                   value={restaurant?.cnpj || "12.345.678/0001-99"} 
                   icon={FileText} 
-                  isPremium={false}
+                  isPremium={isPremium}
                   onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask)}
                 />
               </div>
             </Card>
           </div>
+          
+          {/* 3. Canais de Venda (Decisão 4 e 7) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Canais de Venda e Links</h3>
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <InfoCardItem 
+                  label="Link do WhatsApp" 
+                  value={restaurant?.whatsapp_url || "Não definido"} 
+                  icon={MessageSquare} 
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://wa.me/5583999999999")}
+                />
+                <InfoCardItem 
+                  label="Link do iFood/Delivery App" 
+                  value={restaurant?.ifood_url || "Não definido"} 
+                  icon={ShoppingCart} 
+                  isPremiumFeature={true}
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <ShoppingCart className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
+                />
+                <InfoCardItem 
+                  label="Outro Link (Ex: Site Próprio)" 
+                  value={restaurant?.other_url || "Não definido"} 
+                  icon={Globe} 
+                  isPremiumFeature={true}
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.seusite.com.br")}
+                />
+              </div>
+            </Card>
+          </div>
 
-          {/* 3. Cardápio (Card) - MOVIDO PARA BAIXO */}
+          {/* 4. Cardápio (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
@@ -333,7 +373,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </Card>
           </div>
 
-          {/* 4. Plano e Assinatura (Card) */}
+          {/* 5. Plano e Assinatura (Card) */}
           <div className="px-4">
             <div className="bg-gradient-to-br from-yellow-50/50 to-yellow-100/50 dark:from-yellow-900/10 dark:to-yellow-900/20 rounded-xl shadow-sm border border-yellow-300 dark:border-yellow-700">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Plano e Assinatura</h3>
@@ -376,7 +416,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </div>
           </div>
 
-          {/* 5. Preferências e Personalização (Card) */}
+          {/* 6. Preferências e Personalização (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preferências e Personalização</h3>
@@ -415,7 +455,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </Card>
           </div>
 
-          {/* 6. Suporte e Conta (Card) */}
+          {/* 7. Suporte e Conta (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Suporte e Conta</h3>
@@ -428,7 +468,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   <span className="text-sm">Falar com o Suporte</span>
                   <ChevronRight className="w-5 h-5" />
                 </a>
-                <a onClick={() => showSuccess("Termos em breve")} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
+                <a onClick={() => navigate(createPageUrl('legal'))} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
                   <span className="text-sm">Termos e Política de Privacidade</span>
                   <ChevronRight className="w-5 h-5" />
                 </a>

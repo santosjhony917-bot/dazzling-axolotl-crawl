@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,18 @@ import FullMenuDisplay from '@/components/FullMenuDisplay';
 import { Skeleton } from '@/components/ui/skeleton';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay'; // NOVO
+import PhotoGallerySection from '@/components/public/PhotoGallerySection'; // NOVO
+import MenuCategoryList from '@/components/menu/MenuCategoryList'; // NOVO
+
+// Mock de dados para Galeria (já que não temos a tabela de galeria ainda)
+const mockGalleryImages = [
+  "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1974&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop",
+];
 
 // Componente para exibir o conteúdo principal do perfil (usado dentro do layout)
 interface RestaurantProfileContentProps {
@@ -27,12 +39,10 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
   const navigate = useNavigate();
   const isPremium = restaurant.plan === 'premium';
 
-  // --- Mock de Dados Sociais (Movido para o componente pai para persistência de estado) ---
-  // Usando useState para simular a contagem de seguidores
+  // --- Mock de Dados Sociais ---
   const [followersCount, setFollowersCount] = useState(120); 
   
   const handleFollowToggle = () => {
-    // Simulação de toggle de seguir
     setFollowersCount(prev => prev + (followersCount > 120 ? -1 : 1));
   };
   
@@ -54,11 +64,11 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
-      {/* 1. Header Social (Substitui Topo e Card Flutuante) */}
+      {/* 1. Header Social */}
       <Card className="w-full max-w-md shadow-xl border-none rounded-b-3xl p-0 bg-white dark:bg-gray-800">
         <RestaurantPublicHeader
           restaurant={{
-            id: restaurant.id, // Passando o ID
+            id: restaurant.id,
             name: restaurant.name,
             followersCount: followersCount,
             logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
@@ -76,35 +86,55 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
             <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />
             <p className="text-sm">{restaurant.address || "Endereço não informado"}</p>
           </div>
-          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-            <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
-            <p className="text-sm">{scheduleSummary}</p>
-          </div>
           
-          {/* Botões de Ação (WhatsApp, iFood, etc.) */}
-          <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+          {/* Exibição de Horários (Detalhada se Premium, Resumo se Free) */}
+          {isPremium && restaurant.opening_hours ? (
+            <DetailedHoursDisplay schedule={restaurant.opening_hours} />
+          ) : (
+            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+              <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
+              <p className="text-sm">{scheduleSummary}</p>
+            </div>
+          )}
+          
+          {/* Botões de Ação (WhatsApp, iFood, Outro) - Decisão 4 */}
+          <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-2">
             {restaurant.whatsapp_url && (
               <Button 
                 onClick={() => window.open(restaurant.whatsapp_url, '_blank')}
-                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-green-500 hover:bg-green-600 text-white text-sm font-bold rounded-full"
+                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-green-500 hover:bg-green-600 text-white text-sm font-bold rounded-full min-w-[120px]"
               >
                 <Phone className="w-4 h-4" />
                 WhatsApp
               </Button>
             )}
-            {restaurant.ifood_url && (
+            {isPremium && restaurant.ifood_url && (
               <Button 
                 onClick={() => window.open(restaurant.ifood_url, '_blank')}
-                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-full"
+                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-full min-w-[120px]"
               >
                 <ShoppingCart className="w-4 h-4" />
                 iFood
               </Button>
             )}
+            {isPremium && restaurant.other_url && (
+              <Button 
+                onClick={() => window.open(restaurant.other_url, '_blank')}
+                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-full min-w-[120px]"
+              >
+                <Globe className="w-4 h-4" />
+                Site Próprio
+              </Button>
+            )}
           </div>
         </Card>
         
-        {/* 3. Cardápio Completo */}
+        {/* 3. Galeria de Fotos (Apenas Premium) - Decisão 3 */}
+        {isPremium && (
+          <PhotoGallerySection images={mockGalleryImages} restaurantName={restaurant.name} />
+        )}
+        
+        {/* 4. Cardápio Completo (Accordion) - Decisão 10 */}
         <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
           <h2 className="text-xl font-bold text-[#022D68] mb-4">Cardápio</h2>
           {menuLoading ? (
@@ -113,11 +143,11 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
               <Skeleton className="h-16 w-full" />
             </div>
           ) : (
-            <FullMenuDisplay menu={menu} loading={menuLoading} />
+            <MenuCategoryList categories={menu} />
           )}
         </Card>
         
-        {/* 4. Descrição (Se houver) */}
+        {/* 5. Descrição (Se houver) */}
         {restaurant.description && (
           <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
             <h3 className="text-lg font-bold text-[#022D68] mb-2">Sobre Nós</h3>
