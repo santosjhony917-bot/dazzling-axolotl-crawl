@@ -24,6 +24,7 @@ export async function listAdmins(): Promise<AdminUser[]> {
   const data = await response.json();
 
   if (!response.ok) {
+    console.error("Edge Function Error (listAdmins):", data);
     throw new Error(data.error || "Failed to list administrators.");
   }
 
@@ -43,6 +44,9 @@ export async function addAdmin(email: string): Promise<void> {
   });
 
   const data = await response.json();
+  
+  // Log the response data for debugging
+  console.log("Edge Function Response (addAdmin):", { ok: response.ok, status: response.status, data });
 
   if (!response.ok) {
     // Lança o erro com a mensagem detalhada da Edge Function
