@@ -49,7 +49,9 @@ const fetchUserRole = async (user: User): Promise<{ isPremium: boolean, isAdmin:
     
     // 2. Pelo e-mail de admin de teste
     const ADMIN_TEST_EMAIL = 'joaoedasilva018@gmail.com';
-    const isAdminByEmail = user.email === ADMIN_TEST_EMAIL;
+    
+    // CORREÇÃO: Comparar e-mails em minúsculas para robustez
+    const isAdminByEmail = user.email?.toLowerCase() === ADMIN_TEST_EMAIL.toLowerCase();
     
     const isAdmin = isAdminByMetadata || isAdminByEmail;
     
