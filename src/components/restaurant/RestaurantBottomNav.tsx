@@ -52,7 +52,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
           
           const isCentralButton = item.id === 'favorites';
 
-          if (isCentralButton) {
+          // Se for o botão central E o usuário for FREE, aplica o estilo de destaque
+          if (isCentralButton && isFree) {
             const Icon = item.icon;
             return (
               <Link
@@ -72,7 +73,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
               </Link>
             );
           }
-
+          
+          // Caso contrário (Premium ou não é o botão central), usa o NavItem padrão
           return (
             <NavItem
               key={item.path}
