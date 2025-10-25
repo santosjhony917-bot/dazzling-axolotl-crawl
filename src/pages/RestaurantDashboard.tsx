@@ -13,8 +13,6 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // Novo import
 import { showSuccess } from '@/utils/toast';
 
 // Mock Data
@@ -43,7 +41,8 @@ const RestaurantDashboard = () => {
   };
   
   const handleSearchByPrice = () => {
-    setIsPriceModalOpen(true);
+    // Redireciona para a tela de busca unificada
+    navigate(createPageUrl('search-client'));
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
@@ -52,7 +51,8 @@ const RestaurantDashboard = () => {
   };
 
   const handleSearchNearby = () => {
-    setIsDistanceModalOpen(true);
+    // Redireciona para a tela de busca unificada
+    navigate(createPageUrl('search-client'));
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
@@ -176,19 +176,9 @@ const RestaurantDashboard = () => {
         onLocationSaved={handleLocationSaved}
       />
       
-      {/* Search By Price Modal */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
+      {/* Search By Price Modal (Removido) */}
       
-      {/* Search By Distance Modal */}
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
+      {/* Search By Distance Modal (Removido) */}
     </div>
   );
 };

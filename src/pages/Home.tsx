@@ -13,15 +13,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // Novo import
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // Novo estado para o modal de distância
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -45,33 +41,13 @@ const Home: React.FC = () => {
     setIsLocationModalOpen(false);
   };
   
-  const handleSearchByPrice = () => {
-    setIsPriceModalOpen(true);
-  };
-
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // TODO: Implementar a lógica de busca real com os filtros de preço
-    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
-    // Por enquanto, apenas fechamos o modal. A busca real virá depois.
-  };
-
-  const handleSearchNearby = () => {
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // TODO: Implementar a lógica de busca real com o filtro de distância
-    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
-    // A busca real virá depois.
-  };
-  
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (userLat === null || userLon === null) {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // Redireciona para a página de busca completa
+    // Redireciona para a página de busca unificada
     navigate(createPageUrl('search-client'));
   };
 
@@ -80,8 +56,13 @@ const Home: React.FC = () => {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // Navega para a página de configuração de busca (SearchRestaurants)
-    navigate(createPageUrl('search-restaurants'));
+    // Navega para a página de busca unificada
+    navigate(createPageUrl('search-client'));
+  };
+  
+  const handleActionCardClick = () => {
+    // Redireciona para a busca unificada, onde os filtros serão aplicados
+    navigate(createPageUrl('search-client'));
   };
 
   return (
@@ -125,17 +106,17 @@ const Home: React.FC = () => {
           </Button>
         </form>
         
-        {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
+        {/* Ações Rápidas (Redirecionam para a busca unificada) */}
         <div className="flex gap-4 pt-4">
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleSearchByPrice}
+            onClick={handleActionCardClick}
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleSearchNearby}
+            onClick={handleActionCardClick}
           />
         </div>
       </header>
@@ -185,19 +166,7 @@ const Home: React.FC = () => {
         onLocationSaved={handleLocationSaved}
       />
       
-      {/* Search By Price Modal */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      
-      {/* Search By Distance Modal */}
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
+      {/* Modais de filtro removidos, pois a busca unificada lida com isso */}
     </div>
   );
 };
