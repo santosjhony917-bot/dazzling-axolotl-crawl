@@ -1,8 +1,8 @@
 import React from 'react';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from 'react-hot-toast'; // Importando o Toaster correto
 
 const ToastProvider: React.FC = () => {
-  return <Toaster />;
+  return <Toaster position="top-center" reverseOrder={false} />;
 };
 
 export default ToastProvider;

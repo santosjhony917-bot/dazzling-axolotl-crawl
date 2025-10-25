@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Toaster } from '@/components/ui/sonner';
+// Removendo importação de Toaster (sonner)
 
 const Layout: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const Layout: React.FC = () => {
       <main className="flex-1">
         <Outlet />
       </main>
-      <Toaster />
+      {/* Toaster removido daqui, agora está em main.tsx */}
     </div>
   );
 };
