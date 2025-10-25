@@ -8,12 +8,14 @@ import { Restaurant } from '@/types/restaurant';
 interface PublicRestaurantLayoutProps {
   restaurant: Restaurant | null;
   children: React.ReactNode;
-  title: string;
+  title?: string; // Tornando opcional, pois pode ser derivado do restaurant.name
   backPath?: string;
 }
 
 const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaurant, children, title, backPath = 'home' }) => {
   const navigate = useNavigate();
+  
+  const displayTitle = title || restaurant?.name || "Restaurante";
 
   return (
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
@@ -30,7 +32,7 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
         </Button>
         <div className="flex items-center gap-2">
           <Store className="w-6 h-6 text-[#022D68]" />
-          <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
+          <h2 className="text-[#022D68] text-xl font-bold">{displayTitle}</h2>
         </div>
         <div className="w-10"></div>
       </header>

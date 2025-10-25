@@ -12,6 +12,7 @@ import { showError } from '@/utils/toast';
 import { formatCurrency } from '@/utils/formatters';
 import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
 import FullMenuDisplay from '@/components/FullMenuDisplay';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // Componente para exibir o conteúdo principal do perfil (usado dentro do layout)
 interface RestaurantProfileContentProps {
@@ -158,11 +159,27 @@ const RestaurantProfilePublic: React.FC = () => {
   const { menu, loading: menuLoading } = useRestaurantMenu(id);
 
   if (loading) {
-    return <PublicRestaurantLayout restaurant={null} title="Carregando...">Carregando perfil...</PublicRestaurantLayout>;
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Carregando...">
+        <div className="p-4 space-y-4">
+          <Skeleton className="h-56 w-full" />
+          <Skeleton className="h-20 w-full" />
+          <Skeleton className="h-40 w-full" />
+          <Skeleton className="h-60 w-full" />
+        </div>
+      </PublicRestaurantLayout>
+    );
   }
 
   if (error || !restaurant) {
-    return <PublicRestaurantLayout restaurant={null} title="Erro">Erro ao carregar o perfil do restaurante.</PublicRestaurantLayout>;
+    return (
+      <PublicRestaurantLayout restaurant={null} title="Erro">
+        <div className="p-8 text-center text-red-500">
+          <p>Erro ao carregar o perfil do restaurante.</p>
+          <p className="text-sm text-gray-500 mt-2">ID: {id}</p>
+        </div>
+      </PublicRestaurantLayout>
+    );
   }
 
   return (
