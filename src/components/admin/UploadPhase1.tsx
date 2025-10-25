@@ -6,7 +6,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Upload, Plus, AlertTriangle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { showSuccess, showError } from '@/utils/toast';
-import { supabase } from '@/integrations/supabase/client'; // Importando o cliente Supabase
+import { supabase } from '@/integrations/supabase/client';
+import { processExternalImage } from '@/integrations/supabase/imageProcessor'; // Importando o processador
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage'; // Importando o nome do bucket
 
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
@@ -105,9 +107,7 @@ const UploadPhase1: React.FC = () => {
     setRows(prevRows => {
       const newRows = [...prevRows];
       
-      newRows[rowIndex] = { ...newRows[rowIndex], [key]: values[0] };
-      
-      for (let i = 1; i < values.length; i++) {
+      for (let i = 0; i < values.length; i++) {
         const targetIndex = rowIndex + i;
         const value = values[i];
         
@@ -143,7 +143,12 @@ const UploadPhase1: React.FC = () => {
       if (row.restaurantUrl.trim() && !row.restaurantUrl.startsWith('http')) {
         rowErrors.push('URL do Restaurante inválida');
       }
-      // Adicionar mais validações de URL se necessário
+      if (row.logoUrl.trim() && !row.logoUrl.startsWith('http')) {
+        rowErrors.push('URL da Logo inválida');
+      }
+      if (row.coverUrl.trim() && !row.coverUrl.startsWith('http')) {
+        rowErrors.push('URL da Capa inválida');
+      }
 
       if (rowErrors.length > 0) {
         newErrors[row.id] = `Linha ${index + 1}: ${rowErrors.join(', ')}`;
@@ -170,18 +175,63 @@ const UploadPhase1: React.FC = () => {
     
     setIsUploading(true);
     
-    const dataToInsert = rows.map(row => ({
-      name: row.restaurantName,
-      category: row.categories.split(',').map(c => c.trim()).filter(Boolean).join(', '), // Limpa e formata categorias
-      image_url: row.logoUrl || null,
-      cover_image_url: row.coverUrl || null,
-      // Assumindo que restaurantUrl é o whatsapp_url ou outro_url se não for especificado
-      whatsapp_url: row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
-      other_url: !row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
-      // user_id, address, city, etc. serão preenchidos nas próximas fases ou são nulos por enquanto
-    }));
+    const dataToInsert: any[] = [];
+    let processedCount = 0;
 
     try {
+      for (const row of rows) {
+        let finalLogoUrl = row.logoUrl.trim() || null;
+        let finalCoverUrl = row.coverUrl.trim() || null;
+        
+        // Processar Logo URL
+        if (finalLogoUrl) {
+          try {
+            const { publicUrl } = await processExternalImage({
+              imageUrl: finalLogoUrl,
+              bucketName: RESTAURANT_IMAGES_BUCKET,
+              folderPath: 'logos', // Pasta genérica para logos
+              fileName: `${row.restaurantName.toLowerCase().replace(/\s/g, '-')}-logo`,
+            });
+            finalLogoUrl = publicUrl;
+          } catch (e) {
+            showError(`Falha ao processar logo para ${row.restaurantName}. Pulando.`);
+            finalLogoUrl = null;
+          }
+        }
+        
+        // Processar Cover URL
+        if (finalCoverUrl) {
+          try {
+            const { publicUrl } = await processExternalImage({
+              imageUrl: finalCoverUrl,
+              bucketName: RESTAURANT_IMAGES_BUCKET,
+              folderPath: 'covers', // Pasta genérica para capas
+              fileName: `${row.restaurantName.toLowerCase().replace(/\s/g, '-')}-cover`,
+            });
+            finalCoverUrl = publicUrl;
+          } catch (e) {
+            showError(`Falha ao processar capa para ${row.restaurantName}. Pulando.`);
+            finalCoverUrl = null;
+          }
+        }
+
+        dataToInsert.push({
+          name: row.restaurantName,
+          category: row.categories.split(',').map(c => c.trim()).filter(Boolean).join(', '),
+          image_url: finalLogoUrl,
+          cover_image_url: finalCoverUrl,
+          whatsapp_url: row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
+          other_url: !row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
+          plan: 'free', // Padrão inicial
+        });
+        processedCount++;
+      }
+      
+      if (dataToInsert.length === 0) {
+        showError("Nenhum dado válido para inserção após o processamento de imagens.");
+        return;
+      }
+
       const { error } = await supabase
         .from('restaurants')
         .insert(dataToInsert);
@@ -190,7 +240,7 @@ const UploadPhase1: React.FC = () => {
         throw new Error(error.message);
       }
       
-      showSuccess(`Upload de ${rows.length} restaurantes concluído com sucesso!`);
+      showSuccess(`Upload de ${processedCount} restaurantes concluído com sucesso!`);
       
       // Limpa a planilha e o localStorage após o upload bem-sucedido
       setRows([initialRow]); 
@@ -213,7 +263,7 @@ const UploadPhase1: React.FC = () => {
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-2xl font-bold text-primary">Fase 1: Informações Gerais</CardTitle>
         <CardDescription className="text-gray-600">
-          Cole os dados diretamente do Excel/Google Sheets nas colunas abaixo.
+          Cole os dados diretamente do Excel/Google Sheets nas colunas abaixo. URLs de imagem serão baixadas e armazenadas no nosso servidor.
         </CardDescription>
       </CardHeader>
       
