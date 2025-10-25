@@ -257,23 +257,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
           {/* Espaçamento para o Card Flutuante */}
           <div className="h-20"></div> 
 
-          {/* 2. Cardápio (Card) */}
-          <div className="px-4">
-            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
-              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
-              <div className="p-4 space-y-3">
-                <Button 
-                  onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
-                >
-                  <Utensils className="w-5 h-5 mr-2" />
-                  Atualizar Cardápio
-                </Button>
-              </div>
-            </Card>
-          </div>
-
-          {/* 3. Detalhes do Estabelecimento (Card) */}
+          {/* 2. Detalhes do Estabelecimento (Card) - MOVIDO PARA CIMA */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <div className="flex justify-between items-center px-4 pt-4 pb-2">
@@ -329,6 +313,22 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   isPremium={false}
                   onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask)}
                 />
+              </div>
+            </Card>
+          </div>
+
+          {/* 3. Cardápio (Card) - MOVIDO PARA BAIXO */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
+              <div className="p-4 space-y-3">
+                <Button 
+                  onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
+                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
+                >
+                  <Utensils className="w-5 h-5 mr-2" />
+                  Atualizar Cardápio
+                </Button>
               </div>
             </Card>
           </div>
