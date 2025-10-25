@@ -14,6 +14,7 @@ import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // Novo import
 import { showSuccess } from '@/utils/toast';
 
 // Mock Data
@@ -34,7 +35,8 @@ const RestaurantDashboard = () => {
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // Novo estado para o modal de preço
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // Novo estado para o modal de distância
 
   const handleLocationSaved = () => {
     refetch();
@@ -47,12 +49,15 @@ const RestaurantDashboard = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // TODO: Implementar a lógica de busca real com os filtros de preço
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
-    // Por enquanto, apenas fechamos o modal. A busca real virá depois.
   };
 
   const handleSearchNearby = () => {
-    console.log("Ação: Buscar Restaurantes Próximos (Placeholder)");
-    // A rota será definida depois
+    setIsDistanceModalOpen(true);
+  };
+  
+  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    // TODO: Implementar a lógica de busca real com o filtro de distância
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
   };
   
   const handleEditMenu = () => {
@@ -179,6 +184,13 @@ const RestaurantDashboard = () => {
         isOpen={isPriceModalOpen}
         onClose={() => setIsPriceModalOpen(false)}
         onApplyFilter={handleApplyPriceFilter}
+      />
+      
+      {/* Search By Distance Modal */}
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );

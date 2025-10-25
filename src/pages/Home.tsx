@@ -14,12 +14,14 @@ import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // Novo import
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // Novo estado para o modal de preço
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // Novo estado para o modal de distância
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -54,8 +56,13 @@ const Home: React.FC = () => {
   };
 
   const handleSearchNearby = () => {
-    console.log("Ação: Buscar Restaurantes Próximos (Placeholder)");
-    // A rota será definida depois
+    setIsDistanceModalOpen(true);
+  };
+  
+  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    // TODO: Implementar a lógica de busca real com o filtro de distância
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
+    // A busca real virá depois.
   };
   
   const handleSearch = (e: React.FormEvent) => {
@@ -183,6 +190,13 @@ const Home: React.FC = () => {
         isOpen={isPriceModalOpen}
         onClose={() => setIsPriceModalOpen(false)}
         onApplyFilter={handleApplyPriceFilter}
+      />
+      
+      {/* Search By Distance Modal */}
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );

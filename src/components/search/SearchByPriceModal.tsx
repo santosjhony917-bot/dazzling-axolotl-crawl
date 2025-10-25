@@ -92,8 +92,19 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
                 step={1}
                 value={priceRange}
                 onValueChange={handleSliderChange}
-                className="[&>span:first-child]:h-2 [&>span:first-child]:bg-gray-200 [&>span:first-child>span]:bg-[#E47948]"
-                thumbClassName="h-5 w-5 bg-[#E47948] border-2 border-white shadow-md"
+                // Estilização do track e range (primeiro span e seu filho)
+                // Estilização do thumb (último span)
+                className="
+                  [&>span:first-child]:h-2 
+                  [&>span:first-child]:bg-gray-200 
+                  [&>span:first-child>span]:bg-[#E47948]
+                  [&>span:last-child]:h-5 
+                  [&>span:last-child]:w-5 
+                  [&>span:last-child]:bg-[#E47948] 
+                  [&>span:last-child]:border-2 
+                  [&>span:last-child]:border-white 
+                  [&>span:last-child]:shadow-md
+                "
               />
               <div className="flex justify-between mt-2 text-sm font-semibold text-gray-600">
                 <span>{formatCurrency(priceRange[0])}</span>
