@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { processExternalImage } from '@/integrations/supabase/imageProcessor'; // Importando o processador
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage'; // Importando o nome do bucket
 import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
+import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
@@ -141,7 +142,8 @@ const UploadPhase1: React.FC = () => {
       if (!row.categories.trim()) {
         rowErrors.push('Categorias obrigatórias');
       }
-      if (!row.restaurantUrl.trim() || !row.restaurantUrl.startsWith('http')) {
+      const externalUrl = row.restaurantUrl.trim();
+      if (!externalUrl || !externalUrl.startsWith('http')) {
         rowErrors.push('URL Externa inválida ou obrigatória');
       }
       if (row.logoUrl.trim() && row.logoUrl.trim().length > 0 && !row.logoUrl.startsWith('http')) {
@@ -176,13 +178,19 @@ const UploadPhase1: React.FC = () => {
     
     setIsUploading(true);
     
-    const dataToInsert: any[] = [];
     let processedCount = 0;
+    let insertedCount = 0;
+    let updatedCount = 0;
 
     try {
       for (const row of rows) {
+        const externalUrl = row.restaurantUrl.trim();
+        if (errors[row.id] || !externalUrl) continue; // Pula linhas com erro ou sem URL
+
         let finalLogoUrl = row.logoUrl.trim() || null;
         let finalCoverUrl = row.coverUrl.trim() || null;
+        
+        // 1. Processar Imagens (Download e Upload para Storage)
         
         // Processar Logo URL
         if (finalLogoUrl) {
@@ -190,7 +198,7 @@ const UploadPhase1: React.FC = () => {
             const { publicUrl } = await processExternalImage({
               imageUrl: finalLogoUrl,
               bucketName: RESTAURANT_IMAGES_BUCKET,
-              folderPath: 'logos', // Pasta genérica para logos
+              folderPath: 'logos',
               fileName: `${row.restaurantName.toLowerCase().replace(/\s/g, '-')}-logo`,
             });
             finalLogoUrl = publicUrl;
@@ -206,7 +214,7 @@ const UploadPhase1: React.FC = () => {
             const { publicUrl } = await processExternalImage({
               imageUrl: finalCoverUrl,
               bucketName: RESTAURANT_IMAGES_BUCKET,
-              folderPath: 'covers', // Pasta genérica para capas
+              folderPath: 'covers',
               fileName: `${row.restaurantName.toLowerCase().replace(/\s/g, '-')}-cover`,
             });
             finalCoverUrl = publicUrl;
@@ -215,47 +223,68 @@ const UploadPhase1: React.FC = () => {
             finalCoverUrl = null;
           }
         }
-
-        dataToInsert.push({
+        
+        // 2. Preparar Payload
+        const payload: Partial<Restaurant> = {
           name: row.restaurantName,
           category: row.categories.split(',').map(c => c.trim()).filter(Boolean).join(', '),
           image_url: finalLogoUrl,
           cover_image_url: finalCoverUrl,
-          external_url: row.restaurantUrl, // NOVO CAMPO
+          external_url: externalUrl,
           plan: 'free', // Padrão inicial
-        });
+        };
+
+        // 3. Verificar se o restaurante já existe pela external_url
+        const { data: existingRestaurant, error: fetchError } = await supabase
+            .from('restaurants')
+            .select('id')
+            .eq('external_url', externalUrl)
+            .maybeSingle();
+            
+        if (fetchError) throw fetchError;
+
+        if (existingRestaurant) {
+            // UPDATE (Restaurante já existe, possivelmente criado pela Fase 2)
+            const { error: updateError } = await supabase
+                .from('restaurants')
+                .update(payload)
+                .eq('id', existingRestaurant.id);
+                
+            if (updateError) throw updateError;
+            updatedCount++;
+        } else {
+            // INSERT (Restaurante não existe)
+            const { error: insertError } = await supabase
+                .from('restaurants')
+                .insert([payload]);
+                
+            if (insertError) throw insertError;
+            insertedCount++;
+        }
+        
         processedCount++;
       }
       
-      if (dataToInsert.length === 0) {
-        showError("Nenhum dado válido para inserção após o processamento de imagens.");
+      if (processedCount === 0) {
+        showError("Nenhum dado válido para inserção/atualização.");
         return;
       }
 
-      const { error } = await supabase
-        .from('restaurants')
-        .insert(dataToInsert);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-      
-      showSuccess(`Upload de ${processedCount} restaurantes concluído com sucesso!`);
+      showSuccess(`Upload de ${processedCount} restaurantes concluído! ${insertedCount} inseridos, ${updatedCount} atualizados.`);
       
       // SALVAR REGISTRO DE UPLOAD
       saveUploadRecord({
         phase: 1,
         successCount: processedCount,
-        details: `Inserção de ${processedCount} novos restaurantes.`,
+        details: `Informações gerais: ${insertedCount} inseridos, ${updatedCount} atualizados.`,
       });
       
       // --- Ação de Limpeza ---
-      // Limpa a planilha e o localStorage após o upload bem-sucedido
       setRows([initialRow]); 
       localStorage.removeItem(STORAGE_KEY);
       
     } catch (e) {
-      console.error("Supabase Bulk Insert Error:", e);
+      console.error("Supabase Bulk Operation Error (Phase 1):", e);
       showError(`Falha ao fazer upload: ${(e as Error).message}`);
     } finally {
       setIsUploading(false);
@@ -263,7 +292,7 @@ const UploadPhase1: React.FC = () => {
   }, [rows, errors]);
 
   const validRowCount = useMemo(() => {
-    return rows.filter(row => !errors[row.id]).length;
+    return rows.filter(row => !errors[row.id] && row.restaurantUrl.trim().startsWith('http')).length;
   }, [rows, errors]);
 
   return (
