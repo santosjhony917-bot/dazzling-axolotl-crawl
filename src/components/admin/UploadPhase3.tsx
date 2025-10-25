@@ -13,7 +13,7 @@ import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 // Define a estrutura de dados para a Fase 3
 interface MenuItemDataPhase3 {
   id: string;
-  restaurantId: string;
+  restaurantId: string; // Chave de ligação (UUID)
   categoryName: string;
   itemName: string;
   description: string;
@@ -22,11 +22,11 @@ interface MenuItemDataPhase3 {
   status: 'pending' | 'error' | 'success';
 }
 
-// Colunas da planilha
+// Colunas da planilha (Ajustadas para a ordem solicitada, usando ID como chave)
 const columns = [
-  { key: 'restaurantId', label: 'ID do Restaurante (UUID)' },
-  { key: 'categoryName', label: 'Nome da Categoria' },
-  { key: 'itemName', label: 'Nome do Item' },
+  { key: 'restaurantId', label: 'ID do Restaurante (UUID)' }, // Mantido como chave
+  { key: 'categoryName', label: 'Categoria' },
+  { key: 'itemName', label: 'Nome do Prato' },
   { key: 'description', label: 'Descrição' },
   { key: 'price', label: 'Preço (Ex: 19.90)' },
   { key: 'imageUrl', label: 'URL da Imagem (Opcional)' },
@@ -174,7 +174,7 @@ const UploadPhase3: React.FC = () => {
         rowErrors.push('Preço inválido ou zero');
       }
       
-      if (row.imageUrl.trim() && !row.imageUrl.startsWith('http')) {
+      if (row.imageUrl.trim() && row.imageUrl.trim().length > 0 && !row.imageUrl.startsWith('http')) {
         rowErrors.push('URL da Imagem inválida');
       }
 
