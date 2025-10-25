@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
 
 const Index: React.FC = () => {
-  const navigate = useNavigate();
+  // Este componente não deve mais ser o ponto de entrada principal.
+  // Ele pode ser usado como um placeholder ou ser removido se não for mais necessário.
   
-  useEffect(() => {
-    // Redireciona a rota raiz para a página Home principal do cliente
-    navigate(createPageUrl('home'), { replace: true });
-  }, [navigate]);
-
   return (
     <div className="flex items-center justify-center h-screen">
-      <p>Carregando...</p>
+      <p>Redirecionamento de rota raiz corrigido. Se você está vendo isso, algo deu errado.</p>
     </div>
   );
 };

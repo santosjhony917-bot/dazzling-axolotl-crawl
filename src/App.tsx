@@ -38,7 +38,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
-
+import Splash from './pages/Splash'; // Importando Splash
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
         <ToastProvider />
         <Routes>
           {/* Public/Customer Flow Routes */}
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Splash />} /> {/* Rota raiz agora é Splash */}
           <Route path="/home" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/login" element={<Login />} />
