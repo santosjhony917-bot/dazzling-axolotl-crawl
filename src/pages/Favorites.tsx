@@ -9,15 +9,33 @@ import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 export default function Favorites() {
-  const { favorites, isLoading, error } = useUserFavoritesList();
+  const { user, isLoading: isAuthLoading, restaurant } = useAuthContext();
   const navigate = useNavigate();
-  const { restaurant } = useAuthContext();
   const isRestaurantUser = !!restaurant;
+  
+  // Se não estiver logado, não tenta carregar favoritos
+  const { favorites, isLoading: isFavoritesLoading, error } = useUserFavoritesList();
+
+  const isLoading = isAuthLoading || isFavoritesLoading;
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
+  if (!user) {
+    // Se não estiver logado, mostra a tela de login/explorar
+    return (
+      <div className="p-6 text-center">
+        <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Acesse para ver seus favoritos</h2>
+        <p className="text-gray-600 mb-6">Faça login para salvar e gerenciar seus restaurantes preferidos.</p>
+        <Button onClick={() => navigate(createPageUrl('auth'))}>
+          Fazer Login
+        </Button>
       </div>
     );
   }
@@ -32,7 +50,7 @@ export default function Favorites() {
         <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum favorito encontrado</h2>
         <p className="text-gray-600 mb-6">Comece a explorar e adicione seus restaurantes preferidos.</p>
-        <Button onClick={() => navigate(createPageUrl('index'))}>
+        <Button onClick={() => navigate(createPageUrl('home'))}>
           Explorar Restaurantes
         </Button>
       </div>
