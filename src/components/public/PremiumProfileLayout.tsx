@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Crown, Share2, Check, CreditCard, DollarSign, Zap, Camera, Package, Star } from 'lucide-react';
+import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Crown, Share2, Check, CreditCard, DollarSign, Zap, Camera, Package, Star, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, formatPrice } from '@/lib/utils';
@@ -16,17 +16,11 @@ import { createPageUrl } from '@/utils/url';
 import { showInfo } from '@/utils/toast';
 import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
 import FullMenuDisplay from '@/components/FullMenuDisplay';
+import { usePublicGallery, PublicGalleryImage } from '@/hooks/usePublicGallery'; // NOVO IMPORT
 
 interface PremiumProfileLayoutProps {
   restaurant: Restaurant;
 }
-
-// Mock Data para Galeria (usando PLACEHOLDER_IMAGE_URL para consistência)
-const mockGallery = [
-  { src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop", title: "Salão principal", span: "col-span-2 row-span-2" },
-  { src: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop", title: "Prato exclusivo", span: "col-span-1" },
-  { src: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop", title: "Culinária refinada", span: "col-span-1" },
-];
 
 // Mock Payment Methods
 const mockPaymentMethods = [
@@ -36,46 +30,60 @@ const mockPaymentMethods = [
   { icon: DollarSign, label: 'Dinheiro' },
 ];
 
-// Componente de Item de Menu (Simplificado para a prévia)
-const MenuItemPreview: React.FC<{ item: any }> = ({ item }) => (
-  <div className="flex items-center gap-4 bg-white rounded-xl p-3 shadow-sm border border-gray-100">
-    <div 
-      className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 flex-shrink-0" 
-      style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
-    />
-    <div className="flex-1">
-      <p className="text-primary text-base font-bold leading-normal">{item.name}</p>
-      <p className="text-gray-600 text-sm font-normal leading-normal line-clamp-2">{item.description}</p>
-      <div className="flex justify-between items-center mt-1">
-        <p className="text-highlight text-lg font-bold leading-tight">{formatPrice(item.price)}</p>
-        <Button variant="outline" size="sm" className="rounded-full h-7 text-xs border-highlight text-highlight hover:bg-highlight/5">Detalhes</Button>
+// Componente de Galeria de Fotos (Adaptado para usar dados reais)
+const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantName: string, isLoading: boolean }> = ({ gallery, restaurantName, isLoading }) => {
+  if (isLoading) {
+    return <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />;
+  }
+  
+  if (gallery.length === 0) {
+    return (
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-6 text-center">
+        <Camera className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+        <p className="text-gray-600">Nenhuma foto na galeria.</p>
+      </Card>
+    );
+  }
+  
+  // Exibição simplificada: 1 imagem grande e 2 pequenas
+  const largeItem = gallery[0];
+  const smallItems = gallery.slice(1, 3);
+
+  return (
+    <div className="mt-4">
+      <h2 className="text-lg font-bold text-primary mb-4">Sinta o ambiente antes de chegar</h2>
+      <div className="grid grid-cols-3 gap-2 h-[320px]">
+        {/* Imagem Principal */}
+        {largeItem && (
+          <div className="col-span-2 row-span-2 relative rounded-xl overflow-hidden">
+            <img 
+              className="w-full h-full object-cover" 
+              alt={largeItem.caption || `Foto de ${restaurantName}`} 
+              src={largeItem.image_url} 
+            />
+            <div className="absolute inset-0 bg-black/20 flex items-center justify-center text-white font-bold text-lg">
+              {gallery.length > 1 ? `+${gallery.length - 1} fotos` : ''}
+            </div>
+          </div>
+        )}
+        
+        {/* Imagens Pequenas */}
+        {smallItems.map((item, index) => (
+          <div key={index} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden">
+            <img 
+              className="w-full h-full object-cover" 
+              alt={item.caption || `Foto ${index + 2}`} 
+              src={item.image_url} 
+            />
+            <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
+              <p className="text-white text-sm font-semibold drop-shadow-md truncate">{item.caption || 'Foto'}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
-  </div>
-);
-
-// Componente de Galeria de Fotos
-const PhotoGallerySection: React.FC<{ gallery: typeof mockGallery }> = ({ gallery }) => (
-  <div className="mt-4">
-    <h2 className="text-lg font-bold text-primary mb-4">Sinta o ambiente antes de chegar</h2>
-    <div className="grid grid-cols-3 gap-2 h-[320px]">
-      {gallery.slice(0, 3).map((item, index) => (
-        <div 
-          key={index} 
-          className={cn(
-            "relative rounded-xl overflow-hidden",
-            index === 0 ? "col-span-2 row-span-2" : "col-span-1 h-[156px]"
-          )}
-        >
-          <img className="w-full h-full object-cover" alt={item.title} src={item.src} />
-          <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
-            <p className="text-white text-sm font-semibold drop-shadow-md">{item.title}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 // Componente de Canais de Pedido
 const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
@@ -165,6 +173,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   const [followersCount, setFollowersCount] = useState(1200); // Mock
   
   const { menu, loading: menuLoading } = useRestaurantMenu(restaurant.id);
+  const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id); // USANDO HOOK REAL
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
@@ -239,7 +248,11 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             
             {/* Tab: Fotos */}
             <TabsContent value="photos" className="mt-0">
-              <PhotoGallerySection gallery={mockGallery} />
+              <PhotoGallerySection 
+                gallery={gallery} 
+                restaurantName={restaurant.name} 
+                isLoading={galleryLoading} 
+              />
             </TabsContent>
             
             {/* Tab: Promoções */}
