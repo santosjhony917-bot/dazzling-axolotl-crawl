@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Welcome from './pages/Welcome';
 import Onboarding from './pages/Onboarding';
@@ -43,6 +42,7 @@ import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
 import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
 import Splash from './pages/Splash';
 import RestaurantSearch from './pages/restaurant/Search'; // Importando a tela correta de busca/análise
+import ClientProfilePage from './pages/ClientProfilePage'; // NOVO IMPORT
 
 function App() {
   return (
@@ -87,7 +87,7 @@ function App() {
           {/* Protected Customer Routes (Inclui a rota de busca unificada) */}
           <Route element={<ProtectedRoute requiredRole="authenticated" />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ClientProfilePage />} /> {/* USANDO NOVO COMPONENTE */}
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/search-client" element={<ClientSearchPage />} />
           </Route>

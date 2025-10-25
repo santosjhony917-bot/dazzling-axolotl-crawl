@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { User, LogOut, Utensils, Loader2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
-import ClientLayout from '@/components/ClientLayout'; // Importando o novo layout
+import ClientLayout from '@/components/ClientLayout';
 
-export default function Profile() {
+export default function ClientProfilePage() {
   const { user, isLoading, signOut, restaurant } = useAuthContext();
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ export default function Profile() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-700 mb-4">Você está registrado como proprietário do restaurante: <span className="font-semibold">{restaurant.name}</span></p>
-              <Button onClick={() => navigate(createPageUrl('restaurantDashboard'))} className="w-full">
+              <Button onClick={() => navigate(createPageUrl('restaurant-area/home'))} className="w-full">
                 Ir para o Painel do Restaurante
               </Button>
             </CardContent>
