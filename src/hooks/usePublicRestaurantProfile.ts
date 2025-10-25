@@ -85,11 +85,13 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
         return acc;
       }, {} as Record<string, MenuItem[]>);
 
-      // 5. Combine categories and items
-      const combinedData = categoryData.map(category => ({
-        ...(category as MenuCategory),
-        items: groupedItems[category.id] || [],
-      }));
+      // 5. Combine categories and items, filtering out categories without active items
+      const combinedData = categoryData
+        .map(category => ({
+          ...(category as MenuCategory),
+          items: groupedItems[category.id] || [],
+        }))
+        .filter(category => category.items.length > 0); // Filtra categorias vazias
 
       setData({
         restaurant: restaurant as Restaurant,

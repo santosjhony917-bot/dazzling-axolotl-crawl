@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart, Globe } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart, Globe, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -10,7 +10,6 @@ import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile';
 import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
 import { showError, showSuccess } from '@/utils/toast';
 import { formatCurrency } from '@/utils/formatters';
-import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
 import FullMenuDisplay from '@/components/FullMenuDisplay';
 import { Skeleton } from '@/components/ui/skeleton';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
@@ -18,6 +17,7 @@ import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay';
 import PhotoGallerySection from '@/components/public/PhotoGallerySection';
 import MenuCategoryList from '@/components/menu/MenuCategoryList';
+import { cn } from '@/lib/utils'; // Importando cn
 
 // Mock de dados para Galeria (já que não temos a tabela de galeria ainda)
 const mockGalleryImages = [
@@ -31,11 +31,10 @@ const mockGalleryImages = [
 // Componente para exibir o conteúdo principal do perfil (usado dentro do layout)
 interface RestaurantProfileContentProps {
   restaurant: any;
-  menu: any[];
-  menuLoading: boolean;
+  categories: any[]; // Renomeado de menu para categories
 }
 
-const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ restaurant, menu, menuLoading }) => {
+const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ restaurant, categories }) => {
   const navigate = useNavigate();
   const isPremium = restaurant.plan === 'premium';
 
@@ -98,7 +97,11 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
           )}
           
           {/* Botões de Ação (WhatsApp, iFood, Outro) */}
-          <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-2">
+          <div className={cn(
+            "pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-2",
+            !isPremium && "opacity-70"
+          )}>
+            {/* WhatsApp (Sempre visível, mas apenas 1 link para Free) */}
             {restaurant.whatsapp_url && (
               <Button 
                 onClick={() => window.open(restaurant.whatsapp_url, '_blank')}
@@ -108,6 +111,8 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
                 WhatsApp
               </Button>
             )}
+            
+            {/* iFood (Premium) */}
             {isPremium && restaurant.ifood_url && (
               <Button 
                 onClick={() => window.open(restaurant.ifood_url, '_blank')}
@@ -117,6 +122,8 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
                 iFood
               </Button>
             )}
+            
+            {/* Outro Link (Premium) */}
             {isPremium && restaurant.other_url && (
               <Button 
                 onClick={() => window.open(restaurant.other_url, '_blank')}
@@ -125,6 +132,13 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
                 <Globe className="w-4 h-4" />
                 Site Próprio
               </Button>
+            )}
+            
+            {/* Placeholder para Premium se for Free */}
+            {!isPremium && (
+              <div className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-gray-200 text-gray-600 text-sm font-bold rounded-full min-w-[120px]">
+                <Lock className="w-4 h-4" /> Canais Premium
+              </div>
             )}
           </div>
         </Card>
@@ -137,14 +151,8 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
         {/* 4. Cardápio Completo (Accordion) */}
         <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
           <h2 className="text-xl font-bold text-[#022D68] mb-4">Cardápio</h2>
-          {menuLoading ? (
-            <div className="space-y-4">
-              <Skeleton className="h-16 w-full" />
-              <Skeleton className="h-16 w-full" />
-            </div>
-          ) : (
-            <MenuCategoryList categories={menu} />
-          )}
+          {/* menuLoading é sempre false aqui, pois o menuData já foi carregado */}
+          <MenuCategoryList categories={categories} />
         </Card>
         
         {/* 5. Descrição (Se houver) */}
@@ -163,7 +171,6 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
 const RestaurantProfilePublic: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = usePublicRestaurantProfile(id); 
-  const { menu, loading: menuLoading } = useRestaurantMenu(id);
 
   if (isLoading) {
     return (
@@ -190,11 +197,11 @@ const RestaurantProfilePublic: React.FC = () => {
     );
   }
 
-  const { restaurant } = data;
+  const { restaurant, categories } = data;
 
   return (
     <PublicRestaurantLayout restaurant={restaurant} backPath="home">
-      <RestaurantProfileContent restaurant={restaurant} menu={menu} menuLoading={menuLoading} />
+      <RestaurantProfileContent restaurant={restaurant} categories={categories} />
     </PublicRestaurantLayout>
   );
 };
