@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, MapPin, UtensilsCrossed, Clock, History } from "lucide-react";
+import { Upload, MapPin, UtensilsCrossed, Clock, History, AlertTriangle } from "lucide-react";
 import UploadPhase1 from "@/components/admin/UploadPhase1";
 import UploadPhase2 from "@/components/admin/UploadPhase2";
 import UploadPhase3 from "@/components/admin/UploadPhase3";
 import UploadPhase4 from "@/components/admin/UploadPhase4";
-import UploadHistory from "@/components/admin/UploadHistory"; // NOVO IMPORT
+import UploadHistory from "@/components/admin/UploadHistory";
+import IncompleteRestaurantAlerts from "@/components/admin/IncompleteRestaurantAlerts"; // NOVO IMPORT
 
 export default function AdminUploadInfo() {
   const [activeTab, setActiveTab] = useState("phase1");
@@ -21,6 +22,9 @@ export default function AdminUploadInfo() {
           </CardDescription>
         </CardHeader>
       </Card>
+      
+      {/* Alertas de Incompletude (Sempre visível no topo da seção) */}
+      <IncompleteRestaurantAlerts />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white shadow-md rounded-xl">
