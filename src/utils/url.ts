@@ -3,19 +3,47 @@ import { generatePath } from 'react-router-dom';
 // Define all application paths here
 const PATHS = {
   index: '/',
-  login: '/login',
-  register: '/register',
+  // Customer Flow
+  home: '/home',
+  auth: '/auth', // Unified login/register for customers
+  login: '/login', // Redirects to auth
+  register: '/register', // Redirects to auth
   profile: '/profile',
   favorites: '/favorites',
+  onboarding: '/onboarding',
+  welcome: '/welcome',
+  legal: '/legal',
+  'customer-login': '/auth', // Alias for customer login
+  'search-client': '/search-client',
+  'search-restaurants': '/search-restaurants',
+  
+  // Restaurant Flow
+  'restaurant-area': '/restaurant-area',
+  'restaurant-area-hub': '/restaurant-area-hub',
+  'restaurant-login': '/restaurant-login',
+  'restaurant-signup': '/restaurant-signup',
+  'claim-restaurant': '/claim-restaurant',
+  'restaurant-area/home': '/restaurant-area/home',
+  'restaurant-area/stats': '/restaurant-area/stats',
+  'restaurant-area/menu': '/restaurant-area/menu',
+  'restaurant-area/categories': '/restaurant-area/categories',
+  'restaurant-area/upgrade': '/restaurant-area/upgrade',
+  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
+  'restaurant-area/help': '/restaurant-area/help',
+
+  // Public Restaurant Profile
   restaurantProfile: '/restaurant/:restaurantId',
   restaurantResults: '/results',
   restaurantDashboard: '/restaurant/dashboard',
   restaurantMenu: '/restaurant/menu',
   restaurantGallery: '/restaurant/gallery',
   restaurantSettings: '/restaurant/settings',
+
+  // Admin Flow
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
   admin: '/admin/:subPath', // Used for nested admin routes
+  'admin/edit-restaurant': '/admin/edit-restaurant', // Specific admin page
 };
 
 type PathKey = keyof typeof PATHS;

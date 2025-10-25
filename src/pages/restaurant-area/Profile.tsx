@@ -25,8 +25,9 @@ export default function RestaurantProfilePage() {
     restaurant, 
     isLoading: restaurantLoading, 
     updateRestaurant, 
-    refetchProfile 
-  } = useRestaurantProfile(); // FIX: Removed userId argument and fixed property names
+    refetchProfile,
+    isUpdating // <-- Destructuring isUpdating
+  } = useRestaurantProfile(); 
 
   const [formData, setFormData] = useState<Partial<Restaurant>>({});
   const [isEditingSchedule, setIsEditingSchedule] = useState(false);
@@ -256,8 +257,8 @@ export default function RestaurantProfilePage() {
           </CardContent>
         </Card>
 
-        <Button type="submit" className="w-full" disabled={restaurantLoading || updateRestaurant.isPending}>
-          {updateRestaurant.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileText className="mr-2 h-4 w-4" />}
+        <Button type="submit" className="w-full" disabled={restaurantLoading || isUpdating}>
+          {isUpdating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileText className="mr-2 h-4 w-4" />}
           Salvar Alterações
         </Button>
       </form>

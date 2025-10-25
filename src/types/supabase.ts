@@ -1,6 +1,14 @@
 // Define o tipo enum baseado no contexto do schema
 export type RestaurantPlan = 'free' | 'premium' | 'premium_gift';
 
+export interface GalleryImage {
+  id: string;
+  restaurant_id: string;
+  image_url: string;
+  caption: string | null;
+  order_index: number;
+}
+
 export interface Restaurant {
   id: string;
   user_id: string | null;

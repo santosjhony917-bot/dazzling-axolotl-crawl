@@ -35,7 +35,7 @@ const fetchUserFavorites = async (userId: string) => {
 
   if (error) throw new Error(error.message);
   // We cast the result to the expected array type
-  return data as FavoriteRestaurant[];
+  return data as unknown as FavoriteRestaurant[];
 };
 
 export function useUserFavoritesList() {

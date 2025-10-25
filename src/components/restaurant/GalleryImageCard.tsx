@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Trash2, Loader2 } from 'lucide-react';
-import { GalleryImage } from '@/hooks/useGalleryManagement';
+import { GalleryImage } from '@/types/supabase';
 import { cn } from '@/lib/utils';
 
 interface GalleryImageCardProps {
