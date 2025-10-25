@@ -20,22 +20,23 @@ export default function AdminLogin() {
   const [password, setPassword] = useState(ADMIN_PASSWORD);
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [lastError, setLastError] = useState<string | null>(null);
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setLastError(null);
     
     try {
       // 1. Tenta fazer login
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      let { error } = await supabase.auth.signInWithPassword({ email, password });
       
       if (error) {
-        // Se o erro for de credenciais inválidas, tentamos criar o usuário com o metadado de admin
+        // Se o erro for de credenciais inválidas, tenta criar o usuário com o metadado de admin
         if (error.message.includes('Invalid login credentials')) {
             
-            // Tenta criar o usuário com o metadado de admin
             const { error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
@@ -47,7 +48,6 @@ export default function AdminLogin() {
             });
             
             if (signUpError) {
-                // Se o erro for 'User already exists', significa que a senha está errada
                 if (signUpError.message.includes('User already exists')) {
                     throw new Error("Usuário já existe. Verifique a senha.");
                 }
@@ -55,15 +55,20 @@ export default function AdminLogin() {
             }
             
             // Se o cadastro for bem-sucedido, o Supabase loga automaticamente.
+            // Se não logar, tentamos o login novamente para garantir a sessão.
+            ({ error } = await supabase.auth.signInWithPassword({ email, password }));
             
+            if (error) {
+                throw new Error("Conta criada, mas falha ao estabelecer sessão. Tente novamente.");
+            }
         } else {
+            // Outros erros de login
             throw error;
         }
       }
       
-      // 2. Força o AuthContext a recarregar o perfil e os papéis
-      // Não precisamos aguardar o refetch aqui, pois a navegação forçará a montagem do AdminLayout
-      refetchProfile();
+      // 2. Força o AuthContext a recarregar o perfil e os papéis e ESPERA que termine.
+      await refetchProfile(); 
       
       // 3. Mostra sucesso e navega para a rota base /admin
       showSuccess("Login de Administrador realizado com sucesso!");
@@ -72,6 +77,7 @@ export default function AdminLogin() {
     } catch (error) {
       const msg = (error as Error).message || "Falha no login de Administrador. Verifique as credenciais.";
       console.error("ADMIN LOGIN ERROR:", msg);
+      setLastError(msg);
       showError(msg);
     } finally {
       setLoading(false);
@@ -145,6 +151,12 @@ export default function AdminLogin() {
                 </Button>
               </form>
               
+              {lastError && (
+                <p className="pt-4 text-center text-sm text-red-500">
+                  {lastError}
+                </p>
+              )}
+
               <p className="pt-6 text-center text-base text-gray-600">
                 <Link
                   to={createPageUrl('restaurant-login')}
