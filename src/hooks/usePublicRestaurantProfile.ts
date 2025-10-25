@@ -44,7 +44,8 @@ export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfi
     fetchRestaurant();
   }, [restaurantId]);
 
-  const isPremium = restaurant?.plan === 'premium';
+  // CORREÇÃO APLICADA AQUI: Incluir 'premium_gift'
+  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
   const isFree = restaurant?.plan === 'free';
 
   return {
