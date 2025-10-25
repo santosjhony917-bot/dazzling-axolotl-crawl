@@ -9,6 +9,8 @@ import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle } from 'lucid
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import GalleryImageManager from '@/components/restaurant/GalleryImageManager'; // NOVO IMPORT
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
@@ -40,37 +42,35 @@ export default function GalleryManagement() {
         image_url: newImageUrl, 
         caption: newCaption || null 
       });
-      showSuccess("Imagem adicionada à galeria!");
+      // showSuccess("Imagem adicionada à galeria!"); // Sucesso já tratado no hook
       setNewImageUrl('');
       setNewCaption('');
     } catch (error) {
-      showError("Falha ao adicionar imagem.");
+      // Erro já tratado no hook
     }
   }, [restaurantId, newImageUrl, newCaption, addGalleryImage]);
 
   const handleDeleteImage = useCallback(async (imageId: string) => {
-    if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
-      try {
-        await deleteGalleryImage(imageId);
-        showSuccess("Imagem removida com sucesso.");
-      } catch (error) {
-        showError("Falha ao remover imagem.");
-      }
+    try {
+      await deleteGalleryImage(imageId);
+      // showSuccess("Imagem removida com sucesso."); // Sucesso já tratado no hook
+    } catch (error) {
+      // Erro já tratado no hook
     }
   }, [deleteGalleryImage]);
-
+  
   const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
     try {
       await updateGalleryImage(imageId, { caption: newCaption });
-      showSuccess("Legenda atualizada.");
+      // showSuccess("Legenda atualizada."); // Sucesso já tratado no hook
     } catch (error) {
-      showError("Falha ao atualizar legenda.");
+      // Erro já tratado no hook
     }
   }, [updateGalleryImage]);
 
   if (authLoading || galleryLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -90,93 +90,78 @@ export default function GalleryManagement() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-primary">Gerenciar Galeria de Fotos</h1>
-      <p className="text-gray-600">Adicione, edite ou remova fotos que aparecerão no perfil público do seu restaurante.</p>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <RestaurantAreaHeader title="Galeria de Fotos" icon={Image} backPath="restaurant-area/profile-menu" />
+      
+      <main className="p-4 space-y-6">
+        
+        {/* Adicionar Nova Imagem */}
+        <Card className="shadow-lg border-none rounded-xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl text-primary">
+              <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleAddImage} className="space-y-4">
+              <div>
+                <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">URL da Imagem</label>
+                <Input
+                  id="imageUrl"
+                  type="url"
+                  placeholder="https://exemplo.com/foto.jpg"
+                  value={newImageUrl}
+                  onChange={(e) => setNewImageUrl(e.target.value)}
+                  required
+                  disabled={isMutating}
+                />
+              </div>
+              <div>
+                <label htmlFor="caption" className="block text-sm font-medium text-gray-700 mb-1">Legenda (Opcional)</label>
+                <Input
+                  id="caption"
+                  type="text"
+                  placeholder="Uma breve descrição da foto"
+                  value={newCaption}
+                  onChange={(e) => setNewCaption(e.target.value)}
+                  disabled={isMutating}
+                />
+              </div>
+              <Button type="submit" disabled={isMutating || !newImageUrl} className="w-full bg-highlight hover:bg-highlight/90">
+                {isMutating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+                Adicionar à Galeria
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
-      {/* Adicionar Nova Imagem */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleAddImage} className="space-y-4">
-            <div>
-              <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">URL da Imagem</label>
-              <Input
-                id="imageUrl"
-                type="url"
-                placeholder="https://exemplo.com/foto.jpg"
-                value={newImageUrl}
-                onChange={(e) => setNewImageUrl(e.target.value)}
-                required
-                disabled={isMutating}
-              />
-            </div>
-            <div>
-              <label htmlFor="caption" className="block text-sm font-medium text-gray-700 mb-1">Legenda (Opcional)</label>
-              <Input
-                id="caption"
-                type="text"
-                placeholder="Uma breve descrição da foto"
-                value={newCaption}
-                onChange={(e) => setNewCaption(e.target.value)}
-                disabled={isMutating}
-              />
-            </div>
-            <Button type="submit" disabled={isMutating || !newImageUrl}>
-              {isMutating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
-              Adicionar à Galeria
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      {/* Galeria Atual */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {gallery.length === 0 ? (
-            <p className="text-gray-500">Nenhuma foto na galeria ainda.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {gallery.map((image) => (
-                <div key={image.id} className="relative border rounded-lg overflow-hidden bg-gray-50">
-                  <img 
-                    src={image.image_url || PLACEHOLDER_IMAGE_URL} 
-                    alt={image.caption || 'Foto da Galeria'} 
-                    className="w-full h-40 object-cover"
+        {/* Galeria Atual */}
+        <Card className="shadow-lg border-none rounded-xl">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl text-primary">
+              <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
+            </CardTitle>
+            <CardDescription>Clique na legenda para editar e pressione Enter ou clique fora para salvar.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {gallery.length === 0 ? (
+              <p className="text-gray-500">Nenhuma foto na galeria ainda.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                {gallery.map((image) => (
+                  <GalleryImageManager
+                    key={image.id}
+                    image={image}
+                    onDelete={handleDeleteImage}
+                    onUpdateCaption={handleUpdateCaption}
+                    isMutating={isMutating}
                   />
-                  <div className="p-3 space-y-2">
-                    <Input
-                      type="text"
-                      placeholder="Adicionar legenda"
-                      defaultValue={image.caption || ''}
-                      onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
-                      disabled={isMutating}
-                    />
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      className="w-full"
-                      onClick={() => handleDeleteImage(image.id)}
-                      disabled={isMutating}
-                    >
-                      <Trash2 className="w-4 h-4 mr-2" /> Remover
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }
