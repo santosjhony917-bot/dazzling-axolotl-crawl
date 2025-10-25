@@ -12,7 +12,7 @@ interface ClientLayoutProps {
   showBackButton?: boolean;
 }
 
-const ClientLayout: React.FC<ClientLayoutProps> = ({ title, children, selectedTab, showBackButton = true }) => {
+const ClientLayout: React.FC<ClientLayoutProps> = ({ title, children, selectedTab, showBackButton = false }) => {
   const navigate = useNavigate();
 
   return (

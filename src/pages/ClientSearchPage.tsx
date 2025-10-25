@@ -86,7 +86,7 @@ export default function ClientSearchPage() {
   }
 
   return (
-    <ClientLayout title="Buscar" selectedTab="search">
+    <ClientLayout title="Buscar" selectedTab="search" showBackButton={true}>
       <div className="p-4 space-y-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Encontre seu próximo prato favorito</h1>
         
