@@ -106,6 +106,7 @@ export function useAuthProfile(): AuthProfileState {
     queryFn: () => fetchRestaurantByOwner(user!.id),
     enabled: enabled,
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false, // Adicionado para evitar recarregamento ao focar
   });
 
   // Query 2: User Roles (depende do perfil do restaurante)
@@ -114,6 +115,7 @@ export function useAuthProfile(): AuthProfileState {
     queryFn: () => fetchUserRole(user!),
     enabled: enabled,
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false, // Adicionado para evitar recarregamento ao focar
   });
   
   // --- Combined State and Actions ---
