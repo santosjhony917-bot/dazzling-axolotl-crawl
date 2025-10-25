@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Upload, MapPin, UtensilsCrossed, Clock, Plus, AlertTriangle, Loader2 } from 'lucide-react';
+import { Upload, Plus, AlertTriangle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { showSuccess, showError } from '@/utils/toast'; // Importando funções de toast
+import { showSuccess, showError } from '@/utils/toast';
 
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
@@ -16,6 +16,9 @@ interface RestaurantDataPhase1 {
   logoUrl: string;
   coverUrl: string;
 }
+
+// Chave de persistência
+const STORAGE_KEY = 'admin_upload_phase1_data';
 
 // Colunas da planilha
 const columns = [
@@ -39,11 +42,37 @@ const initialRow: RestaurantDataPhase1 = {
   coverUrl: '',
 };
 
+// Função para carregar dados do localStorage
+const loadInitialRows = (): RestaurantDataPhase1[] => {
+  try {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      if (Array.isArray(parsedData) && parsedData.length > 0) {
+        // Garante que cada linha tenha um ID válido (caso o ID não tenha sido persistido corretamente)
+        return parsedData.map(row => ({ ...row, id: row.id || generateRowId() }));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load data from localStorage:", e);
+  }
+  return [initialRow];
+};
+
 const UploadPhase1: React.FC = () => {
-  const [rows, setRows] = useState<RestaurantDataPhase1[]>([initialRow]);
+  const [rows, setRows] = useState<RestaurantDataPhase1[]>(loadInitialRows);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
+  // Efeito para salvar o estado no localStorage sempre que 'rows' mudar
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+    } catch (e) {
+      console.error("Failed to save data to localStorage:", e);
+    }
+  }, [rows]);
 
   const handleUpdateCell = useCallback((id: string, key: keyof RestaurantDataPhase1, value: string) => {
     setRows(prevRows => 
@@ -78,8 +107,6 @@ const UploadPhase1: React.FC = () => {
       };
     });
 
-    // Substitui as linhas existentes se a primeira linha colada for a primeira linha da tabela
-    // Caso contrário, adiciona ao final. Para simplicidade, vamos substituir tudo se houver dados.
     if (newRows.length > 0) {
         setRows(newRows);
     }
@@ -137,7 +164,11 @@ const UploadPhase1: React.FC = () => {
     await new Promise(resolve => setTimeout(resolve, 2000)); // Simula delay
     
     showSuccess(`Upload de ${rows.length} restaurantes concluído com sucesso!`);
-    setRows([initialRow]); // Limpa a planilha
+    
+    // Limpa a planilha e o localStorage após o upload bem-sucedido
+    setRows([initialRow]); 
+    localStorage.removeItem(STORAGE_KEY);
+    
     setIsUploading(false);
   }, [rows, errors]);
 
