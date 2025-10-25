@@ -25,16 +25,35 @@ interface RestaurantDataPhase2 {
   isGeocoded: boolean;
 }
 
-// Colunas da planilha
+// Colunas da planilha (incluindo campos editáveis para colagem)
 const columns = [
-  { key: 'name', label: 'Nome do Restaurante', readOnly: true },
-  { key: 'cep', label: 'CEP' },
-  { key: 'address', label: 'Rua/Avenida' },
-  { key: 'number', label: 'Número' },
-  { key: 'neighborhood', label: 'Bairro' },
-  { key: 'city', label: 'Cidade' },
-  { key: 'state', label: 'UF' },
+  { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '200px' },
+  { key: 'cep', label: 'CEP', width: '100px' },
+  { key: 'address', label: 'Rua/Avenida', width: '200px' },
+  { key: 'number', label: 'Número', width: '80px' },
+  { key: 'neighborhood', label: 'Bairro', width: '150px' },
+  { key: 'city', label: 'Cidade', width: '150px' },
+  { key: 'state', label: 'UF', width: '80px' },
 ];
+
+// Chave de persistência
+const STORAGE_KEY = 'admin_upload_phase2_data';
+
+// Função para carregar dados do localStorage
+const loadPersistedRows = (): RestaurantDataPhase2[] | null => {
+  try {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      if (Array.isArray(parsedData) && parsedData.length > 0) {
+        return parsedData.map(row => ({ ...row, isGeocoded: !!row.latitude && !!row.longitude, status: 'pending' }));
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load data from localStorage:", e);
+  }
+  return null;
+};
 
 const UploadPhase2: React.FC = () => {
   const [rows, setRows] = useState<RestaurantDataPhase2[]>([]);
@@ -46,6 +65,15 @@ const UploadPhase2: React.FC = () => {
   const fetchRestaurants = useCallback(async () => {
     setLoading(true);
     setErrors({});
+    
+    // Tenta carregar dados persistidos
+    const persistedRows = loadPersistedRows();
+    if (persistedRows) {
+        setRows(persistedRows);
+        setLoading(false);
+        return;
+    }
+    
     try {
       // Busca restaurantes que não têm latitude OU longitude (ou ambos)
       const { data, error } = await supabase
@@ -85,6 +113,18 @@ const UploadPhase2: React.FC = () => {
   useEffect(() => {
     fetchRestaurants();
   }, [fetchRestaurants]);
+  
+  // Efeito para salvar o estado no localStorage sempre que 'rows' mudar
+  useEffect(() => {
+    try {
+      if (rows.length > 0 && !loading) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+      }
+    } catch (e) {
+      console.error("Failed to save data to localStorage:", e);
+    }
+  }, [rows, loading]);
+
 
   // 2. Handle Cell Update and CEP Lookup
   const handleUpdateCell = useCallback(async (id: string, key: keyof RestaurantDataPhase2, value: string) => {
@@ -148,10 +188,6 @@ const UploadPhase2: React.FC = () => {
         
         if (targetIndex < newRows.length) {
           const rowId = newRows[targetIndex].id;
-          // Chamamos handleUpdateCell para garantir que a lógica de CEP/formatação seja aplicada
-          // Nota: handleUpdateCell é assíncrono, mas a atualização de estado é síncrona aqui.
-          // Para evitar problemas de concorrência, faremos a atualização direta aqui,
-          // e o CEP lookup será acionado pelo useEffect no input.
           
           let finalValue = value;
           if (key === 'cep') {
@@ -176,12 +212,12 @@ const UploadPhase2: React.FC = () => {
     const updates: RestaurantDataPhase2[] = [];
     let successCount = 0;
 
-    for (const row of rows) {
-      if (row.isGeocoded) continue; // Pula se já estiver geocodificado
+    const rowsToProcess = rows.filter(r => !r.isGeocoded);
 
+    for (const row of rowsToProcess) {
       const fullAddress = `${row.address}, ${row.number}, ${row.neighborhood}, ${row.city}, ${row.state}, ${row.cep}`;
       
-      if (!row.address || !row.number || !row.city || !row.state) {
+      if (!row.address || !row.number || !row.city || !row.state || !row.cep) {
         newErrors[row.id] = `Endereço incompleto para ${row.name}.`;
         continue;
       }
@@ -239,10 +275,14 @@ const UploadPhase2: React.FC = () => {
     }
 
     setIsUploading(false);
+    localStorage.removeItem(STORAGE_KEY); // Limpa o cache após o upload
     fetchRestaurants(); // Recarrega a lista para mostrar apenas os não processados
   }, [rows, fetchRestaurants]);
 
   const rowsToProcess = useMemo(() => rows.filter(r => !r.isGeocoded), [rows]);
+  
+  // Define a largura da grade dinamicamente
+  const gridTemplateColumns = columns.map(col => col.width).join(' ') + ' 100px'; // + Status
 
   if (loading) {
     return (
@@ -282,7 +322,10 @@ const UploadPhase2: React.FC = () => {
         <div className="overflow-x-auto">
           <div className="min-w-[1200px]">
             {/* Cabeçalho da Tabela */}
-            <div className="grid grid-cols-[200px_100px_200px_100px_150px_150px_80px_100px] bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white">
+            <div 
+              className="grid bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white"
+              style={{ gridTemplateColumns: gridTemplateColumns }}
+            >
               {columns.map(col => (
                 <div key={col.key} className="px-2 truncate">{col.label}</div>
               ))}
@@ -295,9 +338,10 @@ const UploadPhase2: React.FC = () => {
                 <div 
                   key={row.id} 
                   className={cn(
-                    "grid grid-cols-[200px_100px_200px_100px_150px_150px_80px_100px] border-b border-gray-100 dark:border-gray-700 last:border-b-0",
+                    "grid border-b border-gray-100 dark:border-gray-700 last:border-b-0",
                     errors[row.id] && "bg-red-50 dark:bg-red-900/20"
                   )}
+                  style={{ gridTemplateColumns: gridTemplateColumns }}
                 >
                   {columns.map(col => (
                     <Input
@@ -305,7 +349,7 @@ const UploadPhase2: React.FC = () => {
                       // CORREÇÃO 1: Garante que o valor seja string ou number, convertendo booleanos para string vazia
                       value={String(row[col.key as keyof RestaurantDataPhase2] ?? '')}
                       onChange={(e) => handleUpdateCell(row.id, col.key as keyof RestaurantDataPhase2, e.target.value)}
-                      onPaste={(e) => handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
+                      onPaste={(e) => col.readOnly ? undefined : handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
                       className="h-10 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent text-sm"
                       placeholder={col.label}
                       readOnly={col.readOnly}
