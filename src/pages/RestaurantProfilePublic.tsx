@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile'; // Importação corrigida
 import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
 import { showError } from '@/utils/toast';
 import { formatCurrency } from '@/utils/formatters';
@@ -155,12 +155,12 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
 
 const RestaurantProfilePublic: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { restaurant, loading, error } = useRestaurantProfile(id);
+  const { data, isLoading, error } = usePublicRestaurantProfile(id); 
   const { menu, loading: menuLoading } = useRestaurantMenu(id);
 
-  if (loading) {
+  if (isLoading) {
     return (
-      <PublicRestaurantLayout restaurant={null} title="Carregando...">
+      <PublicRestaurantLayout restaurant={null} backPath="home">
         <div className="p-4 space-y-4">
           <Skeleton className="h-56 w-full" />
           <Skeleton className="h-20 w-full" />
@@ -171,19 +171,22 @@ const RestaurantProfilePublic: React.FC = () => {
     );
   }
 
-  if (error || !restaurant) {
+  if (error || !data || !data.restaurant) {
     return (
-      <PublicRestaurantLayout restaurant={null} title="Erro">
+      <PublicRestaurantLayout restaurant={null} backPath="home">
         <div className="p-8 text-center text-red-500">
-          <p>Erro ao carregar o perfil do restaurante.</p>
-          <p className="text-sm text-gray-500 mt-2">ID: {id}</p>
+          <p className="font-bold">Erro ao carregar o perfil do restaurante.</p>
+          <p className="text-sm text-gray-700 mt-2">Detalhe: {error || "Restaurante não encontrado."}</p>
+          <p className="text-sm text-gray-500 mt-1">ID: {id}</p>
         </div>
       </PublicRestaurantLayout>
     );
   }
 
+  const { restaurant } = data;
+
   return (
-    <PublicRestaurantLayout restaurant={restaurant} title={restaurant.name}>
+    <PublicRestaurantLayout restaurant={restaurant} backPath="home">
       <RestaurantProfileContent restaurant={restaurant} menu={menu} menuLoading={menuLoading} />
     </PublicRestaurantLayout>
   );

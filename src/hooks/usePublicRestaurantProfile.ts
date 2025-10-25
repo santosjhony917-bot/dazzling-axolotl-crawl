@@ -36,7 +36,10 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
         .eq('id', restaurantId)
         .maybeSingle(); // <-- CORREÇÃO APLICADA
 
-      if (restaurantError) throw restaurantError;
+      if (restaurantError) {
+        console.error('[PublicProfile] Supabase Error fetching restaurant:', restaurantError);
+        throw new Error(restaurantError.message);
+      }
 
       if (!restaurant) {
         setError('Restaurante não encontrado.');
@@ -52,7 +55,10 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
         .eq('is_active', true)
         .order('order_index', { ascending: true });
 
-      if (categoryError) throw categoryError;
+      if (categoryError) {
+        console.error('[PublicProfile] Supabase Error fetching categories:', categoryError);
+        throw new Error(categoryError.message);
+      }
 
       const categoryIds = categoryData.map(c => c.id);
 
@@ -64,7 +70,10 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
         .eq('is_active', true)
         .order('order_index', { ascending: true });
 
-      if (itemError) throw itemError;
+      if (itemError) {
+        console.error('[PublicProfile] Supabase Error fetching items:', itemError);
+        throw new Error(itemError.message);
+      }
 
       // 4. Group items by category
       const groupedItems = itemData.reduce((acc, item) => {
@@ -88,8 +97,9 @@ export function usePublicRestaurantProfile(restaurantId: string | undefined): Us
       });
 
     } catch (err) {
-      console.error('Error fetching public profile:', err);
-      setError('Falha ao carregar o perfil público.');
+      const errorMessage = (err as Error).message || 'Falha ao carregar o perfil público.';
+      console.error('[PublicProfile] Final Catch Error:', err);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
