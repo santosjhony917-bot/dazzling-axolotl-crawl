@@ -5,9 +5,8 @@ import { Upload, MapPin, UtensilsCrossed, Clock, DollarSign, Zap, BarChart } fro
 import AdminLayout from "@/components/admin/AdminLayout"; // Usando o AdminLayout correto
 import UploadPhase1 from "@/components/admin/UploadPhase1";
 import UploadPhase2 from "@/components/admin/UploadPhase2";
-import UploadPhase3 from "@/components/admin/UploadPhase3"; // NOVO IMPORT
-// Placeholder components for other phases
-const UploadPhase4 = () => <Card className="p-6"><CardTitle>Fase 4: Horários</CardTitle><CardContent>Implementação da planilha de horários.</CardContent></Card>;
+import UploadPhase3 from "@/components/admin/UploadPhase3";
+import UploadPhase4 from "@/components/admin/UploadPhase4"; // NOVO IMPORT
 
 export default function AdminUploadInfo() {
   const [activeTab, setActiveTab] = useState("phase1");
