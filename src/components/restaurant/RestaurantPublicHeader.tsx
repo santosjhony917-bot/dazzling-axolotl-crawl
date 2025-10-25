@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Heart, Loader2 } from 'lucide-react';
 import { useFavorites } from '@/hooks/useFavorites';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthContext } from '@/context/AuthContext'; // Usando o novo contexto
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showInfo } from '@/utils/toast';
@@ -13,8 +13,7 @@ interface RestaurantData {
   name: string;
   followersCount: number;
   logoUrl: string;
-  // isFollowing e onFollowToggle agora são gerenciados internamente ou via prop
-  onFollowToggle: () => void; // Mantido para simulação de 'Seguir'
+  onFollowToggle: () => void;
 }
 
 interface RestaurantPublicHeaderProps {
@@ -23,7 +22,7 @@ interface RestaurantPublicHeaderProps {
 
 const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaurant }) => {
   const { id, name, followersCount, logoUrl, onFollowToggle } = restaurant;
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   
   const { isFavorite, toggleFavorite } = useFavorites();

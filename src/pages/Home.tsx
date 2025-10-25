@@ -46,9 +46,8 @@ const Home: React.FC = () => {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // A busca é acionada automaticamente pelo hook useNearbyRestaurants quando searchQuery muda.
-    // Aqui, apenas garantimos que a refetch seja chamada se necessário (embora o debounce do input já cubra isso).
-    refetchRestaurants();
+    // Redireciona para a página de busca completa
+    navigate(createPageUrl('search-client'));
   };
 
   const handleOpenSearchConfig = () => {

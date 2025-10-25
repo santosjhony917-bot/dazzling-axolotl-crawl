@@ -8,11 +8,11 @@ import { cn } from '@/lib/utils';
 // Mock data for Premium view based on the new HTML structure
 const mockRestaurantPremium = {
   name: "NAU – Frutos do Mar",
-  rating: 4.7,
-  reviews: "1.2k",
+  // rating: 4.7, // Removido
+  // reviews: "1.2k", // Removido
   followers: 0,
-  coverImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBfY3prF-cry5ZdH1L60O3sdcAoSp5JnpOPJ8rHsRIdHfjJP0Rcuyfeit4j7rSPpjsxpFhJrizQVNSW6C02ke-UZ8p7UUmBRCkp5hDM8-eByVyxEhaU3rpWHnGOwikCqBmTVXfQc2t2P4RUke_Un1s_BKK6HFVmEC6dXQpl7TRMTl7GmUmt_rb8xoFjdks3Nqn6pLPFyrflQANLObV0XR6HgoDZS4wcK6qh9HqT69VnB7LEbuzG5JMQ3w678qXOCaFDQQhjd-ET5ZRs",
-  logoIcon: "ac_unit", // Usando um ícone placeholder
+  coverImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBfY3prF-cry5ZdH1L60O3sdcAoSp5JnpOPJ8rHsRIdHfjJP0Rcuyfeit4j7rSPpjsxpFhJrizQVNSW6C02ke-UZ8p7UUmBRCkp5hDM8-eByVyxEhaU3rpWHnGOwikCqBmTVXfQc2t2P4RUke-UZ8p7UUmBRCkp5hDM8-eByVyxEhaU3rpWHnGOwikCqBmTVXfQc2t2P4RUke-Un1s_BKK6HFVmEC6dXQpl7TRMTl7GmUmt_rb8xoFjdks3Nqn6pLPFyrflQANLObV0XR6HgoDZS4wcK6qh9HqT69VnB7LEbuzG5JMQ3w678qXOCaFDQQhjd-ET5ZRs",
+  logoIcon: "ac_unit", 
   address: "Av. Epitácio Pessoa, 1234 - Tambaú",
   hours: "18:00 - 23:00",
   status: "Aberto agora",
@@ -23,11 +23,11 @@ const mockRestaurantPremium = {
   ],
   gallery: [
     { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCFzi7jkjCVqvS390zrinZt4xlLcNkzzYtSmIn_WrjOTg9v4U-RTohLX1PZlwzf9JEOBKdXuhZNaJsfIpv9ugJHlZ8WcmvvUfLI0bt0FemwNEnHJjXcMkTEx_AfvCj89oK7MJbDrndELjRqSN-liueYzp6zZmabkT1lcUw9UIfQHaV0CfX1F963ykUaKyc4GFC1MoE6T7wkA1nw5DufNH9MUzMQ1ahesC9x7hkMzgRbUVJtxZ6GGjMrWXxj7tzCJFG7czqFSZ8B5PWg", title: "Salão principal", span: "col-span-2 row-span-2" },
-    { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD6pQd8iMDEg7CRTey0LFIw_uRWBsYQkxVaNaZqO3eVbOKdhqbqYErl-p6bO_ubGCYQzK-S84G9NCi_854EllE59JyV9LV_D2njoKiM2EHp5-4nUhPHTdTQvEA-n4xJRye-IFv1eIqd6TK8hnyAhO-IZIKWfE6IgUbIY8LUOnVjvcuvP6jhTuq9_3ISCja6DeIC0ZHFVP644tAi6FsOiRaQExp5MpAQqnIsVOI", title: "Prato exclusivo", span: "col-span-1" },
+    { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD6pQd8iMDEg7CRTey0LFIw_uRWBsYQkxVaNaZqO3eVbOKdhqbqYErl-p6b_ubGCYQzK-S84G9NCi_854EllE59JyV9LV_D2njoKiM2EHp5-4nUhPHTdTQvEA-n4xJRye-IFv1eIqd6TK8hnyAhO-IZIKWfE6IgUbIY8LUOnVjvcuvP6jhTuq9_3ISCja6DeIC0ZHFVP644tAi6FsOiRaQExp5MpAQqnIsVOI", title: "Prato exclusivo", span: "col-span-1" },
     { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD0qIxZYzCVo2uUcI6pKYGrWI2KR_gTGgFwabxFdO9ue1wpphH6tmYRJRy0MHsIPhzxgjq-CfXq82OkJXjZRTV05SZwJzgoepbJwOOdeuX2nH-i7CrSwANsOD3XrqGgXUTp2cVboV3eZeI_qElrVYyyZkDRFxa6DY4-pzu5Jd1_R2X6DjJU5_d3pG1NMvh88FOfy_cwEuY6tTcuDeNr81xiWBosT45Gw-wZMX6-1I7tNhPCq6-hiYOg5n9_VcfdD2gDQz_0vpYJYlAn", title: "Culinária refinada", span: "col-span-1" },
   ],
   premiumMenu: [
-    { name: "Salada Caprese", description: "Tomate, mussarela de búfala, manjericão e azeite.", price: "35,00", isFeatured: true, imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAsFkCXmRdJGX66v9qV0mbGHcuHBj9F2R68ZhrNQ8XNKXrz7KDAAIAQ3kb5MrumrFsYYiXzZ6mNXw3EJSBXBWcpfv6LllKv1M-RXdyCl4rWYCYX3TcEIeBPO8c66mlIp9ByQ9HnRG5DVey_mwOJZhFZ8N810mpURGdQZ9SnHyhBFQgO66tUBNOxpP2ZNfDz6j1NaWqHEpukxz_MginVhLZU_qLdpYokYO-Am5HzCsxGG2q6156Bz5Pm2Z7nnniK0lASBJ_csfs_S7Hvo" },
+    { name: "Salada Caprese", description: "Tomate, mussarela de búfala, manjericão e azeite.", price: "35,00", isFeatured: true, imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAsFkCXmRdJGX66v9qV0mbGHcuHBj9F2R68ZhrNQ8XNKXrz7KDAAIAQ3kb5MrumfFsYYiXzZ6mNXw3EJSBXBWcpfv6LllKv1M_RXdyCl4rWYCYX3TcEIeBPO8c66mlIp9ByQ9HnRG5DVey_mwOJZhFZ8N810mpURGdQZ9SnHyhBFQgO66tUBNOxpP2ZNfDz6j1NaWqHEpukxz_MginVhLZU_qLdpYokYO-Am5HzCszGG2q6156Bz5Pm2Z7nnniK0lASBJ_csfs_S7Hvo" },
     { name: "Ceviche Clássico", description: "Peixe branco fresco, limão, coentro e pimenta.", price: "45,00", isFeatured: false, imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCE9Mk_amwYvhzaFWgZDiBaOdfGaF6dQL7Fo6z95X-I_kXVegMp-zpS-fiv_VyL0Z0IVQ2OmnwjuIGFH0Tko2STE2sXQs2cVxW0bJqqAylml0Rn0D34yp4ESdIp1343r2yhTqz7-MZ9yf64uZq3MJZ3947KTmIPx2GWTFD1VO8DxcWQNeLm6Majq3Fji090y7_2dCbcrLp2Crsbsi4uNUpPvP6jhTuq9_3ISCja6DeIC0ZHFVP644tAi6FsOiRaQExp5MpAQqnIsVOI" },
   ],
 };
@@ -36,7 +36,7 @@ const RestaurantProfilePreviewPremium: React.FC = () => {
   return (
     <Card className="w-full max-w-md mx-auto border-4 border-highlight shadow-2xl overflow-hidden bg-background-light relative">
       
-      {/* Selo Premium (Mantendo o destaque visual) */}
+      {/* Selo Premium */}
       <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center z-20">
         <Crown className="w-3 h-3 mr-1 fill-white" /> PREMIUM
       </div>
@@ -68,7 +68,6 @@ const RestaurantProfilePreviewPremium: React.FC = () => {
             <div className="flex flex-col items-center justify-start rounded-xl bg-white shadow-lg">
               <div className="relative -mt-10 mb-2">
                 <div className="flex size-20 items-center justify-center rounded-full bg-primary ring-4 ring-white border-4 border-highlight">
-                  {/* Usando Crown para simbolizar o Premium no logo, já que o ícone original 'ac_unit' não é relevante */}
                   <Crown className="w-10 h-10 text-white fill-highlight" /> 
                 </div>
               </div>
@@ -78,11 +77,7 @@ const RestaurantProfilePreviewPremium: React.FC = () => {
                   <Check className="w-4 h-4 text-secondary fill-secondary" /> {/* Ícone de verificado */}
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 text-secondary fill-secondary" />
-                    <p className="text-sm text-gray-600">{mockRestaurantPremium.rating} ({mockRestaurantPremium.reviews} avaliações)</p>
-                  </div>
-                  <p className="text-sm text-gray-600">•</p>
+                  {/* Removendo Rating e Reviews */}
                   <p className="text-sm text-gray-600">{mockRestaurantPremium.followers} seguidores</p>
                 </div>
               </div>
@@ -113,7 +108,7 @@ const RestaurantProfilePreviewPremium: React.FC = () => {
                 <p className="text-sm font-bold text-gray-500">Fotos</p>
               </a>
               <a className="flex flex-1 flex-col items-center justify-center border-b-2 border-transparent pb-3" href="#" onClick={(e) => e.preventDefault()}>
-                <p className="text-sm font-bold text-gray-500">Avaliações</p>
+                <p className="text-sm font-bold text-gray-500">Avaliações</p> {/* Mantido para simular a navegação, mas sem conteúdo */}
               </a>
             </div>
           </div>
@@ -169,7 +164,7 @@ const RestaurantProfilePreviewPremium: React.FC = () => {
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <h3 className="font-bold text-primary">{item.name}</h3>
-                      {item.isFeatured && <Star className="w-4 h-4 text-secondary fill-secondary" />}
+                      {/* Removendo ícone de destaque (Star) */}
                     </div>
                     <p className="text-sm text-gray-700 mt-1">{item.description}</p>
                     <div className="flex justify-between items-center mt-2">

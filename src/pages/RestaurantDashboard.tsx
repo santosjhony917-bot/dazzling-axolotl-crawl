@@ -147,7 +147,7 @@ const RestaurantDashboard = () => {
             {mockCompetitors.map((item) => (
               <NearbyCompetitorCard 
                 key={item.id} 
-                item={item} 
+                item={{...item, rating: 0}} // Removendo rating
                 onClick={handleViewCompetitor} 
               />
             ))}

@@ -14,11 +14,11 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 // Mock data for comparison table
 const features = [
   { name: 'Destaque na Busca', free: 'Não aparece', premium: 'Aparece no Topo' },
-  { name: 'Visualização Pública', free: 'Básica (Apenas Logo e Endereço)', premium: 'Completa (Capa, Galeria, Avaliações)' },
+  { name: 'Visualização Pública', free: 'Básica (Apenas Logo e Endereço)', premium: 'Completa (Capa, Galeria)' },
   { name: 'Cardápio Detalhado', free: 'Simples', premium: 'Premium (Categorias, Destaques)' },
   { name: 'Links de Contato', free: '1 (WhatsApp)', premium: 'Ilimitados (iFood, Site, etc.)' },
   { name: 'Galeria de Fotos', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
-  { name: 'Avaliações e Notas', free: <X className="w-5 h-5 text-red-500" />, premium: <Check className="w-5 h-5 text-green-500" /> },
+  { name: 'Avaliações e Notas', free: <X className="w-5 h-5 text-red-500" />, premium: <X className="w-5 h-5 text-red-500" /> }, // Removido do Premium
 ];
 
 const UpgradePage: React.FC = () => {
@@ -35,9 +35,9 @@ const UpgradePage: React.FC = () => {
   };
   
   const handleSubscribe = () => {
-    // Simulação de navegação para checkout/assinatura
-    alert("Iniciando processo de assinatura Premium!");
-    // navigate(createPageUrl('checkout')); // Exemplo de rota de checkout
+    // Simulação de navegação para checkout/assinatura (App Store/Play Store)
+    alert("Iniciando processo de assinatura Premium via App Store/Play Store!");
+    // Em um app real, isso iniciaria o fluxo de compra in-app.
   };
 
   return (
@@ -109,7 +109,7 @@ const UpgradePage: React.FC = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-4">Maximize sua visibilidade, apareça no topo das buscas e converta visitantes em clientes fiéis.</p>
           <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
             <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Destaque nas buscas</li>
-            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Galeria de fotos e avaliações</li>
+            <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Galeria de fotos</li>
             <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Múltiplos links de contato</li>
             <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Cardápio Premium detalhado</li>
           </ul>

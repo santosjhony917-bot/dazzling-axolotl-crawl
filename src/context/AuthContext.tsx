@@ -1,19 +1,24 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthProfile } from '@/hooks/useAuthProfile';
 import { User } from '@supabase/supabase-js';
+import { Restaurant } from '@/types/restaurant';
 
 interface AuthContextType {
   user: User | null;
+  restaurant: Restaurant | null;
+  isPremium: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   signOut: () => Promise<{ error: Error | null }>;
+  refetchProfile: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const auth = useAuth();
+  const authProfile = useAuthProfile();
   return (
-    <AuthContext.Provider value={auth}>
+    <AuthContext.Provider value={authProfile}>
       {children}
     </AuthContext.Provider>
   );

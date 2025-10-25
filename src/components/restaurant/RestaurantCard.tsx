@@ -1,6 +1,6 @@
 import React from 'react';
 import { Restaurant } from '@/types/restaurant';
-import { MapPin, Star } from 'lucide-react';
+import { MapPin, Crown } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface RestaurantCardProps {
@@ -32,7 +32,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) 
         {/* Plan Tag (Optional) */}
         {restaurant.plan !== 'free' && (
           <div className="absolute top-3 left-3 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center">
-            <Star className="w-3 h-3 mr-1 fill-white" />
+            <Crown className="w-3 h-3 mr-1 fill-white" />
             {restaurant.plan === 'premium' ? 'Premium' : 'Basic'}
           </div>
         )}

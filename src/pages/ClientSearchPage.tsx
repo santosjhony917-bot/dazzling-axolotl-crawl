@@ -9,7 +9,7 @@ import PublicMenuItemCard from '@/components/public/PublicMenuItemCard';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { Restaurant } from '@/types/restaurant';
-import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importação corrigida
+import CustomerBottomNav from '@/components/CustomerBottomNav';
 
 type SearchType = 'dishes' | 'restaurants';
 

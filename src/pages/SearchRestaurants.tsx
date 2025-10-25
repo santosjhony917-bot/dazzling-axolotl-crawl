@@ -5,53 +5,13 @@ import { ArrowLeft, Search, MapPin, LocateFixed } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
-import LocationPermissionModal, { checkLocationPreference } from '@/components/LocationPermissionModal';
-import { getCurrentLocationAddress, GeocodedAddress, saveLastSearchLocation, loadLastSearchLocation } from '@/services/geolocation';
+import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import { showError, showSuccess } from '@/utils/toast';
+import { getCurrentLocationAddress, GeocodedAddress, saveLastSearchLocation } from '@/services/geolocation';
 
 const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
-const MOCK_ADDRESS = "Av. Epitácio Pessoa, Tambau, João Pessoa - PB";
-
-interface LocationState {
-  lat: number | null;
-  lon: number | null;
-  address: string;
-  isMock: boolean;
-}
-
-// Função para obter a localização inicial (prioriza URL, depois LocalStorage)
-const getInitialLocation = (initialLat: number | null, initialLon: number | null): LocationState => {
-  const savedLocation = loadLastSearchLocation();
-  
-  // 1. Prioridade: Parâmetros da URL (se presentes, usamos o endereço salvo se existir)
-  if (initialLat !== null && initialLon !== null) {
-    return {
-      lat: initialLat,
-      lon: initialLon,
-      address: savedLocation?.address || "Localização obtida da URL",
-      isMock: false,
-    };
-  }
-  
-  // 2. Segunda Prioridade: Localização salva no localStorage
-  if (savedLocation) {
-    return {
-      lat: savedLocation.lat,
-      lon: savedLocation.lon,
-      address: savedLocation.address,
-      isMock: false,
-    };
-  }
-  
-  // 3. Fallback: Estado inicial de busca (Mock)
-  return {
-    lat: null, // Começa como null para forçar a busca ou o modal
-    lon: null,
-    address: "Buscando localização...",
-    isMock: true,
-  };
-};
-
+const MOCK_ADDRESS = "Localização Padrão (João Pessoa)";
 
 export default function SearchRestaurants() {
   const navigate = useNavigate();
@@ -59,136 +19,76 @@ export default function SearchRestaurants() {
   
   const initialDistance = searchParams.get('distance') ? parseInt(searchParams.get('distance')!) : 10;
   const initialSearch = searchParams.get('search') || '';
-  const initialLat = searchParams.get('lat') ? parseFloat(searchParams.get('lat')!) : null;
-  const initialLon = searchParams.get('lon') ? parseFloat(searchParams.get('lon')!) : null;
 
   const [distance, setDistance] = useState<number[]>([initialDistance]);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   
-  const [location, setLocation] = useState<LocationState>(getInitialLocation(initialLat, initialLon));
-  
-  // O loadingLocation só é true se a localização for null E estivermos ativamente buscando
-  const [loadingLocation, setLoadingLocation] = useState(location.lat === null);
-  const [showPermissionModal, setShowPermissionModal] = useState(false);
+  const { location, isLoading: isLocationLoading, refetch: refetchLocation, saveLocation } = useUserSearchLocation();
+  const [showLocationModal, setShowLocationModal] = useState(false);
 
-  const handleLocationUpdate = (addressData: GeocodedAddress, isMock: boolean = false) => {
-    const formattedAddress = addressData.formattedAddress;
-    
-    setLocation({
-      lat: addressData.lat,
-      lon: addressData.lon,
-      address: formattedAddress,
-      isMock: isMock,
-    });
-    
-    // Salva a nova localização no localStorage
-    saveLastSearchLocation(addressData);
-    
-    setLoadingLocation(false);
-  };
+  const userLat = location.latitude;
+  const userLon = location.longitude;
+  const currentAddress = location.address;
 
-  const fetchLocation = useCallback(async (useGPS: boolean) => {
-    setLoadingLocation(true);
-    
+  // Efeito para garantir que a localização inicial seja carregada ou o modal seja aberto
+  useEffect(() => {
+    // Se a localização for a padrão (mock) e não estivermos carregando, abrimos o modal para forçar a definição.
+    if (!isLocationLoading && location.address === MOCK_ADDRESS) {
+      setShowLocationModal(true);
+    }
+  }, [isLocationLoading, location.address]);
+
+  const handleLocationUpdate = useCallback(async (useGPS: boolean) => {
     if (!useGPS) {
-      // Se for para usar mock location, usamos o mock e salvamos
-      const mockAddressData: GeocodedAddress = {
-        street: "Av. Epitácio Pessoa",
-        neighborhood: "Tambau",
-        city: "João Pessoa",
-        state: "PB",
-        cep: "58039-000",
-        lat: MOCK_LOCATION_COORDS.lat,
-        lon: MOCK_LOCATION_COORDS.lon,
-        formattedAddress: MOCK_ADDRESS,
-      };
-      handleLocationUpdate(mockAddressData, true);
+      // Se não for para usar GPS, abrimos o modal para entrada manual
+      setShowLocationModal(true);
       return;
     }
 
+    // Tenta obter a localização real via GPS
     try {
-      // Tenta obter a localização real
       const addressData = await getCurrentLocationAddress();
-      handleLocationUpdate(addressData, false);
-      showSuccess("Localização atualizada via GPS!");
+      
+      // Salva a localização obtida via GPS
+      const { error } = await saveLocation(addressData);
+      
+      if (!error) {
+        showSuccess("Localização atualizada via GPS!");
+        refetchLocation();
+      } else {
+        throw new Error(error);
+      }
     } catch (error) {
       console.error("Failed to fetch location via GPS:", error);
-      showError("Não foi possível obter sua localização via GPS. Usando localização padrão.");
-      
-      // Fallback para mock location se GPS falhar
-      const mockAddressData: GeocodedAddress = {
-        street: "Av. Epitácio Pessoa",
-        neighborhood: "Tambau",
-        city: "João Pessoa",
-        state: "PB",
-        cep: "58039-000",
-        lat: MOCK_LOCATION_COORDS.lat,
-        lon: MOCK_LOCATION_COORDS.lon,
-        formattedAddress: MOCK_ADDRESS,
-      };
-      handleLocationUpdate(mockAddressData, true);
+      showError("Não foi possível obter sua localização via GPS. Por favor, digite o endereço.");
+      setShowLocationModal(true);
     }
-  }, []);
-
-  useEffect(() => {
-    // Se já temos coordenadas válidas (lidas do localStorage ou URL), não fazemos nada.
-    if (location.lat !== null) {
-        return;
-    }
-    
-    // Se location.lat é null, precisamos buscar ou mostrar o modal.
-    const preference = checkLocationPreference();
-    
-    if (preference === 'unset') {
-      setShowPermissionModal(true);
-    } else if (preference === 'granted') {
-      fetchLocation(true);
-    } else if (preference === 'mock' || preference === 'denied') {
-      fetchLocation(false);
-    }
-  }, [location.lat, fetchLocation]); // Depende de location.lat para garantir que só rode se for null
+  }, [saveLocation, refetchLocation]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (location.lat === null || location.lon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
+    if (userLat === null || userLon === null || currentAddress === MOCK_ADDRESS) {
+      showError("Por favor, defina sua localização de busca primeiro.");
+      setShowLocationModal(true);
       return;
     }
     
-    navigate(`/restaurant-results?lat=${location.lat}&lon=${location.lon}&distance=${distance[0]}&search=${searchQuery}`);
+    navigate(`/restaurant-results?lat=${userLat}&lon=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
   };
   
-  const handlePermissionGranted = () => {
-    setShowPermissionModal(false);
-    fetchLocation(true);
-  };
-  
-  const handleUseMockLocation = () => {
-    setShowPermissionModal(false);
-    fetchLocation(false);
-  };
-  
-  const handlePermissionDenied = () => {
-    setShowPermissionModal(false);
-    // Se o usuário negar, usamos a localização mockada como fallback e salvamos
-    fetchLocation(false);
+  const handleLocationSaved = () => {
+    refetchLocation();
+    setShowLocationModal(false);
   };
 
   return (
     <div className="min-h-screen bg-background-light flex flex-col">
-      <LocationPermissionModal
-        isOpen={showPermissionModal}
-        onGrant={handlePermissionGranted}
-        onDeny={handlePermissionDenied}
-        onUseMockLocation={handleUseMockLocation}
-      />
-
       <header className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
           <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-primary hover:bg-primary/5">
             <ArrowLeft className="h-6 w-6" />
           </Button>
-          <h2 className="text-primary text-xl font-bold leading-tight tracking-[-0.015em]">Buscar Restaurantes</h2>
+          <h2 className="text-primary text-xl font-bold leading-tight tracking-[-0.015em]">Ajustar Busca</h2>
           <div className="size-10 shrink-0"></div>
         </div>
       </header>
@@ -204,23 +104,31 @@ export default function SearchRestaurants() {
           <div className="bg-white p-4 rounded-xl shadow-md">
             <h3 className="text-lg font-semibold text-primary mb-3 flex items-center">
               <MapPin className="w-5 h-5 mr-2 text-highlight" />
-              Sua Localização
+              Localização de Busca
             </h3>
             <div className="flex items-center justify-between">
-              <p className={`text-base ${loadingLocation ? 'text-gray-500 italic' : 'text-gray-800'}`}>
-                {loadingLocation ? "Obtendo endereço..." : location.address}
+              <p className={`text-base ${isLocationLoading ? 'text-gray-500 italic' : 'text-gray-800'}`}>
+                {isLocationLoading ? "Obtendo endereço..." : currentAddress}
               </p>
               <Button 
                 variant="outline" 
                 size="sm" 
-                onClick={() => fetchLocation(true)}
-                disabled={loadingLocation}
+                onClick={() => handleLocationUpdate(true)}
+                disabled={isLocationLoading}
                 className="text-highlight border-highlight hover:bg-highlight/5 rounded-xl"
               >
                 <LocateFixed className="w-4 h-4 mr-1" />
-                {loadingLocation ? "Aguarde" : "Atualizar GPS"}
+                {isLocationLoading ? "Aguarde" : "Atualizar GPS"}
               </Button>
             </div>
+            <Button 
+                variant="link" 
+                size="sm" 
+                onClick={() => setShowLocationModal(true)}
+                className="text-primary p-0 h-auto mt-2"
+            >
+                Digitar Endereço
+            </Button>
           </div>
 
           {/* Filtro de Distância */}
@@ -229,7 +137,7 @@ export default function SearchRestaurants() {
               Distância Máxima: <span className="text-highlight">{distance[0]} km</span>
             </h3>
             <Slider
-              defaultValue={[initialDistance]}
+              value={distance}
               max={50}
               min={1}
               step={1}
@@ -257,15 +165,23 @@ export default function SearchRestaurants() {
 
             <Button
               type="submit"
-              disabled={loadingLocation || location.lat === null}
+              disabled={isLocationLoading || userLat === null || userLon === null}
               className="w-full bg-primary text-white font-bold h-12 text-lg hover:bg-primary/90 rounded-xl shadow-lg transition-all"
             >
               <Search className="w-5 h-5 mr-2" />
-              {loadingLocation ? "Aguardando Localização..." : "Buscar Restaurantes"}
+              {isLocationLoading ? "Aguardando Localização..." : "Buscar Restaurantes"}
             </Button>
           </form>
         </motion.div>
       </main>
+      
+      {/* User Location Modal (para entrada manual) */}
+      <UserLocationModal
+        isOpen={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
+        currentAddress={currentAddress}
+        onLocationSaved={handleLocationSaved}
+      />
     </div>
   );
 }

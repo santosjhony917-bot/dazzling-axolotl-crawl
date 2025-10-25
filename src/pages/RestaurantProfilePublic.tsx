@@ -15,9 +15,9 @@ import FullMenuDisplay from '@/components/FullMenuDisplay';
 import { Skeleton } from '@/components/ui/skeleton';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
-import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay'; // NOVO
-import PhotoGallerySection from '@/components/public/PhotoGallerySection'; // NOVO
-import MenuCategoryList from '@/components/menu/MenuCategoryList'; // NOVO
+import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay';
+import PhotoGallerySection from '@/components/public/PhotoGallerySection';
+import MenuCategoryList from '@/components/menu/MenuCategoryList';
 
 // Mock de dados para Galeria (já que não temos a tabela de galeria ainda)
 const mockGalleryImages = [
@@ -97,7 +97,7 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
             </div>
           )}
           
-          {/* Botões de Ação (WhatsApp, iFood, Outro) - Decisão 4 */}
+          {/* Botões de Ação (WhatsApp, iFood, Outro) */}
           <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-2">
             {restaurant.whatsapp_url && (
               <Button 
@@ -129,12 +129,12 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
           </div>
         </Card>
         
-        {/* 3. Galeria de Fotos (Apenas Premium) - Decisão 3 */}
+        {/* 3. Galeria de Fotos (Apenas Premium) */}
         {isPremium && (
           <PhotoGallerySection images={mockGalleryImages} restaurantName={restaurant.name} />
         )}
         
-        {/* 4. Cardápio Completo (Accordion) - Decisão 10 */}
+        {/* 4. Cardápio Completo (Accordion) */}
         <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
           <h2 className="text-xl font-bold text-[#022D68] mb-4">Cardápio</h2>
           {menuLoading ? (

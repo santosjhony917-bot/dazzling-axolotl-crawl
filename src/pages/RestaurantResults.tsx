@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, MapPin, Star, Utensils, Filter } from "lucide-react";
+import { Search, MapPin, Utensils, Filter, Crown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,10 +10,12 @@ import { useState, useEffect, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PLACEHOLDER_IMAGE_URL } from "@/constants/assets";
 import { createPageUrl } from "@/utils/url";
+import { useAuthContext } from "@/context/AuthContext"; // Importando o novo contexto
 
 const RestaurantResults = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { signOut } = useAuthContext();
   
   const latParam = searchParams.get('lat');
   const lonParam = searchParams.get('lon');
@@ -38,21 +40,19 @@ const RestaurantResults = () => {
   });
 
   useEffect(() => {
-    // Em um app real, faríamos o reverse geocode aqui.
+    // Placeholder para reverse geocoding logic (usando coordenadas para agora)
     if (userLat && userLon) {
-      // Placeholder para reverse geocoding logic (usando coordenadas para agora)
       setCurrentLocationLabel(`(${userLat.toFixed(2)}, ${userLon.toFixed(2)})`);
     }
   }, [userLat, userLon]);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    await signOut();
     navigate('/auth');
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    // O hook useNearbyRestaurants reagirá automaticamente a esta mudança via queryKey.
   };
 
   const handleGoToSearchPage = () => {
@@ -67,45 +67,46 @@ const RestaurantResults = () => {
   const renderRestaurantCard = (restaurant: NearbyRestaurant) => (
     <Card 
       key={restaurant.id} 
-      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+      className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border-none rounded-xl"
       onClick={() => handleViewRestaurant(restaurant.id)}
     >
-      <img src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} alt={restaurant.name} className="w-full h-48 object-cover" />
-      <CardHeader>
-        <CardTitle>{restaurant.name}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-gray-600">{restaurant.category || 'Cozinha Não Definida'} (Plano: {restaurant.plan})</p>
-        <div className="flex justify-between items-center mt-2">
-          <div className="flex items-center gap-1">
-            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-            <span className="font-semibold">4.5</span> {/* Mock rating for now */}
+      <div className="relative h-48 bg-gray-100">
+        <img src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} alt={restaurant.name} className="w-full h-full object-cover" />
+        
+        {/* Plan Tag */}
+        {restaurant.plan !== 'free' && (
+          <div className="absolute top-3 left-3 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center">
+            <Crown className="w-3 h-3 mr-1 fill-white" />
+            {restaurant.plan === 'premium' ? 'Premium' : 'Basic'}
           </div>
+        )}
+      </div>
+      
+      <CardHeader className="pb-2">
+        <CardTitle className="text-xl font-extrabold text-primary tracking-tight truncate">{restaurant.name}</CardTitle>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <p className="text-sm text-gray-600">{restaurant.category || 'Cozinha Não Definida'}</p>
+        <div className="flex justify-between items-center mt-2">
+          {/* Removendo Rating */}
           <div className="flex items-center gap-1 text-gray-500 text-sm">
-            <MapPin className="w-4 h-4" />
-            <span>{formatDistance(restaurant.distance_km)}</span>
+            <MapPin className="w-4 h-4 text-highlight" />
+            <span className="font-semibold text-primary">{formatDistance(restaurant.distance_km)}</span>
           </div>
         </div>
       </CardContent>
     </Card>
   );
 
-  // Type assertion para garantir que restaurants seja tratado como array
   const restaurantsArray = (restaurants || []) as NearbyRestaurant[];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 max-w-md mx-auto">
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
+        <div className="px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-800">Resultados</h1>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <MapPin className="w-5 h-5 text-[#E47948]" />
-                <span className="truncate max-w-[100px]">{currentLocationLabel}</span>
-              </div>
-              <Button onClick={handleSignOut} variant="outline">Sair</Button>
-            </div>
+            <h1 className="text-2xl font-bold text-primary">Resultados</h1>
+            <Button onClick={handleSignOut} variant="outline" className="text-red-600 hover:bg-red-50">Sair</Button>
           </div>
           <div className="mt-4 flex gap-2">
             <div className="relative flex-grow">
@@ -125,16 +126,11 @@ const RestaurantResults = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6">
+      <main className="px-4 py-6">
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map(i => (
-              <Card key={i} className="overflow-hidden">
-                <Skeleton className="w-full h-48" />
-                <CardHeader><Skeleton className="h-6 w-3/4" /></CardHeader>
-                <CardContent><Skeleton className="h-4 w-1/2" /></CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            <Skeleton className="w-full h-48 rounded-xl" />
+            <Skeleton className="w-full h-48 rounded-xl" />
           </div>
         )}
 
@@ -147,7 +143,7 @@ const RestaurantResults = () => {
         )}
 
         {!loading && !error && restaurantsArray.length === 0 && (
-          <div className="text-center p-8 text-gray-600">
+          <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-md">
             <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
             <p className="mt-2">Tente aumentar a distância máxima ({maxDistance} km) ou mudar sua busca.</p>
@@ -158,7 +154,7 @@ const RestaurantResults = () => {
         )}
 
         {!loading && restaurantsArray.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-4">
             {restaurantsArray.map(renderRestaurantCard)}
           </div>
         )}

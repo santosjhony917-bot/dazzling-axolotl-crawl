@@ -8,7 +8,7 @@ interface CompetitorItem {
   name: string;
   cuisine: string;
   distance: number;
-  rating: number;
+  rating: number; // Mantido no mock, mas não exibido
   imageUrl: string;
 }
 
@@ -35,12 +35,7 @@ const NearbyCompetitorCard: React.FC<NearbyCompetitorCardProps> = ({ item, onCli
         <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal truncate">
           {item.cuisine} • {item.distance.toFixed(1)} km
         </p>
-        <div className="flex items-center gap-1 mt-1">
-          <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-          <p className="text-primary dark:text-white text-sm font-semibold ml-1">
-            {item.rating.toFixed(1)}
-          </p>
-        </div>
+        {/* Removendo a exibição de Rating */}
       </div>
       <button className="flex items-center justify-center size-8 rounded-full bg-gray-100 text-primary shrink-0">
         <ChevronRight className="w-4 h-4" />

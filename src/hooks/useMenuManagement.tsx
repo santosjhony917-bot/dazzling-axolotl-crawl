@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { MenuCategory, MenuItem } from "@/types/restaurant";
 import { showError, showSuccess } from "@/utils/toast";
 import { useCallback } from "react";
+import { logError } from "@/utils/errorLogger"; // Importando o logger
 
 // --- Tipos de Retorno ---
 interface MenuData {
@@ -26,7 +27,10 @@ const fetchMenu = async (restaurantId: string): Promise<MenuData> => {
     .order('order_index', { ascending: true })
     .order('order_index', { foreignTable: 'menu_items', ascending: true });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    logError(error, { context: 'fetchMenu' });
+    throw new Error(error.message);
+  }
 
   const categories: MenuCategory[] = [];
   const items: MenuItem[] = [];
@@ -51,7 +55,7 @@ export function useMenuManagement(restaurantId: string | null) {
     queryKey: queryKey,
     queryFn: () => fetchMenu(restaurantId!),
     enabled: !!restaurantId,
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity, // Decisão 1: Invalidação manual
   });
 
   const invalidateMenu = useCallback(() => {
@@ -85,6 +89,7 @@ export function useMenuManagement(restaurantId: string | null) {
       invalidateMenu();
     },
     onError: (e) => {
+      logError(e, { context: 'categoryMutation' });
       showError(`Falha ao salvar categoria: ${(e as Error).message}`);
     },
   });
@@ -103,6 +108,7 @@ export function useMenuManagement(restaurantId: string | null) {
       invalidateMenu();
     },
     onError: (e) => {
+      logError(e, { context: 'deleteCategoryMutation' });
       showError(`Falha ao deletar categoria: ${(e as Error).message}`);
     },
   });
@@ -130,6 +136,7 @@ export function useMenuManagement(restaurantId: string | null) {
       invalidateMenu();
     },
     onError: (e) => {
+      logError(e, { context: 'itemMutation' });
       showError(`Falha ao salvar item: ${(e as Error).message}`);
     },
   });
@@ -148,6 +155,7 @@ export function useMenuManagement(restaurantId: string | null) {
       invalidateMenu();
     },
     onError: (e) => {
+      logError(e, { context: 'deleteItemMutation' });
       showError(`Falha ao deletar item: ${(e as Error).message}`);
     },
   });
