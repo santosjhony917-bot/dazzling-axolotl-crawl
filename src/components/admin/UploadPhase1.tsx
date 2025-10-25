@@ -90,27 +90,47 @@ const UploadPhase1: React.FC = () => {
     setRows(prevRows => [...prevRows, { ...initialRow, id: generateRowId() }]);
   };
 
-  const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  // NOVO MANIPULADOR DE COLAGEM VERTICAL
+  const handleColumnPaste = useCallback((
+    e: React.ClipboardEvent<HTMLInputElement>, 
+    rowIndex: number, 
+    key: keyof RestaurantDataPhase1
+  ) => {
     const pasteData = e.clipboardData.getData('text');
-    const lines = pasteData.split('\n').filter(line => line.trim() !== '');
+    // Divide por linha (newline) e filtra linhas vazias
+    const values = pasteData.split('\n').map(v => v.trim()).filter(v => v.length > 0);
     
-    const newRows: RestaurantDataPhase1[] = lines.map(line => {
-      const values = line.split('\t'); // Assume TSV (Tab Separated Values)
-      return {
-        id: generateRowId(),
-        restaurantUrl: values[0]?.trim() || '',
-        restaurantName: values[1]?.trim() || '',
-        categories: values[2]?.trim() || '',
-        logoUrl: values[3]?.trim() || '',
-        coverUrl: values[4]?.trim() || '',
-      };
+    if (values.length === 0) return;
+    
+    e.preventDefault();
+    
+    setRows(prevRows => {
+      const newRows = [...prevRows];
+      
+      // 1. Preenche a célula onde a colagem começou
+      newRows[rowIndex] = { ...newRows[rowIndex], [key]: values[0] };
+      
+      // 2. Preenche as linhas subsequentes
+      for (let i = 1; i < values.length; i++) {
+        const targetIndex = rowIndex + i;
+        const value = values[i];
+        
+        if (targetIndex < newRows.length) {
+          // Se a linha já existe, atualiza a célula
+          newRows[targetIndex] = { ...newRows[targetIndex], [key]: value };
+        } else {
+          // Se a linha não existe, cria uma nova linha
+          const newRow: RestaurantDataPhase1 = { ...initialRow, id: generateRowId(), [key]: value };
+          newRows.push(newRow);
+        }
+      }
+      
+      return newRows;
     });
-
-    if (newRows.length > 0) {
-        setRows(newRows);
-    }
+    
+    showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
   }, []);
+
 
   const analyzeData = useCallback(() => {
     setIsAnalyzing(true);
@@ -197,7 +217,7 @@ const UploadPhase1: React.FC = () => {
             </div>
             
             {/* Linhas de Dados */}
-            <div onPaste={handlePaste} className="border border-gray-200 dark:border-gray-700 rounded-b-lg">
+            <div className="border border-gray-200 dark:border-gray-700 rounded-b-lg">
               {rows.map((row, index) => (
                 <div 
                   key={row.id} 
@@ -211,6 +231,7 @@ const UploadPhase1: React.FC = () => {
                       key={col.key}
                       value={row[col.key as keyof RestaurantDataPhase1]}
                       onChange={(e) => handleUpdateCell(row.id, col.key as keyof RestaurantDataPhase1, e.target.value)}
+                      onPaste={(e) => handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase1)}
                       className="h-10 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent text-sm"
                       placeholder={col.label}
                     />
@@ -225,7 +246,7 @@ const UploadPhase1: React.FC = () => {
         <div className="flex items-center gap-4">
           <AlertTriangle className="h-4 w-4 text-yellow-600 shrink-0" />
           <span className="text-sm text-gray-600 dark:text-gray-400">
-            Dica: Copie as colunas do Excel e cole diretamente na área da planilha acima.
+            Dica: Copie as colunas do Excel e cole diretamente na célula inicial da coluna desejada.
           </span>
         </div>
 
