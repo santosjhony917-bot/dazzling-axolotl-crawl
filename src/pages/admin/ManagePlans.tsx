@@ -94,24 +94,25 @@ export default function ManagePlans() {
     const currentDetails = getPlanDetails(currentPlan);
     const targetDetails = getPlanDetails(targetPlan);
     
-    // Planos pagos (premium) não podem ser rebaixados para free ou premium_gift.
+    // Regra 1: Planos pagos (premium) não podem ser rebaixados para free ou premium_gift.
     if (currentDetails.isPaid && (targetPlan === 'free' || targetPlan === 'premium_gift')) {
       return false;
     }
     
-    // Planos cortesia (premium_gift) não podem ser rebaixados para free.
+    // Regra 2: Planos cortesia (premium_gift) não podem ser rebaixados para free.
     if (currentDetails.isGift && targetPlan === 'free') {
         return false;
     }
     
-    // Se o plano atual for Free, pode ir para qualquer outro.
+    // Regra 3: Se o plano atual for FREE, só pode ser alterado para PREMIUM_GIFT.
     if (currentPlan === 'free') {
-        return true;
+        return targetPlan === 'premium_gift';
     }
     
-    // Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia (upgrade ou lateral).
+    // Regra 4: Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia (upgrade ou lateral).
     if (currentDetails.isPaid || currentDetails.isGift) {
-        return targetDetails.isPaid || targetDetails.isGift;
+        // Permite transição entre premium e premium_gift (upgrade/lateral)
+        return targetPlan === 'premium' || targetPlan === 'premium_gift';
     }
     
     return true;
@@ -134,7 +135,7 @@ export default function ManagePlans() {
 
     // Verifica se a transição é permitida
     if (!isPlanEditable(currentPlan, newPlanTyped)) {
-        showError(`Não é possível rebaixar o plano ${currentPlan.toUpperCase()} para ${newPlanTyped.toUpperCase()}.`);
+        showError(`Transição de plano não permitida: ${currentPlan.toUpperCase()} para ${newPlanTyped.toUpperCase()}.`);
         return;
     }
     
