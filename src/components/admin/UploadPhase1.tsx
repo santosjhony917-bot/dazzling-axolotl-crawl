@@ -143,10 +143,10 @@ const UploadPhase1: React.FC = () => {
       if (row.restaurantUrl.trim() && !row.restaurantUrl.startsWith('http')) {
         rowErrors.push('URL do Restaurante inválida');
       }
-      if (row.logoUrl.trim() && !row.logoUrl.startsWith('http')) {
+      if (row.logoUrl.trim() && row.logoUrl.trim().length > 0 && !row.logoUrl.startsWith('http')) {
         rowErrors.push('URL da Logo inválida');
       }
-      if (row.coverUrl.trim() && !row.coverUrl.startsWith('http')) {
+      if (row.coverUrl.trim() && row.coverUrl.trim().length > 0 && !row.coverUrl.startsWith('http')) {
         rowErrors.push('URL da Capa inválida');
       }
 
@@ -242,6 +242,7 @@ const UploadPhase1: React.FC = () => {
       
       showSuccess(`Upload de ${processedCount} restaurantes concluído com sucesso!`);
       
+      // --- Ação de Limpeza ---
       // Limpa a planilha e o localStorage após o upload bem-sucedido
       setRows([initialRow]); 
       localStorage.removeItem(STORAGE_KEY);
