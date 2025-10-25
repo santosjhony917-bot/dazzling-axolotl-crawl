@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Upload, Plus, AlertTriangle, Loader2, MapPin } from 'lucide-react';
+import { Upload, Plus, AlertTriangle, Loader2, MapPin, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -148,7 +148,17 @@ const UploadPhase2: React.FC = () => {
         
         if (targetIndex < newRows.length) {
           const rowId = newRows[targetIndex].id;
-          handleUpdateCell(rowId, key, value); // Usa o handler para aplicar formatação/CEP lookup
+          // Chamamos handleUpdateCell para garantir que a lógica de CEP/formatação seja aplicada
+          // Nota: handleUpdateCell é assíncrono, mas a atualização de estado é síncrona aqui.
+          // Para evitar problemas de concorrência, faremos a atualização direta aqui,
+          // e o CEP lookup será acionado pelo useEffect no input.
+          
+          let finalValue = value;
+          if (key === 'cep') {
+            finalValue = formatCEP(value);
+          }
+          
+          newRows[targetIndex] = { ...newRows[targetIndex], [key]: finalValue, isGeocoded: false };
         }
         // Não adicionamos novas linhas aqui, apenas atualizamos as existentes
       }
@@ -157,7 +167,7 @@ const UploadPhase2: React.FC = () => {
     });
     
     showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
-  }, [handleUpdateCell]);
+  }, []);
 
   // 4. Geocode and Upload Logic
   const handleGeocodeAndUpload = useCallback(async () => {
@@ -292,7 +302,8 @@ const UploadPhase2: React.FC = () => {
                   {columns.map(col => (
                     <Input
                       key={col.key}
-                      value={row[col.key as keyof RestaurantDataPhase2] || ''}
+                      // CORREÇÃO 1: Garante que o valor seja string ou number, convertendo booleanos para string vazia
+                      value={String(row[col.key as keyof RestaurantDataPhase2] ?? '')}
                       onChange={(e) => handleUpdateCell(row.id, col.key as keyof RestaurantDataPhase2, e.target.value)}
                       onPaste={(e) => handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
                       className="h-10 border-none rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent text-sm"
