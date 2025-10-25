@@ -8,7 +8,17 @@ import { showError, showSuccess } from '@/utils/toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'; // <-- Importação adicionada
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 // Planos disponíveis para seleção manual
 const availablePlans: { value: RestaurantPlan, label: string, isPaid: boolean }[] = [
@@ -28,9 +38,18 @@ const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
   return data as Restaurant[];
 };
 
+interface PendingChange {
+  id: string;
+  name: string;
+  currentPlan: RestaurantPlan;
+  newPlan: RestaurantPlan;
+}
+
 export default function ManagePlans() {
   const queryClient = useQueryClient();
   const [filter, setFilter] = useState<RestaurantPlan | 'all'>('all');
+  const [pendingChange, setPendingChange] = useState<PendingChange | null>(null);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   // Query para listar restaurantes
   const { data: restaurants, isLoading, error, refetch } = useQuery<Restaurant[], Error>({
@@ -51,9 +70,13 @@ export default function ManagePlans() {
     onSuccess: () => {
       showSuccess('Plano atualizado com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['adminRestaurantsList'] });
+      setPendingChange(null);
+      setIsAlertOpen(false);
     },
     onError: (e) => {
       showError(`Falha ao atualizar plano: ${(e as Error).message}`);
+      setPendingChange(null);
+      setIsAlertOpen(false);
     },
   });
 
@@ -63,8 +86,23 @@ export default function ManagePlans() {
     return restaurants.filter(r => r.plan === filter);
   }, [restaurants, filter]);
 
-  const handlePlanChange = (restaurantId: string, currentPlan: RestaurantPlan, newPlan: string) => {
+  const isPlanEditable = (plan: RestaurantPlan) => {
+    // Apenas planos 'free' são editáveis para upgrade manual
+    return plan === 'free';
+  };
+  
+  const getPlanColor = (plan: RestaurantPlan) => {
+    switch (plan) {
+      case 'premium': return 'bg-amber-500 text-white';
+      case 'basic': return 'bg-blue-500 text-white';
+      case 'free': return 'bg-gray-200 text-gray-700';
+      default: return 'bg-gray-200 text-gray-700';
+    }
+  };
+
+  const handlePlanChange = (restaurant: Restaurant, newPlan: string) => {
     const newPlanTyped = newPlan as RestaurantPlan;
+    const currentPlan = restaurant.plan;
     
     // Regra de Negócio: Planos pagos não podem ser rebaixados manualmente
     const isCurrentPlanPaid = availablePlans.find(p => p.value === currentPlan)?.isPaid;
@@ -76,22 +114,23 @@ export default function ManagePlans() {
     }
     
     if (currentPlan !== newPlanTyped) {
-      updatePlanMutation.mutate({ id: restaurantId, newPlan: newPlanTyped });
+      setPendingChange({
+        id: restaurant.id,
+        name: restaurant.name,
+        currentPlan: currentPlan,
+        newPlan: newPlanTyped,
+      });
+      setIsAlertOpen(true);
     }
   };
   
-  const getPlanColor = (plan: RestaurantPlan) => {
-    switch (plan) {
-      case 'premium': return 'bg-amber-500 text-white';
-      case 'basic': return 'bg-blue-500 text-white';
-      case 'free': return 'bg-gray-200 text-gray-700';
-      default: return 'bg-gray-200 text-gray-700';
+  const confirmPlanUpdate = () => {
+    if (pendingChange) {
+      updatePlanMutation.mutate({ 
+        id: pendingChange.id, 
+        newPlan: pendingChange.newPlan 
+      });
     }
-  };
-  
-  const isPlanEditable = (plan: RestaurantPlan) => {
-    // Se o plano for pago, ele não é editável (para Free/Basic)
-    return plan === 'free';
   };
 
   return (
@@ -152,7 +191,7 @@ export default function ManagePlans() {
                     
                     <Select 
                       value={restaurant.plan} 
-                      onValueChange={(newPlan) => handlePlanChange(restaurant.id, restaurant.plan, newPlan)}
+                      onValueChange={(newPlan) => handlePlanChange(restaurant, newPlan)}
                       disabled={!isPlanEditable(restaurant.plan) || updatePlanMutation.isPending}
                     >
                       <SelectTrigger className="w-[120px] h-10">
@@ -178,6 +217,38 @@ export default function ManagePlans() {
           )}
         </CardContent>
       </Card>
+      
+      {/* Alert Dialog de Confirmação */}
+      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center text-primary">
+              <Crown className="h-5 w-5 mr-2 text-highlight" /> Confirmar Alteração de Plano
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Você tem certeza que deseja alterar o plano do restaurante 
+              <span className="font-bold text-gray-900"> {pendingChange?.name}</span> de 
+              <span className="font-bold text-highlight"> {pendingChange?.currentPlan.toUpperCase()}</span> para 
+              <span className="font-bold text-highlight"> {pendingChange?.newPlan.toUpperCase()}</span>?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel 
+              onClick={() => setPendingChange(null)} 
+              disabled={updatePlanMutation.isPending}
+            >
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmPlanUpdate} 
+              disabled={updatePlanMutation.isPending} 
+              className="bg-highlight hover:bg-highlight/90"
+            >
+              {updatePlanMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirmar Alteração'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
