@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, ShoppingCart, Globe } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, ShoppingCart, Globe, Camera } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +17,8 @@ import ProfileHeaderManagement from './restaurant/profile/ProfileHeaderManagemen
 import InfoCardItem from './InfoCardItem';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useUserRole } from '@/hooks/useUserRole';
-import { cn } from '@/lib/utils'; // <-- Importação adicionada
+import { cn } from '@/lib/utils';
+import NavCardItem from './NavCardItem'; // Importando NavCardItem
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -365,18 +366,23 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </div>
           )}
 
-          {/* 4. Cardápio (Card) */}
+          {/* 4. Gerenciamento de Conteúdo (Cardápio e Galeria) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
-              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
-              <div className="p-4 space-y-3">
-                <Button 
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Gerenciamento de Conteúdo</h3>
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <NavCardItem 
+                  label="Cardápio e Itens" 
+                  description="Adicione, edite e remova pratos e produtos."
+                  icon={Utensils} 
                   onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
-                >
-                  <Utensils className="w-5 h-5 mr-2" />
-                  Atualizar Cardápio
-                </Button>
+                />
+                <NavCardItem 
+                  label="Galeria de Fotos" 
+                  description="Gerencie as imagens do seu restaurante."
+                  icon={Camera} 
+                  onClick={() => navigate(createPageUrl('restaurant-area/gallery'))}
+                />
               </div>
             </Card>
           </div>
@@ -467,7 +473,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Suporte e Conta</h3>
-              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              <div className="divide-y divide-y-200 dark:divide-gray-700">
                 <a onClick={() => navigate(createPageUrl('restaurant-area/help'))} className="p-4 flex justify-between items-center text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer">
                   <span className="text-sm">Central de Ajuda</span>
                   <ChevronRight className="w-5 h-5" />

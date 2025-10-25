@@ -1,0 +1,102 @@
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { showError, showSuccess } from "@/utils/toast";
+import { logError } from "@/utils/errorLogger";
+
+export interface GalleryImage {
+  id: string;
+  restaurant_id: string;
+  image_url: string;
+  caption: string | null;
+  order_index: number;
+}
+
+const GALLERY_QUERY_KEY = (restaurantId: string) => ['restaurantGallery', restaurantId];
+
+const fetchGallery = async (restaurantId: string): Promise<GalleryImage[]> => {
+  const { data, error } = await supabase
+    .from('restaurant_gallery')
+    .select('*')
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  if (error) {
+    logError(error, { context: 'fetchGallery' });
+    throw new Error(error.message);
+  }
+  return data as GalleryImage[];
+};
+
+export function useGalleryManagement(restaurantId: string | null) {
+  const queryClient = useQueryClient();
+  const queryKey = restaurantId ? GALLERY_QUERY_KEY(restaurantId) : ['restaurantGallery', 'null'];
+
+  const { data: gallery, isLoading, error, refetch } = useQuery<GalleryImage[], Error>({
+    queryKey: queryKey,
+    queryFn: () => fetchGallery(restaurantId!),
+    enabled: !!restaurantId,
+    staleTime: 60000,
+  });
+
+  const invalidateGallery = () => {
+    if (restaurantId) {
+      queryClient.invalidateQueries({ queryKey: GALLERY_QUERY_KEY(restaurantId) });
+    }
+  };
+
+  // Mutação para adicionar uma nova imagem
+  const addImageMutation = useMutation({
+    mutationFn: async (image: { image_url: string, caption?: string }) => {
+      if (!restaurantId) throw new Error("Restaurant ID is missing.");
+      
+      const { error } = await supabase
+        .from('restaurant_gallery')
+        .insert({
+          restaurant_id: restaurantId,
+          image_url: image.image_url,
+          caption: image.caption || null,
+        });
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      showSuccess("Foto adicionada à galeria!");
+      invalidateGallery();
+    },
+    onError: (e) => {
+      logError(e, { context: 'addImageMutation' });
+      showError(`Falha ao adicionar foto: ${(e as Error).message}`);
+    },
+  });
+
+  // Mutação para remover uma imagem
+  const removeImageMutation = useMutation({
+    mutationFn: async (imageId: string) => {
+      const { error } = await supabase
+        .from('restaurant_gallery')
+        .delete()
+        .eq('id', imageId);
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      showSuccess("Foto removida da galeria.");
+      invalidateGallery();
+    },
+    onError: (e) => {
+      logError(e, { context: 'removeImageMutation' });
+      showError(`Falha ao remover foto: ${(e as Error).message}`);
+    },
+  });
+
+  return {
+    gallery: gallery || [],
+    isLoading,
+    error: error ? error.message : null,
+    refetch,
+    addImage: addImageMutation.mutateAsync,
+    removeImage: removeImageMutation.mutateAsync,
+    isAdding: addImageMutation.isPending,
+    isRemoving: removeImageMutation.isPending,
+  };
+}

@@ -36,6 +36,7 @@ import PopularCategories from './pages/admin/PopularCategories';
 import Files from './pages/admin/Files';
 import ImportMenu from './pages/admin/ImportMenu';
 import AdminLogin from './pages/admin/AdminLogin'; // NOVO IMPORT
+import GalleryManagement from './pages/restaurant/GalleryManagement'; // NOVO IMPORT
 
 function App() {
   return (
@@ -74,7 +75,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/favorites" element={<Favorites />} /> {/* Movido para cá */}
+            <Route path="/favorites" element={<Favorites />} />
 
             {/* Rotas Protegidas da Área do Restaurante */}
             <Route path="/restaurant-area" element={<RestaurantArea />}>
@@ -86,6 +87,7 @@ function App() {
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
               <Route path="stats" element={<ClientSearchPage />} /> 
+              <Route path="gallery" element={<GalleryManagement />} /> {/* NOVA ROTA */}
             </Route>
           </Route>
           
