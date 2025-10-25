@@ -8,13 +8,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { createPageUrl } from '@/utils/url';
-import { useAuthContext } from '../../hooks/useAuthContext'; // Corrigido
+import { useAuthContext } from '../../hooks/useAuthContext'; // Mantendo o caminho original
 import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/restaurant';
-import MenuManagement from '../../pages/MenuManagement'; // Corrigido
-import GalleryManagement from './GalleryManagement'; // Mantido, assumindo que existe
-import OpeningHoursManagement from './OpeningHoursManagement'; // Mantido, assumindo que existe
+import MenuManagement from '../../pages/MenuManagement'; // Mantendo o caminho original
+import GalleryManagement from './GalleryManagement'; // Mantendo o caminho original
+import OpeningHoursManagement from './OpeningHoursManagement'; // Mantendo o caminho original
 
 // Tipagem para o estado de edição
 interface RestaurantEditState {
