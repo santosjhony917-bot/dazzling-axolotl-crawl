@@ -6,12 +6,14 @@ import { showSuccess, showError } from "@/utils/toast";
 const FAVORITES_QUERY_KEY = ['userFavorites'];
 
 const fetchFavorites = async (userId: string) => {
+  // Usando 'restaurants!inner' para forçar o join e garantir que a relação seja encontrada.
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant_id')
+    .select('restaurant_id, restaurants!inner(id)') // Seleciona o ID do restaurante via join
     .eq('user_id', userId);
 
   if (error) throw new Error(error.message);
+  // Mapeia para retornar apenas os IDs dos restaurantes favoritados
   return data.map(f => f.restaurant_id);
 };
 

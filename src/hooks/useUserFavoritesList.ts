@@ -18,12 +18,12 @@ interface FavoriteRestaurant {
 }
 
 const fetchUserFavorites = async (userId: string) => {
-  // Using 'restaurants(*)' to fetch related restaurant details
+  // Usando 'restaurants!inner' para forçar o join e garantir que a relação seja encontrada.
   const { data, error } = await supabase
     .from('user_favorites')
     .select(`
       restaurant_id,
-      restaurants (
+      restaurants!inner (
         id,
         name,
         image_url,
@@ -34,8 +34,8 @@ const fetchUserFavorites = async (userId: string) => {
     .eq('user_id', userId);
 
   if (error) throw new Error(error.message);
-  // We cast the result to the expected array type
-  return data as unknown as FavoriteRestaurant[];
+  // Filtramos explicitamente para garantir que apenas objetos válidos sejam retornados
+  return data.filter(item => item.restaurants !== null) as unknown as FavoriteRestaurant[];
 };
 
 export function useUserFavoritesList() {
@@ -48,7 +48,7 @@ export function useUserFavoritesList() {
   });
 
   return {
-    favorites: data?.filter(item => item.restaurants !== null) || [],
+    favorites: data || [],
     isLoading: isLoading || isAuthLoading,
     error: error ? error.message : null,
   };
