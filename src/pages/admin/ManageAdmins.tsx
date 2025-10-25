@@ -74,6 +74,7 @@ export default function ManageAdmins() {
   });
 
   const handleAddAdmin = (e: React.FormEvent) => {
+    console.log("handleAddAdmin called."); // <-- NOVO LOG
     e.preventDefault();
     
     const trimmedEmail = emailToAdd.trim();
