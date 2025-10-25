@@ -1,52 +1,101 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Utensils } from 'lucide-react';
-import ClientLayout from '@/components/ClientLayout';
+import { Heart, Utensils, MapPin, Loader2, ArrowLeft } from 'lucide-react';
+import { useAuthContext } from '@/context/AuthContext';
+import { useUserFavoritesList } from '@/hooks/useUserFavoritesList';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import ClientLayout from '@/components/ClientLayout';
 
-// Mock data for demonstration
-const mockFavorites = [
-  { id: 'r1', name: 'Pizzaria do Chef', category: 'Italiana', distance_km: 2.1, plan: 'premium', image_url: 'https://images.unsplash.com/photo-1513104890138-7c7496e1ef17?q=80&w=1974&auto=format&fit=crop' },
-  { id: 'r2', name: 'Sushi House', category: 'Japonesa', distance_km: 0.8, plan: 'basic', image_url: 'https://images.unsplash.com/photo-1579871708004-72e6290d224c?q=80&w=1974&auto=format&fit=crop' },
-];
-
-const Favorites: React.FC = () => {
+export default function Favorites() {
+  const { user, isLoading: isAuthLoading, restaurant } = useAuthContext();
   const navigate = useNavigate();
+  const isRestaurantUser = !!restaurant;
   
-  const handleViewRestaurant = (restaurantId: string) => {
-    navigate(createPageUrl('restaurantProfile', { restaurantId }));
-  };
+  const { favorites, isLoading: isFavoritesLoading, error } = useUserFavoritesList();
+
+  const isLoading = isAuthLoading || isFavoritesLoading;
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
+  if (!user) {
+    // Se não estiver logado, mostra a tela de login/explorar
+    return (
+      <div className="p-6 text-center">
+        <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Acesse para ver seus favoritos</h2>
+        <p className="text-gray-600 mb-6">Faça login para salvar e gerenciar seus restaurantes preferidos.</p>
+        <Button onClick={() => navigate(createPageUrl('auth'))}>
+          Fazer Login
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <ClientLayout selectedTab="favorites">
-      <div className="p-4 space-y-4 pt-20">
-        <h1 className="text-2xl font-bold text-primary">Meus Favoritos</h1>
+    <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
+      <div className="p-4 space-y-4">
+        <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Heart className="w-6 h-6 fill-red-500 text-red-500" /> Favoritos
+        </h1>
         
-        {mockFavorites.length > 0 ? (
-          <div className="space-y-4">
-            {mockFavorites.map((restaurant) => (
-              <RestaurantCard 
-                key={restaurant.id} 
-                restaurant={restaurant as any} // Usando 'any' para mock data
-                onClick={() => handleViewRestaurant(restaurant.id)}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center p-8 text-gray-600">
-            <Heart className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <p className="text-xl font-semibold">Nenhum Favorito</p>
-            <p className="mt-2">Comece a explorar e adicione seus restaurantes preferidos!</p>
-            <Button onClick={() => navigate(createPageUrl('home'))} className="mt-4 bg-highlight hover:bg-highlight/90">
+        {error ? (
+          <div className="p-4 text-red-500">Erro ao carregar favoritos: {error}</div>
+        ) : favorites.length === 0 ? (
+          <div className="p-6 text-center">
+            <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum favorito encontrado</h2>
+            <p className="text-gray-600 mb-6">Comece a explorar e adicione seus restaurantes preferidos.</p>
+            <Button onClick={() => navigate(createPageUrl('search-client'))}>
               Explorar Restaurantes
             </Button>
           </div>
+        ) : (
+          <div className="space-y-4">
+            {favorites.map((fav) => {
+              const r = fav.restaurants;
+              if (!r) return null;
+
+              return (
+                <Card 
+                  key={r.id} 
+                  className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                  onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: r.id }))}
+                >
+                  <img 
+                    src={r.image_url || PLACEHOLDER_IMAGE_URL} 
+                    alt={r.name} 
+                    className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
+                  />
+                  <div className="flex flex-col justify-center">
+                    <h3 className="font-bold text-lg text-gray-800">{r.name}</h3>
+                    <p className="text-sm text-gray-600 flex items-center gap-1">
+                      <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
+                    </p>
+                    <p className="text-xs text-gray-500 flex items-center gap-1">
+                      <MapPin className="w-3 h-3" /> {r.city || 'Localização desconhecida'}
+                    </p>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        )}
+        
+        {isRestaurantUser && (
+          <p className="text-sm text-gray-500 mt-6 text-center">
+            Usuários de restaurante não podem favoritar.
+          </p>
         )}
       </div>
     </ClientLayout>
   );
-};
-
-export default Favorites;
+}
