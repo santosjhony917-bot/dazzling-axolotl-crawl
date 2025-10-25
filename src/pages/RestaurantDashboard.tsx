@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search } from 'lucide-react';
+import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
@@ -37,14 +37,15 @@ const RestaurantDashboard = () => {
     refetch();
   };
   
-  const handleGoToStats = () => {
-    if (location.latitude === 0 && location.longitude === 0) {
-      alert("Por favor, defina sua localização de busca primeiro para ver estatísticas de concorrentes.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    // Navega para a tela de busca/análise (agora mapeada para ClientSearchPage)
-    navigate(createPageUrl('restaurant-area/stats'));
+  // Placeholder para as novas ações de busca
+  const handleSearchByPrice = () => {
+    console.log("Ação: Buscar Prato por Preço (Placeholder)");
+    // A rota será definida depois
+  };
+
+  const handleSearchNearby = () => {
+    console.log("Ação: Buscar Restaurantes Próximos (Placeholder)");
+    // A rota será definida depois
   };
   
   const handleEditMenu = () => {
@@ -92,17 +93,17 @@ const RestaurantDashboard = () => {
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (Editar Cardápio / Ver Estatísticas) */}
+        {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
-            title="Editar Cardápio" 
-            icon={Pencil} 
-            onClick={handleEditMenu}
+            title="Buscar Prato por Preço" 
+            icon={DollarSign} 
+            onClick={handleSearchByPrice}
           />
           <ActionCard 
-            title="Análise de Mercado" 
-            icon={Search} // Usando Search para refletir a busca
-            onClick={handleGoToStats}
+            title="Buscar Restaurantes Próximos" 
+            icon={Compass} 
+            onClick={handleSearchNearby}
           />
         </div>
 
@@ -138,7 +139,7 @@ const RestaurantDashboard = () => {
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleGoToStats}
+              onClick={handleSearchNearby}
             >
               Ver todos
             </Button>

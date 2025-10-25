@@ -12,7 +12,6 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
-import ClientSearchActions from '@/components/ClientSearchActions'; // NOVO IMPORT
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -39,17 +38,6 @@ const Home: React.FC = () => {
   const handleLocationSaved = () => {
     refetchLocation();
     setIsLocationModalOpen(false);
-  };
-  
-  // Placeholder para as novas ações de busca
-  const handleSearchByPrice = () => {
-    console.log("Ação: Buscar Prato por Preço (Placeholder)");
-    // A rota será definida depois
-  };
-
-  const handleSearchNearby = () => {
-    console.log("Ação: Buscar Restaurantes Próximos (Placeholder)");
-    // A rota será definida depois
   };
   
   const handleSearch = (e: React.FormEvent) => {
@@ -95,7 +83,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         
-        {/* Barra de Busca (Mantida para busca geral) */}
+        {/* Barra de Busca */}
         <form onSubmit={handleSearch} className="mt-4 flex gap-2">
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -111,12 +99,6 @@ const Home: React.FC = () => {
               <Filter className="w-5 h-5" />
           </Button>
         </form>
-        
-        {/* NOVOS BOTÕES DE AÇÃO */}
-        <ClientSearchActions 
-          onSearchByPrice={handleSearchByPrice}
-          onSearchNearby={handleSearchNearby}
-        />
       </header>
 
       <main className="p-4 space-y-6">
