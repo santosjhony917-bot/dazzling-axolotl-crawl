@@ -39,6 +39,8 @@ const fetchRestaurantByOwner = async (userId: string): Promise<Restaurant | null
 // 2. Fetch User Role (Mocked/Simplified)
 const fetchUserRole = async (userId: string): Promise<{ isPremium: boolean, isAdmin: boolean }> => {
     // Busca o perfil do restaurante (usando o cache se possível)
+    // Nota: Não podemos usar queryClient.getQueryData aqui, pois estamos fora do componente React.
+    // Vamos buscar diretamente o restaurante para determinar o plano.
     const restaurant = await fetchRestaurantByOwner(userId);
     
     const isPremium = restaurant?.plan === 'premium';
@@ -71,12 +73,18 @@ export function useAuthProfile(): AuthProfileState {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
       setAuthLoading(false);
+      
+      // Se o usuário acabou de fazer login ou se a sessão foi restaurada, forçamos o refetch do perfil
+      if (session?.user) {
+          queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_KEY(session.user.id) });
+          queryClient.invalidateQueries({ queryKey: USER_ROLE_KEY(session.user.id) });
+      }
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [checkSession]);
+  }, [checkSession, queryClient]);
 
   // --- Data Queries (TanStack Query) ---
   const userId = user?.id || 'null';
@@ -114,9 +122,10 @@ export function useAuthProfile(): AuthProfileState {
   }, [queryClient]);
   
   const refetchProfile = useCallback(() => {
-      refetchRestaurant();
-      refetchRoles();
-  }, [refetchRestaurant, refetchRoles]);
+      // Invalida e refaz a busca de ambos os perfis
+      queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_KEY(userId) });
+      queryClient.invalidateQueries({ queryKey: USER_ROLE_KEY(userId) });
+  }, [queryClient, userId]);
 
   return {
     user,
