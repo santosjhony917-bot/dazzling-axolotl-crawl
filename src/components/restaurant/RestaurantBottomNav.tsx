@@ -26,6 +26,27 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 });
 
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
+  const location = useLocation();
+  
+  // Mapeia rotas para garantir que o item correto seja ativado
+  const getActivePath = (path: string, key: string) => {
+    // Prioriza a prop selectedTab se fornecida
+    if (selectedTab) {
+      return selectedTab === key;
+    }
+    
+    // Lógica de ativação para rotas específicas
+    if (key === 'stats') {
+        // Ativa se o path for /restaurant-area/stats OU /search-client
+        return location.pathname.startsWith(createPageUrl('restaurant-area/stats')) || location.pathname.startsWith(createPageUrl('search-client'));
+    }
+    
+    // Fallback para a rota atual
+    if (path === createPageUrl('restaurant-area/home') && location.pathname === createPageUrl('restaurant-area/home')) return true;
+    
+    // Verifica se a rota atual começa com o caminho do item
+    return location.pathname.startsWith(path);
+  };
   
   // Definindo o item central baseado no plano
   const centralItem = isFree 
@@ -44,7 +65,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
+    // CORRIGIDO: Aponta para a rota de busca de clientes
+    { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('search-client') }, 
     centralItem, // Item central dinâmico
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
@@ -53,7 +75,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const isSelected = selectedTab === item.id;
+          const isSelected = getActivePath(item.path, item.id);
           const isCentralButton = item.id === centralItem.id;
           
           // Se for o botão central E for o botão de Upgrade (isFree = true)
