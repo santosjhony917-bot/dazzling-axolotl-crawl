@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 
 const ProtectedRoute: React.FC = () => {
-  const { user, isLoading, isAdmin } = useAuthContext();
+  const { user, isLoading } = useAuthContext();
 
   if (isLoading) {
     return (
@@ -20,13 +20,7 @@ const ProtectedRoute: React.FC = () => {
     return <Navigate to="/auth" replace />;
   }
   
-  // Se o usuário estiver logado E for administrador, redireciona para o painel de administração
-  if (isAdmin) {
-    // Nota: O AdminLayout já redireciona /admin para /admin/dashboard, mas vamos ser explícitos.
-    return <Navigate to={createPageUrl('admin/dashboard')} replace />;
-  }
-
-  // Se o usuário estiver logado, mas não for administrador, permite o acesso às rotas filhas (cliente/restaurante)
+  // Permite o acesso às rotas filhas (cliente/restaurante)
   return <Outlet />;
 };
 

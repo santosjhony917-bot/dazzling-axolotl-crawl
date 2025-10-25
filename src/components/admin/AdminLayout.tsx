@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { LogOut, Menu } from 'lucide-react';
+import { LogOut, Menu, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, Navigate } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import AdminSidebar from './AdminSidebar';
+import { useAuthContext } from '@/context/AuthContext';
+import { createPageUrl } from '@/utils/url';
 
 interface AdminLayoutProps {
   title: string;
-  // Removendo children, pois usaremos Outlet
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
@@ -18,14 +19,34 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   const isMobile = useIsMobile();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  
+  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+
+  // Proteção de Rota de Admin
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
+  // Se não estiver logado OU não for admin, redireciona para a página de login de admin
+  if (!user || !isAdmin) {
+    // Se o usuário estiver logado, mas não for admin, faz logout para evitar confusão
+    if (user) {
+        signOut();
+    }
+    return <Navigate to={createPageUrl('admin/login')} replace />;
+  }
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate('/auth');
+    await signOut();
+    navigate(createPageUrl('admin/login'));
   };
 
   const SidebarContent = (

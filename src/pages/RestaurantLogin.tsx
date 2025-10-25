@@ -104,57 +104,6 @@ export default function RestaurantLogin() {
     }
   };
   
-  // Função de Login de Administrador de Teste
-  const handleAdminLogin = async () => {
-    setLoading(true);
-    const adminEmail = "joaoedasilva018@gmail.com";
-    const adminPassword = "password"; // Usando uma senha padrão para o teste
-    
-    try {
-        const { error } = await supabase.auth.signInWithPassword({
-            email: adminEmail,
-            password: adminPassword,
-        });
-        
-        if (error) {
-            // Se o usuário não existir, cria um mock de admin
-            if (error.message.includes('Invalid login credentials')) {
-                const { error: signUpError } = await supabase.auth.signUp({
-                    email: adminEmail,
-                    password: adminPassword,
-                    options: {
-                        data: {
-                            // Adiciona o metadado para simular o papel de admin
-                            role: 'admin' 
-                        }
-                    }
-                });
-                if (signUpError) throw signUpError;
-                
-                // Tenta logar novamente após o cadastro
-                await supabase.auth.signInWithPassword({
-                    email: adminEmail,
-                    password: adminPassword,
-                });
-            } else {
-                throw error;
-            }
-        }
-        
-        showSuccess("Login de Admin de Teste realizado! Redirecionando para o painel.");
-        setTimeout(() => {
-            navigate(createPageUrl("admin/dashboard")); 
-        }, 500);
-
-    } catch (error) {
-        const msg = (error as Error).message || "Falha no login de Admin de Teste.";
-        setLastError(msg);
-        showError(msg);
-    } finally {
-        setLoading(false);
-    }
-  };
-
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
       
@@ -246,16 +195,8 @@ export default function RestaurantLogin() {
                 </Button>
               </form>
               
-              {/* Botão de Login Forçado para Dev */}
+              {/* Botão de Login de Cliente */}
               <div className="pt-4 space-y-2">
-                <Button
-                  onClick={handleAdminLogin}
-                  variant="secondary"
-                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
-                  disabled={loading}
-                >
-                  Login de Admin de Teste
-                </Button>
                 <Button
                   onClick={() => navigate(createPageUrl('auth'))}
                   variant="secondary"
