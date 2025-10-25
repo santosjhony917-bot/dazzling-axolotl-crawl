@@ -13,6 +13,8 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import { showSuccess } from '@/utils/toast';
 
 // Mock Data
 const mockHighlights = [
@@ -32,15 +34,20 @@ const RestaurantDashboard = () => {
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // Novo estado para o modal de preço
 
   const handleLocationSaved = () => {
     refetch();
   };
   
-  // Placeholder para as novas ações de busca
   const handleSearchByPrice = () => {
-    console.log("Ação: Buscar Prato por Preço (Placeholder)");
-    // A rota será definida depois
+    setIsPriceModalOpen(true);
+  };
+
+  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
+    // TODO: Implementar a lógica de busca real com os filtros de preço
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
+    // Por enquanto, apenas fechamos o modal. A busca real virá depois.
   };
 
   const handleSearchNearby = () => {
@@ -165,6 +172,13 @@ const RestaurantDashboard = () => {
         onClose={() => setIsLocationModalOpen(false)}
         currentAddress={location.address}
         onLocationSaved={handleLocationSaved}
+      />
+      
+      {/* Search By Price Modal */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
       />
     </div>
   );

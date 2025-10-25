@@ -1,11 +1,9 @@
-/**
- * Formats a number into Brazilian Real currency string.
- * @param value The number to format.
- * @returns Formatted currency string (e.g., R$ 1.234,56).
- */
-export const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(value);
+export const formatCurrency = (amount: number, includePrefix: boolean = true): string => {
+  const formatted = new Intl.NumberFormat('pt-BR', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+
+  return includePrefix ? `R$${formatted}` : formatted;
 };

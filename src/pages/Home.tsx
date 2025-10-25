@@ -10,14 +10,16 @@ import { createPageUrl } from '@/utils/url';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
-import { showError } from '@/utils/toast';
+import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
-import ActionCard from '@/components/restaurant/dashboard/ActionCard'; // Reutilizando ActionCard
+import ActionCard from '@/components/restaurant/dashboard/ActionCard';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // Novo estado para o modal de preço
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -41,10 +43,14 @@ const Home: React.FC = () => {
     setIsLocationModalOpen(false);
   };
   
-  // Placeholder para as novas ações de busca
   const handleSearchByPrice = () => {
-    console.log("Ação: Buscar Prato por Preço (Placeholder)");
-    // A rota será definida depois
+    setIsPriceModalOpen(true);
+  };
+
+  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
+    // TODO: Implementar a lógica de busca real com os filtros de preço
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}`);
+    // Por enquanto, apenas fechamos o modal. A busca real virá depois.
   };
 
   const handleSearchNearby = () => {
@@ -170,6 +176,13 @@ const Home: React.FC = () => {
         onClose={() => setIsLocationModalOpen(false)}
         currentAddress={location.address}
         onLocationSaved={handleLocationSaved}
+      />
+      
+      {/* Search By Price Modal */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
       />
     </div>
   );
