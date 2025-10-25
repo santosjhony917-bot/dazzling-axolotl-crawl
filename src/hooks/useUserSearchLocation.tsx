@@ -10,6 +10,7 @@ interface UserSearchLocation {
   address: string;
   latitude: number;
   longitude: number;
+  cep: string | null; // Adicionado o campo CEP
 }
 
 const DEFAULT_LOCATION: UserSearchLocation = {
@@ -18,6 +19,7 @@ const DEFAULT_LOCATION: UserSearchLocation = {
   address: "Localização Padrão (João Pessoa)",
   latitude: -7.1195,
   longitude: -34.8450,
+  cep: '58038-000', // CEP mockado para João Pessoa
 };
 
 export function useUserSearchLocation() {
@@ -48,6 +50,7 @@ export function useUserSearchLocation() {
           address: data.address,
           latitude: data.latitude,
           longitude: data.longitude,
+          cep: data.cep, // Mapeando o CEP
         });
       } else {
         // 2. Se não houver localização salva, usa o padrão
@@ -87,6 +90,7 @@ export function useUserSearchLocation() {
       address: addressData.formattedAddress,
       latitude: addressData.lat,
       longitude: addressData.lon,
+      cep: addressData.cep, // Salvando o CEP
     };
 
     try {
@@ -106,6 +110,7 @@ export function useUserSearchLocation() {
         address: data.address,
         latitude: data.latitude,
         longitude: data.longitude,
+        cep: data.cep,
       });
       
       setIsLoading(false);
