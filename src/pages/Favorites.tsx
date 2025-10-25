@@ -6,10 +6,14 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useAuthContext } from '@/context/AuthContext';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 
 export default function Favorites() {
   const { favorites, isLoading, error } = useFavorites();
   const navigate = useNavigate();
+  const { restaurant } = useAuthContext();
+  const isRestaurantUser = !!restaurant;
 
   const handleViewRestaurant = (id: string) => {
     navigate(createPageUrl(`restaurant-profile/${id}`));
@@ -46,7 +50,12 @@ export default function Favorites() {
         </div>
       )}
       
-      <CustomerBottomNav selectedTab="favorites" />
+      {/* Renderiza o menu de navegação correto com base no papel do usuário */}
+      {isRestaurantUser && restaurant ? (
+        <RestaurantBottomNav selectedTab="favorites" isFree={restaurant.plan === 'free'} />
+      ) : (
+        <CustomerBottomNav selectedTab="favorites" />
+      )}
     </div>
   );
 }
