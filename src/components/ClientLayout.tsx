@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import CustomerBottomNav from './CustomerBottomNav';
@@ -16,7 +16,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ title, children, selectedTa
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] flex flex-col">
+    <div className="min-h-screen bg-[#f5f7f8] flex flex-col relative">
       
       {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
@@ -38,13 +38,15 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ title, children, selectedTa
         <div className="w-10"></div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content - Padding bottom added to account for fixed bottom nav */}
       <main className="flex-1 w-full max-w-md mx-auto pb-20">
         {children}
       </main>
 
-      {/* Bottom Navigation */}
-      <CustomerBottomNav selectedTab={selectedTab} />
+      {/* Bottom Navigation - Fixed position */}
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+        <CustomerBottomNav selectedTab={selectedTab} />
+      </div>
     </div>
   );
 };
