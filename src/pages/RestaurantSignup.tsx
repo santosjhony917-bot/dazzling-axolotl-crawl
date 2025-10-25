@@ -2,28 +2,32 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import { ArrowLeft, Store, PlusCircle, Eye, EyeOff, Loader2 } from "lucide-react";
+import { ArrowLeft, Store, PlusCircle, Eye, EyeOff, Loader2, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
-import LocationCard from "@/components/restaurant/LocationCard";
 import { supabase } from "@/integrations/supabase/client";
-import { registerRestaurant } from "@/integrations/supabase/edgeFunctions"; // Importando a função de registro
+import { registerRestaurant } from "@/integrations/supabase/edgeFunctions";
 import { showError, showSuccess } from "@/utils/toast";
+import { formatCEP } from "@/services/geocoding";
+import axios from "axios";
 
-// Tipagem para a localização
+// Tipagem para a localização única
 interface Location {
-  id: number;
   cep: string;
   street: string;
   number: string;
-  complement: string; // Novo campo
+  complement: string;
   neighborhood: string;
   city: string;
   state: string;
   phone: string;
 }
+
+const initialLocation: Location = {
+  cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: ""
+};
 
 export default function RestaurantSignup() {
   const navigate = useNavigate();
@@ -32,32 +36,56 @@ export default function RestaurantSignup() {
 
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
-  const [locations, setLocations] = useState<Location[]>([
-    { id: 1, cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: "" }
-  ]);
+  const [location, setLocation] = useState<Location>(initialLocation);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isSearchingCep, setIsSearchingCep] = useState(false);
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
-  const addLocation = () => {
-    const newId = Math.max(...locations.map(l => l.id), 0) + 1;
-    setLocations([...locations, { id: newId, cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: "" }]);
+  const updateLocation = (field: keyof Location, value: string) => {
+    setLocation(prev => ({ ...prev, [field]: value }));
+  };
+  
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const formattedValue = formatCEP(rawValue);
+    updateLocation('cep', formattedValue);
   };
 
-  const removeLocation = (id: number) => {
-    setLocations(locations.filter(loc => loc.id !== id));
-  };
+  // Efeito para buscar CEP automaticamente
+  React.useEffect(() => {
+    const cleanedCep = location.cep.replace(/\D/g, '');
+    if (cleanedCep.length === 8 && !loading && !isSearchingCep) {
+      const fetchViaCEP = async () => {
+        setIsSearchingCep(true);
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
+          const data = response.data;
 
-  const updateLocation = (id: number, field: keyof Location, value: string) => {
-    setLocations(prevLocations => prevLocations.map(loc => 
-      loc.id === id ? { ...loc, [field]: value } : loc
-    ));
-  };
+          if (!data.erro) {
+            updateLocation('street', data.logradouro || '');
+            updateLocation('neighborhood', data.bairro || '');
+            updateLocation('city', data.localidade || '');
+            updateLocation('state', data.uf || '');
+            showSuccess("Endereço preenchido automaticamente!");
+          } else {
+            showError("CEP não encontrado.");
+          }
+        } catch (error) {
+          showError("Erro ao buscar CEP.");
+        } finally {
+          setIsSearchingCep(false);
+        }
+      };
+      fetchViaCEP();
+    }
+  }, [location.cep, loading]);
+
 
   const validateStep = (step: number): boolean => {
     if (step === 1) {
@@ -66,22 +94,15 @@ export default function RestaurantSignup() {
         return false;
       }
     } else if (step === 2) {
-      const invalidLocation = locations.find(loc => 
-        !loc.cep.replace(/\D/g, '').length || 
-        !loc.street.trim() || 
-        !loc.number.trim() || 
-        !loc.city.trim() || 
-        !loc.state.trim() ||
-        !loc.phone.trim()
-      );
-      
-      if (locations.length === 0) {
-        showError("Pelo menos uma filial é obrigatória.");
-        return false;
-      }
-      
-      if (invalidLocation) {
-        showError("Preencha todos os campos obrigatórios (CEP, Rua, Número, Cidade, Estado, Telefone) para todas as filiais.");
+      if (
+        !location.cep.replace(/\D/g, '').length || 
+        !location.street.trim() || 
+        !location.number.trim() || 
+        !location.city.trim() || 
+        !location.state.trim() ||
+        !location.phone.trim()
+      ) {
+        showError("Preencha todos os campos obrigatórios de localização e contato.");
         return false;
       }
     } else if (step === 3) {
@@ -128,7 +149,7 @@ export default function RestaurantSignup() {
       // 1. Envia todos os dados para a Edge Function para criação segura do usuário e registro do restaurante.
       const payload = {
         restaurantName,
-        locations: locations.map(({ id, ...rest }) => rest), // Remove o ID local
+        location, // Objeto de localização única
         email,
         password,
       };
@@ -142,7 +163,6 @@ export default function RestaurantSignup() {
       });
 
       if (signInError) {
-        // Se o login falhar, o usuário ainda está criado, mas precisamos de um erro claro.
         throw new Error(`Registro concluído, mas falha ao fazer login: ${signInError.message}`);
       }
       
@@ -155,7 +175,6 @@ export default function RestaurantSignup() {
       
       if (errorMessage.includes('already been registered') || errorMessage.includes('Usuário já existe')) {
         showError("Este e-mail já está em uso. Por favor, faça login na página de acesso do restaurante.");
-        // Redireciona para o login do restaurante
         navigate(createPageUrl('restaurant-login'));
       } else {
         showError(errorMessage || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
@@ -211,31 +230,107 @@ export default function RestaurantSignup() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <div className="mb-4">
-              <h3 className="text-primary text-lg font-bold mb-1">
-                Localização e Contato
-              </h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Adicione e gerencie as filiais do seu restaurante.
-              </p>
-              <div className="space-y-4">
-                {locations.map((location) => (
-                  <LocationCard
-                    key={location.id}
-                    location={location}
-                    onUpdate={updateLocation}
-                    onRemove={removeLocation}
-                  />
-                ))}
+            <h3 className="text-primary text-lg font-bold mb-1">
+              Localização Principal
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Insira o endereço principal do seu estabelecimento.
+            </p>
+            
+            <div className="space-y-3">
+              {/* CEP */}
+              <div className="relative">
+                <Input
+                  value={location.cep}
+                  onChange={handleCepChange}
+                  placeholder="CEP (Ex: 58039-000)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12"
+                  maxLength={9}
+                  disabled={isSearchingCep}
+                  required
+                />
+                {isSearchingCep && (
+                  <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-highlight" />
+                )}
               </div>
-              <Button
-                onClick={addLocation}
-                variant="outline"
-                className="w-full mt-6 h-12 border-2 border-primary text-primary hover:bg-primary/5 rounded-xl font-bold"
-              >
-                <PlusCircle className="w-5 h-5 mr-2" />
-                Adicionar Nova Filial
-              </Button>
+
+              {/* Rua */}
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-highlight shrink-0" />
+                <Input
+                  value={location.street}
+                  onChange={(e) => updateLocation('street', e.target.value)}
+                  placeholder="Rua / Avenida"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  required
+                />
+              </div>
+
+              {/* Número */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">#</span>
+                <Input
+                  value={location.number}
+                  onChange={(e) => updateLocation('number', e.target.value)}
+                  placeholder="Número"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  required
+                />
+              </div>
+              
+              {/* Complemento */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">C</span>
+                <Input
+                  value={location.complement}
+                  onChange={(e) => updateLocation('complement', e.target.value)}
+                  placeholder="Complemento (Ex: Sala 101, Bloco B)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                />
+              </div>
+
+              {/* Bairro */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">B</span>
+                <Input
+                  value={location.neighborhood}
+                  onChange={(e) => updateLocation('neighborhood', e.target.value)}
+                  placeholder="Bairro"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  required
+                />
+              </div>
+
+              {/* Cidade e Estado */}
+              <div className="flex gap-3">
+                <Input
+                  value={location.city}
+                  onChange={(e) => updateLocation('city', e.target.value)}
+                  placeholder="Cidade"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  required
+                />
+                <Input
+                  value={location.state}
+                  onChange={(e) => updateLocation('state', e.target.value)}
+                  placeholder="Estado (UF)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0"
+                  maxLength={2}
+                  required
+                />
+              </div>
+
+              {/* Telefone */}
+              <div className="flex items-center gap-2 pt-2">
+                <Phone className="w-5 h-5 text-highlight shrink-0" />
+                <Input
+                  value={location.phone}
+                  onChange={(e) => updateLocation('phone', e.target.value)}
+                  placeholder="Telefone de contato (obrigatório)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  required
+                />
+              </div>
             </div>
           </motion.div>
         );

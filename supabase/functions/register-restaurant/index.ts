@@ -15,7 +15,6 @@ const corsHeaders = {
 };
 
 // Service Role Key (JWT COMPLETA)
-// Usamos a variável de ambiente SUPABASE_SERVICE_ROLE_KEY se disponível, caso contrário, usamos a chave hardcoded.
 const SUPABASE_SERVICE_ROLE_KEY_HARDCODED = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzdGZmY29oY2xidHlrYW5nZm50Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgzOTA0OCwiZXhwIjoyMDc2NDE1MDQ4fQ.kzuLnGuxbL_yBQwZJvezY4a8azmW4P5mvVOgRAsdkbk";
 
 serve(async (req) => {
@@ -25,7 +24,8 @@ serve(async (req) => {
   }
 
   try {
-    const { restaurantName, locations, email, password } = await req.json();
+    // Recebe apenas uma localização
+    const { restaurantName, location, email, password } = await req.json();
     
     // Prioriza a chave da variável de ambiente, se configurada no Supabase Console
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || SUPABASE_SERVICE_ROLE_KEY_HARDCODED;
@@ -81,23 +81,21 @@ serve(async (req) => {
         userId = userData.user.id;
     }
     
-    // 4. Prepare restaurant data (using the first location for the main entry)
-    const mainLocation = locations[0];
-    
+    // 3. Prepare restaurant data (usando a única localização)
     const restaurantData = {
       user_id: userId,
       name: restaurantName,
-      address: mainLocation.street, // Apenas a rua
-      number: mainLocation.number, // <-- NOVO CAMPO
-      city: mainLocation.city,
-      state: mainLocation.state,
-      cep: mainLocation.cep,
-      neighborhood: mainLocation.neighborhood,
-      phone: mainLocation.phone,
+      address: location.street, // Apenas a rua
+      number: location.number, // NOVO CAMPO
+      city: location.city,
+      state: location.state,
+      cep: location.cep,
+      neighborhood: location.neighborhood,
+      phone: location.phone,
       email: email,
     };
 
-    // 5. Insert the main restaurant entry
+    // 4. Insert the main restaurant entry
     const { data: restaurantInsertData, error: insertError } = await supabaseAdmin
       .from("restaurants")
       .insert([restaurantData])
@@ -112,7 +110,7 @@ serve(async (req) => {
       });
     }
     
-    // 6. Return success
+    // 5. Return success
     return new Response(JSON.stringify({ 
       message: "Restaurant registered successfully", 
       restaurantId: restaurantInsertData.id,

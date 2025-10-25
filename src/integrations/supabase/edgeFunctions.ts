@@ -4,18 +4,20 @@ import { supabase } from './client';
 const SUPABASE_PROJECT_ID = 'ystffcohclbtykangfnt'; 
 const EDGE_FUNCTION_URL = `https://${SUPABASE_PROJECT_ID}.supabase.co/functions/v1/register-restaurant`;
 
+interface LocationPayload {
+  cep: string;
+  street: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  phone: string;
+}
+
 interface RegisterRestaurantPayload {
   restaurantName: string;
-  locations: Array<{
-    cep: string;
-    street: string;
-    number: string; // <-- Adicionado
-    complement: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    phone: string;
-  }>;
+  location: LocationPayload; // Alterado para um único objeto
   email: string;
   password: string;
 }
@@ -23,8 +25,8 @@ interface RegisterRestaurantPayload {
 interface RegisterRestaurantResponse {
   restaurantId: string;
   message: string;
-  email: string; // Adicionado
-  password: string; // Adicionado
+  email: string;
+  password: string;
 }
 
 export async function registerRestaurant(payload: RegisterRestaurantPayload): Promise<RegisterRestaurantResponse> {
