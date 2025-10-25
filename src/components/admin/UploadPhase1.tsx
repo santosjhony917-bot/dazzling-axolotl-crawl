@@ -6,6 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Upload, Plus, AlertTriangle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { showSuccess, showError } from '@/utils/toast';
+import { supabase } from '@/integrations/supabase/client'; // Importando o cliente Supabase
 
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
@@ -49,7 +50,6 @@ const loadInitialRows = (): RestaurantDataPhase1[] => {
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       if (Array.isArray(parsedData) && parsedData.length > 0) {
-        // Garante que cada linha tenha um ID válido (caso o ID não tenha sido persistido corretamente)
         return parsedData.map(row => ({ ...row, id: row.id || generateRowId() }));
       }
     }
@@ -90,14 +90,12 @@ const UploadPhase1: React.FC = () => {
     setRows(prevRows => [...prevRows, { ...initialRow, id: generateRowId() }]);
   };
 
-  // NOVO MANIPULADOR DE COLAGEM VERTICAL
   const handleColumnPaste = useCallback((
     e: React.ClipboardEvent<HTMLInputElement>, 
     rowIndex: number, 
     key: keyof RestaurantDataPhase1
   ) => {
     const pasteData = e.clipboardData.getData('text');
-    // Divide por linha (newline) e filtra linhas vazias
     const values = pasteData.split('\n').map(v => v.trim()).filter(v => v.length > 0);
     
     if (values.length === 0) return;
@@ -107,19 +105,15 @@ const UploadPhase1: React.FC = () => {
     setRows(prevRows => {
       const newRows = [...prevRows];
       
-      // 1. Preenche a célula onde a colagem começou
       newRows[rowIndex] = { ...newRows[rowIndex], [key]: values[0] };
       
-      // 2. Preenche as linhas subsequentes
       for (let i = 1; i < values.length; i++) {
         const targetIndex = rowIndex + i;
         const value = values[i];
         
         if (targetIndex < newRows.length) {
-          // Se a linha já existe, atualiza a célula
           newRows[targetIndex] = { ...newRows[targetIndex], [key]: value };
         } else {
-          // Se a linha não existe, cria uma nova linha
           const newRow: RestaurantDataPhase1 = { ...initialRow, id: generateRowId(), [key]: value };
           newRows.push(newRow);
         }
@@ -175,21 +169,39 @@ const UploadPhase1: React.FC = () => {
     }
     
     setIsUploading(true);
-    // Simulação de chamada de API para Edge Function ou Supabase RPC
-    console.log("Iniciando upload de dados da Fase 1:", rows);
     
-    // Aqui seria a lógica de inserção no banco de dados
-    // Ex: await supabase.rpc('bulk_insert_restaurants', { data: rows });
-    
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Simula delay
-    
-    showSuccess(`Upload de ${rows.length} restaurantes concluído com sucesso!`);
-    
-    // Limpa a planilha e o localStorage após o upload bem-sucedido
-    setRows([initialRow]); 
-    localStorage.removeItem(STORAGE_KEY);
-    
-    setIsUploading(false);
+    const dataToInsert = rows.map(row => ({
+      name: row.restaurantName,
+      category: row.categories.split(',').map(c => c.trim()).filter(Boolean).join(', '), // Limpa e formata categorias
+      image_url: row.logoUrl || null,
+      cover_image_url: row.coverUrl || null,
+      // Assumindo que restaurantUrl é o whatsapp_url ou outro_url se não for especificado
+      whatsapp_url: row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
+      other_url: !row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
+      // user_id, address, city, etc. serão preenchidos nas próximas fases ou são nulos por enquanto
+    }));
+
+    try {
+      const { error } = await supabase
+        .from('restaurants')
+        .insert(dataToInsert);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      showSuccess(`Upload de ${rows.length} restaurantes concluído com sucesso!`);
+      
+      // Limpa a planilha e o localStorage após o upload bem-sucedido
+      setRows([initialRow]); 
+      localStorage.removeItem(STORAGE_KEY);
+      
+    } catch (e) {
+      console.error("Supabase Bulk Insert Error:", e);
+      showError(`Falha ao fazer upload: ${(e as Error).message}`);
+    } finally {
+      setIsUploading(false);
+    }
   }, [rows, errors]);
 
   const validRowCount = useMemo(() => {
