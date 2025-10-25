@@ -1,170 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Utensils, User, Eye, LogOut, Settings, BarChart3, MapPin, CreditCard } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/hooks/useAuth';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { useUserRole } from '@/hooks/useUserRole';
-import { showSuccess } from '@/utils/toast';
-import { supabase } from '@/integrations/supabase/client';
-import { Separator } from '@/components/ui/separator';
+import FreeProfileLayout from '@/components/FreeProfileLayout';
+import { createPageUrl } from '@/utils/url';
+import { showError } from '@/utils/toast';
 
-// Componente de Item de Menu Reutilizável
-interface MenuItemProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  onClick: () => void;
-  isPremiumOnly?: boolean;
-  isPremium?: boolean;
-}
-
-const MenuItem: React.FC<MenuItemProps> = ({ icon: Icon, title, description, onClick, isPremiumOnly = false, isPremium = false }) => {
-  const isDisabled = isPremiumOnly && !isPremium;
-  
-  return (
-    <Card 
-      className={`w-full transition-all ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'}`}
-      onClick={isDisabled ? () => {} : onClick}
-    >
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className={`p-2 rounded-lg ${isDisabled ? 'bg-gray-200' : 'bg-primary/10'}`}>
-            <Icon className={`w-6 h-6 ${isDisabled ? 'text-gray-500' : 'text-primary'}`} />
-          </div>
-          <div>
-            <p className={`font-semibold text-base ${isDisabled ? 'text-gray-500' : 'text-primary'}`}>{title}</p>
-            <p className="text-sm text-gray-500">{description}</p>
-          </div>
-        </div>
-        {isPremiumOnly && !isPremium && (
-          <span className="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Premium</span>
-        )}
-      </CardContent>
-    </Card>
-  );
-};
-
-const RestaurantProfileMenu = () => {
+const RestaurantProfileMenu: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { restaurant } = useRestaurantProfile(user?.id || null);
-  const { isPremium } = useUserRole();
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    showSuccess("Você foi desconectado.");
-    navigate(createPageUrl('login'));
-  };
-
-  const handleGoBack = () => {
-    navigate(createPageUrl('restaurant-area/home'));
-  };
+  const { user, isLoading: authLoading } = useAuth();
+  const userId = user?.id || null;
   
-  const handleViewPublicProfile = () => {
-    if (restaurant?.id) {
-      // Navega para a rota pública do restaurante
-      navigate(createPageUrl(`restaurant-profile/${restaurant.id}`));
-    } else {
-      alert("Aguarde o carregamento do perfil do restaurante.");
+  // Busca o restaurante pelo ID do usuário logado
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
+  
+  const { isPremium } = { isPremium: restaurant?.plan === 'premium' }; // Mocking isPremium based on fetched data
+
+  // Lida com o redirecionamento para usuários não autenticados
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate(createPageUrl('restaurant-login'));
     }
-  };
+  }, [authLoading, user, navigate]);
+
+  if (authLoading || restaurantLoading) {
+    return (
+      <div className="p-4 md:p-8 space-y-8 max-w-md mx-auto">
+        <Skeleton className="h-16 w-full" />
+        <Skeleton className="h-40 w-full rounded-xl mb-6" />
+        <Skeleton className="h-6 w-3/4 mb-4" />
+        <Skeleton className="h-64 w-full rounded-xl mb-6" />
+      </div>
+    );
+  }
+
+  if (!restaurant) {
+    // Se o usuário está logado, mas não tem restaurante (deve ser raro após o signup)
+    return (
+      <div className="p-8 text-center max-w-md mx-auto">
+        <h2 className="text-xl font-semibold text-[#022D68]">Nenhum restaurante encontrado.</h2>
+        <p className="text-gray-500">Por favor, verifique se o cadastro foi concluído ou entre em contato com o suporte.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurant-signup'))} className="mt-4 bg-[#E47948] hover:bg-[#E47948]/90">
+          Tentar Cadastrar Novamente
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-8 max-w-md mx-auto">
-      
-      {/* Header */}
-      <header className="flex items-center bg-white p-4 justify-between sticky top-0 z-10 shadow-sm">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleGoBack}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-xl font-bold text-primary">Menu do Restaurante</h1>
-        <div className="w-10"></div> {/* Placeholder */}
-      </header>
-
-      <main className="p-4 space-y-6">
-        
-        {/* Seção Perfil */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-gray-700">Perfil</h2>
-          
-          <MenuItem
-            icon={Utensils}
-            title="Dados do Restaurante"
-            description="Edite nome, endereço e informações de contato."
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-edit'))} // Rota corrigida
-          />
-          
-          <MenuItem
-            icon={Eye}
-            title="Ver meu perfil público"
-            description="Veja como seu restaurante aparece para os clientes."
-            onClick={handleViewPublicProfile}
-          />
-        </section>
-        
-        <Separator />
-
-        {/* Seção Gerenciamento */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-gray-700">Gerenciamento</h2>
-          
-          <MenuItem
-            icon={BarChart3}
-            title="Análise de Mercado"
-            description="Compare-se com concorrentes próximos."
-            onClick={() => navigate(createPageUrl('restaurant-area/stats'))}
-            isPremiumOnly={true}
-            isPremium={isPremium}
-          />
-          
-          <MenuItem
-            icon={MapPin}
-            title="Localização de Busca"
-            description="Defina o ponto de referência para análise."
-            onClick={() => alert("Abrir modal de localização")} // Implementar modal se necessário
-            isPremiumOnly={true}
-            isPremium={isPremium}
-          />
-          
-          <MenuItem
-            icon={CreditCard}
-            title="Assinatura Premium"
-            description="Gerencie seu plano e pagamentos."
-            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-          />
-        </section>
-        
-        <Separator />
-
-        {/* Seção Conta */}
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-gray-700">Conta</h2>
-          
-          <MenuItem
-            icon={Settings}
-            title="Configurações da Conta"
-            description="Mude senha e e-mail."
-            onClick={() => navigate(createPageUrl('settings'))}
-          />
-          
-          <MenuItem
-            icon={LogOut}
-            title="Sair"
-            description="Desconectar desta conta."
-            onClick={handleLogout}
-          />
-        </section>
-        
-      </main>
-    </div>
+    <FreeProfileLayout 
+      restaurant={restaurant} 
+      updateRestaurant={updateRestaurant} 
+      refetch={refetch} 
+      isPremium={isPremium} 
+    />
   );
 };
 
