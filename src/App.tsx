@@ -27,7 +27,6 @@ import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
-import RestaurantStats from './pages/restaurant/RestaurantStats';
 import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
 
 function App() {
