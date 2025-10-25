@@ -60,11 +60,17 @@ export default function AdminLogin() {
       }
       
       // 2. Redireciona para o dashboard de admin
+      console.log("ADMIN LOGIN SUCCESS: Waiting for profile sync before navigating.");
       showSuccess("Login de Administrador realizado com sucesso!");
+      
+      // Adiciona um pequeno atraso para dar tempo ao useAuthProfile de buscar o papel de admin
+      await new Promise(resolve => setTimeout(resolve, 500)); 
+      
       navigate(createPageUrl("admin/dashboard")); 
 
     } catch (error) {
       const msg = (error as Error).message || "Falha no login de Administrador. Verifique as credenciais.";
+      console.error("ADMIN LOGIN ERROR:", msg);
       showError(msg);
     } finally {
       setLoading(false);
