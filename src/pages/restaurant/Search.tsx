@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 
 export default function RestaurantSearch() {
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#f5f7f8] pb-24 max-w-md mx-auto">
       <RestaurantAreaHeader title="Análise de Mercado" icon={BarChart3} backPath="restaurant-area/home" />
       
       <main className="p-4 space-y-6">
