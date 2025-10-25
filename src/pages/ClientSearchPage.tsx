@@ -10,15 +10,16 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { Restaurant } from '@/types/restaurant';
 import CustomerBottomNav from '@/components/CustomerBottomNav';
+import { useAuthContext } from '@/context/AuthContext'; // Importando o contexto
 
 type SearchType = 'dishes' | 'restaurants';
 
 // Mock Data para Pratos
 const mockDishes = [
   { id: 'd1', name: "Moqueca de Camarão", description: "Um ensopado tradicional de camarão cozido em leite de coco...", price: 59.90, image_url: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop", restaurantName: "Restaurante Mar" },
-  { id: 'd2', name: "Picanha na Chapa", description: "Picanha fatiada e grelhada em chapa quente, servida com...", price: 79.90, image_url: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop", restaurantName: "Churrascaria Fogo" },
-  { id: 'd3', name: "Escondidinho de Macaxeira", description: "Purê cremoso de macaxeira com recheio de carne de sol...", price: 45.00, image_url: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop", restaurantName: "Sabor Nordestino" },
-  { id: 'd4', name: "Carne de Sol com Macaxeira", description: "Carne de sol desfiada e acebolada, acompanhada de macaxeira frita...", price: 65.50, image_url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop", restaurantName: "Sabor Nordestino" },
+  { id: 'd2', name: "Picanha na Chapa", description: "Picanha fatiada e grelhada em chapa quente, servida com...", price: 79.90, image_url: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit:crop", restaurantName: "Churrascaria Fogo" },
+  { id: 'd3', name: "Escondidinho de Macaxeira", description: "Purê cremoso de macaxeira com recheio de carne de sol...", price: 45.00, image_url: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit:crop", restaurantName: "Sabor Nordestino" },
+  { id: 'd4', name: "Carne de Sol com Macaxeira", description: "Carne de sol desfiada e acebolada, acompanhada de macaxeira frita...", price: 65.50, image_url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit:crop", restaurantName: "Sabor Nordestino" },
 ];
 
 // Mock Data para Restaurantes (usando a interface Restaurant)
@@ -30,6 +31,9 @@ const mockRestaurants: Restaurant[] = [
 
 export default function ClientSearchPage() {
   const navigate = useNavigate();
+  const { restaurant } = useAuthContext(); // Obtém o objeto restaurante do contexto
+  const isRestaurantUser = !!restaurant; // Verifica se é um usuário de restaurante
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState<SearchType>('dishes');
   const [loading, setLoading] = useState(false);
@@ -60,12 +64,15 @@ export default function ClientSearchPage() {
   const handleRestaurantClick = (restaurantId: string) => {
     navigate(createPageUrl(`restaurant-profile/${restaurantId}`));
   };
+  
+  // Define a rota de retorno com base no tipo de usuário
+  const backPath = isRestaurantUser ? createPageUrl('restaurant-area/home') : createPageUrl('home');
 
   return (
     <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen pb-20">
       <Header 
         title="Buscar" 
-        leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('home')) }} 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(backPath) }} 
       />
 
       <div className="p-4">
@@ -133,8 +140,11 @@ export default function ClientSearchPage() {
         )}
       </div>
       
-      {/* Bottom Navigation */}
-      <CustomerBottomNav selectedTab="search" />
+      {/* Bottom Navigation - Renderiza apenas se for Cliente Final */}
+      {!isRestaurantUser && <CustomerBottomNav selectedTab="search" />}
+      
+      {/* Bottom Navigation - Renderiza apenas se for Restaurante */}
+      {isRestaurantUser && <RestaurantBottomNav selectedTab="stats" isFree={!restaurant.plan || restaurant.plan === 'free'} />}
     </div>
   );
 }

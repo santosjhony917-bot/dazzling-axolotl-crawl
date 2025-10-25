@@ -23,6 +23,7 @@ const RestaurantArea = () => {
   const isHelpRoute = location.pathname.includes('/restaurant-area/help');
 
   const getHeaderContent = () => {
+    // O Dashboard e o ProfileMenu (que é o FreeProfileLayout) gerenciam seu próprio layout/header
     if (isDashboardRoute || isProfileMenuRoute || isStatsRoute || isHelpRoute) {
         return { title: "", showHeader: false };
     }
@@ -51,7 +52,7 @@ const RestaurantArea = () => {
       <main className="flex-1">
         <Outlet />
       </main>
-      <RestaurantBottomNav selectedTab={selectedTab} isFree={!isPremium} />
+      {/* REMOVIDO: RestaurantBottomNav é renderizado nos componentes filhos (Dashboard, SearchPage) */}
     </div>
   );
 };
