@@ -42,6 +42,7 @@ import UpgradePage from './pages/Upgrade';
 import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
 import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
 import Splash from './pages/Splash';
+import RestaurantSearch from './pages/restaurant/Search'; // Importando a tela correta de busca/análise
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
       <AuthProvider>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Splash />} />
+          <Route path="/" element={<Splash />} /> {/* CORRIGIDO: Rota raiz para Splash */}
           <Route path="/index" element={<Index />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/onboarding" element={<Onboarding />} />
@@ -94,7 +95,7 @@ function App() {
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            <Route path="stats" element={<SearchRestaurants />}
+            <Route path="stats" element={<RestaurantSearch />} {/* CORRIGIDO: Aponta para a tela de Análise de Mercado */}
             />
             <Route path="profile-menu" element={<RestaurantProfileMenu />} />
             <Route path="upgrade" element={<UpgradePage />} />
