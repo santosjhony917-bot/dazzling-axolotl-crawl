@@ -49,6 +49,7 @@ export default function ManageAdmins() {
       refetch(); 
     },
     onError: (e) => {
+      console.error("ADD ADMIN MUTATION FAILED:", e); // <-- NOVO LOG DE ERRO
       const errorMessage = (e as Error).message;
       if (errorMessage.includes('404')) {
         showError(`Falha: Usuário não encontrado. Certifique-se de que o email está cadastrado.`);
@@ -74,21 +75,26 @@ export default function ManageAdmins() {
   });
 
   const handleAddAdmin = (e: React.FormEvent) => {
+    e.preventDefault(); // Garante que a submissão seja interrompida
     console.log("handleAddAdmin called.");
-    e.preventDefault();
     
     const trimmedEmail = emailToAdd.trim();
-    console.log("Email value on submit:", trimmedEmail); // <-- NOVO LOG DE DEBUG
+    console.log("Email value on submit:", trimmedEmail); // <-- LOG DE DEBUG
     
     if (!trimmedEmail || !trimmedEmail.includes('@')) {
       showError('Por favor, insira um e-mail válido.');
       return;
     }
     
-    // Verifica se o usuário já é administrador (prevenção de erro comum)
-    if (admins?.some(admin => admin.email.toLowerCase() === trimmedEmail.toLowerCase())) {
-        showError(`O usuário ${trimmedEmail} já é um administrador.`);
-        return;
+    try {
+        // Verifica se o usuário já é administrador (prevenção de erro comum)
+        if (admins?.some(admin => admin.email.toLowerCase() === trimmedEmail.toLowerCase())) {
+            showError(`O usuário ${trimmedEmail} já é um administrador.`);
+            return;
+        }
+    } catch (validationError) {
+        console.error("Validation check failed:", validationError);
+        // Continua para a mutação, pois o backend fará a verificação final
     }
     
     console.log(`Attempting to add admin: ${trimmedEmail}`);
