@@ -41,7 +41,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="rounded-t-2xl h-[60vh] p-0 flex flex-col justify-between">
+      <SheetContent side="bottom" className="rounded-t-2xl h-[50vh] p-0 flex flex-col justify-between">
         
         {/* Header */}
         <SheetHeader className="p-4 border-b relative">

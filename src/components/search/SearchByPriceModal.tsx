@@ -76,12 +76,12 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="rounded-t-2xl h-[80vh] p-0">
+      <SheetContent side="bottom" className="rounded-t-2xl max-h-[90vh] p-0 flex flex-col">
         <SheetHeader className="p-4 border-b">
           <SheetTitle className="text-xl font-bold text-[#022D68]">Pesquisar por Preço</SheetTitle>
         </SheetHeader>
         
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
           
           {/* Slider de Faixa de Preço */}
           <div className="space-y-4">
@@ -168,7 +168,7 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
         </div>
         
         {/* Botão Aplicar Filtro */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg">
+        <div className="p-4 bg-white border-t shadow-lg flex-shrink-0">
           <Button 
             className="w-full h-12 bg-[#022D68] hover:bg-[#022D68]/90 text-lg font-semibold"
             onClick={handleApply}
