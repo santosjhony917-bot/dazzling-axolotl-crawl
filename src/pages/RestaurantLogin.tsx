@@ -104,26 +104,27 @@ export default function RestaurantLogin() {
     }
   };
   
-  // Função de Login Forçado para Dev
-  const handleDevLogin = async () => {
+  // Função de Login de Administrador de Teste
+  const handleAdminLogin = async () => {
     setLoading(true);
+    const adminEmail = "joaoedasilva018@gmail.com";
+    const adminPassword = "password"; // Usando uma senha padrão para o teste
     
-    // Simula o login de um usuário de teste (que será tratado como admin no useAuthProfile)
     try {
         const { error } = await supabase.auth.signInWithPassword({
-            email: "admin@test.com",
-            password: "password",
+            email: adminEmail,
+            password: adminPassword,
         });
         
         if (error) {
             // Se o usuário não existir, cria um mock de admin
             if (error.message.includes('Invalid login credentials')) {
                 const { error: signUpError } = await supabase.auth.signUp({
-                    email: "admin@test.com",
-                    password: "password",
+                    email: adminEmail,
+                    password: adminPassword,
                     options: {
                         data: {
-                            // Adiciona um metadado para simular o papel de admin
+                            // Adiciona o metadado para simular o papel de admin
                             role: 'admin' 
                         }
                     }
@@ -132,17 +133,13 @@ export default function RestaurantLogin() {
                 
                 // Tenta logar novamente após o cadastro
                 await supabase.auth.signInWithPassword({
-                    email: "admin@test.com",
-                    password: "password",
+                    email: adminEmail,
+                    password: adminPassword,
                 });
             } else {
                 throw error;
             }
         }
-        
-        // Define o ID do usuário de teste como 'mock-admin-id' para o useAuthProfile
-        // Nota: O useAuthProfile usa o ID real do Supabase, mas vamos garantir que o ID de teste seja conhecido.
-        // Para fins de teste, vamos apenas navegar, assumindo que o useAuthProfile fará o resto.
         
         showSuccess("Login de Admin de Teste realizado! Redirecionando para o painel.");
         setTimeout(() => {
@@ -252,7 +249,7 @@ export default function RestaurantLogin() {
               {/* Botão de Login Forçado para Dev */}
               <div className="pt-4 space-y-2">
                 <Button
-                  onClick={handleDevLogin}
+                  onClick={handleAdminLogin}
                   variant="secondary"
                   className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
                   disabled={loading}
