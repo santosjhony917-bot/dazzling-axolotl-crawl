@@ -8,6 +8,7 @@ import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import FreeProfileLayout from '@/components/FreeProfileLayout';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
+import { useUserRole } from '@/hooks/useUserRole'; // Importação mantida
 
 const RestaurantProfileMenu: React.FC = () => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const RestaurantProfileMenu: React.FC = () => {
   // Busca o restaurante pelo ID do usuário logado
   const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
   
-  const { isPremium } = { isPremium: restaurant?.plan === 'premium' }; // Mocking isPremium based on fetched data
+  // CORREÇÃO: Usar o hook useUserRole que já tem a lógica correta (incluindo premium_gift)
+  const { isPremium } = useUserRole(); 
 
   // Lida com o redirecionamento para usuários não autenticados
   useEffect(() => {
