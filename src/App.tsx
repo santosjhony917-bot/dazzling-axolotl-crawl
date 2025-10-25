@@ -39,6 +39,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Splash from './pages/Splash'; // Importando Splash
+import RestaurantDashboard from './pages/RestaurantDashboard'; // Importando o Dashboard completo
 
 function App() {
   return (
@@ -71,7 +72,7 @@ function App() {
           
           {/* Restaurant Owner Area (Protected by AuthContext logic) */}
           <Route path="/restaurant-area" element={<RestaurantArea />}>
-            <Route path="home" element={<RestaurantHome />} />
+            <Route path="home" element={<RestaurantDashboard />} /> {/* USANDO DASHBOARD COMPLETO */}
             <Route path="stats" element={<RestaurantSearch />} /> {/* Using RestaurantSearch for stats/search */}
             <Route path="profile-menu" element={<RestaurantProfilePage />} />
             <Route path="menu" element={<RestaurantMenu />} />
