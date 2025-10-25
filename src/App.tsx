@@ -28,6 +28,13 @@ import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
+import AdminLayout from './components/admin/AdminLayout'; // Importando AdminLayout
+import AdminDashboard from './pages/admin/AdminDashboard'; // Importando páginas Admin
+import ManageAdmins from './pages/admin/ManageAdmins';
+import EditRestaurant from './pages/admin/EditRestaurant';
+import PopularCategories from './pages/admin/PopularCategories';
+import Files from './pages/admin/Files';
+import ImportMenu from './pages/admin/ImportMenu';
 
 function App() {
   return (
@@ -85,6 +92,18 @@ function App() {
             </Route>
           </Route>
           
+          {/* Rotas Protegidas da Área Administrativa */}
+          <Route path="/admin" element={<ProtectedRoute />}>
+            <Route element={<AdminLayout title="Painel Administrativo" children={<Outlet />} />}>
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="manage-admins" element={<ManageAdmins />} />
+              <Route path="edit-restaurant" element={<EditRestaurant />} />
+              <Route path="popular-categories" element={<PopularCategories />} />
+              <Route path="files" element={<Files />} />
+              <Route path="import" element={<ImportMenu />} />
+            </Route>
+          </Route>
+
           {/* Rota 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
