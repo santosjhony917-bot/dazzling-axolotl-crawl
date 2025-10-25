@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ToastProvider from './components/ToastProvider';
 import Index from './pages/Index';
 import Auth from './pages/Auth';
@@ -41,67 +40,63 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 
 
-const queryClient = new QueryClient();
-
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <Router>
       <AuthProvider>
         <ToastProvider />
-        <Router>
-          <Routes>
-            {/* Public/Customer Flow Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/legal" element={<Legal />} />
-            <Route path="/search-client" element={<ClientSearchPage />} />
-            <Route path="/search-restaurants" element={<SearchRestaurants />} />
-            <Route path="/results" element={<RestaurantResults />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
+        <Routes>
+          {/* Public/Customer Flow Routes */}
+          <Route path="/" element={<Index />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/legal" element={<Legal />} />
+          <Route path="/search-client" element={<ClientSearchPage />} />
+          <Route path="/search-restaurants" element={<SearchRestaurants />} />
+          <Route path="/results" element={<RestaurantResults />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
 
-            {/* Restaurant Owner Entry Points */}
-            <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
-            <Route path="/restaurant-login" element={<RestaurantLogin />} />
-            <Route path="/restaurant-signup" element={<RestaurantSignup />} />
-            <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
-            
-            {/* Restaurant Owner Area (Protected by AuthContext logic) */}
-            <Route path="/restaurant-area" element={<RestaurantArea />}>
-              <Route path="home" element={<RestaurantHome />} />
-              <Route path="stats" element={<RestaurantSearch />} /> {/* Using RestaurantSearch for stats/search */}
-              <Route path="profile-menu" element={<RestaurantProfilePage />} />
-              <Route path="menu" element={<RestaurantMenu />} />
-              <Route path="categories" element={<RestaurantCategories />} />
-              <Route path="gallery" element={<GalleryManagement />} />
-              <Route path="upgrade" element={<Upgrade />} />
-              <Route path="help" element={<HelpCenter />} />
-            </Route>
+          {/* Restaurant Owner Entry Points */}
+          <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
+          <Route path="/restaurant-login" element={<RestaurantLogin />} />
+          <Route path="/restaurant-signup" element={<RestaurantSignup />} />
+          <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
+          
+          {/* Restaurant Owner Area (Protected by AuthContext logic) */}
+          <Route path="/restaurant-area" element={<RestaurantArea />}>
+            <Route path="home" element={<RestaurantHome />} />
+            <Route path="stats" element={<RestaurantSearch />} /> {/* Using RestaurantSearch for stats/search */}
+            <Route path="profile-menu" element={<RestaurantProfilePage />} />
+            <Route path="menu" element={<RestaurantMenu />} />
+            <Route path="categories" element={<RestaurantCategories />} />
+            <Route path="gallery" element={<GalleryManagement />} />
+            <Route path="upgrade" element={<Upgrade />} />
+            <Route path="help" element={<HelpCenter />} />
+          </Route>
 
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="restaurants" element={<AdminRestaurants />} />
-              <Route path="plans" element={<AdminPlans />} />
-              <Route path="users" element={<AdminUsers />} />
-              <Route path="settings" element={<AdminSettings />} />
-            </Route>
-            
-            {/* Catch-all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="restaurants" element={<AdminRestaurants />} />
+            <Route path="plans" element={<AdminPlans />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="settings" element={<AdminSettings />} />
+          </Route>
+          
+          {/* Catch-all route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </AuthProvider>
-    </QueryClientProvider>
+    </Router>
   );
 }
 
