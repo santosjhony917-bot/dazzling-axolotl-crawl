@@ -10,7 +10,7 @@ import { showInfo, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import ClientLayout from '@/components/ClientLayout'; // Importando o layout
+import ClientLayout from '@/components/ClientLayout';
 
 // Mock de sugestões de restaurantes próximos (para usuários não logados ou sem localização)
 const mockSuggestions: Partial<Restaurant>[] = [
@@ -20,8 +20,7 @@ const mockSuggestions: Partial<Restaurant>[] = [
 
 export default function ClientSearchPage() {
   const navigate = useNavigate();
-  const { restaurant } = useAuthContext(); // Obtém o objeto restaurante do contexto
-  const isRestaurantUser = !!restaurant; // Verifica se é um usuário de restaurante
+  const { restaurant } = useAuthContext(); // Mantemos para referência, mas não para bloqueio
   
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null);
@@ -72,18 +71,8 @@ export default function ClientSearchPage() {
   };
 
   // 3. Renderização
-  if (isRestaurantUser) {
-    return (
-      <div className="p-6 text-center">
-        <Utensils className="w-12 h-12 text-primary mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Bem-vindo, {restaurant.name}!</h2>
-        <p className="text-gray-600 mb-6">Como usuário de restaurante, você não precisa buscar. Gerencie seu perfil no painel.</p>
-        <Button onClick={() => navigate(createPageUrl('restaurantDashboard'))}>
-          Ir para o Painel
-        </Button>
-      </div>
-    );
-  }
+  // Removido o bloco condicional que bloqueava usuários de restaurante.
+  // Agora, todos os usuários podem usar a busca.
 
   return (
     <ClientLayout title="Buscar" selectedTab="search" showBackButton={true}>
