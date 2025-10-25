@@ -74,10 +74,11 @@ export default function ManageAdmins() {
   });
 
   const handleAddAdmin = (e: React.FormEvent) => {
-    console.log("handleAddAdmin called."); // <-- NOVO LOG
+    console.log("handleAddAdmin called.");
     e.preventDefault();
     
     const trimmedEmail = emailToAdd.trim();
+    console.log("Email value on submit:", trimmedEmail); // <-- NOVO LOG DE DEBUG
     
     if (!trimmedEmail || !trimmedEmail.includes('@')) {
       showError('Por favor, insira um e-mail válido.');
