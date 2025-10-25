@@ -331,37 +331,39 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </Card>
           </div>
           
-          {/* 3. Canais de Venda (Decisão 4 e 7) */}
-          <div className="px-4">
-            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
-              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Canais de Venda e Links</h3>
-              <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                <InfoCardItem 
-                  label="Link do WhatsApp" 
-                  value={restaurant?.whatsapp_url || "Não definido"} 
-                  icon={MessageSquare} 
-                  isPremium={isPremium}
-                  onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://wa.me/5583999999999")}
-                />
-                <InfoCardItem 
-                  label="Link do iFood/Delivery App" 
-                  value={restaurant?.ifood_url || "Não definido"} 
-                  icon={ShoppingCart} 
-                  isPremiumFeature={true}
-                  isPremium={isPremium}
-                  onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <ShoppingCart className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
-                />
-                <InfoCardItem 
-                  label="Outro Link (Ex: Site Próprio)" 
-                  value={restaurant?.other_url || "Não definido"} 
-                  icon={Globe} 
-                  isPremiumFeature={true}
-                  isPremium={isPremium}
-                  onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.seusite.com.br")}
-                />
-              </div>
-            </Card>
-          </div>
+          {/* 3. Canais de Venda (Decisão 4 e 7) - RENDERIZA APENAS SE FOR PREMIUM */}
+          {isPremium && (
+            <div className="px-4">
+              <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+                <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Canais de Venda e Links</h3>
+                <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <InfoCardItem 
+                    label="Link do WhatsApp" 
+                    value={restaurant?.whatsapp_url || "Não definido"} 
+                    icon={MessageSquare} 
+                    isPremium={isPremium}
+                    onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://wa.me/5583999999999")}
+                  />
+                  <InfoCardItem 
+                    label="Link do iFood/Delivery App" 
+                    value={restaurant?.ifood_url || "Não definido"} 
+                    icon={ShoppingCart} 
+                    isPremiumFeature={true}
+                    isPremium={isPremium}
+                    onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <ShoppingCart className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
+                  />
+                  <InfoCardItem 
+                    label="Outro Link (Ex: Site Próprio)" 
+                    value={restaurant?.other_url || "Não definido"} 
+                    icon={Globe} 
+                    isPremiumFeature={true}
+                    isPremium={isPremium}
+                    onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.seusite.com.br")}
+                  />
+                </div>
+              </Card>
+            </div>
+          )}
 
           {/* 4. Cardápio (Card) */}
           <div className="px-4">
@@ -370,7 +372,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
               <div className="p-4 space-y-3">
                 <Button 
                   onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
+                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
                 >
                   <Utensils className="w-5 h-5 mr-2" />
                   Atualizar Cardápio
