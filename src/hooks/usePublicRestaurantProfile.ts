@@ -1,115 +1,57 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/restaurant';
-import { MenuCategory, MenuItem } from '@/types/menu';
-
-interface PublicProfileData {
-  restaurant: Restaurant | null;
-  categories: (MenuCategory & { items: MenuItem[] })[];
-}
+import { Restaurant, RestaurantPlan } from '@/types/supabase';
 
 interface UsePublicProfileResult {
-  data: PublicProfileData | null;
+  restaurant: Restaurant | null;
   isLoading: boolean;
-  error: string | null;
+  error: Error | null;
+  isPremium: boolean;
+  isFree: boolean;
 }
 
-export function usePublicRestaurantProfile(restaurantId: string | undefined): UsePublicProfileResult {
-  const [data, setData] = useState<PublicProfileData | null>(null);
+export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfileResult => {
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = useCallback(async () => {
+  useEffect(() => {
     if (!restaurantId) {
       setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      // 1. Fetch Restaurant Profile - Using maybeSingle() to return null if not found
-      const { data: restaurant, error: restaurantError } = await supabase
+    const fetchRestaurant = async () => {
+      setIsLoading(true);
+      setError(null);
+      
+      const { data, error } = await supabase
         .from('restaurants')
         .select('*')
         .eq('id', restaurantId)
-        .maybeSingle(); // <-- CORREÇÃO APLICADA
+        .single();
 
-      if (restaurantError) {
-        console.error('[PublicProfile] Supabase Error fetching restaurant:', restaurantError);
-        throw new Error(restaurantError.message);
+      if (error) {
+        console.error("Error fetching public restaurant profile:", error);
+        setError(new Error(error.message));
+        setRestaurant(null);
+      } else {
+        setRestaurant(data as Restaurant);
       }
-
-      if (!restaurant) {
-        setError('Restaurante não encontrado.');
-        setData(null);
-        return;
-      }
-
-      // 2. Fetch Categories (only active ones for public view)
-      const { data: categoryData, error: categoryError } = await supabase
-        .from('menu_categories')
-        .select('*')
-        .eq('restaurant_id', restaurantId)
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-
-      if (categoryError) {
-        console.error('[PublicProfile] Supabase Error fetching categories:', categoryError);
-        throw new Error(categoryError.message);
-      }
-
-      const categoryIds = categoryData.map(c => c.id);
-
-      // 3. Fetch Items (only active ones for public view)
-      const { data: itemData, error: itemError } = await supabase
-        .from('menu_items')
-        .select('*')
-        .in('category_id', categoryIds)
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-
-      if (itemError) {
-        console.error('[PublicProfile] Supabase Error fetching items:', itemError);
-        throw new Error(itemError.message);
-      }
-
-      // 4. Group items by category
-      const groupedItems = itemData.reduce((acc, item) => {
-        const categoryId = item.category_id;
-        if (!acc[categoryId]) {
-          acc[categoryId] = [];
-        }
-        acc[categoryId].push(item as MenuItem);
-        return acc;
-      }, {} as Record<string, MenuItem[]>);
-
-      // 5. Combine categories and items, filtering out categories without active items
-      const combinedData = categoryData
-        .map(category => ({
-          ...(category as MenuCategory),
-          items: groupedItems[category.id] || [],
-        }))
-        .filter(category => category.items.length > 0); // Filtra categorias vazias
-
-      setData({
-        restaurant: restaurant as Restaurant,
-        categories: combinedData,
-      });
-
-    } catch (err) {
-      const errorMessage = (err as Error).message || 'Falha ao carregar o perfil público.';
-      console.error('[PublicProfile] Final Catch Error:', err);
-      setError(errorMessage);
-    } finally {
       setIsLoading(false);
-    }
+    };
+
+    fetchRestaurant();
   }, [restaurantId]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  const isPremium = restaurant?.plan === 'premium';
+  const isFree = restaurant?.plan === 'free';
 
-  return { data, isLoading, error };
-}
+  return {
+    restaurant,
+    isLoading,
+    error,
+    isPremium,
+    isFree,
+  };
+};

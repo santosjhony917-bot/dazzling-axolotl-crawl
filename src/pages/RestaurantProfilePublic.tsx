@@ -1,208 +1,183 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MapPin, Clock, Phone, Utensils, Crown, ArrowLeft, ShoppingCart, Globe, Lock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile';
-import PublicRestaurantLayout from '@/components/PublicRestaurantLayout';
-import { showError, showSuccess } from '@/utils/toast';
-import { formatCurrency } from '@/utils/formatters';
-import FullMenuDisplay from '@/components/FullMenuDisplay';
-import { Skeleton } from '@/components/ui/skeleton';
-import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
-import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay';
-import PhotoGallerySection from '@/components/public/PhotoGallerySection';
-import MenuCategoryList from '@/components/menu/MenuCategoryList';
-import { cn } from '@/lib/utils'; // Importando cn
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { usePublicRestaurantProfile } from "@/hooks/usePublicRestaurantProfile";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertTriangle, MapPin, Phone, Mail, Utensils, Clock, Link as LinkIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { MenuCategory, Restaurant } from "@/types/supabase";
+import MenuCategoryList from "@/components/menu/MenuCategoryList";
+import { supabase } from "@/integrations/supabase/client";
 
-// Mock de dados para Galeria (já que não temos a tabela de galeria ainda)
-const mockGalleryImages = [
-  "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop",
-];
-
-// Componente para exibir o conteúdo principal do perfil (usado dentro do layout)
-interface RestaurantProfileContentProps {
-  restaurant: any;
-  categories: any[]; // Renomeado de menu para categories
-}
-
-const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ restaurant, categories }) => {
-  const navigate = useNavigate();
-  const isPremium = restaurant.plan === 'premium';
-
-  // --- Mock de Dados Sociais ---
-  const [followersCount, setFollowersCount] = useState(120); 
+const RestaurantProfilePublic: React.FC = () => {
+  const { restaurantId } = useParams<{ restaurantId: string }>();
   
-  const handleFollowToggle = () => {
-    setFollowersCount(prev => prev + (followersCount > 120 ? -1 : 1));
-  };
-  
-  const formatScheduleSummary = (schedule: any): string => {
-    if (!schedule) return "Horários não definidos";
-    
-    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
-    const fullDayKey = Object.keys(schedule).find(key => key === today) as keyof typeof schedule | undefined;
+  const { 
+    restaurant, 
+    isLoading: isLoadingProfile, 
+    error: profileError,
+    isPremium
+  } = usePublicRestaurantProfile(restaurantId || "");
 
-    if (fullDayKey && schedule[fullDayKey]?.isOpen && schedule[fullDayKey].slots.length > 0) {
-      const slot = schedule[fullDayKey].slots[0];
-      return `Aberto hoje: ${slot.start} - ${slot.end}`;
-    }
-    return "Fechado hoje";
-  };
+  const [categories, setCategories] = useState<MenuCategory[]>([]);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(true);
+  const [menuError, setMenuError] = useState<string | null>(null);
 
-  const scheduleSummary = formatScheduleSummary(restaurant.opening_hours);
+  useEffect(() => {
+    if (!restaurantId) return;
+
+    const fetchMenuCategories = async () => {
+      setIsLoadingMenu(true);
+      setMenuError(null);
+
+      const { data, error } = await supabase
+        .from('menu_categories')
+        .select('*')
+        .eq('restaurant_id', restaurantId)
+        .eq('is_active', true) // Only show active categories publicly
+        .order('order_index', { ascending: true });
+
+      if (error) {
+        console.error("Error fetching menu categories:", error);
+        setMenuError("Não foi possível carregar as categorias do cardápio.");
+        setCategories([]);
+      } else {
+        setCategories(data as MenuCategory[]);
+      }
+      setIsLoadingMenu(false);
+    };
+
+    fetchMenuCategories();
+  }, [restaurantId]);
+
+  const isLoading = isLoadingProfile || isLoadingMenu;
+
+  if (!restaurantId) {
+    return (
+      <div className="p-4 text-center">
+        <AlertTriangle className="h-6 w-6 mx-auto text-red-500 mb-2" />
+        <p className="text-lg text-red-500">ID do restaurante inválido.</p>
+      </div>
+    );
+  }
+
+  if (isLoadingProfile) {
+    return (
+      <div className="container mx-auto p-4 max-w-4xl space-y-6">
+        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-10 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
+  }
+
+  if (profileError || !restaurant) {
+    return (
+      <div className="p-8 text-center">
+        <AlertTriangle className="h-10 w-10 mx-auto text-red-500 mb-4" />
+        <h1 className="text-2xl font-bold text-red-600">Erro ao Carregar Perfil</h1>
+        <p className="text-gray-600 mt-2">O perfil do restaurante não pôde ser encontrado ou ocorreu um erro: {profileError?.message || "Desconhecido"}</p>
+      </div>
+    );
+  }
+
+  const renderContactInfo = (icon: React.ReactNode, text: string | null | undefined, href?: string) => {
+    if (!text) return null;
+    return (
+      <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
+        {icon}
+        {href ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="ml-2 hover:underline text-blue-600 dark:text-blue-400">
+            {text}
+          </a>
+        ) : (
+          <span className="ml-2">{text}</span>
+        )}
+      </div>
+    );
+  };
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
-      
-      {/* 1. Header Social */}
-      <Card className="w-full max-w-md shadow-xl border-none rounded-b-3xl p-0 bg-white dark:bg-gray-800">
-        <RestaurantPublicHeader
-          restaurant={{
-            id: restaurant.id,
-            name: restaurant.name,
-            followersCount: followersCount,
-            logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
-            onFollowToggle: handleFollowToggle,
-          }}
-        />
-      </Card>
-      
-      <div className="w-full max-w-md space-y-4 px-4 py-4 pb-24">
-        
-        {/* 2. Informações Básicas (Localização e Horários) */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4 space-y-3">
-          <h3 className="text-lg font-bold text-[#022D68] mb-3">Informações</h3>
-          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-            <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />
-            <p className="text-sm">{restaurant.address || "Endereço não informado"}</p>
-          </div>
-          
-          {/* Exibição de Horários (Detalhada se Premium, Resumo se Free) */}
-          {isPremium && restaurant.opening_hours ? (
-            <DetailedHoursDisplay schedule={restaurant.opening_hours} />
+    <div className="container mx-auto p-4 max-w-4xl">
+      <Card className="overflow-hidden">
+        {/* Cover Image */}
+        <div className="relative h-48 bg-gray-200 dark:bg-gray-700">
+          {restaurant.cover_image_url ? (
+            <img 
+              src={restaurant.cover_image_url} 
+              alt={`Capa de ${restaurant.name}`} 
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-              <Clock className="w-5 h-5 text-highlight flex-shrink-0" />
-              <p className="text-sm">{scheduleSummary}</p>
+            <div className="flex items-center justify-center h-full text-gray-500">
+              Nenhuma imagem de capa
             </div>
           )}
+        </div>
+
+        <CardHeader className="p-6">
+          <div className="flex justify-between items-start">
+            <div>
+              <CardTitle className="text-3xl font-extrabold text-gray-900 dark:text-white">
+                {restaurant.name}
+              </CardTitle>
+              <p className="text-sm font-medium text-primary mt-1">{restaurant.category}</p>
+            </div>
+            {isPremium && (
+              <span className="text-xs font-bold text-white bg-yellow-500 px-3 py-1 rounded-full shadow-md">
+                Premium
+              </span>
+            )}
+          </div>
           
-          {/* Botões de Ação (WhatsApp, iFood, Outro) */}
-          <div className={cn(
-            "pt-3 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-2",
-            !isPremium && "opacity-70"
-          )}>
-            {/* WhatsApp (Sempre visível, mas apenas 1 link para Free) */}
-            {restaurant.whatsapp_url && (
-              <Button 
-                onClick={() => window.open(restaurant.whatsapp_url, '_blank')}
-                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-green-500 hover:bg-green-600 text-white text-sm font-bold rounded-full min-w-[120px]"
-              >
-                <Phone className="w-4 h-4" />
-                WhatsApp
-              </Button>
-            )}
+          {restaurant.description && (
+            <p className="text-gray-700 dark:text-gray-300 mt-3">{restaurant.description}</p>
+          )}
+
+          <div className="mt-4 space-y-2">
+            {renderContactInfo(<MapPin className="h-4 w-4" />, `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}`)}
+            {renderContactInfo(<Phone className="h-4 w-4" />, restaurant.phone, restaurant.phone ? `tel:${restaurant.phone}` : undefined)}
+            {renderContactInfo(<Mail className="h-4 w-4" />, restaurant.email, restaurant.email ? `mailto:${restaurant.email}` : undefined)}
+            {renderContactInfo(<LinkIcon className="h-4 w-4" />, "WhatsApp", restaurant.whatsapp_url)}
+            {renderContactInfo(<LinkIcon className="h-4 w-4" />, "iFood", restaurant.ifood_url)}
+            {renderContactInfo(<LinkIcon className="h-4 w-4" />, "Outro Link", restaurant.other_url)}
             
-            {/* iFood (Premium) */}
-            {isPremium && restaurant.ifood_url && (
-              <Button 
-                onClick={() => window.open(restaurant.ifood_url, '_blank')}
-                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-full min-w-[120px]"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                iFood
-              </Button>
-            )}
-            
-            {/* Outro Link (Premium) */}
-            {isPremium && restaurant.other_url && (
-              <Button 
-                onClick={() => window.open(restaurant.other_url, '_blank')}
-                className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-primary hover:bg-primary/90 text-white text-sm font-bold rounded-full min-w-[120px]"
-              >
-                <Globe className="w-4 h-4" />
-                Site Próprio
-              </Button>
-            )}
-            
-            {/* Placeholder para Premium se for Free */}
-            {!isPremium && (
-              <div className="flex-1 flex items-center justify-center gap-2 h-10 px-3 bg-gray-200 text-gray-600 text-sm font-bold rounded-full min-w-[120px]">
-                <Lock className="w-4 h-4" /> Canais Premium
+            {/* Opening Hours Placeholder */}
+            {restaurant.opening_hours && (
+              <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
+                <Clock className="h-4 w-4" />
+                <span className="ml-2">Horário de Funcionamento: (Detalhes)</span>
               </div>
             )}
           </div>
+        </CardHeader>
+
+        {/* Menu Section */}
+        <Card className="mt-6 border-t rounded-t-none">
+          <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b">
+            <Utensils className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            <CardTitle className="text-xl font-semibold">Cardápio</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            {menuError ? (
+              <div className="p-4 text-center text-red-500">
+                <AlertTriangle className="h-5 w-5 mx-auto mb-2" />
+                {menuError}
+              </div>
+            ) : (
+              <MenuCategoryList 
+                categories={categories} 
+                isLoading={isLoadingMenu} 
+                isOwner={false} // Perfil público, não é o proprietário
+                restaurantId={restaurantId}
+              />
+            )}
+          </CardContent>
         </Card>
-        
-        {/* 3. Galeria de Fotos (Apenas Premium) */}
-        {isPremium && (
-          <PhotoGallerySection images={mockGalleryImages} restaurantName={restaurant.name} />
-        )}
-        
-        {/* 4. Cardápio Completo (Accordion) */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
-          <h2 className="text-xl font-bold text-[#022D68] mb-4">Cardápio</h2>
-          {/* menuLoading é sempre false aqui, pois o menuData já foi carregado */}
-          <MenuCategoryList categories={categories} />
-        </Card>
-        
-        {/* 5. Descrição (Se houver) */}
-        {restaurant.description && (
-          <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-4">
-            <h3 className="text-lg font-bold text-[#022D68] mb-2">Sobre Nós</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{restaurant.description}</p>
-          </Card>
-        )}
-      </div>
+      </Card>
     </div>
-  );
-};
-
-
-const RestaurantProfilePublic: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data, isLoading, error } = usePublicRestaurantProfile(id); 
-
-  if (isLoading) {
-    return (
-      <PublicRestaurantLayout restaurant={null} backPath="home">
-        <div className="p-4 space-y-4">
-          <Skeleton className="h-56 w-full" />
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-40 w-full" />
-          <Skeleton className="h-60 w-full" />
-        </div>
-      </PublicRestaurantLayout>
-    );
-  }
-
-  if (error || !data || !data.restaurant) {
-    return (
-      <PublicRestaurantLayout restaurant={null} backPath="home">
-        <div className="p-8 text-center text-red-500">
-          <p className="font-bold">Erro ao carregar o perfil do restaurante.</p>
-          <p className="text-sm text-gray-700 mt-2">Detalhe: {error || "Restaurante não encontrado."}</p>
-          <p className="text-sm text-gray-500 mt-1">ID: {id}</p>
-        </div>
-      </PublicRestaurantLayout>
-    );
-  }
-
-  const { restaurant, categories } = data;
-
-  return (
-    <PublicRestaurantLayout restaurant={restaurant} backPath="home">
-      <RestaurantProfileContent restaurant={restaurant} categories={categories} />
-    </PublicRestaurantLayout>
   );
 };
 

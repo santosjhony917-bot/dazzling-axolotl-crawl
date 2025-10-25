@@ -1,66 +1,93 @@
-import React from 'react';
-import { MenuCategory, MenuItem } from '@/types/menu';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Card } from '@/components/ui/card';
-import { Utensils, ChevronDown } from 'lucide-react';
+import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { MenuCategory } from "@/types/supabase";
+import { ChevronDown, Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { usePublicRestaurantProfile } from "@/hooks/usePublicRestaurantProfile";
+import { Skeleton } from "@/components/ui/skeleton";
+import MenuItemList from "./MenuItemList";
 
 interface MenuCategoryListProps {
-  categories: (MenuCategory & { items: MenuItem[] })[];
+  categories: MenuCategory[];
+  isLoading: boolean;
+  isOwner: boolean;
+  restaurantId: string;
 }
 
-const PublicMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
-  <div className="flex justify-between items-start p-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
-    <div className="flex-1 pr-4">
-      <h4 className="font-semibold text-gray-900 dark:text-white">{item.name}</h4>
-      {item.description && (
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{item.description}</p>
-      )}
-      <p className="text-base font-bold text-highlight mt-1">R$ {item.price.toFixed(2).replace('.', ',')}</p>
-    </div>
-    {item.image_url && (
-      <img 
-        src={item.image_url} 
-        alt={item.name} 
-        className="w-16 h-16 object-cover rounded-md flex-shrink-0"
-      />
-    )}
-  </div>
-);
+const MenuCategoryList: React.FC<MenuCategoryListProps> = ({
+  categories,
+  isLoading,
+  isOwner,
+  restaurantId,
+}) => {
+  const { isPremium } = usePublicRestaurantProfile(restaurantId);
 
-const MenuCategoryList: React.FC<MenuCategoryListProps> = ({ categories }) => {
-  // CORREÇÃO: Garante que category.items é um array antes de chamar .some()
-  const activeCategories = categories.filter(c => c.is_active && (c.items || []).some(i => i.is_active));
-
-  if (activeCategories.length === 0) {
+  if (isLoading) {
     return (
-      <div className="text-center text-gray-500 p-10 border border-dashed rounded-lg">
-        O cardápio está vazio ou todos os itens estão inativos.
+      <div className="space-y-4">
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
+      </div>
+    );
+  }
+
+  if (categories.length === 0 && !isOwner) {
+    return (
+      <div className="text-center py-8 text-gray-500">
+        Nenhuma categoria de menu ativa encontrada.
       </div>
     );
   }
 
   return (
-    <Accordion type="multiple" className="w-full space-y-4">
-      {activeCategories.map(category => (
-        <Card key={category.id} className="shadow-md border-none">
-          <AccordionItem value={category.id} className="border-b-0">
-            <AccordionTrigger className="flex items-center justify-between p-4 hover:no-underline">
-              <div className="flex items-center gap-3">
-                <Utensils className="w-5 h-5 text-primary" />
-                <span className="font-bold text-lg text-primary">{category.name}</span>
-              </div>
-              <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" />
-            </AccordionTrigger>
-            <AccordionContent className="p-0">
-              <div className="divide-y divide-gray-100 dark:divide-gray-700">
-                {(category.items || []).filter(i => i.is_active).map(item => (
-                  <PublicMenuItemCard key={item.id} item={item} />
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Card>
+    <Accordion type="multiple" className="w-full">
+      {categories.map((category) => (
+        <AccordionItem
+          key={category.id}
+          value={category.id}
+          className={cn(
+            "border-b",
+            !category.is_active && !isOwner && "hidden"
+          )}
+        >
+          <AccordionTrigger className="flex justify-between items-center hover:no-underline px-4 py-3">
+            <div className="flex items-center space-x-3">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 text-left">
+                {category.name}
+              </h3>
+              {!category.is_active && isOwner && (
+                <span className="text-xs font-medium text-red-500 bg-red-100 px-2 py-0.5 rounded-full">
+                  Inativo
+                </span>
+              )}
+            </div>
+            {/* Removido o ChevronDown duplicado aqui */}
+          </AccordionTrigger>
+          <AccordionContent className="p-0">
+            <div className="divide-y divide-gray-100 dark:divide-gray-700">
+              <MenuItemList
+                categoryId={category.id}
+                isOwner={isOwner}
+                isPremium={isPremium}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
       ))}
+      {isOwner && (
+        <div className="p-4 border-t">
+          <Button variant="outline" className="w-full">
+            <Plus className="h-4 w-4 mr-2" /> Adicionar Nova Categoria
+          </Button>
+        </div>
+      )}
     </Accordion>
   );
 };
