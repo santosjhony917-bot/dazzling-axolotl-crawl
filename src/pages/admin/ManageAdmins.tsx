@@ -49,7 +49,12 @@ export default function ManageAdmins() {
       refetch(); 
     },
     onError: (e) => {
-      showError(`Falha ao adicionar administrador: ${(e as Error).message}`);
+      const errorMessage = (e as Error).message;
+      if (errorMessage.includes('404')) {
+        showError(`Falha: Usuário não encontrado. Certifique-se de que o email está cadastrado.`);
+      } else {
+        showError(`Falha ao adicionar administrador: ${errorMessage}`);
+      }
     },
   });
 
