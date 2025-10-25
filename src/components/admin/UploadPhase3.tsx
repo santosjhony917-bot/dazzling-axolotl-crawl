@@ -13,7 +13,7 @@ import { saveUploadRecord } from '@/utils/uploadHistory';
 // Define a estrutura de dados para a Fase 3
 interface MenuItemDataPhase3 {
   id: string;
-  restaurantId: string; // Chave de ligação (UUID)
+  externalUrl: string; // Chave de ligação (URL Externa)
   restaurantName: string; // Nome para referência (somente leitura)
   categoryName: string;
   itemName: string;
@@ -23,9 +23,9 @@ interface MenuItemDataPhase3 {
   status: 'pending' | 'error' | 'success';
 }
 
-// Colunas da planilha (Ajustadas para a ordem solicitada, usando ID como chave)
+// Colunas da planilha (Ajustadas para a ordem solicitada)
 const columns = [
-  { key: 'restaurantId', label: 'ID do Restaurante (UUID)', readOnly: false, width: '150px' },
+  { key: 'externalUrl', label: 'URL do Restaurante (Chave)', readOnly: false, width: '150px' },
   { key: 'restaurantName', label: 'Nome do Restaurante', readOnly: true, width: '150px' }, // Adicionado para referência
   { key: 'categoryName', label: 'Categoria', readOnly: false, width: '120px' },
   { key: 'itemName', label: 'Nome do Prato', readOnly: false, width: '180px' },
@@ -36,7 +36,7 @@ const columns = [
 
 const initialRow: MenuItemDataPhase3 = {
   id: 'temp-0',
-  restaurantId: '',
+  externalUrl: '',
   restaurantName: '',
   categoryName: '',
   itemName: '',
@@ -72,18 +72,19 @@ const UploadPhase3: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mapeamento de ID para Nome para referência rápida
-  const restaurantIdToName = useMemo(() => {
-    return new Map(restaurants.map(r => [r.id, r.name]));
+  // Mapeamento de URL Externa para ID e Nome para referência rápida
+  const restaurantUrlToData = useMemo(() => {
+    return new Map(restaurants.map(r => [r.external_url, { id: r.id, name: r.name }]));
   }, [restaurants]);
 
-  // 1. Fetch existing restaurants (for reference/validation)
+  // 1. Fetch existing restaurants (incluindo external_url)
   const fetchRestaurants = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name')
+        .select('id, name, external_url')
+        .not('external_url', 'is', null) // Apenas restaurantes com URL externa definida
         .limit(1000);
 
       if (error) throw error;
@@ -113,13 +114,12 @@ const UploadPhase3: React.FC = () => {
     setRows(prevRows => 
       prevRows.map(row => {
         if (row.id === id) {
-          // Garante que o status seja mantido como um literal type
           const updatedRow: MenuItemDataPhase3 = { ...row, [key]: value, status: 'pending' };
           
-          // Atualiza o nome do restaurante se o ID for alterado e for válido
-          if (key === 'restaurantId') {
-            const name = restaurantIdToName.get(value.trim()) || '';
-            updatedRow.restaurantName = name;
+          // Atualiza o nome do restaurante se a URL for alterada e for válida
+          if (key === 'externalUrl') {
+            const data = restaurantUrlToData.get(value.trim());
+            updatedRow.restaurantName = data?.name || '';
           }
           return updatedRow;
         }
@@ -131,7 +131,7 @@ const UploadPhase3: React.FC = () => {
       delete newErrors[id];
       return newErrors;
     });
-  }, [restaurantIdToName]);
+  }, [restaurantUrlToData]);
 
   const handleAddRow = () => {
     setRows(prevRows => [...prevRows, { ...initialRow, id: `temp-${Math.random()}` }]);
@@ -157,20 +157,19 @@ const UploadPhase3: React.FC = () => {
         const value = values[i];
         
         if (targetIndex < newRows.length) {
-          const updatedRow: MenuItemDataPhase3 = { ...newRows[targetIndex], [key]: value, status: 'pending' };
-          newRows[targetIndex] = updatedRow;
+          newRows[targetIndex] = { ...newRows[targetIndex], [key]: value, status: 'pending' };
           
-          // Se colarmos na coluna ID, tentamos preencher o nome
-          if (key === 'restaurantId') {
-            const name = restaurantIdToName.get(value.trim()) || '';
-            newRows[targetIndex].restaurantName = name;
+          // Se colarmos na coluna URL, tentamos preencher o nome
+          if (key === 'externalUrl') {
+            const data = restaurantUrlToData.get(value.trim());
+            newRows[targetIndex].restaurantName = data?.name || '';
           }
         } else {
           const newRow: MenuItemDataPhase3 = { ...initialRow, id: `temp-${Math.random()}`, [key]: value, status: 'pending' };
           
-          if (key === 'restaurantId') {
-            const name = restaurantIdToName.get(value.trim()) || '';
-            newRow.restaurantName = name;
+          if (key === 'externalUrl') {
+            const data = restaurantUrlToData.get(value.trim());
+            newRow.restaurantName = data?.name || '';
           }
           newRows.push(newRow);
         }
@@ -180,20 +179,22 @@ const UploadPhase3: React.FC = () => {
     });
     
     showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
-  }, [restaurantIdToName]);
+  }, [restaurantUrlToData]);
 
-  const validateAndCleanData = useCallback((): { validRows: MenuItemDataPhase3[], newErrors: Record<string, string> } => {
+  const validateAndCleanData = useCallback((): { validRows: (MenuItemDataPhase3 & { restaurantId: string })[], newErrors: Record<string, string> } => {
     const newErrors: Record<string, string> = {};
-    const validRows: MenuItemDataPhase3[] = [];
-    const existingRestaurantIds = new Set(restaurants.map(r => r.id));
+    const validRows: (MenuItemDataPhase3 & { restaurantId: string })[] = [];
 
     rows.forEach((row, index) => {
       const rowErrors: string[] = [];
       
-      if (!row.restaurantId.trim()) {
-        rowErrors.push('ID do Restaurante obrigatório');
-      } else if (!existingRestaurantIds.has(row.restaurantId.trim())) {
-        rowErrors.push('ID do Restaurante não encontrado');
+      const externalUrl = row.externalUrl.trim();
+      const restaurantData = restaurantUrlToData.get(externalUrl);
+      
+      if (!externalUrl) {
+        rowErrors.push('URL do Restaurante obrigatória');
+      } else if (!restaurantData) {
+        rowErrors.push('URL do Restaurante não encontrada no sistema (Fase 1 não concluída?)');
       }
       if (!row.categoryName.trim()) {
         rowErrors.push('Nome da Categoria obrigatório');
@@ -213,13 +214,13 @@ const UploadPhase3: React.FC = () => {
 
       if (rowErrors.length > 0) {
         newErrors[row.id] = `Linha ${index + 1}: ${rowErrors.join(', ')}`;
-      } else {
-        validRows.push(row);
+      } else if (restaurantData) {
+        validRows.push({ ...row, restaurantId: restaurantData.id });
       }
     });
     
     return { validRows, newErrors };
-  }, [rows, restaurants]);
+  }, [rows, restaurantUrlToData]);
 
   const handleUpload = useCallback(async () => {
     setIsUploading(true);
@@ -288,7 +289,7 @@ const UploadPhase3: React.FC = () => {
         
         if (!categoryId) {
           // Isso não deve acontecer se a lógica de categoria estiver correta
-          throw new Error(`Categoria ID não encontrada para ${row.categoryName} no restaurante ${row.restaurantId}`);
+          throw new Error(`Categoria ID não encontrada para ${row.categoryName} no restaurante ${row.restaurantName}`);
         }
         
         return {
@@ -336,6 +337,9 @@ const UploadPhase3: React.FC = () => {
     const { validRows } = validateAndCleanData();
     return validRows.length;
   }, [validateAndCleanData]);
+  
+  // Define a largura da grade dinamicamente
+  const gridTemplateColumns = columns.map(col => col.width).join(' ') + ' 80px'; // + Status
 
   if (loading) {
     return (
@@ -351,7 +355,7 @@ const UploadPhase3: React.FC = () => {
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-2xl font-bold text-primary">Fase 3: Cardápio em Massa</CardTitle>
         <CardDescription className="text-gray-600">
-          Insira os dados do cardápio. As categorias serão criadas automaticamente se não existirem.
+          Insira os dados do cardápio. A URL do Restaurante será usada para encontrar o ID interno.
         </CardDescription>
       </CardHeader>
       
@@ -359,9 +363,9 @@ const UploadPhase3: React.FC = () => {
         {/* Dica de Referência */}
         <Alert className="border-dashed text-sm">
           <UtensilsCrossed className="h-4 w-4" />
-          <AlertTitle>Restaurantes Disponíveis (ID | Nome)</AlertTitle>
+          <AlertTitle>URLs de Restaurantes Disponíveis</AlertTitle>
           <AlertDescription className="max-h-24 overflow-y-auto">
-            {restaurants.map(r => `${r.id.substring(0, 8)}... | ${r.name}`).join(' | ')}
+            {restaurants.map(r => `${r.name} (${r.external_url})`).join(' | ')}
           </AlertDescription>
         </Alert>
 

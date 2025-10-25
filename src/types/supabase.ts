@@ -26,6 +26,7 @@ export interface Restaurant {
   ifood_url: string | null;
   other_url: string | null;
   opening_hours: any | null; // Usando 'any' para jsonb complexo
+  external_url: string | null; // NOVO CAMPO
 }
 
 export interface MenuCategory {

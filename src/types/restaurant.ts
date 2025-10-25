@@ -26,4 +26,5 @@ export interface Restaurant {
   cover_image_url: string | null;
   number: string | null;
   distance_km?: number; // Adicionado para compatibilidade com resultados de busca por proximidade
+  external_url: string | null; // NOVO CAMPO
 }

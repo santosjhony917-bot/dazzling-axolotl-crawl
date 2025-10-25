@@ -14,7 +14,7 @@ import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
   id: string;
-  restaurantUrl: string;
+  restaurantUrl: string; // Mapeia para external_url
   restaurantName: string;
   categories: string;
   logoUrl: string;
@@ -26,7 +26,7 @@ const STORAGE_KEY = 'admin_upload_phase1_data';
 
 // Colunas da planilha
 const columns = [
-  { key: 'restaurantUrl', label: 'URL do Restaurante' },
+  { key: 'restaurantUrl', label: 'URL Externa (Chave)' }, // Rótulo atualizado
   { key: 'restaurantName', label: 'Nome do Restaurante' },
   { key: 'categories', label: 'Categorias (separadas por vírgula)' },
   { key: 'logoUrl', label: 'URL da Logo' },
@@ -141,8 +141,8 @@ const UploadPhase1: React.FC = () => {
       if (!row.categories.trim()) {
         rowErrors.push('Categorias obrigatórias');
       }
-      if (row.restaurantUrl.trim() && !row.restaurantUrl.startsWith('http')) {
-        rowErrors.push('URL do Restaurante inválida');
+      if (!row.restaurantUrl.trim() || !row.restaurantUrl.startsWith('http')) {
+        rowErrors.push('URL Externa inválida ou obrigatória');
       }
       if (row.logoUrl.trim() && row.logoUrl.trim().length > 0 && !row.logoUrl.startsWith('http')) {
         rowErrors.push('URL da Logo inválida');
@@ -221,8 +221,7 @@ const UploadPhase1: React.FC = () => {
           category: row.categories.split(',').map(c => c.trim()).filter(Boolean).join(', '),
           image_url: finalLogoUrl,
           cover_image_url: finalCoverUrl,
-          whatsapp_url: row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
-          other_url: !row.restaurantUrl.includes('wa.me') ? row.restaurantUrl : null,
+          external_url: row.restaurantUrl, // NOVO CAMPO
           plan: 'free', // Padrão inicial
         });
         processedCount++;
