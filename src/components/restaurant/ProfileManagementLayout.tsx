@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, ShoppingCart, Globe, Camera } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, ShoppingCart, Globe, Camera, HelpCircle, Package } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,10 +15,8 @@ import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { WeekSchedule } from '@/types/schedule';
 import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
 import InfoCardItem from '@/components/InfoCardItem';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { useUserRole } from '@/hooks/useUserRole';
 import { cn } from '@/lib/utils';
-import NavCardItem from '@/components/NavCardItem'; // Importando NavCardItem
+import NavCardItem from '@/components/NavCardItem';
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -168,7 +166,7 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
   };
 
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
-  const restaurantType = restaurant.category || "Estabelecimento Comercial";
+  const restaurantType = restaurant.category || "Não definido";
   const displayName = restaurantName;
 
   return (
@@ -332,39 +330,40 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
             </Card>
           </div>
           
-          {/* 3. Canais de Venda (Decisão 4 e 7) - RENDERIZA APENAS SE FOR PREMIUM */}
-          {isPremium && (
-            <div className="px-4">
-              <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
-                <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Canais de Venda e Links</h3>
-                <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                  <InfoCardItem 
-                    label="Link do WhatsApp" 
-                    value={restaurant?.whatsapp_url || "Não definido"} 
-                    icon={MessageSquare} 
-                    isPremium={isPremium}
-                    onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://wa.me/5583999999999")}
-                  />
-                  <InfoCardItem 
-                    label="Link do iFood/Delivery App" 
-                    value={restaurant?.ifood_url || "Não definido"} 
-                    icon={ShoppingCart} 
-                    isPremiumFeature={true}
-                    isPremium={isPremium}
-                    onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <ShoppingCart className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
-                  />
-                  <InfoCardItem 
-                    label="Outro Link (Ex: Site Próprio)" 
-                    value={restaurant?.other_url || "Não definido"} 
-                    icon={Globe} 
-                    isPremiumFeature={true}
-                    isPremium={isPremium}
-                    onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.seusite.com.br")}
-                  />
-                </div>
-              </Card>
-            </div>
-          )}
+          {/* 3. Canais de Venda (Visível apenas se for Premium) */}
+          <div className="px-4">
+            <Card className={cn("bg-white dark:bg-gray-800 rounded-xl shadow-md border-none", !isPremium && "opacity-60")}>
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4 flex items-center gap-2">
+                Canais de Venda e Links
+                {!isPremium && <Lock className="w-4 h-4 text-gray-500" />}
+              </h3>
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <InfoCardItem 
+                  label="Link do WhatsApp" 
+                  value={restaurant?.whatsapp_url || "Não definido"} 
+                  icon={MessageSquare} 
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://wa.me/5583999999999")}
+                />
+                <InfoCardItem 
+                  label="Link do iFood/Delivery App" 
+                  value={restaurant?.ifood_url || "Não definido"} 
+                  icon={ShoppingCart} 
+                  isPremiumFeature={true}
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <ShoppingCart className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
+                />
+                <InfoCardItem 
+                  label="Outro Link (Ex: Site Próprio)" 
+                  value={restaurant?.other_url || "Não definido"} 
+                  icon={Globe} 
+                  isPremiumFeature={true}
+                  isPremium={isPremium}
+                  onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, urlSchema, "text", undefined, "https://www.seusite.com.br")}
+                />
+              </div>
+            </Card>
+          </div>
 
           {/* 4. Gerenciamento de Conteúdo (Cardápio e Galeria) */}
           <div className="px-4">
@@ -459,7 +458,7 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
                     className="data-[state=checked]:bg-highlight" 
                   />
                 </div>
-                <div className="p-4 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => showError("Recurso Premium")}>
+                <div className="p-4 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}>
                   <span className="flex items-center gap-2 text-sm">
                     <Lock className="w-4 h-4" /> Premium: Gerenciar canais
                   </span>
