@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Heart, Rocket } from 'lucide-react';
+import { Home, Search, User, Heart, Rocket, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 
@@ -27,20 +27,25 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
   
-  // Item central agora é sempre Favoritos
-  const centralItem = { 
-    id: 'favorites', 
-    icon: Heart, 
-    label: 'Favoritos', 
-    path: createPageUrl('favorites') 
-  };
+  // Definindo o item central baseado no plano
+  const centralItem = isFree 
+    ? { 
+        id: 'upgrade', 
+        icon: Crown, 
+        label: 'Premium', 
+        path: createPageUrl('restaurant-area/upgrade') 
+      }
+    : { 
+        id: 'favorites', 
+        icon: Heart, 
+        label: 'Favoritos', 
+        path: createPageUrl('favorites') 
+      };
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    // Item 2: Busca/Estatísticas
     { id: 'stats', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
-    // Item 3: Favoritos (Central)
-    centralItem,
+    centralItem, // Item central dinâmico
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
@@ -49,10 +54,9 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
           const isSelected = selectedTab === item.id;
+          const isCentralButton = item.id === centralItem.id;
           
-          const isCentralButton = item.id === 'favorites';
-
-          // Se for o botão central E o usuário for FREE, aplica o estilo de destaque
+          // Se for o botão central E for o botão de Upgrade (isFree = true)
           if (isCentralButton && isFree) {
             const Icon = item.icon;
             return (
@@ -65,7 +69,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
                   "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
                   "bg-highlight text-white"
                 )}>
-                  <Icon className={cn("h-7 w-7", isSelected && "fill-white")} />
+                  <Icon className={cn("h-7 w-7 fill-white")} />
                 </div>
                 <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
                   {item.label}
@@ -74,7 +78,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
             );
           }
           
-          // Caso contrário (Premium ou não é o botão central), usa o NavItem padrão
+          // Caso contrário (Premium ou botões laterais), usa o NavItem padrão
           return (
             <NavItem
               key={item.path}
