@@ -49,7 +49,7 @@ export default function ManageAdmins() {
       refetch(); 
     },
     onError: (e) => {
-      console.error("ADD ADMIN MUTATION FAILED:", e); // <-- NOVO LOG DE ERRO
+      console.error("ADD ADMIN MUTATION FAILED:", e);
       const errorMessage = (e as Error).message;
       if (errorMessage.includes('404')) {
         showError(`Falha: Usuário não encontrado. Certifique-se de que o email está cadastrado.`);
@@ -74,12 +74,12 @@ export default function ManageAdmins() {
     },
   });
 
-  const handleAddAdmin = (e: React.FormEvent) => {
-    e.preventDefault(); // Garante que a submissão seja interrompida
-    console.log("handleAddAdmin called.");
+  // Função de submissão adaptada para ser chamada diretamente
+  const handleAddAdmin = () => {
+    console.log("handleAddAdmin called (via onClick).");
     
     const trimmedEmail = emailToAdd.trim();
-    console.log("Email value on submit:", trimmedEmail); // <-- LOG DE DEBUG
+    console.log("Email value on submit:", trimmedEmail);
     
     if (!trimmedEmail || !trimmedEmail.includes('@')) {
       showError('Por favor, insira um e-mail válido.');
@@ -94,7 +94,6 @@ export default function ManageAdmins() {
         }
     } catch (validationError) {
         console.error("Validation check failed:", validationError);
-        // Continua para a mutação, pois o backend fará a verificação final
     }
     
     console.log(`Attempting to add admin: ${trimmedEmail}`);
@@ -125,7 +124,8 @@ export default function ManageAdmins() {
           <CardDescription>Promova um usuário existente para administrador.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleAddAdmin} className="flex gap-3 items-end">
+          {/* Removido o <form> */}
+          <div className="flex gap-3 items-end">
             <div className="flex-1">
               <label htmlFor="email" className="text-sm font-medium text-gray-700 block mb-1">Email do usuário</label>
               <Input
@@ -139,7 +139,8 @@ export default function ManageAdmins() {
               />
             </div>
             <Button 
-              type="submit" 
+              type="button" // Alterado para type="button"
+              onClick={handleAddAdmin} // Chamada direta
               disabled={addAdminMutation.isPending || !emailToAdd.trim()}
               className="bg-highlight hover:bg-highlight/90 h-10 px-4 flex items-center gap-2"
             >
@@ -150,7 +151,7 @@ export default function ManageAdmins() {
               )}
               Adicionar
             </Button>
-          </form>
+          </div>
         </CardContent>
       </Card>
 
