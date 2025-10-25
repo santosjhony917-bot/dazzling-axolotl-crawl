@@ -61,20 +61,34 @@ export default function ManagePlans() {
   // Mutação para atualizar o plano
   const updatePlanMutation = useMutation({
     mutationFn: async ({ id, newPlan }: { id: string, newPlan: RestaurantPlan }) => {
-      const { error } = await supabase
+      // Adicionando select() para garantir que a operação foi bem-sucedida
+      const { data, error } = await supabase
         .from('restaurants')
         .update({ plan: newPlan })
-        .eq('id', id);
-      if (error) throw error;
+        .eq('id', id)
+        .select(); 
+        
+      if (error) {
+        console.error("Supabase Update Error:", error);
+        throw error;
+      }
+      
+      // Se não houver dados retornados, pode ser um problema de RLS ou ID
+      if (!data || data.length === 0) {
+          throw new Error("Nenhuma linha atualizada. Verifique permissões (RLS) ou ID.");
+      }
     },
     onSuccess: () => {
       showSuccess('Plano atualizado com sucesso!');
+      // Invalida a query para forçar o recarregamento dos dados
       queryClient.invalidateQueries({ queryKey: ['adminRestaurantsList'] });
       setPendingChange(null);
       setIsAlertOpen(false);
     },
     onError: (e) => {
-      showError(`Falha ao atualizar plano: ${(e as Error).message}`);
+      const errorMessage = (e as Error).message;
+      console.error("Mutation Error:", errorMessage);
+      showError(`Falha ao atualizar plano: ${errorMessage}`);
       setPendingChange(null);
       setIsAlertOpen(false);
     },
