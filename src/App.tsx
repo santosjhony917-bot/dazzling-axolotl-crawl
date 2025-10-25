@@ -41,6 +41,7 @@ import HelpCenter from './pages/restaurant/HelpCenter';
 import UpgradePage from './pages/Upgrade';
 import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
 import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
+import Splash from './pages/Splash';
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
       <AuthProvider>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Splash />} />
           <Route path="/index" element={<Index />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/onboarding" element={<Onboarding />} />
