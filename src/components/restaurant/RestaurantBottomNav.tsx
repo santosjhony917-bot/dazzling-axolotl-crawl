@@ -36,10 +36,9 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     }
     
     // Lógica de ativação para rotas específicas
-    if (key === 'search') { // Alterado de 'stats' para 'search'
-        // Ativa se o path for /restaurant-area/stats OU /search-client
-        // Nota: A rota de busca de clientes é /search-client
-        return location.pathname.startsWith(createPageUrl('restaurant-area/stats')) || location.pathname.startsWith(createPageUrl('search-client'));
+    if (key === 'search') { 
+        // Ativa se o path for /restaurant-area/stats
+        return location.pathname.startsWith(createPageUrl('restaurant-area/stats'));
     }
     
     // Fallback para a rota atual
@@ -61,14 +60,16 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         id: 'favorites', 
         icon: Heart, 
         label: 'Favoritos', 
+        // Usuários de restaurante Premium podem ver os favoritos dos clientes (mock)
         path: createPageUrl('favorites') 
       };
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    // Alterado id de 'stats' para 'search'
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-client') }, 
+    // CORRIGIDO: Busca deve levar para a área de estatísticas do restaurante
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/stats') }, 
     centralItem, // Item central dinâmico
+    // CORRIGIDO: Perfil deve levar para a área de gerenciamento do perfil
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
