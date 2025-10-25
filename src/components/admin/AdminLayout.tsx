@@ -33,10 +33,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   
   // Se não estiver logado OU não for admin, redireciona para a página de login de admin
   if (!user || !isAdmin) {
-    // Se o usuário estiver logado, mas não for admin, faz logout para evitar confusão
-    if (user) {
-        signOut();
-    }
+    // Não forçamos o logout aqui, apenas redirecionamos para o login de admin.
+    // O usuário pode estar logado como cliente/restaurante.
     return <Navigate to={createPageUrl('admin/login')} replace />;
   }
 
