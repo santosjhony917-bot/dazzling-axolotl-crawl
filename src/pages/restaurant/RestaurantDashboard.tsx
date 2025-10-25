@@ -53,7 +53,7 @@ const RestaurantDashboard = () => {
   
   const handleViewCompetitor = (id: string) => {
     // Simula a navegação para o perfil público do concorrente
-    navigate(createPageUrl(`restaurant-profile/${id}`));
+    navigate(createPageUrl('restaurantProfile', { restaurantId: id }));
   };
 
   return (

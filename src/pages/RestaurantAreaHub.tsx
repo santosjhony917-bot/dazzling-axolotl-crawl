@@ -86,7 +86,7 @@ export default function RestaurantAreaHub() {
                       <h3 className="font-bold text-[#022D68]">{option.title}</h3>
                       <p className="text-sm text-gray-600">{option.description}</p>
                     </div>
-                    <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180" />
+                    <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180 shrink-0" />
                   </motion.div>
                 </Link>
               );

@@ -23,6 +23,7 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
     if (backPath === 'home') {
       navigate(-1);
     } else {
+      // FIX: backPath é uma string, que agora é aceita por createPageUrl
       navigate(createPageUrl(backPath));
     }
   };

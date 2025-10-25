@@ -161,7 +161,7 @@ const Home: React.FC = () => {
               <RestaurantCard 
                 key={restaurant.id} 
                 restaurant={restaurant as unknown as Restaurant} 
-                onClick={() => navigate(createPageUrl(`restaurant-profile/${restaurant.id}`))}
+                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
               />
             ))}
           </div>

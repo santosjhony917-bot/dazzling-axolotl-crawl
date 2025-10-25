@@ -10,15 +10,15 @@ const mockBanners = [
     title: "Torne-se Premium!",
     subtitle: "Apareça para mais clientes e aumente suas vendas.",
     buttonText: "Saiba Mais",
-    imageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
     actionPath: 'restaurant-area/upgrade',
+    imageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
   },
   {
     title: "Estatísticas Avançadas",
     subtitle: "Veja quem são seus concorrentes e como se destacar.",
     buttonText: "Ver Recursos",
-    imageUrl: "https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=2070&auto=format&fit=crop",
     actionPath: 'restaurant-area/upgrade',
+    imageUrl: "https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=2070&auto=format&fit=crop",
   },
 ];
 

@@ -54,6 +54,7 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
           return (
             <Link
               key={item.path}
+              // FIX: Passa a string dinâmica para createPageUrl
               to={createPageUrl(item.path.substring(1))}
               className={cn(
                 "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
