@@ -9,6 +9,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { processExternalImage } from '@/integrations/supabase/imageProcessor'; // Importando o processador
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage'; // Importando o nome do bucket
+import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 
 // Define a estrutura de dados para a Fase 1
 interface RestaurantDataPhase1 {
@@ -241,6 +242,13 @@ const UploadPhase1: React.FC = () => {
       }
       
       showSuccess(`Upload de ${processedCount} restaurantes concluído com sucesso!`);
+      
+      // SALVAR REGISTRO DE UPLOAD
+      saveUploadRecord({
+        phase: 1,
+        successCount: processedCount,
+        details: `Inserção de ${processedCount} novos restaurantes.`,
+      });
       
       // --- Ação de Limpeza ---
       // Limpa a planilha e o localStorage após o upload bem-sucedido

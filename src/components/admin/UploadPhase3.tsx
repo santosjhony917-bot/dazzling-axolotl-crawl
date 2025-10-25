@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
+import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 
 // Define a estrutura de dados para a Fase 3
 interface MenuItemDataPhase3 {
@@ -278,6 +279,13 @@ const UploadPhase3: React.FC = () => {
       itemsInserted = itemsToInsert.length;
       
       showSuccess(`Upload concluído! ${categoriesCreated} categorias criadas e ${itemsInserted} itens inseridos.`);
+      
+      // SALVAR REGISTRO DE UPLOAD
+      saveUploadRecord({
+        phase: 3,
+        successCount: itemsInserted,
+        details: `Inserção de ${itemsInserted} itens em ${categoriesCreated} categorias.`,
+      });
       
       // Limpa a planilha e o localStorage após o upload bem-sucedido
       setRows([{ ...initialRow, id: 'temp-0' }]); 

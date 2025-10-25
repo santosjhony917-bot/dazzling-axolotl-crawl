@@ -9,6 +9,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { WeekSchedule, DaySchedule, TimeSlot } from '@/types/schedule';
+import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 
 // Define a estrutura de dados para a Fase 4
 interface RestaurantDataPhase4 {
@@ -27,7 +28,7 @@ interface RestaurantDataPhase4 {
 
 // Colunas da planilha
 const columns = [
-  { key: 'name', label: 'Nome do Restaurante', readOnly: true },
+  { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '150px' },
   { key: 'monday', label: 'Segunda' },
   { key: 'tuesday', label: 'Terça' },
   { key: 'wednesday', label: 'Quarta' },
@@ -40,7 +41,7 @@ const columns = [
 // Chave de persistência
 const STORAGE_KEY = 'admin_upload_phase4_data';
 
-// Função utilitária para parsear a string de horário (ex: '09:00-12:00, 14:00-18:00')
+// Função utilitária para parsear a string de horário (ex: 'HH:MM-HH:MM, HH:MM-HH:MM')
 const parseTimeSlots = (timeString: string): DaySchedule => {
   const cleaned = timeString.trim().toLowerCase();
   
@@ -212,7 +213,7 @@ const UploadPhase4: React.FC = () => {
         const daySchedule = parseTimeSlots(timeString);
         
         // Validação básica: se for aberto, deve ter slots válidos
-        if (daySchedule.isOpen && daySchedule.slots.length === 0 && timeString.trim().toLowerCase() !== 'fechado') {
+        if (daySchedule.isOpen && daySchedule.slots.length === 0 && timeString.trim().toLowerCase() !== 'fechado' && timeString.trim().length > 0) {
             newErrors[row.id] = `Erro na formatação do horário para ${dayKey}. Use HH:MM-HH:MM.`;
             hasError = true;
             break;
@@ -249,6 +250,13 @@ const UploadPhase4: React.FC = () => {
       } else {
         successCount = updates.length;
         showSuccess(`${successCount} horários de funcionamento atualizados com sucesso!`);
+        
+        // SALVAR REGISTRO DE UPLOAD
+        saveUploadRecord({
+          phase: 4,
+          successCount: successCount,
+          details: `Atualização de horários para ${successCount} restaurantes.`,
+        });
       }
     } else if (Object.keys(newErrors).length === 0) {
         showSuccess("Nenhum horário novo para processar.");

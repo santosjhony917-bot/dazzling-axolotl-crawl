@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, MapPin, UtensilsCrossed, Clock, DollarSign, Zap, BarChart } from "lucide-react";
-import AdminLayout from "@/components/admin/AdminLayout"; // Usando o AdminLayout correto
+import { Upload, MapPin, UtensilsCrossed, Clock, History } from "lucide-react";
 import UploadPhase1 from "@/components/admin/UploadPhase1";
 import UploadPhase2 from "@/components/admin/UploadPhase2";
 import UploadPhase3 from "@/components/admin/UploadPhase3";
-import UploadPhase4 from "@/components/admin/UploadPhase4"; // NOVO IMPORT
+import UploadPhase4 from "@/components/admin/UploadPhase4";
+import UploadHistory from "@/components/admin/UploadHistory"; // NOVO IMPORT
 
 export default function AdminUploadInfo() {
   const [activeTab, setActiveTab] = useState("phase1");
@@ -23,7 +23,7 @@ export default function AdminUploadInfo() {
       </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-white shadow-md rounded-xl">
+        <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white shadow-md rounded-xl">
           <TabsTrigger value="phase1" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-[#022D68] data-[state=active]:text-white">
             <Upload className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Fase 1: Info Gerais</span>
@@ -40,6 +40,10 @@ export default function AdminUploadInfo() {
             <Clock className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Fase 4: Horários</span>
           </TabsTrigger>
+          <TabsTrigger value="history" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-[#022D68] data-[state=active]:text-white">
+            <History className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium text-center">Histórico</span>
+          </TabsTrigger>
         </TabsList>
 
         <div className="mt-4">
@@ -54,6 +58,9 @@ export default function AdminUploadInfo() {
           </TabsContent>
           <TabsContent value="phase4">
             <UploadPhase4 />
+          </TabsContent>
+          <TabsContent value="history">
+            <UploadHistory />
           </TabsContent>
         </div>
       </Tabs>

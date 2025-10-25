@@ -9,6 +9,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { geocodeAddress, formatCEP } from '@/services/geocoding';
 import axios from 'axios';
+import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
 
 // Define a estrutura de dados para a Fase 2 (incluindo campos do DB e campos de referência)
 interface RestaurantDataPhase2 {
@@ -312,6 +313,13 @@ const UploadPhase2: React.FC = () => {
         console.error("Bulk Update Errors:", updateErrors);
       } else {
         showSuccess(`${successCount} restaurantes atualizados e geocodificados com sucesso!`);
+        
+        // SALVAR REGISTRO DE UPLOAD
+        saveUploadRecord({
+          phase: 2,
+          successCount: successCount,
+          details: `Geocodificação e atualização de endereço para ${successCount} restaurantes.`,
+        });
       }
     } else if (Object.keys(newErrors).length === 0) {
         showSuccess("Nenhum restaurante novo para geocodificar.");
