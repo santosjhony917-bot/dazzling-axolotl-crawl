@@ -9,6 +9,9 @@ interface ProtectedRouteProps {
   element?: React.ReactElement; // Allows wrapping an element like <AdminLayout />
 }
 
+// Rotas consideradas 'de cliente' que devem redirecionar proprietários de restaurante
+const CUSTOMER_ROUTES = ['/home', '/profile', '/favorites', '/search-client'];
+
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authenticated', element }) => {
   const { user, isLoading, isAdmin, restaurant } = useAuthContext();
   const location = useLocation();
@@ -26,6 +29,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
     return <Navigate to={createPageUrl('auth')} state={{ from: location }} replace />;
   }
   
+  // --- LÓGICA DE REDIRECIONAMENTO DE PROPRIETÁRIO DE RESTAURANTE ---
+  const isRestaurantOwner = !!restaurant;
+  const isCustomerRoute = CUSTOMER_ROUTES.some(route => location.pathname === route || location.pathname.startsWith(`${route}/`));
+
+  if (isRestaurantOwner && isCustomerRoute) {
+    // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
+    return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
+  }
+  // ---------------------------------------------------------------------
+  
   // Check roles
   let hasRequiredRole = false;
   
@@ -35,7 +48,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
     hasRequiredRole = isAdmin;
   } else if (requiredRole === 'restaurant_owner') {
     // A user is a restaurant owner if they are logged in AND have a restaurant linked
-    hasRequiredRole = !!restaurant;
+    hasRequiredRole = isRestaurantOwner;
   }
 
   if (!hasRequiredRole) {
