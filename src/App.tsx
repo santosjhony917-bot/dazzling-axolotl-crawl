@@ -96,8 +96,8 @@ function App() {
           {/* Rotas da Área Administrativa (Proteção interna no AdminLayout) */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout title="Painel Administrativo" />}>
-            {/* Redireciona /admin para /admin/dashboard */}
-            <Route index element={<Navigate to="dashboard" replace />} /> 
+            {/* Renderiza o Dashboard diretamente na rota index /admin */}
+            <Route index element={<AdminDashboard />} /> 
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="manage-admins" element={<ManageAdmins />} />
             <Route path="edit-restaurant" element={<EditRestaurant />} />
