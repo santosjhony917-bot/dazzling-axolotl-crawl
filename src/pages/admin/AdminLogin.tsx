@@ -8,12 +8,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { showError, showSuccess } from "@/utils/toast";
 import { createPageUrl } from "@/utils/url";
 import { motion } from "framer-motion";
+import { useAuthContext } from "@/context/AuthContext"; // Importando o contexto
 
 const ADMIN_EMAIL = "joaoedasilva018@gmail.com";
 const ADMIN_PASSWORD = "password";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
+  const { refetchProfile } = useAuthContext(); // Usando refetchProfile
   const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState(ADMIN_PASSWORD);
   const [loading, setLoading] = useState(false);
@@ -59,14 +61,15 @@ export default function AdminLogin() {
         }
       }
       
-      // 2. Redireciona para o dashboard de admin
-      console.log("ADMIN LOGIN SUCCESS: Waiting for profile sync before navigating.");
+      // 2. Força o AuthContext a recarregar o perfil e os papéis
+      refetchProfile();
+      
+      // 3. Mostra sucesso e DEIXA o AdminLayout lidar com a navegação para /admin/dashboard
       showSuccess("Login de Administrador realizado com sucesso!");
       
-      // Adiciona um pequeno atraso para dar tempo ao useAuthProfile de buscar o papel de admin
-      await new Promise(resolve => setTimeout(resolve, 500)); 
-      
-      navigate(createPageUrl("admin/dashboard")); 
+      // Não navegamos explicitamente aqui. O AdminLayout fará isso.
+      // Apenas garantimos que o usuário saia da tela de login.
+      navigate(createPageUrl("admin/dashboard"), { replace: true }); 
 
     } catch (error) {
       const msg = (error as Error).message || "Falha no login de Administrador. Verifique as credenciais.";
