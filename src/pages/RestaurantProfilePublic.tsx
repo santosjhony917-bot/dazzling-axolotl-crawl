@@ -27,16 +27,13 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
   const navigate = useNavigate();
   const isPremium = restaurant.plan === 'premium';
 
-  // --- Mock de Dados Sociais ---
-  const [isFollowing, setIsFollowing] = useState(false);
-  // Mock: Usando um valor inicial fixo para seguidores
+  // --- Mock de Dados Sociais (Movido para o componente pai para persistência de estado) ---
+  // Usando useState para simular a contagem de seguidores
   const [followersCount, setFollowersCount] = useState(120); 
   
   const handleFollowToggle = () => {
     // Simulação de toggle de seguir
-    setIsFollowing(prev => !prev);
-    setFollowersCount(prev => prev + (isFollowing ? -1 : 1));
-    showSuccess(isFollowing ? "Deixou de seguir." : "Começou a seguir!");
+    setFollowersCount(prev => prev + (followersCount > 120 ? -1 : 1));
   };
   
   const formatScheduleSummary = (schedule: any): string => {
@@ -61,10 +58,10 @@ const RestaurantProfileContent: React.FC<RestaurantProfileContentProps> = ({ res
       <Card className="w-full max-w-md shadow-xl border-none rounded-b-3xl p-0 bg-white dark:bg-gray-800">
         <RestaurantPublicHeader
           restaurant={{
+            id: restaurant.id, // Passando o ID
             name: restaurant.name,
             followersCount: followersCount,
             logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
-            isFollowing: isFollowing,
             onFollowToggle: handleFollowToggle,
           }}
         />
