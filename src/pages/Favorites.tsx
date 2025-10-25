@@ -54,7 +54,7 @@ export default function Favorites() {
             <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum favorito encontrado</h2>
             <p className="text-gray-600 mb-6">Comece a explorar e adicione seus restaurantes preferidos.</p>
-            <Button onClick={() => navigate(createPageUrl('search-client'))}>
+            <Button onClick={() => navigate(createPageUrl('search-unified'))}>
               Explorar Restaurantes
             </Button>
           </div>

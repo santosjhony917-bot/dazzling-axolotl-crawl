@@ -14,8 +14,8 @@ const PATHS = {
   welcome: '/welcome',
   legal: '/legal',
   'customer-login': '/auth', // Alias for customer login
-  'search-client': '/search-client',
-  'search-restaurants': '/search-restaurants',
+  'search-unified': '/search-unified', // Rota de busca unificada
+  'search-restaurants': '/search-restaurants', // Rota de filtros (mantida)
   
   // Restaurant Flow
   'restaurant-area': '/restaurant-area',

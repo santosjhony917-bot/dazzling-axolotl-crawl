@@ -54,7 +54,7 @@ const RestaurantDashboard = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
 
   const handleSearchNearby = () => {
@@ -69,7 +69,7 @@ const RestaurantDashboard = () => {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
   
   const handleEditMenu = () => {
@@ -179,6 +179,9 @@ const RestaurantDashboard = () => {
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation */}
+      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
 
       {/* User Location Modal */}
       <UserLocationModal

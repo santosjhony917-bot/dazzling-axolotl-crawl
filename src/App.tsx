@@ -18,7 +18,6 @@ import RestaurantArea from './pages/RestaurantArea';
 import RestaurantDashboardPage from './pages/RestaurantDashboard';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 import SearchRestaurants from './pages/SearchRestaurants';
-import ClientSearchPage from './pages/ClientSearchPage';
 import RestaurantResultsPage from './pages/RestaurantResults';
 import FavoritesPage from './pages/Favorites';
 import { AuthProvider } from './context/AuthContext';
@@ -42,7 +41,8 @@ import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
 import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
 import Splash from './pages/Splash';
 import RestaurantSearch from './pages/restaurant/Search'; // Importando a tela correta de busca/análise
-import ClientProfilePage from './pages/ClientProfilePage'; // NOVO IMPORT
+import ClientProfilePage from './pages/ClientProfilePage';
+import SearchUnifiedPage from './pages/SearchUnifiedPage'; // NOVO IMPORT
 
 function App() {
   return (
@@ -63,6 +63,7 @@ function App() {
           <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
           <Route path="/search-restaurants" element={<SearchRestaurants />} />
           <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
+          <Route path="/search-unified" element={<SearchUnifiedPage />} /> {/* ROTA UNIFICADA */}
           
           {/* Restaurant Flow Routes */}
           <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -87,15 +88,15 @@ function App() {
           {/* Protected Customer Routes (Inclui a rota de busca unificada) */}
           <Route element={<ProtectedRoute requiredRole="authenticated" />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<ClientProfilePage />} /> {/* USANDO NOVO COMPONENTE */}
+            <Route path="/profile" element={<ClientProfilePage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/search-client" element={<ClientSearchPage />} />
+            {/* Rota /search-client removida, usando /search-unified */}
           </Route>
           
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            {/* Rota de stats removida, a busca agora usa /search-client */}
+            {/* Rota de stats removida, a busca agora usa /search-unified */}
             <Route path="profile-menu" element={<RestaurantProfileMenu />} />
             <Route path="upgrade" element={<UpgradePage />} />
             <Route path="gallery" element={<GalleryManagement />} />

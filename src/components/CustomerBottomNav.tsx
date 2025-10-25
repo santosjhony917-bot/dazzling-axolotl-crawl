@@ -13,7 +13,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { path: '/home', label: 'Home', icon: Home, key: 'home' },
-  { path: '/search-client', label: 'Buscar', icon: Search, key: 'search' }, // Rota atualizada
+  { path: '/search-unified', label: 'Buscar', icon: Search, key: 'search' }, // Rota atualizada
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
   { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
 ];

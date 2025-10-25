@@ -52,7 +52,7 @@ const Home: React.FC = () => {
       return;
     }
     // Redireciona para a página de busca unificada
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
 
   const handleOpenSearchConfig = () => {
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
       return;
     }
     // Navega para a página de busca unificada
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
   
   const handleSearchByPrice = () => {
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
 
   const handleSearchNearby = () => {
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-client'));
+    navigate(createPageUrl('search-unified'));
   };
 
   return (

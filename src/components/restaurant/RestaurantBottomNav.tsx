@@ -37,8 +37,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     
     // Lógica de ativação para rotas específicas
     if (key === 'search') { 
-        // Agora, a busca ativa se o path for /search-client
-        return location.pathname.startsWith(createPageUrl('search-client'));
+        // Agora, a busca ativa se o path for /search-unified
+        return location.pathname.startsWith(createPageUrl('search-unified'));
     }
     
     // Fallback para a rota atual
@@ -67,7 +67,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
     // CORRIGIDO: Busca deve levar para a tela de busca unificada
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-client') }, 
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') }, 
     centralItem, // Item central dinâmico
     // CORRIGIDO: Perfil deve levar para a área de gerenciamento do perfil
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
