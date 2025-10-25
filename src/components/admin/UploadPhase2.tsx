@@ -216,13 +216,15 @@ const UploadPhase2: React.FC = () => {
     setRows(prevRows => {
       const newRows = [...prevRows];
       
+      // Encontra o índice da coluna na lista de colunas
+      const colIndex = columns.findIndex(c => c.key === key);
+      if (colIndex === -1) return prevRows; // Coluna não encontrada
+
       for (let i = 0; i < values.length; i++) {
         const targetIndex = rowIndex + i;
         const value = values[i];
         
         if (targetIndex < newRows.length) {
-          const rowId = newRows[targetIndex].id;
-          
           let finalValue = value;
           if (key === 'cep') {
             finalValue = formatCEP(value);
@@ -443,7 +445,7 @@ const UploadPhase2: React.FC = () => {
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
             ) : (
               <>
-                <Upload className="h-4 w-4 mr-2" /> Geocodificar e Atualizar ({rowsToProcess.length})
+                <Upload className="h-4 w-4 mr-2" /> Salvar Endereços e Geocodificar ({rowsToProcess.length})
               </>
             )}
           </Button>
