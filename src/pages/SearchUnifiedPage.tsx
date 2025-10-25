@@ -8,12 +8,13 @@ import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
 import ClientLayout from '@/components/ClientLayout';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-// import UserLocationModal from '@/components/restaurant/UserLocationModal'; // Removido
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthContext } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importando o nav do restaurante
+import { useUserRole } from '@/hooks/useUserRole'; // Importando o hook de role
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -33,20 +34,18 @@ const mockRestaurantHighlights = [
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
   const { user, restaurant } = useAuthContext();
+  const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
   
-  // Mantemos o hook para obter a localização, mas removemos a interação de alteração
   const { location, isLoading: isLocationLoading } = useUserSearchLocation();
   
   const [searchQuery, setSearchQuery] = useState('');
-  // const [isLocationModalOpen, setIsLocationModalOpen] = useState(false); // Removido
   const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
-  // const currentAddress = location.address; // Não é mais usado no UI
 
   // Define as props obrigatórias para ClientLayout
   const clientLayoutProps = { 
@@ -55,9 +54,6 @@ export default function SearchUnifiedPage() {
     showBackButton: true 
   };
   
-  // Define as props a serem espalhadas, garantindo que sejam do tipo correto
-  const layoutProps = isRestaurantOwner ? {} : clientLayoutProps;
-
   // Lógica de Busca
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,11 +71,6 @@ export default function SearchUnifiedPage() {
     }));
   };
   
-  // const handleLocationSaved = () => { // Removido
-  //   refetchLocation();
-  //   setIsLocationModalOpen(false);
-  // };
-  
   const handleItemClick = (itemId: string, type: SearchType) => {
     if (type === 'restaurant') {
       navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
@@ -91,7 +82,6 @@ export default function SearchUnifiedPage() {
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de preço.");
-      // Não abre modal, apenas informa que a localização é necessária
       return;
     }
     setIsPriceModalOpen(true);
@@ -105,7 +95,6 @@ export default function SearchUnifiedPage() {
   const handleSearchNearby = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de distância.");
-      // Não abre modal, apenas informa que a localização é necessária
       return;
     }
     setIsDistanceModalOpen(true);
@@ -131,8 +120,6 @@ export default function SearchUnifiedPage() {
   // Renderiza o conteúdo da página
   const pageContent = (
     <div className="p-4 space-y-6">
-      
-      {/* O cartão de localização foi removido daqui */}
       
       {/* Barra de Busca e Filtro */}
       <form onSubmit={handleSearch} className="flex gap-2">
@@ -213,7 +200,26 @@ export default function SearchUnifiedPage() {
           </div>
           <div className="w-10"></div>
         </header>
-        {pageContent}
+        <main className="flex-1 w-full max-w-md mx-auto pb-20">
+          {pageContent}
+        </main>
+        
+        {/* Bottom Navigation para Proprietários de Restaurante */}
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+          <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
+        </div>
+        
+        {/* Modais de Filtro */}
+        <SearchByPriceModal
+          isOpen={isPriceModalOpen}
+          onClose={() => setIsPriceModalOpen(false)}
+          onApplyFilter={handleApplyPriceFilter}
+        />
+        <SearchByDistanceModal
+          isOpen={isDistanceModalOpen}
+          onClose={() => setIsDistanceModalOpen(false)}
+          onApplyFilter={handleApplyDistanceFilter}
+        />
       </div>
     );
   }
