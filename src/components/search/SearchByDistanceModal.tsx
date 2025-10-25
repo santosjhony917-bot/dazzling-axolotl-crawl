@@ -5,6 +5,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 interface SearchByDistanceModalProps {
   isOpen: boolean;
@@ -22,6 +24,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
   onApplyFilter,
   initialDistance = 15,
 }) => {
+  const navigate = useNavigate();
   const [distance, setDistance] = useState<number>(initialDistance);
 
   const handleSliderChange = (newRange: number[]) => {
@@ -32,6 +35,9 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
   const handleApply = () => {
     onApplyFilter(distance);
     onClose();
+    
+    // Navega para a página de busca unificada
+    navigate(createPageUrl('search-client'));
   };
 
   // Função para formatar a exibição da distância
@@ -50,7 +56,6 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
           {/* Header */}
           <SheetHeader className="p-4 border-b relative flex-shrink-0">
             <SheetTitle className="text-xl font-bold text-[#022D68] text-center">Filtro de Distância</SheetTitle>
-            {/* Removido o botão X redundante */}
           </SheetHeader>
           
           {/* Content */}

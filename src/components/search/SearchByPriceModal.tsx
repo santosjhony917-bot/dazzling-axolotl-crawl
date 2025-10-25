@@ -7,6 +7,8 @@ import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { formatCurrency } from '@/utils/formatters';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 interface SearchByPriceModalProps {
   isOpen: boolean;
@@ -26,6 +28,7 @@ const MIN_GLOBAL_PRICE = 0;
 const MAX_GLOBAL_PRICE = 500; // Limite superior para o slider
 
 const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose, onApplyFilter }) => {
+  const navigate = useNavigate();
   const [priceRange, setPriceRange] = useState<[number, number]>([20, 75]);
   const [minInput, setMinInput] = useState('20,00');
   const [maxInput, setMaxInput] = useState('75,00');
@@ -72,6 +75,9 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
   const handleApply = () => {
     onApplyFilter(priceRange[0], priceRange[1]);
     onClose();
+    
+    // Navega para a página de busca unificada
+    navigate(createPageUrl('search-client'));
   };
 
   return (
