@@ -70,33 +70,28 @@ function App() {
           <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
           <Route path="/menu/:restaurantId" element={<PublicMenuPage />} />
 
-          {/* Rotas Protegidas do Cliente */}
+          {/* Rotas Protegidas (Acessíveis a qualquer usuário logado) */}
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/favorites" element={<Favorites />} />
-          </Route>
+            <Route path="/favorites" element={<Favorites />} /> {/* Movido para cá */}
 
-          {/* Rotas Protegidas da Área do Restaurante */}
-          <Route element={<ProtectedRoute />}>
+            {/* Rotas Protegidas da Área do Restaurante */}
             <Route path="/restaurant-area" element={<RestaurantArea />}>
               <Route index element={<RestaurantDashboard />} />
               <Route path="home" element={<RestaurantDashboard />} />
               <Route path="menu" element={<RestaurantMenu />} />
-              <Route path="categories" element={<RestaurantMenu />} /> {/* Redireciona para Menu */}
+              <Route path="categories" element={<RestaurantMenu />} />
               <Route path="profile-menu" element={<RestaurantProfileMenu />} />
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
-              {/* Mapeando a rota de 'stats' (Busca do Restaurante) para a página de busca do cliente */}
               <Route path="stats" element={<ClientSearchPage />} /> 
-              {/* Adicione outras rotas da área do restaurante aqui */}
             </Route>
           </Route>
           
           {/* Rotas da Área Administrativa (Proteção interna no AdminLayout) */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout title="Painel Administrativo" />}>
-            {/* Renderiza o Dashboard diretamente na rota index /admin */}
             <Route index element={<AdminDashboard />} /> 
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="manage-admins" element={<ManageAdmins />} />
