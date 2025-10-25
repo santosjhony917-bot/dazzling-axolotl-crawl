@@ -84,7 +84,7 @@ function App() {
             <Route path="edit-restaurant" element={<AdminRestaurants />} />
           </Route>
 
-          {/* Protected Customer Routes */}
+          {/* Protected Customer Routes (Inclui a rota de busca unificada) */}
           <Route element={<ProtectedRoute requiredRole="authenticated" />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
@@ -95,7 +95,7 @@ function App() {
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            <Route path="stats" element={<RestaurantSearch />} />
+            {/* Rota de stats removida, a busca agora usa /search-client */}
             <Route path="profile-menu" element={<RestaurantProfileMenu />} />
             <Route path="upgrade" element={<UpgradePage />} />
             <Route path="gallery" element={<GalleryManagement />} />

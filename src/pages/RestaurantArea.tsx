@@ -5,7 +5,7 @@ import { useUserRole } from '@/hooks/useUserRole';
 
 const getSelectedTab = (pathname: string) => {
   if (pathname.includes('/restaurant-area/home')) return 'home';
-  if (pathname.includes('/restaurant-area/stats')) return 'stats'; // Chave 'stats' para a rota de busca/análise
+  if (pathname.includes('/search-client')) return 'search'; // Novo check para a rota unificada
   if (pathname.includes('/restaurant-area/menu')) return 'menu';
   if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade';
   if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
@@ -19,12 +19,12 @@ const RestaurantArea = () => {
   
   const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home');
   const isProfileMenuRoute = location.pathname.endsWith('/restaurant-area/profile-menu');
-  const isStatsRoute = location.pathname.includes('/restaurant-area/stats');
+  const isSearchRoute = location.pathname.includes('/search-client'); // Usando a rota unificada
   const isHelpRoute = location.pathname.includes('/restaurant-area/help');
 
   const getHeaderContent = () => {
     // O Dashboard e o ProfileMenu (que é o FreeProfileLayout) gerenciam seu próprio layout/header
-    if (isDashboardRoute || isProfileMenuRoute || isStatsRoute || isHelpRoute) {
+    if (isDashboardRoute || isProfileMenuRoute || isSearchRoute || isHelpRoute) {
         return { title: "", showHeader: false };
     }
     if (location.pathname.includes('/restaurant-area/menu')) {
@@ -41,9 +41,8 @@ const RestaurantArea = () => {
 
   const { title, showHeader } = getHeaderContent();
   
-  // Condição para renderizar o BottomNav:
-  // Renderiza se não for a rota de stats (que renderiza o seu próprio nav)
-  const shouldRenderBottomNav = !isStatsRoute;
+  // O BottomNav deve ser sempre renderizado na área do restaurante
+  const shouldRenderBottomNav = true;
 
   return (
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark">

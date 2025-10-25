@@ -24,7 +24,7 @@ const PATHS = {
   'restaurant-signup': '/restaurant-signup',
   'claim-restaurant': '/claim-restaurant',
   'restaurant-area/home': '/restaurant-area/home',
-  'restaurant-area/stats': '/restaurant-area/stats',
+  // 'restaurant-area/stats': '/restaurant-area/stats', // REMOVIDO
   'restaurant-area/menu': '/restaurant-area/menu',
   'restaurant-area/categories': '/restaurant-area/categories',
   'restaurant-area/upgrade': '/restaurant-area/upgrade',
