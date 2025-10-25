@@ -1,5 +1,5 @@
 // Define o tipo enum baseado no contexto do schema
-export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
+export type RestaurantPlan = 'free' | 'premium' | 'premium_gift';
 
 export interface Restaurant {
   id: string;

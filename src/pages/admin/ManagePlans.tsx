@@ -23,7 +23,6 @@ import {
 // Planos disponíveis para seleção manual
 const availablePlans: { value: RestaurantPlan, label: string, isPaid: boolean, isGift: boolean }[] = [
   { value: 'free', label: 'Free', isPaid: false, isGift: false },
-  { value: 'basic', label: 'Basic', isPaid: true, isGift: false },
   { value: 'premium', label: 'Premium', isPaid: true, isGift: false },
   { value: 'premium_gift', label: 'Premium G (Cortesia)', isPaid: false, isGift: true },
 ];
@@ -95,27 +94,22 @@ export default function ManagePlans() {
     const currentDetails = getPlanDetails(currentPlan);
     const targetDetails = getPlanDetails(targetPlan);
     
-    // Regra 1: Planos pagos (basic, premium) não podem ser rebaixados para free ou premium_gift.
+    // Planos pagos (premium) não podem ser rebaixados para free ou premium_gift.
     if (currentDetails.isPaid && (targetPlan === 'free' || targetPlan === 'premium_gift')) {
       return false;
     }
     
-    // Regra 2: Planos cortesia (premium_gift) não podem ser rebaixados para free.
+    // Planos cortesia (premium_gift) não podem ser rebaixados para free.
     if (currentDetails.isGift && targetPlan === 'free') {
         return false;
     }
     
-    // Regra 3: Se o plano atual for pago ou cortesia, só pode ser alterado para outro plano pago/cortesia (upgrade ou lateral).
-    if ((currentDetails.isPaid || currentDetails.isGift) && targetPlan === 'free') {
-        return false;
-    }
-    
-    // Regra 4: Se o plano atual for Free, pode ir para qualquer outro.
+    // Se o plano atual for Free, pode ir para qualquer outro.
     if (currentPlan === 'free') {
         return true;
     }
     
-    // Regra 5: Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia.
+    // Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia (upgrade ou lateral).
     if (currentDetails.isPaid || currentDetails.isGift) {
         return targetDetails.isPaid || targetDetails.isGift;
     }
@@ -126,7 +120,6 @@ export default function ManagePlans() {
   const getPlanColor = (plan: RestaurantPlan) => {
     switch (plan) {
       case 'premium': return 'bg-amber-500 text-white';
-      case 'basic': return 'bg-blue-500 text-white';
       case 'premium_gift': return 'bg-green-500 text-white'; // Cor para cortesia
       case 'free': return 'bg-gray-200 text-gray-700';
       default: return 'bg-gray-200 text-gray-700';
