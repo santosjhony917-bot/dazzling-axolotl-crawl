@@ -67,10 +67,17 @@ serve(async (req) => {
     } else if (action === 'add' && email) {
         // 4. Add Admin Role
         
-        // Primeiro, tenta buscar o usuário
-        const { data: userByEmail, error: fetchError } = await supabaseAdmin.auth.admin.getUserByEmail(email);
+        // CORREÇÃO: Usar listUsers com filtro para encontrar o usuário por email
+        const { data: listData, error: fetchError } = await supabaseAdmin.auth.admin.listUsers({
+            filter: `email eq "${email}"`,
+            perPage: 1,
+        });
         
-        if (fetchError) {
+        if (fetchError) throw fetchError;
+        
+        const userToPromote = listData.users[0];
+
+        if (!userToPromote) {
             // Se o usuário não for encontrado, retorna um erro 404
             return new Response(JSON.stringify({ error: `Usuário com email ${email} não encontrado. Certifique-se de que a conta existe.` }), { 
                 status: 404, 
@@ -80,7 +87,7 @@ serve(async (req) => {
         
         // Se o usuário for encontrado, atualiza o metadado
         const { data: updatedUser, error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
-            userByEmail.user.id,
+            userToPromote.id,
             { user_metadata: { role: 'admin' } }
         );
         
