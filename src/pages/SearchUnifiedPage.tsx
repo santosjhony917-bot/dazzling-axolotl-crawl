@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass } from 'lucide-react';
+import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -123,6 +123,10 @@ export default function SearchUnifiedPage() {
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
   };
+  
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   // Renderiza o conteúdo da página
   const pageContent = (
@@ -212,8 +216,27 @@ export default function SearchUnifiedPage() {
   );
 
   if (isRestaurantOwner) {
-    // Se for proprietário de restaurante, renderiza apenas o conteúdo dentro de uma div
-    return <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">{pageContent}</div>;
+    // Se for proprietário de restaurante, renderiza o conteúdo com um cabeçalho manual
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+        {/* Cabeçalho Manual para Proprietários de Restaurante */}
+        <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleBack}
+            className="text-[#022D68] hover:bg-[#022D68]/5"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <div className="flex items-center gap-2">
+            <h2 className="text-[#022D68] text-xl font-bold">Busca</h2>
+          </div>
+          <div className="w-10"></div>
+        </header>
+        {pageContent}
+      </div>
+    );
   }
 
   // Se for cliente, usa o ClientLayout
