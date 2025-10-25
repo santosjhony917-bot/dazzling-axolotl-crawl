@@ -32,7 +32,7 @@ export default function ManageAdmins() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   // Query para listar administradores
-  const { data: admins, isLoading, error } = useQuery<AdminUser[], Error>({
+  const { data: admins, isLoading, error, refetch } = useQuery<AdminUser[], Error>({
     queryKey: ['adminList'],
     queryFn: listAdmins,
     staleTime: 60000, // 1 minuto
@@ -44,7 +44,9 @@ export default function ManageAdmins() {
     onSuccess: () => {
       showSuccess(`Usuário ${emailToAdd} promovido a administrador.`);
       setEmailToAdd('');
+      // Invalida e força o refetch
       queryClient.invalidateQueries({ queryKey: ['adminList'] });
+      refetch(); 
     },
     onError: (e) => {
       showError(`Falha ao adicionar administrador: ${(e as Error).message}`);
@@ -57,6 +59,7 @@ export default function ManageAdmins() {
     onSuccess: () => {
       showSuccess(`Papel de administrador removido.`);
       queryClient.invalidateQueries({ queryKey: ['adminList'] });
+      refetch();
       setIsAlertOpen(false);
       setUserToRemove(null);
     },

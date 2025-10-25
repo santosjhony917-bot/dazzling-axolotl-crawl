@@ -66,6 +66,8 @@ serve(async (req) => {
 
     } else if (action === 'add' && email) {
         // 4. Add Admin Role
+        
+        // Primeiro, tenta buscar o usuário
         const { data: userByEmail, error: fetchError } = await supabaseAdmin.auth.admin.getUserByEmail(email);
         
         if (fetchError) {
@@ -76,6 +78,7 @@ serve(async (req) => {
             });
         }
         
+        // Se o usuário for encontrado, atualiza o metadado
         const { data: updatedUser, error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
             userByEmail.user.id,
             { user_metadata: { role: 'admin' } }
