@@ -81,6 +81,7 @@ export default function ManageAdmins() {
         return;
     }
     
+    console.log(`Attempting to add admin: ${trimmedEmail}`);
     addAdminMutation.mutate(trimmedEmail);
   };
 
