@@ -62,13 +62,13 @@ export default function AdminLogin() {
       }
       
       // 2. Força o AuthContext a recarregar o perfil e os papéis
-      refetchProfile();
+      await refetchProfile();
+
+      // Adiciona um pequeno atraso para garantir que o AdminLayout sincronize o papel de administrador
+      await new Promise(resolve => setTimeout(resolve, 300));
       
-      // 3. Mostra sucesso e DEIXA o AdminLayout lidar com a navegação para /admin/dashboard
+      // 3. Mostra sucesso e navega
       showSuccess("Login de Administrador realizado com sucesso!");
-      
-      // Não navegamos explicitamente aqui. O AdminLayout fará isso.
-      // Apenas garantimos que o usuário saia da tela de login.
       navigate(createPageUrl("admin/dashboard"), { replace: true }); 
 
     } catch (error) {
