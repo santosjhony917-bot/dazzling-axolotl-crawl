@@ -10,16 +10,18 @@ import { supabase } from '@/integrations/supabase/client';
 import { geocodeAddress, formatCEP } from '@/services/geocoding';
 import axios from 'axios';
 
-// Define a estrutura de dados para a Fase 2 (incluindo campos do DB)
+// Define a estrutura de dados para a Fase 2 (incluindo campos do DB e campos de referência)
 interface RestaurantDataPhase2 {
   id: string;
   name: string;
   cep: string;
-  address: string; // Rua/Avenida
-  number: string;
-  neighborhood: string;
-  city: string;
-  state: string;
+  address: string; // Rua/Avenida (Mapeia para DB: address)
+  number: string; // (Mapeia para DB: number)
+  complement: string; // (Referência, não mapeado para DB)
+  reference_point: string; // (Referência, não mapeado para DB)
+  neighborhood: string; // (Mapeia para DB: neighborhood)
+  city: string; // (Mapeia para DB: city)
+  state: string; // (Mapeia para DB: state)
   latitude: number | null;
   longitude: number | null;
   isGeocoded: boolean;
@@ -27,10 +29,12 @@ interface RestaurantDataPhase2 {
 
 // Colunas da planilha (incluindo campos editáveis para colagem)
 const columns = [
-  { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '200px' },
+  { key: 'name', label: 'Nome do Restaurante', readOnly: true, width: '150px' },
   { key: 'cep', label: 'CEP', width: '100px' },
-  { key: 'address', label: 'Rua/Avenida', width: '200px' },
+  { key: 'address', label: 'Rua/Avenida', width: '180px' },
   { key: 'number', label: 'Número', width: '80px' },
+  { key: 'complement', label: 'Complemento', width: '120px' },
+  { key: 'reference_point', label: 'Ponto de Referência', width: '150px' },
   { key: 'neighborhood', label: 'Bairro', width: '150px' },
   { key: 'city', label: 'Cidade', width: '150px' },
   { key: 'state', label: 'UF', width: '80px' },
@@ -39,6 +43,26 @@ const columns = [
 // Chave de persistência
 const STORAGE_KEY = 'admin_upload_phase2_data';
 
+// Função utilitária para gerar um ID temporário
+let rowIdCounter = 0;
+const generateRowId = () => `temp-${Math.random()}-${rowIdCounter++}`;
+
+const initialRow: RestaurantDataPhase2 = {
+  id: generateRowId(),
+  name: '',
+  cep: '',
+  address: '',
+  number: '',
+  complement: '',
+  reference_point: '',
+  neighborhood: '',
+  city: '',
+  state: '',
+  latitude: null,
+  longitude: null,
+  isGeocoded: false,
+};
+
 // Função para carregar dados do localStorage
 const loadPersistedRows = (): RestaurantDataPhase2[] | null => {
   try {
@@ -46,7 +70,13 @@ const loadPersistedRows = (): RestaurantDataPhase2[] | null => {
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       if (Array.isArray(parsedData) && parsedData.length > 0) {
-        return parsedData.map(row => ({ ...row, isGeocoded: !!row.latitude && !!row.longitude, status: 'pending' }));
+        // Garante que as linhas persistidas tenham todos os novos campos
+        return parsedData.map(row => ({ 
+            ...initialRow, // Garante que todos os campos existam
+            ...row, 
+            id: row.id || generateRowId(), 
+            isGeocoded: !!row.latitude && !!row.longitude 
+        }));
       }
     }
   } catch (e) {
@@ -95,12 +125,16 @@ const UploadPhase2: React.FC = () => {
         state: r.state || '',
         latitude: r.latitude,
         longitude: r.longitude,
+        complement: '', // Vazio por padrão
+        reference_point: '', // Vazio por padrão
         isGeocoded: !!r.latitude && !!r.longitude,
       }));
 
       setRows(initialRows);
       if (initialRows.length === 0) {
-        showSuccess("Todos os restaurantes estão geocodificados ou não há dados para a Fase 2.");
+        showSuccess("Todos os restaurantes existentes possuem coordenadas geográficas. Você pode adicionar linhas manualmente para novos uploads.");
+        // Adiciona uma linha vazia para permitir a colagem imediata
+        setRows([initialRow]);
       }
     } catch (e) {
       showError("Falha ao carregar restaurantes para a Fase 2.");
@@ -204,6 +238,11 @@ const UploadPhase2: React.FC = () => {
     
     showSuccess(`Colados ${values.length} valores na coluna ${columns.find(c => c.key === key)?.label}.`);
   }, []);
+  
+  const handleAddRow = () => {
+    setRows(prevRows => [...prevRows, initialRow]);
+  };
+
 
   // 4. Geocode and Upload Logic
   const handleGeocodeAndUpload = useCallback(async () => {
@@ -212,9 +251,11 @@ const UploadPhase2: React.FC = () => {
     const updates: RestaurantDataPhase2[] = [];
     let successCount = 0;
 
-    const rowsToProcess = rows.filter(r => !r.isGeocoded);
+    // Filtra linhas que têm ID de restaurante válido (não temporário) e precisam de geocodificação
+    const rowsToProcess = rows.filter(r => !r.isGeocoded && !r.id.startsWith('temp-'));
 
     for (const row of rowsToProcess) {
+      // Usamos apenas os campos que o Nominatim precisa para geocodificar
       const fullAddress = `${row.address}, ${row.number}, ${row.neighborhood}, ${row.city}, ${row.state}, ${row.cep}`;
       
       if (!row.address || !row.number || !row.city || !row.state || !row.cep) {
@@ -279,7 +320,7 @@ const UploadPhase2: React.FC = () => {
     fetchRestaurants(); // Recarrega a lista para mostrar apenas os não processados
   }, [rows, fetchRestaurants]);
 
-  const rowsToProcess = useMemo(() => rows.filter(r => !r.isGeocoded), [rows]);
+  const rowsToProcess = useMemo(() => rows.filter(r => !r.isGeocoded && !r.id.startsWith('temp-')), [rows]);
   
   // Define a largura da grade dinamicamente
   const gridTemplateColumns = columns.map(col => col.width).join(' ') + ' 100px'; // + Status
@@ -293,17 +334,27 @@ const UploadPhase2: React.FC = () => {
     );
   }
   
-  if (rows.length === 0 && !loading) {
+  // Se a lista estiver vazia (apenas a linha inicial de mock), mostra a mensagem de concluído
+  const isListEmpty = rows.length === 0 || (rows.length === 1 && rows[0].id.startsWith('temp-'));
+
+  if (isListEmpty && !loading) {
     return (
       <Card className="p-6 shadow-lg border-none rounded-xl bg-white dark:bg-gray-800">
         <Alert className="border-green-500 bg-green-50 text-green-700">
           <MapPin className="h-4 w-4" />
           <AlertTitle>Fase 2 Concluída!</AlertTitle>
           <AlertDescription>
-            Todos os restaurantes existentes possuem coordenadas geográficas.
+            Todos os restaurantes existentes possuem coordenadas geográficas. Use o botão "Adicionar Linha" para inserir novos dados de endereço.
           </AlertDescription>
         </Alert>
         <Button onClick={fetchRestaurants} className="mt-4">Recarregar Lista</Button>
+        <Button 
+            onClick={handleAddRow} 
+            variant="outline" 
+            className="mt-4 ml-3 border-primary text-primary hover:bg-primary/5"
+          >
+            <Plus className="h-4 w-4 mr-2" /> Adicionar Linha Manualmente
+          </Button>
       </Card>
     );
   }
@@ -320,7 +371,7 @@ const UploadPhase2: React.FC = () => {
       <div className="space-y-6">
         {/* Tabela de Entrada de Dados */}
         <div className="overflow-x-auto">
-          <div className="min-w-[1200px]">
+          <div className="min-w-[1400px]">
             {/* Cabeçalho da Tabela */}
             <div 
               className="grid bg-gray-100 dark:bg-gray-700 p-2 rounded-t-lg font-semibold text-sm text-primary dark:text-white"
@@ -346,7 +397,6 @@ const UploadPhase2: React.FC = () => {
                   {columns.map(col => (
                     <Input
                       key={col.key}
-                      // CORREÇÃO 1: Garante que o valor seja string ou number, convertendo booleanos para string vazia
                       value={String(row[col.key as keyof RestaurantDataPhase2] ?? '')}
                       onChange={(e) => handleUpdateCell(row.id, col.key as keyof RestaurantDataPhase2, e.target.value)}
                       onPaste={(e) => col.readOnly ? undefined : handleColumnPaste(e, index, col.key as keyof RestaurantDataPhase2)}
@@ -403,6 +453,14 @@ const UploadPhase2: React.FC = () => {
             disabled={isUploading}
           >
             Recarregar Lista
+          </Button>
+          <Button 
+            onClick={handleAddRow} 
+            variant="outline" 
+            disabled={isUploading}
+            className="border-primary text-primary hover:bg-primary/5"
+          >
+            <Plus className="h-4 w-4 mr-2" /> Adicionar Linha
           </Button>
         </div>
       </div>
