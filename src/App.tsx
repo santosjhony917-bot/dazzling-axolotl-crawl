@@ -28,6 +28,7 @@ import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
+import ProfileEdit from './pages/restaurant/ProfileEdit'; // Importando o componente renomeado
 
 function App() {
   return (
@@ -76,7 +77,8 @@ function App() {
               <Route path="home" element={<RestaurantDashboard />} />
               <Route path="menu" element={<RestaurantMenu />} />
               <Route path="categories" element={<RestaurantMenu />} /> {/* Redireciona para Menu */}
-              <Route path="profile-menu" element={<RestaurantProfileMenu />} />
+              <Route path="profile-menu" element={<RestaurantProfileMenu />} /> {/* Menu de navegação */}
+              <Route path="profile-edit" element={<ProfileEdit />} /> {/* Tela de Edição de Perfil */}
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
               {/* Mapeando a rota de 'stats' (Busca do Restaurante) para a página de busca do cliente */}

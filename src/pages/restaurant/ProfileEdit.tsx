@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft } from 'lucide-react';
+import { MapPin, Clock, Phone, Utensils, Crown, ChevronRight, Lock, Check, Mail, FileText, Store, Building2, LogOut, Edit, Eye, ArrowLeft, MessageSquare, Globe } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,16 +13,21 @@ import EditFieldDialog from '@/components/EditFieldDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { WeekSchedule } from '@/types/schedule';
-import ProfileHeaderManagement from './restaurant/profile/ProfileHeaderManagement';
-import InfoCardItem from './InfoCardItem';
+import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
+import InfoCardItem from '@/components/InfoCardItem';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useUserRole } from '@/hooks/useUserRole';
+import { Skeleton } from '@/components/ui/skeleton';
+import { supabase } from '@/integrations/supabase/client';
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
 const emailSchema = z.string().email("E-mail inválido");
 const phoneSchema = z.string().regex(/^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido. Use o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
 const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido. Use o formato XX.XXX.XXX/XXXX-XX");
+const whatsappSchema = z.string().url("URL inválida").optional().or(z.literal(''));
+const ifoodSchema = z.string().url("URL inválida").optional().or(z.literal(''));
+const otherUrlSchema = z.string().url("URL inválida").optional().or(z.literal(''));
 
 // --- Masks ---
 const phoneMask = (value: string) => {
@@ -72,17 +77,13 @@ interface EditingFieldState {
   mask?: (value: string) => string;
 }
 
-interface FreeProfileLayoutProps {
-  restaurant: any;
-  updateRestaurant: (updates: Partial<any>) => Promise<{ error: string | null }>;
-  refetch: () => void;
-  isPremium: boolean;
-}
-
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updateRestaurant, refetch, isPremium }) => {
+const ProfileEdit: React.FC = () => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
-  const { isPremium: isUserPremium } = useUserRole(); // Assuming this is the user's role, not the restaurant's plan
+  const { user, isLoading: authLoading } = useAuth();
+  const userId = user?.id || null;
+  
+  const { restaurant, loading: restaurantLoading, updateRestaurant, refetch } = useRestaurantProfile(userId);
+  const { isPremium } = useUserRole(); // Assuming this is the user's role, not the restaurant's plan
   
   const [editingField, setEditingField] = useState<EditingFieldState | null>(null);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
@@ -91,16 +92,16 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
   const [uploadingCover, setUploadingCover] = useState(false);
 
   const handleSignOut = async () => {
-    const { error } = await signOut();
-    if (error) {
-      showError(error.message || "Erro ao sair.");
-    } else {
+    await supabase.auth.signOut();
+    if (user) {
       showSuccess("Logout realizado com sucesso.");
-      navigate(createPageUrl('welcome'));
     }
+    navigate(createPageUrl('welcome'));
   };
 
   const handleEditField = (key: keyof typeof restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type: "text" | "tel" | "email" = "text", mask?: (value: string) => string, placeholder?: string) => {
+    if (!restaurant) return;
+    
     setEditingField({
       key: key as string,
       title,
@@ -119,7 +120,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
     
     const key = editingField.key as keyof typeof restaurant;
     
-    if (['address', 'city', 'state', 'cep', 'neighborhood'].includes(key as string)) {
+    if (['address', 'city', 'state', 'cep', 'neighborhood', 'number'].includes(key as string)) {
         showError("Use o botão 'Editar Endereço' para atualizar a localização completa.");
         return;
     }
@@ -152,6 +153,25 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
     return `${firstSlot.start} - ${firstSlot.end}`;
   };
 
+  if (authLoading || restaurantLoading || !restaurant) {
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] p-4 max-w-md mx-auto">
+        <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+          <Button variant="ghost" size="icon" onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))} className="text-[#022D68] hover:bg-[#022D68]/5">
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
+          <div className="w-10"></div>
+        </header>
+        <div className="p-4 space-y-6">
+          <Skeleton className="h-40 w-full rounded-xl" />
+          <Skeleton className="h-64 w-full rounded-xl" />
+          <Skeleton className="h-40 w-full rounded-xl" />
+        </div>
+      </div>
+    );
+  }
+
   const currentSchedule = restaurant.opening_hours || mockSchedule;
   const scheduleSummary = formatScheduleSummary(currentSchedule);
   
@@ -163,10 +183,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
     neighborhood: restaurant.neighborhood || '',
     latitude: restaurant.latitude || null,
     longitude: restaurant.longitude || null,
+    number: restaurant.number || '',
   };
 
   const restaurantName = restaurant.name || "Estabelecimento Comercial";
-  const restaurantType = restaurant.category || "Estabelecimento Comercial";
   const displayName = restaurantName;
 
   return (
@@ -177,22 +197,22 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area/home'))}
+          onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
+          <h2 className="text-[#022D68] text-xl font-bold">Editar Perfil</h2>
         </div>
         <div className="w-10"></div>
       </header>
 
       <main className="flex-1 flex flex-col w-full max-w-md pb-24">
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-4 p-4">
           
           {/* 1. Topo do Perfil (Capa e Logo) */}
-          <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700">
+          <div className="relative w-full h-56 bg-gray-300 dark:bg-gray-700 rounded-xl overflow-hidden">
             {restaurant.cover_image_url && (
                 <img
                     src={restaurant.cover_image_url}
@@ -209,7 +229,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
               Editar capa (Premium)
             </Button>
             
-            {/* Card Principal Flutuante */}
+            {/* Card Principal Flutuante (Logo) */}
             <Card className="absolute -bottom-12 left-4 right-4 shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
               <div className="flex items-start gap-4">
                 {/* Logo e Botão de Upload */}
@@ -229,13 +249,13 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                       <h3 className="font-bold text-2xl text-[#022D68] leading-tight">
                         {displayName}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-1">{restaurantType}</p>
+                      <p className="text-sm text-gray-500 mt-1">{restaurant.category || "Estabelecimento Comercial"}</p>
                     </div>
                     <Badge 
                       variant="outline" 
                       className="text-xs font-semibold border-gray-400 text-gray-600 bg-white rounded-full px-3 py-1 mt-1 flex-shrink-0"
                     >
-                      Plano {isPremium ? "Premium" : "Free"}
+                      Plano {restaurant.plan === 'premium' ? "Premium" : "Free"}
                     </Badge>
                   </div>
                 </div>
@@ -257,8 +277,8 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
           {/* Espaçamento para o Card Flutuante */}
           <div className="h-20"></div> 
 
-          {/* 2. Detalhes do Estabelecimento (Card) - MOVIDO PARA CIMA */}
-          <div className="px-4">
+          {/* 2. Detalhes do Estabelecimento (Card) */}
+          <div className="px-4 space-y-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <div className="flex justify-between items-center px-4 pt-4 pb-2">
                 <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Detalhes do Estabelecimento</h3>
@@ -267,7 +287,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   className="flex items-center gap-1 text-highlight dark:text-highlight text-sm font-semibold hover:underline"
                 >
                   <Edit className="w-4 h-4" />
-                  Editar
+                  Editar Endereço
                 </button>
               </div>
               <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -279,28 +299,28 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
                 />
                 <InfoCardItem
-                  label="Endereço"
-                  value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}` : "Não definido"}
+                  label="Endereço Principal"
+                  value={restaurant?.address ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}` : "Não definido"}
                   icon={MapPin}
                   isPremium={false}
                   onClick={() => setIsAddressDialogOpen(true)}
                 />
                 <InfoCardItem
-                  label="Horários"
+                  label="Horários de Funcionamento"
                   value={scheduleSummary}
                   icon={Clock}
                   isPremium={false}
                   onClick={() => setIsHoursDialogOpen(true)}
                 />
                 <InfoCardItem 
-                  label="Contato/WhatsApp" 
+                  label="Telefone de Contato" 
                   value={restaurant?.phone || "(83) 99999-9999"} 
                   icon={Phone} 
                   isPremium={false}
                   onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
                 />
                 <InfoCardItem 
-                  label="E-mail" 
+                  label="E-mail de Contato" 
                   value={restaurant?.email || "contato@zedog.com"} 
                   icon={Mail} 
                   isPremium={false}
@@ -313,18 +333,57 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   isPremium={false}
                   onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask)}
                 />
+                <InfoCardItem 
+                  label="Categoria Principal" 
+                  value={restaurant?.category || "Não definida"} 
+                  icon={Utensils} 
+                  isPremium={false}
+                  onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <Utensils className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
+                />
               </div>
             </Card>
           </div>
 
-          {/* 3. Cardápio (Card) - MOVIDO PARA BAIXO */}
+          {/* 3. Canais de Venda (Card) */}
+          <div className="px-4">
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
+              <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Canais de Venda e Links</h3>
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <InfoCardItem 
+                  label="Link do WhatsApp" 
+                  value={restaurant?.whatsapp_url || "Não definido"} 
+                  icon={MessageSquare} 
+                  isPremium={false}
+                  onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, whatsappSchema, "text", undefined, "https://wa.me/5583999999999")}
+                />
+                <InfoCardItem 
+                  label="Link do iFood/Delivery App" 
+                  value={restaurant?.ifood_url || "Recurso Premium"} 
+                  icon={Utensils} 
+                  isPremiumFeature={true}
+                  isPremium={restaurant.plan === 'premium'}
+                  onClick={() => handleEditField('ifood_url', 'Editar iFood', 'URL do iFood', <Utensils className="h-6 w-6 text-primary" />, ifoodSchema, "text", undefined, "https://www.ifood.com.br/restaurante/exemplo")}
+                />
+                <InfoCardItem 
+                  label="Outro Link (Ex: Site Próprio)" 
+                  value={restaurant?.other_url || "Recurso Premium"} 
+                  icon={Globe} 
+                  isPremiumFeature={true}
+                  isPremium={restaurant.plan === 'premium'}
+                  onClick={() => handleEditField('other_url', 'Editar Outro Link', 'Outra URL', <Globe className="h-6 w-6 text-primary" />, otherUrlSchema, "text", undefined, "https://www.seusite.com.br")}
+                />
+              </div>
+            </Card>
+          </div>
+
+          {/* 4. Cardápio (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cardápio</h3>
               <div className="p-4 space-y-3">
                 <Button 
                   onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight hover:bg-highlight/90 text-white text-base font-bold leading-normal tracking-[0.015em]"
+                  className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"
                 >
                   <Utensils className="w-5 h-5 mr-2" />
                   Atualizar Cardápio
@@ -333,14 +392,14 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </Card>
           </div>
 
-          {/* 4. Plano e Assinatura (Card) */}
+          {/* 5. Plano e Assinatura (Card) */}
           <div className="px-4">
             <div className="bg-gradient-to-br from-yellow-50/50 to-yellow-100/50 dark:from-yellow-900/10 dark:to-yellow-900/20 rounded-xl shadow-sm border border-yellow-300 dark:border-yellow-700">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Plano e Assinatura</h3>
               <div className="p-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-primary dark:text-white">{isPremium ? 'Premium' : 'Free'}</span></p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Plano atual: <span className="font-bold text-primary dark:text-white">{restaurant.plan === 'premium' ? 'Premium' : 'Free'}</span></p>
                 
-                {!isPremium && (
+                {restaurant.plan !== 'premium' && (
                   <>
                     <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-lg space-y-2 mb-4 border border-gray-200 dark:border-gray-700">
                       <p className="text-sm font-semibold text-amber-700 dark:text-amber-400 flex items-center">
@@ -363,7 +422,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
                   </>
                 )}
                 
-                {isPremium && (
+                {restaurant.plan === 'premium' && (
                   <Button 
                     onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
                     variant="outline"
@@ -376,7 +435,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </div>
           </div>
 
-          {/* 5. Preferências e Personalização (Card) */}
+          {/* 6. Preferências e Personalização (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preferências e Personalização</h3>
@@ -415,7 +474,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
             </Card>
           </div>
 
-          {/* 6. Suporte e Conta (Card) */}
+          {/* 7. Suporte e Conta (Card) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Suporte e Conta</h3>
@@ -484,4 +543,4 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
   );
 };
 
-export default FreeProfileLayout;
+export default ProfileEdit;

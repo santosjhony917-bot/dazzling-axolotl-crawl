@@ -60,7 +60,7 @@ const RestaurantProfileMenu = () => {
   };
 
   const handleGoBack = () => {
-    navigate(createPageUrl('restaurant-area/dashboard'));
+    navigate(createPageUrl('restaurant-area/home'));
   };
   
   const handleViewPublicProfile = () => {
@@ -99,14 +99,14 @@ const RestaurantProfileMenu = () => {
             icon={Utensils}
             title="Dados do Restaurante"
             description="Edite nome, endereço e informações de contato."
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-edit'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-edit'))} // Rota corrigida
           />
           
           <MenuItem
             icon={Eye}
             title="Ver meu perfil público"
             description="Veja como seu restaurante aparece para os clientes."
-            onClick={handleViewPublicProfile} // Usando a função de navegação correta
+            onClick={handleViewPublicProfile}
           />
         </section>
         
@@ -138,7 +138,7 @@ const RestaurantProfileMenu = () => {
             icon={CreditCard}
             title="Assinatura Premium"
             description="Gerencie seu plano e pagamentos."
-            onClick={() => navigate(createPageUrl('restaurant-area/subscription'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
           />
         </section>
         
