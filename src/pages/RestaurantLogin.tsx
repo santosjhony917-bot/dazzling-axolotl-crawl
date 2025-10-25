@@ -92,8 +92,8 @@ export default function RestaurantLogin() {
       // Para fins de desenvolvimento, vamos apenas logar e navegar.
       
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
-      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
-      navigate(createPageUrl("restaurant-area/profile-menu")); 
+      // CORRIGIDO: Redirecionar para a rota do Dashboard do restaurante
+      navigate(createPageUrl("restaurant-area/home")); 
 
     } catch (error) {
       const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";

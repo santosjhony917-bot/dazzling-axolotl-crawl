@@ -167,7 +167,7 @@ export default function RestaurantSignup() {
       }
       
       showSuccess(`Restaurante cadastrado! Redirecionando para o painel.`);
-      navigate(createPageUrl('restaurant-area/profile-menu'));
+      navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
       
     } catch (error) {
       const errorMessage = (error as Error).message;
@@ -447,7 +447,6 @@ export default function RestaurantSignup() {
         <div className="w-10"></div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
           <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">

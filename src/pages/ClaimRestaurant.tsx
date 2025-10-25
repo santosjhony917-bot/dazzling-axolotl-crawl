@@ -38,15 +38,6 @@ export default function ClaimRestaurant() {
 
     try {
       // 1. Attempt to sign up/register the user with the provided email/password
-      // We use signUp here because claiming usually involves setting a password for an existing entry.
-      // In a real scenario, this would be an RPC call to verify the code and update the user/restaurant ownership.
-      
-      // Mocking the claim process:
-      // 1. Check if the access code is valid (RPC call to Supabase)
-      // 2. If valid, create/update the user account (using email/password)
-      // 3. Assign the user_id to the restaurant linked to the access code.
-      
-      // Since we don't have the RPC for claiming, we simulate a successful registration/claim.
       
       // For now, we'll just sign up the user and show a success message.
       const { data, error: signUpError } = await supabase.auth.signUp({ 
@@ -70,7 +61,7 @@ export default function ClaimRestaurant() {
       // In a real app, the backend would handle the role assignment (e.g., 'premium_restaurant')
       // For now, we redirect to the dashboard.
       setTimeout(() => {
-        navigate(createPageUrl('restaurant-area/profile-menu'));
+        navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
       }, 1000);
 
     } catch (error) {
