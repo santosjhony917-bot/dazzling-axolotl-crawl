@@ -31,40 +31,11 @@ export default function AdminLogin() {
     
     try {
       // 1. Tenta fazer login
-      let { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       
       if (error) {
-        // Se o erro for de credenciais inválidas, tenta criar o usuário com o metadado de admin
-        if (error.message.includes('Invalid login credentials')) {
-            
-            const { error: signUpError } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    data: {
-                        role: 'admin' 
-                    }
-                }
-            });
-            
-            if (signUpError) {
-                if (signUpError.message.includes('User already exists')) {
-                    throw new Error("Usuário já existe. Verifique a senha.");
-                }
-                throw signUpError;
-            }
-            
-            // Se o cadastro for bem-sucedido, o Supabase loga automaticamente.
-            // Se não logar, tentamos o login novamente para garantir a sessão.
-            ({ error } = await supabase.auth.signInWithPassword({ email, password }));
-            
-            if (error) {
-                throw new Error("Conta criada, mas falha ao estabelecer sessão. Tente novamente.");
-            }
-        } else {
-            // Outros erros de login
-            throw error;
-        }
+        // Se o login falhar, mostramos o erro e não tentamos o signUp.
+        throw error;
       }
       
       // 2. Força o AuthContext a recarregar o perfil e os papéis e ESPERA que termine.
@@ -76,8 +47,15 @@ export default function AdminLogin() {
 
     } catch (error) {
       const msg = (error as Error).message || "Falha no login de Administrador. Verifique as credenciais.";
-      console.error("ADMIN LOGIN ERROR:", msg);
-      setLastError(msg);
+      
+      // Se for um erro de credenciais inválidas, sugerimos a criação manual ou verificação.
+      if (msg.includes('Invalid login credentials')) {
+          setLastError("Credenciais inválidas. Verifique o e-mail e a senha.");
+      } else if (msg.includes('Email not confirmed')) {
+          setLastError("E-mail não confirmado. Verifique sua caixa de entrada.");
+      } else {
+          setLastError(msg);
+      }
       showError(msg);
     } finally {
       setLoading(false);
