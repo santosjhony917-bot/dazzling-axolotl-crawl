@@ -11,8 +11,10 @@ import { supabase } from "@/integrations/supabase/client";
 import PublicRestaurantLayout from "@/components/PublicRestaurantLayout";
 
 const RestaurantProfilePublic: React.FC = () => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
-  
+  // CORREÇÃO: Usar 'id' para corresponder à rota /restaurant-profile/:id
+  const { id } = useParams<{ id: string }>();
+  const restaurantId = id; // Usamos restaurantId internamente para manter a compatibilidade com hooks
+
   const { 
     restaurant, 
     isLoading: isLoadingProfile, 
