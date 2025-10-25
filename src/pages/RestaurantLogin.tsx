@@ -39,6 +39,11 @@ export default function RestaurantLogin() {
     return data.user?.id;
   };
 
+  const navigateToRestaurantArea = () => {
+    // Navega para a rota do perfil do restaurante, que é a landing page da área do restaurante
+    navigate(createPageUrl("restaurant-area/profile-menu")); 
+  };
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -88,12 +93,10 @@ export default function RestaurantLogin() {
       const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
       
       // NOTE: Esta lógica de vinculação deve ser feita no backend (Edge Function/Trigger)
-      // para garantir que o user_id seja um UUID válido e que o usuário tenha permissão.
       // Para fins de desenvolvimento, vamos apenas logar e navegar.
       
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
-      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
-      navigate(createPageUrl("restaurant-area/profile-menu")); 
+      navigateToRestaurantArea();
 
     } catch (error) {
       const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";
@@ -107,13 +110,10 @@ export default function RestaurantLogin() {
   // Função de Login Forçado para Dev
   const handleDevLogin = async () => {
     setLoading(true);
-    // Simula a obtenção de um ID de usuário (mockado)
-    // const userId = 'dev-test-user-id'; // Não é mais necessário
     
     showSuccess("Login de Teste realizado! Redirecionando para o painel.");
     setTimeout(() => {
-      // CORRIGIDO: Redirecionar para a rota do perfil do restaurante
-      navigate(createPageUrl("restaurant-area/profile-menu")); 
+      navigateToRestaurantArea();
     }, 500);
   };
 
