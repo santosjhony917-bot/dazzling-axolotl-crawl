@@ -17,7 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'; // <-- Importação adicionada
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface AdminUser {
     id: string;
@@ -76,10 +76,9 @@ export default function ManageAdmins() {
 
   // Função de submissão adaptada para ser chamada diretamente
   const handleAddAdmin = () => {
-    console.log("handleAddAdmin called (via onClick).");
+    console.log("handleAddAdmin: Executing submission logic.");
     
     const trimmedEmail = emailToAdd.trim();
-    console.log("Email value on submit:", trimmedEmail);
     
     if (!trimmedEmail || !trimmedEmail.includes('@')) {
       showError('Por favor, insira um e-mail válido.');
@@ -87,17 +86,22 @@ export default function ManageAdmins() {
     }
     
     try {
-        // Verifica se o usuário já é administrador (prevenção de erro comum)
         if (admins?.some(admin => admin.email.toLowerCase() === trimmedEmail.toLowerCase())) {
             showError(`O usuário ${trimmedEmail} já é um administrador.`);
             return;
         }
     } catch (validationError) {
-        console.error("Validation check failed:", validationError);
+        console.warn("Validation check failed:", validationError);
     }
     
-    console.log(`Attempting to add admin: ${trimmedEmail}`);
     addAdminMutation.mutate(trimmedEmail);
+  };
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Previne o comportamento padrão do formulário (se houver)
+      handleAddAdmin();
+    }
   };
 
   const handleRemoveClick = (user: AdminUser) => {
@@ -124,7 +128,7 @@ export default function ManageAdmins() {
           <CardDescription>Promova um usuário existente para administrador.</CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Removido o <form> */}
+          {/* Removido o <form> e usando div */}
           <div className="flex gap-3 items-end">
             <div className="flex-1">
               <label htmlFor="email" className="text-sm font-medium text-gray-700 block mb-1">Email do usuário</label>
@@ -134,12 +138,13 @@ export default function ManageAdmins() {
                 placeholder="usuario@email.com"
                 value={emailToAdd}
                 onChange={(e) => setEmailToAdd(e.target.value)}
+                onKeyDown={handleKeyDown} // Adicionado onKeyDown
                 disabled={addAdminMutation.isPending}
                 className="h-10 rounded-lg"
               />
             </div>
             <Button 
-              type="button" // Alterado para type="button"
+              type="button" // Garantindo que não seja submit nativo
               onClick={handleAddAdmin} // Chamada direta
               disabled={addAdminMutation.isPending || !emailToAdd.trim()}
               className="bg-highlight hover:bg-highlight/90 h-10 px-4 flex items-center gap-2"
