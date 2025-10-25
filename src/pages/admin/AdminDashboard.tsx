@@ -2,9 +2,9 @@ import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, DollarSign, Zap, Clock, BarChart } from 'lucide-react';
+import AdminUploadInfo from './AdminUploadInfo'; // Importando o novo componente
 
 // Placeholder components for tabs
-const UploadMasterTab = () => <CardContent>Implementar Fases 1-4 do Upload Master.</CardContent>;
 const ImportCSVTab = () => <CardContent>Implementar Importação de CSV.</CardContent>;
 const ManagePlansTab = () => <CardContent>Implementar Gerenciamento de Planos (Free/Premium).</CardContent>;
 const InstantMetricsTab = () => <CardContent>Implementar Ajustes de Métricas Instantâneas.</CardContent>;
@@ -46,8 +46,11 @@ export default function AdminDashboard() {
         </TabsList>
 
         <div className="mt-4">
-          <Card className="p-6">
-            <TabsContent value="upload-master"><UploadMasterTab /></TabsContent>
+          <Card className="p-0">
+            <TabsContent value="upload-master">
+              {/* Usando o novo componente de página para o Upload Master */}
+              <AdminUploadInfo />
+            </TabsContent>
             <TabsContent value="import-csv"><ImportCSVTab /></TabsContent>
             <TabsContent value="manage-plans"><ManagePlansTab /></TabsContent>
             <TabsContent value="instant-metrics"><InstantMetricsTab /></TabsContent>
