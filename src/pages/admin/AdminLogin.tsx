@@ -1,152 +1,92 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, ArrowRight, Loader2, Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
-import { showError, showSuccess } from "@/utils/toast";
-import { createPageUrl } from "@/utils/url";
-import { motion } from "framer-motion";
-import { useAuthContext } from "@/context/AuthContext"; // Importando o contexto
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthContext } from '@/context/AuthContext';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader2, LogIn } from 'lucide-react';
+import { showError, showSuccess } from '@/utils/toast';
+import { createPageUrl } from '@/utils/url';
 
-const ADMIN_EMAIL = "joaoedasilva018@gmail.com";
-const ADMIN_PASSWORD = "password";
+// NOTE: This email is hardcoded to check for admin status in AuthContext
+const ADMIN_EMAIL = 'joaoedasilva018@gmail.com'; 
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const { refetchProfile } = useAuthContext(); // Usando refetchProfile
+  const { refetchProfile } = useAuthContext(); // Corrigido
   const [email, setEmail] = useState(ADMIN_EMAIL);
-  const [password, setPassword] = useState(ADMIN_PASSWORD);
-  const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [lastError, setLastError] = useState<string | null>(null);
+  const [password, setPassword] = useState('password'); // Mock password for easy testing
+  const [isLoading, setIsLoading] = useState(false);
 
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setLastError(null);
-    
-    try {
-      // 1. Tenta fazer login
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      
-      if (error) {
-        // Se o login falhar, mostramos o erro e não tentamos o signUp.
-        throw error;
-      }
-      
-      // 2. Força o AuthContext a recarregar o perfil e os papéis e ESPERA que termine.
-      await refetchProfile(); 
-      
-      // 3. Mostra sucesso e navega para a rota base /admin
-      showSuccess("Login de Administrador realizado com sucesso!");
-      navigate(createPageUrl("admin/dashboard"), { replace: true }); 
+    setIsLoading(true);
 
-    } catch (error) {
-      const msg = (error as Error).message || "Falha no login de Administrador. Verifique as credenciais.";
-      
-      // Se for um erro de credenciais inválidas, sugerimos a criação manual ou verificação.
-      if (msg.includes('Invalid login credentials')) {
-          setLastError("Credenciais inválidas. Verifique o e-mail e a senha.");
-      } else if (msg.includes('Email not confirmed')) {
-          setLastError("E-mail não confirmado. Verifique sua caixa de entrada.");
-      } else {
-          setLastError(msg);
-      }
-      showError(msg);
-    } finally {
-      setLoading(false);
+    if (email !== ADMIN_EMAIL) {
+      showError("Acesso negado. Este painel é exclusivo para administradores.");
+      setIsLoading(false);
+      return;
     }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      showError(`Erro de login: ${error.message}`);
+    } else {
+      // Refetch profile data to ensure isAdmin status is updated immediately
+      await refetchProfile(); 
+      showSuccess("Login de administrador realizado com sucesso!");
+      navigate(createPageUrl('adminDashboard'));
+    }
+    setIsLoading(false);
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
-      
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full"
-        >
-          {/* Icon and Title */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
-              <Shield className="w-8 h-8 text-primary" />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-2xl flex items-center gap-2">
+            <LogIn className="w-6 h-6 text-primary" /> Login de Administrador
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
             </div>
-            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
-              Acesso Administrativo
-            </h1>
-            <p className="text-text-secondary text-base mt-1">
-              Acesso restrito. Use suas credenciais de administrador.
-            </p>
-          </div>
-
-          <Card className="w-full shadow-xl border-none rounded-xl">
-            <CardContent className="p-6 pt-4">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <Input
-                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
-                  placeholder="E-mail"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                  required
-                />
-                <div className="relative">
-                  <Input
-                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
-                    placeholder="Senha"
-                    type={passwordVisible ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={loading}
-                    required
-                  />
-                  <button
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors"
-                    type="button"
-                  >
-                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  variant="highlight"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
-                >
-                  <span className="truncate">
-                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Entrar como Admin"}
-                  </span>
-                  {!loading && <ArrowRight className="w-5 h-5" />}
-                </Button>
-              </form>
-              
-              {lastError && (
-                <p className="pt-4 text-center text-sm text-red-500">
-                  {lastError}
-                </p>
-              )}
-
-              <p className="pt-6 text-center text-base text-gray-600">
-                <Link
-                  to={createPageUrl('restaurant-login')}
-                  className="font-bold text-highlight hover:underline ml-1"
-                >
-                  Voltar para Login do Restaurante
-                </Link>
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </main>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogIn className="mr-2 h-4 w-4" />}
+              Entrar
+            </Button>
+          </form>
+          <p className="mt-4 text-center text-sm text-gray-500">
+            Apenas para uso administrativo.
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

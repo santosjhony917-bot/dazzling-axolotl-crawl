@@ -1,153 +1,150 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, Filter, Loader2 } from 'lucide-react';
+import { MapPin, Search, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Header from '@/components/Header';
-import SearchToggle from '@/components/SearchToggle';
-import PublicMenuItemCard from '@/components/public/PublicMenuItemCard';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import { Card } from '@/components/ui/card';
+import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
-import { Restaurant } from '@/types/restaurant';
-import CustomerBottomNav from '@/components/CustomerBottomNav';
-import { useAuthContext } from '@/context/AuthContext'; // Importando o contexto
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // <-- Importação adicionada
+import { showInfo, showError } from '@/utils/toast';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant } from '@/types/supabase';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-type SearchType = 'dishes' | 'restaurants';
-
-// Mock Data para Pratos
-const mockDishes = [
-  { id: 'd1', name: "Moqueca de Camarão", description: "Um ensopado tradicional de camarão cozido em leite de coco...", price: 59.90, image_url: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop", restaurantName: "Restaurante Mar" },
-  { id: 'd2', name: "Picanha na Chapa", description: "Picanha fatiada e grelhada em chapa quente, servida com...", price: 79.90, image_url: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit:crop", restaurantName: "Churrascaria Fogo" },
-  { id: 'd3', name: "Escondidinho de Macaxeira", description: "Purê cremoso de macaxeira com recheio de carne de sol...", price: 45.00, image_url: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit:crop", restaurantName: "Sabor Nordestino" },
-  { id: 'd4', name: "Carne de Sol com Macaxeira", description: "Carne de sol desfiada e acebolada, acompanhada de macaxeira frita...", price: 65.50, image_url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit:crop", restaurantName: "Sabor Nordestino" },
+// Mock de sugestões de restaurantes próximos (para usuários não logados ou sem localização)
+const mockSuggestions: Partial<Restaurant>[] = [
+  { id: 'mock1', name: 'Pizzaria do Chef', category: 'Pizza', image_url: PLACEHOLDER_IMAGE_URL, city: 'São Paulo' },
+  { id: 'mock2', name: 'Hamburgueria Artesanal', category: 'Lanches', image_url: PLACEHOLDER_IMAGE_URL, city: 'Rio de Janeiro' },
 ];
-
-// Mock Data para Restaurantes (usando a interface Restaurant)
-const mockRestaurants: Restaurant[] = [
-  { id: 'r1', user_id: 'u1', name: "Trattoria del Ponte", description: "Cozinha Italiana autêntica.", image_url: null, cover_image_url: null, address: "Rua A, 100", number: '100', city: 'João Pessoa', state: 'PB', cep: '58000-000', neighborhood: 'Centro', phone: null, email: null, cnpj: null, category: 'Italiana', whatsapp_url: null, ifood_url: null, other_url: null, plan: 'premium', opening_hours: null, created_at: new Date().toISOString(), latitude: -7.1, longitude: -34.8, distance_km: 1.2, external_url: 'http://trattoria.com' },
-  { id: 'r2', user_id: 'u2', name: "Sakura Sushi", description: "O melhor sushi da cidade.", image_url: null, cover_image_url: null, address: "Av. B, 200", number: '200', city: 'João Pessoa', state: 'PB', cep: '58000-000', neighborhood: 'Tambaú', phone: null, email: null, cnpj: null, category: 'Japonesa', whatsapp_url: null, ifood_url: null, other_url: null, plan: 'free', opening_hours: null, created_at: new Date().toISOString(), latitude: -7.1, longitude: -34.8, distance_km: 2.5, external_url: 'http://sakurasushi.com' },
-];
-
 
 export default function ClientSearchPage() {
   const navigate = useNavigate();
   const { restaurant } = useAuthContext(); // Obtém o objeto restaurante do contexto
   const isRestaurantUser = !!restaurant; // Verifica se é um usuário de restaurante
-
+  
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState<SearchType>('dishes');
-  const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null);
+  const [address, setAddress] = useState<string>('Buscando localização...');
+  const [isLocating, setIsLocating] = useState(true);
+  const [recentLocations, setRecentLocations] = useState<any[]>([]); // Mock para simplificar
 
-  // Simulação de resultados filtrados
-  const filteredDishes = mockDishes.filter(d => d.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  const filteredRestaurants = mockRestaurants.filter(r => r.name.toLowerCase().includes(searchQuery.toLowerCase()) || r.category?.toLowerCase().includes(searchQuery.toLowerCase()));
-
-  const handleToggleSearch = (type: SearchType) => {
-    setSearchType(type);
-    // setSearchQuery(''); // Manter a query ao trocar o tipo
-  };
-  
-  const handleGoToFilters = () => {
-    // Navega para a tela de filtros de localização/distância
-    navigate(createPageUrl('search-restaurants'));
-  };
-  
-  const handleDishClick = (itemId: string) => {
-    // Simula a navegação para o perfil do restaurante que contém o prato
-    const dish = mockDishes.find(d => d.id === itemId);
-    if (dish) {
-        // Em um cenário real, buscaríamos o ID do restaurante pelo ID do item
-        navigate(createPageUrl(`restaurant-profile/r1`)); 
+  // 1. Obter Localização do Usuário
+  useEffect(() => {
+    // Tenta obter a localização do navegador
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lng: longitude });
+          setAddress('Localização atual (GPS)');
+          setIsLocating(false);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setAddress('Localização não disponível. Usando localização padrão.');
+          setLocation({ lat: -23.5505, lng: -46.6333 }); // São Paulo como fallback
+          setIsLocating(false);
+          showInfo("Não foi possível obter sua localização. Usando São Paulo como padrão.");
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+    } else {
+      setAddress('Geolocalização não suportada. Usando localização padrão.');
+      setLocation({ lat: -23.5505, lng: -46.6333 }); // São Paulo como fallback
+      setIsLocating(false);
+      showInfo("Geolocalização não suportada. Usando São Paulo como padrão.");
     }
+  }, []);
+
+  // 2. Lógica de Busca
+  const handleSearch = () => {
+    if (!location) {
+      showError("Aguarde enquanto sua localização é definida.");
+      return;
+    }
+    
+    navigate(createPageUrl('restaurantResults', {
+      lat: location.lat.toString(),
+      lng: location.lng.toString(),
+      query: searchQuery || undefined,
+    }));
   };
-  
-  const handleRestaurantClick = (restaurantId: string) => {
-    navigate(createPageUrl(`restaurant-profile/${restaurantId}`));
-  };
-  
-  // Define a rota de retorno com base no tipo de usuário
-  const backPath = isRestaurantUser ? createPageUrl('restaurant-area/home') : createPageUrl('home');
+
+  // 3. Renderização
+  if (isRestaurantUser) {
+    return (
+      <div className="p-6 text-center">
+        <Utensils className="w-12 h-12 text-primary mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Bem-vindo, {restaurant.name}!</h2>
+        <p className="text-gray-600 mb-6">Como usuário de restaurante, você não precisa buscar. Gerencie seu perfil no painel.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurantDashboard'))}>
+          Ir para o Painel
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-md mx-auto bg-[#f5f7f8] min-h-screen pb-20">
-      <Header 
-        title="Buscar" 
-        leftAction={{ icon: ArrowLeft, onClick: () => navigate(backPath) }} 
-      />
-
-      <div className="p-4">
-        {/* Barra de Pesquisa */}
-        <div className="flex gap-2 mb-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              type="text"
-              placeholder={`Buscar por ${searchType === 'dishes' ? 'prato' : 'restaurante'}...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 rounded-full text-base focus:border-highlight focus:ring-highlight"
-            />
-          </div>
-          <Button size="icon" variant="outline" className="h-12 w-12 rounded-full shrink-0 border-gray-300 text-primary hover:bg-gray-100" onClick={handleGoToFilters}>
-              <Filter className="w-5 h-5" />
-          </Button>
-        </div>
-        
-        {/* Toggle de Busca */}
-        <SearchToggle activeType={searchType} onToggle={handleToggleSearch} />
-
-        {/* Resultados */}
-        <h2 className="text-lg font-bold mb-3 text-primary">
-          {searchQuery 
-            ? `Resultados para "${searchQuery}" em ${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'}` 
-            : `${searchType === 'dishes' ? 'Pratos' : 'Restaurantes'} Próximos`}
-        </h2>
-
-        {loading ? (
-          <div className="flex justify-center items-center h-40">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        ) : searchType === 'dishes' ? (
-          <div className="space-y-4">
-            {filteredDishes.length > 0 ? (
-                filteredDishes.map((dish) => (
-                    <PublicMenuItemCard 
-                        key={dish.id} 
-                        item={dish} 
-                        onClick={handleDishClick}
-                    />
-                ))
-            ) : (
-                <div className="text-center p-8 bg-white rounded-xl shadow-md">
-                    <p className="text-gray-500">Nenhum prato encontrado.</p>
-                </div>
-            )}
-          </div>
+    <div className="p-4 space-y-6">
+      <h1 className="text-3xl font-extrabold text-gray-900">Encontre seu próximo prato favorito</h1>
+      
+      {/* Localização */}
+      <Card className="p-4 flex items-center gap-3 shadow-sm">
+        {isLocating ? (
+          <Loader2 className="w-5 h-5 animate-spin text-primary" />
         ) : (
-          <div className="space-y-4">
-            {filteredRestaurants.length > 0 ? (
-                filteredRestaurants.map((restaurant) => (
-                    <RestaurantCard 
-                        key={restaurant.id} 
-                        restaurant={restaurant} 
-                        onClick={() => handleRestaurantClick(restaurant.id)}
-                    />
-                ))
-            ) : (
-                <div className="text-center p-8 bg-white rounded-xl shadow-md">
-                    <p className="text-gray-500">Nenhum restaurante encontrado.</p>
-                </div>
-            )}
-          </div>
+          <MapPin className="w-5 h-5 text-primary" />
         )}
+        <div>
+          <p className="text-xs font-semibold text-gray-500">Entregando em:</p>
+          <p className="text-sm font-medium text-gray-800">{address}</p>
+        </div>
+      </Card>
+
+      {/* Barra de Busca */}
+      <div className="flex gap-2">
+        <Input
+          type="text"
+          placeholder="Buscar restaurantes, pratos ou categorias..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          className="flex-grow"
+        />
+        <Button onClick={handleSearch} disabled={isLocating} size="icon">
+          <Search className="w-5 h-5" />
+        </Button>
+      </div>
+
+      {/* Sugestões */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold text-primary">Sugestões Próximas</h2>
+        <div className="grid grid-cols-2 gap-4">
+          {mockSuggestions.map((r) => (
+            <Card 
+              key={r.id} 
+              className="p-3 text-center cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: r.id! }))}
+            >
+              <img 
+                src={r.image_url || PLACEHOLDER_IMAGE_URL} 
+                alt={r.name} 
+                className="w-full h-24 object-cover rounded-lg mb-2"
+              />
+              <p className="font-semibold text-sm truncate">{r.name}</p>
+              <p className="text-xs text-gray-500">{r.category}</p>
+            </Card>
+          ))}
+        </div>
       </div>
       
-      {/* Bottom Navigation - Renderiza apenas se for Cliente Final */}
-      {!isRestaurantUser && <CustomerBottomNav selectedTab="search" />}
-      
-      {/* Bottom Navigation - Renderiza apenas se for Restaurante */}
-      {isRestaurantUser && restaurant && <RestaurantBottomNav selectedTab="stats" isFree={!restaurant.plan || restaurant.plan === 'free'} />}
+      {/* Locais Recentes (Mock) */}
+      <div className="pt-4">
+        <h2 className="text-xl font-bold text-primary mb-3">Locais Recentes</h2>
+        <Card className="p-4 text-center text-gray-500">
+          Nenhum local recente salvo.
+        </Card>
+      </div>
     </div>
   );
 }

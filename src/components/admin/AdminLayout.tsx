@@ -1,107 +1,84 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { LogOut, Menu, Loader2 } from 'lucide-react';
-import { useNavigate, Outlet, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
-import AdminSidebar from './AdminSidebar';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useIsMobile } from '@/hooks/use-mobile';
 
-interface AdminLayoutProps {
-  title: string;
-}
+const navItems = [
+  { name: 'Dashboard', icon: Home, path: 'dashboard' },
+  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
+  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
+  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
+  { name: 'Configurações', icon: Settings, path: 'settings' },
+];
 
-const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
+const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-  
   const { user, isLoading, isAdmin, signOut } = useAuthContext();
 
-  // 1. Se o carregamento inicial estiver ativo, mostre o loader.
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-50">
+      <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
-  
-  // 2. Se o usuário não for admin, redirecione para o login.
+
   if (!user || !isAdmin) {
-    return <Navigate to={createPageUrl('admin/login')} replace />;
+    // Redireciona se não for admin
+    navigate(createPageUrl('adminLogin'));
+    return null;
   }
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate(createPageUrl('admin/login'));
-  };
-
-  const SidebarContent = (
-    <AdminSidebar 
-      isCollapsed={isCollapsed} 
-      toggleCollapse={isMobile ? () => setIsSheetOpen(false) : toggleCollapse} 
-    />
-  );
+  const currentPath = window.location.pathname.split('/').pop();
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      
-      {/* Desktop Sidebar */}
-      {!isMobile && (
-        <div className={cn("hidden md:block", isCollapsed ? "w-20" : "w-64")}>
-          {SidebarContent}
-        </div>
-      )}
-
-      <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Header */}
-        <header className="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 shadow-sm sticky top-0 z-20">
-          <div className="flex items-center gap-4">
-            {isMobile ? (
-              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Menu className="w-6 h-6" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="p-0 w-64 sm:w-72">
-                  <AdminSidebar 
-                    isCollapsed={false} 
-                    toggleCollapse={() => setIsSheetOpen(false)} 
-                  />
-                </SheetContent>
-              </Sheet>
-            ) : (
-              <Button variant="ghost" size="icon" onClick={toggleCollapse}>
-                <Menu className="w-6 h-6" />
-              </Button>
-            )}
-            <h1 className="text-xl font-semibold text-[#022D68]">{title}</h1>
+    <div className="flex min-h-screen bg-gray-50">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white shadow-lg p-4 flex flex-col">
+        <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
+        
+        <nav className="flex-grow space-y-2">
+          {navItems.map((item) => (
+            <Button
+              key={item.path}
+              variant="ghost"
+              className={cn(
+                "w-full justify-start gap-3",
+                currentPath === item.path && "bg-primary/10 text-primary font-semibold"
+              )}
+              onClick={() => navigate(createPageUrl('admin', { subPath: item.path }))}
+            >
+              <item.icon className="w-5 h-5" />
+              {item.name}
+            </Button>
+          ))}
+        </nav>
+        
+        <Separator className="my-4" />
+        
+        <div className="space-y-2">
+          <div className="text-sm text-gray-600 truncate p-2">
+            Logado como: <span className="font-medium">{user.email}</span>
           </div>
-          
           <Button 
-            variant="ghost" 
-            onClick={handleSignOut} 
-            className="text-red-600 hover:bg-red-50"
+            variant="outline" 
+            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
+            onClick={signOut}
           >
-            <LogOut className="w-5 h-5 mr-2" />
+            <LogOut className="w-5 h-5" />
             Sair
           </Button>
-        </header>
+        </div>
+      </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          <Outlet /> {/* Renderiza o conteúdo da rota filha aqui */}
-        </main>
-      </div>
+      {/* Main Content */}
+      <main className="flex-1 p-8">
+        <Outlet />
+      </main>
     </div>
   );
 };
