@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Home from './pages/Home'; // Usando Home como a tela principal do cliente
 import Auth from './pages/Auth';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -94,7 +94,7 @@ function App() {
           
           {/* Rotas Protegidas da Área Administrativa */}
           <Route path="/admin" element={<ProtectedRoute />}>
-            <Route element={<AdminLayout title="Painel Administrativo" children={<Outlet />} />}>
+            <Route element={<AdminLayout title="Painel Administrativo" />}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="manage-admins" element={<ManageAdmins />} />
               <Route path="edit-restaurant" element={<EditRestaurant />} />
