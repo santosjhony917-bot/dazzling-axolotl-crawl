@@ -29,7 +29,7 @@ const fetchRestaurantByOwner = async (userId: string): Promise<Restaurant | null
         .eq('user_id', userId) 
         .maybeSingle();
 
-    if (error && error.code !== 'PGRST116') {
+    if (error && error.code !== 'PGRST116') { // PGRST116: No rows found
         throw new Error(error.message);
     }
     
@@ -41,7 +41,8 @@ const fetchUserRole = async (user: User): Promise<{ isPremium: boolean, isAdmin:
     // Busca o perfil do restaurante
     const restaurant = await fetchRestaurantByOwner(user.id);
     
-    const isPremium = restaurant?.plan === 'premium';
+    // CORREÇÃO: Incluir 'premium_gift' na verificação de isPremium
+    const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
     
     // Verifica se o usuário é admin:
     const isAdminByMetadata = user.user_metadata?.role === 'admin';
@@ -126,7 +127,8 @@ export function useAuthProfile(): AuthProfileState {
   // O estado de carregamento é true se a autenticação estiver carregando OU se qualquer query estiver buscando dados.
   const isLoading = authLoading || isFetchingAny; 
   
-  const isPremium = roles?.isPremium ?? (restaurant?.plan === 'premium'); 
+  // CORREÇÃO: Usar o valor do hook de roles, que já inclui a lógica de 'premium_gift'
+  const isPremium = roles?.isPremium ?? (restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift'); 
   const isAdmin = roles?.isAdmin ?? false;
 
   const signOut = useCallback(async () => {
