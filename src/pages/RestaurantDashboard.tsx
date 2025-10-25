@@ -96,12 +96,12 @@ const RestaurantDashboard = () => {
         {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
-            title="Buscar Prato por Preço" 
+            title="Buscar Prato|por Preço" 
             icon={DollarSign} 
             onClick={handleSearchByPrice}
           />
           <ActionCard 
-            title="Buscar Restaurantes Próximos" 
+            title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
             onClick={handleSearchNearby}
           />
