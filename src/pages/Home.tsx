@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Filter, Loader2, Utensils } from 'lucide-react';
+import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
@@ -12,6 +12,7 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
+import ActionCard from '@/components/restaurant/dashboard/ActionCard'; // Reutilizando ActionCard
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -38,6 +39,17 @@ const Home: React.FC = () => {
   const handleLocationSaved = () => {
     refetchLocation();
     setIsLocationModalOpen(false);
+  };
+  
+  // Placeholder para as novas ações de busca
+  const handleSearchByPrice = () => {
+    console.log("Ação: Buscar Prato por Preço (Placeholder)");
+    // A rota será definida depois
+  };
+
+  const handleSearchNearby = () => {
+    console.log("Ação: Buscar Restaurantes Próximos (Placeholder)");
+    // A rota será definida depois
   };
   
   const handleSearch = (e: React.FormEvent) => {
@@ -99,6 +111,20 @@ const Home: React.FC = () => {
               <Filter className="w-5 h-5" />
           </Button>
         </form>
+        
+        {/* Ações Rápidas (NOVOS BOTÕES DE BUSCA) */}
+        <div className="flex gap-4 pt-4">
+          <ActionCard 
+            title="Buscar Prato|por Preço" 
+            icon={DollarSign} 
+            onClick={handleSearchByPrice}
+          />
+          <ActionCard 
+            title="Buscar Restaurantes|Próximos" 
+            icon={Compass} 
+            onClick={handleSearchNearby}
+          />
+        </div>
       </header>
 
       <main className="p-4 space-y-6">
