@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthContextProvider } from './hooks/useAuthContext';
+import { AuthContextProvider } from './context/AuthContext';
 import { Toaster } from 'react-hot-toast';
 import Splash from './pages/Splash';
 import Home from './pages/Home';
@@ -12,9 +12,10 @@ import RestaurantDashboard from './pages/RestaurantDashboard';
 import ProfileManagementLayout from './components/restaurant/ProfileManagementLayout';
 import MenuManagement from './pages/MenuManagement';
 import Legal from './pages/Legal';
-import SearchClient from './pages/SearchClient';
-import RestaurantProfile from './pages/RestaurantProfile';
+import ClientSearchPage from './pages/ClientSearchPage';
+import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 import ProfileRedirect from './components/ProfileRedirect';
+import ClientFavoritesPage from './pages/ClientFavoritesPage';
 
 function App() {
   return (
@@ -27,8 +28,9 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/search-client" element={<SearchClient />} />
-          <Route path="/restaurant/:restaurantId" element={<RestaurantProfile />} />
+          <Route path="/search-client" element={<ClientSearchPage />} />
+          <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
+          <Route path="/favorites" element={<ClientFavoritesPage />} />
 
           {/* Rota de Perfil Unificada (Redireciona com base no papel) */}
           <Route path="/profile" element={<ProfileRedirect />} /> 

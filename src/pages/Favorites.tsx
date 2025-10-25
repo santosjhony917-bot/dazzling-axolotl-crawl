@@ -29,7 +29,7 @@ const Favorites: React.FC = () => {
             {mockFavorites.map((restaurant) => (
               <RestaurantCard 
                 key={restaurant.id} 
-                restaurant={restaurant as any} // Usando 'any' temporariamente para mock
+                restaurant={restaurant as any} // Usando 'any' para mock data
                 onClick={() => handleViewRestaurant(restaurant.id)}
               />
             ))}

@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Heart, Utensils, Loader2, ArrowLeft } from 'lucide-react';
 import ClientLayout from '@/components/ClientLayout';
 import { Button } from '@/components/ui/button';
-import { useUserFavorites } from '@/hooks/useUserFavorites';
+import { useUserFavoritesList } from '@/hooks/useUserFavoritesList';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useAuthContext } from '@/hooks/useAuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 
 const ClientFavoritesPage: React.FC = () => {
   const navigate = useNavigate();
   const { session } = useAuthContext();
-  const { favorites, isLoading, error, refetch } = useUserFavorites();
+  const { favorites, isLoading, error, refetch } = useUserFavoritesList();
 
   const handleViewRestaurant = (restaurantId: string) => {
     navigate(createPageUrl('restaurantProfile', { restaurantId }));
@@ -81,7 +81,7 @@ const ClientFavoritesPage: React.FC = () => {
         {favorites.map((fav) => (
           <RestaurantCard 
             key={fav.restaurant_id} 
-            restaurant={fav.restaurant} 
+            restaurant={fav.restaurants as any} 
             onClick={() => handleViewRestaurant(fav.restaurant_id)}
           />
         ))}

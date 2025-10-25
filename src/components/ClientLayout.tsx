@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 import CustomerBottomNav from './CustomerBottomNav';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { Loader2 } from 'lucide-react';
 
