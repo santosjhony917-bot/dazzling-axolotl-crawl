@@ -41,7 +41,7 @@ const UpgradePage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-md mx-auto">
       {/* Título Principal */}
       <h1 className="text-3xl font-bold text-primary dark:text-white mb-2">Seu restaurante merece o mesmo destaque dos grandes.</h1>
       
@@ -77,7 +77,7 @@ const UpgradePage: React.FC = () => {
 
       {/* 2. Seção de Preços (Comparação) */}
       <h2 className="text-2xl font-bold text-primary dark:text-white mb-6 text-center">Escolha seu Plano</h2>
-      <div className="grid md:grid-cols-2 gap-6 mb-12">
+      <div className="grid md:grid-cols-1 gap-6 mb-12">
         {/* Plano Free */}
         <Card className="p-6 border-2 border-gray-200 dark:border-gray-700">
           <h2 className="text-2xl font-bold text-primary mb-2">Plano Free</h2>
