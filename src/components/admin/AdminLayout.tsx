@@ -22,7 +22,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
   
   const { user, isLoading, isAdmin, signOut } = useAuthContext();
 
-  // Proteção de Rota de Admin
+  // 1. Se o carregamento inicial (Supabase Auth + TanStack Queries) estiver ativo, mostre o loader.
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -31,8 +31,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ title }) => {
     );
   }
   
-  // Se não estiver logado OU não for admin, redireciona para a página de login de admin
-  if (!user || !isAdmin) {
+  // 2. Se o usuário não estiver autenticado, redirecione para o login.
+  if (!user) {
+    return <Navigate to={createPageUrl('admin/login')} replace />;
+  }
+  
+  // 3. Se o usuário está autenticado, mas NÃO é admin, redirecione para o login de admin.
+  // Esta é a verificação que estava causando o "piscar" se o isAdmin demorasse a ser true.
+  if (!isAdmin) {
+    // Redirecionamos para o login de admin, mesmo que o usuário esteja logado,
+    // para forçar a re-autenticação ou informar que ele não tem permissão.
     return <Navigate to={createPageUrl('admin/login')} replace />;
   }
 
