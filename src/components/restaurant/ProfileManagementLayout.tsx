@@ -13,12 +13,12 @@ import EditFieldDialog from '@/components/EditFieldDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { WeekSchedule } from '@/types/schedule';
-import ProfileHeaderManagement from './restaurant/profile/ProfileHeaderManagement';
-import InfoCardItem from './InfoCardItem';
+import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement';
+import InfoCardItem from '@/components/InfoCardItem';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useUserRole } from '@/hooks/useUserRole';
 import { cn } from '@/lib/utils';
-import NavCardItem from './NavCardItem'; // Importando NavCardItem
+import NavCardItem from '@/components/NavCardItem'; // Importando NavCardItem
 
 // --- Schemas ---
 const nameSchema = z.string().min(3, "Nome deve ter no mínimo 3 caracteres");
@@ -74,14 +74,14 @@ interface EditingFieldState {
   mask?: (value: string) => string;
 }
 
-interface FreeProfileLayoutProps {
+interface ProfileManagementLayoutProps {
   restaurant: any;
   updateRestaurant: (updates: Partial<any>) => Promise<{ error: string | null }>;
   refetch: () => void;
   isPremium: boolean;
 }
 
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updateRestaurant, refetch, isPremium }) => {
+const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ restaurant, updateRestaurant, refetch, isPremium }) => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   
@@ -92,13 +92,11 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
   const [uploadingCover, setUploadingCover] = useState(false);
 
   const handleSignOut = async () => {
-    // signOut() returns Promise<void> now, so we check for success/failure implicitly
     try {
       await signOut();
       showSuccess("Logout realizado com sucesso.");
       navigate(createPageUrl('welcome'));
     } catch (error) {
-      // The useAuthContext signOut handles the error toast, but we catch here if needed
       showError("Erro ao sair.");
     }
   };
@@ -540,4 +538,4 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, updat
   );
 };
 
-export default FreeProfileLayout;
+export default ProfileManagementLayout;
