@@ -4,20 +4,21 @@ import { MapPin, Search, DollarSign, Heart, Utensils, Filter, X } from 'lucide-r
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import RestaurantCard from '@/components/RestaurantCard';
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByNameModal from '@/components/search/SearchByNameModal';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/components/ui/use-toast';
 import { Restaurant } from '@/types/restaurant';
 import { findNearbyRestaurants } from '@/integrations/supabase/restaurants';
-import { useUserLocation } from '@/hooks/useUserLocation';
+import useUserLocation from '@/hooks/useUserLocation';
 import { Skeleton } from '@/components/ui/skeleton';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 const Home: React.FC = () => {
-  const { session } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { location, isLoading: isLocationLoading, error: locationError, requestLocation } = useUserLocation();
@@ -47,17 +48,17 @@ const Home: React.FC = () => {
   }, [toast]);
 
   useEffect(() => {
-    if (location) {
+    if (location.latitude !== null && location.longitude !== null) {
       fetchRestaurants(location.latitude, location.longitude, searchQuery);
     } else if (!isLocationLoading && !locationError) {
       // If location is not available and not loading, prompt user
       // This case is handled by the useUserLocation hook, but we ensure loading state is set.
       setIsLoading(false);
     }
-  }, [location, isLocationLoading, fetchRestaurants, searchQuery]);
+  }, [location, isLocationLoading, fetchRestaurants, searchQuery, locationError]);
 
   const handleSearch = () => {
-    if (location) {
+    if (location.latitude !== null && location.longitude !== null) {
       fetchRestaurants(location.latitude, location.longitude, searchQuery);
     } else {
       toast({
@@ -78,17 +79,17 @@ const Home: React.FC = () => {
   const handleClearFilter = () => {
     setFilter({ minPrice: null, maxPrice: null });
     setSearchQuery('');
-    if (location) {
+    if (location.latitude !== null && location.longitude !== null) {
       fetchRestaurants(location.latitude, location.longitude, '');
     }
   };
 
   const handleNavigateToRestaurant = (id: string) => {
-    navigate(createPageUrl('restaurant', { id }));
+    navigate(createPageUrl(`restaurant-profile/${id}`));
   };
 
   const handleNavigateToFavorites = () => {
-    if (session) {
+    if (user) {
       navigate(createPageUrl('favorites'));
     } else {
       toast({
@@ -96,7 +97,7 @@ const Home: React.FC = () => {
         description: "Você precisa estar logado para ver seus favoritos.",
         variant: "default",
       });
-      navigate(createPageUrl('login'));
+      navigate(createPageUrl('auth'));
     }
   };
 
@@ -141,7 +142,7 @@ const Home: React.FC = () => {
       {/* Localização Atual */}
       <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-4">
         <MapPin className="w-4 h-4 mr-1 text-highlight" />
-        <span>{location ? `Localização: ${location.address || 'Coordenadas GPS'}` : 'Buscando localização...'}</span>
+        <span>{location.latitude !== null ? `Localização: ${location.address || 'Coordenadas GPS'}` : 'Buscando localização...'}</span>
       </div>
 
       {/* Barra de Busca de Restaurantes */}

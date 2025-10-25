@@ -12,11 +12,12 @@ import { createPageUrl } from '@/utils/url';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByNameModal from '@/components/search/SearchByNameModal';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 const RestaurantDashboard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { session } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
 
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
@@ -24,7 +25,7 @@ const RestaurantDashboard: React.FC = () => {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
 
-  const isOwner = session?.user.id === restaurant?.user_id;
+  const isOwner = user?.id === restaurant?.user_id;
 
   const fetchRestaurant = useCallback(async (restaurantId: string) => {
     setIsLoading(true);
@@ -95,7 +96,7 @@ const RestaurantDashboard: React.FC = () => {
         </Button>
         <h1 className="text-2xl font-bold text-primary dark:text-white truncate max-w-[70%]">{restaurant.name}</h1>
         {isOwner ? (
-          <Button variant="ghost" size="icon" onClick={() => handleNavigate(createPageUrl('restaurant-settings', { id: restaurant.id }))}>
+          <Button variant="ghost" size="icon" onClick={() => handleNavigate(createPageUrl(`restaurant-settings/${restaurant.id}`))}>
             <Settings className="w-6 h-6 text-gray-600 dark:text-gray-400" />
           </Button>
         ) : (
@@ -159,24 +160,24 @@ const RestaurantDashboard: React.FC = () => {
         <ActionCard 
           title="Ver Cardápio" 
           icon={Menu} 
-          onClick={() => handleNavigate(createPageUrl('restaurant-menu', { id: restaurant.id }))}
+          onClick={() => handleNavigate(createPageUrl(`restaurant-menu/${restaurant.id}`))}
         />
         {isOwner && (
           <>
             <ActionCard 
               title="Adicionar Item" 
               icon={Plus} 
-              onClick={() => handleNavigate(createPageUrl('menu-item-create', { restaurantId: restaurant.id }))}
+              onClick={() => handleNavigate(createPageUrl(`menu-item-create/${restaurant.id}`))}
             />
             <ActionCard 
               title="Estatísticas" 
               icon={TrendingUp} 
-              onClick={() => handleNavigate(createPageUrl('restaurant-stats', { id: restaurant.id }))}
+              onClick={() => handleNavigate(createPageUrl(`restaurant-stats/${restaurant.id}`))}
             />
             <ActionCard 
               title="Gerenciar Equipe" 
               icon={Users} 
-              onClick={() => handleNavigate(createPageUrl('restaurant-team', { id: restaurant.id }))}
+              onClick={() => handleNavigate(createPageUrl(`restaurant-team/${restaurant.id}`))}
             />
           </>
         )}
