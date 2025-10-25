@@ -77,104 +77,106 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="rounded-t-2xl max-h-[90vh] p-0 flex flex-col">
-        <SheetHeader className="p-4 border-b">
-          <SheetTitle className="text-xl font-bold text-[#022D68]">Pesquisar por Preço</SheetTitle>
-        </SheetHeader>
-        
-        <div className="p-6 space-y-6 overflow-y-auto flex-1">
+        <div className="mx-auto w-full max-w-md flex flex-col flex-1">
+          <SheetHeader className="p-4 border-b flex-shrink-0">
+            <SheetTitle className="text-xl font-bold text-[#022D68]">Pesquisar por Preço</SheetTitle>
+          </SheetHeader>
           
-          {/* Slider de Faixa de Preço */}
-          <div className="space-y-4">
-            <div className="relative pt-4 pb-8">
-              <Slider
-                min={MIN_GLOBAL_PRICE}
-                max={MAX_GLOBAL_PRICE}
-                step={1}
-                value={priceRange}
-                onValueChange={handleSliderChange}
-                // Estilização do track e range (primeiro span e seu filho)
-                // Estilização do thumb (último span)
-                className="
-                  [&>span:first-child]:h-2 
-                  [&>span:first-child]:bg-gray-200 
-                  [&>span:first-child>span]:bg-[#E47948]
-                  [&>span:last-child]:h-5 
-                  [&>span:last-child]:w-5 
-                  [&>span:last-child]:bg-[#E47948] 
-                  [&>span:last-child]:border-2 
-                  [&>span:last-child]:border-white 
-                  [&>span:last-child]:shadow-md
-                "
-              />
-              <div className="flex justify-between mt-2 text-sm font-semibold text-gray-600">
-                <span>{formatCurrency(priceRange[0])}</span>
-                <span>{formatCurrency(priceRange[1])}</span>
+          <div className="p-6 space-y-6 overflow-y-auto flex-1">
+            
+            {/* Slider de Faixa de Preço */}
+            <div className="space-y-4">
+              <div className="relative pt-4 pb-8">
+                <Slider
+                  min={MIN_GLOBAL_PRICE}
+                  max={MAX_GLOBAL_PRICE}
+                  step={1}
+                  value={priceRange}
+                  onValueChange={handleSliderChange}
+                  // Estilização do track e range (primeiro span e seu filho)
+                  // Estilização do thumb (último span)
+                  className="
+                    [&>span:first-child]:h-2 
+                    [&>span:first-child]:bg-gray-200 
+                    [&>span:first-child>span]:bg-[#E47948]
+                    [&>span:last-child]:h-5 
+                    [&>span:last-child]:w-5 
+                    [&>span:last-child]:bg-[#E47948] 
+                    [&>span:last-child]:border-2 
+                    [&>span:last-child]:border-white 
+                    [&>span:last-child]:shadow-md
+                  "
+                />
+                <div className="flex justify-between mt-2 text-sm font-semibold text-gray-600">
+                  <span>{formatCurrency(priceRange[0])}</span>
+                  <span>{formatCurrency(priceRange[1])}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Inputs de Preço */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <Label htmlFor="min-price" className="text-sm font-medium text-gray-700">Preço Mínimo</Label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
-                <Input
-                  id="min-price"
-                  value={minInput}
-                  onChange={(e) => setMinInput(e.target.value)}
-                  onBlur={() => handleInputBlur('min')}
-                  className="pl-8 text-base"
-                  type="text"
-                />
+            {/* Inputs de Preço */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <Label htmlFor="min-price" className="text-sm font-medium text-gray-700">Preço Mínimo</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
+                  <Input
+                    id="min-price"
+                    value={minInput}
+                    onChange={(e) => setMinInput(e.target.value)}
+                    onBlur={() => handleInputBlur('min')}
+                    className="pl-8 text-base"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="max-price" className="text-sm font-medium text-gray-700">Preço Máximo</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
+                  <Input
+                    id="max-price"
+                    value={maxInput}
+                    onChange={(e) => setMaxInput(e.target.value)}
+                    onBlur={() => handleInputBlur('max')}
+                    className="pl-8 text-base"
+                    type="text"
+                  />
+                </div>
               </div>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="max-price" className="text-sm font-medium text-gray-700">Preço Máximo</Label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
-                <Input
-                  id="max-price"
-                  value={maxInput}
-                  onChange={(e) => setMaxInput(e.target.value)}
-                  onBlur={() => handleInputBlur('max')}
-                  className="pl-8 text-base"
-                  type="text"
-                />
+            
+            {/* Faixas de Preço Rápida */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Faixas de Preço</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {PRICE_RANGES.map((range) => (
+                  <Button
+                    key={range.label}
+                    variant="outline"
+                    className={`h-10 rounded-full text-sm font-semibold transition-colors ${
+                      selectedRange === range.label
+                        ? 'bg-[#E47948] text-white border-[#E47948] hover:bg-[#E47948]/90'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
+                    onClick={() => handleQuickRangeSelect(range)}
+                  >
+                    {range.label}
+                  </Button>
+                ))}
               </div>
             </div>
           </div>
           
-          {/* Faixas de Preço Rápida */}
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-gray-700">Faixas de Preço</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {PRICE_RANGES.map((range) => (
-                <Button
-                  key={range.label}
-                  variant="outline"
-                  className={`h-10 rounded-full text-sm font-semibold transition-colors ${
-                    selectedRange === range.label
-                      ? 'bg-[#E47948] text-white border-[#E47948] hover:bg-[#E47948]/90'
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                  }`}
-                  onClick={() => handleQuickRangeSelect(range)}
-                >
-                  {range.label}
-                </Button>
-              ))}
-            </div>
+          {/* Botão Aplicar Filtro */}
+          <div className="p-4 bg-white border-t shadow-lg flex-shrink-0">
+            <Button 
+              className="w-full h-12 bg-[#022D68] hover:bg-[#022D68]/90 text-lg font-semibold"
+              onClick={handleApply}
+            >
+              Aplicar Filtro
+            </Button>
           </div>
-        </div>
-        
-        {/* Botão Aplicar Filtro */}
-        <div className="p-4 bg-white border-t shadow-lg flex-shrink-0">
-          <Button 
-            className="w-full h-12 bg-[#022D68] hover:bg-[#022D68]/90 text-lg font-semibold"
-            onClick={handleApply}
-          >
-            Aplicar Filtro
-          </Button>
         </div>
       </SheetContent>
     </Sheet>
