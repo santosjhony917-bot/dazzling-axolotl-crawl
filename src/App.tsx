@@ -4,7 +4,8 @@ import Home from './pages/Home'; // Usando Home como a tela principal do cliente
 import Auth from './pages/Auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import RestaurantArea from './pages/RestaurantArea';
-import RestaurantDashboard from './pages/RestaurantDashboard';
+import PublicRestaurantDashboard from './pages/RestaurantDashboard'; // Renomeado para evitar conflito
+import OwnerRestaurantDashboard from './pages/restaurant/RestaurantDashboard'; // Importando o painel do proprietário
 import RestaurantMenu from './pages/RestaurantMenu';
 import { AuthProvider } from './context/AuthContext';
 import ToastProvider from './components/ToastProvider';
@@ -27,15 +28,15 @@ import Upgrade from './pages/Upgrade';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
-import ClientSearchPage from './pages/ClientSearchPage'; // Novo Import
-import AdminLayout from './components/admin/AdminLayout'; // Importando AdminLayout
-import AdminDashboard from './pages/admin/AdminDashboard'; // Importando páginas Admin
+import ClientSearchPage from './pages/ClientSearchPage';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageAdmins from './pages/admin/ManageAdmins';
 import EditRestaurant from './pages/admin/EditRestaurant';
 import PopularCategories from './pages/admin/PopularCategories';
 import Files from './pages/admin/Files';
 import ImportMenu from './pages/admin/ImportMenu';
-import AdminLogin from './pages/admin/AdminLogin'; // NOVO IMPORT
+import AdminLogin from './pages/admin/AdminLogin';
 
 function App() {
   return (
@@ -56,7 +57,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Rotas Públicas de Busca */}
-          <Route path="/search-client" element={<ClientSearchPage />} /> {/* Rota principal de busca do cliente */}
+          <Route path="/search-client" element={<ClientSearchPage />} />
           <Route path="/search-restaurants" element={<SearchRestaurants />} />
           <Route path="/restaurant-results" element={<RestaurantResults />} />
           
@@ -68,6 +69,7 @@ function App() {
           
           {/* Rotas Públicas de Perfil/Cardápio */}
           <Route path="/restaurant-profile/:id" element={<RestaurantProfilePublic />} />
+          <Route path="/restaurant/:id" element={<PublicRestaurantDashboard />} /> {/* Rota pública que espera ID */}
           <Route path="/menu/:restaurantId" element={<PublicMenuPage />} />
 
           {/* Rotas Protegidas do Cliente */}
@@ -80,23 +82,20 @@ function App() {
           {/* Rotas Protegidas da Área do Restaurante */}
           <Route element={<ProtectedRoute />}>
             <Route path="/restaurant-area" element={<RestaurantArea />}>
-              <Route index element={<RestaurantDashboard />} />
-              <Route path="home" element={<RestaurantDashboard />} />
+              <Route index element={<OwnerRestaurantDashboard />} /> {/* Usando o painel do proprietário */}
+              <Route path="home" element={<OwnerRestaurantDashboard />} /> {/* Usando o painel do proprietário */}
               <Route path="menu" element={<RestaurantMenu />} />
-              <Route path="categories" element={<RestaurantMenu />} /> {/* Redireciona para Menu */}
+              <Route path="categories" element={<RestaurantMenu />} />
               <Route path="profile-menu" element={<RestaurantProfileMenu />} />
               <Route path="upgrade" element={<Upgrade />} />
               <Route path="help" element={<HelpCenter />} />
-              {/* Mapeando a rota de 'stats' (Busca do Restaurante) para a página de busca do cliente */}
               <Route path="stats" element={<ClientSearchPage />} /> 
-              {/* Adicione outras rotas da área do restaurante aqui */}
             </Route>
           </Route>
           
           {/* Rotas da Área Administrativa (Proteção interna no AdminLayout) */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayout title="Painel Administrativo" />}>
-            {/* Renderiza o Dashboard diretamente na rota index /admin */}
             <Route index element={<AdminDashboard />} /> 
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="manage-admins" element={<ManageAdmins />} />
