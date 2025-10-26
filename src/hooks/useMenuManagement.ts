@@ -9,12 +9,14 @@ interface CreateCategoryPayload {
   restaurant_id: string;
   name: string;
   is_active: boolean;
+  order_index?: number | null;
 }
 
 interface UpdateCategoryPayload {
   id: string;
   name: string;
   is_active: boolean;
+  order_index?: number | null;
 }
 
 interface CreateItemPayload {
