@@ -19,7 +19,9 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
     setMenuError(null);
 
     try {
-      // Busca categorias ativas (ou nulas) e itens ativos aninhados
+      // Busca categorias ativas (is_active = true) e itens aninhados.
+      // Nota: O filtro de itens aninhados deve ser aplicado na definição da RLS ou em uma View/RPC para ser 100% eficaz.
+      // Aqui, confiamos que a RLS pública permite apenas itens ativos, ou filtramos no cliente.
       const { data, error } = await supabase
         .from('menu_categories')
         .select(`
@@ -33,37 +35,30 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
             *
           )
         `)
-        // Filtra categorias ativas (ou nulas, tratando null como ativo)
-        .or('is_active.eq.true,is_active.is.null') 
         .eq('restaurant_id', id)
+        .eq('is_active', true) // Apenas categorias ativas
         .order('order_index', { ascending: true });
 
       if (error) {
         throw new Error(error.message);
       }
 
-      // 1. Cast para o tipo correto
       const rawData = data as MenuCategoryWithItems[];
 
-      // 2. Filtragem de itens inativos no cliente (necessário porque o filtro aninhado não é trivial com OR)
-      // Vamos manter a filtragem no cliente, mas garantir que a ordenação dos itens seja aplicada.
-      const filteredData = rawData.map(category => {
-        // Garantindo que category.items seja tratado como MenuItem[]
-        const activeItems = (category.items as MenuItem[])
-          .filter(item => item.is_active !== false)
-          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0)); // Ordena itens localmente
-          
-        return {
-          ...category,
-          items: activeItems,
-        };
-      });
-      
-      // 3. Filtragem de categorias sem itens ativos (se a categoria estiver ativa)
-      const finalMenu = filteredData.filter(category => {
-        const isCategoryActive = category.is_active !== false;
-        return isCategoryActive && category.items.length > 0;
-      });
+      // Filtragem de itens inativos no cliente (fallback, pois o filtro aninhado é complexo via API REST)
+      const finalMenu = rawData
+        .map(category => {
+          const activeItems = (category.items as MenuItem[])
+            .filter(item => item.is_active !== false)
+            .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+            
+          return {
+            ...category,
+            items: activeItems,
+          };
+        })
+        // Remove categorias que ficaram sem itens ativos após a filtragem
+        .filter(category => category.items.length > 0);
 
       setMenu(finalMenu);
     } catch (err) {
