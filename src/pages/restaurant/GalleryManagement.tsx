@@ -4,14 +4,14 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useGalleryManagement } from '@/hooks/useGalleryManagement';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, ArrowLeft, Lock } from 'lucide-react';
+import { Loader2, Upload, Image, PlusCircle, AlertTriangle, ArrowLeft, Lock } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import GalleryImageCard from '@/components/restaurant/GalleryImageCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
@@ -57,6 +57,7 @@ export default function GalleryManagement() {
     if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
       try {
         await deleteGalleryImage(imageId);
+        // O hook já invalida a query e mostra o toast de sucesso
       } catch (error) {
         showError("Falha ao remover imagem.");
       }
@@ -78,7 +79,7 @@ export default function GalleryManagement() {
 
   if (authLoading || galleryLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -98,79 +99,79 @@ export default function GalleryManagement() {
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl space-y-6">
-      <Button variant="link" onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))} className="mb-4 pl-0">
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Voltar para Perfil
-      </Button>
-      
-      <h1 className="text-3xl font-bold text-primary">Gerenciar Galeria de Fotos</h1>
-      <p className="text-gray-600">Adicione fotos que aparecerão no perfil público do seu restaurante.</p>
-
-      {isLocked && (
-        <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3">
-          <Lock className="w-5 h-5 shrink-0" />
-          <p className="text-sm font-medium">
-            A gestão da galeria é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
-          </p>
-          <Button 
-            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-            className="bg-highlight hover:bg-highlight/90 shrink-0"
-          >
-            Upgrade
-          </Button>
-        </div>
-      )}
-
-      {/* Adicionar Nova Imagem */}
-      <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4">
-            <ImageUploadButton
-              onUploadComplete={handleUploadComplete}
-              bucketName={RESTAURANT_IMAGES_BUCKET}
-              folderPath={`${restaurantId}/gallery`}
-              className="h-12 w-full flex-1 bg-primary hover:bg-primary/90"
-              icon={isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-              disabled={isUploading || isLocked}
+    <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="restaurant-area/profile-menu">
+      <div className="p-4 space-y-6">
+        
+        {isLocked && (
+          <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3">
+            <Lock className="w-5 h-5 shrink-0" />
+            <p className="text-sm font-medium flex-1">
+              A gestão da galeria é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
+            </p>
+            <Button 
+              onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+              className="bg-highlight hover:bg-highlight/90 shrink-0"
             >
-              {isUploading ? "Enviando..." : "Selecionar e Enviar Foto"}
-            </ImageUploadButton>
+              Upgrade
+            </Button>
           </div>
-        </CardContent>
-      </Card>
+        )}
 
-      {/* Galeria Atual */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {gallery.length === 0 ? (
-            <p className="text-gray-500">Nenhuma foto na galeria ainda. Use o botão acima para adicionar.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {gallery.map((image) => (
-                <GalleryImageCard 
-                  key={image.id} 
-                  image={image} 
-                  onDelete={handleDeleteImage}
-                  onUpdateCaption={handleUpdateCaption}
-                  isDeleting={isMutating}
-                  isUpdating={isMutating}
-                />
-              ))}
+        {/* Adicionar Nova Imagem */}
+        <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl text-primary">
+              <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <ImageUploadButton
+                onUploadComplete={handleUploadComplete}
+                bucketName={RESTAURANT_IMAGES_BUCKET}
+                folderPath={`${restaurantId}/gallery`}
+                className="h-12 w-full flex-1 bg-primary hover:bg-primary/90"
+                icon={isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                disabled={isUploading || isLocked}
+              >
+                {isUploading ? "Enviando..." : "Selecionar e Enviar Foto"}
+              </ImageUploadButton>
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+
+        {/* Galeria Atual */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl text-primary">
+              <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {galleryLoading ? (
+              <div className="grid grid-cols-2 gap-4">
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+              </div>
+            ) : gallery.length === 0 ? (
+              <p className="text-gray-500">Nenhuma foto na galeria ainda. Use o botão acima para adicionar.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                {gallery.map((image) => (
+                  <GalleryImageCard 
+                    key={image.id} 
+                    image={image} 
+                    onDelete={handleDeleteImage}
+                    onUpdateCaption={handleUpdateCaption}
+                    isDeleting={isMutating}
+                    isUpdating={isMutating}
+                  />
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </RestaurantAreaPageLayout>
   );
 }

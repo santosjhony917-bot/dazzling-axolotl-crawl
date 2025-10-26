@@ -17,6 +17,8 @@ interface GalleryImageCardProps {
 const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ image, onDelete, onUpdateCaption, isDeleting, isUpdating }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [caption, setCaption] = useState(image.caption || '');
+  
+  // Usamos isUpdating para controlar o estado de salvamento/exclusão
   const isSaving = isUpdating && isEditing;
 
   const handleSave = async () => {
