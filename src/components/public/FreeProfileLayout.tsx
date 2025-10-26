@@ -111,7 +111,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         </div>
 
         {/* Conteúdo Principal */}
-        <div className="p-4 pt-16 space-y-6">
+        <div className="p-4 pt-20 space-y-6">
           
           {/* REMOVIDO: Nome e Categoria duplicados. O header já cuida disso. */}
           {restaurant.category && (
