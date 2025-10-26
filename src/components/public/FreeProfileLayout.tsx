@@ -104,7 +104,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             />
           )}
           
-          {/* Header Público (Logo, Nome, Favoritar, Compartilhar) */}
+          {/* Header Público (Logo, Nome, Favoritar, Compartilhar, Seguidores) */}
           <div className="absolute -bottom-10 left-0 right-0 z-20">
             <RestaurantPublicHeader restaurant={headerData} />
           </div>
@@ -113,12 +113,10 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         {/* Conteúdo Principal */}
         <div className="p-4 pt-16 space-y-6">
           
-          {/* Nome e Categoria (Ajustado para não duplicar o nome do header) */}
-          <div className="space-y-1">
-            {restaurant.category && (
-              <p className="text-base font-medium text-highlight dark:text-highlight-light">{restaurant.category}</p>
-            )}
-          </div>
+          {/* REMOVIDO: Nome e Categoria duplicados. O header já cuida disso. */}
+          {restaurant.category && (
+            <p className="text-base font-medium text-highlight dark:text-highlight-light text-center -mt-4 mb-4">{restaurant.category}</p>
+          )}
 
           {/* Botão Seguir (Abaixo do nome/categoria) */}
           <Button 
