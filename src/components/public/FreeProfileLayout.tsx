@@ -62,8 +62,8 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
-  // CORREÇÃO 1: Cast opening_hours para WeekSchedule | null | undefined
-  const formattedSchedule = formatSchedule(restaurant.opening_hours as WeekSchedule | null | undefined);
+  // CORREÇÃO 1: Cast opening_hours para unknown antes de WeekSchedule | null | undefined
+  const formattedSchedule = formatSchedule(restaurant.opening_hours as unknown as WeekSchedule | null | undefined);
   
   // Mock state for followers (usando um valor fixo para o layout Free, mas garantindo que seja passado)
   const [followersCount, setFollowersCount] = useState(120); 

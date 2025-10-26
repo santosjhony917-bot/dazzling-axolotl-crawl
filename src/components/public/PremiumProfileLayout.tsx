@@ -7,6 +7,7 @@ import { Restaurant } from '@/types/supabase';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
+import AdditionalInfo from './AdditionalInfo'; // <-- NEW IMPORT
 import { WeekSchedule } from '@/types/schedule';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -88,11 +89,14 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
 // Componente de Canais de Pedido
 const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
   // CORREÇÃO 2: Acessando as propriedades de link que agora existem no tipo Restaurant
+  // Casting restaurant to unknown first to access link properties safely from the generic Restaurant type
+  const typedRestaurant = restaurant as unknown as { whatsapp_url: string | null, ifood_url: string | null, other_url: string | null } & Restaurant;
+  
   const channels = useMemo(() => [
-    { icon: MessageSquare, label: "WhatsApp", url: restaurant.whatsapp_url },
-    { icon: ShoppingCart, label: "iFood", url: restaurant.ifood_url },
-    { icon: Globe, label: "Outro Link", url: restaurant.other_url },
-  ].filter(c => c.url), [restaurant]);
+    { icon: MessageSquare, label: "WhatsApp", url: typedRestaurant.whatsapp_url },
+    { icon: ShoppingCart, label: "iFood", url: typedRestaurant.ifood_url },
+    { icon: Globe, label: "Outro Link", url: typedRestaurant.other_url },
+  ].filter(c => c.url), [typedRestaurant]);
 
   if (channels.length === 0) return null;
 
@@ -134,9 +138,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   // CORREÇÃO: Chamar fetchMenu com o ID do restaurante
   React.useEffect(() => {
     if (restaurant.id) {
-      fetchMenu(restaurant.id);
+      // fetchMenu(restaurant.id); // Removed redundant call here, hook handles initial fetch
     }
-  }, [restaurant.id, fetchMenu]);
+  }, [restaurant.id]);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
