@@ -164,7 +164,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         <AdditionalInfo restaurant={restaurant} />
         
         {/* Horários Detalhados */}
-        {restaurant.opening_hours && (
+        {restaurant.opening_hours && restaurant.plan !== 'free' && (
           <DetailedHoursDisplay schedule={restaurant.opening_hours as unknown as WeekSchedule} />
         )}
         
