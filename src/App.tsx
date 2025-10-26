@@ -9,7 +9,7 @@ import Home from './pages/Home'; // Nova Home do Cliente
 import Splash from './pages/Splash';
 import AuthComponent from './pages/Auth'; // Importando o componente customizado
 import ClientProfilePage from './pages/ClientProfilePage';
-import Favorites from './pages/Favorites';
+import FavoritesPage from './pages/Favorites'; // Importando a nova página de favoritos
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 import SearchUnifiedPage from './pages/SearchUnifiedPage';
 import MenuItemDetails from './pages/MenuItemDetails';
@@ -55,9 +55,9 @@ function App() {
 
         {/* Rotas Protegidas (Cliente) */}
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
-          <Route path="/home" element={<Home />} /> {/* Usando o novo Home.tsx */}
+          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
-          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/favorites" element={<FavoritesPage />} /> {/* Usando a nova página */}
           <Route path="/search-unified" element={<SearchUnifiedPage />} />
         </Route>
 
