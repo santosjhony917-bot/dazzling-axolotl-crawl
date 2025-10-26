@@ -1,180 +1,150 @@
-import React, { useMemo } from 'react';
-import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Lock, Share2, Loader2, LogOut, Camera } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Restaurant } from '@/types/supabase';
-import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
-import DetailedHoursDisplay from '@/components/public/DetailedHoursDisplay';
-import { WeekSchedule } from '@/types/schedule';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { useFavorites } from '@/hooks/useFavorites';
-import { useAuthContext } from '@/context/AuthContext';
+Restaurant) e tipando a função handleNavigate.">
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { showError, showInfo } from '@/utils/toast';
-import NavCardItem from '../NavCardItem'; // Importando NavCardItem
+import { MapPin, Clock, Phone, Lock, ArrowLeft, Menu, Image, Link as LinkIcon } from 'lucide-react';
+import { Restaurant } from '@/types/supabase';
+import { createPageUrl, PageUrl } from '@/utils/url';
+import { formatSchedule } from '@/utils/schedule';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { showError } from '@/utils/toast';
+import { DEFAULT_RESTAURANT_COVER_URL, DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
-// Componente de Canais de Pedido
-const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
-  const channels = useMemo(() => [
-    { icon: MessageSquare, label: "WhatsApp", url: restaurant.whatsapp_url },
-    { icon: ShoppingCart, label: "iFood", url: restaurant.ifood_url },
-    { icon: Globe, label: "Outro Link", url: restaurant.other_url },
-  ].filter(c => c.url), [restaurant]);
-
-  if (channels.length === 0) return null;
-
-  return (
-    <div className="mt-6">
-      <h2 className="text-lg font-bold text-primary mb-4">Peça agora</h2>
-      <div className="grid grid-cols-3 gap-4">
-        {channels.map((channel, index) => {
-          const Icon = channel.icon;
-          return (
-            <a 
-              key={index} 
-              href={channel.url || '#'} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow"
-            >
-              <Icon className="w-7 h-7 text-highlight" />
-              <p className="text-xs font-semibold text-gray-700">{channel.label}</p>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
-  const { user, signOut } = useAuthContext(); 
+export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
-  const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(restaurant.id); 
+  const formattedSchedule = formatSchedule(restaurant.opening_hours);
 
-  const handleFollowToggle = () => {
-    if (!user) { 
-      showInfo("Faça login para favoritar este restaurante.");
-      navigate(createPageUrl('login'));
-      return;
-    }
-    toggleFavorite(); 
+  const handleNavigate = (route: PageUrl) => {
+    navigate(createPageUrl(route, { restaurantId: restaurant.id }));
   };
-
-  const handleSignOut = async () => {
-    await signOut(); // FIX: Não desestrutura o erro, pois signOut não retorna { error }
-  };
-
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    followersCount: 0, // Mocked for free
-    logoUrl: restaurant.image_url || PLACEHOLDER_IMAGE_URL,
-    onFollowToggle: handleFollowToggle,
-    isFavorite: isFavorite,
-    isFavoriteLoading: isFavoriteLoading,
-  };
-
-  const address = restaurant.address && restaurant.number ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null;
 
   return (
-    <div className="relative w-full bg-[#f5f7f8] min-h-screen">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      {/* Capa e Header Flutuante */}
-      <div className="relative w-full">
-        {/* Capa */}
-        <div className="relative w-full h-48 bg-gray-300 dark:bg-gray-700">
-          {restaurant.cover_image_url ? (
-            <img className="w-full h-full object-cover" alt={`Capa de ${restaurant.name}`} src={restaurant.cover_image_url} />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-500">Sem Capa</div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      {/* Header com Botão Voltar */}
+      <header className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+        <div className="max-w-md mx-auto flex items-center p-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+          <h1 className="text-lg font-semibold text-gray-800 dark:text-white ml-4 truncate">{restaurant.name}</h1>
         </div>
-        
-        {/* Header Flutuante (Logo, Nome, Botões) */}
-        <div className="absolute -bottom-16 left-0 right-0 z-10 bg-white dark:bg-gray-800 rounded-t-3xl shadow-xl pt-4">
-          <RestaurantPublicHeader restaurant={headerData} />
-        </div>
-      </div>
-      
-      {/* Conteúdo Principal (Abaixo do Header Flutuante) */}
-      <div className="pt-20 px-4 pb-20 space-y-6">
-        
-        {/* Canais de Pedido */}
-        <OrderChannels restaurant={restaurant} />
+      </header>
 
-        {/* Informações Básicas */}
-        <Card className="p-4 shadow-sm border-none">
-          <h2 className="text-lg font-bold text-primary mb-3">Informações</h2>
+      <main className="max-w-md mx-auto pb-16">
+        
+        {/* Imagem de Capa */}
+        <div className="relative h-48 w-full overflow-hidden">
+          <img
+            src={restaurant.cover_image_url || DEFAULT_RESTAURANT_COVER_URL}
+            alt={`Capa de ${restaurant.name}`}
+            className="w-full h-full object-cover"
+          />
           
-          {/* Endereço */}
-          {address && (
-            <div className="flex items-start gap-3 mb-3">
-              <MapPin className="w-5 h-5 text-primary pt-1 shrink-0" />
-              <p className="text-sm text-gray-700">{address}</p>
-            </div>
-          )}
+          {/* Logo do Restaurante */}
+          <img
+            src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL}
+            alt={`Logo de ${restaurant.name}`}
+            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg"
+          />
+        </div>
+
+        <div className="p-4 pt-14 space-y-6">
           
-          {/* Horário */}
-          {restaurant.opening_hours && (
-            <div className="flex items-start gap-3">
-              <Clock className="w-5 h-5 text-primary pt-1 shrink-0" />
-              <p className="text-sm text-gray-700">
-                Horário de Funcionamento: <span className="font-semibold text-green-600">Aberto agora</span>
+          {/* Nome e Descrição */}
+          <div className="space-y-1">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{restaurant.name}</h2>
+            {restaurant.category && (
+              <p className="text-sm font-medium text-highlight dark:text-highlight-light">{restaurant.category}</p>
+            )}
+            {restaurant.description && (
+              <p className="text-gray-600 dark:text-gray-400 mt-2">{restaurant.description}</p>
+            )}
+          </div>
+
+          <Separator className="dark:bg-gray-700" />
+
+          {/* Informações de Contato e Localização */}
+          <div className="space-y-3">
+            {restaurant.address && (
+              <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-1 text-highlight dark:text-highlight-light" />
+                <p className="text-base">
+                  {restaurant.address}, {restaurant.number} - {restaurant.neighborhood}, {restaurant.city} - {restaurant.state}, {restaurant.cep}
+                </p>
+              </div>
+            )}
+            
+            <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+              <Clock className="w-5 h-5 flex-shrink-0 mt-1 text-highlight dark:text-highlight-light" />
+              <p className="text-base">
+                {formattedSchedule.status}
+                {formattedSchedule.nextOpenTime && (
+                  <span className="block text-sm text-gray-500 dark:text-gray-400">
+                    {formattedSchedule.nextOpenTime}
+                  </span>
+                )}
               </p>
             </div>
-          )}
-        </Card>
-        
-        {/* Descrição do Restaurante */}
-        {restaurant.description && (
-          <Card className="p-4 shadow-sm border-none">
-            <h3 className="text-lg font-bold text-primary mb-2">Sobre {restaurant.name}</h3>
-            <p className="text-gray-700 whitespace-pre-wrap text-sm">{restaurant.description}</p>
-          </Card>
-        )}
 
-        {/* Cardápio (Apenas link) */}
-        <Card className="p-0 shadow-sm border-none overflow-hidden">
-          <div className="p-4 flex justify-between items-center text-primary font-semibold">
-            <span className="flex items-center gap-2 text-sm">
-              <Utensils className="w-4 h-4" /> Cardápio
-            </span>
-            <span className="text-xs text-gray-500">Ver itens principais</span>
+            {restaurant.phone && (
+              <a href={`tel:${restaurant.phone.replace(/\D/g, '')}`} className="flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-highlight dark:hover:text-highlight-light transition-colors">
+                <Phone className="w-5 h-5 flex-shrink-0 text-highlight dark:text-highlight-light" />
+                <p className="text-base">{restaurant.phone}</p>
+              </a>
+            )}
           </div>
-          <div className="p-4 border-t border-gray-100 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => showError("Recurso Premium")}>
-            <span className="flex items-center gap-2 text-sm">
-              <Lock className="w-4 h-4" /> Premium: Cardápio Completo
-            </span>
-            <span className="text-xs text-gray-500">Saiba mais</span>
-          </div>
-        </Card>
 
-        {/* Horários Detalhados (Se houver) */}
-        {restaurant.opening_hours && (
-          <DetailedHoursDisplay schedule={restaurant.opening_hours as WeekSchedule} />
-        )}
-        
-        {/* Botão de Logout (Se o usuário estiver logado) */}
-        {user && (
-          <Button 
-            variant="outline" 
-            onClick={handleSignOut} 
-            className="w-full mt-6 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
-          >
-            <LogOut className="mr-2 h-4 w-4" /> Sair
-          </Button>
-        )}
-      </div>
+          <Separator className="dark:bg-gray-700" />
+
+          {/* Ações e Links */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700">
+            
+            {/* Cardápio Completo (Funcional para Free) */}
+            <div 
+              className="p-4 flex justify-between items-center text-gray-800 dark:text-white font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              onClick={() => handleNavigate('restaurantMenu')}
+            >
+              <span className="flex items-center gap-2 text-base">
+                <Menu className="w-5 h-5 text-highlight dark:text-highlight-light" /> Cardápio Completo
+              </span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">Ver todos</span>
+            </div>
+            
+            <Separator className="dark:bg-gray-700" />
+
+            {/* Galeria de Fotos (Bloqueado para Free) */}
+            <div className="p-4 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => showError("Recurso Premium: Galeria de Fotos")}>
+              <span className="flex items-center gap-2 text-sm">
+                <Lock className="w-4 h-4" /> Premium: Galeria de Fotos
+              </span>
+            </div>
+            
+            <Separator className="dark:bg-gray-700" />
+
+            {/* Links de Venda (Bloqueado para Free) */}
+            <div className="p-4 flex justify-between items-center text-highlight dark:text-highlight font-semibold cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50" onClick={() => showError("Recurso Premium: Links de Venda")}>
+              <span className="flex items-center gap-2 text-sm">
+                <Lock className="w-4 h-4" /> Premium: Links de Venda
+              </span>
+            </div>
+            
+          </div>
+          
+          {/* Links Externos (Se houver) - Não deve aparecer no Free, mas mantendo a estrutura para segurança */}
+          {/* Se o restaurante for Free, esses campos devem estar vazios, mas se por algum motivo tiverem dados, não serão exibidos aqui. */}
+          
+        </div>
+      </main>
     </div>
   );
-};
-
-export default FreeProfileLayout;
+}
