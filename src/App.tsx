@@ -33,16 +33,16 @@ import AdminSettings from './pages/admin/AdminSettings';
 import ImportMenu from './pages/admin/ImportMenu';
 import Files from './pages/admin/Files';
 import PopularCategories from './pages/admin/PopularCategories';
-import RestaurantProfileMenu from './pages/restaurant-area/Profile';
+import RestaurantProfileManagementPage from './pages/restaurant-area/Profile'; // Renomeado para clareza
 import GalleryManagement from './pages/restaurant/GalleryManagement';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import UpgradePage from './pages/Upgrade';
 import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
 import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
 import Splash from './pages/Splash';
-import RestaurantSearch from './pages/restaurant/Search'; // Importando a tela correta de busca/análise
+import RestaurantSearch from './pages/restaurant/Search';
 import ClientProfilePage from './pages/ClientProfilePage';
-import SearchUnifiedPage from './pages/SearchUnifiedPage'; // NOVO IMPORT
+import SearchUnifiedPage from './pages/SearchUnifiedPage';
 
 function App() {
   return (
@@ -51,7 +51,7 @@ function App() {
       <AuthProvider>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Splash />} /> {/* CORRIGIDO: Rota raiz para Splash */}
+          <Route path="/" element={<Splash />} />
           <Route path="/index" element={<Index />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/onboarding" element={<Onboarding />} />
@@ -63,7 +63,7 @@ function App() {
           <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
           <Route path="/search-restaurants" element={<SearchRestaurants />} />
           <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
-          <Route path="/search-unified" element={<SearchUnifiedPage />} /> {/* ROTA UNIFICADA */}
+          <Route path="/search-unified" element={<SearchUnifiedPage />} />
           
           {/* Restaurant Flow Routes */}
           <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -90,14 +90,12 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<ClientProfilePage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
-            {/* Rota /search-client removida, usando /search-unified */}
           </Route>
           
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            {/* Rota de stats removida, a busca agora usa /search-unified */}
-            <Route path="profile-menu" element={<RestaurantProfileMenu />} />
+            <Route path="profile-menu" element={<RestaurantProfileManagementPage />} /> {/* CORRIGIDO AQUI */}
             <Route path="upgrade" element={<UpgradePage />} />
             <Route path="gallery" element={<GalleryManagement />} />
             <Route path="help" element={<HelpCenter />} />
