@@ -6,6 +6,7 @@ import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useMenuItemManagement } from '@/hooks/useMenuManagement';
+import { formatPrice } from '@/lib/utils';
 
 interface MenuItemListItemProps {
   item: MenuItem;
@@ -40,8 +41,8 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
             <h3 className="text-lg font-semibold">{item.name}</h3>
             <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
             <div className="flex items-center text-primary font-medium mt-1">
-              <DollarSign className="w-4 h-4 mr-1" />
-              {item.price.toFixed(2)}
+              <DollarSign className="w-4 h-4 mr-1 text-highlight" />
+              {formatPrice(item.price)}
             </div>
           </div>
         </div>
@@ -53,6 +54,7 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
               checked={item.is_active}
               onCheckedChange={handleToggleActive}
               disabled={isUpdating}
+              className="data-[state=checked]:bg-highlight"
             />
             <Label htmlFor={`item-active-switch-${item.id}`} className="text-sm text-gray-500">
               {item.is_active ? 'Ativo' : 'Inativo'}

@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useCategoryMutations } from '@/hooks/useMenuManagement';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
+import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
 
 interface CategoryListItemProps {
   category: MenuCategory;
@@ -43,7 +44,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   };
 
   const handleNavigateToItems = () => {
-    // Using template literal for dynamic route segment
+    // Navega para a rota de detalhes da categoria
     navigate(`/restaurant-area/menu/${category.id}`);
   };
 
@@ -64,6 +65,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
               disabled={isUpdating}
               // Previne que o clique no switch navegue
               onClick={(e) => e.stopPropagation()} 
+              className="data-[state=checked]:bg-highlight"
             />
             <Label htmlFor={`active-switch-${category.id}`} className="text-sm text-gray-500">
               {category.is_active ? 'Ativa' : 'Inativa'}

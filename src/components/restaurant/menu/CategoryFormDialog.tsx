@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuCategory } from '@/types';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { Loader2 } from 'lucide-react';
 
 // Define the schema for form validation
 const categorySchema = z.object({
@@ -28,8 +29,7 @@ interface CategoryFormDialogProps {
 }
 
 export default function CategoryFormDialog({ isOpen, onClose, initialData, onSave, isLoading }: CategoryFormDialogProps) {
-  // Adicionando 'watch' aqui
-  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<CategoryFormValues>({
+  const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: initialData?.name || '',
@@ -40,19 +40,19 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
 
   React.useEffect(() => {
     if (isOpen) {
-      reset({
+      form.reset({
         name: initialData?.name || '',
         is_active: initialData?.is_active ?? true,
         order_index: initialData?.order_index ?? 0,
       });
     }
-  }, [isOpen, initialData, reset]);
+  }, [isOpen, initialData, form]);
 
-  const onSubmit = (data: CategoryFormValues) => {
-    onSave(data).then(onClose);
+  const onSubmit = async (data: CategoryFormValues) => {
+    await onSave(data);
+    onClose();
   };
 
-  const is_active = watch('is_active');
   const isSubmitting = isLoading; 
 
   return (
@@ -61,30 +61,37 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
         <DialogHeader>
           <DialogTitle>{initialData ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="name">Nome da Categoria</Label>
             <Input
               id="name"
-              {...register('name')}
+              {...form.register('name')}
               disabled={isSubmitting}
+              className="h-10 rounded-lg"
             />
-            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+            {form.formState.errors.name && <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>}
           </div>
 
-          <div className="flex items-center justify-between space-x-2">
-            <Label htmlFor="is_active">Ativa</Label>
+          <div className="flex items-center justify-between space-x-2 rounded-lg border p-3">
+            <Label htmlFor="is_active">Ativa (Visível ao público)</Label>
             <Switch
               id="is_active"
-              checked={is_active}
-              {...register('is_active')}
+              checked={form.watch('is_active')}
+              onCheckedChange={(checked) => form.setValue('is_active', checked)}
               disabled={isSubmitting}
+              className="data-[state=checked]:bg-highlight"
             />
           </div>
 
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Salvando...' : 'Salvar Categoria'}
-          </Button>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+              Cancelar
+            </Button>
+            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90">
+              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Salvar Categoria'}
+            </Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

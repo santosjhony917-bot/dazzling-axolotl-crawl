@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMenuItemManagement } from '@/hooks/useMenuManagement';
+import { useMenuItemManagement, useMenuManagement } from '@/hooks/useMenuManagement';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, ArrowLeft, Loader2 } from 'lucide-react';
+import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { MenuItem } from '@/types';
 import MenuItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
 import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
-import { Routes } from '@/router/routes';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import ConfirmationDialog from '@/components/ConfirmationDialog';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function CategoryDetails() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -15,6 +17,12 @@ export default function CategoryDetails() {
   
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  
+  // Estado para Confirmação
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
+  const [confirmationTitle, setConfirmationTitle] = useState('');
+  const [confirmationDescription, setConfirmationDescription] = useState('');
 
   if (!categoryId) {
     return <div className="p-4 text-red-500">ID da Categoria não encontrado.</div>;
@@ -22,12 +30,14 @@ export default function CategoryDetails() {
 
   const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
   
-  // Nota: Para obter o nome da categoria, precisaríamos de um hook separado ou buscar a categoria aqui.
-  // Por enquanto, vamos focar na funcionalidade dos itens.
+  // Busca o nome da categoria (usando o hook de categorias, mas filtrando localmente)
+  // Nota: Para evitar a necessidade de passar o restaurantId, vamos buscar o nome da categoria diretamente.
+  const { categoriesQuery } = useMenuManagement(itemsQuery.data?.[0]?.category_id || '');
+  const categoryName = categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
   
   const items = itemsQuery.data || [];
-  const isLoading = itemsQuery.isLoading;
-  const isSaving = createItemMutation.isPending || updateItemMutation.isPending;
+  const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
+  const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending;
 
   const handleOpenDialog = (item: MenuItem | null = null) => {
     setEditingItem(item);
@@ -35,13 +45,13 @@ export default function CategoryDetails() {
   };
 
   const handleDeleteItem = (itemId: string) => {
-    if (confirm('Tem certeza que deseja deletar este item de menu?')) {
-      deleteItemMutation.mutate(itemId);
-    }
+    setConfirmationTitle("Excluir Item de Menu");
+    setConfirmationDescription("Tem certeza de que deseja excluir este item de menu?");
+    setConfirmationAction(() => () => deleteItemMutation.mutate(itemId));
+    setIsConfirmationOpen(true);
   };
 
-  const handleSaveItem = async (data: MenuItemFormValues) => {
-    // Explicitly map fields to satisfy UpdateItemPayload
+  const handleSaveItem = useCallback(async (data: MenuItemFormValues) => {
     if (editingItem) {
       await updateItemMutation.mutateAsync({
         id: editingItem.id,
@@ -52,7 +62,6 @@ export default function CategoryDetails() {
         is_active: data.is_active,
       });
     } else {
-      // Explicitly map fields to satisfy CreateItemPayload
       await createItemMutation.mutateAsync({
         category_id: categoryId,
         name: data.name,
@@ -62,38 +71,38 @@ export default function CategoryDetails() {
         is_active: data.is_active,
       });
     }
-  };
+  }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
-      <Button variant="link" onClick={() => navigate(Routes.MENU_MANAGEMENT)} className="mb-4 pl-0">
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Voltar para Categorias
-      </Button>
+    <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
+      <div className="p-4 space-y-6">
+        
+        <Card className="shadow-lg border-none rounded-xl">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Itens em: {categoryName}</h1>
+              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
+                <PlusCircle className="w-4 h-4 mr-2" />
+                Novo Item
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Itens de Menu</h1>
-        <Button onClick={() => handleOpenDialog(null)}>
-          <PlusCircle className="w-4 h-4 mr-2" />
-          Novo Item
-        </Button>
+        {isLoading ? (
+          <div className="space-y-3">
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        ) : (
+          <MenuItemList
+            items={items}
+            onEdit={handleOpenDialog}
+            onDelete={handleDeleteItem}
+          />
+        )}
       </div>
-
-      <h2 className="text-xl font-semibold mb-4">Itens na Categoria: {categoryId}</h2> {/* Placeholder for category name */}
-
-      {isLoading ? (
-        <div className="space-y-3">
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
-        </div>
-      ) : (
-        <MenuItemList
-          items={items}
-          onEdit={handleOpenDialog}
-          onDelete={handleDeleteItem}
-        />
-      )}
 
       <MenuItemFormDialog
         isOpen={isItemModalOpen}
@@ -103,6 +112,20 @@ export default function CategoryDetails() {
         onSave={handleSaveItem}
         isLoading={isSaving}
       />
-    </div>
+      
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={() => setIsConfirmationOpen(false)}
+        onConfirm={() => {
+          if (confirmationAction) {
+            confirmationAction();
+          }
+          setIsConfirmationOpen(false);
+        }}
+        title={confirmationTitle}
+        description={confirmationDescription}
+        confirmText="Sim, Excluir"
+      />
+    </RestaurantAreaPageLayout>
   );
 }
