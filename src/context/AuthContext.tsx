@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchRestaurantByUserId } from '@/integrations/supabase/restaurants';
 import { fetchProfile } from '@/integrations/supabase/profiles';
 import { checkIsAdmin } from '@/integrations/supabase/admin';
+import { createPageUrl } from '@/utils/url'; // Importando createPageUrl
 
 // --- Tipos ---
 export interface AuthContextType { // Exportado para resolver Erro 9
@@ -70,6 +71,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
+    // Redireciona para a tela Welcome após o logout
+    window.location.href = createPageUrl('welcome');
   }, []);
   
   const isPremium = useMemo(() => {
