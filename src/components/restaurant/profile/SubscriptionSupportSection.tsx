@@ -1,8 +1,9 @@
 import React from 'react';
-import { HelpCircle, MessageSquare, Crown } from 'lucide-react';
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
+import { useAuthContext } from '@/context/AuthContext'; // Importando o contexto de autenticação
 
 interface SubscriptionSupportSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -10,6 +11,7 @@ interface SubscriptionSupportSectionProps {
 }
 
 const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
+  const { signOut } = useAuthContext();
   
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -21,14 +23,14 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
       
       <NavCardItem 
         icon={HelpCircle}
-        title="Central de Ajuda" // Corrigido de 'label' para 'title'
+        title="Central de Ajuda"
         description="Encontre respostas rápidas e tutoriais."
         onClick={() => handleNavigate(createPageUrl('help-center'))}
       />
       
       <NavCardItem 
         icon={MessageSquare}
-        title="Falar com Suporte" // Corrigido de 'label' para 'title'
+        title="Falar com Suporte"
         description="Entre em contato direto com nossa equipe."
         onClick={() => {
           // Ação para abrir chat ou link de contato (ex: WhatsApp)
@@ -40,10 +42,18 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
       
       <NavCardItem 
         icon={Crown}
-        title="Gerenciar Assinatura" // Corrigido de 'label' para 'title'
+        title="Gerenciar Assinatura"
         description="Veja detalhes do seu plano e faturas."
         onClick={() => handleNavigate(createPageUrl('restaurant-area/upgrade'))}
         isPremium={isPremium}
+      />
+      
+      {/* NOVO: Botão de Sair */}
+      <NavCardItem 
+        icon={LogOut}
+        title="Sair da Conta"
+        description="Desconectar-se do painel do restaurante."
+        onClick={signOut}
       />
     </div>
   );
