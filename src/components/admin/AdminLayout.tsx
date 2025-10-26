@@ -38,7 +38,7 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg p-4 flex flex-col">
+      <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
@@ -47,8 +47,8 @@ const AdminLayout: React.FC = () => {
               key={item.path}
               variant="ghost"
               className={cn(
-                "w-full justify-start gap-3",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold"
+                "w-full justify-start gap-3 rounded-lg",
+                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
               )}
               onClick={() => navigate(createPageUrl('admin', { subPath: item.path }))}
             >
@@ -66,7 +66,7 @@ const AdminLayout: React.FC = () => {
           </div>
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
+            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg"
             onClick={signOut}
           >
             <LogOut className="w-5 h-5" />

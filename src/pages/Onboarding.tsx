@@ -159,7 +159,7 @@ export default function Onboarding() {
                       opacity: currentScreen === index ? 1 : 0.4
                     }}
                     className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-primary' : 'bg-primary/40'
+                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40' // Usando highlight
                     }`}
                   />
                 ))}
@@ -170,7 +170,8 @@ export default function Onboarding() {
                 <Button
                   onClick={handleNext}
                   disabled={isCompleting}
-                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-primary hover:bg-primary/90 text-white gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
+                  variant="highlight" // Usando o novo variant highlight
+                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
                 >
                   <span className="truncate">
                     {currentScreen === onboardingScreens.length - 1 ? (isCompleting ? 'Aguarde...' : 'Começar') : 'Próximo'}

@@ -54,7 +54,7 @@ const PremiumMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
         <img 
           src={item.image_url} 
           alt={item.name} 
-          className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+          className="w-20 h-20 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
         />
       )}
       
@@ -64,7 +64,7 @@ const PremiumMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
         size="icon"
         onClick={handleToggleFavorite}
         disabled={isMutating}
-        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm"
+        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm shadow-soft-sm"
       >
         <Heart 
           className={cn(
@@ -103,7 +103,7 @@ const PremiumFullMenuDisplay: React.FC<{ menu: MenuCategoryWithItems[], loading:
             {category.name}
           </h2>
           <Card className={cn(
-            "bg-white dark:bg-gray-800 shadow-lg",
+            "bg-white dark:bg-gray-800 shadow-soft-lg",
             category.items.length > 0 ? "divide-y divide-gray-100 dark:divide-gray-700" : ""
           )}>
             {category.items.length > 0 ? (
@@ -137,7 +137,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
   
   if (gallery.length === 0) {
     return (
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-6 text-center">
+      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-soft-md border-none p-6 text-center">
         <Camera className="w-8 h-8 text-gray-400 mx-auto mb-3" />
         <p className="text-gray-600">Nenhuma foto na galeria.</p>
       </Card>
@@ -154,7 +154,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
       <div className="grid grid-cols-3 gap-2 h-[320px]">
         {/* Imagem Principal */}
         {largeItem && (
-          <div className="col-span-2 row-span-2 relative rounded-xl overflow-hidden">
+          <div className="col-span-2 row-span-2 relative rounded-xl overflow-hidden shadow-soft-md">
             <img 
               className="w-full h-full object-cover" 
               alt={largeItem.caption || `Foto de ${restaurantName}`} 
@@ -168,7 +168,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
         
         {/* Imagens Pequenas */}
         {smallItems.map((item, index) => (
-          <div key={item.id} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden">
+          <div key={item.id} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden shadow-soft-md">
             <img 
               className="w-full h-full object-cover" 
               alt={item.caption || `Foto ${index + 2}`} 
@@ -208,7 +208,7 @@ const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => 
               href={channel.url || '#'} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow"
+              className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-soft-md border border-gray-200 cursor-pointer hover:shadow-soft-lg transition-shadow"
             >
               <Icon className="w-7 h-7 text-highlight" />
               <p className="text-xs font-semibold text-gray-700">{channel.label}</p>
@@ -253,11 +253,12 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-500">Sem Capa</div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          {/* Overlay Degradê Suave */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
         </div>
         
         {/* Header Flutuante (Logo, Nome, Botões) */}
-        <div className="absolute -bottom-16 left-0 right-0 z-10 bg-white dark:bg-gray-800 rounded-t-3xl shadow-xl pt-4">
+        <div className="absolute -bottom-16 left-0 right-0 z-10 bg-white dark:bg-gray-800 rounded-t-2xl shadow-soft-xl pt-4">
           <RestaurantPublicHeader restaurant={headerData} />
         </div>
       </div>
@@ -265,17 +266,17 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       {/* Conteúdo Principal (Abaixo do Header Flutuante) */}
       <div className="pt-20 px-4 pb-20 space-y-6">
         
-        {/* Botão Seguir (Abaixo do Header Público) */}
+        {/* Botão Seguir */}
         <Button 
           onClick={handleFollowToggle}
-          className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
+          className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold shadow-soft-md"
         >
           <UserPlus className="w-5 h-5 mr-2" /> Seguir Restaurante
         </Button>
         
         {/* Abas de Navegação */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 h-auto p-0 bg-white shadow-none border-b border-gray-200 dark:border-gray-700 rounded-none">
+          <TabsList className="grid w-full grid-cols-4 h-auto p-0 bg-white shadow-soft-md border-b border-gray-200 dark:border-gray-700 rounded-xl">
             <TabsTrigger value="menu" className="flex flex-col h-auto py-3 px-1 data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight text-primary font-bold rounded-none">
               Cardápio
             </TabsTrigger>
@@ -297,7 +298,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               <OrderChannels restaurant={restaurant} />
               
               <div className="mt-8">
-                <div className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 p-4 shadow-lg">
+                <div className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 p-4 shadow-soft-md">
                   <Crown className="w-7 h-7 text-white fill-white" />
                   <p className="font-bold text-white text-xl drop-shadow-md">Cardápio Premium</p>
                 </div>
@@ -319,17 +320,17 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             
             {/* Tab: Promoções */}
             <TabsContent value="promotions" className="mt-0">
-              <Card className="p-6 text-center">
+              <Card className="p-6 text-center shadow-soft-md">
                 <Zap className="w-8 h-8 text-highlight mx-auto mb-3" />
                 <h3 className="text-lg font-bold text-primary">Promoções Exclusivas</h3>
                 <p className="text-gray-600 text-sm mt-1">Este restaurante Premium tem acesso a cupons e ofertas especiais.</p>
-                <Button className="mt-4 bg-highlight hover:bg-highlight/90 rounded-full">Ver Ofertas Ativas</Button>
+                <Button className="mt-4 bg-highlight hover:bg-highlight/90 rounded-full shadow-soft-md">Ver Ofertas Ativas</Button>
               </Card>
             </TabsContent>
             
             {/* Tab: Avaliações */}
             <TabsContent value="reviews" className="mt-0">
-              <Card className="p-6 text-center">
+              <Card className="p-6 text-center shadow-soft-md">
                 <Star className="w-8 h-8 text-primary mx-auto mb-3" />
                 <h3 className="text-lg font-bold text-primary">Avaliações</h3>
                 <p className="text-gray-600 text-sm mt-1">Funcionalidade de avaliações em desenvolvimento.</p>
@@ -348,7 +349,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         
         {/* Descrição do Restaurante */}
         {restaurant.description && (
-          <Card className="p-4">
+          <Card className="p-4 shadow-soft-md">
             <h3 className="text-lg font-bold text-primary mb-2">Sobre {restaurant.name}</h3>
             <p className="text-gray-700 whitespace-pre-wrap text-sm">{restaurant.description}</p>
           </Card>

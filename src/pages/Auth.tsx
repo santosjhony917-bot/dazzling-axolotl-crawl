@@ -97,12 +97,12 @@ const AuthPage = () => {
     <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
       
       {/* Header/Botão Voltar (Padrão Consistente) */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-sm absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-sm absolute top-0">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => navigate(-1)}
-          className="text-primary hover:bg-primary/5"
+          className="text-primary hover:bg-primary/5 rounded-lg"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
@@ -123,7 +123,7 @@ const AuthPage = () => {
         >
           {/* Icon and Title (Padrão Consistente) */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4">
               <MapPin className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
@@ -134,11 +134,11 @@ const AuthPage = () => {
             </p>
           </div>
 
-          <Card className="w-full shadow-xl border-none rounded-xl">
+          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
             <CardContent className="p-6 pt-4">
               <form onSubmit={handleAuthAction} className="space-y-4">
                 <Input 
-                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight" 
+                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm" 
                   placeholder="E-mail" 
                   type="email"
                   value={email}
@@ -149,7 +149,7 @@ const AuthPage = () => {
                 
                 <div className="relative">
                   <Input 
-                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight" 
+                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm" 
                     placeholder="Senha" 
                     type={passwordVisible ? 'text' : 'password'}
                     value={password}
@@ -169,7 +169,7 @@ const AuthPage = () => {
                 {isSignUp && (
                   <div className="relative">
                     <Input 
-                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight" 
+                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm" 
                       placeholder="Confirmar Senha" 
                       type={passwordVisible ? 'text' : 'password'}
                       value={confirmPassword}
@@ -202,7 +202,7 @@ const AuthPage = () => {
                   type="submit"
                   disabled={loading}
                   variant="highlight"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
                 >
                   <span className="truncate">
                     {loading ? 'Aguarde...' : (isSignUp ? 'Cadastrar' : 'Entrar')}
@@ -218,10 +218,10 @@ const AuthPage = () => {
                 </div>
                 
                 <div className="flex justify-center gap-4">
-                  <Button type="button" onClick={() => handleOAuthLogin('google')} variant="outline" size="icon" className="h-14 w-14 rounded-xl shadow-sm" disabled={loading}>
+                  <Button type="button" onClick={() => handleOAuthLogin('google')} variant="outline" size="icon" className="h-14 w-14 rounded-xl shadow-soft-md" disabled={loading}>
                     <GoogleIcon className="w-7 h-7" />
                   </Button>
-                  <Button type="button" onClick={() => handleOAuthLogin('apple')} variant="outline" size="icon" className="h-14 w-14 rounded-xl shadow-sm" disabled={loading}>
+                  <Button type="button" onClick={() => handleOAuthLogin('apple')} variant="outline" size="icon" className="h-14 w-14 rounded-xl shadow-soft-md" disabled={loading}>
                     <i className="fa-brands fa-apple text-3xl"></i>
                   </Button>
                 </div>

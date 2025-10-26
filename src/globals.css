@@ -33,7 +33,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 1rem; /* Novo padrão de arredondamento */
+    --radius: 1.25rem; /* Novo padrão de arredondamento (20px) */
 
     /* Sidebar mais suave */
     --sidebar-background: 210 40% 98%; /* Cinza muito claro */
@@ -115,4 +115,13 @@
   );
   background-size: 200% 100%;
   animation: shine 3s infinite;
+}
+
+/* Efeito Frosted Glass (Glassmorphism) */
+.frosted-glass {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

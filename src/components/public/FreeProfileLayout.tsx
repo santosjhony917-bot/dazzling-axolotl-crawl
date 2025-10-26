@@ -35,7 +35,7 @@ const FreeMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
   };
 
   return (
-    <div className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-lg p-3 shadow-sm relative border border-gray-100">
+    <div className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-xl p-3 shadow-soft-sm relative border border-gray-100">
       <div 
         className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 flex-shrink-0" 
         style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
@@ -52,7 +52,7 @@ const FreeMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
         size="icon"
         onClick={handleToggleFavorite}
         disabled={isMutating}
-        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm"
+        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm shadow-soft-sm"
       >
         <Heart 
           className={cn(
@@ -107,8 +107,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     <div className="relative w-full bg-[#f5f7f8] min-h-screen">
       
       {/* Header Flutuante (Logo, Nome, Botões) */}
-      {/* Usando um div simples para o header, já que o Free não tem capa */}
-      <div className="relative w-full bg-white dark:bg-gray-800 rounded-b-3xl shadow-xl pt-12 pb-20">
+      <div className="relative w-full bg-white dark:bg-gray-800 rounded-b-2xl shadow-soft-xl pt-12 pb-20">
         <RestaurantPublicHeader restaurant={headerData} />
       </div>
       
@@ -118,14 +117,14 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         {/* Botão Seguir */}
         <Button 
           onClick={handleFollowToggle}
-          className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
+          className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold shadow-soft-md"
         >
           <UserPlus className="w-5 h-5 mr-2" /> Seguir Restaurante
         </Button>
         
         {/* Informações Essenciais (Endereço e Horário) */}
-        <Card className="shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary mb-4">Informações</h2>
+        <Card className="shadow-soft-lg border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+          <h2 className="text-xl font-bold text-primary mb-4">Informações</h2>
           <div className="space-y-3">
             {/* Endereço */}
             <div className="flex items-start gap-3">
@@ -163,7 +162,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         
         {/* Descrição do Restaurante */}
         {restaurant.description && (
-          <Card className="p-4 shadow-md border-none rounded-xl bg-white dark:bg-gray-800">
+          <Card className="p-4 shadow-soft-md border-none rounded-xl bg-white dark:bg-gray-800">
             <h3 className="text-lg font-bold text-primary mb-2">Sobre {restaurant.name}</h3>
             <p className="text-gray-700 whitespace-pre-wrap text-sm">{restaurant.description}</p>
           </Card>
@@ -174,7 +173,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-primary">Cardápio</h2>
             {categories.map(category => (
-              <Card key={category.id} className="border p-4 rounded-xl shadow-md border-gray-200 bg-white dark:bg-gray-800">
+              <Card key={category.id} className="border p-4 rounded-xl shadow-soft-md border-gray-200 bg-white dark:bg-gray-800">
                 <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">{category.name}</h3>
                 <div className="space-y-3">
                   {(category.items || []).map(item => (
@@ -185,7 +184,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             ))}
           </div>
         ) : (
-          <p className="text-gray-500 text-center p-8 bg-white rounded-xl shadow-md">Nenhum item de menu disponível.</p>
+          <p className="text-gray-500 text-center p-8 bg-white rounded-xl shadow-soft-md">Nenhum item de menu disponível.</p>
         )}
       </div>
     </div>

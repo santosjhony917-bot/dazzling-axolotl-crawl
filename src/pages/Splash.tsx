@@ -23,7 +23,7 @@ export default function Splash() {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 2, ease: "easeInOut" }}
+        transition={{ duration: 1.5, ease: "easeInOut" }} // Transição mais suave
         className="text-center px-8"
       >
         <div className="mx-auto max-w-[520px]">
@@ -31,7 +31,7 @@ export default function Splash() {
           <img 
             src={LOGO_URL} 
             alt="Filter Food Logo" 
-            className="w-64 h-auto mx-auto"
+            className="w-64 h-auto mx-auto drop-shadow-xl" // Adicionando sombra
           />
         </div>
       </motion.div>

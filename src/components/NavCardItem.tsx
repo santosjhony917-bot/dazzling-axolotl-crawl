@@ -36,7 +36,9 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
   };
 
   return (
-    <Card 
+    <motion.div
+      whileHover={{ scale: isLocked ? 1 : 1.01 }}
+      whileTap={{ scale: isLocked ? 1 : 0.99 }}
       className={cn(
         "flex items-center p-4 cursor-pointer transition-all duration-200 border-none shadow-soft-md",
         isLocked 
@@ -54,8 +56,8 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
       </div>
       
       <div className="flex-1 min-w-0">
-        <h3 className="text-base font-semibold text-gray-800 truncate">{title}</h3>
-        <p className="text-sm text-gray-500 mt-0.5">
+        <h3 className="text-base font-semibold text-primary truncate">{title}</h3>
+        <p className="text-sm text-text-secondary mt-0.5">
           {isLocked ? "Exclusivo Premium" : description}
         </p>
       </div>
@@ -75,7 +77,7 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
           </>
         )}
       </div>
-    </Card>
+    </motion.div>
   );
 };
 

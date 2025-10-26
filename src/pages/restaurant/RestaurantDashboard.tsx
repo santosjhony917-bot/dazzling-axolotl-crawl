@@ -90,7 +90,7 @@ const RestaurantDashboard = () => {
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       {/* Header (Localização e Ícone da Loja) */}
-      <header className="bg-white p-4 shadow-sm">
+      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer"
@@ -113,7 +113,7 @@ const RestaurantDashboard = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl"
+            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl shadow-soft-sm"
             onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           >
             <Store className="h-6 w-6" />

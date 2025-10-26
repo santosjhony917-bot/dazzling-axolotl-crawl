@@ -81,15 +81,16 @@ export default {
         lg: "1rem", // 16px
         md: "0.75rem", // 12px
         sm: "0.5rem", // 8px
-        xl: "2rem", // 32px para elementos maiores
+        xl: "1.25rem", // 20px (Novo padrão para cards)
+        "2xl": "1.5rem", // 24px (Para elementos maiores)
         DEFAULT: "1rem",
       },
       boxShadow: {
         // Sombras suaves e realistas (Soft Shadows)
         'soft-sm': '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)',
-        'soft-md': '0 4px 6px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)',
-        'soft-lg': '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
-        'soft-xl': '0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.08)',
+        'soft-md': '0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)', // Aumentado a intensidade
+        'soft-lg': '0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)', // Aumentado a intensidade
+        'soft-xl': '0 20px 40px rgba(0, 0, 0, 0.2), 0 10px 15px rgba(0, 0, 0, 0.1)', // Aumentado a intensidade
         // Sombra de destaque para o botão principal
         'highlight-glow': '0 8px 20px rgba(228, 121, 72, 0.4)',
       },

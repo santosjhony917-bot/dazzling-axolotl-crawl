@@ -81,7 +81,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
+    <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
           const isSelected = getActivePath(item.path, item.id);

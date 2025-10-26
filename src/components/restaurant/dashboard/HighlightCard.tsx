@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
 interface HighlightItem {
   id: string;
@@ -18,7 +19,11 @@ const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
   const formattedPrice = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
   
   return (
-    <Card className="flex h-full flex-col gap-0 rounded-xl min-w-[200px] shadow-soft-lg bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300 hover:scale-[1.02]">
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="flex h-full flex-col gap-0 rounded-xl min-w-[200px] shadow-soft-lg bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300"
+    >
       <div 
         className="w-full bg-center bg-no-repeat aspect-[1.2/1] bg-cover flex flex-col rounded-t-xl" 
         data-alt={item.name} 
@@ -35,7 +40,7 @@ const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
           {formattedPrice}
         </p>
       </CardContent>
-    </Card>
+    </motion.div>
   );
 };
 

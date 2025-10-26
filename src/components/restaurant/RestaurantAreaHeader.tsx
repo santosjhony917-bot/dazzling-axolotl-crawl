@@ -3,6 +3,7 @@ import { ArrowLeft, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl, PathKey } from '@/utils/url';
+import { cn } from '@/lib/utils';
 
 interface RestaurantAreaHeaderProps {
   title: string;
@@ -14,12 +15,12 @@ const RestaurantAreaHeader: React.FC<RestaurantAreaHeaderProps> = ({ title, icon
   const navigate = useNavigate();
   
   return (
-    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
       <Button
         variant="ghost"
         size="icon"
         onClick={() => navigate(createPageUrl(backPath))}
-        className="text-[#022D68] hover:bg-[#022D68]/5"
+        className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
       >
         <ArrowLeft className="h-6 w-6" />
       </Button>

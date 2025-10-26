@@ -127,7 +127,7 @@ const Home: React.FC = () => {
               placeholder="Buscar por prato ou restaurante..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight"
+              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-sm"
             />
           </div>
           <Button 
@@ -149,14 +149,14 @@ const Home: React.FC = () => {
           <Button 
             onClick={handleSearchByPrice}
             variant="outline"
-            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
           >
             <DollarSign className="w-5 h-5 mr-2" /> Preço
           </Button>
           <Button 
             onClick={handleSearchNearby}
             variant="outline"
-            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
           >
             <Compass className="w-5 h-5 mr-2" /> Distância
           </Button>
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
             <Skeleton className="w-full h-48 rounded-xl" />
           </div>
         ) : restaurantsError ? (
-          <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-lg shadow-soft-md">
             <p className="font-semibold">Erro ao carregar restaurantes:</p>
             <p>{restaurantsError}</p>
             <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
