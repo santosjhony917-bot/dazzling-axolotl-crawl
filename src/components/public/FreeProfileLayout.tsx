@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import { WeekSchedule } from '@/types/schedule';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MenuItemCard from '@/components/restaurant/MenuItemCard';
 
 interface FreeProfileLayoutProps {
@@ -21,17 +20,12 @@ const mockMenuItems = [
   { name: "Pizza Calabresa", price: 39.90, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pizza" },
   { name: "Pizza Pepperoni", price: 42.50, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pizza" },
   { name: "Frango c/ Catupiry", price: 41.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Frango" },
-];
-
-const mockDesserts = [
   { name: "Pudim de Leite", price: 12.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pudim" },
   { name: "Mousse de Maracujá", price: 10.50, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Mousse" },
-];
-
-const mockDrinks = [
   { name: "Refrigerante Lata", price: 5.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Refri" },
   { name: "Suco Natural 500ml", price: 8.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Suco" },
 ];
+
 
 // Componente auxiliar para um item de informação (Endereço, Horário, Pagamento)
 const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string | React.ReactNode }> = ({ icon: Icon, label, value }) => {
@@ -55,7 +49,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours as unknown as WeekSchedule | null | undefined);
   
-  const [followersCount, setFollowersCount] = useState(0); // 0 seguidores como no mock
+  const [followersCount, setFollowersCount] = useState(0); 
   const [isFavorite, setIsFavorite] = useState(false);
   
   const handleFollowToggle = () => {
@@ -102,15 +96,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               </div>
             </div>
 
-            {/* Botões de Ação (Compartilhar - mantido, mas não visível no mock) */}
-            {/* <Button 
-              variant="ghost" 
-              size="icon" 
-              className="rounded-full w-8 h-8 text-gray-600 dark:text-gray-300"
-              onClick={handleShare}
-            >
-              <Share2 className="w-4 h-4" />
-            </Button> */}
+            {/* Botões de Ação (Compartilhar - removido para simplificar o design) */}
           </div>
 
           {/* Botões Seguir e Favoritar */}
@@ -142,31 +128,11 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           <section>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Cardápio</h2>
             
-            <Tabs defaultValue="pizzas">
-              <TabsList className="w-full justify-start bg-transparent p-0 h-auto mb-4 overflow-x-auto">
-                <TabsTrigger value="pizzas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Pizzas</TabsTrigger>
-                <TabsTrigger value="sobremesas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Sobremesas</TabsTrigger>
-                <TabsTrigger value="bebidas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Bebidas</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="pizzas" className="mt-4 space-y-3">
-                {mockMenuItems.map((item, index) => (
-                  <MenuItemCard key={index} {...item} />
-                ))}
-              </TabsContent>
-              
-              <TabsContent value="sobremesas" className="mt-4 space-y-3">
-                {mockDesserts.map((item, index) => (
-                  <MenuItemCard key={index} {...item} />
-                ))}
-              </TabsContent>
-
-              <TabsContent value="bebidas" className="mt-4 space-y-3">
-                {mockDrinks.map((item, index) => (
-                  <MenuItemCard key={index} {...item} />
-                ))}
-              </TabsContent>
-            </Tabs>
+            <div className="space-y-3">
+              {mockMenuItems.map((item, index) => (
+                <MenuItemCard key={index} {...item} />
+              ))}
+            </div>
           </section>
 
           {/* Seção Informações */}
