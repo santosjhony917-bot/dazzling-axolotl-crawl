@@ -168,7 +168,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
         
         {/* Imagens Pequenas */}
         {smallItems.map((item, index) => (
-          <div key={index} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden">
+          <div key={item.id} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden">
             <img 
               className="w-full h-full object-cover" 
               alt={item.caption || `Foto ${index + 2}`} 

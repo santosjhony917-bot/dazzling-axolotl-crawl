@@ -5,7 +5,7 @@ import { useGalleryManagement } from '@/hooks/useGalleryManagement';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, ArrowLeft, Lock } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
@@ -15,7 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading } = useAuthContext();
+  const { restaurant, isLoading: authLoading, isPremium } = useAuthContext();
   const restaurantId = restaurant?.id || null;
 
   const { 
@@ -28,6 +28,7 @@ export default function GalleryManagement() {
   } = useGalleryManagement(restaurantId);
 
   const [isUploading, setIsUploading] = useState(false);
+  const isLocked = !isPremium;
 
   const handleUploadComplete = useCallback(async (url: string) => {
     if (!restaurantId) return;
@@ -49,6 +50,10 @@ export default function GalleryManagement() {
   }, [restaurantId, addGalleryImage]);
 
   const handleDeleteImage = useCallback(async (imageId: string) => {
+    if (isLocked) {
+      showError("Recurso Premium. Faça upgrade para desbloquear.");
+      return;
+    }
     if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
       try {
         await deleteGalleryImage(imageId);
@@ -56,15 +61,20 @@ export default function GalleryManagement() {
         showError("Falha ao remover imagem.");
       }
     }
-  }, [deleteGalleryImage]);
+  }, [deleteGalleryImage, isLocked]);
 
   const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
+    if (isLocked) {
+      showError("Recurso Premium. Faça upgrade para desbloquear.");
+      return;
+    }
     try {
       await updateGalleryImage(imageId, { caption: newCaption });
+      showSuccess("Legenda atualizada!");
     } catch (error) {
       showError("Falha ao atualizar legenda.");
     }
-  }, [updateGalleryImage]);
+  }, [updateGalleryImage, isLocked]);
 
   if (authLoading || galleryLoading) {
     return (
@@ -95,10 +105,25 @@ export default function GalleryManagement() {
       </Button>
       
       <h1 className="text-3xl font-bold text-primary">Gerenciar Galeria de Fotos</h1>
-      <p className="text-gray-600">Adicione fotos que aparecerão no perfil público do seu restaurante. (Recurso Premium)</p>
+      <p className="text-gray-600">Adicione fotos que aparecerão no perfil público do seu restaurante.</p>
+
+      {isLocked && (
+        <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3">
+          <Lock className="w-5 h-5 shrink-0" />
+          <p className="text-sm font-medium">
+            A gestão da galeria é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
+          </p>
+          <Button 
+            onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+            className="bg-highlight hover:bg-highlight/90 shrink-0"
+          >
+            Upgrade
+          </Button>
+        </div>
+      )}
 
       {/* Adicionar Nova Imagem */}
-      <Card>
+      <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
             <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
@@ -112,6 +137,7 @@ export default function GalleryManagement() {
               folderPath={`${restaurantId}/gallery`}
               className="h-12 w-full flex-1 bg-primary hover:bg-primary/90"
               icon={isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+              disabled={isUploading || isLocked}
             >
               {isUploading ? "Enviando..." : "Selecionar e Enviar Foto"}
             </ImageUploadButton>

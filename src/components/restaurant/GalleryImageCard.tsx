@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 interface GalleryImageCardProps {
   image: GalleryImage;
   onDelete: (imageId: string) => void;
-  onUpdateCaption: (imageId: string, caption: string) => void;
+  onUpdateCaption: (imageId: string, caption: string) => Promise<void>; // Alterado para Promise<void>
   isDeleting: boolean;
   isUpdating: boolean;
 }
@@ -19,9 +19,9 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ image, onDelete, on
   const [caption, setCaption] = useState(image.caption || '');
   const isSaving = isUpdating && isEditing;
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (caption !== image.caption) {
-      onUpdateCaption(image.id, caption);
+      await onUpdateCaption(image.id, caption);
     }
     setIsEditing(false);
   };
