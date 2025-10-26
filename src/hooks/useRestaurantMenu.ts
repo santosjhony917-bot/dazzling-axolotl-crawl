@@ -28,7 +28,7 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
           )
         `)
         .eq('restaurant_id', id)
-        .eq('is_active', true)
+        // Removido .eq('is_active', true) para buscar todas as categorias.
         .order('order_index', { ascending: true })
         .order('order_index', { foreignTable: 'menu_items', ascending: true });
 
