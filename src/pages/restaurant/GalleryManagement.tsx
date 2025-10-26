@@ -25,11 +25,11 @@ export default function GalleryManagement() {
   const { 
     gallery, 
     isLoading: galleryLoading, 
-    addGalleryImage, // Corrected alias
-    deleteGalleryImage, // Corrected alias
+    addGalleryImage, 
+    deleteGalleryImage, 
     updateGalleryImage,
-    isAdding, // Added missing property
-    isRemoving // Added missing property
+    isAdding, 
+    isRemoving
   } = useGalleryManagement(restaurantId);
 
   const [newCaption, setNewCaption] = useState('');
