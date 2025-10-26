@@ -10,7 +10,7 @@ interface AppProviderProps {
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return (
     <QueryProvider>
-      <AuthProvider>
+      <AuthProvider navigateCallback={() => { /* Placeholder */ }}>
         <ToastProvider />
         {children}
       </AuthProvider>

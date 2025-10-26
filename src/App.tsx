@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './pages/NotFound';
@@ -43,70 +43,94 @@ import ImportMenu from './pages/admin/ImportMenu';
 import EditRestaurant from './pages/admin/EditRestaurant';
 import PopularCategories from './pages/admin/PopularCategories';
 import Files from './pages/admin/Files';
+import { AuthProvider } from './context/AuthContext';
+import ToastProvider from './components/ToastProvider';
+import QueryProvider from './providers/QueryProvider';
+
+
+// Componente Wrapper que usa useNavigate e passa o callback para AuthProvider
+const AuthWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const navigate = useNavigate();
+  
+  const navigateCallback = (path: string) => {
+    navigate(path);
+  };
+  
+  return (
+    <AuthProvider navigateCallback={navigateCallback}>
+      <ToastProvider />
+      {children}
+    </AuthProvider>
+  );
+};
 
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Rotas Públicas */}
-        <Route path="/" element={<Splash />} />
-        <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/legal" element={<Legal />} />
-        
-        {/* Rotas Públicas de Restaurante */}
-        <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
-        <Route path="/restaurant-login" element={<RestaurantLogin />} />
-        <Route path="/restaurant-signup" element={<RestaurantSignup />} />
-        <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
-        
-        {/* Rotas de Busca e Perfil Público */}
-        <Route path="/results" element={<RestaurantResultsPage />} />
-        <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
-        <Route path="/search-restaurants" element={<SearchRestaurants />} />
-
-        {/* Rotas Protegidas (Cliente e Proprietário) */}
-        <Route element={<ProtectedRoute requiredRole="authenticated" />}>
-          <Route element={<Layout />}>
-            {/* Rotas de Cliente */}
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<ClientProfilePage />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/search-unified" element={<SearchUnifiedPage />} />
+      <QueryProvider>
+        <AuthWrapper>
+          <Routes>
+            {/* Rotas Públicas */}
+            <Route path="/" element={<Splash />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/legal" element={<Legal />} />
             
-            {/* Rotas da Área do Restaurante (Protegidas por restaurant_owner) */}
-            <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
-              <Route path="home" element={<RestaurantDashboard />} />
-              <Route path="profile-menu" element={<RestaurantProfilePage />} />
-              <Route path="menu" element={<MenuManagement />} />
-              <Route path="gallery" element={<GalleryManagement />} />
-              <Route path="upgrade" element={<UpgradePage />} />
-              <Route path="help" element={<HelpCenter />} />
-              <Route path="stats" element={<RestaurantSearch />} />
-            </Route>
-          </Route>
-        </Route>
-        
-        {/* Rotas de Admin */}
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/plans" element={<AdminPlans />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/import" element={<ImportMenu />} />
-          <Route path="/admin/edit-restaurant" element={<EditRestaurant />} />
-          <Route path="/admin/popular-categories" element={<PopularCategories />} />
-          <Route path="/admin/files" element={<Files />} />
-        </Route>
+            {/* Rotas Públicas de Restaurante */}
+            <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
+            <Route path="/restaurant-login" element={<RestaurantLogin />} />
+            <Route path="/restaurant-signup" element={<RestaurantSignup />} />
+            <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
+            
+            {/* Rotas de Busca e Perfil Público */}
+            <Route path="/results" element={<RestaurantResultsPage />} />
+            <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
+            <Route path="/search-restaurants" element={<SearchRestaurants />} />
 
-        {/* Rota 404 */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+            {/* Rotas Protegidas (Cliente e Proprietário) */}
+            <Route element={<ProtectedRoute requiredRole="authenticated" />}>
+              <Route element={<Layout />}>
+                {/* Rotas de Cliente */}
+                <Route path="/home" element={<Home />} />
+                <Route path="/profile" element={<ClientProfilePage />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/search-unified" element={<SearchUnifiedPage />} />
+                
+                {/* Rotas da Área do Restaurante (Protegidas por restaurant_owner) */}
+                <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
+                  <Route path="home" element={<RestaurantDashboard />} />
+                  <Route path="profile-menu" element={<RestaurantProfilePage />} />
+                  <Route path="menu" element={<MenuManagement />} />
+                  <Route path="gallery" element={<GalleryManagement />} />
+                  <Route path="upgrade" element={<UpgradePage />} />
+                  <Route path="help" element={<HelpCenter />} />
+                  <Route path="stats" element={<RestaurantSearch />} />
+                </Route>
+              </Route>
+            </Route>
+            
+            {/* Rotas de Admin */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/restaurants" element={<AdminRestaurants />} />
+              <Route path="/admin/plans" element={<AdminPlans />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+              <Route path="/admin/import" element={<ImportMenu />} />
+              <Route path="/admin/edit-restaurant" element={<EditRestaurant />} />
+              <Route path="/admin/popular-categories" element={<PopularCategories />} />
+              <Route path="/admin/files" element={<Files />} />
+            </Route>
+
+            {/* Rota 404 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthWrapper>
+      </QueryProvider>
     </Router>
   );
 }
