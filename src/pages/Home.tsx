@@ -133,6 +133,25 @@ const Home: React.FC = () => {
       </header>
 
       <main className="p-4 space-y-6">
+        
+        {/* Ações Rápidas (BOTÕES DE BUSCA) - RESTAURADO */}
+        <div className="flex gap-4 pt-2">
+          <Button 
+            onClick={handleSearchByPrice}
+            variant="outline"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+          >
+            <DollarSign className="w-5 h-5 mr-2" /> Preço
+          </Button>
+          <Button 
+            onClick={handleSearchNearby}
+            variant="outline"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+          >
+            <Compass className="w-5 h-5 mr-2" /> Distância
+          </Button>
+        </div>
+        
         <h2 className="text-xl font-bold text-[#022D68]">Destaques do Dia</h2>
         
         {/* Destaques do Dia (Horizontal Scroll) */}

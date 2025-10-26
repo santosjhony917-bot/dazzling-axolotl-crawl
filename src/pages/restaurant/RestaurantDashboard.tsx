@@ -126,6 +126,20 @@ const RestaurantDashboard = () => {
 
       <main className="p-4 space-y-6">
         
+        {/* Ações Rápidas (BOTÕES DE BUSCA) - RESTAURADO */}
+        <div className="flex gap-4 pt-2">
+          <ActionCard 
+            title="Buscar Prato|por Preço" 
+            icon={DollarSign} 
+            onClick={handleSearchByPrice} // Abre o modal de preço
+          />
+          <ActionCard 
+            title="Buscar Restaurantes|Próximos" 
+            icon={Compass} 
+            onClick={handleSearchNearby} // Abre o modal de distância
+          />
+        </div>
+        
         {/* Banner Premium (Carousel) */}
         <PremiumBanner />
 
