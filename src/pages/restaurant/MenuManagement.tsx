@@ -3,18 +3,30 @@ import { useParams } from 'react-router-dom';
 import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
 import { CategoryList } from '@/components/restaurant/menu/CategoryList';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Loader2 } from 'lucide-react';
 import { MenuCategory } from '@/types';
 import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useAuthContext } from '@/context/AuthContext'; // Importando useAuthContext
 
 export default function MenuManagement() {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
+  // Obtendo o restaurante do contexto de autenticação
+  const { restaurant, isLoading: authLoading } = useAuthContext();
+  const restaurantId = restaurant?.id || null;
+  
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
 
+  if (authLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   if (!restaurantId) {
-    return <div className="p-4 text-red-500">ID do Restaurante não encontrado.</div>;
+    return <div className="p-4 text-red-500">ID do Restaurante não encontrado. Certifique-se de que seu perfil de restaurante está vinculado.</div>;
   }
 
   const { categoriesQuery, deleteCategoryMutation } = useMenuManagement(restaurantId);
