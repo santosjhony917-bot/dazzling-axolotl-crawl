@@ -107,7 +107,8 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     <div className="relative w-full bg-[#f5f7f8] min-h-screen">
       
       {/* Header Flutuante (Logo, Nome, Botões) */}
-      <div className="relative w-full bg-white dark:bg-gray-800 rounded-b-3xl shadow-xl pt-4 pb-20">
+      {/* Usando um div simples para o header, já que o Free não tem capa */}
+      <div className="relative w-full bg-white dark:bg-gray-800 rounded-b-3xl shadow-xl pt-12 pb-20">
         <RestaurantPublicHeader restaurant={headerData} />
       </div>
       
