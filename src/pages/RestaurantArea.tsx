@@ -1,66 +1,48 @@
+import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { Home, BarChart2, Utensils, Rocket, User, ArrowLeft } from 'lucide-react';
-import { useUserRole } from '@/hooks/useUserRole';
+import { RestaurantSidebar } from '@/components/restaurant/RestaurantSidebar';
+import { Loader2 } from 'lucide-react';
+import { Navigate } from 'react-router-dom';
+import { Routes } from '@/router/routes';
+import { useAuthContext } from '@/context/AuthContext';
 
-const getSelectedTab = (pathname: string) => {
-  if (pathname.includes('/restaurant-area/home')) return 'home';
-  if (pathname.includes('/search-client')) return 'search'; // Novo check para a rota unificada
-  if (pathname.includes('/restaurant-area/menu')) return 'menu';
-  if (pathname.includes('/restaurant-area/upgrade')) return 'upgrade';
-  if (pathname.includes('/restaurant-area/profile-menu')) return 'perfil';
-  return 'home';
-};
-
-const RestaurantArea = () => {
+export default function RestaurantArea() {
+  const { isAuthenticated, isLoading, restaurant } = useAuthContext();
   const location = useLocation();
-  const { isPremium } = useUserRole();
-  const selectedTab = getSelectedTab(location.pathname);
-  
-  const isDashboardRoute = location.pathname.endsWith('/restaurant-area/home');
-  const isProfileMenuRoute = location.pathname.endsWith('/restaurant-area/profile-menu');
-  const isSearchRoute = location.pathname.includes('/search-client'); // Usando a rota unificada
-  const isHelpRoute = location.pathname.includes('/restaurant-area/help');
 
-  const getHeaderContent = () => {
-    // O Dashboard e o ProfileMenu (que é o FreeProfileLayout) gerenciam seu próprio layout/header
-    if (isDashboardRoute || isProfileMenuRoute || isSearchRoute || isHelpRoute) {
-        return { title: "", showHeader: false };
-    }
-    if (location.pathname.includes('/restaurant-area/menu')) {
-        return { title: "Cardápio", showHeader: true };
-    }
-    if (location.pathname.includes('/restaurant-area/categories')) {
-        return { title: "Gerenciar Categorias", showHeader: true };
-    }
-    if (location.pathname.includes('/restaurant-area/upgrade')) {
-        return { title: "Plano Premium", showHeader: true };
-    }
-    return { title: "Meu Restaurante", showHeader: true };
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
-  const { title, showHeader } = getHeaderContent();
-  
-  // O BottomNav deve ser sempre renderizado na área do restaurante
-  const shouldRenderBottomNav = true;
+  if (!isAuthenticated) {
+    return <Navigate to={Routes.LOGIN} state={{ from: location }} replace />;
+  }
+
+  if (!restaurant) {
+    return (
+      <div className="p-8 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Acesso Negado</h1>
+        <p className="text-gray-600">Você precisa ter um perfil de restaurante ativo para acessar esta área.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark">
-      {showHeader && (
-        <header className="bg-white dark:bg-gray-800 shadow-sm p-4 flex items-center sticky top-0 z-10">
-          <ArrowLeft className="h-6 w-6 mr-4 cursor-pointer" onClick={() => window.history.back()} />
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h1>
+    <div className="flex min-h-screen bg-gray-50">
+      <RestaurantSidebar />
+      <div className="flex-1 flex flex-col">
+        <header className="p-4 border-b bg-white shadow-sm">
+          <h1 className="text-2xl font-semibold">Área do Restaurante</h1>
         </header>
-      )}
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      
-      {shouldRenderBottomNav && (
-        <RestaurantBottomNav selectedTab={selectedTab} isFree={!isPremium} />
-      )}
+        <main className="flex-1 p-6">
+          {/* The content of the nested route (MenuManagement or CategoryDetails) will render here */}
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
-};
-
-export default RestaurantArea;
+}
