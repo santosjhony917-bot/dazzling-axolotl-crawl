@@ -9,7 +9,7 @@ import Splash from './pages/Splash'; // Importando Splash
 import AuthPage from './pages/AuthPage';
 import ClientProfilePage from './pages/ClientProfilePage';
 import Favorites from './pages/Favorites';
-import RestaurantProfile from './pages/RestaurantProfile';
+import RestaurantProfilePublic from './pages/RestaurantProfilePublic'; // Importando o componente correto
 import SearchUnified from './pages/SearchUnified';
 import MenuItemDetails from './pages/MenuItemDetails';
 import HelpCenter from './pages/HelpCenter';
@@ -42,7 +42,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/restaurant/:restaurantId" element={<RestaurantProfile />} />
+        <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} /> {/* CORRIGIDO */}
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
         
