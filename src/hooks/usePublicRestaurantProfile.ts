@@ -19,8 +19,11 @@ export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfi
     if (!restaurantId || restaurantId.length === 0) {
       setIsLoading(false);
       setError(new Error("ID do restaurante não fornecido ou inválido."));
+      console.log("DEBUG PUBLIC PROFILE: ID inválido ou não fornecido.");
       return;
     }
+    
+    console.log("DEBUG PUBLIC PROFILE: Tentando buscar ID:", restaurantId);
 
     const fetchRestaurant = async () => {
       setIsLoading(true);
@@ -33,10 +36,11 @@ export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfi
         .single();
 
       if (error) {
-        console.error("Error fetching public restaurant profile:", error);
+        console.error("DEBUG PUBLIC PROFILE: Erro Supabase:", error);
         setError(new Error(error.message));
         setRestaurant(null);
       } else {
+        console.log("DEBUG PUBLIC PROFILE: Sucesso, dados:", data);
         setRestaurant(data as Restaurant);
       }
       setIsLoading(false);
