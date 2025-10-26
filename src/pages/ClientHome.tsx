@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import CustomerBottomNav from '@/components/CustomerBottomNav';
+import ClientBottomNav from '@/components/ClientBottomNav';
 import { createPageUrl } from '@/utils/url';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
@@ -13,15 +13,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 
-const Home: React.FC = () => {
+const ClientHome: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <CustomerBottomNav selectedTab="home" />
+      <ClientBottomNav selectedTab="home" />
 
       {/* User Location Modal */}
       <UserLocationModal
@@ -210,4 +210,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default ClientHome;
