@@ -252,10 +252,11 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
               <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <Button 
                   onClick={() => {
-                    if (restaurant.id) {
+                    // CORREÇÃO: Verifica se o ID é uma string não vazia
+                    if (restaurant.id && typeof restaurant.id === 'string' && restaurant.id.length > 0) {
                       navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }));
                     } else {
-                      showError("ID do restaurante não encontrado. Tente recarregar a página.");
+                      showError("ID do restaurante não encontrado. Por favor, recarregue a página ou verifique o cadastro.");
                     }
                   }}
                   className="w-full flex items-center justify-center gap-2 min-w-[84px] cursor-pointer overflow-hidden rounded-full h-12 px-4 bg-highlight text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-highlight/40 hover:bg-highlight/90"

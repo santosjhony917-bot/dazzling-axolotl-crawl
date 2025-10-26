@@ -16,8 +16,9 @@ export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfi
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    if (!restaurantId) {
+    if (!restaurantId || restaurantId.length === 0) {
       setIsLoading(false);
+      setError(new Error("ID do restaurante não fornecido ou inválido."));
       return;
     }
 
