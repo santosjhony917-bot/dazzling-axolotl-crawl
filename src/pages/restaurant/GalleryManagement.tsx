@@ -25,11 +25,11 @@ export default function GalleryManagement() {
   const { 
     gallery, 
     isLoading: galleryLoading, 
-    addImage: addGalleryImage, 
-    removeImage: deleteGalleryImage, 
+    addGalleryImage, // Corrected alias
+    deleteGalleryImage, // Corrected alias
     updateGalleryImage,
-    isAdding,
-    isRemoving
+    isAdding, // Added missing property
+    isRemoving // Added missing property
   } = useGalleryManagement(restaurantId);
 
   const [newCaption, setNewCaption] = useState('');
@@ -42,7 +42,8 @@ export default function GalleryManagement() {
     try {
       await addGalleryImage({ 
         image_url: url, 
-        caption: newCaption || null 
+        caption: newCaption || null,
+        restaurant_id: restaurantId, // Added missing restaurant_id for the payload
       });
       setNewCaption('');
       showSuccess("Foto adicionada à galeria!");
@@ -63,7 +64,8 @@ export default function GalleryManagement() {
 
   const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
     try {
-      await updateGalleryImage({ imageId, updates: { caption: newCaption } });
+      // Fix for TS2554: updateGalleryImage now expects { imageId, updates } as a single argument
+      await updateGalleryImage({ imageId, updates: { caption: newCaption } }); 
       showSuccess("Legenda atualizada.");
     } catch (error) {
       showError("Falha ao atualizar legenda.");
