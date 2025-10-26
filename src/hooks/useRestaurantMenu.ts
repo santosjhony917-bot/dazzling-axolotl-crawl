@@ -1,63 +1,34 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { showError } from '@/utils/toast';
+import { MenuCategoryWithItems } from '@/types/supabase';
 
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number;
-  is_active: boolean;
+interface UseRestaurantMenuResult {
+  menu: MenuCategoryWithItems[];
+  menuLoading: boolean;
+  menuError: string | null;
+  fetchMenu: (restaurantId: string) => Promise<void>;
 }
 
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number;
-  is_active: boolean;
-  menu_items: MenuItem[];
-}
+export const useRestaurantMenu = (): UseRestaurantMenuResult => {
+  const [menu, setMenu] = useState<MenuCategoryWithItems[]>([]);
+  const [menuLoading, setMenuLoading] = useState(false);
+  const [menuError, setMenuError] = useState<string | null>(null);
 
-export const useRestaurantMenu = (restaurantId: string | undefined) => {
-  const [menu, setMenu] = useState<MenuCategory[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchMenu = useCallback(async () => {
-    if (!restaurantId) {
-      setMenu([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
+  const fetchMenu = useCallback(async (restaurantId: string) => {
+    setMenuLoading(true);
+    setMenuError(null);
 
     try {
       const { data, error } = await supabase
         .from('menu_categories')
         .select(`
-          id,
-          restaurant_id,
-          name,
-          order_index,
-          is_active,
+          *,
           menu_items (
-            id,
-            name,
-            description,
-            price,
-            image_url,
-            order_index,
-            is_active
+            *
           )
         `)
         .eq('restaurant_id', restaurantId)
-        .eq('is_active', true) // Apenas categorias ativas
+        .eq('is_active', true)
         .order('order_index', { ascending: true })
         .order('order_index', { foreignTable: 'menu_items', ascending: true });
 
@@ -65,29 +36,16 @@ export const useRestaurantMenu = (restaurantId: string | undefined) => {
         throw new Error(error.message);
       }
 
-      // Tipagem explícita para o retorno do Supabase antes do mapeamento
-      type SupabaseCategory = Omit<MenuCategory, 'menu_items'> & { menu_items: Partial<MenuItem>[] };
-
-      // Filter out inactive items from active categories
-      const activeMenu: MenuCategory[] = (data as SupabaseCategory[]).map(category => ({
-        ...category,
-        menu_items: category.menu_items.filter(item => item.is_active) as MenuItem[],
-      })).filter(category => category.menu_items.length > 0); // Only show categories with active items
-
-      setMenu(activeMenu);
+      // O tipo retornado pelo select com join é MenuCategoryWithItems[]
+      setMenu(data as MenuCategoryWithItems[]);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Erro desconhecido ao carregar o cardápio.";
-      setError(errorMessage);
-      showError(errorMessage);
+      console.error('Error fetching menu:', err);
+      setMenuError('Falha ao carregar o cardápio.');
       setMenu([]);
     } finally {
-      setLoading(false);
+      setMenuLoading(false);
     }
-  }, [restaurantId]);
+  }, []);
 
-  useEffect(() => {
-    fetchMenu();
-  }, [fetchMenu]);
-
-  return { menu, loading, error, refetchMenu: fetchMenu };
+  return { menu, menuLoading, menuError, fetchMenu };
 };

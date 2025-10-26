@@ -1,63 +1,26 @@
-// Define o tipo enum baseado no contexto do schema
-export type RestaurantPlan = 'free' | 'premium' | 'premium_gift';
+import { Database } from '../lib/database.types';
 
-export interface GalleryImage {
-  id: string;
-  restaurant_id: string;
-  image_url: string;
-  caption: string | null;
-  order_index: number;
-}
+// Tipos base do Supabase
+export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
+export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type UserFavorite = Database['public']['Tables']['user_favorites']['Row'];
+export type UserSearchLocation = Database['public']['Tables']['user_search_locations']['Row'];
+export type RestaurantGallery = Database['public']['Tables']['restaurant_gallery']['Row'];
 
-export interface Restaurant {
-  id: string;
-  user_id: string | null;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  address: string | null;
-  plan: RestaurantPlan;
-  created_at: string;
-  latitude: number | null;
-  longitude: number | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  cover_image_url: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  phone: string | null;
-  email: string | null;
-  cnpj: string | null;
-  category: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  opening_hours: any | null; // Usando 'any' para jsonb complexo
-  external_url: string | null; // NOVO CAMPO
-}
+// Tipos de Menu
+export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
+export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
 
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number | null;
-  is_active: boolean | null;
-  created_at: string | null;
-}
-
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number | null;
-  is_active: boolean | null;
-  created_at: string | null;
-}
-
+// Tipos de Relação
 export type MenuCategoryWithItems = MenuCategory & {
-  items: MenuItem[];
+  menu_items: MenuItem[];
+};
+
+// Tipos de Relação Complexa
+export type RestaurantWithGallery = Restaurant & {
+  restaurant_gallery: RestaurantGallery[];
+};
+
+export type RestaurantWithMenu = Restaurant & {
+  menu_categories: MenuCategoryWithItems[];
 };
