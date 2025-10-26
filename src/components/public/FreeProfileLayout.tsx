@@ -21,12 +21,12 @@ const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string
   const content = (
     <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
       <Icon className="w-5 h-5 flex-shrink-0 mt-1 text-highlight" />
-      <div className="flex flex-col text-base">
-        <p className="text-gray-700 dark:text-gray-300 leading-snug">{label}</p>
+      <div className="flex flex-col text-base flex-1">
+        <p className="text-gray-500 dark:text-gray-400 text-sm leading-snug">{label}</p>
         {typeof value === 'string' ? (
-          <p className="text-gray-900 dark:text-white font-medium leading-snug">{value}</p>
+          <p className="text-gray-900 dark:text-white font-semibold leading-snug mt-0.5">{value}</p>
         ) : (
-          value
+          <div className="text-gray-900 dark:text-white font-semibold leading-snug mt-0.5">{value}</div>
         )}
       </div>
     </div>
@@ -42,22 +42,24 @@ const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string
   return content;
 };
 
-// Componente auxiliar para um item de Ação/Recurso (Simplificado, sem lógica de bloqueio)
-const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?: string, onClick: () => void }> = ({ icon: Icon, label, actionText, onClick }) => (
-  <div 
-    className={cn(
-      "p-4 flex justify-between items-center font-semibold transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0",
-      "text-primary dark:text-white cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
-    )}
+// Componente auxiliar para um item de Ação/Recurso (Cardápio)
+const ActionItem: React.FC<{ icon: React.ElementType, label: string, onClick: () => void }> = ({ icon: Icon, label, onClick }) => (
+  <Card 
+    className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none cursor-pointer hover:shadow-lg transition-shadow"
     onClick={onClick}
   >
-    <span className="flex items-center gap-3 text-base">
-      <Icon className="w-5 h-5 text-highlight" /> {label}
-    </span>
-    {actionText && (
-      <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">{actionText}</span>
-    )}
-  </div>
+    <CardContent className="p-4 flex justify-between items-center">
+      <div className="flex items-center gap-4">
+        <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center shrink-0">
+          <Icon className="w-5 h-5 text-highlight" />
+        </div>
+        <span className="text-lg font-bold text-primary dark:text-white">
+          {label}
+        </span>
+      </div>
+      <ChevronRight className="w-6 h-6 text-gray-500" />
+    </CardContent>
+  </Card>
 );
 
 
@@ -128,14 +130,14 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           {/* Botão Seguir */}
           <Button 
             onClick={handleFollowToggle}
-            className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
+            className="w-full h-12 rounded-full bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-lg"
           >
             Seguir Restaurante
           </Button>
 
           {/* Informações Essenciais (Agrupadas em Card) */}
           <Card className="shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-            <div className="space-y-4">
+            <CardContent className="p-0 space-y-4">
               
               {/* Localização */}
               <InfoItem 
@@ -152,11 +154,11 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
                 label="Horário"
                 value={
                   <>
-                    <span className={cn("font-medium", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
+                    <span className={cn("font-bold", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
                       {formattedSchedule.status.split('.')[0]}
                     </span>
                     {formattedSchedule.nextOpenTime && (
-                      <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal">
+                      <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal mt-0.5">
                         {formattedSchedule.nextOpenTime}
                       </span>
                     )}
@@ -176,26 +178,15 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
                   linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
                 />
               )}
-            </div>
+            </CardContent>
           </Card>
 
           {/* Cardápio Completo (Card de Ação Proeminente) */}
-          <Card 
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none cursor-pointer hover:shadow-lg transition-shadow"
+          <ActionItem
+            icon={Menu}
+            label="Cardápio Completo"
             onClick={() => handleNavigate('restaurantMenu')}
-          >
-            <CardContent className="p-4 flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center shrink-0">
-                  <Menu className="w-5 h-5 text-highlight" />
-                </div>
-                <span className="text-lg font-bold text-primary dark:text-white">
-                  Cardápio Completo
-                </span>
-              </div>
-              <ChevronRight className="w-6 h-6 text-gray-500" />
-            </CardContent>
-          </Card>
+          />
           
         </div>
       </main>
