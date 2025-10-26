@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass } from 'lucide-react';
+import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass, Filter } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
@@ -14,8 +14,9 @@ import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { showSuccess, showError } from '@/utils/toast';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { Input } from '@/components/ui/input'; // Adicionado import do Input
 
 // Mock Data
 const mockHighlights = [
@@ -35,8 +36,9 @@ const RestaurantDashboard = () => {
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState(''); // Adicionado para consistência
 
   const handleLocationSaved = () => {
     refetch();
@@ -52,7 +54,6 @@ const RestaurantDashboard = () => {
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
@@ -67,13 +68,18 @@ const RestaurantDashboard = () => {
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
   
-  const handleEditMenu = () => {
-    navigate(createPageUrl('restaurant-area/menu'));
+  const handleOpenSearchConfig = () => {
+    navigate(createPageUrl('search-unified'));
+  };
+  
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Redireciona para a busca unificada
+    navigate(createPageUrl('search-unified'));
   };
   
   const handleViewCompetitor = (id: string) => {
@@ -113,12 +119,26 @@ const RestaurantDashboard = () => {
             <Store className="h-6 w-6" />
           </Button>
         </div>
-      </header>
-
-      <main className="p-4 space-y-6">
+        
+        {/* Barra de Busca (Adicionada para consistência com Home do Cliente) */}
+        <form onSubmit={handleSearch} className="mt-4 flex gap-2">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Input
+              type="text"
+              placeholder="Buscar pratos ou restaurantes..."
+              className="w-full pl-10 h-12 text-base rounded-full"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <Button size="icon" variant="outline" className="h-12 w-12 rounded-full shrink-0" onClick={handleOpenSearchConfig}>
+              <Filter className="w-5 h-5" />
+          </Button>
+        </form>
         
         {/* Ações Rápidas (BOTÕES DE BUSCA) */}
-        <div className="flex gap-4 pt-2">
+        <div className="flex gap-4 pt-4">
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
@@ -130,7 +150,10 @@ const RestaurantDashboard = () => {
             onClick={handleSearchNearby} // Abre o modal de distância
           />
         </div>
+      </header>
 
+      <main className="p-4 space-y-6">
+        
         {/* Banner Premium (Carousel) */}
         <PremiumBanner />
 

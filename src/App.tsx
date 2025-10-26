@@ -4,18 +4,19 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ToastProvider from './components/ToastProvider';
 
 // Pages
-import Index from './pages/Index'; // Nova Home do Cliente
-import Splash from './pages/Splash'; // Importando Splash
+import Index from './pages/Index'; // Redireciona para Splash
+import Home from './pages/Home'; // Nova Home do Cliente
+import Splash from './pages/Splash';
 import AuthPage from './pages/AuthPage';
 import ClientProfilePage from './pages/ClientProfilePage';
 import Favorites from './pages/Favorites';
-import RestaurantProfilePublic from './pages/RestaurantProfilePublic'; // Importando o componente correto
-import SearchUnifiedPage from './pages/SearchUnifiedPage'; // Importando o componente correto
+import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
+import SearchUnifiedPage from './pages/SearchUnifiedPage';
 import MenuItemDetails from './pages/MenuItemDetails';
 import HelpCenter from './pages/HelpCenter';
-import Onboarding from './pages/Onboarding'; // Importando Onboarding
-import Welcome from './pages/Welcome'; // Importando Welcome
-import RestaurantAreaHub from './pages/RestaurantAreaHub'; // Importando RestaurantAreaHub
+import Onboarding from './pages/Onboarding';
+import Welcome from './pages/Welcome';
+import RestaurantAreaHub from './pages/RestaurantAreaHub';
 
 // Restaurant Area Pages
 import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
@@ -38,7 +39,7 @@ function App() {
       <ToastProvider />
       <Routes>
         {/* Rotas Públicas/Gerais */}
-        <Route path="/" element={<Splash />} />
+        <Route path="/" element={<Index />} /> {/* Redireciona para Onboarding */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthPage />} />
@@ -54,10 +55,10 @@ function App() {
 
         {/* Rotas Protegidas (Cliente) */}
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
-          <Route path="/home" element={<Index />} />
+          <Route path="/home" element={<Home />} /> {/* Usando o novo Home.tsx */}
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/search-unified" element={<SearchUnifiedPage />} /> {/* USANDO O COMPONENTE CORRETO */}
+          <Route path="/search-unified" element={<SearchUnifiedPage />} />
         </Route>
 
         {/* Rotas Protegidas (Área do Restaurante) */}

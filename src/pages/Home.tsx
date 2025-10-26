@@ -16,7 +16,7 @@ import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 
-const ClientHome: React.FC = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
@@ -135,17 +135,17 @@ const ClientHome: React.FC = () => {
           </Button>
         </form>
         
-        {/* Ações Rápidas (Redirecionam para a busca unificada) */}
+        {/* Ações Rápidas (Preço e Distância) */}
         <div className="flex gap-4 pt-4">
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleSearchByPrice} // Abre o modal de preço
+            onClick={handleSearchByPrice}
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleSearchNearby} // Abre o modal de distância
+            onClick={handleSearchNearby}
           />
         </div>
       </header>
@@ -210,4 +210,4 @@ const ClientHome: React.FC = () => {
   );
 };
 
-export default ClientHome;
+export default Home;
