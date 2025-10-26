@@ -12,7 +12,7 @@ import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { showSuccess, showError } from '@/utils/toast';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
@@ -147,6 +147,7 @@ const RestaurantDashboard = () => {
                 <HighlightCard key={item.id} item={item} />
               ))}
             </div>
+            <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
 
