@@ -20,7 +20,7 @@ interface NearbyCompetitorCardProps {
 const NearbyCompetitorCard: React.FC<NearbyCompetitorCardProps> = ({ item, onClick }) => {
   return (
     <Card 
-      className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl shadow-sm cursor-pointer hover:shadow-md transition-shadow border-none"
+      className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl shadow-soft-md cursor-pointer hover:shadow-soft-lg transition-shadow border-none"
       onClick={() => onClick(item.id)}
     >
       <div 
@@ -37,7 +37,7 @@ const NearbyCompetitorCard: React.FC<NearbyCompetitorCardProps> = ({ item, onCli
         </p>
         {/* Removendo a exibição de Rating */}
       </div>
-      <button className="flex items-center justify-center size-8 rounded-full bg-gray-100 text-primary shrink-0">
+      <button className="flex items-center justify-center size-8 rounded-full bg-gray-100 text-primary shrink-0 hover:bg-gray-200 transition-colors">
         <ChevronRight className="w-4 h-4" />
       </button>
     </Card>
