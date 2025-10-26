@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes as RouterRoutes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthContextProvider } from './context/AuthContext';
@@ -65,8 +65,12 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/legal" element={<Legal />} />
             
-            {/* Public Restaurant Profile */}
-            <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
+            {/* Public Restaurant Profile - ENVOLVIDO EM SUSPENSE */}
+            <Route path="/restaurant/:restaurantId" element={
+              <Suspense fallback={<div className="flex justify-center items-center h-screen"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+                <RestaurantProfilePublic />
+              </Suspense>
+            } />
             <Route path="/results" element={<RestaurantResultsPage />} />
             
             {/* Restaurant Flow (Unauthenticated Entry Points) */}

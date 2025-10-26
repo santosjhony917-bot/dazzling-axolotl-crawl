@@ -8,6 +8,8 @@ const queryClient = new QueryClient({
       // Global settings for queries
       staleTime: 1000 * 60 * 5, // 5 minutes
       refetchOnWindowFocus: false,
+      // HABILITANDO SUSPENSE
+      suspense: true, 
     },
   },
 });
