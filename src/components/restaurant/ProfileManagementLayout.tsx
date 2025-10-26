@@ -89,6 +89,12 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
 
+  // --- DEBUG LOG ---
+  useEffect(() => {
+    console.log("DEBUG: Restaurant ID in ProfileManagementLayout:", restaurant?.id);
+  }, [restaurant?.id]);
+  // -----------------
+
   const handleSignOut = async () => {
     try {
       await signOut();
