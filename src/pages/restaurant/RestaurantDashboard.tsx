@@ -147,7 +147,7 @@ const RestaurantDashboard = () => {
                 <HighlightCard key={item.id} item={item} />
               ))}
             </div>
-            <ScrollBar orientation="horizontal" />
+            {/* Removido ScrollBar para evitar sobreposição visual */}
           </ScrollArea>
         </div>
 
