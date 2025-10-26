@@ -66,12 +66,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/legal" element={<Legal />} />
             
-            {/* Public Restaurant Profile - ENVOLVIDO EM SUSPENSE */}
-            <Route path="/restaurant/:restaurantId" element={
-              <Suspense fallback={<div className="flex justify-center items-center h-screen"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
-                <RestaurantProfilePublic />
-              </Suspense>
-            } />
+            {/* Public Restaurant Profile - AGORA SEM SUSPENSE */}
+            <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
             <Route path="/results" element={<RestaurantResultsPage />} />
             
             {/* Restaurant Flow (Unauthenticated Entry Points) */}

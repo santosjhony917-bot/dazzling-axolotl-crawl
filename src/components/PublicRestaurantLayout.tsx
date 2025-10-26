@@ -11,14 +11,15 @@ export default function PublicRestaurantLayout() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
   
-  // Usando o hook baseado em React Query. 
-  // Se isLoading for true, o Suspense no App.tsx será ativado.
   const { restaurant, isLoading, error } = usePublicRestaurantProfile(restaurantId || '');
 
-  // Se o hook estiver carregando, ele lançará uma Promise (Suspense)
-  // Se o hook falhar, ele lançará um erro (Error Boundary - não implementado, mas o erro será capturado)
-  
-  // Se o Suspense estiver ativo, o código abaixo só será executado após o carregamento.
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
   
   if (error || !restaurant) {
     return (
