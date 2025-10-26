@@ -258,9 +258,10 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
               <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <Button 
                   onClick={() => {
-                    // CORREÇÃO: Verifica se o ID é uma string não vazia
-                    if (restaurant.id && typeof restaurant.id === 'string' && restaurant.id.length > 0) {
-                      navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }));
+                    // CORREÇÃO: Garante que o ID é uma string antes de passar para a rota
+                    const restaurantIdString = String(restaurant.id);
+                    if (restaurantIdString && restaurantIdString.length > 0) {
+                      navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantIdString }));
                     } else {
                       showError("ID do restaurante não encontrado. Por favor, recarregue a página ou verifique o cadastro.");
                     }
@@ -336,7 +337,7 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
               </div>
             </Card>
           </div>
-          
+
           {/* 3. Canais de Venda (Visível para todos, bloqueado para Free) */}
           <div className="px-4">
             <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
