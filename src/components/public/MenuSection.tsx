@@ -36,12 +36,9 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
 const MenuSection: React.FC<MenuSectionProps> = ({ menuData }) => {
   const { categories, items } = menuData;
 
-  // Agrupar itens por categoria, considerando is_active como true se for null
+  // Agrupar itens por categoria
   const groupedItems = items.reduce((acc, item) => {
-    // Verifica se o item existe e se está ativo (ou se is_active é null, consideramos ativo)
-    const isActive = item.is_active === null ? true : item.is_active;
-    
-    if (item && isActive) { 
+    if (item.is_active) {
       if (!acc[item.category_id]) {
         acc[item.category_id] = [];
       }
@@ -50,11 +47,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({ menuData }) => {
     return acc;
   }, {} as Record<string, MenuItem[]>);
 
-  // Filtrar categorias que têm itens ativos, considerando is_active como true se for null
-  const activeCategories = categories.filter(cat => {
-    const isCategoryActive = cat.is_active === null ? true : cat.is_active;
-    return isCategoryActive && groupedItems[cat.id]?.length > 0;
-  });
+  // Filtrar categorias que têm itens ativos
+  const activeCategories = categories.filter(cat => cat.is_active && groupedItems[cat.id]?.length > 0);
 
   if (activeCategories.length === 0) {
     return null; // Não renderiza a seção se não houver categorias ativas com itens

@@ -20,7 +20,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         label="Central de Ajuda" 
         description="Tutoriais e FAQ"
         icon={HelpCircle} 
-        onClick={() => navigate(createPageUrl('restaurant-area/help'))} // Corrigido para navegar para a Central de Ajuda
+        onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
       />
     </div>
   );

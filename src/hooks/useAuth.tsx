@@ -1,19 +1,14 @@
 import { useAuthContext } from '@/context/AuthContext';
-import { useUserData } from './useAuthProfile'; // Importando o hook centralizado
 
 export function useAuth() {
-  const { user, isLoading: isAuthLoading, signOut } = useAuthContext();
-  const { isAdmin, isPremium, restaurant, profile, isLoading: isProfileLoading, refetchProfile } = useUserData();
+  const { user, isLoading, signOut, isAdmin, isPremium } = useAuthContext();
 
   return {
     user,
-    isLoading: isAuthLoading || isProfileLoading,
+    isLoading,
     signOut,
     isAdmin,
     isPremium,
     isAuthenticated: !!user,
-    restaurant,
-    profile,
-    refetchProfile,
   };
 }

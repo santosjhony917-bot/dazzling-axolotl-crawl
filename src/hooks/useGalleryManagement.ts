@@ -86,11 +86,9 @@ export function useGalleryManagement(restaurantId: string | null) {
     // Renamed functions to match user's desired usage
     addGalleryImage: addMutation.mutateAsync,
     deleteGalleryImage: deleteMutation.mutateAsync,
-    updateGalleryImage: updateMutation.mutateAsync, // Changed to mutateAsync
+    updateGalleryImage: (imageId: string, updates: UpdateImagePayload) => updateMutation.mutateAsync({ imageId, updates }),
     
-    // Exposed mutation status flags
-    isAdding: addMutation.isPending,
-    isRemoving: deleteMutation.isPending,
-    isUpdating: updateMutation.isPending,
+    // Combined mutation status
+    isMutating: addMutation.isPending || deleteMutation.isPending || updateMutation.isPending,
   };
 }

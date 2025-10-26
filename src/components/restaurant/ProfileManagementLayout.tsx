@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Loader2, AlertTriangle, Crown, ArrowLeft, Eye } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth'; // Usando useAuth
+import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
@@ -57,10 +57,8 @@ const phoneMask = (value: string) => {
 
 export default function ProfileManagementLayout() {
   const navigate = useNavigate();
-  // Usando useAuth para obter o estado de autenticação e roles
-  const { isLoading: authLoading, isPremium, refetchProfile } = useAuth(); 
-  // Usando useRestaurantProfile para obter o restaurante e mutações
-  const { restaurant, isLoading: isRestaurantLoading, updateRestaurant, isUpdating } = useRestaurantProfile();
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthContext();
+  const { updateRestaurant, isUpdating } = useRestaurantProfile();
 
   // --- Estado para Edição de Campo Único ---
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
@@ -91,7 +89,7 @@ export default function ProfileManagementLayout() {
     mask?: (value: string) => string,
     placeholder?: string,
   ) => {
-    // Cast key para unknown para permitir a comparação com as chaves de link
+    // CORREÇÃO 6: Cast key para unknown para permitir a comparação com as chaves de link
     const keyAsString = key as unknown as string;
     
     // Se não for Premium e o campo for um link externo, bloqueia
@@ -161,7 +159,7 @@ export default function ProfileManagementLayout() {
   }, [restaurant?.opening_hours]);
 
   // --- Renderização de Carregamento/Erro ---
-  if (authLoading || isRestaurantLoading || isUpdating) {
+  if (authLoading || isUpdating) {
     return (
       <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -226,7 +224,7 @@ export default function ProfileManagementLayout() {
         </Button>
         
         {/* Card de Seguidores (NOVO) */}
-        <FollowerCountCard restaurantId={restaurant.id} isPremium={isPremium} />
+        <FollowerCountCard followerCount={120} isPremium={isPremium} />
         
         {/* Seção 1: Informações Básicas */}
         <BasicInfoSection

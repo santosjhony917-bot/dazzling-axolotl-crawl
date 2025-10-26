@@ -5,25 +5,17 @@ import { Loader2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useUserRole } from '@/hooks/useUserRole';
-import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
-  const { isLoading: authLoading } = useAuthContext();
-  // CORREÇÃO: Usando useAuth para obter restaurant
-  const { restaurant, isLoading: isRestaurantLoading } = useAuth(); 
-  const { isPremium } = useUserRole();
-  
-  const isLoading = authLoading || isRestaurantLoading;
+  const { isLoading: authLoading, restaurant } = useAuthContext();
 
   // Scroll to top on mount/navigation
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) {
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -45,13 +37,6 @@ export default function RestaurantProfilePage() {
     );
   }
 
-  return (
-    <div className="relative min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <ProfileManagementLayout />
-      
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
-        <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
-      </div>
-    </div>
-  );
+  // O ProfileManagementLayout agora usa o AuthContext para obter os dados do restaurante
+  return <ProfileManagementLayout />;
 }

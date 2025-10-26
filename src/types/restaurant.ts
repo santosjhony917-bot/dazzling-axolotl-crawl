@@ -63,13 +63,3 @@ export interface RestaurantGalleryImage {
   order_index: number;
   created_at: string;
 }
-
-// Define the structure for a User Profile
-export interface Profile {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  avatar_url: string | null;
-  updated_at: string | null;
-  is_admin?: boolean; // Adicionado para consistência com o uso no useAuthProfile
-}

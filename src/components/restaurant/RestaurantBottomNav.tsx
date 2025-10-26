@@ -37,8 +37,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     
     // Lógica de ativação para rotas específicas
     if (key === 'search') { 
-        // A busca ativa se o path for /search-unified ou começar com /search-
-        return location.pathname.startsWith(createPageUrl('search-unified')) || location.pathname.startsWith('/search-');
+        // Agora, a busca ativa se o path for /search-unified
+        return location.pathname.startsWith(createPageUrl('search-unified'));
     }
     
     // Fallback para a rota atual

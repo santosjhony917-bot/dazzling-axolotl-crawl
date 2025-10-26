@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuthContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, LogIn } from 'lucide-react';
 import { showError, showSuccess } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
-import { useAuth } from '@/hooks/useAuth'; // Usando useAuth para refetch
 
 // NOTE: This email is hardcoded to check for admin status in AuthContext
 const ADMIN_EMAIL = 'joaoedasilva018@gmail.com'; 
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const { refetchProfile } = useAuth(); // Usando refetchProfile do useAuth
+  const { refetchProfile } = useAuthContext(); // Corrigido
   const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState('password'); // Mock password for easy testing
   const [isLoading, setIsLoading] = useState(false);

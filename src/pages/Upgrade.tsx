@@ -1,14 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2, ArrowLeft } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useUserRole } from '@/hooks/useUserRole';
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -79,7 +77,6 @@ const FreeCard: React.FC = () => (
 
 const UpgradePage: React.FC = () => {
   const navigate = useNavigate();
-  const { isPremium } = useUserRole();
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   const handleSubscribe = () => {
@@ -97,31 +94,14 @@ const UpgradePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background-dark pb-20 max-w-md mx-auto">
-      
-      {/* Header Fixo (Voltar) */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          <Crown className="h-6 w-6 text-[#022D68]" />
-          <h2 className="text-[#022D68] text-xl font-bold">Upgrade Premium</h2>
-        </div>
-        <div className="w-10"></div>
-      </header>
+    <div className="min-h-screen bg-white dark:bg-background-dark pb-20">
       
       {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
       <motion.header
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative bg-[#022D68] text-white pt-8 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
+        className="relative bg-[#022D68] text-white pt-16 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
       >
         {/* Gradiente Diagonal Suave */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#022D68] to-[#022D68]/80 opacity-90"></div>
@@ -257,11 +237,6 @@ const UpgradePage: React.FC = () => {
           </p>
         </div>
       </footer>
-      
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
-        <RestaurantBottomNav selectedTab="upgrade" isFree={!isPremium} />
-      </div>
     </div>
   );
 };

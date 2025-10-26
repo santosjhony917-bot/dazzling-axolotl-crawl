@@ -13,24 +13,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
 import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { checkLocationPreference } from '@/components/LocationPermissionModal'; // Importando a função de checagem
+import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
 
-const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
-const MOCK_ADDRESS = "Localização Padrão (João Pessoa)";
-
-export default function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
-  
-  // Inicializa o estado do modal verificando a preferência de localização
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(() => {
-    return checkLocationPreference() === 'unset';
-  });
-  
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const userLat = location.latitude;
@@ -194,9 +185,7 @@ export default function Home() {
       </main>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
-        <CustomerBottomNav selectedTab="home" />
-      </div>
+      <CustomerBottomNav selectedTab="home" />
 
       {/* User Location Modal */}
       <UserLocationModal
@@ -220,3 +209,5 @@ export default function Home() {
     </div>
   );
 };
+
+export default Home;

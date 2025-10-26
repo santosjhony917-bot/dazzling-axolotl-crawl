@@ -1,182 +1,46 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Restaurant } from '@/types';
 import { useMenuManagement } from '@/hooks/useMenuManagement';
 import { Skeleton } from '@/components/ui/skeleton';
-import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { useFollowerCount } from '@/hooks/useFollowerCount';
-import { useFavorites } from '@/hooks/useFavorites';
-import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
-import MenuSection from './MenuSection';
-import AdditionalInfo from './AdditionalInfo';
-import DetailedHoursDisplay from './DetailedHoursDisplay';
-import { WeekSchedule } from '@/types/schedule';
-import { Button } from '@/components/ui/button';
-import { MapPin, Clock, Utensils, Heart, Loader2 } from 'lucide-react';
-import { formatSchedule } from '@/utils/schedule';
-import { Card, CardContent } from '@/components/ui/card';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { useAuthContext } from '@/context/AuthContext';
-import { showError } from '@/utils/toast';
-import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando tipos corretos
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuthContext();
+  // O hook useMenuManagement retorna { categoriesQuery, deleteCategoryMutation }
+  const { categoriesQuery } = useMenuManagement(restaurant.id); 
   
-  // Hooks de Dados
-  const { followerCount, isLoading: isFollowerLoading, refetch: refetchFollowers } = useFollowerCount(restaurant.id);
-  const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(restaurant.id);
-  const { menu, menuLoading } = useRestaurantMenu(restaurant.id);
+  const categories = categoriesQuery.data || [];
+  const isMenuLoading = categoriesQuery.isLoading;
 
-  const isLoading = isFollowerLoading || isFavoriteLoading || menuLoading;
-
-  // Dados formatados
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    followersCount: followerCount,
-    logoUrl: restaurant.image_url || PLACEHOLDER_IMAGE_URL,
-    onFollowToggle: () => {
-      if (!isAuthenticated) {
-        showError("Faça login para seguir este restaurante.");
-        navigate(createPageUrl('auth'));
-        return;
-      }
-      toggleFavorite();
-      // Refetch manual para atualizar a contagem de seguidores após a mutação
-      setTimeout(refetchFollowers, 500); 
-    },
-  };
-  
-  const scheduleStatus = useMemo(() => formatSchedule(restaurant.opening_hours as unknown as WeekSchedule), [restaurant.opening_hours]);
-  
-  const address = [restaurant.address, restaurant.number, restaurant.neighborhood, restaurant.city, restaurant.state]
-    .filter(Boolean)
-    .join(', ');
-
-  // Agrupamento de dados do menu para o MenuSection
-  const menuData = useMemo(() => {
-    const allItems: MenuItem[] = [];
-    const categoriesOnly: MenuCategory[] = [];
-
-    menu.forEach(categoryWithItems => {
-      // Mapeia a categoria (sem os itens aninhados)
-      categoriesOnly.push({
-        id: categoryWithItems.id,
-        restaurant_id: categoryWithItems.restaurant_id,
-        name: categoryWithItems.name,
-        order_index: categoryWithItems.order_index || 0,
-        is_active: categoryWithItems.is_active || false,
-        created_at: categoryWithItems.created_at || '',
-      } as MenuCategory);
-      
-      // Adiciona os itens ao array principal, garantindo que c.items seja um array
-      if (Array.isArray(categoryWithItems.items)) {
-        allItems.push(...categoryWithItems.items);
-      }
-    });
-
-    return {
-      categories: categoriesOnly,
-      items: allItems,
-    };
-  }, [menu]);
-
-  if (isLoading) {
+  if (isMenuLoading) {
     return (
       <div className="p-4 space-y-4">
-        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-8 w-3/4" />
         <Skeleton className="h-40 w-full" />
       </div>
     );
   }
 
   return (
-    <div className="relative w-full bg-[#f5f7f8] min-h-screen pt-20">
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">{restaurant.name}</h1>
       
-      {/* Header Público (Logo, Nome, Seguidores, Botões de Ação) */}
-      <div className="relative z-10 bg-white dark:bg-gray-800 rounded-b-3xl shadow-lg pt-4 pb-8">
-        <RestaurantPublicHeader restaurant={{
-          ...headerData,
-          onFollowToggle: headerData.onFollowToggle,
-        }} />
-        
-        {/* Botão Seguir/Favoritar */}
-        <div className="px-4 mt-4">
-          <Button 
-            onClick={headerData.onFollowToggle}
-            disabled={isFavoriteLoading}
-            className="w-full h-10 rounded-xl bg-highlight hover:bg-highlight/90 text-white font-bold flex items-center justify-center"
-          >
-            {isFavoriteLoading ? (
-              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            ) : (
-              <>
-                <Heart className="w-5 h-5 mr-2" fill={isFavorite ? 'white' : 'none'} /> 
-                {isFavorite ? 'Seguindo' : 'Seguir Restaurante'}
-              </>
-            )}
-          </Button>
-        </div>
-      </div>
-      
-      {/* Conteúdo Principal */}
-      <div className="px-4 pb-20 space-y-6">
-        
-        {/* Status de Funcionamento e Endereço (Quick Info) */}
-        <Card className="shadow-md border-none rounded-xl -mt-4 relative z-20">
-          <CardContent className="p-4 space-y-3">
-            {/* Horário */}
-            <div className="flex items-center space-x-3">
-              <Clock className="w-5 h-5 text-primary shrink-0" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-500">Status</p>
-                <p className="text-base font-semibold text-gray-900 truncate">{scheduleStatus.status}</p>
-                {scheduleStatus.nextOpenTime && (
-                  <p className="text-xs text-gray-600 mt-0.5">{scheduleStatus.nextOpenTime}</p>
-                )}
-              </div>
+      {categories.length > 0 ? (
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold">Menu</h2>
+          {categories.map(category => (
+            <div key={category.id} className="border p-4 rounded-lg">
+              <h3 className="text-lg font-medium mb-2">{category.name}</h3>
+              {/* Aqui você listaria os itens do menu, que não estão sendo buscados neste hook */}
+              <p className="text-gray-500">Itens de menu virão aqui...</p>
             </div>
-            
-            {/* Endereço */}
-            {address && (
-              <div className="flex items-center space-x-3 pt-3 border-t border-gray-100">
-                <MapPin className="w-5 h-5 text-primary shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-500">Endereço</p>
-                  <p className="text-base font-semibold text-gray-900 truncate">{address}</p>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-        
-        {/* Seção de Cardápio (Usando MenuSection) */}
-        <MenuSection menuData={menuData} />
-        
-        {/* Informações Adicionais (Pagamento) */}
-        <AdditionalInfo restaurant={restaurant} />
-        
-        {/* Horários Detalhados */}
-        {restaurant.opening_hours && restaurant.plan !== 'free' && (
-          <DetailedHoursDisplay schedule={restaurant.opening_hours as unknown as WeekSchedule} />
-        )}
-        
-        {/* Descrição do Restaurante */}
-        {restaurant.description && (
-          <Card className="p-4">
-            <h3 className="text-lg font-bold text-primary mb-2">Sobre {restaurant.name}</h3>
-            <p className="text-gray-700 whitespace-pre-wrap text-sm">{restaurant.description}</p>
-          </Card>
-        )}
-        
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500">Nenhum item de menu disponível.</p>
+      )}
     </div>
   );
 }

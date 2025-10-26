@@ -5,12 +5,9 @@ import { Loader2 } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
 import { useAuthContext } from '@/context/AuthContext';
-import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function RestaurantArea() {
-  const { isAuthenticated } = useAuthContext();
-  // CORREÇÃO: Usando useAuth para obter restaurant e isLoading combinado
-  const { restaurant, isLoading } = useAuth(); 
+  const { isAuthenticated, isLoading, restaurant } = useAuthContext();
   const location = useLocation();
 
   if (isLoading) {

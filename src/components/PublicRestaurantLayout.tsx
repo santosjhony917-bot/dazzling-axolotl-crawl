@@ -1,17 +1,16 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
 import { Button } from '@/components/ui/button';
 import FreeProfileLayout from './public/FreeProfileLayout';
 import PremiumProfileLayout from './public/PremiumProfileLayout';
 import { createPageUrl } from '@/utils/url';
-import { usePublicRestaurantProfile } from '@/hooks/usePublicRestaurantProfile'; // Importando o hook baseado em React Query
 
 export default function PublicRestaurantLayout() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
-  
-  const { restaurant, isLoading, error } = usePublicRestaurantProfile(restaurantId || '');
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
   if (isLoading) {
     return (
@@ -20,7 +19,7 @@ export default function PublicRestaurantLayout() {
       </div>
     );
   }
-  
+
   if (error || !restaurant) {
     return (
       <div className="p-6 text-center bg-white min-h-screen flex flex-col justify-center items-center">

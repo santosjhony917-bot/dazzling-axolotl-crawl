@@ -9,7 +9,6 @@ interface CreateCategoryPayload {
   restaurant_id: string;
   name: string;
   is_active: boolean;
-  order_index?: number;
 }
 
 interface UpdateCategoryPayload {
@@ -176,6 +175,8 @@ export const useCategoryMutations = (restaurantId: string) => {
 };
 
 // --- Hooks de Item ---
+
+// ... (Funções de API para itens de menu - mantidas como estão)
 
 const fetchMenuItems = async (categoryId: string): Promise<MenuItem[]> => {
   const { data, error } = await supabase

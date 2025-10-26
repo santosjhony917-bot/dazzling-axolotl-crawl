@@ -1,8 +1,8 @@
+import { useAuthContext } from '@/context/AuthContext';
 import { useMutation } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
-import { useUserData } from './useAuthProfile'; // Importando useUserData
 
 interface UpdateRestaurantPayload {
   name?: string;
@@ -29,7 +29,7 @@ interface UpdateRestaurantPayload {
 }
 
 export function useRestaurantProfile() {
-  const { restaurant, isLoading, refetchRestaurant } = useUserData(); // Usando useUserData
+  const { restaurant, isLoading, refetchProfile } = useAuthContext();
 
   const mutation = useMutation<void, Error, UpdateRestaurantPayload>({
     mutationFn: async (updates) => {
@@ -48,8 +48,8 @@ export function useRestaurantProfile() {
     },
     onSuccess: () => {
       showSuccess("Perfil do restaurante atualizado com sucesso!");
-      // Refetch the restaurant data via useAuthProfile's refetchRestaurant
-      refetchRestaurant(); 
+      // Refetch the profile data from AuthContext to update the UI globally
+      refetchProfile(); 
     },
     onError: (error) => {
       showError(`Falha ao atualizar perfil: ${error.message}`);
@@ -58,8 +58,8 @@ export function useRestaurantProfile() {
 
   return {
     restaurant,
-    isLoading,
-    refetchProfile: refetchRestaurant, // Renomeando para manter a compatibilidade externa
+    isLoading, // Renamed from loading
+    refetchProfile, // Renamed from refetch
     updateRestaurant: mutation.mutateAsync,
     isUpdating: mutation.isPending,
   };
