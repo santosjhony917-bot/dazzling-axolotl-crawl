@@ -8,8 +8,6 @@ import { Switch } from '@/components/ui/switch';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-// Importando useCategoryMutations apenas para tipagem, se necessário, mas vou remover a importação desnecessária
-// e focar na prop onSave.
 
 // Define the schema for form validation
 const categorySchema = z.object({
@@ -25,12 +23,13 @@ interface CategoryFormDialogProps {
   onClose: () => void;
   restaurantId: string; 
   initialData: MenuCategory | null;
-  onSave: (data: CategoryFormValues) => Promise<void>; // Adicionando onSave para corrigir Erro 2
-  isLoading: boolean; // Adicionando isLoading para corrigir Erro 2 (se for usado no componente pai)
+  onSave: (data: CategoryFormValues) => Promise<void>; 
+  isLoading: boolean; 
 }
 
 export default function CategoryFormDialog({ isOpen, onClose, initialData, onSave, isLoading }: CategoryFormDialogProps) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<CategoryFormValues>({
+  // Adicionando 'watch' aqui
+  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: initialData?.name || '',
@@ -54,7 +53,7 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
   };
 
   const is_active = watch('is_active');
-  const isSubmitting = isLoading; // Usando a prop isLoading
+  const isSubmitting = isLoading; 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
