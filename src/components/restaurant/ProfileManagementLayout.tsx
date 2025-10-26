@@ -224,7 +224,7 @@ export default function ProfileManagementLayout() {
         </Button>
         
         {/* Card de Seguidores (NOVO) */}
-        <FollowerCountCard followerCount={120} isPremium={isPremium} />
+        <FollowerCountCard restaurantId={restaurant.id} isPremium={isPremium} />
         
         {/* Seção 1: Informações Básicas */}
         <BasicInfoSection

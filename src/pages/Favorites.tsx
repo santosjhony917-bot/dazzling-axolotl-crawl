@@ -1,38 +1,143 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Utensils, MapPin, Loader2, ArrowLeft } from 'lucide-react';
+import { Heart, Utensils, MapPin, Loader2, ArrowLeft, DollarSign } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
-import { useUserFavoritesList } from '@/hooks/useUserFavoritesList';
-import { Card } from '@/components/ui/card';
+import { useUserFavoritesList } from '@/hooks/useUserFavoritesList'; // Restaurantes seguidos
+import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites'; // Itens favoritos
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import ClientLayout from '@/components/ClientLayout';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { formatPrice } from '@/lib/utils';
+
+// Componente para listar Restaurantes Seguidos
+const RestaurantFavoritesList: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
+  const { favorites, isLoading, error } = useUserFavoritesList();
+  const { user } = useAuthContext();
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center h-40"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  }
+  
+  if (error) {
+    return <div className="p-4 text-red-500">Erro ao carregar restaurantes: {error}</div>;
+  }
+
+  if (favorites.length === 0) {
+    return (
+      <div className="p-6 text-center text-gray-600">
+        <Utensils className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+        <p>Você ainda não está seguindo nenhum restaurante.</p>
+        <Button variant="link" onClick={() => navigate(createPageUrl('search-unified'))}>
+          Encontrar Restaurantes
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {favorites.map((fav) => {
+        const r = fav.restaurants;
+        if (!r) return null;
+
+        return (
+          <Card 
+            key={r.id} 
+            className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+            onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: r.id }))}
+          >
+            <img 
+              src={r.image_url || PLACEHOLDER_IMAGE_URL} 
+              alt={r.name} 
+              className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
+            />
+            <div className="flex flex-col justify-center">
+              <h3 className="font-bold text-lg text-gray-800">{r.name}</h3>
+              <p className="text-sm text-gray-600 flex items-center gap-1">
+                <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
+              </p>
+              <p className="text-xs text-gray-500 flex items-center gap-1">
+                <MapPin className="w-3 h-3" /> {r.city || 'Localização desconhecida'}
+              </p>
+            </div>
+          </Card>
+        );
+      })}
+    </div>
+  );
+};
+
+// Componente para listar Itens de Menu Favoritos
+const ItemFavoritesList: React.FC = () => {
+  const { favoriteItems, isLoading, error } = useMenuItemFavorites();
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center h-40"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
+  }
+  
+  if (error) {
+    return <div className="p-4 text-red-500">Erro ao carregar pratos favoritos: {error}</div>;
+  }
+
+  if (favoriteItems.length === 0) {
+    return (
+      <div className="p-6 text-center text-gray-600">
+        <DollarSign className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+        <p>Você ainda não favoritou nenhum item de menu.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {favoriteItems.map((item) => (
+        <Card 
+          key={item.id} 
+          className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+          // Ação de clique para ver detalhes do item (futuro)
+          onClick={() => alert(`Detalhes do item: ${item.name}`)}
+        >
+          <img 
+            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
+            alt={item.name} 
+            className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
+          />
+          <div className="flex flex-col justify-center">
+            <h3 className="font-bold text-lg text-gray-800">{item.name}</h3>
+            <p className="text-sm text-highlight font-semibold flex items-center gap-1">
+              {formatPrice(item.price)}
+            </p>
+            <p className="text-xs text-gray-500 line-clamp-1">{item.description || 'Sem descrição'}</p>
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+};
+
 
 export default function Favorites() {
   const { user, isLoading: isAuthLoading, restaurant } = useAuthContext();
   const navigate = useNavigate();
   const isRestaurantUser = !!restaurant;
-  
-  const { favorites, isLoading: isFavoritesLoading, error } = useUserFavoritesList();
 
-  const isLoading = isAuthLoading || isFavoritesLoading;
-
-  if (isLoading) {
+  if (isAuthLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
   
   if (!user) {
-    // Se não estiver logado, mostra a tela de login/explorar
     return (
       <div className="p-6 text-center">
         <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Acesse para ver seus favoritos</h2>
-        <p className="text-gray-600 mb-6">Faça login para salvar e gerenciar seus restaurantes preferidos.</p>
+        <p className="text-gray-600 mb-6">Faça login para salvar e gerenciar seus restaurantes e pratos preferidos.</p>
         <Button onClick={() => navigate(createPageUrl('auth'))}>
           Fazer Login
         </Button>
@@ -40,61 +145,40 @@ export default function Favorites() {
     );
   }
 
+  if (isRestaurantUser) {
+    return (
+      <div className="p-6 text-center">
+        <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Área Exclusiva para Clientes</h2>
+        <p className="text-gray-600 mb-6">Proprietários de restaurantes não podem favoritar. Use o menu inferior para acessar seu painel.</p>
+        <Button onClick={() => navigate(createPageUrl('restaurant-area/home'))}>
+          Ir para o Painel
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
-      <div className="p-4 space-y-4">
-        <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-          <Heart className="w-6 h-6 fill-red-500 text-red-500" /> Favoritos
-        </h1>
-        
-        {error ? (
-          <div className="p-4 text-red-500">Erro ao carregar favoritos: {error}</div>
-        ) : favorites.length === 0 ? (
-          <div className="p-6 text-center">
-            <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum favorito encontrado</h2>
-            <p className="text-gray-600 mb-6">Comece a explorar e adicione seus restaurantes preferidos.</p>
-            <Button onClick={() => navigate(createPageUrl('search-unified'))}>
-              Explorar Restaurantes
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {favorites.map((fav) => {
-              const r = fav.restaurants;
-              if (!r) return null;
+      <div className="p-4">
+        <Tabs defaultValue="restaurants" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-200 rounded-xl shadow-inner mb-6">
+            <TabsTrigger value="restaurants" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
+              <Utensils className="w-5 h-5" /> Restaurantes
+            </TabsTrigger>
+            <TabsTrigger value="items" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
+              <DollarSign className="w-5 h-5" /> Pratos
+            </TabsTrigger>
+          </TabsList>
 
-              return (
-                <Card 
-                  key={r.id} 
-                  className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: r.id }))}
-                >
-                  <img 
-                    src={r.image_url || PLACEHOLDER_IMAGE_URL} 
-                    alt={r.name} 
-                    className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
-                  />
-                  <div className="flex flex-col justify-center">
-                    <h3 className="font-bold text-lg text-gray-800">{r.name}</h3>
-                    <p className="text-sm text-gray-600 flex items-center gap-1">
-                      <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
-                    </p>
-                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                      <MapPin className="w-3 h-3" /> {r.city || 'Localização desconhecida'}
-                    </p>
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
-        )}
-        
-        {isRestaurantUser && (
-          <p className="text-sm text-gray-500 mt-6 text-center">
-            Usuários de restaurante não podem favoritar.
-          </p>
-        )}
+          <TabsContent value="restaurants">
+            <RestaurantFavoritesList navigate={navigate} />
+          </TabsContent>
+          
+          <TabsContent value="items">
+            <ItemFavoritesList />
+          </TabsContent>
+        </Tabs>
       </div>
     </ClientLayout>
   );
