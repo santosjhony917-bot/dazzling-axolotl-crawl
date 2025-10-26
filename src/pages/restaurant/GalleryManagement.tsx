@@ -5,7 +5,7 @@ import { useGalleryManagement } from '@/hooks/useGalleryManagement';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, Camera } from 'lucide-react';
+import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, Camera, Crown } from 'lucide-react'; // Adicionado Crown
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
@@ -14,10 +14,12 @@ import { useUserRole } from '@/hooks/useUserRole';
 import GalleryImageCard from '@/components/restaurant/GalleryImageCard';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading } = useAuthContext();
+  const { isLoading: authLoading } = useAuthContext();
+  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
   const { isPremium } = useUserRole();
   const restaurantId = restaurant?.id || null;
 

@@ -7,9 +7,12 @@ import { User, LogOut, Utensils, Loader2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 import ClientLayout from '@/components/ClientLayout';
 import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importado
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function ClientProfilePage() {
-  const { user, isLoading, signOut, restaurant } = useAuthContext();
+  const { user, isLoading: isAuthLoading, signOut } = useAuthContext();
+  const { restaurant, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter restaurant
+  const isLoading = isAuthLoading || isProfileLoading;
   const navigate = useNavigate();
 
   const handleLogout = async () => {

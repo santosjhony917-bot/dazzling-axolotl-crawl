@@ -5,9 +5,12 @@ import { Loader2 } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
 import { useAuthContext } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function RestaurantArea() {
-  const { isAuthenticated, isLoading, restaurant } = useAuthContext();
+  const { isAuthenticated, isLoading: isAuthLoading } = useAuthContext();
+  const { restaurant, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter restaurant
+  const isLoading = isAuthLoading || isProfileLoading;
   const location = useLocation();
 
   if (isLoading) {

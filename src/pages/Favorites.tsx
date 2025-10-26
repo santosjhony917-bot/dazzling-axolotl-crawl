@@ -12,6 +12,7 @@ import ClientLayout from '@/components/ClientLayout';
 import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importado
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { formatPrice } from '@/lib/utils';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 // Componente para listar Restaurantes Seguidos
 const RestaurantFavoritesList: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
@@ -121,7 +122,8 @@ const ItemFavoritesList: React.FC = () => {
 
 
 export default function Favorites() {
-  const { user, isLoading: isAuthLoading, restaurant } = useAuthContext();
+  const { user, isLoading: isAuthLoading } = useAuthContext();
+  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
   const navigate = useNavigate();
   const isRestaurantUser = !!restaurant;
 

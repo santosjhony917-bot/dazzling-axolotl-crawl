@@ -15,10 +15,12 @@ import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
 import { showError } from '@/utils/toast';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 const MenuManagement: React.FC = () => {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading } = useAuthContext();
+  const { isLoading: authLoading } = useAuthContext();
+  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
   const { isPremium } = useUserRole();
   const restaurantId = restaurant?.id || '';
 

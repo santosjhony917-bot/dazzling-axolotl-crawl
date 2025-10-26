@@ -16,10 +16,10 @@ import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import MainProfileCard from './profile/MainProfileCard';
 import BasicInfoSection from './profile/BasicInfoSection';
 import LocationHoursSection from './profile/LocationHoursSection';
-import SalesChannelsSection from './profile/profile/SalesChannelsSection';
-import ContentManagementSection from './profile/profile/ContentManagementSection';
+import SalesChannelsSection from './profile/SalesChannelsSection'; // CORRIGIDO
+import ContentManagementSection from './profile/ContentManagementSection'; // CORRIGIDO
 import SubscriptionCard from './profile/SubscriptionCard';
-import SubscriptionSupportSection from './profile/profile/SubscriptionSupportSection';
+import SubscriptionSupportSection from './profile/SubscriptionSupportSection'; // CORRIGIDO
 import FollowerCountCard from './profile/FollowerCountCard'; // NOVO IMPORT
 
 // Diálogos de Edição

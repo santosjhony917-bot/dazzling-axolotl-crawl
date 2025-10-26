@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 const navItems = [
   { name: 'Dashboard', icon: Home, path: 'dashboard' },
@@ -17,7 +18,10 @@ const navItems = [
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const { user, isLoading: isAuthLoading, signOut } = useAuthContext();
+  const { isAdmin, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter isAdmin
+  
+  const isLoading = isAuthLoading || isProfileLoading;
 
   if (isLoading) {
     return (

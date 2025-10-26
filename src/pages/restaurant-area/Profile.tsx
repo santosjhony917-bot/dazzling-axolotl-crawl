@@ -7,18 +7,22 @@ import { createPageUrl } from '@/utils/url';
 import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
-  const { isLoading: authLoading, restaurant } = useAuthContext();
+  const { isLoading: authLoading } = useAuthContext();
+  const { restaurant, isLoading: isRestaurantLoading } = useAuth(); // Usando useAuth para obter restaurant
   const { isPremium } = useUserRole();
+  
+  const isLoading = authLoading || isRestaurantLoading;
 
   // Scroll to top on mount/navigation
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (authLoading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />

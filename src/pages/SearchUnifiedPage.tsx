@@ -15,6 +15,7 @@ import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importando o nav do cliente
 import { useUserRole } from '@/hooks/useUserRole';
+import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -33,7 +34,7 @@ const mockRestaurantHighlights = [
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
-  const { restaurant } = useAuthContext();
+  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
   const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
   
