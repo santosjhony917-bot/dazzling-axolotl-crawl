@@ -5,12 +5,12 @@ import { Plus, Loader2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthContext } from '@/context/AuthContext';
 import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement.ts';
-import { MenuCategory, MenuItem } from '@/types';
-import { CategoryList } from '@/components/restaurant/menu/CategoryList';
+import { MenuCategory } from '@/types';
 import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
+import CategoryAccordion from '@/components/restaurant/menu/CategoryAccordion'; // NOVO IMPORT
 
 const MenuManagement: React.FC = () => {
   const navigate = useNavigate();
@@ -88,18 +88,25 @@ const MenuManagement: React.FC = () => {
       </Button>
       
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Gerenciar Categorias</h1>
-        <Button onClick={() => handleOpenCategoryDialog(null)} disabled={isMutating}>
+        <h1 className="text-3xl font-bold">Gerenciar Cardápio</h1>
+        <Button onClick={() => handleOpenCategoryDialog(null)} disabled={isMutating} className="bg-primary hover:bg-primary/90">
           <Plus className="mr-2 h-4 w-4" /> Adicionar Categoria
         </Button>
       </div>
 
-      <CategoryList
-        categories={categories}
-        restaurantId={restaurantId}
-        onEdit={handleOpenCategoryDialog}
-        onDelete={handleDeleteCategory}
-      />
+      {categories.length === 0 && !isLoading ? (
+        <div className="text-center p-8 border rounded-xl bg-white shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">Nenhuma Categoria</h2>
+          <p className="text-gray-500">Comece adicionando sua primeira categoria de pratos.</p>
+        </div>
+      ) : (
+        <CategoryAccordion
+          categories={categories}
+          restaurantId={restaurantId}
+          onEditCategory={handleOpenCategoryDialog}
+          onDeleteCategory={handleDeleteCategory}
+        />
+      )}
 
       {/* Dialogs */}
       <CategoryFormDialog
