@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Menu, Utensils } from 'lucide-react';
+import { MapPin, Clock, Phone, Menu, Utensils, Heart, Share2 } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets'; // Importando a constante
+import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader'; // Importando o Header Público
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -61,7 +62,15 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours);
-  const logoUrl = restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL;
+  
+  // Mock state for followers (since we don't have a table yet)
+  const [followersCount, setFollowersCount] = useState(0); 
+  
+  const handleFollowToggle = () => {
+    // Mock logic for following
+    setFollowersCount(prev => prev + 1);
+    alert("Seguindo restaurante! (Mock)");
+  };
 
   const handleNavigate = (route: PageUrl) => {
     navigate(createPageUrl(route, { restaurantId: restaurant.id }));
@@ -71,6 +80,14 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.cep}`
     : `${restaurant.address || restaurant.city || 'Endereço não informado'}`;
 
+  const headerData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    followersCount: followersCount,
+    logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
+    onFollowToggle: handleFollowToggle,
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
@@ -78,29 +95,38 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         
         {/* Capa (Fundo Cinza) */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-          {/* Logo do Restaurante */}
-          <div
-            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-20 
-                       bg-highlight flex items-center justify-center overflow-hidden"
-          >
-            {logoUrl === DEFAULT_RESTAURANT_LOGO_URL ? (
-              <Utensils className="w-10 h-10 text-white" />
-            ) : (
-              <img src={logoUrl} alt={`Logo de ${restaurant.name}`} className="w-full h-full object-cover" />
-            )}
+          {/* Se houver cover_image_url, exibe */}
+          {restaurant.cover_image_url && (
+            <img 
+              src={restaurant.cover_image_url} 
+              alt={`Capa de ${restaurant.name}`} 
+              className="w-full h-full object-cover"
+            />
+          )}
+          
+          {/* Header Público (Logo, Nome, Favoritar, Compartilhar) */}
+          <div className="absolute -bottom-10 left-0 right-0 z-20">
+            <RestaurantPublicHeader restaurant={headerData} />
           </div>
         </div>
 
         {/* Conteúdo Principal */}
-        <div className="p-4 pt-20 space-y-6">
+        <div className="p-4 pt-16 space-y-6">
           
-          {/* Nome e Categoria */}
+          {/* Nome e Categoria (Ajustado para não duplicar o nome do header) */}
           <div className="space-y-1">
-            <h2 className="text-3xl font-bold text-primary dark:text-white">{restaurant.name}</h2>
             {restaurant.category && (
               <p className="text-base font-medium text-highlight dark:text-highlight-light">{restaurant.category}</p>
             )}
           </div>
+
+          {/* Botão Seguir (Abaixo do nome/categoria) */}
+          <Button 
+            onClick={handleFollowToggle}
+            className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
+          >
+            Seguir Restaurante
+          </Button>
 
           {/* Informações Essenciais */}
           <div className="space-y-4">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Share2, Loader2 } from 'lucide-react';
+import { Heart, Share2, Loader2, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -14,23 +14,22 @@ interface RestaurantPublicHeaderProps {
     name: string;
     followersCount: number;
     logoUrl: string;
-    onFollowToggle: () => void;
-    isFavorite?: boolean;
-    isFavoriteLoading?: boolean;
+    onFollowToggle: () => void; // Adicionado para o botão Seguir
   };
 }
 
 const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaurant }) => {
-  const { id, name, followersCount, logoUrl } = restaurant;
+  const { id, name, followersCount, logoUrl, onFollowToggle } = restaurant;
   const { user } = useAuthContext();
   const navigate = useNavigate();
   
+  // Hook de favoritos (para o restaurante)
   const { isFavorite, toggleFavorite, isLoading: isFavoriteLoading } = useFavorites(id);
 
   const handleFavoriteClick = () => {
     if (!user) {
       showInfo("Faça login para favoritar este restaurante.");
-      navigate(createPageUrl('login'));
+      navigate(createPageUrl('auth'));
       return;
     }
     toggleFavorite();
@@ -64,7 +63,6 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       </div>
       
       {/* Botões de Ação (Posicionados no canto superior direito do contêiner pai) */}
-      {/* Ajustamos a posição dos botões para que fiquem no canto superior direito do contêiner principal (que é o div com rounded-t-3xl) */}
       <div className="absolute top-4 right-4 flex gap-2">
         <Button 
           variant="outline" 

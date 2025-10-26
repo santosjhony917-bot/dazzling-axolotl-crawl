@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Crown, Share2, Check, CreditCard, DollarSign, Zap, Camera, Package, Star, Loader2 } from 'lucide-react';
+import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Crown, Share2, Check, CreditCard, DollarSign, Zap, Camera, Package, Star, Loader2, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, formatPrice } from '@/lib/utils';
@@ -16,7 +16,7 @@ import { createPageUrl } from '@/utils/url';
 import { showInfo } from '@/utils/toast';
 import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
 import FullMenuDisplay from '@/components/FullMenuDisplay';
-import { usePublicGallery, PublicGalleryImage } from '@/hooks/usePublicGallery'; // NOVO IMPORT
+import { usePublicGallery, PublicGalleryImage } from '@/hooks/usePublicGallery';
 
 interface PremiumProfileLayoutProps {
   restaurant: Restaurant;
@@ -173,10 +173,11 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   const [followersCount, setFollowersCount] = useState(1200); // Mock
   
   const { menu, loading: menuLoading } = useRestaurantMenu(restaurant.id);
-  const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id); // USANDO HOOK REAL
+  const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
+    alert("Seguindo restaurante! (Mock)");
   };
   
   const headerData = {
@@ -210,6 +211,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       
       {/* Conteúdo Principal (Abaixo do Header Flutuante) */}
       <div className="pt-20 px-4 pb-20 space-y-6">
+        
+        {/* Botão Seguir (Abaixo do Header Público) */}
+        <Button 
+          onClick={handleFollowToggle}
+          className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
+        >
+          <UserPlus className="w-5 h-5 mr-2" /> Seguir Restaurante
+        </Button>
         
         {/* Abas de Navegação */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
