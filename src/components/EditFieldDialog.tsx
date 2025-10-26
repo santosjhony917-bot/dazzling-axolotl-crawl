@@ -75,7 +75,7 @@ export default function EditFieldDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-xl shadow-soft-xl">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             {icon}
@@ -103,7 +103,7 @@ export default function EditFieldDialog({
             <Button 
               type="submit" 
               disabled={loading || !!errors.value}
-              className="bg-highlight hover:bg-highlight/90"
+              variant="highlight"
             >
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

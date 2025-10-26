@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2 } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
@@ -57,7 +57,7 @@ const PremiumCard: React.FC = () => (
 );
 
 const FreeCard: React.FC = () => (
-  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-md">
+  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-soft-md rounded-xl">
     <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4">
       <Lock className="w-6 h-6 text-gray-500" />
     </div>
@@ -149,7 +149,7 @@ const UpgradePageContent: React.FC = () => {
       <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
         
         {/* 2. Comparativo Free vs Premium */}
-        <Card className="p-6 shadow-2xl border-none rounded-xl bg-white">
+        <Card className="p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-lg font-bold text-primary text-center mb-6">
             Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
           </h2>
@@ -178,7 +178,7 @@ const UpgradePageContent: React.FC = () => {
         </motion.div>
 
         {/* 4. Bloco de planos e botão de ação */}
-        <Card className="mt-12 p-6 shadow-2xl border-none rounded-xl bg-white">
+        <Card className="mt-12 p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-xl font-bold text-primary text-center mb-4">
             Assine o Premium e seja encontrado todos os dias.
           </h2>
@@ -200,7 +200,8 @@ const UpgradePageContent: React.FC = () => {
             <Button
               onClick={handleSubscribe}
               disabled={isSubscribing}
-              className="w-full h-14 rounded-full text-lg font-bold text-white bg-[#E47948] hover:bg-[#E47948]/90 shadow-lg shadow-[#E47948]/50 transition-all"
+              variant="highlight"
+              className="w-full h-14 rounded-xl text-lg font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
             >
               {isSubscribing ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />

@@ -65,14 +65,16 @@ export default function Welcome() {
         >
           <Button
             onClick={() => handleNavigation('customer', createPageUrl('auth'))}
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-base font-bold leading-normal tracking-[0.015em] w-full transition-all hover:shadow-lg"
+            variant="highlight"
+            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-highlight-glow hover:shadow-soft-xl"
           >
             <span className="truncate">Encontrar Restaurantes</span>
           </Button>
 
           <Button
             onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all"
+            variant="outline"
+            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-soft-md"
           >
             <span className="truncate">Sou restaurante</span>
           </Button>

@@ -159,7 +159,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] overflow-y-auto shadow-soft-xl">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-6 w-6 text-primary" />
@@ -259,7 +259,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
             <Button type="button" variant="outline" onClick={onClose} disabled={loading || isSearchingCep}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading || isSearchingCep} className="bg-highlight hover:bg-highlight/90">
+            <Button type="submit" disabled={loading || isSearchingCep} variant="highlight">
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

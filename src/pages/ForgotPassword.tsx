@@ -52,7 +52,7 @@ export default function ForgotPassword() {
         </Button>
 
         {/* Card Principal */}
-        <div className="bg-white rounded-xl shadow-xl p-8">
+        <div className="bg-white rounded-xl shadow-soft-xl p-8">
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <div className="w-24 h-auto">
@@ -86,7 +86,7 @@ export default function ForgotPassword() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
+                    className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
                   />
                 </div>
 
@@ -94,7 +94,7 @@ export default function ForgotPassword() {
                   type="submit"
                   disabled={loading}
                   variant="highlight"
-                  className="w-full h-12 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 hover:shadow-xl"
+                  className="w-full h-12 rounded-xl text-lg font-bold shadow-highlight-glow transition-all duration-300 hover:shadow-xl"
                 >
                   {loading ? "Enviando..." : "Enviar instruções"}
                 </Button>
@@ -128,7 +128,7 @@ export default function ForgotPassword() {
                 Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
               </p>
               <Button
-                onClick={() => navigate(createPageUrl("customer-login"))}
+                onClick={() => navigate(createPageUrl("auth"))}
                 variant="outline"
                 className="border-2 border-highlight text-highlight hover:bg-highlight/5 rounded-xl font-bold"
               >

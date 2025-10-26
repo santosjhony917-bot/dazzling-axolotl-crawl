@@ -23,7 +23,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
             ? "bg-highlight text-white shadow-soft-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
         )}
-        variant="ghost"
+        variant={isDishesActive ? 'highlight' : 'ghost'}
       >
         Pratos
       </Button>
@@ -35,7 +35,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
             ? "bg-highlight text-white shadow-soft-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
         )}
-        variant="ghost"
+        variant={isRestaurantsActive ? 'highlight' : 'ghost'}
       >
         Restaurantes
       </Button>

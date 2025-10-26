@@ -44,7 +44,7 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
         <Button 
           variant="outline" 
           size="icon" 
-          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700"
+          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700 shadow-soft-sm"
           onClick={restaurant.onFollowToggle}
         >
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
@@ -52,7 +52,7 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
         <Button 
           variant="outline" 
           size="icon" 
-          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700"
+          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700 shadow-soft-sm"
           onClick={() => navigator.share ? navigator.share({ title: restaurant.name, url: window.location.href }) : alert('Link copiado!')}
         >
           <Share2 className="w-4 h-4 text-gray-600 dark:text-gray-300" />

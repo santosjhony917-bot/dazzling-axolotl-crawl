@@ -140,14 +140,14 @@ export default function SearchUnifiedPage() {
         <Button 
           onClick={handleSearchByPrice}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
         >
           <DollarSign className="w-5 h-5 mr-2" /> Preço
         </Button>
         <Button 
           onClick={handleSearchNearby}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
         >
           <Compass className="w-5 h-5 mr-2" /> Distância
         </Button>

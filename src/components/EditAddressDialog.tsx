@@ -140,7 +140,7 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-xl shadow-soft-xl">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-6 w-6 text-primary" />
@@ -198,7 +198,7 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading || isGeocoding}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading || isGeocoding} className="bg-highlight hover:bg-highlight/90">
+            <Button type="submit" disabled={loading || isGeocoding} variant="highlight">
               {loading || isGeocoding ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

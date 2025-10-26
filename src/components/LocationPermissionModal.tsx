@@ -51,7 +51,7 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleDeny()}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl p-6">
+      <DialogContent className="sm:max-w-[425px] rounded-xl p-6 shadow-soft-xl">
         <DialogHeader className="text-center">
           <div className="flex justify-center mb-4">
             <MapPin className="w-10 h-10 text-[#E47948]" />
@@ -67,14 +67,15 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
         <div className="py-4 space-y-3">
           <Button 
             onClick={handleGrant}
-            className="w-full h-12 rounded-full bg-[#E47948] hover:bg-[#E47948]/90 text-white font-bold"
+            variant="highlight"
+            className="w-full h-12 rounded-xl font-bold shadow-highlight-glow"
           >
             Permitir Localização
           </Button>
           <Button 
             onClick={handleUseMock}
             variant="outline"
-            className="w-full h-12 rounded-full border-gray-300 text-gray-700 hover:bg-gray-100"
+            className="w-full h-12 rounded-xl border-gray-300 text-gray-700 hover:bg-gray-100 shadow-soft-md"
           >
             Usar Localização Padrão
           </Button>

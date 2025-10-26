@@ -26,7 +26,7 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = memo(({ restaurant }) => {
   return (
     <div className="mt-8">
       <h2 className="text-lg font-bold text-[#022D68]">Informações Adicionais</h2>
-      <Card className="mt-4 p-4 shadow-md border-none rounded-xl bg-white dark:bg-gray-800">
+      <Card className="mt-4 p-4 shadow-soft-md border-none rounded-xl bg-white dark:bg-gray-800">
         
         {/* Payment Methods */}
         <div className="flex items-start gap-3">
@@ -37,7 +37,7 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = memo(({ restaurant }) => {
               {mockPaymentMethods.map((method, index) => {
                 const Icon = method.icon;
                 return (
-                  <div key={index} className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 dark:bg-gray-700 px-3 py-1 shadow-sm">
+                  <div key={index} className="flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 dark:bg-gray-700 px-3 py-1 shadow-soft-sm">
                     <Icon className="w-4 h-4 text-[#022D68] dark:text-white" />
                     <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{method.label}</span>
                   </div>

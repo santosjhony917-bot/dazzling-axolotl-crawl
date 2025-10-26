@@ -70,7 +70,7 @@ const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedu
   };
 
   return (
-    <Card className="p-4 shadow-sm rounded-xl">
+    <Card className="p-4 shadow-soft-sm rounded-xl border-gray-200">
       <div className="flex items-center justify-between">
         <h4 className="font-semibold text-sm">{dayLabels[day]}</h4>
         <Switch checked={schedule.isOpen} onCheckedChange={handleToggleOpen} className="data-[state=checked]:bg-[#E47948]" />
@@ -122,7 +122,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] flex flex-col">
+      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] flex flex-col shadow-soft-xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-primary">Horários de Funcionamento</DialogTitle>
           <DialogDescription>
@@ -147,7 +147,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             Cancelar
           </Button>
-          <Button type="button" onClick={handleSave} disabled={loading} className="bg-highlight hover:bg-highlight/90">
+          <Button type="button" onClick={handleSave} disabled={loading} variant="highlight">
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (

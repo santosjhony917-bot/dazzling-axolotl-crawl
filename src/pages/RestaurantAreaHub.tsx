@@ -41,7 +41,7 @@ export default function RestaurantAreaHub() {
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
           size="icon"
@@ -65,7 +65,7 @@ export default function RestaurantAreaHub() {
         >
           {/* Icon and Title */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#E47948]/10 rounded-full mx-auto mb-4">
+            <div className="flex items-center justify-center size-16 bg-[#E47948]/10 rounded-xl mx-auto mb-4">
               <Utensils className="w-8 h-8 text-[#E47948]" />
             </div>
             <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
@@ -76,7 +76,7 @@ export default function RestaurantAreaHub() {
             </p>
           </div>
 
-          <Card className="w-full shadow-xl border-none rounded-xl p-4 space-y-3">
+          <Card className="w-full shadow-soft-xl border-none rounded-2xl p-4 space-y-3">
             {options.map((option, index) => {
               const Icon = option.icon;
               return (
@@ -84,9 +84,9 @@ export default function RestaurantAreaHub() {
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center p-4 bg-[#f5f7f8] rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+                    className="flex items-center p-4 bg-[#f5f7f8] rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shadow-soft-sm"
                   >
-                    <div className="size-10 rounded-full bg-[#022D68]/10 flex items-center justify-center mr-4">
+                    <div className="size-10 rounded-xl bg-[#022D68]/10 flex items-center justify-center mr-4">
                       <Icon className="w-5 h-5 text-[#022D68]" />
                     </div>
                     <div className="flex-1">
