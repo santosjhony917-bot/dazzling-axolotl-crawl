@@ -4,7 +4,7 @@ import NavCardItem from '@/components/NavCardItem';
 import { Utensils, Package, Camera } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
-import { showSuccess } from '@/utils/toast';
+import { showError } from '@/utils/toast'; // Importando showError
 
 interface ContentManagementSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -12,6 +12,15 @@ interface ContentManagementSectionProps {
 }
 
 const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium }) => {
+  
+  const handleNavigate = (path: string, isFeaturePremium: boolean) => {
+    if (isFeaturePremium && !isPremium) {
+      showError("Recurso Premium. Faça upgrade para desbloquear.");
+      return;
+    }
+    navigate(path);
+  };
+  
   return (
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gerenciamento de Conteúdo</h2>
@@ -19,7 +28,8 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         title="Cardápio e Categorias" 
         description="Adicione, edite e organize pratos e categorias."
         icon={Utensils} 
-        onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
+        isPremium={isPremium}
       />
       <NavCardItem 
         title="Galeria de Fotos" 
@@ -27,7 +37,8 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         icon={Camera} 
         isPremiumFeature={true}
         isPremium={isPremium}
-        onClick={() => navigate(createPageUrl('restaurant-area/gallery'))}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
+        premiumDescription="Exclusivo Premium"
       />
     </div>
   );
