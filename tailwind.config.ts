@@ -69,7 +69,7 @@ export default {
         // Cores customizadas do novo design
         "highlight": "#E47948",
         "background-light": "#F9FAFB", // Ajustado para um cinza mais claro
-        "background-dark": "#111821",
+        "background-dark": "#111821", // Mantido, mas não usado no modo light
         "text-primary": "#022D68", // Novo alias para a cor primária de texto
         "text-secondary": "#5f728c", // Novo alias para texto secundário
         "text-light": "#111417",
@@ -78,11 +78,20 @@ export default {
         "orange-accent-hover": "24 90% 55%",
       },
       borderRadius: {
-        lg: "1rem", // Aumentado para 16px
+        lg: "1rem", // 16px
         md: "0.75rem", // 12px
         sm: "0.5rem", // 8px
         xl: "2rem", // 32px para elementos maiores
         DEFAULT: "1rem",
+      },
+      boxShadow: {
+        // Sombras suaves e realistas (Soft Shadows)
+        'soft-sm': '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)',
+        'soft-md': '0 4px 6px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)',
+        'soft-lg': '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
+        'soft-xl': '0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.08)',
+        // Sombra de destaque para o botão principal
+        'highlight-glow': '0 8px 20px rgba(228, 121, 72, 0.4)',
       },
       keyframes: {
         "accordion-down": {
@@ -101,10 +110,16 @@ export default {
             height: "0",
           },
         },
+        // Animação de brilho para botões (usada em globals.css)
+        "shine": {
+          "0%": { "background-position": "-200% 0" },
+          "100%": { "background-position": "200% 0" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "shine": "shine 3s infinite",
       },
     },
   },
