@@ -1,23 +1,132 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
-import { CategoryList } from '@/components/restaurant/menu/CategoryList';
+"use client";
+
+import React, { useState, useMemo } from 'react';
+import { Plus, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Loader2 } from 'lucide-react';
-import { MenuCategory } from '@/types';
-import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useAuthContext } from '@/context/AuthContext';
+import { useToast } from '@/components/ui/use-toast';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { MenuCategory, MenuItem } from '@/types/restaurant';
+import { getRestaurantMenu, deleteCategory, deleteMenuItem, swapCategoryOrder } from '@/integrations/supabase/restaurant';
+import CategoryDialog from '@/components/restaurant/CategoryDialog';
+import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
+import CategoryItemManager from '@/components/restaurant/CategoryItemManager';
+import ConfirmationDialog from '@/components/ConfirmationDialog';
 
-export default function MenuManagement() {
-  // Obtendo o restaurante do contexto de autenticação
-  const { restaurant, isLoading: authLoading } = useAuthContext();
-  const restaurantId = restaurant?.id || null;
-  
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+const MenuManagement: React.FC = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
+  
+  const [isMenuItemDialogOpen, setIsMenuItemDialogOpen] = useState(false);
+  const [editingMenuItem, setEditingMenuItem] = useState<MenuItem | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
 
-  if (authLoading) {
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
+  const [confirmationTitle, setConfirmationTitle] = useState('');
+  const [confirmationDescription, setConfirmationDescription] = useState('');
+
+  const { data: menuData, isLoading, isError } = useQuery({
+    queryKey: ['restaurantMenu'],
+    queryFn: getRestaurantMenu,
+  });
+
+  const categories = useMemo(() => menuData?.categories || [], [menuData]);
+  const items = useMemo(() => menuData?.items || [], [menuData]);
+
+  // --- Mutations ---
+
+  const deleteCategoryMutation = useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: () => {
+      toast({ title: "Sucesso", description: "Categoria excluída com sucesso." });
+      queryClient.invalidateQueries({ queryKey: ['restaurantMenu'] });
+    },
+    onError: (error) => {
+      toast({ title: "Erro", description: `Falha ao excluir categoria: ${error.message}`, variant: "destructive" });
+    },
+  });
+
+  const deleteItemMutation = useMutation({
+    mutationFn: deleteMenuItem,
+    onSuccess: () => {
+      toast({ title: "Sucesso", description: "Item de menu excluído com sucesso." });
+      queryClient.invalidateQueries({ queryKey: ['restaurantMenu'] });
+    },
+    onError: (error) => {
+      toast({ title: "Erro", description: `Falha ao excluir item: ${error.message}`, variant: "destructive" });
+    },
+  });
+
+  const reorderCategoryMutation = useMutation({
+    mutationFn: ({ categoryIdA, categoryIdB }: { categoryIdA: string, categoryIdB: string }) => swapCategoryOrder(categoryIdA, categoryIdB),
+    onSuccess: () => {
+      // Optimistic update is handled in handleReorderCategory, just invalidate to confirm
+      queryClient.invalidateQueries({ queryKey: ['restaurantMenu'] });
+    },
+    onError: (error) => {
+      toast({ title: "Erro", description: `Falha ao reordenar categorias: ${error.message}`, variant: "destructive" });
+      queryClient.invalidateQueries({ queryKey: ['restaurantMenu'] }); // Revert on error
+    },
+  });
+
+  // --- Handlers ---
+
+  const handleOpenCategoryDialog = (category: MenuCategory | null) => {
+    setEditingCategory(category);
+    setIsCategoryDialogOpen(true);
+  };
+
+  const handleOpenItemDialog = (categoryId: string, item: MenuItem | null = null) => {
+    setSelectedCategoryId(categoryId);
+    setEditingMenuItem(item);
+    setIsMenuItemDialogOpen(true);
+  };
+
+  const handleDeleteCategory = (categoryId: string) => {
+    setConfirmationTitle("Excluir Categoria");
+    setConfirmationDescription("Tem certeza de que deseja excluir esta categoria? Todos os itens de menu associados serão perdidos.");
+    setConfirmationAction(() => () => deleteCategoryMutation.mutate(categoryId));
+    setIsConfirmationOpen(true);
+  };
+
+  const handleDeleteItem = (itemId: string) => {
+    setConfirmationTitle("Excluir Item de Menu");
+    setConfirmationDescription("Tem certeza de que deseja excluir este item de menu?");
+    setConfirmationAction(() => () => deleteItemMutation.mutate(itemId));
+    setIsConfirmationOpen(true);
+  };
+
+  const handleReorderCategory = (categoryId: string, direction: 'up' | 'down') => {
+    const currentIndex = categories.findIndex(c => c.id === categoryId);
+    if (currentIndex === -1) return;
+
+    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+
+    if (targetIndex < 0 || targetIndex >= categories.length) {
+      toast({ title: "Aviso", description: "Não é possível mover mais nesta direção.", variant: "default" });
+      return;
+    }
+
+    const categoryA = categories[currentIndex];
+    const categoryB = categories[targetIndex];
+
+    // Optimistic Update
+    queryClient.setQueryData(['restaurantMenu'], (oldData: { categories: MenuCategory[], items: MenuItem[] } | undefined) => {
+      if (!oldData) return oldData;
+      const newCategories = [...oldData.categories];
+      [newCategories[currentIndex], newCategories[targetIndex]] = [newCategories[targetIndex], newCategories[currentIndex]];
+      return { ...oldData, categories: newCategories };
+    });
+
+    reorderCategoryMutation.mutate({ categoryIdA: categoryA.id, categoryIdB: categoryB.id });
+  };
+
+  // --- Render Logic ---
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -25,81 +134,79 @@ export default function MenuManagement() {
     );
   }
 
-  if (!restaurantId) {
-    return <div className="p-4 text-red-500">ID do Restaurante não encontrado. Certifique-se de que seu perfil de restaurante está vinculado.</div>;
+  if (isError) {
+    return <div className="text-center text-red-500">Erro ao carregar o menu.</div>;
   }
 
-  const { categoriesQuery, deleteCategoryMutation } = useMenuManagement(restaurantId);
-  const { createCategoryMutation, updateCategoryMutation } = useCategoryMutations(restaurantId);
-
-  const categories = categoriesQuery.data || [];
-  const isLoading = categoriesQuery.isLoading;
-  const isSaving = createCategoryMutation.isPending || updateCategoryMutation.isPending;
-
-  const handleOpenDialog = (category: MenuCategory | null = null) => {
-    setEditingCategory(category);
-    setIsCategoryModalOpen(true);
-  };
-
-  const handleDeleteCategory = (categoryId: string) => {
-    if (confirm('Tem certeza que deseja deletar esta categoria? Todos os itens de menu associados serão perdidos.')) {
-      deleteCategoryMutation.mutate(categoryId);
+  const groupedItems = items.reduce((acc, item) => {
+    const categoryId = item.category_id;
+    if (!acc[categoryId]) {
+      acc[categoryId] = [];
     }
-  };
-
-  const handleSaveCategory = async (data: CategoryFormValues) => {
-    // Erro 1: UpdateCategoryPayload requer name e is_active
-    if (editingCategory) {
-      await updateCategoryMutation.mutateAsync({
-        id: editingCategory.id,
-        name: data.name, // Garantindo que 'name' está presente
-        is_active: data.is_active, // Garantindo que 'is_active' está presente
-      });
-    } else {
-      // Erro 2: CreateCategoryPayload requer name e is_active
-      await createCategoryMutation.mutateAsync({
-        restaurant_id: restaurantId,
-        name: data.name, // Garantindo que 'name' está presente
-        is_active: data.is_active, // Garantindo que 'is_active' está presente
-      });
-    }
-  };
+    acc[categoryId].push(item);
+    return acc;
+  }, {} as Record<string, MenuItem[]>);
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Gerenciar Menu</h1>
-        <Button onClick={() => handleOpenDialog(null)}>
-          <PlusCircle className="w-4 h-4 mr-2" />
-          Nova Categoria
+        <Button onClick={() => handleOpenCategoryDialog(null)}>
+          <Plus className="mr-2 h-4 w-4" /> Adicionar Categoria
         </Button>
       </div>
 
-      <h2 className="text-xl font-semibold mb-4">Categorias</h2>
+      <div className="space-y-4">
+        {categories.length === 0 ? (
+          <div className="text-center p-10 border-2 border-dashed rounded-lg text-gray-500">
+            <p className="mb-4">Você ainda não tem categorias de menu.</p>
+            <Button onClick={() => handleOpenCategoryDialog(null)}>
+              Criar Primeira Categoria
+            </Button>
+          </div>
+        ) : (
+          categories.map((category) => (
+            <CategoryItemManager
+              key={category.id}
+              category={category}
+              items={groupedItems[category.id] || []}
+              onEditCategory={handleOpenCategoryDialog}
+              onDeleteCategory={handleDeleteCategory}
+              onAddItem={(categoryId) => handleOpenItemDialog(categoryId)}
+              onEditItem={(item) => handleOpenItemDialog(item.category_id, item)}
+              onDeleteItem={handleDeleteItem}
+              onReorder={handleReorderCategory}
+            />
+          ))
+        )}
+      </div>
 
-      {isLoading ? (
-        <div className="space-y-3">
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
-          <Skeleton className="h-12 w-full" />
-        </div>
-      ) : (
-        <CategoryList
-          categories={categories}
-          restaurantId={restaurantId}
-          onEdit={handleOpenDialog}
-          onDelete={handleDeleteCategory}
-        />
-      )}
-
-      <CategoryFormDialog
-        isOpen={isCategoryModalOpen}
-        onClose={() => setIsCategoryModalOpen(false)}
-        restaurantId={restaurantId}
-        initialData={editingCategory}
-        onSave={handleSaveCategory}
-        isLoading={isSaving}
+      {/* Dialogs */}
+      <CategoryDialog
+        isOpen={isCategoryDialogOpen}
+        onClose={() => setIsCategoryDialogOpen(false)}
+        category={editingCategory}
+      />
+      <MenuItemDialog
+        isOpen={isMenuItemDialogOpen}
+        onClose={() => setIsMenuItemDialogOpen(false)}
+        item={editingMenuItem}
+        categoryId={selectedCategoryId}
+      />
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={() => setIsConfirmationOpen(false)}
+        onConfirm={() => {
+          if (confirmationAction) {
+            confirmationAction();
+          }
+          setIsConfirmationOpen(false);
+        }}
+        title={confirmationTitle}
+        description={confirmationDescription}
       />
     </div>
   );
-}
+};
+
+export default MenuManagement;
