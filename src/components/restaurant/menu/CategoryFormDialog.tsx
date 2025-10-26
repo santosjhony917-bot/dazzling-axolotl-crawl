@@ -1,54 +1,60 @@
 import React from 'react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuCategory } from '@/types/menu';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { MenuCategory } from '@/types';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+// Importando useCategoryMutations apenas para tipagem, se necessário, mas vou remover a importação desnecessária
+// e focar na prop onSave.
 
+// Define the schema for form validation
 const categorySchema = z.object({
-  name: z.string().min(1, 'O nome da categoria é obrigatório.'),
+  name: z.string().min(1, 'O nome é obrigatório'),
+  is_active: z.boolean().default(true),
+  order_index: z.number().optional(),
 });
 
-type CategoryFormValues = z.infer<typeof categorySchema>;
+export type CategoryFormValues = z.infer<typeof categorySchema>;
 
 interface CategoryFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: CategoryFormValues) => Promise<void>;
-  initialData?: MenuCategory;
-  isLoading: boolean;
+  restaurantId: string; 
+  initialData: MenuCategory | null;
+  onSave: (data: CategoryFormValues) => Promise<void>; // Adicionando onSave para corrigir Erro 2
+  isLoading: boolean; // Adicionando isLoading para corrigir Erro 2 (se for usado no componente pai)
 }
 
-const CategoryFormDialog: React.FC<CategoryFormDialogProps> = ({ isOpen, onClose, onSave, initialData, isLoading }) => {
-  const form = useForm<CategoryFormValues>({
+export default function CategoryFormDialog({ isOpen, onClose, initialData, onSave, isLoading }: CategoryFormDialogProps) {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: initialData?.name || '',
+      is_active: initialData?.is_active ?? true,
+      order_index: initialData?.order_index ?? 0,
     },
   });
 
-  const onSubmit = async (data: CategoryFormValues) => {
-    await onSave(data);
-    form.reset();
+  React.useEffect(() => {
+    if (isOpen) {
+      reset({
+        name: initialData?.name || '',
+        is_active: initialData?.is_active ?? true,
+        order_index: initialData?.order_index ?? 0,
+      });
+    }
+  }, [isOpen, initialData, reset]);
+
+  const onSubmit = (data: CategoryFormValues) => {
+    onSave(data).then(onClose);
   };
 
-  React.useEffect(() => {
-    if (initialData) {
-      form.reset({ name: initialData.name });
-    } else {
-      form.reset({ name: '' });
-    }
-  }, [initialData, form]);
+  const is_active = watch('is_active');
+  const isSubmitting = isLoading; // Usando a prop isLoading
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -56,40 +62,32 @@ const CategoryFormDialog: React.FC<CategoryFormDialogProps> = ({ isOpen, onClose
         <DialogHeader>
           <DialogTitle>{initialData ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome da Categoria</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ex: Pizzas Clássicas" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
+          <div className="grid gap-2">
+            <Label htmlFor="name">Nome da Categoria</Label>
+            <Input
+              id="name"
+              {...register('name')}
+              disabled={isSubmitting}
             />
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
-                Cancelar
-              </Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : initialData ? (
-                  'Salvar Alterações'
-                ) : (
-                  'Criar Categoria'
-                )}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+          </div>
+
+          <div className="flex items-center justify-between space-x-2">
+            <Label htmlFor="is_active">Ativa</Label>
+            <Switch
+              id="is_active"
+              checked={is_active}
+              {...register('is_active')}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Salvando...' : 'Salvar Categoria'}
+          </Button>
+        </form>
       </DialogContent>
     </Dialog>
   );
-};
-
-export default CategoryFormDialog;
+}

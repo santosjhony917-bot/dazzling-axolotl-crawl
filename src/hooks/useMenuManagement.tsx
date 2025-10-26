@@ -1,190 +1,129 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { MenuCategory, MenuItem } from "@/types/supabase";
-import { showError, showSuccess } from "@/utils/toast";
-import { useCallback } from "react";
-import { logError } from "@/utils/errorLogger"; // Importando o logger
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { MenuCategory } from '@/types';
+import { toast } from 'sonner';
 
-// --- Tipos de Retorno ---
-interface MenuContent {
-  categories: MenuCategory[];
-  items: MenuItem[];
+// --- Types ---
+
+interface CategoryBase {
+  name: string;
+  is_active: boolean;
+  order_index?: number;
 }
 
-export interface UseMenuManagementResult {
-  menuData: MenuContent | undefined;
-  isLoading: boolean;
-  error: string | null;
-  invalidateMenu: () => void;
-  categoryMutations: {
-    save: ReturnType<typeof useMutation<void, Error, Partial<MenuCategory> & { restaurant_id: string }>>;
-    delete: ReturnType<typeof useMutation<void, Error, string>>;
-  };
-  itemMutations: {
-    save: ReturnType<typeof useMutation<void, Error, Partial<MenuItem> & { category_id: string }>>;
-    delete: ReturnType<typeof useMutation<void, Error, string>>;
-  };
+interface CreateCategoryPayload extends CategoryBase {
+  restaurant_id: string;
 }
 
-// --- Query Key ---
-const MENU_QUERY_KEY = (restaurantId: string) => ['menu', restaurantId];
+interface UpdateCategoryPayload extends CategoryBase {
+  id: string;
+}
 
-// --- Fetch Function ---
-const fetchMenu = async (restaurantId: string): Promise<MenuContent> => {
-  // Busca categorias e itens em uma única query aninhada
+interface UseMenuManagementResult {
+  categoriesQuery: ReturnType<typeof useQuery<MenuCategory[]>>;
+  deleteCategoryMutation: ReturnType<typeof useMutation>;
+}
+
+interface UseCategoryMutationsResult {
+  createCategoryMutation: ReturnType<typeof useMutation>;
+  updateCategoryMutation: ReturnType<typeof useMutation>;
+  deleteCategoryMutation: ReturnType<typeof useMutation>;
+}
+
+// --- API Calls ---
+
+const fetchCategories = async (restaurantId: string): Promise<MenuCategory[]> => {
   const { data, error } = await supabase
     .from('menu_categories')
-    .select(`
-      *,
-      items:menu_items(*)
-    `)
+    .select('*')
     .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true })
-    .order('order_index', { foreignTable: 'menu_items', ascending: true });
+    .order('order_index', { ascending: true });
 
-  if (error) {
-    logError(error, { context: 'fetchMenu' });
-    throw new Error(error.message);
-  }
-
-  const categories: MenuCategory[] = [];
-  const items: MenuItem[] = [];
-
-  data.forEach(cat => {
-    const { items: catItems, ...categoryData } = cat;
-    categories.push(categoryData as MenuCategory);
-    if (catItems) {
-      items.push(...(catItems as MenuItem[]));
-    }
-  });
-
-  return { categories, items };
+  if (error) throw new Error(error.message);
+  return data || [];
 };
 
-// --- Main Hook ---
-export function useMenuManagement(restaurantId: string | null): UseMenuManagementResult {
+const createCategory = async (payload: CreateCategoryPayload) => {
+  const { data, error } = await supabase
+    .from('menu_categories')
+    .insert(payload)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Falha ao salvar categoria: ${error.message}`);
+  return data;
+};
+
+const updateCategory = async (payload: UpdateCategoryPayload) => {
+  const { data, error } = await supabase
+    .from('menu_categories')
+    .update(payload)
+    .eq('id', payload.id)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Falha ao atualizar categoria: ${error.message}`);
+  return data;
+};
+
+const deleteCategory = async (categoryId: string) => {
+  const { error } = await supabase
+    .from('menu_categories')
+    .delete()
+    .eq('id', categoryId);
+
+  if (error) throw new Error(error.message);
+};
+
+// --- Hooks ---
+
+export const useCategoryMutations = (restaurantId: string): UseCategoryMutationsResult => {
   const queryClient = useQueryClient();
-  const queryKey = restaurantId ? MENU_QUERY_KEY(restaurantId) : ['menu', 'null'];
+  const queryKey = ['menu_categories', restaurantId];
 
-  const { data, isLoading, error } = useQuery<MenuContent, Error>({
-    queryKey: queryKey,
-    queryFn: () => fetchMenu(restaurantId!),
-    enabled: !!restaurantId,
-    staleTime: Infinity, // Decisão 1: Invalidação manual
-  });
-
-  const invalidateMenu = useCallback(() => {
-    if (restaurantId) {
-      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEY(restaurantId) });
-    }
-  }, [queryClient, restaurantId]);
-
-  // 1. Adicionar/Editar Categoria
-  const categoryMutation = useMutation({
-    mutationFn: async (category: Partial<MenuCategory> & { restaurant_id: string }) => {
-      if (category.id) {
-        // Update
-        const { error } = await supabase
-          .from('menu_categories')
-          .update(category)
-          .eq('id', category.id);
-        if (error) throw new Error(error.message);
-      } else {
-        // Insert
-        const { error } = await supabase
-          .from('menu_categories')
-          .insert(category);
-        if (error) throw new Error(error.message);
-      }
-    },
-    onSuccess: () => {
-      showSuccess("Categoria salva com sucesso!");
-      invalidateMenu();
-    },
-    onError: (e) => {
-      logError(e, { context: 'categoryMutation' });
-      showError(`Falha ao salvar categoria: ${(e as Error).message}`);
-    },
-  });
-
-  // 2. Deletar Categoria
-  const deleteCategoryMutation = useMutation({
-    mutationFn: async (categoryId: string) => {
-      const { error } = await supabase
-        .from('menu_categories')
-        .delete()
-        .eq('id', categoryId);
-      if (error) throw new Error(error.message);
-    },
-    onSuccess: () => {
-      showSuccess("Categoria e todos os itens associados deletados!");
-      invalidateMenu();
-    },
-    onError: (e) => {
-      logError(e, { context: 'deleteCategoryMutation' });
-      showError(`Falha ao deletar categoria: ${(e as Error).message}`);
-    },
-  });
-
-  // 3. Adicionar/Editar Item
-  const itemMutation = useMutation({
-    mutationFn: async (item: Partial<MenuItem> & { category_id: string }) => {
-      if (item.id) {
-        // Update
-        const { error } = await supabase
-          .from('menu_items')
-          .update(item)
-          .eq('id', item.id);
-        if (error) throw new Error(error.message);
-      } else {
-        // Insert
-        const { error } = await supabase
-          .from('menu_items')
-          .insert(item);
-        if (error) throw new Error(error.message);
-      }
-    },
-    onSuccess: () => {
-      showSuccess("Item do cardápio salvo com sucesso!");
-      invalidateMenu();
-    },
-    onError: (e) => {
-      logError(e, { context: 'itemMutation' });
-      showError(`Falha ao salvar item: ${(e as Error).message}`);
-    },
-  });
-
-  // 4. Deletar Item
-  const deleteItemMutation = useMutation({
-    mutationFn: async (itemId: string) => {
-      const { error } = await supabase
-        .from('menu_items')
-        .delete()
-        .eq('id', itemId);
-      if (error) throw new Error(error.message);
-    },
-    onSuccess: () => {
-      showSuccess("Item deletado com sucesso!");
-      invalidateMenu();
-    },
-    onError: (e) => {
-      logError(e, { context: 'deleteItemMutation' });
-      showError(`Falha ao deletar item: ${(e as Error).message}`);
-    },
-  });
-
-  return {
-    menuData: data,
-    isLoading,
-    error: error ? error.message : null,
-    invalidateMenu,
-    categoryMutations: {
-      save: categoryMutation,
-      delete: deleteCategoryMutation,
-    },
-    itemMutations: {
-      save: itemMutation,
-      delete: deleteItemMutation,
-    },
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey });
   };
-}
+
+  const createCategoryMutation = useMutation({
+    mutationFn: createCategory,
+    onSuccess: () => {
+      toast.success('Categoria criada com sucesso!');
+      onSuccess();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const updateCategoryMutation = useMutation({
+    mutationFn: updateCategory,
+    onSuccess: () => {
+      toast.success('Categoria atualizada com sucesso!');
+      onSuccess();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const deleteCategoryMutation = useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: () => {
+      toast.success('Categoria deletada com sucesso!');
+      onSuccess();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  return { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation };
+};
+
+
+export const useMenuManagement = (restaurantId: string): UseMenuManagementResult => {
+  const { deleteCategoryMutation } = useCategoryMutations(restaurantId);
+
+  const categoriesQuery = useQuery<MenuCategory[]>({
+    queryKey: ['menu_categories', restaurantId],
+    queryFn: () => fetchCategories(restaurantId),
+    enabled: !!restaurantId,
+  });
+
+  return { categoriesQuery, deleteCategoryMutation };
+};

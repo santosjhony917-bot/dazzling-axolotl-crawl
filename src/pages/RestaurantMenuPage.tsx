@@ -1,51 +1,39 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
+import { useMenuManagement } from '@/hooks/useMenuManagement';
 import { CategoryList } from '@/components/restaurant/menu/CategoryList';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import { MenuCategory } from '@/types';
-import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
+import CategoryFormDialog from '@/components/restaurant/menu/CategoryFormDialog';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function MenuManagement() {
+export default function RestaurantMenuPage() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
 
   if (!restaurantId) {
     return <div className="p-4 text-red-500">ID do Restaurante não encontrado.</div>;
   }
 
-  const { categoriesQuery, deleteCategoryMutation } = useMenuManagement(restaurantId);
-  const { createCategoryMutation, updateCategoryMutation } = useCategoryMutations(restaurantId);
+  // Corrigido: Acessando as propriedades corretas do hook
+  const { 
+    categoriesQuery, 
+    deleteCategoryMutation 
+  } = useMenuManagement(restaurantId);
 
   const categories = categoriesQuery.data || [];
   const isLoading = categoriesQuery.isLoading;
-  const isSaving = createCategoryMutation.isPending || updateCategoryMutation.isPending;
 
   const handleOpenDialog = (category: MenuCategory | null = null) => {
     setEditingCategory(category);
-    setIsCategoryModalOpen(true);
+    setIsDialogOpen(true);
   };
 
   const handleDeleteCategory = (categoryId: string) => {
     if (confirm('Tem certeza que deseja deletar esta categoria? Todos os itens de menu associados serão perdidos.')) {
       deleteCategoryMutation.mutate(categoryId);
-    }
-  };
-
-  const handleSaveCategory = async (data: CategoryFormValues) => {
-    if (editingCategory) {
-      await updateCategoryMutation.mutateAsync({
-        id: editingCategory.id,
-        ...data,
-      });
-    } else {
-      await createCategoryMutation.mutateAsync({
-        restaurant_id: restaurantId,
-        ...data,
-      });
     }
   };
 
@@ -77,12 +65,10 @@ export default function MenuManagement() {
       )}
 
       <CategoryFormDialog
-        isOpen={isCategoryModalOpen}
-        onClose={() => setIsCategoryModalOpen(false)}
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
         restaurantId={restaurantId}
         initialData={editingCategory}
-        onSave={handleSaveCategory}
-        isLoading={isSaving}
       />
     </div>
   );
