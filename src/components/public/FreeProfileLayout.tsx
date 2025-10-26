@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { useAuthContext } from '@/context/AuthContext';
 import { showError } from '@/utils/toast';
+import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando tipos corretos
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -60,17 +61,32 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     .join(', ');
 
   // Agrupamento de dados do menu para o MenuSection
-  const menuData = useMemo(() => ({
-    categories: menu.map(c => ({ 
-      id: c.id, 
-      restaurant_id: c.restaurant_id, 
-      name: c.name, 
-      order_index: c.order_index || 0, 
-      is_active: c.is_active || false, 
-      created_at: c.created_at || '' 
-    })),
-    items: menu.flatMap(c => c.items),
-  }), [menu]);
+  const menuData = useMemo(() => {
+    const allItems: MenuItem[] = [];
+    const categoriesOnly: MenuCategory[] = [];
+
+    menu.forEach(categoryWithItems => {
+      // Mapeia a categoria (sem os itens aninhados)
+      categoriesOnly.push({
+        id: categoryWithItems.id,
+        restaurant_id: categoryWithItems.restaurant_id,
+        name: categoryWithItems.name,
+        order_index: categoryWithItems.order_index || 0,
+        is_active: categoryWithItems.is_active || false,
+        created_at: categoryWithItems.created_at || '',
+      } as MenuCategory);
+      
+      // Adiciona os itens ao array principal, garantindo que c.items seja um array
+      if (Array.isArray(categoryWithItems.items)) {
+        allItems.push(...categoryWithItems.items);
+      }
+    });
+
+    return {
+      categories: categoriesOnly,
+      items: allItems,
+    };
+  }, [menu]);
 
   if (isLoading) {
     return (
