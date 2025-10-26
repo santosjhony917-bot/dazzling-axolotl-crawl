@@ -58,7 +58,7 @@ function App() {
         <Route path="/legal" element={<Legal />} />
         
         {/* Rotas Públicas de Restaurante */}
-        <Route path="/restaurant-area" element={<RestaurantAreaHub />} />
+        <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
         <Route path="/restaurant-login" element={<RestaurantLogin />} />
         <Route path="/restaurant-signup" element={<RestaurantSignup />} />
         <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
