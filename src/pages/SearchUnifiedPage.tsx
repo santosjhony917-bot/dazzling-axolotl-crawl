@@ -50,7 +50,7 @@ export default function SearchUnifiedPage() {
   // Define as props obrigatórias para ClientLayout
   const clientLayoutProps = { 
     title: "Buscar", 
-    selectedTab: "search" as 'home' | 'search' | 'favorites' | 'perfil', 
+    selectedTab: "search" as 'home' | 'search' | 'favorites' | 'profile', // Corrigido 'perfil' para 'profile'
     showBackButton: true 
   };
   
@@ -203,11 +203,6 @@ export default function SearchUnifiedPage() {
         <main className="flex-1 w-full max-w-md mx-auto pb-20">
           {pageContent}
         </main>
-        
-        {/* Bottom Navigation para Proprietários de Restaurante */}
-        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
-          <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
-        </div>
         
         {/* Modais de Filtro */}
         <SearchByPriceModal

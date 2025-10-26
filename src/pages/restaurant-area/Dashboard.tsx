@@ -7,7 +7,7 @@ const Dashboard: React.FC = () => {
   
   useEffect(() => {
     // Redireciona para o dashboard principal do restaurante
-    navigate(createPageUrl('restaurantDashboard'), { replace: true });
+    navigate(createPageUrl('restaurant-area/home'), { replace: true });
   }, [navigate]);
 
   return (
