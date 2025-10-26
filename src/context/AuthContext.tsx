@@ -3,7 +3,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showSuccess, showError } from '@/utils/toast';
-import { useAuthProfile } from '@/hooks/useAuthProfile'; // Importando o hook baseado em Query
+import { useAuthProfile } from '@/hooks/useAuthProfile';
 import { Restaurant } from '@/types/supabase';
 
 interface AuthContextType {
@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     isAdmin, 
     isLoading, 
     signOut: profileSignOut, 
-    refetchProfile 
+    refetchProfile: originalRefetchProfile // Renomeado para evitar conflito de tipagem
   } = useAuthProfile();
   
   // Mock da sessão (não é estritamente necessário, mas mantido para compatibilidade)
@@ -46,6 +46,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       navigate(createPageUrl('welcome')); 
     }
   };
+  
+  // Garante que a função refetchProfile seja tipada corretamente como Promise<void>
+  const refetchProfile: () => Promise<void> = originalRefetchProfile;
 
   return (
     <AuthContext.Provider value={{ user, session, isLoading, signOut, isAdmin, isPremium, restaurant, refetchProfile }}>
