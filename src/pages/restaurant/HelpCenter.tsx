@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, ChevronDown, ChevronUp, Utensils } from 'lucide-react';
+import { ArrowLeft, Search, ChevronDown, ChevronUp, Utensils, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPageUrl } from '@/utils/url';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import { useUserRole } from '@/hooks/useUserRole';
 
 // Dados Mock de FAQ
 const faqData = [
@@ -78,6 +80,7 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
 
 export default function HelpCenter() {
   const navigate = useNavigate();
+  const { isPremium } = useUserRole();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredFaqs = faqData.filter(faq =>
@@ -87,10 +90,10 @@ export default function HelpCenter() {
   );
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden pb-20">
       
       {/* Header */}
-      <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurant-area/profile-menu" />
+      <RestaurantAreaHeader title="Central de Ajuda" icon={HelpCircle} backPath="restaurant-area/profile-menu" />
 
       <main className="flex-1 w-full max-w-md p-4">
         
@@ -123,6 +126,11 @@ export default function HelpCenter() {
           )}
         </div>
       </main>
+      
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+        <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
+      </div>
     </div>
   );
 }

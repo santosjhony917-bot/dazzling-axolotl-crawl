@@ -5,10 +5,13 @@ import { Loader2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import { useUserRole } from '@/hooks/useUserRole';
 
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
   const { isLoading: authLoading, restaurant } = useAuthContext();
+  const { isPremium } = useUserRole();
 
   // Scroll to top on mount/navigation
   useEffect(() => {
@@ -37,6 +40,13 @@ export default function RestaurantProfilePage() {
     );
   }
 
-  // O ProfileManagementLayout agora usa o AuthContext para obter os dados do restaurante
-  return <ProfileManagementLayout />;
+  return (
+    <div className="relative min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <ProfileManagementLayout />
+      
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+        <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
+      </div>
+    </div>
+  );
 }
