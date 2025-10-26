@@ -20,7 +20,8 @@ import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 const MenuManagement: React.FC = () => {
   const navigate = useNavigate();
   const { isLoading: authLoading } = useAuthContext();
-  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
+  // CORREÇÃO: Usando useAuth para obter restaurant
+  const { restaurant } = useAuth(); 
   const { isPremium } = useUserRole();
   const restaurantId = restaurant?.id || '';
 

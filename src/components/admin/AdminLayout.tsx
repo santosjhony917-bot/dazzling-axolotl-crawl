@@ -18,10 +18,9 @@ const navItems = [
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading: isAuthLoading, signOut } = useAuthContext();
-  const { isAdmin, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter isAdmin
-  
-  const isLoading = isAuthLoading || isProfileLoading;
+  const { user, signOut } = useAuthContext();
+  // CORREÇÃO: Usando useAuth para obter isAdmin e isLoading combinado
+  const { isAdmin, isLoading } = useAuth(); 
 
   if (isLoading) {
     return (

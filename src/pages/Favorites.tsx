@@ -123,7 +123,8 @@ const ItemFavoritesList: React.FC = () => {
 
 export default function Favorites() {
   const { user, isLoading: isAuthLoading } = useAuthContext();
-  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
+  // CORREÇÃO: Usar useAuth para obter restaurant
+  const { restaurant } = useAuth(); 
   const navigate = useNavigate();
   const isRestaurantUser = !!restaurant;
 

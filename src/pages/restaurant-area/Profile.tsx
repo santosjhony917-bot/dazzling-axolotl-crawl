@@ -12,7 +12,8 @@ import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
   const { isLoading: authLoading } = useAuthContext();
-  const { restaurant, isLoading: isRestaurantLoading } = useAuth(); // Usando useAuth para obter restaurant
+  // CORREÇÃO: Usando useAuth para obter restaurant
+  const { restaurant, isLoading: isRestaurantLoading } = useAuth(); 
   const { isPremium } = useUserRole();
   
   const isLoading = authLoading || isRestaurantLoading;

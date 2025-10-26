@@ -34,7 +34,8 @@ const mockRestaurantHighlights = [
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
-  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
+  // CORREÇÃO: Usar useAuth para obter restaurant
+  const { restaurant } = useAuth(); 
   const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
   

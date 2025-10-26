@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { User, LogOut, Utensils, Loader2 } from 'lucide-react';
@@ -10,9 +9,8 @@ import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importado
 import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function ClientProfilePage() {
-  const { user, isLoading: isAuthLoading, signOut } = useAuthContext();
-  const { restaurant, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter restaurant
-  const isLoading = isAuthLoading || isProfileLoading;
+  // Simplificando para usar useAuth para todos os estados derivados
+  const { user, isLoading, signOut, restaurant } = useAuth(); 
   const navigate = useNavigate();
 
   const handleLogout = async () => {

@@ -8,9 +8,9 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 export default function RestaurantArea() {
-  const { isAuthenticated, isLoading: isAuthLoading } = useAuthContext();
-  const { restaurant, isLoading: isProfileLoading } = useAuth(); // Usando useAuth para obter restaurant
-  const isLoading = isAuthLoading || isProfileLoading;
+  const { isAuthenticated } = useAuthContext();
+  // CORREÇÃO: Usando useAuth para obter restaurant e isLoading combinado
+  const { restaurant, isLoading } = useAuth(); 
   const location = useLocation();
 
   if (isLoading) {
