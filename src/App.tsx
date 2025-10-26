@@ -7,7 +7,7 @@ import ToastProvider from './components/ToastProvider';
 import Index from './pages/Index'; // Redireciona para Splash
 import Home from './pages/Home'; // Nova Home do Cliente
 import Splash from './pages/Splash';
-import AuthPage from './pages/AuthPage';
+import AuthComponent from './pages/Auth'; // Importando o componente customizado
 import ClientProfilePage from './pages/ClientProfilePage';
 import Favorites from './pages/Favorites';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
@@ -42,7 +42,7 @@ function App() {
         <Route path="/" element={<Index />} /> {/* Redireciona para Onboarding */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/auth" element={<AuthComponent />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
