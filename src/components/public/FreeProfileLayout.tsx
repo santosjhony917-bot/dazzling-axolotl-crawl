@@ -63,7 +63,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours);
   
-  // Mock state for followers (consistent mock value for Free profile)
+  // Mock state for followers (usando um valor fixo para o layout Free, mas garantindo que seja passado)
   const [followersCount, setFollowersCount] = useState(120); 
   
   const handleFollowToggle = () => {
@@ -83,7 +83,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    followersCount: followersCount,
+    followersCount: followersCount, // Passando o estado mockado
     logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
     onFollowToggle: handleFollowToggle,
   };
