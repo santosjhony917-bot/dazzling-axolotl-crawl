@@ -1,10 +1,10 @@
 import React from 'react';
-import { RestaurantProfile } from '@/types/supabase';
+import { Restaurant } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, MessageCircle, ShoppingBag } from 'lucide-react';
 
 interface FooterSectionProps {
-  restaurant: RestaurantProfile;
+  restaurant: Restaurant;
 }
 
 const FooterSection: React.FC<FooterSectionProps> = ({ restaurant }) => {

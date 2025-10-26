@@ -1,11 +1,11 @@
 import React from 'react';
-import { RestaurantProfile } from '@/types/supabase';
+import { Restaurant } from '@/types/supabase';
 import { MapPin, Phone, Share2, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface ProfileHeaderProps {
-  restaurant: RestaurantProfile;
+  restaurant: Restaurant;
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ restaurant }) => {

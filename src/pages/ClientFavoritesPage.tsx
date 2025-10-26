@@ -14,6 +14,11 @@ import { Button } from '@/components/ui/button';
 // O tipo FavoriteRestaurant é essencialmente o Restaurant que vem da tabela user_favorites
 interface FavoriteRestaurant extends Restaurant {}
 
+// Tipo intermediário retornado pela query do Supabase
+interface FavoriteQueryRow {
+  restaurant: Restaurant;
+}
+
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
 
 const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
@@ -27,7 +32,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => 
   }
 
   // Mapeia para retornar apenas o objeto Restaurant
-  return data.map(fav => fav.restaurant) as FavoriteRestaurant[];
+  return (data as FavoriteQueryRow[]).map(fav => fav.restaurant) as FavoriteRestaurant[];
 };
 
 const useRemoveFavorite = () => {

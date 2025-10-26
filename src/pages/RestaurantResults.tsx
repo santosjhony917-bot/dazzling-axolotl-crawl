@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MapPin, Utensils, Loader2, AlertTriangle } from 'lucide-react';
+import { MapPin, Utensils, Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { Card } from '@/components/ui/card';

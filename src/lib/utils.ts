@@ -11,3 +11,10 @@ export function formatPrice(price: number): string {
     currency: 'BRL',
   }).format(price);
 }
+
+export function formatDistance(km: number): string {
+  if (km < 1) {
+    return `${Math.round(km * 1000)} m`;
+  }
+  return `${km.toFixed(1)} km`;
+}

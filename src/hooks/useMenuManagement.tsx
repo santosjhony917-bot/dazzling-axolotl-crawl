@@ -11,6 +11,21 @@ interface MenuData {
   items: MenuItem[];
 }
 
+interface UseMenuManagementResult {
+  menuData: MenuData | undefined;
+  isLoading: boolean;
+  error: string | null;
+  invalidateMenu: () => void;
+  categoryMutations: {
+    save: ReturnType<typeof useMutation<void, Error, Partial<MenuCategory> & { restaurant_id: string }>>;
+    delete: ReturnType<typeof useMutation<void, Error, string>>;
+  };
+  itemMutations: {
+    save: ReturnType<typeof useMutation<void, Error, Partial<MenuItem> & { category_id: string }>>;
+    delete: ReturnType<typeof useMutation<void, Error, string>>;
+  };
+}
+
 // --- Query Key ---
 const MENU_QUERY_KEY = (restaurantId: string) => ['menu', restaurantId];
 
@@ -47,7 +62,7 @@ const fetchMenu = async (restaurantId: string): Promise<MenuData> => {
 };
 
 // --- Main Hook ---
-export function useMenuManagement(restaurantId: string | null) {
+export function useMenuManagement(restaurantId: string | null): UseMenuManagementResult {
   const queryClient = useQueryClient();
   const queryKey = restaurantId ? MENU_QUERY_KEY(restaurantId) : ['menu', 'null'];
 
@@ -63,8 +78,6 @@ export function useMenuManagement(restaurantId: string | null) {
       queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEY(restaurantId) });
     }
   }, [queryClient, restaurantId]);
-
-  // --- Mutations ---
 
   // 1. Adicionar/Editar Categoria
   const categoryMutation = useMutation({
@@ -163,7 +176,7 @@ export function useMenuManagement(restaurantId: string | null) {
   return {
     menuData: data,
     isLoading,
-    error,
+    error: error ? error.message : null,
     invalidateMenu,
     categoryMutations: {
       save: categoryMutation,

@@ -58,10 +58,10 @@ export default function FullMenuDisplay({ menu, loading }: FullMenuDisplayProps)
           </h2>
           <Card className={cn(
             "bg-white dark:bg-gray-800 shadow-lg",
-            category.menu_items.length > 0 ? "divide-y divide-gray-100 dark:divide-gray-700" : ""
+            category.items.length > 0 ? "divide-y divide-gray-100 dark:divide-gray-700" : ""
           )}>
-            {category.menu_items.length > 0 ? (
-              category.menu_items.map((item) => (
+            {category.items.length > 0 ? (
+              category.items.map((item) => (
                 <MenuItemCard key={item.id} item={item} />
               ))
             ) : (

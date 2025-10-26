@@ -1,10 +1,10 @@
 import React from 'react';
-import { RestaurantProfile } from '@/types/supabase';
+import { Restaurant } from '@/types/supabase';
 import { Phone, Mail, Tag, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface InfoSectionProps {
-  restaurant: RestaurantProfile;
+  restaurant: Restaurant;
 }
 
 const InfoSection: React.FC<InfoSectionProps> = ({ restaurant }) => {
