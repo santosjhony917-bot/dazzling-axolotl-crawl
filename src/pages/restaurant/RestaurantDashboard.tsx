@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3 } from 'lucide-react';
+import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass } from 'lucide-react';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
@@ -13,6 +13,9 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { showSuccess, showError } from '@/utils/toast';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
 
 // Mock Data
 const mockHighlights = [
@@ -31,20 +34,42 @@ const RestaurantDashboard = () => {
   const navigate = useNavigate();
   const { location, isLoading, refetch } = useUserSearchLocation();
   const { isPremium } = useUserRole();
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
 
   const handleLocationSaved = () => {
     refetch();
   };
   
-  const handleGoToStats = () => {
-    if (location.latitude === 0 && location.longitude === 0) {
-      alert("Por favor, defina sua localização de busca primeiro para ver estatísticas de concorrentes.");
+  const handleSearchByPrice = () => {
+    if (location.latitude === null || location.longitude === null) {
+      showError("Defina sua localização primeiro para usar o filtro de preço.");
       setIsLocationModalOpen(true);
       return;
     }
-    // Navega para a tela de busca, passando a localização salva como parâmetros
-    navigate(`/restaurant-area/stats?lat=${location.latitude}&lon=${location.longitude}`);
+    setIsPriceModalOpen(true);
+  };
+
+  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
+    navigate(createPageUrl('search-unified'));
+  };
+
+  const handleSearchNearby = () => {
+    if (location.latitude === null || location.longitude === null) {
+      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsDistanceModalOpen(true);
+  };
+  
+  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
+    navigate(createPageUrl('search-unified'));
   };
   
   const handleEditMenu = () => {
@@ -92,17 +117,17 @@ const RestaurantDashboard = () => {
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (Editar Cardápio / Ver Estatísticas) */}
+        {/* Ações Rápidas (BOTÕES DE BUSCA) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
-            title="Editar Cardápio" 
-            icon={Pencil} 
-            onClick={handleEditMenu}
+            title="Buscar Prato|por Preço" 
+            icon={DollarSign} 
+            onClick={handleSearchByPrice} // Abre o modal de preço
           />
           <ActionCard 
-            title="Ver Estatísticas" 
-            icon={BarChart3} 
-            onClick={handleGoToStats}
+            title="Buscar Restaurantes|Próximos" 
+            icon={Compass} 
+            onClick={handleSearchNearby} // Abre o modal de distância
           />
         </div>
 
@@ -138,7 +163,7 @@ const RestaurantDashboard = () => {
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleGoToStats}
+              onClick={handleSearchNearby}
             >
               Ver todos
             </Button>
@@ -147,7 +172,7 @@ const RestaurantDashboard = () => {
             {mockCompetitors.map((item) => (
               <NearbyCompetitorCard 
                 key={item.id} 
-                item={item} 
+                item={{...item, rating: 0}} // Removendo rating
                 onClick={handleViewCompetitor} 
               />
             ))}
@@ -164,6 +189,18 @@ const RestaurantDashboard = () => {
         onClose={() => setIsLocationModalOpen(false)}
         currentAddress={location.address}
         onLocationSaved={handleLocationSaved}
+      />
+      
+      {/* Modais de Filtro */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
+      />
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );
