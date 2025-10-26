@@ -1,10 +1,10 @@
 import { Session } from '@supabase/supabase-js';
 
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
 
 export interface Restaurant {
   id: string;
-  user_id: string;
+  user_id: string | null;
   name: string;
   description: string | null;
   image_url: string | null;
