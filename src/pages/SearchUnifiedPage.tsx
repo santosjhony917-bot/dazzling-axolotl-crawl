@@ -77,8 +77,9 @@ export default function SearchUnifiedPage() {
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    // Aqui você faria a busca real com os filtros
-    // Ex: navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
+    // Para fins de demonstração, navegamos para a página de resultados com a query de preço
+    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+    setIsPriceModalOpen(false);
   };
 
   const handleSearchNearby = () => {
@@ -91,8 +92,9 @@ export default function SearchUnifiedPage() {
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     showInfo(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
-    // Aqui você faria a busca real com os filtros
-    // Ex: navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}`);
+    // Para fins de demonstração, navegamos para a página de resultados com a query de distância
+    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+    setIsDistanceModalOpen(false);
   };
 
   const highlights = activeSearchType === 'dish' ? mockDishHighlights : mockRestaurantHighlights;
