@@ -38,7 +38,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ menuData }) => {
 
   // Agrupar itens por categoria
   const groupedItems = items.reduce((acc, item) => {
-    if (item.is_active) {
+    if (item && item.is_active) { // Adicionando verificação de item
       if (!acc[item.category_id]) {
         acc[item.category_id] = [];
       }
