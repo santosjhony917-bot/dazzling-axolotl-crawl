@@ -6,15 +6,15 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
-import ClientLayout from '@/components/ClientLayout';
+import ClientBottomNav from '@/components/ClientBottomNav'; // Importado
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthContext } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importando o nav do restaurante
-import { useUserRole } from '@/hooks/useUserRole'; // Importando o hook de role
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importado
+import { useUserRole } from '@/hooks/useUserRole';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -47,13 +47,6 @@ export default function SearchUnifiedPage() {
   const userLat = location.latitude;
   const userLon = location.longitude;
 
-  // Define as props obrigatórias para ClientLayout
-  const clientLayoutProps = { 
-    title: "Buscar", 
-    selectedTab: "search" as 'home' | 'search' | 'favorites' | 'profile', // Corrigido 'perfil' para 'profile'
-    showBackButton: true 
-  };
-  
   // Lógica de Busca
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,48 +174,27 @@ export default function SearchUnifiedPage() {
     </div>
   );
 
-  if (isRestaurantOwner) {
-    // Se for proprietário de restaurante, renderiza o conteúdo com um cabeçalho manual
-    return (
-      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-        {/* Cabeçalho Manual para Proprietários de Restaurante */}
-        <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleBack}
-            className="text-[#022D68] hover:bg-[#022D68]/5"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-          <div className="flex items-center gap-2">
-            <h2 className="text-[#022D68] text-xl font-bold">Busca</h2>
-          </div>
-          <div className="w-10"></div>
-        </header>
-        <main className="flex-1 w-full max-w-md mx-auto pb-20">
-          {pageContent}
-        </main>
-        
-        {/* Modais de Filtro */}
-        <SearchByPriceModal
-          isOpen={isPriceModalOpen}
-          onClose={() => setIsPriceModalOpen(false)}
-          onApplyFilter={handleApplyPriceFilter}
-        />
-        <SearchByDistanceModal
-          isOpen={isDistanceModalOpen}
-          onClose={() => setIsDistanceModalOpen(false)}
-          onApplyFilter={handleApplyDistanceFilter}
-        />
-      </div>
-    );
-  }
-
-  // Se for cliente, usa o ClientLayout
   return (
-    <ClientLayout {...clientLayoutProps}>
-      {pageContent}
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      {/* Cabeçalho Manual */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleBack}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <div className="flex items-center gap-2">
+          <h2 className="text-[#022D68] text-xl font-bold">Busca</h2>
+        </div>
+        <div className="w-10"></div>
+      </header>
+      
+      <main className="flex-1 w-full max-w-md mx-auto pb-20">
+        {pageContent}
+      </main>
       
       {/* Modais de Filtro */}
       <SearchByPriceModal
@@ -235,6 +207,13 @@ export default function SearchUnifiedPage() {
         onClose={() => setIsDistanceModalOpen(false)}
         onApplyFilter={handleApplyDistanceFilter}
       />
-    </ClientLayout>
+      
+      {/* Navegação Inferior Condicional */}
+      {isRestaurantOwner ? (
+        <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
+      ) : (
+        <ClientBottomNav selectedTab="search" />
+      )}
+    </div>
   );
 }
