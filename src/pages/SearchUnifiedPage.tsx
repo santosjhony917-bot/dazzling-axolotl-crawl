@@ -6,14 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
-import ClientBottomNav from '@/components/ClientBottomNav'; // Importado
+import ClientBottomNav from '@/components/ClientBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthContext } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importado
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
 
 type SearchType = 'dish' | 'restaurant';
@@ -56,12 +56,7 @@ export default function SearchUnifiedPage() {
     }
     
     // Navega para a página de resultados, passando a localização, a query e o tipo de busca
-    navigate(createPageUrl('restaurantResults', {
-      lat: userLat.toString(),
-      lng: userLon.toString(),
-      query: searchQuery || undefined,
-      type: activeSearchType,
-    }));
+    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
   };
   
   const handleItemClick = (itemId: string, type: SearchType) => {
@@ -81,8 +76,9 @@ export default function SearchUnifiedPage() {
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}.`);
+    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
     // Aqui você faria a busca real com os filtros
+    // Ex: navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
   };
 
   const handleSearchNearby = () => {
@@ -96,6 +92,7 @@ export default function SearchUnifiedPage() {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     showInfo(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
     // Aqui você faria a busca real com os filtros
+    // Ex: navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}`);
   };
 
   const highlights = activeSearchType === 'dish' ? mockDishHighlights : mockRestaurantHighlights;
@@ -127,13 +124,12 @@ export default function SearchUnifiedPage() {
           />
         </div>
         <Button 
-          type="button" 
-          onClick={() => navigate(createPageUrl('search-restaurants'))} // Abre a tela de filtros avançados
+          type="submit" // Alterado para submit para iniciar a busca
           size="icon" 
-          variant="outline" 
-          className="h-12 w-12 rounded-xl shrink-0 border-gray-300 text-primary hover:bg-gray-100"
+          variant="highlight" 
+          className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90"
         >
-          <Filter className="w-5 h-5" />
+          <ChevronRight className="w-5 h-5" />
         </Button>
       </form>
       

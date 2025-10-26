@@ -15,7 +15,7 @@ import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { ScrollArea } from '@/components/ui/scroll-area'; // Importando ScrollArea
+import { ScrollArea } from '@/components/ui/scroll-area';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 
 const Home: React.FC = () => {
@@ -26,7 +26,6 @@ const Home: React.FC = () => {
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  // CORREÇÃO: Desestruturando userLat e userLon de location
   const userLat = location.latitude;
   const userLon = location.longitude;
 
@@ -55,25 +54,16 @@ const Home: React.FC = () => {
     setIsLocationModalOpen(false);
   };
   
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (userLat === null || userLon === null) {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // Redireciona para a página de busca unificada
-    navigate(createPageUrl('search-unified'));
+    // Redireciona para a página de resultados com a query
+    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=restaurant&address=${encodeURIComponent(location.address)}`);
   };
 
-  const handleOpenSearchConfig = () => {
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
-      return;
-    }
-    // Navega para a página de busca unificada
-    navigate(createPageUrl('search-unified'));
-  };
-  
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de preço.");
@@ -128,13 +118,33 @@ const Home: React.FC = () => {
           </div>
         </div>
         
-        {/* Barra de Busca e Ações Rápidas removidas */}
+        {/* Barra de Busca Principal */}
+        <form onSubmit={handleSearchSubmit} className="flex gap-2 mt-4">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Input
+              type="text"
+              placeholder="Buscar por prato ou restaurante..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 h-12 rounded-xl"
+            />
+          </div>
+          <Button 
+            type="submit" 
+            size="icon" 
+            variant="highlight" 
+            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90"
+          >
+            <Search className="w-5 h-5" />
+          </Button>
+        </form>
         
       </header>
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (BOTÕES DE BUSCA) - RESTAURADO */}
+        {/* Ações Rápidas (Filtros) */}
         <div className="flex gap-4 pt-2">
           <Button 
             onClick={handleSearchByPrice}
