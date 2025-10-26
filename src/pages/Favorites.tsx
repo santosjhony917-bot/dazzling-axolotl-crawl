@@ -10,30 +10,37 @@ import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
-import ClientBottomNav from '@/components/ClientBottomNav'; // Importado
+import ClientBottomNav from '@/components/ClientBottomNav';
 
 // O tipo FavoriteRestaurant é essencialmente o Restaurant que vem da tabela user_favorites
 interface FavoriteRestaurant extends Restaurant {}
 
 // Tipo intermediário retornado pela query do Supabase
 interface FavoriteQueryRow {
-  restaurant: Restaurant;
+  restaurant_id: string;
+  restaurants: Restaurant; // O nome da relação é 'restaurants'
 }
 
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
 
 const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
+  // Busca a relação direta, onde 'restaurants' é o nome da foreign key relationship
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant:restaurants(*)')
+    .select(`
+      restaurant_id,
+      restaurants (*)
+    `)
     .eq('user_id', userId);
 
   if (error) {
     throw error;
   }
 
-  // Mapeia para retornar apenas o objeto Restaurant
-  return (data as unknown as FavoriteQueryRow[]).map(fav => fav.restaurant) as FavoriteRestaurant[];
+  // Mapeia para retornar apenas o objeto Restaurant, filtrando nulos
+  return (data as unknown as FavoriteQueryRow[])
+    .map(fav => fav.restaurants)
+    .filter((r): r is FavoriteRestaurant => !!r);
 };
 
 const useRemoveFavorite = () => {
@@ -89,7 +96,7 @@ export default function FavoritesPage() {
     return (
       <div className="p-4 text-center">
         <AlertTriangle className="w-6 h-6 mx-auto text-red-500 mb-2" />
-        <p className="text-red-600">Erro ao carregar favoritos.</p>
+        <p className="text-red-600">Erro ao carregar favoritos: {error.message}</p>
       </div>
     );
   }
