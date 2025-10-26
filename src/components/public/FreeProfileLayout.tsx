@@ -63,8 +63,8 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours);
   
-  // Mock state for followers (since we don't have a table yet)
-  const [followersCount, setFollowersCount] = useState(0); 
+  // Mock state for followers (consistent mock value for Free profile)
+  const [followersCount, setFollowersCount] = useState(120); 
   
   const handleFollowToggle = () => {
     // Mock logic for following

@@ -170,7 +170,7 @@ const AdditionalInfo: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) =>
 // Componente principal do layout Premium
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
   const [activeTab, setActiveTab] = useState('menu');
-  const [followersCount, setFollowersCount] = useState(1200); // Mock
+  const [followersCount, setFollowersCount] = useState(1200); // Mock para Premium
   
   const { menu, loading: menuLoading } = useRestaurantMenu(restaurant.id);
   const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);

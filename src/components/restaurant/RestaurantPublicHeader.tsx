@@ -12,7 +12,7 @@ interface RestaurantPublicHeaderProps {
   restaurant: {
     id: string;
     name: string;
-    followersCount: number;
+    followersCount: number; // Usando a contagem real/mockada passada via prop
     logoUrl: string;
     onFollowToggle: () => void; // Adicionado para o botão Seguir
   };
@@ -91,7 +91,7 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       {/* Nome e Seguidores (Centralizados) */}
       <div className="mt-2 pb-4 border-b border-gray-100 text-center">
         <h1 className="text-2xl font-extrabold text-gray-900">{name}</h1>
-        <p className="text-sm text-gray-500 mt-1">{followersCount} seguidores</p>
+        <p className="text-sm text-gray-500 mt-1">{followersCount.toLocaleString('pt-BR')} seguidores</p>
       </div>
     </div>
   );
