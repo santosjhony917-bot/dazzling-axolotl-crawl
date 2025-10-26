@@ -60,7 +60,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
                     return (
                       <li key={index} className="flex items-center gap-2">
                         <Icon className="w-4 h-4 text-amber-500 fill-amber-100 dark:fill-amber-900" />
-                        {feature.label}
+                        {feature.text}
                       </li>
                     );
                   })}
