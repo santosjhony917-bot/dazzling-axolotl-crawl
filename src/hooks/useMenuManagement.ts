@@ -177,8 +177,6 @@ export const useCategoryMutations = (restaurantId: string) => {
 
 // --- Hooks de Item ---
 
-// ... (Funções de API para itens de menu - mantidas como estão)
-
 const fetchMenuItems = async (categoryId: string): Promise<MenuItem[]> => {
   const { data, error } = await supabase
     .from('menu_items')
