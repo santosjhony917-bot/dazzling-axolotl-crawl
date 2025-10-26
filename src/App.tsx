@@ -13,6 +13,8 @@ import RestaurantProfile from './pages/RestaurantProfile';
 import SearchUnified from './pages/SearchUnified';
 import MenuItemDetails from './pages/MenuItemDetails';
 import HelpCenter from './pages/HelpCenter';
+import Onboarding from './pages/Onboarding'; // Importando Onboarding
+import Welcome from './pages/Welcome'; // Importando Welcome
 
 // Restaurant Area Pages
 import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
@@ -33,6 +35,8 @@ function App() {
       <Routes>
         {/* Rotas Públicas/Gerais */}
         <Route path="/" element={<Splash />} /> {/* Rota raiz agora é Splash */}
+        <Route path="/onboarding" element={<Onboarding />} /> {/* Adicionando Onboarding */}
+        <Route path="/welcome" element={<Welcome />} /> {/* Adicionando Welcome */}
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfile />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
@@ -40,7 +44,7 @@ function App() {
 
         {/* Rotas Protegidas (Cliente) */}
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
-          <Route path="/home" element={<Index />} /> {/* /home agora usa Index.tsx (ClientHome) */}
+          <Route path="/home" element={<Index />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/search-unified" element={<SearchUnified />} />
