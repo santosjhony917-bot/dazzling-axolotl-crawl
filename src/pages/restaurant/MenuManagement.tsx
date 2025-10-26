@@ -14,6 +14,7 @@ import CategoryAccordion from '@/components/restaurant/menu/CategoryAccordion';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import { showError } from '@/utils/toast';
 
 const MenuManagement: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +45,10 @@ const MenuManagement: React.FC = () => {
   };
 
   const handleSaveCategory = useCallback(async (data: CategoryFormValues) => {
-    if (!restaurantId) return;
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado.");
+      return;
+    }
 
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({
