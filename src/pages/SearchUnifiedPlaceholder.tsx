@@ -1,7 +1,7 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 
-const SearchUnified: React.FC = () => {
+const SearchUnifiedPlaceholder: React.FC = () => {
   return (
     <div className="p-4 max-w-md mx-auto text-center">
       <Search className="w-12 h-12 text-primary mx-auto mt-10 mb-4" />
@@ -11,4 +11,4 @@ const SearchUnified: React.FC = () => {
   );
 };
 
-export default SearchUnified;
+export default SearchUnifiedPlaceholder;

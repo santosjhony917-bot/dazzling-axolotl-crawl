@@ -10,7 +10,7 @@ import AuthPage from './pages/AuthPage';
 import ClientProfilePage from './pages/ClientProfilePage';
 import Favorites from './pages/Favorites';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic'; // Importando o componente correto
-import SearchUnified from './pages/SearchUnified';
+import SearchUnifiedPage from './pages/SearchUnifiedPage'; // Importando o componente correto
 import MenuItemDetails from './pages/MenuItemDetails';
 import HelpCenter from './pages/HelpCenter';
 import Onboarding from './pages/Onboarding'; // Importando Onboarding
@@ -42,7 +42,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} /> {/* CORRIGIDO */}
+        <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
         
@@ -57,7 +57,7 @@ function App() {
           <Route path="/home" element={<Index />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/search-unified" element={<SearchUnified />} />
+          <Route path="/search-unified" element={<SearchUnifiedPage />} /> {/* USANDO O COMPONENTE CORRETO */}
         </Route>
 
         {/* Rotas Protegidas (Área do Restaurante) */}
