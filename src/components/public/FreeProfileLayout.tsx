@@ -5,7 +5,7 @@ import InfoSection from './InfoSection';
 import MenuSection from './MenuSection';
 import GallerySection from './GallerySection';
 import FooterSection from './FooterSection';
-import { useMenuManagement, UseMenuManagementResult } from '@/hooks/useMenuManagement';
+import { useMenuManagement } from '@/hooks/useMenuManagement';
 import { Loader2 } from 'lucide-react';
 
 interface FreeProfileLayoutProps {
