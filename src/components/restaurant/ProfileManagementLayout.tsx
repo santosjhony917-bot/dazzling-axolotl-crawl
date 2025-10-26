@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { Loader2, AlertTriangle, Crown, ArrowLeft } from 'lucide-react';
+import { Loader2, AlertTriangle, Crown, ArrowLeft, Eye } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { showError } from '@/utils/toast';
@@ -134,6 +134,12 @@ export default function ProfileManagementLayout() {
       showError("Falha ao salvar os horários.");
     }
   }, [updateRestaurant]);
+  
+  const handleViewPublicProfile = () => {
+    if (restaurant?.id) {
+      navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }));
+    }
+  };
 
   // --- Dados Derivados ---
   const currentSchedule = useMemo(() => {
@@ -202,6 +208,16 @@ export default function ProfileManagementLayout() {
           onLogoUploadComplete={handleLogoUploadComplete}
           restaurantId={restaurant.id}
         />
+        
+        {/* Botão Ver Perfil Público */}
+        <Button
+          onClick={handleViewPublicProfile}
+          variant="outline"
+          className="w-full h-12 rounded-xl border-2 border-highlight text-highlight font-bold hover:bg-highlight/5"
+        >
+          <Eye className="w-5 h-5 mr-2" />
+          Ver Perfil Público
+        </Button>
         
         {/* Seção 1: Informações Básicas */}
         <BasicInfoSection
