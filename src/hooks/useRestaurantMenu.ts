@@ -19,6 +19,7 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
     setMenuError(null);
 
     try {
+      // Busca categorias ativas (ou nulas) e itens ativos aninhados
       const { data, error } = await supabase
         .from('menu_categories')
         .select(`
@@ -32,23 +33,26 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
             *
           )
         `)
-        .eq('restaurant_id', id)
         // Filtra categorias ativas (ou nulas, tratando null como ativo)
         .or('is_active.eq.true,is_active.is.null') 
-        .order('order_index', { ascending: true })
-        .order('order_index', { foreignTable: 'items', ascending: true }); // Usando o alias 'items'
+        .eq('restaurant_id', id)
+        .order('order_index', { ascending: true });
 
       if (error) {
         throw new Error(error.message);
       }
 
-      // 1. Cast para o tipo correto (agora que usamos o alias 'items')
+      // 1. Cast para o tipo correto
       const rawData = data as MenuCategoryWithItems[];
 
-      // 2. Filtragem de itens inativos no cliente
+      // 2. Filtragem de itens inativos no cliente (necessário porque o filtro aninhado não é trivial com OR)
+      // Vamos manter a filtragem no cliente, mas garantir que a ordenação dos itens seja aplicada.
       const filteredData = rawData.map(category => {
         // Garantindo que category.items seja tratado como MenuItem[]
-        const activeItems = (category.items as MenuItem[]).filter(item => item.is_active !== false);
+        const activeItems = (category.items as MenuItem[])
+          .filter(item => item.is_active !== false)
+          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0)); // Ordena itens localmente
+          
         return {
           ...category,
           items: activeItems,
