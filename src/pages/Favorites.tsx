@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Utensils, MapPin, Loader2, ArrowLeft, DollarSign } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
 import { useUserFavoritesList } from '@/hooks/useUserFavoritesList'; // Restaurantes seguidos
 import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites'; // Itens favoritos
 import { Card, CardContent } from '@/components/ui/card';
@@ -17,7 +16,7 @@ import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 // Componente para listar Restaurantes Seguidos
 const RestaurantFavoritesList: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
   const { favorites, isLoading, error } = useUserFavoritesList();
-  const { user } = useAuthContext();
+  const { user } = useAuth(); // Usando useAuth
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-40"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>;
@@ -122,9 +121,8 @@ const ItemFavoritesList: React.FC = () => {
 
 
 export default function Favorites() {
-  const { user, isLoading: isAuthLoading } = useAuthContext();
-  // CORREÇÃO: Usar useAuth para obter restaurant
-  const { restaurant } = useAuth(); 
+  const { user, isLoading: isAuthLoading } = useAuth(); // Usando useAuth
+  const { restaurant } = useAuth(); // Usando useAuth para obter restaurant
   const navigate = useNavigate();
   const isRestaurantUser = !!restaurant;
 
