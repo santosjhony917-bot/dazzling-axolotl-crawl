@@ -8,7 +8,7 @@ import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLa
 
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading, restaurant } = useAuthContext();
+  const { isLoading: authLoading, restaurant } = useAuthContext();
 
   // Scroll to top on mount/navigation
   useEffect(() => {
@@ -37,6 +37,6 @@ export default function RestaurantProfilePage() {
     );
   }
 
-  // O ProfileManagementLayout agora busca os dados do restaurante usando useParams
+  // O ProfileManagementLayout agora usa o AuthContext para obter os dados do restaurante
   return <ProfileManagementLayout />;
 }
