@@ -5,10 +5,13 @@ import { useGalleryManagement } from '@/hooks/useGalleryManagement';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle } from 'lucide-react';
+import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { ImageUploadButton } from '@/components/ImageUploadButton';
+import GalleryImageCard from '@/components/restaurant/GalleryImageCard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
@@ -24,35 +27,31 @@ export default function GalleryManagement() {
     isMutating 
   } = useGalleryManagement(restaurantId);
 
-  const [newImageUrl, setNewImageUrl] = useState('');
-  const [newCaption, setNewCaption] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleAddImage = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!restaurantId || !newImageUrl) {
-      showError("URL da imagem e ID do restaurante são obrigatórios.");
-      return;
-    }
-
+  const handleUploadComplete = useCallback(async (url: string) => {
+    if (!restaurantId) return;
+    
+    setIsUploading(true);
     try {
+      // Adiciona a imagem à tabela da galeria
       await addGalleryImage({ 
         restaurant_id: restaurantId, 
-        image_url: newImageUrl, 
-        caption: newCaption || null 
+        image_url: url, 
+        caption: null 
       });
-      showSuccess("Imagem adicionada à galeria!");
-      setNewImageUrl('');
-      setNewCaption('');
+      showSuccess("Foto adicionada à galeria!");
     } catch (error) {
-      showError("Falha ao adicionar imagem.");
+      showError("Falha ao salvar a foto no banco de dados.");
+    } finally {
+      setIsUploading(false);
     }
-  }, [restaurantId, newImageUrl, newCaption, addGalleryImage]);
+  }, [restaurantId, addGalleryImage]);
 
   const handleDeleteImage = useCallback(async (imageId: string) => {
     if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
       try {
         await deleteGalleryImage(imageId);
-        showSuccess("Imagem removida com sucesso.");
       } catch (error) {
         showError("Falha ao remover imagem.");
       }
@@ -62,7 +61,6 @@ export default function GalleryManagement() {
   const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
     try {
       await updateGalleryImage(imageId, { caption: newCaption });
-      showSuccess("Legenda atualizada.");
     } catch (error) {
       showError("Falha ao atualizar legenda.");
     }
@@ -90,9 +88,14 @@ export default function GalleryManagement() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto p-4 max-w-4xl space-y-6">
+      <Button variant="link" onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))} className="mb-4 pl-0">
+        <ArrowLeft className="w-4 h-4 mr-2" />
+        Voltar para Perfil
+      </Button>
+      
       <h1 className="text-3xl font-bold text-primary">Gerenciar Galeria de Fotos</h1>
-      <p className="text-gray-600">Adicione, edite ou remova fotos que aparecerão no perfil público do seu restaurante.</p>
+      <p className="text-gray-600">Adicione fotos que aparecerão no perfil público do seu restaurante. (Recurso Premium)</p>
 
       {/* Adicionar Nova Imagem */}
       <Card>
@@ -102,35 +105,17 @@ export default function GalleryManagement() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleAddImage} className="space-y-4">
-            <div>
-              <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">URL da Imagem</label>
-              <Input
-                id="imageUrl"
-                type="url"
-                placeholder="https://exemplo.com/foto.jpg"
-                value={newImageUrl}
-                onChange={(e) => setNewImageUrl(e.target.value)}
-                required
-                disabled={isMutating}
-              />
-            </div>
-            <div>
-              <label htmlFor="caption" className="block text-sm font-medium text-gray-700 mb-1">Legenda (Opcional)</label>
-              <Input
-                id="caption"
-                type="text"
-                placeholder="Uma breve descrição da foto"
-                value={newCaption}
-                onChange={(e) => setNewCaption(e.target.value)}
-                disabled={isMutating}
-              />
-            </div>
-            <Button type="submit" disabled={isMutating || !newImageUrl}>
-              {isMutating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
-              Adicionar à Galeria
-            </Button>
-          </form>
+          <div className="flex items-center gap-4">
+            <ImageUploadButton
+              onUploadComplete={handleUploadComplete}
+              bucketName={RESTAURANT_IMAGES_BUCKET}
+              folderPath={`${restaurantId}/gallery`}
+              className="h-12 w-full flex-1 bg-primary hover:bg-primary/90"
+              icon={isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+            >
+              {isUploading ? "Enviando..." : "Selecionar e Enviar Foto"}
+            </ImageUploadButton>
+          </div>
         </CardContent>
       </Card>
 
@@ -143,35 +128,18 @@ export default function GalleryManagement() {
         </CardHeader>
         <CardContent>
           {gallery.length === 0 ? (
-            <p className="text-gray-500">Nenhuma foto na galeria ainda.</p>
+            <p className="text-gray-500">Nenhuma foto na galeria ainda. Use o botão acima para adicionar.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {gallery.map((image) => (
-                <div key={image.id} className="relative border rounded-lg overflow-hidden bg-gray-50">
-                  <img 
-                    src={image.image_url || PLACEHOLDER_IMAGE_URL} 
-                    alt={image.caption || 'Foto da Galeria'} 
-                    className="w-full h-40 object-cover"
-                  />
-                  <div className="p-3 space-y-2">
-                    <Input
-                      type="text"
-                      placeholder="Adicionar legenda"
-                      defaultValue={image.caption || ''}
-                      onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
-                      disabled={isMutating}
-                    />
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      className="w-full"
-                      onClick={() => handleDeleteImage(image.id)}
-                      disabled={isMutating}
-                    >
-                      <Trash2 className="w-4 h-4 mr-2" /> Remover
-                    </Button>
-                  </div>
-                </div>
+                <GalleryImageCard 
+                  key={image.id} 
+                  image={image} 
+                  onDelete={handleDeleteImage}
+                  onUpdateCaption={handleUpdateCaption}
+                  isDeleting={isMutating}
+                  isUpdating={isMutating}
+                />
               ))}
             </div>
           )}
