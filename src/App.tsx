@@ -42,6 +42,7 @@ import Splash from './pages/Splash';
 import RestaurantSearch from './pages/restaurant/Search';
 import ClientProfilePage from './pages/ClientProfilePage';
 import SearchUnifiedPage from './pages/SearchUnifiedPage';
+import ClientFavoritesPage from './pages/ClientFavoritesPage'; // Importando a página correta
 
 function App() {
   return (
@@ -88,18 +89,17 @@ function App() {
           <Route element={<ProtectedRoute requiredRole="authenticated" />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<ClientProfilePage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/favorites" element={<ClientFavoritesPage />} />
           </Route>
           
           {/* Protected Restaurant Area Routes */}
           <Route path="/restaurant-area" element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantArea />} />}>
             <Route path="home" element={<RestaurantDashboardPage />} />
-            <Route path="profile-menu" element={<RestaurantProfileManagementPage />} /> {/* CORRIGIDO AQUI */}
+            <Route path="profile-menu" element={<RestaurantProfileManagementPage />} />
             <Route path="upgrade" element={<UpgradePage />} />
             <Route path="gallery" element={<GalleryManagement />} />
             <Route path="help" element={<HelpCenter />} />
             <Route path="menu" element={<RestaurantMenuManagement />} />
-            {/* Rota de categorias removida */}
           </Route>
 
           {/* Catch all - 404 */}

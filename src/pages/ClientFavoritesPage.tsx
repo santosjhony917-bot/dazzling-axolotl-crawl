@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Heart, Utensils, MapPin, Loader2, AlertTriangle } from 'lucide-react';
+import { Heart, Utensils, MapPin, Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import AppHeader from '@/components/AppHeader';
+import AppHeader from '@/components/Header';
 import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
@@ -89,7 +89,10 @@ export default function ClientFavoritesPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <AppHeader title="Meus Favoritos" backPath="/home" />
+      <AppHeader 
+        title="Meus Favoritos" 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+      />
 
       <main className="p-4 space-y-4">
         <Card className="shadow-sm border-none">

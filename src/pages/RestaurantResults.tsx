@@ -6,7 +6,7 @@ import { Restaurant } from '@/types/supabase';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import AppHeader from '@/components/AppHeader';
+import AppHeader from '@/components/Header';
 import { formatDistance } from '@/lib/utils';
 
 // Tipo que a função find_nearby_restaurants retorna
@@ -86,7 +86,10 @@ export default function RestaurantResultsPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <AppHeader title="Resultados da Busca" backPath="/search-unified" />
+      <AppHeader 
+        title="Resultados da Busca" 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+      />
 
       <main className="p-4 space-y-4">
         <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
