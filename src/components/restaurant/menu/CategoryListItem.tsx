@@ -12,15 +12,20 @@ interface CategoryListItemProps {
   category: MenuCategory;
   onEdit: (category: MenuCategory) => void;
   onDelete: (categoryId: string) => void;
-  // Removendo props de reordenação explícita
+  onReorder: (categoryId: string, direction: 'up' | 'down') => void; // Adicionado
   isExpanded: boolean;
+  isFirst: boolean; // Adicionado
+  isLast: boolean; // Adicionado
 }
 
 export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   category,
   onEdit,
   onDelete,
+  onReorder, // Adicionado
   isExpanded,
+  isFirst, // Adicionado
+  isLast, // Adicionado
 }) => {
   const { updateCategoryMutation } = useCategoryMutations(category.restaurant_id);
   const isUpdating = updateCategoryMutation.isPending;
@@ -60,6 +65,26 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
 
       {/* Botões de Ação */}
       <div className="flex space-x-2 items-center shrink-0">
+        {/* Botões de Reordenação */}
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onReorder(category.id, 'up'); }} 
+          title="Mover para cima"
+          disabled={isFirst || isUpdating}
+        >
+          <ArrowUp className="h-4 w-4" />
+        </Button>
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onReorder(category.id, 'down'); }} 
+          title="Mover para baixo"
+          disabled={isLast || isUpdating}
+        >
+          <ArrowDown className="h-4 w-4" />
+        </Button>
+        
         {/* Botões de Edição e Deleção */}
         <Button variant="outline" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(category); }} title="Editar">
           <Edit className="w-4 h-4" />

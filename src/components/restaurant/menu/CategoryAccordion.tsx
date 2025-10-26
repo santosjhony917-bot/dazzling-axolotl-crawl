@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/accordion';
 import { MenuCategory, MenuItem } from '@/types';
 import { CategoryListItem } from './CategoryListItem';
-import { useCategoryMutations, useMenuItemManagement } from '@/hooks/useMenuManagement';
+import { useCategoryMutations, useMenuItemManagement } from '@/hooks/useMenuManagement.ts';
 import { Button } from '@/components/ui/button';
 import { Plus, Loader2, AlertTriangle } from 'lucide-react';
 import MenuItemFormDialog, { MenuItemFormValues } from './MenuItemFormDialog';
@@ -30,7 +30,7 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
   onEditCategory,
   onDeleteCategory,
 }) => {
-  // Removido useCategoryReorder
+  const { swapCategoryOrderMutation } = useCategoryMutations(restaurantId);
   const [activeCategoryIds, setActiveCategoryIds] = useState<string[]>([]);
   
   // Estado para gerenciamento de itens
@@ -52,6 +52,7 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
   
   const isItemSaving = createItemMutation.isPending || updateItemMutation.isPending;
   const isItemDeleting = deleteItemMutation.isPending;
+  const isReordering = swapCategoryOrderMutation.isPending;
 
   // --- Item Management Handlers ---
   
@@ -98,6 +99,20 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
     }
   };
   
+  // --- Reorder Handler ---
+  const handleReorderCategory = (categoryId: string, direction: 'up' | 'down') => {
+    const currentIndex = categories.findIndex(c => c.id === categoryId);
+    if (currentIndex === -1) return;
+
+    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= categories.length) return;
+
+    const category_id_a = categoryId;
+    const category_id_b = categories[targetIndex].id;
+    
+    swapCategoryOrderMutation.mutate({ category_id_a, category_id_b });
+  };
+
   // --- Accordion Change Handler ---
   const handleAccordionChange = (value: string[]) => {
     setActiveCategoryIds(value);
@@ -137,7 +152,10 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
                   category={category}
                   onEdit={onEditCategory}
                   onDelete={onDeleteCategory}
+                  onReorder={handleReorderCategory} // Passando o handler de reordenação
                   isExpanded={isExpanded}
+                  isFirst={index === 0}
+                  isLast={index === categories.length - 1}
                 />
               </AccordionTrigger>
               
