@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuthContext } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
+import { useAuth } from '@/hooks/useAuth'; // Usando useAuth
 
 interface ProtectedRouteProps {
   requiredRole?: 'admin' | 'restaurant_owner' | 'authenticated';
@@ -13,7 +13,7 @@ interface ProtectedRouteProps {
 const CUSTOMER_ROUTES = ['/home', '/profile', '/favorites']; // /search-unified REMOVIDO
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authenticated', element }) => {
-  const { user, isLoading, isAdmin, restaurant } = useAuthContext();
+  const { user, isLoading, isAdmin, restaurant, isAuthenticated } = useAuth(); // Usando useAuth
   const location = useLocation();
 
   if (isLoading) {
@@ -24,7 +24,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
     );
   }
 
-  if (!user) {
+  if (!isAuthenticated) {
     // If not authenticated, redirect to login/auth page
     return <Navigate to={createPageUrl('auth')} state={{ from: location }} replace />;
   }
@@ -53,7 +53,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
 
   if (!hasRequiredRole) {
     // Redirect to a generic unauthorized page or home
-    console.warn(`Access denied: User ${user.email} does not have required role: ${requiredRole}`);
+    console.warn(`Access denied: User ${user?.email} does not have required role: ${requiredRole}`);
     
     // Specific redirect logic for common unauthorized attempts
     if (requiredRole === 'admin') {

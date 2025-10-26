@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { Loader2, AlertTriangle, Crown, ArrowLeft, Eye } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth'; // Usando useAuth
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
@@ -16,10 +16,10 @@ import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import MainProfileCard from './profile/MainProfileCard';
 import BasicInfoSection from './profile/BasicInfoSection';
 import LocationHoursSection from './profile/LocationHoursSection';
-import SalesChannelsSection from './profile/SalesChannelsSection';
-import ContentManagementSection from './profile/ContentManagementSection';
+import SalesChannelsSection from './profile/profile/SalesChannelsSection';
+import ContentManagementSection from './profile/profile/ContentManagementSection';
 import SubscriptionCard from './profile/SubscriptionCard';
-import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
+import SubscriptionSupportSection from './profile/profile/SubscriptionSupportSection';
 import FollowerCountCard from './profile/FollowerCountCard'; // NOVO IMPORT
 
 // Diálogos de Edição
@@ -57,8 +57,10 @@ const phoneMask = (value: string) => {
 
 export default function ProfileManagementLayout() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthContext();
-  const { updateRestaurant, isUpdating } = useRestaurantProfile();
+  // Usando useAuth para obter o estado de autenticação e roles
+  const { isLoading: authLoading, isPremium, refetchProfile } = useAuth(); 
+  // Usando useRestaurantProfile para obter o restaurante e mutações
+  const { restaurant, isLoading: isRestaurantLoading, updateRestaurant, isUpdating } = useRestaurantProfile();
 
   // --- Estado para Edição de Campo Único ---
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
@@ -89,7 +91,7 @@ export default function ProfileManagementLayout() {
     mask?: (value: string) => string,
     placeholder?: string,
   ) => {
-    // CORREÇÃO 6: Cast key para unknown para permitir a comparação com as chaves de link
+    // Cast key para unknown para permitir a comparação com as chaves de link
     const keyAsString = key as unknown as string;
     
     // Se não for Premium e o campo for um link externo, bloqueia
@@ -159,7 +161,7 @@ export default function ProfileManagementLayout() {
   }, [restaurant?.opening_hours]);
 
   // --- Renderização de Carregamento/Erro ---
-  if (authLoading || isUpdating) {
+  if (authLoading || isRestaurantLoading || isUpdating) {
     return (
       <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
