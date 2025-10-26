@@ -38,7 +38,7 @@ const RestaurantDashboard = () => {
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState(''); // Adicionado para consistência
+  const [searchQuery, setSearchQuery] = React.useState(''); // Mantido, mas não usado na UI
 
   const handleLocationSaved = () => {
     refetch();
@@ -120,36 +120,8 @@ const RestaurantDashboard = () => {
           </Button>
         </div>
         
-        {/* Barra de Busca (Adicionada para consistência com Home do Cliente) */}
-        <form onSubmit={handleSearch} className="mt-4 flex gap-2">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-            <Input
-              type="text"
-              placeholder="Buscar pratos ou restaurantes..."
-              className="w-full pl-10 h-12 text-base rounded-full"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <Button size="icon" variant="outline" className="h-12 w-12 rounded-full shrink-0" onClick={handleOpenSearchConfig}>
-              <Filter className="w-5 h-5" />
-          </Button>
-        </form>
+        {/* Barra de Busca e Ações Rápidas removidas */}
         
-        {/* Ações Rápidas (BOTÕES DE BUSCA) */}
-        <div className="flex gap-4 pt-4">
-          <ActionCard 
-            title="Buscar Prato|por Preço" 
-            icon={DollarSign} 
-            onClick={handleSearchByPrice} // Abre o modal de preço
-          />
-          <ActionCard 
-            title="Buscar Restaurantes|Próximos" 
-            icon={Compass} 
-            onClick={handleSearchNearby} // Abre o modal de distância
-          />
-        </div>
       </header>
 
       <main className="p-4 space-y-6">
