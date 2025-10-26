@@ -28,21 +28,19 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         
         {/* Imagem de Capa - SUBSTITUÍDA POR FUNDO CINZA */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-          <div className="text-gray-500 text-sm font-medium">
-            Capa Exclusiva Premium
-          </div>
+          {/* Removido o texto "Capa Exclusiva Premium" */}
+        </div>
+
+        <div className="p-4 pt-14 space-y-6">
           
           {/* Logo do Restaurante - SUBSTITUÍDA POR ÍCONE GENÉRICO */}
           <div
-            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10 
+            className="absolute -top-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10 
                        bg-highlight flex items-center justify-center"
           >
             {/* Corrigido para usar o ícone Utensils */}
             <Utensils className="w-10 h-10 text-white" />
           </div>
-        </div>
-
-        <div className="p-4 pt-14 space-y-6">
           
           {/* Nome e Descrição */}
           <div className="space-y-1">
