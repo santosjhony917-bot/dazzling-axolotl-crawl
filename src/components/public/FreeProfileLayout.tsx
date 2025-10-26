@@ -37,6 +37,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10 
                        bg-highlight flex items-center justify-center"
           >
+            {/* Corrigido para usar o ícone Utensils */}
             <Utensils className="w-10 h-10 text-white" />
           </div>
         </div>
