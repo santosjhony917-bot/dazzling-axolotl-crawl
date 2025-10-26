@@ -1,4 +1,4 @@
-import { Database } from './integrations/supabase/database.types';
+import { Database } from '@/lib/database.types';
 
 // Utility types
 export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
