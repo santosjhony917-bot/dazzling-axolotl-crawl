@@ -34,18 +34,18 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
       onClick={() => onClick(item.id, item.type)}
     >
       <div 
-        className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-xl p-3 shadow-soft-md cursor-pointer hover:shadow-soft-lg transition-shadow border border-gray-100"
+        className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-4 shadow-soft-lg cursor-pointer hover:shadow-soft-xl transition-shadow border border-gray-100"
       >
         <div 
-          className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-20 flex-shrink-0" 
+          className="bg-center bg-no-repeat aspect-square bg-cover rounded-xl size-20 flex-shrink-0 shadow-soft-sm" 
           style={{ backgroundImage: `url("${item.imageUrl || PLACEHOLDER_IMAGE_URL}")` }}
           data-alt={item.name}
         />
         <div className="flex-1 min-w-0">
-          <p className="text-primary dark:text-white text-base font-bold leading-normal truncate">{item.name}</p>
+          <p className="text-primary dark:text-white text-lg font-bold leading-normal truncate">{item.name}</p>
           
           {isDish && formattedPrice && (
-            <p className="text-highlight text-lg font-bold leading-tight mt-1">{formattedPrice}</p>
+            <p className="text-highlight text-xl font-extrabold leading-tight mt-1">{formattedPrice}</p>
           )}
           
           {displayDescription && (

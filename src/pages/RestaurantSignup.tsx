@@ -82,7 +82,7 @@ export default function RestaurantSignup() {
           setIsSearchingCep(false);
         }
       };
-      fetchViaCEP(location.cep);
+      fetchViaCEP();
     }
   }, [location.cep, loading]);
 

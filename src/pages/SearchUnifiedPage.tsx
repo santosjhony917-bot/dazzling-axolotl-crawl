@@ -15,6 +15,7 @@ import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
+import { motion } from 'framer-motion'; // Import motion
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -122,7 +123,7 @@ export default function SearchUnifiedPage() {
             placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight"
+            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
           />
         </div>
         <Button 
@@ -135,29 +136,39 @@ export default function SearchUnifiedPage() {
         </Button>
       </form>
       
-      {/* Ações Rápidas (Filtros) */}
+      {/* Ações Rápidas (Filtros) - Transformadas em Chips Elegantes */}
       <div className="flex gap-4">
-        <Button 
-          onClick={handleSearchByPrice}
-          variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
-        >
-          <DollarSign className="w-5 h-5 mr-2" /> Preço
-        </Button>
-        <Button 
-          onClick={handleSearchNearby}
-          variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
-        >
-          <Compass className="w-5 h-5 mr-2" /> Distância
-        </Button>
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
+          <Button 
+            onClick={handleSearchByPrice}
+            variant="outline"
+            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
+          >
+            <DollarSign className="w-5 h-5 mr-2 text-highlight" /> Preço
+          </Button>
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
+          <Button 
+            onClick={handleSearchNearby}
+            variant="outline"
+            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
+          >
+            <Compass className="w-5 h-5 mr-2 text-highlight" /> Distância
+          </Button>
+        </motion.div>
       </div>
       
       {/* Toggle Pratos / Restaurantes */}
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
       {/* Destaques */}
-      <div className="space-y-4">
+      <motion.div
+        key={activeSearchType} // Key change triggers animation
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="space-y-4"
+      >
         <h2 className="text-xl font-bold text-primary">{highlightTitle}</h2>
         <div className="space-y-3">
           {highlights.map((item) => (
@@ -168,7 +179,7 @@ export default function SearchUnifiedPage() {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 

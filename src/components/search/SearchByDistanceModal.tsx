@@ -27,16 +27,16 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({ isOpen, o
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-primary font-bold">
             <Compass className="w-5 h-5 text-highlight" />
             Filtrar por Distância
           </DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="space-y-4">
-            <Label htmlFor="distance">Distância Máxima: {maxDistance[0]} km</Label>
+            <Label htmlFor="distance" className="text-primary font-medium">Distância Máxima: {maxDistance[0]} km</Label>
             <Slider
               id="distance"
               min={1}
@@ -52,8 +52,8 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({ isOpen, o
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancelar</Button>
-          <Button onClick={handleApply}>Aplicar Filtro</Button>
+          <Button variant="outline" onClick={onClose} className="rounded-xl">Cancelar</Button>
+          <Button onClick={handleApply} variant="highlight" className="rounded-xl">Aplicar Filtro</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
