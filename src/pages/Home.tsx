@@ -16,10 +16,13 @@ import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
 
-const Home: React.FC = () => {
+const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
+const MOCK_ADDRESS = "Localização Padrão (João Pessoa)";
+
+export default function Home() {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false); // RESTAURADO
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -185,7 +188,9 @@ const Home: React.FC = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <CustomerBottomNav selectedTab="home" />
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+        <CustomerBottomNav selectedTab="home" />
+      </div>
 
       {/* User Location Modal */}
       <UserLocationModal
@@ -209,5 +214,3 @@ const Home: React.FC = () => {
     </div>
   );
 };
-
-export default Home;

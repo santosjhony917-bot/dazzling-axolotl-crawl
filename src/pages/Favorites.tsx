@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import ClientLayout from '@/components/ClientLayout';
+import CustomerBottomNav from '@/components/CustomerBottomNav'; // Importado
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { formatPrice } from '@/lib/utils';
 
@@ -159,27 +160,34 @@ export default function Favorites() {
   }
 
   return (
-    <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
-      <div className="p-4">
-        <Tabs defaultValue="restaurants" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-200 rounded-xl shadow-inner mb-6">
-            <TabsTrigger value="restaurants" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
-              <Utensils className="w-5 h-5" /> Restaurantes
-            </TabsTrigger>
-            <TabsTrigger value="items" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
-              <DollarSign className="w-5 h-5" /> Pratos
-            </TabsTrigger>
-          </TabsList>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
+        <div className="p-4">
+          <Tabs defaultValue="restaurants" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-200 rounded-xl shadow-inner mb-6">
+              <TabsTrigger value="restaurants" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
+                <Utensils className="w-5 h-5" /> Restaurantes
+              </TabsTrigger>
+              <TabsTrigger value="items" className="flex items-center gap-2 h-10 rounded-xl data-[state=active]:bg-highlight data-[state=active]:text-white font-semibold">
+                <DollarSign className="w-5 h-5" /> Pratos
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="restaurants">
-            <RestaurantFavoritesList navigate={navigate} />
-          </TabsContent>
-          
-          <TabsContent value="items">
-            <ItemFavoritesList />
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="restaurants">
+              <RestaurantFavoritesList navigate={navigate} />
+            </TabsContent>
+            
+            <TabsContent value="items">
+              <ItemFavoritesList />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </ClientLayout>
+      
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+        <CustomerBottomNav selectedTab="favorites" />
       </div>
-    </ClientLayout>
+    </div>
   );
 }

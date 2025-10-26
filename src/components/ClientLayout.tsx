@@ -2,7 +2,6 @@ import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import CustomerBottomNav from './CustomerBottomNav';
 import { cn } from '@/lib/utils';
 
 interface ClientLayoutProps {
@@ -43,10 +42,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ title, children, selectedTa
         {children}
       </main>
 
-      {/* Bottom Navigation - Fixed position */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
-        <CustomerBottomNav selectedTab={selectedTab} />
-      </div>
+      {/* Bottom Navigation - REMOVIDO DAQUI, AGORA É RESPONSABILIDADE DA PÁGINA */}
     </div>
   );
 };
