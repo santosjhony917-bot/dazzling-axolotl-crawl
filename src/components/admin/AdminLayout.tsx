@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
-import { useAuth } from '@/hooks/useAuth'; // Importando useAuth
 
 const navItems = [
   { name: 'Dashboard', icon: Home, path: 'dashboard' },
@@ -18,9 +17,7 @@ const navItems = [
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, signOut } = useAuthContext();
-  // CORREÇÃO: Usando useAuth para obter isAdmin e isLoading combinado
-  const { isAdmin, isLoading } = useAuth(); 
+  const { user, isLoading, isAdmin, signOut } = useAuthContext();
 
   if (isLoading) {
     return (
