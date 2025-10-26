@@ -63,3 +63,6 @@ export interface RestaurantGalleryImage {
   order_index: number;
   created_at: string;
 }
+
+// Exportando Profile de supabase.ts para evitar duplicação e conflito
+export type Profile = import('@/types/supabase').Profile;

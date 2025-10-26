@@ -3,17 +3,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuthContext } from "@/context/AuthContext";
 import { showSuccess, showError } from "@/utils/toast";
 
-const FAVORITES_QUERY_KEY = ['userFavorites'];
+// Query key para a lista de IDs de restaurantes favoritos
+const FAVORITES_ID_LIST_QUERY_KEY = ['userFavoriteIds'];
 
-const fetchFavorites = async (userId: string) => {
-  // Usando 'restaurants!inner' para forçar o join e garantir que a relação seja encontrada.
+const fetchFavoriteIds = async (userId: string): Promise<string[]> => {
+  // Busca apenas os IDs dos restaurantes favoritados
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant_id, restaurants!inner(id)') // Seleciona o ID do restaurante via join
+    .select('restaurant_id')
     .eq('user_id', userId);
 
   if (error) throw new Error(error.message);
-  // Mapeia para retornar apenas os IDs dos restaurantes favoritados
+  
   return data.map(f => f.restaurant_id);
 };
 
@@ -22,8 +23,8 @@ export function useFavorites(restaurantId: string) {
   const queryClient = useQueryClient();
 
   const { data: favoriteIds = [], isLoading: isFavoritesLoading } = useQuery<string[], Error>({
-    queryKey: FAVORITES_QUERY_KEY,
-    queryFn: () => fetchFavorites(user!.id),
+    queryKey: FAVORITES_ID_LIST_QUERY_KEY,
+    queryFn: () => fetchFavoriteIds(user!.id),
     enabled: !!user && !isAuthLoading,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
@@ -54,7 +55,10 @@ export function useFavorites(restaurantId: string) {
       }
     },
     onSuccess: (_, isCurrentlyFavorite) => {
-      queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY });
+      // Invalida a lista de IDs e a lista completa de favoritos (usada na página Favorites)
+      queryClient.invalidateQueries({ queryKey: FAVORITES_ID_LIST_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ['userFavoritesList'] }); 
+      
       if (isCurrentlyFavorite) {
         showSuccess("Restaurante removido dos favoritos.");
       } else {

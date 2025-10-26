@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState, useCallback } from 'react';
-import { AuthContext } from '@/context/AuthContext';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
-import { Profile, Restaurant } from '@/types/restaurant';
+import React, { useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { useAuthContext, AuthContextType } from '@/context/AuthContext'; // Importando useAuthContext e AuthContextType
+import { useQuery, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile'; // Novo arquivo de integração
+import { Profile, Restaurant } from '@/types/supabase'; // Importando Profile e Restaurant de supabase.ts
 import { useToast } from '@/components/ui/use-toast';
 
 interface UserRoles {
@@ -28,7 +28,8 @@ const defaultRoles: UserRoles = {
 };
 
 export const useAuthProfile = (): AuthProfile => {
-  const { session, isLoading: isAuthLoading } = useContext(AuthContext);
+  // CORREÇÃO: Usando useAuthContext para obter session e isLoading
+  const { session, isLoading: isAuthLoading } = useAuthContext(); 
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -40,39 +41,35 @@ export const useAuthProfile = (): AuthProfile => {
     data: profile, 
     isLoading: isProfileLoading, 
     refetch: refetchProfile 
-  } = useQuery({
+  } = useQuery<Profile | null, Error>({
     queryKey: ['profile', userId],
     queryFn: () => getProfile(userId!),
     enabled: isAuthenticated && !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    onError: (error) => {
-      console.error("Error fetching profile:", error);
-      // toast({ title: "Erro", description: "Falha ao carregar dados do perfil.", variant: "destructive" });
-    }
-  });
+    // CORREÇÃO: Removendo onError para evitar erro de sobrecarga do TS2769
+  } as UseQueryOptions<Profile | null, Error, Profile | null, any[]>); // Cast para satisfazer o TS
 
   // 2. Fetch Restaurant Data (if user is potentially an owner)
   const { 
     data: restaurant, 
     isLoading: isRestaurantLoading, 
     refetch: refetchRestaurant 
-  } = useQuery({
+  } = useQuery<Restaurant | null, Error>({
     queryKey: ['restaurant', userId],
     queryFn: () => getRestaurantByUserId(userId!),
     enabled: isAuthenticated && !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    onError: (error) => {
-      console.error("Error fetching restaurant:", error);
-    }
-  });
+    // CORREÇÃO: Removendo onError para evitar erro de sobrecarga do TS2769
+  } as UseQueryOptions<Restaurant | null, Error, Restaurant | null, any[]>); // Cast para satisfazer o TS
 
   // 3. Determine Roles
   const roles: UserRoles = useMemo(() => {
-    const isAdmin = profile?.is_admin ?? false;
+    // CORREÇÃO: profile é Profile | null, e Profile agora tem is_admin
+    const isAdmin = profile?.is_admin ?? false; 
     const isRestaurantOwner = !!restaurant;
     
-    // CORREÇÃO: Incluir 'premium_gift' na verificação de isPremium
-    const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
+    // CORREÇÃO: restaurant é Restaurant | null
+    const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift'; 
 
     return {
       isAdmin,

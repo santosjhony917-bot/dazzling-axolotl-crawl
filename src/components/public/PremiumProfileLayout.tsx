@@ -3,11 +3,11 @@ import { MapPin, Clock, Utensils, MessageSquare, ShoppingCart, Globe, Heart, Cro
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, formatPrice } from '@/lib/utils';
-import { Restaurant } from '@/types/supabase';
+import { Restaurant, MenuItem, MenuCategoryWithItems } from '@/types/supabase';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
-import AdditionalInfo from './AdditionalInfo'; // <-- Importação corrigida/verificada
+import AdditionalInfo from './AdditionalInfo';
 import { WeekSchedule } from '@/types/schedule';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useFavorites } from '@/hooks/useFavorites';
@@ -18,10 +18,108 @@ import { showInfo } from '@/utils/toast';
 import { useRestaurantMenu } from '@/hooks/useRestaurantMenu';
 import FullMenuDisplay from '@/components/FullMenuDisplay';
 import { usePublicGallery, PublicGalleryImage } from '@/hooks/usePublicGallery';
+import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites'; // Importando hook de favoritos de item
 
 interface PremiumProfileLayoutProps {
   restaurant: Restaurant;
 }
+
+// Componente de Card de Item de Menu com Favorito
+const PremiumMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
+  const { isItemFavorite, toggleItemFavorite, isLoading: isMutating } = useMenuItemFavorites();
+  const isFavorite = isItemFavorite(item.id);
+  const { user } = useAuthContext();
+  
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user) {
+      showInfo("Faça login para favoritar pratos!");
+      return;
+    }
+    toggleItemFavorite({ itemId: item.id, isCurrentlyFavorite: isFavorite });
+  };
+
+  return (
+    <div className="flex gap-4 p-4 border-b last:border-b-0 dark:border-gray-700 relative">
+      <div className="flex-grow">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.name}</h3>
+        {item.description && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
+        )}
+        <p className="text-base font-bold text-highlight dark:text-highlight-light mt-2">
+          {formatPrice(item.price)}
+        </p>
+      </div>
+      {item.image_url && (
+        <img 
+          src={item.image_url} 
+          alt={item.name} 
+          className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+        />
+      )}
+      
+      {/* Botão de Favoritar Item */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleToggleFavorite}
+        disabled={isMutating}
+        className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm"
+      >
+        <Heart 
+          className={cn(
+            "w-4 h-4 transition-colors",
+            isFavorite ? "text-red-500 fill-red-500" : "text-gray-500 hover:text-red-500"
+          )}
+        />
+      </Button>
+    </div>
+  );
+};
+
+// Componente de Menu Completo (Adaptado para usar o novo card)
+const PremiumFullMenuDisplay: React.FC<{ menu: MenuCategoryWithItems[], loading: boolean }> = ({ menu, loading }) => {
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
+  if (!menu || menu.length === 0) {
+    return (
+      <div className="text-center p-8 text-gray-500 dark:text-gray-400">
+        Nenhum item de menu encontrado.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      {menu.map((category) => (
+        <section key={category.id} className="scroll-mt-20" id={`category-${category.id}`}>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 sticky top-0 bg-white dark:bg-gray-900 py-2 z-10 border-b dark:border-gray-700">
+            {category.name}
+          </h2>
+          <Card className={cn(
+            "bg-white dark:bg-gray-800 shadow-lg",
+            category.items.length > 0 ? "divide-y divide-gray-100 dark:divide-gray-700" : ""
+          )}>
+            {category.items.length > 0 ? (
+              category.items.map((item) => (
+                <PremiumMenuItemCard key={item.id} item={item} />
+              ))
+            ) : (
+              <p className="p-4 text-gray-500 dark:text-gray-400 italic">Nenhum item nesta categoria.</p>
+            )}
+          </Card>
+        </section>
+      ))}
+    </div>
+  );
+};
+
 
 // Mock Payment Methods
 const mockPaymentMethods = [
@@ -88,8 +186,6 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
 
 // Componente de Canais de Pedido
 const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
-  // CORREÇÃO 2: Acessando as propriedades de link que agora existem no tipo Restaurant
-  // Casting restaurant to unknown first to access link properties safely from the generic Restaurant type
   const typedRestaurant = restaurant as unknown as { whatsapp_url: string | null, ifood_url: string | null, other_url: string | null } & Restaurant;
   
   const channels = useMemo(() => [
@@ -129,18 +225,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   const [activeTab, setActiveTab] = useState('menu');
   const [followersCount, setFollowersCount] = useState(1200); // Mock para Premium
   
-  // CORREÇÃO 3: useRestaurantMenu agora recebe o ID do restaurante
-  const { menu, menuLoading, fetchMenu } = useRestaurantMenu(restaurant.id);
-  
-  // CORREÇÃO: usePublicGallery recebe o ID
+  const { menu, menuLoading } = useRestaurantMenu(restaurant.id);
   const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);
-  
-  // CORREÇÃO: Chamar fetchMenu com o ID do restaurante
-  React.useEffect(() => {
-    if (restaurant.id) {
-      // fetchMenu(restaurant.id); // Removed redundant call here, hook handles initial fetch
-    }
-  }, [restaurant.id]);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
@@ -217,8 +303,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                 </div>
                 
                 <div className="mt-4">
-                  {/* CORREÇÃO 4: Passando a prop 'loading' e o objeto 'menu' diretamente */}
-                  <FullMenuDisplay menu={menu} loading={menuLoading} /> 
+                  <PremiumFullMenuDisplay menu={menu} loading={menuLoading} /> 
                 </div>
               </div>
             </TabsContent>
@@ -258,7 +343,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         
         {/* Horários Detalhados (Se houver) */}
         {restaurant.opening_hours && (
-          // CORREÇÃO 5: Cast opening_hours para unknown antes de WeekSchedule
           <DetailedHoursDisplay schedule={restaurant.opening_hours as unknown as WeekSchedule} />
         )}
         

@@ -36,6 +36,8 @@ export interface Profile {
   last_name: string | null;
   avatar_url: string | null;
   updated_at: string | null;
+  // Adicionando campo derivado para consistência com useAuthProfile
+  is_admin?: boolean; 
 }
 
 export interface MenuCategory {
