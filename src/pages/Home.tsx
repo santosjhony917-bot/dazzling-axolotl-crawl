@@ -26,6 +26,10 @@ const Home: React.FC = () => {
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
 
+  // CORREÇÃO: Desestruturando userLat e userLon de location
+  const userLat = location.latitude;
+  const userLon = location.longitude;
+
   // Mock Data (Replicando do Dashboard para consistência visual)
   const mockHighlights = [
     { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
