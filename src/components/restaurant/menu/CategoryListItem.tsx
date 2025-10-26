@@ -1,96 +1,95 @@
+import React from 'react';
 import { MenuCategory } from '@/types';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowUp, ArrowDown, Edit, Trash2 } from 'lucide-react';
-import { useCategoryReorder } from '@/hooks/useCategoryReorder';
-import { useMenuManagement } from '@/hooks/useMenuManagement'; 
-import { cn } from '@/lib/utils';
+import { Edit, Trash2, ArrowUp, ArrowDown, Loader2 } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { useCategoryMutations } from '@/hooks/useMenuManagement';
 
 interface CategoryListItemProps {
   category: MenuCategory;
-  restaurantId: string;
+  onEdit: (category: MenuCategory) => void;
+  onDelete: (categoryId: string) => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
   isFirst: boolean;
   isLast: boolean;
-  onEdit: (category: MenuCategory) => void;
-  onSwap: (category: MenuCategory, direction: 'UP' | 'DOWN') => void; 
-  onDelete: (categoryId: string) => void;
+  isSwapping: boolean;
 }
 
-export function CategoryListItem({
+export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   category,
-  restaurantId,
-  isFirst,
-  isLast,
   onEdit,
   onDelete,
-  onSwap,
-}: CategoryListItemProps) {
-  const { mutate: swapOrder, isPending: isSwapping } = useCategoryReorder(restaurantId);
-  // Acessando deleteCategoryMutation do useMenuManagement
-  const { deleteCategoryMutation } = useMenuManagement(restaurantId); 
-  
-  const handleDelete = () => {
-    if (confirm(`Tem certeza que deseja deletar a categoria "${category.name}"?`)) {
-      deleteCategoryMutation.mutate(category.id);
-    }
-  };
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
+  isSwapping,
+}) => {
+  const { updateCategoryMutation } = useCategoryMutations(category.restaurant_id);
+  const isUpdating = updateCategoryMutation.isPending;
 
-  const handleMoveUp = () => {
-    onSwap(category, 'UP'); 
-  };
-
-  const handleMoveDown = () => {
-    onSwap(category, 'DOWN'); 
+  const handleToggleActive = (checked: boolean) => {
+    updateCategoryMutation.mutate({
+      id: category.id,
+      name: category.name,
+      is_active: checked,
+    });
   };
 
   return (
-    <div className="flex items-center justify-between p-3 border-b last:border-b-0 hover:bg-gray-50 transition-colors">
-      <div className="flex-1 min-w-0">
-        <p className="font-medium truncate">{category.name}</p>
-        <p className={cn("text-sm", category.is_active ? "text-green-600" : "text-red-600")}>
-          {category.is_active ? 'Ativa' : 'Inativa'}
-        </p>
-      </div>
+    <Card className="shadow-sm hover:shadow-md transition-shadow">
+      <CardContent className="p-4 flex items-center justify-between">
+        <div className="flex items-center space-x-4 flex-grow">
+          <h3 className="text-lg font-semibold">{category.name}</h3>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id={`active-switch-${category.id}`}
+              checked={category.is_active}
+              onCheckedChange={handleToggleActive}
+              disabled={isUpdating}
+            />
+            <Label htmlFor={`active-switch-${category.id}`} className="text-sm text-gray-500">
+              {category.is_active ? 'Ativa' : 'Inativa'}
+            </Label>
+            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
+          </div>
+        </div>
 
-      <div className="flex items-center space-x-2">
-        {/* Reordering Controls */}
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={handleMoveUp} 
-          disabled={isFirst || isSwapping}
-          title="Mover para Cima"
-        >
-          <ArrowUp className="h-4 w-4" />
-        </Button>
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={handleMoveDown} 
-          disabled={isLast || isSwapping}
-          title="Mover para Baixo"
-        >
-          <ArrowDown className="h-4 w-4" />
-        </Button>
+        <div className="flex space-x-2 items-center">
+          {/* Botões de Reordenação */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={onMoveUp}
+            disabled={isFirst || isSwapping}
+            title="Mover para cima"
+          >
+            <ArrowUp className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={onMoveDown}
+            disabled={isLast || isSwapping}
+            title="Mover para baixo"
+          >
+            <ArrowDown className="w-4 h-4" />
+          </Button>
+          
+          {isSwapping && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
 
-        {/* Action Controls */}
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={() => onEdit(category)}
-          title="Editar"
-        >
-          <Edit className="h-4 w-4" />
-        </Button>
-        <Button 
-          variant="destructive" 
-          size="icon" 
-          onClick={handleDelete}
-          disabled={deleteCategoryMutation.isPending}
-          title="Deletar"
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      </div>
-    </div>
+          {/* Botões de Ação */}
+          <Button variant="outline" size="icon" onClick={() => onEdit(category)} title="Editar">
+            <Edit className="w-4 h-4" />
+          </Button>
+          <Button variant="destructive" size="icon" onClick={() => onDelete(category.id)} title="Deletar">
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
-}
+};

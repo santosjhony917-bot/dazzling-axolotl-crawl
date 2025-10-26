@@ -7,7 +7,7 @@ import { PlusCircle, Loader2 } from 'lucide-react';
 import { MenuCategory } from '@/types';
 import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useAuthContext } from '@/context/AuthContext'; // Importando useAuthContext
+import { useAuthContext } from '@/context/AuthContext';
 
 export default function MenuManagement() {
   // Obtendo o restaurante do contexto de autenticação
@@ -48,15 +48,19 @@ export default function MenuManagement() {
   };
 
   const handleSaveCategory = async (data: CategoryFormValues) => {
+    // Erro 1: UpdateCategoryPayload requer name e is_active
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({
         id: editingCategory.id,
-        ...data,
+        name: data.name, // Garantindo que 'name' está presente
+        is_active: data.is_active, // Garantindo que 'is_active' está presente
       });
     } else {
+      // Erro 2: CreateCategoryPayload requer name e is_active
       await createCategoryMutation.mutateAsync({
         restaurant_id: restaurantId,
-        ...data,
+        name: data.name, // Garantindo que 'name' está presente
+        is_active: data.is_active, // Garantindo que 'is_active' está presente
       });
     }
   };
