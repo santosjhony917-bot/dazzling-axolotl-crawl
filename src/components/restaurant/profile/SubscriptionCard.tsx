@@ -33,11 +33,11 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Plano e Assinatura</h2>
       
-      <Card className="shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+      <Card className="shadow-soft-lg border-none rounded-2xl p-4 bg-white dark:bg-gray-800">
         <CardContent className="p-0">
           {/* Status do Plano Atual */}
           <div className="flex items-center gap-4 pb-4 border-b border-gray-100 dark:border-gray-700">
-            <div className={cn("w-12 h-12 rounded-full flex items-center justify-center", iconBg)}>
+            <div className={cn("w-12 h-12 rounded-full flex items-center justify-center shadow-soft-sm", iconBg)}>
               <Crown className={cn("w-6 h-6 fill-amber-500", planColor)} />
             </div>
             <div>
@@ -49,7 +49,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
           {/* Seção de Upgrade (Apenas se for Free) */}
           {!isPremium && (
             <div className="mt-4 space-y-4">
-              <div className="bg-yellow-50/50 dark:bg-yellow-900/20 p-4 rounded-lg">
+              <div className="bg-yellow-50/50 dark:bg-yellow-900/20 p-4 rounded-xl shadow-soft-sm">
                 <h3 className="text-base font-bold text-amber-700 dark:text-amber-400 flex items-center mb-3">
                   <Zap className="w-5 h-5 mr-2 fill-amber-500 text-amber-500" />
                   Desbloqueie com Premium:
@@ -69,7 +69,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
 
               <Button
                 onClick={handleUpgradeClick}
-                className="w-full h-12 rounded-full text-lg font-bold text-white bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 shadow-lg shadow-amber-500/50 transition-all"
+                className="w-full h-12 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 shadow-highlight-glow transition-all"
               >
                 <Crown className="w-5 h-5 mr-2 fill-white" />
                 Ativar Premium
@@ -82,7 +82,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
                 <Button
                     onClick={handleUpgradeClick}
                     variant="outline"
-                    className="w-full h-10 rounded-full border-2 border-[#022D68] text-[#022D68] font-bold hover:bg-[#022D68]/5"
+                    className="w-full h-10 rounded-xl border-2 border-[#022D68] text-[#022D68] font-bold hover:bg-[#022D68]/5 shadow-soft-sm"
                 >
                     Gerenciar Assinatura
                 </Button>

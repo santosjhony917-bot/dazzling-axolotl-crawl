@@ -13,7 +13,7 @@ const RestaurantHome: React.FC = () => {
         <p className="text-gray-600 mt-1">Bem-vindo de volta!</p>
       </header>
       
-      <div className="flex flex-col items-center justify-center h-64 bg-white rounded-xl shadow-lg p-6">
+      <div className="flex flex-col items-center justify-center h-64 bg-white rounded-2xl shadow-soft-lg p-6 border-none">
         <Utensils className="w-12 h-12 text-[#E47948] mb-4" />
         <p className="text-lg text-gray-700">Visão geral do seu negócio.</p>
         <p className="text-sm text-gray-500 mt-2">Funcionalidades em desenvolvimento.</p>

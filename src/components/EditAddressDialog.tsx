@@ -154,7 +154,7 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
           <Input
             {...register('cep')}
             placeholder="CEP (Ex: 58039-000)"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight shadow-soft-sm"
             onChange={handleCepChange}
             maxLength={9}
             disabled={loading || isGeocoding}
@@ -164,7 +164,7 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
           <Input
             {...register('address')}
             placeholder="Rua / Avenida"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight shadow-soft-sm"
             disabled={loading || isGeocoding}
           />
           {errors.address && <p className="text-sm text-destructive">{errors.address.message}</p>}
@@ -172,7 +172,7 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
           <Input
             {...register('neighborhood')}
             placeholder="Bairro"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight shadow-soft-sm"
             disabled={loading || isGeocoding}
           />
           {errors.neighborhood && <p className="text-sm text-destructive">{errors.neighborhood.message}</p>}
@@ -181,13 +181,13 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
             <Input
               {...register('city')}
               placeholder="Cidade"
-              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight shadow-soft-sm"
               disabled={loading || isGeocoding}
             />
             <Input
               {...register('state')}
               placeholder="UF"
-              className="h-12 rounded-xl text-base w-20 focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-xl text-base w-20 focus:border-highlight focus:ring-highlight shadow-soft-sm"
               maxLength={2}
               disabled={loading || isGeocoding}
             />
@@ -195,10 +195,10 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
           {(errors.city || errors.state) && <p className="text-sm text-destructive">Cidade e Estado são obrigatórios.</p>}
 
           <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading || isGeocoding}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading || isGeocoding} className="rounded-xl shadow-soft-sm">
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading || isGeocoding} className="bg-highlight hover:bg-highlight/90">
+            <Button type="submit" disabled={loading || isGeocoding} className="bg-highlight hover:bg-highlight/90 rounded-xl shadow-soft-md">
               {loading || isGeocoding ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

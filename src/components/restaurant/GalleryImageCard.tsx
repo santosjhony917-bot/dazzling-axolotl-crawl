@@ -29,7 +29,7 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ image, onDelete, on
   };
 
   return (
-    <Card className="relative overflow-hidden rounded-xl shadow-md border-none group">
+    <Card className="relative overflow-hidden rounded-xl shadow-soft-md border-none group">
       <div className="aspect-square w-full bg-gray-100">
         <img 
           src={image.image_url} 
@@ -48,27 +48,27 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ image, onDelete, on
               onChange={(e) => setCaption(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleSave(); }}
               disabled={isSaving}
-              className="h-9"
+              className="h-9 rounded-lg shadow-soft-sm"
             />
             <Button 
               size="icon" 
               onClick={handleSave} 
               disabled={isSaving}
-              className="h-9 w-9 bg-highlight hover:bg-highlight/90"
+              className="h-9 w-9 bg-highlight hover:bg-highlight/90 rounded-lg shadow-soft-sm"
             >
               {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             </Button>
           </div>
         ) : (
           <div className="flex justify-between items-center">
-            <p className="text-sm font-semibold text-gray-800 dark:text-white truncate flex-1">
+            <p className="text-sm font-semibold text-primary dark:text-white truncate flex-1">
               {image.caption || 'Sem legenda'}
             </p>
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={() => setIsEditing(true)}
-              className="h-8 w-8 text-primary hover:bg-gray-100"
+              className="h-8 w-8 text-primary hover:bg-gray-100 rounded-lg"
             >
               <Edit className="h-4 w-4" />
             </Button>
@@ -78,7 +78,7 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ image, onDelete, on
         <Button
           variant="destructive"
           size="sm"
-          className="w-full bg-red-600 hover:bg-red-700"
+          className="w-full bg-red-600 hover:bg-red-700 rounded-lg shadow-soft-sm"
           onClick={() => onDelete(image.id)}
           disabled={isDeleting}
         >

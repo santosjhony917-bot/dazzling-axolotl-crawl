@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
@@ -214,7 +214,7 @@ export default function RestaurantSignup() {
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 placeholder="Ex: Restaurante Sabor Divino"
-                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
                 required
               />
             </label>
@@ -244,7 +244,7 @@ export default function RestaurantSignup() {
                   value={location.cep}
                   onChange={handleCepChange}
                   placeholder="CEP (Ex: 58039-000)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12 shadow-soft-sm"
                   maxLength={9}
                   disabled={isSearchingCep}
                   required
@@ -261,7 +261,7 @@ export default function RestaurantSignup() {
                   value={location.street}
                   onChange={(e) => updateLocation('street', e.target.value)}
                   placeholder="Rua / Avenida"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   required
                 />
               </div>
@@ -273,7 +273,7 @@ export default function RestaurantSignup() {
                   value={location.number}
                   onChange={(e) => updateLocation('number', e.target.value)}
                   placeholder="Número"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   required
                 />
               </div>
@@ -285,7 +285,7 @@ export default function RestaurantSignup() {
                   value={location.complement}
                   onChange={(e) => updateLocation('complement', e.target.value)}
                   placeholder="Complemento (Ex: Sala 101, Bloco B)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                 />
               </div>
 
@@ -296,7 +296,7 @@ export default function RestaurantSignup() {
                   value={location.neighborhood}
                   onChange={(e) => updateLocation('neighborhood', e.target.value)}
                   placeholder="Bairro"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   required
                 />
               </div>
@@ -307,14 +307,14 @@ export default function RestaurantSignup() {
                   value={location.city}
                   onChange={(e) => updateLocation('city', e.target.value)}
                   placeholder="Cidade"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   required
                 />
                 <Input
                   value={location.state}
                   onChange={(e) => updateLocation('state', e.target.value)}
                   placeholder="Estado (UF)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0 shadow-soft-sm"
                   maxLength={2}
                   required
                 />
@@ -327,7 +327,7 @@ export default function RestaurantSignup() {
                   value={location.phone}
                   onChange={(e) => updateLocation('phone', e.target.value)}
                   placeholder="Telefone de contato (obrigatório)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   required
                 />
               </div>
@@ -351,7 +351,7 @@ export default function RestaurantSignup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Digite seu email"
-                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
                 required
               />
             </label>
@@ -363,7 +363,7 @@ export default function RestaurantSignup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Crie uma senha (mínimo 6 caracteres)"
-                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
                 required
                 minLength={6}
               />
@@ -385,7 +385,7 @@ export default function RestaurantSignup() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirme sua senha"
-                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
                 required
               />
               <button
@@ -426,7 +426,7 @@ export default function RestaurantSignup() {
   return (
     <div className="min-h-screen bg-background-light flex flex-col">
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md">
         <Button
           variant="ghost"
           size="icon"
@@ -449,7 +449,7 @@ export default function RestaurantSignup() {
 
       <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4 shadow-soft-sm">
             <Store className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
@@ -461,7 +461,7 @@ export default function RestaurantSignup() {
         </div>
 
         {/* Progress Indicator */}
-        <Card className="mb-8 shadow-lg border-none rounded-xl p-4">
+        <Card className="mb-8 shadow-soft-lg border-none rounded-xl p-4">
           <CardContent className="p-0 flex justify-between items-center">
             <div className="flex-1 flex flex-col items-center">
               <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-colors duration-300 ${getStepIndicatorClass(1)}`}>
@@ -493,7 +493,7 @@ export default function RestaurantSignup() {
         </Card>
 
         {/* Step Forms Container */}
-        <Card className="shadow-xl border-none rounded-xl p-6">
+        <Card className="shadow-soft-xl border-none rounded-2xl p-6">
           <CardContent className="p-0">
             <AnimatePresence mode="wait">
               {renderStepContent()}
@@ -508,7 +508,7 @@ export default function RestaurantSignup() {
               <Button
                 onClick={handleBack}
                 variant="outline"
-                className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
+                className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5 shadow-soft-sm"
               >
                 Voltar
               </Button>
@@ -526,7 +526,8 @@ export default function RestaurantSignup() {
               <Button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="flex-1 h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-lg"
+                variant="highlight"
+                className="flex-1 h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl text-lg shadow-highlight-glow"
               >
                 {loading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

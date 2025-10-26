@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MenuCategory } from '@/types';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -57,7 +57,7 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-xl">
         <DialogHeader>
           <DialogTitle>{initialData ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
         </DialogHeader>
@@ -68,12 +68,12 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
               id="name"
               {...form.register('name')}
               disabled={isSubmitting}
-              className="h-10 rounded-lg"
+              className="h-10 rounded-xl shadow-soft-sm"
             />
             {form.formState.errors.name && <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>}
           </div>
 
-          <div className="flex items-center justify-between space-x-2 rounded-lg border p-3">
+          <div className="flex items-center justify-between space-x-2 rounded-xl border p-3 shadow-soft-sm">
             <Label htmlFor="is_active">Ativa (Visível ao público)</Label>
             <Switch
               id="is_active"
@@ -85,10 +85,10 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+            <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="rounded-xl shadow-soft-sm">
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90">
+            <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90 rounded-xl shadow-soft-md">
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Salvar Categoria'}
             </Button>
           </DialogFooter>

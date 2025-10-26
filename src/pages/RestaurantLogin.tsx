@@ -108,11 +108,11 @@ export default function RestaurantLogin() {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
       
       {/* Header/Botão Voltar */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -132,7 +132,7 @@ export default function RestaurantLogin() {
         >
           {/* Icon and Title (Padrão Consistente) */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4 shadow-soft-sm">
               <Utensils className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
@@ -143,11 +143,11 @@ export default function RestaurantLogin() {
             </p>
           </div>
 
-          <Card className="w-full shadow-xl border-none rounded-xl">
+          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
             <CardContent className="p-6 pt-4">
               <form onSubmit={handleLogin} className="space-y-4">
                 <Input
-                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
+                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                   placeholder="E-mail"
                   type="email"
                   value={email}
@@ -157,7 +157,7 @@ export default function RestaurantLogin() {
                 />
                 <div className="relative">
                   <Input
-                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight"
+                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
                     placeholder="Senha"
                     type={passwordVisible ? "text" : "password"}
                     value={password}
@@ -186,7 +186,7 @@ export default function RestaurantLogin() {
                   type="submit"
                   disabled={loading}
                   variant="highlight"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl"
+                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
                 >
                   <span className="truncate">
                     {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Entrar"}
@@ -200,7 +200,7 @@ export default function RestaurantLogin() {
                 <Button
                   onClick={() => navigate(createPageUrl('auth'))}
                   variant="secondary"
-                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl"
+                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl shadow-soft-sm"
                   disabled={loading}
                 >
                   Login de Cliente

@@ -42,9 +42,9 @@ const PremiumMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
   return (
     <div className="flex gap-4 p-4 border-b last:border-b-0 dark:border-gray-700 relative">
       <div className="flex-grow">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.name}</h3>
+        <h3 className="text-lg font-semibold text-primary dark:text-white">{item.name}</h3>
         {item.description && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{item.description}</p>
+          <p className="text-sm text-text-secondary dark:text-gray-400 mt-1">{item.description}</p>
         )}
         <p className="text-base font-bold text-highlight dark:text-highlight-light mt-2">
           {formatPrice(item.price)}
@@ -54,7 +54,7 @@ const PremiumMenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
         <img 
           src={item.image_url} 
           alt={item.name} 
-          className="w-20 h-20 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
+          className="w-20 h-20 object-cover rounded-xl flex-shrink-0 shadow-soft-sm"
         />
       )}
       
@@ -99,11 +99,11 @@ const PremiumFullMenuDisplay: React.FC<{ menu: MenuCategoryWithItems[], loading:
     <div className="space-y-8">
       {menu.map((category) => (
         <section key={category.id} className="scroll-mt-20" id={`category-${category.id}`}>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 sticky top-0 bg-white dark:bg-gray-900 py-2 z-10 border-b dark:border-gray-700">
+          <h2 className="text-2xl font-bold text-primary dark:text-white mb-4 sticky top-0 bg-white dark:bg-gray-900 py-2 z-10 border-b dark:border-gray-700">
             {category.name}
           </h2>
           <Card className={cn(
-            "bg-white dark:bg-gray-800 shadow-soft-lg",
+            "bg-white dark:bg-gray-800 shadow-soft-lg border-none",
             category.items.length > 0 ? "divide-y divide-gray-100 dark:divide-gray-700" : ""
           )}>
             {category.items.length > 0 ? (
@@ -320,7 +320,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             
             {/* Tab: Promoções */}
             <TabsContent value="promotions" className="mt-0">
-              <Card className="p-6 text-center shadow-soft-md">
+              <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
                 <Zap className="w-8 h-8 text-highlight mx-auto mb-3" />
                 <h3 className="text-lg font-bold text-primary">Promoções Exclusivas</h3>
                 <p className="text-gray-600 text-sm mt-1">Este restaurante Premium tem acesso a cupons e ofertas especiais.</p>
@@ -330,7 +330,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             
             {/* Tab: Avaliações */}
             <TabsContent value="reviews" className="mt-0">
-              <Card className="p-6 text-center shadow-soft-md">
+              <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
                 <Star className="w-8 h-8 text-primary mx-auto mb-3" />
                 <h3 className="text-lg font-bold text-primary">Avaliações</h3>
                 <p className="text-gray-600 text-sm mt-1">Funcionalidade de avaliações em desenvolvimento.</p>
@@ -349,7 +349,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         
         {/* Descrição do Restaurante */}
         {restaurant.description && (
-          <Card className="p-4 shadow-soft-md">
+          <Card className="p-4 shadow-soft-md border-none rounded-xl">
             <h3 className="text-lg font-bold text-primary mb-2">Sobre {restaurant.name}</h3>
             <p className="text-gray-700 whitespace-pre-wrap text-sm">{restaurant.description}</p>
           </Card>

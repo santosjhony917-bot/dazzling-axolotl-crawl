@@ -24,10 +24,10 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   restaurantId,
 }) => {
   return (
-    <Card className="w-full shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+    <Card className="w-full shadow-soft-lg border-none rounded-2xl p-4 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
         {/* Logo */}
-        <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-md">
+        <div className="relative w-20 h-20 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-soft-md">
           <img 
             src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
             alt="Logo do Restaurante" 
@@ -49,14 +49,14 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
           <div className="flex items-center gap-2 mt-1">
             <Badge 
               variant="outline" 
-              className="text-xs font-semibold border-gray-400 text-gray-600 bg-white"
+              className="text-xs font-semibold border-gray-400 text-gray-600 bg-white shadow-soft-sm"
             >
               <Store className="w-3 h-3 mr-1" />
               {isPremium ? "Premium" : "Free"}
             </Badge>
             <Badge 
               variant="secondary" 
-              className="text-xs font-semibold bg-green-100 text-green-700"
+              className="text-xs font-semibold bg-green-100 text-green-700 shadow-soft-sm"
             >
               <Check className="w-3 h-3 mr-1" />
               Verificado

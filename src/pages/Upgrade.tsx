@@ -33,12 +33,12 @@ const PremiumCard: React.FC = () => (
     animate={{ scale: 1, opacity: 1 }}
     transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
     whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(228, 121, 72, 0.3), 0 10px 10px -5px rgba(228, 121, 72, 0.1)' }}
-    className="relative flex flex-col h-full p-6 bg-white rounded-xl shadow-2xl border-2 border-highlight"
+    className="relative flex flex-col h-full p-6 bg-white rounded-xl shadow-soft-xl border-2 border-highlight"
   >
     <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
       MAIS ESCOLHIDO
     </div>
-    <div className="flex items-center justify-center size-12 rounded-full bg-highlight/10 mb-4">
+    <div className="flex items-center justify-center size-12 rounded-full bg-highlight/10 mb-4 shadow-soft-sm">
       <Crown className="w-6 h-6 text-highlight fill-highlight/50" />
     </div>
     <h3 className="text-xl font-bold text-highlight mb-4">Premium</h3>
@@ -57,8 +57,8 @@ const PremiumCard: React.FC = () => (
 );
 
 const FreeCard: React.FC = () => (
-  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-md">
-    <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4">
+  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-soft-md rounded-xl">
+    <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4 shadow-soft-sm">
       <Lock className="w-6 h-6 text-gray-500" />
     </div>
     <h3 className="text-xl font-bold text-primary mb-4">Free (Atual)</h3>
@@ -126,7 +126,7 @@ const UpgradePageContent: React.FC = () => {
               initial={{ scale: 0.8, rotate: -5 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
-              className="relative w-40 h-40 bg-white/10 rounded-xl shadow-2xl border border-white/20 flex items-center justify-center"
+              className="relative w-40 h-40 bg-white/10 rounded-xl shadow-soft-lg border border-white/20 flex items-center justify-center"
             >
               <Smartphone className="w-16 h-16 text-white/80" />
               <div className="absolute inset-0 bg-white/5 opacity-5 rounded-xl" />
@@ -149,7 +149,7 @@ const UpgradePageContent: React.FC = () => {
       <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
         
         {/* 2. Comparativo Free vs Premium */}
-        <Card className="p-6 shadow-2xl border-none rounded-xl bg-white">
+        <Card className="p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-lg font-bold text-primary text-center mb-6">
             Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
           </h2>
@@ -178,7 +178,7 @@ const UpgradePageContent: React.FC = () => {
         </motion.div>
 
         {/* 4. Bloco de planos e botão de ação */}
-        <Card className="mt-12 p-6 shadow-2xl border-none rounded-xl bg-white">
+        <Card className="mt-12 p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-xl font-bold text-primary text-center mb-4">
             Assine o Premium e seja encontrado todos os dias.
           </h2>
@@ -200,7 +200,8 @@ const UpgradePageContent: React.FC = () => {
             <Button
               onClick={handleSubscribe}
               disabled={isSubscribing}
-              className="w-full h-14 rounded-full text-lg font-bold text-white bg-[#E47948] hover:bg-[#E47948]/90 shadow-lg shadow-[#E47948]/50 transition-all"
+              variant="highlight"
+              className="w-full h-14 rounded-full text-lg font-bold text-white shadow-highlight-glow transition-all"
             >
               {isSubscribing ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />

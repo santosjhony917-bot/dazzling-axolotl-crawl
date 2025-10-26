@@ -76,7 +76,7 @@ export default function ClaimRestaurant() {
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
           size="icon"
@@ -100,7 +100,7 @@ export default function ClaimRestaurant() {
         >
           {/* Icon and Title */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-full mb-4">
+            <div className="flex items-center justify-center size-16 bg-[#022D68]/10 rounded-2xl mb-4 shadow-soft-sm">
               <Utensils className="w-8 h-8 text-[#022D68]" />
             </div>
             <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
@@ -111,7 +111,7 @@ export default function ClaimRestaurant() {
             </p>
           </div>
 
-          <Card className="w-full shadow-xl border-none rounded-xl">
+          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
             <CardContent className="p-6 pt-4">
               <form onSubmit={handleClaim} className="space-y-4">
                 
@@ -120,7 +120,7 @@ export default function ClaimRestaurant() {
                   <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso</label>
                   <Input
                     id="access-code"
-                    className="h-14 text-base rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                    className="h-14 text-base rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
                     placeholder="Insira o código aqui"
                     type="text"
                     value={accessCode}
@@ -136,7 +136,7 @@ export default function ClaimRestaurant() {
                   <label htmlFor="email" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">E-mail</label>
                   <Input
                     id="email"
-                    className="h-14 text-base rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                    className="h-14 text-base rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
                     placeholder="seuemail@exemplo.com"
                     type="email"
                     value={email}
@@ -152,7 +152,7 @@ export default function ClaimRestaurant() {
                   <div className="relative">
                     <Input
                       id="password"
-                      className="h-14 text-base pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
                       placeholder="Crie uma senha"
                       type={passwordVisible ? "text" : "password"}
                       value={password}
@@ -176,7 +176,7 @@ export default function ClaimRestaurant() {
                   <div className="relative">
                     <Input
                       id="confirm-password"
-                      className="h-14 text-base pr-12 rounded-full border-gray-200 focus:border-[#E47948] focus:ring-[#E47948]"
+                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
                       placeholder="Confirme sua senha"
                       type={passwordVisible ? "text" : "password"}
                       value={confirmPassword}
@@ -197,7 +197,8 @@ export default function ClaimRestaurant() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#E47948] text-white font-bold h-12 text-lg hover:bg-[#E47948]/90 rounded-full shadow-lg shadow-[#E47948]/50 mt-6"
+                  variant="highlight"
+                  className="w-full bg-[#E47948] text-white font-bold h-12 text-lg hover:bg-[#E47948]/90 rounded-full shadow-highlight-glow mt-6"
                 >
                   {loading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -211,7 +212,7 @@ export default function ClaimRestaurant() {
                 Já tem uma conta?
                 <Link
                   to={createPageUrl('restaurant-login')}
-                  className="font-bold text-[#E47948] hover:underline ml-1"
+                  className="font-bold text-highlight hover:underline ml-1"
                 >
                   Fazer login
                 </Link>

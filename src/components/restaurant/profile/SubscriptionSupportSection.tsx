@@ -38,6 +38,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         }}
         isPremium={isPremium}
         premiumDescription="Suporte prioritário 24h"
+        isPremiumFeature={true}
       />
       
       <NavCardItem 

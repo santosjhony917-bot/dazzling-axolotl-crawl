@@ -122,7 +122,7 @@ export default function SearchUnifiedPage() {
             placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight"
+            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-sm"
           />
         </div>
         <Button 
@@ -140,14 +140,14 @@ export default function SearchUnifiedPage() {
         <Button 
           onClick={handleSearchByPrice}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
         >
           <DollarSign className="w-5 h-5 mr-2" /> Preço
         </Button>
         <Button 
           onClick={handleSearchNearby}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-md"
         >
           <Compass className="w-5 h-5 mr-2" /> Distância
         </Button>

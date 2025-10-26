@@ -14,7 +14,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
   const isRestaurantsActive = activeType === 'restaurants';
 
   return (
-    <div className="flex w-full p-1 bg-gray-200 rounded-xl mb-6 shadow-inner">
+    <div className="flex w-full p-1 bg-gray-200 rounded-xl mb-6 shadow-soft-md">
       <Button
         onClick={() => onToggle('dishes')}
         className={cn(
