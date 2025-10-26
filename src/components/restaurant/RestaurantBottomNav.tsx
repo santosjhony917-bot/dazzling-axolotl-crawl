@@ -37,8 +37,15 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     
     // Lógica de ativação para rotas específicas
     if (key === 'search') { 
-        // Agora, a busca ativa se o path for /search-unified
+        // Ativa se o path for /search-unified
         return location.pathname.startsWith(createPageUrl('search-unified'));
+    }
+    
+    if (key === 'perfil') {
+        // Ativa se o path for /restaurant-area/profile-menu ou qualquer sub-rota de gerenciamento
+        return location.pathname.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
+               location.pathname.startsWith(createPageUrl('restaurant-area/menu')) ||
+               location.pathname.startsWith(createPageUrl('restaurant-area/gallery'));
     }
     
     // Fallback para a rota atual

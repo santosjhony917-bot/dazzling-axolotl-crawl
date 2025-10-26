@@ -21,6 +21,7 @@ import ContentManagementSection from './profile/ContentManagementSection';
 import SubscriptionCard from './profile/SubscriptionCard';
 import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
 import FollowerCountCard from './profile/FollowerCountCard'; // NOVO IMPORT
+import RestaurantBottomNav from './RestaurantBottomNav'; // NOVO IMPORT
 
 // Diálogos de Edição
 import EditFieldDialog from '@/components/EditFieldDialog';
@@ -310,6 +311,9 @@ export default function ProfileManagementLayout() {
         currentSchedule={currentSchedule}
         onSave={handleSaveHours}
       />
+      
+      {/* Bottom Navigation */}
+      <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
     </div>
   );
 }
