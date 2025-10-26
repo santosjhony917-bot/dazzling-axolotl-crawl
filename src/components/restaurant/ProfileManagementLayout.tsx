@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { Loader2, AlertTriangle, Crown } from 'lucide-react';
+import { Loader2, AlertTriangle, Crown, ArrowLeft } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { WeekSchedule } from '@/types/schedule';
+import { Restaurant } from '@/types/supabase'; // Adicionado import para Restaurant
+import { Button } from '@/components/ui/button'; // Adicionado import para Button
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 
