@@ -7,7 +7,7 @@ import { Restaurant } from '@/types/supabase';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
-import AdditionalInfo from './AdditionalInfo'; // <-- NEW IMPORT
+import AdditionalInfo from './AdditionalInfo'; // <-- Importação corrigida/verificada
 import { WeekSchedule } from '@/types/schedule';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useFavorites } from '@/hooks/useFavorites';
