@@ -13,8 +13,8 @@ import FreeProfileLayout from "@/components/public/FreeProfileLayout"; // Layout
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout"; // Novo Layout Premium
 
 const RestaurantProfilePublic: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const restaurantId = id;
+  const { restaurantId } = useParams<{ restaurantId: string }>(); // CORRIGIDO: Lendo restaurantId
+  // const restaurantId = id; // Removido, pois já está desestruturado
 
   const { 
     restaurant, 
