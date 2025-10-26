@@ -24,7 +24,7 @@ const fetchRestaurantProfile = async (restaurantId: string): Promise<Restaurant>
   return data as Restaurant;
 };
 
-export function ProfileManagementLayout() {
+export default function ProfileManagementLayout() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const [activeTab, setActiveTab] = useState('profile');
 
@@ -45,8 +45,8 @@ export function ProfileManagementLayout() {
 
   return (
     <div className="p-4 md:p-8 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-primary mb-6">{restaurant.name} - Gerenciamento}</h1>
-
+      <h1 className="text-3xl font-bold text-primary mb-6">{restaurant.name} - Gerenciamento</h1>
+      
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 h-auto">
           <TabsTrigger value="profile">

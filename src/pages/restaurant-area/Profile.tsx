@@ -1,41 +1,21 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/context/AuthContext';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { Loader2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout'; // Importando o novo layout
+import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
 
 export default function RestaurantProfilePage() {
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuthContext();
-
-  const { 
-    restaurant, 
-    isLoading: restaurantLoading, 
-    updateRestaurant, 
-    refetchProfile,
-  } = useRestaurantProfile(); 
-  
-  const { isPremium } = useAuthContext(); // Obtendo isPremium do contexto
+  const { user, isLoading: authLoading, restaurant } = useAuthContext();
 
   // Scroll to top on mount/navigation
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Wrapper para adaptar o tipo de retorno da mutação
-  const wrappedUpdateRestaurant = useCallback(async (updates: Partial<any>): Promise<{ error: string | null }> => {
-    try {
-      await updateRestaurant(updates);
-      return { error: null };
-    } catch (e) {
-      return { error: (e as Error).message || "Erro desconhecido ao atualizar." };
-    }
-  }, [updateRestaurant]);
-
-  if (authLoading || restaurantLoading) {
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -43,6 +23,7 @@ export default function RestaurantProfilePage() {
     );
   }
 
+  // O ProtectedRoute já garante que 'restaurant' existe, mas mantemos o fallback
   if (!restaurant) {
     return (
       <div className="p-6 text-center">
@@ -56,12 +37,6 @@ export default function RestaurantProfilePage() {
     );
   }
 
-  return (
-    <ProfileManagementLayout 
-      restaurant={restaurant} 
-      updateRestaurant={wrappedUpdateRestaurant} 
-      refetch={refetchProfile}
-      isPremium={isPremium}
-    />
-  );
+  // O ProfileManagementLayout agora busca os dados do restaurante usando useParams
+  return <ProfileManagementLayout />;
 }
