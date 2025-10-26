@@ -11,11 +11,11 @@ interface SubscriptionCardProps {
 }
 
 const premiumFeatures = [
-  { icon: Gem, label: "Destaque na busca" },
-  { icon: Trophy, label: "Aparência personalizada" },
-  { icon: BarChart3, label: "Estatísticas detalhadas" },
-  { icon: Pencil, label: "Edição avançada de cardápio" },
-  { icon: Bell, label: "Notificações para seguidores" },
+  { text: "Destaque na busca", icon: Gem },
+  { text: "Aparência personalizada", icon: Trophy },
+  { text: "Estatísticas detalhadas", icon: BarChart3 },
+  { text: "Edição avançada de cardápio", icon: Pencil },
+  { text: "Notificações para seguidores", icon: Bell },
 ];
 
 const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
@@ -33,7 +33,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Plano e Assinatura</h2>
       
-      <Card className="shadow-xl border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+      <Card className="shadow-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
         <CardContent className="p-0">
           {/* Status do Plano Atual */}
           <div className="flex items-center gap-4 pb-4 border-b border-gray-100 dark:border-gray-700">
@@ -49,7 +49,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
           {/* Seção de Upgrade (Apenas se for Free) */}
           {!isPremium && (
             <div className="mt-4 space-y-4">
-              <div className="bg-yellow-50/50 dark:bg-yellow-900/20 p-4 rounded-lg">
+              <div className="bg-yellow-50/50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200">
                 <h3 className="text-base font-bold text-amber-700 dark:text-amber-400 flex items-center mb-3">
                   <Zap className="w-5 h-5 mr-2 fill-amber-500 text-amber-500" />
                   Desbloqueie com Premium:
@@ -69,7 +69,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
 
               <Button
                 onClick={handleUpgradeClick}
-                className="w-full h-12 rounded-full text-lg font-bold text-white bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 shadow-lg shadow-amber-500/50 transition-all"
+                className="w-full h-12 rounded-xl text-lg font-bold text-white bg-highlight hover:bg-highlight/90 shadow-highlight-glow transition-all hover:shadow-soft-xl"
               >
                 <Crown className="w-5 h-5 mr-2 fill-white" />
                 Ativar Premium
@@ -82,7 +82,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
                 <Button
                     onClick={handleUpgradeClick}
                     variant="outline"
-                    className="w-full h-10 rounded-full border-2 border-[#022D68] text-[#022D68] font-bold hover:bg-[#022D68]/5"
+                    className="w-full h-12 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5"
                 >
                     Gerenciar Assinatura
                 </Button>

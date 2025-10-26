@@ -29,7 +29,7 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
   const handleClick = (e: React.MouseEvent) => {
     if (isLocked) {
       e.preventDefault();
-      // Poderíamos adicionar um toast aqui, mas o componente pai pode lidar com isso.
+      // O componente pai deve lidar com o toast de erro
       return;
     }
     onClick();
@@ -40,7 +40,7 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
       whileHover={{ scale: isLocked ? 1 : 1.01 }}
       whileTap={{ scale: isLocked ? 1 : 0.99 }}
       className={cn(
-        "flex items-center p-4 cursor-pointer transition-all duration-200 border-none shadow-soft-md",
+        "flex items-center p-4 cursor-pointer transition-all duration-200 border border-gray-100 rounded-xl shadow-soft-md",
         isLocked 
           ? "bg-gray-100 opacity-70 cursor-not-allowed" 
           : "bg-white hover:bg-gray-50",
