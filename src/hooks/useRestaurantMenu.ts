@@ -9,12 +9,12 @@ interface UseRestaurantMenuResult {
   fetchMenu: (restaurantId: string) => Promise<void>;
 }
 
-export const useRestaurantMenu = (): UseRestaurantMenuResult => {
+export const useRestaurantMenu = (restaurantId: string): UseRestaurantMenuResult => {
   const [menu, setMenu] = useState<MenuCategoryWithItems[]>([]);
   const [menuLoading, setMenuLoading] = useState(false);
   const [menuError, setMenuError] = useState<string | null>(null);
 
-  const fetchMenu = useCallback(async (restaurantId: string) => {
+  const fetchMenu = useCallback(async (id: string) => {
     setMenuLoading(true);
     setMenuError(null);
 
@@ -27,7 +27,7 @@ export const useRestaurantMenu = (): UseRestaurantMenuResult => {
             *
           )
         `)
-        .eq('restaurant_id', restaurantId)
+        .eq('restaurant_id', id)
         .eq('is_active', true)
         .order('order_index', { ascending: true })
         .order('order_index', { foreignTable: 'menu_items', ascending: true });
@@ -46,6 +46,12 @@ export const useRestaurantMenu = (): UseRestaurantMenuResult => {
       setMenuLoading(false);
     }
   }, []);
+  
+  useEffect(() => {
+    if (restaurantId) {
+        fetchMenu(restaurantId);
+    }
+  }, [restaurantId, fetchMenu]);
 
   return { menu, menuLoading, menuError, fetchMenu };
 };

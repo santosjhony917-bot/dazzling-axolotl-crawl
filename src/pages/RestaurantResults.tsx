@@ -9,7 +9,7 @@ import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useAuthContext } from '@/context/AuthContext';
 
-// O tipo retornado pelo RPC find_nearby_restaurants é uma combinação de Restaurant + distance_km
+// O tipo retornado pela RPC find_nearby_restaurants é um Restaurant com distance_km
 interface RestaurantResult extends Restaurant {
   distance_km: number;
 }
@@ -49,6 +49,7 @@ export default function RestaurantResults() {
           throw new Error(error.message);
         }
 
+        // A RPC retorna um array de objetos que são essencialmente Restaurant + distance_km
         setResults(data as RestaurantResult[]);
       } catch (err) {
         console.error("Error fetching restaurant results:", err);

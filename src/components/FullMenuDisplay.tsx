@@ -3,9 +3,11 @@ import { MenuCategoryWithItems, MenuItem } from '@/types/supabase';
 import { Card } from '@/components/ui/card';
 import { formatPrice } from '@/utils/formatters';
 import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
 
 interface FullMenuDisplayProps {
   menu: MenuCategoryWithItems[];
+  loading: boolean; // Adicionado prop de loading
 }
 
 // O tipo MenuItem já é o correto após a correção em types/supabase.ts
@@ -30,7 +32,15 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
   </div>
 );
 
-export default function FullMenuDisplay({ menu }: FullMenuDisplayProps) {
+export default function FullMenuDisplay({ menu, loading }: FullMenuDisplayProps) {
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
   if (!menu || menu.length === 0) {
     return (
       <div className="text-center p-8 text-gray-500 dark:text-gray-400">
