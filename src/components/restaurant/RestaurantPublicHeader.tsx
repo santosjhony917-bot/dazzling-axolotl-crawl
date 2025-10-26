@@ -89,10 +89,9 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       </div>
       
       {/* Nome e Seguidores (Centralizados) */}
-      {/* Aumentando o margin-top para garantir que o texto não se sobreponha à logo */}
       <div className="mt-6 pb-4 border-b border-gray-100 text-center">
         <h1 className="text-2xl font-extrabold text-gray-900">{name}</h1>
-        <p className="text-sm text-gray-500 mt-1">{followersCount.toLocaleString('pt-BR')} seguidores</p>
+        <p className="text-sm text-highlight font-bold mt-2">{followersCount.toLocaleString('pt-BR')} seguidores</p>
       </div>
     </div>
   );
