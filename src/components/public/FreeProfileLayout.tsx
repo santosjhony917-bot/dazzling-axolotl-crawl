@@ -22,7 +22,7 @@ const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string
     <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
       <Icon className="w-5 h-5 flex-shrink-0 mt-1 text-highlight" />
       <div className="flex flex-col text-base flex-1">
-        <p className="text-gray-500 dark:text-gray-400 text-sm leading-snug">{label}</p>
+        <p className="text-gray-700 dark:text-gray-300 text-sm leading-snug">{label}</p>
         {typeof value === 'string' ? (
           <p className="text-gray-900 dark:text-white font-semibold leading-snug mt-0.5">{value}</p>
         ) : (
@@ -135,50 +135,52 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             Seguir Restaurante
           </Button>
 
-          {/* Informações Essenciais (Agrupadas em Card) */}
-          <Card className="shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
-            <CardContent className="p-0 space-y-4">
+          {/* Informações Essenciais (Agrupadas em Card com divisores) */}
+          <Card className="shadow-md border-none rounded-xl bg-white dark:bg-gray-800">
+            <div className="divide-y divide-gray-100 dark:divide-gray-700">
               
               {/* Localização */}
-              <InfoItem 
-                icon={MapPin} 
-                label="Localização"
-                value={fullAddress}
-              />
+              <div className="p-4">
+                <InfoItem 
+                  icon={MapPin} 
+                  label="Localização"
+                  value={fullAddress}
+                />
+              </div>
               
-              <Separator className="dark:bg-gray-700" />
-
               {/* Horário */}
-              <InfoItem 
-                icon={Clock} 
-                label="Horário"
-                value={
-                  <>
-                    <span className={cn("font-bold", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
-                      {formattedSchedule.status.split('.')[0]}
-                    </span>
-                    {formattedSchedule.nextOpenTime && (
-                      <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal mt-0.5">
-                        {formattedSchedule.nextOpenTime}
+              <div className="p-4">
+                <InfoItem 
+                  icon={Clock} 
+                  label="Horário"
+                  value={
+                    <>
+                      <span className={cn("font-bold", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
+                        {formattedSchedule.status.split('.')[0]}
                       </span>
-                    )}
-                  </>
-                }
-              />
-
-              <Separator className="dark:bg-gray-700" />
+                      {formattedSchedule.nextOpenTime && (
+                        <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal mt-0.5">
+                          {formattedSchedule.nextOpenTime}
+                        </span>
+                      )}
+                    </>
+                  }
+                />
+              </div>
 
               {/* Telefone */}
               {restaurant.phone && (
-                <InfoItem 
-                  icon={Phone} 
-                  label="Telefone"
-                  value={restaurant.phone}
-                  isLink
-                  linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
-                />
+                <div className="p-4">
+                  <InfoItem 
+                    icon={Phone} 
+                    label="Telefone"
+                    value={restaurant.phone}
+                    isLink
+                    linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
+                  />
+                </div>
               )}
-            </CardContent>
+            </div>
           </Card>
 
           {/* Cardápio Completo (Card de Ação Proeminente) */}
