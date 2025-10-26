@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Menu, Utensils, Heart, Share2, ChevronRight } from 'lucide-react';
+import { MapPin, Clock, Phone, Menu, Heart, Share2, ChevronRight } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
-import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
 import { WeekSchedule } from '@/types/schedule';
-import { Card, CardContent } from '@/components/ui/card'; // Importando Card
+import { Card } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -48,7 +47,7 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, onClick: ()
     className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none cursor-pointer hover:shadow-lg transition-shadow"
     onClick={onClick}
   >
-    <CardContent className="p-4 flex justify-between items-center">
+    <div className="p-4 flex justify-between items-center">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center shrink-0">
           <Icon className="w-5 h-5 text-highlight" />
@@ -58,7 +57,7 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, onClick: ()
         </span>
       </div>
       <ChevronRight className="w-6 h-6 text-gray-500" />
-    </CardContent>
+    </div>
   </Card>
 );
 
@@ -68,10 +67,20 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const formattedSchedule = formatSchedule(restaurant.opening_hours as unknown as WeekSchedule | null | undefined);
   
   const [followersCount, setFollowersCount] = useState(120); 
+  const [isFavorite, setIsFavorite] = useState(false);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + 1);
     alert("Seguindo restaurante! (Mock)");
+  };
+
+  const handleFavoriteToggle = () => {
+    setIsFavorite(prev => !prev);
+    alert(isFavorite ? "Removido dos favoritos! (Mock)" : "Adicionado aos favoritos! (Mock)");
+  };
+
+  const handleShare = () => {
+    alert("Compartilhar restaurante! (Mock)");
   };
 
   const handleNavigate = (route: PageUrl) => {
@@ -82,22 +91,14 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.cep}`
     : `${restaurant.address || restaurant.city || 'Endereço não informado'}`;
 
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    followersCount: followersCount,
-    logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
-    onFollowToggle: handleFollowToggle,
-  };
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] dark:bg-gray-900">
       
       <main className="max-w-md mx-auto pb-16 relative z-10">
         
-        {/* Capa (Fundo Cinza) */}
+        {/* Capa */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-          {/* Se houver cover_image_url, exibe */}
           {restaurant.cover_image_url && (
             <img 
               src={restaurant.cover_image_url} 
@@ -106,22 +107,48 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             />
           )}
           
-          {/* Header Público (Logo, Nome, Favoritar, Compartilhar, Seguidores) */}
-          <div className="absolute -bottom-10 left-0 right-0 z-20">
-            <RestaurantPublicHeader restaurant={headerData} />
+          {/* Botões de Ação no Topo da Capa */}
+          <div className="absolute top-4 right-4 flex space-x-2 z-30">
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="rounded-full w-10 h-10 bg-white/80 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 backdrop-blur-sm"
+              onClick={handleFavoriteToggle}
+            >
+              <Heart className={cn("w-5 h-5", isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 dark:text-gray-300")} />
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="rounded-full w-10 h-10 bg-white/80 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 backdrop-blur-sm"
+              onClick={handleShare}
+            >
+              <Share2 className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+            </Button>
+          </div>
+
+          {/* Logo do Restaurante (Posicionada abaixo da capa) */}
+          <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 z-20">
+            <Avatar className="w-24 h-24 border-4 border-white dark:border-gray-900 shadow-lg">
+              <AvatarImage src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL} alt={restaurant.name} />
+              <AvatarFallback>{restaurant.name.slice(0, 2)}</AvatarFallback>
+            </Avatar>
           </div>
         </div>
 
         {/* Conteúdo Principal */}
-        <div className="p-4 pt-20 space-y-6">
+        <div className="p-4 pt-16 space-y-6">
           
-          {/* Categoria */}
-          {restaurant.category && (
-            <p className="text-base font-medium text-highlight dark:text-highlight-light text-center -mt-4 mb-4">{restaurant.category}</p>
-          )}
+          {/* Nome e Categoria */}
+          <div className="text-center space-y-1">
+            <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">{restaurant.name}</h1>
+            {restaurant.category && (
+              <p className="text-base font-medium text-highlight dark:text-highlight-light">{restaurant.category}</p>
+            )}
+          </div>
           
           {/* Contagem de Seguidores */}
-          <div className="text-center -mt-4">
+          <div className="text-center">
             <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">
               {followersCount.toLocaleString('pt-BR')} Seguidores
             </p>
