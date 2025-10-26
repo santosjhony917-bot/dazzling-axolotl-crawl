@@ -49,13 +49,8 @@ export interface MenuItem {
   created_at: string;
 }
 
-export interface UserProfile {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  avatar_url: string | null;
-  updated_at: string | null;
-}
+// Profile type is now imported from supabase.ts via index.ts
+export type UserProfile = import('./supabase').Profile;
 
 export interface AuthContextType {
   session: Session | null;

@@ -4,7 +4,7 @@ import { Session, User } from '@supabase/supabase-js';
 import { Restaurant, Profile } from '@/types';
 import { showError, showSuccess } from '@/utils/toast';
 
-interface AuthContextType {
+export interface AuthContextType {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
