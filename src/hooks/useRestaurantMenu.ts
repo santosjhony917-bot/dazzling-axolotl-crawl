@@ -36,8 +36,15 @@ export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMen
         throw new Error(error.message);
       }
 
-      // O tipo retornado pelo select com join é MenuCategoryWithItems[]
-      setMenu(data as MenuCategoryWithItems[]);
+      // Map the raw Supabase data to match the MenuCategoryWithItems structure
+      // The join returns 'menu_items', but the type expects 'items'.
+      const mappedData = (data as any[]).map(category => ({
+        ...category,
+        // Ensure 'items' exists and is an array, even if 'menu_items' was null
+        items: category.menu_items || [], 
+      }));
+
+      setMenu(mappedData as MenuCategoryWithItems[]);
     } catch (err) {
       console.error('Error fetching menu:', err);
       setMenuError('Falha ao carregar o cardápio.');
