@@ -19,10 +19,15 @@ export default defineConfig(() => ({
       output: {
         manualChunks: {
           // Separa vendor libraries em chunks menores
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['lucide-react'],
-          'supabase-vendor': ['@supabase/supabase-js'],
-          'utils-vendor': ['zod', 'react-hook-form', '@hookform/resolvers/zod']
+          'react-vendor': ['react', 'react-dom'],
+          'router-vendor': ['react-router-dom'],
+          'ui-vendor': ['lucide-react', 'class-variance-authority', 'tailwind-merge', 'clsx'],
+          'supabase-vendor': ['@supabase/supabase-js', '@supabase/auth-ui-react', '@supabase/auth-ui-shared'],
+          'form-vendor': ['react-hook-form', 'zod', '@hookform/resolvers/zod'],
+          'motion-vendor': ['framer-motion'],
+          'chart-vendor': ['recharts'],
+          'date-vendor': ['date-fns', 'react-day-picker'],
+          'carousel-vendor': ['embla-carousel-react'],
         }
       }
     },
