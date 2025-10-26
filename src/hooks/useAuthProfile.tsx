@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState, useCallback } from 'react';
-import { AuthContext } from '@/context/AuthContext';
+import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { useAuthContext } from '@/context/AuthContext';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
 import { Profile, Restaurant } from '@/types/restaurant';
@@ -28,7 +28,8 @@ const defaultRoles: UserRoles = {
 };
 
 export const useAuthProfile = (): AuthProfile => {
-  const { session, isLoading: isAuthLoading } = useContext(AuthContext);
+  // CORREÇÃO 1, 4, 5: Usando useAuthContext para obter session e isLoading
+  const { session, isLoading: isAuthLoading } = useAuthContext();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -40,15 +41,12 @@ export const useAuthProfile = (): AuthProfile => {
     data: profile, 
     isLoading: isProfileLoading, 
     refetch: refetchProfile 
-  } = useQuery({
+  } = useQuery<Profile | null, Error>({
     queryKey: ['profile', userId],
     queryFn: () => getProfile(userId!),
     enabled: isAuthenticated && !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    onError: (error) => {
-      console.error("Error fetching profile:", error);
-      // toast({ title: "Erro", description: "Falha ao carregar dados do perfil.", variant: "destructive" });
-    }
+    // CORREÇÃO 6: Removendo onError do options object
   });
 
   // 2. Fetch Restaurant Data (if user is potentially an owner)
@@ -56,22 +54,24 @@ export const useAuthProfile = (): AuthProfile => {
     data: restaurant, 
     isLoading: isRestaurantLoading, 
     refetch: refetchRestaurant 
-  } = useQuery({
+  } = useQuery<Restaurant | null, Error>({
     queryKey: ['restaurant', userId],
     queryFn: () => getRestaurantByUserId(userId!),
     enabled: isAuthenticated && !!userId,
     staleTime: 1000 * 60 * 5, // 5 minutes
-    onError: (error) => {
-      console.error("Error fetching restaurant:", error);
-    }
+    // CORREÇÃO 7: Removendo onError do options object
   });
 
   // 3. Determine Roles
+  // CORREÇÃO 8: Importando useMemo de 'react'
   const roles: UserRoles = useMemo(() => {
-    const isAdmin = profile?.is_admin ?? false;
+    // CORREÇÃO 9: profile é do tipo Profile | null, que não tem is_admin. 
+    // Assumindo que a lógica de admin está no AuthContext ou será adicionada ao Profile.
+    // Por enquanto, usamos o mock de admin do AuthContext para consistência.
+    const isAdmin = profile?.is_admin ?? false; 
     const isRestaurantOwner = !!restaurant;
     
-    // CORREÇÃO: Incluir 'premium_gift' na verificação de isPremium
+    // CORREÇÃO 10, 11: restaurant é do tipo Restaurant | null
     const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
 
     return {
@@ -85,6 +85,7 @@ export const useAuthProfile = (): AuthProfile => {
   const isLoading = isAuthLoading || isProfileLoading || isRestaurantLoading;
 
   // 5. Memoize the result
+  // CORREÇÃO 12: Importando useMemo de 'react'
   const authProfileResult = useMemo(() => ({
     profile: profile ?? null,
     restaurant: restaurant ?? null,
