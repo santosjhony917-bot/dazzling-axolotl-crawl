@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { MenuCategory, MenuItem } from "@/types/restaurant";
+import { MenuCategory, MenuItem } from "@/types/supabase";
 import { showError, showSuccess } from "@/utils/toast";
 import { useCallback } from "react";
 import { logError } from "@/utils/errorLogger"; // Importando o logger

@@ -15,16 +15,10 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gerenciamento de Conteúdo</h2>
       <NavCardItem 
-        label="Cardápio e Itens" 
-        description="Adicione, edite e remova pratos e produtos."
+        label="Cardápio e Categorias" 
+        description="Adicione, edite e organize pratos e categorias."
         icon={Utensils} 
         onClick={() => navigate(createPageUrl('restaurant-area/menu'))}
-      />
-      <NavCardItem 
-        label="Categorias do Cardápio" 
-        description="Organize seus itens em categorias."
-        icon={Package} 
-        onClick={() => navigate(createPageUrl('restaurant-area/categories'))}
       />
       <NavCardItem 
         label="Galeria de Fotos" 

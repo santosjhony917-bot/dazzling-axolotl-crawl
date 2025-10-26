@@ -38,7 +38,6 @@ import GalleryManagement from './pages/restaurant/GalleryManagement';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import UpgradePage from './pages/Upgrade';
 import RestaurantMenuManagement from './pages/restaurant/MenuManagement';
-import RestaurantCategoriesManagement from './pages/restaurant/CategoryManagement';
 import Splash from './pages/Splash';
 import RestaurantSearch from './pages/restaurant/Search';
 import ClientProfilePage from './pages/ClientProfilePage';
@@ -100,7 +99,7 @@ function App() {
             <Route path="gallery" element={<GalleryManagement />} />
             <Route path="help" element={<HelpCenter />} />
             <Route path="menu" element={<RestaurantMenuManagement />} />
-            <Route path="categories" element={<RestaurantCategoriesManagement />} />
+            {/* Rota de categorias removida */}
           </Route>
 
           {/* Catch all - 404 */}
