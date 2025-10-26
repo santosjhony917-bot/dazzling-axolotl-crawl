@@ -14,19 +14,19 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, icon: Icon, onClick }) =
 
   return (
     <Card 
-      className="flex-1 cursor-pointer hover:shadow-lg transition-shadow duration-200 rounded-xl border-none"
+      className="flex-1 cursor-pointer hover:shadow-soft-lg transition-shadow duration-200 rounded-xl border-none shadow-soft-md"
       onClick={onClick}
     >
       <CardContent className="p-4 flex flex-col items-center text-center">
         <div className="mb-2">
           <Button 
             size="icon" 
-            className="h-12 w-12 rounded-full bg-[#022D68] hover:bg-[#022D68]/90 text-white shadow-md"
+            className="h-12 w-12 rounded-full bg-highlight hover:bg-highlight/90 text-white shadow-highlight-glow"
           >
             <Icon className="h-6 w-6" />
           </Button>
         </div>
-        <p className="text-sm font-semibold text-[#022D68] leading-tight">
+        <p className="text-sm font-semibold text-primary leading-tight">
           {lines.map((line, index) => (
             <React.Fragment key={index}>
               {line.trim()}

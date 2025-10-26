@@ -122,14 +122,14 @@ export default function SearchUnifiedPage() {
             placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 h-12 rounded-xl"
+            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight"
           />
         </div>
         <Button 
           type="submit" // Alterado para submit para iniciar a busca
           size="icon" 
           variant="highlight" 
-          className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90"
+          className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
         >
           <ChevronRight className="w-5 h-5" />
         </Button>
@@ -140,14 +140,14 @@ export default function SearchUnifiedPage() {
         <Button 
           onClick={handleSearchByPrice}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
         >
           <DollarSign className="w-5 h-5 mr-2" /> Preço
         </Button>
         <Button 
           onClick={handleSearchNearby}
           variant="outline"
-          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+          className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
         >
           <Compass className="w-5 h-5 mr-2" /> Distância
         </Button>
@@ -175,7 +175,7 @@ export default function SearchUnifiedPage() {
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       {/* Cabeçalho Manual */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"

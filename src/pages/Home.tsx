@@ -98,7 +98,7 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       
       {/* Header com Localização */}
-      <header className="bg-white p-4 shadow-sm">
+      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
         <div 
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setIsLocationModalOpen(true)}
@@ -127,14 +127,14 @@ const Home: React.FC = () => {
               placeholder="Buscar por prato ou restaurante..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 rounded-xl"
+              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight"
             />
           </div>
           <Button 
             type="submit" 
             size="icon" 
             variant="highlight" 
-            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90"
+            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
           >
             <Search className="w-5 h-5" />
           </Button>
@@ -149,14 +149,14 @@ const Home: React.FC = () => {
           <Button 
             onClick={handleSearchByPrice}
             variant="outline"
-            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
           >
             <DollarSign className="w-5 h-5 mr-2" /> Preço
           </Button>
           <Button 
             onClick={handleSearchNearby}
             variant="outline"
-            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100"
+            className="flex-1 h-12 rounded-xl border-gray-300 text-primary hover:bg-gray-100 shadow-soft-sm"
           >
             <Compass className="w-5 h-5 mr-2" /> Distância
           </Button>
@@ -198,7 +198,7 @@ const Home: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center p-8 text-gray-600">
+          <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
             <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
             <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>

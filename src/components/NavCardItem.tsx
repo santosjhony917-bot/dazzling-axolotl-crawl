@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronRight, LucideIcon, Crown, Lock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion'; // Adicionando motion para efeitos de hover/tap
 
 interface NavCardItemProps {
   icon: LucideIcon;
@@ -37,7 +38,7 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
   return (
     <Card 
       className={cn(
-        "flex items-center p-4 cursor-pointer transition-all duration-200 border-none shadow-sm",
+        "flex items-center p-4 cursor-pointer transition-all duration-200 border-none shadow-soft-md",
         isLocked 
           ? "bg-gray-100 opacity-70 cursor-not-allowed" 
           : "bg-white hover:bg-gray-50",
@@ -45,7 +46,10 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
       )}
       onClick={handleClick}
     >
-      <div className="flex items-center justify-center size-10 rounded-full bg-[#022D68]/10 text-[#022D68] mr-4 shrink-0">
+      <div className={cn(
+        "flex items-center justify-center size-10 rounded-xl mr-4 shrink-0",
+        isLocked ? "bg-gray-300 text-gray-500" : "bg-primary/10 text-primary"
+      )}>
         <Icon className="w-5 h-5" />
       </div>
       

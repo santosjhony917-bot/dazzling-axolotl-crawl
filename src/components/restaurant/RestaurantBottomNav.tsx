@@ -10,7 +10,7 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
       to={path}
       className={cn(
         "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-        isSelected ? "text-primary dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-primary",
+        isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
       )}
     >
       <Icon 

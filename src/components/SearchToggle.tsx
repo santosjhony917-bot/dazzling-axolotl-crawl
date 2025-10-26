@@ -20,7 +20,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
         className={cn(
           "flex-1 h-10 rounded-xl text-base font-semibold transition-all duration-200",
           isDishesActive
-            ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
+            ? "bg-highlight text-white shadow-soft-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
         )}
         variant="ghost"
@@ -32,7 +32,7 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
         className={cn(
           "flex-1 h-10 rounded-xl text-base font-semibold transition-all duration-200",
           isRestaurantsActive
-            ? "bg-highlight text-white shadow-md hover:bg-highlight/90"
+            ? "bg-highlight text-white shadow-soft-md hover:bg-highlight/90"
             : "bg-transparent text-gray-600 hover:bg-transparent hover:text-primary"
         )}
         variant="ghost"

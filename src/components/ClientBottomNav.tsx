@@ -14,12 +14,13 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
       to={path}
       className={cn(
         "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-        isSelected ? "text-highlight dark:text-text-dark" : "text-gray-500 dark:text-text-dark/70 hover:text-highlight",
+        isSelected ? "text-highlight" : "text-gray-500 hover:text-highlight",
       )}
     >
       <Icon 
         className={cn(
           "w-6 h-6",
+          isSelected && "fill-highlight/10" // Adicionando um preenchimento sutil para o ícone ativo
         )} 
       />
       <span className="text-sm font-medium">
@@ -39,7 +40,7 @@ const ClientBottomNav: React.FC<ClientBottomNavProps> = ({ selectedTab }) => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-800 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
+    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30 max-w-md mx-auto rounded-t-xl">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => (
           <NavItem

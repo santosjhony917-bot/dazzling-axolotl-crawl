@@ -42,9 +42,9 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       className={cn(
         "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
         // Estilo Hub: Fundo branco, arredondado, sombra sutil
-        "bg-white border-none rounded-xl shadow-sm hover:shadow-md", // Sombra mais suave
+        "bg-white border-none rounded-xl shadow-soft-md hover:shadow-soft-lg", // Sombra mais suave
         "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked && "opacity-70 cursor-not-allowed hover:shadow-sm"
+        isLocked && "opacity-70 cursor-not-allowed hover:shadow-soft-md"
       )}
     >
       <div className="flex items-start gap-4 flex-1">

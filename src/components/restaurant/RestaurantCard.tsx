@@ -13,7 +13,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) 
 
   return (
     <Card 
-      className="w-full overflow-hidden rounded-xl shadow-lg cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] border-none"
+      className="w-full overflow-hidden rounded-xl shadow-soft-lg cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] border-none bg-white"
       onClick={onClick}
     >
       <div className="relative h-40 bg-gray-100">
