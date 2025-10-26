@@ -1,4 +1,4 @@
-import { Database } from '../lib/database.types';
+import { Database } from '@/lib/database.types';
 
 // Tipos base do Supabase
 export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
@@ -6,16 +6,16 @@ export type Profile = Database['public']['Tables']['profiles']['Row'];
 export type UserFavorite = Database['public']['Tables']['user_favorites']['Row'];
 export type UserSearchLocation = Database['public']['Tables']['user_search_locations']['Row'];
 export type RestaurantGallery = Database['public']['Tables']['restaurant_gallery']['Row'];
-export type GalleryImage = RestaurantGallery; // Exportando GalleryImage
 
 // Tipos de Menu
 export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
 export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
 
-// Tipos de Plano (Enum)
-export type RestaurantPlan = Database['public']['Enums']['restaurant_plan']; // Exportando RestaurantPlan
+// Tipos de Enum
+export type RestaurantPlan = Database['public']['Enums']['restaurant_plan'];
 
 // Tipos de Relação
+export type GalleryImage = RestaurantGallery; // Alias para GalleryImage
 export type MenuCategoryWithItems = MenuCategory & {
   menu_items: MenuItem[];
 };
