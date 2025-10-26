@@ -8,9 +8,10 @@ import { showSuccess } from '@/utils/toast';
 
 interface ContentManagementSectionProps {
   navigate: ReturnType<typeof useNavigate>;
+  isPremium: boolean;
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate }) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium }) => {
   return (
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gerenciamento de Conteúdo</h2>
@@ -24,7 +25,9 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         label="Galeria de Fotos" 
         description="Gerencie as imagens do seu restaurante."
         icon={Camera} 
-        onClick={() => showSuccess("Funcionalidade em desenvolvimento")}
+        isPremiumFeature={true}
+        isPremium={isPremium}
+        onClick={() => navigate(createPageUrl('restaurant-area/gallery'))}
       />
     </div>
   );

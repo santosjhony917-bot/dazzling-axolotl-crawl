@@ -259,7 +259,7 @@ export default function ProfileManagementLayout() {
         />
         
         {/* Seção 4: Gerenciamento de Conteúdo */}
-        <ContentManagementSection navigate={navigate} />
+        <ContentManagementSection navigate={navigate} isPremium={isPremium} />
         
         {/* Seção 5: Plano e Assinatura */}
         <SubscriptionCard isPremium={isPremium} />

@@ -3,7 +3,6 @@ import { Restaurant } from '@/types/supabase';
 import ProfileHeader from './ProfileHeader';
 import InfoSection from './InfoSection';
 import MenuSection from './MenuSection';
-import GallerySection from './GallerySection';
 import FooterSection from './FooterSection';
 import { useMenuManagement } from '@/hooks/useMenuManagement';
 import { Loader2 } from 'lucide-react';
@@ -39,7 +38,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           </div>
         )}
         
-        <GallerySection restaurantId={restaurant.id} />
+        {/* GallerySection removida pois é Premium */}
         
         <FooterSection restaurant={restaurant} />
         
