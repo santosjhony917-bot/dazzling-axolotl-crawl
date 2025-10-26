@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Loader2, Upload, Trash2, Image, PlusCircle, AlertTriangle, Camera } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
@@ -43,10 +42,10 @@ export default function GalleryManagement() {
       await addGalleryImage({ 
         image_url: url, 
         caption: newCaption || null,
-        restaurant_id: restaurantId, // Added missing restaurant_id for the payload
+        restaurant_id: restaurantId,
       });
       setNewCaption('');
-      showSuccess("Foto adicionada à galeria!");
+      // showSuccess("Foto adicionada à galeria!"); // Toast handled by ImageUploadButton
     } catch (error) {
       showError("Falha ao adicionar imagem.");
     }
@@ -56,6 +55,7 @@ export default function GalleryManagement() {
     if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
       try {
         await deleteGalleryImage(imageId);
+        showSuccess("Foto removida da galeria.");
       } catch (error) {
         showError("Falha ao remover imagem.");
       }
@@ -64,7 +64,6 @@ export default function GalleryManagement() {
 
   const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
     try {
-      // Fix for TS2554: updateGalleryImage now expects { imageId, updates } as a single argument
       await updateGalleryImage({ imageId, updates: { caption: newCaption } }); 
       showSuccess("Legenda atualizada.");
     } catch (error) {
@@ -89,6 +88,28 @@ export default function GalleryManagement() {
         <Button onClick={() => navigate(createPageUrl('index'))}>
           Voltar para o Início
         </Button>
+      </div>
+    );
+  }
+  
+  // Verifica se o recurso é Premium e se o usuário não é Premium
+  if (!isPremium) {
+    return (
+      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+        <RestaurantAreaHeader title="Galeria de Fotos" icon={Camera} backPath="restaurant-area/profile-menu" />
+        <main className="p-4 space-y-6">
+          <Card className="p-6 text-center border-2 border-amber-500 bg-amber-50">
+            <Crown className="w-12 h-12 text-amber-600 mx-auto mb-4 fill-amber-100" />
+            <h2 className="text-xl font-bold text-amber-800 mb-2">Recurso Premium</h2>
+            <p className="text-amber-700 mb-6">O gerenciamento da galeria de fotos é exclusivo para planos Premium. Faça upgrade para desbloquear este recurso e atrair mais clientes.</p>
+            <Button onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))} className="bg-amber-600 hover:bg-amber-700">
+              Fazer Upgrade Agora
+            </Button>
+          </Card>
+        </main>
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30">
+          <RestaurantBottomNav selectedTab="gallery" isFree={!isPremium} />
+        </div>
       </div>
     );
   }
