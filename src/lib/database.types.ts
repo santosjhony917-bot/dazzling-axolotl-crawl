@@ -181,6 +181,7 @@ export interface Database {
           plan: Database["public"]["Enums"]["restaurant_plan"]
           state: string | null
           user_id: string | null
+          whatsapp_url: string | null
         }
         Insert: {
           address?: string | null
@@ -207,6 +208,7 @@ export interface Database {
           plan?: Database["public"]["Enums"]["restaurant_plan"]
           state?: string | null
           user_id?: string | null
+          whatsapp_url?: string | null
         }
         Update: {
           address?: string | null
@@ -233,6 +235,7 @@ export interface Database {
           plan?: Database["public"]["Enums"]["restaurant_plan"]
           state?: string | null
           user_id?: string | null
+          whatsapp_url?: string | null
         }
         Relationships: [
           {

@@ -43,6 +43,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
         <p className="text-gray-600">Nenhuma foto na galeria.</p>
       </Card>
     );
+  );
   }
   
   // Exibição simplificada: 1 imagem grande e 2 pequenas
@@ -172,18 +173,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   const [activeTab, setActiveTab] = useState('menu');
   const [followersCount, setFollowersCount] = useState(1200); // Mock para Premium
   
-  // CORREÇÃO: useRestaurantMenu não recebe argumentos e usa menuLoading
-  const { menu, menuLoading, fetchMenu } = useRestaurantMenu();
-  
-  // CORREÇÃO: usePublicGallery recebe o ID
+  // FIX: Destructure correctly from useRestaurantMenu
+  const { menu, menuLoading } = useRestaurantMenu(restaurant.id);
   const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);
-  
-  // CORREÇÃO: Chamar fetchMenu com o ID do restaurante
-  React.useEffect(() => {
-    if (restaurant.id) {
-      fetchMenu(restaurant.id);
-    }
-  }, [restaurant.id, fetchMenu]);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
@@ -260,10 +252,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                 </div>
                 
                 <div className="mt-4">
-                  <FullMenuDisplay menu={menu} /> 
+                  {/* FIX: Use menu and menuLoading variables */}
+                  <FullMenuDisplay menu={menu} loading={menuLoading} />
                 </div>
-              </div>
-            </TabsContent>
+              </TabsContent>
             
             {/* Tab: Fotos */}
             <TabsContent value="photos" className="mt-0">

@@ -37,7 +37,7 @@ export function RestaurantLinksForm({ restaurant }: RestaurantLinksFormProps) {
   const form = useForm<LinksFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      whatsapp_url: restaurant.whatsapp_url || '',
+      whatsapp_url: restaurant.whatsapp_url || '', // FIX: Property now exists
       ifood_url: restaurant.ifood_url || '',
       other_url: restaurant.other_url || '',
     },
@@ -123,7 +123,7 @@ export function RestaurantLinksForm({ restaurant }: RestaurantLinksFormProps) {
         {renderLinkField(
           "other_url", 
           "Outro Link (Ex: Site Próprio)", 
-          "Ex: https://www.meusite.com.br"
+          "Ex: https://www.seusite.com.br"
         )}
 
         <Button 

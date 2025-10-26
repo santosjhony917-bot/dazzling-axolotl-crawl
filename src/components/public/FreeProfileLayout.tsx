@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader'; // Importando o Header Público
+import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -61,7 +62,7 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
-  const formattedSchedule = formatSchedule(restaurant.opening_hours);
+  const formattedSchedule = formatSchedule(restaurant.opening_hours as WeekSchedule | null | undefined); // FIX: Cast to WeekSchedule
   
   // Mock state for followers (usando um valor fixo para o layout Free, mas garantindo que seja passado)
   const [followersCount, setFollowersCount] = useState(120); 
