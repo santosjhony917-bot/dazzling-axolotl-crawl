@@ -1,7 +1,7 @@
 import { useAuthContext } from '@/context/AuthContext';
 
 export function useAuth() {
-  const { user, isLoading, signOut, isAdmin, isPremium } = useAuthContext();
+  const { user, isLoading, signOut, isAdmin, isPremium, restaurant } = useAuthContext();
 
   return {
     user,
@@ -9,6 +9,7 @@ export function useAuth() {
     signOut,
     isAdmin,
     isPremium,
+    restaurant,
     isAuthenticated: !!user,
   };
 }
