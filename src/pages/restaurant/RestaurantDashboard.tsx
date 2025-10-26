@@ -169,7 +169,7 @@ const RestaurantDashboard = () => {
               Ver todos
             </Button>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap pb-4">
+          <ScrollArea className="w-full whitespace-nowrap pb-4 hide-scrollbar">
             <div className="flex space-x-4">
               {mockHighlights.map((item) => (
                 <HighlightCard key={item.id} item={item} />

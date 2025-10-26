@@ -15,6 +15,8 @@ import { Restaurant } from '@/types/restaurant';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { ScrollArea } from '@/components/ui/scroll-area'; // Importando ScrollArea
+import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +28,13 @@ const Home: React.FC = () => {
 
   const userLat = location.latitude;
   const userLon = location.longitude;
+
+  // Mock Data (Replicando do Dashboard para consistência visual)
+  const mockHighlights = [
+    { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
+    { id: 'h2', name: "Moqueca de Camarão", restaurantName: "Restaurante Mar", price: 75.00, imageUrl: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop" },
+    { id: 'h3', name: "Taco de Carnitas", restaurantName: "El Fuego", price: 28.00, imageUrl: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop" },
+  ];
 
   // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
   const { 
@@ -151,8 +160,19 @@ const Home: React.FC = () => {
       </header>
 
       <main className="p-4 space-y-6">
-        <h2 className="text-xl font-bold text-[#022D68]">Restaurantes em Destaque</h2>
+        <h2 className="text-xl font-bold text-[#022D68]">Destaques do Dia</h2>
         
+        {/* Destaques do Dia (Horizontal Scroll) */}
+        <ScrollArea className="w-full whitespace-nowrap pb-4 hide-scrollbar">
+            <div className="flex space-x-4">
+              {mockHighlights.map((item) => (
+                <HighlightCard key={item.id} item={item} />
+              ))}
+            </div>
+        </ScrollArea>
+        
+        <h2 className="text-xl font-bold text-[#022D68]">Restaurantes Próximos</h2>
+
         {isRestaurantsLoading || isLocationLoading ? (
           <div className="space-y-4">
             <Skeleton className="w-full h-48 rounded-xl" />
