@@ -6,13 +6,13 @@ import { useCallback } from "react";
 import { logError } from "@/utils/errorLogger"; // Importando o logger
 
 // --- Tipos de Retorno ---
-interface MenuData {
+interface MenuContent {
   categories: MenuCategory[];
   items: MenuItem[];
 }
 
 interface UseMenuManagementResult {
-  menuData: MenuData | undefined;
+  menuData: MenuContent | undefined;
   isLoading: boolean;
   error: string | null;
   invalidateMenu: () => void;
@@ -30,7 +30,7 @@ interface UseMenuManagementResult {
 const MENU_QUERY_KEY = (restaurantId: string) => ['menu', restaurantId];
 
 // --- Fetch Function ---
-const fetchMenu = async (restaurantId: string): Promise<MenuData> => {
+const fetchMenu = async (restaurantId: string): Promise<MenuContent> => {
   // Busca categorias e itens em uma única query aninhada
   const { data, error } = await supabase
     .from('menu_categories')
@@ -66,7 +66,7 @@ export function useMenuManagement(restaurantId: string | null): UseMenuManagemen
   const queryClient = useQueryClient();
   const queryKey = restaurantId ? MENU_QUERY_KEY(restaurantId) : ['menu', 'null'];
 
-  const { data, isLoading, error } = useQuery<MenuData, Error>({
+  const { data, isLoading, error } = useQuery<MenuContent, Error>({
     queryKey: queryKey,
     queryFn: () => fetchMenu(restaurantId!),
     enabled: !!restaurantId,
