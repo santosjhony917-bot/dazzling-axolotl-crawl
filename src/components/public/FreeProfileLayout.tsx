@@ -79,7 +79,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      <main className="max-w-md mx-auto pb-16">
+      <main className="max-w-md mx-auto pb-16 relative z-10">
         
         {/* Capa (Fundo Cinza) */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
@@ -93,7 +93,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         </div>
 
         {/* Conteúdo Principal */}
-        <div className="p-4 pt-14 space-y-6">
+        <div className="p-4 pt-20 space-y-6">
           
           {/* Nome e Categoria */}
           <div className="space-y-1">
