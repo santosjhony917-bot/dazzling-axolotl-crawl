@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Lock, ArrowLeft, Menu, Image, Link as LinkIcon } from 'lucide-react';
+import { MapPin, Clock, Phone, Lock, Menu, Utensils, ArrowLeft } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
@@ -24,24 +24,21 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      {/* REMOVIDO: Header interno para evitar duplicação. O PublicRestaurantLayout cuida disso. */}
-
       <main className="max-w-md mx-auto pb-16">
         
-        {/* Imagem de Capa */}
-        <div className="relative h-48 w-full overflow-hidden">
-          <img
-            src={restaurant.cover_image_url || DEFAULT_RESTAURANT_COVER_URL}
-            alt={`Capa de ${restaurant.name}`}
-            className="w-full h-full object-cover"
-          />
+        {/* Imagem de Capa - SUBSTITUÍDA POR FUNDO CINZA */}
+        <div className="relative h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+          <div className="text-gray-500 text-sm font-medium">
+            Capa Exclusiva Premium
+          </div>
           
-          {/* Logo do Restaurante - Ajustado o z-index e o posicionamento */}
-          <img
-            src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL}
-            alt={`Logo de ${restaurant.name}`}
-            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10"
-          />
+          {/* Logo do Restaurante - SUBSTITUÍDA POR ÍCONE GENÉRICO */}
+          <div
+            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10 
+                       bg-highlight flex items-center justify-center"
+          >
+            <Utensils className="w-10 h-10 text-white" />
+          </div>
         </div>
 
         <div className="p-4 pt-14 space-y-6">
@@ -95,7 +92,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           {/* Ações e Links */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700">
             
-            {/* Cardápio Completo (Funcional para Free) - Removido 'Ver todos' */}
+            {/* Cardápio Completo (Funcional para Free) */}
             <div 
               className="p-4 flex justify-between items-center text-gray-800 dark:text-white font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               onClick={() => handleNavigate('restaurantMenu')}
@@ -103,7 +100,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               <span className="flex items-center gap-2 text-base">
                 <Menu className="w-5 h-5 text-highlight dark:text-highlight-light" /> Cardápio Completo
               </span>
-              {/* Removido: <span className="text-sm text-gray-500 dark:text-gray-400">Ver todos</span> */}
+              <span className="text-sm text-gray-500 dark:text-gray-400">Ver todos</span>
             </div>
             
             <Separator className="dark:bg-gray-700" />
@@ -125,9 +122,6 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             </div>
             
           </div>
-          
-          {/* Links Externos (Se houver) - Não deve aparecer no Free, mas mantendo a estrutura para segurança */}
-          {/* Se o restaurante for Free, esses campos devem estar vazios, mas se por algum motivo tiverem dados, não serão exibidos aqui. */}
           
         </div>
       </main>
