@@ -48,6 +48,7 @@ const PATHS = {
 };
 
 export type PathKey = keyof typeof PATHS;
+export type PageUrl = PathKey; // Exportando PageUrl
 type PathParams = Record<string, string | number | undefined>;
 
 /**

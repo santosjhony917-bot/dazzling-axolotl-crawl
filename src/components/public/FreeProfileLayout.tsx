@@ -1,4 +1,3 @@
-Restaurant) e tipando a função handleNavigate.">
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Phone, Lock, ArrowLeft, Menu, Image, Link as LinkIcon } from 'lucide-react';
