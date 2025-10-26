@@ -1,85 +1,76 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Loader2, Utensils, MapPin, ArrowLeft } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
-import ClientLayout from '@/components/ClientLayout';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Heart, Utensils, MapPin, Loader2, AlertTriangle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import AppHeader from '@/components/AppHeader';
+import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { showError, showSuccess } from '@/utils/toast';
+import { Button } from '@/components/ui/button';
 
-interface FavoriteRestaurant extends Restaurant {
-  favorite_id: string;
-}
+// O tipo FavoriteRestaurant é essencialmente o Restaurant que vem da tabela user_favorites
+interface FavoriteRestaurant extends Restaurant {}
 
-// Definindo o tipo de dado retornado pelo Supabase para facilitar o mapeamento
-type SupabaseFavorite = {
-  id: string;
-  restaurant: Restaurant | null;
+const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
+
+const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
+  const { data, error } = await supabase
+    .from('user_favorites')
+    .select('restaurant:restaurants(*)')
+    .eq('user_id', userId);
+
+  if (error) {
+    throw error;
+  }
+
+  // Mapeia para retornar apenas o objeto Restaurant
+  return data.map(fav => fav.restaurant) as FavoriteRestaurant[];
+};
+
+const useRemoveFavorite = () => {
+  const queryClient = useQueryClient();
+  const { user } = useAuthContext();
+
+  return useMutation({
+    mutationFn: async (restaurantId: string) => {
+      if (!user?.id) throw new Error("Usuário não autenticado.");
+      
+      const { error } = await supabase
+        .from('user_favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('restaurant_id', restaurantId);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      showSuccess("Restaurante removido dos favoritos.");
+      queryClient.invalidateQueries({ queryKey: ['userFavorites', user?.id] });
+    },
+    onError: (e) => {
+      showError(`Falha ao remover favorito: ${(e as Error).message}`);
+    }
+  });
 };
 
 export default function ClientFavoritesPage() {
   const { user, isLoading: isAuthLoading } = useAuthContext();
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState<FavoriteRestaurant[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  
+  const { data: favorites, isLoading: isFavoritesLoading, error } = useQuery({
+    queryKey: ['userFavorites', user?.id],
+    queryFn: () => fetchFavorites(user!.id),
+    enabled: !!user?.id,
+  });
+  
+  const removeFavoriteMutation = useRemoveFavorite();
 
-  useEffect(() => {
-    if (!isAuthLoading && user) {
-      fetchFavorites();
-    } else if (!isAuthLoading && !user) {
-      setIsLoading(false);
-    }
-  }, [user, isAuthLoading]);
+  const isLoading = isAuthLoading || isFavoritesLoading;
 
-  const fetchFavorites = async () => {
-    setIsLoading(true);
-    if (!user) {
-      setIsLoading(false);
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from('user_favorites')
-      .select(`
-        id,
-        restaurant:restaurant_id (
-          id, user_id, name, description, image_url, cover_image_url, plan, phone, email, cnpj, category, whatsapp_url, ifood_url, other_url, address, number, neighborhood, city, state, cep, latitude, longitude, opening_hours, created_at, external_url
-        )
-      `)
-      .eq('user_id', user.id)
-      .returns<SupabaseFavorite[]>();
-
-    if (error) {
-      console.error('Error fetching favorites:', error);
-    } else if (data) {
-      const mappedFavorites: FavoriteRestaurant[] = data
-        .map(item => {
-          if (item.restaurant) {
-            return {
-              ...item.restaurant,
-              favorite_id: item.id,
-            } as FavoriteRestaurant;
-          }
-          return null;
-        })
-        .filter((r): r is FavoriteRestaurant => r !== null);
-
-      setFavorites(mappedFavorites);
-    }
-    setIsLoading(false);
-  };
-
-  const handleRemoveFavorite = async (favoriteId: string) => {
-    // Implementar lógica de remoção se necessário, mas por enquanto, apenas recarrega
-    // Para simplificar, vamos apenas recarregar a lista
-    await supabase.from('user_favorites').delete().eq('id', favoriteId);
-    fetchFavorites();
-  };
-
-  if (isAuthLoading || isLoading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -87,77 +78,70 @@ export default function ClientFavoritesPage() {
     );
   }
 
-  if (!user) {
+  if (error) {
     return (
-      <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
-        <div className="p-6 text-center">
-          <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Acesso Restrito</h2>
-          <p className="text-gray-600 mb-6">Faça login para salvar e ver seus restaurantes favoritos.</p>
-          <Button onClick={() => navigate(createPageUrl('login'))}>
-            Fazer Login
-          </Button>
-        </div>
-      </ClientLayout>
+      <div className="p-4 text-center">
+        <AlertTriangle className="w-6 h-6 mx-auto text-red-500 mb-2" />
+        <p className="text-red-600">Erro ao carregar favoritos.</p>
+      </div>
     );
   }
 
   return (
-    <ClientLayout title="Meus Favoritos" selectedTab="favorites" showBackButton={false}>
-      <div className="p-4 space-y-4">
-        <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
-          <Heart className="w-7 h-7 fill-primary" /> Favoritos
-        </h1>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <AppHeader title="Meus Favoritos" backPath="/home" />
 
-        {favorites.length === 0 ? (
-          <div className="text-center p-10 bg-white rounded-lg shadow-sm mt-6">
-            <Heart className="w-10 h-10 text-gray-300 mx-auto mb-4" />
-            <p className="text-lg font-medium text-gray-600">Você ainda não tem favoritos.</p>
-            <p className="text-sm text-gray-500 mt-1">Comece a buscar e salve seus restaurantes preferidos!</p>
-            <Button onClick={() => navigate(createPageUrl('search-restaurants'))} className="mt-4">
-              <ArrowLeft className="w-4 h-4 mr-2 rotate-180" /> Buscar Restaurantes
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {favorites.map((restaurant) => (
-              <Card 
-                key={restaurant.id} 
-                className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-              >
-                <img 
-                  src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
-                  alt={restaurant.name} 
-                  className="w-24 h-24 object-cover flex-shrink-0"
-                />
-                <div className="p-3 flex-1">
-                  <CardTitle className="text-base font-bold truncate">{restaurant.name}</CardTitle>
-                  <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                    <Utensils className="w-3 h-3" /> {restaurant.category}
-                  </p>
-                  <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                    <MapPin className="w-3 h-3" /> {restaurant.city}
-                  </p>
-                </div>
-                <div className="p-3 flex items-center">
+      <main className="p-4 space-y-4">
+        <Card className="shadow-sm border-none">
+          <CardHeader>
+            <CardTitle className="text-xl flex items-center gap-2 text-primary">
+              <Heart className="w-5 h-5 fill-primary" /> Restaurantes Favoritos ({favorites?.length || 0})
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {favorites && favorites.length > 0 ? (
+              favorites.map((restaurant) => (
+                <Card 
+                  key={restaurant.id} 
+                  className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative"
+                >
+                  <div 
+                    className="flex flex-1"
+                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+                  >
+                    <img 
+                      src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+                      alt={restaurant.name}
+                      className="w-24 h-24 object-cover flex-shrink-0"
+                    />
+                    <div className="p-3 flex-1 min-w-0">
+                      <CardTitle className="text-base font-bold truncate">{restaurant.name}</CardTitle>
+                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                        <Utensils className="w-3 h-3" /> {restaurant.category}
+                      </p>
+                      <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                        <MapPin className="w-3 h-3" /> {restaurant.city}
+                      </p>
+                    </div>
+                  </div>
+                  
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    onClick={(e) => {
-                      e.stopPropagation(); // Previne a navegação ao clicar no botão
-                      handleRemoveFavorite(restaurant.favorite_id);
-                    }}
-                    className="text-red-500 hover:bg-red-50"
+                    className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                    onClick={() => removeFavoriteMutation.mutate(restaurant.id)}
+                    disabled={removeFavoriteMutation.isPending}
                   >
-                    <Heart className="w-5 h-5 fill-red-500" />
+                    {removeFavoriteMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Heart className="h-5 w-5 fill-red-500" />}
                   </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
-        )}
-      </div>
-    </ClientLayout>
+                </Card>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">Você ainda não adicionou nenhum restaurante aos favoritos.</p>
+            )}
+          </CardContent>
+        </Card>
+      </main>
+    </div>
   );
 }

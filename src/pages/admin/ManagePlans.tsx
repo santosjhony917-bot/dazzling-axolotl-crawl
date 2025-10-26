@@ -1,231 +1,152 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Utensils, Loader2, Check, AlertTriangle, Crown } from 'lucide-react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import AdminAreaHeader from '@/components/admin/AdminAreaHeader';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Loader2, CheckCircle, XCircle, Gift } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 
-// Planos disponíveis para seleção manual
-const availablePlans: { value: RestaurantPlan, label: string, isPaid: boolean, isGift: boolean }[] = [
+interface PlanOption {
+  value: RestaurantPlan | 'premium_gift'; // Permitindo 'premium_gift' temporariamente para o Select
+  label: string;
+  isPaid: boolean;
+  isGift: boolean;
+}
+
+const PLAN_OPTIONS: PlanOption[] = [
   { value: 'free', label: 'Free', isPaid: false, isGift: false },
+  { value: 'basic', label: 'Basic', isPaid: true, isGift: false },
   { value: 'premium', label: 'Premium', isPaid: true, isGift: false },
   { value: 'premium_gift', label: 'Premium G (Cortesia)', isPaid: false, isGift: true },
 ];
 
-// Função para buscar todos os restaurantes
-const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
+const fetchRestaurants = async (): Promise<Restaurant[]> => {
   const { data, error } = await supabase
     .from('restaurants')
-    .select('id, name, plan, email, created_at')
+    .select('*')
     .order('created_at', { ascending: false });
 
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data as Restaurant[];
 };
 
-interface PendingChange {
-  id: string;
-  name: string;
-  currentPlan: RestaurantPlan;
-  newPlan: RestaurantPlan;
-}
-
 export default function ManagePlans() {
   const queryClient = useQueryClient();
-  const [filter, setFilter] = useState<RestaurantPlan | 'all'>('all');
-  const [pendingChange, setPendingChange] = useState<PendingChange | null>(null);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-
-  // Query para listar restaurantes
-  const { data: restaurants, isLoading, error, refetch } = useQuery<Restaurant[], Error>({
-    queryKey: ['adminRestaurantsList'],
-    queryFn: fetchAllRestaurants,
-    staleTime: 60000, // 1 minuto
+  const { data: restaurants, isLoading, error } = useQuery({
+    queryKey: ['adminRestaurants'],
+    queryFn: fetchRestaurants,
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Mutação para atualizar o plano
   const updatePlanMutation = useMutation({
-    mutationFn: async ({ id, newPlan }: { id: string, newPlan: RestaurantPlan }) => {
-      // Adicionando select() para garantir que a operação foi bem-sucedida
-      const { data, error } = await supabase
+    mutationFn: async ({ restaurantId, newPlan }: { restaurantId: string, newPlan: RestaurantPlan }) => {
+      const { error } = await supabase
         .from('restaurants')
         .update({ plan: newPlan })
-        .eq('id', id)
-        .select(); 
-        
-      if (error) {
-        console.error("Supabase Update Error:", error);
-        throw error;
-      }
-      
-      // Se não houver dados retornados, pode ser um problema de RLS ou ID
-      if (!data || data.length === 0) {
-          throw new Error("Nenhuma linha atualizada. Verifique permissões (RLS) ou ID.");
-      }
+        .eq('id', restaurantId);
+
+      if (error) throw error;
     },
     onSuccess: () => {
-      showSuccess('Plano atualizado com sucesso!');
-      // Invalida a query para forçar o recarregamento dos dados
-      queryClient.invalidateQueries({ queryKey: ['adminRestaurantsList'] });
-      setPendingChange(null);
-      setIsAlertOpen(false);
+      showSuccess("Plano atualizado com sucesso!");
+      queryClient.invalidateQueries({ queryKey: ['adminRestaurants'] });
     },
     onError: (e) => {
-      const errorMessage = (e as Error).message;
-      console.error("Mutation Error:", errorMessage);
-      showError(`Falha ao atualizar plano: ${errorMessage}`);
-      setPendingChange(null);
-      setIsAlertOpen(false);
+      showError(`Falha ao atualizar plano: ${(e as Error).message}`);
     },
   });
 
-  const filteredRestaurants = useMemo(() => {
-    if (!restaurants) return [];
-    if (filter === 'all') return restaurants;
-    return restaurants.filter(r => r.plan === filter);
-  }, [restaurants, filter]);
+  const filteredRestaurants = restaurants?.filter(r =>
+    r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    r.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    r.id.includes(searchTerm)
+  ) || [];
 
-  const getPlanDetails = (plan: RestaurantPlan) => {
-    return availablePlans.find(p => p.value === plan) || availablePlans[0];
-  };
+  const getPlanBadge = (plan: RestaurantPlan) => {
+    let classes = 'text-xs font-semibold px-2 py-0.5 rounded-full';
+    let label = '';
+    let icon = null;
 
-  // Lógica de edição de plano simplificada para permitir downgrades pelo Admin
-  const isPlanEditable = (currentPlan: RestaurantPlan, targetPlan: RestaurantPlan) => {
-    // O administrador pode fazer qualquer transição, exceto se o plano for o mesmo.
-    if (currentPlan === targetPlan) return false;
-    
-    // Regra de negócio simplificada para o Admin:
-    // Permite todas as transições, exceto se o plano for o mesmo.
-    return true;
-  };
-  
-  const getPlanColor = (plan: RestaurantPlan) => {
     switch (plan) {
-      case 'premium': return 'bg-amber-500 text-white';
-      case 'premium_gift': return 'bg-green-500 text-white'; // Cor para cortesia
-      case 'free': return 'bg-gray-200 text-gray-700';
-      default: return 'bg-gray-200 text-gray-700';
+      case 'premium':
+        classes = cn(classes, 'bg-amber-500 text-white');
+        label = 'Premium';
+        break;
+      case 'premium_gift':
+        classes = cn(classes, 'bg-green-500 text-white');
+        label = 'Cortesia';
+        icon = <Gift className="w-3 h-3 mr-1" />;
+        break;
+      case 'basic':
+        classes = cn(classes, 'bg-blue-500 text-white');
+        label = 'Basic';
+        break;
+      case 'free':
+      default:
+        classes = cn(classes, 'bg-gray-200 text-gray-700');
+        label = 'Free';
+        break;
     }
+    return <span className={cn(classes, "flex items-center")}>{icon}{label}</span>;
   };
 
-  const handlePlanChange = (restaurant: Restaurant, newPlan: string) => {
-    const newPlanTyped = newPlan as RestaurantPlan;
-    const currentPlan = restaurant.plan;
-    
-    if (currentPlan === newPlanTyped) return;
-
-    // Verifica se a transição é permitida
-    if (!isPlanEditable(currentPlan, newPlanTyped)) {
-        showError(`Transição de plano não permitida: ${currentPlan.toUpperCase()} para ${newPlanTyped.toUpperCase()}.`);
-        return;
-    }
-    
-    setPendingChange({
-      id: restaurant.id,
-      name: restaurant.name,
-      currentPlan: currentPlan,
-      newPlan: newPlanTyped,
-    });
-    setIsAlertOpen(true);
-  };
-  
-  const confirmPlanUpdate = () => {
-    if (pendingChange) {
-      updatePlanMutation.mutate({ 
-        id: pendingChange.id, 
-        newPlan: pendingChange.newPlan 
-      });
-    }
+  const handlePlanChange = (restaurantId: string, newPlanValue: string) => {
+    // O valor do select pode ser 'premium_gift', que é um valor válido para RestaurantPlan
+    updatePlanMutation.mutate({ restaurantId, newPlan: newPlanValue as RestaurantPlan });
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-[#022D68]">
-            <Crown className="w-6 h-6" /> Gerenciamento de Planos
-          </CardTitle>
-          <CardDescription>Visualize e altere o plano de assinatura dos restaurantes.</CardDescription>
-        </CardHeader>
-      </Card>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-4xl mx-auto">
+      <AdminAreaHeader title="Gerenciar Planos" />
 
-      <Card className="shadow-lg border-none rounded-xl">
-        <CardContent className="p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold text-primary">Lista de Restaurantes</h3>
-            <Select value={filter} onValueChange={(value) => setFilter(value as RestaurantPlan | 'all')}>
-              <SelectTrigger className="w-[180px] h-10">
-                <SelectValue placeholder="Filtrar por Plano" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos os Planos</SelectItem>
-                {availablePlans.map(p => (
-                  <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+      <main className="p-4 space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Controle de Assinaturas</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Input
+              placeholder="Buscar por nome, email ou ID do restaurante..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mb-4"
+            />
 
-          {isLoading ? (
-            <div className="flex justify-center items-center h-40">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : error ? (
-            <Alert variant="destructive">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Erro ao carregar</AlertTitle>
-              <AlertDescription>Falha ao listar restaurantes: {error.message}</AlertDescription>
-            </Alert>
-          ) : filteredRestaurants.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              Nenhum restaurante encontrado com o filtro selecionado.
-            </div>
-          ) : (
+            {isLoading && <div className="flex justify-center py-8"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}
+            {error && <p className="text-red-500">Erro ao carregar restaurantes.</p>}
+
+            {!isLoading && filteredRestaurants.length === 0 && (
+              <p className="text-center text-gray-500 py-8">Nenhum restaurante encontrado.</p>
+            )}
+
             <div className="space-y-4">
               {filteredRestaurants.map((restaurant) => (
-                <div key={restaurant.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
-                  <div className="flex-1 min-w-0 pr-4">
-                    <p className="text-base font-bold text-primary truncate">{restaurant.name}</p>
-                    <p className="text-sm text-gray-600 truncate">{restaurant.email}</p>
+                <div key={restaurant.id} className="flex items-center justify-between p-4 bg-white border rounded-lg shadow-sm">
+                  <div className="flex-1 min-w-0 mr-4">
+                    <p className="font-bold truncate">{restaurant.name}</p>
+                    <p className="text-sm text-gray-500 truncate">{restaurant.email || restaurant.id}</p>
                   </div>
                   
-                  <div className="flex items-center gap-3">
-                    <div className={cn("px-3 py-1 rounded-full text-xs font-bold", getPlanColor(restaurant.plan))}>
-                      {getPlanDetails(restaurant.plan).label.toUpperCase()}
-                    </div>
+                  <div className="flex items-center space-x-4">
+                    {getPlanBadge(restaurant.plan)}
                     
                     <Select 
                       value={restaurant.plan} 
-                      onValueChange={(newPlan) => handlePlanChange(restaurant, newPlan)}
+                      onValueChange={(value) => handlePlanChange(restaurant.id, value)}
                       disabled={updatePlanMutation.isPending}
                     >
-                      <SelectTrigger className="w-[120px] h-10">
-                        <SelectValue placeholder="Alterar Plano" />
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Mudar Plano" />
                       </SelectTrigger>
                       <SelectContent>
-                        {availablePlans.map(p => (
-                          <SelectItem 
-                            key={p.value} 
-                            value={p.value}
-                            // Desabilita a opção se a transição não for permitida
-                            disabled={!isPlanEditable(restaurant.plan, p.value)}
-                          >
-                            {p.label}
+                        {PLAN_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -234,41 +155,9 @@ export default function ManagePlans() {
                 </div>
               ))}
             </div>
-          )}
-        </CardContent>
-      </Card>
-      
-      {/* Alert Dialog de Confirmação */}
-      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center text-primary">
-              <Crown className="h-5 w-5 mr-2 text-highlight" /> Confirmar Alteração de Plano
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              Você tem certeza que deseja alterar o plano do restaurante 
-              <span className="font-bold text-gray-900"> {pendingChange?.name}</span> de 
-              <span className="font-bold text-highlight"> {getPlanDetails(pendingChange?.currentPlan || 'free').label.toUpperCase()}</span> para 
-              <span className="font-bold text-highlight"> {getPlanDetails(pendingChange?.newPlan || 'free').label.toUpperCase()}</span>?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel 
-              onClick={() => setPendingChange(null)} 
-              disabled={updatePlanMutation.isPending}
-            >
-              Cancelar
-            </AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={confirmPlanUpdate} 
-              disabled={updatePlanMutation.isPending} 
-              className="bg-highlight hover:bg-highlight/90"
-            >
-              {updatePlanMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirmar Alteração'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }

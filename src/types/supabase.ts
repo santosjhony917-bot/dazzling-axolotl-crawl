@@ -1,30 +1,81 @@
-import { Database } from '@/lib/database.types';
+// Baseado no esquema do Supabase fornecido
 
-// Tipos base do Supabase
-export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
-export type Profile = Database['public']['Tables']['profiles']['Row'];
-export type UserFavorite = Database['public']['Tables']['user_favorites']['Row'];
-export type UserSearchLocation = Database['public']['Tables']['user_search_locations']['Row'];
-export type RestaurantGallery = Database['public']['Tables']['restaurant_gallery']['Row'];
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
 
-// Tipos de Menu
-export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
-export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
+export interface Restaurant {
+  id: string;
+  user_id: string | null;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  cover_image_url: string | null;
+  plan: RestaurantPlan;
+  phone: string | null;
+  email: string | null;
+  cnpj: string | null;
+  category: string | null;
+  whatsapp_url: string | null;
+  ifood_url: string | null;
+  other_url: string | null;
+  address: string | null;
+  number: string | null;
+  neighborhood: string | null;
+  city: string | null;
+  state: string | null;
+  cep: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  opening_hours: any | null; // jsonb
+  created_at: string | null;
+  external_url: string | null;
+}
 
-// Tipos de Enum
-export type RestaurantPlan = Database['public']['Enums']['restaurant_plan'];
+export interface Profile {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  updated_at: string | null;
+}
 
-// Tipos de Relação
-export type GalleryImage = RestaurantGallery; // Alias para GalleryImage
-export type MenuCategoryWithItems = MenuCategory & {
-  menu_items: MenuItem[];
-};
+export interface MenuCategory {
+  id: string;
+  restaurant_id: string;
+  name: string;
+  order_index: number | null;
+  is_active: boolean | null;
+  created_at: string | null;
+}
 
-// Tipos de Relação Complexa
-export type RestaurantWithGallery = Restaurant & {
-  restaurant_gallery: RestaurantGallery[];
-};
+export interface MenuItem {
+  id: string;
+  category_id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image_url: string | null;
+  order_index: number | null;
+  is_active: boolean | null;
+  created_at: string | null;
+}
 
-export type RestaurantWithMenu = Restaurant & {
-  menu_categories: MenuCategoryWithItems[];
-};
+export interface MenuCategoryWithItems extends MenuCategory {
+  items: MenuItem[];
+}
+
+export interface GalleryImage {
+  id: string;
+  restaurant_id: string;
+  image_url: string;
+  caption: string | null;
+  order_index: number | null;
+  created_at: string | null;
+}
+
+export interface UserSession {
+  id: string;
+  email: string;
+  role: 'authenticated' | 'restaurant_owner' | 'admin';
+  profile: Profile | null;
+  restaurant: Restaurant | null;
+}

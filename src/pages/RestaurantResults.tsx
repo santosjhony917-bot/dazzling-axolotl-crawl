@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Loader2, MapPin, Utensils, Search, Frown } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { MapPin, Utensils, Loader2, AlertTriangle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { useAuthContext } from '@/context/AuthContext';
+import AppHeader from '@/components/AppHeader';
+import { formatDistance } from '@/lib/utils';
 
-// O tipo retornado pela RPC find_nearby_restaurants é um Restaurant com distance_km
-interface RestaurantResult extends Restaurant {
+// Tipo que a função find_nearby_restaurants retorna
+interface RestaurantResult {
+  id: string;
+  name: string;
+  image_url: string | null;
+  category: string | null;
   distance_km: number;
+  plan: Restaurant['plan'];
 }
 
-export default function RestaurantResults() {
+const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
+
+export default function RestaurantResultsPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [results, setResults] = useState<RestaurantResult[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchParams] = useSearchParams();
-  const { signOut } = useAuthContext(); 
-  const navigate = useNavigate();
 
-  const lat = searchParams.get('lat');
-  const lng = searchParams.get('lng');
-  const query = searchParams.get('query');
+  const queryParams = new URLSearchParams(location.search);
+  const lat = queryParams.get('lat');
+  const lng = queryParams.get('lng');
+  const query = queryParams.get('query');
+  const address = queryParams.get('address');
 
   useEffect(() => {
     if (!lat || !lng) {
-      setError("Localização inválida. Por favor, volte e defina sua localização.");
+      setError("Localização não especificada.");
       setIsLoading(false);
       return;
     }
@@ -36,23 +44,20 @@ export default function RestaurantResults() {
     const fetchResults = async () => {
       setIsLoading(true);
       setError(null);
-
       try {
         const { data, error } = await supabase.rpc('find_nearby_restaurants', {
           user_lat: parseFloat(lat),
           user_lng: parseFloat(lng),
           search_query: query || null,
-          max_distance_km: 10, // Default search radius
         });
 
         if (error) {
-          throw new Error(error.message);
+          throw error;
         }
 
-        // A RPC retorna um array de objetos que são essencialmente Restaurant + distance_km
-        setResults(data as RestaurantResult[]);
+        setResults(data || []);
       } catch (err) {
-        console.error("Error fetching restaurant results:", err);
+        console.error("Erro ao buscar restaurantes:", err);
         setError("Não foi possível carregar os resultados. Tente novamente.");
       } finally {
         setIsLoading(false);
@@ -66,71 +71,86 @@ export default function RestaurantResults() {
     navigate(createPageUrl('restaurantProfile', { restaurantId }));
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="p-4 text-center">
-        <Frown className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Erro na Busca</h2>
-        <p className="text-gray-600 mb-6">{error}</p>
-        <Button onClick={() => navigate(createPageUrl('index'))}>
-          Voltar para a Busca
-        </Button>
-      </div>
-    );
-  }
+  const getPlanBadge = (plan: Restaurant['plan']) => {
+    switch (plan) {
+      case 'premium':
+        return <span className="text-xs font-semibold bg-yellow-500 text-white px-2 py-0.5 rounded-full">Premium</span>;
+      case 'basic':
+        return <span className="text-xs font-semibold bg-blue-500 text-white px-2 py-0.5 rounded-full">Básico</span>;
+      case 'premium_gift':
+        return <span className="text-xs font-semibold bg-green-500 text-white px-2 py-0.5 rounded-full">Cortesia</span>;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-2xl font-bold text-primary">
-        Resultados da Busca {query && `para "${query}"`}
-      </h1>
-      <p className="text-sm text-gray-600">
-        {results.length} restaurantes encontrados em até 10km.
-      </p>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <AppHeader title="Resultados da Busca" backPath="/search-unified" />
 
-      {results.length === 0 ? (
-        <div className="p-6 text-center">
-          <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Nenhum restaurante encontrado</h2>
-          <p className="text-gray-600 mb-6">Tente ajustar sua localização ou termos de busca.</p>
-          <Button onClick={() => navigate(createPageUrl('index'))}>
-            Nova Busca
-          </Button>
+      <main className="p-4 space-y-4">
+        <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
+          <p className="text-sm text-gray-600 flex items-center">
+            <MapPin className="w-4 h-4 mr-2 text-primary" />
+            Buscando perto de: <span className="font-semibold ml-1 truncate">{address || 'Sua Localização'}</span>
+          </p>
+          {query && (
+            <p className="text-sm text-gray-600 mt-1 flex items-center">
+              <Utensils className="w-4 h-4 mr-2 text-primary" />
+              Termo: <span className="font-semibold ml-1 truncate">{query}</span>
+            </p>
+          )}
         </div>
-      ) : (
-        <div className="space-y-4">
-          {results.map((r) => (
-            <Card 
-              key={r.id} 
-              className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
-              onClick={() => handleRestaurantClick(r.id)}
-            >
-              <img 
-                src={r.image_url || PLACEHOLDER_IMAGE_URL} 
-                alt={r.name} 
-                className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
-              />
-              <div className="flex flex-col justify-center">
-                <h3 className="font-bold text-lg text-gray-800">{r.name}</h3>
-                <p className="text-sm text-gray-600 flex items-center gap-1">
-                  <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
-                </p>
-                <p className="text-xs text-gray-500 flex items-center gap-1">
-                  <MapPin className="w-3 h-3" /> {r.distance_km.toFixed(1)} km
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
+
+        {isLoading && (
+          <div className="flex justify-center items-center h-40">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        )}
+
+        {error && (
+          <div className="p-4 bg-red-100 text-red-700 rounded-lg flex items-center">
+            <AlertTriangle className="w-5 h-5 mr-2" /> {error}
+          </div>
+        )}
+
+        {!isLoading && !error && results.length === 0 && (
+          <div className="p-6 text-center bg-white rounded-lg shadow-sm">
+            <p className="text-lg font-semibold text-gray-700">Nenhum restaurante encontrado.</p>
+            <p className="text-sm text-gray-500 mt-2">Tente ajustar sua localização ou termo de busca.</p>
+          </div>
+        )}
+
+        {!isLoading && results.length > 0 && (
+          <div className="space-y-3">
+            {results.map((r) => (
+              <Card 
+                key={r.id} 
+                className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                onClick={() => handleRestaurantClick(r.id)}
+              >
+                <img 
+                  src={r.image_url || PLACEHOLDER_IMAGE_URL} 
+                  alt={r.name}
+                  className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
+                />
+                <div className="flex flex-col justify-center flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-lg text-gray-800 truncate">{r.name}</h3>
+                    {getPlanBadge(r.plan)}
+                  </div>
+                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                    <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
+                  </p>
+                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                    <MapPin className="w-3 h-3" /> {formatDistance(r.distance_km)}
+                  </p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }
