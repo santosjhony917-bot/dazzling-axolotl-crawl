@@ -104,31 +104,13 @@ export default function ManagePlans() {
     return availablePlans.find(p => p.value === plan) || availablePlans[0];
   };
 
+  // Lógica de edição de plano simplificada para permitir downgrades pelo Admin
   const isPlanEditable = (currentPlan: RestaurantPlan, targetPlan: RestaurantPlan) => {
-    const currentDetails = getPlanDetails(currentPlan);
-    const targetDetails = getPlanDetails(targetPlan);
+    // O administrador pode fazer qualquer transição, exceto se o plano for o mesmo.
+    if (currentPlan === targetPlan) return false;
     
-    // Regra 1: Planos pagos (premium) não podem ser rebaixados para free ou premium_gift.
-    if (currentDetails.isPaid && (targetPlan === 'free' || targetPlan === 'premium_gift')) {
-      return false;
-    }
-    
-    // Regra 2: Planos cortesia (premium_gift) não podem ser rebaixados para free.
-    if (currentDetails.isGift && targetPlan === 'free') {
-        return false;
-    }
-    
-    // Regra 3: Se o plano atual for FREE, só pode ser alterado para PREMIUM_GIFT.
-    if (currentPlan === 'free') {
-        return targetPlan === 'premium_gift';
-    }
-    
-    // Regra 4: Se o plano atual for pago/cortesia, pode ir para outro pago/cortesia (upgrade ou lateral).
-    if (currentDetails.isPaid || currentDetails.isGift) {
-        // Permite transição entre premium e premium_gift (upgrade/lateral)
-        return targetPlan === 'premium' || targetPlan === 'premium_gift';
-    }
-    
+    // Regra de negócio simplificada para o Admin:
+    // Permite todas as transições, exceto se o plano for o mesmo.
     return true;
   };
   
