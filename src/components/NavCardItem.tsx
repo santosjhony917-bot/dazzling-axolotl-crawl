@@ -10,7 +10,7 @@ interface NavCardItemProps {
   onClick: () => void;
   isPremium?: boolean;
   premiumDescription?: string;
-  isPremiumFeature?: boolean;
+  isPremiumFeature?: boolean; // Adicionado para resolver o erro
 }
 
 const NavCardItem: React.FC<NavCardItemProps> = ({
