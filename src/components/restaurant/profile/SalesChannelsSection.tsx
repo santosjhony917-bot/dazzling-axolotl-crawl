@@ -26,14 +26,15 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Canais de Venda e Links</h2>
       <InfoCardItem 
         label="Link do WhatsApp" 
-        value={restaurant?.whatsapp_url || ""} 
+        value={restaurant?.whatsapp_url || "Não definido"} 
         icon={MessageSquare} 
+        isPremiumFeature={true} // AGORA É PREMIUM
         isPremium={isPremium}
         onClick={() => handleEditField('whatsapp_url', 'Editar WhatsApp', 'URL do WhatsApp', <MessageSquare className="h-6 w-6 text-primary" />, whatsappSchema, "text", undefined, "https://wa.me/5583999999999")}
       />
       <InfoCardItem 
         label="Link do iFood/Delivery App" 
-        value={restaurant?.ifood_url || ""} 
+        value={restaurant?.ifood_url || "Não definido"} 
         icon={UtensilsCrossed} 
         isPremiumFeature={true}
         isPremium={isPremium}
@@ -41,7 +42,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({
       />
       <InfoCardItem 
         label="Outro Link (Ex: Site Próprio)" 
-        value={restaurant?.other_url || ""} 
+        value={restaurant?.other_url || "Não definido"} 
         icon={Globe} 
         isPremiumFeature={true}
         isPremium={isPremium}

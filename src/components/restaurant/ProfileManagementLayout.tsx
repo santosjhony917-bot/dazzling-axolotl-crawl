@@ -1,128 +1,290 @@
-import React, { useState } from 'react';
-import { useAuthContext } from '@/context/AuthContext'; // Importando useAuthContext
-import { Restaurant } from '@/types/supabase';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Utensils, Link, MapPin, Clock, Image, User, Loader2, LogOut } from 'lucide-react';
-import { InfoCardItem } from './InfoCardItem';
-import { RestaurantLinksForm } from './RestaurantLinksForm';
-import { Button } from '@/components/ui/button';
-import NavCardItem from '../NavCardItem'; // Adicionando NavCardItem para navegação interna
+import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { Loader2, AlertTriangle, Crown } from 'lucide-react';
+import { useAuthContext } from '@/context/AuthContext';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
+import { WeekSchedule } from '@/types/schedule';
+import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 
-// Define the type for the restaurant plan (assuming it's defined elsewhere, but defining locally for safety)
-type RestaurantPlan = 'free' | 'premium' | 'premium_gift';
+// Componentes de Seção
+import MainProfileCard from './profile/MainProfileCard';
+import BasicInfoSection from './profile/BasicInfoSection';
+import LocationHoursSection from './profile/LocationHoursSection';
+import SalesChannelsSection from './profile/SalesChannelsSection';
+import ContentManagementSection from './profile/ContentManagementSection';
+import SubscriptionCard from './profile/SubscriptionCard';
+import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
+
+// Diálogos de Edição
+import EditFieldDialog from '@/components/EditFieldDialog';
+import { EditAddressDialog } from '@/components/EditAddressDialog';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
+
+// --- Schemas de Validação ---
+const nameSchema = z.string().min(3, "Mínimo de 3 caracteres.");
+const emailSchema = z.string().email("E-mail inválido.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Formato: (XX) XXXXX-XXXX");
+const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "Formato: XX.XXX.XXX/XXXX-XX");
+const urlSchema = z.string().url("URL inválida").or(z.literal("")).optional();
+
+// --- Máscaras ---
+const cnpjMask = (value: string) => {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1');
+};
+
+const phoneMask = (value: string) => {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/g, '($1) $2')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .replace(/(-\d{4})\d+?$/, '$1');
+};
+
+// --- Componente Principal ---
 
 export default function ProfileManagementLayout() {
-  const { restaurant, isLoading: authLoading, isPremium, signOut } = useAuthContext();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('profile');
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthContext();
+  const { updateRestaurant, isUpdating } = useRestaurantProfile();
 
-  // Usamos o estado de carregamento do AuthContext
-  if (authLoading) return <div className="text-center py-10"><Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" /></div>;
+  // --- Estado para Edição de Campo Único ---
+  const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
+  const [editFieldConfig, setEditFieldConfig] = useState<{
+    key: keyof Restaurant;
+    title: string;
+    fieldName: string;
+    icon: React.ReactNode;
+    validationSchema: z.ZodType<string>;
+    type?: "text" | "tel" | "email";
+    mask?: (value: string) => string;
+    placeholder?: string;
+  } | null>(null);
+
+  // --- Estado para Edição de Endereço e Horários ---
+  const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
+  const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   
-  // O ProtectedRoute já garante que 'restaurant' existe, mas mantemos o check
-  if (!restaurant) return <div className="text-center py-10">Restaurante não encontrado.</div>;
+  // --- Handlers ---
 
-  // All external links are restricted for free plan
-  const areExternalLinksLocked = !isPremium;
+  const handleEditField = useCallback((
+    key: keyof Restaurant,
+    title: string,
+    fieldName: string,
+    icon: React.ReactNode,
+    validationSchema: z.ZodType<string>,
+    type: "text" | "tel" | "email" = "text",
+    mask?: (value: string) => string,
+    placeholder?: string,
+  ) => {
+    // Se não for Premium e o campo for um link externo, bloqueia
+    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
+        showError("Recurso Premium. Faça upgrade para desbloquear.");
+        return;
+    }
+    
+    setEditFieldConfig({ key, title, fieldName, icon, validationSchema, type, mask, placeholder });
+    setIsEditFieldOpen(true);
+  }, [isPremium]);
 
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editFieldConfig || !restaurant?.id) return;
+
+    const key = editFieldConfig.key;
+    let finalValue = value;
+
+    // Aplica a máscara reversa se houver (ex: remove pontos e traços do CNPJ/Telefone)
+    if (key === 'cnpj' || key === 'phone') {
+        finalValue = value.replace(/\D/g, '');
+    }
+    
+    try {
+      await updateRestaurant({ [key]: finalValue });
+      // O onSuccess do useRestaurantProfile já chama refetchProfile
+    } catch (e) {
+      // O onError do useRestaurantProfile já mostra o toast de erro
+      throw e;
+    }
+  }, [editFieldConfig, restaurant?.id, updateRestaurant]);
+
+  const handleLogoUploadComplete = useCallback(async (url: string) => {
+    try {
+      await updateRestaurant({ image_url: url });
+    } catch (e) {
+      showError("Falha ao salvar a URL da logo no perfil.");
+    }
+  }, [updateRestaurant]);
+  
+  const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
+    try {
+      await updateRestaurant({ opening_hours: newSchedule });
+      setIsHoursDialogOpen(false);
+    } catch (e) {
+      showError("Falha ao salvar os horários.");
+    }
+  }, [updateRestaurant]);
+
+  // --- Dados Derivados ---
+  const currentSchedule = useMemo(() => {
+    return (restaurant?.opening_hours || {
+      monday: { isOpen: false, slots: [] },
+      tuesday: { isOpen: false, slots: [] },
+      wednesday: { isOpen: false, slots: [] },
+      thursday: { isOpen: false, slots: [] },
+      friday: { isOpen: false, slots: [] },
+      saturday: { isOpen: false, slots: [] },
+      sunday: { isOpen: false, slots: [] },
+    }) as WeekSchedule;
+  }, [restaurant?.opening_hours]);
+
+  // --- Renderização de Carregamento/Erro ---
+  if (authLoading || isUpdating) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!restaurant) {
+    return (
+      <div className="p-6 text-center">
+        <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Acesso Negado</h2>
+        <p className="text-gray-600 mb-6">Você precisa ter um restaurante registrado para acessar esta página.</p>
+        <Button onClick={() => navigate(createPageUrl('index'))}>
+          Voltar para o Início
+        </Button>
+      </div>
+    );
+  }
+  
+  // --- Renderização Principal ---
   return (
-    <div className="p-4 md:p-8 max-w-md mx-auto">
-      <h1 className="text-3xl font-bold text-primary mb-6">{restaurant.name} - Gerenciamento</h1>
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-white shadow-md rounded-xl">
-          <TabsTrigger value="profile" className="flex items-center justify-center">
-            <User className="h-4 w-4 mr-2" /> Perfil
-          </TabsTrigger>
-          <TabsTrigger value="links" className="flex items-center justify-center">
-            <Link className="h-4 w-4 mr-2" /> Links
-          </TabsTrigger>
-          <TabsTrigger value="gallery" className="flex items-center justify-center">
-            <Image className="h-4 w-4 mr-2" /> Galeria
-          </TabsTrigger>
-        </TabsList>
+      {/* Header Fixo */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(createPageUrl('restaurant-area/home'))}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <div className="flex items-center gap-2">
+          <Crown className="h-6 w-6 text-[#022D68]" />
+          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
+        </div>
+        <div className="w-10"></div>
+      </header>
 
-        {/* PROFILE TAB (Informações Básicas e Links de Contato) */}
-        <TabsContent value="profile" className="mt-4">
-          <Card className="shadow-xl border-none rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-xl text-primary">Informações Básicas</CardTitle>
-              <CardDescription>Atualize o nome, descrição e categoria do seu restaurante.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              
-              {/* Placeholder para formulário de edição de perfil */}
-              <p className="text-sm text-gray-500">Formulário de Perfil Básico (Em desenvolvimento)</p>
-              
-              <h3 className="text-lg font-semibold mb-2 text-primary">
-                Links e Contato
-              </h3>
-              <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                {/* WhatsApp Link - AGORA BLOQUEADO PARA FREE */}
-                <InfoCardItem 
-                  label="Link do WhatsApp" 
-                  value={restaurant?.whatsapp_url || "Não definido"} 
-                  isLocked={areExternalLinksLocked}
-                />
-                {/* iFood Link */}
-                <InfoCardItem 
-                  label="Link do iFood" 
-                  value={restaurant?.ifood_url || "Não definido"} 
-                  isLocked={areExternalLinksLocked}
-                />
-                {/* Outro Link */}
-                <InfoCardItem 
-                  label="Outro Link" 
-                  value={restaurant?.other_url || "Não definido"} 
-                  isLocked={areExternalLinksLocked}
-                />
-              </div>
-              
-              <div className="mt-6">
-                <Button 
-                  variant="destructive" 
-                  onClick={signOut} 
-                  className="w-full h-12 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl"
-                  disabled={authLoading}
-                >
-                  <LogOut className="mr-2 h-4 w-4" /> Sair da Conta
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* LINKS TAB (Formulário de Edição) */}
-        <TabsContent value="links" className="mt-4">
-          <Card className="shadow-xl border-none rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-xl text-primary">Links Externos</CardTitle>
-              <CardDescription>
-                Adicione links para WhatsApp, iFood e outros sites.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RestaurantLinksForm restaurant={restaurant} />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* GALLERY TAB (Navegação para a página de gerenciamento) */}
-        <TabsContent value="gallery" className="mt-4">
-          <NavCardItem 
-            label="Gerenciar Galeria" 
-            description="Adicione, edite e remova fotos do seu perfil."
-            icon={Image} 
-            onClick={() => navigate(createPageUrl('restaurant-area/gallery'))}
-            isPremiumFeature={true}
-            isPremium={isPremium}
-          />
-        </TabsContent>
+      <main className="p-4 space-y-8">
         
-      </Tabs>
+        {/* Card Principal (Logo e Nome) */}
+        <MainProfileCard
+          restaurantName={restaurant.name}
+          logoUrl={restaurant.image_url}
+          isPremium={isPremium}
+          uploading={isUpdating}
+          onLogoUploadComplete={handleLogoUploadComplete}
+          restaurantId={restaurant.id}
+        />
+        
+        {/* Seção 1: Informações Básicas */}
+        <BasicInfoSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          cnpjMask={cnpjMask}
+          phoneMask={phoneMask}
+          nameSchema={nameSchema}
+          emailSchema={emailSchema}
+          phoneSchema={phoneSchema}
+          cnpjSchema={cnpjSchema}
+        />
+
+        {/* Seção 2: Localização e Horários */}
+        <LocationHoursSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          currentSchedule={currentSchedule}
+          setIsAddressDialogOpen={setIsAddressDialogOpen}
+          setIsHoursDialogOpen={setIsHoursDialogOpen}
+        />
+        
+        {/* Seção 3: Canais de Venda */}
+        <SalesChannelsSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          whatsappSchema={urlSchema}
+          ifoodSchema={urlSchema}
+          otherUrlSchema={urlSchema}
+        />
+        
+        {/* Seção 4: Gerenciamento de Conteúdo */}
+        <ContentManagementSection navigate={navigate} />
+        
+        {/* Seção 5: Plano e Assinatura */}
+        <SubscriptionCard isPremium={isPremium} />
+        
+        {/* Seção 6: Suporte */}
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+        
+      </main>
+      
+      {/* Diálogo de Edição de Campo Único */}
+      {editFieldConfig && (
+        <EditFieldDialog
+          isOpen={isEditFieldOpen}
+          onClose={() => setIsEditFieldOpen(false)}
+          title={editFieldConfig.title}
+          fieldName={editFieldConfig.fieldName}
+          currentValue={String(restaurant[editFieldConfig.key] || '')}
+          icon={editFieldConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editFieldConfig.placeholder}
+          type={editFieldConfig.type}
+          validationSchema={editFieldConfig.validationSchema}
+          mask={editFieldConfig.mask}
+        />
+      )}
+      
+      {/* Diálogo de Edição de Endereço */}
+      <EditAddressDialog
+        open={isAddressDialogOpen}
+        onOpenChange={setIsAddressDialogOpen}
+        restaurantId={restaurant.id}
+        currentAddress={{
+          address: restaurant.address || '',
+          city: restaurant.city || '',
+          state: restaurant.state || '',
+          cep: restaurant.cep || '',
+          neighborhood: restaurant.neighborhood || '',
+          latitude: restaurant.latitude,
+          longitude: restaurant.longitude,
+        }}
+        onSave={refetchProfile}
+      />
+      
+      {/* Diálogo de Edição de Horários */}
+      <EditHoursDialog
+        open={isHoursDialogOpen}
+        onOpenChange={setIsHoursDialogOpen}
+        currentSchedule={currentSchedule}
+        onSave={handleSaveHours}
+      />
     </div>
   );
 }
