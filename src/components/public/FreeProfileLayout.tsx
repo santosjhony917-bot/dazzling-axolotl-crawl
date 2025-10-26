@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Menu, Heart, Share2, ChevronRight } from 'lucide-react';
+import { MapPin, Clock, CreditCard, Heart, Share2 } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
@@ -8,214 +8,204 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import { WeekSchedule } from '@/types/schedule';
-import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import MenuItemCard from '@/components/restaurant/MenuItemCard';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
-// Componente auxiliar para um item de informação (Localização, Horário, Telefone)
-const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string | React.ReactNode, isLink?: boolean, linkHref?: string }> = ({ icon: Icon, label, value, isLink, linkHref }) => {
-  const content = (
+// Dados mockados para o menu (para simular a tela)
+const mockMenuItems = [
+  { name: "Pizza Calabresa", price: 39.90, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pizza" },
+  { name: "Pizza Pepperoni", price: 42.50, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pizza" },
+  { name: "Frango c/ Catupiry", price: 41.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Frango" },
+];
+
+const mockDesserts = [
+  { name: "Pudim de Leite", price: 12.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Pudim" },
+  { name: "Mousse de Maracujá", price: 10.50, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Mousse" },
+];
+
+const mockDrinks = [
+  { name: "Refrigerante Lata", price: 5.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Refri" },
+  { name: "Suco Natural 500ml", price: 8.00, imageUrl: "https://via.placeholder.com/150/f0f0f0?text=Suco" },
+];
+
+// Componente auxiliar para um item de informação (Endereço, Horário, Pagamento)
+const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string | React.ReactNode }> = ({ icon: Icon, label, value }) => {
+  return (
     <div className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
-      <Icon className="w-5 h-5 flex-shrink-0 mt-1 text-highlight" />
+      <Icon className="w-5 h-5 flex-shrink-0 mt-1 text-primary dark:text-highlight" />
       <div className="flex flex-col text-base flex-1">
-        <p className="text-gray-700 dark:text-gray-300 text-sm leading-snug">{label}</p>
+        <p className="text-gray-900 dark:text-white font-semibold leading-snug">{label}</p>
         {typeof value === 'string' ? (
-          <p className="text-gray-900 dark:text-white font-semibold leading-snug mt-0.5">{value}</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-snug mt-0.5">{value}</p>
         ) : (
-          <div className="text-gray-900 dark:text-white font-semibold leading-snug mt-0.5">{value}</div>
+          <div className="text-gray-600 dark:text-gray-400 text-sm leading-snug mt-0.5">{value}</div>
         )}
       </div>
     </div>
   );
-
-  if (isLink && linkHref) {
-    return (
-      <a href={linkHref} className="hover:text-highlight transition-colors">
-        {content}
-      </a>
-    );
-  }
-  return content;
 };
-
-// Componente auxiliar para um item de Ação/Recurso (Cardápio)
-const ActionItem: React.FC<{ icon: React.ElementType, label: string, onClick: () => void }> = ({ icon: Icon, label, onClick }) => (
-  <Card 
-    className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none cursor-pointer hover:shadow-lg transition-shadow"
-    onClick={onClick}
-  >
-    <div className="p-4 flex justify-between items-center">
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center shrink-0">
-          <Icon className="w-5 h-5 text-highlight" />
-        </div>
-        <span className="text-lg font-bold text-primary dark:text-white">
-          {label}
-        </span>
-      </div>
-      <ChevronRight className="w-6 h-6 text-gray-500" />
-    </div>
-  </Card>
-);
 
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours as unknown as WeekSchedule | null | undefined);
   
-  const [followersCount, setFollowersCount] = useState(120); 
+  const [followersCount, setFollowersCount] = useState(0); // 0 seguidores como no mock
   const [isFavorite, setIsFavorite] = useState(false);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + 1);
-    alert("Seguindo restaurante! (Mock)");
+    // Lógica de seguir
   };
 
   const handleFavoriteToggle = () => {
     setIsFavorite(prev => !prev);
-    alert(isFavorite ? "Removido dos favoritos! (Mock)" : "Adicionado aos favoritos! (Mock)");
+    // Lógica de favoritar
   };
 
   const handleShare = () => {
-    alert("Compartilhar restaurante! (Mock)");
+    // Lógica de compartilhar
   };
 
-  const handleNavigate = (route: PageUrl) => {
-    navigate(createPageUrl(route, { restaurantId: restaurant.id }));
-  };
-  
   const fullAddress = restaurant.address && restaurant.number 
-    ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.cep}`
+    ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city}/${restaurant.state}`
     : `${restaurant.address || restaurant.city || 'Endereço não informado'}`;
 
+  // Mock de formas de pagamento, pois não temos esse campo no schema
+  const paymentMethods = "Dinheiro, Pix, Cartão de Crédito";
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] dark:bg-gray-900">
       
-      <main className="max-w-md mx-auto pb-16 relative z-10">
+      <main className="max-w-md mx-auto pb-16 relative z-10 bg-white dark:bg-gray-800 shadow-lg md:rounded-xl">
         
-        {/* Capa */}
-        <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-          {restaurant.cover_image_url && (
-            <img 
-              src={restaurant.cover_image_url} 
-              alt={`Capa de ${restaurant.name}`} 
-              className="w-full h-full object-cover"
-            />
-          )}
-          
-          {/* Botões de Ação no Topo da Capa */}
-          <div className="absolute top-4 right-4 flex space-x-2 z-30">
-            <Button 
-              variant="secondary" 
+        {/* Header Fixo (Logo, Nome, Ações) */}
+        <div className="p-4 bg-white dark:bg-gray-800 sticky top-0 z-30 border-b border-gray-100 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            
+            {/* Logo e Info */}
+            <div className="flex items-center gap-3">
+              <Avatar className="w-16 h-16 border-2 border-gray-100 dark:border-gray-700 flex-shrink-0">
+                <AvatarImage src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL} alt={restaurant.name} />
+                <AvatarFallback>{restaurant.name.slice(0, 2)}</AvatarFallback>
+              </Avatar>
+              
+              <div>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-1">{restaurant.name}</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{followersCount.toLocaleString('pt-BR')} seguidores</p>
+                <p className="text-xs font-medium text-highlight dark:text-highlight-light">Free</p>
+              </div>
+            </div>
+
+            {/* Botões de Ação (Compartilhar - mantido, mas não visível no mock) */}
+            {/* <Button 
+              variant="ghost" 
               size="icon" 
-              className="rounded-full w-10 h-10 bg-white/80 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 backdrop-blur-sm"
-              onClick={handleFavoriteToggle}
-            >
-              <Heart className={cn("w-5 h-5", isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 dark:text-gray-300")} />
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="icon" 
-              className="rounded-full w-10 h-10 bg-white/80 hover:bg-white dark:bg-gray-900/80 dark:hover:bg-gray-900 backdrop-blur-sm"
+              className="rounded-full w-8 h-8 text-gray-600 dark:text-gray-300"
               onClick={handleShare}
             >
-              <Share2 className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-            </Button>
+              <Share2 className="w-4 h-4" />
+            </Button> */}
           </div>
 
-          {/* Logo do Restaurante (Posicionada abaixo da capa) */}
-          <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 z-20">
-            <Avatar className="w-24 h-24 border-4 border-white dark:border-gray-900 shadow-lg">
-              <AvatarImage src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL} alt={restaurant.name} />
-              <AvatarFallback>{restaurant.name.slice(0, 2)}</AvatarFallback>
-            </Avatar>
+          {/* Botões Seguir e Favoritar */}
+          <div className="flex gap-3 mt-4">
+            <Button 
+              onClick={handleFollowToggle}
+              className="flex-1 h-10 rounded-lg bg-primary hover:bg-primary/90 text-white font-semibold"
+            >
+              Seguir
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={handleFavoriteToggle}
+              className={cn(
+                "flex-1 h-10 rounded-lg font-semibold border-gray-300 dark:border-gray-600",
+                isFavorite ? "border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" : "text-primary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700"
+              )}
+            >
+              <Heart className={cn("w-4 h-4 mr-2", isFavorite ? "fill-red-500" : "text-primary dark:text-white")} />
+              Favoritar
+            </Button>
           </div>
         </div>
 
-        {/* Conteúdo Principal */}
-        <div className="p-4 pt-16 space-y-6">
+        {/* Conteúdo Principal (Cardápio e Informações) */}
+        <div className="p-4 space-y-8">
           
-          {/* Nome e Categoria */}
-          <div className="text-center space-y-1">
-            <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white">{restaurant.name}</h1>
-            {restaurant.category && (
-              <p className="text-base font-medium text-highlight dark:text-highlight-light">{restaurant.category}</p>
-            )}
-          </div>
-          
-          {/* Contagem de Seguidores */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">
-              {followersCount.toLocaleString('pt-BR')} Seguidores
-            </p>
-          </div>
+          {/* Seção Cardápio */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Cardápio</h2>
+            
+            <Tabs defaultValue="pizzas">
+              <TabsList className="w-full justify-start bg-transparent p-0 h-auto mb-4 overflow-x-auto">
+                <TabsTrigger value="pizzas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Pizzas</TabsTrigger>
+                <TabsTrigger value="sobremesas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Sobremesas</TabsTrigger>
+                <TabsTrigger value="bebidas" className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-full px-4 py-1.5 text-sm font-semibold">Bebidas</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="pizzas" className="mt-4 space-y-3">
+                {mockMenuItems.map((item, index) => (
+                  <MenuItemCard key={index} {...item} />
+                ))}
+              </TabsContent>
+              
+              <TabsContent value="sobremesas" className="mt-4 space-y-3">
+                {mockDesserts.map((item, index) => (
+                  <MenuItemCard key={index} {...item} />
+                ))}
+              </TabsContent>
 
-          {/* Botão Seguir */}
-          <Button 
-            onClick={handleFollowToggle}
-            className="w-full h-12 rounded-full bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-lg"
-          >
-            Seguir Restaurante
-          </Button>
+              <TabsContent value="bebidas" className="mt-4 space-y-3">
+                {mockDrinks.map((item, index) => (
+                  <MenuItemCard key={index} {...item} />
+                ))}
+              </TabsContent>
+            </Tabs>
+          </section>
 
-          {/* Informações Essenciais (Agrupadas em Card com divisores) */}
-          <Card className="shadow-md border-none rounded-xl bg-white dark:bg-gray-800">
-            <div className="divide-y divide-gray-100 dark:divide-gray-700">
+          {/* Seção Informações */}
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Informações</h2>
+            
+            <div className="space-y-4">
               
               {/* Localização */}
-              <div className="p-4">
-                <InfoItem 
-                  icon={MapPin} 
-                  label="Localização"
-                  value={fullAddress}
-                />
-              </div>
+              <InfoItem 
+                icon={MapPin} 
+                label="Endereço"
+                value={fullAddress}
+              />
               
               {/* Horário */}
-              <div className="p-4">
-                <InfoItem 
-                  icon={Clock} 
-                  label="Horário"
-                  value={
-                    <>
-                      <span className={cn("font-bold", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
-                        {formattedSchedule.status.split('.')[0]}
+              <InfoItem 
+                icon={Clock} 
+                label="Horários"
+                value={
+                  <span className={cn(formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
+                    {formattedSchedule.status.split('.')[0]}
+                    {formattedSchedule.nextOpenTime && (
+                      <span className="block text-gray-600 dark:text-gray-400 font-normal mt-0.5">
+                        {formattedSchedule.nextOpenTime}
                       </span>
-                      {formattedSchedule.nextOpenTime && (
-                        <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal mt-0.5">
-                          {formattedSchedule.nextOpenTime}
-                        </span>
-                      )}
-                    </>
-                  }
-                />
-              </div>
+                    )}
+                  </span>
+                }
+              />
 
-              {/* Telefone */}
-              {restaurant.phone && (
-                <div className="p-4">
-                  <InfoItem 
-                    icon={Phone} 
-                    label="Telefone"
-                    value={restaurant.phone}
-                    isLink
-                    linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
-                  />
-                </div>
-              )}
+              {/* Formas de Pagamento (Mockado) */}
+              <InfoItem 
+                icon={CreditCard} 
+                label="Formas de pagamento"
+                value={paymentMethods}
+              />
             </div>
-          </Card>
-
-          {/* Cardápio Completo (Card de Ação Proeminente) */}
-          <ActionItem
-            icon={Menu}
-            label="Cardápio Completo"
-            onClick={() => handleNavigate('restaurantMenu')}
-          />
+          </section>
           
         </div>
       </main>
