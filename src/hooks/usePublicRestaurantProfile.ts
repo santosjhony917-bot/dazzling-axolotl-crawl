@@ -19,37 +19,42 @@ export const usePublicRestaurantProfile = (restaurantId: string): UsePublicProfi
     if (!restaurantId || restaurantId.length === 0) {
       setIsLoading(false);
       setError(new Error("ID do restaurante não fornecido ou inválido."));
-      console.log("DEBUG PUBLIC PROFILE: ID inválido ou não fornecido.");
       return;
     }
     
-    console.log("DEBUG PUBLIC PROFILE: Tentando buscar ID:", restaurantId);
-
     const fetchRestaurant = async () => {
       setIsLoading(true);
       setError(null);
       
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('id', restaurantId)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('id', restaurantId)
+          .single();
 
-      if (error) {
-        console.error("DEBUG PUBLIC PROFILE: Erro Supabase:", error);
-        setError(new Error(error.message));
+        if (error) {
+          // PGRST116: No rows found (404)
+          if (error.code === 'PGRST116') {
+             setError(new Error("Restaurante não encontrado."));
+          } else {
+             setError(new Error(error.message));
+          }
+          setRestaurant(null);
+        } else {
+          setRestaurant(data as Restaurant);
+        }
+      } catch (e) {
+        setError(e as Error);
         setRestaurant(null);
-      } else {
-        console.log("DEBUG PUBLIC PROFILE: Sucesso, dados:", data);
-        setRestaurant(data as Restaurant);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     fetchRestaurant();
   }, [restaurantId]);
 
-  // CORREÇÃO APLICADA AQUI: Incluir 'premium_gift'
   const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
   const isFree = restaurant?.plan === 'free';
 

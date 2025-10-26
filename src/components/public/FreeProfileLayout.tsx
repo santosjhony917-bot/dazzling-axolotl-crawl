@@ -7,6 +7,7 @@ import { formatSchedule } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets'; // Importando a constante
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -60,12 +61,11 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
   const formattedSchedule = formatSchedule(restaurant.opening_hours);
+  const logoUrl = restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL;
 
   const handleNavigate = (route: PageUrl) => {
     navigate(createPageUrl(route, { restaurantId: restaurant.id }));
   };
-  
-  // Removida a função handleLockedFeature
   
   const fullAddress = restaurant.address && restaurant.number 
     ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.cep}`
@@ -78,12 +78,16 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         
         {/* Capa (Fundo Cinza) */}
         <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-          {/* Logo do Restaurante (Placeholder) */}
+          {/* Logo do Restaurante */}
           <div
             className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-20 
-                       bg-highlight flex items-center justify-center"
+                       bg-highlight flex items-center justify-center overflow-hidden"
           >
-            <Utensils className="w-10 h-10 text-white" />
+            {logoUrl === DEFAULT_RESTAURANT_LOGO_URL ? (
+              <Utensils className="w-10 h-10 text-white" />
+            ) : (
+              <img src={logoUrl} alt={`Logo de ${restaurant.name}`} className="w-full h-full object-cover" />
+            )}
           </div>
         </div>
 
@@ -150,8 +154,6 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               actionText="Ver todos"
               onClick={() => handleNavigate('restaurantMenu')}
             />
-            
-            {/* As funcionalidades Premium (Galeria, Links de Venda) não são exibidas aqui. */}
             
           </div>
           
