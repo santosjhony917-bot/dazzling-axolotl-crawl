@@ -15,6 +15,7 @@ import MenuItemDetails from './pages/MenuItemDetails';
 import HelpCenter from './pages/HelpCenter';
 import Onboarding from './pages/Onboarding'; // Importando Onboarding
 import Welcome from './pages/Welcome'; // Importando Welcome
+import RestaurantAreaHub from './pages/RestaurantAreaHub'; // Importando RestaurantAreaHub
 
 // Restaurant Area Pages
 import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
@@ -22,6 +23,9 @@ import ProfileManagementLayout from './components/restaurant/ProfileManagementLa
 import MenuManagement from './pages/restaurant/MenuManagement';
 import GalleryManagement from './pages/restaurant/GalleryManagement';
 import UpgradePage from './pages/Upgrade';
+import RestaurantLogin from './pages/RestaurantLogin';
+import RestaurantSignup from './pages/RestaurantSignup';
+import ClaimRestaurant from './pages/ClaimRestaurant';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -34,13 +38,19 @@ function App() {
       <ToastProvider />
       <Routes>
         {/* Rotas Públicas/Gerais */}
-        <Route path="/" element={<Splash />} /> {/* Rota raiz agora é Splash */}
-        <Route path="/onboarding" element={<Onboarding />} /> {/* Adicionando Onboarding */}
-        <Route path="/welcome" element={<Welcome />} /> {/* Adicionando Welcome */}
+        <Route path="/" element={<Splash />} />
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfile />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
+        
+        {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
+        <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
+        <Route path="/restaurant-area/login" element={<RestaurantLogin />} />
+        <Route path="/restaurant-area/signup" element={<RestaurantSignup />} />
+        <Route path="/restaurant-area/claim" element={<ClaimRestaurant />} />
 
         {/* Rotas Protegidas (Cliente) */}
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
