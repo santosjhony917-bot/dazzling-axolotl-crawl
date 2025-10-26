@@ -121,7 +121,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               <Card key={category.id} className="border p-4 rounded-xl shadow-sm">
                 <h3 className="text-lg font-bold mb-4 text-gray-800">{category.name}</h3>
                 <div className="space-y-3">
-                  {category.items.map(item => (
+                  {(category.items || []).map(item => (
                     <FreeMenuItemCard key={item.id} item={item} />
                   ))}
                 </div>
