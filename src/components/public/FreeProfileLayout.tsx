@@ -14,7 +14,6 @@ interface FreeProfileLayoutProps {
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
   // O hook useMenuManagement retorna { menuData, isLoading, ... }
-  // CORREÇÃO: A desestruturação deve ser feita no objeto retornado pelo hook.
   const { menuData, isLoading: isMenuLoading } = useMenuManagement(restaurant.id);
   
   const hasMenuData = menuData && menuData.categories.length > 0 && menuData.items.length > 0;

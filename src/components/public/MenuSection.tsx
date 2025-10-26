@@ -5,13 +5,13 @@ import { formatPrice } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
-interface MenuData {
+interface MenuSectionData {
   categories: MenuCategory[];
   items: MenuItem[];
 }
 
 interface MenuSectionProps {
-  menuData: MenuData;
+  menuData: MenuSectionData;
 }
 
 const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
