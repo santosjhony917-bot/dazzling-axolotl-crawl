@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { GalleryImage } from '@/types/supabase'; // Assuming GalleryImage type exists here
+import { GalleryImage } from '@/types/supabase';
 
 const GALLERY_QUERY_KEY = (restaurantId: string) => ['restaurantGallery', restaurantId];
 

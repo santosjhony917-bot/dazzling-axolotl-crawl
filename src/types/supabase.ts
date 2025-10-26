@@ -11,7 +11,11 @@ export type RestaurantGallery = Database['public']['Tables']['restaurant_gallery
 export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
 export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
 
+// Tipos de Enum
+export type RestaurantPlan = Database['public']['Enums']['restaurant_plan'];
+
 // Tipos de Relação
+export type GalleryImage = RestaurantGallery; // Alias para GalleryImage
 export type MenuCategoryWithItems = MenuCategory & {
   menu_items: MenuItem[];
 };

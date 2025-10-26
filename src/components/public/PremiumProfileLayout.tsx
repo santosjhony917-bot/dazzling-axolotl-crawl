@@ -172,8 +172,18 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   const [activeTab, setActiveTab] = useState('menu');
   const [followersCount, setFollowersCount] = useState(1200); // Mock para Premium
   
-  const { menu, loading: menuLoading } = useRestaurantMenu(restaurant.id);
+  // CORREÇÃO: useRestaurantMenu não recebe argumentos e usa menuLoading
+  const { menu, menuLoading } = useRestaurantMenu();
+  
+  // CORREÇÃO: usePublicGallery recebe o ID
   const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);
+  
+  // CORREÇÃO: Chamar fetchMenu com o ID do restaurante
+  React.useEffect(() => {
+    if (restaurant.id) {
+      menu.fetchMenu(restaurant.id);
+    }
+  }, [restaurant.id]);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
@@ -250,7 +260,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                 </div>
                 
                 <div className="mt-4">
-                  <FullMenuDisplay menu={menu} loading={menuLoading} />
+                  {/* CORREÇÃO: Removendo a prop 'loading' que não existe no FullMenuDisplay */}
+                  <FullMenuDisplay menu={menu.menu} /> 
                 </div>
               </div>
             </TabsContent>

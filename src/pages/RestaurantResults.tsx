@@ -9,6 +9,7 @@ import { createPageUrl } from '@/utils/url';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { useAuthContext } from '@/context/AuthContext';
 
+// O tipo retornado pelo RPC find_nearby_restaurants é uma combinação de Restaurant + distance_km
 interface RestaurantResult extends Restaurant {
   distance_km: number;
 }
