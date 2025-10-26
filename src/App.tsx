@@ -5,6 +5,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './layouts/Layout';
+import { Loader2 } from 'lucide-react';
 
 // Pages
 import Splash from './pages/Splash';
