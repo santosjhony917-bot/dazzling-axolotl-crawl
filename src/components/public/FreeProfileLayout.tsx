@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Menu, Utensils, Heart, Share2 } from 'lucide-react';
+import { MapPin, Clock, Phone, Menu, Utensils, Heart, Share2, ChevronRight } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
-import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader'; // Importando o Header Público
-import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule
+import RestaurantPublicHeader from '@/components/restaurant/RestaurantPublicHeader';
+import { WeekSchedule } from '@/types/schedule';
+import { Card, CardContent } from '@/components/ui/card'; // Importando Card
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
@@ -62,14 +63,11 @@ const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?
 
 export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps) {
   const navigate = useNavigate();
-  // CORREÇÃO 1: Cast opening_hours para unknown antes de WeekSchedule | null | undefined
   const formattedSchedule = formatSchedule(restaurant.opening_hours as unknown as WeekSchedule | null | undefined);
   
-  // Mock state for followers (usando um valor fixo para o layout Free, mas garantindo que seja passado)
   const [followersCount, setFollowersCount] = useState(120); 
   
   const handleFollowToggle = () => {
-    // Mock logic for following
     setFollowersCount(prev => prev + 1);
     alert("Seguindo restaurante! (Mock)");
   };
@@ -85,13 +83,13 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    followersCount: followersCount, // Passando o estado mockado
+    followersCount: followersCount,
     logoUrl: restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL,
     onFollowToggle: handleFollowToggle,
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-[#f5f7f8] dark:bg-gray-900">
       
       <main className="max-w-md mx-auto pb-16 relative z-10">
         
@@ -120,14 +118,14 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             <p className="text-base font-medium text-highlight dark:text-highlight-light text-center -mt-4 mb-4">{restaurant.category}</p>
           )}
           
-          {/* Contagem de Seguidores (Adicionado aqui) */}
+          {/* Contagem de Seguidores */}
           <div className="text-center -mt-4">
             <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">
               {followersCount.toLocaleString('pt-BR')} Seguidores
             </p>
           </div>
 
-          {/* Botão Seguir (Abaixo do nome/categoria) */}
+          {/* Botão Seguir */}
           <Button 
             onClick={handleFollowToggle}
             className="w-full h-10 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold"
@@ -135,60 +133,69 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             Seguir Restaurante
           </Button>
 
-          {/* Informações Essenciais */}
-          <div className="space-y-4">
-            
-            {/* Localização */}
-            <InfoItem 
-              icon={MapPin} 
-              label="Localização"
-              value={fullAddress}
-            />
-            
-            {/* Horário */}
-            <InfoItem 
-              icon={Clock} 
-              label="Horário"
-              value={
-                <>
-                  <span className={cn("font-medium", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
-                    {formattedSchedule.status.split('.')[0]}
-                  </span>
-                  {formattedSchedule.nextOpenTime && (
-                    <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal">
-                      {formattedSchedule.nextOpenTime}
-                    </span>
-                  )}
-                </>
-              }
-            />
-
-            {/* Telefone */}
-            {restaurant.phone && (
+          {/* Informações Essenciais (Agrupadas em Card) */}
+          <Card className="shadow-md border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+            <div className="space-y-4">
+              
+              {/* Localização */}
               <InfoItem 
-                icon={Phone} 
-                label="Telefone"
-                value={restaurant.phone}
-                isLink
-                linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
+                icon={MapPin} 
+                label="Localização"
+                value={fullAddress}
               />
-            )}
-          </div>
+              
+              <Separator className="dark:bg-gray-700" />
 
-          <Separator className="dark:bg-gray-700" />
+              {/* Horário */}
+              <InfoItem 
+                icon={Clock} 
+                label="Horário"
+                value={
+                  <>
+                    <span className={cn("font-medium", formattedSchedule.status.includes('Aberto') ? 'text-green-600' : 'text-red-600')}>
+                      {formattedSchedule.status.split('.')[0]}
+                    </span>
+                    {formattedSchedule.nextOpenTime && (
+                      <span className="block text-sm text-gray-500 dark:text-gray-400 font-normal">
+                        {formattedSchedule.nextOpenTime}
+                      </span>
+                    )}
+                  </>
+                }
+              />
 
-          {/* Ações e Recursos (Card) */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
-            
-            {/* Cardápio Completo (Funcional para Free) */}
-            <ActionItem
-              icon={Menu}
-              label="Cardápio Completo"
-              actionText="Ver todos"
-              onClick={() => handleNavigate('restaurantMenu')}
-            />
-            
-          </div>
+              <Separator className="dark:bg-gray-700" />
+
+              {/* Telefone */}
+              {restaurant.phone && (
+                <InfoItem 
+                  icon={Phone} 
+                  label="Telefone"
+                  value={restaurant.phone}
+                  isLink
+                  linkHref={`tel:${restaurant.phone.replace(/\D/g, '')}`}
+                />
+              )}
+            </div>
+          </Card>
+
+          {/* Cardápio Completo (Card de Ação Proeminente) */}
+          <Card 
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none cursor-pointer hover:shadow-lg transition-shadow"
+            onClick={() => handleNavigate('restaurantMenu')}
+          >
+            <CardContent className="p-4 flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center shrink-0">
+                  <Menu className="w-5 h-5 text-highlight" />
+                </div>
+                <span className="text-lg font-bold text-primary dark:text-white">
+                  Cardápio Completo
+                </span>
+              </div>
+              <ChevronRight className="w-6 h-6 text-gray-500" />
+            </CardContent>
+          </Card>
           
         </div>
       </main>
