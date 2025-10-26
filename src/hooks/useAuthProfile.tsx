@@ -1,4 +1,3 @@
-Promise<void> para garantir a correta propagação de tipo para o AuthContext.">
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
@@ -13,7 +12,7 @@ interface AuthProfileState {
   isAdmin: boolean;
   isLoading: boolean;
   signOut: () => Promise<{ error: Error | null }>;
-  refetchProfile: () => Promise<void>; // Ensure this is the required type
+  refetchProfile: () => Promise<void>;
 }
 
 // --- Query Keys ---
@@ -141,7 +140,7 @@ export function useAuthProfile(): AuthProfileState {
     return { error };
   }, [queryClient]);
   
-  // Explicitamente tipando a função para garantir que o AuthContext a reconheça como Promise<void>
+  // Explicitly define the return type of useCallback to satisfy AuthProfileState
   const refetchProfile: () => Promise<void> = useCallback(async () => {
       // Invalida e refaz a busca de ambos os perfis
       await queryClient.invalidateQueries({ queryKey: RESTAURANT_PROFILE_KEY(userId) });

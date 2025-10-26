@@ -46,6 +46,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       navigate(createPageUrl('welcome')); 
     }
   };
+  
+  // A função refetchProfile é passada diretamente, confiando na tipagem do useAuthProfile.
 
   return (
     <AuthContext.Provider value={{ user, session, isLoading, signOut, isAdmin, isPremium, restaurant, refetchProfile }}>
