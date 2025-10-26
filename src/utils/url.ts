@@ -1,81 +1,103 @@
 import { generatePath } from 'react-router-dom';
 
-// Define all application paths here
-const PATHS = {
-  index: '/',
-  // Customer Flow
-  home: '/home',
-  auth: '/auth', // Unified login/register for customers
-  login: '/login', // Redirects to auth
-  register: '/register', // Redirects to auth
-  profile: '/profile',
-  favorites: '/favorites',
-  onboarding: '/onboarding',
-  welcome: '/welcome',
-  legal: '/legal',
-  'customer-login': '/auth', // Alias for customer login
-  'search-unified': '/search-unified', // Rota de busca unificada
-  'search-restaurants': '/search-restaurants', // Rota de filtros (mantida)
+// Define todas as chaves de rota possíveis na aplicação
+export type PathKey = 
+  | 'index'
+  | 'home'
+  | 'auth'
+  | 'login'
+  | 'register'
+  | 'profile'
+  | 'favorites'
+  | 'onboarding'
+  | 'welcome'
+  | 'legal'
+  | 'customer-login'
+  | 'search-unified'
+  | 'search-restaurants'
+  | 'restaurantProfile'
+  | 'menuItemDetails'
+  | 'help-center'
+  | 'restaurantResults' // Adicionado
   
-  // Restaurant Flow
-  'restaurant-area': '/restaurant-area',
+  // Admin
+  | 'admin' // Adicionado (para rotas aninhadas)
+  | 'adminLogin'
+  | 'adminDashboard' // Adicionado
+  | 'admin/dashboard'
+  | 'admin/users'
+  | 'admin/restaurants'
+  | 'admin/edit-restaurant'
+  
+  // Restaurant Area
+  | 'restaurant-area' // Adicionado
+  | 'restaurant-area-hub' // Adicionado
+  | 'restaurant-login' // Adicionado
+  | 'restaurant-signup' // Adicionado
+  | 'claim-restaurant' // Adicionado
+  | 'restaurant-area/home'
+  | 'restaurant-area/profile-menu'
+  | 'restaurant-area/menu'
+  | 'restaurant-area/gallery'
+  | 'restaurant-area/upgrade'
+  | 'restaurant-area/menu/edit-category'
+  | 'restaurant-area/menu/edit-item';
+
+// Mapeamento de chaves para caminhos reais
+const PATH_MAP: Record<PathKey, string> = {
+  'index': '/',
+  'home': '/home',
+  'auth': '/auth',
+  'login': '/auth?tab=login',
+  'register': '/auth?tab=register',
+  'profile': '/profile',
+  'favorites': '/favorites',
+  'onboarding': '/onboarding',
+  'welcome': '/welcome',
+  'legal': '/legal',
+  'customer-login': '/customer-login',
+  'search-unified': '/search-unified',
+  'search-restaurants': '/search-unified?tab=restaurants',
+  'restaurantProfile': '/restaurant/:restaurantId',
+  'menuItemDetails': '/menu-item/:itemId',
+  'help-center': '/help-center',
+  'restaurantResults': '/search-unified/results', // Rota de resultados de busca
+  
+  // Admin
+  'admin': '/admin', // Rota base
+  'adminLogin': '/admin/login',
+  'adminDashboard': '/admin/dashboard', // Rota principal
+  'admin/dashboard': '/admin/dashboard',
+  'admin/users': '/admin/dashboard/users',
+  'admin/restaurants': '/admin/dashboard/restaurants',
+  'admin/edit-restaurant': '/admin/dashboard/restaurants/:restaurantId',
+  
+  // Restaurant Area
+  'restaurant-area': '/restaurant-area', // Rota base
   'restaurant-area-hub': '/restaurant-area-hub',
-  'restaurant-login': '/restaurant-login',
-  'restaurant-signup': '/restaurant-signup',
-  'claim-restaurant': '/claim-restaurant',
+  'restaurant-login': '/restaurant-area/login',
+  'restaurant-signup': '/restaurant-area/signup',
+  'claim-restaurant': '/restaurant-area/claim',
   'restaurant-area/home': '/restaurant-area/home',
-  // 'restaurant-area/stats': '/restaurant-area/stats', // REMOVIDO
-  'restaurant-area/menu': '/restaurant-area/menu',
-  'restaurant-area/categories': '/restaurant-area/categories',
-  'restaurant-area/upgrade': '/restaurant-area/upgrade',
   'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
-  'restaurant-area/help': '/restaurant-area/help',
+  'restaurant-area/menu': '/restaurant-area/menu',
   'restaurant-area/gallery': '/restaurant-area/gallery',
-
-  // Public Restaurant Profile
-  restaurantProfile: '/restaurant/:restaurantId',
-  restaurantResults: '/results',
-  restaurantDashboard: '/restaurant/dashboard',
-  restaurantMenu: '/restaurant/menu',
-  restaurantGallery: '/restaurant/gallery',
-  restaurantSettings: '/restaurant/settings',
-
-  // Admin Flow
-  adminLogin: '/admin/login',
-  adminDashboard: '/admin/dashboard',
-  admin: '/admin/:subPath', // Used for nested admin routes
-  'admin/edit-restaurant': '/admin/edit-restaurant', // Specific admin page
+  'restaurant-area/upgrade': '/restaurant-area/upgrade',
+  'restaurant-area/menu/edit-category': '/restaurant-area/menu/edit-category/:categoryId?',
+  'restaurant-area/menu/edit-item': '/restaurant-area/menu/edit-item/:itemId?',
 };
-
-export type PathKey = keyof typeof PATHS;
-export type PageUrl = PathKey; // Exportando PageUrl
-type PathParams = Record<string, string | number | undefined>;
 
 /**
- * Generates a URL path based on a key and optional parameters.
- * @param pathKey The key of the path defined in PATHS.
- * @param params Optional parameters to replace in the path (e.g., { restaurantId: '123' }).
- * @returns The generated URL string.
+ * Cria uma URL baseada na chave da página e parâmetros opcionais.
+ * @param key A chave da página (PathKey).
+ * @param params Parâmetros de rota (ex: { restaurantId: '123' }).
+ * @returns A URL formatada.
  */
-export const createPageUrl = (pathKey: PathKey, params?: PathParams): string => {
-  const path = PATHS[pathKey];
+export function createPageUrl(key: PathKey, params?: Record<string, string | number>): string {
+  const path = PATH_MAP[key];
   if (!path) {
-    console.error(`Path key "${pathKey}" not found in PATHS.`);
+    console.error(`Path key not found: ${key}`);
     return '/';
   }
-  
-  // Filter out undefined params before passing to generatePath
-  const definedParams = Object.entries(params || {}).reduce((acc, [key, value]) => {
-    if (value !== undefined) {
-      acc[key] = String(value);
-    }
-    return acc;
-  }, {} as Record<string, string>);
-
-  try {
-    return generatePath(path, definedParams);
-  } catch (e) {
-    console.error(`Error generating path for ${pathKey} with params:`, params, e);
-    return path;
-  }
-};
+  return generatePath(path, params as Record<string, string>);
+}

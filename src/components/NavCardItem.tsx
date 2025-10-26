@@ -1,68 +1,54 @@
 import React from 'react';
-import { ChevronRight, ArrowLeft, Lock } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ChevronRight, LucideIcon, Crown } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { motion } from 'framer-motion';
-import { showInfo } from '@/utils/toast';
+import { cn } from '@/lib/utils';
 
 interface NavCardItemProps {
-  label: string;
-  icon: React.ElementType;
-  onClick: () => void;
+  icon: LucideIcon;
+  title: string;
   description: string;
-  isPremiumFeature?: boolean;
+  onClick: () => void;
   isPremium?: boolean;
+  premiumDescription?: string;
 }
 
-const NavCardItem: React.FC<NavCardItemProps> = ({ label, icon: Icon, onClick, description, isPremiumFeature = false, isPremium = false }) => {
-  
-  const isLocked = isPremiumFeature && !isPremium;
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (isLocked) {
-      showInfo("Recurso Premium. Faça upgrade para desbloquear.");
-    } else {
-      onClick();
-    }
-  };
-
+const NavCardItem: React.FC<NavCardItemProps> = ({
+  icon: Icon,
+  title,
+  description,
+  onClick,
+  isPremium = false,
+  premiumDescription,
+}) => {
   return (
-    <motion.div
-      whileHover={{ scale: isLocked ? 1 : 1.01 }}
-      whileTap={{ scale: isLocked ? 1 : 0.99 }}
-      onClick={handleClick}
+    <Card 
       className={cn(
-        "w-full p-4 flex items-center justify-between transition-all",
-        "bg-white border-none rounded-xl shadow-sm hover:shadow-md",
-        "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked ? "opacity-70 cursor-not-allowed hover:shadow-sm" : "cursor-pointer"
+        "flex items-center p-4 cursor-pointer transition-all duration-200 hover:bg-gray-50 border-none shadow-sm",
+        !isPremium && premiumDescription && "opacity-80"
       )}
+      onClick={onClick}
     >
-      <div className="flex items-center gap-4">
-        {/* Ícone Circular de Fundo Claro (Estilo Hub) */}
-        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
-          <Icon className="w-5 h-5" />
-        </div>
-        
-        {/* Texto */}
-        <div className="flex-1">
-          <p className="text-base font-bold text-primary leading-snug">
-            {label}
-          </p>
-          <p className="text-sm text-text-secondary mt-0.5">
-            {description}
-          </p>
-        </div>
+      <div className="flex items-center justify-center size-10 rounded-full bg-[#022D68]/10 text-[#022D68] mr-4 shrink-0">
+        <Icon className="w-5 h-5" />
       </div>
       
-      {/* Seta de Navegação ou Cadeado */}
-      {isLocked ? (
-        <Lock className="w-5 h-5 text-gray-400 shrink-0" />
-      ) : (
-        <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180 shrink-0" />
-      )}
-    </motion.div>
+      <div className="flex-1 min-w-0">
+        <h3 className="text-base font-semibold text-gray-800 truncate">{title}</h3>
+        <p className="text-sm text-gray-500 mt-0.5">
+          {description}
+        </p>
+      </div>
+      
+      <div className="flex items-center ml-4 shrink-0">
+        {premiumDescription && !isPremium && (
+          <div className="flex items-center text-xs font-medium text-highlight bg-highlight/10 px-2 py-1 rounded-full mr-2">
+            <Crown className="w-3 h-3 mr-1 fill-highlight" />
+            Premium
+          </div>
+        )}
+        <ChevronRight className="w-5 h-5 text-gray-400" />
+      </div>
+    </Card>
   );
 };
 

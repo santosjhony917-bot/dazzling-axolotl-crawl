@@ -1,17 +1,15 @@
 import React from 'react';
-import { AuthContextProvider } from '@/context/AuthContext';
+import { AuthProvider } from '@/context/AuthContext'; // Corrigido para AuthProvider
 import QueryProvider from './QueryProvider';
 
-interface AppProviderProps {
-  children: React.ReactNode;
-}
-
-export default function AppProvider({ children }: AppProviderProps) {
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <QueryProvider>
-      <AuthContextProvider>
+      <AuthProvider>
         {children}
-      </AuthContextProvider>
+      </AuthProvider>
     </QueryProvider>
   );
-}
+};
+
+export default AppProvider;
