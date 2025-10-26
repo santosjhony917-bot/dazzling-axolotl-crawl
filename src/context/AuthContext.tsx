@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     isAdmin, 
     isLoading, 
     signOut: profileSignOut, 
-    refetchProfile // Usando o nome original diretamente
+    refetchProfile
   } = useAuthProfile();
   
   // Mock da sessão (não é estritamente necessário, mas mantido para compatibilidade)
@@ -46,8 +46,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       navigate(createPageUrl('welcome')); 
     }
   };
-  
-  // A função refetchProfile é passada diretamente, confiando na tipagem do useAuthProfile.
 
   return (
     <AuthContext.Provider value={{ user, session, isLoading, signOut, isAdmin, isPremium, restaurant, refetchProfile }}>
