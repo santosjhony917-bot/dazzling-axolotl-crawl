@@ -5,7 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import RestaurantArea from './pages/RestaurantArea';
 import MenuManagement from './pages/restaurant/MenuManagement';
-import CategoryDetails from './pages/restaurant/CategoryDetails'; // Novo componente
+import CategoryDetails from './pages/restaurant/CategoryDetails';
+import Splash from './pages/Splash'; // Importando Splash
 import { AuthContextProvider } from './context/AuthContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from './components/ui/toaster';
@@ -27,7 +28,7 @@ function App() {
       <AuthContextProvider>
         <Router>
           <RouterRoutes>
-            <Route path={Routes.HOME} element={<Index />} />
+            <Route path={Routes.HOME} element={<Splash />} /> {/* Usando Splash na rota raiz */}
             <Route path={Routes.LOGIN} element={<Login />} />
             <Route path={Routes.REGISTER} element={<Register />} />
             
