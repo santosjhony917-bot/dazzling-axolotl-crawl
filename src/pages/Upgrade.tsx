@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -75,7 +76,7 @@ const FreeCard: React.FC = () => (
   </Card>
 );
 
-const UpgradePage: React.FC = () => {
+const UpgradePageContent: React.FC = () => {
   const navigate = useNavigate();
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -94,7 +95,7 @@ const UpgradePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background-dark pb-20">
+    <div className="min-h-screen bg-white dark:bg-background-dark">
       
       {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
       <motion.header
@@ -241,4 +242,10 @@ const UpgradePage: React.FC = () => {
   );
 };
 
-export default UpgradePage;
+export default function UpgradePage() {
+    return (
+        <RestaurantAreaPageLayout title="Upgrade Premium" icon={Crown} backPath="restaurant-area/profile-menu">
+            <UpgradePageContent />
+        </RestaurantAreaPageLayout>
+    );
+}
