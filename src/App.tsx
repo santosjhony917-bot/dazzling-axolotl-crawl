@@ -22,13 +22,13 @@ import SearchRestaurants from './pages/SearchRestaurants';
 import RestaurantResultsPage from './pages/RestaurantResults';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 
-// Restaurant Area Pages
+// Restaurant Flow (Unauthenticated Entry Points)
 import RestaurantAreaHub from './pages/RestaurantAreaHub';
 import RestaurantLogin from './pages/RestaurantLogin';
 import RestaurantSignup from './pages/RestaurantSignup';
 import ClaimRestaurant from './pages/ClaimRestaurant';
 import RestaurantDashboard from './pages/RestaurantDashboard';
-import ProfileManagementLayout from './components/restaurant/ProfileManagementLayout';
+import RestaurantProfilePage from './pages/restaurant-area/Profile'; // Importando o componente de página
 import MenuManagement from './pages/restaurant/MenuManagement';
 import GalleryManagement from './pages/restaurant/GalleryManagement';
 import HelpCenter from './pages/restaurant/HelpCenter';
@@ -87,9 +87,8 @@ function App() {
                 
                 {/* Restaurant Owner Routes (Protected by role check inside ProtectedRoute) */}
                 <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
-                <Route path="/restaurant-area/profile-menu" element={<ProfileManagementLayout />} />
+                <Route path="/restaurant-area/profile-menu" element={<RestaurantProfilePage />} /> {/* CORRIGIDO */}
                 <Route path="/restaurant-area/menu" element={<MenuManagement />} />
-                {/* Rota de detalhes de categoria removida: <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} /> */}
                 <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
                 <Route path="/restaurant-area/help" element={<HelpCenter />} />
                 <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
