@@ -330,9 +330,9 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
             </Card>
           </div>
           
-          {/* 3. Canais de Venda (Visível apenas se for Premium) */}
+          {/* 3. Canais de Venda (Visível para todos, bloqueado para Free) */}
           <div className="px-4">
-            <Card className={cn("bg-white dark:bg-gray-800 rounded-xl shadow-md border-none", !isPremium && "opacity-60")}>
+            <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none">
               <h3 className="text-primary dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4 flex items-center gap-2">
                 Canais de Venda e Links
                 {!isPremium && <Lock className="w-4 h-4 text-gray-500" />}
@@ -380,6 +380,8 @@ const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ resta
                   label="Galeria de Fotos" 
                   description="Gerencie as imagens do seu restaurante."
                   icon={Camera} 
+                  isPremiumFeature={true} // AGORA É PREMIUM
+                  isPremium={isPremium}
                   onClick={() => navigate(createPageUrl('restaurant-area/gallery'))}
                 />
               </div>
