@@ -11,7 +11,7 @@ interface MenuContent {
   items: MenuItem[];
 }
 
-interface UseMenuManagementResult {
+export interface UseMenuManagementResult {
   menuData: MenuContent | undefined;
   isLoading: boolean;
   error: string | null;
