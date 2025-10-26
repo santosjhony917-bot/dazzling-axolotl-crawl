@@ -89,8 +89,11 @@ export default function ProfileManagementLayout() {
     mask?: (value: string) => string,
     placeholder?: string,
   ) => {
+    // CORREÇÃO 6: Cast key para unknown para permitir a comparação com as chaves de link
+    const keyAsString = key as unknown as string;
+    
     // Se não for Premium e o campo for um link externo, bloqueia
-    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
+    if (!isPremium && (keyAsString === 'whatsapp_url' || keyAsString === 'ifood_url' || keyAsString === 'other_url')) {
         showError("Recurso Premium. Faça upgrade para desbloquear.");
         return;
     }

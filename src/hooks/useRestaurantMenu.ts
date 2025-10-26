@@ -9,7 +9,7 @@ interface UseRestaurantMenuResult {
   fetchMenu: (restaurantId: string) => Promise<void>;
 }
 
-export const useRestaurantMenu = (restaurantId: string): UseRestaurantMenuResult => {
+export const useRestaurantMenu = (restaurantId: string | null): UseRestaurantMenuResult => {
   const [menu, setMenu] = useState<MenuCategoryWithItems[]>([]);
   const [menuLoading, setMenuLoading] = useState(false);
   const [menuError, setMenuError] = useState<string | null>(null);

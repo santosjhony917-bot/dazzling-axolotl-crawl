@@ -43,7 +43,6 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
         <p className="text-gray-600">Nenhuma foto na galeria.</p>
       </Card>
     );
-  );
   }
   
   // Exibição simplificada: 1 imagem grande e 2 pequenas
@@ -88,6 +87,7 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
 
 // Componente de Canais de Pedido
 const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
+  // CORREÇÃO 2: Acessando as propriedades de link que agora existem no tipo Restaurant
   const channels = useMemo(() => [
     { icon: MessageSquare, label: "WhatsApp", url: restaurant.whatsapp_url },
     { icon: ShoppingCart, label: "iFood", url: restaurant.ifood_url },
@@ -120,62 +120,23 @@ const OrderChannels: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => 
   );
 };
 
-// Componente de Informações Adicionais
-const AdditionalInfo: React.FC<{ restaurant: Restaurant }> = ({ restaurant }) => {
-  const address = restaurant.address && restaurant.number ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null;
-  
-  return (
-    <div className="mt-8 space-y-4">
-      <h2 className="text-lg font-bold text-primary">Informações</h2>
-      
-      {/* Endereço */}
-      {address && (
-        <div className="flex items-start gap-3">
-          <MapPin className="w-5 h-5 text-primary pt-1 shrink-0" />
-          <p className="text-sm text-gray-700">{address}</p>
-        </div>
-      )}
-      
-      {/* Horário */}
-      {restaurant.opening_hours && (
-        <div className="flex items-start gap-3">
-          <Clock className="w-5 h-5 text-primary pt-1 shrink-0" />
-          <p className="text-sm text-gray-700">
-            Horário de Funcionamento: <span className="font-semibold text-green-600">Aberto agora</span>
-          </p>
-        </div>
-      )}
-      
-      {/* Pagamento */}
-      <div className="flex items-start gap-3">
-        <CreditCard className="w-5 h-5 text-primary pt-1 shrink-0" />
-        <div>
-          <p className="text-sm font-bold text-primary">Formas de Pagamento</p>
-          <div className="flex flex-wrap items-center gap-3 mt-2">
-            {mockPaymentMethods.map((method, index) => {
-              const Icon = method.icon;
-              return (
-                <div key={index} className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 shadow-sm">
-                  <Icon className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-medium text-gray-700">{method.label}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Componente principal do layout Premium
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
   const [activeTab, setActiveTab] = useState('menu');
   const [followersCount, setFollowersCount] = useState(1200); // Mock para Premium
   
-  // FIX: Destructure correctly from useRestaurantMenu
-  const { menu, menuLoading } = useRestaurantMenu(restaurant.id);
+  // CORREÇÃO 3: useRestaurantMenu agora recebe o ID do restaurante
+  const { menu, menuLoading, fetchMenu } = useRestaurantMenu(restaurant.id);
+  
+  // CORREÇÃO: usePublicGallery recebe o ID
   const { gallery, isLoading: galleryLoading } = usePublicGallery(restaurant.id);
+  
+  // CORREÇÃO: Chamar fetchMenu com o ID do restaurante
+  React.useEffect(() => {
+    if (restaurant.id) {
+      fetchMenu(restaurant.id);
+    }
+  }, [restaurant.id, fetchMenu]);
   
   const handleFollowToggle = () => {
     setFollowersCount(prev => prev + (1)); // Simulação
@@ -252,10 +213,11 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                 </div>
                 
                 <div className="mt-4">
-                  {/* FIX: Use menu and menuLoading variables */}
-                  <FullMenuDisplay menu={menu} loading={menuLoading} />
+                  {/* CORREÇÃO 4: Passando a prop 'loading' e o objeto 'menu' diretamente */}
+                  <FullMenuDisplay menu={menu} loading={menuLoading} /> 
                 </div>
-              </TabsContent>
+              </div>
+            </TabsContent>
             
             {/* Tab: Fotos */}
             <TabsContent value="photos" className="mt-0">
@@ -292,7 +254,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         
         {/* Horários Detalhados (Se houver) */}
         {restaurant.opening_hours && (
-          <DetailedHoursDisplay schedule={restaurant.opening_hours as WeekSchedule} />
+          // CORREÇÃO 5: Cast opening_hours para unknown antes de WeekSchedule
+          <DetailedHoursDisplay schedule={restaurant.opening_hours as unknown as WeekSchedule} />
         )}
         
         {/* Descrição do Restaurante */}

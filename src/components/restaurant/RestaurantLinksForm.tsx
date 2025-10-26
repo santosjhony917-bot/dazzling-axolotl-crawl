@@ -34,12 +34,15 @@ export function RestaurantLinksForm({ restaurant }: RestaurantLinksFormProps) {
   // Desabilita se não for Premium (ou seja, se for 'free')
   const isDisabled = !isPremium; 
 
+  // CORREÇÃO 7: Cast restaurant para unknown antes de acessar as propriedades de link
+  const typedRestaurant = restaurant as unknown as { whatsapp_url: string | null, ifood_url: string | null, other_url: string | null } & Restaurant;
+
   const form = useForm<LinksFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      whatsapp_url: restaurant.whatsapp_url || '', // FIX: Property now exists
-      ifood_url: restaurant.ifood_url || '',
-      other_url: restaurant.other_url || '',
+      whatsapp_url: typedRestaurant.whatsapp_url || '',
+      ifood_url: typedRestaurant.ifood_url || '',
+      other_url: typedRestaurant.other_url || '',
     },
     mode: 'onChange',
   });
@@ -109,7 +112,7 @@ export function RestaurantLinksForm({ restaurant }: RestaurantLinksFormProps) {
         {renderLinkField(
           "whatsapp_url", 
           "Link do WhatsApp", 
-          "Ex: https://wa.me/5511999999999"
+          "Ex: https://wa.me/5583999999999"
         )}
 
         {/* iFood URL Field */}
