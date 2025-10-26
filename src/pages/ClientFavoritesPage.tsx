@@ -32,7 +32,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => 
   }
 
   // Mapeia para retornar apenas o objeto Restaurant
-  return (data as FavoriteQueryRow[]).map(fav => fav.restaurant) as FavoriteRestaurant[];
+  return (data as unknown as FavoriteQueryRow[]).map(fav => fav.restaurant) as FavoriteRestaurant[];
 };
 
 const useRemoveFavorite = () => {
