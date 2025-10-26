@@ -1,12 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Phone, Lock, Menu, Utensils, ArrowLeft } from 'lucide-react';
+import { MapPin, Clock, Phone, Menu, Utensils } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
 import { createPageUrl, PageUrl } from '@/utils/url';
 import { formatSchedule } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { showError } from '@/utils/toast';
 import { cn } from '@/lib/utils';
 
 interface FreeProfileLayoutProps {
@@ -39,14 +38,12 @@ const InfoItem: React.FC<{ icon: React.ElementType, label: string, value: string
   return content;
 };
 
-// Componente auxiliar para um item de Ação/Recurso
-const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?: string, isLocked?: boolean, onClick: () => void }> = ({ icon: Icon, label, actionText, isLocked = false, onClick }) => (
+// Componente auxiliar para um item de Ação/Recurso (Simplificado, sem lógica de bloqueio)
+const ActionItem: React.FC<{ icon: React.ElementType, label: string, actionText?: string, onClick: () => void }> = ({ icon: Icon, label, actionText, onClick }) => (
   <div 
     className={cn(
       "p-4 flex justify-between items-center font-semibold transition-colors border-b border-gray-100 dark:border-gray-700 last:border-b-0",
-      isLocked 
-        ? "text-highlight/80 cursor-not-allowed" 
-        : "text-primary dark:text-white cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+      "text-primary dark:text-white cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
     )}
     onClick={onClick}
   >
@@ -68,9 +65,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
     navigate(createPageUrl(route, { restaurantId: restaurant.id }));
   };
   
-  const handleLockedFeature = (featureName: string) => {
-    showError(`Recurso Premium: ${featureName}. Faça upgrade para desbloquear.`);
-  };
+  // Removida a função handleLockedFeature
   
   const fullAddress = restaurant.address && restaurant.number 
     ? `${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.cep}`
@@ -156,21 +151,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               onClick={() => handleNavigate('restaurantMenu')}
             />
             
-            {/* Galeria de Fotos (Bloqueado) */}
-            <ActionItem
-              icon={Lock}
-              label="Premium: Galeria de Fotos"
-              isLocked={true}
-              onClick={() => handleLockedFeature("Galeria de Fotos")}
-            />
-            
-            {/* Links de Venda (Bloqueado) */}
-            <ActionItem
-              icon={Lock}
-              label="Premium: Links de Venda"
-              isLocked={true}
-              onClick={() => handleLockedFeature("Links de Venda")}
-            />
+            {/* As funcionalidades Premium (Galeria, Links de Venda) não são exibidas aqui. */}
             
           </div>
           
