@@ -24,20 +24,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       
-      {/* Header com Botão Voltar */}
-      <header className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
-        <div className="max-w-md mx-auto flex items-center p-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-            className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-          <h1 className="text-lg font-semibold text-gray-800 dark:text-white ml-4 truncate">{restaurant.name}</h1>
-        </div>
-      </header>
+      {/* REMOVIDO: Header interno para evitar duplicação. O PublicRestaurantLayout cuida disso. */}
 
       <main className="max-w-md mx-auto pb-16">
         
@@ -49,11 +36,11 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
             className="w-full h-full object-cover"
           />
           
-          {/* Logo do Restaurante */}
+          {/* Logo do Restaurante - Ajustado o z-index e o posicionamento */}
           <img
             src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL}
             alt={`Logo de ${restaurant.name}`}
-            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg"
+            className="absolute -bottom-10 left-4 w-20 h-20 rounded-full border-4 border-white dark:border-gray-900 object-cover shadow-lg z-10"
           />
         </div>
 
@@ -108,7 +95,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
           {/* Ações e Links */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700">
             
-            {/* Cardápio Completo (Funcional para Free) */}
+            {/* Cardápio Completo (Funcional para Free) - Removido 'Ver todos' */}
             <div 
               className="p-4 flex justify-between items-center text-gray-800 dark:text-white font-semibold cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               onClick={() => handleNavigate('restaurantMenu')}
@@ -116,7 +103,7 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
               <span className="flex items-center gap-2 text-base">
                 <Menu className="w-5 h-5 text-highlight dark:text-highlight-light" /> Cardápio Completo
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Ver todos</span>
+              {/* Removido: <span className="text-sm text-gray-500 dark:text-gray-400">Ver todos</span> */}
             </div>
             
             <Separator className="dark:bg-gray-700" />

@@ -8,14 +8,15 @@ import { Restaurant } from '@/types/restaurant';
 interface PublicRestaurantLayoutProps {
   restaurant: Restaurant | null;
   children: React.ReactNode;
-  title?: string; // Tornando opcional, pois pode ser derivado do restaurant.name
+  title?: string | null; // Permitindo null
   backPath?: PathKey;
 }
 
 const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaurant, children, title, backPath = 'home' }) => {
   const navigate = useNavigate();
   
-  const displayTitle = title || restaurant?.name || "Restaurante";
+  const displayTitle = title === undefined ? (restaurant?.name || "Restaurante") : title;
+  const showTitleInHeader = displayTitle !== null && displayTitle !== "";
 
   // Se o backPath for 'home', usamos navigate(-1) para voltar ao histórico.
   // Caso contrário, navegamos para o caminho especificado.
@@ -40,10 +41,14 @@ const PublicRestaurantLayout: React.FC<PublicRestaurantLayoutProps> = ({ restaur
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <div className="flex items-center gap-2">
-          <Store className="w-6 h-6 text-[#022D68]" />
-          <h2 className="text-[#022D68] text-xl font-bold">{displayTitle}</h2>
-        </div>
+        
+        {showTitleInHeader && (
+          <div className="flex items-center gap-2">
+            <Store className="w-6 h-6 text-[#022D68]" />
+            <h2 className="text-[#022D68] text-xl font-bold">{displayTitle}</h2>
+          </div>
+        )}
+        
         <div className="w-10"></div>
       </header>
 

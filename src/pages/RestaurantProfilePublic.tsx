@@ -71,8 +71,8 @@ const RestaurantProfilePublic: React.FC = () => {
   } else {
     // Se for Free, usa o layout simples (FreeProfileLayout)
     return (
-      <PublicRestaurantLayout restaurant={restaurant} title={restaurant.name}>
-        <FreeProfileLayout restaurant={restaurant as any} />
+      <PublicRestaurantLayout restaurant={restaurant} title={null}>
+        <FreeProfileLayout restaurant={restaurant} />
       </PublicRestaurantLayout>
     );
   }
