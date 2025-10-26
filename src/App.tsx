@@ -4,7 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ToastProvider from './components/ToastProvider';
 
 // Pages
-import Index from './pages/Index'; // Nova Home do Cliente
+import Index from './pages/Index'; // Nova Home do Cliente (agora unificada)
 import Splash from './pages/Splash'; // Importando Splash
 import AuthPage from './pages/AuthPage';
 import ClientProfilePage from './pages/ClientProfilePage';
