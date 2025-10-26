@@ -20,6 +20,7 @@ import SalesChannelsSection from './profile/SalesChannelsSection';
 import ContentManagementSection from './profile/ContentManagementSection';
 import SubscriptionCard from './profile/SubscriptionCard';
 import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
+import FollowerCountCard from './profile/FollowerCountCard'; // NOVO IMPORT
 
 // Diálogos de Edição
 import EditFieldDialog from '@/components/EditFieldDialog';
@@ -218,6 +219,9 @@ export default function ProfileManagementLayout() {
           <Eye className="w-5 h-5 mr-2" />
           Ver Perfil Público
         </Button>
+        
+        {/* Card de Seguidores (NOVO) */}
+        <FollowerCountCard followerCount={120} isPremium={isPremium} />
         
         {/* Seção 1: Informações Básicas */}
         <BasicInfoSection
