@@ -88,13 +88,13 @@ export function useMenuManagement(restaurantId: string | null): UseMenuManagemen
           .from('menu_categories')
           .update(category)
           .eq('id', category.id);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
       } else {
         // Insert
         const { error } = await supabase
           .from('menu_categories')
           .insert(category);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
       }
     },
     onSuccess: () => {
@@ -114,7 +114,7 @@ export function useMenuManagement(restaurantId: string | null): UseMenuManagemen
         .from('menu_categories')
         .delete()
         .eq('id', categoryId);
-      if (error) throw error;
+      if (error) throw new Error(error.message);
     },
     onSuccess: () => {
       showSuccess("Categoria e todos os itens associados deletados!");
@@ -135,13 +135,13 @@ export function useMenuManagement(restaurantId: string | null): UseMenuManagemen
           .from('menu_items')
           .update(item)
           .eq('id', item.id);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
       } else {
         // Insert
         const { error } = await supabase
           .from('menu_items')
           .insert(item);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
       }
     },
     onSuccess: () => {
@@ -161,7 +161,7 @@ export function useMenuManagement(restaurantId: string | null): UseMenuManagemen
         .from('menu_items')
         .delete()
         .eq('id', itemId);
-      if (error) throw error;
+      if (error) throw new Error(error.message);
     },
     onSuccess: () => {
       showSuccess("Item deletado com sucesso!");
