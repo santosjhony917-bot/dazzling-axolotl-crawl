@@ -115,10 +115,17 @@ export default function FreeProfileLayout({ restaurant }: FreeProfileLayoutProps
         {/* Conteúdo Principal */}
         <div className="p-4 pt-20 space-y-6">
           
-          {/* REMOVIDO: Nome e Categoria duplicados. O header já cuida disso. */}
+          {/* Categoria */}
           {restaurant.category && (
             <p className="text-base font-medium text-highlight dark:text-highlight-light text-center -mt-4 mb-4">{restaurant.category}</p>
           )}
+          
+          {/* Contagem de Seguidores (Adicionado aqui) */}
+          <div className="text-center -mt-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">
+              {followersCount.toLocaleString('pt-BR')} Seguidores
+            </p>
+          </div>
 
           {/* Botão Seguir (Abaixo do nome/categoria) */}
           <Button 
