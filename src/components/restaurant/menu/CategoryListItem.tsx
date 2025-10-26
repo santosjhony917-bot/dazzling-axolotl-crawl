@@ -12,23 +12,14 @@ interface CategoryListItemProps {
   category: MenuCategory;
   onEdit: (category: MenuCategory) => void;
   onDelete: (categoryId: string) => void;
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-  isFirst: boolean;
-  isLast: boolean;
-  isSwapping: boolean;
-  isExpanded: boolean; // Novo prop para indicar se está expandido
+  // Removendo props de reordenação explícita
+  isExpanded: boolean;
 }
 
 export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   category,
   onEdit,
   onDelete,
-  onMoveUp,
-  onMoveDown,
-  isFirst,
-  isLast,
-  isSwapping,
   isExpanded,
 }) => {
   const { updateCategoryMutation } = useCategoryMutations(category.restaurant_id);
@@ -69,28 +60,6 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
 
       {/* Botões de Ação */}
       <div className="flex space-x-2 items-center shrink-0">
-        {/* Botões de Reordenação */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
-          disabled={isFirst || isSwapping}
-          title="Mover para cima"
-        >
-          <ArrowUp className="w-4 h-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
-          disabled={isLast || isSwapping}
-          title="Mover para baixo"
-        >
-          <ArrowDown className="w-4 h-4" />
-        </Button>
-        
-        {isSwapping && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-
         {/* Botões de Edição e Deleção */}
         <Button variant="outline" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(category); }} title="Editar">
           <Edit className="w-4 h-4" />

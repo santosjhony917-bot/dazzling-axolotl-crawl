@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import {
   Accordion,
@@ -28,7 +30,7 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
   onEditCategory,
   onDeleteCategory,
 }) => {
-  const { swapCategoryOrderMutation } = useCategoryMutations(restaurantId);
+  // Removido useCategoryReorder
   const [activeCategoryIds, setActiveCategoryIds] = useState<string[]>([]);
   
   // Estado para gerenciamento de itens
@@ -51,27 +53,6 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
   const isItemSaving = createItemMutation.isPending || updateItemMutation.isPending;
   const isItemDeleting = deleteItemMutation.isPending;
 
-  // --- Category Reorder Logic ---
-  const handleSwap = (category_id_a: string, category_id_b: string) => {
-    swapCategoryOrderMutation.mutate({ category_id_a, category_id_b });
-  };
-
-  const handleMoveUp = (index: number) => {
-    if (index > 0) {
-      const categoryA = categories[index];
-      const categoryB = categories[index - 1];
-      handleSwap(categoryA.id, categoryB.id);
-    }
-  };
-
-  const handleMoveDown = (index: number) => {
-    if (index < categories.length - 1) {
-      const categoryA = categories[index];
-      const categoryB = categories[index + 1];
-      handleSwap(categoryA.id, categoryB.id);
-    }
-  };
-  
   // --- Item Management Handlers ---
   
   const handleOpenItemDialog = (categoryId: string, item: MenuItem | null = null) => {
@@ -156,11 +137,6 @@ const CategoryAccordion: React.FC<CategoryAccordionProps> = ({
                   category={category}
                   onEdit={onEditCategory}
                   onDelete={onDeleteCategory}
-                  onMoveUp={() => handleMoveUp(index)}
-                  onMoveDown={() => handleMoveDown(index)}
-                  isFirst={index === 0}
-                  isLast={index === categories.length - 1}
-                  isSwapping={swapCategoryOrderMutation.isPending}
                   isExpanded={isExpanded}
                 />
               </AccordionTrigger>
