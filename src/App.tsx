@@ -22,7 +22,7 @@ import SearchRestaurants from './pages/SearchRestaurants';
 import RestaurantResultsPage from './pages/RestaurantResults';
 import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
 
-// Restaurant Flow
+// Restaurant Area Pages
 import RestaurantAreaHub from './pages/RestaurantAreaHub';
 import RestaurantLogin from './pages/RestaurantLogin';
 import RestaurantSignup from './pages/RestaurantSignup';
@@ -30,6 +30,7 @@ import ClaimRestaurant from './pages/ClaimRestaurant';
 import RestaurantDashboard from './pages/RestaurantDashboard';
 import ProfileManagementLayout from './components/restaurant/ProfileManagementLayout';
 import MenuManagement from './pages/restaurant/MenuManagement';
+import CategoryDetails from './pages/restaurant/CategoryDetails';
 import GalleryManagement from './pages/restaurant/GalleryManagement';
 import HelpCenter from './pages/restaurant/HelpCenter';
 import UpgradePage from './pages/Upgrade';
@@ -89,7 +90,7 @@ function App() {
                 <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
                 <Route path="/restaurant-area/profile-menu" element={<ProfileManagementLayout />} />
                 <Route path="/restaurant-area/menu" element={<MenuManagement />} />
-                {/* Rota de detalhes de categoria removida, gerenciamento agora é inline */}
+                <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
                 <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
                 <Route path="/restaurant-area/help" element={<HelpCenter />} />
                 <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
