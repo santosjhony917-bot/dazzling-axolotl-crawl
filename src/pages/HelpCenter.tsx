@@ -9,7 +9,7 @@ export default function HelpCenter() {
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] max-w-md mx-auto">
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"
@@ -26,13 +26,13 @@ export default function HelpCenter() {
       </header>
 
       <main className="p-4 text-center">
-        <div className="bg-white p-6 rounded-2xl shadow-soft-lg mt-8 border-none">
+        <div className="bg-white p-6 rounded-xl shadow-md mt-8">
           <HelpCircle className="w-12 h-12 text-highlight mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-primary mb-2">Em Construção</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Em Construção</h3>
           <p className="text-gray-600 mb-6">
             Esta é a Central de Ajuda. Em breve, você encontrará tutoriais e respostas para as perguntas mais frequentes aqui.
           </p>
-          <Button onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))} className="rounded-xl shadow-soft-md">
+          <Button onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}>
             Voltar ao Perfil
           </Button>
         </div>

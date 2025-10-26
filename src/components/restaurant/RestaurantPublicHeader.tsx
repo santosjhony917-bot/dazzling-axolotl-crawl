@@ -21,7 +21,7 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
     <div className="relative flex flex-col items-center justify-center px-4">
       
       {/* Logo do Restaurante */}
-      <div className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-900 bg-gray-200 dark:bg-gray-700 overflow-hidden shadow-soft-lg mb-3">
+      <div className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-900 bg-gray-200 dark:bg-gray-700 overflow-hidden shadow-lg mb-3">
         <img 
           src={restaurant.logoUrl} 
           alt={`Logo de ${restaurant.name}`} 
@@ -30,12 +30,12 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
       </div>
 
       {/* Nome do Restaurante */}
-      <h1 className="text-2xl font-bold text-primary dark:text-white text-center leading-tight">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center leading-tight">
         {restaurant.name}
       </h1>
 
       {/* Contagem de Seguidores (NOVO) */}
-      <p className="text-sm text-text-secondary dark:text-gray-400 mt-1 mb-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-4">
         {formattedFollowers} seguidores
       </p>
 
@@ -44,7 +44,7 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
         <Button 
           variant="outline" 
           size="icon" 
-          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700 shadow-soft-sm"
+          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700"
           onClick={restaurant.onFollowToggle}
         >
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
@@ -52,7 +52,7 @@ export default function RestaurantPublicHeader({ restaurant }: RestaurantPublicH
         <Button 
           variant="outline" 
           size="icon" 
-          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700 shadow-soft-sm"
+          className="rounded-full w-8 h-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 dark:border-gray-600 hover:bg-white dark:hover:bg-gray-700"
           onClick={() => navigator.share ? navigator.share({ title: restaurant.name, url: window.location.href }) : alert('Link copiado!')}
         >
           <Share2 className="w-4 h-4 text-gray-600 dark:text-gray-300" />

@@ -11,7 +11,6 @@ import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
 import ClientBottomNav from '@/components/ClientBottomNav';
-import { motion } from 'framer-motion';
 
 // O tipo FavoriteRestaurant é essencialmente o Restaurant que vem da tabela user_favorites
 interface FavoriteRestaurant extends Restaurant {}
@@ -32,8 +31,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => 
       restaurant_id,
       restaurants (*)
     `)
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false });
+    .eq('user_id', userId);
 
   if (error) {
     throw error;
@@ -111,7 +109,7 @@ export default function FavoritesPage() {
       />
 
       <main className="p-4 space-y-4">
-        <Card className="shadow-soft-lg border-none rounded-xl">
+        <Card className="shadow-lg border-none rounded-xl">
           <CardHeader>
             <CardTitle className="text-xl flex items-center gap-2 text-primary">
               <Heart className="w-5 h-5 fill-highlight text-highlight" /> Restaurantes Favoritos ({favorites?.length || 0})
@@ -120,48 +118,43 @@ export default function FavoritesPage() {
           <CardContent className="space-y-3">
             {favorites && favorites.length > 0 ? (
               favorites.map((restaurant) => (
-                <motion.div
-                  key={restaurant.id}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                <Card 
+                  key={restaurant.id} 
+                  className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative border-none shadow-md"
                 >
-                  <Card 
-                    className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md"
+                  <div 
+                    className="flex flex-1"
+                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
                   >
-                    <div 
-                      className="flex flex-1"
-                      onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                    >
-                      <img 
-                        src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
-                        alt={restaurant.name}
-                        className="w-24 h-24 object-cover flex-shrink-0 rounded-l-xl"
-                      />
-                      <div className="p-3 flex-1 min-w-0">
-                        <CardTitle className="text-base font-bold truncate text-primary">{restaurant.name}</CardTitle>
-                        <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                          <Utensils className="w-3 h-3 text-highlight" /> {restaurant.category}
-                        </p>
-                        <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                          <MapPin className="w-3 h-3 text-highlight" /> {restaurant.city}
-                        </p>
-                      </div>
+                    <img 
+                      src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+                      alt={restaurant.name}
+                      className="w-24 h-24 object-cover flex-shrink-0"
+                    />
+                    <div className="p-3 flex-1 min-w-0">
+                      <CardTitle className="text-base font-bold truncate text-primary">{restaurant.name}</CardTitle>
+                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                        <Utensils className="w-3 h-3 text-highlight" /> {restaurant.category}
+                      </p>
+                      <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                        <MapPin className="w-3 h-3 text-highlight" /> {restaurant.city}
+                      </p>
                     </div>
-                    
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="absolute top-2 right-2 text-red-500 hover:bg-red-50 rounded-full"
-                      onClick={(e) => {
-                          e.stopPropagation(); // Previne o clique no card
-                          removeFavoriteMutation.mutate(restaurant.id);
-                      }}
-                      disabled={removeFavoriteMutation.isPending}
-                    >
-                      {removeFavoriteMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Heart className="h-5 w-5 fill-red-500" />}
-                    </Button>
-                  </Card>
-                </motion.div>
+                  </div>
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                    onClick={(e) => {
+                        e.stopPropagation(); // Previne o clique no card
+                        removeFavoriteMutation.mutate(restaurant.id);
+                    }}
+                    disabled={removeFavoriteMutation.isPending}
+                  >
+                    {removeFavoriteMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Heart className="h-5 w-5 fill-red-500" />}
+                  </Button>
+                </Card>
               ))
             ) : (
               <div className="text-center p-4">

@@ -93,11 +93,11 @@ const MenuManagement: React.FC = () => {
     <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
-        <Card className="shadow-soft-lg border-none rounded-2xl">
+        <Card className="shadow-lg border-none rounded-xl">
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
-              <Button onClick={() => handleOpenCategoryDialog(null)} disabled={isCategoryMutating} className="bg-highlight hover:bg-highlight/90 rounded-xl shadow-soft-md">
+              <Button onClick={() => handleOpenCategoryDialog(null)} disabled={isCategoryMutating} className="bg-highlight hover:bg-highlight/90">
                 <Plus className="mr-2 h-4 w-4" /> Adicionar
               </Button>
             </div>

@@ -26,21 +26,21 @@ const ClientProfilePage: React.FC = () => {
       <div className="p-4 space-y-6">
         
         {/* Card de Informações Básicas */}
-        <div className="bg-white p-6 rounded-2xl shadow-soft-lg space-y-4 border-none">
+        <div className="bg-white p-6 rounded-xl shadow-md space-y-4">
           <div className="flex items-center space-x-4">
-            <div className="size-12 rounded-full bg-gray-200 flex items-center justify-center shadow-soft-sm">
+            <div className="size-12 rounded-full bg-gray-200 flex items-center justify-center">
               <UserIcon className="w-6 h-6 text-gray-500" />
             </div>
             <div>
-              <p className="font-semibold text-lg text-primary">{profile?.first_name || 'Usuário'}</p>
-              <p className="text-sm text-text-secondary">{user?.email}</p>
+              <p className="font-semibold text-lg">{profile?.first_name || 'Usuário'}</p>
+              <p className="text-sm text-gray-500">{user?.email}</p>
             </div>
           </div>
           
           <Button 
             onClick={handleSignOut} 
             variant="destructive" 
-            className="w-full mt-4 rounded-xl shadow-soft-md"
+            className="w-full mt-4"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sair
@@ -78,7 +78,7 @@ const ClientProfilePage: React.FC = () => {
           <div className="space-y-3 pt-4">
             <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Seu Negócio</h2>
             <NavCardItem 
-              icon={Utensils}
+              icon={MapPin}
               title="Área do Restaurante"
               description="Gerencie seu perfil, cardápio e vendas."
               onClick={() => navigate(createPageUrl('restaurant-area-hub'))}

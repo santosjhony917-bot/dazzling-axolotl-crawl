@@ -77,11 +77,11 @@ export default function CategoryDetails() {
     <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
       <div className="p-4 space-y-6">
         
-        <Card className="shadow-soft-lg border-none rounded-2xl">
+        <Card className="shadow-lg border-none rounded-xl">
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-xl font-bold text-primary">Itens em: {categoryName}</h1>
-              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90 rounded-xl shadow-soft-md">
+              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
                 <PlusCircle className="w-4 h-4 mr-2" />
                 Novo Item
               </Button>
@@ -91,9 +91,9 @@ export default function CategoryDetails() {
 
         {isLoading ? (
           <div className="space-y-3">
-            <Skeleton className="h-20 w-full rounded-xl" />
-            <Skeleton className="h-20 w-full rounded-xl" />
-            <Skeleton className="h-20 w-full rounded-xl" />
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
           </div>
         ) : (
           <MenuItemList

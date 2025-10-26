@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
 import { Button } from '@/components/ui/button';
-import { createPageUrl } from '@/utils/url';
 import FreeProfileLayout from './public/FreeProfileLayout';
 import PremiumProfileLayout from './public/PremiumProfileLayout';
+import { createPageUrl } from '@/utils/url';
 
 export default function PublicRestaurantLayout() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -26,7 +26,7 @@ export default function PublicRestaurantLayout() {
         <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Restaurante Não Encontrado</h2>
         <p className="text-gray-600 mb-6">O perfil que você está tentando acessar não existe ou foi removido.</p>
-        <Button onClick={() => navigate(createPageUrl('index'))} className="rounded-xl shadow-soft-md">
+        <Button onClick={() => navigate(createPageUrl('index'))}>
           Voltar para o Início
         </Button>
       </div>
@@ -42,13 +42,13 @@ export default function PublicRestaurantLayout() {
         variant="ghost"
         size="icon"
         onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 z-30 w-10 h-10 rounded-full bg-white/80 shadow-soft-md hover:bg-gray-50 text-primary backdrop-blur-sm"
+        className="absolute top-4 left-4 z-30 w-10 h-10 rounded-full bg-white shadow-md hover:bg-gray-50 text-primary"
       >
         <ArrowLeft className="h-6 w-6" />
       </Button>
 
       {/* Renderiza o layout apropriado */}
-      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
+      {restaurant.plan === 'premium' ? (
         <PremiumProfileLayout restaurant={restaurant} />
       ) : (
         <FreeProfileLayout restaurant={restaurant} />

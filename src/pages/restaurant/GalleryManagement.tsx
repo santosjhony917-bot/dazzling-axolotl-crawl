@@ -91,7 +91,7 @@ export default function GalleryManagement() {
         <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Acesso Negado</h2>
         <p className="text-gray-600 mb-6">Você precisa ser um usuário de restaurante para gerenciar a galeria.</p>
-        <Button onClick={() => navigate(createPageUrl('index'))} className="rounded-xl shadow-soft-md">
+        <Button onClick={() => navigate(createPageUrl('index'))}>
           Voltar para o Início
         </Button>
       </div>
@@ -103,14 +103,14 @@ export default function GalleryManagement() {
       <div className="p-4 space-y-6">
         
         {isLocked && (
-          <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3 shadow-soft-md">
+          <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3">
             <Lock className="w-5 h-5 shrink-0" />
             <p className="text-sm font-medium flex-1">
               A gestão da galeria é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
             </p>
             <Button 
               onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-              className="bg-highlight hover:bg-highlight/90 shrink-0 rounded-xl shadow-soft-sm"
+              className="bg-highlight hover:bg-highlight/90 shrink-0"
             >
               Upgrade
             </Button>
@@ -118,7 +118,7 @@ export default function GalleryManagement() {
         )}
 
         {/* Adicionar Nova Imagem */}
-        <Card className={isLocked ? "opacity-50 pointer-events-none shadow-soft-md" : "shadow-soft-lg border-none rounded-2xl"}>
+        <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl text-primary">
               <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
@@ -130,7 +130,7 @@ export default function GalleryManagement() {
                 onUploadComplete={handleUploadComplete}
                 bucketName={RESTAURANT_IMAGES_BUCKET}
                 folderPath={`${restaurantId}/gallery`}
-                className="h-12 w-full flex-1 bg-primary hover:bg-primary/90 rounded-xl shadow-soft-md"
+                className="h-12 w-full flex-1 bg-primary hover:bg-primary/90"
                 icon={isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
                 disabled={isUploading || isLocked}
               >
@@ -141,7 +141,7 @@ export default function GalleryManagement() {
         </Card>
 
         {/* Galeria Atual */}
-        <Card className="shadow-soft-lg border-none rounded-2xl">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl text-primary">
               <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
@@ -150,8 +150,8 @@ export default function GalleryManagement() {
           <CardContent>
             {galleryLoading ? (
               <div className="grid grid-cols-2 gap-4">
-                <Skeleton className="h-48 w-full rounded-xl" />
-                <Skeleton className="h-48 w-full rounded-xl" />
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
               </div>
             ) : gallery.length === 0 ? (
               <p className="text-gray-500">Nenhuma foto na galeria ainda. Use o botão acima para adicionar.</p>

@@ -103,13 +103,13 @@ export default function HelpCenter() {
               placeholder="Pesquisar por palavra-chave (ex: cardápio, premium)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-soft-md"
+              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-sm"
             />
           </div>
         </div>
 
         {/* FAQ List */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft-lg p-4 border-none">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
           <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
           
           {filteredFaqs.length > 0 ? (

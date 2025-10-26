@@ -12,10 +12,10 @@ const FollowerCountCard: React.FC<FollowerCountCardProps> = ({ followerCount, is
   const displayCount = followerCount.toLocaleString('pt-BR');
   
   return (
-    <Card className="shadow-soft-lg border-none rounded-2xl p-4 bg-white dark:bg-gray-800">
+    <Card className="shadow-lg border-none rounded-xl p-4 bg-white dark:bg-gray-800">
       <CardContent className="p-0 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary dark:bg-gray-700 shadow-soft-sm">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary dark:bg-gray-700">
             <Users className="w-6 h-6" />
           </div>
           <div>

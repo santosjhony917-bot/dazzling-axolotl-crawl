@@ -186,7 +186,7 @@ export default function ProfileManagementLayout() {
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       
       {/* Header Fixo */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"
@@ -218,7 +218,7 @@ export default function ProfileManagementLayout() {
         <Button
           onClick={handleViewPublicProfile}
           variant="outline"
-          className="w-full h-12 rounded-xl border-2 border-highlight text-highlight font-bold hover:bg-highlight/5 shadow-soft-md"
+          className="w-full h-12 rounded-xl border-2 border-highlight text-highlight font-bold hover:bg-highlight/5"
         >
           <Eye className="w-5 h-5 mr-2" />
           Ver Perfil Público

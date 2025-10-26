@@ -94,7 +94,7 @@ export default function MenuItemFormDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{initialData ? 'Editar Item' : 'Novo Item de Menu'}</DialogTitle>
         </DialogHeader>
@@ -109,7 +109,7 @@ export default function MenuItemFormDialog({
                 <FormItem>
                   <FormLabel>Imagem do Item (Opcional)</FormLabel>
                   <div className="flex items-center space-x-4">
-                    <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 shadow-soft-sm">
+                    <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
                       <img 
                         src={currentImageUrl || PLACEHOLDER_IMAGE_URL} 
                         alt="Preview" 
@@ -120,7 +120,7 @@ export default function MenuItemFormDialog({
                       onUploadComplete={(url) => field.onChange(url)}
                       bucketName={RESTAURANT_IMAGES_BUCKET}
                       folderPath={`${categoryId}/items`}
-                      className="h-10 flex-1 bg-highlight hover:bg-highlight/90 rounded-xl shadow-soft-md"
+                      className="h-10 flex-1 bg-highlight hover:bg-highlight/90"
                       icon={<Camera className="h-4 w-4 mr-2" />}
                     >
                       {field.value ? "Trocar Imagem" : "Adicionar Imagem"}
@@ -138,7 +138,7 @@ export default function MenuItemFormDialog({
                 <FormItem>
                   <FormLabel>Nome do Item</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ex: Hambúrguer Clássico" {...field} className="h-10 rounded-xl shadow-soft-sm" />
+                    <Input placeholder="Ex: Hambúrguer Clássico" {...field} className="h-10 rounded-lg" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -151,7 +151,7 @@ export default function MenuItemFormDialog({
                 <FormItem>
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Breve descrição do item..." {...field} className="rounded-xl shadow-soft-sm" />
+                    <Textarea placeholder="Breve descrição do item..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -169,7 +169,7 @@ export default function MenuItemFormDialog({
                       step="0.01" 
                       placeholder="19.90" 
                       {...field} 
-                      className="h-10 rounded-xl shadow-soft-sm"
+                      className="h-10 rounded-lg"
                       onChange={(e) => field.onChange(parseFloat(e.target.value))}
                       value={field.value === 0 ? '' : field.value}
                     />
@@ -183,7 +183,7 @@ export default function MenuItemFormDialog({
               control={form.control}
               name="is_active"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-xl border p-4 shadow-soft-sm">
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <FormLabel>Ativo (Visível ao público)</FormLabel>
                   </div>
@@ -198,10 +198,10 @@ export default function MenuItemFormDialog({
               )}
             />
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading} className="rounded-xl shadow-soft-sm">
+              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90 rounded-xl shadow-soft-md">
+              <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Salvar
               </Button>
