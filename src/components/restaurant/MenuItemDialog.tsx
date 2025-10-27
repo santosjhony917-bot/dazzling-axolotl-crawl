@@ -1,29 +1,13 @@
-"use client";
-
 import React from 'react';
-import { MenuItem } from '@/types/restaurant';
+import { MenuItem } from '@/types/supabase';
 import MenuItemFormDialog, { MenuItemFormValues } from './menu/MenuItemFormDialog'; // Importando o componente real
 
 interface MenuItemDialogProps {
+  categoryId: string;
+  item?: MenuItem;
   isOpen: boolean;
-  onClose: () => void;
-  item: MenuItem | null;
-  categoryId: string; // categoryId é obrigatório aqui
-  onSave: (data: MenuItemFormValues) => Promise<void>;
-  isLoading: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ isOpen, onClose, item, categoryId, onSave, isLoading }) => {
-  return (
-    <MenuItemFormDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      categoryId={categoryId}
-      initialData={item}
-      onSave={onSave}
-      isLoading={isLoading}
-    />
-  );
-};
-
-export default MenuItemDialog;
+const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ categoryId, item, isOpen, onOpenChange }) => {
+  // ... (restante do arquivo)

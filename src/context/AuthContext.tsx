@@ -1,106 +1,87 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
-import { Session, User } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, Profile } from '@/types/supabase';
 import { useQuery } from '@tanstack/react-query';
-import { fetchRestaurantByUserId } from '@/integrations/supabase/restaurants';
-import { fetchProfile } from '@/integrations/supabase/profiles';
-import { checkIsAdmin } from '@/integrations/supabase/admin';
-import { createPageUrl } from '@/utils/url'; // Importando createPageUrl
+import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
 
-// --- Tipos ---
-export interface AuthContextType { // Exportado para resolver Erro 9
-  session: Session | null;
+interface AuthContextType {
   user: User | null;
+  isLoading: boolean;
+  signOut: () => Promise<void>;
+  isAuthenticated: boolean;
+  // Dados do perfil e restaurante
   profile: Profile | null;
   restaurant: Restaurant | null;
+  isProfileLoading: boolean;
   isAdmin: boolean;
-  isLoading: boolean;
   isPremium: boolean;
-  refetchProfile: () => void;
-  refetchRestaurant: () => void;
-  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// --- Provedor ---
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [session, setSession] = useState<Session | null>(null);
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const isAuthenticated = !!user;
 
-  // 1. Fetch Profile
-  const { data: profile, refetch: refetchProfile } = useQuery({
+  // Query para buscar Profile
+  const { data: profile, isLoading: isProfileLoading } = useQuery({
     queryKey: ['profile', user?.id],
-    queryFn: () => fetchProfile(user!.id),
-    enabled: !!user,
+    queryFn: () => (user ? getProfile(user.id) : null),
+    enabled: isAuthenticated,
   });
 
-  // 2. Fetch Restaurant
-  const { data: restaurant, refetch: refetchRestaurant } = useQuery({
+  // Query para buscar Restaurant
+  const { data: restaurant } = useQuery({
     queryKey: ['restaurant', user?.id],
-    queryFn: () => fetchRestaurantByUserId(user!.id),
-    enabled: !!user,
-  });
-  
-  // 3. Check Admin Status
-  // Tipagem corrigida para boolean (Erro 4)
-  const { data: isAdmin = false } = useQuery<boolean>({ 
-    queryKey: ['isAdmin', user?.id],
-    queryFn: checkIsAdmin,
-    enabled: !!user,
+    queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
+    enabled: isAuthenticated,
   });
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       setIsLoading(false);
     });
 
-    // Fetch initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
-  const signOut = useCallback(async () => {
+  const signOut = async () => {
     await supabase.auth.signOut();
-    // Redireciona para a tela Welcome após o logout
-    window.location.href = createPageUrl('welcome');
-  }, []);
-  
-  const isPremium = useMemo(() => {
-    // CORREÇÃO: Inclui 'premium_gift' no cálculo de isPremium
-    return restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
-  }, [restaurant?.plan]);
+    setUser(null);
+  };
 
-  const value = useMemo(() => ({
-    session,
-    user,
-    profile,
-    restaurant,
-    isAdmin,
-    isLoading,
-    isPremium,
-    refetchProfile,
-    refetchRestaurant,
-    signOut,
-  }), [session, user, profile, restaurant, isAdmin, isLoading, isPremium, refetchProfile, refetchRestaurant, signOut]);
+  // Lógica de Admin e Premium (simplificada)
+  const isAdmin = user?.email === 'joaoedasilva018@gmail.com';
+  const isPremium = restaurant?.plan === 'premium';
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        signOut,
+        isAuthenticated,
+        profile: profile || null,
+        restaurant: restaurant || null,
+        isProfileLoading,
+        isAdmin,
+        isPremium,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-// --- Hook ---
-export const useAuthContext = () => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuthContext must be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

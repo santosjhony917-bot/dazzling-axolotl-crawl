@@ -1,70 +1,67 @@
 import React from 'react';
-import { Restaurant } from '@/types/restaurant';
-import { MapPin, Crown } from 'lucide-react';
+import { MapPin, Utensils, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { RestaurantWithDistance } from '@/types/supabase';
 
 interface RestaurantCardProps {
-  restaurant: Restaurant;
+  restaurant: RestaurantWithDistance;
   onClick: () => void;
+  isFavorite?: boolean;
 }
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) => {
-  const distance = restaurant.distance_km ? restaurant.distance_km.toFixed(1) : null;
+const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick, isFavorite = false }) => {
+  // distance_km agora existe no tipo RestaurantWithDistance
+  const distance = restaurant.distance_km ? restaurant.distance_km.toFixed(1) : null; 
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
+    <Card 
+      className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
       onClick={onClick}
     >
-      <Card 
-        className="w-full overflow-hidden rounded-xl shadow-soft-lg cursor-pointer border-none bg-white"
-      >
-        <div className="relative h-40 bg-gray-100">
-          {restaurant.cover_image_url ? (
-            <img
-              src={restaurant.cover_image_url}
-              alt={`Capa de ${restaurant.name}`}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-primary/10">
-              <MapPin className="w-8 h-8 text-primary/50" />
-            </div>
-          )}
-          
-          {/* Plan Tag (Optional) */}
-          {restaurant.plan !== 'free' && (
-            <div className="absolute top-3 left-3 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center">
-              <Crown className="w-3 h-3 mr-1 fill-white" />
-              {restaurant.plan === 'premium' ? 'Premium' : 'Basic'}
-            </div>
-          )}
-        </div>
-
-        <CardContent className="p-4 space-y-2">
-          <h3 className="text-xl font-extrabold text-primary tracking-tight truncate">
-            {restaurant.name}
-          </h3>
-          
-          <div className="flex items-center text-sm text-gray-600">
-            <MapPin className="w-4 h-4 mr-1 text-highlight" />
-            {distance ? (
-              <span className="font-semibold text-primary">{distance} km</span>
-            ) : (
-              <span>{restaurant.city || 'Localização Desconhecida'}</span>
-            )}
-          </div>
+      <div className="w-28 h-28 flex-shrink-0">
+        <img 
+          src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+          alt={restaurant.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <CardContent className="p-3 flex-1 flex flex-col justify-between">
+        <div>
+          <h3 className="text-lg font-bold truncate text-primary">{restaurant.name}</h3>
           
           {restaurant.category && (
-            <p className="text-xs text-gray-500 mt-1">
-              {restaurant.category}
+            <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+              <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
             </p>
           )}
-        </CardContent>
-      </Card>
-    </motion.div>
+
+          {(restaurant.city || distance) && (
+            <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+              <MapPin className="w-4 h-4 text-highlight" /> 
+              {distance ? `${distance} km` : restaurant.city}
+            </p>
+          )}
+        </div>
+        
+        {/* Plano de destaque */}
+        {restaurant.plan !== 'free' && (
+          <span className={cn(
+            "text-xs font-semibold px-2 py-0.5 rounded-full mt-2 self-start",
+            restaurant.plan === 'premium' ? "bg-yellow-100 text-yellow-800" : "bg-blue-100 text-blue-800"
+          )}>
+            {restaurant.plan === 'premium' ? 'Premium' : 'Básico'}
+          </span>
+        )}
+      </CardContent>
+
+      {isFavorite && (
+        <div className="absolute top-2 right-2">
+          <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+        </div>
+      )}
+    </Card>
   );
 };
 

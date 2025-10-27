@@ -1,17 +1,18 @@
 import { supabase } from '@/integrations/supabase/client';
 import { Profile } from '@/types/supabase';
 
-export async function fetchProfile(userId: string): Promise<Profile | null> {
+export async function updateProfile(profileData: Partial<Profile>): Promise<Profile | null> {
   const { data, error } = await supabase
     .from('profiles')
-    .select('*')
-    .eq('id', userId)
+    .update(profileData)
+    .eq('id', profileData.id)
+    .select()
     .single();
 
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching profile:', error);
-    throw error;
+  if (error) {
+    console.error('Error updating profile:', error);
+    return null;
   }
 
-  return data as Profile | null;
+  return data;
 }

@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/button';
 import FreeProfileLayout from './public/FreeProfileLayout';
 import PremiumProfileLayout from './public/PremiumProfileLayout';
 import { createPageUrl } from '@/utils/url';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 export default function PublicRestaurantLayout() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
+  // O hook usePublicRestaurant agora retorna PublicRestaurantData | null
   const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
   if (isLoading) {
