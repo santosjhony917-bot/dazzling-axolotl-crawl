@@ -139,9 +139,8 @@ export default function Auth() {
                   button_label: 'Entrar',
                   loading_button_label: 'Entrando...',
                   link_text: 'Esqueceu sua senha?',
-                  no_account_text: 'Ainda não tem conta?',
-                  social_auth_text: 'ou continue com',
-                  sign_up_link_text: 'Cadastrar-se',
+                  social_provider_text: 'ou continue com',
+                  // sign_up_link_text removido
                 },
                 sign_up: {
                   email_label: 'E-mail',
@@ -151,7 +150,7 @@ export default function Auth() {
                   button_label: 'Cadastrar-se',
                   loading_button_label: 'Cadastrando...',
                   link_text: 'Já tem uma conta? Entrar',
-                  social_auth_text: 'ou continue com',
+                  social_provider_text: 'ou continue com',
                 },
                 forgotten_password: {
                   link_text: 'Voltar para o login',
@@ -162,12 +161,6 @@ export default function Auth() {
                 },
               },
             }}
-            // Renderiza o botão customizado com a seta
-            // Nota: O Auth UI não permite customizar o botão de submit diretamente,
-            // mas podemos usar o slot `Button` se estivermos usando a versão mais recente.
-            // Como estamos usando ThemeSupa, vamos confiar nas cores e no estilo do ThemeSupa.
-            // Para adicionar a seta, precisamos de um componente customizado, mas isso é complexo com ThemeSupa.
-            // Vamos garantir que o link de "Esqueceu sua senha?" e "Cadastrar-se" estejam corretos.
           />
           
           {/* Links Legais no Rodapé do Card */}
