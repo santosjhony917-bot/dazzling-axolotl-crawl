@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil } from 'lucide-react';
-import { useNavigate } from '@/utils/url';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
 
