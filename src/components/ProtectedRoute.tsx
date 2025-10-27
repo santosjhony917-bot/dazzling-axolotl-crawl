@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 }
 
 // Rotas consideradas 'de cliente' que devem redirecionar proprietários de restaurante
-const CUSTOMER_ROUTES = ['/home', '/profile']; // Removido '/search-unified' e '/favorites'
+const CUSTOMER_ROUTES = ['/home', '/profile']; 
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authenticated', element }) => {
   const { user, isLoading, isAdmin, restaurant } = useAuthContext();
@@ -35,12 +35,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
   // --- LÓGICA DE REDIRECIONAMENTO DE PROPRIETÁRIO DE RESTAURANTE ---
   const isRestaurantOwner = !!restaurant;
   
-  // Usa currentPathname para evitar o erro de 'undefined'
-  const isCustomerRoute = CUSTOMER_ROUTES.some(route => currentPathname === route || currentPathname.startsWith(`${route}/`));
+  // Verifica se o pathname é válido antes de usar endsWith/startsWith
+  if (currentPathname.length > 0) {
+    const isCustomerRoute = CUSTOMER_ROUTES.some(route => currentPathname === route || currentPathname.startsWith(`${route}/`));
 
-  if (isRestaurantOwner && isCustomerRoute) {
-    // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
-    return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
+    if (isRestaurantOwner && isCustomerRoute) {
+      // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
+      return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
+    }
   }
   // ---------------------------------------------------------------------
   
