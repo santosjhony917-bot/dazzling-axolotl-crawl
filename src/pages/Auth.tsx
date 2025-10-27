@@ -17,7 +17,8 @@ export default function Auth() {
   // Redireciona se já estiver logado
   useEffect(() => {
     if (session) {
-      navigate(createPageUrl('home'));
+      // Redireciona para a rota principal (Index), que aciona o Splash para decidir o destino final
+      navigate(createPageUrl('index'), { replace: true });
     }
   }, [session, navigate]);
 
@@ -25,13 +26,13 @@ export default function Auth() {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
       if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        // Apenas recarrega o perfil. O redirecionamento será tratado pelo useEffect acima ou pelo ProtectedRoute.
         refetchProfile(); 
-        navigate(createPageUrl('home'));
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, refetchProfile]);
+  }, [refetchProfile]);
 
   if (isAuthLoading || session) {
     return (
