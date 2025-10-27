@@ -103,7 +103,7 @@ export default function GalleryManagement() {
 
   if (isRestaurantLoading || isLoadingGallery) {
     return (
-      <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="profileMenu">
+      <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="restaurant-area/profile-menu">
         <div className="p-4 text-center text-gray-500">Carregando galeria...</div>
       </RestaurantAreaPageLayout>
     );
@@ -111,7 +111,7 @@ export default function GalleryManagement() {
 
   if (!restaurant) {
     return (
-      <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="profileMenu">
+      <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="restaurant-area/profile-menu">
         <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-white">
           <Image className="w-12 h-12 text-red-500 mb-4" />
           <h1 className="text-xl font-bold text-red-600 mb-2">Acesso Negado</h1>
@@ -125,7 +125,7 @@ export default function GalleryManagement() {
   }
 
   return (
-    <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="profileMenu">
+    <RestaurantAreaPageLayout title="Galeria de Fotos" icon={Image} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
         {/* Status Premium / Limite */}

@@ -142,7 +142,7 @@ export default function CategoryDetails() {
 
   if (isRestaurantLoading || isLoadingData) {
     return (
-      <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="profileMenu">
+      <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/profile-menu">
         <div className="p-4 text-center text-gray-500">Carregando itens...</div>
       </RestaurantAreaPageLayout>
     );
@@ -150,14 +150,14 @@ export default function CategoryDetails() {
 
   if (!category) {
     return (
-      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath="profileMenu">
+      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath="restaurant-area/profile-menu">
         <div className="p-4 text-center text-red-500">A categoria solicitada não existe ou você não tem permissão para acessá-la.</div>
       </RestaurantAreaPageLayout>
     );
   }
 
   return (
-    <RestaurantAreaPageLayout title={`Itens: ${category.name}`} icon={Utensils} backPath="profileMenu">
+    <RestaurantAreaPageLayout title={`Itens: ${category.name}`} icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
         {/* Botão de Adicionar Item */}

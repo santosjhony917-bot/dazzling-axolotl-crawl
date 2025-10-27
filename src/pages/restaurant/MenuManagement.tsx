@@ -112,14 +112,14 @@ export default function MenuManagement() {
 
   if (isRestaurantLoading || isLoadingCategories) {
     return (
-      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="profileMenu">
+      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
         <div className="p-4 text-center text-gray-500">Carregando cardápio...</div>
       </RestaurantAreaPageLayout>
     );
   }
 
   return (
-    <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="profileMenu">
+    <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
         {/* Botão de Adicionar Categoria */}

@@ -139,7 +139,7 @@ const UpgradePageContent = () => {
             </>
           ) : selectedPlan === 'premium' ? (
             <>
-              <Crown className="w-5 h-5 mr-2" />
+              <Crown className="w-5 h-5 mr-2 fill-white" />
               Fazer Upgrade para Premium
             </>
           ) : (
@@ -155,7 +155,7 @@ const UpgradePageContent = () => {
 
 export default function UpgradePage() {
   return (
-    <RestaurantAreaPageLayout title="Upgrade Premium" icon={Crown} backPath="profileMenu">
+    <RestaurantAreaPageLayout title="Upgrade Premium" icon={Crown} backPath="restaurant-area/profile-menu">
         <UpgradePageContent />
     </RestaurantAreaPageLayout>
   );
