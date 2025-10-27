@@ -21,7 +21,7 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, icon: Icon, onClick }) =
       onClick={onClick}
     >
       <Card 
-        className="w-full cursor-pointer transition-shadow duration-200 rounded-xl border-none shadow-soft-md"
+        className="w-full cursor-pointer transition-shadow duration-200 rounded-xl border-none shadow-soft-lg hover:shadow-soft-xl"
       >
         <CardContent className="p-4 flex flex-col items-center text-center">
           <div className="mb-2">
@@ -32,7 +32,7 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, icon: Icon, onClick }) =
               <Icon className="h-6 w-6" />
             </Button>
           </div>
-          <p className="text-sm font-semibold text-primary leading-tight">
+          <p className="text-sm font-bold text-primary leading-tight">
             {lines.map((line, index) => (
               <React.Fragment key={index}>
                 {line.trim()}
