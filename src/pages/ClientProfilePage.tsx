@@ -1,18 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { LogOut, Utensils, MapPin, Heart, Settings, ArrowLeft, User, Loader2, HelpCircle, FileText } from 'lucide-react';
+import { LogOut, Utensils, Heart, Settings, User, Loader2, HelpCircle, FileText } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import AppHeader from '@/components/Header';
+import { Card } from '@/components/ui/card';
 import ClientPageWrapper from '@/components/ClientPageWrapper';
 import { showError } from '@/utils/toast';
-import NavCardItem from '@/components/NavCardItem'; // Importando NavCardItem
+import NavCardItem from '@/components/NavCardItem';
+import UserProfileHeader from '@/components/UserProfileHeader';
 
-// Hook para buscar o restaurante do usuário logado
+// Hook para buscar o restaurante do usuário logado (mantido, mas o uso foi simplificado)
 const useUserRestaurant = (userId: string | undefined) => {
   return useQuery({
     queryKey: ['userRestaurant', userId],
@@ -40,7 +40,6 @@ export default function ClientProfilePage() {
   const navigate = useNavigate();
   
   const restaurant = authRestaurant;
-  const isRestaurantLoading = false; 
 
   if (isAuthLoading) {
     return (
@@ -63,29 +62,20 @@ export default function ClientProfilePage() {
 
   return (
     <ClientPageWrapper selectedTab="profile">
-      <AppHeader 
-        title="Meu Perfil" 
-        leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('home')) }}
+      
+      {/* Novo Header no estilo banner */}
+      <UserProfileHeader 
+        displayName={userDisplayName}
+        email={userEmail}
+        onBack={() => navigate(createPageUrl('home'))}
       />
 
-      <main className="p-4 space-y-6">
-        {/* User Info Card (Visualmente mais rico) */}
-        <Card className="shadow-lg border-none rounded-xl bg-white">
-          <CardContent className="p-6 flex items-center space-x-4">
-            <div className="size-14 rounded-full bg-highlight/10 flex items-center justify-center shrink-0">
-              <User className="w-7 h-7 text-highlight" />
-            </div>
-            <div>
-              <p className="font-extrabold text-xl text-primary leading-tight">{userDisplayName}</p>
-              <p className="text-sm text-gray-500 mt-0.5">{userEmail}</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Restaurant Management Section (Only visible if user owns a restaurant) */}
+      <main className="p-4 space-y-6 -mt-6 relative z-10">
+        
+        {/* Seção de Gerenciamento do Restaurante */}
         {restaurant && (
-          <div className="space-y-3">
-            <h2 className="text-xl font-bold text-primary px-1 mb-4">Gerenciamento do Restaurante</h2>
+          <Card className="shadow-lg border-none rounded-xl bg-white p-4 space-y-3">
+            <h2 className="text-lg font-bold text-primary mb-2">Gerenciamento do Restaurante</h2>
             
             <NavCardItem 
               icon={Utensils}
@@ -96,16 +86,16 @@ export default function ClientProfilePage() {
             
             <NavCardItem 
               icon={Settings}
-              title="Configurações"
+              title="Configurações do Restaurante"
               description="Edite informações, horário de funcionamento e links."
               onClick={() => handleNavigate(createPageUrl('restaurant-area/profile-menu'))}
             />
-          </div>
+          </Card>
         )}
 
-        {/* General Navigation Section */}
-        <div className="space-y-3">
-          <h2 className="text-xl font-bold text-primary px-1 mb-4">Geral</h2>
+        {/* Seção de Navegação Geral */}
+        <Card className="shadow-lg border-none rounded-xl bg-white p-4 space-y-3">
+          <h2 className="text-lg font-bold text-primary mb-2">Geral</h2>
           
           <NavCardItem 
             icon={Heart}
@@ -134,10 +124,10 @@ export default function ClientProfilePage() {
             description="Leia nossos termos de uso e política de dados."
             onClick={() => handleNavigate(createPageUrl('legal'))}
           />
-        </div>
+        </Card>
 
-        {/* Logout Button */}
-        <div className="pt-4">
+        {/* Botão de Logout */}
+        <div className="pt-4 pb-8">
           <Button 
             onClick={handleSignOut} 
             className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center gap-2 h-12 rounded-xl shadow-soft-md"
