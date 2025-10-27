@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import InfoCardItem from '@/components/InfoCardItem';
 import { Profile } from '@/types/supabase';
 import { z } from 'zod';
-import { phoneMask } from '@/components/restaurant/ProfileManagementLayout'; // Reutilizando a máscara de telefone
+import { phoneMask } from '@/utils/masks'; // CORRIGIDO: Importando de utilitários
 
 interface ClientBasicInfoSectionProps {
   profile: Profile | null;
@@ -23,14 +23,8 @@ interface ClientBasicInfoSectionProps {
   phoneSchema: z.ZodType<string>;
 }
 
-// Máscara de telefone (copiada de ProfileManagementLayout para evitar dependência circular)
-const localPhoneMask = (value: string) => {
-  return value
-    .replace(/\D/g, '')
-    .replace(/^(\d{2})(\d)/g, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{4})\d+?$/, '$1');
-};
+// Máscara de telefone (reutilizada do utilitário)
+const localPhoneMask = phoneMask;
 
 const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({
   profile,
@@ -40,6 +34,7 @@ const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({
   phoneSchema,
 }) => {
   
+  // CORRIGIDO: 'phone' agora existe no tipo Profile
   const fullName = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ');
   const displayPhone = profile?.phone ? localPhoneMask(profile.phone.replace(/\D/g, '')) : null;
 
@@ -59,15 +54,17 @@ const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({
         value={userEmail} 
         icon={Mail} 
         onClick={() => alert("A alteração de e-mail deve ser feita através das configurações de autenticação.")}
-        // E-mail não é editável diretamente aqui, apenas exibido
-        isLocked={true} 
+        // CORRIGIDO: Usando isPremiumFeature para simular bloqueio (apenas visual)
+        isPremiumFeature={true} 
+        isPremium={false} // Simula que o campo está bloqueado para edição direta
       />
       
       <InfoCardItem 
         label="Telefone" 
         value={displayPhone} 
         icon={Phone} 
-        onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", localPhoneMask, "(XX) XXXXX-XXXX")}
+        // CORRIGIDO: 'phone' é uma chave válida de Profile
+        onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", localPhoneMask, "(XX) XXXXX-XXXX")} 
       />
     </div>
   );

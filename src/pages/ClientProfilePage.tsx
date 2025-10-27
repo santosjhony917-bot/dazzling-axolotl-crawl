@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react'; // CORRIGIDO: Importando useMemo
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { LogOut, Utensils, Heart, Settings, User, Loader2, HelpCircle, FileText, Mail, Phone } from 'lucide-react';
@@ -116,7 +116,8 @@ export default function ClientProfilePage() {
     try {
       // Apenas 'first_name', 'last_name' e 'phone' são editáveis no perfil
       if (key === 'first_name' || key === 'last_name' || key === 'phone') {
-        await updateProfile(user.id, { [key]: finalValue });
+        // CORRIGIDO: Usando o tipo Profile para acessar as propriedades
+        await updateProfile(user.id, { [key]: finalValue } as Partial<Profile>); 
         showSuccess("Perfil atualizado com sucesso!");
         refetchProfile(); // Força a atualização do contexto
       } else {
@@ -136,14 +137,11 @@ export default function ClientProfilePage() {
   const currentEditValue = useMemo(() => {
     if (!editFieldConfig) return '';
     
-    if (editFieldConfig.key === 'first_name') return profile?.first_name || '';
-    if (editFieldConfig.key === 'last_name') return profile?.last_name || '';
-    // O campo 'phone' não existe na tabela profiles, mas vamos simular que existe para o InfoCardItem
-    // Se o campo 'phone' for adicionado ao Profile, esta lógica deve ser ajustada.
-    // Por enquanto, usamos o campo 'first_name' como placeholder para o diálogo.
-    // CORREÇÃO: O campo 'phone' foi adicionado ao Profile no esquema do Supabase, mas não no tipo Profile.
-    // Vamos assumir que o campo 'phone' existe no Profile para fins de edição.
-    if (editFieldConfig.key === 'phone') return (profile as any)?.phone || '';
+    const key = editFieldConfig.key;
+    
+    if (key === 'first_name') return profile?.first_name || '';
+    if (key === 'last_name') return profile?.last_name || '';
+    if (key === 'phone') return profile?.phone || ''; // CORRIGIDO: Acessando profile.phone
     
     return '';
   }, [editFieldConfig, profile]);

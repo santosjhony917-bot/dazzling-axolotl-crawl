@@ -11,6 +11,7 @@ import { Restaurant } from '@/types/supabase'; // Adicionado import para Restaur
 import { Button } from '@/components/ui/button'; // Adicionado import para Button
 import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { cnpjMask, phoneMask } from '@/utils/masks'; // IMPORT CORRIGIDO
 
 // Componentes de Seção
 import MainProfileCard from './profile/MainProfileCard';
@@ -34,25 +35,6 @@ const emailSchema = z.string().email("E-mail inválido.");
 const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Formato: (XX) XXXXX-XXXX");
 const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "Formato: XX.XXX.XXX/XXXX-XX");
 const urlSchema = z.string().url("URL inválida").or(z.literal("")).optional();
-
-// --- Máscaras ---
-const cnpjMask = (value: string) => {
-  return value
-    .replace(/\D/g, '')
-    .replace(/^(\d{2})(\d)/, '$1.$2')
-    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-    .replace(/\.(\d{3})(\d)/, '.$1/$2')
-    .replace(/(\d{4})(\d)/, '$1-$2')
-    .replace(/(-\d{2})\d+?$/, '$1');
-};
-
-const phoneMask = (value: string) => {
-  return value
-    .replace(/\D/g, '')
-    .replace(/^(\d{2})(\d)/g, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{4})\d+?$/, '$1');
-};
 
 // --- Componente Principal ---
 
