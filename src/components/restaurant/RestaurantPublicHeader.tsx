@@ -47,7 +47,7 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       </div>
       
       {/* Nome e Info */}
-      <div className="flex-grow ml-4 mt-1">
+      <div className="flex-grow ml-4 mt-1 min-w-0"> {/* Adicionado min-w-0 para permitir truncamento */}
         <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white truncate">{name}</h1>
         
         {/* Exibição do Endereço */}
