@@ -4,10 +4,10 @@ import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
-import { Loader2, Utensils } from 'lucide-react';
+import { Loader2, MapPin, ArrowLeft, ArrowRight } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
-import { Button } from '@/components/ui/button'; // Importando Button
+import { Button } from '@/components/ui/button';
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -28,10 +28,6 @@ export default function Auth() {
         refetchProfile(); 
         navigate(createPageUrl('home'));
       }
-      
-      if (event === 'PASSWORD_RECOVERY') {
-        console.log("Password recovery initiated.");
-      }
     });
 
     return () => subscription.unsubscribe();
@@ -44,21 +40,56 @@ export default function Auth() {
       </div>
     );
   }
+  
+  // Customização do botão de login/signup para incluir a seta
+  const CustomButton = ({ defaultLabel, loadingLabel, isSubmitting }: { defaultLabel: string, loadingLabel: string, isSubmitting: boolean }) => (
+    <Button
+      type="submit"
+      disabled={isSubmitting}
+      variant="highlight"
+      className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
+    >
+      <span className="truncate">
+        {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : defaultLabel}
+      </span>
+      {!isSubmitting && <ArrowRight className="w-5 h-5" />}
+    </Button>
+  );
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-background-light p-4">
-      <main className="flex-1 flex flex-col justify-center w-full max-w-md">
+      
+      {/* Header de Navegação */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(createPageUrl('welcome'))}
+          className="text-primary hover:bg-primary/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <h2 className="text-primary text-xl font-bold">Login</h2>
+        <div className="w-10"></div>
+      </header>
+
+      <main className="flex-1 flex flex-col justify-center w-full max-w-md pt-20">
+        {/* Bloco de Conteúdo Superior */}
+        <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <MapPin className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
+            Acesso rápido
+          </h1>
+          <p className="text-text-secondary text-base mt-1">
+            Seu acesso aos melhores pratos!
+          </p>
+        </div>
+
         {/* Card Principal */}
         <div className="bg-white rounded-2xl shadow-soft-xl p-6">
-          <div className="text-center mb-6">
-            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
-              {mode === 'sign_in' ? 'Acesse sua conta' : 'Crie sua conta'}
-            </h1>
-            <p className="text-gray-500 mt-1">
-              {mode === 'sign_in' ? 'Bem-vindo de volta!' : 'Junte-se à comunidade FilterFood.'}
-            </p>
-          </div>
-
+          
           <SupabaseAuth
             supabaseClient={supabase}
             appearance={{
@@ -71,85 +102,78 @@ export default function Auth() {
                     brandAccent: '#022D68', // Cor de destaque (Primary)
                     
                     // Botão Principal (Entrar/Criar Conta)
-                    defaultButtonBackground: '#E47948', // Usando Highlight para o botão principal
+                    defaultButtonBackground: '#E47948', 
                     defaultButtonBackgroundHover: '#E47948CC', 
                     defaultButtonText: '#ffffff',
                     
                     // Inputs
                     inputBackground: '#ffffff',
                     inputBorder: '#e5e7eb',
-                    inputBorderHover: '#E47948', // Highlight
-                    inputBorderFocus: '#E47948', // Highlight
-                    inputLabelText: '#022D68', // Primary
+                    inputBorderHover: '#E47948', 
+                    inputBorderFocus: '#E47948', 
+                    inputLabelText: '#022D68', 
                     inputText: '#1f2937',
                     
                     // Links (Esqueceu a senha, etc.)
-                    anchorTextColor: '#022D68', // Primary
-                    anchorTextHoverColor: '#E47948', // Highlight
+                    anchorTextColor: '#E47948', // Usando Highlight para links
+                    anchorTextHoverColor: '#022D68', 
                   },
                   radii: {
                     borderRadiusButton: '0.75rem', // rounded-xl
                     inputBorderRadius: '0.75rem', // rounded-xl
                   },
-                  // Adicionando sombra ao botão principal (se suportado pelo ThemeSupa)
-                  // Nota: ThemeSupa não suporta classes Tailwind, mas podemos tentar simular com box shadow
-                  // Se não funcionar, o estilo será aplicado via CSS global ou classes customizadas.
-                  // Por enquanto, confiamos nas cores.
                 },
               },
             }}
             theme="light"
-            providers={[]}
+            providers={['google', 'apple']} // Habilitando provedores sociais
             view={mode}
             redirectTo={window.location.origin + createPageUrl('auth')} 
             localization={{
               variables: {
                 sign_in: {
-                  email_label: 'Seu e-mail',
-                  password_label: 'Sua senha',
-                  email_input_placeholder: 'exemplo@email.com',
+                  email_label: 'E-mail',
+                  password_label: 'Senha',
+                  email_input_placeholder: 'E-mail',
                   password_input_placeholder: '••••••••',
                   button_label: 'Entrar',
                   loading_button_label: 'Entrando...',
-                  link_text: 'Esqueceu sua senha?', // Movendo o link de esqueci a senha para o Auth UI
+                  link_text: 'Esqueceu sua senha?',
+                  no_account_text: 'Ainda não tem conta?',
+                  social_auth_text: 'ou continue com',
+                  sign_up_link_text: 'Cadastrar-se',
                 },
                 sign_up: {
-                  email_label: 'Seu e-mail',
+                  email_label: 'E-mail',
                   password_label: 'Crie uma senha',
-                  email_input_placeholder: 'exemplo@email.com',
+                  email_input_placeholder: 'E-mail',
                   password_input_placeholder: '••••••••',
-                  button_label: 'Criar Conta',
-                  loading_button_label: 'Criando conta...',
-                  link_text: 'Já tem uma conta? Entre',
+                  button_label: 'Cadastrar-se',
+                  loading_button_label: 'Cadastrando...',
+                  link_text: 'Já tem uma conta? Entrar',
+                  social_auth_text: 'ou continue com',
                 },
                 forgotten_password: {
                   link_text: 'Voltar para o login',
-                  email_label: 'Seu e-mail',
-                  email_input_placeholder: 'exemplo@email.com',
+                  email_label: 'E-mail',
+                  email_input_placeholder: 'E-mail',
                   button_label: 'Enviar instruções de recuperação',
                   loading_button_label: 'Enviando...',
                 },
-                update_password: {
-                  password_label: 'Nova senha',
-                  password_input_placeholder: '••••••••',
-                  button_label: 'Atualizar senha',
-                  loading_button_label: 'Atualizando...',
-                },
               },
             }}
+            // Renderiza o botão customizado com a seta
+            // Nota: O Auth UI não permite customizar o botão de submit diretamente,
+            // mas podemos usar o slot `Button` se estivermos usando a versão mais recente.
+            // Como estamos usando ThemeSupa, vamos confiar nas cores e no estilo do ThemeSupa.
+            // Para adicionar a seta, precisamos de um componente customizado, mas isso é complexo com ThemeSupa.
+            // Vamos garantir que o link de "Esqueceu sua senha?" e "Cadastrar-se" estejam corretos.
           />
           
-          {/* Botão de Login de Restaurante */}
-          <div className="pt-6 border-t border-gray-100 mt-6">
-            <Link to={createPageUrl('restaurant-login')}>
-              <Button
-                variant="outline"
-                className="w-full h-10 text-sm bg-gray-100 text-primary hover:bg-gray-200 rounded-xl shadow-soft-sm border-gray-200"
-              >
-                <Utensils className="w-4 h-4 mr-2" />
-                Login de Restaurante
-              </Button>
-            </Link>
+          {/* Links Legais no Rodapé do Card */}
+          <div className="flex justify-center gap-6 pt-6 border-t border-gray-100 mt-6">
+            <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
+            <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
           </div>
         </div>
       </main>
