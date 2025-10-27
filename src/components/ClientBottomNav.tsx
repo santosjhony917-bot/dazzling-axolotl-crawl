@@ -16,7 +16,7 @@ const navItems: NavItemType[] = [
   { path: '/home', label: 'Início', icon: Home, key: 'home' },
   { path: '/search-unified', label: 'Busca', icon: Search, key: 'search' }, // Rota atualizada
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
-  { path: '/profile', label: 'Perfil', icon: User, key: 'profile' }, // Chave alterada para 'profile'
+  { path: '/profile', label: 'Perfil', icon: User, key: 'clientProfile' }, // CHAVE CORRIGIDA para 'clientProfile'
 ];
 
 interface CustomerBottomNavProps {
@@ -75,8 +75,8 @@ const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab })
     <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-xl z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          // CORREÇÃO: A chave do item é usada para criar a URL, mas precisamos mapear a chave para o PATH_MAP
-          const pathKey = item.path.substring(1) as PathKey;
+          // A chave do item é usada para criar a URL, e agora é 'clientProfile' para o item de perfil
+          const pathKey = item.key as PathKey;
           const isActive = getActivePath(item.path, item.key);
           
           return (
