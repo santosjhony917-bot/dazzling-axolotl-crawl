@@ -46,7 +46,7 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
       } else {
         showSuccess('Cadastro realizado! Verifique seu email para confirmar sua conta.');
         // Após o cadastro, redireciona para a tela de login (auth?mode=login)
-        navigate(createPageUrl('auth', undefined, { mode: 'login' }));
+        navigate(createPageUrl('auth', undefined, { mode: 'login' }), { replace: true });
       }
       
       // O contexto de autenticação é atualizado automaticamente pelo onAuthStateChange

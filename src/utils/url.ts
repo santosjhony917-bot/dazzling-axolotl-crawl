@@ -67,6 +67,8 @@ type PathParams<K extends PathKey> =
     ? { itemId: string }
   : K extends 'admin'
     ? { subPath: string } // For AdminLayout dynamic navigation
+  : K extends 'auth' // CORREÇÃO: 'auth' não tem path params, mas precisa ser definido
+    ? undefined
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)
@@ -95,7 +97,7 @@ export function createPageUrl<K extends PathKey>(
 
   // 2. Adicionar parâmetros de consulta (query params)
   // Se a chave for 'auth', priorizamos o queryParams fornecido. Caso contrário, usamos o queryParams padrão.
-  const finalQueryParams = key === 'auth' ? queryParams : queryParams;
+  const finalQueryParams = queryParams; // Simplificado, pois a tipagem já garante a estrutura correta
   
   if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {
     const searchParams = new URLSearchParams(finalQueryParams as Record<string, string>);
