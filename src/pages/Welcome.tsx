@@ -72,14 +72,14 @@ export default function Welcome() {
           </Button>
 
           <Button
-            onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
+            onClick={() => handleNavigation('restaurant', createPageUrl('auth'))}
             variant="outline"
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-soft-md"
           >
             <span className="truncate">Sou restaurante</span>
           </Button>
           
-          {/* NOVO: Link de Login de Administrador */}
+          {/* Link de Login de Administrador */}
           <Link
             to={createPageUrl('adminLogin')}
             className="text-center text-sm font-medium text-gray-500 hover:text-primary hover:underline pt-2"
