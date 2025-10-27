@@ -1,29 +1,30 @@
 import React from 'react';
-import { Search as SearchIcon } from 'lucide-react';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import { Search, BarChart3 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import { useUserRole } from '@/hooks/useUserRole';
 
-const SearchPage: React.FC = () => {
-  // NOTE: isPremium is not available here, but we remove the props anyway as they are not supported by RestaurantBottomNav
+export default function RestaurantSearch() {
+  const { isPremium } = useUserRole();
   
   return (
-    <div className="p-4 pt-10 min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-          <SearchIcon className="w-7 h-7 mr-2 text-primary" /> Buscar
-        </h1>
-        
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-          <p className="text-gray-600 dark:text-gray-400">
-            Aqui você poderá buscar por restaurantes, pratos e categorias.
-          </p>
-          <p className="mt-4 text-sm text-gray-500">
-            (Funcionalidade de busca em desenvolvimento.)
-          </p>
-        </div>
-      </div>
-      <RestaurantBottomNav />
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <RestaurantAreaHeader title="Análise de Mercado" icon={BarChart3} backPath="restaurant-area/home" />
+      
+      <main className="p-4 space-y-6">
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardHeader>
+            <CardTitle className="text-2xl text-primary">Estatísticas de Concorrência</CardTitle>
+            <CardDescription>Visualize dados de restaurantes próximos e tendências de mercado.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600">Gráficos e dados de concorrentes serão exibidos aqui.</p>
+          </CardContent>
+        </Card>
+      </main>
+      
+      <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
     </div>
   );
-};
-
-export default SearchPage;
+}

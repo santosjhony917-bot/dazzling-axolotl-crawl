@@ -1,49 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/context/AuthContext';
-import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
-import { Loader2 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader2, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { createPageUrl } from '@/utils/url';
+import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
 
-// Componente de Conteúdo do Perfil (Placeholder)
-const ProfileContent: React.FC = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Configurações do Perfil</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p>Aqui você pode gerenciar suas informações pessoais como usuário.</p>
-        <Button className="mt-4">Editar Perfil</Button>
-      </CardContent>
-    </Card>
-  );
-};
-
-const RestaurantAreaProfilePage: React.FC = () => {
-  const { isLoading: authLoading, restaurant } = useAuthContext();
+export default function RestaurantProfilePage() {
   const navigate = useNavigate();
+  const { isLoading: authLoading, restaurant } = useAuthContext();
+
+  // Scroll to top on mount/navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (authLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
+  // O ProtectedRoute já garante que 'restaurant' existe, mas mantemos o fallback
   if (!restaurant) {
-    // Se não houver restaurante, redireciona ou mostra erro
-    return <p className="p-8 text-red-500">Você precisa cadastrar um restaurante para acessar esta área.</p>;
+    return (
+      <div className="p-6 text-center">
+        <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Acesso Negado</h2>
+        <p className="text-gray-600 mb-6">Você precisa ter um restaurante registrado para acessar esta página.</p>
+        <Button onClick={() => navigate(createPageUrl('index'))}>
+          Voltar para o Início
+        </Button>
+      </div>
+    );
   }
 
   // O ProfileManagementLayout agora usa o AuthContext para obter os dados do restaurante
-  return (
-    <ProfileManagementLayout restaurant={restaurant}>
-      <ProfileContent />
-    </ProfileManagementLayout>
-  );
+  return <ProfileManagementLayout />;
 }
-
-export default RestaurantAreaProfilePage;

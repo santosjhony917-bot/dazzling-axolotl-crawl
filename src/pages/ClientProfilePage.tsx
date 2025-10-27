@@ -1,15 +1,76 @@
-import React from 'react';
-import { useAuthContext } from '@/context/AuthContext';
+import React, { useState, useCallback, useMemo } from 'react'; // CORRIGIDO: Importando useMemo
 import { useNavigate } from 'react-router-dom';
-import { Loader2, LogOut, User, Package } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { LogOut, Utensils, Heart, Settings, User, Loader2, HelpCircle, FileText, Mail, Phone } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthContext } from '@/context/AuthContext';
+import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Link } from 'react-router-dom';
+import { Card } from '@/components/ui/card';
+import ClientPageWrapper from '@/components/ClientPageWrapper';
+import { showError, showSuccess } from '@/utils/toast';
+import NavCardItem from '@/components/NavCardItem';
+import UserProfileHeader from '@/components/UserProfileHeader';
+import ClientBasicInfoSection from '@/components/ClientBasicInfoSection'; // NOVO IMPORT
+import EditClientFieldDialog from '@/components/EditClientFieldDialog'; // NOVO IMPORT
+import { updateProfile } from '@/integrations/supabase/profile'; // NOVO IMPORT
+import { z } from 'zod';
+import { Profile } from '@/types/supabase';
+
+// --- Schemas de Validação ---
+const nameSchema = z.string().min(3, "Mínimo de 3 caracteres.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Formato: (XX) XXXXX-XXXX");
+
+// Máscara de telefone (reutilizada do ProfileManagementLayout)
+const phoneMask = (value: string) => {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/g, '($1) $2')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .replace(/(-\d{4})\d+?$/, '$1');
+};
+
+// Hook para buscar o restaurante do usuário logado (mantido)
+const useUserRestaurant = (userId: string | undefined) => {
+  return useQuery({
+    queryKey: ['userRestaurant', userId],
+    queryFn: async () => {
+      if (!userId) return null;
+      
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = No rows found
+        throw error;
+      }
+      
+      return data;
+    },
+    enabled: !!userId,
+  });
+};
 
 export default function ClientProfilePage() {
   const { user, profile, signOut, isLoading: isAuthLoading, restaurant: authRestaurant, refetchProfile } = useAuthContext();
   const navigate = useNavigate();
+  
+  const restaurant = authRestaurant;
+  
+  // --- Estado para Edição de Campo Único ---
+  const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
+  const [editFieldConfig, setEditFieldConfig] = useState<{
+    key: keyof Profile | 'email' | 'phone';
+    title: string;
+    fieldName: string;
+    icon: React.ReactNode;
+    validationSchema: z.ZodType<string>;
+    type?: "text" | "tel" | "email";
+    mask?: (value: string) => string;
+    placeholder?: string;
+  } | null>(null);
 
   if (isAuthLoading) {
     return (
@@ -19,56 +80,171 @@ export default function ClientProfilePage() {
     );
   }
 
-  if (!user) {
-    navigate('/login');
-    return null;
-  }
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
-  const fullName = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ') || 'Usuário';
-  const hasRestaurant = !!authRestaurant;
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  };
+  
+  const handleEditField = useCallback((
+    key: keyof Profile | 'email' | 'phone',
+    title: string,
+    fieldName: string,
+    icon: React.ReactNode,
+    validationSchema: z.ZodType<string>,
+    type: "text" | "tel" | "email" = "text",
+    mask?: (value: string) => string,
+    placeholder?: string,
+  ) => {
+    setEditFieldConfig({ key, title, fieldName, icon, validationSchema, type, mask, placeholder });
+    setIsEditFieldOpen(true);
+  }, []);
+  
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editFieldConfig || !user?.id) return;
+
+    const key = editFieldConfig.key;
+    let finalValue = value;
+    
+    // Aplica a máscara reversa se for telefone
+    if (key === 'phone') {
+        finalValue = value.replace(/\D/g, '');
+    }
+    
+    try {
+      // Apenas 'first_name', 'last_name' e 'phone' são editáveis no perfil
+      if (key === 'first_name' || key === 'last_name' || key === 'phone') {
+        // CORRIGIDO: Usando o tipo Profile para acessar as propriedades
+        await updateProfile(user.id, { [key]: finalValue } as Partial<Profile>); 
+        showSuccess("Perfil atualizado com sucesso!");
+        refetchProfile(); // Força a atualização do contexto
+      } else {
+        // E-mail não é editável diretamente
+        showError("A alteração deste campo não é suportada nesta tela.");
+      }
+    } catch (e) {
+      showError((e as Error).message || "Falha ao salvar o perfil.");
+      throw e;
+    }
+  }, [editFieldConfig, user?.id, refetchProfile]);
+
+  const userDisplayName = profile?.first_name || user?.email?.split('@')[0] || 'Usuário';
+  const userEmail = user?.email || 'Não logado';
+  
+  // Valor atual do campo de edição
+  const currentEditValue = useMemo(() => {
+    if (!editFieldConfig) return '';
+    
+    const key = editFieldConfig.key;
+    
+    if (key === 'first_name') return profile?.first_name || '';
+    if (key === 'last_name') return profile?.last_name || '';
+    if (key === 'phone') return profile?.phone || ''; // CORRIGIDO: Acessando profile.phone
+    
+    return '';
+  }, [editFieldConfig, profile]);
+
 
   return (
-    <div className="p-4 pt-10 min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-md mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-          <User className="w-7 h-7 mr-2 text-primary" /> Meu Perfil
-        </h1>
+    <ClientPageWrapper selectedTab="profile">
+      
+      {/* Novo Header no estilo banner */}
+      <UserProfileHeader 
+        displayName={userDisplayName}
+        email={userEmail}
+        onBack={() => navigate(createPageUrl('home'))}
+      />
 
-        <Card className="shadow-soft-md dark:bg-gray-800">
-          <CardHeader>
-            <CardTitle className="text-xl dark:text-white">Informações da Conta</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-lg font-semibold dark:text-gray-200">{fullName}</p>
-            <p className="text-gray-600 dark:text-gray-400">Email: {user.email}</p>
-            <p className="text-gray-600 dark:text-gray-400">Telefone: {profile?.phone || 'Não informado'}</p>
-          </CardContent>
-        </Card>
+      <main className="p-4 space-y-6 -mt-6 relative z-10">
         
-        {hasRestaurant && (
-          <Card className="shadow-soft-md dark:bg-gray-800">
-            <CardHeader>
-              <CardTitle className="text-xl dark:text-white">Área do Restaurante</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-gray-600 dark:text-gray-400">Você gerencia o restaurante: <span className="font-semibold">{authRestaurant.name}</span></p>
-              <Link to={`/restaurant-area/${authRestaurant.id}/dashboard`}>
-                <Button className="w-full bg-highlight hover:bg-highlight/90">
-                  <Package className="w-5 h-5 mr-2" /> Acessar Dashboard
-                </Button>
-              </Link>
-            </CardContent>
+        {/* Seção 1: Informações Básicas do Cliente */}
+        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-4 space-y-3">
+          <ClientBasicInfoSection
+            profile={profile}
+            userEmail={userEmail}
+            handleEditField={handleEditField}
+            nameSchema={nameSchema}
+            phoneSchema={phoneSchema}
+          />
+        </Card>
+
+        {/* Seção de Gerenciamento do Restaurante */}
+        {restaurant && (
+          <Card className="shadow-soft-lg border-none rounded-xl bg-white p-4 space-y-3">
+            <h2 className="text-lg font-bold text-primary mb-2">Gerenciamento do Restaurante</h2>
+            
+            <NavCardItem 
+              icon={Utensils}
+              title={restaurant.name}
+              description="Acesse o painel de controle do seu restaurante."
+              onClick={() => handleNavigate(createPageUrl('restaurant-area/home'))}
+            />
+            
+            <NavCardItem 
+              icon={Settings}
+              title="Configurações do Restaurante"
+              description="Edite informações, horário de funcionamento e links."
+              onClick={() => handleNavigate(createPageUrl('restaurant-area/profile-menu'))}
+            />
           </Card>
         )}
 
-        <Button 
-          onClick={signOut} 
-          variant="destructive" 
-          className="w-full shadow-soft-md"
-        >
-          <LogOut className="w-5 h-5 mr-2" /> Sair
-        </Button>
-      </div>
-    </div>
+        {/* Seção de Navegação Geral */}
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white p-4 space-y-3">
+          <h2 className="text-lg font-bold text-primary mb-2">Geral</h2>
+          
+          <NavCardItem 
+            icon={Heart}
+            title="Meus Favoritos"
+            description="Veja os restaurantes e pratos que você favoritou."
+            onClick={() => handleNavigate(createPageUrl('favorites'))}
+          />
+          
+          <NavCardItem 
+            icon={HelpCircle}
+            title="Central de Ajuda"
+            description="Encontre tutoriais e suporte."
+            onClick={() => handleNavigate(createPageUrl('helpCenter'))}
+          />
+          
+          <NavCardItem 
+            icon={FileText}
+            title="Termos e Privacidade"
+            description="Leia nossos termos de uso e política de dados."
+            onClick={() => handleNavigate(createPageUrl('legal'))}
+          />
+        </Card>
+
+        {/* Botão de Logout */}
+        <div className="pt-4 pb-8">
+          <Button 
+            onClick={handleSignOut} 
+            className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center gap-2 h-12 rounded-xl shadow-soft-md"
+          >
+            <LogOut className="w-5 h-5" />
+            Sair da Conta
+          </Button>
+        </div>
+      </main>
+      
+      {/* Diálogo de Edição de Campo Único do Cliente */}
+      {editFieldConfig && (
+        <EditClientFieldDialog
+          isOpen={isEditFieldOpen}
+          onClose={() => setIsEditFieldOpen(false)}
+          title={editFieldConfig.title}
+          fieldName={editFieldConfig.fieldName}
+          currentValue={currentEditValue}
+          icon={editFieldConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editFieldConfig.placeholder}
+          type={editFieldConfig.type}
+          validationSchema={editFieldConfig.validationSchema}
+          mask={editFieldConfig.mask}
+        />
+      )}
+    </ClientPageWrapper>
   );
 }

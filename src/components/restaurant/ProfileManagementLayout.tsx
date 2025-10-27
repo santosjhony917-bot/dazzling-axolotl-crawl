@@ -1,106 +1,301 @@
-import React, { ReactNode } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Home, Utensils, Settings, Crown, LogOut, User, MapPin, Package, Camera, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import RestaurantBottomNav from './RestaurantBottomNav';
+import React, { useState, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { Loader2, AlertTriangle, Crown, ArrowLeft, Eye } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
-import { Restaurant } from '@/types/supabase';
-import { Separator } from '@/components/ui/separator';
-import { showSuccess } from '@/utils/toast';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { showError } from '@/utils/toast';
+import { createPageUrl } from '@/utils/url';
+import { WeekSchedule } from '@/types/schedule';
+import { Restaurant } from '@/types/supabase'; // Adicionado import para Restaurant
+import { Button } from '@/components/ui/button'; // Adicionado import para Button
+import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { cnpjMask, phoneMask } from '@/utils/masks'; // IMPORT CORRIGIDO
 
-interface ProfileManagementLayoutProps {
-  restaurant: Restaurant;
-  children: ReactNode;
-}
+// Componentes de Seção
+import MainProfileCard from './profile/MainProfileCard';
+import BasicInfoSection from './profile/BasicInfoSection';
+import LocationHoursSection from './profile/LocationHoursSection';
+import SalesChannelsSection from './profile/SalesChannelsSection';
+import ContentManagementSection from './profile/ContentManagementSection';
+import SubscriptionCard from './profile/SubscriptionCard';
+import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
+import FollowerCountCard from './profile/FollowerCountCard'; // NOVO IMPORT
+import RestaurantBottomNav from './RestaurantBottomNav'; // NOVO IMPORT
 
-const navItems = (restaurantId: string, isPremium: boolean) => [
-  { name: 'Início', icon: Home, path: `/restaurant-area/${restaurantId}/dashboard` },
-  { name: 'Cardápio', icon: Utensils, path: `/restaurant-area/${restaurantId}/menu` },
-  { name: 'Galeria', icon: Camera, path: `/restaurant-area/${restaurantId}/gallery` },
-  { name: 'Informações', icon: Settings, path: `/restaurant-area/${restaurantId}/info` },
-  { name: 'Localização', icon: MapPin, path: `/restaurant-area/${restaurantId}/location` },
-  { name: 'Planos', icon: Crown, path: `/restaurant-area/${restaurantId}/upgrade`, premiumOnly: false },
-  { name: 'Avaliações', icon: Star, path: `/restaurant-area/${restaurantId}/reviews`, premiumOnly: true },
-];
+// Diálogos de Edição
+import EditFieldDialog from '@/components/EditFieldDialog';
+import { EditAddressDialog } from '@/components/EditAddressDialog';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
 
-const ProfileManagementLayout: React.FC<ProfileManagementLayoutProps> = ({ restaurant, children }) => {
-  const { signOut } = useAuthContext();
-  const isPremium = restaurant.plan === 'premium';
-  const restaurantId = restaurant.id;
+// --- Schemas de Validação ---
+const nameSchema = z.string().min(3, "Mínimo de 3 caracteres.");
+const emailSchema = z.string().email("E-mail inválido.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Formato: (XX) XXXXX-XXXX");
+const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "Formato: XX.XXX.XXX/XXXX-XX");
+const urlSchema = z.string().url("URL inválida").or(z.literal("")).optional();
 
-  const handleSignOut = async () => {
-    await signOut();
-    showSuccess("Desconectado com sucesso.");
+// --- Componente Principal ---
+
+export default function ProfileManagementLayout() {
+  const navigate = useNavigate();
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthContext();
+  const { updateRestaurant, isUpdating } = useRestaurantProfile();
+
+  // --- Estado para Edição de Campo Único ---
+  const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
+  const [editFieldConfig, setEditFieldConfig] = useState<{
+    key: keyof Restaurant;
+    title: string;
+    fieldName: string;
+    icon: React.ReactNode;
+    validationSchema: z.ZodType<string>;
+    type?: "text" | "tel" | "email";
+    mask?: (value: string) => string;
+    placeholder?: string;
+  } | null>(null);
+
+  // --- Estado para Edição de Endereço e Horários ---
+  const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
+  const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
+  
+  // --- Handlers ---
+
+  const handleEditField = useCallback((
+    key: keyof Restaurant,
+    title: string,
+    fieldName: string,
+    icon: React.ReactNode,
+    validationSchema: z.ZodType<string>,
+    type: "text" | "tel" | "email" = "text",
+    mask?: (value: string) => string,
+    placeholder?: string,
+  ) => {
+    // CORREÇÃO 6: Cast key para unknown para permitir a comparação com as chaves de link
+    const keyAsString = key as unknown as string;
+    
+    // Se não for Premium e o campo for um link externo, bloqueia
+    if (!isPremium && (keyAsString === 'whatsapp_url' || keyAsString === 'ifood_url' || keyAsString === 'other_url')) {
+        showError("Recurso Premium. Faça upgrade para desbloquear.");
+        return;
+    }
+    
+    setEditFieldConfig({ key, title, fieldName, icon, validationSchema, type, mask, placeholder });
+    setIsEditFieldOpen(true);
+  }, [isPremium]);
+
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editFieldConfig || !restaurant?.id) return;
+
+    const key = editFieldConfig.key;
+    let finalValue = value;
+
+    // Aplica a máscara reversa se houver (ex: remove pontos e traços do CNPJ/Telefone)
+    if (key === 'cnpj' || key === 'phone') {
+        finalValue = value.replace(/\D/g, '');
+    }
+    
+    try {
+      await updateRestaurant({ [key]: finalValue });
+      // O onSuccess do useRestaurantProfile já chama refetchProfile
+    } catch (e) {
+      // O onError do useRestaurantProfile já mostra o toast de erro
+      throw e;
+    }
+  }, [editFieldConfig, restaurant?.id, updateRestaurant]);
+
+  const handleLogoUploadComplete = useCallback(async (url: string) => {
+    try {
+      await updateRestaurant({ image_url: url });
+    } catch (e) {
+      showError("Falha ao salvar a URL da logo no perfil.");
+    }
+  }, [updateRestaurant]);
+  
+  const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
+    try {
+      await updateRestaurant({ opening_hours: newSchedule });
+      setIsHoursDialogOpen(false);
+    } catch (e) {
+      showError("Falha ao salvar os horários.");
+    }
+  }, [updateRestaurant]);
+  
+  const handleViewPublicProfile = () => {
+    if (restaurant?.id) {
+      navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }));
+    }
   };
 
-  return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar (Desktop) */}
-      <aside className="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-4 shadow-lg">
-        <div className="flex items-center mb-6">
-          <Package className="w-6 h-6 text-primary mr-2" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white truncate">{restaurant.name}</h2>
-        </div>
-        
-        <nav className="flex-grow space-y-1">
-          {navItems(restaurantId, isPremium).map((item) => {
-            if (item.premiumOnly && !isPremium) return null;
-            
-            // Simple active check based on current path
-            const isActive = window.location.pathname.startsWith(item.path);
+  // --- Dados Derivados ---
+  const currentSchedule = useMemo(() => {
+    return (restaurant?.opening_hours || {
+      monday: { isOpen: false, slots: [] },
+      tuesday: { isOpen: false, slots: [] },
+      wednesday: { isOpen: false, slots: [] },
+      thursday: { isOpen: false, slots: [] },
+      friday: { isOpen: false, slots: [] },
+      saturday: { isOpen: false, slots: [] },
+      sunday: { isOpen: false, slots: [] },
+    }) as WeekSchedule;
+  }, [restaurant?.opening_hours]);
 
-            return (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={cn(
-                  "flex items-center p-3 rounded-lg transition-colors duration-150",
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                )}
-              >
-                <item.icon className="w-5 h-5 mr-3" />
-                <span className="font-medium">{item.name}</span>
-              </Link>
-            );
-          })}
-        </nav>
-
-        <Separator className="my-4 dark:bg-gray-700" />
-
-        {/* User/Logout Section */}
-        <div className="mt-auto space-y-2">
-          <Link
-            to="/profile"
-            className="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors duration-150"
-          >
-            <User className="w-5 h-5 mr-3" />
-            <span className="font-medium">Meu Perfil</span>
-          </Link>
-          <Button
-            onClick={handleSignOut}
-            variant="ghost"
-            className="w-full justify-start p-3 text-red-500 hover:bg-red-50 dark:hover:bg-gray-700"
-          >
-            <LogOut className="w-5 h-5 mr-3" />
-            Sair
-          </Button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-y-auto">
-        <div className="p-4 md:p-8 max-w-4xl w-full mx-auto">
-          {children}
-        </div>
+  // --- Renderização de Carregamento/Erro ---
+  if (authLoading || isUpdating) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
+    );
+  }
 
+  if (!restaurant) {
+    return (
+      <div className="p-6 text-center">
+        <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Acesso Negado</h2>
+        <p className="text-gray-600 mb-6">Você precisa ter um restaurante registrado para acessar esta página.</p>
+        <Button onClick={() => navigate(createPageUrl('index'))}>
+          Voltar para o Início
+        </Button>
+      </div>
+    );
+  }
+  
+  // --- Renderização Principal ---
+  return (
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      
+      {/* Header Fixo */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(createPageUrl('restaurant-area/home'))}
+          className="text-[#022D68] hover:bg-[#022D68]/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <div className="flex items-center gap-2">
+          <Crown className="h-6 w-6 text-[#022D68]" />
+          <h2 className="text-[#022D68] text-xl font-bold">Meu Perfil</h2>
+        </div>
+        <div className="w-10"></div>
+      </header>
+
+      <main className="p-4 space-y-8">
+        
+        {/* Card Principal (Logo e Nome) */}
+        <MainProfileCard
+          restaurantName={restaurant.name}
+          logoUrl={restaurant.image_url}
+          isPremium={isPremium}
+          uploading={isUpdating}
+          onLogoUploadComplete={handleLogoUploadComplete}
+          restaurantId={restaurant.id}
+        />
+        
+        {/* Botão Ver Perfil Público */}
+        <Button
+          onClick={handleViewPublicProfile}
+          variant="outline"
+          className="w-full h-12 rounded-xl border-2 border-highlight text-highlight font-bold hover:bg-highlight/5 shadow-soft-md"
+        >
+          <Eye className="w-5 h-5 mr-2" />
+          Ver Perfil Público
+        </Button>
+        
+        {/* Card de Seguidores (NOVO) */}
+        <FollowerCountCard followerCount={120} isPremium={isPremium} />
+        
+        {/* Seção 1: Informações Básicas */}
+        <BasicInfoSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          cnpjMask={cnpjMask}
+          phoneMask={phoneMask}
+          nameSchema={nameSchema}
+          emailSchema={emailSchema}
+          phoneSchema={phoneSchema}
+          cnpjSchema={cnpjSchema}
+        />
+
+        {/* Seção 2: Localização e Horários */}
+        <LocationHoursSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          currentSchedule={currentSchedule}
+          setIsAddressDialogOpen={setIsAddressDialogOpen}
+          setIsHoursDialogOpen={setIsHoursDialogOpen}
+        />
+        
+        {/* Seção 3: Canais de Venda */}
+        <SalesChannelsSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          whatsappSchema={urlSchema}
+          ifoodSchema={urlSchema}
+          otherUrlSchema={urlSchema}
+        />
+        
+        {/* Seção 4: Gerenciamento de Conteúdo */}
+        <ContentManagementSection navigate={navigate} isPremium={isPremium} />
+        
+        {/* Seção 5: Plano e Assinatura */}
+        <SubscriptionCard isPremium={isPremium} />
+        
+        {/* Seção 6: Suporte */}
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+        
+      </main>
+      
+      {/* Diálogo de Edição de Campo Único */}
+      {editFieldConfig && (
+        <EditFieldDialog
+          isOpen={isEditFieldOpen}
+          onClose={() => setIsEditFieldOpen(false)}
+          title={editFieldConfig.title}
+          fieldName={editFieldConfig.fieldName}
+          currentValue={String(restaurant[editFieldConfig.key] || '')}
+          icon={editFieldConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editFieldConfig.placeholder}
+          type={editFieldConfig.type}
+          validationSchema={editFieldConfig.validationSchema}
+          mask={editFieldConfig.mask}
+        />
+      )}
+      
+      {/* Diálogo de Edição de Endereço */}
+      <EditAddressDialog
+        open={isAddressDialogOpen}
+        onOpenChange={setIsAddressDialogOpen}
+        restaurantId={restaurant.id}
+        currentAddress={{
+          address: restaurant.address || '',
+          city: restaurant.city || '',
+          state: restaurant.state || '',
+          cep: restaurant.cep || '',
+          neighborhood: restaurant.neighborhood || '',
+          latitude: restaurant.latitude,
+          longitude: restaurant.longitude,
+        }}
+        onSave={refetchProfile}
+      />
+      
+      {/* Diálogo de Edição de Horários */}
+      <EditHoursDialog
+        open={isHoursDialogOpen}
+        onOpenChange={setIsHoursDialogOpen}
+        currentSchedule={currentSchedule}
+        onSave={handleSaveHours}
+      />
+      
       {/* Bottom Navigation */}
-      <RestaurantBottomNav />
+      <RestaurantBottomNav selectedTab="perfil" isFree={!isPremium} />
     </div>
   );
-};
-
-export default ProfileManagementLayout;
+}
