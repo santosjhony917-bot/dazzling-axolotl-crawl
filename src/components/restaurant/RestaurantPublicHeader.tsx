@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Loader2, Share2, UserPlus } from 'lucide-react';
+import { Heart, Loader2, Share2, UserPlus, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
@@ -9,6 +9,7 @@ interface RestaurantPublicHeaderProps {
     id: string;
     name: string;
     logoUrl: string;
+    addressSummary: string | null; // NOVO CAMPO
     // Props específicas do Free
     isFavorite?: boolean;
     onFavoriteToggle?: () => void;
@@ -23,6 +24,7 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
   const { 
     name, 
     logoUrl, 
+    addressSummary, // NOVO
     isFavorite, 
     onFavoriteToggle, 
     isMutating, 
@@ -47,6 +49,14 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       {/* Nome e Info */}
       <div className="flex-grow ml-4 mt-1">
         <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white truncate">{name}</h1>
+        
+        {/* Exibição do Endereço */}
+        {addressSummary && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1 flex items-center gap-1 truncate">
+            <MapPin className="w-4 h-4 text-highlight shrink-0" />
+            {addressSummary}
+          </p>
+        )}
         
         {isPremiumMode && followersCount !== undefined && (
           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
