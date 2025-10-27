@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Utensils, MapPin, Heart } from 'lucide-react';
 import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
+import { motion } from 'framer-motion';
 
 // Dados dos slides
 const slides = [
@@ -65,11 +66,19 @@ const Onboarding: React.FC = () => {
 
       {/* Content Area */}
       <div className="flex flex-col items-center justify-center flex-grow p-8 text-center">
-        <div className="mb-8">
-          {slide.icon}
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">{slide.title}</h1>
-        <p className="text-lg text-gray-600 max-w-md">{slide.description}</p>
+        <motion.div
+          key={currentSlide}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center"
+        >
+          <div className="mb-8">
+            {slide.icon}
+          </div>
+          <h1 className="text-3xl font-bold text-primary mb-4">{slide.title}</h1>
+          <p className="text-lg text-gray-600 max-w-md">{slide.description}</p>
+        </motion.div>
       </div>
 
       {/* Navigation/Footer */}
@@ -90,7 +99,8 @@ const Onboarding: React.FC = () => {
         <Button
           onClick={nextSlide}
           disabled={isCompleting}
-          className="w-full py-6 text-lg font-semibold"
+          variant="highlight"
+          className="w-full py-6 text-lg font-semibold rounded-xl shadow-highlight-glow"
         >
           {currentSlide === slides.length - 1 ? 'Começar' : 'Próximo'}
           <ArrowRight className="ml-2 h-5 w-5" />
