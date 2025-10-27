@@ -23,22 +23,24 @@ interface FavoriteQueryRow {
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
 
 const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
-  // Usando a sintaxe de expansão na coluna FK: 'restaurant_id(*)'
-  const { data, error } = await supabase
+  // Tentativa 3: Usando a sintaxe de expansão na coluna FK: 'restaurant_id(*)'
+  const { data: data2, error: error2 } = await supabase
     .from('user_favorites')
     .select(`
       restaurant_id ( * )
     `)
     .eq('user_id', userId);
 
-  if (error) {
-    throw error;
+  if (error2) {
+    // Se o erro persistir, vamos inspecionar o erro para ver se há mais detalhes.
+    throw error2;
   }
 
   // Mapeia para retornar apenas o objeto Restaurant, filtrando nulos
-  return (data as unknown as FavoriteQueryRow[])
-    .map(fav => fav.restaurant_id) // Mapeia para o objeto aninhado 'restaurant_id'
-    .filter((r): r is FavoriteRestaurant => !!r);
+  // Corrigindo o erro de tipagem: forçamos o tipo do item mapeado para FavoriteRestaurant
+  return (data2 as unknown as FavoriteQueryRow[])
+    .map(fav => fav.restaurant_id as FavoriteRestaurant) // Explicit cast para resolver TS2322
+    .filter((r): r is FavoriteRestaurant => !!r); // Agora o predicado de tipo é válido (TS2677 resolvido)
 };
 
 const useRemoveFavorite = () => {
