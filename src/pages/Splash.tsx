@@ -15,31 +15,35 @@ export default function Splash() {
 
   const isLoading = isStatusLoading || isAuthLoading;
 
-  // Auto-navigate after 2 seconds
+  // Auto-navigate immediately once loading is complete
   useEffect(() => {
     if (isLoading) return;
     
-    console.log("Splash screen loaded. Redirecting...");
-    // Reduzindo o delay para 100ms para garantir que a navegação ocorra imediatamente após o carregamento do estado.
-    const timer = setTimeout(() => {
-      if (!isComplete) {
-        // 1. Onboarding não completo -> Inicia Onboarding
-        navigate(createPageUrl("onboarding"), { replace: true });
-      } else if (session) {
-        // 2. Onboarding completo E Autenticado -> Vai para a Home correta
-        const isRestaurantOwner = !!restaurant;
-        const targetPath = isRestaurantOwner 
-          ? createPageUrl("restaurant-area/dashboard") 
-          : createPageUrl("home");
-        navigate(targetPath, { replace: true });
-      } else {
-        // 3. Onboarding completo E Não Autenticado -> Vai para a tela de escolha de papel (Welcome)
-        navigate(createPageUrl("welcome"), { replace: true });
-      }
-    }, 100); // Reduzido de 2000ms para 100ms
+    console.log("Splash screen loaded. Redirecting immediately...");
     
-    return () => clearTimeout(timer);
+    if (!isComplete) {
+      // 1. Onboarding não completo -> Inicia Onboarding
+      navigate(createPageUrl("onboarding"), { replace: true });
+    } else if (session) {
+      // 2. Onboarding completo E Autenticado -> Vai para a Home correta
+      const isRestaurantOwner = !!restaurant;
+      const targetPath = isRestaurantOwner 
+        ? createPageUrl("restaurant-area/dashboard") 
+        : createPageUrl("home");
+      navigate(targetPath, { replace: true });
+    } else {
+      // 3. Onboarding completo E Não Autenticado -> Vai para a tela de escolha de papel (Welcome)
+      navigate(createPageUrl("welcome"), { replace: true });
+    }
+    
   }, [navigate, isLoading, isComplete, session, restaurant]);
+
+  // Se estiver carregando, mostra o splash. Se não estiver carregando, o useEffect já deve ter redirecionado.
+  if (!isLoading) {
+    // Se não estiver carregando, mas ainda estiver aqui, significa que o useEffect está em ação.
+    // Renderizamos o splash por um breve momento, mas o redirecionamento é síncrono no useEffect.
+    // Se o useEffect falhar, o componente travará aqui.
+  }
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
