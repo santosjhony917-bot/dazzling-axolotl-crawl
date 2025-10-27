@@ -35,15 +35,6 @@ export const PATH_MAP = {
   'restaurant-area/menu': '/restaurant-area/menu', // Simplified path for menu management
   'restaurant-area/gallery': '/restaurant-area/gallery', // Simplified path for gallery
   
-  // Rotas de Admin
-  admin: '/admin', // ADDED (for AdminLayout navigation)
-  adminLogin: '/admin/login', // ADDED
-  adminDashboard: '/admin/dashboard', // ADDED
-  'admin/restaurants': '/admin/restaurants', // ADDED
-  'admin/plans': '/admin/plans', // ADDED
-  'admin/users': '/admin/users', // ADDED
-  'admin/settings': '/admin/settings', // ADDED
-  
   // Rotas com parâmetros complexos (mantidas)
   'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
   'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',
@@ -99,7 +90,8 @@ export function createPageUrl<K extends PathKey>(
   let path = generatePath(pathTemplate, params as any);
 
   // 2. Adicionar parâmetros de consulta (query params)
-  const finalQueryParams = queryParams || (key === 'auth' ? params : undefined);
+  // Se a chave for 'auth', priorizamos o queryParams fornecido. Caso contrário, usamos o queryParams padrão.
+  const finalQueryParams = key === 'auth' ? queryParams : queryParams;
   
   if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {
     const searchParams = new URLSearchParams(finalQueryParams as Record<string, string>);

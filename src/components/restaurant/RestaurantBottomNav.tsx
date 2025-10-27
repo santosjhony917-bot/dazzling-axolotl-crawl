@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Search, User, Heart, Rocket, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl, PathKey } from '@/utils/url';
+import { motion } from 'framer-motion'; // Importação adicionada
 
 const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
   return (
@@ -101,12 +102,15 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
                 to={item.path}
                 className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
               >
-                <div className={cn(
-                  "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
-                  "bg-highlight text-white"
-                )}>
+                <motion.div // Adicionado motion.div
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
+                    "bg-highlight text-white"
+                  )}
+                >
                   <Icon className={cn("h-7 w-7 fill-white")} />
-                </div>
+                </motion.div>
                 <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
                   {item.label}
                 </span>

@@ -23,7 +23,36 @@ interface CustomerBottomNavProps {
   selectedTab?: string;
 }
 
-const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab }) => {
+const NavItemComponent = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+  return (
+    <motion.div
+      whileTap={{ scale: 0.95 }}
+      key={path}
+      className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
+    >
+      <Link
+        to={path}
+        className={cn(
+          "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+          isSelected ? "text-highlight" : "text-gray-500 hover:text-highlight"
+        )}
+      >
+        <Icon 
+          className={cn(
+            "w-6 h-6",
+            isSelected && "fill-highlight/20"
+          )} 
+        />
+        <span className="text-sm font-medium">
+          {label}
+        </span>
+      </Link>
+    </motion.div>
+  );
+});
+
+
+const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab }) => {
   const location = useLocation();
   
   // Mapeia rotas para garantir que o item correto seja ativado
@@ -53,29 +82,13 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
           const pathKey = item.path.substring(1) as PathKey;
           
           return (
-            <motion.div
-              whileTap={{ scale: 0.95 }}
+            <NavItemComponent
               key={item.path}
-              className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
-            >
-              <Link
-                to={createPageUrl(pathKey)}
-                className={cn(
-                  "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-                  isActive ? "text-highlight" : "text-gray-500 hover:text-highlight"
-                )}
-              >
-                <Icon 
-                  className={cn(
-                    "w-6 h-6",
-                    isActive && item.key === 'favorites' && "fill-highlight/20"
-                  )} 
-                />
-                <span className="text-sm font-medium">
-                  {item.label}
-                </span>
-              </Link>
-            </motion.div>
+              icon={item.icon}
+              label={item.label}
+              path={createPageUrl(pathKey)}
+              isSelected={isActive}
+            />
           );
         })}
       </div>
