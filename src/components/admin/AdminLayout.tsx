@@ -1,86 +1,83 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Home, Utensils, Users, Settings, LogOut, ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { createPageUrl, PathKey } from '@/utils/url';
 import { cn } from '@/lib/utils';
+import { createPageUrl } from '@/utils/url';
+import { supabase } from '@/integrations/supabase/client';
+import { showError } from '@/utils/toast';
 
+// Definição dos itens de navegação do painel de administração
 const navItems = [
-  { name: 'Dashboard', icon: Home, path: 'dashboard' },
-  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-  { name: 'Configurações', icon: Settings, path: 'settings' },
+  { name: 'Dashboard', path: createPageUrl('adminDashboard'), icon: Home },
+  { name: 'Gerenciar Restaurantes', path: createPageUrl('adminRestaurants'), icon: Utensils },
+  { name: 'Gerenciar Usuários', path: createPageUrl('adminUsers'), icon: Users },
+  { name: 'Transações', path: createPageUrl('adminTransactions'), icon: ArrowLeftRight },
+  { name: 'Configurações', path: createPageUrl('adminSettings'), icon: Settings },
 ];
 
-const AdminLayout: React.FC = () => {
+export default function AdminLayout() {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const location = useLocation();
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (!user || !isAdmin) {
-    // Redireciona se não for admin
-    navigate(createPageUrl('adminLogin'));
-    return null;
-  }
-
-  const currentPath = window.location.pathname.split('/').pop();
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      navigate(createPageUrl('welcome'));
+    } catch (error) {
+      console.error('Logout error:', error);
+      showError('Falha ao sair. Tente novamente.');
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
-        <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
+      <aside className="w-64 bg-white shadow-lg flex flex-col fixed h-full">
+        <div className="p-6 border-b border-gray-100">
+          <h1 className="text-2xl font-bold text-primary">Admin Panel</h1>
+        </div>
         
-        <nav className="flex-grow space-y-2">
-          {navItems.map((item) => (
-            <Button
-              key={item.path}
-              variant="ghost"
-              className={cn(
-                "w-full justify-start gap-3 rounded-lg",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
-              )}
-              onClick={() => navigate(createPageUrl(`admin/${item.path}` as PathKey))}
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Button>
-          ))}
+        <nav className="flex-1 p-4 space-y-2">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Button
+                key={item.path}
+                variant="ghost"
+                className={cn(
+                  "w-full justify-start text-base font-medium h-11 transition-colors",
+                  isActive
+                    ? "bg-primary text-white hover:bg-primary/90"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-primary"
+                )}
+                onClick={() => navigate(item.path)}
+              >
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Button>
+            );
+          })}
         </nav>
-        
-        <Separator className="my-4" />
-        
-        <div className="space-y-2">
-          <div className="text-sm text-gray-600 truncate p-2">
-            Logado como: <span className="font-medium">{user.email}</span>
-          </div>
-          <Button 
-            variant="outline" 
-            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg"
-            onClick={signOut}
+
+        {/* Logout Button */}
+        <div className="p-4 border-t border-gray-100">
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-base font-medium h-11 text-red-600 hover:bg-red-50 hover:text-red-700"
+            onClick={handleLogout}
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="mr-3 h-5 w-5" />
             Sair
           </Button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 ml-64 p-8">
         <Outlet />
       </main>
     </div>
   );
-};
-
-export default AdminLayout;
+}

@@ -1,53 +1,54 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useAuthContext } from '@/context/AuthContext';
-import RestaurantBottomNav from './RestaurantBottomNav';
-import { createPageUrl, PathKey } from '@/utils/url';
+import React, { ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
+import { useRestaurantContext } from '@/context/RestaurantContext';
+import RestaurantAreaHeader from './RestaurantAreaHeader';
+import { LucideIcon } from 'lucide-react';
 
 interface RestaurantAreaPageLayoutProps {
+  children: ReactNode;
   title: string;
-  icon?: LucideIcon;
-  children: React.ReactNode;
-  backPath?: PathKey;
+  icon: LucideIcon;
+  backPath: 'dashboard' | 'profileMenu' | 'hub';
+  className?: string;
+  showBottomNav?: boolean;
 }
 
-const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({ title, icon: Icon, children, backPath = 'restaurant-area/profile-menu' }) => {
-  const navigate = useNavigate();
-  const { isPremium } = useAuthContext();
-  const isFree = !isPremium;
+/**
+ * Layout base para páginas específicas dentro da área do restaurante (Menu, Galeria, Settings).
+ * Inclui um header fixo e o conteúdo principal.
+ */
+export default function RestaurantAreaPageLayout({ 
+  children, 
+  title, 
+  icon: Icon, 
+  backPath, 
+  className,
+  showBottomNav = false, // Por padrão, páginas de gerenciamento não mostram o nav inferior
+}: RestaurantAreaPageLayoutProps) {
+  const { restaurant } = useRestaurantContext();
+  
+  // Se showBottomNav for true, adiciona padding inferior
+  const paddingClass = showBottomNav ? 'pb-16' : 'pb-4';
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <div className={cn("min-h-screen flex flex-col bg-gray-50", className)}>
+      <RestaurantAreaHeader 
+        title={title} 
+        backPath={backPath} 
+        className="max-w-md mx-auto w-full"
+      />
       
-      {/* Header Fixo */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl(backPath))}
-          className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          {Icon && <Icon className="h-6 w-6 text-[#022D68]" />}
-          <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
-        </div>
-        <div className="w-10"></div>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1 w-full">
+      <main className={cn("flex-1 w-full max-w-md mx-auto", paddingClass)}>
         {children}
       </main>
       
-      {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="upgrade" isFree={isFree} />
+      {/* O BottomNav é gerenciado pelo RestaurantLayout ou pelo componente pai, 
+          mas mantemos a opção de exibi-lo se necessário. */}
+      {/* {showBottomNav && restaurant && (
+        <RestaurantBottomNav isPremium={restaurant.plan === 'premium'} />
+      )} */}
     </div>
   );
-};
-
-export default RestaurantAreaPageLayout;
+}
