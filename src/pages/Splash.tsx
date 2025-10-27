@@ -19,7 +19,8 @@ export default function Splash() {
   useEffect(() => {
     if (isLoading) return;
     
-    console.log("Splash screen loaded. Redirecting in 2 seconds...");
+    console.log("Splash screen loaded. Redirecting...");
+    // Reduzindo o delay para 100ms para garantir que a navegação ocorra imediatamente após o carregamento do estado.
     const timer = setTimeout(() => {
       if (!isComplete) {
         // 1. Onboarding não completo -> Inicia Onboarding
@@ -35,7 +36,7 @@ export default function Splash() {
         // 3. Onboarding completo E Não Autenticado -> Vai para a tela de escolha de papel (Welcome)
         navigate(createPageUrl("welcome"), { replace: true });
       }
-    }, 2000);
+    }, 100); // Reduzido de 2000ms para 100ms
     
     return () => clearTimeout(timer);
   }, [navigate, isLoading, isComplete, session, restaurant]);
