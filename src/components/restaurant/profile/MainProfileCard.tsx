@@ -58,13 +58,6 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
               <Store className="w-3 h-3 mr-1" />
               {isPremium ? "Premium" : "Free"}
             </Badge>
-            <Badge 
-              variant="secondary" 
-              className="text-xs font-semibold bg-green-100 text-green-700"
-            >
-              <Check className="w-3 h-3 mr-1" />
-              Verificado
-            </Badge>
           </div>
           <p className="text-sm text-gray-500 mt-2">Clique no ícone para alterar o logo.</p>
         </div>

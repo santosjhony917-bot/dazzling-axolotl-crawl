@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import React from 'react';
+import Splash from './Splash';
 
 const Index: React.FC = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Redireciona para o fluxo de inicialização
-    navigate(createPageUrl('onboarding'), { replace: true });
-  }, [navigate]);
-
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <p>Iniciando aplicação...</p>
-    </div>
-  );
+  // Renderiza o Splash Screen, que contém a lógica de redirecionamento
+  return <Splash />;
 };
 
 export default Index;
