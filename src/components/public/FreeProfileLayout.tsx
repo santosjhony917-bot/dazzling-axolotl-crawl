@@ -138,11 +138,19 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
     }
     toggleFavorite();
   };
+  
+  // NOVO: Formatação do endereço para o cabeçalho
+  const addressSummary = useMemo(() => {
+    const parts = [restaurant.address, restaurant.neighborhood, restaurant.city].filter(Boolean);
+    return parts.length > 0 ? parts.join(', ') : null;
+  }, [restaurant.address, restaurant.neighborhood, restaurant.city]);
+
 
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
     logoUrl: restaurant.image_url || PLACEHOLDER_IMAGE_URL,
+    addressSummary: addressSummary, // PASSANDO O NOVO CAMPO
     isFavorite: isFavorite,
     onFavoriteToggle: handleToggleFavorite,
     isMutating: isMutating,
