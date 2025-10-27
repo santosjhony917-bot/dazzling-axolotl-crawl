@@ -9,7 +9,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { showError } from '@/utils/toast';
 import RestaurantBottomNav from './RestaurantBottomNav';
-import ActionCard from '../ActionCard';
+import ActionCard from './dashboard/ActionCard';
 import SubscriptionCard from './profile/SubscriptionCard';
 import ContentManagementSection from './profile/ContentManagementSection';
 import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
@@ -89,13 +89,13 @@ export default function ProfileManagementLayout({ children }: ProfileManagementL
       <div className="p-4 space-y-6">
         
         {/* Seção de Assinatura */}
-        <SubscriptionCard restaurant={restaurant} />
+        <SubscriptionCard isPremium={isPremium} />
 
         {/* Seção de Gerenciamento de Conteúdo */}
-        <ContentManagementSection isPremium={isPremium} />
+        <ContentManagementSection navigate={navigate} isPremium={isPremium} />
 
         {/* Seção de Configurações e Suporte */}
-        <SubscriptionSupportSection isPremium={isPremium} />
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
 
         {/* Ações de Perfil */}
         <div className="space-y-3">
