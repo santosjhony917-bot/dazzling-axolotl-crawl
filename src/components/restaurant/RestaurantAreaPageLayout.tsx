@@ -10,7 +10,7 @@ interface RestaurantAreaPageLayoutProps {
   children: ReactNode;
   title: string;
   icon: LucideIcon;
-  backPath: 'dashboard' | 'profileMenu' | 'hub';
+  backPath: 'restaurantAreaHub' | 'restaurant-area/dashboard' | 'restaurant-area/profile-menu';
   className?: string;
   showBottomNav?: boolean;
 }
