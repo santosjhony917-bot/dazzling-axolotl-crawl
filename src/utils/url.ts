@@ -35,6 +35,10 @@ export const PATH_MAP = {
   'restaurant-area/menu': '/restaurant-area/menu', // Simplified path for menu management
   'restaurant-area/gallery': '/restaurant-area/gallery', // Simplified path for gallery
   
+  // Rotas Admin
+  adminLogin: '/admin/login',
+  adminDashboard: '/admin/dashboard',
+  
   // Rotas com parâmetros complexos (mantidas)
   'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
   'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',

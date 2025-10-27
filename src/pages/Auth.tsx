@@ -46,7 +46,7 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
       } else {
         showSuccess('Cadastro realizado! Verifique seu email para confirmar sua conta.');
         // Após o cadastro, redireciona para a tela de login (auth?mode=login)
-        navigate(createPageUrl('auth', { mode: 'login' }));
+        navigate(createPageUrl('auth', undefined, { mode: 'login' }));
       }
       
       // O contexto de autenticação é atualizado automaticamente pelo onAuthStateChange
@@ -108,7 +108,7 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
             <Button 
               variant="link" 
               type="button"
-              onClick={() => navigate(isLogin ? createPageUrl('auth', { mode: 'signup' }) : createPageUrl('auth', { mode: 'login' }))}
+              onClick={() => navigate(isLogin ? createPageUrl('auth', undefined, { mode: 'signup' }) : createPageUrl('auth', undefined, { mode: 'login' }))}
               className="text-sm text-highlight"
             >
               {isLogin ? 'Não tem conta? Cadastre-se' : 'Já tem conta? Faça login'}
