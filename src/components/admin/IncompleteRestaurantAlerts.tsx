@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const IncompleteRestaurantAlerts: React.FC = () => {
   // Mock data for demonstration
-  const incompleteCount = 5;
+  const incompleteCount: number = 5;
   const missingData = [
     { id: 'r1', name: 'Restaurante A', missing: 'Endereço e Horários' },
     { id: 'r2', name: 'Restaurante B', missing: 'Cardápio' },
