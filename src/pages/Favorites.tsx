@@ -17,18 +17,18 @@ interface FavoriteRestaurant extends Restaurant {}
 
 // Tipo intermediário retornado pela query do Supabase
 interface FavoriteQueryRow {
-  restaurant_id: FavoriteRestaurant; // O nome da coluna FK
+  restaurants: FavoriteRestaurant; // Nome da relação corrigido para 'restaurants'
 }
 
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
 
 const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
-  // Tentativa de usar a sintaxe de join explícita:
-  // Seleciona a coluna FK (restaurant_id) e expande para todos os campos da tabela 'restaurants'
+  // Usando a sintaxe de expansão direta: 'restaurants(*)'
+  // O PostgREST geralmente nomeia a relação com o nome da tabela referenciada.
   const { data, error } = await supabase
     .from('user_favorites')
     .select(`
-      restaurant_id:restaurants ( * )
+      restaurants ( * )
     `)
     .eq('user_id', userId);
 
@@ -38,7 +38,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => 
 
   // Mapeia para retornar apenas o objeto Restaurant, filtrando nulos
   return (data as unknown as FavoriteQueryRow[])
-    .map(fav => fav.restaurant_id) // Mapeia para o objeto aninhado
+    .map(fav => fav.restaurants) // Mapeia para o objeto aninhado 'restaurants'
     .filter((r): r is FavoriteRestaurant => !!r);
 };
 
