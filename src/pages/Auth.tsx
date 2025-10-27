@@ -11,7 +11,8 @@ import { showError } from '@/utils/toast';
 export default function Auth() {
   const navigate = useNavigate();
   const { session, isLoading: isAuthLoading, refetchProfile } = useAuthContext();
-  const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in');
+  // Mantemos o estado 'mode' para definir a view inicial, mas o Auth UI gerencia as transições internas.
+  const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in'); 
 
   // Redireciona se já estiver logado
   useEffect(() => {
@@ -46,12 +47,13 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background-light p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex flex-col items-center bg-background-light p-4">
+      <main className="flex-1 flex flex-col justify-center w-full max-w-md">
         {/* Card Principal */}
         <div className="bg-white rounded-2xl shadow-soft-xl p-6">
           <div className="text-center mb-6">
             <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
+              {/* Usamos o estado 'mode' para definir o título inicial, mas o Auth UI pode mudar a view */}
               {mode === 'sign_in' ? 'Acesse sua conta' : 'Crie sua conta'}
             </h1>
             <p className="text-gray-500 mt-1">
@@ -99,7 +101,6 @@ export default function Auth() {
                   button_label: 'Entrar',
                   loading_button_label: 'Entrando...',
                   link_text: 'Já tem uma conta? Entre',
-                  // Removido 'no_account' para corrigir o erro de tipagem.
                 },
                 sign_up: {
                   email_label: 'Seu e-mail',
@@ -125,15 +126,10 @@ export default function Auth() {
                 },
               },
             }}
-            // Custom callback para mudar o modo (sign_in/sign_up)
-            onViewChange={(newView) => {
-              if (newView === 'sign_in' || newView === 'sign_up') {
-                setMode(newView);
-              }
-            }}
+            // onViewChange removido para corrigir o erro de tipagem.
           />
         </div>
-      </div>
+      </main>
     </div>
   );
 }
