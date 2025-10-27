@@ -17,6 +17,13 @@ export default function Splash() {
 
     const targetPath = user ? createPageUrl("home") : createPageUrl("onboarding");
     
+    // Se o usuário estiver autenticado, navega imediatamente para a home.
+    if (user) {
+      navigate(targetPath, { replace: true });
+      return;
+    }
+    
+    // Se o usuário não estiver autenticado, exibe o splash por 2 segundos antes de ir para o onboarding.
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in 2 seconds...`);
     
     const timer = setTimeout(() => {
