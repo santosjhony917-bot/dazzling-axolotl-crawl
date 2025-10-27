@@ -17,6 +17,7 @@ export default function Splash() {
 
   // Auto-navigate immediately once loading is complete
   useEffect(() => {
+    // Se ainda estiver carregando o status de onboarding ou autenticação, espere.
     if (isLoading) return;
     
     console.log("Splash screen loaded. Redirecting immediately...");
@@ -38,30 +39,30 @@ export default function Splash() {
     
   }, [navigate, isLoading, isComplete, session, restaurant]);
 
-  // Se estiver carregando, mostra o splash. Se não estiver carregando, o useEffect já deve ter redirecionado.
-  if (!isLoading) {
-    // Se não estiver carregando, mas ainda estiver aqui, significa que o useEffect está em ação.
-    // Renderizamos o splash por um breve momento, mas o redirecionamento é síncrono no useEffect.
-    // Se o useEffect falhar, o componente travará aqui.
+  // Renderiza o splash apenas enquanto estiver carregando
+  if (isLoading) {
+    return (
+      <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="text-center px-8"
+        >
+          <div className="mx-auto max-w-[520px]">
+            {/* Usando a imagem PNG oficial */}
+            <img 
+              src={LOGO_URL} 
+              alt="Filter Food Logo" 
+              className="w-64 h-auto mx-auto drop-shadow-xl"
+            />
+          </div>
+        </motion.div>
+      </div>
+    );
   }
-
-  return (
-    <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="text-center px-8"
-      >
-        <div className="mx-auto max-w-[520px]">
-          {/* Usando a imagem PNG oficial */}
-          <img 
-            src={LOGO_URL} 
-            alt="Filter Food Logo" 
-            className="w-64 h-auto mx-auto drop-shadow-xl"
-          />
-        </div>
-      </motion.div>
-    </div>
-  );
+  
+  // Se não estiver carregando, o useEffect já deve ter redirecionado.
+  // Se o código chegar aqui, é um fallback, mas o redirecionamento já deveria ter ocorrido.
+  return null;
 }
