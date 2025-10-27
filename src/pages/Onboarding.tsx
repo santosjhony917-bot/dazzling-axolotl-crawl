@@ -42,14 +42,14 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
-  const { completeOnboarding: completeOnboardingHook, isComplete } = useOnboardingStatus();
+  const { completeOnboarding: completeOnboardingHook, isComplete, isLoading: isStatusLoading } = useOnboardingStatus();
 
-  // Se o onboarding já estiver completo (por algum motivo de navegação), redireciona imediatamente
+  // Se o onboarding já estiver completo, redireciona imediatamente
   useEffect(() => {
-    if (isComplete) {
+    if (!isStatusLoading && isComplete) {
       navigate(createPageUrl('welcome'), { replace: true });
     }
-  }, [isComplete, navigate]);
+  }, [isComplete, isStatusLoading, navigate]);
 
   const handleCompleteOnboarding = () => {
     if (isCompleting) return;
@@ -59,7 +59,7 @@ export default function Onboarding() {
       // 1. Marcar no localStorage (via hook)
       completeOnboardingHook(); 
       
-      console.log("Onboarding marked as completed.");
+      console.log("Onboarding marked as completed. Redirecting to welcome.");
       // 2. Redireciona para a tela de boas-vindas
       navigate(createPageUrl('welcome'), { replace: true }); 
     } catch (error) {
@@ -102,6 +102,10 @@ export default function Onboarding() {
 
   const screen = onboardingScreens[currentScreen];
   
+  if (isStatusLoading || isComplete) {
+    return null; // Não renderiza se estiver carregando ou já estiver completo (o useEffect fará o redirecionamento)
+  }
+
   if (!screen) {
     handleCompleteOnboarding();
     return null; 
