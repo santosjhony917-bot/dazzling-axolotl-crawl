@@ -41,26 +41,11 @@ export default function Auth() {
     );
   }
   
-  // Customização do botão de login/signup para incluir a seta
-  const CustomButton = ({ defaultLabel, loadingLabel, isSubmitting }: { defaultLabel: string, loadingLabel: string, isSubmitting: boolean }) => (
-    <Button
-      type="submit"
-      disabled={isSubmitting}
-      variant="highlight"
-      className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
-    >
-      <span className="truncate">
-        {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : defaultLabel}
-      </span>
-      {!isSubmitting && <ArrowRight className="w-5 h-5" />}
-    </Button>
-  );
-
   return (
     <div className="min-h-screen flex flex-col items-center bg-background-light p-4">
       
-      {/* Header de Navegação */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
+      {/* Header de Navegação (Apenas botão de voltar) */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-start sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
           size="icon"
@@ -69,12 +54,11 @@ export default function Auth() {
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <h2 className="text-primary text-xl font-bold">Login</h2>
-        <div className="w-10"></div>
+        <h2 className="text-primary text-xl font-bold ml-4">Login</h2>
       </header>
 
       <main className="flex-1 flex flex-col justify-center w-full max-w-md pt-20">
-        {/* Bloco de Conteúdo Superior */}
+        {/* Bloco de Conteúdo Superior (Ícone e Título) */}
         <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
           <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
             <MapPin className="w-8 h-8 text-primary" />
@@ -140,7 +124,6 @@ export default function Auth() {
                   loading_button_label: 'Entrando...',
                   link_text: 'Esqueceu sua senha?',
                   social_provider_text: 'ou continue com',
-                  // sign_up_link_text removido
                 },
                 sign_up: {
                   email_label: 'E-mail',
