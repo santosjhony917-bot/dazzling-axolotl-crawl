@@ -1,25 +1,18 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { useAuthContext } from '@/context/AuthContext';
 import RestaurantBottomNav from './RestaurantBottomNav';
-import { useRestaurantContext } from '@/context/RestaurantContext';
 
-/**
- * Layout principal para a área do restaurante (rotas /restaurant-area/*).
- * Garante que o BottomNav esteja presente.
- */
-export default function RestaurantLayout() {
-  const { restaurant, isLoading } = useRestaurantContext();
-
-  if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Carregando...</div>;
-  }
-
-  const isPremium = restaurant?.plan === 'premium' || false;
+const RestaurantLayout: React.FC = () => {
+  const { isPremium } = useAuthContext();
+  const isFree = !isPremium;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       <Outlet />
-      <RestaurantBottomNav isPremium={isPremium} />
+      <RestaurantBottomNav selectedTab="home" isFree={isFree} />
     </div>
   );
-}
+};
+
+export default RestaurantLayout;

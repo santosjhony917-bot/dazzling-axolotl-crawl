@@ -1,122 +1,137 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, Utensils, User, Zap } from 'lucide-react';
+import React, { memo } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Home, Search, User, Heart, Rocket, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
-import { motion } from 'framer-motion';
+import { createPageUrl, PathKey } from '@/utils/url';
+import { motion } from 'framer-motion'; // Importação adicionada
 
-interface NavItem {
-  id: string;
-  icon: React.ElementType;
-  label: string;
-  path: string;
-}
+const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+  return (
+    <motion.div
+      whileTap={{ scale: 0.95 }}
+      className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
+    >
+      <Link
+        to={path}
+        className={cn(
+          "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+          isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
+        )}
+      >
+        <Icon 
+          className={cn(
+            "w-6 h-6",
+          )} 
+        />
+        <span className="text-sm font-medium">
+          {label}
+        </span>
+      </Link>
+    </motion.div>
+  );
+});
 
-const getIsActive = (location: ReturnType<typeof useLocation>, path: string): boolean => {
-    // Lógica de ativação para rotas específicas
+const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
+  const location = useLocation();
+  
+  // Mapeia rotas para garantir que o item correto seja ativado
+  const getActivePath = (path: string, key: string) => {
+    // Prioriza a prop selectedTab se fornecida
+    if (selectedTab) {
+      return selectedTab === key;
+    }
     
-    // Dashboard
-    if (path === createPageUrl('restaurant-area/dashboard') && location.pathname === createPageUrl('restaurant-area/dashboard')) return true;
-
-    // Busca (Busca Unificada)
-    if (path === createPageUrl('search-unified')) {
+    // Lógica de ativação para rotas específicas
+    if (key === 'search') { 
         // Ativa se o path for /search-unified
         return location.pathname.startsWith(createPageUrl('search-unified'));
     }
-
-    // Perfil/Gerenciamento (Menu, Galeria, Configurações)
-    if (path === createPageUrl('restaurant-area/profile-menu')) {
+    
+    if (key === 'perfil') {
         // Ativa se o path for /restaurant-area/profile-menu ou qualquer sub-rota de gerenciamento
         return location.pathname.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
                location.pathname.startsWith(createPageUrl('restaurant-area/menu')) ||
                location.pathname.startsWith(createPageUrl('restaurant-area/gallery'));
     }
-
+    
     // Fallback para a rota atual
-    if (path === createPageUrl('restaurant-area/dashboard') && location.pathname === createPageUrl('restaurant-area/dashboard')) return true;
-
-    return location.pathname === path;
-};
-
-export default function RestaurantBottomNav({ isPremium }: { isPremium: boolean }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // Item central dinâmico (Menu ou Premium)
-  let centralItem: NavItem;
-
-  if (isPremium) {
-    // Se for Premium, o item central é o Menu
-    centralItem = { 
-      id: 'menu', 
-      icon: Utensils, 
-      label: 'Cardápio', 
-      path: createPageUrl('restaurant-area/menu') 
-    };
-  } else {
-    // Se não for Premium, o item central é o Upgrade
-    centralItem = { 
-      id: 'premium', 
-      icon: Zap, 
-      label: 'Premium', 
-      path: createPageUrl('restaurant-area/upgrade') 
-    };
-  }
+    if (path === createPageUrl('restaurant-area/home') && location.pathname === createPageUrl('restaurant-area/home')) return true;
+    
+    // Verifica se a rota atual começa com o caminho do item
+    return location.pathname.startsWith(path);
+  };
   
-  // Adiciona item de favoritos se for Premium (mock)
-  // if (isPremium) {
-  //   // Usuários de restaurante Premium podem ver os favoritos dos clientes (mock)
-  //   // centralItem = { 
-  //   //   id: 'favorites', 
-  //   //   icon: Heart, 
-  //   //   label: 'Favoritos', 
-  //   //   path: createPageUrl('favorites') 
-  //   // };
-  // }
+  // Definindo o item central baseado no plano
+  const centralItem = isFree 
+    ? { 
+        id: 'upgrade', 
+        icon: Crown, 
+        label: 'Premium', 
+        path: createPageUrl('restaurant-area/upgrade') as string // Corrigido o tipo
+      }
+    : { 
+        id: 'favorites', 
+        icon: Heart, 
+        label: 'Favoritos', 
+        // Usuários de restaurante Premium podem ver os favoritos dos clientes (mock)
+        path: createPageUrl('favorites') as string
+      };
 
-  const navItems: NavItem[] = [
-    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/dashboard') },
+  const navItems = [
+    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
     // CORRIGIDO: Busca deve levar para a tela de busca unificada
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') },
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') }, 
     centralItem, // Item central dinâmico
     // CORRIGIDO: Perfil deve levar para a área de gerenciamento do perfil
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
   return (
-    <motion.nav
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
-    >
-      <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
+      <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const active = getIsActive(location, item.path);
-          return (
-            <button
-              key={item.id}
-              onClick={() => navigate(item.path)}
-              className="flex flex-col items-center justify-center p-2 transition-colors duration-200 group"
-            >
-              <item.icon
-                className={cn(
-                  'h-6 w-6',
-                  active ? 'text-primary' : 'text-gray-400 group-hover:text-primary'
-                )}
-              />
-              <span
-                className={cn(
-                  'text-xs mt-0.5 font-medium',
-                  active ? 'text-primary' : 'text-gray-400 group-hover:text-primary'
-                )}
+          const isSelected = getActivePath(item.path, item.id);
+          const isCentralButton = item.id === centralItem.id;
+          
+          // Se for o botão central E for o botão de Upgrade (isFree = true)
+          if (isCentralButton && isFree) {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
               >
-                {item.label}
-              </span>
-            </button>
+                <motion.div // Adicionado motion.div
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
+                    "bg-highlight text-white"
+                  )}
+                >
+                  <Icon className={cn("h-7 w-7 fill-white")} />
+                </motion.div>
+                <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
+                  {item.label}
+                </span>
+              </Link>
+            );
+          }
+          
+          // Caso contrário (Premium ou botões laterais), usa o NavItem padrão
+          return (
+            <NavItem
+              key={item.path}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              isSelected={isSelected}
+            />
           );
         })}
       </div>
-    </motion.nav>
+    </div>
   );
-}
+});
+
+export default RestaurantBottomNav;

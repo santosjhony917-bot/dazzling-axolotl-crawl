@@ -17,9 +17,6 @@ import HelpCenter from '@/pages/HelpCenter';
 import Onboarding from '@/pages/Onboarding';
 import Welcome from '@/pages/Welcome';
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-import ForgotPassword from '@/pages/ForgotPassword'; // Importação adicionada
-import Legal from '@/pages/Legal'; // Importação adicionada
-import RestaurantResultsPage from '@/pages/RestaurantResults'; // Importação adicionada
 
 // Restaurant Area Pages
 import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
@@ -36,13 +33,6 @@ import CategoryDetails from '@/pages/restaurant/CategoryDetails'; // Importando 
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminLayout from '@/components/admin/AdminLayout';
-import ManagePlans from '@/pages/admin/ManagePlans';
-import ManageAdmins from '@/pages/admin/ManageAdmins';
-import AdminRestaurants from '@/pages/admin/AdminRestaurants';
-import AdminUsers from '@/pages/admin/AdminUsers';
-import AdminSettings from '@/pages/admin/AdminSettings';
-import AdminTransactions from '@/pages/admin/AdminTransactions';
-
 
 function App() {
   return (
@@ -50,16 +40,13 @@ function App() {
       <ToastProvider />
       <Routes>
         {/* Rotas Públicas/Gerais */}
-        <Route path="/" element={<Index />} /> {/* Rota principal que renderiza Splash */}
+        <Route path="/" element={<Index />} /> {/* Redireciona para Onboarding */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthComponent />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/legal" element={<Legal />} />
-        <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -71,7 +58,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} /> {/* Usando a nova página */}
           <Route path="/search-unified" element={<SearchUnifiedPage />} />
         </Route>
 
@@ -80,7 +67,7 @@ function App() {
           <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
           <Route path="/restaurant-area/profile-menu" element={<ProfileManagementLayout />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
-          <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
+          <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} /> {/* Nova Rota */}
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
         </Route>
@@ -89,12 +76,6 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/plans" element={<ManagePlans />} />
-          <Route path="/admin/manage-admins" element={<ManageAdmins />} />
-          <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/transactions" element={<AdminTransactions />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
         </Route>
         
       </Routes>

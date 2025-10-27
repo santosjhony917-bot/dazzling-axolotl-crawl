@@ -1,86 +1,131 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HelpCircle, Utensils, ArrowRight, Mail, Phone } from 'lucide-react';
+import { ArrowLeft, Search, ChevronDown, ChevronUp, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
+import { motion, AnimatePresence } from 'framer-motion';
 import { createPageUrl } from '@/utils/url';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent } from '@/components/ui/card';
 
-/**
- * Página de Central de Ajuda para a Área do Restaurante
- */
-export default function RestaurantHelpCenter() {
-  const navigate = useNavigate();
+// Dados Mock de FAQ
+const faqData = [
+  {
+    id: 1,
+    question: "Como faço para atualizar meu cardápio?",
+    answer: "Você pode atualizar seu cardápio acessando a aba 'Cardápio' no menu inferior. Lá, você pode adicionar, editar ou remover categorias e itens.",
+    tags: ["cardápio", "menu", "edição"],
+  },
+  {
+    id: 2,
+    question: "Como mudo meu plano de Free para Premium?",
+    answer: "Vá para a aba 'Perfil' e clique em 'Ativar Premium' na seção 'Plano e Assinatura'. Você será redirecionado para a página de upgrade.",
+    tags: ["plano", "premium", "assinatura"],
+  },
+  {
+    id: 3,
+    question: "Onde edito o endereço e horário de funcionamento?",
+    answer: "Na aba 'Perfil', na seção 'Detalhes do Estabelecimento', clique em 'Editar' para abrir os diálogos de edição de endereço e horários.",
+    tags: ["endereço", "horário", "perfil"],
+  },
+  {
+    id: 4,
+    question: "Como faço para sair da minha conta?",
+    answer: "Na aba 'Perfil', role até o final da página e clique no botão 'Sair da conta'.",
+    tags: ["conta", "logout", "sair"],
+  },
+  {
+    id: 5,
+    question: "Posso ter mais de uma filial cadastrada?",
+    answer: "Sim, o FilterFood suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
+    tags: ["filial", "localização", "cadastro"],
+  },
+];
 
-  const supportItems = [
-    { title: 'Tutoriais de Cardápio', description: 'Aprenda a gerenciar seus itens e categorias.', action: () => navigate(createPageUrl('helpCenter')) },
-    { title: 'Configurações de Pagamento', description: 'Como configurar sua conta para receber pagamentos.', action: () => navigate(createPageUrl('helpCenter')) },
-    { title: 'Dicas de Marketing Premium', description: 'Maximize sua visibilidade com o plano Premium.', action: () => navigate(createPageUrl('helpCenter')) },
-  ];
+// Componente de Item de FAQ
+interface FaqItemProps {
+  question: string;
+  answer: string;
+}
+
+const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-4 max-w-md mx-auto">
-      {/* Header */}
-      <RestaurantAreaHeader title="Central de Ajuda" backPath="restaurant-area/profile-menu" />
-      
-      <div className="p-4 space-y-6">
-        <div className="text-center">
-          <HelpCircle className="w-10 h-10 text-primary mx-auto mb-3" />
-          <h1 className="text-2xl font-bold text-primary">Central de Ajuda</h1>
-          <p className="text-gray-600 mt-1">Encontre respostas rápidas e entre em contato com o suporte.</p>
-        </div>
-
-        <Card className="shadow-soft-md border-none">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-primary">Artigos Populares</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {supportItems.map((item, index) => (
-              <div key={index} className="flex justify-between items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg" onClick={item.action}>
-                <div>
-                  <p className="font-medium text-gray-800">{item.title}</p>
-                  <p className="text-sm text-gray-500">{item.description}</p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-primary shrink-0" />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-soft-md border-none">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-primary">Fale Conosco</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center space-x-3">
-              <Mail className="w-5 h-5 text-highlight" />
-              <div>
-                <p className="font-medium text-gray-800">E-mail de Suporte</p>
-                <a href="mailto:suporte@filterfood.com" className="text-sm text-primary hover:underline">suporte@filterfood.com</a>
-              </div>
-            </div>
-            <Separator />
-            <div className="flex items-center space-x-3">
-              <Phone className="w-5 h-5 text-highlight" />
-              <div>
-                <p className="font-medium text-gray-800">Telefone</p>
-                <a href="tel:+5511999999999" className="text-sm text-primary hover:underline">(11) 99999-9999</a>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="pt-4 text-center">
-          <Button 
-            variant="outline" 
-            className="w-full h-12 text-primary border-primary/20 hover:bg-primary/5"
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
+    <div className="border-b border-gray-100 dark:border-gray-700 last:border-b-0">
+      <button
+        className="flex w-full items-center justify-between py-4 text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-base font-semibold text-primary dark:text-white">{question}</span>
+        {isOpen ? <ChevronUp className="w-5 h-5 text-highlight" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden pb-4"
           >
-            Voltar ao Perfil
-          </Button>
+            <p className="text-sm text-gray-700 dark:text-gray-300">{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default function HelpCenter() {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredFaqs = faqData.filter(faq =>
+    faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    faq.answer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    faq.tags.some(tag => tag.includes(searchTerm.toLowerCase()))
+  );
+
+  return (
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+      
+      {/* Header */}
+      <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurant-area/profile-menu" />
+
+      <main className="flex-1 w-full max-w-md p-4">
+        
+        {/* Search Bar */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Pesquisar por palavra-chave (ex: cardápio, premium)"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-soft-md"
+            />
+          </div>
         </div>
-      </div>
+
+        {/* FAQ List */}
+        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-soft-xl p-4">
+          <CardContent className="p-0">
+            <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
+            
+            {filteredFaqs.length > 0 ? (
+              <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                {filteredFaqs.map(faq => (
+                  <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-8">Nenhum resultado encontrado para "{searchTerm}".</p>
+            )}
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 }

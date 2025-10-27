@@ -1,34 +1,30 @@
 import React from 'react';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
-import { BarChart3 } from 'lucide-react';
+import { Search, BarChart3 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useRestaurantContext } from '@/context/RestaurantContext';
+import { useUserRole } from '@/hooks/useUserRole';
 
-/**
- * Página de Análise de Mercado (Busca Unificada para Restaurantes)
- */
-export default function RestaurantSearchPage() {
-  const { restaurant, isLoading } = useRestaurantContext();
+export default function RestaurantSearch() {
+  const { isPremium } = useUserRole();
   
-  if (isLoading) {
-    return <div className="p-4 text-center text-gray-500">Carregando...</div>;
-  }
-
-  const isPremium = restaurant?.plan === 'premium' || false;
-
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <RestaurantAreaHeader title="Análise de Mercado" backPath="restaurant-area/dashboard" />
+      <RestaurantAreaHeader title="Análise de Mercado" icon={BarChart3} backPath="restaurant-area/home" />
       
-      <div className="p-4">
-        <h1 className="text-2xl font-bold text-primary mb-4">Busca e Análise</h1>
-        <p className="text-gray-600">
-          Aqui você pode simular a busca de clientes e analisar o desempenho do seu restaurante.
-        </p>
-        {/* Conteúdo de busca e análise viria aqui */}
-      </div>
-
-      <RestaurantBottomNav isPremium={isPremium} />
+      <main className="p-4 space-y-6">
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardHeader>
+            <CardTitle className="text-2xl text-primary">Estatísticas de Concorrência</CardTitle>
+            <CardDescription>Visualize dados de restaurantes próximos e tendências de mercado.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600">Gráficos e dados de concorrentes serão exibidos aqui.</p>
+          </CardContent>
+        </Card>
+      </main>
+      
+      <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
     </div>
   );
 }

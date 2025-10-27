@@ -7,7 +7,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
+import ClientPageWrapper from '@/components/ClientPageWrapper';
 import { showError, showSuccess } from '@/utils/toast';
 import NavCardItem from '@/components/NavCardItem';
 import UserProfileHeader from '@/components/UserProfileHeader';
@@ -148,7 +148,7 @@ export default function ClientProfilePage() {
 
 
   return (
-    <ClientPageWrapper>
+    <ClientPageWrapper selectedTab="profile">
       
       {/* Novo Header no estilo banner */}
       <UserProfileHeader 

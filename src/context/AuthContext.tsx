@@ -12,7 +12,7 @@ import { createPageUrl } from '@/utils/url'; // Importando createPageUrl
 export interface AuthContextType { // Exportado para resolver Erro 9
   session: Session | null;
   user: User | null;
-  profile: Profile | null; // Renomeado de userProfile para profile
+  profile: Profile | null;
   restaurant: Restaurant | null;
   isAdmin: boolean;
   isLoading: boolean;
@@ -76,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
   
   const isPremium = useMemo(() => {
-    return restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
+    return restaurant?.plan === 'premium';
   }, [restaurant?.plan]);
 
   const value = useMemo(() => ({

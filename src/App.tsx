@@ -1,49 +1,41 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import ToastProvider from '@/components/ToastProvider';
+import ProtectedRoute from './components/ProtectedRoute';
+import ToastProvider from './components/ToastProvider';
 
 // Pages
-import Index from '@/pages/Index'; // Redireciona para Splash
-import Home from '@/pages/Home'; // Nova Home do Cliente
-import Splash from '@/pages/Splash';
-import AuthComponent from '@/pages/Auth'; // Importando o componente customizado
-import ClientProfilePage from '@/pages/ClientProfilePage';
-import FavoritesPage from '@/pages/Favorites'; // Importando a nova página de favoritos
-import RestaurantProfilePublic from '@/pages/RestaurantProfilePublic';
-import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
-import MenuItemDetails from '@/pages/MenuItemDetails';
-import HelpCenter from '@/pages/HelpCenter';
-import Onboarding from '@/pages/Onboarding';
-import Welcome from '@/pages/Welcome';
-import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-import ForgotPassword from '@/pages/ForgotPassword'; // Importação adicionada
-import Legal from '@/pages/Legal'; // Importação adicionada
-import RestaurantResultsPage from '@/pages/RestaurantResults'; // Importação adicionada
-import DebugFlowPanel from '@/components/DebugFlowPanel'; // NOVO IMPORT
+import Index from './pages/Index'; // Redireciona para Splash
+import Home from './pages/Home'; // Nova Home do Cliente
+import Splash from './pages/Splash';
+import AuthComponent from './pages/Auth'; // Importando o componente customizado
+import ClientProfilePage from './pages/ClientProfilePage';
+import FavoritesPage from './pages/Favorites'; // Importando a nova página de favoritos
+import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
+import SearchUnifiedPage from './pages/SearchUnifiedPage';
+import MenuItemDetails from './pages/MenuItemDetails';
+import HelpCenter from './pages/HelpCenter';
+import Onboarding from './pages/Onboarding';
+import Welcome from './pages/Welcome';
+import RestaurantAreaHub from './pages/RestaurantAreaHub';
+import ForgotPassword from './pages/ForgotPassword'; // Importação adicionada
+import Legal from './pages/Legal'; // Importação adicionada
+import RestaurantResultsPage from './pages/RestaurantResults'; // Importação adicionada
 
 // Restaurant Area Pages
-import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
-import ProfileManagementLayout from '@/components/restaurant/ProfileManagementLayout';
-import MenuManagement from '@/pages/restaurant/MenuManagement';
-import GalleryManagement from '@/pages/restaurant/GalleryManagement';
-import UpgradePage from '@/pages/Upgrade';
-import RestaurantLogin from '@/pages/RestaurantLogin';
-import RestaurantSignup from '@/pages/RestaurantSignup';
-import ClaimRestaurant from '@/pages/ClaimRestaurant';
-import CategoryDetails from '@/pages/restaurant/CategoryDetails'; // Importando CategoryDetails
+import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
+import ProfileManagementLayout from './components/restaurant/ProfileManagementLayout';
+import MenuManagement from './pages/restaurant/MenuManagement';
+import GalleryManagement from './pages/restaurant/GalleryManagement';
+import UpgradePage from './pages/Upgrade';
+import RestaurantLogin from './pages/RestaurantLogin';
+import RestaurantSignup from './pages/RestaurantSignup';
+import ClaimRestaurant from './pages/ClaimRestaurant';
+import CategoryDetails from './pages/restaurant/CategoryDetails'; // Importando CategoryDetails
 
 // Admin Pages
-import AdminDashboard from '@/pages/admin/AdminDashboard';
-import AdminLogin from '@/pages/admin/AdminLogin';
-import AdminLayout from '@/components/admin/AdminLayout';
-import ManagePlans from '@/pages/admin/ManagePlans';
-import ManageAdmins from '@/pages/admin/ManageAdmins';
-import AdminRestaurants from '@/pages/admin/AdminRestaurants';
-import AdminUsers from '@/pages/admin/AdminUsers';
-import AdminSettings from '@/pages/admin/AdminSettings';
-import AdminTransactions from '@/pages/admin/AdminTransactions';
-
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminLayout from './components/admin/AdminLayout';
 
 function App() {
   return (
@@ -52,7 +44,6 @@ function App() {
       <Routes>
         {/* Rotas Públicas/Gerais */}
         <Route path="/" element={<Index />} /> {/* Rota principal que renderiza Splash */}
-        <Route path="/debug" element={<DebugFlowPanel />} /> {/* Rota de Diagnóstico */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthComponent />} />
@@ -91,12 +82,6 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/plans" element={<ManagePlans />} />
-          <Route path="/admin/manage-admins" element={<ManageAdmins />} />
-          <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/transactions" element={<AdminTransactions />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
         </Route>
         
       </Routes>

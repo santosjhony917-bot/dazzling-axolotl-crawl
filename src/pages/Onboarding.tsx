@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import OnboardingScreen from '@/components/onboarding/OnboardingScreen';
+import { base44 } from '@/api/base44Client';
+import OnboardingScreen from '../components/onboarding/OnboardingScreen';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
-import { useOnboardingStatus } from '@/hooks/useOnboardingStatus'; // Importando o hook de status
 
 const onboardingScreens = [
   {
@@ -42,30 +42,38 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
-  const { completeOnboarding: completeOnboardingHook, isComplete, isLoading: isStatusLoading } = useOnboardingStatus();
 
-  // Se o onboarding já estiver completo, redireciona imediatamente
+  // Check if onboarding was already completed on initial load
   useEffect(() => {
-    if (!isStatusLoading && isComplete) {
-      navigate(createPageUrl('welcome'), { replace: true });
-    }
-  }, [isComplete, isStatusLoading, navigate]);
+    const checkOnboardingStatus = async () => {
+      try {
+        const userData = await base44.auth.me();
+        if (userData.onboarding_completed) {
+          console.log("Onboarding already completed, redirecting to welcome.");
+          navigate(createPageUrl('welcome'));
+        }
+      } catch (error) {
+        // If user is not found or any other error, proceed with onboarding
+        console.log("No user data found or error fetching, starting onboarding.");
+      }
+    };
 
-  const handleCompleteOnboarding = () => {
-    if (isCompleting) return;
+    checkOnboardingStatus();
+  }, [navigate]);
+
+  const completeOnboarding = async () => {
+    if (isCompleting) return; // Prevent multiple clicks
     
     setIsCompleting(true);
     try {
-      // 1. Marcar no localStorage (via hook)
-      completeOnboardingHook(); 
-      
-      console.log("Onboarding marked as completed. Redirecting to welcome.");
-      // 2. Redireciona para a tela de boas-vindas
-      navigate(createPageUrl('welcome'), { replace: true }); 
+      await base44.auth.updateMe({ onboarding_completed: true });
+      console.log("Onboarding marked as completed.");
+      navigate(createPageUrl('welcome'));
     } catch (error) {
       console.error('Error completing onboarding:', error);
       showError('Falha ao concluir o onboarding. Por favor, tente novamente.');
-      navigate(createPageUrl('welcome'), { replace: true });
+      // Even if the API call fails, we still navigate to welcome to prevent being stuck
+      navigate(createPageUrl('welcome'));
     } finally {
       setIsCompleting(false);
     }
@@ -77,12 +85,12 @@ export default function Onboarding() {
       setCurrentScreen(prev => prev + 1);
     } else {
       // Última tela: completa o onboarding
-      handleCompleteOnboarding();
+      completeOnboarding();
     }
   };
 
   const skipOnboarding = () => {
-    handleCompleteOnboarding();
+    completeOnboarding();
   };
 
   const variants = {
@@ -100,14 +108,12 @@ export default function Onboarding() {
     })
   };
 
+  // Garante que screen seja válido antes de renderizar
   const screen = onboardingScreens[currentScreen];
   
-  if (isStatusLoading || isComplete) {
-    return null; // Não renderiza se estiver carregando ou já estiver completo (o useEffect fará o redirecionamento)
-  }
-
   if (!screen) {
-    handleCompleteOnboarding();
+    // Se por algum motivo o índice for inválido (ex: 3), navegamos imediatamente
+    completeOnboarding();
     return null; 
   }
 
@@ -153,7 +159,7 @@ export default function Onboarding() {
                       opacity: currentScreen === index ? 1 : 0.4
                     }}
                     className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40'
+                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40' // Usando highlight
                     }`}
                   />
                 ))}
@@ -164,7 +170,7 @@ export default function Onboarding() {
                 <Button
                   onClick={handleNext}
                   disabled={isCompleting}
-                  variant="highlight"
+                  variant="highlight" // Usando o novo variant highlight
                   className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
                 >
                   <span className="truncate">

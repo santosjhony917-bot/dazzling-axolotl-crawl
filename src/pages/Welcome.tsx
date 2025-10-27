@@ -72,7 +72,7 @@ export default function Welcome() {
           </Button>
 
           <Button
-            onClick={() => handleNavigation('restaurant', createPageUrl('restaurantAreaHub'))}
+            onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
             variant="outline"
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-soft-md"
           >
