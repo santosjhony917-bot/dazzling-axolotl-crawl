@@ -54,14 +54,14 @@ type PathParams<K extends PathKey> =
   : K extends 'menuItemDetails'
     ? { itemId: string }
   : K extends 'auth'
-    ? { mode: 'login' | 'signup' }
+    ? { mode?: 'login' | 'signup' } // Making mode optional
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)
 type QueryParams<K extends PathKey> = 
   K extends 'auth' 
-    ? { mode: 'login' | 'signup' } 
-    : Record<string, string> | undefined;
+    ? { mode?: 'login' | 'signup' } 
+    : Record<string, string | number | boolean> | undefined;
 
 /**
  * Cria uma URL completa com base na chave da página, parâmetros de rota e parâmetros de consulta.
@@ -78,9 +78,12 @@ export function createPageUrl<K extends PathKey>(
   const pathTemplate = PATH_MAP[key];
   
   // 1. Gerar o caminho base com parâmetros de rota
-  let path = generatePath(pathTemplate, params as Record<string, string | number | boolean | undefined>);
+  // Use an empty object if params is undefined to satisfy generatePath signature
+  const routeParams = (params || {}) as Record<string, string | number | boolean | undefined>;
+  let path = generatePath(pathTemplate, routeParams);
 
   // 2. Adicionar parâmetros de consulta (query params)
+  // Prioritize explicit queryParams, otherwise use params if it contains query data (like 'auth' mode)
   const finalQueryParams = queryParams || (key === 'auth' ? params : undefined);
   
   if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {
