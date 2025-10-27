@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { LogOut, Utensils, MapPin, Heart, Settings, ArrowLeft, User, Loader2, HelpCircle } from 'lucide-react';
+import { LogOut, Utensils, MapPin, Heart, Settings, ArrowLeft, User, Loader2, HelpCircle, FileText } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
