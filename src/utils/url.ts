@@ -1,103 +1,68 @@
-import { generatePath } from 'react-router-dom';
-
-// Define todas as chaves de rota possíveis na aplicação
-export type PathKey = 
-  | 'index'
-  | 'home'
-  | 'auth'
-  | 'login'
-  | 'register'
-  | 'profile'
-  | 'favorites'
-  | 'onboarding'
-  | 'welcome'
-  | 'legal'
-  | 'customer-login'
-  | 'search-unified'
-  | 'search-restaurants'
-  | 'restaurantProfile'
-  | 'menuItemDetails'
-  | 'help-center'
-  | 'restaurantResults' // Adicionado
-  
-  // Admin
-  | 'admin' // Adicionado (para rotas aninhadas)
-  | 'adminLogin'
-  | 'adminDashboard' // Adicionado
-  | 'admin/dashboard'
-  | 'admin/users'
-  | 'admin/restaurants'
-  | 'admin/edit-restaurant'
-  
-  // Restaurant Area
-  | 'restaurant-area' // Adicionado
-  | 'restaurant-area-hub' // Adicionado
-  | 'restaurant-login' // Adicionado
-  | 'restaurant-signup' // Adicionado
-  | 'claim-restaurant' // Adicionado
-  | 'restaurant-area/home'
-  | 'restaurant-area/profile-menu'
-  | 'restaurant-area/menu'
-  | 'restaurant-area/gallery'
-  | 'restaurant-area/upgrade'
-  | 'restaurant-area/menu/edit-category'
-  | 'restaurant-area/menu/edit-item';
-
-// Mapeamento de chaves para caminhos reais
-const PATH_MAP: Record<PathKey, string> = {
-  'index': '/',
-  'home': '/home',
-  'auth': '/auth',
-  'login': '/auth?tab=login',
-  'register': '/auth?tab=register',
-  'profile': '/profile',
-  'favorites': '/favorites',
-  'onboarding': '/onboarding',
-  'welcome': '/welcome',
-  'legal': '/legal',
-  'customer-login': '/customer-login',
-  'search-unified': '/search-unified',
-  'search-restaurants': '/search-unified?tab=restaurants',
-  'restaurantProfile': '/restaurant/:restaurantId',
-  'menuItemDetails': '/menu-item/:itemId',
+// Define the mapping of path keys to their actual URL paths
+const PATH_MAP = {
+  // Client/Public Routes
+  home: '/',
+  index: '/', // Alias for home
+  login: '/login',
+  auth: '/auth', // Main authentication page
+  favorites: '/favorites',
+  clientProfile: '/profile',
+  restaurantProfile: '/restaurant/:restaurantId',
+  editProfile: '/profile/edit',
+  welcome: '/welcome',
+  onboarding: '/onboarding',
+  'search-unified': '/search',
+  'search-restaurants': '/search/restaurants',
+  legal: '/legal',
+  forgotPassword: '/forgot-password',
+  menuItemDetails: '/menu-item/:itemId',
   'help-center': '/help-center',
-  'restaurantResults': '/search-unified/results', // Rota de resultados de busca
-  
-  // Admin
-  'admin': '/admin', // Rota base
-  'adminLogin': '/admin/login',
-  'adminDashboard': '/admin/dashboard', // Rota principal
-  'admin/dashboard': '/admin/dashboard',
-  'admin/users': '/admin/dashboard/users',
-  'admin/restaurants': '/admin/dashboard/restaurants',
-  'admin/edit-restaurant': '/admin/dashboard/restaurants/:restaurantId',
-  
-  // Restaurant Area
-  'restaurant-area': '/restaurant-area', // Rota base
-  'restaurant-area-hub': '/restaurant-area-hub',
+
+  // Restaurant Area Routes
+  'restaurant-area-hub': '/restaurant-area',
   'restaurant-login': '/restaurant-area/login',
   'restaurant-signup': '/restaurant-area/signup',
   'claim-restaurant': '/restaurant-area/claim',
-  'restaurant-area/home': '/restaurant-area/home',
-  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
+  'restaurant-area': '/restaurant-area', // General area route
+  'restaurant-area/home': '/restaurant-area/dashboard', // Dashboard home
   'restaurant-area/menu': '/restaurant-area/menu',
   'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/profile-menu': '/restaurant-area/profile', // Profile management menu
   'restaurant-area/upgrade': '/restaurant-area/upgrade',
-  'restaurant-area/menu/edit-category': '/restaurant-area/menu/edit-category/:categoryId?',
-  'restaurant-area/menu/edit-item': '/restaurant-area/menu/edit-item/:itemId?',
+
+  // Admin Routes
+  admin: '/admin',
+  adminLogin: '/admin/login',
+  adminDashboard: '/admin/dashboard',
+  'admin/edit-restaurant': '/admin/restaurant/:restaurantId/edit',
 };
 
-/**
- * Cria uma URL baseada na chave da página e parâmetros opcionais.
- * @param key A chave da página (PathKey).
- * @param params Parâmetros de rota (ex: { restaurantId: '123' }).
- * @returns A URL formatada.
- */
-export function createPageUrl(key: PathKey, params?: Record<string, string | number>): string {
-  const path = PATH_MAP[key];
-  if (!path) {
-    console.error(`Path key not found: ${key}`);
-    return '/';
+// Define the type for all valid path keys
+export type PathKey = keyof typeof PATH_MAP;
+
+// Define the required parameters for paths that use dynamic segments
+interface PathParams {
+  restaurantProfile: { restaurantId: string };
+  restaurantDashboard: { restaurantId: string };
+  restaurantSettings: { restaurantId: string };
+  menuItemDetails: { itemId: string };
+  'admin/edit-restaurant': { restaurantId: string };
+  admin: { subPath: string }; // Used for admin navigation links
+}
+
+// Generic function to create URLs safely
+export function createPageUrl<K extends PathKey>(
+  key: K,
+  params?: K extends keyof PathParams ? PathParams[K] : undefined
+): string {
+  let path = PATH_MAP[key];
+
+  if (params) {
+    // Replace dynamic segments with provided parameters
+    for (const [paramKey, paramValue] of Object.entries(params)) {
+      path = path.replace(`:${paramKey}`, String(paramValue));
+    }
   }
-  return generatePath(path, params as Record<string, string>);
+
+  return path;
 }
