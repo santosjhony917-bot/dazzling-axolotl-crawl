@@ -33,6 +33,7 @@ export const PATH_MAP = {
   'restaurant-area/home': '/restaurant-area/home', // Simplified path for dashboard entry
   'restaurant-area/profile-menu': '/restaurant-area/profile-menu', // Simplified path for settings entry
   'restaurant-area/menu': '/restaurant-area/menu', // Simplified path for menu management
+  'restaurant-area/category-details': '/restaurant-area/menu/:categoryId', // ADDED
   'restaurant-area/gallery': '/restaurant-area/gallery', // Simplified path for gallery
   
   // Rotas Admin
@@ -57,14 +58,10 @@ export type PathKey = keyof typeof PATH_MAP; // EXPORTED
 type PathParams<K extends PathKey> = 
   K extends 'restaurantProfile' | 'admin/edit-restaurant'
     ? { restaurantId: string }
-  : K extends 'menuItemDetails'
+  : K extends 'menuItemDetails' | 'restaurant-area/edit-item'
     ? { itemId: string }
-  : K extends 'restaurant-area/edit-category'
+  : K extends 'restaurant-area/edit-category' | 'restaurant-area/add-item' | 'restaurant-area/category-details'
     ? { categoryId: string }
-  : K extends 'restaurant-area/add-item'
-    ? { categoryId: string }
-  : K extends 'restaurant-area/edit-item'
-    ? { itemId: string }
   : K extends 'admin'
     ? { subPath: string } // For AdminLayout dynamic navigation
   : K extends 'auth' // CORREÇÃO: 'auth' não tem path params, mas precisa ser definido
