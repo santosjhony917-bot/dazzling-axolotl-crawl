@@ -1,94 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
+import { showSuccess, showError } from '@/utils/toast';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, LogIn } from 'lucide-react';
-import { showError, showSuccess } from '@/utils/toast';
-import { createPageUrl } from '@/utils/url';
+import { Loader2 } from 'lucide-react';
 
-// NOTE: This email is hardcoded to check for admin status in AuthContext
+// NOTE: This email should ideally be managed via environment variables or database roles, 
+// but for simplicity, we use a hardcoded value based on the is_admin function definition.
 const ADMIN_EMAIL = 'joaoedasilva018@gmail.com'; 
 
-export default function AdminLogin() {
+const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
-  const { refetchProfile } = useAuthContext(); // Corrigido
+  const { refetchProfile, user, isAdmin, isLoading } = useAuthContext();
   const [email, setEmail] = useState(ADMIN_EMAIL);
-  const [password, setPassword] = useState('password'); // Mock password for easy testing
-  const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  useEffect(() => {
+    if (!isLoading && user && isAdmin) {
+      navigate('/admin/dashboard');
+    }
+  }, [user, isAdmin, isLoading, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoggingIn(true);
+    
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (email !== ADMIN_EMAIL) {
-      showError("Acesso negado. Este painel é exclusivo para administradores.");
-      setIsLoading(false);
-      return;
+      if (error) throw error;
+
+      // Refetch profile to ensure admin status is updated
+      await refetchProfile();
+      showSuccess('Login de administrador bem-sucedido!');
+      // Redirecionamento é tratado pelo useEffect
+
+    } catch (error) {
+      showError('Falha no login: Credenciais inválidas ou você não é um administrador.');
+      console.error(error);
+    } finally {
+      setIsLoggingIn(false);
     }
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      showError(`Erro de login: ${error.message}`);
-    } else {
-      // Refetch profile data to ensure isAdmin status is updated immediately
-      await refetchProfile(); 
-      showSuccess("Login de administrador realizado com sucesso!");
-      navigate(createPageUrl('adminDashboard'));
-    }
-    setIsLoading(false);
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <Card className="w-full max-w-md shadow-soft-xl border-none rounded-2xl">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
+      <Card className="w-full max-w-md shadow-lg dark:bg-gray-800">
         <CardHeader>
-          <CardTitle className="text-2xl flex items-center gap-2 text-primary">
-            <LogIn className="w-6 h-6 text-primary" /> Login de Administrador
-          </CardTitle>
+          <CardTitle className="text-2xl text-center dark:text-white">Acesso Administrativo</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Senha</label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
-              />
-            </div>
-            <Button type="submit" className="w-full h-12 text-lg font-bold" disabled={isLoading} variant="highlight">
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogIn className="mr-2 h-4 w-4" />}
-              Entrar
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={isLoggingIn}
+            />
+            <Input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={isLoggingIn}
+            />
+            <Button type="submit" className="w-full" disabled={isLoggingIn}>
+              {isLoggingIn ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : 'Entrar como Admin'}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-gray-500">
-            Apenas para uso administrativo.
-          </p>
         </CardContent>
       </Card>
     </div>
   );
-}
+};
+
+export default AdminLogin;

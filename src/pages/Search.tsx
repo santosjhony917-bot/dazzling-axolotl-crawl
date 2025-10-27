@@ -1,10 +1,7 @@
 import React from 'react';
 import { Search as SearchIcon } from 'lucide-react';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 
 const SearchPage: React.FC = () => {
-  // NOTE: isPremium is not available here, but we remove the props anyway as they are not supported by RestaurantBottomNav
-  
   return (
     <div className="p-4 pt-10 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-md mx-auto">
@@ -21,7 +18,6 @@ const SearchPage: React.FC = () => {
           </p>
         </div>
       </div>
-      <RestaurantBottomNav />
     </div>
   );
 };

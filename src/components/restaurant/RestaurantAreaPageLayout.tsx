@@ -1,51 +1,44 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useAuthContext } from '@/context/AuthContext';
-import RestaurantBottomNav from './RestaurantBottomNav';
-import { createPageUrl, PathKey } from '@/utils/url';
+import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import RestaurantBottomNav from './RestaurantBottomNav';
+import { Restaurant } from '@/types/supabase';
 
 interface RestaurantAreaPageLayoutProps {
+  restaurant: Restaurant;
   title: string;
-  icon?: LucideIcon;
-  children: React.ReactNode;
-  backPath?: PathKey;
+  children: ReactNode;
+  backPath: string;
 }
 
-const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({ title, icon: Icon, children, backPath = 'restaurant-area/profile-menu' }) => {
-  const navigate = useNavigate();
-  const { isPremium } = useAuthContext();
-  const isFree = !isPremium;
+const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({ restaurant, title, children, backPath }) => {
+  // const isFree = restaurant.plan === 'free'; // isFree is not used here
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      
-      {/* Header Fixo */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl(backPath))}
-          className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          {Icon && <Icon className="h-6 w-6 text-[#022D68]" />}
-          <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="max-w-4xl mx-auto p-4 flex items-center justify-between">
+          <Link to={backPath} className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+            <ArrowLeft className="w-6 h-6" />
+          </Link>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white truncate flex-grow text-center mx-4">
+            {title}
+          </h1>
+          <div className="w-6 h-6">
+            {/* Placeholder for alignment */}
+          </div>
         </div>
-        <div className="w-10"></div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 w-full">
+      <div className="flex-1 p-4 md:p-8 max-w-4xl w-full mx-auto">
         {children}
-      </main>
-      
+      </div>
+
       {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="upgrade" isFree={isFree} />
+      <RestaurantBottomNav />
     </div>
   );
 };
