@@ -91,9 +91,10 @@ export default function AuthPage() {
                 },
               },
             }}
-            providers={['google']}
+            // Incluindo Google e Apple
+            providers={['google', 'apple']} 
             theme="light"
-            view={mode} // Define se é login ou signup
+            view={mode} 
             redirectTo={window.location.origin + createPageUrl('home')}
             localization={{
               variables: {
@@ -102,14 +103,14 @@ export default function AuthPage() {
                   password_label: 'Senha',
                   button_label: 'Entrar',
                   social_provider_text: 'Continuar com {{provider}}',
-                  link_text: 'Já tem uma conta? Entrar',
+                  link_text: 'Não tem uma conta? Cadastrar',
                 },
                 sign_up: {
                   email_label: 'Email',
                   password_label: 'Crie uma senha',
                   button_label: 'Cadastrar',
                   social_provider_text: 'Continuar com {{provider}}',
-                  link_text: 'Não tem uma conta? Cadastrar',
+                  link_text: 'Já tem uma conta? Entrar',
                 },
                 forgotten_password: {
                   link_text: 'Esqueceu sua senha?',
