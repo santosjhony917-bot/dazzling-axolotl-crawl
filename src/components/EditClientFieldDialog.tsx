@@ -1,121 +1,119 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-
-// Define os campos que podem ser editados
-type EditableField = 'first_name' | 'phone';
 
 interface EditClientFieldDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (value: string) => Promise<void>;
-  field: EditableField | null;
-  initialValue: string;
+  title: string;
+  fieldName: string;
+  currentValue: string;
+  icon: React.ReactNode;
+  onSave: (value: string) => Promise<void> | void;
+  placeholder?: string;
+  type?: "text" | "tel" | "email";
+  validationSchema?: z.ZodType<string>;
+  mask?: (value: string) => string;
 }
 
-const schema = z.object({
-  value: z.string().min(1, { message: 'Este campo não pode ser vazio.' }),
-});
+const defaultSchema: z.ZodType<string> = z.string().min(1, "Campo obrigatório");
 
-type FormData = z.infer<typeof schema>;
-
-const fieldLabels: Record<EditableField, { title: string, description: string, placeholder: string }> = {
-  first_name: {
-    title: 'Editar Nome',
-    description: 'Insira seu primeiro nome para exibição.',
-    placeholder: 'Seu nome',
-  },
-  phone: {
-    title: 'Editar Telefone',
-    description: 'Insira seu número de telefone com DDD.',
-    placeholder: '(99) 99999-9999',
-  },
-};
-
-const EditClientFieldDialog: React.FC<EditClientFieldDialogProps> = ({
+export default function EditClientFieldDialog({
   isOpen,
   onClose,
+  title,
+  fieldName,
+  currentValue,
+  icon,
   onSave,
-  field,
-  initialValue,
-}) => {
+  placeholder,
+  type = "text",
+  validationSchema = defaultSchema,
+  mask,
+}: EditClientFieldDialogProps) {
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<FormData>({
+  
+  const schema = z.object({
+    value: validationSchema,
+  });
+
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      value: initialValue,
+      value: currentValue,
     },
   });
 
   useEffect(() => {
-    if (isOpen) {
-      setValue('value', initialValue);
-      reset({ value: initialValue });
-    }
-  }, [isOpen, initialValue, setValue, reset]);
+    setValue('value', currentValue);
+  }, [currentValue, setValue]);
 
-  const onSubmit = async (data: FormData) => {
-    if (!field) return;
+  const onSubmit = async (data: { value: string }) => {
     setLoading(true);
     try {
       await onSave(data.value);
       onClose();
     } catch (e) {
-      console.error('Save error:', e);
+      // Error handling is done in the parent component
     } finally {
       setLoading(false);
     }
   };
 
-  if (!field) return null;
-
-  const { title, description, placeholder } = fieldLabels[field];
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let rawValue = e.target.value;
+    if (mask) {
+      rawValue = mask(rawValue);
+    }
+    setValue('value', rawValue, { shouldValidate: true });
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-xl shadow-soft-xl">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="value" className="text-right col-span-1">
-              Valor
-            </Label>
-            <Input
-              id="value"
-              placeholder={placeholder}
-              className="col-span-3"
-              {...register('value')}
-              disabled={loading}
-            />
+          <div className="flex items-center gap-3 mb-2">
+            {icon}
+            <DialogTitle className="text-xl font-bold text-primary">{title}</DialogTitle>
           </div>
-          {errors.value && <p className="text-sm text-red-500 text-right col-span-4">{errors.value.message}</p>}
-          
-          <div className="flex justify-end space-x-2 mt-4">
+          <DialogDescription>
+            Edite o campo {fieldName} do seu perfil.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <Input
+            {...register('value')}
+            type={type}
+            placeholder={placeholder}
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            onChange={mask ? handleInputChange : undefined}
+          />
+          {errors.value && (
+            <p className="text-sm text-destructive">{errors.value.message}</p>
+          )}
+          <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
               Cancelar
             </Button>
-            <Button
+            <Button 
               type="submit" 
               disabled={loading || !!errors.value}
               variant="highlight"
             >
-              {loading ? 'Salvando...' : 'Salvar Alterações'}
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Salvar Alterações"
+              )}
             </Button>
-          </div>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
   );
-};
-
-export default EditClientFieldDialog;
+}
