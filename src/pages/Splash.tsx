@@ -2,21 +2,29 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
+import { useAuthContext } from "@/context/AuthContext"; // Importando o contexto de autenticação
 
 // Caminho para o novo logo
 const LOGO_URL = "/assets/filterfood-logo.png";
 
 export default function Splash() {
   const navigate = useNavigate();
+  const { user, isLoading } = useAuthContext(); // Usando o contexto de autenticação
 
   // Auto-navigate after 2 seconds
   useEffect(() => {
-    console.log("Splash screen loaded. Redirecting to onboarding in 2 seconds...");
+    if (isLoading) return;
+
+    const targetPath = user ? createPageUrl("home") : createPageUrl("onboarding");
+    
+    console.log(`Splash screen loaded. Redirecting to ${targetPath} in 2 seconds...`);
+    
     const timer = setTimeout(() => {
-      navigate(createPageUrl("onboarding"));
+      navigate(targetPath, { replace: true });
     }, 2000);
+    
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, user, isLoading]);
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
