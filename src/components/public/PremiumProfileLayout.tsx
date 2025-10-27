@@ -129,7 +129,7 @@ const mockPaymentMethods = [
   { icon: DollarSign, label: 'Dinheiro' },
 ];
 
-// Componente de Galeria de Fotos (Adaptado para usar dados reais)
+// Componente de Galeria de Fotos (Refatorado para layout dinâmico)
 const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantName: string, isLoading: boolean }> = ({ gallery, restaurantName, isLoading }) => {
   if (isLoading) {
     return <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />;
@@ -144,9 +144,10 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
     );
   }
   
-  // Exibição simplificada: 1 imagem grande e 2 pequenas
+  // Layout: 1 grande (col-span-2) e 2 pequenas (col-span-1)
   const largeItem = gallery[0];
   const smallItems = gallery.slice(1, 3);
+  const remainingCount = gallery.length - 3;
 
   return (
     <div className="mt-4">
@@ -161,7 +162,8 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
               src={largeItem.image_url} 
             />
             <div className="absolute inset-0 bg-black/20 flex items-center justify-center text-white font-bold text-lg">
-              {gallery.length > 1 ? `+${gallery.length - 1} fotos` : ''}
+              {/* Se houver mais de 3 fotos, mostra o contador na imagem principal */}
+              {gallery.length > 3 ? `+${gallery.length - 1} fotos` : ''}
             </div>
           </div>
         )}
@@ -179,6 +181,15 @@ const PhotoGallerySection: React.FC<{ gallery: PublicGalleryImage[], restaurantN
             </div>
           </div>
         ))}
+        
+        {/* Placeholder para a terceira imagem se houver mais de 3 */}
+        {gallery.length === 3 && smallItems.length === 2 && (
+          <div className="col-span-1 h-[156px] relative rounded-xl overflow-hidden shadow-soft-md bg-gray-200 flex items-center justify-center">
+            <Camera className="w-8 h-8 text-gray-500" />
+          </div>
+        )}
+        
+        {/* Se houver mais de 3 fotos, a terceira e as seguintes não são exibidas neste layout simplificado. */}
       </div>
     </div>
   );
