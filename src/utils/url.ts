@@ -8,50 +8,53 @@ export const PATH_MAP = {
   welcome: '/welcome',
   auth: '/auth', // Rota de login/cadastro (usa query params: ?mode=signup)
   onboarding: '/onboarding',
+  legal: '/legal', // ADDED
+  helpCenter: '/help-center', // ADDED
+  menuItemDetails: '/menu-item/:itemId', // ADDED
   
   // Rotas de Cliente (Autenticadas ou Públicas)
   home: '/home',
   favorites: '/favorites',
   clientProfile: '/profile',
   editProfile: '/profile/edit',
-  'search-unified': '/search',
+  'search-unified': '/search-unified',
   'search-restaurants': '/search/restaurants',
   'search-menu-items': '/search/menu',
   restaurantProfile: '/restaurant/:restaurantId',
   
-  // Rotas de Proprietário de Restaurante (Autenticadas)
-  'restaurant-area/home': '/restaurant-area/:restaurantId/dashboard',
-  'restaurant-area/profile-menu': '/restaurant-area/:restaurantId/settings',
-  'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
-  'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',
-  'restaurant-area/edit-links': '/restaurant-area/:restaurantId/settings/links',
-  'restaurant-area/menu-management': '/restaurant-area/:restaurantId/menu',
-  'restaurant-area/add-category': '/restaurant-area/:restaurantId/menu/add-category',
-  'restaurant-area/edit-category': '/restaurant-area/:restaurantId/menu/edit-category/:categoryId',
-  'restaurant-area/add-item': '/restaurant-area/:restaurantId/menu/add-item/:categoryId',
-  'restaurant-area/edit-item': '/restaurant-area/:restaurantId/menu/edit-item/:itemId',
-  'restaurant-area/gallery': '/restaurant-area/:restaurantId/gallery',
+  // Rotas de Proprietário de Restaurante (Hub e Autenticadas)
+  'restaurant-area': '/restaurant-area', // ADDED (Redirects to hub/login)
+  'restaurant-area-hub': '/restaurant-area-hub', // ADDED
+  'restaurant-login': '/restaurant-area/login', // ADDED
+  'restaurant-signup': '/restaurant-area/signup', // ADDED
+  'claim-restaurant': '/restaurant-area/claim', // ADDED
+  'restaurant-area/home': '/restaurant-area/home',
+  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
+  'restaurant-area/menu': '/restaurant-area/menu',
+  'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/upgrade': '/restaurant-area/upgrade', // ADDED
   
   // Rotas de Admin
+  adminLogin: '/admin/login', // ADDED
+  adminDashboard: '/admin/dashboard', // ADDED
   'admin/dashboard': '/admin/dashboard',
   'admin/restaurants': '/admin/restaurants',
+  'admin/plans': '/admin/plans', // ADDED
+  'admin/users': '/admin/users', // ADDED
+  'admin/settings': '/admin/settings', // ADDED
   'admin/edit-restaurant': '/admin/restaurant/:restaurantId/edit',
 } as const;
 
-type PathKey = keyof typeof PATH_MAP;
+export type PathKey = keyof typeof PATH_MAP; // EXPORTED
 
 // Tipos de parâmetros de rota
 type PathParams<K extends PathKey> = 
-  K extends 'restaurantProfile' | 'restaurant-area/home' | 'restaurant-area/profile-menu' | 'restaurant-area/edit-info' | 'restaurant-area/edit-hours' | 'restaurant-area/edit-links' | 'restaurant-area/menu-management' | 'restaurant-area/gallery' | 'restaurant-area/add-category' | 'admin/edit-restaurant'
+  K extends 'restaurantProfile' | 'admin/edit-restaurant'
     ? { restaurantId: string }
-  : K extends 'restaurant-area/edit-category'
-    ? { restaurantId: string, categoryId: string }
-  : K extends 'restaurant-area/add-item'
-    ? { restaurantId: string, categoryId: string }
-  : K extends 'restaurant-area/edit-item'
-    ? { restaurantId: string, itemId: string }
+  : K extends 'menuItemDetails'
+    ? { itemId: string }
   : K extends 'auth'
-    ? { mode: 'login' | 'signup' } // Adicionando parâmetros de consulta para 'auth'
+    ? { mode: 'login' | 'signup' }
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)

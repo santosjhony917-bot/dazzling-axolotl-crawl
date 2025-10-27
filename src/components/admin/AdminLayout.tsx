@@ -4,15 +4,21 @@ import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-
 import { useAuthContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { name: 'Dashboard', icon: Home, path: 'dashboard' },
-  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-  { name: 'Configurações', icon: Settings, path: 'settings' },
+interface NavItem {
+  name: string;
+  icon: React.ElementType;
+  path: PathKey; // Usando PathKey
+}
+
+const navItems: NavItem[] = [
+  { name: 'Dashboard', icon: Home, path: 'admin/dashboard' },
+  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'admin/restaurants' },
+  { name: 'Gerenciar Planos', icon: Crown, path: 'admin/plans' },
+  { name: 'Gerenciar Usuários', icon: Users, path: 'admin/users' },
+  { name: 'Configurações', icon: Settings, path: 'admin/settings' },
 ];
 
 const AdminLayout: React.FC = () => {
@@ -33,7 +39,7 @@ const AdminLayout: React.FC = () => {
     return null;
   }
 
-  const currentPath = window.location.pathname.split('/').pop();
+  const currentPath = window.location.pathname;
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -48,9 +54,9 @@ const AdminLayout: React.FC = () => {
               variant="ghost"
               className={cn(
                 "w-full justify-start gap-3 rounded-lg",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
+                currentPath.endsWith(createPageUrl(item.path)) && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
               )}
-              onClick={() => navigate(createPageUrl('admin', { subPath: item.path }))}
+              onClick={() => navigate(createPageUrl(item.path))}
             >
               <item.icon className="w-5 h-5" />
               {item.name}
