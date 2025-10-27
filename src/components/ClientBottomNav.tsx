@@ -16,7 +16,7 @@ const navItems: NavItemType[] = [
   { path: '/home', label: 'Início', icon: Home, key: 'home' },
   { path: '/search-unified', label: 'Busca', icon: Search, key: 'search' }, // Rota atualizada
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
-  { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
+  { path: '/profile', label: 'Perfil', icon: User, key: 'profile' }, // Chave alterada para 'profile'
 ];
 
 interface CustomerBottomNavProps {
@@ -61,14 +61,9 @@ const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab })
     if (selectedTab) {
       return selectedTab === key;
     }
+    
     // Fallback para a rota atual
     if (path === '/home' && location.pathname === '/') return true;
-    
-    // Lógica de ativação para rotas aninhadas ou específicas
-    if (key === 'favorites') {
-        // Rota de favoritos ainda não existe, mas podemos ativá-la se o path for exato
-        return location.pathname === path;
-    }
     
     // Verifica se a rota atual começa com o caminho do item
     return location.pathname.startsWith(path);
@@ -78,8 +73,9 @@ const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab })
     <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-xl z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const isActive = getActivePath(item.path, item.key);
+          // CORREÇÃO: A chave do item é usada para criar a URL, mas precisamos mapear a chave para o PATH_MAP
           const pathKey = item.path.substring(1) as PathKey;
+          const isActive = getActivePath(item.path, item.key);
           
           return (
             <NavItem
