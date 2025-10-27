@@ -14,9 +14,9 @@ interface NavItemType {
 
 const navItems: NavItemType[] = [
   { path: '/home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/search-unified', label: 'Busca', icon: Search, key: 'search' }, // Rota atualizada
+  { path: '/search-unified', label: 'Busca', icon: Search, key: 'search-unified' }, // CHAVE CORRIGIDA para 'search-unified'
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
-  { path: '/profile', label: 'Perfil', icon: User, key: 'clientProfile' }, // CHAVE CORRIGIDA para 'clientProfile'
+  { path: '/profile', label: 'Perfil', icon: User, key: 'clientProfile' },
 ];
 
 interface CustomerBottomNavProps {
