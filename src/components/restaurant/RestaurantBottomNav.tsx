@@ -2,26 +2,31 @@ import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Search, User, Heart, Rocket, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 
 const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
   return (
-    <Link
-      to={path}
-      className={cn(
-        "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-        isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
-      )}
+    <motion.div
+      whileTap={{ scale: 0.95 }}
+      className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
     >
-      <Icon 
+      <Link
+        to={path}
         className={cn(
-          "w-6 h-6",
-        )} 
-      />
-      <span className="text-sm font-medium">
-        {label}
-      </span>
-    </Link>
+          "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+          isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
+        )}
+      >
+        <Icon 
+          className={cn(
+            "w-6 h-6",
+          )} 
+        />
+        <span className="text-sm font-medium">
+          {label}
+        </span>
+      </Link>
+    </motion.div>
   );
 });
 
@@ -61,14 +66,14 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         id: 'upgrade', 
         icon: Crown, 
         label: 'Premium', 
-        path: createPageUrl('restaurant-area/upgrade') 
+        path: createPageUrl('restaurant-area/upgrade') as string // Corrigido o tipo
       }
     : { 
         id: 'favorites', 
         icon: Heart, 
         label: 'Favoritos', 
         // Usuários de restaurante Premium podem ver os favoritos dos clientes (mock)
-        path: createPageUrl('favorites') 
+        path: createPageUrl('favorites') as string
       };
 
   const navItems = [

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Home, Search, User, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl, PathKey } from '@/utils/url';
+import { motion } from 'framer-motion';
 
 interface NavItem {
   path: string;
@@ -45,31 +46,36 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 z-30 max-w-md mx-auto rounded-t-xl shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
-      <div className="flex justify-around items-center h-16 px-2">
+    <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-xl z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
+      <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
           const isActive = getActivePath(item.path, item.key);
-          const Icon = item.icon;
+          const pathKey = item.path.substring(1) as PathKey;
           
           return (
-            <Link
+            <motion.div
+              whileTap={{ scale: 0.95 }}
               key={item.path}
-              to={createPageUrl(item.path.substring(1) as PathKey)}
-              className={cn(
-                "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-                isActive ? "text-highlight" : "text-[#5f728c] dark:text-gray-400 hover:text-highlight"
-              )}
+              className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
             >
-              <Icon 
+              <Link
+                to={createPageUrl(pathKey)}
                 className={cn(
-                  "w-6 h-6",
-                  isActive && item.key === 'favorites' && "fill-highlight" // Favoritos preenchido quando ativo
-                )} 
-              />
-              <span className="text-xs font-medium">
-                {item.label}
-              </span>
-            </Link>
+                  "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+                  isActive ? "text-highlight" : "text-gray-500 hover:text-highlight"
+                )}
+              >
+                <Icon 
+                  className={cn(
+                    "w-6 h-6",
+                    isActive && item.key === 'favorites' && "fill-highlight/20"
+                  )} 
+                />
+                <span className="text-sm font-medium">
+                  {item.label}
+                </span>
+              </Link>
+            </motion.div>
           );
         })}
       </div>
@@ -77,4 +83,4 @@ const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab 
   );
 });
 
-export default CustomerBottomNav;
+export default ClientBottomNav;

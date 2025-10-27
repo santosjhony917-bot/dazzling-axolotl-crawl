@@ -240,14 +240,7 @@ export default function RestaurantResultsPage() {
           </div>
         )}
 
-        {!isLoading && !error && results.length === 0 && (
-          <div className="p-6 text-center bg-white rounded-lg shadow-sm">
-            <p className="text-lg font-semibold text-gray-700">Nenhum {type === 'dish' ? 'prato' : 'restaurante'} encontrado.</p>
-            <p className="text-sm text-gray-500 mt-2">Tente ajustar sua localização ou termo de busca.</p>
-          </div>
-        )}
-
-        {!isLoading && results.length > 0 && (
+        {!isLoading && !error && results.length > 0 && (
           type === 'dish' ? renderDishResults() : renderRestaurantResults()
         )}
       </main>

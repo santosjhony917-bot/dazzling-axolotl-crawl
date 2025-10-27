@@ -9,8 +9,8 @@ export const PATH_MAP = {
   auth: '/auth', // Rota de login/cadastro (usa query params: ?mode=signup)
   onboarding: '/onboarding',
   legal: '/legal', // ADDED
-  helpCenter: '/help-center', // ADDED
   menuItemDetails: '/menu-item/:itemId', // ADDED
+  helpCenter: '/help-center', // ADDED
   
   // Rotas de Cliente (Autenticadas ou Públicas)
   home: '/home',
@@ -22,26 +22,37 @@ export const PATH_MAP = {
   'search-menu-items': '/search/menu',
   restaurantProfile: '/restaurant/:restaurantId',
   
-  // Rotas de Proprietário de Restaurante (Hub e Autenticadas)
-  'restaurant-area': '/restaurant-area', // ADDED (Redirects to hub/login)
+  // Rotas de Proprietário de Restaurante (Autenticadas)
+  'restaurant-area': '/restaurant-area', // ADDED (for hub back button)
   'restaurant-area-hub': '/restaurant-area-hub', // ADDED
   'restaurant-login': '/restaurant-area/login', // ADDED
   'restaurant-signup': '/restaurant-area/signup', // ADDED
   'claim-restaurant': '/restaurant-area/claim', // ADDED
-  'restaurant-area/home': '/restaurant-area/home',
-  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
-  'restaurant-area/menu': '/restaurant-area/menu',
-  'restaurant-area/gallery': '/restaurant-area/gallery',
   'restaurant-area/upgrade': '/restaurant-area/upgrade', // ADDED
   
+  'restaurant-area/home': '/restaurant-area/home', // Simplified path for dashboard entry
+  'restaurant-area/profile-menu': '/restaurant-area/profile-menu', // Simplified path for settings entry
+  'restaurant-area/menu': '/restaurant-area/menu', // Simplified path for menu management
+  'restaurant-area/gallery': '/restaurant-area/gallery', // Simplified path for gallery
+  
   // Rotas de Admin
+  admin: '/admin', // ADDED (for AdminLayout navigation)
   adminLogin: '/admin/login', // ADDED
   adminDashboard: '/admin/dashboard', // ADDED
-  'admin/dashboard': '/admin/dashboard',
-  'admin/restaurants': '/admin/restaurants',
+  'admin/restaurants': '/admin/restaurants', // ADDED
   'admin/plans': '/admin/plans', // ADDED
   'admin/users': '/admin/users', // ADDED
   'admin/settings': '/admin/settings', // ADDED
+  
+  // Rotas com parâmetros complexos (mantidas)
+  'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
+  'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',
+  'restaurant-area/edit-links': '/restaurant-area/:restaurantId/settings/links',
+  'restaurant-area/menu-management': '/restaurant-area/:restaurantId/menu',
+  'restaurant-area/add-category': '/restaurant-area/:restaurantId/menu/add-category',
+  'restaurant-area/edit-category': '/restaurant-area/:restaurantId/menu/edit-category/:categoryId',
+  'restaurant-area/add-item': '/restaurant-area/:restaurantId/menu/add-item/:categoryId',
+  'restaurant-area/edit-item': '/restaurant-area/:restaurantId/menu/edit-item/:itemId',
   'admin/edit-restaurant': '/admin/restaurant/:restaurantId/edit',
 } as const;
 
@@ -53,15 +64,21 @@ type PathParams<K extends PathKey> =
     ? { restaurantId: string }
   : K extends 'menuItemDetails'
     ? { itemId: string }
-  : K extends 'auth'
-    ? { mode?: 'login' | 'signup' } // Making mode optional
+  : K extends 'restaurant-area/edit-category'
+    ? { categoryId: string }
+  : K extends 'restaurant-area/add-item'
+    ? { categoryId: string }
+  : K extends 'restaurant-area/edit-item'
+    ? { itemId: string }
+  : K extends 'admin'
+    ? { subPath: string } // For AdminLayout dynamic navigation
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)
 type QueryParams<K extends PathKey> = 
   K extends 'auth' 
-    ? { mode?: 'login' | 'signup' } 
-    : Record<string, string | number | boolean> | undefined;
+    ? { mode: 'login' | 'signup' } 
+    : Record<string, string> | undefined;
 
 /**
  * Cria uma URL completa com base na chave da página, parâmetros de rota e parâmetros de consulta.
@@ -78,12 +95,10 @@ export function createPageUrl<K extends PathKey>(
   const pathTemplate = PATH_MAP[key];
   
   // 1. Gerar o caminho base com parâmetros de rota
-  // Use an empty object if params is undefined to satisfy generatePath signature
-  const routeParams = (params || {}) as Record<string, string | number | boolean | undefined>;
-  let path = generatePath(pathTemplate, routeParams);
+  // Casting para 'any' para resolver o erro de compatibilidade estrutural profunda (Erro 1)
+  let path = generatePath(pathTemplate, params as any);
 
   // 2. Adicionar parâmetros de consulta (query params)
-  // Prioritize explicit queryParams, otherwise use params if it contains query data (like 'auth' mode)
   const finalQueryParams = queryParams || (key === 'auth' ? params : undefined);
   
   if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {

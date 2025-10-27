@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react';
+import { HelpCenter, MessageSquare, Crown, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
@@ -22,10 +22,10 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
       
       <NavCardItem 
-        icon={HelpCircle}
+        icon={HelpCenter}
         title="Central de Ajuda"
         description="Encontre respostas rápidas e tutoriais."
-        onClick={() => handleNavigate(createPageUrl('help-center'))}
+        onClick={() => handleNavigate(createPageUrl('helpCenter'))}
       />
       
       <NavCardItem 

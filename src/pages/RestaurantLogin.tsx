@@ -112,7 +112,7 @@ export default function RestaurantLogin() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />

@@ -129,7 +129,7 @@ const UpgradePageContent: React.FC = () => {
               className="relative w-40 h-40 bg-white/10 rounded-xl shadow-2xl border border-white/20 flex items-center justify-center"
             >
               <Smartphone className="w-16 h-16 text-white/80" />
-              <div className="absolute inset-0 bg-white/5 opacity-5 rounded-xl" />
+              <div className="absolute inset-0 bg-white/5 opacity-5 blur-sm" />
               {/* Brilho sutil */}
               <div className="absolute top-0 left-0 w-full h-full bg-white opacity-10 blur-sm" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
             </motion.div>

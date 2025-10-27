@@ -434,7 +434,7 @@ export default function RestaurantSignup() {
             if (currentStep > 1) {
               handleBack();
             } else {
-              navigate(createPageUrl('restaurant-area'));
+              navigate(createPageUrl('restaurant-area-hub'));
             }
           }}
           className="text-primary hover:bg-primary/5"
