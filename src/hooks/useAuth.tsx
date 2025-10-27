@@ -1,7 +1,7 @@
 import { useAuthContext } from '@/context/AuthContext';
 
 export function useAuth() {
-  const { user, isLoading, signOut, isAdmin, isPremium, restaurant, profile, isProfileLoading, isAuthenticated } = useAuthContext();
+  const { user, isLoading, signOut, isAdmin, isPremium, restaurant, profile, isProfileLoading, isAuthenticated, refetchProfile } = useAuthContext();
 
   return {
     user,
@@ -13,5 +13,6 @@ export function useAuth() {
     profile,
     isAuthenticated,
     isProfileLoading,
+    refetchProfile,
   };
 }

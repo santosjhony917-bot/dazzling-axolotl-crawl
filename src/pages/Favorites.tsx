@@ -29,7 +29,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
 
   // O Supabase retorna um array de objetos com a chave 'restaurant' contendo o objeto Restaurant.
   // O cast é necessário porque o Supabase tipa o resultado do select com alias de forma genérica.
-  return (data as FavoriteRestaurantData[]).filter(item => item.restaurant);
+  return (data as unknown as FavoriteRestaurantData[]).filter(item => item.restaurant); // Usando unknown para forçar o cast
 };
 
 const removeFavorite = async (restaurantId: string, userId: string) => {

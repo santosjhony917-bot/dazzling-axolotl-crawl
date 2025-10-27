@@ -1,5 +1,5 @@
 import React, { useState, useCallback, memo } from 'react';
-import { Restaurant } from '@/types/restaurant';
+import { Restaurant } from '@/types/supabase'; // CORRIGIDO: Importando Restaurant de supabase.ts
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Pencil, Upload, Loader2, Eye, Camera } from 'lucide-react';

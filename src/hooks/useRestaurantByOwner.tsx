@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant } from "@/types/supabase"; // CORRIGIDO: Importando Restaurant de supabase.ts
 
 /**
  * Hook to fetch the restaurant details associated with a specific user ID (owner).

@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-export const useAuthContext = () => { // Exportando useAuthContext
+export const useAuthContext = () => { // EXPORTANDO useAuthContext
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuthContext must be used within an AuthProvider');
@@ -94,7 +94,7 @@ export const useAuth = () => {
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  // Expondo isProfileLoading no hook useAuth (para corrigir Erro 10)
+  // Expondo isProfileLoading no hook useAuth
   return {
     user: context.user,
     isLoading: context.isLoading,
@@ -104,6 +104,7 @@ export const useAuth = () => {
     restaurant: context.restaurant,
     profile: context.profile,
     isAuthenticated: context.isAuthenticated,
-    isProfileLoading: context.isProfileLoading, // Adicionado
+    isProfileLoading: context.isProfileLoading,
+    refetchProfile: context.refetchProfile, // Adicionando refetchProfile
   };
 };
