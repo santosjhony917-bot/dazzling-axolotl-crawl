@@ -57,16 +57,18 @@ const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab })
   
   // Mapeia rotas para garantir que o item correto seja ativado
   const getActivePath = (path: string, key: string) => {
-    // Prioriza a prop selectedTab se fornecida
+    // 1. Prioriza a prop selectedTab se fornecida
     if (selectedTab) {
       return selectedTab === key;
     }
     
-    // Fallback para a rota atual
-    if (path === '/home' && location.pathname === '/') return true;
+    // 2. Verifica se a rota atual corresponde exatamente ao caminho ou começa com ele (para sub-rotas)
+    const currentPath = location.pathname;
     
-    // Verifica se a rota atual começa com o caminho do item
-    return location.pathname.startsWith(path);
+    if (path === '/home' && (currentPath === '/' || currentPath === '/home')) return true;
+    
+    // Para /profile, /favorites, /search-unified
+    return currentPath.startsWith(path);
   };
 
   return (
