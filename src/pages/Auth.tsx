@@ -11,15 +11,15 @@ import { Button } from '@/components/ui/button';
 
 export default function Auth() {
   const navigate = useNavigate();
-  const { session, isLoading: isAuthLoading, refetchProfile } = useAuthContext();
+  const { user, isLoading: isAuthLoading, refetchProfile } = useAuthContext(); // CORRIGIDO: Usando 'user'
   const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in'); 
 
   // Redireciona se já estiver logado
   useEffect(() => {
-    if (session) {
+    if (user) {
       navigate(createPageUrl('home'));
     }
-  }, [session, navigate]);
+  }, [user, navigate]);
 
   // Lida com a mudança de estado de autenticação (para erros e sucesso)
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Auth() {
     return () => subscription.unsubscribe();
   }, [navigate, refetchProfile]);
 
-  if (isAuthLoading || session) {
+  if (isAuthLoading || user) {
     return (
       <div className="flex justify-center items-center h-screen bg-background-light">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />

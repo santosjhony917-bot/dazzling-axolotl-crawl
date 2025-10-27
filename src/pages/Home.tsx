@@ -11,7 +11,7 @@ import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
-import { Restaurant } from '@/types/restaurant';
+import { Restaurant } from '@/types/supabase'; // CORRIGIDO: Importando Restaurant de supabase.ts
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
       return;
     }
     // Redireciona para a página de resultados com a query
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=restaurant&address=${encodeURIComponent(location.address)}`);
+    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
   };
 
   const handleSearchByPrice = () => {

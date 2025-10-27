@@ -5,8 +5,8 @@ import { Plus, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
-import { MenuCategory, MenuItem } from '@/types';
-import { useMenuManagement, useCategoryMutations, useMenuItemManagement } from '@/hooks/useMenuManagement';
+import { MenuCategory, MenuItem } from '@/types/supabase';
+import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
@@ -115,7 +115,7 @@ const MenuManagement: React.FC = () => {
       {/* Dialogs */}
       <CategoryDialog
         isOpen={isCategoryDialogOpen}
-        onClose={() => setIsCategoryDialogOpen(false)}
+        onOpenChange={setIsCategoryDialogOpen}
         category={editingCategory}
         restaurantId={restaurantId}
         onSave={handleSaveCategory}

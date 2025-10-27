@@ -17,7 +17,7 @@ export default function ClientProfilePage() {
       <div className="p-6 text-center">
         <h2 className="text-xl font-bold mb-4">Acesso Negado</h2>
         <p className="text-gray-600 mb-6">Faça login para gerenciar seu perfil.</p>
-        <Button onClick={() => navigate(createPageUrl('login'))}>
+        <Button onClick={() => navigate(createPageUrl('auth'))}>
           Fazer Login
         </Button>
       </div>

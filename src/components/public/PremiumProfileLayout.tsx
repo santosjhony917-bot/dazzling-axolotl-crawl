@@ -8,39 +8,19 @@ import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { UserPlus, Share2 } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
 
 interface PremiumProfileLayoutProps {
-  restaurant: {
-    id: string;
-    name: string;
-    logoUrl: string;
-    coverImageUrl: string;
-    addressSummary: string | null;
-    description: string | null;
-    followersCount: number;
-    // Campos adicionais para AdditionalInfo
-    address: string | null;
-    number: string | null;
-    neighborhood: string | null;
-    city: string | null;
-    state: string | null;
-    cep: string | null;
-    phone: string | null;
-    email: string | null;
-    whatsappUrl: string | null;
-    ifoodUrl: string | null;
-    otherUrl: string | null;
-    openingHours: any;
-  };
+  restaurant: PublicRestaurantData; // Usando o tipo estendido
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
-  const { user } = useAuth(); // CORRIGIDO: Usando 'user' em vez de 'session'
+  const { user } = useAuth();
   // No modo Premium, o botão de Favoritar é substituído por Seguir/Compartilhar,
   // mas mantemos a estrutura para referência futura se necessário.
   const { isFavorite, toggleFavorite, isMutating } = useFavoriteToggle(restaurant.id);
 
-  // Dados para AdditionalInfo
+  // Dados para AdditionalInfo (usando snake_case do PublicRestaurantData)
   const additionalInfoData = {
     address: restaurant.address,
     number: restaurant.number,
@@ -50,17 +30,17 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
     cep: restaurant.cep,
     phone: restaurant.phone,
     email: restaurant.email,
-    whatsappUrl: restaurant.whatsappUrl,
-    ifoodUrl: restaurant.ifoodUrl,
-    otherUrl: restaurant.otherUrl,
-    openingHours: restaurant.openingHours,
+    whatsappUrl: restaurant.whatsapp_url, // Usando snake_case
+    ifoodUrl: restaurant.ifood_url,       // Usando snake_case
+    otherUrl: restaurant.other_url,       // Usando snake_case
+    openingHours: restaurant.opening_hours, // Usando snake_case
   };
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-12 shadow-lg">
       
       {/* Imagem de Capa */}
-      <RestaurantCoverImage coverImageUrl={restaurant.coverImageUrl} />
+      <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
 
       {/* Header (Logo, Nome, Endereço, Ações) */}
       <div className="relative z-10 -mt-12">

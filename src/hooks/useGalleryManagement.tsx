@@ -2,14 +2,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { showError, showSuccess } from "@/utils/toast";
 import { logError } from "@/utils/errorLogger";
+import { GalleryImage } from '@/types/supabase'; // Importando o tipo correto
 
-export interface GalleryImage {
-  id: string;
-  restaurant_id: string;
-  image_url: string;
-  caption: string | null;
-  order_index: number;
-}
+// Removida a declaração local de GalleryImage
 
 const GALLERY_QUERY_KEY = (restaurantId: string) => ['restaurantGallery', restaurantId];
 
@@ -68,6 +63,27 @@ export function useGalleryManagement(restaurantId: string | null) {
       showError(`Falha ao adicionar foto: ${(e as Error).message}`);
     },
   });
+  
+  // Mutação para atualizar legenda (adicionada para uso em GalleryImageCard)
+  const updateImageMutation = useMutation({
+    mutationFn: async ({ imageId, updates }: { imageId: string, updates: Partial<GalleryImage> }) => {
+      const { error } = await supabase
+        .from('restaurant_gallery')
+        .update(updates)
+        .eq('id', imageId);
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      // Invalida a query para refletir a mudança
+      invalidateGallery();
+    },
+    onError: (e) => {
+      logError(e, { context: 'updateImageMutation' });
+      showError(`Falha ao atualizar imagem: ${(e as Error).message}`);
+    },
+  });
+
 
   // Mutação para remover uma imagem
   const removeImageMutation = useMutation({
@@ -94,9 +110,11 @@ export function useGalleryManagement(restaurantId: string | null) {
     isLoading,
     error: error ? error.message : null,
     refetch,
-    addImage: addImageMutation.mutateAsync,
-    removeImage: removeImageMutation.mutateAsync,
+    addGalleryImage: addImageMutation.mutateAsync,
+    deleteGalleryImage: removeImageMutation.mutateAsync,
+    updateGalleryImage: updateImageMutation.mutateAsync,
     isAdding: addImageMutation.isPending,
     isRemoving: removeImageMutation.isPending,
+    isMutating: addImageMutation.isPending || removeImageMutation.isPending || updateImageMutation.isPending,
   };
 }

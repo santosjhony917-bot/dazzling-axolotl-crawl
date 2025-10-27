@@ -27,7 +27,8 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
     throw new Error('Não foi possível carregar seus favoritos.');
   }
 
-  // Filtra e garante que apenas objetos com 'restaurant' válido sejam retornados
+  // O Supabase retorna um array de objetos com a chave 'restaurant' contendo o objeto Restaurant.
+  // O cast é necessário porque o Supabase tipa o resultado do select com alias de forma genérica.
   return (data as FavoriteRestaurantData[]).filter(item => item.restaurant);
 };
 
@@ -78,7 +79,7 @@ export default function Favorites() {
       <div className="p-6 text-center">
         <h2 className="text-xl font-bold mb-4">Acesso Negado</h2>
         <p className="text-gray-600 mb-6">Faça login para ver seus restaurantes favoritos.</p>
-        <Button onClick={() => navigate(createPageUrl('login'))}>
+        <Button onClick={() => navigate(createPageUrl('auth'))}>
           Fazer Login
         </Button>
       </div>

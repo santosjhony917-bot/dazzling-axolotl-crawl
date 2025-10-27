@@ -8,39 +8,17 @@ import MenuSection from './MenuSection';
 import AdditionalInfo from './AdditionalInfo';
 import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { useAuth } from '@/hooks/useAuth';
-
-interface Restaurant {
-  id: string;
-  name: string;
-  logoUrl: string;
-  coverImageUrl: string;
-  addressSummary: string | null;
-  description: string | null;
-  plan: 'free' | 'basic' | 'premium';
-  // Campos adicionais para AdditionalInfo
-  address: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  phone: string | null;
-  email: string | null;
-  whatsappUrl: string | null;
-  ifoodUrl: string | null;
-  otherUrl: string | null;
-  openingHours: any;
-}
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
 
 interface FreeProfileLayoutProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData; // Usando o tipo estendido
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
   const { isAuthenticated } = useAuth();
   const { isFavorite, toggleFavorite, isMutating } = useFavoriteToggle(restaurant.id);
 
-  // Dados para AdditionalInfo
+  // Dados para AdditionalInfo (usando snake_case do PublicRestaurantData)
   const additionalInfoData = {
     address: restaurant.address,
     number: restaurant.number,
@@ -50,17 +28,17 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
     cep: restaurant.cep,
     phone: restaurant.phone,
     email: restaurant.email,
-    whatsappUrl: restaurant.whatsappUrl,
-    ifoodUrl: restaurant.ifoodUrl,
-    otherUrl: restaurant.otherUrl,
-    openingHours: restaurant.openingHours,
+    whatsappUrl: restaurant.whatsapp_url, // Usando snake_case
+    ifoodUrl: restaurant.ifood_url,       // Usando snake_case
+    otherUrl: restaurant.other_url,       // Usando snake_case
+    openingHours: restaurant.opening_hours, // Usando snake_case
   };
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-12 shadow-lg">
       
       {/* Imagem de Capa */}
-      <RestaurantCoverImage coverImageUrl={restaurant.coverImageUrl} />
+      <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
 
       {/* Header (Logo, Nome, Endereço, Ações) */}
       <div className="relative z-10 -mt-12">

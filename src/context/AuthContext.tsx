@@ -16,6 +16,8 @@ interface AuthContextType {
   isProfileLoading: boolean;
   isAdmin: boolean;
   isPremium: boolean;
+  // Adicionando refetchProfile para forçar atualização após login/signup
+  refetchProfile: () => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,7 +28,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const isAuthenticated = !!user;
 
   // Query para buscar Profile
-  const { data: profile, isLoading: isProfileLoading } = useQuery({
+  const { data: profile, isLoading: isProfileLoading, refetch: refetchProfile } = useQuery({
     queryKey: ['profile', user?.id],
     queryFn: () => (user ? getProfile(user.id) : null),
     enabled: isAuthenticated,
@@ -71,6 +73,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         isProfileLoading,
         isAdmin,
         isPremium,
+        refetchProfile,
       }}
     >
       {children}
@@ -78,10 +81,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
+export const useAuthContext = () => { // Exportando useAuthContext
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuthContext must be used within an AuthProvider');
+  }
+  return context;
+};
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-  return context;
+  // Expondo isProfileLoading no hook useAuth (para corrigir Erro 10)
+  return {
+    user: context.user,
+    isLoading: context.isLoading,
+    signOut: context.signOut,
+    isAdmin: context.isAdmin,
+    isPremium: context.isPremium,
+    restaurant: context.restaurant,
+    profile: context.profile,
+    isAuthenticated: context.isAuthenticated,
+    isProfileLoading: context.isProfileLoading, // Adicionado
+  };
 };
