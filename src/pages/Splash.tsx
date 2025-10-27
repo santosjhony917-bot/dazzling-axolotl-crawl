@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
-import { useAuthContext } from '@/context/AuthContext'; // Import useAuthContext
+import { useAuthContext } from '@/context/AuthContext';
 
 // Caminho para o novo logo
 const LOGO_URL = "/assets/filterfood-logo.png";
@@ -11,13 +11,12 @@ const LOGO_URL = "/assets/filterfood-logo.png";
 export default function Splash() {
   const navigate = useNavigate();
   const { isComplete, isLoading: isStatusLoading } = useOnboardingStatus();
-  const { session, isLoading: isAuthLoading, restaurant } = useAuthContext(); // Use AuthContext
+  const { session, isLoading: isAuthLoading, restaurant } = useAuthContext();
 
   const isLoading = isStatusLoading || isAuthLoading;
 
   // Auto-navigate immediately once loading is complete
   useEffect(() => {
-    // Se ainda estiver carregando o status de onboarding ou autenticação, espere.
     if (isLoading) return;
     
     console.log("Splash screen loaded. Redirecting immediately...");
@@ -50,7 +49,6 @@ export default function Splash() {
           className="text-center px-8"
         >
           <div className="mx-auto max-w-[520px]">
-            {/* Usando a imagem PNG oficial */}
             <img 
               src={LOGO_URL} 
               alt="Filter Food Logo" 
@@ -62,7 +60,5 @@ export default function Splash() {
     );
   }
   
-  // Se não estiver carregando, o useEffect já deve ter redirecionado.
-  // Se o código chegar aqui, é um fallback, mas o redirecionamento já deveria ter ocorrido.
   return null;
 }

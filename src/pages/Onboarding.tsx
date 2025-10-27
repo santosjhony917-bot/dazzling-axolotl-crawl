@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { base44 } from '@/api/base44Client';
 import OnboardingScreen from '@/components/onboarding/OnboardingScreen';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
@@ -43,27 +42,25 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
-  const { completeOnboarding: completeOnboardingHook } = useOnboardingStatus(); // Renomeado para evitar conflito
+  const { completeOnboarding: completeOnboardingHook, isComplete } = useOnboardingStatus();
 
-  // Check if onboarding was already completed on initial load
+  // Se o onboarding já estiver completo (por algum motivo de navegação), redireciona imediatamente
   useEffect(() => {
-    // A verificação de status de onboarding agora é feita no Splash/Index
-    // Aqui, apenas garantimos que o usuário não fique preso se a API falhar.
-  }, [navigate]);
+    if (isComplete) {
+      navigate(createPageUrl('welcome'), { replace: true });
+    }
+  }, [isComplete, navigate]);
 
-  const handleCompleteOnboarding = async () => { // Renomeado
-    if (isCompleting) return; // Prevent multiple clicks
+  const handleCompleteOnboarding = () => {
+    if (isCompleting) return;
     
     setIsCompleting(true);
     try {
       // 1. Marcar no localStorage (via hook)
-      completeOnboardingHook(); // Chama a função do hook
-      
-      // 2. Marcar na API (se necessário para persistência de perfil)
-      // A chamada base44.auth.updateMe foi removida na lógica anterior, mas se fosse mantida, estaria aqui.
+      completeOnboardingHook(); 
       
       console.log("Onboarding marked as completed.");
-      // CORREÇÃO: Usar replace: true para evitar que o usuário volte para o onboarding
+      // 2. Redireciona para a tela de boas-vindas
       navigate(createPageUrl('welcome'), { replace: true }); 
     } catch (error) {
       console.error('Error completing onboarding:', error);
@@ -103,11 +100,9 @@ export default function Onboarding() {
     })
   };
 
-  // Garante que screen seja válido antes de renderizar
   const screen = onboardingScreens[currentScreen];
   
   if (!screen) {
-    // Se por algum motivo o índice for inválido (ex: 3), navegamos imediatamente
     handleCompleteOnboarding();
     return null; 
   }
@@ -154,7 +149,7 @@ export default function Onboarding() {
                       opacity: currentScreen === index ? 1 : 0.4
                     }}
                     className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40' // Usando highlight
+                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40'
                     }`}
                   />
                 ))}
@@ -165,7 +160,7 @@ export default function Onboarding() {
                 <Button
                   onClick={handleNext}
                   disabled={isCompleting}
-                  variant="highlight" // Usando o novo variant highlight
+                  variant="highlight"
                   className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
                 >
                   <span className="truncate">
