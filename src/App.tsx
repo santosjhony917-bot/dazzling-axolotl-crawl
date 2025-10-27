@@ -20,6 +20,7 @@ import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
 import ForgotPassword from '@/pages/ForgotPassword'; // Importação adicionada
 import Legal from '@/pages/Legal'; // Importação adicionada
 import RestaurantResultsPage from '@/pages/RestaurantResults'; // Importação adicionada
+import DebugFlowPanel from '@/components/DebugFlowPanel'; // NOVO IMPORT
 
 // Restaurant Area Pages
 import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
@@ -51,6 +52,7 @@ function App() {
       <Routes>
         {/* Rotas Públicas/Gerais */}
         <Route path="/" element={<Index />} /> {/* Rota principal que renderiza Splash */}
+        <Route path="/debug" element={<DebugFlowPanel />} /> {/* Rota de Diagnóstico */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthComponent />} />
