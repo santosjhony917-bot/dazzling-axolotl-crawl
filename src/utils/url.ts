@@ -11,6 +11,8 @@ export const PATH_MAP = {
   legal: '/legal', // ADDED
   menuItemDetails: '/menu-item/:itemId', // ADDED
   helpCenter: '/help-center', // ADDED
+  forgotPassword: '/forgot-password', // ADDED
+  restaurantResults: '/restaurant-results', // ADDED
   
   // Rotas de Cliente (Autenticadas ou Públicas)
   home: '/home',
@@ -39,6 +41,10 @@ export const PATH_MAP = {
   // Rotas Admin
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
+  adminRestaurants: '/admin/restaurants', // ADDED
+  adminPlans: '/admin/plans', // ADDED
+  adminUsers: '/admin/users', // ADDED
+  adminSettings: '/admin/settings', // ADDED
   
   // Rotas com parâmetros complexos (mantidas)
   'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
@@ -62,10 +68,6 @@ type PathParams<K extends PathKey> =
     ? { itemId: string }
   : K extends 'restaurant-area/edit-category' | 'restaurant-area/add-item' | 'restaurant-area/category-details'
     ? { categoryId: string }
-  : K extends 'admin'
-    ? { subPath: string } // For AdminLayout dynamic navigation
-  : K extends 'auth' // CORREÇÃO: 'auth' não tem path params, mas precisa ser definido
-    ? undefined
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)
@@ -88,13 +90,24 @@ export function createPageUrl<K extends PathKey>(
 ): string {
   const pathTemplate = PATH_MAP[key];
   
+  if (!pathTemplate) {
+    console.error(`Path template not found for key: ${key}`);
+    return '/'; // Fallback seguro
+  }
+  
   // 1. Gerar o caminho base com parâmetros de rota
-  // Casting para 'any' para resolver o erro de compatibilidade estrutural profunda (Erro 1)
-  let path = generatePath(pathTemplate, params as any);
+  let path: string;
+  try {
+    // Casting para 'any' para resolver o erro de compatibilidade estrutural profunda
+    path = generatePath(pathTemplate, params as any);
+  } catch (e) {
+    console.error(`Error generating path for key ${key} with params:`, params, e);
+    // Se a geração falhar (ex: parâmetro obrigatório faltando), retorna o template ou um fallback
+    path = pathTemplate; 
+  }
 
   // 2. Adicionar parâmetros de consulta (query params)
-  // Se a chave for 'auth', priorizamos o queryParams fornecido. Caso contrário, usamos o queryParams padrão.
-  const finalQueryParams = queryParams; // Simplificado, pois a tipagem já garante a estrutura correta
+  const finalQueryParams = queryParams;
   
   if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {
     const searchParams = new URLSearchParams(finalQueryParams as Record<string, string>);
