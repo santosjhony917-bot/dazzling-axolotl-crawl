@@ -15,6 +15,9 @@ const CUSTOMER_ROUTES = ['/home', '/profile']; // Removido '/search-unified' e '
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authenticated', element }) => {
   const { user, isLoading, isAdmin, restaurant } = useAuthContext();
   const location = useLocation();
+  
+  // Garante que pathname seja uma string vazia se for undefined/null
+  const currentPathname = location.pathname || ''; 
 
   if (isLoading) {
     return (
@@ -31,7 +34,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
   
   // --- LÓGICA DE REDIRECIONAMENTO DE PROPRIETÁRIO DE RESTAURANTE ---
   const isRestaurantOwner = !!restaurant;
-  const isCustomerRoute = CUSTOMER_ROUTES.some(route => location.pathname === route || location.pathname.startsWith(`${route}/`));
+  
+  // Usa currentPathname para evitar o erro de 'undefined'
+  const isCustomerRoute = CUSTOMER_ROUTES.some(route => currentPathname === route || currentPathname.startsWith(`${route}/`));
 
   if (isRestaurantOwner && isCustomerRoute) {
     // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
