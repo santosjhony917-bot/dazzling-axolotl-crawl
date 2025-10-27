@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { LogOut, Utensils, MapPin, Heart, Settings, ArrowLeft, User, Loader2 } from 'lucide-react';
+import { LogOut, Utensils, MapPin, Heart, Settings, ArrowLeft, User, Loader2, HelpCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
@@ -10,29 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppHeader from '@/components/Header';
 import ClientPageWrapper from '@/components/ClientPageWrapper';
 import { showError } from '@/utils/toast';
-
-interface NavCardItemProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  onClick: () => void;
-}
-
-const NavCardItem: React.FC<NavCardItemProps> = ({ icon: Icon, title, description, onClick }) => (
-  <Card 
-    className="flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm border-l-4 border-highlight"
-    onClick={onClick}
-  >
-    <div className="p-3 bg-highlight/10 rounded-full mr-4">
-      <Icon className="w-6 h-6 text-highlight" />
-    </div>
-    <div className="flex-1">
-      <p className="font-semibold text-primary">{title}</p>
-      <p className="text-sm text-gray-500">{description}</p>
-    </div>
-    <ArrowLeft className="w-4 h-4 text-gray-400 transform rotate-180" />
-  </Card>
-);
+import NavCardItem from '@/components/NavCardItem'; // Importando NavCardItem
 
 // Hook para buscar o restaurante do usuário logado
 const useUserRestaurant = (userId: string | undefined) => {
@@ -58,14 +36,11 @@ const useUserRestaurant = (userId: string | undefined) => {
 };
 
 export default function ClientProfilePage() {
-  const { user, signOut, isLoading: isAuthLoading, restaurant: authRestaurant } = useAuthContext();
+  const { user, profile, signOut, isLoading: isAuthLoading, restaurant: authRestaurant } = useAuthContext();
   const navigate = useNavigate();
   
-  // Usamos o restaurante do AuthContext se disponível, caso contrário, buscamos.
-  // Nota: O AuthContext já busca o restaurante, mas mantemos o hook para consistência se necessário.
-  // Para evitar buscas duplicadas, vamos confiar no AuthContext.
   const restaurant = authRestaurant;
-  const isRestaurantLoading = false; // Confiamos no AuthContext para o estado de carregamento inicial
+  const isRestaurantLoading = false; 
 
   if (isAuthLoading) {
     return (
@@ -77,14 +52,14 @@ export default function ClientProfilePage() {
 
   const handleSignOut = async () => {
     await signOut();
-    // O signOut já redireciona para 'welcome'
   };
 
   const handleNavigate = (path: string) => {
     navigate(path);
   };
 
-  const userDisplayName = user?.email || 'Usuário';
+  const userDisplayName = profile?.first_name || user?.email?.split('@')[0] || 'Usuário';
+  const userEmail = user?.email || 'Não logado';
 
   return (
     <ClientPageWrapper selectedTab="profile">
@@ -94,15 +69,16 @@ export default function ClientProfilePage() {
       />
 
       <main className="p-4 space-y-6">
-        {/* User Info Card */}
+        {/* User Info Card (Visualmente mais rico) */}
         <Card className="shadow-lg border-none rounded-xl bg-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xl font-bold text-primary flex items-center gap-2">
-              <User className="w-5 h-5 text-highlight" /> {userDisplayName}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-gray-600">Gerencie suas informações e configurações.</p>
+          <CardContent className="p-6 flex items-center space-x-4">
+            <div className="size-14 rounded-full bg-highlight/10 flex items-center justify-center shrink-0">
+              <User className="w-7 h-7 text-highlight" />
+            </div>
+            <div>
+              <p className="font-extrabold text-xl text-primary leading-tight">{userDisplayName}</p>
+              <p className="text-sm text-gray-500 mt-0.5">{userEmail}</p>
+            </div>
           </CardContent>
         </Card>
 
@@ -134,15 +110,29 @@ export default function ClientProfilePage() {
           <NavCardItem 
             icon={Heart}
             title="Meus Favoritos"
-            description="Veja os restaurantes que você favoritou."
+            description="Veja os restaurantes e pratos que você favoritou."
             onClick={() => handleNavigate(createPageUrl('favorites'))}
           />
           
           <NavCardItem 
-            icon={User}
-            title="Editar Perfil"
-            description="Atualize seu nome e avatar."
+            icon={Settings}
+            title="Configurações da Conta"
+            description="Atualize seu nome e preferências."
             onClick={() => showError("Edição de perfil em desenvolvimento.")}
+          />
+          
+          <NavCardItem 
+            icon={HelpCircle}
+            title="Central de Ajuda"
+            description="Encontre tutoriais e suporte."
+            onClick={() => handleNavigate(createPageUrl('helpCenter'))}
+          />
+          
+          <NavCardItem 
+            icon={FileText}
+            title="Termos e Privacidade"
+            description="Leia nossos termos de uso e política de dados."
+            onClick={() => handleNavigate(createPageUrl('legal'))}
           />
         </div>
 
@@ -150,10 +140,10 @@ export default function ClientProfilePage() {
         <div className="pt-4">
           <Button 
             onClick={handleSignOut} 
-            className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
+            className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center gap-2 h-12 rounded-xl shadow-soft-md"
           >
             <LogOut className="w-5 h-5" />
-            Sair
+            Sair da Conta
           </Button>
         </div>
       </main>
