@@ -37,7 +37,7 @@ export default function GalleryManagement() {
     try {
       // Adiciona a imagem à tabela da galeria
       await addGalleryImage({ 
-        restaurant_id: restaurantId, 
+        restaurantId: restaurantId, // CORRIGIDO: Passando restaurantId no payload
         image_url: url, 
         caption: null 
       });
@@ -70,7 +70,7 @@ export default function GalleryManagement() {
       return;
     }
     try {
-      await updateGalleryImage(imageId, { caption: newCaption });
+      await updateGalleryImage({ imageId, updates: { caption: newCaption } }); // CORRIGIDO: Passando payload como objeto
       showSuccess("Legenda atualizada!");
     } catch (error) {
       showError("Falha ao atualizar legenda.");

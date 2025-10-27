@@ -41,15 +41,13 @@ export function useGalleryManagement(restaurantId: string | null) {
 
   // Mutação para adicionar uma nova imagem
   const addImageMutation = useMutation({
-    mutationFn: async (image: { image_url: string, caption?: string }) => {
-      if (!restaurantId) throw new Error("Restaurant ID is missing.");
-      
+    mutationFn: async (payload: { restaurantId: string, image_url: string, caption?: string }) => {
       const { error } = await supabase
         .from('restaurant_gallery')
         .insert({
-          restaurant_id: restaurantId,
-          image_url: image.image_url,
-          caption: image.caption || null,
+          restaurant_id: payload.restaurantId, // Usando o ID do payload
+          image_url: payload.image_url,
+          caption: payload.caption || null,
         });
       
       if (error) throw error;
@@ -66,11 +64,11 @@ export function useGalleryManagement(restaurantId: string | null) {
   
   // Mutação para atualizar legenda (adicionada para uso em GalleryImageCard)
   const updateImageMutation = useMutation({
-    mutationFn: async ({ imageId, updates }: { imageId: string, updates: Partial<GalleryImage> }) => {
+    mutationFn: async (payload: { imageId: string, updates: Partial<GalleryImage> }) => {
       const { error } = await supabase
         .from('restaurant_gallery')
-        .update(updates)
-        .eq('id', imageId);
+        .update(payload.updates)
+        .eq('id', payload.imageId);
       
       if (error) throw error;
     },
