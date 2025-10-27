@@ -29,10 +29,8 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
       let response;
       
       if (isLogin) {
-        // Agora 'password' é string
         response = await supabase.auth.signInWithPassword({ email, password });
       } else {
-        // Agora 'password' é string
         response = await supabase.auth.signUp({ email, password });
       }
 
@@ -48,7 +46,6 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
       } else {
         showSuccess('Cadastro realizado! Verifique seu email para confirmar sua conta.');
         // Após o cadastro, redireciona para a tela de login (auth?mode=login)
-        // CORRIGIDO: createPageUrl('auth', { mode: 'login' })
         navigate(createPageUrl('auth', { mode: 'login' }));
       }
       
@@ -89,8 +86,8 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
               id="password"
               type="password"
               required
-              value={password} // CORRIGIDO: Agora é string
-              onChange={(e) => setPassword(e.target.value)} // CORRIGIDO: Agora aceita string
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           
@@ -111,7 +108,6 @@ const CustomAuthForm: React.FC<{ type: 'login' | 'signup' }> = ({ type }) => {
             <Button 
               variant="link" 
               type="button"
-              // CORRIGIDO: createPageUrl('auth', { mode: 'signup' }) e createPageUrl('auth', { mode: 'login' })
               onClick={() => navigate(isLogin ? createPageUrl('auth', { mode: 'signup' }) : createPageUrl('auth', { mode: 'login' }))}
               className="text-sm text-highlight"
             >
