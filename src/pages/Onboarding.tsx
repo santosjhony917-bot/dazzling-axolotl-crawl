@@ -63,11 +63,12 @@ export default function Onboarding() {
       // A chamada base44.auth.updateMe foi removida na lógica anterior, mas se fosse mantida, estaria aqui.
       
       console.log("Onboarding marked as completed.");
-      navigate(createPageUrl('welcome'));
+      // CORREÇÃO: Usar replace: true para evitar que o usuário volte para o onboarding
+      navigate(createPageUrl('welcome'), { replace: true }); 
     } catch (error) {
       console.error('Error completing onboarding:', error);
       showError('Falha ao concluir o onboarding. Por favor, tente novamente.');
-      navigate(createPageUrl('welcome'));
+      navigate(createPageUrl('welcome'), { replace: true });
     } finally {
       setIsCompleting(false);
     }
