@@ -27,6 +27,7 @@ import UpgradePage from './pages/Upgrade';
 import RestaurantLogin from './pages/RestaurantLogin';
 import RestaurantSignup from './pages/RestaurantSignup';
 import ClaimRestaurant from './pages/ClaimRestaurant';
+import CategoryDetails from './pages/restaurant/CategoryDetails'; // Importando CategoryDetails
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -39,13 +40,16 @@ function App() {
       <ToastProvider />
       <Routes>
         {/* Rotas Públicas/Gerais */}
-        <Route path="/" element={<Index />} /> {/* Redireciona para Onboarding */}
+        <Route path="/" element={<Index />} /> {/* Rota principal que renderiza Splash */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/auth" element={<AuthComponent />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/help-center" element={<HelpCenter />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/legal" element={<Legal />} />
+        <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -57,7 +61,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="authenticated" />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
-          <Route path="/favorites" element={<FavoritesPage />} /> {/* Usando a nova página */}
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/search-unified" element={<SearchUnifiedPage />} />
         </Route>
 
@@ -66,6 +70,7 @@ function App() {
           <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
           <Route path="/restaurant-area/profile-menu" element={<ProfileManagementLayout />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
+          <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
         </Route>

@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import { useAuthContext } from "@/context/AuthContext"; // Importando o contexto de autenticação
+import { useAuthContext } from "@/context/AuthContext"; 
+import { Loader2 } from "lucide-react"; // Adicionando Loader2
 
 // Caminho para o novo logo
 const LOGO_URL = "/assets/filterfood-logo.png";
 
 export default function Splash() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthContext(); // Usando o contexto de autenticação
+  const { user, isLoading } = useAuthContext(); 
 
   // Auto-navigate after 2 seconds
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading) return; // Espera o estado de autenticação ser resolvido
 
     const targetPath = user ? createPageUrl("home") : createPageUrl("onboarding");
     
@@ -34,24 +35,28 @@ export default function Splash() {
   }, [navigate, user, isLoading]);
 
   return (
-    <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
+    <div className="h-screen w-full relative flex flex-col items-center justify-center bg-[#E47948]">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }} // Transição mais suave
+        transition={{ duration: 1.5, ease: "easeInOut" }} 
         className="text-center px-8"
       >
         <div className="mx-auto max-w-[520px]">
-          {/* Usando a imagem PNG oficial */}
           <img 
             src={LOGO_URL} 
             alt="Filter Food Logo" 
-            className="w-64 h-auto mx-auto drop-shadow-xl" // Adicionando sombra
+            className="w-64 h-auto mx-auto drop-shadow-xl" 
           />
         </div>
       </motion.div>
-
-      {/* Loading dots animation at the bottom (REMOVIDO) */}
+      
+      {/* Indicador de carregamento enquanto isLoading é true */}
+      {isLoading && (
+        <div className="absolute bottom-10">
+          <Loader2 className="w-8 h-8 animate-spin text-white" />
+        </div>
+      )}
     </div>
   );
 }
