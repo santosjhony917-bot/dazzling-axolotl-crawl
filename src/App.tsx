@@ -17,6 +17,9 @@ import HelpCenter from './pages/HelpCenter';
 import Onboarding from './pages/Onboarding';
 import Welcome from './pages/Welcome';
 import RestaurantAreaHub from './pages/RestaurantAreaHub';
+import ForgotPassword from './pages/ForgotPassword'; // Importação adicionada
+import Legal from './pages/Legal'; // Importação adicionada
+import RestaurantResultsPage from './pages/RestaurantResults'; // Importação adicionada
 
 // Restaurant Area Pages
 import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
