@@ -17,17 +17,18 @@ interface FavoriteRestaurant extends Restaurant {}
 
 // Tipo intermediário retornado pela query do Supabase
 interface FavoriteQueryRow {
-  restaurant_id: Restaurant; // Agora é o objeto Restaurant
+  restaurant_id: FavoriteRestaurant; // O nome da coluna FK
 }
 
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/150?text=Restaurante';
 
 const fetchFavorites = async (userId: string): Promise<FavoriteRestaurant[]> => {
-  // Busca a relação usando o nome da coluna FK (restaurant_id) como o nome da relação
+  // Tentativa de usar a sintaxe de join explícita:
+  // Seleciona a coluna FK (restaurant_id) e expande para todos os campos da tabela 'restaurants'
   const { data, error } = await supabase
     .from('user_favorites')
     .select(`
-      restaurant_id ( * )
+      restaurant_id:restaurants ( * )
     `)
     .eq('user_id', userId);
 
