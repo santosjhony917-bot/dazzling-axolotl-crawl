@@ -42,7 +42,7 @@ const ClientBottomNav: React.FC<ClientBottomNavProps> = ({ selectedTab }) => {
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('home') },
     { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') }, 
     { id: 'favorites', icon: Heart, label: 'Favoritos', path: createPageUrl('favorites') },
-    { id: 'profile', icon: User, label: 'Perfil', path: createPageUrl('profile') },
+    { id: 'profile', icon: User, label: 'Perfil', path: createPageUrl('clientProfile') },
   ];
 
   return (

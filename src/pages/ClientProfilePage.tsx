@@ -117,14 +117,14 @@ export default function ClientProfilePage() {
               icon={Utensils}
               title={restaurant.name}
               description="Acesse o painel de controle do seu restaurante."
-              onClick={() => handleNavigate(createPageUrl('restaurantDashboard', { restaurantId: restaurant.id }))}
+              onClick={() => handleNavigate(createPageUrl('restaurant-area/home'))}
             />
             
             <NavCardItem 
               icon={Settings}
               title="Configurações"
               description="Edite informações, horário de funcionamento e links."
-              onClick={() => handleNavigate(createPageUrl('restaurantSettings', { restaurantId: restaurant.id }))}
+              onClick={() => handleNavigate(createPageUrl('restaurant-area/profile-menu'))}
             />
           </div>
         )}
