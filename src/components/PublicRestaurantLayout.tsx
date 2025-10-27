@@ -47,12 +47,15 @@ export default function PublicRestaurantLayout() {
         <ArrowLeft className="h-6 w-6" />
       </Button>
 
-      {/* Renderiza o layout apropriado */}
-      {restaurant.plan === 'premium' ? (
-        <PremiumProfileLayout restaurant={restaurant} />
-      ) : (
-        <FreeProfileLayout restaurant={restaurant} />
-      )}
+      {/* Wrapper que garante a largura máxima e centralização */}
+      <div className="w-full max-w-md mx-auto">
+        {/* Renderiza o layout apropriado */}
+        {restaurant.plan === 'premium' ? (
+          <PremiumProfileLayout restaurant={restaurant} />
+        ) : (
+          <FreeProfileLayout restaurant={restaurant} />
+        )}
+      </div>
     </div>
   );
 }
