@@ -1,36 +1,46 @@
 import React from 'react';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl, PathKey } from '@/utils/url';
+import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 interface RestaurantAreaHeaderProps {
   title: string;
-  icon: LucideIcon;
-  backPath: PathKey;
+  // Agora aceita as chaves de rota completas que são usadas
+  backPath?: 'restaurantAreaHub' | 'restaurant-area/dashboard' | 'restaurant-area/profile-menu';
+  className?: string;
 }
 
-const RestaurantAreaHeader: React.FC<RestaurantAreaHeaderProps> = ({ title, icon: Icon, backPath }) => {
+/**
+ * Header padrão para as páginas da área do restaurante.
+ */
+export default function RestaurantAreaHeader({ 
+  title, 
+  backPath = 'restaurant-area/dashboard', 
+  className 
+}: RestaurantAreaHeaderProps) {
   const navigate = useNavigate();
-  
+
+  const getBackPath = () => {
+    // Usamos createPageUrl diretamente com a chave fornecida
+    return createPageUrl(backPath);
+  };
+
   return (
-    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+    <header className={cn(
+      "flex items-center bg-white p-4 justify-start sticky top-0 z-20 shadow-soft-md w-full",
+      className
+    )}>
       <Button
         variant="ghost"
         size="icon"
-        onClick={() => navigate(createPageUrl(backPath))}
-        className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
+        onClick={() => navigate(getBackPath())}
+        className="text-primary hover:bg-primary/5"
       >
         <ArrowLeft className="h-6 w-6" />
       </Button>
-      <div className="flex items-center gap-2">
-        <Icon className="h-6 w-6 text-[#022D68]" />
-        <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
-      </div>
-      <div className="w-10"></div>
+      <h2 className="text-primary text-xl font-bold ml-4 truncate">{title}</h2>
     </header>
   );
-};
-
-export default RestaurantAreaHeader;
+}

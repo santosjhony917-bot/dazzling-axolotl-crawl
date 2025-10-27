@@ -1,131 +1,271 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useMenuItemManagement, useMenuManagement } from '@/hooks/useMenuManagement';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Utensils, PlusCircle, Edit, Trash2, ChevronDown, ChevronUp, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { MenuItem } from '@/types';
-import MenuItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
-import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { Card, CardContent } from '@/components/ui/card';
+import { createPageUrl } from '@/utils/url';
+import { useRestaurantContext } from '@/context/RestaurantContext';
+import { showError, showSuccess } from '@/utils/toast';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import { supabase } from '@/integrations/supabase/client';
+import { Database } from '@/lib/database.types';
+import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+
+type MenuItem = Database['public']['Tables']['menu_items']['Row'];
+type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
 
 export default function CategoryDetails() {
-  const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
+  const { categoryId } = useParams<{ categoryId: string }>();
+  const { restaurant, isLoading: isRestaurantLoading } = useRestaurantContext();
   
-  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  
-  // Estado para Confirmação
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
-  const [confirmationTitle, setConfirmationTitle] = useState('');
-  const [confirmationDescription, setConfirmationDescription] = useState('');
+  const [category, setCategory] = useState<MenuCategory | null>(null);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState<Partial<MenuItem> | null>(null);
 
-  if (!categoryId) {
-    return <div className="p-4 text-red-500">ID da Categoria não encontrado.</div>;
+  const restaurantId = restaurant?.id;
+
+  const fetchCategoryAndItems = async () => {
+    if (!categoryId || !restaurantId) return;
+    setIsLoadingData(true);
+    try {
+      // 1. Fetch Category Details
+      const { data: categoryData, error: categoryError } = await supabase
+        .from('menu_categories')
+        .select('*')
+        .eq('id', categoryId)
+        .eq('restaurant_id', restaurantId)
+        .single();
+
+      if (categoryError) throw categoryError;
+      setCategory(categoryData);
+
+      // 2. Fetch Menu Items
+      const { data: itemsData, error: itemsError } = await supabase
+        .from('menu_items')
+        .select('*')
+        .eq('category_id', categoryId)
+        .order('order_index', { ascending: true });
+
+      if (itemsError) throw itemsError;
+      setMenuItems(itemsData || []);
+
+    } catch (error) {
+      console.error('Error fetching category details:', error);
+      showError('Falha ao carregar detalhes da categoria.');
+      setCategory(null);
+      setMenuItems([]);
+    } finally {
+      setIsLoadingData(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategoryAndItems();
+  }, [categoryId, restaurantId]);
+
+  const handleSaveItem = async () => {
+    if (!currentItem?.name || !currentItem.price || !categoryId) return;
+
+    const itemToSave = {
+      ...currentItem,
+      category_id: categoryId,
+      price: Number(currentItem.price),
+      is_active: currentItem.is_active ?? true,
+    };
+
+    try {
+      if (currentItem.id) {
+        // Update existing item
+        const { error } = await supabase
+          .from('menu_items')
+          .update(itemToSave)
+          .eq('id', currentItem.id);
+        
+        if (error) throw error;
+        showSuccess('Item atualizado com sucesso!');
+      } else {
+        // Insert new item
+        const newOrderIndex = menuItems.length > 0 ? menuItems[menuItems.length - 1].order_index + 1 : 0;
+        
+        const { error } = await supabase
+          .from('menu_items')
+          .insert({ ...itemToSave, order_index: newOrderIndex });
+
+        if (error) throw error;
+        showSuccess('Item criado com sucesso!');
+      }
+
+      setIsItemDialogOpen(false);
+      setCurrentItem(null);
+      fetchCategoryAndItems();
+    } catch (error) {
+      console.error('Error saving item:', error);
+      showError('Falha ao salvar item.');
+    }
+  };
+
+  const handleEditItem = (item: MenuItem) => {
+    setCurrentItem(item);
+    setIsItemDialogOpen(true);
+  };
+
+  const handleNewItem = () => {
+    setCurrentItem({});
+    setIsItemDialogOpen(true);
+  };
+
+  const handleDeleteItem = async (itemId: string) => {
+    if (!window.confirm('Tem certeza que deseja deletar este item do cardápio?')) return;
+
+    try {
+      const { error } = await supabase
+        .from('menu_items')
+        .delete()
+        .eq('id', itemId);
+
+      if (error) throw error;
+
+      showSuccess('Item removido com sucesso.');
+      fetchCategoryAndItems();
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      showError('Falha ao remover item.');
+    }
+  };
+
+  if (isRestaurantLoading || isLoadingData) {
+    return (
+      <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <div className="p-4 text-center text-gray-500">Carregando itens...</div>
+      </RestaurantAreaPageLayout>
+    );
   }
 
-  const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
-  
-  // Busca o nome da categoria (usando o hook de categorias, mas filtrando localmente)
-  // Nota: Para evitar a necessidade de passar o restaurantId, vamos buscar o nome da categoria diretamente.
-  const { categoriesQuery } = useMenuManagement(itemsQuery.data?.[0]?.category_id || '');
-  const categoryName = categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
-  
-  const items = itemsQuery.data || [];
-  const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
-  const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending;
-
-  const handleOpenDialog = (item: MenuItem | null = null) => {
-    setEditingItem(item);
-    setIsItemModalOpen(true);
-  };
-
-  const handleDeleteItem = (itemId: string) => {
-    setConfirmationTitle("Excluir Item de Menu");
-    setConfirmationDescription("Tem certeza de que deseja excluir este item de menu?");
-    setConfirmationAction(() => () => deleteItemMutation.mutate(itemId));
-    setIsConfirmationOpen(true);
-  };
-
-  const handleSaveItem = useCallback(async (data: MenuItemFormValues) => {
-    if (editingItem) {
-      await updateItemMutation.mutateAsync({
-        id: editingItem.id,
-        name: data.name,
-        description: data.description || '',
-        price: data.price,
-        image_url: data.image_url || null,
-        is_active: data.is_active,
-      });
-    } else {
-      await createItemMutation.mutateAsync({
-        category_id: categoryId,
-        name: data.name,
-        description: data.description || '',
-        price: data.price,
-        image_url: data.image_url || null,
-        is_active: data.is_active,
-      });
-    }
-  }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
+  if (!category) {
+    return (
+      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <div className="p-4 text-center text-red-500">A categoria solicitada não existe ou você não tem permissão para acessá-la.</div>
+      </RestaurantAreaPageLayout>
+    );
+  }
 
   return (
-    <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
+    <RestaurantAreaPageLayout title={`Itens: ${category.name}`} icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
-        <Card className="shadow-lg border-none rounded-xl">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold text-primary">Itens em: {categoryName}</h1>
-              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
-                <PlusCircle className="w-4 h-4 mr-2" />
-                Novo Item
-              </Button>
+        {/* Botão de Adicionar Item */}
+        <Dialog open={isItemDialogOpen} onOpenChange={setIsItemDialogOpen}>
+          <DialogTrigger asChild>
+            <Button 
+              className="w-full h-12 bg-primary hover:bg-primary/90 shadow-soft-md"
+              onClick={handleNewItem}
+            >
+              <PlusCircle className="w-5 h-5 mr-2" />
+              Adicionar Novo Item
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px] rounded-xl">
+            <DialogHeader>
+              <DialogTitle>{currentItem?.id ? 'Editar Item' : 'Novo Item'}</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="itemName">Nome do Item</Label>
+                <Input
+                  id="itemName"
+                  value={currentItem?.name || ''}
+                  onChange={(e) => setCurrentItem(prev => ({ ...prev, name: e.target.value }))}
+                  placeholder="Ex: Hambúrguer Clássico"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="itemDescription">Descrição</Label>
+                <Textarea
+                  id="itemDescription"
+                  value={currentItem?.description || ''}
+                  onChange={(e) => setCurrentItem(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Ingredientes, detalhes..."
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="itemPrice">Preço (R$)</Label>
+                <Input
+                  id="itemPrice"
+                  type="number"
+                  step="0.01"
+                  value={currentItem?.price || ''}
+                  onChange={(e) => setCurrentItem(prev => ({ ...prev, price: Number(e.target.value) }))}
+                  placeholder="19.90"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="itemImageUrl">URL da Imagem (Opcional)</Label>
+                <Input
+                  id="itemImageUrl"
+                  value={currentItem?.image_url || ''}
+                  onChange={(e) => setCurrentItem(prev => ({ ...prev, image_url: e.target.value }))}
+                  placeholder="https://exemplo.com/prato.jpg"
+                />
+              </div>
             </div>
-          </CardContent>
-        </Card>
+            <Button onClick={handleSaveItem} disabled={!currentItem?.name || !currentItem.price}>
+              {currentItem?.id ? 'Salvar Alterações' : 'Criar Item'}
+            </Button>
+          </DialogContent>
+        </Dialog>
 
-        {isLoading ? (
-          <div className="space-y-3">
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
-          </div>
-        ) : (
-          <MenuItemList
-            items={items}
-            onEdit={handleOpenDialog}
-            onDelete={handleDeleteItem}
-          />
-        )}
+        <Separator />
+
+        {/* Lista de Itens */}
+        <div className="space-y-3">
+          <h3 className="text-lg font-semibold text-primary">Itens em {category.name} ({menuItems.length})</h3>
+          
+          {menuItems.length === 0 ? (
+            <p className="text-gray-500 text-center py-8">Nenhum item cadastrado nesta categoria.</p>
+          ) : (
+            menuItems.map((item) => (
+              <Card key={item.id} className="shadow-soft-sm border-none">
+                <CardContent className="p-4 flex items-center justify-between">
+                  <div className="flex-1 pr-4">
+                    <p className="font-semibold text-primary">{item.name}</p>
+                    <p className="text-sm text-gray-500 truncate">{item.description || 'Sem descrição.'}</p>
+                    <p className="text-base font-bold text-highlight mt-1">R$ {item.price.toFixed(2)}</p>
+                  </div>
+
+                  <div className="flex items-center space-x-2 shrink-0">
+                    {/* Botão de Editar */}
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleEditItem(item)}
+                      className="h-8 w-8 text-primary hover:bg-primary/10"
+                    >
+                      <Edit className="h-5 w-5" />
+                    </Button>
+                    
+                    {/* Botão de Deletar */}
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-8 w-8 text-red-600 hover:bg-red-100"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      <Trash2 className="h-5 w-5" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
-
-      <MenuItemFormDialog
-        isOpen={isItemModalOpen}
-        onClose={() => setIsItemModalOpen(false)}
-        categoryId={categoryId}
-        initialData={editingItem}
-        onSave={handleSaveItem}
-        isLoading={isSaving}
-      />
-      
-      <ConfirmationDialog
-        isOpen={isConfirmationOpen}
-        onClose={() => setIsConfirmationOpen(false)}
-        onConfirm={() => {
-          if (confirmationAction) {
-            confirmationAction();
-          }
-          setIsConfirmationOpen(false);
-        }}
-        title={confirmationTitle}
-        description={confirmationDescription}
-        confirmText="Sim, Excluir"
-      />
     </RestaurantAreaPageLayout>
   );
 }

@@ -102,25 +102,25 @@ export default function FavoritesPage() {
   }
 
   return (
-    <ClientPageWrapper selectedTab="favorites">
+    <ClientPageWrapper>
       <AppHeader 
         title="Meus Favoritos" 
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('home')) }}
       />
 
       <main className="p-4 space-y-4">
-        <Card className="shadow-lg border-none rounded-xl">
+        <Card className="shadow-soft-xl border-none rounded-2xl bg-white">
           <CardHeader>
-            <CardTitle className="text-xl flex items-center gap-2 text-primary">
-              <Heart className="w-5 h-5 fill-highlight text-highlight" /> Restaurantes Favoritos ({favorites?.length || 0})
+            <CardTitle className="text-2xl flex items-center gap-2 text-primary">
+              <Heart className="w-6 h-6 fill-highlight text-highlight" /> Restaurantes Favoritos ({favorites?.length || 0})
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             {favorites && favorites.length > 0 ? (
               favorites.map((restaurant) => (
                 <Card 
                   key={restaurant.id} 
-                  className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative border-none shadow-md"
+                  className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
                 >
                   <div 
                     className="flex flex-1"
@@ -132,12 +132,12 @@ export default function FavoritesPage() {
                       className="w-24 h-24 object-cover flex-shrink-0"
                     />
                     <div className="p-3 flex-1 min-w-0">
-                      <CardTitle className="text-base font-bold truncate text-primary">{restaurant.name}</CardTitle>
-                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                        <Utensils className="w-3 h-3 text-highlight" /> {restaurant.category}
+                      <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
+                      <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+                        <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
                       </p>
-                      <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-                        <MapPin className="w-3 h-3 text-highlight" /> {restaurant.city}
+                      <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                        <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
                       </p>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ export default function FavoritesPage() {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                    className="absolute top-2 right-2 text-red-500 hover:bg-red-50 rounded-full"
                     onClick={(e) => {
                         e.stopPropagation(); // Previne o clique no card
                         removeFavoriteMutation.mutate(restaurant.id);

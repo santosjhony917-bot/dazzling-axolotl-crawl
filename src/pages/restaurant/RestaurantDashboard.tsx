@@ -1,218 +1,202 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
+import { Utensils, MapPin, DollarSign, Search, ArrowRight, Settings, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass, Filter } from 'lucide-react';
+import { createPageUrl } from '@/utils/url';
+import { useRestaurantContext } from '@/context/RestaurantContext';
+import { useAuthContext } from '@/context/AuthContext';
+import { showError, showSuccess } from '@/utils/toast';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { useUserRole } from '@/hooks/useUserRole';
-import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
-import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
-import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { showSuccess, showError } from '@/utils/toast';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
-// Mock Data
-const mockHighlights = [
-  { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h2', name: "Moqueca de Camarão", restaurantName: "Restaurante Mar", price: 75.00, imageUrl: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h3', name: "Taco de Carnitas", restaurantName: "El Fuego", price: 28.00, imageUrl: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop" },
-];
-
-const mockCompetitors = [
-  { id: 'c1', name: "Trattoria del Ponte", cuisine: "Italiana", distance: 1.2, rating: 4.7, imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c2', name: "Sakura Sushi", cuisine: "Japonesa", distance: 2.5, rating: 4.9, imageUrl: "https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c3', name: "Le Petit Bistrot", cuisine: "Francesa", distance: 3.1, rating: 4.6, imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1974&auto=format&fit=crop" },
-];
-
-const RestaurantDashboard = () => {
+export default function RestaurantDashboard() {
   const navigate = useNavigate();
-  const { location, isLoading, refetch } = useUserSearchLocation();
-  const { isPremium } = useUserRole();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState(''); // Mantido, mas não usado na UI
-
-  const handleLocationSaved = () => {
-    refetch();
-  };
+  const { restaurant, isLoading: isRestaurantLoading } = useRestaurantContext();
+  const { profile } = useAuthContext();
   
-  const handleSearchByPrice = () => {
-    if (location.latitude === null || location.longitude === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsPriceModalOpen(true);
-  };
+  const [minPrice, setMinPrice] = useState(10);
+  const [maxPrice, setMaxPrice] = useState(50);
+  const [maxDistanceKm, setMaxDistanceKm] = useState(10);
+  
+  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
 
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
+  if (isRestaurantLoading) {
+    return <div className="p-4 text-center text-gray-500">Carregando dashboard...</div>;
+  }
+
+  if (!restaurant) {
+    // Este caso deve ser tratado pelo RestaurantArea, mas é um fallback seguro
+    return <div className="p-4 text-center text-red-500">Nenhum restaurante encontrado.</div>;
+  }
+
+  const handleApplyPriceFilter = () => {
+    // Lógica de filtro (mock)
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
 
-  const handleSearchNearby = () => {
-    if (location.latitude === null || location.longitude === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+  const handleApplyDistanceFilter = () => {
+    // Lógica de filtro (mock)
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
-  
+
   const handleOpenSearchConfig = () => {
     navigate(createPageUrl('search-unified'));
   };
-  
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Redireciona para a busca unificada
-    navigate(createPageUrl('search-unified'));
+
+  const handleEditMenu = () => {
+    navigate(createPageUrl('restaurant-area/menu'));
   };
-  
-  const handleViewCompetitor = (id: string) => {
-    // Simula a navegação para o perfil público do concorrente
-    navigate(createPageUrl('restaurantProfile', { restaurantId: id }));
+
+  const handleEditProfile = () => {
+    navigate(createPageUrl('restaurant-area/profile-menu'));
   };
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      {/* Header (Localização e Ícone da Loja) */}
-      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
-        <div className="flex items-center justify-between">
-          <div 
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={() => setIsLocationModalOpen(true)}
-          >
-            <MapPin className="h-6 w-6 text-[#022D68]" />
-            <div>
-              <p className="text-xs text-gray-500">Sua Localização</p>
-              {isLoading ? (
-                <div className="flex items-center text-sm font-bold text-[#022D68]">
-                  <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-                </div>
-              ) : (
-                <p className="text-base font-bold text-[#022D68] truncate max-w-[200px]">
-                  {location.address.split(',')[0] || "Definir Local"}
-                </p>
-              )}
-            </div>
-          </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl shadow-soft-sm"
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
-          >
-            <Store className="h-6 w-6" />
-          </Button>
-        </div>
-        
-        {/* Barra de Busca e Ações Rápidas removidas */}
-        
+      {/* Header */}
+      <header className="p-4 bg-white shadow-soft-md sticky top-0 z-10">
+        <h1 className="text-2xl font-bold text-primary">Dashboard</h1>
+        <p className="text-sm text-gray-600 mt-1">Bem-vindo(a), {profile?.first_name || 'Proprietário'}!</p>
       </header>
 
-      <main className="p-4 space-y-6">
+      <div className="p-4 space-y-6">
         
-        {/* Ações Rápidas (BOTÕES DE BUSCA) - RESTAURADO */}
-        <div className="flex gap-4 pt-2">
-          <ActionCard 
-            title="Buscar Prato|por Preço" 
-            icon={DollarSign} 
-            onClick={handleSearchByPrice} // Abre o modal de preço
-          />
-          <ActionCard 
-            title="Buscar Restaurantes|Próximos" 
-            icon={Compass} 
-            onClick={handleSearchNearby} // Abre o modal de distância
-          />
-        </div>
-        
-        {/* Banner Premium (Carousel) */}
-        <PremiumBanner />
+        {/* Banner Premium */}
+        {!isPremium && <PremiumBanner />}
 
-        {/* Destaques do Dia */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Destaques do Dia</h2>
+        {/* Estatísticas Rápidas (Mock) */}
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="shadow-soft-md border-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Visualizações (30d)</CardTitle>
+              <BarChart3 className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">1,234</div>
+              <p className="text-xs text-green-500">+15% desde o mês passado</p>
+            </CardContent>
+          </Card>
+          <Card className="shadow-soft-md border-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-500">Favoritos</CardTitle>
+              <Utensils className="h-4 w-4 text-highlight" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">215</div>
+              <p className="text-xs text-green-500">+5% desde o mês passado</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Ações Rápidas */}
+        <Card className="shadow-soft-md border-none">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-primary">Ações Rápidas</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
             <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
+              variant="outline" 
+              className="w-full justify-start h-12 text-primary border-primary/20 hover:bg-primary/5"
+              onClick={handleEditMenu}
             >
-              Ver todos
+              <Utensils className="w-5 h-5 mr-3" />
+              Gerenciar Cardápio
+              <ArrowRight className="w-4 h-4 ml-auto" />
             </Button>
-          </div>
-          <ScrollArea className="w-full whitespace-nowrap pb-4 hide-scrollbar">
-            <div className="flex space-x-4">
-              {mockHighlights.map((item) => (
-                <HighlightCard key={item.id} item={item} />
-              ))}
+            <Button 
+              variant="outline" 
+              className="w-full justify-start h-12 text-primary border-primary/20 hover:bg-primary/5"
+              onClick={handleEditProfile}
+            >
+              <Settings className="w-5 h-5 mr-3" />
+              Editar Perfil e Configurações
+              <ArrowRight className="w-4 h-4 ml-auto" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Configurações de Busca (Mock) */}
+        <Card className="shadow-soft-md border-none">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-primary">Simulação de Busca</CardTitle>
+            <p className="text-sm text-gray-500">Veja como seu restaurante aparece na busca dos clientes.</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center">
+              <p className="text-base font-medium text-gray-700">Localização Atual:</p>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-highlight hover:bg-highlight/10"
+                onClick={handleOpenSearchConfig}
+              >
+                <MapPin className="w-4 h-4 mr-1" />
+                Ver no Mapa
+              </Button>
             </div>
-            {/* Removido ScrollBar para evitar sobreposição visual */}
-          </ScrollArea>
-        </div>
+            
+            <Separator />
 
-        {/* Restaurantes Próximos (Concorrentes) */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Restaurantes Próximos</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleSearchNearby}
-            >
-              Ver todos
-            </Button>
-          </div>
-          <div className="space-y-3">
-            {mockCompetitors.map((item) => (
-              <NearbyCompetitorCard 
-                key={item.id} 
-                item={{...item, rating: 0}} // Removendo rating
-                onClick={handleViewCompetitor} 
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Filtro de Preço (R$):</label>
+              <div className="flex items-center space-x-2">
+                <input 
+                  type="number" 
+                  value={minPrice} 
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
+                  className="w-1/2 p-2 border rounded-lg text-center"
+                />
+                <span className="text-gray-500">-</span>
+                <input 
+                  type="number" 
+                  value={maxPrice} 
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-1/2 p-2 border rounded-lg text-center"
+                />
+              </div>
+              <Button onClick={handleApplyPriceFilter} className="w-full h-10 bg-primary hover:bg-primary/90">
+                Aplicar Filtro de Preço
+              </Button>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700">Distância Máxima (km): {maxDistanceKm}</label>
+              <input 
+                type="range" 
+                min="1" 
+                max="50" 
+                value={maxDistanceKm} 
+                onChange={(e) => setMaxDistanceKm(Number(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
-            ))}
-          </div>
+              <Button onClick={handleApplyDistanceFilter} className="w-full h-10 bg-primary hover:bg-primary/90">
+                Aplicar Filtro de Distância
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Link para o Perfil Público */}
+        <div className="text-center pt-4">
+          <Button 
+            variant="link" 
+            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl shadow-soft-sm"
+            onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+          >
+            Ver Perfil Público <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
         </div>
-      </main>
+      </div>
 
       {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
-
-      {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={location.address}
-        onLocationSaved={handleLocationSaved}
-      />
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
+      <RestaurantBottomNav isPremium={isPremium} />
     </div>
   );
-};
-
-export default RestaurantDashboard;
+}

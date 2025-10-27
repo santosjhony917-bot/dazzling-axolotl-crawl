@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ title, leftAction, rightAction }) => {
         )}
       </div>
       
-      <h1 className="text-lg font-extrabold text-primary dark:text-white tracking-tight truncate max-w-[60%]">
+      <h1 className="text-xl font-extrabold text-primary dark:text-white tracking-tight truncate max-w-[60%]">
         {title}
       </h1>
       

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import AppHeader from '@/components/Header';
 import { formatDistance } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 // Tipo que a função find_nearby_restaurants retorna
 interface RestaurantResult {
@@ -135,11 +136,11 @@ export default function RestaurantResultsPage() {
   
   // Renderização de resultados de pratos (simplificada)
   const renderDishResults = () => (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {results.map((item: any) => (
         <Card 
           key={item.id} 
-          className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+          className="flex p-3 cursor-pointer hover:shadow-soft-lg transition-shadow border-none shadow-soft-md rounded-xl bg-white"
           onClick={() => navigate(createPageUrl('menuItemDetails', { itemId: item.id }))}
         >
           <img 
@@ -148,7 +149,7 @@ export default function RestaurantResultsPage() {
             className="w-20 h-20 object-cover rounded-lg mr-4 shrink-0"
           />
           <div className="flex flex-col justify-center flex-1 min-w-0">
-            <h3 className="font-bold text-lg text-gray-800 truncate">{item.name}</h3>
+            <h3 className="font-bold text-lg text-primary truncate">{item.name}</h3>
             <p className="text-sm text-gray-600 mt-1 truncate">
               {item.description}
             </p>
@@ -166,11 +167,11 @@ export default function RestaurantResultsPage() {
 
   // Renderização de resultados de restaurantes
   const renderRestaurantResults = () => (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {results.map((r) => (
         <Card 
           key={r.id} 
-          className="flex p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+          className="flex p-3 cursor-pointer hover:shadow-soft-lg transition-shadow border-none shadow-soft-md rounded-xl bg-white"
           onClick={() => handleRestaurantClick(r.id)}
         >
           <img 
@@ -180,14 +181,14 @@ export default function RestaurantResultsPage() {
           />
           <div className="flex flex-col justify-center flex-1 min-w-0">
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-lg text-gray-800 truncate">{r.name}</h3>
+              <h3 className="font-bold text-lg text-primary truncate">{r.name}</h3>
               {getPlanBadge(r.plan)}
             </div>
             <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-              <Utensils className="w-3 h-3" /> {r.category || 'Geral'}
+              <Utensils className="w-4 h-4 text-highlight" /> {r.category || 'Geral'}
             </p>
             <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-              <MapPin className="w-3 h-3" /> {formatDistance(r.distance_km)}
+              <MapPin className="w-4 h-4 text-highlight" /> {formatDistance(r.distance_km)}
             </p>
           </div>
         </Card>
@@ -203,7 +204,7 @@ export default function RestaurantResultsPage() {
       />
 
       <main className="p-4 space-y-4">
-        <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-200">
+        <div className="bg-white p-4 rounded-xl shadow-soft-md border border-gray-200">
           <p className="text-sm text-gray-600 flex items-center">
             <MapPin className="w-4 h-4 mr-2 text-primary" />
             Buscando perto de: <span className="font-semibold ml-1 truncate">{decodeURIComponent(address || 'Sua Localização')}</span>
@@ -234,21 +235,16 @@ export default function RestaurantResultsPage() {
           </div>
         )}
 
-        {error && (
-          <div className="p-4 bg-red-100 text-red-700 rounded-lg flex items-center">
-            <AlertTriangle className="w-5 h-5 mr-2" /> {error}
-          </div>
-        )}
-
-        {!isLoading && !error && results.length === 0 && (
-          <div className="p-6 text-center bg-white rounded-lg shadow-sm">
-            <p className="text-lg font-semibold text-gray-700">Nenhum {type === 'dish' ? 'prato' : 'restaurante'} encontrado.</p>
-            <p className="text-sm text-gray-500 mt-2">Tente ajustar sua localização ou termo de busca.</p>
-          </div>
-        )}
-
-        {!isLoading && results.length > 0 && (
+        {!isLoading && !error && results.length > 0 && (
           type === 'dish' ? renderDishResults() : renderRestaurantResults()
+        )}
+        
+        {!isLoading && !error && results.length === 0 && (
+            <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
+                <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <p className="text-xl font-semibold">Nenhum resultado encontrado</p>
+                <p className="mt-2">Tente ajustar sua busca ou filtros.</p>
+            </div>
         )}
       </main>
     </div>

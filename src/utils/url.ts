@@ -1,89 +1,65 @@
-import { generatePath } from 'react-router-dom';
-
-// Define as chaves de rota e seus tipos de parâmetros
-export const PATH_MAP = {
-  // Rotas Públicas
-  index: '/',
-  splash: '/splash',
-  welcome: '/welcome',
-  auth: '/auth', // Rota de login/cadastro (usa query params: ?mode=signup)
-  onboarding: '/onboarding',
-  
-  // Rotas de Cliente (Autenticadas ou Públicas)
+// Define as rotas principais da aplicação
+const routes = {
   home: '/home',
+  welcome: '/',
+  auth: '/auth',
+  legal: '/legal',
+  
+  // Rotas de Cliente
+  onboarding: '/onboarding',
+  'search-unified': '/search', // Rota unificada de busca
+  'search-restaurants': '/search/restaurants', // Rota de busca de restaurantes (usada no Upgrade)
   favorites: '/favorites',
-  clientProfile: '/profile',
-  editProfile: '/profile/edit',
-  'search-unified': '/search',
-  'search-restaurants': '/search/restaurants',
-  'search-menu-items': '/search/menu',
+  helpCenter: '/help',
+  menuItemDetails: '/item/:itemId',
+  index: '/', // Usado como fallback para o início (welcome)
+
+  // Rotas de Restaurante (Área Logada)
+  restaurantAreaHub: '/restaurant-area',
+  'restaurant-area/home': '/restaurant-area/dashboard', // Dashboard principal
+  'restaurant-area/dashboard': '/restaurant-area/dashboard', // Alias para o dashboard
+  'restaurant-area/menu': '/restaurant-area/menu',
+  'restaurant-area/profile-menu': '/restaurant-area/profile', // Menu de gerenciamento de perfil
+  'restaurant-area/settings': '/restaurant-area/settings',
+  'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/upgrade': '/restaurant-area/upgrade',
   restaurantProfile: '/restaurant/:restaurantId',
   
-  // Rotas de Proprietário de Restaurante (Autenticadas)
-  'restaurant-area/home': '/restaurant-area/:restaurantId/dashboard',
-  'restaurant-area/profile-menu': '/restaurant-area/:restaurantId/settings',
-  'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
-  'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',
-  'restaurant-area/edit-links': '/restaurant-area/:restaurantId/settings/links',
-  'restaurant-area/menu-management': '/restaurant-area/:restaurantId/menu',
-  'restaurant-area/add-category': '/restaurant-area/:restaurantId/menu/add-category',
-  'restaurant-area/edit-category': '/restaurant-area/:restaurantId/menu/edit-category/:categoryId',
-  'restaurant-area/add-item': '/restaurant-area/:restaurantId/menu/add-item/:categoryId',
-  'restaurant-area/edit-item': '/restaurant-area/:restaurantId/menu/edit-item/:itemId',
-  'restaurant-area/gallery': '/restaurant-area/:restaurantId/gallery',
+  // Rotas de Autenticação de Restaurante
+  'restaurant-login': '/restaurant/login',
+  'restaurant-signup': '/restaurant/signup',
   
-  // Rotas de Admin
-  'admin/dashboard': '/admin/dashboard',
-  'admin/restaurants': '/admin/restaurants',
-  'admin/edit-restaurant': '/admin/restaurant/:restaurantId/edit',
-} as const;
-
-type PathKey = keyof typeof PATH_MAP;
-
-// Tipos de parâmetros de rota
-type PathParams<K extends PathKey> = 
-  K extends 'restaurantProfile' | 'restaurant-area/home' | 'restaurant-area/profile-menu' | 'restaurant-area/edit-info' | 'restaurant-area/edit-hours' | 'restaurant-area/edit-links' | 'restaurant-area/menu-management' | 'restaurant-area/gallery' | 'restaurant-area/add-category' | 'admin/edit-restaurant'
-    ? { restaurantId: string }
-  : K extends 'restaurant-area/edit-category'
-    ? { restaurantId: string, categoryId: string }
-  : K extends 'restaurant-area/add-item'
-    ? { restaurantId: string, categoryId: string }
-  : K extends 'restaurant-area/edit-item'
-    ? { restaurantId: string, itemId: string }
-  : K extends 'auth'
-    ? { mode: 'login' | 'signup' } // Adicionando parâmetros de consulta para 'auth'
-  : undefined;
-
-// Tipos de parâmetros de consulta (query params)
-type QueryParams<K extends PathKey> = 
-  K extends 'auth' 
-    ? { mode: 'login' | 'signup' } 
-    : Record<string, string> | undefined;
+  // Rotas de Administração
+  adminLogin: '/admin/login',
+  adminDashboard: '/admin/dashboard',
+  adminRestaurants: '/admin/restaurants',
+  adminUsers: '/admin/users',
+  adminTransactions: '/admin/transactions',
+  adminSettings: '/admin/settings',
+  'admin/edit-restaurant': '/admin/restaurants/edit/:restaurantId', // Rota de edição de restaurante
+  adminPlans: '/admin/plans', // NOVO
+  adminManageAdmins: '/admin/manage-admins', // NOVO
+};
 
 /**
- * Cria uma URL completa com base na chave da página, parâmetros de rota e parâmetros de consulta.
- * @param key A chave da rota definida em PATH_MAP.
- * @param params Parâmetros de rota (ex: { restaurantId: '123' }).
- * @param queryParams Parâmetros de consulta (ex: { tab: 'info' }).
- * @returns A URL formatada.
+ * Cria uma URL baseada no nome da página.
+ * @param pageName O nome da página (chave no objeto routes).
+ * @param params Parâmetros de rota opcionais para substituição (ex: { restaurantId: '123' }).
+ * @returns A URL completa.
  */
-export function createPageUrl<K extends PathKey>(
-  key: K, 
-  params?: PathParams<K>, 
-  queryParams?: QueryParams<K>
-): string {
-  const pathTemplate = PATH_MAP[key];
-  
-  // 1. Gerar o caminho base com parâmetros de rota
-  let path = generatePath(pathTemplate, params as Record<string, string | number | boolean | undefined>);
+export function createPageUrl(pageName: keyof typeof routes, params?: Record<string, string | number>): string {
+  let url = routes[pageName];
 
-  // 2. Adicionar parâmetros de consulta (query params)
-  const finalQueryParams = queryParams || (key === 'auth' ? params : undefined);
-  
-  if (finalQueryParams && Object.keys(finalQueryParams).length > 0) {
-    const searchParams = new URLSearchParams(finalQueryParams as Record<string, string>);
-    path += `?${searchParams.toString()}`;
+  if (!url) {
+    console.error(`Route not found for pageName: ${pageName}`);
+    return '/';
   }
 
-  return path;
+  if (params) {
+    for (const key in params) {
+      url = url.replace(`:${key}`, String(params[key]));
+    }
+  }
+
+  return url;
 }

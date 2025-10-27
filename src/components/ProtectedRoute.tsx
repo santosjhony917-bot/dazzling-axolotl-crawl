@@ -10,13 +10,17 @@ interface ProtectedRouteProps {
 }
 
 // Rotas consideradas 'de cliente' que devem redirecionar proprietários de restaurante
-const CUSTOMER_ROUTES = ['/home', '/profile']; // Removido '/search-unified' e '/favorites'
+const CUSTOMER_ROUTES = ['/home', '/profile', '/favorites', '/search-unified']; // Adicionando mais rotas de cliente
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authenticated', element }) => {
   const { user, isLoading, isAdmin, restaurant } = useAuthContext();
   const location = useLocation();
+  
+  // Garante que pathname seja uma string vazia se for undefined/null
+  const currentPathname = location.pathname || ''; 
 
   if (isLoading) {
+    console.log(`[ProtectedRoute] Loading... Path: ${currentPathname}`);
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -25,17 +29,24 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
   }
 
   if (!user) {
+    console.log(`[ProtectedRoute] Not authenticated. Redirecting to Auth.`);
     // If not authenticated, redirect to login/auth page
     return <Navigate to={createPageUrl('auth')} state={{ from: location }} replace />;
   }
   
   // --- LÓGICA DE REDIRECIONAMENTO DE PROPRIETÁRIO DE RESTAURANTE ---
   const isRestaurantOwner = !!restaurant;
-  const isCustomerRoute = CUSTOMER_ROUTES.some(route => location.pathname === route || location.pathname.startsWith(`${route}/`));
+  
+  // Verifica se o pathname é válido antes de usar endsWith/startsWith
+  if (currentPathname.length > 0) {
+    const isCustomerRoute = CUSTOMER_ROUTES.some(route => currentPathname === route || currentPathname.startsWith(`${route}/`));
 
-  if (isRestaurantOwner && isCustomerRoute) {
-    // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
-    return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
+    if (isRestaurantOwner && isCustomerRoute) {
+      console.log(`[ProtectedRoute] Owner detected on customer route (${currentPathname}). Redirecting to Restaurant Home.`);
+      // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
+      // Isso garante que proprietários de restaurante não usem a interface de cliente.
+      return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
+    }
   }
   // ---------------------------------------------------------------------
   
@@ -52,8 +63,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
   }
 
   if (!hasRequiredRole) {
-    // Redirect to a generic unauthorized page or home
-    console.warn(`Access denied: User ${user.email} does not have required role: ${requiredRole}`);
+    console.warn(`[ProtectedRoute] Access denied: User ${user.email} does not have required role: ${requiredRole}. Redirecting to Home.`);
     
     // Specific redirect logic for common unauthorized attempts
     if (requiredRole === 'admin') {
@@ -63,6 +73,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
     return <Navigate to={createPageUrl('home')} replace />;
   }
   
+  console.log(`[ProtectedRoute] Access granted for role: ${requiredRole} on path: ${currentPathname}`);
   // If role is met, render the wrapped element or the Outlet for nested routes
   return element ? element : <Outlet />;
 };

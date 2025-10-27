@@ -5,9 +5,10 @@ import { Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { cn } from '@/lib/utils';
+import { Restaurant } from '@/types/supabase';
 
 interface SubscriptionCardProps {
-  isPremium: boolean;
+  restaurant: Restaurant;
 }
 
 const premiumFeatures = [
@@ -18,8 +19,10 @@ const premiumFeatures = [
   { text: "Notificações para seguidores", icon: Bell },
 ];
 
-const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
+const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ restaurant }) => {
   const navigate = useNavigate();
+
+  const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
 
   const handleUpgradeClick = () => {
     navigate(createPageUrl('restaurant-area/upgrade'));

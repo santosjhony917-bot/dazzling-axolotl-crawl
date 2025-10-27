@@ -1,80 +1,71 @@
-import React, { memo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, User, Heart } from 'lucide-react';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Home, Search, Heart, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl, PathKey } from '@/utils/url';
+import { createPageUrl } from '@/utils/url';
+import { motion } from 'framer-motion';
 
 interface NavItem {
-  path: string;
-  label: string;
+  id: string;
   icon: React.ElementType;
-  key: string;
+  label: string;
+  path: string;
 }
 
 const navItems: NavItem[] = [
-  { path: '/home', label: 'Home', icon: Home, key: 'home' },
-  { path: '/search-unified', label: 'Buscar', icon: Search, key: 'search' }, // Rota atualizada
-  { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
-  { path: '/profile', label: 'Perfil', icon: User, key: 'perfil' },
+  { id: 'home', icon: Home, label: 'Início', path: createPageUrl('home') },
+  { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') },
+  { id: 'favorites', icon: Heart, label: 'Favoritos', path: createPageUrl('favorites') },
+  { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('auth') }, // Redireciona para auth/perfil
 ];
 
-interface CustomerBottomNavProps {
-  selectedTab?: string;
-}
-
-const CustomerBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab }) => {
+export default function ClientBottomNav() {
   const location = useLocation();
-  
-  // Mapeia rotas para garantir que o item correto seja ativado
-  const getActivePath = (path: string, key: string) => {
-    // Prioriza a prop selectedTab se fornecida
-    if (selectedTab) {
-      return selectedTab === key;
-    }
-    // Fallback para a rota atual
-    if (path === '/home' && location.pathname === '/') return true;
+  const navigate = useNavigate();
+
+  const isActive = (path: string) => {
+    // Lógica de ativação para rotas específicas
+    if (path === createPageUrl('home') && location.pathname === createPageUrl('home')) return true;
+    if (path === createPageUrl('search-unified') && location.pathname.startsWith(createPageUrl('search-unified'))) return true;
+    if (path === createPageUrl('favorites') && location.pathname.startsWith(createPageUrl('favorites'))) return true;
     
-    // Lógica de ativação para rotas aninhadas ou específicas
-    if (key === 'favorites') {
-        // Rota de favoritos ainda não existe, mas podemos ativá-la se o path for exato
-        return location.pathname === path;
-    }
-    
-    // Verifica se a rota atual começa com o caminho do item
-    return location.pathname.startsWith(path);
+    // Perfil: Ativa se estiver em /auth ou /profile
+    if (path === createPageUrl('auth') && (location.pathname === createPageUrl('auth') || location.pathname.startsWith(createPageUrl('home')))) return true;
+
+    return false;
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 z-30 max-w-md mx-auto rounded-t-xl shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
-      <div className="flex justify-around items-center h-16 px-2">
-        {navItems.map((item) => {
-          const isActive = getActivePath(item.path, item.key);
-          const Icon = item.icon;
-          
-          return (
-            <Link
-              key={item.path}
-              to={createPageUrl(item.path.substring(1) as PathKey)}
+    <motion.nav
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl border-t border-gray-100"
+    >
+      <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => navigate(item.path)}
+            className="flex flex-col items-center justify-center p-2 transition-colors duration-200"
+          >
+            <item.icon
               className={cn(
-                "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-                isActive ? "text-highlight" : "text-[#5f728c] dark:text-gray-400 hover:text-highlight"
+                'h-6 w-6',
+                isActive(item.path) ? 'text-primary' : 'text-gray-400 group-hover:text-primary'
+              )}
+            />
+            <span
+              className={cn(
+                'text-xs mt-0.5 font-medium',
+                isActive(item.path) ? 'text-primary' : 'text-gray-400 group-hover:text-primary'
               )}
             >
-              <Icon 
-                className={cn(
-                  "w-6 h-6",
-                  isActive && item.key === 'favorites' && "fill-highlight" // Favoritos preenchido quando ativo
-                )} 
-              />
-              <span className="text-xs font-medium">
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
+              {item.label}
+            </span>
+          </button>
+        ))}
       </div>
-    </div>
+    </motion.nav>
   );
-});
-
-export default CustomerBottomNav;
+}

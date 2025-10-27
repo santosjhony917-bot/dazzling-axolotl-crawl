@@ -9,6 +9,7 @@ import { useCategoryMutations } from '@/hooks/useMenuManagement';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
 import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
+import { cn } from '@/lib/utils';
 
 interface CategoryListItemProps {
   category: MenuCategory;
@@ -49,14 +50,14 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   };
 
   return (
-    <Card className="shadow-sm hover:shadow-md transition-shadow">
+    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
       <CardContent className="p-0 flex items-center justify-between">
         {/* Área Clicável para Navegação */}
         <div 
-          className="flex items-center space-x-4 flex-grow p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+          className="flex items-center space-x-4 flex-grow p-4 cursor-pointer hover:bg-gray-50 transition-colors rounded-l-xl"
           onClick={handleNavigateToItems}
         >
-          <h3 className="text-lg font-semibold">{category.name}</h3>
+          <h3 className="text-lg font-bold text-primary">{category.name}</h3>
           <div className="flex items-center space-x-2">
             <Switch
               id={`active-switch-${category.id}`}
@@ -74,7 +75,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
           </div>
         </div>
 
-        <div className="flex space-x-2 items-center p-4 border-l">
+        <div className="flex space-x-2 items-center p-4 border-l border-gray-100">
           {/* Botões de Reordenação */}
           <Button
             variant="outline"
@@ -82,6 +83,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
             onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
             disabled={isFirst || isSwapping}
             title="Mover para cima"
+            className="h-8 w-8 text-primary hover:bg-primary/5"
           >
             <ArrowUp className="w-4 h-4" />
           </Button>
@@ -91,6 +93,7 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
             onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
             disabled={isLast || isSwapping}
             title="Mover para baixo"
+            className="h-8 w-8 text-primary hover:bg-primary/5"
           >
             <ArrowDown className="w-4 h-4" />
           </Button>
@@ -98,10 +101,10 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
           {isSwapping && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
 
           {/* Botões de Ação */}
-          <Button variant="outline" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(category); }} title="Editar">
+          <Button variant="outline" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(category); }} title="Editar" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
             <Edit className="w-4 h-4" />
           </Button>
-          <Button variant="destructive" size="icon" onClick={(e) => { e.stopPropagation(); onDelete(category.id); }} title="Deletar">
+          <Button variant="destructive" size="icon" onClick={(e) => { e.stopPropagation(); onDelete(category.id); }} title="Deletar" className="h-8 w-8 bg-red-600 hover:bg-red-700">
             <Trash2 className="w-4 h-4" />
           </Button>
           

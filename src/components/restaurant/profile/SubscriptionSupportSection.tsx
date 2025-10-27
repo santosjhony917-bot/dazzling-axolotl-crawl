@@ -1,6 +1,6 @@
 import React from 'react';
-import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
 import { useAuthContext } from '@/context/AuthContext'; // Importando o contexto de autenticação
@@ -25,7 +25,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         icon={HelpCircle}
         title="Central de Ajuda"
         description="Encontre respostas rápidas e tutoriais."
-        onClick={() => handleNavigate(createPageUrl('help-center'))}
+        onClick={() => handleNavigate(createPageUrl('helpCenter'))}
       />
       
       <NavCardItem 
