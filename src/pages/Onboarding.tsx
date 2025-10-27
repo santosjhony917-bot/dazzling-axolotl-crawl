@@ -43,25 +43,24 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
-  const { completeOnboarding } = useOnboardingStatus(); // Usando o hook de status
+  const { completeOnboarding: completeOnboardingHook } = useOnboardingStatus(); // Renomeado para evitar conflito
 
-  // CORREÇÃO: Usando o hook de status local para verificar se o onboarding foi concluído
+  // Check if onboarding was already completed on initial load
   useEffect(() => {
     // A verificação de status de onboarding agora é feita no Splash/Index
     // Aqui, apenas garantimos que o usuário não fique preso se a API falhar.
   }, [navigate]);
 
-  const completeOnboarding = async () => {
+  const handleCompleteOnboarding = async () => { // Renomeado
     if (isCompleting) return; // Prevent multiple clicks
     
     setIsCompleting(true);
     try {
       // 1. Marcar no localStorage (via hook)
-      completeOnboarding(); 
+      completeOnboardingHook(); // Chama a função do hook
       
       // 2. Marcar na API (se necessário para persistência de perfil)
-      // Nota: A lógica de base44.auth.updateMe({ onboarding_completed: true }) foi removida
-      // pois o useOnboardingStatus já gerencia o estado localmente.
+      // A chamada base44.auth.updateMe foi removida na lógica anterior, mas se fosse mantida, estaria aqui.
       
       console.log("Onboarding marked as completed.");
       navigate(createPageUrl('welcome'));
@@ -80,12 +79,12 @@ export default function Onboarding() {
       setCurrentScreen(prev => prev + 1);
     } else {
       // Última tela: completa o onboarding
-      completeOnboarding();
+      handleCompleteOnboarding();
     }
   };
 
   const skipOnboarding = () => {
-    completeOnboarding();
+    handleCompleteOnboarding();
   };
 
   const variants = {
@@ -108,7 +107,7 @@ export default function Onboarding() {
   
   if (!screen) {
     // Se por algum motivo o índice for inválido (ex: 3), navegamos imediatamente
-    completeOnboarding();
+    handleCompleteOnboarding();
     return null; 
   }
 
