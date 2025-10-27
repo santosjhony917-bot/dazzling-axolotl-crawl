@@ -11,7 +11,7 @@ import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
-import { RestaurantWithDistance } from '@/types/supabase'; // CORRIGIDO: Importando RestaurantWithDistance
+import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [distance, setDistance] = React.useState<number[]>([10]); // Adicionado estado de distância
+  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
 
   const userLat = location.latitude;
   const userLon = location.longitude;
@@ -211,11 +211,11 @@ const Home: React.FC = () => {
               </div>
             ) : restaurants.length > 0 ? (
               <div className="space-y-4">
-                {/* O tipo NearbyRestaurant é um subconjunto de Restaurant, mas forçamos a tipagem para compatibilidade com RestaurantCard. */}
+                {/* CORREÇÃO 2: O tipo 'restaurants' já é RestaurantWithDistance, que é compatível com RestaurantCard */}
                 {restaurants.map((restaurant) => (
                   <RestaurantCard 
                     key={restaurant.id} 
-                    restaurant={restaurant} // CORRIGIDO: Passando o tipo correto RestaurantWithDistance
+                    restaurant={restaurant} 
                     onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
                   />
                 ))}

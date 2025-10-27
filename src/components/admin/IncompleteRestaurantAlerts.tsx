@@ -1,35 +1,17 @@
 import React from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertTriangle, Utensils, Loader2 } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { AlertTriangle, Utensils } from 'lucide-react';
 
 const IncompleteRestaurantAlerts: React.FC = () => {
-  // Mock data for demonstration
-  const incompleteCount = 5;
-  const missingData = [
-    { id: 'r1', name: 'Restaurante A', missing: 'Endereço e Horários' },
-    { id: 'r2', name: 'Restaurante B', missing: 'Cardápio' },
-  ];
-
-  if (incompleteCount === 0) return null;
-
+  // Placeholder implementation
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-      <CardContent className="p-4">
-        <Alert className="bg-red-50 border-red-400 text-red-700">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Atenção: {incompleteCount} Restaurantes Incompletos</AlertTitle>
-          <AlertDescription className="mt-2 space-y-1">
-            <p>Os seguintes restaurantes precisam de dados adicionais para serem exibidos:</p>
-            <ul className="list-disc list-inside ml-4 text-sm">
-              {missingData.map((item, index) => (
-                <li key={index} className="font-medium">{item.name}: <span className="font-normal">{item.missing}</span></li>
-              ))}
-            </ul>
-          </AlertDescription>
-        </Alert>
-      </CardContent>
-    </Card>
+    <Alert className="bg-red-50 border-red-300 text-red-700 shadow-soft-md rounded-xl">
+      <AlertTriangle className="h-4 w-4" />
+      <AlertTitle>Atenção: 3 Restaurantes Incompletos</AlertTitle>
+      <AlertDescription>
+        Existem 3 restaurantes que não possuem endereço ou cardápio ativo. Revise as Fases 2 e 3.
+      </AlertDescription>
+    </Alert>
   );
 };
 
