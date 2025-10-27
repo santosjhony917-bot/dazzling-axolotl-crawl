@@ -179,12 +179,19 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
     alert("Seguindo restaurante! (Mock)");
   };
   
+  // NOVO: Formatação do endereço para o cabeçalho
+  const addressSummary = useMemo(() => {
+    const parts = [restaurant.address, restaurant.neighborhood, restaurant.city].filter(Boolean);
+    return parts.length > 0 ? parts.join(', ') : null;
+  }, [restaurant.address, restaurant.neighborhood, restaurant.city]);
+
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
     followersCount: followersCount,
     logoUrl: restaurant.image_url || PLACEHOLDER_IMAGE_URL,
     onFollowToggle: handleFollowToggle,
+    addressSummary: addressSummary, // Adicionado para resolver o erro TS2741
   };
 
   return (
