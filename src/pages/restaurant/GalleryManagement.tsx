@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/context/AuthContext';
-import { useGalleryManagement } from '@/hooks/useGalleryManagement';
+import { useGalleryManagement } from '@/hooks/useGalleryManagement.tsx'; // CORRIGIDO: Adicionado .tsx
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Upload, Image, PlusCircle, AlertTriangle, ArrowLeft, Lock } from 'lucide-react';

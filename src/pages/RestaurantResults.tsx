@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { RestaurantWithDistance } from '@/types/supabase';
 import { fetchNearbyRestaurants } from '@/integrations/supabase/restaurants';
 import { Card } from '@/components/ui/card';
-import { Loader2, Search, MapPin, AlertTriangle, Utensils } from 'lucide-react';
+import { Loader2, Search, MapPin, AlertTriangle, Utensils, ArrowLeft } from 'lucide-react'; // Importado ArrowLeft
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { Input } from '@/components/ui/input';

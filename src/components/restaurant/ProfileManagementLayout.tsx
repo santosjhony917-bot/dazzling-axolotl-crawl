@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { WeekSchedule } from '@/types/schedule';
 import { Restaurant } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Settings, Utensils, Image, Link, Clock, Loader2, MapPin, MessageSquare, Globe, FileText, Phone, Mail, Crown } from 'lucide-react';
+import { ArrowLeft, Settings, Utensils, Image, Link, Clock, Loader2, MapPin, MessageSquare, Globe, FileText, Phone, Mail, Crown, AlertTriangle } from 'lucide-react'; // Importado AlertTriangle
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
@@ -14,7 +14,7 @@ import FollowerCountCard from './profile/FollowerCountCard';
 import SubscriptionCard from './profile/SubscriptionCard';
 import ContentManagementSection from './profile/ContentManagementSection';
 import SubscriptionSupportSection from './profile/SubscriptionSupportSection';
-import BasicInfoSection from './profile/BasicInfoSection';
+import BasicInfoSection from './profile/profile/BasicInfoSection';
 import LocationHoursSection from './profile/LocationHoursSection';
 import SalesChannelsSection from './profile/SalesChannelsSection';
 import EditFieldDialog from '@/components/EditFieldDialog';
@@ -23,6 +23,7 @@ import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
 import { showError } from '@/utils/toast';
+import { Json } from '@/lib/database.types'; // Importando Json
 
 // Schemas de validação
 const nameSchema = z.string().min(3, "O nome deve ter pelo menos 3 caracteres.");
@@ -52,7 +53,8 @@ const ProfileManagementLayout: React.FC = () => {
     saturday: { isOpen: false, slots: [] },
     sunday: { isOpen: false, slots: [] },
   };
-  const currentSchedule: WeekSchedule = (restaurant?.opening_hours as WeekSchedule) || defaultSchedule;
+  // CORRIGIDO: Cast para unknown primeiro
+  const currentSchedule: WeekSchedule = (restaurant?.opening_hours as unknown as WeekSchedule) || defaultSchedule;
 
   // Handlers de Edição
   const handleEditField = (key: keyof Restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
@@ -80,7 +82,8 @@ const ProfileManagementLayout: React.FC = () => {
   };
   
   const handleSaveHours = async (newSchedule: WeekSchedule) => {
-    await updateRestaurant({ opening_hours: newSchedule });
+    // CORRIGIDO: Cast para Json
+    await updateRestaurant({ opening_hours: newSchedule as unknown as Json });
     refetchProfile();
   };
   

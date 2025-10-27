@@ -11,7 +11,7 @@ import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
-import { Restaurant } from '@/types/supabase'; // CORRIGIDO: Importando Restaurant de supabase.ts
+import { RestaurantWithDistance } from '@/types/supabase'; // CORRIGIDO: Importando RestaurantWithDistance
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
+  const [distance, setDistance] = React.useState<number[]>([10]); // Adicionado estado de distância
 
   const userLat = location.latitude;
   const userLon = location.longitude;
@@ -215,7 +215,7 @@ const Home: React.FC = () => {
                 {restaurants.map((restaurant) => (
                   <RestaurantCard 
                     key={restaurant.id} 
-                    restaurant={restaurant as unknown as Restaurant} 
+                    restaurant={restaurant} // CORRIGIDO: Passando o tipo correto RestaurantWithDistance
                     onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
                   />
                 ))}
