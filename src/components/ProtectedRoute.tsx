@@ -41,6 +41,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole = 'authent
 
     if (isRestaurantOwner && isCustomerRoute) {
       // Se for proprietário de restaurante e estiver em uma rota de cliente, redireciona para o Dashboard do Restaurante.
+      // Isso garante que proprietários de restaurante não usem a interface de cliente.
       return <Navigate to={createPageUrl('restaurant-area/home')} replace />;
     }
   }

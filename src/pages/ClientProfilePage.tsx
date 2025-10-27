@@ -58,14 +58,16 @@ const useUserRestaurant = (userId: string | undefined) => {
 };
 
 export default function ClientProfilePage() {
-  const { user, signOut, isLoading: isAuthLoading } = useAuthContext();
+  const { user, signOut, isLoading: isAuthLoading, restaurant: authRestaurant } = useAuthContext();
   const navigate = useNavigate();
   
-  const { data: restaurant, isLoading: isRestaurantLoading, error: restaurantError } = useUserRestaurant(user?.id);
+  // Usamos o restaurante do AuthContext se disponível, caso contrário, buscamos.
+  // Nota: O AuthContext já busca o restaurante, mas mantemos o hook para consistência se necessário.
+  // Para evitar buscas duplicadas, vamos confiar no AuthContext.
+  const restaurant = authRestaurant;
+  const isRestaurantLoading = false; // Confiamos no AuthContext para o estado de carregamento inicial
 
-  const isLoading = isAuthLoading || isRestaurantLoading;
-
-  if (isLoading) {
+  if (isAuthLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -73,13 +75,9 @@ export default function ClientProfilePage() {
     );
   }
 
-  if (restaurantError) {
-    showError("Erro ao carregar dados do restaurante.");
-  }
-
   const handleSignOut = async () => {
     await signOut();
-    navigate(createPageUrl('home'));
+    // O signOut já redireciona para 'welcome'
   };
 
   const handleNavigate = (path: string) => {
@@ -144,7 +142,7 @@ export default function ClientProfilePage() {
             icon={User}
             title="Editar Perfil"
             description="Atualize seu nome e avatar."
-            onClick={() => handleNavigate(createPageUrl('editProfile'))}
+            onClick={() => showError("Edição de perfil em desenvolvimento.")}
           />
         </div>
 

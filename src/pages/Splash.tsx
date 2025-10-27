@@ -25,7 +25,14 @@ export default function Splash() {
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
     
     const timer = setTimeout(() => {
-      navigate(targetPath, { replace: true });
+      // Se o usuário estiver autenticado, mas a rota atual for a raiz, navega para a home.
+      // Se a rota atual for /profile, não devemos redirecionar para /home.
+      if (user && window.location.pathname === '/') {
+        navigate(createPageUrl("home"), { replace: true });
+      } else if (!user) {
+        navigate(targetPath, { replace: true });
+      }
+      // Se o usuário estiver autenticado e já estiver em uma rota protegida (/profile), não faz nada aqui.
     }, delay);
     
     return () => clearTimeout(timer);
