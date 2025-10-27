@@ -27,6 +27,7 @@ const Home: React.FC = () => {
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
 
   const userLat = location.latitude;
   const userLon = location.longitude;
