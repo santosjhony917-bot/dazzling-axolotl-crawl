@@ -3,13 +3,17 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
+import { useAuthContext } from '@/context/AuthContext'; // Import useAuthContext
 
 // Caminho para o novo logo
 const LOGO_URL = "/assets/filterfood-logo.png";
 
 export default function Splash() {
   const navigate = useNavigate();
-  const { isComplete, isLoading } = useOnboardingStatus();
+  const { isComplete, isLoading: isStatusLoading } = useOnboardingStatus();
+  const { session, isLoading: isAuthLoading, restaurant } = useAuthContext(); // Use AuthContext
+
+  const isLoading = isStatusLoading || isAuthLoading;
 
   // Auto-navigate after 2 seconds
   useEffect(() => {
@@ -17,17 +21,24 @@ export default function Splash() {
     
     console.log("Splash screen loaded. Redirecting in 2 seconds...");
     const timer = setTimeout(() => {
-      if (isComplete) {
-        // Se o onboarding estiver completo, vai direto para Welcome
-        navigate(createPageUrl("welcome"), { replace: true });
-      } else {
-        // Caso contrário, vai para Onboarding
+      if (!isComplete) {
+        // 1. Onboarding não completo -> Inicia Onboarding
         navigate(createPageUrl("onboarding"), { replace: true });
+      } else if (session) {
+        // 2. Onboarding completo E Autenticado -> Vai para a Home correta
+        const isRestaurantOwner = !!restaurant;
+        const targetPath = isRestaurantOwner 
+          ? createPageUrl("restaurant-area/dashboard") 
+          : createPageUrl("home");
+        navigate(targetPath, { replace: true });
+      } else {
+        // 3. Onboarding completo E Não Autenticado -> Vai para a tela de escolha de papel (Welcome)
+        navigate(createPageUrl("welcome"), { replace: true });
       }
     }, 2000);
     
     return () => clearTimeout(timer);
-  }, [navigate, isLoading, isComplete]);
+  }, [navigate, isLoading, isComplete, session, restaurant]);
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center bg-[#E47948]">
