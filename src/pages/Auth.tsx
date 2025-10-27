@@ -68,16 +68,25 @@ export default function Auth() {
               variables: {
                 default: {
                   colors: {
-                    brand: '#022D68', // Primary
-                    brandAccent: '#FF6B6B', // Highlight
-                    defaultButtonBackground: '#f5f7f8',
-                    defaultButtonBackgroundHover: '#e0e3e6',
+                    // Cores do nosso tema
+                    brand: '#022D68', // Cor principal (Azul Escuro)
+                    brandAccent: '#E47948', // Cor de destaque (Laranja/Highlight)
+                    
+                    // Botão Principal (Entrar/Criar Conta)
+                    defaultButtonBackground: '#022D68', // Usando Primary para o botão principal
+                    defaultButtonBackgroundHover: '#022D68CC', // Primary com 80% de opacidade
+                    
+                    // Inputs
                     inputBackground: '#ffffff',
                     inputBorder: '#e5e7eb',
-                    inputBorderHover: '#FF6B6B',
-                    inputBorderFocus: '#FF6B6B',
-                    inputLabelText: '#374151',
+                    inputBorderHover: '#E47948', // Highlight
+                    inputBorderFocus: '#E47948', // Highlight
+                    inputLabelText: '#022D68', // Primary
                     inputText: '#1f2937',
+                    
+                    // Links (Esqueceu a senha, etc.)
+                    anchorTextColor: '#022D68', // Primary
+                    anchorTextHoverColor: '#E47948', // Highlight
                   },
                   radii: {
                     borderRadiusButton: '0.75rem', // rounded-xl
@@ -126,7 +135,6 @@ export default function Auth() {
                 },
               },
             }}
-            // onViewChange removido para corrigir o erro de tipagem.
           />
         </div>
       </main>
