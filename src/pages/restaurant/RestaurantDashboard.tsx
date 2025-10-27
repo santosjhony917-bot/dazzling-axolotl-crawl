@@ -15,13 +15,13 @@ import { cn } from '@/lib/utils';
 export default function RestaurantDashboard() {
   const navigate = useNavigate();
   const { restaurant, isLoading: isRestaurantLoading } = useRestaurantContext();
-  const { userProfile } = useAuthContext();
+  const { profile } = useAuthContext();
   
   const [minPrice, setMinPrice] = useState(10);
   const [maxPrice, setMaxPrice] = useState(50);
   const [maxDistanceKm, setMaxDistanceKm] = useState(10);
   
-  const isPremium = restaurant?.plan === 'premium';
+  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
 
   if (isRestaurantLoading) {
     return <div className="p-4 text-center text-gray-500">Carregando dashboard...</div>;
@@ -61,7 +61,7 @@ export default function RestaurantDashboard() {
       {/* Header */}
       <header className="p-4 bg-white shadow-soft-md sticky top-0 z-10">
         <h1 className="text-2xl font-bold text-primary">Dashboard</h1>
-        <p className="text-sm text-gray-600 mt-1">Bem-vindo(a), {userProfile?.first_name || 'Proprietário'}!</p>
+        <p className="text-sm text-gray-600 mt-1">Bem-vindo(a), {profile?.first_name || 'Proprietário'}!</p>
       </header>
 
       <div className="p-4 space-y-6">

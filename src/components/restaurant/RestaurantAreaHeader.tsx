@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 interface RestaurantAreaHeaderProps {
   title: string;
   // Agora aceita as chaves de rota completas que são usadas
-  backPath?: 'restaurant-area/dashboard' | 'restaurant-area/profile-menu' | 'restaurantAreaHub';
+  backPath?: 'restaurantAreaHub' | 'restaurant-area/dashboard' | 'restaurant-area/profile-menu';
   className?: string;
 }
 

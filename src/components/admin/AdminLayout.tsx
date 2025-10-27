@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Utensils, Users, Settings, LogOut, ArrowLeftRight } from 'lucide-react';
+import { Home, Utensils, Users, Settings, LogOut, ArrowLeftRight, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { createPageUrl } from '@/utils/url';
@@ -10,6 +10,9 @@ import { showError } from '@/utils/toast';
 // Definição dos itens de navegação do painel de administração
 const navItems = [
   { name: 'Dashboard', path: createPageUrl('adminDashboard'), icon: Home },
+  { name: 'Upload Master', path: createPageUrl('adminDashboard'), icon: Utensils }, // Upload Master está dentro do Dashboard
+  { name: 'Gerenciar Planos', path: createPageUrl('adminPlans'), icon: Crown }, // Adicionando rota de planos
+  { name: 'Gerenciar Administradores', path: createPageUrl('adminManageAdmins'), icon: Users }, // Adicionando rota de admins
   { name: 'Gerenciar Restaurantes', path: createPageUrl('adminRestaurants'), icon: Utensils },
   { name: 'Gerenciar Usuários', path: createPageUrl('adminUsers'), icon: Users },
   { name: 'Transações', path: createPageUrl('adminTransactions'), icon: ArrowLeftRight },
@@ -41,7 +44,12 @@ export default function AdminLayout() {
         
         <nav className="flex-1 p-4 space-y-2">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            // Verifica se a rota atual começa com o caminho do item (para sub-rotas)
+            const isActive = location.pathname.startsWith(item.path);
+            
+            // Tratamento especial para o item 'Upload Master' que aponta para o Dashboard
+            if (item.name === 'Upload Master') return null; 
+            
             return (
               <Button
                 key={item.path}

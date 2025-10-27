@@ -28,7 +28,7 @@ export default function ProfileManagementLayout({ children }: ProfileManagementL
   const { restaurant, isLoading: isRestaurantLoading } = useRestaurantContext();
   const { refetchProfile } = useAuthContext();
 
-  const isPremium = restaurant?.plan === 'premium';
+  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
 
   const handleLogout = async () => {
     try {
@@ -89,13 +89,13 @@ export default function ProfileManagementLayout({ children }: ProfileManagementL
       <div className="p-4 space-y-6">
         
         {/* Seção de Assinatura */}
-        <SubscriptionCard isPremium={isPremium} />
+        <SubscriptionCard restaurant={restaurant} />
 
         {/* Seção de Gerenciamento de Conteúdo */}
-        <ContentManagementSection navigate={navigate} isPremium={isPremium} />
+        <ContentManagementSection isPremium={isPremium} navigate={navigate} />
 
         {/* Seção de Configurações e Suporte */}
-        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+        <SubscriptionSupportSection isPremium={isPremium} navigate={navigate} />
 
         {/* Ações de Perfil */}
         <div className="space-y-3">
@@ -104,16 +104,13 @@ export default function ProfileManagementLayout({ children }: ProfileManagementL
           <ActionCard
             icon={Settings}
             title="Configurações da Conta"
-            description="Gerencie seu e-mail, senha e dados pessoais."
             onClick={() => navigate(createPageUrl('restaurant-area/settings'))}
           />
 
           <ActionCard
             icon={LogOut}
             title="Sair da Conta"
-            description="Desconectar-se do painel do restaurante."
             onClick={handleLogout}
-            className="text-red-600 hover:bg-red-50"
           />
         </div>
       </div>

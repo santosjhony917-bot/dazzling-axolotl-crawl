@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 interface ClientPageWrapperProps {
   children: ReactNode;
   className?: string;
-  // selectedTab: 'home' | 'favorites' | 'search' | 'profile'; // Removido
 }
 
 /**

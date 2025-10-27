@@ -184,7 +184,7 @@ export default function SearchUnifiedPage() {
   );
 
   return (
-    <ClientPageWrapper selectedTab="search">
+    <ClientPageWrapper>
       {/* Cabeçalho Manual */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button

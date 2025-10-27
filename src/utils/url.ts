@@ -37,6 +37,8 @@ const routes = {
   adminTransactions: '/admin/transactions',
   adminSettings: '/admin/settings',
   'admin/edit-restaurant': '/admin/restaurants/edit/:restaurantId', // Rota de edição de restaurante
+  adminPlans: '/admin/plans', // NOVO
+  adminManageAdmins: '/admin/manage-admins', // NOVO
 };
 
 /**

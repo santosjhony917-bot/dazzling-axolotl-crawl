@@ -102,7 +102,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <ClientPageWrapper selectedTab="favorites">
+    <ClientPageWrapper>
       <AppHeader 
         title="Meus Favoritos" 
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('home')) }}

@@ -6,7 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/context/AuthContext';
 import { Loader2, Utensils, ArrowLeft } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
-import { showError } from '@/utils/toast';
+import { showError, showSuccess } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -15,7 +15,7 @@ import { Separator } from '@/components/ui/separator';
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
-  const { session, isLoading: isAuthLoading, refetchProfile, userProfile } = useAuthContext();
+  const { session, isLoading: isAuthLoading, refetchProfile, profile } = useAuthContext();
   const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in'); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,11 +23,12 @@ export default function RestaurantLogin() {
 
   // Redireciona se já estiver logado E for um restaurante
   useEffect(() => {
-    if (session && userProfile?.user_role === 'restaurant') {
+    // CORRIGIDO: Acessando o role através do user.user_metadata
+    if (session && session.user.user_metadata.user_role === 'restaurant') {
       // CORRIGIDO: Redirecionar para a rota do Dashboard do restaurante
       navigate(createPageUrl("restaurant-area/dashboard"));
     }
-  }, [session, navigate, userProfile]);
+  }, [session, navigate]);
 
   // Lida com a mudança de estado de autenticação (para erros e sucesso)
   useEffect(() => {

@@ -12,7 +12,7 @@ import { Loader2 } from 'lucide-react';
 export default function RestaurantAreaRedirect() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { session, isLoading: isAuthLoading, userProfile } = useAuthContext();
+  const { session, isLoading: isAuthLoading, profile } = useAuthContext();
   const { restaurant, isLoading: isRestaurantLoading } = useRestaurantContext();
 
   useEffect(() => {
@@ -20,7 +20,8 @@ export default function RestaurantAreaRedirect() {
       return;
     }
 
-    const isRestaurantUser = userProfile?.user_role === 'restaurant';
+    // CORRIGIDO: Acessando o role através do user.user_metadata
+    const isRestaurantUser = session?.user?.user_metadata?.user_role === 'restaurant';
 
     if (!session || !isRestaurantUser) {
       // Não autenticado ou não é usuário de restaurante, redireciona para o login do restaurante
@@ -32,7 +33,7 @@ export default function RestaurantAreaRedirect() {
       // Autenticado e com restaurante, vai para o dashboard
       navigate(createPageUrl('restaurant-area/dashboard'), { replace: true });
     }
-  }, [session, isAuthLoading, userProfile, restaurant, isRestaurantLoading, navigate, location]);
+  }, [session, isAuthLoading, profile, restaurant, isRestaurantLoading, navigate, location]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
