@@ -14,7 +14,7 @@ export default function AdminDashboard() {
   console.log("AdminDashboard is rendering.");
   return (
     <div className="space-y-6">
-      <Card className="shadow-soft-lg border-none rounded-xl">
+      <Card>
         <CardHeader>
           <CardTitle className="text-3xl text-[#022D68]">Central de Gerenciamento</CardTitle>
           <CardDescription>Gerencie o conteúdo, usuários e métricas do FilterFood.</CardDescription>
@@ -22,7 +22,7 @@ export default function AdminDashboard() {
       </Card>
 
       <Tabs defaultValue="upload-master" className="w-full">
-        <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white shadow-soft-lg rounded-xl">
+        <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white shadow-md rounded-xl">
           <TabsTrigger value="upload-master" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-[#022D68] data-[state=active]:text-white">
             <Upload className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Upload Master</span>

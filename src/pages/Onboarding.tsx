@@ -4,10 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
-import OnboardingScreen from '@/components/onboarding/OnboardingScreen';
+import OnboardingScreen from '../components/onboarding/OnboardingScreen';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
-import { useOnboardingStatus } from '@/hooks/useOnboardingStatus'; // Importando o hook de status
 
 const onboardingScreens = [
   {
@@ -43,32 +42,38 @@ export default function Onboarding() {
   const [direction, setDirection] = useState(0);
   const [isCompleting, setIsCompleting] = useState(false);
   const navigate = useNavigate();
-  const { completeOnboarding: completeOnboardingHook } = useOnboardingStatus(); // Renomeado para evitar conflito
 
   // Check if onboarding was already completed on initial load
   useEffect(() => {
-    // A verificação de status de onboarding agora é feita no Splash/Index
-    // Aqui, apenas garantimos que o usuário não fique preso se a API falhar.
+    const checkOnboardingStatus = async () => {
+      try {
+        const userData = await base44.auth.me();
+        if (userData.onboarding_completed) {
+          console.log("Onboarding already completed, redirecting to welcome.");
+          navigate(createPageUrl('welcome'));
+        }
+      } catch (error) {
+        // If user is not found or any other error, proceed with onboarding
+        console.log("No user data found or error fetching, starting onboarding.");
+      }
+    };
+
+    checkOnboardingStatus();
   }, [navigate]);
 
-  const handleCompleteOnboarding = async () => { // Renomeado
+  const completeOnboarding = async () => {
     if (isCompleting) return; // Prevent multiple clicks
     
     setIsCompleting(true);
     try {
-      // 1. Marcar no localStorage (via hook)
-      completeOnboardingHook(); // Chama a função do hook
-      
-      // 2. Marcar na API (se necessário para persistência de perfil)
-      // A chamada base44.auth.updateMe foi removida na lógica anterior, mas se fosse mantida, estaria aqui.
-      
+      await base44.auth.updateMe({ onboarding_completed: true });
       console.log("Onboarding marked as completed.");
-      // CORREÇÃO: Usar replace: true para evitar que o usuário volte para o onboarding
-      navigate(createPageUrl('welcome'), { replace: true }); 
+      navigate(createPageUrl('welcome'));
     } catch (error) {
       console.error('Error completing onboarding:', error);
       showError('Falha ao concluir o onboarding. Por favor, tente novamente.');
-      navigate(createPageUrl('welcome'), { replace: true });
+      // Even if the API call fails, we still navigate to welcome to prevent being stuck
+      navigate(createPageUrl('welcome'));
     } finally {
       setIsCompleting(false);
     }
@@ -80,12 +85,12 @@ export default function Onboarding() {
       setCurrentScreen(prev => prev + 1);
     } else {
       // Última tela: completa o onboarding
-      handleCompleteOnboarding();
+      completeOnboarding();
     }
   };
 
   const skipOnboarding = () => {
-    handleCompleteOnboarding();
+    completeOnboarding();
   };
 
   const variants = {
@@ -108,7 +113,7 @@ export default function Onboarding() {
   
   if (!screen) {
     // Se por algum motivo o índice for inválido (ex: 3), navegamos imediatamente
-    handleCompleteOnboarding();
+    completeOnboarding();
     return null; 
   }
 

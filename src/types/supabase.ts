@@ -36,7 +36,6 @@ export interface Profile {
   last_name: string | null;
   avatar_url: string | null;
   updated_at: string | null;
-  phone: string | null; // ADICIONADO
   // Adicionando campo derivado para consistência com useAuthProfile
   is_admin?: boolean; 
 }

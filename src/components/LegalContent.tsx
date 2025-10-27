@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
 
 // Componente auxiliar para renderizar uma seção numerada
 interface SectionProps {
@@ -110,10 +109,10 @@ const LegalContent: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col items-center max-w-md mx-auto">
+    <div className="relative bg-white font-sans antialiased flex min-h-screen w-full flex-col items-center max-w-md mx-auto">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm w-full">
         <Button
           variant="ghost"
           size="icon"
@@ -129,37 +128,33 @@ const LegalContent: React.FC = () => {
       </header>
 
       <main className="flex-1 w-full p-4 pt-0">
-        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-0">
-          <CardContent className="p-6">
-            <Tabs defaultValue="termos" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 h-auto p-0 bg-white shadow-none border-b border-gray-200 dark:border-gray-700 rounded-none">
-                <TabsTrigger 
-                  value="termos" 
-                  className="flex flex-col h-auto py-3 px-1 data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight text-gray-600 font-bold rounded-none"
-                >
-                  Termos de Uso
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="privacidade" 
-                  className="flex flex-col h-auto py-3 px-1 data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight text-gray-600 font-bold rounded-none"
-                >
-                  Privacidade
-                </TabsTrigger>
-              </TabsList>
+        <Tabs defaultValue="termos" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-0 bg-white shadow-none border-b border-gray-200 dark:border-gray-700 rounded-none">
+            <TabsTrigger 
+              value="termos" 
+              className="flex flex-col h-auto py-3 px-1 data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight text-gray-600 font-bold rounded-none"
+            >
+              Termos de Uso
+            </TabsTrigger>
+            <TabsTrigger 
+              value="privacidade" 
+              className="flex flex-col h-auto py-3 px-1 data-[state=active]:border-b-2 data-[state=active]:border-highlight data-[state=active]:text-highlight text-gray-600 font-bold rounded-none"
+            >
+              Privacidade
+            </TabsTrigger>
+          </TabsList>
 
-              <div className="mt-6">
-                <TabsContent value="termos">
-                  <h1 className="text-3xl font-bold text-[#022D68] mb-4">Termos de Uso</h1>
-                  <TermsOfUseContent />
-                </TabsContent>
-                <TabsContent value="privacidade">
-                  <h1 className="text-3xl font-bold text-[#022D68] mb-4">Política de Privacidade</h1>
-                  <PrivacyPolicyContent />
-                </TabsContent>
-              </div>
-            </Tabs>
-          </CardContent>
-        </Card>
+          <div className="mt-6">
+            <TabsContent value="termos">
+              <h1 className="text-3xl font-bold text-[#022D68] mb-4">Termos de Uso</h1>
+              <TermsOfUseContent />
+            </TabsContent>
+            <TabsContent value="privacidade">
+              <h1 className="text-3xl font-bold text-[#022D68] mb-4">Política de Privacidade</h1>
+              <PrivacyPolicyContent />
+            </TabsContent>
+          </div>
+        </Tabs>
       </main>
     </div>
   );

@@ -181,7 +181,7 @@ const RestaurantDashboard = () => {
       </main>
 
       {/* Bottom Navigation */}
-      <RestaurantBottomNav isPremium={isPremium} />
+      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
 
       {/* User Location Modal */}
       <UserLocationModal

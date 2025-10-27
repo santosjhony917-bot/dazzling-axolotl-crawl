@@ -4,9 +4,9 @@ import { Users } from 'lucide-react';
 
 export default function AdminUsers() {
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-[#022D68]">
           <Users className="w-6 h-6" /> Gerenciar Usuários
         </CardTitle>
         <CardDescription>Gerenciamento de usuários e perfis (clientes e restaurantes).</CardDescription>

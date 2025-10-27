@@ -97,7 +97,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <ClientPageWrapper>
+    <ClientPageWrapper selectedTab="home">
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">

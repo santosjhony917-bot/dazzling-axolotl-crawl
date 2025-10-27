@@ -4,9 +4,9 @@ import { Settings } from 'lucide-react';
 
 export default function AdminSettings() {
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-[#022D68]">
           <Settings className="w-6 h-6" /> Configurações do Sistema
         </CardTitle>
         <CardDescription>Ajustes globais e manutenção do sistema.</CardDescription>

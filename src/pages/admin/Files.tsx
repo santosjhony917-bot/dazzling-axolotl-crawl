@@ -4,9 +4,9 @@ import { Folder } from 'lucide-react';
 
 export default function Files() {
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-[#022D68]">
           <Folder className="w-6 h-6" /> Gerenciamento de Arquivos
         </CardTitle>
         <CardDescription>Gerencie imagens e documentos armazenados nos buckets.</CardDescription>

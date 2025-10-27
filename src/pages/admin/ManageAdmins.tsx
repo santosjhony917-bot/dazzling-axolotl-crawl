@@ -120,9 +120,9 @@ export default function ManageAdmins() {
   return (
     <div className="space-y-6">
       {/* Seção Adicionar Administrador */}
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-lg border-none rounded-xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+          <CardTitle className="flex items-center gap-2 text-[#022D68]">
             <UserPlus className="w-6 h-6" /> Adicionar Administrador
           </CardTitle>
           <CardDescription>Promova um usuário existente para administrador.</CardDescription>
@@ -140,14 +140,14 @@ export default function ManageAdmins() {
                 onChange={(e) => setEmailToAdd(e.target.value)}
                 onKeyDown={handleKeyDown} // Adicionado onKeyDown
                 disabled={addAdminMutation.isPending}
-                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                className="h-10 rounded-lg"
               />
             </div>
             <Button 
               type="button" // Garantindo que não seja submit nativo
               onClick={handleAddAdmin} // Chamada direta
               disabled={addAdminMutation.isPending || !emailToAdd.trim()}
-              className="bg-highlight hover:bg-highlight/90 h-12 px-4 flex items-center gap-2 text-base font-bold"
+              className="bg-highlight hover:bg-highlight/90 h-10 px-4 flex items-center gap-2"
             >
               {addAdminMutation.isPending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -161,9 +161,9 @@ export default function ManageAdmins() {
       </Card>
 
       {/* Seção Administradores Ativos */}
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-lg border-none rounded-xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+          <CardTitle className="flex items-center gap-2 text-[#022D68]">
             <Shield className="w-6 h-6" /> Administradores Ativos
           </CardTitle>
           <CardDescription>Total: {totalAdmins} administrador(es)</CardDescription>
@@ -183,16 +183,16 @@ export default function ManageAdmins() {
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
-                  <tr className="bg-gray-50">
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User ID</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                  <tr>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User ID</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {admins.map((admin) => (
-                    <tr key={admin.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={admin.id}>
                       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 truncate max-w-[150px]">{admin.email}</td>
                       <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500 truncate max-w-[100px]">{admin.id}</td>
                       <td className="px-4 py-4 whitespace-nowrap">

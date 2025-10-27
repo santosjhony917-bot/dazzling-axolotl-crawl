@@ -1,288 +1,422 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuthContext } from '@/context/AuthContext';
-import { Loader2, Utensils, ArrowLeft, MapPin, Phone, DollarSign, Clock } from 'lucide-react';
-import { createPageUrl } from '@/utils/url';
-import { showError, showSuccess } from '@/utils/toast';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate, Link } from "react-router-dom";
+import { createPageUrl } from "@/utils/url";
+import { ArrowLeft, Store, PlusCircle, Eye, EyeOff, Loader2, MapPin, Phone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { registerRestaurant } from "@/integrations/supabase/edgeFunctions";
+import { showError, showSuccess } from "@/utils/toast";
+import { formatCEP } from "@/services/geocoding";
+import axios from "axios";
 
-// Mock de categorias
-const mockCategories = [
-  'Italiana', 'Japonesa', 'Brasileira', 'Mexicana', 'Vegetariana', 'Fast Food', 'Gourmet'
-];
+// Tipagem para a localização única
+interface Location {
+  cep: string;
+  street: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  phone: string;
+}
 
-// Mock de horários de funcionamento
-const initialOpeningHours = {
-  monday: { open: '09:00', close: '22:00', isClosed: false },
-  tuesday: { open: '09:00', close: '22:00', isClosed: false },
-  wednesday: { open: '09:00', close: '22:00', isClosed: false },
-  thursday: { open: '09:00', close: '22:00', isClosed: false },
-  friday: { open: '09:00', close: '23:00', isClosed: false },
-  saturday: { open: '10:00', close: '23:00', isClosed: false },
-  sunday: { open: '10:00', close: '22:00', isClosed: false },
+const initialLocation: Location = {
+  cep: "", street: "", number: "", complement: "", neighborhood: "", city: "", state: "", phone: ""
 };
 
 export default function RestaurantSignup() {
   const navigate = useNavigate();
-  const { session, isLoading: isAuthLoading, refetchProfile } = useAuthContext();
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 3;
+
+  // Dados do formulário
+  const [restaurantName, setRestaurantName] = useState("");
+  const [location, setLocation] = useState<Location>(initialLocation);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isSearchingCep, setIsSearchingCep] = useState(false);
+
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+
+  const updateLocation = (field: keyof Location, value: string) => {
+    setLocation(prev => ({ ...prev, [field]: value }));
+  };
   
-  const [step, setStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const formattedValue = formatCEP(rawValue);
+    updateLocation('cep', formattedValue);
+  };
 
-  // Step 1: Owner/Auth Info
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  // Efeito para buscar CEP automaticamente
+  React.useEffect(() => {
+    const cleanedCep = location.cep.replace(/\D/g, '');
+    if (cleanedCep.length === 8 && !loading && !isSearchingCep) {
+      const fetchViaCEP = async () => {
+        setIsSearchingCep(true);
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
+          const data = response.data;
 
-  // Step 2: Restaurant Details
-  const [restaurantName, setRestaurantName] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [phone, setPhone] = useState('');
-
-  // Step 3: Location and Hours
-  const [address, setAddress] = useState('');
-  const [number, setNumber] = useState('');
-  const [cep, setCep] = useState('');
-  const [openingHours, setOpeningHours] = useState(initialOpeningHours);
-  
-  // Mock de geolocalização (para simplificar)
-  const mockLatitude = -23.5505;
-  const mockLongitude = -46.6333;
-
-  // Redireciona se já estiver logado
-  useEffect(() => {
-    if (session) {
-      // Se já logado, verifica se tem restaurante. Se sim, vai para o dashboard. Se não, vai para o hub.
-      // A lógica de verificação de restaurante é complexa aqui, então redirecionamos para o hub para decidir.
-      navigate(createPageUrl('restaurantAreaHub'));
+          if (!data.erro) {
+            updateLocation('street', data.logradouro || '');
+            updateLocation('neighborhood', data.bairro || '');
+            updateLocation('city', data.localidade || '');
+            updateLocation('state', data.uf || '');
+            showSuccess("Endereço preenchido automaticamente!");
+          } else {
+            showError("CEP não encontrado.");
+          }
+        } catch (error) {
+          showError("Erro ao buscar CEP.");
+        } finally {
+          setIsSearchingCep(false);
+        }
+      };
+      fetchViaCEP();
     }
-  }, [session, navigate]);
+  }, [location.cep, loading]);
 
-  const handleNext = () => {
+
+  const validateStep = (step: number): boolean => {
     if (step === 1) {
-      if (!firstName || !lastName || !email || !password) {
-        showError('Preencha todos os campos de informações pessoais.');
-        return;
+      if (!restaurantName.trim()) {
+        showError("O nome do restaurante é obrigatório.");
+        return false;
       }
     } else if (step === 2) {
-      if (!restaurantName || !category || !phone) {
-        showError('Preencha todos os campos de detalhes do restaurante.');
-        return;
+      if (
+        !location.cep.replace(/\D/g, '').length || 
+        !location.street.trim() || 
+        !location.number.trim() || 
+        !location.city.trim() || 
+        !location.state.trim() ||
+        !location.phone.trim()
+      ) {
+        showError("Preencha todos os campos obrigatórios de localização e contato.");
+        return false;
+      }
+    } else if (step === 3) {
+      if (!email || !password || !confirmPassword) {
+        showError("Preencha todos os campos de acesso.");
+        return false;
+      }
+      if (password.length < 6) {
+        showError("A senha deve ter pelo menos 6 caracteres.");
+        return false;
+      }
+      if (password !== confirmPassword) {
+        showError("As senhas não coincidem.");
+        return false;
+      }
+      if (!acceptTerms) {
+        showError("Você deve aceitar os termos de uso.");
+        return false;
       }
     }
-    setStep(step + 1);
+    return true;
+  };
+
+  const handleNext = () => {
+    if (validateStep(currentStep)) {
+      if (currentStep < totalSteps) {
+        setCurrentStep(currentStep + 1);
+      }
+    }
   };
 
   const handleBack = () => {
-    setStep(step - 1);
-  };
-
-  const handleOpeningHoursChange = (day: keyof typeof initialOpeningHours, field: 'open' | 'close' | 'isClosed', value: string | boolean) => {
-    setOpeningHours(prev => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        [field]: value,
-      },
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (step !== 3) return;
-
-    if (!address || !cep) {
-      showError('Preencha o endereço e CEP.');
-      return;
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     }
+  };
 
-    setIsSubmitting(true);
+  const handleSubmit = async () => {
+    if (!validateStep(totalSteps)) return;
 
+    setLoading(true);
+    
     try {
-      // 1. Criar usuário (Auth)
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      // 1. Envia todos os dados para a Edge Function para criação segura do usuário e registro do restaurante.
+      const payload = {
+        restaurantName,
+        location, // Objeto de localização única
         email,
         password,
-        options: {
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-            user_role: 'restaurant', // Define o papel do usuário
-          },
-        },
+      };
+      
+      const registrationResult = await registerRestaurant(payload);
+      
+      // 2. A Edge Function retornou sucesso. Agora fazemos o login no cliente.
+      const { error: signInError } = await supabase.auth.signInWithPassword({ 
+        email: registrationResult.email, 
+        password: registrationResult.password 
       });
 
-      if (authError) {
-        if (authError.message.includes('already registered')) {
-          showError("Este e-mail já está em uso. Por favor, faça login na página de acesso do restaurante.");
-          navigate(createPageUrl('restaurant-login'));
-        } else {
-          throw authError;
-        }
-        return;
+      if (signInError) {
+        throw new Error(`Registro concluído, mas falha ao fazer login: ${signInError.message}`);
       }
-
-      const userId = authData.user?.id;
-      if (!userId) throw new Error("Falha ao obter ID do usuário após o cadastro.");
-
-      // 2. Criar o registro do Restaurante (Database)
-      const { error: restaurantError } = await supabase
-        .from('restaurants')
-        .insert({
-          user_id: userId,
-          name: restaurantName,
-          description: description,
-          category: category,
-          phone: phone,
-          address: address,
-          number: number,
-          cep: cep,
-          latitude: mockLatitude,
-          longitude: mockLongitude,
-          opening_hours: openingHours,
-          plan: 'free', // Começa no plano gratuito
-        });
-
-      if (restaurantError) throw restaurantError;
-
+      
       showSuccess(`Restaurante cadastrado! Redirecionando para o painel.`);
-      navigate(createPageUrl('restaurant-area/dashboard')); // CORRIGIDO: Redireciona para o Dashboard
-
+      navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
+      
     } catch (error) {
-      console.error('Signup error:', error);
-      showError(`Falha no cadastro: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
+      const errorMessage = (error as Error).message;
+      console.error("Signup/Registration error:", error);
+      
+      if (errorMessage.includes('already been registered') || errorMessage.includes('Usuário já existe')) {
+        showError("Este e-mail já está em uso. Por favor, faça login na página de acesso do restaurante.");
+        navigate(createPageUrl('restaurant-login'));
+      } else {
+        showError(errorMessage || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
+      }
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
-  if (isAuthLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-gray-50">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
+  const getStepIndicatorClass = (step: number) => {
+    return step <= currentStep
+      ? "bg-highlight text-white"
+      : "bg-gray-200 text-gray-500";
+  };
 
-  const renderStep = () => {
-    switch (step) {
+  const getStepTextClass = (step: number) => {
+    return step <= currentStep ? "text-primary" : "text-gray-500";
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-primary">1. Informações do Proprietário</h2>
-            <div className="space-y-2">
-              <Label htmlFor="firstName">Nome</Label>
-              <Input id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Sobrenome</Label>
-              <Input id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail (Login)</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-          </div>
+          <motion.div
+            key="step1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-6"
+          >
+            <label className="flex flex-col">
+              <p className="text-primary text-base font-medium mb-2">
+                Nome do Restaurante
+              </p>
+              <Input
+                value={restaurantName}
+                onChange={(e) => setRestaurantName(e.target.value)}
+                placeholder="Ex: Restaurante Sabor Divino"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                required
+              />
+            </label>
+          </motion.div>
         );
       case 2:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-primary">2. Detalhes do Restaurante</h2>
-            <div className="space-y-2">
-              <Label htmlFor="restaurantName">Nome do Restaurante</Label>
-              <Input id="restaurantName" value={restaurantName} onChange={(e) => setRestaurantName(e.target.value)} required className="h-12 rounded-xl" />
+          <motion.div
+            key="step2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            <h3 className="text-primary text-lg font-bold mb-1">
+              Localização Principal
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Insira o endereço principal do seu estabelecimento.
+            </p>
+            
+            <div className="space-y-3">
+              {/* CEP */}
+              <div className="relative">
+                <Input
+                  value={location.cep}
+                  onChange={handleCepChange}
+                  placeholder="CEP (Ex: 58039-000)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12 shadow-soft-sm"
+                  maxLength={9}
+                  disabled={isSearchingCep}
+                  required
+                />
+                {isSearchingCep && (
+                  <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-highlight" />
+                )}
+              </div>
+
+              {/* Rua */}
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-highlight shrink-0" />
+                <Input
+                  value={location.street}
+                  onChange={(e) => updateLocation('street', e.target.value)}
+                  placeholder="Rua / Avenida"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  required
+                />
+              </div>
+
+              {/* Número */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">#</span>
+                <Input
+                  value={location.number}
+                  onChange={(e) => updateLocation('number', e.target.value)}
+                  placeholder="Número"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  required
+                />
+              </div>
+              
+              {/* Complemento */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">C</span>
+                <Input
+                  value={location.complement}
+                  onChange={(e) => updateLocation('complement', e.target.value)}
+                  placeholder="Complemento (Ex: Sala 101, Bloco B)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                />
+              </div>
+
+              {/* Bairro */}
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 text-highlight shrink-0 text-center font-bold text-sm">B</span>
+                <Input
+                  value={location.neighborhood}
+                  onChange={(e) => updateLocation('neighborhood', e.target.value)}
+                  placeholder="Bairro"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  required
+                />
+              </div>
+
+              {/* Cidade e Estado */}
+              <div className="flex gap-3">
+                <Input
+                  value={location.city}
+                  onChange={(e) => updateLocation('city', e.target.value)}
+                  placeholder="Cidade"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  required
+                />
+                <Input
+                  value={location.state}
+                  onChange={(e) => updateLocation('state', e.target.value)}
+                  placeholder="Estado (UF)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0 shadow-soft-sm"
+                  maxLength={2}
+                  required
+                />
+              </div>
+
+              {/* Telefone */}
+              <div className="flex items-center gap-2 pt-2">
+                <Phone className="w-5 h-5 text-highlight shrink-0" />
+                <Input
+                  value={location.phone}
+                  onChange={(e) => updateLocation('phone', e.target.value)}
+                  placeholder="Telefone de contato (obrigatório)"
+                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  required
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Descrição Curta</Label>
-              <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="O que torna seu restaurante especial?" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">Categoria Principal</Label>
-              <Select value={category} onValueChange={setCategory} required>
-                <SelectTrigger className="h-12 rounded-xl">
-                  <SelectValue placeholder="Selecione a categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {mockCategories.map(cat => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone">Telefone de Contato</Label>
-              <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-          </div>
+          </motion.div>
         );
       case 3:
         return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold text-primary">3. Localização e Horário</h2>
-            <div className="space-y-2">
-              <Label htmlFor="cep">CEP</Label>
-              <Input id="cep" value={cep} onChange={(e) => setCep(e.target.value)} required className="h-12 rounded-xl" />
+          <motion.div
+            key="step3"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            <label className="flex flex-col">
+              <p className="text-primary text-base font-medium mb-2">Email de Acesso</p>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu email"
+                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                required
+              />
+            </label>
+            
+            <div className="relative">
+              <p className="text-primary text-base font-medium mb-2">Senha</p>
+              <Input
+                type={passwordVisible ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Crie uma senha (mínimo 6 caracteres)"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                required
+                minLength={6}
+              />
+              <button
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors mt-7"
+                type="button"
+              >
+                {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="address">Endereço</Label>
-              <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} required className="h-12 rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="number">Número</Label>
-              <Input id="number" value={number} onChange={(e) => setNumber(e.target.value)} className="h-12 rounded-xl" />
+            
+            <div className="relative">
+              <p className="text-primary text-base font-medium mb-2">
+                Confirmar Senha
+              </p>
+              <Input
+                type={passwordVisible ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirme sua senha"
+                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                required
+              />
+              <button
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors mt-7"
+                type="button"
+              >
+                {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
 
-            <Separator className="my-6" />
-            
-            <h3 className="text-lg font-semibold text-primary flex items-center">
-              <Clock className="w-5 h-5 mr-2" /> Horário de Funcionamento
-            </h3>
-            
-            {Object.entries(openingHours).map(([day, hours]) => (
-              <div key={day} className="flex items-center space-x-2">
-                <span className="w-20 capitalize text-sm font-medium text-gray-700">
-                  {day.charAt(0).toUpperCase() + day.slice(1)}
-                </span>
-                <input
-                  type="checkbox"
-                  checked={hours.isClosed}
-                  onChange={(e) => handleOpeningHoursChange(day as keyof typeof initialOpeningHours, 'isClosed', e.target.checked)}
-                  className="h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
-                />
-                <Label className="text-sm mr-2">Fechado</Label>
-                
-                <Input
-                  type="time"
-                  value={hours.open}
-                  onChange={(e) => handleOpeningHoursChange(day as keyof typeof initialOpeningHours, 'open', e.target.value)}
-                  disabled={hours.isClosed}
-                  className={cn("h-10 rounded-lg text-center", hours.isClosed && "bg-gray-100")}
-                />
-                <span className="text-gray-500">-</span>
-                <Input
-                  type="time"
-                  value={hours.close}
-                  onChange={(e) => handleOpeningHoursChange(day as keyof typeof initialOpeningHours, 'close', e.target.value)}
-                  disabled={hours.isClosed}
-                  className={cn("h-10 rounded-lg text-center", hours.isClosed && "bg-gray-100")}
-                />
-              </div>
-            ))}
-          </div>
+            <div className="flex items-start pt-4">
+              <Checkbox
+                id="terms"
+                checked={acceptTerms}
+                onCheckedChange={(checked) => setAcceptTerms(!!checked)}
+                className="border-gray-400 mt-1 data-[state=checked]:bg-highlight data-[state=checked]:text-white"
+              />
+              <label className="ml-2 text-sm text-gray-600 leading-relaxed" htmlFor="terms">
+                Concordo com os{" "}
+                <Link to={createPageUrl('legal')} className="font-bold text-highlight hover:underline">
+                  termos de uso
+                </Link>{" "}
+                e{" "}
+                <Link to={createPageUrl('legal')} className="font-bold text-highlight hover:underline">
+                  política de privacidade
+                </Link>
+                .
+              </label>
+            </div>
+          </motion.div>
         );
       default:
         return null;
@@ -290,93 +424,129 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-50 p-4">
-      
-      {/* Header de Navegação */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-start sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
+    <div className="min-h-screen bg-background-light flex flex-col">
+      {/* Header */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md">
         <Button
           variant="ghost"
           size="icon"
-          onClick={step > 1 ? handleBack : () => navigate(createPageUrl('restaurantAreaHub'))}
+          onClick={() => {
+            if (currentStep > 1) {
+              handleBack();
+            } else {
+              navigate(createPageUrl('restaurant-area'));
+            }
+          }}
           className="text-primary hover:bg-primary/5"
         >
-          <ArrowLeft className="h-6 w-6" />
+          <ArrowLeft className="w-6 h-6" />
         </Button>
-        <h2 className="text-primary text-xl font-bold ml-4">Cadastro de Restaurante</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-primary text-xl font-bold">Cadastro</h2>
+        </div>
+        <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-md pt-20">
-        {/* Progresso */}
-        <div className="flex justify-between mb-6 w-full max-w-sm mx-auto">
-          {[1, 2, 3].map((s) => (
-            <div key={s} className="flex flex-col items-center">
-              <div className={cn(
-                "w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors duration-300",
-                s === step ? "bg-highlight text-white" : s < step ? "bg-primary text-white" : "bg-gray-200 text-gray-500"
-              )}>
-                {s}
-              </div>
-              <span className="text-xs mt-1 text-gray-600">Passo {s}</span>
-            </div>
-          ))}
+      <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
+        <div className="flex flex-col items-center text-center mb-8">
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <Store className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
+            Cadastrar Restaurante
+          </h1>
+          <p className="text-gray-600 text-base mt-1">
+            Preencha os dados do seu estabelecimento em 3 passos.
+          </p>
         </div>
 
-        {/* Card Principal */}
-        <Card className="bg-white rounded-2xl shadow-soft-xl p-6">
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {renderStep()}
-            
-            <div className="flex justify-between pt-4">
-              {step > 1 && (
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={handleBack}
-                  className="h-12 rounded-xl w-1/3 border-primary text-primary hover:bg-primary/5"
-                >
-                  Voltar
-                </Button>
-              )}
-              
-              {step < 3 ? (
-                <Button 
-                  type="button" 
-                  onClick={handleNext}
-                  className={cn("h-12 rounded-xl", step === 1 ? "w-full" : "w-2/3 ml-auto")}
-                >
-                  Próximo
-                </Button>
-              ) : (
-                <Button 
-                  type="submit" 
-                  className={cn("h-12 rounded-xl bg-highlight hover:bg-highlight/90 shadow-highlight-glow", step === 1 ? "w-full" : "w-2/3 ml-auto")}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    'Finalizar Cadastro'
-                  )}
-                </Button>
-              )}
+        {/* Progress Indicator */}
+        <Card className="mb-8 shadow-soft-lg border-none rounded-xl p-4">
+          <CardContent className="p-0 flex justify-between items-center">
+            <div className="flex-1 flex flex-col items-center">
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-colors duration-300 ${getStepIndicatorClass(1)}`}>
+                1
+              </div>
+              <p className={`text-xs mt-1 font-medium text-center ${getStepTextClass(1)}`}>
+                Básico
+              </p>
             </div>
-          </form>
-
-          <Separator className="my-6" />
-
-          <div className="text-center text-sm">
-            <p className="text-gray-600">
-              Já tem uma conta de restaurante?
-              <Link
-                to={createPageUrl('restaurant-login')}
-                className="font-bold text-highlight hover:underline ml-1"
-              >
-                Fazer Login
-              </Link>
-            </p>
-          </div>
+            <div className="flex-1 border-t-2 border-gray-300 mx-2"></div>
+            <div className="flex-1 flex flex-col items-center">
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-colors duration-300 ${getStepIndicatorClass(2)}`}>
+                2
+              </div>
+              <p className={`text-xs mt-1 text-center ${getStepTextClass(2)}`}>
+                Localização
+              </p>
+            </div>
+            <div className="flex-1 border-t-2 border-gray-300 mx-2"></div>
+            <div className="flex-1 flex flex-col items-center">
+              <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-colors duration-300 ${getStepIndicatorClass(3)}`}>
+                3
+              </div>
+              <p className={`text-xs mt-1 text-center ${getStepTextClass(3)}`}>
+                Acesso
+              </p>
+            </div>
+          </CardContent>
         </Card>
+
+        {/* Step Forms Container */}
+        <Card className="shadow-soft-xl border-none rounded-2xl p-6">
+          <CardContent className="p-0">
+            <AnimatePresence mode="wait">
+              {renderStepContent()}
+            </AnimatePresence>
+          </CardContent>
+        </Card>
+
+        {/* Navigation Buttons */}
+        <div className="pt-8 pb-4 space-y-4">
+          <div className="flex justify-between gap-4">
+            {currentStep > 1 && (
+              <Button
+                onClick={handleBack}
+                variant="outline"
+                className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
+              >
+                Voltar
+              </Button>
+            )}
+            {currentStep < totalSteps ? (
+              <Button
+                onClick={handleNext}
+                disabled={loading}
+                variant="highlight"
+                className={`flex-1 h-12 rounded-xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
+              >
+                {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                disabled={loading}
+                variant="highlight"
+                className="flex-1 h-12 rounded-xl text-lg font-bold shadow-highlight-glow"
+              >
+                {loading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Cadastrar Restaurante"
+                )}
+              </Button>
+            )}
+          </div>
+          <p className="text-center text-sm text-gray-600">
+            Já possui cadastro?{" "}
+            <Link
+              to={createPageUrl('restaurant-login')}
+              className="font-bold text-highlight hover:underline"
+            >
+              Fazer login
+            </Link>
+          </p>
+        </div>
       </main>
     </div>
   );

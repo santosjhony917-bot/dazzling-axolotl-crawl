@@ -1,25 +1,21 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ClientBottomNav from './ClientBottomNav';
-import { cn } from '@/lib/utils';
 
 interface ClientPageWrapperProps {
-  children: ReactNode;
-  className?: string;
+  children: React.ReactNode;
+  selectedTab: 'home' | 'search' | 'favorites' | 'profile';
 }
 
-/**
- * Layout wrapper para páginas de cliente que precisam da navegação inferior.
- */
-export default function ClientPageWrapper({ children, className }: ClientPageWrapperProps) {
-  // A lógica de ativação da aba agora é interna ao ClientBottomNav
-  // baseada na rota atual (location.pathname).
-  
+const ClientPageWrapper: React.FC<ClientPageWrapperProps> = ({ children, selectedTab }) => {
   return (
-    <div className={cn("min-h-screen flex flex-col bg-gray-50", className)}>
-      <main className="flex-1 w-full max-w-md mx-auto pb-16">
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      {/* O conteúdo da página é renderizado aqui */}
+      <main className="flex-1">
         {children}
       </main>
-      <ClientBottomNav />
+      <ClientBottomNav selectedTab={selectedTab} />
     </div>
   );
-}
+};
+
+export default ClientPageWrapper;
