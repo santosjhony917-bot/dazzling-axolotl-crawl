@@ -1,19 +1,27 @@
 import React from 'react';
-import ClientLayout from '@/components/ClientLayout';
+import ClientPageWrapper from '@/components/ClientPageWrapper';
 import { useAuthContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import { LogOut, User as UserIcon, Settings, Heart, MapPin } from 'lucide-react';
+import { LogOut, User as UserIcon, Settings, Heart, MapPin, Loader2 } from 'lucide-react';
 import NavCardItem from '@/components/NavCardItem';
 import { createPageUrl } from '@/utils/url';
 import { useNavigate } from 'react-router-dom';
 
 const ClientProfilePage: React.FC = () => {
-  const { user, profile, signOut, restaurant } = useAuthContext();
+  const { user, profile, signOut, restaurant, isLoading: authLoading } = useAuthContext();
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOut();
   };
+  
+  if (authLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
   
   // Se o usuário for proprietário de restaurante, redireciona para a área do restaurante
   if (restaurant) {
@@ -22,7 +30,7 @@ const ClientProfilePage: React.FC = () => {
   }
 
   return (
-    <ClientLayout title="Meu Perfil" selectedTab="profile" showBackButton={false}> {/* Corrigido para 'profile' */}
+    <ClientPageWrapper selectedTab="profile">
       <div className="p-4 space-y-6">
         
         {/* Card de Informações Básicas */}
@@ -87,7 +95,7 @@ const ClientProfilePage: React.FC = () => {
         )}
         
       </div>
-    </ClientLayout>
+    </ClientPageWrapper>
   );
 };
 

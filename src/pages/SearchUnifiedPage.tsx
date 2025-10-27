@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
-import ClientBottomNav from '@/components/ClientBottomNav';
+import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
@@ -184,7 +184,7 @@ export default function SearchUnifiedPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <ClientPageWrapper selectedTab="search">
       {/* Cabeçalho Manual */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button
@@ -217,12 +217,7 @@ export default function SearchUnifiedPage() {
         onApplyFilter={handleApplyDistanceFilter}
       />
       
-      {/* Navegação Inferior Condicional */}
-      {isRestaurantOwner ? (
-        <RestaurantBottomNav selectedTab="search" isFree={!isPremium} />
-      ) : (
-        <ClientBottomNav selectedTab="search" />
-      )}
-    </div>
+      {/* Navegação Inferior Condicional (Removida daqui, agora está no ClientPageWrapper) */}
+    </ClientPageWrapper>
   );
 }

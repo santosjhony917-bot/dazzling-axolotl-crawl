@@ -10,7 +10,7 @@ import { useAuthContext } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
-import ClientBottomNav from '@/components/ClientBottomNav';
+import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
 
 // O tipo FavoriteRestaurant é essencialmente o Restaurant que vem da tabela user_favorites
 interface FavoriteRestaurant extends Restaurant {}
@@ -101,7 +101,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <ClientPageWrapper selectedTab="favorites">
       <AppHeader 
         title="Meus Favoritos" 
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('home')) }}
@@ -164,8 +164,6 @@ export default function FavoritesPage() {
           </CardContent>
         </Card>
       </main>
-      
-      <ClientBottomNav selectedTab="favorites" />
-    </div>
+    </ClientPageWrapper>
   );
 }

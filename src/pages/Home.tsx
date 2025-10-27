@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import ClientBottomNav from '@/components/ClientBottomNav';
+import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
 import { createPageUrl } from '@/utils/url';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <ClientPageWrapper selectedTab="home">
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
@@ -230,9 +230,6 @@ const Home: React.FC = () => {
         </div>
       </main>
 
-      {/* Bottom Navigation */}
-      <ClientBottomNav selectedTab="home" />
-
       {/* User Location Modal */}
       <UserLocationModal
         isOpen={isLocationModalOpen}
@@ -252,7 +249,7 @@ const Home: React.FC = () => {
         onClose={() => setIsDistanceModalOpen(false)}
         onApplyFilter={handleApplyDistanceFilter}
       />
-    </div>
+    </ClientPageWrapper>
   );
 };
 
