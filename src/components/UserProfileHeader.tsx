@@ -1,6 +1,8 @@
 import React from 'react';
 import { ArrowLeft, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 interface UserProfileHeaderProps {
   displayName: string;
@@ -10,13 +12,13 @@ interface UserProfileHeaderProps {
 
 const UserProfileHeader: React.FC<UserProfileHeaderProps> = ({ displayName, email, onBack }) => {
   return (
-    <div className="relative bg-primary/90 text-white p-6 pb-10 shadow-lg">
+    <div className="relative bg-primary text-white p-6 pb-10 shadow-soft-xl rounded-b-2xl">
       {/* Botão Voltar */}
       <Button 
         variant="ghost" 
         size="icon" 
         onClick={onBack} 
-        className="absolute top-4 left-4 text-white hover:bg-white/20"
+        className="absolute top-4 left-4 text-white hover:bg-white/20 rounded-lg"
       >
         <ArrowLeft className="w-6 h-6" />
       </Button>

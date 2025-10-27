@@ -46,10 +46,10 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <Card className="w-full max-w-md shadow-soft-xl border-none rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-2xl flex items-center gap-2">
+          <CardTitle className="text-2xl flex items-center gap-2 text-primary">
             <LogIn className="w-6 h-6 text-primary" /> Login de Administrador
           </CardTitle>
         </CardHeader>
@@ -64,6 +64,7 @@ export default function AdminLogin() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
+                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
               />
             </div>
             <div>
@@ -75,9 +76,10 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={isLoading}
+                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full h-12 text-lg font-bold" disabled={isLoading} variant="highlight">
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogIn className="mr-2 h-4 w-4" />}
               Entrar
             </Button>

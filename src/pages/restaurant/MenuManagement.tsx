@@ -93,7 +93,7 @@ const MenuManagement: React.FC = () => {
     <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
-        <Card className="shadow-lg border-none rounded-xl">
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>

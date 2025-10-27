@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPageUrl } from '@/utils/url';
+import { Card, CardContent } from '@/components/ui/card';
 
 // Dados Mock de FAQ
 const faqData = [
@@ -51,7 +52,7 @@ const FaqItem: React.FC<FaqItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700">
+    <div className="border-b border-gray-100 dark:border-gray-700 last:border-b-0">
       <button
         className="flex w-full items-center justify-between py-4 text-left"
         onClick={() => setIsOpen(!isOpen)}
@@ -103,25 +104,27 @@ export default function HelpCenter() {
               placeholder="Pesquisar por palavra-chave (ex: cardápio, premium)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-sm"
+              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-soft-md"
             />
           </div>
         </div>
 
         {/* FAQ List */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
-          <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
-          
-          {filteredFaqs.length > 0 ? (
-            <div className="divide-y divide-gray-100 dark:divide-gray-700">
-              {filteredFaqs.map(faq => (
-                <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-center py-8">Nenhum resultado encontrado para "{searchTerm}".</p>
-          )}
-        </div>
+        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-soft-xl p-4">
+          <CardContent className="p-0">
+            <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
+            
+            {filteredFaqs.length > 0 ? (
+              <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                {filteredFaqs.map(faq => (
+                  <FaqItem key={faq.id} question={faq.question} answer={faq.answer} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-8">Nenhum resultado encontrado para "{searchTerm}".</p>
+            )}
+          </CardContent>
+        </Card>
       </main>
     </div>
   );

@@ -75,7 +75,7 @@ export default function EditClientFieldDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             {icon}
@@ -90,20 +90,21 @@ export default function EditClientFieldDialog({
             {...register('value')}
             type={type}
             placeholder={placeholder}
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight shadow-soft-sm"
             onChange={mask ? handleInputChange : undefined}
           />
           {errors.value && (
             <p className="text-sm text-destructive">{errors.value.message}</p>
           )}
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
+            <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="rounded-xl">
               Cancelar
             </Button>
             <Button 
               type="submit" 
               disabled={loading || !!errors.value}
               variant="highlight"
+              className="rounded-xl"
             >
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

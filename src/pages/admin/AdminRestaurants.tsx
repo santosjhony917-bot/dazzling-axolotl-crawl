@@ -4,9 +4,9 @@ import { Utensils } from 'lucide-react';
 
 export default function AdminRestaurants() {
   return (
-    <Card>
+    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
           <Utensils className="w-6 h-6" /> Gerenciar Restaurantes
         </CardTitle>
         <CardDescription>Busca e visualização detalhada de restaurantes cadastrados.</CardDescription>

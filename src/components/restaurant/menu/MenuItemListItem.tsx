@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useMenuItemManagement } from '@/hooks/useMenuManagement';
 import { formatPrice } from '@/lib/utils';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface MenuItemListItemProps {
   item: MenuItem;
@@ -31,23 +32,25 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
   };
 
   return (
-    <Card className="shadow-sm hover:shadow-md transition-shadow">
+    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
       <CardContent className="p-4 flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-grow">
-          {item.image_url && (
-            <img src={item.image_url} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
-          )}
-          <div>
-            <h3 className="text-lg font-semibold">{item.name}</h3>
+          <img 
+            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
+            alt={item.name} 
+            className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
+          />
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-primary truncate">{item.name}</h3>
             <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
             <div className="flex items-center text-primary font-medium mt-1">
               <DollarSign className="w-4 h-4 mr-1 text-highlight" />
-              {formatPrice(item.price)}
+              <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
             </div>
           </div>
         </div>
 
-        <div className="flex space-x-4 items-center">
+        <div className="flex space-x-4 items-center flex-shrink-0">
           <div className="flex items-center space-x-2">
             <Switch
               id={`item-active-switch-${item.id}`}
@@ -62,10 +65,10 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
             {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
           </div>
 
-          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item">
+          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
             <Edit className="w-4 h-4" />
           </Button>
-          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item">
+          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item" className="h-8 w-8 bg-red-600 hover:bg-red-700">
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>

@@ -160,7 +160,7 @@ export default function ClientProfilePage() {
       <main className="p-4 space-y-6 -mt-6 relative z-10">
         
         {/* Seção 1: Informações Básicas do Cliente */}
-        <Card className="shadow-lg border-none rounded-xl bg-white p-4 space-y-3">
+        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-4 space-y-3">
           <ClientBasicInfoSection
             profile={profile}
             userEmail={userEmail}
@@ -172,7 +172,7 @@ export default function ClientProfilePage() {
 
         {/* Seção de Gerenciamento do Restaurante */}
         {restaurant && (
-          <Card className="shadow-lg border-none rounded-xl bg-white p-4 space-y-3">
+          <Card className="shadow-soft-lg border-none rounded-xl bg-white p-4 space-y-3">
             <h2 className="text-lg font-bold text-primary mb-2">Gerenciamento do Restaurante</h2>
             
             <NavCardItem 
@@ -192,7 +192,7 @@ export default function ClientProfilePage() {
         )}
 
         {/* Seção de Navegação Geral */}
-        <Card className="shadow-lg border-none rounded-xl bg-white p-4 space-y-3">
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white p-4 space-y-3">
           <h2 className="text-lg font-bold text-primary mb-2">Geral</h2>
           
           <NavCardItem 

@@ -28,7 +28,7 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({ tit
           variant="ghost"
           size="icon"
           onClick={() => navigate(createPageUrl(backPath))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
