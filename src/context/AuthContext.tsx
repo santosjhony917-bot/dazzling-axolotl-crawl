@@ -76,7 +76,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
   
   const isPremium = useMemo(() => {
-    return restaurant?.plan === 'premium';
+    // CORREÇÃO: Inclui 'premium_gift' no cálculo de isPremium
+    return restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
   }, [restaurant?.plan]);
 
   const value = useMemo(() => ({
