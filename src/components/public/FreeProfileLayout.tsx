@@ -7,10 +7,10 @@ import RestaurantMenuSection from './RestaurantMenuSection';
 import RestaurantGallerySection from './RestaurantGallerySection';
 import RestaurantContactSection from './RestaurantContactSection';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Clock, Phone, Menu, Image, Heart } from 'lucide-react';
+import { MapPin, Clock, Phone, Menu, Image, Heart, ArrowLeft } from 'lucide-react';
 import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { WeekSchedule } from '@/types/schedule';
 import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader'; // Importando o header público
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importando useRestaurantFavorite
@@ -22,6 +22,7 @@ interface FreeProfileLayoutProps {
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
+  const navigate = useNavigate();
   // Usando o hook específico para este restaurante
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
   
@@ -34,6 +35,18 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-20 shadow-lg">
+      
+      {/* Botão de Voltar Flutuante */}
+      <div className="fixed top-4 left-4 z-50">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(-1)}
+          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+      </div>
       
       {/* Imagem de Capa */}
       <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />

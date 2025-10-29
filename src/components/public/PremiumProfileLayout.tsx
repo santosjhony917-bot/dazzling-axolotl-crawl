@@ -1,7 +1,7 @@
 import React from 'react';
 import { Restaurant } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { Crown, Check, Heart, Share2, MapPin, Clock, Utensils, MessageSquare, Globe, ExternalLink } from 'lucide-react';
+import { Crown, Check, Heart, Share2, MapPin, Clock, Utensils, MessageSquare, Globe, ExternalLink, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn, formatPrice } from '@/lib/utils';
@@ -12,12 +12,14 @@ import RestaurantGallerySection from './RestaurantGallerySection';
 import { Separator } from '@/components/ui/separator';
 import { OpeningHoursDisplay } from './OpeningHoursDisplay';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
+import { useNavigate } from 'react-router-dom';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
+  const navigate = useNavigate();
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
   
   // Helper para links
@@ -32,6 +34,18 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-20 shadow-lg">
+      
+      {/* Botão de Voltar Flutuante */}
+      <div className="fixed top-4 left-4 z-50">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(-1)}
+          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+      </div>
       
       {/* Imagem de Capa */}
       <div className="relative">
