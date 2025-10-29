@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthData } from "@/context/AuthContext";
 import { showError, showSuccess } from "@/utils/toast";
-import { Restaurant } from "@/types/restaurant";
+import { Restaurant } from "@/types/supabase"; // Corrigido o import
 
 // --- Tipos de Retorno ---
 interface Favorite {
@@ -89,12 +89,17 @@ export function useFavorites() {
     },
   });
 
+  const toggleFavoriteHandler = (restaurantId: string, isCurrentlyFavorite: boolean) => {
+    toggleFavoriteMutation.mutate({ restaurantId, isCurrentlyFavorite });
+  };
+
   return {
     favorites: favorites || [],
     isLoading: isLoading || authLoading,
     error: error ? error.message : null,
     isFavorite,
-    toggleFavorite: toggleFavoriteMutation.mutateAsync,
+    toggleFavorite: toggleFavoriteHandler,
+    isMutating: toggleFavoriteMutation.isPending, // Adicionando isMutating
     refetch,
   };
 }
