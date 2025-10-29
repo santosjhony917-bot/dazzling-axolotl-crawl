@@ -69,7 +69,7 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = ({ restaurant }) => {
   ].filter(link => link.url);
 
   return (
-    <div className="mt-8">
+    <div id="info" className="mt-8">
       <h2 className="text-lg font-bold text-[#022D68] dark:text-white px-4">Informações Adicionais</h2>
       <Card className="mt-4 p-4 shadow-soft-md border-none rounded-xl bg-white dark:bg-gray-800 mx-4">
         

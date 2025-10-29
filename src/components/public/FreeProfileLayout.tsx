@@ -60,17 +60,18 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
         <Separator className="my-6" />
 
-        {/* Navegação Rápida (Anchors) */}
+        {/* Navegação Rápida (Anchors) - CORRIGIDO PARA USAR <a> */}
         <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
-          <Link to="#menu" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+          <a href="#menu" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
             <Menu className="w-4 h-4 mr-1" /> Cardápio
-          </Link>
-          <Link to="#info" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+          </a>
+          <a href="#info" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
             <MapPin className="w-4 h-4 mr-1" /> Informações
-          </Link>
-          <Link to="#gallery" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+          </a>
+          {/* Galeria só aparece se houver fotos, mas o link pode ficar */}
+          <a href="#gallery" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
             <Image className="w-4 h-4 mr-1" /> Galeria
-          </Link>
+          </a>
         </div>
 
         <Separator className="my-6" />
