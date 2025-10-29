@@ -33,6 +33,6 @@ export function useRestaurantFavorite(restaurantId: string) {
   return {
     isFavorite: isCurrentlyFavorite,
     toggleFavorite: handleToggle,
-    isLoading: isMutating,
+    isLoading: isMutating, 
   };
 }
