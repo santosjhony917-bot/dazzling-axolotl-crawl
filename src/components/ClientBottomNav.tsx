@@ -53,18 +53,10 @@ const NavItemComponent = memo(({ icon: Icon, label, path, isSelected }: { icon: 
 
 
 const ClientBottomNav: React.FC<ClientBottomNavProps> = memo(({ selectedTab }) => {
-  const location = useLocation();
   
-  const getActivePath = (path: string, key: string) => {
-    if (selectedTab) {
-      return selectedTab === key;
-    }
-    
-    const currentPath = location.pathname;
-    
-    if (path === '/home' && (currentPath === '/' || currentPath === '/home')) return true;
-    
-    return currentPath.startsWith(path);
+  const getActivePath = (key: string) => {
+    // Prioriza a prop selectedTab (chave da rota)
+    return selectedTab === key;
   };
 
   return (
@@ -72,7 +64,7 @@ const ClientBottomNav: React.FC<ClientBottomNavProps> = memo(({ selectedTab }) =
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
           const pathKey = item.key as PathKey;
-          const isActive = getActivePath(item.path, item.key);
+          const isActive = getActivePath(item.key);
           
           return (
             <NavItemComponent

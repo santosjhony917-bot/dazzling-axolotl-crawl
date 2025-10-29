@@ -32,34 +32,6 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 });
 
 const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
-  const location = useLocation();
-  
-  // Mapeia rotas para garantir que o item correto seja ativado
-  const getActivePath = (path: string, key: string) => {
-    // Prioriza a prop selectedTab se fornecida
-    if (selectedTab) {
-      return selectedTab === key;
-    }
-    
-    // Lógica de ativação para rotas específicas
-    if (key === 'search') { 
-        // Ativa se o path for /search-unified
-        return location.pathname.startsWith(createPageUrl('search-unified'));
-    }
-    
-    if (key === 'perfil') {
-        // Ativa se o path for /restaurant-area/profile-menu ou qualquer sub-rota de gerenciamento
-        return location.pathname.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
-               location.pathname.startsWith(createPageUrl('restaurant-area/menu')) ||
-               location.pathname.startsWith(createPageUrl('restaurant-area/gallery'));
-    }
-    
-    // Fallback para a rota atual
-    if (path === createPageUrl('restaurant-area/home') && location.pathname === createPageUrl('restaurant-area/home')) return true;
-    
-    // Verifica se a rota atual começa com o caminho do item
-    return location.pathname.startsWith(path);
-  };
   
   // Definindo o item central baseado no plano
   const centralItem = isFree 
@@ -79,10 +51,8 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    // CORRIGIDO: Busca deve levar para a tela de busca unificada
     { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') }, 
     centralItem, // Item central dinâmico
-    // CORRIGIDO: Perfil deve levar para a área de gerenciamento do perfil
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
 
@@ -90,7 +60,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const isSelected = getActivePath(item.path, item.id);
+          const isSelected = selectedTab === item.id;
           const isCentralButton = item.id === centralItem.id;
           
           // Se for o botão central E for o botão de Upgrade (isFree = true)

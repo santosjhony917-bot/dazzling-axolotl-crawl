@@ -4,6 +4,7 @@ import { useAuthData } from '@/context/AuthContext';
 import ClientBottomNav from '@/components/ClientBottomNav';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { Loader2 } from 'lucide-react';
+import { createPageUrl, PathKey } from '@/utils/url'; // Importando utilitários de URL
 
 const SharedLayoutWrapper: React.FC = () => {
   const { restaurant, isPremium, isLoading } = useAuthData();
@@ -11,10 +12,38 @@ const SharedLayoutWrapper: React.FC = () => {
   const isFree = !isPremium;
   
   // Determine the current path key for highlighting the correct tab
-  const currentPathKey = window.location.pathname.split('/').pop() || 'home';
+  const currentPath = window.location.pathname;
+  let selectedTabKey: string = 'home'; // Default fallback
+
+  // Lógica para determinar a aba ativa
+  if (isRestaurantOwner) {
+    if (currentPath.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
+        currentPath.startsWith(createPageUrl('restaurant-area/menu')) ||
+        currentPath.startsWith(createPageUrl('restaurant-area/gallery')) ||
+        currentPath.startsWith(createPageUrl('restaurant-area/upgrade'))) {
+      selectedTabKey = 'perfil';
+    } else if (currentPath.startsWith(createPageUrl('restaurant-area/home'))) {
+      selectedTabKey = 'home';
+    } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
+      selectedTabKey = 'search';
+    } else if (currentPath.startsWith(createPageUrl('favorites'))) {
+      // Se for Premium, pode ter acesso a favoritos (mock)
+      selectedTabKey = 'favorites';
+    }
+  } else {
+    // Cliente
+    if (currentPath.startsWith(createPageUrl('clientProfile'))) {
+      selectedTabKey = 'clientProfile';
+    } else if (currentPath.startsWith(createPageUrl('favorites'))) {
+      selectedTabKey = 'favorites';
+    } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
+      selectedTabKey = 'search-unified';
+    } else if (currentPath === createPageUrl('home') || currentPath === createPageUrl('index')) {
+      selectedTabKey = 'home';
+    }
+  }
 
   if (isLoading) {
-    // Should be handled by ProtectedRoute, but defensive coding
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -29,7 +58,7 @@ const SharedLayoutWrapper: React.FC = () => {
         <main className="flex-1">
           <Outlet />
         </main>
-        <RestaurantBottomNav selectedTab={currentPathKey} isFree={isFree} />
+        <RestaurantBottomNav selectedTab={selectedTabKey} isFree={isFree} />
       </div>
     );
   }
@@ -40,7 +69,7 @@ const SharedLayoutWrapper: React.FC = () => {
       <main className="flex-1">
         <Outlet />
       </main>
-      <ClientBottomNav selectedTab={currentPathKey} />
+      <ClientBottomNav selectedTab={selectedTabKey} />
     </div>
   );
 };
