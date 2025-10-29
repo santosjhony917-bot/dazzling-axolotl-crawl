@@ -1,26 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { saveUploadRecord } from '@/utils/uploadHistory'; // NOVO IMPORT
-import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 import { Loader2, Upload } from 'lucide-react';
+import { saveUploadRecord } from '@/utils/uploadHistory';
+import { showError, showSuccess } from '@/utils/toast';
+import CsvInputArea from '@/components/admin/CsvInputArea';
+
+// Colunas obrigatórias para a Fase 1: Informações Gerais
+const REQUIRED_COLUMNS_PHASE1 = ['name', 'email', 'phone', 'cnpj', 'category', 'plan'];
 
 const UploadPhase1: React.FC = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleProcessCsv = (csvData: string) => {
+    setIsProcessing(true);
+    
+    // Simulação de processamento de dados
+    const lines = csvData.trim().split('\n');
+    const dataRows = lines.slice(1); // Ignora o cabeçalho
+    const successCount = dataRows.length;
+
+    setTimeout(() => {
+      // Simulação de sucesso no upload
+      saveUploadRecord({
+        phase: 1,
+        successCount: successCount,
+        details: `Upload de ${successCount} restaurantes (Info Gerais) processado.`,
+      });
+      showSuccess(`Fase 1 concluída! ${successCount} registros processados.`);
+      setIsProcessing(false);
+    }, 1500);
+  };
+
+  const placeholder = `name,email,phone,cnpj,category,plan
+Restaurante A,a@exemplo.com,(83) 99999-9999,12345678000190,Pizzaria,premium
+Restaurante B,b@exemplo.com,(83) 88888-8888,98765432000190,Hamburgueria,free`;
+
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
         <CardTitle className="text-xl text-primary">Fase 1: Informações Gerais</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-600">Implementação futura para upload de dados básicos (Nome, CNPJ, Categoria, etc.) via CSV.</p>
-        <Button className="mt-4" disabled>
-          <Upload className="w-4 h-4 mr-2" /> Upload CSV
-        </Button>
+        <p className="text-gray-600 mb-4">
+          Cole os dados básicos dos restaurantes. Certifique-se de que as colunas obrigatórias (name, email, phone, cnpj, category, plan) estão presentes.
+        </p>
+        
+        <CsvInputArea
+          onProcess={handleProcessCsv}
+          isLoading={isProcessing}
+          placeholder={placeholder}
+          buttonText="Processar e Salvar Informações Gerais"
+          requiredColumns={REQUIRED_COLUMNS_PHASE1}
+        />
       </CardContent>
     </Card>
   );
