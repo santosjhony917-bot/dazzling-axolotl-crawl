@@ -15,9 +15,10 @@ import { WeekSchedule } from '@/types/schedule';
 import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader'; // Importando o header público
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importando useRestaurantFavorite
 import AdditionalInfo from './AdditionalInfo'; // Importando o componente de informações adicionais
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
 
 interface FreeProfileLayoutProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData; // Alterado para PublicRestaurantData
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
@@ -45,7 +46,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
             id: restaurant.id,
             name: restaurant.name,
             logoUrl: restaurant.image_url,
-            addressSummary: restaurant.city && restaurant.state ? `${restaurant.city}, ${restaurant.state}` : restaurant.address,
+            addressSummary: restaurant.addressSummary, // Usando o campo computado
             isFavorite: isFavorite,
             onFavoriteToggle: toggleFavorite,
             isMutating: isMutating,

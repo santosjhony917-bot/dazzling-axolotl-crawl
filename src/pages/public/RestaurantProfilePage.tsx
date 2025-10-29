@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader2, Utensils } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
+import { fetchPublicRestaurantById } from '@/integrations/supabase/restaurants'; // Importando a função correta
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { showError } from '@/utils/toast';
 
 export default function RestaurantProfilePage() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,21 +24,19 @@ export default function RestaurantProfilePage() {
       setIsLoading(true);
       setError(null);
       
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('id', restaurantId)
-        .single();
+      try {
+        const data = await fetchPublicRestaurantById(restaurantId);
 
-      if (error) {
-        console.error("Erro ao buscar restaurante:", error);
+        if (data) {
+          setRestaurant(data);
+        } else {
+          setError("Restaurante não encontrado.");
+        }
+      } catch (e) {
+        console.error("Erro ao buscar restaurante:", e);
         showError("Não foi possível carregar o perfil do restaurante.");
         setError("Restaurante não encontrado ou erro de conexão.");
         setRestaurant(null);
-      } else if (data) {
-        setRestaurant(data);
-      } else {
-        setError("Restaurante não encontrado.");
       }
       setIsLoading(false);
     };
