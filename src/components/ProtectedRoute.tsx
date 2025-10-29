@@ -6,7 +6,7 @@ import { createPageUrl } from '@/utils/url';
 
 interface ProtectedRouteProps {
   requiredRole: 'authenticated' | 'admin' | 'restaurant_owner';
-  element?: React.ReactNode;
+  element?: React.ReactNode; // Opcional: O layout a ser renderizado se autorizado
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
@@ -38,10 +38,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }
 
   if (!isAuthorized) {
     // User is authenticated but does not have the required role, redirect to home
-    return <Navigate to={createPageUrl("home")} replace />;
+    // Se o usuário for um restaurante, mas tentar acessar uma rota de cliente, ele deve ir para o dashboard do restaurante.
+    // Se for um cliente, deve ir para a home.
+    const redirectPath = restaurant ? createPageUrl('restaurant-area/home') : createPageUrl('home');
+    return <Navigate to={redirectPath} replace />;
   }
 
-  // If authorized, render the provided element (for layouts) or Outlet (for nested routes)
+  // Se autorizado, renderiza o elemento (layout) ou o Outlet (se for uma rota folha)
   return element ? <>{element}</> : <Outlet />;
 };
 
