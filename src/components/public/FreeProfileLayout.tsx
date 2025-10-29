@@ -11,19 +11,18 @@ import { MapPin, Clock, Phone, Menu, Image } from 'lucide-react';
 import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { WeekSchedule } from '@/types/schedule'; // Importando o tipo WeekSchedule
+import { WeekSchedule } from '@/types/schedule';
 
 interface FreeProfileLayoutProps {
   restaurant: Restaurant;
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
-  // Corrigido: Cast para unknown antes de WeekSchedule para resolver o erro TS2345
+  // Usando o cast para WeekSchedule, que agora usa 'start' e 'end'
   const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
-  // Mock data for sections
-  const menuItems = []; // Assume this is fetched separately or passed down
-  const galleryImages = []; // Assume this is fetched separately or passed down
+  // Mock data for sections (para simular a presença de conteúdo)
+  const galleryImages = []; 
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-12 shadow-lg">
@@ -38,7 +37,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           <RestaurantLogo logoUrl={restaurant.image_url} size="lg" />
           <div className="flex space-x-2">
             {/* Botões de Ação (Ex: Favoritar, Compartilhar) */}
-            {/* Implementação futura */}
           </div>
         </div>
 
@@ -116,7 +114,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           />
 
           {/* 4. Galeria (Free: Se houver imagens) */}
-          {/* A galeria será renderizada se houver dados, mas o componente precisa ser implementado para buscar dados */}
           <RestaurantGallerySection 
             id="gallery"
             restaurantId={restaurant.id}

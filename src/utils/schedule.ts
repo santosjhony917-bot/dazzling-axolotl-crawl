@@ -31,6 +31,7 @@ export function formatScheduleForDisplay(schedule: WeekSchedule | null | undefin
     const dayName = dayNames[dayKey];
 
     if (daySchedule.isOpen) {
+      // Usando slot.start e slot.end
       const timeSlots = daySchedule.slots.map(slot => `${slot.start} - ${slot.end}`).join(', ');
       displayLines.push(`${dayName}: ${timeSlots}`);
     } else {
