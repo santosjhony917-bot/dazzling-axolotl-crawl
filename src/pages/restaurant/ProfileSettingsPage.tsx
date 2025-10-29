@@ -21,7 +21,7 @@ import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsS
 import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
+import { Restaurant } from '@/types/supabase';
 
 // --- Schemas de Validação ---
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -32,7 +32,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 // --- Tipos de Configuração de Edição ---
 interface EditConfig {
-  key: keyof Restaurant; // Corrigido: A chave deve ser uma chave de Restaurant
+  key: keyof Restaurant;
   title: string;
   fieldName: string;
   icon: React.ReactNode;
@@ -64,12 +64,11 @@ export default function RestaurantProfileSettingsPage() {
   const isLoading = profileLoading || authLoading;
 
   // --- Dados do Restaurante ---
-  // Corrigido: Usar 'restaurant' diretamente, que é Restaurant | null
   const currentRestaurant = restaurant; 
   
   const currentSchedule: WeekSchedule = useMemo(() => {
-    // Corrigido: Acessar opening_hours apenas se currentRestaurant existir
-    return (currentRestaurant?.opening_hours as WeekSchedule) || {
+    // Corrigido: Cast para unknown antes de WeekSchedule para resolver o erro TS2352
+    return (currentRestaurant?.opening_hours as unknown as WeekSchedule) || {
       monday: { isOpen: false, slots: [] },
       tuesday: { isOpen: false, slots: [] },
       wednesday: { isOpen: false, slots: [] },
@@ -78,11 +77,11 @@ export default function RestaurantProfileSettingsPage() {
       saturday: { isOpen: false, slots: [] },
       sunday: { isOpen: false, slots: [] },
     };
-  }, [currentRestaurant?.opening_hours]); // Corrigido: Dependência opcional
+  }, [currentRestaurant?.opening_hours]);
 
   // --- Handlers de Edição Genérica ---
   const handleEditField = useCallback((
-    key: keyof Restaurant, // Corrigido: Usar keyof Restaurant
+    key: keyof Restaurant,
     title: string, 
     fieldName: string, 
     icon: React.ReactNode, 
@@ -92,7 +91,7 @@ export default function RestaurantProfileSettingsPage() {
     placeholder?: string
   ) => {
     setEditConfig({
-      key, // Corrigido: Não precisa de cast
+      key,
       title,
       fieldName,
       icon,
@@ -105,15 +104,13 @@ export default function RestaurantProfileSettingsPage() {
   }, []);
 
   const handleSaveField = useCallback(async (value: string) => {
-    // Corrigido: Acessar id apenas se currentRestaurant existir
     if (!currentRestaurant?.id || !editConfig) return; 
     
-    // Aplica a máscara antes de salvar, se houver
     const finalValue = editConfig.mask ? editConfig.mask(value) : value;
     
     await updateRestaurant({ [editConfig.key]: finalValue });
     refetchProfile();
-  }, [currentRestaurant?.id, editConfig, updateRestaurant, refetchProfile]); // Corrigido: Dependência opcional
+  }, [currentRestaurant?.id, editConfig, updateRestaurant, refetchProfile]);
 
   // --- Handlers de Imagem ---
   const handleLogoUploadComplete = useCallback(async (url: string) => {
@@ -130,12 +127,10 @@ export default function RestaurantProfileSettingsPage() {
 
   // --- Handlers de Horário ---
   const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
-    // Corrigido: Acessar id apenas se currentRestaurant existir
     if (!currentRestaurant?.id) return; 
-    // Corrigido: Usar 'any' para contornar a tipagem restritiva de Json para objetos complexos
     await updateRestaurant({ opening_hours: newSchedule as any }); 
     refetchProfile();
-  }, [currentRestaurant?.id, updateRestaurant, refetchProfile]); // Corrigido: Dependência opcional
+  }, [currentRestaurant?.id, updateRestaurant, refetchProfile]);
 
   if (isLoading) {
     return (
@@ -146,7 +141,6 @@ export default function RestaurantProfileSettingsPage() {
   }
 
   if (!restaurant) {
-    // O wrapper deve lidar com isso, mas garantimos o fallback
     return <div className="p-4 text-red-500">Restaurante não encontrado.</div>;
   }
 
@@ -182,7 +176,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 3. Informações Básicas */}
           <BasicInfoSection
-            restaurant={restaurant} // Usando 'restaurant' tipado
+            restaurant={restaurant}
             isPremium={isPremium}
             handleEditField={handleEditField}
             cnpjMask={cnpjMask}
@@ -195,7 +189,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 4. Localização e Horários */}
           <LocationHoursSection
-            restaurant={restaurant} // Usando 'restaurant' tipado
+            restaurant={restaurant}
             isPremium={isPremium}
             currentSchedule={currentSchedule}
             setIsAddressDialogOpen={setIsAddressDialogOpen}
@@ -204,7 +198,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 5. Canais de Venda e Links (Premium Feature) */}
           <SalesChannelsSection
-            restaurant={restaurant} // Usando 'restaurant' tipado
+            restaurant={restaurant}
             isPremium={isPremium}
             handleEditField={handleEditField}
             whatsappSchema={urlSchema}
@@ -227,7 +221,7 @@ export default function RestaurantProfileSettingsPage() {
           onClose={() => setIsEditDialogOpen(false)}
           title={editConfig.title}
           fieldName={editConfig.fieldName}
-          currentValue={restaurant[editConfig.key] as string || ''} // Acessando a propriedade tipada
+          currentValue={restaurant[editConfig.key] as string || ''}
           icon={editConfig.icon}
           onSave={handleSaveField}
           placeholder={editConfig.placeholder}
