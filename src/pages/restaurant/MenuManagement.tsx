@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { MenuCategory, MenuItem } from '@/types/supabase';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
+import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Importando do novo hook
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
@@ -23,7 +23,7 @@ const MenuManagement: React.FC = () => {
   const restaurantId = restaurant?.id || '';
 
   const { categoriesQuery } = useMenuManagement(restaurantId);
-  const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation, swapCategoryOrderMutation } = useCategoryMutations(restaurantId);
+  const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation } = useCategoryMutations(restaurantId);
   
   // Estado para Categorias
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
@@ -71,9 +71,7 @@ const MenuManagement: React.FC = () => {
     setIsConfirmationOpen(true);
   };
   
-  const handleReorderCategory = (categoryIdA: string, categoryIdB: string) => {
-    swapCategoryOrderMutation.mutate({ category_id_a: categoryIdA, category_id_b: categoryIdB });
-  };
+  // A reordenação será tratada pelo CategoryList usando useCategoryReorder
 
   // --- Render Logic ---
 
