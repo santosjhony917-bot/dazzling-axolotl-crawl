@@ -1,38 +1,29 @@
 import React from 'react';
-import { Heart, Loader2, Share2, MapPin } from 'lucide-react';
+import { Restaurant } from '@/types/supabase';
+import RestaurantCoverImage from './RestaurantCoverImage';
+import RestaurantLogo from './RestaurantLogo';
+import RestaurantInfoCard from './RestaurantInfoCard';
+import RestaurantMenuSection from './RestaurantMenuSection';
+import RestaurantGallerySection from './RestaurantGallerySection';
+import RestaurantContactSection from './RestaurantContactSection';
+import { Separator } from '@/components/ui/separator';
+import { MapPin, Clock, Phone, Menu, Image } from 'lucide-react';
+import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import RestaurantCoverImage from '../restaurant/RestaurantCoverImage';
-import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader';
-import MenuSection from './MenuSection';
-import AdditionalInfo from './AdditionalInfo';
-import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
-import { useAuth } from '@/hooks/useAuth';
-import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
+import { Link } from 'react-router-dom';
+import { WeekSchedule } from '@/types/schedule'; // Importando o tipo WeekSchedule
 
 interface FreeProfileLayoutProps {
-  restaurant: PublicRestaurantData; // Usando o tipo estendido
+  restaurant: Restaurant;
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
-  const { isAuthenticated } = useAuth();
-  const { isFavorite, toggleFavorite, isMutating } = useFavoriteToggle(restaurant.id);
+  // Corrigido: Cast para unknown antes de WeekSchedule para resolver o erro TS2345
+  const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
-  // Dados para AdditionalInfo (usando snake_case do PublicRestaurantData)
-  const additionalInfoData = {
-    address: restaurant.address,
-    number: restaurant.number,
-    neighborhood: restaurant.neighborhood,
-    city: restaurant.city,
-    state: restaurant.state,
-    cep: restaurant.cep,
-    phone: restaurant.phone,
-    email: restaurant.email,
-    whatsappUrl: restaurant.whatsapp_url, // Usando snake_case
-    ifoodUrl: restaurant.ifood_url,       // Usando snake_case
-    otherUrl: restaurant.other_url,       // Usando snake_case
-    openingHours: restaurant.opening_hours, // Usando snake_case
-  };
+  // Mock data for sections
+  const menuItems = []; // Assume this is fetched separately or passed down
+  const galleryImages = []; // Assume this is fetched separately or passed down
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-12 shadow-lg">
@@ -40,45 +31,99 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       {/* Imagem de Capa */}
       <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
 
-      {/* Header (Logo, Nome, Endereço, Ações) */}
-      <div className="relative z-10 -mt-12">
-        <RestaurantPublicHeader 
-          restaurant={{
-            id: restaurant.id,
-            name: restaurant.name,
-            logoUrl: restaurant.logoUrl,
-            addressSummary: restaurant.addressSummary,
-            isFavorite: isFavorite,
-            onFavoriteToggle: isAuthenticated ? toggleFavorite : undefined,
-            isMutating: isMutating,
-          }}
-        />
-      </div>
-
-      {/* Descrição */}
-      {restaurant.description && (
-        <div className="px-4 mt-6">
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{restaurant.description}</p>
-        </div>
-      )}
-
-      {/* Seção de Menu */}
-      <MenuSection restaurantId={restaurant.id} />
-
-      {/* Informações Adicionais (Sempre visível) */}
-      <AdditionalInfo restaurant={additionalInfoData} />
-      
-      {/* CTA para Favoritar (Flutuante) */}
-      {!isAuthenticated && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 shadow-lg z-20 max-w-md mx-auto">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-600">Faça login para favoritar este restaurante!</p>
-            <Button size="sm" onClick={() => console.log('Redirect to login')}>
-              Entrar
-            </Button>
+      <div className="relative -mt-16 px-4 sm:px-6 lg:px-8">
+        
+        {/* Logo e Nome */}
+        <div className="flex items-end justify-between">
+          <RestaurantLogo logoUrl={restaurant.image_url} size="lg" />
+          <div className="flex space-x-2">
+            {/* Botões de Ação (Ex: Favoritar, Compartilhar) */}
+            {/* Implementação futura */}
           </div>
         </div>
-      )}
+
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">{restaurant.name}</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{restaurant.category}</p>
+        
+        {/* Descrição */}
+        {restaurant.description && (
+          <p className="text-gray-700 dark:text-gray-300 mt-4">{restaurant.description}</p>
+        )}
+
+        <Separator className="my-6" />
+
+        {/* Navegação Rápida (Anchors) */}
+        <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
+          <Link to="#menu" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+            <Menu className="w-4 h-4 mr-1" /> Menu
+          </Link>
+          <Link to="#location" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+            <MapPin className="w-4 h-4 mr-1" /> Localização
+          </Link>
+          <Link to="#contact" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+            <Phone className="w-4 h-4 mr-1" /> Contato
+          </Link>
+          {/* Galeria só se houver imagens */}
+          {galleryImages.length > 0 && (
+            <Link to="#gallery" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
+              <Image className="w-4 h-4 mr-1" /> Galeria
+            </Link>
+          )}
+        </div>
+
+        <Separator className="my-6" />
+
+        {/* Seções de Informação */}
+        <div className="space-y-8">
+          
+          {/* 1. Localização e Horário */}
+          <RestaurantInfoCard 
+            id="location"
+            title="Localização e Horário"
+            icon={MapPin}
+            content={
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <p className="text-gray-700 dark:text-gray-300">
+                    {restaurant.address}, {restaurant.number} - {restaurant.neighborhood}, {restaurant.city} - {restaurant.state}
+                  </p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div className="text-gray-700 dark:text-gray-300">
+                    {scheduleDisplay.map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            }
+          />
+
+          {/* 2. Menu (Free: Lista simples) */}
+          <RestaurantMenuSection 
+            id="menu"
+            restaurantId={restaurant.id}
+            isPremium={false}
+          />
+
+          {/* 3. Contato (Free: Telefone e Email) */}
+          <RestaurantContactSection 
+            id="contact"
+            restaurant={restaurant}
+            isPremium={false}
+          />
+
+          {/* 4. Galeria (Free: Se houver imagens) */}
+          {/* A galeria será renderizada se houver dados, mas o componente precisa ser implementado para buscar dados */}
+          <RestaurantGallerySection 
+            id="gallery"
+            restaurantId={restaurant.id}
+            isPremium={false}
+          />
+        </div>
+      </div>
     </div>
   );
 };
