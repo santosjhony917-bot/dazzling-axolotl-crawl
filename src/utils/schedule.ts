@@ -31,7 +31,7 @@ export function formatScheduleForDisplay(schedule: WeekSchedule | null | undefin
     const dayName = dayNames[dayKey];
 
     if (daySchedule.isOpen) {
-      const timeSlots = daySchedule.slots.map(slot => `${slot.open} - ${slot.close}`).join(', ');
+      const timeSlots = daySchedule.slots.map(slot => `${slot.start} - ${slot.end}`).join(', ');
       displayLines.push(`${dayName}: ${timeSlots}`);
     } else {
       displayLines.push(`${dayName}: Fechado`);
