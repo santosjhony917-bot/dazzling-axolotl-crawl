@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MenuItem } from '@/types/menu';
-import { Card, CardContent } from '@/components/ui/card';
-import { formatPrice } from '@/lib/utils';
-import { Edit, Trash2, Eye, EyeOff, GripVertical, Loader2 } from 'lucide-react'; // Importando Loader2
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { MoreVertical, Edit, Trash2, Loader2, Eye, EyeOff } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { useDeleteMenuItem } from '@/hooks/useMenuItemManagement'; // CORRIGIDO
+import { useDeleteMenuItem, useUpdateMenuItem } from '@/hooks/useMenuManagement'; // Corrigido
 import { toast } from 'react-hot-toast';
+import ItemFormDialog from './ItemFormDialog';
+import { formatCurrency } from '@/lib/utils';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,103 +26,131 @@ import {
 
 interface MenuItemCardProps {
   item: MenuItem;
-  onEdit: (item: MenuItem) => void;
+  categoryId: string;
 }
 
-const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, categoryId }) => {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
   const deleteMutation = useDeleteMenuItem();
+  const updateMutation = useUpdateMenuItem();
 
   const handleDelete = async () => {
     try {
       await deleteMutation.mutateAsync(item.id);
       toast.success('Item excluído com sucesso!');
+      setIsDeleteDialogOpen(false);
     } catch (error) {
       console.error('Erro ao excluir item:', error);
       toast.error('Falha ao excluir item.');
     }
   };
 
-  return (
-    <Card className="w-full shadow-sm hover:shadow-md transition-shadow border-l-4 border-primary/50">
-      <CardContent className="p-4 flex items-center gap-4">
-        
-        {/* Drag Handle */}
-        <div className="cursor-grab text-gray-400 hover:text-primary transition-colors flex-shrink-0">
-          <GripVertical className="w-5 h-5" />
-        </div>
+  const handleToggleActive = async () => {
+    const newStatus = !item.is_active;
+    try {
+      await updateMutation.mutateAsync({
+        id: item.id,
+        updates: { is_active: newStatus },
+      });
+      toast.success(`Item ${newStatus ? 'ativado' : 'desativado'} com sucesso!`);
+    } catch (error) {
+      console.error('Erro ao alternar status do item:', error);
+      toast.error('Falha ao alternar status do item.');
+    }
+  };
 
-        {/* Imagem */}
+  const isDeleting = deleteMutation.isPending;
+  const isUpdating = updateMutation.isPending;
+
+  return (
+    <>
+      <Card className="relative flex flex-col h-full transition-shadow hover:shadow-lg">
+        {!item.is_active && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10 rounded-lg">
+            <span className="text-white font-bold text-lg bg-red-600 px-3 py-1 rounded-full">
+              INATIVO
+            </span>
+          </div>
+        )}
+        
         {item.image_url && (
-          <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
-            <img 
-              src={item.image_url} 
-              alt={item.name} 
+          <div className="relative h-40 overflow-hidden rounded-t-lg">
+            <img
+              src={item.image_url}
+              alt={item.name}
               className="w-full h-full object-cover"
             />
           </div>
         )}
 
-        {/* Detalhes */}
-        <div className="flex-grow min-w-0">
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-semibold truncate">{item.name}</h3>
-            {/* Corrigindo Erros 8 e 9: Usando aria-label em vez de title */}
-            {item.is_active ? (
-              <Eye className="w-4 h-4 text-green-600" aria-label="Visível no perfil público" />
-            ) : (
-              <EyeOff className="w-4 h-4 text-red-500" aria-label="Oculto no perfil público" />
-            )}
-          </div>
-          <p className="text-sm text-gray-600 truncate">{item.description || 'Sem descrição.'}</p>
-          <p className="text-base font-bold text-primary mt-1">{formatPrice(item.price)}</p>
-        </div>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg font-semibold line-clamp-2">{item.name}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex-grow pt-0">
+          {item.description && (
+            <p className="text-sm text-muted-foreground line-clamp-3 mb-2">
+              {item.description}
+            </p>
+          )}
+          <p className="text-xl font-bold text-primary">
+            {formatCurrency(item.price)}
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-end p-3 pt-0">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+                <Edit className="mr-2 h-4 w-4" /> Editar
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleToggleActive} disabled={isUpdating}>
+                {isUpdating ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : item.is_active ? (
+                  <EyeOff className="mr-2 h-4 w-4" />
+                ) : (
+                  <Eye className="mr-2 h-4 w-4" />
+                )}
+                {item.is_active ? 'Desativar' : 'Ativar'}
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => setIsDeleteDialogOpen(true)} 
+                className="text-red-600 focus:text-red-600"
+              >
+                <Trash2 className="mr-2 h-4 w-4" /> Excluir
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardFooter>
+      </Card>
 
-        {/* Ações */}
-        <div className="flex flex-col space-y-2 flex-shrink-0">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="h-8 w-8 text-primary hover:bg-primary hover:text-white"
-            onClick={() => onEdit(item)}
-          >
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="h-8 w-8 text-red-500 hover:bg-red-500 hover:text-white"
-            onClick={() => setIsDeleteDialogOpen(true)}
-            disabled={deleteMutation.isPending}
-          >
-            {/* Corrigindo Erro 10 */}
-            {deleteMutation.isPending ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Trash2 className="w-4 h-4" />
-            )}
-          </Button>
-        </div>
-      </CardContent>
+      {/* Edit Dialog */}
+      <ItemFormDialog
+        isOpen={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        initialData={item}
+        categoryId={categoryId}
+      />
 
-      {/* Diálogo de Confirmação de Exclusão */}
+      {/* Delete Confirmation Dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta ação não pode ser desfeita. Isso excluirá permanentemente o item "{item.name}" do seu cardápio.
+              Esta ação não pode ser desfeita. Isso excluirá permanentemente o item &quot;{item.name}&quot; do seu cardápio.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleteMutation.isPending}>Cancelar</AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={handleDelete} 
-              className="bg-red-600 hover:bg-red-700"
-              disabled={deleteMutation.isPending}
-            >
-              {/* Corrigindo Erro 11 */}
-              {deleteMutation.isPending ? (
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} disabled={isDeleting} className="bg-red-600 hover:bg-red-700">
+              {isDeleting ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
                 'Excluir'
@@ -124,7 +159,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Card>
+    </>
   );
 };
 
