@@ -31,13 +31,13 @@ const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuCategory
   // Filtrar itens inativos e garantir que o tipo de preço seja number
   const cleanedData: PublicMenuCategory[] = data.map(category => ({
     ...category,
-    menu_items: category.menu_items
+    menu_items: (category.menu_items as any[])
       .filter(item => item.is_active)
       .map(item => ({
         id: item.id,
         name: item.name,
         description: item.description,
-        price: parseFloat(item.price as unknown as string), // Garantindo que o preço seja um número
+        price: item.price, // Preço já é number no tipo MenuItem
         image_url: item.image_url,
       })),
   }));

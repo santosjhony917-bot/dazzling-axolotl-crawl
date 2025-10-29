@@ -14,7 +14,7 @@ import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
 import { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import { CategoryList } from '@/components/restaurant/menu/CategoryList';
+import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { Card, CardContent } from '@/components/ui/card';
 
 const MenuManagement: React.FC = () => {

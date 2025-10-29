@@ -1,9 +1,34 @@
-import { Database, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } from './supabase';
+import { MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } from './supabase';
 
 export type MenuItem = SupabaseMenuItem;
 export type MenuCategory = SupabaseMenuCategory;
 
-// Payloads for mutations
+// --- Public Menu Types ---
+
+// Item de menu simplificado para visualização pública
+export interface PublicMenuItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image_url: string | null;
+  is_favorite?: boolean; // Adicionado para contexto de cliente
+}
+
+// Categoria de menu para visualização pública (contém apenas itens ativos)
+export interface PublicMenuCategory extends MenuCategory {
+  menu_items: PublicMenuItem[];
+}
+
+// Resultado do hook usePublicMenu
+export interface UsePublicMenuResult {
+  menu: PublicMenuCategory[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+// --- Management Payloads ---
+
 export type CreateItemPayload = {
   category_id: string;
   name: string;
