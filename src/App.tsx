@@ -20,7 +20,7 @@ import RestaurantAreaHub from './pages/RestaurantAreaHub';
 
 // Restaurant Area Pages
 import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
-import ProfileManagementLayout from './components/restaurant/ProfileManagementLayout';
+import RestaurantProfileSettingsPage from './pages/restaurant/ProfileSettingsPage'; // NOVO IMPORT
 import MenuManagement from './pages/restaurant/MenuManagement';
 import GalleryManagement from './pages/restaurant/GalleryManagement';
 import UpgradePage from './pages/Upgrade';
@@ -64,7 +64,7 @@ function App() {
         {/* Rotas Protegidas (Área do Restaurante) */}
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" />}>
           <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
-          <Route path="/restaurant-area/profile-menu" element={<ProfileManagementLayout />} />
+          <Route path="/restaurant-area/profile-menu" element={<RestaurantProfileSettingsPage />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
