@@ -1,8 +1,8 @@
-import { MenuItem, MenuCategory } from './supabase';
+import { MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } from './supabase';
 
 // Re-exportando o tipo base do Supabase para uso em formulários de gerenciamento
-export type MenuItem = MenuItem;
-export type MenuCategory = MenuCategory;
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
 
 // Tipo para um item de menu no contexto público
 export type PublicMenuItem = Pick<MenuItem, 'id' | 'name' | 'description' | 'price' | 'image_url'> & {

@@ -5,7 +5,7 @@ import { usePublicMenu } from '@/hooks/usePublicMenu';
 import MenuItemCard from './MenuItemCard';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { UsePublicMenuResult } from '@/types/menu'; // Importando o tipo de resultado
+import { UsePublicMenuResult } from '@/types/menu';
 
 interface RestaurantMenuSectionProps {
   id: string;
@@ -14,7 +14,7 @@ interface RestaurantMenuSectionProps {
 }
 
 const RestaurantMenuSection: React.FC<RestaurantMenuSectionProps> = ({ id, restaurantId, isPremium }) => {
-  // Tipando a desestruturação para resolver o Erro 3
+  // Tipando a desestruturação
   const { menu, isLoading, error } = usePublicMenu(restaurantId) as UsePublicMenuResult;
 
   if (isLoading) {
@@ -51,7 +51,6 @@ const RestaurantMenuSection: React.FC<RestaurantMenuSectionProps> = ({ id, resta
     <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         <Utensils className="w-6 h-6 text-primary" />
-        {/* Corrigindo o erro de sintaxe do CardTitle (Erros 1 e 4) */}
         <CardTitle className="text-xl font-semibold text-primary">Cardápio</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-8">
@@ -72,19 +71,7 @@ const RestaurantMenuSection: React.FC<RestaurantMenuSectionProps> = ({ id, resta
         ))}
       </CardContent>
       
-      {!isPremium && (
-        <div className="p-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
-          <div className="flex items-center gap-3 text-sm text-gray-600">
-            <Lock className="w-4 h-4 text-red-500 shrink-0" />
-            <p>
-              Recursos avançados de cardápio, como busca e filtros, são exclusivos do plano Premium.
-            </p>
-          </div>
-          <Button variant="link" className="p-0 h-auto mt-2 text-primary text-sm font-semibold">
-            Saiba mais sobre o Premium
-          </Button>
-        </div>
-      )}
+      {/* O bloco de incentivo Premium foi removido daqui */}
     </Card>
   );
 };

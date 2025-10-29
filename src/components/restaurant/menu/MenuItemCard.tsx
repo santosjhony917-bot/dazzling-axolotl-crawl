@@ -1,8 +1,8 @@
 import React from 'react';
-import { MenuItem } from '@/types/menu'; // Corrigido para importar MenuItem
+import { MenuItem } from '@/types/menu';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatPrice } from '@/lib/utils';
-import { Edit, Trash2, Eye, EyeOff, GripVertical } from 'lucide-react';
+import { Edit, Trash2, Eye, EyeOff, GripVertical, Loader2 } from 'lucide-react'; // Importando Loader2
 import { Button } from '@/components/ui/button';
 import { useDeleteMenuItem } from '@/hooks/useMenuManagement';
 import { toast } from 'react-hot-toast';
@@ -60,10 +60,11 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
         <div className="flex-grow min-w-0">
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-semibold truncate">{item.name}</h3>
+            {/* Corrigindo Erros 8 e 9: Usando aria-label em vez de title */}
             {item.is_active ? (
-              <Eye className="w-4 h-4 text-green-600" title="Visível no perfil público" />
+              <Eye className="w-4 h-4 text-green-600" aria-label="Visível no perfil público" />
             ) : (
-              <EyeOff className="w-4 h-4 text-red-500" title="Oculto no perfil público" />
+              <EyeOff className="w-4 h-4 text-red-500" aria-label="Oculto no perfil público" />
             )}
           </div>
           <p className="text-sm text-gray-600 truncate">{item.description || 'Sem descrição.'}</p>
@@ -87,6 +88,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
             onClick={() => setIsDeleteDialogOpen(true)}
             disabled={deleteMutation.isPending}
           >
+            {/* Corrigindo Erro 10 */}
             {deleteMutation.isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
@@ -112,6 +114,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
               className="bg-red-600 hover:bg-red-700"
               disabled={deleteMutation.isPending}
             >
+              {/* Corrigindo Erro 11 */}
               {deleteMutation.isPending ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
