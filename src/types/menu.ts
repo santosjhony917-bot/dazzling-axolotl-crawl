@@ -1,7 +1,7 @@
-import { Database } from './supabase';
+import { Database, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } from './supabase';
 
-export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
-export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
 
 // Payloads for mutations
 export type CreateItemPayload = {

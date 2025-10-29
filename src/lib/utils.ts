@@ -12,6 +12,9 @@ export function formatPrice(price: number): string {
   }).format(price);
 }
 
+// Exporting formatCurrency as an alias for formatPrice
+export const formatCurrency = formatPrice;
+
 export function formatDistance(km: number): string {
   if (km < 1) {
     return `${Math.round(km * 1000)} m`;

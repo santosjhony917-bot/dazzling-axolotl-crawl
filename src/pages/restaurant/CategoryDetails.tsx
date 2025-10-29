@@ -5,7 +5,7 @@ import { useMenuManagement } from '@/hooks/useCategoryManagement'; // CORRIGIDO:
 import { Button } from '@/components/ui/button';
 import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { MenuItem } from '@/types';
+import { MenuItem } from '@/types/menu'; // Corrected import
 import MenuItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
 import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';

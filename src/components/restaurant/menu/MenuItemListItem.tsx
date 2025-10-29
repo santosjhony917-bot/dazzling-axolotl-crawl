@@ -1,11 +1,11 @@
 import React from 'react';
-import { MenuItem } from '@/types';
+import { MenuItem } from '@/types/menu';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useMenuItemManagement } from '@/hooks/useMenuItemManagement';
+import { useUpdateMenuItem } from '@/hooks/useMenuManagement'; // Corrected import
 import { formatPrice } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
@@ -22,7 +22,7 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
   // Vamos importar a mutação individualmente para manter a simplicidade do componente.
   
   // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const { updateItemMutation } = useMenuItemManagement(item.category_id);
+  const updateItemMutation = useUpdateMenuItem();
   const isUpdating = updateItemMutation.isPending;
 
   const handleToggleActive = (checked: boolean) => {

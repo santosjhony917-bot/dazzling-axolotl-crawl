@@ -6,7 +6,7 @@ import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useAuthData } from '@/context/AuthContext';
 import { Loader2, Utensils, Eye } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-import { Restaurant } from '@/types';
+import { Restaurant } from '@/types/supabase'; // Corrected import
 import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
@@ -182,7 +182,7 @@ const ProfileSettingsPage: React.FC = () => {
         />
         
         {/* 2. Estatísticas (Mocked/Followers) */}
-        <FollowerCountCard followerCount={restaurant.followersCount || 0} isPremium={isPremium} />
+        <FollowerCountCard count={restaurant.followersCount || 0} />
 
         {/* 3. Informações Básicas */}
         <BasicInfoSection

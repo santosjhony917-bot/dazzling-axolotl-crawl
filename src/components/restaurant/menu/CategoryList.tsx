@@ -1,7 +1,7 @@
 import React from 'react';
-import { MenuCategory } from '@/types';
+import { MenuCategory } from '@/types/menu';
 import { CategoryListItem } from './CategoryListItem';
-import { useCategoryMutations } from '@/hooks/useMenuManagement';
+import { useCategoryMutations } from '@/hooks/useCategoryManagement';
 import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
 
 interface CategoryListProps {
@@ -11,7 +11,7 @@ interface CategoryListProps {
   onDelete: (categoryId: string) => void;
 }
 
-export const CategoryList: React.FC<CategoryListProps> = ({ categories, restaurantId, onEdit, onDelete }) => {
+const CategoryList: React.FC<CategoryListProps> = ({ categories, restaurantId, onEdit, onDelete }) => {
   const swapCategoryOrderMutation = useCategoryReorder(restaurantId); // Corrigido para atribuir o resultado diretamente
 
   const handleSwap = (category_id_a: string, category_id_b: string) => {
@@ -56,3 +56,5 @@ export const CategoryList: React.FC<CategoryListProps> = ({ categories, restaura
     </div>
   );
 };
+
+export default CategoryList;

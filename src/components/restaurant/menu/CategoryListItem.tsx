@@ -1,11 +1,11 @@
 import React from 'react';
-import { MenuCategory } from '@/types';
+import { MenuCategory } from '@/types/menu';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash2, ArrowUp, ArrowDown, Loader2, ChevronRight } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useCategoryMutations } from '@/hooks/useMenuManagement';
+import { useCategoryMutations } from '@/hooks/useCategoryManagement';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '@/router/routes';
 import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
@@ -39,8 +39,10 @@ export const CategoryListItem: React.FC<CategoryListItemProps> = ({
   const handleToggleActive = (checked: boolean) => {
     updateCategoryMutation.mutate({
       id: category.id,
-      name: category.name,
-      is_active: checked,
+      updates: { // Changed to updates object based on new type definition
+        name: category.name,
+        is_active: checked,
+      }
     });
   };
 
