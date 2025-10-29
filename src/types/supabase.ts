@@ -40,7 +40,7 @@ export interface Database {
           description: string | null
           image_url: string | null
           cover_image_url: string | null
-          plan: 'free' | 'basic' | 'premium'
+          plan: 'free' | 'basic' | 'premium' | 'premium_gift'
           phone: string | null
           email: string | null
           cnpj: string | null
@@ -172,7 +172,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      restaurant_plan: 'free' | 'basic' | 'premium'
+      restaurant_plan: 'free' | 'basic' | 'premium' | 'premium_gift'
     }
     CompositeTypes: {
       [_ in never]: never
