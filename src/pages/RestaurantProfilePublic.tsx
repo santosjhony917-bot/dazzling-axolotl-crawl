@@ -73,11 +73,14 @@ export default function RestaurantProfilePublic() {
     );
   }
 
-  // Renderiza o layout apropriado baseado no plano
-  if (restaurant.plan === 'premium') {
-    return <PremiumProfileLayout restaurant={restaurant} />;
-  }
-
-  // Layout Free (Padrão)
-  return <FreeProfileLayout restaurant={restaurant} />;
+  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
+  return (
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl">
+      {restaurant.plan === 'premium' ? (
+        <PremiumProfileLayout restaurant={restaurant} />
+      ) : (
+        <FreeProfileLayout restaurant={restaurant} />
+      )}
+    </div>
+  );
 }
