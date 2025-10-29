@@ -107,7 +107,7 @@ export interface Database {
           is_active: boolean | null
           created_at: string | null
         }
-        Insert: Omit<Database['public']['Tables']['menu_categories']['Row'], 'created_at'>
+        Insert: Omit<Database['public']['Tables']['menu_categories']['Row'], 'updated_at'>
         Update: Partial<Database['public']['Tables']['menu_categories']['Row']>
         Relationships: [
           {
@@ -131,7 +131,7 @@ export interface Database {
           is_active: boolean | null
           created_at: string | null
         }
-        Insert: Omit<Database['public']['Tables']['menu_items']['Row'], 'created_at'>
+        Insert: Omit<Database['public']['Tables']['menu_items']['Row'], 'updated_at'>
         Update: Partial<Database['public']['Tables']['menu_items']['Row']>
         Relationships: [
           {
@@ -152,7 +152,7 @@ export interface Database {
           order_index: number | null
           created_at: string | null
         }
-        Insert: Omit<Database['public']['Tables']['restaurant_gallery']['Row'], 'created_at'>
+        Insert: Omit<Database['public']['Tables']['restaurant_gallery']['Row'], 'updated_at'>
         Update: Partial<Database['public']['Tables']['restaurant_gallery']['Row']>
         Relationships: [
           {
