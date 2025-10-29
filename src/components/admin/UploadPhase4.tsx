@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import CsvInputArea from '@/components/admin/CsvInputArea';
 
 // Colunas obrigatórias para a Fase 4: Horários
-const REQUIRED_COLUMNS_PHASE4 = ['restaurant_name', 'day', 'open_time', 'close_time'];
+const REQUIRED_COLUMNS_PHASE4 = ['external_url', 'day', 'open_time', 'close_time'];
 
 const UploadPhase4: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -31,11 +31,11 @@ const UploadPhase4: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `restaurant_name,day,open_time,close_time
-Restaurante A,monday,09:00,18:00
-Restaurante A,tuesday,09:00,18:00
-Restaurante B,friday,18:00,23:00
-Restaurante B,saturday,18:00,23:00`;
+  const placeholder = `external_url,day,open_time,close_time
+https://restaurantea.com.br,monday,09:00,18:00
+https://restaurantea.com.br,tuesday,09:00,18:00
+https://restauranteb.com.br,friday,18:00,23:00
+https://restauranteb.com.br,saturday,18:00,23:00`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -44,7 +44,7 @@ Restaurante B,saturday,18:00,23:00`;
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os horários de funcionamento. Use 'monday', 'tuesday', etc., para os dias da semana.
+          Cole os horários de funcionamento. Use o <code>external_url</code> como chave de referência. Use 'monday', 'tuesday', etc., para os dias da semana.
         </p>
         
         <CsvInputArea

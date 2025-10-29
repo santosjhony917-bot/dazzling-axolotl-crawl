@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import CsvInputArea from '@/components/admin/CsvInputArea';
 
 // Colunas obrigatórias para a Fase 2: Endereços e Localização
-const REQUIRED_COLUMNS_PHASE2 = ['name', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
+const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
 
 const UploadPhase2: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -31,9 +31,9 @@ const UploadPhase2: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `name,cep,address,number,neighborhood,city,state
-Restaurante A,58039-000,Rua Exemplo,100,Tambaú,João Pessoa,PB
-Restaurante B,58040-100,Av. Principal,250,Centro,Campina Grande,PB`;
+  const placeholder = `external_url,cep,address,number,neighborhood,city,state
+https://restaurantea.com.br,58039-000,Rua Exemplo,100,Tambaú,João Pessoa,PB
+https://restauranteb.com.br,58040-100,Av. Principal,250,Centro,Campina Grande,PB`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -42,7 +42,7 @@ Restaurante B,58040-100,Av. Principal,250,Centro,Campina Grande,PB`;
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados de endereço. O sistema tentará geocodificar as coordenadas (latitude/longitude) automaticamente.
+          Cole os dados de endereço. Use o <code>external_url</code> como chave de referência. O sistema tentará geocodificar as coordenadas.
         </p>
         
         <CsvInputArea

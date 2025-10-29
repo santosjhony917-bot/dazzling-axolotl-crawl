@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import CsvInputArea from '@/components/admin/CsvInputArea';
 
 // Colunas obrigatórias para a Fase 1: Informações Gerais
-const REQUIRED_COLUMNS_PHASE1 = ['name', 'email', 'phone', 'cnpj', 'category', 'plan'];
+const REQUIRED_COLUMNS_PHASE1 = ['name', 'email', 'phone', 'cnpj', 'category', 'plan', 'external_url'];
 
 const UploadPhase1: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -31,9 +31,9 @@ const UploadPhase1: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `name,email,phone,cnpj,category,plan
-Restaurante A,a@exemplo.com,(83) 99999-9999,12345678000190,Pizzaria,premium
-Restaurante B,b@exemplo.com,(83) 88888-8888,98765432000190,Hamburgueria,free`;
+  const placeholder = `name,email,phone,cnpj,category,plan,external_url
+Restaurante A,a@exemplo.com,(83) 99999-9999,12345678000190,Pizzaria,premium,https://restaurantea.com.br
+Restaurante B,b@exemplo.com,(83) 88888-8888,98765432000190,Hamburgueria,free,https://restauranteb.com.br`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -42,7 +42,7 @@ Restaurante B,b@exemplo.com,(83) 88888-8888,98765432000190,Hamburgueria,free`;
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados básicos dos restaurantes. Certifique-se de que as colunas obrigatórias (name, email, phone, cnpj, category, plan) estão presentes.
+          Cole os dados básicos dos restaurantes. Certifique-se de que as colunas obrigatórias (name, email, phone, cnpj, category, plan, external_url) estão presentes.
         </p>
         
         <CsvInputArea

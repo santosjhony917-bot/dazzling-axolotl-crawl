@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import CsvInputArea from '@/components/admin/CsvInputArea';
 
 // Colunas obrigatórias para a Fase 3: Cardápios e Itens
-const REQUIRED_COLUMNS_PHASE3 = ['restaurant_name', 'category_name', 'item_name', 'price', 'description', 'image_url'];
+const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
 
 const UploadPhase3: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -31,10 +31,10 @@ const UploadPhase3: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `restaurant_name,category_name,item_name,price,description,image_url
-Restaurante A,Pizzas,Pizza Calabresa,39.90,Mussarela e calabresa,https://link.com/pizza.jpg
-Restaurante A,Bebidas,Refrigerante Lata,5.00,Coca-cola 350ml,https://link.com/refri.jpg
-Restaurante B,Sanduíches,X-Bacon,25.00,Pão, carne, queijo e bacon,https://link.com/xbacon.jpg`;
+  const placeholder = `external_url,category_name,item_name,price,description,image_url
+https://restaurantea.com.br,Pizzas,Pizza Calabresa,39.90,Mussarela e calabresa,https://link.com/pizza.jpg
+https://restaurantea.com.br,Bebidas,Refrigerante Lata,5.00,Coca-cola 350ml,https://link.com/refri.jpg
+https://restauranteb.com.br,Sanduíches,X-Bacon,25.00,Pão, carne, queijo e bacon,https://link.com/xbacon.jpg`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -43,7 +43,7 @@ Restaurante B,Sanduíches,X-Bacon,25.00,Pão, carne, queijo e bacon,https://link
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados do cardápio. O sistema criará categorias e itens automaticamente.
+          Cole os dados do cardápio. Use o <code>external_url</code> como chave de referência. O sistema criará categorias e itens automaticamente.
         </p>
         
         <CsvInputArea
