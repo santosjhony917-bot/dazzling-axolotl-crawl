@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Lógica de Admin e Premium (simplificada)
   const isAdmin = user?.email === 'joaoedasilva018@gmail.com';
-  const isPremium = restaurant?.plan === 'premium';
+  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
 
   return (
     <AuthContext.Provider

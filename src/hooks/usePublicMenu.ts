@@ -1,6 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { UsePublicMenuResult, PublicMenuCategory } from '@/types/menu';
+import { UsePublicMenuResult, PublicMenuCategory, MenuCategory, PublicMenuItem } from '@/types/menu';
+import { MenuItem } from '@/types/supabase'; // Importando MenuItem completo para tipagem interna
+
+// Define o tipo da resposta bruta do Supabase para a query aninhada
+type RawMenuCategoryResponse = MenuCategory & {
+  menu_items: Array<Partial<MenuItem>>;
+};
 
 const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuCategory[]> => {
   const { data, error } = await supabase
@@ -27,19 +33,22 @@ const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuCategory
     throw new Error(error.message);
   }
 
+  // Cast data to the raw response type
+  const rawData = data as RawMenuCategoryResponse[];
+
   // Filtrar itens inativos e garantir que o tipo de preço seja number
-  const cleanedData: PublicMenuCategory[] = data.map(category => ({
+  const cleanedData: PublicMenuCategory[] = rawData.map(category => ({
     ...category,
-    menu_items: (category.menu_items as any[])
+    menu_items: category.menu_items
       .filter(item => item.is_active)
       .map(item => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        price: item.price, // Preço já é number no tipo MenuItem
-        image_url: item.image_url,
-      })),
-  })) as PublicMenuCategory[]; // Explicit cast after mapping to ensure correct type structure
+        id: item.id!,
+        name: item.name!,
+        description: item.description || null,
+        price: item.price!,
+        image_url: item.image_url || null,
+      }) as PublicMenuItem), // Cast interno para PublicMenuItem
+  })) as PublicMenuCategory[];
 
   return cleanedData;
 };
