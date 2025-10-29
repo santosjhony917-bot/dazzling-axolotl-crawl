@@ -14,36 +14,38 @@ import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { showSuccess, showError } from '@/utils/toast';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal'; // RESTAURADO
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal'; // RESTAURADO
-
-// Mock Data
-const mockHighlights = [
-  { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h2', name: "Moqueca de Camarão", restaurantName: "Restaurante Mar", price: 75.00, imageUrl: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'h3', name: "Taco de Carnitas", restaurantName: "El Fuego", price: 28.00, imageUrl: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop" },
-];
-
-const mockCompetitors = [
-  { id: 'c1', name: "Trattoria del Ponte", cuisine: "Italiana", distance: 1.2, rating: 4.7, imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c2', name: "Sakura Sushi", cuisine: "Japonesa", distance: 2.5, rating: 4.9, imageUrl: "https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop" },
-  { id: 'c3', name: "Le Petit Bistrot", cuisine: "Francesa", distance: 3.1, rating: 4.6, imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1974&auto=format&fit=crop" },
-];
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { useNearbyCompetitors } from '@/hooks/useNearbyCompetitors';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const RestaurantDashboard = () => {
   const navigate = useNavigate();
-  const { location, isLoading, refetch } = useUserSearchLocation();
+  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const { isPremium } = useUserRole();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false); // RESTAURADO
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false); // RESTAURADO
+  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
+  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
+  
+  const { restaurant, isLoading: isProfileLoading } = useRestaurantProfile();
+  const currentRestaurantId = restaurant?.id;
+  const userLat = restaurant?.latitude ?? location.latitude;
+  const userLon = restaurant?.longitude ?? location.longitude;
+
+  // Busca concorrentes próximos (usando a localização do restaurante, se disponível, ou a localização de busca do usuário)
+  const { 
+    competitors, 
+    isLoading: isCompetitorsLoading, 
+    error: competitorsError 
+  } = useNearbyCompetitors(currentRestaurantId, userLat, userLon);
 
   const handleLocationSaved = () => {
-    refetch();
+    refetchLocation();
   };
   
   const handleSearchByPrice = () => {
-    if (location.latitude === null || location.longitude === null) {
+    if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de distância.");
       setIsLocationModalOpen(true);
       return;
@@ -52,13 +54,12 @@ const RestaurantDashboard = () => {
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
 
   const handleSearchNearby = () => {
-    if (location.latitude === null || location.longitude === null) {
+    if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de distância.");
       setIsLocationModalOpen(true);
       return;
@@ -67,19 +68,30 @@ const RestaurantDashboard = () => {
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
   
-  const handleEditMenu = () => {
-    navigate(createPageUrl('restaurant-area/menu'));
-  };
-  
   const handleViewCompetitor = (id: string) => {
-    // Simula a navegação para o perfil público do concorrente
     navigate(createPageUrl('restaurantProfile', { restaurantId: id }));
   };
+
+  // Usando os 3 primeiros concorrentes como Destaques (mock)
+  const highlights = competitors.slice(0, 3).map(r => ({
+    id: r.id,
+    name: r.name,
+    restaurantName: r.category || 'Geral',
+    price: 25.00, // Preço mockado
+    imageUrl: r.imageUrl, // Usando a URL real
+  }));
+
+  if (isProfileLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
@@ -92,14 +104,14 @@ const RestaurantDashboard = () => {
           >
             <MapPin className="h-6 w-6 text-[#022D68]" />
             <div>
-              <p className="text-xs text-gray-500">Sua Localização</p>
-              {isLoading ? (
+              <p className="text-xs text-gray-500">Localização do Restaurante</p>
+              {isProfileLoading ? (
                 <div className="flex items-center text-sm font-bold text-[#022D68]">
                   <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
                 </div>
               ) : (
                 <p className="text-base font-bold text-[#022D68] truncate max-w-[200px]">
-                  {location.address.split(',')[0] || "Definir Local"}
+                  {restaurant?.name || "Definir Local"}
                 </p>
               )}
             </div>
@@ -122,12 +134,12 @@ const RestaurantDashboard = () => {
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleSearchByPrice} // Abre o modal de preço
+            onClick={handleSearchByPrice}
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleSearchNearby} // Abre o modal de distância
+            onClick={handleSearchNearby}
           />
         </div>
 
@@ -137,20 +149,31 @@ const RestaurantDashboard = () => {
         {/* Destaques do Dia */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Destaques do Dia</h2>
+            <h2 className="text-xl font-bold text-[#022D68]">Destaques Próximos</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
+              onClick={handleSearchNearby}
             >
               Ver todos
             </Button>
           </div>
           <ScrollArea className="w-full whitespace-nowrap pb-4">
             <div className="flex space-x-4">
-              {mockHighlights.map((item) => (
-                <HighlightCard key={item.id} item={item} />
-              ))}
+              {isCompetitorsLoading ? (
+                <>
+                  <Skeleton className="min-w-[200px] h-[200px] rounded-xl" />
+                  <Skeleton className="min-w-[200px] h-[200px] rounded-xl" />
+                </>
+              ) : highlights.length > 0 ? (
+                highlights.map((item) => (
+                  <HighlightCard key={item.id} item={item} />
+                ))
+              ) : (
+                <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
+                  Nenhum destaque próximo encontrado.
+                </div>
+              )}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -159,7 +182,7 @@ const RestaurantDashboard = () => {
         {/* Restaurantes Próximos (Concorrentes) */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Restaurantes Próximos</h2>
+            <h2 className="text-xl font-bold text-[#022D68]">Concorrentes Próximos</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
@@ -169,13 +192,35 @@ const RestaurantDashboard = () => {
             </Button>
           </div>
           <div className="space-y-3">
-            {mockCompetitors.map((item) => (
-              <NearbyCompetitorCard 
-                key={item.id} 
-                item={{...item, rating: 0}} // Removendo rating
-                onClick={handleViewCompetitor} 
-              />
-            ))}
+            {isCompetitorsLoading ? (
+              <>
+                <Skeleton className="w-full h-20 rounded-xl" />
+                <Skeleton className="w-full h-20 rounded-xl" />
+              </>
+            ) : competitorsError ? (
+              <div className="text-center p-4 text-red-500 bg-red-50 rounded-xl">
+                Erro ao carregar concorrentes.
+              </div>
+            ) : competitors.length > 0 ? (
+              competitors.map((item) => (
+                <NearbyCompetitorCard 
+                  key={item.id} 
+                  item={{
+                    id: item.id,
+                    name: item.name,
+                    cuisine: item.category, // Mapeado de category
+                    distance: item.distance_km, // Mapeado de distance_km
+                    rating: 0, // Mocked
+                    imageUrl: item.imageUrl, // Mapeado do hook
+                  }} 
+                  onClick={handleViewCompetitor} 
+                />
+              ))
+            ) : (
+              <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md">
+                Nenhum concorrente encontrado.
+              </div>
+            )}
           </div>
         </div>
       </main>

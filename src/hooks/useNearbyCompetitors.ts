@@ -12,6 +12,7 @@ interface NearbyCompetitor {
   name: string;
   distance_km: number;
   category: string;
+  imageUrl: string;
 }
 
 /**
@@ -59,9 +60,9 @@ export const useNearbyCompetitors = (
           .map((r) => ({
             id: r.id,
             name: r.name,
-            // Now TypeScript knows r has distance_km
             distance_km: r.distance_km, 
             category: r.category || 'Geral',
+            imageUrl: r.image_url || 'https://via.placeholder.com/150?text=Restaurante',
           }));
 
         setCompetitors(filteredCompetitors);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft } from 'lucide-react';
+import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -14,20 +14,12 @@ import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { useUserRole } from '@/hooks/useUserRole';
 import { motion } from 'framer-motion'; // Import motion
+import { Skeleton } from '@/components/ui/skeleton';
 
 type SearchType = 'dish' | 'restaurant';
 
-// Mock de dados para Pratos em Destaque
-const mockDishHighlights = [
-  { id: 'd1', name: 'Moqueca de Camarão', description: 'Um ensopado tradicional de camarão cozido em leite de coco...', price: 59.90, imageUrl: 'https://images.unsplash.com/photo-1563379926898-05f4575a4513?q=80&w=1974&auto=format&fit=crop', type: 'dish' as const },
-  { id: 'd2', name: 'Picanha na Chapa', description: 'Picanha fatiada e grelhada em chapa quente, servida com...', price: 79.90, imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop', type: 'dish' as const },
-];
-
-// Mock de dados para Restaurantes em Destaque
-const mockRestaurantHighlights = [
-  { id: 'r1', name: 'Trattoria del Ponte', category: 'Italiana', city: 'João Pessoa', price: undefined, imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop', type: 'restaurant' as const },
-  { id: 'r2', name: 'Sakura Sushi', category: 'Japonesa', city: 'João Pessoa', price: undefined, imageUrl: 'https://images.unsplash.com/photo-1550547660-d94500ad4594?q=80&w=1974&auto=format&fit=crop', type: 'restaurant' as const },
-];
+// Placeholder para Destaques (será preenchido por lógica futura ou permanecerá vazio)
+const placeholderHighlights: any[] = [];
 
 
 export default function SearchUnifiedPage() {
@@ -62,7 +54,7 @@ export default function SearchUnifiedPage() {
     if (type === 'restaurant') {
       navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
     } else {
-      showInfo("Funcionalidade de detalhe do prato em desenvolvimento.");
+      navigate(createPageUrl('menuItemDetails', { itemId: itemId }));
     }
   };
   
@@ -96,7 +88,7 @@ export default function SearchUnifiedPage() {
     setIsDistanceModalOpen(false);
   };
 
-  const highlights = activeSearchType === 'dish' ? mockDishHighlights : mockRestaurantHighlights;
+  const highlights = placeholderHighlights; // Usando placeholder vazio
   const highlightTitle = activeSearchType === 'dish' ? 'Pratos em Destaque' : 'Restaurantes em Destaque';
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
@@ -169,13 +161,20 @@ export default function SearchUnifiedPage() {
       >
         <h2 className="text-xl font-bold text-primary">{highlightTitle}</h2>
         <div className="space-y-3">
-          {highlights.map((item) => (
-            <SearchItemCard 
-              key={item.id} 
-              item={item} 
-              onClick={handleItemClick}
-            />
-          ))}
+          {highlights.length > 0 ? (
+            highlights.map((item) => (
+              <SearchItemCard 
+                key={item.id} 
+                item={item} 
+                onClick={handleItemClick}
+              />
+            ))
+          ) : (
+            <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
+              <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+              <p className="text-gray-600">Nenhum destaque encontrado. Tente pesquisar!</p>
+            </Card>
+          )}
         </div>
       </motion.div>
       

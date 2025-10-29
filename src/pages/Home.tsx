@@ -31,13 +31,6 @@ const Home: React.FC = () => {
   const userLat = location.latitude;
   const userLon = location.longitude;
 
-  // Mock Data (Replicando do Dashboard para consistência visual)
-  const mockHighlights = [
-    { id: 'h1', name: "Hambúrguer Gourmet", restaurantName: "Burger Joint", price: 35.00, imageUrl: "https://images.unsplash.com/photo-1568901346537-21b8284b7423?q=80&w=1974&auto=format&fit=crop" },
-    { id: 'h2', name: "Moqueca de Camarão", restaurantName: "Restaurante Mar", price: 75.00, imageUrl: "https://images.unsplash.com/photo-1580476262798-57a42912da26?q=80&w=1974&auto=format&fit=crop" },
-    { id: 'h3', name: "Taco de Carnitas", restaurantName: "El Fuego", price: 28.00, imageUrl: "https://images.unsplash.com/photo-1565299624942-4c8d4e281ace?q=80&w=1974&auto=format&fit=crop" },
-  ];
-
   // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
   const { 
     restaurants, 
@@ -95,6 +88,15 @@ const Home: React.FC = () => {
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
+
+  // Usando os 3 primeiros restaurantes próximos como Destaques (se houver)
+  const highlights = restaurants.slice(0, 3).map(r => ({
+    id: r.id,
+    name: r.name,
+    restaurantName: r.category || 'Geral',
+    price: 25.00, // Preço mockado, pois não temos o preço médio
+    imageUrl: r.image_url || 'https://via.placeholder.com/300x200?text=Destaque',
+  }));
 
   return (
     <div className="min-h-screen bg-[#f5f7f8]">
@@ -177,9 +179,15 @@ const Home: React.FC = () => {
           </div>
           <ScrollArea className="w-full whitespace-nowrap pb-4 hide-scrollbar">
             <div className="flex space-x-4">
-              {mockHighlights.map((item) => (
-                <HighlightCard key={item.id} item={item} />
-              ))}
+              {highlights.length > 0 ? (
+                highlights.map((item) => (
+                  <HighlightCard key={item.id} item={item} />
+                ))
+              ) : (
+                <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
+                  Nenhum destaque encontrado.
+                </div>
+              )}
             </div>
           </ScrollArea>
         </div>
