@@ -37,6 +37,7 @@ export interface Restaurant {
   opening_hours: Json | null; // Assuming JSONB structure
   created_at: string;
   external_url: string | null;
+  followers_override: number | null; // NOVO CAMPO ADICIONADO
   // Note: followersCount is added by RPC/select query, not a direct column
 }
 

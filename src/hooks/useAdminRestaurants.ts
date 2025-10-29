@@ -58,5 +58,6 @@ export function useAdminRestaurants() {
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,
     isUpdating: updatePlanMutation.isPending,
+    refetch: restaurantsQuery.refetch, // Expondo refetch
   };
 }

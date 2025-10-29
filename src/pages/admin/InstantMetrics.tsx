@@ -7,13 +7,9 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { useQueryClient } from '@tanstack/react-query';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 
-interface RestaurantFollower {
-  id: string;
-  name: string;
-  category: string | null;
-  followers_override: number | null;
-}
+// Removido o tipo RestaurantFollower, usando Restaurant diretamente
 
 const InstantMetrics: React.FC = () => {
   const { restaurants, isLoading, error, refetch } = useAdminRestaurants();
@@ -22,7 +18,7 @@ const InstantMetrics: React.FC = () => {
   const [tempFollowers, setTempFollowers] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const handleEdit = (restaurant: RestaurantFollower) => {
+  const handleEdit = (restaurant: Restaurant) => {
     setEditingId(restaurant.id);
     setTempFollowers(restaurant.followers_override || 0);
   };
@@ -134,7 +130,7 @@ const InstantMetrics: React.FC = () => {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => handleEdit(restaurant as RestaurantFollower)}
+                          onClick={() => handleEdit(restaurant)}
                           disabled={isSaving}
                           className="text-primary border-primary hover:bg-primary/5"
                         >
