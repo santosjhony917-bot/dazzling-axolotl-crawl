@@ -5,25 +5,25 @@ import { cn } from '@/lib/utils';
 import { createPageUrl, PathKey } from '@/utils/url';
 import { motion } from 'framer-motion';
 
-interface NavItemType {
+interface NavItem {
   path: string;
   label: string;
   icon: React.ElementType;
   key: string;
 }
 
-const navItems: NavItemType[] = [
+const navItems: NavItem[] = [
   { path: '/home', label: 'Início', icon: Home, key: 'home' },
-  { path: '/search-unified', label: 'Busca', icon: Search, key: 'search-unified' }, // CHAVE CORRIGIDA para 'search-unified'
+  { path: '/search-unified', label: 'Busca', icon: Search, key: 'search-unified' },
   { path: '/favorites', label: 'Favoritos', icon: Heart, key: 'favorites' },
   { path: '/profile', label: 'Perfil', icon: User, key: 'clientProfile' },
 ];
 
-interface CustomerBottomNavProps {
+interface ClientBottomNavProps {
   selectedTab?: string;
 }
 
-const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+const NavItemComponent = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
   return (
     <motion.div
       whileTap={{ scale: 0.95 }}
@@ -52,22 +52,18 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
 });
 
 
-const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab }) => {
+const ClientBottomNav: React.FC<ClientBottomNavProps> = memo(({ selectedTab }) => {
   const location = useLocation();
   
-  // Mapeia rotas para garantir que o item correto seja ativado
   const getActivePath = (path: string, key: string) => {
-    // 1. Prioriza a prop selectedTab se fornecida
     if (selectedTab) {
       return selectedTab === key;
     }
     
-    // 2. Verifica se a rota atual corresponde exatamente ao caminho ou começa com ele (para sub-rotas)
     const currentPath = location.pathname;
     
     if (path === '/home' && (currentPath === '/' || currentPath === '/home')) return true;
     
-    // Para /profile, /favorites, /search-unified
     return currentPath.startsWith(path);
   };
 
@@ -75,12 +71,11 @@ const ClientBottomNav: React.FC<CustomerBottomNavProps> = memo(({ selectedTab })
     <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-xl z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          // A chave do item é usada para criar a URL, e agora é 'clientProfile' para o item de perfil
           const pathKey = item.key as PathKey;
           const isActive = getActivePath(item.path, item.key);
           
           return (
-            <NavItem
+            <NavItemComponent
               key={item.path}
               icon={item.icon}
               label={item.label}

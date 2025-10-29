@@ -4,7 +4,6 @@ import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass, Filter } from 'lucide-react';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import { useUserRole } from '@/hooks/useUserRole';
@@ -88,7 +87,7 @@ const RestaurantDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#f5f7f8]">
       {/* Header (Localização e Ícone da Loja) */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
         <div className="flex items-center justify-between">
@@ -120,13 +119,11 @@ const RestaurantDashboard = () => {
           </Button>
         </div>
         
-        {/* Barra de Busca e Ações Rápidas removidas */}
-        
       </header>
 
       <main className="p-4 space-y-6">
         
-        {/* Ações Rápidas (BOTÕES DE BUSCA) - RESTAURADO */}
+        {/* Ações Rápidas (BOTÕES DE BUSCA) */}
         <div className="flex gap-4 pt-2">
           <ActionCard 
             title="Buscar Prato|por Preço" 
@@ -161,7 +158,6 @@ const RestaurantDashboard = () => {
                 <HighlightCard key={item.id} item={item} />
               ))}
             </div>
-            {/* Removido ScrollBar para evitar sobreposição visual */}
           </ScrollArea>
         </div>
 
@@ -188,9 +184,6 @@ const RestaurantDashboard = () => {
           </div>
         </div>
       </main>
-
-      {/* Bottom Navigation */}
-      <RestaurantBottomNav selectedTab="home" isFree={!isPremium} />
 
       {/* User Location Modal */}
       <UserLocationModal

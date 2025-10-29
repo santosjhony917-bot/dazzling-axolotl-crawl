@@ -6,14 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { createPageUrl } from '@/utils/url';
 import { showInfo, showError } from '@/utils/toast';
-import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthContext } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useUserRole } from '@/hooks/useUserRole';
 import { motion } from 'framer-motion'; // Import motion
 
@@ -180,11 +178,23 @@ export default function SearchUnifiedPage() {
           ))}
         </div>
       </motion.div>
+      
+      {/* Modais de Filtro */}
+      <SearchByPriceModal
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
+      />
+      <SearchByDistanceModal
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
+      />
     </div>
   );
 
   return (
-    <ClientPageWrapper selectedTab="search">
+    <>
       {/* Cabeçalho Manual */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button
@@ -204,20 +214,6 @@ export default function SearchUnifiedPage() {
       <main className="flex-1 w-full max-w-md mx-auto pb-20">
         {pageContent}
       </main>
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
-      
-      {/* Navegação Inferior Condicional (Removida daqui, agora está no ClientPageWrapper) */}
-    </ClientPageWrapper>
+    </>
   );
 }

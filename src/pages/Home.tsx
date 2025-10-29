@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importação atualizada
 import { createPageUrl } from '@/utils/url';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
@@ -98,7 +97,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <ClientPageWrapper selectedTab="home">
+    <div className="min-h-screen bg-[#f5f7f8]">
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
@@ -211,7 +210,6 @@ const Home: React.FC = () => {
               </div>
             ) : restaurants.length > 0 ? (
               <div className="space-y-4">
-                {/* CORREÇÃO 2: O tipo 'restaurants' já é RestaurantWithDistance, que é compatível com RestaurantCard */}
                 {restaurants.map((restaurant) => (
                   <RestaurantCard 
                     key={restaurant.id} 
@@ -250,7 +248,7 @@ const Home: React.FC = () => {
         onClose={() => setIsDistanceModalOpen(false)}
         onApplyFilter={handleApplyDistanceFilter}
       />
-    </ClientPageWrapper>
+    </div>
   );
 };
 
