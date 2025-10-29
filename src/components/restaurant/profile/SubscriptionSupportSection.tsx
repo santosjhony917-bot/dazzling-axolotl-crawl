@@ -17,6 +17,12 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
     navigate(path);
   };
   
+  const handleSignOut = async () => {
+    await signOut();
+    // Redireciona para a tela de boas-vindas após o logout
+    navigate(createPageUrl('welcome'), { replace: true });
+  };
+  
   return (
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
@@ -53,7 +59,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         icon={LogOut}
         title="Sair da Conta"
         description="Desconectar-se do painel do restaurante."
-        onClick={signOut}
+        onClick={handleSignOut} // Usando o novo handler
       />
     </div>
   );
