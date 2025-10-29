@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { Loader2, Utensils, Crown, MapPin, Clock, MessageSquare, Globe, FileText, Phone, Mail, Building2, UtensilsCrossed } from 'lucide-react';
+import { Loader2, Utensils, Crown, MapPin, Clock, MessageSquare, Globe, FileText, Phone, Mail, Building2, UtensilsCrossed, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
@@ -21,6 +21,7 @@ import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsS
 import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 
 // --- Schemas de Validação ---
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -31,7 +32,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 // --- Tipos de Configuração de Edição ---
 interface EditConfig {
-  key: keyof typeof initialEditConfig;
+  key: keyof Restaurant; // Corrigido: A chave deve ser uma chave de Restaurant
   title: string;
   fieldName: string;
   icon: React.ReactNode;
@@ -41,7 +42,7 @@ interface EditConfig {
   placeholder?: string;
 }
 
-const initialEditConfig = {
+const initialEditConfig: EditConfig = {
   key: 'name',
   title: '',
   fieldName: '',
@@ -63,10 +64,12 @@ export default function RestaurantProfileSettingsPage() {
   const isLoading = profileLoading || authLoading;
 
   // --- Dados do Restaurante ---
-  const currentRestaurant = restaurant || {};
+  // Corrigido: Usar 'restaurant' diretamente, que é Restaurant | null
+  const currentRestaurant = restaurant; 
+  
   const currentSchedule: WeekSchedule = useMemo(() => {
-    // Converte o JSONB de opening_hours para o tipo WeekSchedule
-    return (currentRestaurant.opening_hours as WeekSchedule) || {
+    // Corrigido: Acessar opening_hours apenas se currentRestaurant existir
+    return (currentRestaurant?.opening_hours as WeekSchedule) || {
       monday: { isOpen: false, slots: [] },
       tuesday: { isOpen: false, slots: [] },
       wednesday: { isOpen: false, slots: [] },
@@ -75,11 +78,11 @@ export default function RestaurantProfileSettingsPage() {
       saturday: { isOpen: false, slots: [] },
       sunday: { isOpen: false, slots: [] },
     };
-  }, [currentRestaurant.opening_hours]);
+  }, [currentRestaurant?.opening_hours]); // Corrigido: Dependência opcional
 
   // --- Handlers de Edição Genérica ---
   const handleEditField = useCallback((
-    key: keyof typeof currentRestaurant, 
+    key: keyof Restaurant, // Corrigido: Usar keyof Restaurant
     title: string, 
     fieldName: string, 
     icon: React.ReactNode, 
@@ -89,7 +92,7 @@ export default function RestaurantProfileSettingsPage() {
     placeholder?: string
   ) => {
     setEditConfig({
-      key: key as keyof typeof initialEditConfig, // Cast necessário para compatibilidade
+      key, // Corrigido: Não precisa de cast
       title,
       fieldName,
       icon,
@@ -102,14 +105,15 @@ export default function RestaurantProfileSettingsPage() {
   }, []);
 
   const handleSaveField = useCallback(async (value: string) => {
-    if (!currentRestaurant.id || !editConfig) return;
+    // Corrigido: Acessar id apenas se currentRestaurant existir
+    if (!currentRestaurant?.id || !editConfig) return; 
     
     // Aplica a máscara antes de salvar, se houver
     const finalValue = editConfig.mask ? editConfig.mask(value) : value;
     
     await updateRestaurant({ [editConfig.key]: finalValue });
     refetchProfile();
-  }, [currentRestaurant.id, editConfig, updateRestaurant, refetchProfile]);
+  }, [currentRestaurant?.id, editConfig, updateRestaurant, refetchProfile]); // Corrigido: Dependência opcional
 
   // --- Handlers de Imagem ---
   const handleLogoUploadComplete = useCallback(async (url: string) => {
@@ -126,10 +130,12 @@ export default function RestaurantProfileSettingsPage() {
 
   // --- Handlers de Horário ---
   const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
-    if (!currentRestaurant.id) return;
-    await updateRestaurant({ opening_hours: newSchedule });
+    // Corrigido: Acessar id apenas se currentRestaurant existir
+    if (!currentRestaurant?.id) return; 
+    // Corrigido: Usar 'any' para contornar a tipagem restritiva de Json para objetos complexos
+    await updateRestaurant({ opening_hours: newSchedule as any }); 
     refetchProfile();
-  }, [currentRestaurant.id, updateRestaurant, refetchProfile]);
+  }, [currentRestaurant?.id, updateRestaurant, refetchProfile]); // Corrigido: Dependência opcional
 
   if (isLoading) {
     return (
@@ -176,7 +182,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 3. Informações Básicas */}
           <BasicInfoSection
-            restaurant={currentRestaurant}
+            restaurant={restaurant} // Usando 'restaurant' tipado
             isPremium={isPremium}
             handleEditField={handleEditField}
             cnpjMask={cnpjMask}
@@ -189,7 +195,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 4. Localização e Horários */}
           <LocationHoursSection
-            restaurant={currentRestaurant}
+            restaurant={restaurant} // Usando 'restaurant' tipado
             isPremium={isPremium}
             currentSchedule={currentSchedule}
             setIsAddressDialogOpen={setIsAddressDialogOpen}
@@ -198,7 +204,7 @@ export default function RestaurantProfileSettingsPage() {
 
           {/* 5. Canais de Venda e Links (Premium Feature) */}
           <SalesChannelsSection
-            restaurant={currentRestaurant}
+            restaurant={restaurant} // Usando 'restaurant' tipado
             isPremium={isPremium}
             handleEditField={handleEditField}
             whatsappSchema={urlSchema}
@@ -221,7 +227,7 @@ export default function RestaurantProfileSettingsPage() {
           onClose={() => setIsEditDialogOpen(false)}
           title={editConfig.title}
           fieldName={editConfig.fieldName}
-          currentValue={currentRestaurant[editConfig.key] as string || ''}
+          currentValue={restaurant[editConfig.key] as string || ''} // Acessando a propriedade tipada
           icon={editConfig.icon}
           onSave={handleSaveField}
           placeholder={editConfig.placeholder}
