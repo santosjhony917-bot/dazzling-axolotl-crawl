@@ -81,7 +81,8 @@ const RestaurantResultsPage: React.FC = () => {
           <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <p className="font-semibold">Erro ao carregar resultados:</p>
-            <p>{currentError.message}</p> {/* Acessando message de forma segura */}
+            {/* Acessa a mensagem de erro de forma segura */}
+            <p>{currentError instanceof Error ? currentError.message : "Erro desconhecido."}</p>
           </div>
         ) : (
           <div className="space-y-4">
