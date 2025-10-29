@@ -4,8 +4,6 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
 // Layouts
-import ClientLayout from '@/layouts/ClientLayout';
-import RestaurantOwnerLayout from '@/layouts/RestaurantOwnerLayout';
 import AdminLayout from '@/components/admin/AdminLayout';
 import SharedLayoutWrapper from '@/layouts/SharedLayoutWrapper'; // Import the new wrapper
 
@@ -71,20 +69,16 @@ function App() {
         <Route path="/restaurant-area/signup" element={<RestaurantSignup />} />
         <Route path="/restaurant-area/claim" element={<ClaimRestaurant />} />
 
-        {/* Rotas Protegidas do Cliente (Usando ClientLayout) */}
-        <Route element={<ProtectedRoute requiredRole="authenticated" element={<ClientLayout />} />}>
+        {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
+        <Route element={<ProtectedRoute requiredRole="authenticated" element={<SharedLayoutWrapper />} />}>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-        </Route>
-        
-        {/* Rotas Protegidas Compartilhadas (Usando SharedLayoutWrapper) */}
-        <Route element={<ProtectedRoute requiredRole="authenticated" element={<SharedLayoutWrapper />} />}>
           <Route path="/search-unified" element={<SearchUnifiedPage />} />
         </Route>
 
-        {/* Rotas Protegidas da Área do Restaurante (Usando RestaurantOwnerLayout) */}
-        <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<RestaurantOwnerLayout />} />}>
+        {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
+        <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
           <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
           <Route path="/restaurant-area/profile-menu" element={<RestaurantProfileSettingsPage />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
