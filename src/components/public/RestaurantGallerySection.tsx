@@ -17,21 +17,8 @@ const RestaurantGallerySection: React.FC<RestaurantGallerySectionProps> = ({ id,
   const isPremium = plan === 'premium' || plan === 'premium_gift';
   
   if (!isPremium) {
-    // Se não for Premium, exibe um card de bloqueio ou nada, dependendo do contexto.
-    // No layout Free, vamos exibir um card de incentivo.
-    return (
-      <Card id={id} className="shadow-soft-md border-none rounded-xl p-4 bg-gray-50 border-dashed border-gray-300">
-        <CardHeader className="p-0 mb-4">
-          <CardTitle className="text-lg font-bold text-primary flex items-center gap-2">
-            <Lock className="w-5 h-5 text-red-500" /> Galeria de Fotos
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0 text-center">
-          <Image className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-          <p className="text-sm text-gray-600">Recurso exclusivo Premium. Adicione fotos para atrair mais clientes!</p>
-        </CardContent>
-      </Card>
-    );
+    // Se não for Premium, não exibe nada para o usuário final.
+    return null;
   }
 
   if (isLoading) {
