@@ -5,11 +5,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, FavoriteRestaurant } from '@/types/supabase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, Heart, MapPin, Utensils, Trash2 } from 'lucide-react';
+import { Loader2, Heart, MapPin, Utensils, Trash2, ArrowLeft } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import Header from '@/components/Header'; // Importando o componente Header
 
 // Definindo o tipo de dado que esperamos do join (user_favorites -> restaurants)
 type FavoriteRestaurantData = {
@@ -67,9 +68,11 @@ export default function Favorites() {
     },
   });
 
+  const handleBack = () => navigate(-1);
+
   if (isAuthLoading || isFavoritesLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -89,78 +92,90 @@ export default function Favorites() {
 
   if (!favorites || favorites.length === 0) {
     return (
-      <div className="p-6 text-center">
-        <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-        <h2 className="text-xl font-bold mb-2">Nenhum Favorito Encontrado</h2>
-        <p className="text-gray-600">Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.</p>
-      </div>
+      <>
+        <Header 
+          title="Meus Favoritos"
+          leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+        />
+        <div className="p-6 text-center">
+          <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-xl font-bold mb-2">Nenhum Favorito Encontrado</h2>
+          <p className="text-gray-600">Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.</p>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-2xl font-bold text-primary">Meus Favoritos ({favorites.length})</h1>
-      
-      <div className="space-y-4">
-        {favorites.map((item, index) => {
-          const restaurant = item.restaurant;
-          
-          // Double check if restaurant object is present, although filtered in fetchFavorites
-          if (!restaurant) return null; 
-          
-          return (
-            <Card 
-              key={restaurant.id} 
-              className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
-            >
-              <div 
-                className="flex flex-1"
-                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+    <>
+      <Header 
+        title="Meus Favoritos"
+        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+      />
+      <div className="p-4 space-y-4">
+        <h1 className="text-2xl font-bold text-primary">Restaurantes Favoritos ({favorites.length})</h1>
+        
+        <div className="space-y-4">
+          {favorites.map((item, index) => {
+            const restaurant = item.restaurant;
+            
+            // Double check if restaurant object is present, although filtered in fetchFavorites
+            if (!restaurant) return null; 
+            
+            return (
+              <Card 
+                key={restaurant.id} 
+                className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
               >
-                <img 
-                  src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
-                  alt={restaurant.name}
-                  className="w-24 h-24 object-cover flex-shrink-0"
-                />
-                <div className="p-3 flex-1 min-w-0">
-                  <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
-                  
-                  {restaurant.category && (
-                    <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
-                      <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
-                    </p>
-                  )}
+                <div 
+                  className="flex flex-1"
+                  onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+                >
+                  <img 
+                    src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+                    alt={restaurant.name}
+                    className="w-24 h-24 object-cover flex-shrink-0"
+                  />
+                  <div className="p-3 flex-1 min-w-0">
+                    <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
+                    
+                    {restaurant.category && (
+                      <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+                        <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
+                      </p>
+                    )}
 
-                  {restaurant.city && (
-                    <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                      <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
-                    </p>
-                  )}
+                    {restaurant.city && (
+                      <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                        <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
-                disabled={removeFavoriteMutation.isPending}
-                onClick={(e) => {
-                  e.stopPropagation(); // Previne o clique no card
-                  if (user) {
-                    removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
-                  }
-                }}
-              >
-                {removeFavoriteMutation.isPending ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Trash2 className="w-5 h-5" />
-                )}
-              </Button>
-            </Card>
-          );
-        })}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                  disabled={removeFavoriteMutation.isPending}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Previne o clique no card
+                    if (user) {
+                      removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
+                    }
+                  }}
+                >
+                  {removeFavoriteMutation.isPending ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Trash2 className="w-5 h-5" />
+                  )}
+                </Button>
+              </Card>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
