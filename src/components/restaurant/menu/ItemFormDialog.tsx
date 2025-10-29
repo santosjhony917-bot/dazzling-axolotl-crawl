@@ -79,10 +79,14 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
       return;
     }
 
+    // Construção explícita do payload para garantir que os tipos correspondam a CreateItemPayload
     const dataToSave = {
-      ...values,
-      price: values.price, // Já é number
       category_id: categoryId,
+      name: values.name,
+      price: values.price,
+      is_active: values.is_active,
+      description: values.description || null, // Converte undefined/empty string para null
+      image_url: values.image_url || null, // Converte undefined/empty string para null
     };
 
     try {
@@ -90,6 +94,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
         await mutationUpdate.mutateAsync({ id: initialData.id, updates: dataToSave });
         toast.success('Item atualizado com sucesso!');
       } else {
+        // O tipo de dataToSave agora corresponde a CreateItemPayload
         await mutationCreate.mutateAsync(dataToSave);
         toast.success('Item criado com sucesso!');
       }
