@@ -108,7 +108,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           <RestaurantGallerySection 
             id="gallery"
             restaurantId={restaurant.id}
-            isPremium={false}
+            plan={restaurant.plan} // Passando o plano
           />
         </div>
       </div>

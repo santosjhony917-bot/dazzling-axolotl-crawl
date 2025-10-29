@@ -144,7 +144,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           <RestaurantGallerySection 
             id="gallery"
             restaurantId={restaurant.id}
-            isPremium={true}
+            plan={restaurant.plan} // Passando o plano
           />
           
           {/* Cardápio (Premium) */}
