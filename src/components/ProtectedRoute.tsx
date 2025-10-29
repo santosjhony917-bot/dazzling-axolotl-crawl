@@ -1,15 +1,16 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSession } from '@/integrations/supabase/session-context';
+import { useAuth } from '@/hooks/useAuth';
 import { Loader2 } from 'lucide-react';
+import { createPageUrl } from '@/utils/url';
 
 interface ProtectedRouteProps {
-  requiredRole: string | 'authenticated';
+  requiredRole: 'authenticated' | 'admin' | 'restaurant_owner';
   element?: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { session, user, isLoading, checkRole } = useSession();
+  const { isAuthenticated, isLoading, isAdmin, restaurant } = useAuth();
 
   if (isLoading) {
     return (
@@ -19,24 +20,25 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }
     );
   }
 
-  if (!session) {
+  if (!isAuthenticated) {
     // User is not authenticated, redirect to login page
-    return <Navigate to="/auth" replace />; // Redirecting to /auth for general login
+    return <Navigate to={createPageUrl("auth")} replace />;
   }
   
-  // Check if the user meets the role requirement
   let isAuthorized = false;
   
   if (requiredRole === 'authenticated') {
-    isAuthorized = !!user;
-  } else {
-    // Check specific role using the checkRole function (which handles the mock logic)
-    isAuthorized = checkRole([requiredRole]);
+    isAuthorized = true; // Already checked by isAuthenticated
+  } else if (requiredRole === 'admin') {
+    isAuthorized = isAdmin;
+  } else if (requiredRole === 'restaurant_owner') {
+    // Check if the user is associated with a restaurant
+    isAuthorized = !!restaurant;
   }
 
   if (!isAuthorized) {
     // User is authenticated but does not have the required role, redirect to home
-    return <Navigate to="/" replace />;
+    return <Navigate to={createPageUrl("home")} replace />;
   }
 
   // If authorized, render the provided element (for layouts) or Outlet (for nested routes)
