@@ -1,6 +1,7 @@
 import { useAuthData } from "@/context/AuthContext";
 import { showError } from "@/utils/toast";
 import { useFavorites } from "./useFavorites"; 
+import { Restaurant } from "@/types/supabase"; // Ensure Restaurant is imported if needed, but it's not directly used here.
 
 /**
  * Hook para gerenciar o status de favorito de um único restaurante.
@@ -14,7 +15,7 @@ export function useRestaurantFavorite(restaurantId: string) {
     toggleFavorite: mutateToggleFavorite, 
     isMutating,
     isLoading: isFavoritesLoading // Adicionado para um estado de carregamento mais completo
-  } = useFavorites();
+  } = useFavorites(); 
   
   // Get the favorite status for the specific ID
   const isCurrentlyFavorite = checkIsFavorite(restaurantId); 

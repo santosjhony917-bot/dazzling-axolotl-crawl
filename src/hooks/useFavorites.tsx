@@ -14,6 +14,16 @@ interface Favorite {
   restaurants: Restaurant; 
 }
 
+export interface UseFavoritesResult {
+  favorites: Favorite[];
+  isLoading: boolean;
+  error: string | null;
+  isFavorite: (restaurantId: string) => boolean;
+  toggleFavorite: (restaurantId: string, isCurrentlyFavorite: boolean) => void;
+  isMutating: boolean;
+  refetch: () => void;
+}
+
 // --- Query Key ---
 const FAVORITES_QUERY_KEY = (userId: string) => ['favorites', userId];
 
@@ -35,7 +45,7 @@ const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
 };
 
 // --- Main Hook ---
-export function useFavorites() {
+export function useFavorites(): UseFavoritesResult {
   const { user, isLoading: authLoading } = useAuthData();
   const userId = user?.id;
   const queryClient = useQueryClient();
@@ -99,7 +109,7 @@ export function useFavorites() {
     error: error ? error.message : null,
     isFavorite,
     toggleFavorite: toggleFavoriteHandler,
-    isMutating: toggleFavoriteMutation.isPending, // Adicionando isMutating
+    isMutating: toggleFavoriteMutation.isPending,
     refetch,
-  };
+  } as UseFavoritesResult;
 }
