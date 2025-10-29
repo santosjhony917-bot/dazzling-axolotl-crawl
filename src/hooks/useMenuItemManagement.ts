@@ -1,14 +1,27 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { MenuItem } from '@/types/menu';
 
-// --- Item Management Hooks ---
+// --- Item Management Types ---
 
 interface CreateItemPayload extends Omit<MenuItem, 'id' | 'created_at' | 'order_index'> {}
 interface UpdateItemPayload {
   id: string;
   updates: Partial<MenuItem>;
 }
+
+// --- API Calls ---
+
+const fetchMenuItems = async (categoryId: string): Promise<MenuItem[]> => {
+  const { data, error } = await supabase
+    .from('menu_items')
+    .select('*')
+    .eq('category_id', categoryId)
+    .order('order_index', { ascending: true });
+
+  if (error) throw new Error(error.message);
+  return data || [];
+};
 
 const createMenuItem = async (payload: CreateItemPayload): Promise<MenuItem> => {
   const { data, error } = await supabase
@@ -42,12 +55,14 @@ const deleteMenuItem = async (id: string): Promise<void> => {
   if (error) throw new Error(error.message);
 };
 
+// --- Individual Mutation Hooks (Exported for ItemFormDialog) ---
+
 export const useCreateMenuItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createMenuItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuManagement'] });
+      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
   });
@@ -58,7 +73,7 @@ export const useUpdateMenuItem = () => {
   return useMutation({
     mutationFn: updateMenuItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuManagement'] });
+      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
   });
@@ -69,8 +84,29 @@ export const useDeleteMenuItem = () => {
   return useMutation({
     mutationFn: deleteMenuItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuManagement'] });
+      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
   });
+};
+
+// --- Combined Hook for CategoryDetails (List + Mutations) ---
+
+export const useMenuItemManagement = (categoryId: string) => {
+  const itemsQuery = useQuery<MenuItem[], Error>({
+    queryKey: ['menuItems', categoryId],
+    queryFn: () => fetchMenuItems(categoryId),
+    enabled: !!categoryId,
+  });
+  
+  const createItemMutation = useCreateMenuItem();
+  const updateItemMutation = useUpdateMenuItem();
+  const deleteItemMutation = useDeleteMenuItem();
+
+  return {
+    itemsQuery,
+    createItemMutation,
+    updateItemMutation,
+    deleteItemMutation,
+  };
 };

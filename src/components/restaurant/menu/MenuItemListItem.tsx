@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useMenuItemManagement } from '@/hooks/useMenuManagement';
+import { useMenuItemManagement } from '@/hooks/useMenuItemManagement';
 import { formatPrice } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
@@ -17,17 +17,24 @@ interface MenuItemListItemProps {
 
 export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete }) => {
   // Assumindo que o item tem category_id para usar o hook de mutação
+  // Nota: O hook useMenuItemManagement agora retorna as mutações individualmente.
+  // Para usar a mutação de update, precisamos importá-la individualmente ou refatorar o componente.
+  // Vamos importar a mutação individualmente para manter a simplicidade do componente.
+  
+  // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
   const { updateItemMutation } = useMenuItemManagement(item.category_id);
   const isUpdating = updateItemMutation.isPending;
 
   const handleToggleActive = (checked: boolean) => {
     updateItemMutation.mutate({
       id: item.id,
-      name: item.name,
-      description: item.description || '',
-      price: item.price,
-      image_url: item.image_url,
-      is_active: checked,
+      updates: {
+        name: item.name,
+        description: item.description || '',
+        price: item.price,
+        image_url: item.image_url,
+        is_active: checked,
+      }
     });
   };
 

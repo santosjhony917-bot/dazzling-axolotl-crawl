@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMenuItemManagement, useMenuManagement } from '@/hooks/useMenuManagement';
+import { useMenuItemManagement } from '@/hooks/useMenuItemManagement'; // CORRIGIDO
+import { useMenuManagement } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Usando o hook de categorias para buscar o nome
 import { Button } from '@/components/ui/button';
 import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -28,10 +29,10 @@ export default function CategoryDetails() {
     return <div className="p-4 text-red-500">ID da Categoria não encontrado.</div>;
   }
 
+  // Usando o hook unificado para itens
   const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
   
-  // Busca o nome da categoria (usando o hook de categorias, mas filtrando localmente)
-  // Nota: Para evitar a necessidade de passar o restaurantId, vamos buscar o nome da categoria diretamente.
+  // Busca o nome da categoria (usando o hook de categorias)
   const { categoriesQuery } = useMenuManagement(itemsQuery.data?.[0]?.category_id || '');
   const categoryName = categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
   
@@ -55,11 +56,13 @@ export default function CategoryDetails() {
     if (editingItem) {
       await updateItemMutation.mutateAsync({
         id: editingItem.id,
-        name: data.name,
-        description: data.description || '',
-        price: data.price,
-        image_url: data.image_url || null,
-        is_active: data.is_active,
+        updates: { // CORRIGIDO: Passando updates como objeto
+          name: data.name,
+          description: data.description || '',
+          price: data.price,
+          image_url: data.image_url || null,
+          is_active: data.is_active,
+        }
       });
     } else {
       await createItemMutation.mutateAsync({
