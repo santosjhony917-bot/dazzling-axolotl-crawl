@@ -1,24 +1,20 @@
 import React from 'react';
 import { Restaurant } from '@/types/supabase';
 import RestaurantCoverImage from './RestaurantCoverImage';
-import RestaurantLogo from './RestaurantLogo';
-import RestaurantInfoCard from './RestaurantInfoCard';
 import RestaurantMenuSection from './RestaurantMenuSection';
 import RestaurantGallerySection from './RestaurantGallerySection';
-import RestaurantContactSection from './RestaurantContactSection';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Clock, Phone, Menu, Image, Heart, ArrowLeft } from 'lucide-react';
+import { MapPin, Menu, Image, Heart } from 'lucide-react';
 import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Button } from '@/components/ui/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { WeekSchedule } from '@/types/schedule';
-import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader'; // Importando o header público
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importando useRestaurantFavorite
-import AdditionalInfo from './AdditionalInfo'; // Importando o componente de informações adicionais
-import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
+import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader';
+import AdditionalInfo from './AdditionalInfo';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 interface FreeProfileLayoutProps {
-  restaurant: PublicRestaurantData; // Alterado para PublicRestaurantData
+  restaurant: PublicRestaurantData;
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
@@ -36,17 +32,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-20 shadow-lg">
       
-      {/* Botão de Voltar Flutuante */}
-      <div className="fixed top-4 left-4 z-50">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(-1)}
-          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-      </div>
+      {/* Botão de Voltar Flutuante - REMOVIDO DAQUI */}
       
       {/* Imagem de Capa */}
       <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />

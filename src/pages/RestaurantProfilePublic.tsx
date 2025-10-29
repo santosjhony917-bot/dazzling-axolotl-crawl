@@ -75,7 +75,20 @@ export default function RestaurantProfilePublic() {
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl">
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative"> {/* Adicionado relative aqui */}
+      
+      {/* Botão de Voltar ABSOLUTO dentro do contêiner max-w-md */}
+      <div className="absolute top-4 left-4 z-50">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleBack}
+          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+      </div>
+      
       {restaurant.plan === 'premium' ? (
         <PremiumProfileLayout restaurant={restaurant} />
       ) : (

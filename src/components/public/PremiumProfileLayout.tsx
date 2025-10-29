@@ -35,17 +35,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen pb-20 shadow-lg">
       
-      {/* Botão de Voltar Flutuante */}
-      <div className="fixed top-4 left-4 z-50">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(-1)}
-          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
-      </div>
+      {/* Botão de Voltar Flutuante - REMOVIDO DAQUI */}
       
       {/* Imagem de Capa */}
       <div className="relative">
