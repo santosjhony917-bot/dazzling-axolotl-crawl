@@ -38,18 +38,18 @@ https://restauranteb.com.br,b@exemplo.com,(83) 88888-8888,98765432000190,free,,`
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">Fase 3: Contatos, Plano e Links</CardTitle>
+        <CardTitle className="text-xl text-primary">Fase 3: Links e Dados Administrativos</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados de contato, CNPJ e o plano de assinatura. Use o <code>external_url</code> como chave de referência.
+          Cole os dados de contato, CNPJ e o plano de assinatura. Estes dados podem ser preenchidos pelo Admin para completar o perfil, mas o proprietário pode alterá-los após a reivindicação. Use o <code>external_url</code> como chave de referência.
         </p>
         
         <CsvInputArea
           onProcess={handleProcessCsv}
           isLoading={isProcessing}
           placeholder={placeholder}
-          buttonText="Processar e Salvar Contatos/Plano"
+          buttonText="Processar e Salvar Links/Admin"
           requiredColumns={REQUIRED_COLUMNS_PHASE3_CONTACTS}
         />
       </CardContent>

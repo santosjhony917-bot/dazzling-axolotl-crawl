@@ -58,7 +58,7 @@ export default function AdminUploadInfo() {
             )}
           >
             <Phone className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium text-center">Fase 3: Contatos</span>
+            <span className="text-xs font-medium text-center">Fase 3: Links/Admin</span>
           </TabsTrigger>
           <TabsTrigger 
             value="phase4" 
