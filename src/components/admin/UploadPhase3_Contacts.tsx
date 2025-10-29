@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, UtensilsCrossed } from 'lucide-react';
+import { Loader2, Phone, Crown } from 'lucide-react';
 import { saveUploadRecord } from '@/utils/uploadHistory';
 import { showError, showSuccess } from '@/utils/toast';
 import CsvInputArea from '@/components/admin/CsvInputArea';
 
-// Colunas obrigatórias para a Fase 3: Cardápios e Itens
-const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
+// Colunas obrigatórias para a Nova Fase 3: Contatos e Plano
+const REQUIRED_COLUMNS_PHASE3_CONTACTS = ['external_url', 'email', 'phone', 'cnpj', 'plan', 'whatsapp_url', 'ifood_url'];
 
-const UploadPhase3: React.FC = () => {
+const UploadPhase3Contacts: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleProcessCsv = (csvData: string) => {
@@ -24,38 +24,37 @@ const UploadPhase3: React.FC = () => {
       saveUploadRecord({
         phase: 3,
         successCount: successCount,
-        details: `Upload de ${successCount} itens de menu processado.`,
+        details: `Upload de ${successCount} contatos e planos processado.`,
       });
-      showSuccess(`Fase 3 concluída! ${successCount} itens processados.`);
+      showSuccess(`Fase 3 concluída! ${successCount} registros processados.`);
       setIsProcessing(false);
     }, 1500);
   };
 
-  const placeholder = `external_url,category_name,item_name,price,description,image_url
-https://restaurantea.com.br,Pizzas,Pizza Calabresa,39.90,Mussarela e calabresa,https://link.com/pizza.jpg
-https://restaurantea.com.br,Bebidas,Refrigerante Lata,5.00,Coca-cola 350ml,https://link.com/refri.jpg
-https://restauranteb.com.br,Sanduíches,X-Bacon,25.00,Pão, carne, queijo e bacon,https://link.com/xbacon.jpg`;
+  const placeholder = `external_url,email,phone,cnpj,plan,whatsapp_url,ifood_url
+https://restaurantea.com.br,a@exemplo.com,(83) 99999-9999,12345678000190,premium,https://wa.me/5583999999999,https://ifood.com/a
+https://restauranteb.com.br,b@exemplo.com,(83) 88888-8888,98765432000190,free,,`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">Fase 3: Cardápios e Itens</CardTitle>
+        <CardTitle className="text-xl text-primary">Fase 3: Contatos, Plano e Links</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados do cardápio. Use o <code>external_url</code> como chave de referência. O sistema criará categorias e itens automaticamente.
+          Cole os dados de contato, CNPJ e o plano de assinatura. Use o <code>external_url</code> como chave de referência.
         </p>
         
         <CsvInputArea
           onProcess={handleProcessCsv}
           isLoading={isProcessing}
           placeholder={placeholder}
-          buttonText="Processar e Salvar Cardápios"
-          requiredColumns={REQUIRED_COLUMNS_PHASE3}
+          buttonText="Processar e Salvar Contatos/Plano"
+          requiredColumns={REQUIRED_COLUMNS_PHASE3_CONTACTS}
         />
       </CardContent>
     </Card>
   );
 };
 
-export default UploadPhase3;
+export default UploadPhase3Contacts;

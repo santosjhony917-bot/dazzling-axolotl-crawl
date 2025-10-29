@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, MapPin, UtensilsCrossed, Clock, History, AlertTriangle } from "lucide-react";
+import { Upload, MapPin, UtensilsCrossed, Clock, History, Phone } from "lucide-react";
 import UploadPhase1 from "@/components/admin/UploadPhase1";
 import UploadPhase2 from "@/components/admin/UploadPhase2";
-import UploadPhase3 from "@/components/admin/UploadPhase3";
-import UploadPhase4 from "@/components/admin/UploadPhase4";
+import UploadPhase3Contacts from "@/components/admin/UploadPhase3_Contacts"; // NOVO IMPORT
+import UploadPhase4 from "@/components/admin/UploadPhase4"; // Antiga Fase 3
+import UploadPhase5 from "@/components/admin/UploadPhase5"; // Antiga Fase 4
 import UploadHistory from "@/components/admin/UploadHistory";
-import IncompleteRestaurantAlerts from "@/components/admin/IncompleteRestaurantAlerts"; // NOVO IMPORT
+import IncompleteRestaurantAlerts from "@/components/admin/IncompleteRestaurantAlerts";
 import { cn } from "@/lib/utils";
 
 export default function AdminUploadInfo() {
@@ -19,7 +20,7 @@ export default function AdminUploadInfo() {
         <CardHeader>
           <CardTitle className="text-3xl text-[#022D68]">Upload de Informações Master</CardTitle>
           <CardDescription>
-            Sistema modular de upload de dados de restaurantes em 4 fases.
+            Sistema modular de upload de dados de restaurantes em 5 fases.
           </CardDescription>
         </CardHeader>
       </Card>
@@ -37,7 +38,7 @@ export default function AdminUploadInfo() {
             )}
           >
             <Upload className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium text-center">Fase 1: Info Gerais</span>
+            <span className="text-xs font-medium text-center">Fase 1: Base</span>
           </TabsTrigger>
           <TabsTrigger 
             value="phase2" 
@@ -56,8 +57,8 @@ export default function AdminUploadInfo() {
               "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
             )}
           >
-            <UtensilsCrossed className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium text-center">Fase 3: Cardápio</span>
+            <Phone className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium text-center">Fase 3: Contatos</span>
           </TabsTrigger>
           <TabsTrigger 
             value="phase4" 
@@ -66,18 +67,18 @@ export default function AdminUploadInfo() {
               "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
             )}
           >
-            <Clock className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium text-center">Fase 4: Horários</span>
+            <UtensilsCrossed className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium text-center">Fase 4: Cardápio</span>
           </TabsTrigger>
           <TabsTrigger 
-            value="history" 
+            value="phase5" 
             className={cn(
               "flex flex-col h-auto py-2 px-1 rounded-lg transition-all",
               "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
             )}
           >
-            <History className="w-5 h-5 mb-1" />
-            <span className="text-xs font-medium text-center">Histórico</span>
+            <Clock className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium text-center">Fase 5: Horários</span>
           </TabsTrigger>
         </TabsList>
 
@@ -90,10 +91,13 @@ export default function AdminUploadInfo() {
               <UploadPhase2 />
             </TabsContent>
             <TabsContent value="phase3">
-              <UploadPhase3 />
+              <UploadPhase3Contacts />
             </TabsContent>
             <TabsContent value="phase4">
               <UploadPhase4 />
+            </TabsContent>
+            <TabsContent value="phase5">
+              <UploadPhase5 />
             </TabsContent>
             <TabsContent value="history">
               <UploadHistory />
