@@ -7,12 +7,11 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { useQueryClient } from '@tanstack/react-query';
-import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
-
-// Removido o tipo RestaurantFollower, usando Restaurant diretamente
+import { Restaurant } from '@/types/supabase';
 
 const InstantMetrics: React.FC = () => {
-  const { restaurants, isLoading, error, refetch } = useAdminRestaurants();
+  // Error 4 fixed by updating useAdminRestaurants return type
+  const { restaurants, isLoading, error, refetch } = useAdminRestaurants(); 
   const queryClient = useQueryClient();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [tempFollowers, setTempFollowers] = useState<number | null>(null);
@@ -20,7 +19,8 @@ const InstantMetrics: React.FC = () => {
 
   const handleEdit = (restaurant: Restaurant) => {
     setEditingId(restaurant.id);
-    setTempFollowers(restaurant.followers_override || 0);
+    // Error 5 fixed by updating Restaurant type
+    setTempFollowers(restaurant.followers_override || 0); 
   };
 
   const handleSave = async (restaurantId: string) => {
@@ -43,7 +43,6 @@ const InstantMetrics: React.FC = () => {
       setEditingId(null);
       setTempFollowers(null);
       
-      // Força o refetch da lista de restaurantes
       queryClient.invalidateQueries({ queryKey: ['adminRestaurants'] });
       refetch();
       

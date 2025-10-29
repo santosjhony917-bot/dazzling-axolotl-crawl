@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, UseMutateFunction } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
@@ -58,6 +58,6 @@ export function useAdminRestaurants() {
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,
     isUpdating: updatePlanMutation.isPending,
-    refetch: restaurantsQuery.refetch, // Expondo refetch
+    refetch: restaurantsQuery.refetch,
   };
 }
