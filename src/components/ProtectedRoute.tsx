@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { isAuthenticated, isLoading, isAdmin, restaurant } = useAuthData();
+  const { isAuthenticated, isLoading, isAdmin, restaurant, isProfileLoading } = useAuthData();
 
   if (isLoading) {
     return (
@@ -32,7 +32,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }
   } else if (requiredRole === 'admin') {
     isAuthorized = isAdmin;
   } else if (requiredRole === 'restaurant_owner') {
-    // Check if the user is associated with a restaurant
+    // NEW LOGIC: If the required role is restaurant_owner, we must wait for the profile/restaurant data to load.
+    if (isProfileLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
+    // Once loading is complete, check if the restaurant object exists.
     isAuthorized = !!restaurant;
   }
 
