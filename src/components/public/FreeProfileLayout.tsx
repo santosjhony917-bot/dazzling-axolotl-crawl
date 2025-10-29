@@ -60,7 +60,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
         <Separator className="my-6" />
 
-        {/* Navegação Rápida (Anchors) - CORRIGIDO PARA USAR <a> */}
+        {/* Navegação Rápida (Anchors) */}
         <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
           <a href="#menu" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
             <Menu className="w-4 h-4 mr-1" /> Cardápio
