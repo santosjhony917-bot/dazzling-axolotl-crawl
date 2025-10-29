@@ -90,8 +90,8 @@ const UpgradePageContent: React.FC = () => {
   };
   
   const handleViewPremiumRestaurants = () => {
-    // Simula a navegação para a lista de restaurantes Premium (ou busca)
-    navigate(createPageUrl('search-restaurants'));
+    // CORRIGIDO: Usando a chave de rota correta
+    navigate(createPageUrl('restaurantResults'));
   };
 
   return (

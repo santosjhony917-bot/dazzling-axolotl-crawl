@@ -1,52 +1,52 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import ToastProvider from './components/ToastProvider';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import ToastProvider from '@/components/ToastProvider';
 
 // Layouts
-import ClientLayout from './layouts/ClientLayout';
-import RestaurantOwnerLayout from './layouts/RestaurantOwnerLayout';
-import AdminLayout from './components/admin/AdminLayout';
+import ClientLayout from '@/layouts/ClientLayout';
+import RestaurantOwnerLayout from '@/layouts/RestaurantOwnerLayout';
+import AdminLayout from '@/components/admin/AdminLayout';
 
 // Pages
-import Index from './pages/Index'; // Redireciona para Splash
-import Home from './pages/Home'; // Nova Home do Cliente
-import Onboarding from './pages/Onboarding';
-import Welcome from './pages/Welcome';
-import AuthComponent from './pages/Auth';
-import RestaurantProfilePublic from './pages/RestaurantProfilePublic';
-import MenuItemDetails from './pages/MenuItemDetails';
-import HelpCenter from './pages/HelpCenter';
-import Legal from './pages/Legal';
-import RestaurantResultsPage from './pages/RestaurantResults';
+import Index from '@/pages/Index'; // Redireciona para Splash
+import Home from '@/pages/Home'; // Nova Home do Cliente
+import Onboarding from '@/pages/Onboarding';
+import Welcome from '@/pages/Welcome';
+import AuthComponent from '@/pages/Auth';
+import RestaurantProfilePublic from '@/pages/RestaurantProfilePublic';
+import MenuItemDetails from '@/pages/MenuItemDetails';
+import HelpCenter from '@/pages/HelpCenter';
+import Legal from '@/pages/Legal';
+import RestaurantResultsPage from '@/pages/RestaurantResults';
 
 // Client Pages
-import ClientProfilePage from './pages/ClientProfilePage';
-import FavoritesPage from './pages/Favorites';
-import SearchUnifiedPage from './pages/SearchUnifiedPage';
+import ClientProfilePage from '@/pages/ClientProfilePage';
+import FavoritesPage from '@/pages/Favorites';
+import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
 
 // Restaurant Area Pages
-import RestaurantAreaHub from './pages/RestaurantAreaHub';
-import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
-import RestaurantProfileSettingsPage from './pages/restaurant/ProfileSettingsPage';
-import MenuManagement from './pages/restaurant/MenuManagement';
-import GalleryManagement from './pages/restaurant/GalleryManagement';
-import UpgradePage from './pages/Upgrade';
-import RestaurantLogin from './pages/RestaurantLogin';
-import RestaurantSignup from './pages/RestaurantSignup';
-import ClaimRestaurant from './pages/ClaimRestaurant';
-import CategoryDetails from './pages/restaurant/CategoryDetails';
+import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
+import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
+import RestaurantProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
+import MenuManagement from '@/pages/restaurant/MenuManagement';
+import GalleryManagement from '@/pages/restaurant/GalleryManagement';
+import UpgradePage from '@/pages/Upgrade';
+import RestaurantLogin from '@/pages/RestaurantLogin';
+import RestaurantSignup from '@/pages/RestaurantSignup';
+import ClaimRestaurant from '@/pages/ClaimRestaurant';
+import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 
 // Admin Pages
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminRestaurants from './pages/admin/AdminRestaurants';
-import ManageAdmins from './pages/admin/ManageAdmins';
-import PopularCategories from './pages/admin/PopularCategories';
-import Files from './pages/admin/Files';
-import ImportMenu from './pages/admin/ImportMenu';
-import AdminSettings from './pages/admin/AdminSettings';
-import AdminPlans from './pages/admin/AdminPlans';
+import AdminDashboard from '@/pages/admin/AdminDashboard';
+import AdminLogin from '@/pages/admin/AdminLogin';
+import AdminRestaurants from '@/pages/admin/AdminRestaurants';
+import ManageAdmins from '@/pages/admin/ManageAdmins';
+import PopularCategories from '@/pages/admin/PopularCategories';
+import Files from '@/pages/admin/Files';
+import ImportMenu from '@/pages/admin/ImportMenu';
+import AdminSettings from '@/pages/admin/AdminSettings';
+import AdminPlans from '@/pages/admin/AdminPlans';
 
 function App() {
   return (

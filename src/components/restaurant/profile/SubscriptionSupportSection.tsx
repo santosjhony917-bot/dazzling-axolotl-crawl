@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HelpCenter, MessageSquare, Crown, LogOut } from 'lucide-react';
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
-import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO: Importando useAuthData
+import { useAuthData } from '@/context/AuthContext';
 
 interface SubscriptionSupportSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -22,7 +22,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
       
       <NavCardItem 
-        icon={HelpCenter}
+        icon={HelpCircle} // CORRIGIDO
         title="Central de Ajuda"
         description="Encontre respostas rápidas e tutoriais."
         onClick={() => handleNavigate(createPageUrl('helpCenter'))}

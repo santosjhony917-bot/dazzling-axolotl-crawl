@@ -5,19 +5,19 @@ import { supabase } from '@/integrations/supabase/client';
 import { RestaurantWithDistance } from '@/types/supabase';
 import { fetchNearbyRestaurants } from '@/integrations/supabase/restaurants';
 import { Card } from '@/components/ui/card';
-import { Loader2, Search, MapPin, AlertTriangle, Utensils, ArrowLeft } from 'lucide-react'; // CORREÇÃO 3: Importando ArrowLeft e AlertTriangle
+import { Loader2, Search, MapPin, AlertTriangle, Utensils, ArrowLeft } from 'lucide-react';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO
 import Header from '@/components/Header';
 import { formatDistance } from '@/lib/utils';
 
 const RestaurantResultsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthData(); // CORRIGIDO
 
   const userLat = parseFloat(searchParams.get('lat') || '0');
   const userLon = parseFloat(searchParams.get('lng') || '0');

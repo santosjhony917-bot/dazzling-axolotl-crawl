@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from './useAuth';
+import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO
 import { GeocodedAddress, reverseGeocode } from '@/services/geolocation';
 import { showError } from '@/utils/toast';
 
@@ -23,7 +23,7 @@ const DEFAULT_LOCATION: UserSearchLocation = {
 };
 
 export function useUserSearchLocation() {
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuthData(); // CORRIGIDO
   const [location, setLocation] = useState<UserSearchLocation>(DEFAULT_LOCATION);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,7 +80,7 @@ export function useUserSearchLocation() {
   const saveLocation = useCallback(async (addressData: GeocodedAddress) => {
     if (!user) {
       showError("Usuário não autenticado.");
-      return;
+      return { error: "Usuário não autenticado." };
     }
     
     setIsLoading(true);
