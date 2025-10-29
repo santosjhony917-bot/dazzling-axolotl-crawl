@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { formatPrice } from '@/lib/utils';
 import { Edit, Trash2, Eye, EyeOff, GripVertical, Loader2 } from 'lucide-react'; // Importando Loader2
 import { Button } from '@/components/ui/button';
-import { useDeleteMenuItem } from '@/hooks/useMenuManagement';
+import { useDeleteMenuItem } from '@/hooks/useMenuItemManagement'; // CORRIGIDO
 import { toast } from 'react-hot-toast';
 import {
   AlertDialog,
