@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { useAuthData } from '@/hooks/useAuthData'; // Assuming this hook exists for premium status
+import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO: Usando o useAuthData do contexto
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,7 +20,7 @@ const ProfileSettingsPage: React.FC = () => {
   const navigate = useNavigate();
   // Corrected destructuring based on the updated useRestaurantProfile hook
   const { restaurant, isLoading: profileLoading, updateRestaurant, refetchProfile } = useRestaurantProfile(); 
-  // Assuming useAuthData exists and provides isPremium status
+  // Usando useAuthData do contexto
   const { isPremium, isLoading: authLoading } = useAuthData(); 
 
   const [formData, setFormData] = useState<Partial<Restaurant>>({});
@@ -49,10 +49,11 @@ const ProfileSettingsPage: React.FC = () => {
     if (!restaurant) return;
 
     setIsSaving(true);
+    // O updateRestaurant agora retorna { error: string | null }
     const result = await updateRestaurant(formData);
     setIsSaving(false);
 
-    if (result.success) {
+    if (!result.error) {
       toast.success('Perfil atualizado com sucesso!');
       refetchProfile();
     } else {

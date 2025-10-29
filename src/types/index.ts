@@ -1,5 +1,5 @@
 // Define the structure of the Restaurant object based on the database schema
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
 
 export interface Restaurant {
   id: string;
