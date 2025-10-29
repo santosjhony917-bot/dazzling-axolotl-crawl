@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { useGalleryManagement } from '@/hooks/useGalleryManagement.tsx'; // CORRIGIDO: Adicionado .tsx
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +15,7 @@ import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPage
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isPremium } = useAuthContext();
+  const { restaurant, isLoading: authLoading, isPremium } = useAuthData();
   const restaurantId = restaurant?.id || null;
 
   const { 

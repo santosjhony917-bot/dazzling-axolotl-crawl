@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./useAuth";
+import { useAuthData } from "@/context/AuthContext";
 import { showError, showSuccess } from "@/utils/toast";
 import { Restaurant } from "@/types/restaurant";
 
@@ -36,7 +36,7 @@ const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
 
 // --- Main Hook ---
 export function useFavorites() {
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuthData();
   const userId = user?.id;
   const queryClient = useQueryClient();
   const queryKey = userId ? FAVORITES_QUERY_KEY(userId) : ['favorites', 'null'];

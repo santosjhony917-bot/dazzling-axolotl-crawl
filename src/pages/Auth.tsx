@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { Loader2, MapPin, ArrowLeft, ArrowRight } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 
 export default function Auth() {
   const navigate = useNavigate();
-  const { user, isLoading: isAuthLoading, refetchProfile } = useAuthContext(); // CORRIGIDO: Usando 'user'
+  const { user, isLoading: isAuthLoading, refetchProfile } = useAuthData(); // CORRIGIDO: Usando 'useAuthData'
   const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in'); 
 
   // Redireciona se já estiver logado

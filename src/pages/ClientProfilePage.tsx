@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import ClientBasicInfoSection from '@/components/ClientBasicInfoSection';
 
 export default function ClientProfilePage() {
-  const { isAuthenticated, signOut, profile, isProfileLoading } = useAuth();
+  const { isAuthenticated, signOut, profile, isProfileLoading } = useAuthData();
   const navigate = useNavigate();
 
   if (!isAuthenticated) {

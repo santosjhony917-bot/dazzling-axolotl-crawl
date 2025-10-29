@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { Loader2, Utensils, Crown, MapPin, Clock, MessageSquare, Globe, FileText, Phone, Mail, Building2, UtensilsCrossed, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -53,7 +53,7 @@ const initialEditConfig: EditConfig = {
 export default function RestaurantProfileSettingsPage() {
   const navigate = useNavigate();
   const { restaurant, isLoading: profileLoading, updateRestaurant, refetchProfile } = useRestaurantProfile();
-  const { isPremium, isLoading: authLoading } = useAuthContext();
+  const { isPremium, isLoading: authLoading } = useAuthData(); // CORRIGIDO: Usando useAuthData
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editConfig, setEditConfig] = useState<EditConfig>(initialEditConfig);

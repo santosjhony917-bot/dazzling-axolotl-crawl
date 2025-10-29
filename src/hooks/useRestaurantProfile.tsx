@@ -2,13 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
-import { useAuthContext } from '@/context/AuthContext'; // CORRIGIDO: Importando useAuthContext
+import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO: Importando useAuthData
 
 /**
  * Hook to fetch and manage the restaurant profile for the currently authenticated owner.
  */
 export function useRestaurantProfile() {
-  const { user, isLoading: authLoading } = useAuthContext();
+  const { user, isLoading: authLoading } = useAuthData();
   const userId = user?.id;
 
   const fetchRestaurant = async (): Promise<Restaurant | null> => {

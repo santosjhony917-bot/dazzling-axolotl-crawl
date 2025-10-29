@@ -9,7 +9,7 @@ import { showInfo, showError } from '@/utils/toast';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { useUserRole } from '@/hooks/useUserRole';
@@ -32,7 +32,7 @@ const mockRestaurantHighlights = [
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
-  const { user, restaurant } = useAuthContext();
+  const { user, restaurant } = useAuthData();
   const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
   

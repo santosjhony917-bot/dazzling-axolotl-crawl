@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 
@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { isAuthenticated, isLoading, isAdmin, restaurant } = useAuth();
+  const { isAuthenticated, isLoading, isAdmin, restaurant } = useAuthData();
 
   if (isLoading) {
     return (

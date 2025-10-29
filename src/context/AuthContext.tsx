@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-export const useAuthContext = () => { // EXPORTANDO useAuthContext
+export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuthContext must be used within an AuthProvider');
@@ -89,12 +89,13 @@ export const useAuthContext = () => { // EXPORTANDO useAuthContext
   return context;
 };
 
-export const useAuth = () => {
+// Renomeando o hook useAuth para useAuthData para evitar conflito de nome
+// e para que ele seja um wrapper simples que expõe todos os dados.
+export const useAuthData = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuthData must be used within an AuthProvider');
   }
-  // Expondo isProfileLoading no hook useAuth
   return {
     user: context.user,
     isLoading: context.isLoading,
@@ -105,6 +106,6 @@ export const useAuth = () => {
     profile: context.profile,
     isAuthenticated: context.isAuthenticated,
     isProfileLoading: context.isProfileLoading,
-    refetchProfile: context.refetchProfile, // Adicionando refetchProfile
+    refetchProfile: context.refetchProfile,
   };
 };

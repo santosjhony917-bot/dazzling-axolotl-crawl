@@ -13,7 +13,7 @@ import { Loader2, Save, User, Mail, Phone } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProfile } from '@/integrations/supabase/profiles';
 import { showError, showSuccess } from '@/utils/toast';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import EditClientFieldDialog from '@/components/EditClientFieldDialog';
 import { phoneMask } from '@/utils/masks';
 
@@ -26,7 +26,7 @@ const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.")
 const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
 
 const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({ profile, isLoading }) => {
-  const { user, refetchProfile } = useAuth();
+  const { user, refetchProfile } = useAuthData();
   const queryClient = useQueryClient();
   
   const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);

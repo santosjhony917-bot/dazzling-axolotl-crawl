@@ -6,7 +6,7 @@ import { Restaurant, FavoriteRestaurant } from '@/types/supabase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Heart, MapPin, Utensils, Trash2 } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
@@ -45,7 +45,7 @@ const removeFavorite = async (restaurantId: string, userId: string) => {
 };
 
 export default function Favorites() {
-  const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { user, isAuthenticated, isLoading: isAuthLoading } = useAuthData();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 

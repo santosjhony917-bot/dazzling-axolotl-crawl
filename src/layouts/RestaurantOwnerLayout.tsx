@@ -1,11 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 
 const RestaurantOwnerLayout: React.FC = () => {
-  const { isPremium, isLoading } = useAuthContext();
+  const { isPremium, isLoading } = useAuthData();
   const isFree = !isPremium;
 
   if (isLoading) {

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import { useAuthContext } from "@/context/AuthContext"; 
+import { useAuthData } from "@/context/AuthContext"; 
 import { Loader2 } from "lucide-react"; // Adicionando Loader2
 
 // Caminho para o novo logo
@@ -10,7 +10,7 @@ const LOGO_URL = "/assets/filterfood-logo.png";
 
 export default function Splash() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthContext(); 
+  const { user, isLoading } = useAuthData(); 
 
   // Auto-navigate after 2 seconds
   useEffect(() => {

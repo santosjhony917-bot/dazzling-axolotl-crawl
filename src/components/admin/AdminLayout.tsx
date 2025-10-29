@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { createPageUrl, PathKey } from '@/utils/url';
@@ -17,7 +17,7 @@ const navItems = [
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const { user, isLoading, isAdmin, signOut } = useAuthData();
 
   if (isLoading) {
     return (

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Loader2 } from 'lucide-react';
 
 export default function RestaurantArea() {
-  const { user, isLoading, restaurant } = useAuthContext(); // Removido isAuthenticated
+  const { user, isLoading, restaurant } = useAuthData(); // CORRIGIDO: Usando useAuthData
   const location = useLocation();
   const navigate = useNavigate();
 

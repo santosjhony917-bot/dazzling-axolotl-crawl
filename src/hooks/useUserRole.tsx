@@ -1,7 +1,7 @@
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 
 export function useUserRole() {
-  const { isPremium, isAdmin, isLoading } = useAuthContext();
+  const { isPremium, isAdmin, isLoading } = useAuthData();
 
   return {
     isPremium,
