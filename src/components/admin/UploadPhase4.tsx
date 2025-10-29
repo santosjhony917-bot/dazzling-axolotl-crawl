@@ -1,67 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
-import { WeekSchedule, DaySchedule, TimeSlot } from '@/types/schedule';
-import { Loader2 } from 'lucide-react';
-import { saveUploadRecord } from '@/utils/uploadHistory'; // Importando saveUploadRecord
-import { Input } from '@/components/ui/input'; // <-- IMPORT ADICIONADO
+import { Loader2, Clock } from 'lucide-react';
+import { saveUploadRecord } from '@/utils/uploadHistory';
+import { showError, showSuccess } from '@/utils/toast';
+import CsvInputArea from '@/components/admin/CsvInputArea';
+
+// Colunas obrigatórias para a Fase 4: Horários
+const REQUIRED_COLUMNS_PHASE4 = ['restaurant_name', 'day', 'open_time', 'close_time'];
 
 const UploadPhase4: React.FC = () => {
-  // Placeholder implementation
-  const formSchema = z.object({
-    csvUrl: z.string().url("URL inválida."),
-  });
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      csvUrl: "",
-    },
-  });
+  const handleProcessCsv = (csvData: string) => {
+    setIsProcessing(true);
+    
+    // Simulação de processamento de dados
+    const lines = csvData.trim().split('\n');
+    const dataRows = lines.slice(1);
+    const successCount = dataRows.length;
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    // Simulação de processamento
-    form.setValue('csvUrl', '');
-    saveUploadRecord({
-      phase: 4,
-      successCount: 30,
-      details: `Upload de horários processado.`,
-    });
+    setTimeout(() => {
+      // Simulação de sucesso no upload
+      saveUploadRecord({
+        phase: 4,
+        successCount: successCount,
+        details: `Upload de ${successCount} horários processado.`,
+      });
+      showSuccess(`Fase 4 concluída! ${successCount} registros processados.`);
+      setIsProcessing(false);
+    }, 1500);
   };
+
+  const placeholder = `restaurant_name,day,open_time,close_time
+Restaurante A,monday,09:00,18:00
+Restaurante A,tuesday,09:00,18:00
+Restaurante B,friday,18:00,23:00
+Restaurante B,saturday,18:00,23:00`;
 
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">Horários de Funcionamento (Fase 4)</CardTitle>
+        <CardTitle className="text-xl text-primary">Fase 4: Horários de Funcionamento</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Faça o upload de um CSV contendo os horários de funcionamento semanais.
+          Cole os horários de funcionamento. Use 'monday', 'tuesday', etc., para os dias da semana.
         </p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="csvUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL do Arquivo CSV</FormLabel>
-                  <Input placeholder="https://exemplo.com/data/fase4.csv" {...field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={form.formState.isSubmitting} className="bg-highlight hover:bg-highlight/90">
-              {form.formState.isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Processar Fase 4'}
-            </Button>
-          </form>
-        </Form>
+        
+        <CsvInputArea
+          onProcess={handleProcessCsv}
+          isLoading={isProcessing}
+          placeholder={placeholder}
+          buttonText="Processar e Salvar Horários"
+          requiredColumns={REQUIRED_COLUMNS_PHASE4}
+        />
       </CardContent>
     </Card>
   );
