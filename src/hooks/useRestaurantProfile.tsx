@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
-import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO: Importando useAuthData
+import { useAuthData } from '@/context/AuthContext'; 
 
 /**
  * Hook to fetch and manage the restaurant profile for the currently authenticated owner.
@@ -26,7 +26,7 @@ export function useRestaurantProfile() {
 
     return data as Restaurant | null;
   };
-
+  
   const { data: restaurant, isLoading, error, refetch } = useQuery<Restaurant | null, Error>({
     queryKey: ['restaurantProfile', userId],
     queryFn: fetchRestaurant,
@@ -34,6 +34,22 @@ export function useRestaurantProfile() {
     staleTime: 5 * 60 * 1000,
   });
   
+  // Query para buscar a contagem de seguidores
+  const { data: followersCount = 0, isLoading: isFollowersLoading } = useQuery<number, Error>({
+    queryKey: ['restaurantFollowersCount', restaurant?.id],
+    queryFn: async () => {
+      if (!restaurant?.id) return 0;
+      const { data, error } = await supabase.rpc('count_restaurant_followers', { p_restaurant_id: restaurant.id });
+      if (error) {
+        console.error("Error fetching followers count:", error);
+        return 0;
+      }
+      return data || 0;
+    },
+    enabled: !!restaurant?.id,
+    staleTime: 5 * 60 * 1000,
+  });
+
   const updateRestaurant = async (updates: Partial<Restaurant>) => {
     if (!restaurant?.id) {
       return { error: "Restaurant ID is missing." };
@@ -53,10 +69,13 @@ export function useRestaurantProfile() {
     refetch();
     return { error: null };
   };
+  
+  // Combina os dados do restaurante com a contagem de seguidores
+  const combinedRestaurant = restaurant ? { ...restaurant, followersCount } : null;
 
   return {
-    restaurant: restaurant || null,
-    isLoading: isLoading || authLoading,
+    restaurant: combinedRestaurant,
+    isLoading: isLoading || authLoading || isFollowersLoading,
     error: error ? error.message : null,
     updateRestaurant,
     refetchProfile: refetch,

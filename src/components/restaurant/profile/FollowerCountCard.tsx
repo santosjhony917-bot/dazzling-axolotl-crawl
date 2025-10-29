@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, TrendingUp } from 'lucide-react';
+import { Users, TrendingUp, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface FollowerCountCardProps {
@@ -12,7 +12,7 @@ const FollowerCountCard: React.FC<FollowerCountCardProps> = ({ followerCount, is
   const displayCount = followerCount.toLocaleString('pt-BR');
   
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl p-4 bg-white dark:bg-gray-800">
+    <Card className="shadow-soft-lg border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
       <CardContent className="p-0 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary dark:bg-gray-700">
@@ -28,8 +28,17 @@ const FollowerCountCard: React.FC<FollowerCountCardProps> = ({ followerCount, is
           "flex items-center gap-1 text-sm font-semibold",
           isPremium ? "text-green-600" : "text-gray-500"
         )}>
-          <TrendingUp className="w-4 h-4" />
-          {isPremium ? "+15% este mês" : "Dados básicos"}
+          {isPremium ? (
+            <>
+              <TrendingUp className="w-4 h-4" />
+              +15% este mês
+            </>
+          ) : (
+            <>
+              <Lock className="w-4 h-4 text-red-500" />
+              Dados básicos
+            </>
+          )}
         </div>
       </CardContent>
     </Card>

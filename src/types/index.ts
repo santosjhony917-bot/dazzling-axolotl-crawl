@@ -29,6 +29,8 @@ export interface Restaurant {
   external_url: string | null;
   // Added by RPC find_nearby_restaurants
   distance_km?: number; 
+  // Adicionado para o perfil do proprietário
+  followersCount?: number; 
 }
 
 export interface Profile {
