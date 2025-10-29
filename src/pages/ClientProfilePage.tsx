@@ -5,8 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import ClientBasicInfoSection from '@/components/ClientBasicInfoSection';
-import { z } from 'zod';
-import { Profile } from '@/types/supabase';
+import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importando o wrapper
 
 export default function ClientProfilePage() {
   const { isAuthenticated, signOut, profile, isProfileLoading } = useAuth();
@@ -25,26 +24,28 @@ export default function ClientProfilePage() {
   }
 
   return (
-    <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold text-primary">Meu Perfil</h1>
+    <ClientPageWrapper selectedTab="profile">
+      <div className="p-4 space-y-6">
+        <h1 className="text-2xl font-bold text-primary">Meu Perfil</h1>
 
-      {/* Informações Básicas */}
-      <ClientBasicInfoSection profile={profile} isLoading={isProfileLoading} />
+        {/* Informações Básicas */}
+        <ClientBasicInfoSection profile={profile} isLoading={isProfileLoading} />
 
-      {/* Configurações de Conta */}
-      <Card className="shadow-soft-md border-none rounded-xl">
-        <CardHeader>
-          <CardTitle className="text-lg">Configurações de Conta</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Button variant="outline" className="w-full">
-            Alterar Senha
-          </Button>
-          <Button variant="destructive" onClick={signOut} className="w-full">
-            Sair
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+        {/* Configurações de Conta */}
+        <Card className="shadow-soft-md border-none rounded-xl">
+          <CardHeader>
+            <CardTitle className="text-lg">Configurações de Conta</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button variant="outline" className="w-full">
+              Alterar Senha
+            </Button>
+            <Button variant="destructive" onClick={signOut} className="w-full">
+              Sair
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </ClientPageWrapper>
   );
 }

@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import ClientPageWrapper from '@/components/ClientPageWrapper'; // Importando o wrapper
 
 // Definindo o tipo de dado que esperamos do join (user_favorites -> restaurants)
 type FavoriteRestaurantData = {
@@ -97,62 +98,64 @@ export default function Favorites() {
   }
 
   return (
-    <div className="p-4 space-y-4">
-      <h1 className="text-2xl font-bold text-primary">Meus Favoritos ({favorites.length})</h1>
-      
-      <div className="space-y-4">
-        {favorites.map(({ restaurant }) => (
-          <Card 
-            key={restaurant.id} 
-            className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
-          >
-            <div 
-              className="flex flex-1"
-              onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+    <ClientPageWrapper selectedTab="favorites">
+      <div className="p-4 space-y-4">
+        <h1 className="text-2xl font-bold text-primary">Meus Favoritos ({favorites.length})</h1>
+        
+        <div className="space-y-4">
+          {favorites.map(({ restaurant }) => (
+            <Card 
+              key={restaurant.id} 
+              className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
             >
-              <img 
-                src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
-                alt={restaurant.name}
-                className="w-24 h-24 object-cover flex-shrink-0"
-              />
-              <div className="p-3 flex-1 min-w-0">
-                <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
-                
-                {restaurant.category && (
-                  <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
-                    <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
-                  </p>
-                )}
+              <div 
+                className="flex flex-1"
+                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+              >
+                <img 
+                  src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+                  alt={restaurant.name}
+                  className="w-24 h-24 object-cover flex-shrink-0"
+                />
+                <div className="p-3 flex-1 min-w-0">
+                  <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
+                  
+                  {restaurant.category && (
+                    <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+                      <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
+                    </p>
+                  )}
 
-                {restaurant.city && (
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                    <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
-                  </p>
-                )}
+                  {restaurant.city && (
+                    <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
+                      <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
-              disabled={removeFavoriteMutation.isPending}
-              onClick={(e) => {
-                e.stopPropagation(); // Previne o clique no card
-                if (user) {
-                  removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
-                }
-              }}
-            >
-              {removeFavoriteMutation.isPending ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <Trash2 className="w-5 h-5" />
-              )}
-            </Button>
-          </Card>
-        ))}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                disabled={removeFavoriteMutation.isPending}
+                onClick={(e) => {
+                  e.stopPropagation(); // Previne o clique no card
+                  if (user) {
+                    removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
+                  }
+                }}
+              >
+                {removeFavoriteMutation.isPending ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Trash2 className="w-5 h-5" />
+                )}
+              </Button>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
+    </ClientPageWrapper>
   );
 }
