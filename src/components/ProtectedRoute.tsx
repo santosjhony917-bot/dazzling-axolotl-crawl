@@ -1,14 +1,15 @@
 import React from 'react';
-import { Navigate, Outlet, RouteProps } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useSession } from '@/integrations/supabase/session-context';
 import { Loader2 } from 'lucide-react';
 
-interface ProtectedRouteProps extends RouteProps {
-  allowedRoles: string[];
+interface ProtectedRouteProps {
+  requiredRole: string | 'authenticated';
+  element?: React.ReactNode;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
-  const { session, isLoading, checkRole } = useSession();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
+  const { session, user, isLoading, checkRole } = useSession();
 
   if (isLoading) {
     return (
@@ -20,17 +21,26 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
 
   if (!session) {
     // User is not authenticated, redirect to login page
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth" replace />; // Redirecting to /auth for general login
+  }
+  
+  // Check if the user meets the role requirement
+  let isAuthorized = false;
+  
+  if (requiredRole === 'authenticated') {
+    isAuthorized = !!user;
+  } else {
+    // Check specific role using the checkRole function (which handles the mock logic)
+    isAuthorized = checkRole([requiredRole]);
   }
 
-  if (!checkRole(allowedRoles)) {
-    // User is authenticated but does not have the required role, redirect to home or unauthorized page
-    // For simplicity, redirecting to home
+  if (!isAuthorized) {
+    // User is authenticated but does not have the required role, redirect to home
     return <Navigate to="/" replace />;
   }
 
-  // User is authenticated and has the required role
-  return <Outlet />;
+  // If authorized, render the provided element (for layouts) or Outlet (for nested routes)
+  return element ? <>{element}</> : <Outlet />;
 };
 
 export default ProtectedRoute;
