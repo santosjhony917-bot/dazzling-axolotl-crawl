@@ -11,7 +11,7 @@ import RestaurantMenuSection from './RestaurantMenuSection';
 import RestaurantGallerySection from './RestaurantGallerySection';
 import { Separator } from '@/components/ui/separator';
 import { OpeningHoursDisplay } from './OpeningHoursDisplay';
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importação adicionada
 import { useNavigate } from 'react-router-dom';
 
 interface PremiumProfileLayoutProps {

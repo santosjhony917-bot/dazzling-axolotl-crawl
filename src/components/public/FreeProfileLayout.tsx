@@ -12,6 +12,7 @@ import { WeekSchedule } from '@/types/schedule';
 import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader';
 import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from '@/types/restaurant';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importação adicionada
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
