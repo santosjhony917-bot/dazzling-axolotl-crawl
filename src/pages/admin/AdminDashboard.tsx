@@ -3,11 +3,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, DollarSign, Zap, Clock, BarChart, Crown } from 'lucide-react';
 import AdminUploadInfo from './AdminUploadInfo';
-import ManagePlans from './ManagePlans'; // Importando o novo componente
+import ManagePlans from './ManagePlans';
+import InstantMetrics from './InstantMetrics'; // Importando o novo componente
 
 // Placeholder components for tabs
 const ImportCSVTab = () => <CardContent>Implementar Importação de CSV.</CardContent>;
-const InstantMetricsTab = () => <CardContent>Implementar Ajustes de Métricas Instantâneas.</CardContent>;
 const ScheduledMetricsTab = () => <CardContent>Implementar Agendamento de Métricas.</CardContent>;
 
 export default function AdminDashboard() {
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
               <ManagePlans />
             </TabsContent>
             <TabsContent value="import-csv"><ImportCSVTab /></TabsContent>
-            <TabsContent value="instant-metrics"><InstantMetricsTab /></TabsContent>
+            <TabsContent value="instant-metrics"><InstantMetrics /></TabsContent>
             <TabsContent value="scheduled-metrics"><ScheduledMetricsTab /></TabsContent>
           </Card>
         </div>

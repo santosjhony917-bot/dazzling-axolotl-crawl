@@ -35,7 +35,7 @@ export function useRestaurantProfile() {
   });
   
   // Query para buscar a contagem de seguidores
-  const { data: followersCount = 0, isLoading: isFollowersLoading } = useQuery<number, Error>({
+  const { data: actualFollowersCount = 0, isLoading: isFollowersLoading } = useQuery<number, Error>({
     queryKey: ['restaurantFollowersCount', restaurant?.id],
     queryFn: async () => {
       if (!restaurant?.id) return 0;
@@ -70,8 +70,13 @@ export function useRestaurantProfile() {
     return { error: null };
   };
   
+  // Determina a contagem final de seguidores: usa o override se for definido, senão usa a contagem real.
+  const finalFollowersCount = restaurant?.followers_override !== null && restaurant?.followers_override !== undefined
+    ? restaurant.followers_override
+    : actualFollowersCount;
+
   // Combina os dados do restaurante com a contagem de seguidores
-  const combinedRestaurant = restaurant ? { ...restaurant, followersCount } : null;
+  const combinedRestaurant = restaurant ? { ...restaurant, followersCount: finalFollowersCount } : null;
 
   return {
     restaurant: combinedRestaurant,
