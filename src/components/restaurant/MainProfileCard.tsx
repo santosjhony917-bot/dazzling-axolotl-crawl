@@ -1,1 +1,0 @@
-// Este arquivo é um mock redundante. O componente real está em src/components/restaurant/profile/MainProfileCard.tsx

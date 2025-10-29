@@ -8,65 +8,55 @@ export const PATH_MAP = {
   welcome: '/welcome',
   auth: '/auth', // Rota de login/cadastro (usa query params: ?mode=signup)
   onboarding: '/onboarding',
-  legal: '/legal', // ADDED
-  menuItemDetails: '/menu-item/:itemId', // ADDED
-  helpCenter: '/help-center', // ADDED
-  forgotPassword: '/forgot-password', // ADDED
-  restaurantResults: '/restaurant-results', // ADDED
+  legal: '/legal',
+  menuItemDetails: '/menu-item/:itemId',
+  helpCenter: '/help-center',
+  forgotPassword: '/forgot-password',
+  restaurantResults: '/restaurant-results',
   
   // Rotas de Cliente (Autenticadas ou Públicas)
   home: '/home',
   favorites: '/favorites',
   clientProfile: '/profile',
-  editProfile: '/profile/edit',
   'search-unified': '/search-unified',
-  'search-restaurants': '/search/restaurants',
-  'search-menu-items': '/search/menu',
-  restaurantProfile: '/restaurant/:restaurantId',
   
   // Rotas de Proprietário de Restaurante (Autenticadas)
-  'restaurant-area': '/restaurant-area', // ADDED (for hub back button)
-  'restaurant-area-hub': '/restaurant-area-hub', // ADDED
-  'restaurant-login': '/restaurant-area/login', // ADDED
-  'restaurant-signup': '/restaurant-area/signup', // ADDED
-  'claim-restaurant': '/restaurant-area/claim', // ADDED
-  'restaurant-area/upgrade': '/restaurant-area/upgrade', // ADDED
+  'restaurant-area-hub': '/restaurant-area-hub',
+  'restaurant-login': '/restaurant-area/login',
+  'restaurant-signup': '/restaurant-area/signup',
+  'claim-restaurant': '/restaurant-area/claim',
+  'restaurant-area/upgrade': '/restaurant-area/upgrade',
   
-  'restaurant-area/home': '/restaurant-area/home', // Simplified path for dashboard entry
-  'restaurant-area/profile-menu': '/restaurant-area/profile-menu', // Simplified path for settings entry
-  'restaurant-area/menu': '/restaurant-area/menu', // Simplified path for menu management
-  'restaurant-area/category-details': '/restaurant-area/menu/:categoryId', // ADDED
-  'restaurant-area/gallery': '/restaurant-area/gallery', // Simplified path for gallery
+  'restaurant-area/home': '/restaurant-area/home',
+  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
+  'restaurant-area/menu': '/restaurant-area/menu',
+  'restaurant-area/category-details': '/restaurant-area/menu/:categoryId',
+  'restaurant-area/gallery': '/restaurant-area/gallery',
   
   // Rotas Admin
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
-  adminRestaurants: '/admin/restaurants', // ADDED
-  adminPlans: '/admin/plans', // ADDED
-  adminUsers: '/admin/users', // ADDED
-  adminSettings: '/admin/settings', // ADDED
+  adminRestaurants: '/admin/restaurants',
+  adminPlans: '/admin/plans',
+  adminUsers: '/admin/users',
+  adminSettings: '/admin/settings',
+  adminCategories: '/admin/categories', // Adicionado para consistência
+  adminFiles: '/admin/files', // Adicionado para consistência
+  adminImport: '/admin/import', // Adicionado para consistência
   
   // Rotas com parâmetros complexos (mantidas)
-  'restaurant-area/edit-info': '/restaurant-area/:restaurantId/settings/info',
-  'restaurant-area/edit-hours': '/restaurant-area/:restaurantId/settings/hours',
-  'restaurant-area/edit-links': '/restaurant-area/:restaurantId/settings/links',
-  'restaurant-area/menu-management': '/restaurant-area/:restaurantId/menu',
-  'restaurant-area/add-category': '/restaurant-area/:restaurantId/menu/add-category',
-  'restaurant-area/edit-category': '/restaurant-area/:restaurantId/menu/edit-category/:categoryId',
-  'restaurant-area/add-item': '/restaurant-area/:restaurantId/menu/add-item/:categoryId',
-  'restaurant-area/edit-item': '/restaurant-area/:restaurantId/menu/edit-item/:itemId',
-  'admin/edit-restaurant': '/admin/restaurant/:restaurantId/edit',
+  restaurantProfile: '/restaurant/:restaurantId',
 } as const;
 
 export type PathKey = keyof typeof PATH_MAP; // EXPORTED
 
 // Tipos de parâmetros de rota
 type PathParams<K extends PathKey> = 
-  K extends 'restaurantProfile' | 'admin/edit-restaurant'
+  K extends 'restaurantProfile'
     ? { restaurantId: string }
-  : K extends 'menuItemDetails' | 'restaurant-area/edit-item'
+  : K extends 'menuItemDetails'
     ? { itemId: string }
-  : K extends 'restaurant-area/edit-category' | 'restaurant-area/add-item' | 'restaurant-area/category-details'
+  : K extends 'restaurant-area/category-details'
     ? { categoryId: string }
   : undefined;
 
