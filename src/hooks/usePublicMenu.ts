@@ -7,8 +7,7 @@ const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuCategory
     .from('menu_categories')
     .select(
       `
-        id,
-        name,
+        *,
         menu_items (
           id,
           name,
@@ -40,7 +39,7 @@ const fetchPublicMenu = async (restaurantId: string): Promise<PublicMenuCategory
         price: item.price, // Preço já é number no tipo MenuItem
         image_url: item.image_url,
       })),
-  }));
+  })) as PublicMenuCategory[]; // Explicit cast after mapping to ensure correct type structure
 
   return cleanedData;
 };
