@@ -14,7 +14,7 @@ export function useRestaurantFavorite(restaurantId: string) {
     isFavorite: checkIsFavorite, 
     toggleFavorite: mutateToggleFavorite, 
     isMutating,
-    isLoading: isFavoritesLoading // Adicionado para um estado de carregamento mais completo
+    isLoading: isFavoritesLoading
   } = useFavorites(); 
   
   // Get the favorite status for the specific ID
