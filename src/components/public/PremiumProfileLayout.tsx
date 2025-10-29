@@ -81,7 +81,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         </div>
       </div>
 
-      <div className="relative -mt-16 px-4 sm:px-6 lg:px-8">
+      {/* Conteúdo Principal Restrito */}
+      <div className="relative -mt-16 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Card de Informações Centrais (Flutuante) */}
         <Card className="flex flex-col items-center justify-start rounded-2xl bg-white shadow-soft-xl p-4 pt-0">

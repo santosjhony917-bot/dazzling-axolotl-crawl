@@ -51,7 +51,8 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       {/* Imagem de Capa */}
       <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
 
-      <div className="relative -mt-16 px-4 sm:px-6 lg:px-8">
+      {/* Conteúdo Principal Restrito */}
+      <div className="relative -mt-16 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Logo e Header Público */}
         <RestaurantPublicHeader 
