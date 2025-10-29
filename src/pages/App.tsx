@@ -4,12 +4,11 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
 // Layouts
-import AdminLayout from '@/components/admin/AdminLayout';
-import SharedLayoutWrapper from '@/layouts/SharedLayoutWrapper'; // Import the new wrapper
+import SharedLayoutWrapper from '@/layouts/SharedLayoutWrapper'; // Import the wrapper
 
 // Pages
 import Index from '@/pages/Index'; // Redireciona para Splash
-import Home from '@/pages/Home'; // Nova Home do Cliente
+import Home from '@/pages/Home'; // Home do Cliente
 import Onboarding from '@/pages/Onboarding';
 import Welcome from '@/pages/Welcome';
 import AuthComponent from '@/pages/Auth';
@@ -26,9 +25,8 @@ import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-import RestaurantDashboard from '@/pages/restaurant/RestaurantDashboard';
-import RestaurantProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
-import MenuManagement from '@/pages/restaurant/MenuManagement';
+import ProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
+import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
 import GalleryManagement from '@/pages/restaurant/GalleryManagement';
 import UpgradePage from '@/pages/Upgrade';
 import RestaurantLogin from '@/pages/RestaurantLogin';
@@ -37,6 +35,7 @@ import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 
 // Admin Pages
+import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminRestaurants from '@/pages/admin/AdminRestaurants';
@@ -79,8 +78,9 @@ function App() {
 
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
-          <Route path="/restaurant-area/home" element={<RestaurantDashboard />} />
-          <Route path="/restaurant-area/profile-menu" element={<RestaurantProfileSettingsPage />} />
+          {/* O Home do Restaurante Free é a página Home do Cliente */}
+          <Route path="/restaurant-area/home" element={<Home />} /> 
+          <Route path="/restaurant-area/profile-menu" element={<ProfileSettingsPage />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
           <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
