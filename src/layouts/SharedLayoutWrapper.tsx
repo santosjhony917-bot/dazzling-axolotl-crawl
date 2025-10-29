@@ -26,9 +26,12 @@ const SharedLayoutWrapper: React.FC = () => {
       selectedTabKey = 'home';
     } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
       selectedTabKey = 'search';
-    } else if (currentPath.startsWith(createPageUrl('favorites'))) {
-      // Se for Premium, pode ter acesso a favoritos (mock)
+    } else if (isPremium && currentPath.startsWith(createPageUrl('favorites'))) {
+      // Se for Premium, a aba central é 'favorites'
       selectedTabKey = 'favorites';
+    } else if (isFree && currentPath.startsWith(createPageUrl('restaurant-area/upgrade'))) {
+      // Se for Free, a aba central é 'upgrade'
+      selectedTabKey = 'upgrade';
     }
   } else {
     // Cliente
@@ -68,6 +71,7 @@ const SharedLayoutWrapper: React.FC = () => {
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       <main className="flex-1">
         <Outlet />
+        {/* O ClientBottomNav usa as chaves de rota do cliente */}
       </main>
       <ClientBottomNav selectedTab={selectedTabKey} />
     </div>

@@ -141,7 +141,7 @@ export default function GalleryManagement() {
         </Card>
 
         {/* Galeria Atual */}
-        <Card>
+        <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl text-primary">
               <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})

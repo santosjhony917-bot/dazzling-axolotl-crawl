@@ -22,6 +22,7 @@ import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { Button } from '@/components/ui/button';
+import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection'; // Importando a seção de conteúdo
 
 // --- Schemas de Validação ---
 const nameSchema = z.string().min(3, "O nome deve ter pelo menos 3 caracteres.");
@@ -71,10 +72,7 @@ const ProfileSettingsPage: React.FC = () => {
     mask?: (value: string) => string, 
     placeholder?: string
   ) => {
-    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
-      toast.error("Recurso Premium. Faça upgrade para desbloquear.");
-      return;
-    }
+    // A lógica de bloqueio para Canais de Venda agora está no componente SalesChannelsSection
     setEditConfig({ key, title, fieldName, icon, validationSchema, type, mask, placeholder });
     setIsEditDialogOpen(true);
   }, [isPremium]);
@@ -219,9 +217,12 @@ const ProfileSettingsPage: React.FC = () => {
         />
         
         {/* 6. Gerenciamento de Conteúdo (Menu, Galeria) */}
+        <ContentManagementSection navigate={navigate} isPremium={isPremium} />
+        
+        {/* 7. Assinatura (Substitui o Card de Upgrade) */}
         <SubscriptionCard isPremium={isPremium} />
         
-        {/* 7. Suporte e Assinatura */}
+        {/* 8. Suporte e Sair */}
         <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
         
       </div>

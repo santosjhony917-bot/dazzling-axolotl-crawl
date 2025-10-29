@@ -39,7 +39,7 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         id: 'upgrade', 
         icon: Crown, 
         label: 'Premium', 
-        path: createPageUrl('restaurant-area/upgrade') as string // Corrigido o tipo
+        path: createPageUrl('restaurant-area/upgrade') as string
       }
     : { 
         id: 'favorites', 
