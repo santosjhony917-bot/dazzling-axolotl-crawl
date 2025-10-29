@@ -1,43 +1,48 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useAuthContext } from '@/context/AuthContext';
-import { createPageUrl, PathKey } from '@/utils/url';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, LucideProps } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 interface RestaurantAreaPageLayoutProps {
   title: string;
-  icon?: LucideIcon;
+  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
+  backPath: string;
   children: React.ReactNode;
-  backPath?: PathKey;
+  actions?: React.ReactNode; // Adicionado actions prop
 }
 
-const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({ title, icon: Icon, children, backPath = 'restaurant-area/profile-menu' }) => {
-  const navigate = useNavigate();
-
+const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
+  title,
+  icon: Icon,
+  backPath,
+  children,
+  actions,
+}) => {
   return (
-    <div className="w-full max-w-md mx-auto">
-      
-      {/* Header Fixo */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl(backPath))}
-          className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          {Icon && <Icon className="h-6 w-6 text-[#022D68]" />}
-          <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Link to={`/${backPath}`} className="text-gray-500 hover:text-primary transition-colors">
+                <ArrowLeft className="w-6 h-6" />
+              </Link>
+              <div className="flex items-center space-x-3">
+                <Icon className="w-6 h-6 text-primary" />
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h1>
+              </div>
+            </div>
+            {/* Actions slot */}
+            {actions && <div>{actions}</div>}
+          </div>
         </div>
-        <div className="w-10"></div>
+        <Separator />
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 w-full">
+      {/* Content */}
+      <main className="max-w-4xl mx-auto">
         {children}
       </main>
     </div>

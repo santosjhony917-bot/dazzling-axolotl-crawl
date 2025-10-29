@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useAuthData } from '@/context/AuthContext';
-import { Loader2, Utensils, Building2, Mail, Phone, FileText, MessageSquare, Globe, UtensilsCrossed, Clock, MapPin } from 'lucide-react';
+import { Loader2, Utensils, Eye } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { Restaurant } from '@/types';
 import { z } from 'zod';
@@ -21,7 +21,7 @@ import EditFieldDialog from '@/components/EditFieldDialog';
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { WeekSchedule } from '@/types/schedule';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { Button } from '@/components/ui/button';
 
 // --- Schemas de Validação ---
 const nameSchema = z.string().min(3, "O nome deve ter pelo menos 3 caracteres.");
@@ -139,7 +139,7 @@ const ProfileSettingsPage: React.FC = () => {
     longitude: restaurant.longitude,
   };
   
-  // Dados para o diálogo de horários (usando conversão para unknown para resolver TS2352)
+  // Dados para o diálogo de horários
   const defaultSchedule: WeekSchedule = {
     monday: { isOpen: true, slots: [{ start: '08:00', end: '18:00' }] },
     tuesday: { isOpen: true, slots: [{ start: '08:00', end: '18:00' }] },
@@ -150,9 +150,27 @@ const ProfileSettingsPage: React.FC = () => {
     sunday: { isOpen: false, slots: [] },
   };
   const currentSchedule = (restaurant.opening_hours as unknown as WeekSchedule) || defaultSchedule;
+  
+  const handleViewPublicProfile = () => {
+    navigate(`/restaurant/${restaurant.id}`);
+  };
 
   return (
-    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Utensils} backPath="restaurant-area/home">
+    <RestaurantAreaPageLayout 
+      title="Configurações do Perfil" 
+      icon={Utensils} 
+      backPath="restaurant-area/home"
+      actions={
+        <Button 
+          variant="outline" 
+          onClick={handleViewPublicProfile}
+          className="flex items-center gap-2"
+        >
+          <Eye className="w-4 h-4" />
+          Ver Perfil Público
+        </Button>
+      }
+    >
       <div className="p-4 space-y-8">
         
         {/* 1. Card Principal (Logo e Nome) */}
