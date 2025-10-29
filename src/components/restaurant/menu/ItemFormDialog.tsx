@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save } from 'lucide-react';
 import { z } from 'zod';
-import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuItemManagement'; // CORRIGIDO
+import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuItemManagement';
 import { toast } from 'react-hot-toast';
 import ImageUpload from '@/components/ImageUpload';
 import { useRestaurantContext } from '@/context/RestaurantContext';
