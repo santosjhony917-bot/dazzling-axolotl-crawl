@@ -1,6 +1,6 @@
 import { useAuthData } from "@/context/AuthContext";
 import { showError } from "@/utils/toast";
-import { useFavorites } from "./useFavorites"; 
+import { useFavorites, UseFavoritesResult } from "./useFavorites"; 
 import { Restaurant } from "@/types/supabase"; // Ensure Restaurant is imported if needed, but it's not directly used here.
 
 /**
@@ -15,7 +15,7 @@ export function useRestaurantFavorite(restaurantId: string) {
     toggleFavorite: mutateToggleFavorite, 
     isMutating,
     isLoading: isFavoritesLoading
-  } = useFavorites(); 
+  }: UseFavoritesResult = useFavorites(); 
   
   // Get the favorite status for the specific ID
   const isCurrentlyFavorite = checkIsFavorite(restaurantId); 

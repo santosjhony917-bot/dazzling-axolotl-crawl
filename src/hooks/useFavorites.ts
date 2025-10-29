@@ -1,87 +1,115 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuthContext } from "@/context/AuthContext";
-import { showSuccess, showError } from "@/utils/toast";
+import { useAuthData } from "@/context/AuthContext";
+import { showError, showSuccess } from "@/utils/toast";
+import { Restaurant } from "@/types/supabase"; // Corrigido o import
 
-// Query key para a lista de IDs de restaurantes favoritos
-const FAVORITES_ID_LIST_QUERY_KEY = ['userFavoriteIds'];
+// --- Tipos de Retorno ---
+interface Favorite {
+  id: string;
+  restaurant_id: string;
+  user_id: string;
+  created_at: string;
+  // Incluindo os dados do restaurante para exibição
+  restaurants: Restaurant; 
+}
 
-const fetchFavoriteIds = async (userId: string): Promise<string[]> => {
-  // Busca apenas os IDs dos restaurantes favoritados
+export interface UseFavoritesResult {
+  favorites: Favorite[];
+  isLoading: boolean;
+  error: string | null;
+  isFavorite: (restaurantId: string) => boolean;
+  toggleFavorite: (restaurantId: string, isCurrentlyFavorite: boolean) => void;
+  isMutating: boolean;
+  refetch: () => void;
+}
+
+// --- Query Key ---
+const FAVORITES_QUERY_KEY = (userId: string) => ['favorites', userId];
+
+// --- Fetch Function ---
+const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant_id')
-    .eq('user_id', userId);
+    .select(`
+      *,
+      restaurants (*)
+    `)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
 
   if (error) throw new Error(error.message);
   
-  return data.map(f => f.restaurant_id);
+  // Filtra para garantir que apenas objetos Favorite válidos sejam retornados
+  return data.filter(item => item.restaurants) as Favorite[];
 };
 
-export function useFavorites(restaurantId: string) {
-  const { user, isLoading: isAuthLoading } = useAuthContext();
+// --- Main Hook ---
+export function useFavorites(): UseFavoritesResult {
+  const { user, isLoading: authLoading } = useAuthData();
+  const userId = user?.id;
   const queryClient = useQueryClient();
+  const queryKey = userId ? FAVORITES_QUERY_KEY(userId) : ['favorites', 'null'];
 
-  const { data: favoriteIds = [], isLoading: isFavoritesLoading } = useQuery<string[], Error>({
-    queryKey: FAVORITES_ID_LIST_QUERY_KEY,
-    queryFn: () => fetchFavoriteIds(user!.id),
-    enabled: !!user && !isAuthLoading,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+  const { data: favorites, isLoading, error, refetch } = useQuery<Favorite[], Error>({
+    queryKey: queryKey,
+    queryFn: () => fetchFavorites(userId!),
+    enabled: !!userId && !authLoading,
+    staleTime: 5 * 60 * 1000,
   });
+  
+  const isFavorite = (restaurantId: string): boolean => {
+    return favorites?.some(fav => fav.restaurant_id === restaurantId) ?? false;
+  };
 
-  const isFavorite = favoriteIds.includes(restaurantId);
-  const isLoading = isAuthLoading || isFavoritesLoading;
+  // --- Mutations ---
 
-  const mutation = useMutation<void, Error, boolean>({
-    mutationFn: async (isCurrentlyFavorite) => {
-      if (!user) throw new Error("User not authenticated.");
+  const toggleFavoriteMutation = useMutation({
+    mutationFn: async ({ restaurantId, isCurrentlyFavorite }: { restaurantId: string, isCurrentlyFavorite: boolean }) => {
+      if (!userId) throw new Error("Usuário não autenticado.");
 
       if (isCurrentlyFavorite) {
-        // Remove favorite
+        // DELETE
         const { error } = await supabase
           .from('user_favorites')
           .delete()
-          .eq('user_id', user.id)
+          .eq('user_id', userId)
           .eq('restaurant_id', restaurantId);
-        
-        if (error) throw new Error(error.message);
+        if (error) throw error;
+        return { action: 'removed' };
       } else {
-        // Add favorite
+        // INSERT
         const { error } = await supabase
           .from('user_favorites')
-          .insert({ user_id: user.id, restaurant_id: restaurantId });
-        
-        if (error) throw new Error(error.message);
+          .insert({ user_id: userId, restaurant_id: restaurantId });
+        if (error) throw error;
+        return { action: 'added' };
       }
     },
-    onSuccess: (_, isCurrentlyFavorite) => {
-      // Invalida a lista de IDs e a lista completa de favoritos (usada na página Favorites)
-      queryClient.invalidateQueries({ queryKey: FAVORITES_ID_LIST_QUERY_KEY });
-      queryClient.invalidateQueries({ queryKey: ['userFavoritesList'] }); 
-      
-      if (isCurrentlyFavorite) {
-        showSuccess("Restaurante removido dos favoritos.");
-      } else {
+    onSuccess: (result) => {
+      queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
+      if (result.action === 'added') {
         showSuccess("Restaurante adicionado aos favoritos!");
+      } else {
+        showSuccess("Restaurante removido dos favoritos.");
       }
     },
-    onError: (err) => {
-      showError(`Erro ao gerenciar favoritos: ${err.message}`);
-    }
+    onError: (e) => {
+      showError(`Falha ao atualizar favoritos: ${(e as Error).message}`);
+    },
   });
 
-  const toggleFavorite = () => {
-    if (isLoading || mutation.isPending) return;
-    if (!user) {
-      showError("Você precisa estar logado para favoritar.");
-      return;
-    }
-    mutation.mutate(isFavorite);
+  const toggleFavoriteHandler = (restaurantId: string, isCurrentlyFavorite: boolean) => {
+    toggleFavoriteMutation.mutate({ restaurantId, isCurrentlyFavorite });
   };
 
   return {
+    favorites: favorites || [],
+    isLoading: isLoading || authLoading,
+    error: error ? error.message : null,
     isFavorite,
-    toggleFavorite,
-    isLoading: isLoading || mutation.isPending,
-  };
+    toggleFavorite: toggleFavoriteHandler,
+    isMutating: toggleFavoriteMutation.isPending,
+    refetch,
+  } as UseFavoritesResult;
 }
