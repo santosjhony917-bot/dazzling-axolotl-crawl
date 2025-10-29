@@ -9,17 +9,15 @@ export function useRestaurantFavorite(restaurantId: string) {
   const { isAuthenticated } = useAuthData();
   
   // Destructuring the functions and mutation state from the main hook
-  // isFavorite: (id: string) => boolean
-  // toggleFavorite: (id: string, isCurrentlyFavorite: boolean) => void
-  // isMutating: boolean
   const { 
     isFavorite: checkIsFavorite, 
     toggleFavorite: mutateToggleFavorite, 
-    isMutating 
+    isMutating,
+    isLoading: isFavoritesLoading // Adicionado para um estado de carregamento mais completo
   } = useFavorites();
   
   // Get the favorite status for the specific ID
-  const isCurrentlyFavorite = checkIsFavorite(restaurantId);
+  const isCurrentlyFavorite = checkIsFavorite(restaurantId); 
 
   const handleToggle = () => {
     if (!isAuthenticated) {
@@ -27,12 +25,12 @@ export function useRestaurantFavorite(restaurantId: string) {
       return;
     }
     // Call the mutation function with the correct arguments
-    mutateToggleFavorite(restaurantId, isCurrentlyFavorite);
+    mutateToggleFavorite(restaurantId, isCurrentlyFavorite); 
   };
 
   return {
     isFavorite: isCurrentlyFavorite,
     toggleFavorite: handleToggle,
-    isLoading: isMutating, 
+    isLoading: isFavoritesLoading || isMutating, 
   };
 }
