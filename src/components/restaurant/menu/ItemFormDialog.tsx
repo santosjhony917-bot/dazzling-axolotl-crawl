@@ -1,8 +1,7 @@
-import React from 'react';
-import { z } from 'zod';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuItem } from '@/types/menu';
+import { MenuItem } from '@/types/menu'; // Corrigido para importar MenuItem
 import {
   Dialog,
   DialogContent,
@@ -10,72 +9,109 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
-import { ImageUploadButton } from '@/components/ImageUploadButton';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Loader2, Save } from 'lucide-react';
+import { z } from 'zod';
+import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuManagement';
+import { toast } from 'react-hot-toast';
+import ImageUpload from '@/components/ImageUpload';
+import { useRestaurantContext } from '@/context/RestaurantContext';
 
-const itemSchema = z.object({
-  name: z.string().min(1, 'O nome do item é obrigatório.'),
+// Esquema de validação
+const itemFormSchema = z.object({
+  name: z.string().min(1, 'O nome é obrigatório.'),
   description: z.string().optional(),
   price: z.preprocess(
     (val) => (typeof val === 'string' ? parseFloat(val.replace(',', '.')) : val),
     z.number().min(0.01, 'O preço deve ser maior que zero.')
   ),
-  image_url: z.string().optional(),
+  image_url: z.string().optional().nullable(),
+  is_active: z.boolean().default(true),
 });
 
-type ItemFormValues = z.infer<typeof itemSchema>;
+type ItemFormValues = z.infer<typeof itemFormSchema>;
 
 interface ItemFormDialogProps {
   isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: ItemFormValues) => Promise<void>;
+  onOpenChange: (open: boolean) => void;
   initialData?: MenuItem;
-  isLoading: boolean;
   categoryId: string;
 }
 
-const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave, initialData, isLoading, categoryId }) => {
+const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, initialData, categoryId }) => {
+  const { restaurant } = useRestaurantContext();
+  const restaurantId = restaurant?.id;
+
+  const isEdit = !!initialData;
+  const mutationUpdate = useUpdateMenuItem();
+  const mutationCreate = useCreateMenuItem();
+
   const form = useForm<ItemFormValues>({
-    resolver: zodResolver(itemSchema),
+    resolver: zodResolver(itemFormSchema),
     defaultValues: {
       name: initialData?.name || '',
       description: initialData?.description || '',
       price: initialData?.price || 0,
-      image_url: initialData?.image_url || '',
+      image_url: initialData?.image_url || null,
+      is_active: initialData?.is_active ?? true,
     },
   });
 
-  const onSubmit = async (data: ItemFormValues) => {
-    await onSave(data);
-    form.reset();
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        name: initialData?.name || '',
+        description: initialData?.description || '',
+        price: initialData?.price || 0,
+        image_url: initialData?.image_url || null,
+        is_active: initialData?.is_active ?? true,
+      });
+    }
+  }, [isOpen, initialData, form]);
+
+  const onSubmit = async (values: ItemFormValues) => {
+    if (!restaurantId) {
+      toast.error('Erro: ID do restaurante não encontrado.');
+      return;
+    }
+
+    const dataToSave = {
+      ...values,
+      price: values.price, // Já é number
+      category_id: categoryId,
+    };
+
+    try {
+      if (isEdit && initialData) {
+        await mutationUpdate.mutateAsync({ id: initialData.id, updates: dataToSave });
+        toast.success('Item atualizado com sucesso!');
+      } else {
+        await mutationCreate.mutateAsync(dataToSave);
+        toast.success('Item criado com sucesso!');
+      }
+      onOpenChange(false);
+    } catch (error) {
+      console.error('Erro ao salvar item:', error);
+      toast.error(`Falha ao salvar item: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
+    }
   };
 
-  React.useEffect(() => {
-    if (initialData) {
-      form.reset({
-        name: initialData.name,
-        description: initialData.description || '',
-        price: initialData.price,
-        image_url: initialData.image_url || '',
-      });
-    } else {
-      form.reset({ name: '', description: '', price: 0, image_url: '' });
-    }
-  }, [initialData, form]);
+  const isSubmitting = mutationUpdate.isPending || mutationCreate.isPending;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{initialData ? 'Editar Item' : 'Novo Item de Cardápio'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Editar Item do Cardápio' : 'Adicionar Novo Item'}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             
+            {/* Upload de Imagem */}
             <FormField
               control={form.control}
               name="image_url"
@@ -83,11 +119,12 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
                 <FormItem>
                   <FormLabel>Imagem do Item (Opcional)</FormLabel>
                   <FormControl>
-                    <ImageUploadButton 
-                      imageUrl={field.value}
-                      onUploadComplete={(url) => field.onChange(url)}
-                      bucketName="restaurant_images" // Usando o bucket principal
-                      folderPath={`${categoryId}/items`}
+                    <ImageUpload
+                      bucketName="menu_items"
+                      currentImageUrl={field.value || undefined}
+                      onUploadSuccess={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange(null)}
+                      folderPath={`${restaurantId}/${categoryId}`}
                     />
                   </FormControl>
                   <FormMessage />
@@ -95,12 +132,13 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
               )}
             />
 
+            {/* Nome */}
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome do Item</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Ex: Pizza Calabresa" {...field} />
                   </FormControl>
@@ -109,6 +147,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
               )}
             />
 
+            {/* Descrição */}
             <FormField
               control={form.control}
               name="description"
@@ -116,13 +155,14 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
                 <FormItem>
                   <FormLabel>Descrição (Opcional)</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Mussarela, calabresa, cebola..." {...field} />
+                    <Textarea placeholder="Ex: Molho de tomate, mussarela, calabresa e cebola." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* Preço */}
             <FormField
               control={form.control}
               name="price"
@@ -133,7 +173,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
                     <Input 
                       type="number" 
                       step="0.01" 
-                      placeholder="19.90" 
+                      placeholder="0.00" 
                       {...field} 
                       onChange={(e) => field.onChange(e.target.value)}
                       value={field.value === 0 ? '' : field.value}
@@ -144,18 +184,39 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onClose, onSave
               )}
             />
 
+            {/* Ativo */}
+            <FormField
+              control={form.control}
+              name="is_active"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Item Ativo</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      Se desativado, o item não aparecerá no perfil público.
+                    </p>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? (
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : initialData ? (
-                  'Salvar Alterações'
                 ) : (
-                  'Criar Item'
+                  <Save className="mr-2 h-4 w-4" />
                 )}
+                {isEdit ? 'Salvar Alterações' : 'Adicionar Item'}
               </Button>
             </DialogFooter>
           </form>

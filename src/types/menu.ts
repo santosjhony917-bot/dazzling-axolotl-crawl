@@ -1,20 +1,23 @@
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number;
-  is_active: boolean;
-  created_at: string;
-}
+import { MenuItem, MenuCategory } from './supabase';
 
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number;
-  is_active: boolean;
-  created_at: string;
+// Re-exportando o tipo base do Supabase para uso em formulários de gerenciamento
+export type MenuItem = MenuItem;
+export type MenuCategory = MenuCategory;
+
+// Tipo para um item de menu no contexto público
+export type PublicMenuItem = Pick<MenuItem, 'id' | 'name' | 'description' | 'price' | 'image_url'> & {
+  // Adicione campos extras se necessário, como se é favorito
+  is_favorite?: boolean;
+};
+
+// Tipo para uma categoria de menu no contexto público
+export type PublicMenuCategory = Pick<MenuCategory, 'id' | 'name'> & {
+  menu_items: PublicMenuItem[];
+};
+
+// Tipo de retorno esperado do hook usePublicMenu
+export interface UsePublicMenuResult {
+  menu: PublicMenuCategory[];
+  isLoading: boolean;
+  error: Error | null;
 }

@@ -1,42 +1,126 @@
 import React from 'react';
-import { MenuItem } from '@/types/menu';
+import { MenuItem } from '@/types/menu'; // Corrigido para importar MenuItem
 import { Card, CardContent } from '@/components/ui/card';
+import { formatPrice } from '@/lib/utils';
+import { Edit, Trash2, Eye, EyeOff, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2 } from 'lucide-react';
+import { useDeleteMenuItem } from '@/hooks/useMenuManagement';
+import { toast } from 'react-hot-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface MenuItemCardProps {
   item: MenuItem;
   onEdit: (item: MenuItem) => void;
-  onDelete: (itemId: string) => void;
 }
 
-const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit, onDelete }) => {
+const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onEdit }) => {
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const deleteMutation = useDeleteMenuItem();
+
+  const handleDelete = async () => {
+    try {
+      await deleteMutation.mutateAsync(item.id);
+      toast.success('Item excluído com sucesso!');
+    } catch (error) {
+      console.error('Erro ao excluir item:', error);
+      toast.error('Falha ao excluir item.');
+    }
+  };
+
   return (
-    <Card className="flex items-center justify-between p-3 shadow-sm hover:shadow-md transition-shadow">
-      <CardContent className="p-0 flex items-center gap-4 w-full">
-        {item.image_url && (
-          <img 
-            src={item.image_url} 
-            alt={item.name} 
-            className="w-16 h-16 object-cover rounded-md flex-shrink-0"
-          />
-        )}
-        <div className="flex-1 min-w-0">
-          <h4 className="font-semibold text-gray-900 dark:text-white truncate">{item.name}</h4>
-          {item.description && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{item.description}</p>
-          )}
-          <p className="text-base font-bold text-highlight mt-1">R$ {item.price.toFixed(2).replace('.', ',')}</p>
+    <Card className="w-full shadow-sm hover:shadow-md transition-shadow border-l-4 border-primary/50">
+      <CardContent className="p-4 flex items-center gap-4">
+        
+        {/* Drag Handle */}
+        <div className="cursor-grab text-gray-400 hover:text-primary transition-colors flex-shrink-0">
+          <GripVertical className="w-5 h-5" />
         </div>
-        <div className="flex space-x-2 flex-shrink-0">
-          <Button variant="ghost" size="icon" onClick={() => onEdit(item)} className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="h-4 w-4" />
+
+        {/* Imagem */}
+        {item.image_url && (
+          <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
+            <img 
+              src={item.image_url} 
+              alt={item.name} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
+        {/* Detalhes */}
+        <div className="flex-grow min-w-0">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold truncate">{item.name}</h3>
+            {item.is_active ? (
+              <Eye className="w-4 h-4 text-green-600" title="Visível no perfil público" />
+            ) : (
+              <EyeOff className="w-4 h-4 text-red-500" title="Oculto no perfil público" />
+            )}
+          </div>
+          <p className="text-sm text-gray-600 truncate">{item.description || 'Sem descrição.'}</p>
+          <p className="text-base font-bold text-primary mt-1">{formatPrice(item.price)}</p>
+        </div>
+
+        {/* Ações */}
+        <div className="flex flex-col space-y-2 flex-shrink-0">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="h-8 w-8 text-primary hover:bg-primary hover:text-white"
+            onClick={() => onEdit(item)}
+          >
+            <Edit className="w-4 h-4" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => onDelete(item.id)} className="h-8 w-8 text-red-500 hover:bg-red-50">
-            <Trash2 className="h-4 w-4" />
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="h-8 w-8 text-red-500 hover:bg-red-500 hover:text-white"
+            onClick={() => setIsDeleteDialogOpen(true)}
+            disabled={deleteMutation.isPending}
+          >
+            {deleteMutation.isPending ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Trash2 className="w-4 h-4" />
+            )}
           </Button>
         </div>
       </CardContent>
+
+      {/* Diálogo de Confirmação de Exclusão */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação não pode ser desfeita. Isso excluirá permanentemente o item "{item.name}" do seu cardápio.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleteMutation.isPending}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDelete} 
+              className="bg-red-600 hover:bg-red-700"
+              disabled={deleteMutation.isPending}
+            >
+              {deleteMutation.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                'Excluir'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 };
