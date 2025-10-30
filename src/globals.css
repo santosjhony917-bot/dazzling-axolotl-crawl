@@ -63,8 +63,8 @@
   }
 
   body {
-    /* Fundo com degradê sutil para dar profundidade */
-    background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
+    /* Revertido para fundo branco puro */
+    background: #ffffff;
     @apply text-foreground;
   }
 }

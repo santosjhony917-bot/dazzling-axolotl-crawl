@@ -68,7 +68,7 @@ const MenuItemDetails: React.FC = () => {
   const restaurantId = itemData.restaurant?.id;
 
   return (
-    <div className="min-h-screen bg-background-light max-w-md mx-auto">
+    <div className="min-h-screen bg-white max-w-md mx-auto">
       
       {/* Header Fixo */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">

@@ -57,7 +57,7 @@ const SharedLayoutWrapper: React.FC = () => {
   // If the user is a restaurant owner, use the restaurant layout structure
   if (isRestaurantOwner) {
     return (
-      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+      <div className="min-h-screen bg-white pb-20 max-w-md mx-auto">
         <main className="flex-1">
           <Outlet />
         </main>
@@ -68,7 +68,7 @@ const SharedLayoutWrapper: React.FC = () => {
   
   // If the user is a regular client, use the client layout structure
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <div className="min-h-screen bg-white pb-20 max-w-md mx-auto">
       <main className="flex-1">
         <Outlet />
         {/* O ClientBottomNav usa as chaves de rota do cliente */}

@@ -161,7 +161,7 @@ const ProfileSettingsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+    <div className="p-4 md:p-8 max-w-4xl mx-auto bg-white">
       <h1 className="text-3xl font-bold mb-6 text-primary">Configurações do Perfil</h1>
 
       <div className="space-y-8">

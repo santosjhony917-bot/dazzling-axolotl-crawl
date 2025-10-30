@@ -8,7 +8,7 @@ interface ClientPageWrapperProps {
 
 const ClientPageWrapper: React.FC<ClientPageWrapperProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
+    <div className="min-h-screen bg-white pb-20 max-w-md mx-auto">
       {/* O conteúdo da página é renderizado aqui */}
       <main className="flex-1">
         {children}
