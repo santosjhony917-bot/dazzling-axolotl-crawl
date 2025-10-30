@@ -31,7 +31,7 @@ const PUBLIC_RESTAURANT_SELECT = `
     *,
     followers_count:user_favorites(count),
     gallery_images:restaurant_gallery(id, image_url, caption, order_index),
-    menu_categories!inner(
+    menu_categories(
         id, 
         name, 
         order_index, 
