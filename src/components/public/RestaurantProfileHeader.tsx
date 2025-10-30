@@ -46,8 +46,8 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   return (
     <div className="relative w-full bg-white dark:bg-gray-800 shadow-soft-md">
       
-      {/* 1. Imagem de Capa (Banner) */}
-      <div className="h-40 w-full overflow-hidden bg-gray-300 relative">
+      {/* 1. Imagem de Capa (Banner) - Adicionado z-10 para garantir que fique abaixo do z-30 da barra de ações */}
+      <div className="h-40 w-full overflow-hidden bg-gray-300 relative z-10">
         <img
           src={coverImageUrl || PLACEHOLDER_COVER_URL}
           alt={`Capa de ${name}`}
@@ -58,8 +58,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
       </div>
 
       {/* 2. Bloco de Conteúdo Principal (Logo e Info) */}
-      {/* Reintroduzindo -mt-12 para sobrepor a capa, e removendo pt-4 */}
-      <div className="px-4 pb-4 -mt-12 pt-0"> 
+      <div className="px-4 pb-4 -mt-12 pt-0 relative z-20"> 
         <div className="flex items-start gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-soft-xl border border-gray-100">
           
           {/* Logo (Ajustado para ficar no topo do card de informações) */}
