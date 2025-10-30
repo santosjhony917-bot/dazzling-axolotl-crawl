@@ -96,6 +96,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               isPremium={true}
               menuCategories={restaurant.menu_categories || []}
             />
+
           </div>
 
           {/* Coluna Lateral (Links, Horários, Galeria) */}
