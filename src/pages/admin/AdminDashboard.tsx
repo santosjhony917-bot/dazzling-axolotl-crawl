@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Upload, DollarSign, Zap, Clock, BarChart, Crown } from 'lucide-react';
 import AdminUploadInfo from './AdminUploadInfo';
 import ManagePlans from './ManagePlans';
-import InstantMetrics from './InstantMetrics'; // Importando o novo componente
+import InstantMetrics from './InstantMetrics';
+import ScheduledMetrics from './ScheduledMetrics'; // Importando o novo componente
 
 // Placeholder components for tabs
 const ImportCSVTab = () => <CardContent>Implementar Importação de CSV.</CardContent>;
@@ -55,7 +56,7 @@ export default function AdminDashboard() {
             </TabsContent>
             <TabsContent value="import-csv"><ImportCSVTab /></TabsContent>
             <TabsContent value="instant-metrics"><InstantMetrics /></TabsContent>
-            <TabsContent value="scheduled-metrics"><ScheduledMetricsTab /></TabsContent>
+            <TabsContent value="scheduled-metrics"><ScheduledMetrics /></TabsContent>
           </Card>
         </div>
       </Tabs>
