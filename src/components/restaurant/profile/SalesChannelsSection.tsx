@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import InfoCardItem from '@/components/InfoCardItem'; // CORRIGIDO: Caminho de importação
+import InfoCardItem from '@/components/InfoCardItem';
 import EditFieldDialog from '@/components/EditFieldDialog';
 import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 import { toast } from 'react-hot-toast';
@@ -18,7 +18,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
     inputType: 'text' | 'textarea' | 'number' | 'url';
   } | null>(null);
 
-  const { mutate: updateRestaurant, isPending } = useRestaurantUpdate(); // CORRIGIDO: Usando isPending
+  const { mutate: updateRestaurant, isPending } = useRestaurantUpdate();
 
   const openDialog = (
     name: keyof PublicRestaurantData, 
@@ -67,11 +67,17 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
     }
   };
 
-  const getDisplayValue = (value: string | number | undefined) => {
-    if (typeof value === 'string' && value.startsWith('http')) {
-      return value.length > 40 ? value.substring(0, 37) + '...' : value;
+  const getDisplayValue = (value: string | number | undefined): string | null => {
+    if (typeof value === 'string') {
+      if (value.startsWith('http')) {
+        return value.length > 40 ? value.substring(0, 37) + '...' : value;
+      }
+      return value || null;
     }
-    return value || 'Não definido';
+    if (typeof value === 'number') {
+      return String(value);
+    }
+    return null;
   };
 
   return (
@@ -132,7 +138,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
           initialValue={restaurant[currentField.name] as string | number | undefined}
           inputType={currentField.inputType}
           onSave={handleSave}
-          loading={isPending} // CORRIGIDO: Usando isPending
+          loading={isPending}
         />
       )}
     </div>

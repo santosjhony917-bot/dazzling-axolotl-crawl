@@ -125,7 +125,8 @@ export default function ProfileSettingsPage() {
     addressSummary: restaurant?.city || '', // Mocked
     menu_categories: [], // Mocked
     gallery_images: [], // Mocked
-    logoUrl: restaurant?.image_url || '', // Mocked
+    // CORRIGIDO ERRO 5: Usando 'image_url' que é a propriedade correta no tipo Restaurant
+    logoUrl: restaurant?.image_url || '', 
   };
 
   return (
