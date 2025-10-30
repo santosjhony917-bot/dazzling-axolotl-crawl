@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from '@/pages/Index';
 import Login from '@/pages/Login';
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
 import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
 import RestaurantProfilePage from '@/pages/public/RestaurantProfilePage';
