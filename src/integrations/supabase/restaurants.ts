@@ -1,5 +1,5 @@
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, RestaurantWithDistance } from '@/types/supabase';
+import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
 
@@ -26,26 +26,11 @@ export async function fetchNearbyRestaurants(
   return data || [];
 }
 
-// Define a string de seleção para o perfil público
-const PUBLIC_RESTAURANT_SELECT = `
+// Define a string de seleção para os dados básicos do perfil público
+const PUBLIC_RESTAURANT_BASE_SELECT = `
     *,
     followers_count:user_favorites(count),
-    gallery_images:restaurant_gallery(id, image_url, caption, order_index),
-    menu_categories(
-        id, 
-        name, 
-        order_index, 
-        is_active,
-        menu_items(
-            id, 
-            name, 
-            description, 
-            price, 
-            image_url, 
-            order_index, 
-            is_active
-        )
-    )
+    gallery_images:restaurant_gallery(id, image_url, caption, order_index)
 `;
 
 /**
@@ -54,42 +39,59 @@ const PUBLIC_RESTAURANT_SELECT = `
  * @returns Os dados públicos do restaurante, incluindo menu e galeria.
  */
 export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
-  const { data, error } = await supabase
+  // 1. Buscar dados básicos, seguidores e galeria (sem menu aninhado)
+  const { data: baseData, error: baseError } = await supabase
     .from('restaurants')
-    .select(PUBLIC_RESTAURANT_SELECT)
+    .select(PUBLIC_RESTAURANT_BASE_SELECT)
     .eq('id', restaurantId)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant (NOT PGRST116):', error); // Log mais detalhado
-    // Se o erro for PGRST200 (relacionamento), lançamos para ser capturado pelo hook
-    if (error.code === 'PGRST200') {
-        throw new Error(`Erro de relacionamento no banco de dados: ${error.message}`);
-    }
-    return null;
+  if (baseError && baseError.code !== 'PGRST116') {
+    console.error('Error fetching public restaurant base data:', baseError);
+    throw new Error(`Erro ao carregar dados básicos: ${baseError.message}`);
   }
 
-  if (!data) {
-    console.log(`[fetchPublicRestaurantById] No data found for ID: ${restaurantId}`);
+  if (!baseData) {
     return null;
   }
+  
+  // 2. Buscar categorias e itens de menu separadamente
+  const { data: menuData, error: menuError } = await supabase
+    .from('menu_categories')
+    .select(`
+      id, 
+      name, 
+      order_index, 
+      is_active,
+      menu_items(
+          id, 
+          name, 
+          description, 
+          price, 
+          image_url, 
+          order_index, 
+          is_active
+      )
+    `)
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
 
-  // 1. Processar contagem de seguidores (incluindo override)
-  const followersCount = (data.followers_count?.[0]?.count || 0) + (data.followers_override || 0);
+  if (menuError) {
+    console.error('Error fetching menu data:', menuError);
+    // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
+  }
 
-  // 2. Constrói o resumo do endereço
-  const addressParts = [data.city, data.state].filter(Boolean);
+  // 3. Processar e combinar dados
+  
+  // Processar contagem de seguidores (incluindo override)
+  const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
+
+  // Constrói o resumo do endereço
+  const addressParts = [baseData.city, baseData.state].filter(Boolean);
   const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
 
-  // 3. Filtrar categorias e itens inativos
-  // O PostgREST retorna menu_categories como um array de objetos aninhados.
-  const activeMenuCategories = (data.menu_categories || []) as unknown as {
-      id: string;
-      name: string;
-      order_index: number | null;
-      is_active: boolean | null;
-      menu_items: any[];
-  }[];
+  // Filtrar categorias e itens inativos
+  const activeMenuCategories = (menuData || []) as unknown as (MenuCategory & { menu_items: MenuItem[] })[];
   
   const filteredMenuCategories = activeMenuCategories
       .filter(cat => cat.is_active)
@@ -101,21 +103,16 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
               .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
       }));
       
-  // 4. Ordenar galeria
-  const galleryImages = (data.gallery_images || []) as unknown as {
-      id: string;
-      image_url: string;
-      caption: string | null;
-      order_index: number | null;
-  }[];
+  // Ordenar galeria
+  const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
   
   const sortedGalleryImages = galleryImages
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
 
   return {
-    ...data,
+    ...baseData,
     addressSummary,
-    logoUrl: data.image_url, // Mantendo a compatibilidade com o tipo PublicRestaurantData
+    logoUrl: baseData.image_url,
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
