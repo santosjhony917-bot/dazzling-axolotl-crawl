@@ -61,11 +61,14 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     .single();
 
   if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant:', error);
+    console.error('Error fetching public restaurant (NOT PGRST116):', error); // Log mais detalhado
     return null;
   }
 
-  if (!data) return null;
+  if (!data) {
+    console.log(`[fetchPublicRestaurantById] No data found for ID: ${restaurantId}`);
+    return null;
+  }
 
   // 1. Processar contagem de seguidores (incluindo override)
   const followersCount = (data.followers_count?.[0]?.count || 0) + (data.followers_override || 0);
