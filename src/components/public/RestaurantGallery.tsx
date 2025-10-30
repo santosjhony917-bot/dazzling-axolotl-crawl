@@ -14,6 +14,7 @@ interface RestaurantGalleryProps {
 
 const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId, plan, galleryImages }) => {
   
+  // CORREÇÃO: Incluindo 'premium_gift' na verificação
   const isPremium = plan === 'premium' || plan === 'premium_gift';
   
   if (!isPremium) {

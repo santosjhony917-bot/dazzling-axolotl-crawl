@@ -32,32 +32,41 @@ export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
     setIsLoading(false);
   }, [user]);
 
-  // Agora aceita um payload de atualização genérico
-  const updateRestaurant = useCallback(async (updates: RestaurantUpdatePayload) => {
+  // Agora retorna { error: string | null }
+  const updateRestaurant = useCallback(async (updates: RestaurantUpdatePayload): Promise<{ error: string | null }> => {
     if (!restaurant) {
-      toast.error('Restaurante não encontrado para atualização.');
-      return;
+      const msg = 'Restaurante não encontrado para atualização.';
+      toast.error(msg);
+      return { error: msg };
     }
 
     setIsLoading(true);
+    let errorMsg: string | null = null;
 
-    // Usando cast intermediário para 'unknown' para lidar com tipos JSONB como opening_hours
-    const { data: updatedData, error } = await supabase
-      .from('restaurants')
-      .update(updates as unknown as Partial<Restaurant>)
-      .eq('id', restaurant.id)
-      .select()
-      .single();
+    try {
+      // Usando cast intermediário para 'unknown' para lidar com tipos JSONB como opening_hours
+      const { data: updatedData, error } = await supabase
+        .from('restaurants')
+        .update(updates as unknown as Partial<Restaurant>)
+        .eq('id', restaurant.id)
+        .select()
+        .single();
 
-    if (error) {
-      console.error('Error updating restaurant:', error);
-      toast.error('Erro ao atualizar perfil do restaurante.');
-    } else {
-      setRestaurant(updatedData);
-      toast.success('Perfil do restaurante atualizado com sucesso!');
+      if (error) {
+        errorMsg = error.message;
+        console.error('Error updating restaurant:', error);
+        toast.error('Erro ao atualizar perfil do restaurante.');
+      } else {
+        setRestaurant(updatedData);
+        toast.success('Perfil do restaurante atualizado com sucesso!');
+      }
+    } catch (e) {
+      errorMsg = (e as Error).message;
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
+    
+    return { error: errorMsg };
   }, [restaurant]);
 
   return {

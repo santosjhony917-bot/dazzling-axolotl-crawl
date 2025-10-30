@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
+import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
-import ProfileHeader from '@/components/public/ProfileHeader'; // Corrected import
+import RestaurantPublicHeader from '@/components/public/RestaurantHeader'; // CORRIGIDO: Importando o nome correto
 import RestaurantMenu from '@/components/public/RestaurantMenu';
-import AdditionalInfo from '@/components/public/AdditionalInfo'; // Corrected import
+import RestaurantInfo from '@/components/public/RestaurantInfo';
 import RestaurantGallery from '@/components/public/RestaurantGallery';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Separator } from '@/components/ui/separator';
-import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -20,10 +20,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
   // Usando o hook específico para este restaurante
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
 
-  // Usando o cast para WeekSchedule (assuming opening_hours structure matches WeekSchedule)
+  // Usando o cast para WeekSchedule do types/schedule.ts
   const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
-  // Construindo o endereço completo para o componente AdditionalInfo
+  // Construindo o endereço completo para o componente RestaurantInfo
   const fullAddress = [restaurant.address, restaurant.number, restaurant.neighborhood, restaurant.city, restaurant.state, restaurant.cep]
     .filter(Boolean)
     .join(', ');
@@ -35,7 +35,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
         {/* Header (Logo, Nome, Favorito) */}
-        <ProfileHeader
+        <RestaurantPublicHeader // CORRIGIDO: Usando o nome correto
           restaurant={{
             id: restaurant.id,
             name: restaurant.name,
@@ -43,9 +43,9 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
             addressSummary: restaurant.addressSummary, // Usando o campo computado
             isFavorite: isFavorite,
             followersCount: restaurant.followers_count, // Usando followers_count
+            isMutating: isMutating, // Passando isMutating
           }}
-          toggleFavorite={toggleFavorite}
-          isMutating={isMutating}
+          toggleFavorite={toggleFavorite} // CORRIGIDO: Passando a função de toggle
         />
 
         {/* Descrição */}
@@ -66,7 +66,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
         <Separator className="my-6" />
 
         {/* Informações de Contato e Horário */}
-        <AdditionalInfo
+        <RestaurantInfo
           id="info"
           restaurant={{
             address: restaurant.address,

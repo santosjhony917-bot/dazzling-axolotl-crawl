@@ -37,7 +37,8 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick, is
             </p>
           )}
 
-          {(restaurant.city || distance) && (
+          {/* CORREÇÃO: Acessando city diretamente do objeto, que agora está no tipo RestaurantWithDistance */}
+          {(restaurant.city || distance) && ( 
             <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
               <MapPin className="w-4 h-4 text-highlight" /> 
               {distance ? `${distance} km` : restaurant.city}

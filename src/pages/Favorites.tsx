@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, FavoriteRestaurant } from '@/types/supabase';
+import { Restaurant, FavoriteRestaurant } from '@/types/supabase'; // CORREÇÃO: FavoriteRestaurant agora é exportado
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, Heart, MapPin, Utensils, Trash2, ArrowLeft } from 'lucide-react';

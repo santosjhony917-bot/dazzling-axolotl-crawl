@@ -17,14 +17,14 @@ const planColors: Record<RestaurantPlan, string> = {
   free: 'bg-gray-200 text-gray-700',
   basic: 'bg-blue-100 text-blue-700',
   premium: 'bg-yellow-100 text-yellow-800',
-  premium_gift: 'bg-green-100 text-green-700',
+  premium_gift: 'bg-green-100 text-green-700', // CORREÇÃO: Adicionado premium_gift
 };
 
 const planLabels: Record<RestaurantPlan, string> = {
   free: 'Free',
   basic: 'Basic',
   premium: 'Premium',
-  premium_gift: 'Premium (Gift)',
+  premium_gift: 'Premium (Gift)', // CORREÇÃO: Adicionado premium_gift
 };
 
 const ManagePlans: React.FC = () => {

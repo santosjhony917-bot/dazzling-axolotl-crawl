@@ -490,7 +490,7 @@ export interface Database {
       }
     }
     Enums: {
-      restaurant_plan: "free" | "basic" | "premium"
+      restaurant_plan: "free" | "basic" | "premium" | "premium_gift" // Adicionado premium_gift
     }
     CompositeTypes: {
       [_ in never]: never
@@ -578,25 +578,22 @@ export type Enums<
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never
 
-// --- Custom Exported Types ---
-
-export type Restaurant = Tables<'restaurants'>;
+// --- Exported Types ---
 export type Profile = Tables<'profiles'>;
-export type MenuItem = Tables<'menu_items'>;
+export type Restaurant = Tables<'restaurants'>;
 export type MenuCategory = Tables<'menu_categories'>;
+export type MenuItem = Tables<'menu_items'>;
 export type GalleryImage = Tables<'restaurant_gallery'>;
-
 export type RestaurantPlan = Enums<'restaurant_plan'>;
 
-// Type for RPC return (find_nearby_restaurants)
-export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number];
+// Derived types
+export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number] & {
+  city: string | null; // Adicionado city para resolver erro 6 e 7
+  state: string | null; // Adicionado state para consistência
+};
+export type MenuCategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
 
-// Type for favorites join (used in useFavorites)
+// Tipo para o resultado da query de favoritos (inclui o objeto Restaurant aninhado)
 export type FavoriteRestaurant = Tables<'user_favorites'> & {
   restaurants: Restaurant;
-};
-
-// Type for nested menu query (used in public profile fetch)
-export type MenuCategoryWithItems = MenuCategory & {
-  menu_items: MenuItem[];
 };

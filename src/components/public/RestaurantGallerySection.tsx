@@ -14,6 +14,7 @@ interface RestaurantGallerySectionProps {
 const RestaurantGallerySection: React.FC<RestaurantGallerySectionProps> = ({ id, restaurantId, plan }) => {
   const { gallery, isLoading, error } = usePublicGallery(restaurantId);
   
+  // CORREÇÃO: Incluindo 'premium_gift' na verificação
   const isPremium = plan === 'premium' || plan === 'premium_gift';
   
   if (!isPremium) {

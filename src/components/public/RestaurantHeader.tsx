@@ -18,9 +18,11 @@ interface RestaurantPublicHeaderProps {
     followersCount?: number;
     onFollowToggle?: () => void;
   };
+  // CORREÇÃO: Adicionando toggleFavorite como prop opcional
+  toggleFavorite?: () => void; 
 }
 
-const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaurant }) => {
+const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaurant, toggleFavorite }) => {
   const { 
     name, 
     logoUrl, 
@@ -34,6 +36,9 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
 
   // Determina se estamos no modo Premium (se tiver followersCount)
   const isPremiumMode = followersCount !== undefined;
+
+  // Usa a prop toggleFavorite do componente pai se estiver disponível, senão usa a interna do objeto restaurant
+  const handleFavoriteToggle = toggleFavorite || onFavoriteToggle;
 
   return (
     <div className="flex items-start justify-between px-4">
@@ -69,11 +74,11 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ restaur
       <div className="flex space-x-2 mt-1 flex-shrink-0">
         
         {/* Botão de Favoritar (Apenas no modo Free) */}
-        {!isPremiumMode && onFavoriteToggle && (
+        {!isPremiumMode && handleFavoriteToggle && (
           <Button
             variant="outline"
             size="icon"
-            onClick={onFavoriteToggle}
+            onClick={handleFavoriteToggle}
             disabled={isMutating}
             className="rounded-full h-10 w-10 shadow-soft-sm bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600"
           >
