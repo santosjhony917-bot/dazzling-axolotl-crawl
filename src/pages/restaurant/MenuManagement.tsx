@@ -4,23 +4,21 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { Plus, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { useQueryClient } from '@tanstack/react-query';
-import { MenuCategory, MenuItem } from '@/types/supabase';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Importando do novo hook
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { MenuCategory } from '@/types/supabase';
+import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
-import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
-import { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando do ItemFormDialog
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { Card, CardContent } from '@/components/ui/card';
 import { showError } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
-  const { restaurant, isLoading: profileLoading } = useRestaurantProfile();
+  // Usando useAuthData para obter o objeto restaurant gerenciado globalmente
+  const { restaurant, isProfileLoading: profileLoading } = useAuthData(); 
   const restaurantId = restaurant?.id || '';
 
   const { categoriesQuery } = useMenuManagement(restaurantId);
