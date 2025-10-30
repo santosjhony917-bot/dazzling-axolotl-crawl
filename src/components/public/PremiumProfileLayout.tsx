@@ -11,6 +11,7 @@ import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
 import { formatOpeningHours } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -71,7 +72,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       return <IconComponent className="h-6 w-6 text-green-600" />;
     }
     // Default for other links (Anotaaí/Other Link)
-    return <IconComponent className="h-6 w-6 text-[#022D68]" />;
+    return <IconComponent className="h-6 w-6 text-primary" />;
   };
 
   // Helper component for the stylized link button (New Design)
@@ -86,7 +87,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
         target="_blank" 
         rel="noopener noreferrer"
         // Estilização para corresponder à imagem: botões grandes, arredondados, fundo claro
-        className="flex flex-col items-center justify-center p-3 w-full h-24 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-center"
+        className="flex flex-col items-center justify-center p-3 w-full h-24 bg-gray-50 border border-gray-200 rounded-xl shadow-soft-sm hover:shadow-soft-md transition-shadow duration-200 text-center"
       >
         <div className="h-8 flex items-center justify-center">
           {isIfood ? (
@@ -105,9 +106,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background-light">
       {/* Cover Image and Header Section */}
-      <div className="relative h-48 md:h-64 bg-gray-300 overflow-hidden">
+      <div className="relative h-48 md:h-64 bg-gray-300 overflow-hidden shadow-soft-md">
         {restaurant.cover_image_url && (
           <img
             src={restaurant.cover_image_url}
@@ -120,11 +121,11 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
 
       <div className="container mx-auto px-4 -mt-16 pb-8">
         {/* Profile Card and Actions */}
-        <Card className="p-6 shadow-lg rounded-xl bg-white relative">
+        <Card className="p-6 shadow-soft-xl rounded-2xl bg-white relative">
           <div className="flex items-end justify-between">
             {/* Logo and Name */}
             <div className="flex items-end">
-              <div className="w-24 h-24 md:w-32 md:h-32 bg-white border-4 border-white rounded-full shadow-md -mt-12 md:-mt-16 flex items-center justify-center overflow-hidden">
+              <div className="w-24 h-24 md:w-32 md:h-32 bg-white border-4 border-white rounded-full shadow-lg -mt-12 md:-mt-16 flex items-center justify-center overflow-hidden flex-shrink-0">
                 {restaurant.image_url ? (
                   <img
                     src={restaurant.image_url}
@@ -135,8 +136,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                   <Utensils className="w-12 h-12 text-gray-400" />
                 )}
               </div>
-              <div className="ml-4 pb-2">
-                <h1 className="text-2xl md:text-3xl font-extrabold text-[#022D68] leading-tight">
+              <div className="ml-4 pb-2 min-w-0">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-primary leading-tight truncate">
                   {restaurant.name}
                 </h1>
                 <p className="text-sm text-gray-500">{restaurant.category}</p>
@@ -144,24 +145,23 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             </div>
 
             {/* Actions (Favorite/Share) */}
-            <div className="flex space-x-2 pb-2">
+            <div className="flex space-x-2 pb-2 flex-shrink-0">
               <Button 
                 variant="outline" 
                 size="icon" 
-                // CORREÇÃO 8: Chamando a função sem argumentos
-                onClick={() => toggleFavorite()} 
-                disabled={!user || isToggling} 
-                className="rounded-full bg-white hover:bg-gray-50"
+                onClick={() => toggleFavorite()}
+                disabled={!user || isToggling}
+                className="rounded-full bg-white hover:bg-gray-50 shadow-soft-sm border-gray-200"
               >
                 <Heart 
-                  className={`h-5 w-5 transition-colors ${restaurant.is_favorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} 
+                  className={cn(`h-5 w-5 transition-colors`, restaurant.is_favorite ? 'fill-red-500 text-red-500' : 'text-gray-500')} 
                 />
               </Button>
               <Button 
                 variant="outline" 
                 size="icon" 
                 onClick={handleShare}
-                className="rounded-full bg-white hover:bg-gray-50"
+                className="rounded-full bg-white hover:bg-gray-50 shadow-soft-sm border-gray-200"
               >
                 <Share2 className="h-5 w-5 text-gray-500" />
               </Button>
@@ -179,26 +179,26 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
             {addressSummary && ( 
               <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-[#022D68]" />
-                <p>{addressSummary}</p>
+                <MapPin className="h-4 w-4 text-highlight" />
+                <p className="text-gray-800">{addressSummary}</p>
               </div>
             )}
             {restaurant.phone && (
-              <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-2 hover:text-[#022D68] transition-colors">
-                <Phone className="h-4 w-4 text-[#022D68]" />
-                <p>{restaurant.phone}</p>
+              <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-2 hover:text-highlight transition-colors">
+                <Phone className="h-4 w-4 text-highlight" />
+                <p className="text-gray-800">{restaurant.phone}</p>
               </a>
             )}
             {restaurant.email && (
-              <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-2 hover:text-[#022D68] transition-colors">
-                <Mail className="h-4 w-4 text-[#022D68]" />
-                <p>{restaurant.email}</p>
+              <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-2 hover:text-highlight transition-colors">
+                <Mail className="h-4 w-4 text-highlight" />
+                <p className="text-gray-800">{restaurant.email}</p>
               </a>
             )}
             {restaurant.opening_hours && (
               <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4 text-[#022D68]" />
-                <p>{formattedHours}</p>
+                <Clock className="h-4 w-4 text-highlight" />
+                <p className="text-gray-800">{formattedHours}</p>
               </div>
             )}
           </div>
@@ -210,7 +210,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           {/* Order Links Section (Redesigned) */}
           {socialLinks.length > 0 && (
             <div className="space-y-4">
-              <h2 className="text-xl font-bold text-[#022D68]">Faça seu pedido</h2>
+              <h2 className="text-xl font-bold text-primary">Faça seu pedido</h2>
               <div className="grid grid-cols-3 gap-4">
                 {socialLinks.map((link, index) => (
                   <OrderLinkButton key={index} link={link} />

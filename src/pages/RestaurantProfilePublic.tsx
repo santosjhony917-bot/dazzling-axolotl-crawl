@@ -27,7 +27,7 @@ export default function RestaurantProfilePublic() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-background-light">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -37,8 +37,8 @@ export default function RestaurantProfilePublic() {
     return (
       <div className="p-8 text-center min-h-screen bg-background-light">
         <div className="fixed top-4 left-4 z-50">
-          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white">
-            <ArrowLeft className="h-5 w-5" />
+          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
+            <ArrowLeft className="h-5 w-5 text-primary" />
           </Button>
         </div>
         <div className="pt-20">
@@ -65,9 +65,9 @@ export default function RestaurantProfilePublic() {
           variant="ghost"
           size="icon"
           onClick={handleBack}
-          className="bg-white/80 backdrop-blur-sm shadow-md hover:bg-white"
+          className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white"
         >
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft className="h-5 w-5 text-primary" />
         </Button>
       </div>
       
