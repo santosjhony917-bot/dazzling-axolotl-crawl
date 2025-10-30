@@ -1,163 +1,139 @@
-"use client";
-
-import { useCallback, useState } from 'react';
-import { Upload, X, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
+import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { cn } from '@/lib/utils';
+import { showError, showSuccess } from '@/utils/toast';
 
-export interface ImageUploadProps {
+interface ImageUploadProps {
   bucket: string;
-  currentImageUrl: string | null;
+  currentImageUrl: string | null | undefined;
   onUploadSuccess: (url: string) => Promise<void>;
-  onRemove: () => Promise<void>; // Added onRemove prop
-  folderPath: string; // e.g., 'restaurant_images' or 'menu_item_images'
-  className?: string;
+  onRemove?: () => Promise<void>; // Adicionado onRemove
+  folderPath: string; // Ex: 'restaurants/uuid/profile'
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   bucket,
   currentImageUrl,
   onUploadSuccess,
-  onRemove,
+  onRemove, // Desestruturado
   folderPath,
-  className,
 }) => {
+  const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      showError('Selecione um arquivo primeiro.');
+      return;
+    }
 
     setIsUploading(true);
 
     try {
-      // 1. Upload the new file
       const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `${folderPath}/${fileName}`;
 
-      const { error: uploadError, data: uploadData } = await supabase.storage
+      // 1. Upload do arquivo
+      const { error: uploadError } = await supabase.storage
         .from(bucket)
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
 
-      if (uploadError) {
-        throw uploadError;
-      }
+      if (uploadError) throw uploadError;
 
-      // 2. Get the public URL
+      // 2. Obter a URL pública
       const { data: publicUrlData } = supabase.storage
         .from(bucket)
-        .getPublicUrl(uploadData.path);
+        .getPublicUrl(filePath);
 
-      const newUrl = publicUrlData.publicUrl;
+      if (!publicUrlData || !publicUrlData.publicUrl) {
+        throw new Error('Falha ao obter URL pública.');
+      }
 
-      // 3. Handle old image removal if necessary (optional, handled by caller if needed, but we focus on success callback here)
+      // 3. Chamar o callback de sucesso (que atualiza o banco de dados)
+      await onUploadSuccess(publicUrlData.publicUrl);
       
-      await onUploadSuccess(newUrl);
-      toast.success('Imagem enviada com sucesso!');
+      setFile(null);
+      showSuccess('Imagem enviada com sucesso!');
 
     } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error('Erro ao enviar imagem.');
+      console.error('Erro durante o upload:', error);
+      showError('Falha no upload da imagem.');
     } finally {
       setIsUploading(false);
     }
-  }, [bucket, folderPath, onUploadSuccess]);
+  };
 
-  const handleRemove = useCallback(async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsUploading(true); // Use uploading state temporarily for removal feedback
-    try {
-        // Note: The actual storage deletion logic is often complex (checking if other items use the same URL)
-        // For simplicity, we rely on the caller (onRemove) to handle form state update (setting URL to null).
-        // If storage deletion is required, it should be implemented here or in the onRemove callback provided by the parent.
-        
-        // If currentImageUrl exists, we attempt to delete the file from storage first.
-        if (currentImageUrl) {
-            // Extract path from URL (this is highly dependent on Supabase URL structure)
-            // Example URL: https://[project_id].supabase.co/storage/v1/object/public/[bucket]/[path]
-            const pathSegments = currentImageUrl.split('/');
-            const path = pathSegments.slice(pathSegments.indexOf(bucket) + 1).join('/');
+  const handleRemove = async () => {
+    if (!currentImageUrl) return;
 
-            if (path) {
-                const { error: deleteError } = await supabase.storage
-                    .from(bucket)
-                    .remove([path]);
-
-                if (deleteError) {
-                    // Log error but proceed, as the main goal is clearing the form state
-                    console.error('Error deleting old image from storage:', deleteError);
-                    // We might still want to proceed with onRemove to clear the UI state
-                }
-            }
-        }
-
-        await onRemove();
-        toast.success('Imagem removida com sucesso!');
-    } catch (error) {
-        console.error('Error removing image:', error);
-        toast.error('Erro ao remover imagem.');
-    } finally {
-        setIsUploading(false);
+    // 1. Chamar o callback de remoção, se existir
+    if (onRemove) {
+      await onRemove();
+    } else {
+      // Fallback: Atualizar o banco de dados para remover a URL
+      await onUploadSuccess(null as any); 
     }
-  }, [currentImageUrl, bucket, onRemove]);
 
+    // 2. Tenta remover o arquivo do storage (opcional, mas boa prática)
+    // Nota: Remover do storage requer o caminho exato do arquivo, que é complexo de extrair da URL pública.
+    // Por simplicidade, focamos em limpar o link no DB.
 
-  if (currentImageUrl) {
-    return (
-      <div className={cn("relative w-full h-48 rounded-lg overflow-hidden group", className)}>
-        <img 
-          src={currentImageUrl} 
-          alt="Uploaded image" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button 
-            variant="destructive" 
-            size="icon" 
-            onClick={handleRemove}
-            disabled={isUploading}
-          >
-            {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <X className="h-4 w-4" />}
-          </Button>
-        </div>
-      </div>
-    );
-  }
+    showSuccess('Imagem removida com sucesso!');
+  };
 
   return (
-    <label 
-      htmlFor="image-upload" 
-      className={cn(
-        "flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors",
-        className
-      )}
-    >
-      <input 
-        id="image-upload" 
-        type="file" 
-        className="hidden" 
-        accept="image/*" 
-        onChange={handleFileUpload} 
-        disabled={isUploading}
-      />
-      {isUploading ? (
-        <div className="flex flex-col items-center justify-center">
-          <Loader2 className="h-8 w-8 text-primary animate-spin" />
-          <p className="mt-2 text-sm text-gray-500">Enviando...</p>
+    <div className="space-y-4">
+      {currentImageUrl ? (
+        <div className="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
+          <img src={currentImageUrl} alt="Imagem Atual" className="object-cover w-full h-full" />
+          <Button
+            type="button"
+            variant="destructive"
+            size="icon"
+            onClick={handleRemove}
+            className="absolute top-2 right-2 rounded-full h-8 w-8"
+            disabled={isUploading}
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-          <Upload className="w-8 h-8 mb-3 text-gray-400" />
-          <p className="mb-2 text-sm text-gray-500">
-            <span className="font-semibold">Clique para enviar</span> ou arraste e solte
-          </p>
-          <p className="text-xs text-gray-500">PNG, JPG ou JPEG (Max 5MB)</p>
+        <div className="w-full h-48 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center text-gray-500">
+          <ImageIcon className="h-8 w-8 mb-2" />
+          <p>Nenhuma imagem selecionada.</p>
         </div>
       )}
-    </label>
+
+      <div className="flex gap-2">
+        <Input 
+          type="file" 
+          accept="image/*" 
+          onChange={handleFileChange} 
+          className="flex-1 rounded-xl"
+          disabled={isUploading}
+        />
+        <Button 
+          onClick={handleUpload} 
+          disabled={isUploading || !file} 
+          className="bg-primary hover:bg-primary/90 rounded-xl"
+        >
+          {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+        </Button>
+      </div>
+      {file && <p className="text-sm text-gray-600">Arquivo pronto para upload: {file.name}</p>}
+    </div>
   );
 };
 
