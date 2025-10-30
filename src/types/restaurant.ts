@@ -15,6 +15,7 @@ export interface PublicRestaurantData extends Restaurant {
   is_favorite: boolean;
   followers_count: number; // Corrected property name (was followersCount in error)
   addressSummary: string; // Computed field used in layouts
+  logoUrl: string | null; // ADDED: Missing property
 
   // Aggregated relations
   menu_categories: (MenuCategory & {

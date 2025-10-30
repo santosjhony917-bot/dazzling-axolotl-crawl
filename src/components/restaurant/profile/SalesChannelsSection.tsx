@@ -4,6 +4,7 @@ import InfoCardItem from '@/components/InfoCardItem';
 import EditFieldDialog from '@/components/EditFieldDialog';
 import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 import { toast } from 'react-hot-toast';
+import { MessageSquare, Utensils, Globe, Link as LinkIcon } from 'lucide-react'; // Importando ícones
 
 interface SalesChannelsSectionProps {
   restaurant: PublicRestaurantData;
@@ -87,6 +88,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       <InfoCardItem 
         label="Link do WhatsApp" 
         value={getDisplayValue(restaurant.whatsapp_url)}
+        icon={MessageSquare} // CORRIGIDO: Adicionado ícone
         onClick={() => openDialog(
           'whatsapp_url', 
           'Link do WhatsApp', 
@@ -98,6 +100,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       <InfoCardItem 
         label="Link do iFood" 
         value={getDisplayValue(restaurant.ifood_url)}
+        icon={Utensils} // CORRIGIDO: Adicionado ícone
         onClick={() => openDialog(
           'ifood_url', 
           'Link do iFood', 
@@ -109,6 +112,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       <InfoCardItem 
         label="Site Próprio / Outro Link" 
         value={getDisplayValue(restaurant.other_url)}
+        icon={Globe} // CORRIGIDO: Adicionado ícone
         onClick={() => openDialog(
           'other_url', 
           'Site Próprio / Outro Link', 
@@ -120,6 +124,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       <InfoCardItem 
         label="Link Externo (Geral)" 
         value={getDisplayValue(restaurant.external_url)}
+        icon={LinkIcon} // CORRIGIDO: Adicionado ícone
         onClick={() => openDialog(
           'external_url', 
           'Link Externo (Geral)', 
