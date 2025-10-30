@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link, MapPin, MessageCircle, Utensils, Clock, Image, Pencil, Phone, Mail, FileText, Globe, Loader2, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { Link, MapPin, MessageCircle, Utensils, Clock, Image, Pencil, Phone, Mail, FileText, Globe, Loader2, ArrowLeft, AlertTriangle, Building2, UtensilsCrossed } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -124,6 +124,28 @@ const ProfileSettingsPage: React.FC = () => {
     setEditModal(null);
   };
   
+  // --- Canais de Venda (Definidos aqui para usar no InfoCardItem) ---
+  const salesChannelItems = useMemo(() => [
+    {
+      label: "WhatsApp",
+      value: data?.whatsapp_url,
+      icon: MessageCircle,
+      fieldName: 'whatsapp_url',
+    },
+    {
+      label: "iFood",
+      value: data?.ifood_url,
+      icon: Utensils,
+      fieldName: 'ifood_url',
+    },
+    {
+      label: "Outro Link / Site",
+      value: data?.other_url,
+      icon: Globe,
+      fieldName: 'other_url',
+    },
+  ], [data]);
+
   // --- Renderização ---
 
   if (authLoading) {
