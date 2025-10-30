@@ -11,6 +11,8 @@ import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
 import { formatOpeningHours } from '@/lib/schedule';
 import { cn } from '@/lib/utils';
+import OrderChannelsSection from './OrderChannelsSection'; // Importando OrderChannelsSection
+import RestaurantInfo from './RestaurantInfo'; // Importando RestaurantInfo
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -25,7 +27,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
     return formatOpeningHours(restaurant.opening_hours);
   }, [restaurant.opening_hours]);
 
-  const addressSummary = useMemo(() => {
+  const fullAddress = useMemo(() => {
     return formatAddressSummary(
       restaurant.address,
       restaurant.number,
@@ -63,7 +65,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       </div>
 
       <div className="container mx-auto px-4 -mt-12 pb-8">
-        {/* Profile Card and Actions */}
+        {/* Profile Card and Actions (Header) */}
         <Card className="p-6 shadow-soft-xl rounded-2xl bg-white relative">
           <div className="flex items-end justify-between">
             {/* Logo and Name */}
@@ -116,14 +118,13 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
             <p className="mt-4 text-gray-600">{restaurant.description}</p>
           )}
 
+          {/* Info Summary (Mantido aqui para o Free, mas será movido para o final no Premium) */}
           <Separator className="my-4" />
-
-          {/* Contact and Location Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
-            {addressSummary && (
+            {fullAddress && (
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-highlight" />
-                <p className="text-gray-800">{addressSummary}</p>
+                <p className="text-gray-800">{fullAddress}</p>
               </div>
             )}
             {restaurant.phone && (
@@ -147,22 +148,27 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           </div>
         </Card>
 
-        {/* Main Content Area */}
+        {/* Main Content Area - NOVA ORDEM */}
         <div className="mt-6 space-y-6">
           
-          {/* Menu Section */}
-          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
-            <RestaurantMenu
-              menuCategories={restaurant.menu_categories}
-            />
-          )}
+          {/* 1. Canais de Pedido (Se houver links) */}
+          <OrderChannelsSection restaurant={restaurant} />
 
-          {/* Gallery Section */}
+          {/* 2. Galeria Section */}
           {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
             <RestaurantGallery
               gallery={restaurant.gallery_images}
             />
           )}
+          
+          {/* 3. Menu Section */}
+          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
+            <RestaurantMenu
+              menuCategories={restaurant.menu_categories}
+            />
+          )}
+          
+          {/* 4. Informações Detalhadas (Pagamento, etc.) - Não implementado no Free, mas o espaço está reservado */}
         </div>
       </div>
     </div>

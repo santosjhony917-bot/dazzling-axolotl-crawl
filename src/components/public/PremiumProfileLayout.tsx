@@ -12,6 +12,8 @@ import { formatAddressSummary } from '@/lib/utils';
 import { formatOpeningHours } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import OrderChannelsSection from './OrderChannelsSection'; // Importando OrderChannelsSection
+import DetailedHoursDisplay from './DetailedHoursDisplay'; // Importando DetailedHoursDisplay
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -27,11 +29,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       links.push({ url: restaurant.whatsapp_url, icon: MessageSquare, label: 'WhatsApp', type: 'whatsapp' });
     }
     if (restaurant.ifood_url) {
-      // Usamos Utensils como placeholder, mas o OrderLinkButton renderizará o logo simulado
       links.push({ url: restaurant.ifood_url, icon: Utensils, label: 'iFood', type: 'ifood' });
     }
     if (restaurant.other_url) {
-      // Assumindo 'Anotaaí' como o rótulo para 'other_url' baseado na imagem
       links.push({ url: restaurant.other_url, icon: Utensils, label: 'Anotaaí', type: 'other' });
     }
     return links;
@@ -120,7 +120,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       </div>
 
       <div className="container mx-auto px-4 -mt-16 pb-8">
-        {/* Profile Card and Actions */}
+        {/* Profile Card and Actions (Header) */}
         <Card className="p-6 shadow-soft-xl rounded-2xl bg-white relative">
           <div className="flex items-end justify-between">
             {/* Logo and Name */}
@@ -173,61 +173,75 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             <p className="mt-4 text-gray-600">{restaurant.description}</p>
           )}
 
-          <Separator className="my-4" />
-
-          {/* Contact and Location Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
-            {addressSummary && ( 
-              <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-highlight" />
-                <p className="text-gray-800">{addressSummary}</p>
-              </div>
-            )}
-            {restaurant.phone && (
-              <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-2 hover:text-highlight transition-colors">
-                <Phone className="h-4 w-4 text-highlight" />
-                <p className="text-gray-800">{restaurant.phone}</p>
-              </a>
-            )}
-            {restaurant.email && (
-              <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-2 hover:text-highlight transition-colors">
-                <Mail className="h-4 w-4 text-highlight" />
-                <p className="text-gray-800">{restaurant.email}</p>
-              </a>
-            )}
-            {restaurant.opening_hours && (
-              <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4 text-highlight" />
-                <p className="text-gray-800">{formattedHours}</p>
-              </div>
-            )}
-          </div>
+          {/* Separator removido daqui, pois as informações de contato foram movidas para o final */}
         </Card>
 
-        {/* Main Content Area */}
+        {/* Main Content Area - NOVA ORDEM */}
         <div className="mt-6 space-y-6">
           
-          {/* Order Links Section (Redesigned) */}
-          {socialLinks.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-primary">Faça seu pedido</h2>
-              <div className="grid grid-cols-3 gap-4">
-                {socialLinks.map((link, index) => (
-                  <OrderLinkButton key={index} link={link} />
-                ))}
-              </div>
-            </div>
-          )}
+          {/* 1. Canais de Pedido */}
+          <OrderChannelsSection restaurant={restaurant} />
 
-          {/* Gallery Section */}
+          {/* 2. Galeria Section */}
           {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
             <RestaurantGallery gallery={restaurant.gallery_images} />
           )}
 
-          {/* Menu Section */}
+          {/* 3. Menu Section */}
           {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
             <RestaurantMenu menuCategories={restaurant.menu_categories} />
           )}
+          
+          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
+          <div className="space-y-4 pt-4">
+            <h2 className="text-xl font-bold text-primary">Informações</h2>
+            
+            {/* Endereço */}
+            {addressSummary && (
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-highlight mt-1 shrink-0" />
+                <div className="flex-1">
+                  <p className="text-base font-semibold text-primary">Endereço</p>
+                  <p className="text-sm text-gray-600">{addressSummary}</p>
+                </div>
+              </div>
+            )}
+            
+            {/* Horário Detalhado */}
+            {restaurant.opening_hours && (
+              <DetailedHoursDisplay schedule={restaurant.opening_hours} />
+            )}
+            
+            {/* Contato (Telefone/Email) */}
+            {(restaurant.phone || restaurant.email) && (
+              <div className="space-y-2 pt-2">
+                <p className="text-base font-semibold text-primary">Contato</p>
+                {restaurant.phone && (
+                  <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
+                    <Phone className="h-5 w-5 text-highlight" />
+                    <span>{restaurant.phone}</span>
+                  </a>
+                )}
+                {restaurant.email && (
+                  <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
+                    <Mail className="h-5 w-5 text-highlight" />
+                    <span>{restaurant.email}</span>
+                  </a>
+                )}
+              </div>
+            )}
+            
+            {/* Formas de Pagamento (Mocked, pois não temos os dados no DB) */}
+            <div className="space-y-2 pt-2">
+                <p className="text-base font-semibold text-primary">Formas de Pagamento</p>
+                <div className="flex flex-wrap gap-2">
+                    <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PIX</span>
+                    <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Crédito</span>
+                    <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Débito</span>
+                    <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Dinheiro</span>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
