@@ -1,13 +1,13 @@
 import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
-import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the canonical schedule type
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
 export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
+
 export type MenuItem = SupabaseMenuItem;
 export type MenuCategory = SupabaseMenuCategory;
 export type GalleryImage = SupabaseGalleryImage;
-
-// O campo opening_hours no DB deve armazenar a estrutura ScheduleWeekSchedule.
-export type WeekSchedule = ScheduleWeekSchedule; 
 
 // Type for public restaurant profile data, including menu and gallery
 export interface PublicRestaurantData extends Restaurant {
