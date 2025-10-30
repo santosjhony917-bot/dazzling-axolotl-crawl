@@ -16,10 +16,11 @@ export default function RestaurantProfilePublic() {
   const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
   useEffect(() => {
+    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
     if (error) {
       showError(error);
     }
-  }, [error]);
+  }, [error, restaurantId]);
 
   const handleBack = () => navigate(-1);
 
@@ -50,6 +51,8 @@ export default function RestaurantProfilePublic() {
       </div>
     );
   }
+  
+  console.log(`[ProfilePublic] Carregando layout para plano: ${restaurant.plan}`);
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
