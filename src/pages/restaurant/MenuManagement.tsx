@@ -16,6 +16,7 @@ import ConfirmationDialog from '@/components/ConfirmationDialog';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { Card, CardContent } from '@/components/ui/card';
+import { showError } from '@/utils/toast';
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
@@ -42,11 +43,20 @@ const MenuManagement: React.FC = () => {
   // --- Handlers de Categoria ---
 
   const handleOpenCategoryDialog = (category: MenuCategory | null) => {
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado. Tente recarregar a página.");
+      return;
+    }
     setEditingCategory(category);
     setIsCategoryDialogOpen(true);
   };
 
   const handleSaveCategory = useCallback(async (data: CategoryFormValues) => {
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado.");
+      return;
+    }
+    
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({ 
         id: editingCategory.id,
@@ -97,7 +107,11 @@ const MenuManagement: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
               <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
-              <Button onClick={() => handleOpenCategoryDialog(null)} disabled={isCategoryMutating} className="bg-highlight hover:bg-highlight/90">
+              <Button 
+                onClick={() => handleOpenCategoryDialog(null)} 
+                disabled={isCategoryMutating || !restaurantId} // Desabilita se não houver restaurantId
+                className="bg-highlight hover:bg-highlight/90"
+              >
                 <Plus className="mr-2 h-4 w-4" /> Adicionar
               </Button>
             </div>

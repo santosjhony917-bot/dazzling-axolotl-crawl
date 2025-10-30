@@ -32,6 +32,10 @@ const fetchCategories = async (restaurantId: string): Promise<MenuCategory[]> =>
 };
 
 const createCategory = async (payload: CreateCategoryPayload) => {
+  if (!payload.restaurant_id) {
+    throw new Error("ID do restaurante é obrigatório para criar uma categoria.");
+  }
+  
   const { data, error } = await supabase
     .from('menu_categories')
     .insert(payload)
