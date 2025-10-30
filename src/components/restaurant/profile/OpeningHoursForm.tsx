@@ -38,12 +38,15 @@ const OpeningHoursForm: React.FC<OpeningHoursFormProps> = ({ restaurant, refetch
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (restaurant.opening_hours) {
-      // Merge saved data with initial structure to ensure all days exist
-      const savedHoursMap = new Map(restaurant.opening_hours.map((h: HourEntry) => [h.day, h]));
+    // Verifica se opening_hours é um array antes de tentar mapear
+    if (Array.isArray(restaurant.opening_hours)) {
+      // Faz o cast explícito para Array<HourEntry> para resolver o erro de tipagem
+      const savedHours = restaurant.opening_hours as Array<HourEntry>;
+      const savedHoursMap = new Map(savedHours.map((h: HourEntry) => [h.day, h]));
       
       const mergedHours = initialHours.map(initial => {
         const saved = savedHoursMap.get(initial.day);
+        // Garante que 'saved' é um objeto HourEntry antes do spread
         return saved ? { ...initial, ...saved } : initial;
       });
       setHours(mergedHours);

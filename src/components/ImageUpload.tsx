@@ -7,7 +7,7 @@ import { showError, showSuccess } from '@/utils/toast';
 interface ImageUploadProps {
   bucket: string;
   currentImageUrl: string | null | undefined;
-  onUploadSuccess: (url: string) => void;
+  onUploadSuccess: (url: string | null) => void; // Permitindo null para remover
   folderPath: string;
 }
 
@@ -65,11 +65,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ bucket, currentImageUrl, onUp
   const handleRemove = async () => {
     if (!currentImageUrl) return;
 
-    // Logic to remove the file from storage (optional, but good practice)
-    // This requires parsing the path from the URL, which can be complex.
-    // For simplicity, we will just clear the URL in the database.
-    
-    onUploadSuccess(null as unknown as string); // Pass null to clear the URL in the parent component
+    // Pass null to clear the URL in the parent component
+    onUploadSuccess(null); 
     showSuccess('Imagem removida.');
   };
 

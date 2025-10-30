@@ -7,6 +7,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { useQueryClient } from '@tanstack/react-query';
+import { Separator } from '@/components/ui/separator'; // Adicionado import do Separator
 
 interface LocationFormProps {
   restaurant: Restaurant;
