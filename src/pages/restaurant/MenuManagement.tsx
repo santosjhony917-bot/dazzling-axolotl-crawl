@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { Plus, Loader2, Utensils } from 'lucide-react';
+import { Plus, Loader2, Utensils, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { MenuCategory, MenuItem } from '@/types/supabase';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Importando do novo hook
+import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
 import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
-import { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando do ItemFormDialog
+import { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { Card, CardContent } from '@/components/ui/card';
 import { showError } from '@/utils/toast';
+import { Link } from 'react-router-dom'; // Importação corrigida para React Router
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
@@ -44,7 +45,7 @@ const MenuManagement: React.FC = () => {
 
   const handleOpenCategoryDialog = (category: MenuCategory | null) => {
     if (!restaurantId) {
-      showError("ID do restaurante não encontrado. Tente recarregar a página.");
+      showError("ID do restaurante não encontrado. Por favor, crie seu restaurante primeiro.");
       return;
     }
     setEditingCategory(category);
@@ -60,7 +61,7 @@ const MenuManagement: React.FC = () => {
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({ 
         id: editingCategory.id,
-        updates: { // CORRIGIDO: Usando a estrutura 'updates'
+        updates: {
           name: data.name,
           is_active: data.is_active,
           order_index: data.order_index,
@@ -83,8 +84,6 @@ const MenuManagement: React.FC = () => {
     setIsConfirmationOpen(true);
   };
   
-  // A reordenação será tratada pelo CategoryList usando useCategoryReorder
-
   // --- Render Logic ---
 
   if (isLoading) {
@@ -92,6 +91,24 @@ const MenuManagement: React.FC = () => {
       <div className="flex justify-center items-center h-64">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
+    );
+  }
+  
+  // Se carregou e não há restaurantId, o usuário precisa criar um restaurante.
+  if (!restaurantId) {
+    return (
+      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <Card className="m-4 p-6 text-center border-dashed border-2 border-red-300 bg-red-50">
+          <AlertTriangle className="h-8 w-8 text-red-600 mx-auto mb-3" />
+          <h2 className="text-xl font-semibold text-red-700 mb-2">Nenhum Restaurante Encontrado</h2>
+          <p className="text-gray-600 mb-4">Você precisa criar e configurar seu restaurante antes de gerenciar o cardápio.</p>
+          <Link to="/restaurant-area/profile-menu">
+            <Button className="bg-red-600 hover:bg-red-700">
+              Ir para Configuração do Restaurante
+            </Button>
+          </Link>
+        </Card>
+      </RestaurantAreaPageLayout>
     );
   }
 
@@ -109,7 +126,7 @@ const MenuManagement: React.FC = () => {
               <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
               <Button 
                 onClick={() => handleOpenCategoryDialog(null)} 
-                disabled={isCategoryMutating || !restaurantId} // Desabilita se não houver restaurantId
+                disabled={isCategoryMutating}
                 className="bg-highlight hover:bg-highlight/90"
               >
                 <Plus className="mr-2 h-4 w-4" /> Adicionar
