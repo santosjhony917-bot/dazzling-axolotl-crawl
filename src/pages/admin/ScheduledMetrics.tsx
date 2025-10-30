@@ -17,6 +17,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Restaurant } from '@/types/supabase';
+import { Badge } from '@/components/ui/badge'; // CORRIGIDO: Importando Badge
 
 // --- Tipos ---
 interface ScheduledMetric {
@@ -28,6 +29,7 @@ interface ScheduledMetric {
   initial_followers: number;
   status: 'pending' | 'active' | 'completed' | 'cancelled';
   created_at: string;
+  restaurants: { name: string } | null; // CORRIGIDO: Adicionando a propriedade aninhada
 }
 
 // --- Hooks de Dados ---
@@ -218,7 +220,7 @@ const ScheduledMetrics: React.FC = () => {
                 <div key={schedule.id} className="p-4 border rounded-xl shadow-soft-sm flex justify-between items-center">
                   <div className="min-w-0 flex-1">
                     <p className="text-base font-bold text-primary truncate">
-                      {(schedule.restaurants as { name: string }).name}
+                      {schedule.restaurants?.name || 'Restaurante Desconhecido'}
                     </p>
                     <p className="text-sm text-gray-600">
                       Alvo: {schedule.target_followers} seguidores (De {schedule.initial_followers})
