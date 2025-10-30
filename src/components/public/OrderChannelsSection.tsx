@@ -15,21 +15,21 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
       label: 'WhatsApp', 
       url: restaurant.whatsapp_url, 
       icon: MessageSquare, 
-      colorClass: 'bg-green-600 hover:bg-green-700 text-white',
+      colorClass: 'text-green-600',
       target: '_blank'
     },
     { 
       label: 'iFood', 
       url: restaurant.ifood_url, 
       icon: Utensils, 
-      colorClass: 'bg-red-600 hover:bg-red-700 text-white',
+      colorClass: 'text-red-600',
       target: '_blank'
     },
     { 
-      label: 'Site Próprio / Outro Link', 
+      label: 'Outro Link', 
       url: restaurant.other_url || restaurant.external_url, 
       icon: Globe, 
-      colorClass: 'bg-primary hover:bg-primary/90 text-white',
+      colorClass: 'text-primary',
       target: '_blank'
     },
   ].filter(link => link.url);
@@ -39,24 +39,25 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
   }
 
   return (
-    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-2 border-highlight/20">
+    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
       <CardContent className="p-0">
         <h2 className="text-xl font-bold text-primary mb-4">Faça seu Pedido</h2>
-        <div className="space-y-3">
-          {orderLinks.map((link) => (
-            <Button 
-              key={link.label} 
-              onClick={() => window.open(link.url!, link.target)}
-              className={cn(
-                "w-full h-12 rounded-xl text-base font-bold shadow-soft-md transition-transform transform hover:scale-[1.01]",
-                link.colorClass
-              )}
-            >
-              <link.icon className="w-5 h-5 mr-3" />
-              {link.label}
-              <ExternalLink className="w-4 h-4 ml-auto opacity-70" />
-            </Button>
-          ))}
+        <div className="grid grid-cols-3 gap-4">
+          {orderLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a 
+                key={link.label} 
+                href={link.url!}
+                target={link.target}
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
+              >
+                <Icon className={cn("w-7 h-7", link.colorClass)} />
+                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
+              </a>
+            );
+          })}
         </div>
       </CardContent>
     </Card>
