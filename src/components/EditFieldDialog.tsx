@@ -106,7 +106,8 @@ const EditFieldDialog: React.FC<EditFieldDialogProps> = ({
                 rules={{ 
                   required: false, // Links são opcionais
                   validate: (value) => {
-                    if (inputType === 'url' && value && !value.startsWith('http')) {
+                    // Adiciona verificação de tipo para garantir que 'value' é uma string
+                    if (inputType === 'url' && typeof value === 'string' && value && !value.startsWith('http')) {
                       return 'O link deve começar com http:// ou https://';
                     }
                     return true;
