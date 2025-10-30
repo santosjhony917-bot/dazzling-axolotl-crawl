@@ -1,19 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail } from 'lucide-react';
+import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
-import { formatOpeningHours } from '@/lib/schedule';
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
-import RestaurantPublicHeader from './RestaurantHeader'; // Importando o novo Header
+import RestaurantPublicHeader from './RestaurantHeader';
+import { motion } from 'framer-motion';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -21,13 +23,8 @@ interface FreeProfileLayoutProps {
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
   const { user } = useAuth();
-  // Usamos useFavoriteToggle para gerenciar o status de "Seguir" (que é o mesmo que Favoritar)
   const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
-
-  const formattedHours = useMemo(() => {
-    if (!restaurant.opening_hours) return 'Horário não definido';
-    return formatOpeningHours(restaurant.opening_hours);
-  }, [restaurant.opening_hours]);
+  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
     return formatAddressSummary(
@@ -51,6 +48,29 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       alert('Link copiado para a área de transferência!');
     }
   };
+  
+  // Função para rolar para a seção
+  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
+    setActiveTab(tab);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  
+  // Dados do Header
+  const headerData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    logoUrl: restaurant.image_url || '',
+    addressSummary: restaurant.addressSummary,
+    followersCount: restaurant.followers_count, // Mapeamento corrigido
+    isFavorite: restaurant.is_favorite, // Mapeamento corrigido
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
+  };
+  
+  // Verifica se há conteúdo para as abas
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
+  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
+  const hasInfo = fullAddress || restaurant.phone || restaurant.email || restaurant.opening_hours;
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -69,14 +89,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       <div className="container mx-auto px-4 -mt-12 pb-8">
         {/* Profile Header (Card Flutuante) */}
         <RestaurantPublicHeader
-          restaurant={{
-            id: restaurant.id,
-            name: restaurant.name,
-            logoUrl: restaurant.image_url || '',
-            addressSummary: restaurant.addressSummary,
-            followersCount: restaurant.followers_count,
-            isFavorite: restaurant.is_favorite,
-          }}
+          restaurant={headerData}
           onFavoriteToggle={toggleFavorite}
           isFavoriteMutating={isToggling}
           onShare={handleShare}
@@ -92,30 +105,78 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
             </Card>
           )}
           
-          {/* 1. Canais de Pedido (Se houver links) */}
+          {/* Canais de Pedido */}
           <OrderChannelsSection restaurant={restaurant} />
-
+          
+          {/* Navegação por Abas (Sticky) */}
+          {(hasMenu || hasGallery || hasInfo) && (
+            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
+              <ScrollArea className="w-full whitespace-nowrap">
+                <div className="flex space-x-4">
+                  {hasMenu && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('menu', 'menu')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                    </Button>
+                  )}
+                  {hasGallery && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('gallery', 'gallery')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Image className="w-4 h-4 mr-2" /> Fotos
+                    </Button>
+                  )}
+                  {hasInfo && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('info-section', 'info')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Info className="w-4 h-4 mr-2" /> Informações
+                    </Button>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+          )}
+          
           {/* 2. Galeria Section */}
-          {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
-            <RestaurantGallery
-              gallery={restaurant.gallery_images}
-            />
+          {hasGallery && (
+            <div id="gallery">
+              <RestaurantGallery gallery={restaurant.gallery_images} />
+            </div>
           )}
           
           {/* 3. Menu Section */}
-          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
-            <RestaurantMenu
-              menuCategories={restaurant.menu_categories}
-            />
+          {hasMenu && (
+            <div id="menu">
+              <RestaurantMenu menuCategories={restaurant.menu_categories} />
+            </div>
           )}
           
-          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
-          <RestaurantInfo 
-            id="info-section"
-            restaurant={restaurant}
-            scheduleDisplay={[]} // Não usado neste componente
-            fullAddress={fullAddress}
-          />
+          {/* 4. Informações Detalhadas */}
+          {hasInfo && (
+            <RestaurantInfo 
+              id="info-section"
+              restaurant={restaurant}
+              scheduleDisplay={[]}
+              fullAddress={fullAddress}
+            />
+          )}
         </div>
       </div>
     </div>

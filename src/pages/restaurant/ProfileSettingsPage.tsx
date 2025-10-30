@@ -21,6 +21,7 @@ import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase'; // Importando o tipo base
 import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo estendido
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -118,6 +119,9 @@ export default function ProfileSettingsPage() {
   // CORREÇÃO 28: Garantindo que opening_hours seja WeekSchedule ou DEFAULT_SCHEDULE
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
   
+  // Calcula o status de abertura
+  const openStatus = getRestaurantOpenStatus(currentSchedule);
+
   // CORREÇÃO 28: Criando um objeto que satisfaça PublicRestaurantData
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
@@ -128,6 +132,10 @@ export default function ProfileSettingsPage() {
     menu_categories: [], // Mocked
     gallery_images: [], // Mocked
     logoUrl: restaurant?.image_url || '', 
+    // Adicionando as propriedades calculadas
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    nextOpenTime: openStatus.nextOpenTime,
   };
 
   return (

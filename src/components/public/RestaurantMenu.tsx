@@ -1,8 +1,11 @@
 import React from 'react';
 import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
+import { ChevronRight, Utensils } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 // Definindo o tipo de categoria esperado (com itens aninhados)
 interface MenuCategoryWithItems extends MenuCategory {
@@ -14,10 +17,16 @@ interface RestaurantMenuProps {
 }
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
+  const navigate = useNavigate();
+  
   if (menuCategories.length === 0) return null;
 
+  const handleItemClick = (itemId: string) => {
+    navigate(createPageUrl('menuItemDetails', { itemId }));
+  };
+
   return (
-    <div className="space-y-6">
+    <div id="menu" className="space-y-6">
       <h2 className="text-xl font-bold text-[#022D68]">Cardápio</h2>
       
       {menuCategories
@@ -32,7 +41,11 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
               .filter(item => item.is_active)
               .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
               .map((item) => (
-              <Card key={item.id} className="p-4 flex items-start space-x-4 shadow-sm hover:shadow-md transition-shadow">
+              <Card 
+                key={item.id} 
+                className="p-4 flex items-start space-x-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => handleItemClick(item.id)}
+              >
                 {item.image_url && (
                   <img 
                     src={item.image_url} 
@@ -48,9 +61,10 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
                     </p>
                   </div>
                   {item.description && (
-                    <p className="text-sm text-gray-500 mt-1">{item.description}</p>
+                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
                   )}
                 </div>
+                <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
               </Card>
             ))}
           </div>

@@ -19,6 +19,11 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> 
   followers_count: number; 
   addressSummary: string; 
   logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
+  isOpen: boolean;
+  statusText: string;
+  nextOpenTime: string | null;
 
   // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
   menu_categories: (MenuCategory & {

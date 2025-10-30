@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Loader2, Share2, UserPlus, MapPin } from 'lucide-react';
+import { Heart, Loader2, Share2, UserPlus, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
@@ -11,10 +11,11 @@ interface RestaurantPublicHeaderProps {
     name: string;
     logoUrl: string;
     addressSummary: string | null;
-    followersCount: number; // Adicionado followersCount
-    isFavorite: boolean; // Usado para o botão de seguir/favoritar
+    followersCount: number;
+    isFavorite: boolean;
+    isOpen?: boolean; // NOVO
+    statusText?: string; // NOVO
   };
-  // Funções de ação
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
   onShare: () => void;
@@ -32,11 +33,14 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({
     addressSummary, 
     followersCount, 
     isFavorite, 
+    isOpen,
+    statusText,
   } = restaurant;
 
-  // O botão de "Seguir" usará a lógica de "Favoritar" (isFavorite)
   const isFollowing = isFavorite; 
   const handleFollowToggle = onFavoriteToggle;
+  
+  const statusColor = isOpen ? 'text-green-600' : 'text-red-600';
 
   return (
     <div className="relative w-full">
@@ -92,6 +96,14 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({
           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
             {followersCount.toLocaleString()} seguidores
           </p>
+          
+          {/* Status de Abertura */}
+          {statusText && (
+            <p className={cn("text-sm font-bold mt-1 flex items-center gap-1", statusColor)}>
+              <Clock className={cn("w-4 h-4", statusColor)} />
+              {statusText}
+            </p>
+          )}
           
           {/* Botão Seguir */}
           <motion.div
