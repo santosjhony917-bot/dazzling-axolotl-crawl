@@ -52,11 +52,14 @@ const OpeningHoursForm: React.FC<OpeningHoursFormProps> = ({ restaurant, refetch
   const [isSaving, setIsSaving] = useState(false);
 
   // Inicializa os horários de funcionamento com base nos dados do restaurante ou um padrão
-  const initialHours = restaurant.opening_hours || DAYS_OF_WEEK.map(day => ({
+  const defaultHours = DAYS_OF_WEEK.map(day => ({
     day: day.id,
     is_open: false,
     periods: [{ open: '09:00', close: '18:00' }],
   }));
+  
+  // Garantindo que o valor inicial seja tratado como o tipo esperado
+  const initialHours: OpeningHoursFormData['opening_hours'] = (restaurant.opening_hours as OpeningHoursFormData['opening_hours']) || defaultHours;
 
   const form = useForm<OpeningHoursFormData>({
     resolver: zodResolver(OpeningHoursSchema),
@@ -67,11 +70,7 @@ const OpeningHoursForm: React.FC<OpeningHoursFormProps> = ({ restaurant, refetch
 
   useEffect(() => {
     form.reset({
-      opening_hours: restaurant.opening_hours || DAYS_OF_WEEK.map(day => ({
-        day: day.id,
-        is_open: false,
-        periods: [{ open: '09:00', close: '18:00' }],
-      })),
+      opening_hours: (restaurant.opening_hours as OpeningHoursFormData['opening_hours']) || defaultHours,
     });
   }, [restaurant, form]);
 

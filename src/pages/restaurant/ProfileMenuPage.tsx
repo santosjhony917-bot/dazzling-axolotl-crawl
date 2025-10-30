@@ -20,6 +20,7 @@ import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
 import { WeekSchedule } from '@/types/schedule';
 import FollowerCountCard from '@/components/restaurant/profile/FollowerCountCard';
+import { Restaurant } from '@/types/supabase'; // Importação adicionada
 
 // Schemas de Validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -208,6 +209,14 @@ export default function ProfileMenuPage() {
             />
           </CardContent>
         </Card>
+
+        {/* Botão de Configurações (Formulário Completo) */}
+        <Button 
+          onClick={() => navigate('/restaurant-area/profile-settings')}
+          className="w-full bg-primary hover:bg-primary/90 h-12 rounded-xl font-bold"
+        >
+          <Settings className="w-5 h-5 mr-2" /> Configurações Avançadas
+        </Button>
       </div>
 
       {/* Diálogo de Edição de Campo Único */}

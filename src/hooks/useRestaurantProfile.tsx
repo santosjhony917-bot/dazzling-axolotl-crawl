@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext'; 
+import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule
 
 /**
  * Hook to fetch and manage the restaurant profile for the currently authenticated owner.
@@ -50,14 +51,20 @@ export function useRestaurantProfile() {
     staleTime: 5 * 60 * 1000,
   });
 
-  const updateRestaurant = async (updates: Partial<Restaurant>) => {
+  // Definindo um tipo de atualização que permite WeekSchedule para opening_hours
+  type RestaurantUpdate = Partial<Omit<Restaurant, 'opening_hours'>> & {
+    opening_hours?: WeekSchedule | null;
+  };
+
+  const updateRestaurant = async (updates: RestaurantUpdate) => {
     if (!restaurant?.id) {
       return { error: "Restaurant ID is missing." };
     }
     
     const { error } = await supabase
       .from('restaurants')
-      .update(updates)
+      // Fazendo cast para Partial<Restaurant> para satisfazer a tipagem do Supabase
+      .update(updates as Partial<Restaurant>) 
       .eq('id', restaurant.id);
       
     if (error) {

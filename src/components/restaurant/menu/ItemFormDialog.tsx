@@ -125,10 +125,14 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
                   <FormLabel>Imagem do Item (Opcional)</FormLabel>
                   <FormControl>
                     <ImageUpload
-                      bucketName="menu_items"
+                      bucket="restaurant_images"
                       currentImageUrl={field.value || undefined}
-                      onUploadSuccess={(url) => field.onChange(url)}
-                      onRemove={() => field.onChange(null)}
+                      onUploadSuccess={async (url) => { // Tornando a função assíncrona
+                        field.onChange(url);
+                      }}
+                      onRemove={async () => { // Tornando a função assíncrona
+                        field.onChange(null);
+                      }}
                       folderPath={`${restaurantId}/${categoryId}`}
                     />
                   </FormControl>
