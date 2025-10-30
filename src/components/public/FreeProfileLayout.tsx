@@ -58,7 +58,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           id="menu"
           restaurantId={restaurant.id}
           isPremium={false}
-          menuCategories={restaurant.menu_categories}
+          menuCategories={restaurant.menu_categories || []} {/* CORREÇÃO APLICADA AQUI */}
         />
 
         <Separator className="my-6" />
@@ -91,7 +91,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           id="gallery"
           restaurantId={restaurant.id}
           plan={restaurant.plan} // Passando o plano
-          galleryImages={restaurant.gallery_images}
+          galleryImages={restaurant.gallery_images || []} {/* CORREÇÃO APLICADA AQUI */}
         />
 
         <div className="h-12"></div>
