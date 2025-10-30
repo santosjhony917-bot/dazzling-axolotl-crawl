@@ -122,30 +122,30 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       </div>
 
       <div className="container mx-auto px-4 -mt-16 pb-8">
-        {/* Profile Header (Novo Componente) */}
-        <Card className="p-6 pt-0 shadow-soft-xl rounded-2xl bg-white relative">
-          <RestaurantPublicHeader
-            restaurant={{
-              id: restaurant.id,
-              name: restaurant.name,
-              logoUrl: restaurant.image_url || '',
-              addressSummary: restaurant.addressSummary,
-              followersCount: restaurant.followers_count,
-              isFavorite: restaurant.is_favorite,
-            }}
-            onFavoriteToggle={toggleFavorite}
-            isFavoriteMutating={isToggling}
-            onShare={handleShare}
-          />
+        {/* Profile Header (Card Flutuante) */}
+        <RestaurantPublicHeader
+          restaurant={{
+            id: restaurant.id,
+            name: restaurant.name,
+            logoUrl: restaurant.image_url || '',
+            addressSummary: restaurant.addressSummary,
+            followersCount: restaurant.followers_count,
+            isFavorite: restaurant.is_favorite,
+          }}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isToggling}
+          onShare={handleShare}
+        />
 
+        {/* Conteúdo Principal (Começa logo abaixo do card flutuante) */}
+        <div className="mt-6 space-y-6">
+          
           {/* Description */}
           {restaurant.description && (
-            <p className="mt-4 text-gray-600">{restaurant.description}</p>
+            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+              <p className="text-gray-600">{restaurant.description}</p>
+            </Card>
           )}
-        </Card>
-
-        {/* Main Content Area - NOVA ORDEM */}
-        <div className="mt-6 space-y-6">
           
           {/* 1. Canais de Pedido */}
           <OrderChannelsSection restaurant={restaurant} />
