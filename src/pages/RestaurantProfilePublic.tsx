@@ -36,6 +36,7 @@ export default function RestaurantProfilePublic() {
   if (error || !restaurant) {
     return (
       <div className="p-8 text-center min-h-screen bg-background-light">
+        {/* O botão de voltar agora é renderizado pelo layout, mas mantemos um fallback aqui */}
         <div className="fixed top-4 left-4 z-50">
           <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
             <ArrowLeft className="h-5 w-5 text-primary" />
@@ -59,17 +60,7 @@ export default function RestaurantProfilePublic() {
   return (
     <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
       
-      {/* Botão de Voltar ABSOLUTO dentro do contêiner max-w-md */}
-      <div className="absolute top-4 left-4 z-50">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleBack}
-          className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white"
-        >
-          <ArrowLeft className="h-5 w-5 text-primary" />
-        </Button>
-      </div>
+      {/* O RestaurantActionsBar será renderizado dentro do layout específico */}
       
       {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
         <PremiumProfileLayout restaurant={restaurant} />

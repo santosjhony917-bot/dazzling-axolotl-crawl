@@ -14,15 +14,18 @@ import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantPublicHeader from './RestaurantHeader';
+import RestaurantActionsBar from './RestaurantHeader'; // NOVO: Renomeado de RestaurantPublicHeader
+import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useNavigate } from 'react-router-dom';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
+  const navigate = useNavigate();
   const { user } = useAuth(); 
   const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
@@ -61,9 +64,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
     id: restaurant.id,
     name: restaurant.name,
     logoUrl: restaurant.image_url || '',
+    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
     addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count, // Mapeamento corrigido
-    isFavorite: restaurant.is_favorite, // Mapeamento corrigido
+    followersCount: restaurant.followers_count,
+    isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
   };
@@ -76,28 +80,25 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
 
   return (
     <div className="min-h-screen bg-background-light">
-      {/* Cover Image Section */}
-      <div className="relative h-48 md:h-64 bg-gray-300 overflow-hidden shadow-soft-md">
-        {restaurant.cover_image_url && (
-          <img
-            src={restaurant.cover_image_url}
-            alt={`Capa de ${restaurant.name}`}
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-      </div>
+      
+      {/* 1. Barra de Ações Flutuante (Sticky) */}
+      <RestaurantActionsBar
+        isFavorite={restaurant.is_favorite}
+        onFavoriteToggle={toggleFavorite}
+        isFavoriteMutating={isToggling}
+        onShare={handleShare}
+        onBack={() => navigate(-1)}
+      />
 
-      <div className="container mx-auto px-4 -mt-12 pb-8">
-        {/* Profile Header (Card Flutuante) */}
-        <RestaurantPublicHeader
-          restaurant={headerData}
-          onFavoriteToggle={toggleFavorite}
-          isFavoriteMutating={isToggling}
-          onShare={handleShare}
-        />
+      {/* 2. Cabeçalho Principal (Capa, Logo, Info) */}
+      <RestaurantProfileHeader
+        restaurant={headerData}
+        onFavoriteToggle={toggleFavorite}
+        isFavoriteMutating={isToggling}
+      />
 
-        {/* Conteúdo Principal (Começa logo abaixo do card flutuante) */}
+      <div className="container mx-auto px-4 pb-8">
+        {/* Conteúdo Principal */}
         <div className="mt-6 space-y-6">
           
           {/* Description */}

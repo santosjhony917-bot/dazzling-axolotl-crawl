@@ -1,51 +1,40 @@
 import React from 'react';
-import { Heart, Loader2, Share2, UserPlus, MapPin, Clock } from 'lucide-react';
+import { Heart, Loader2, Share2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { motion } from 'framer-motion';
 
-interface RestaurantPublicHeaderProps {
-  restaurant: {
-    id: string;
-    name: string;
-    logoUrl: string;
-    addressSummary: string | null;
-    followersCount: number;
-    isFavorite: boolean;
-    isOpen?: boolean; // NOVO
-    statusText?: string; // NOVO
-  };
+interface RestaurantActionsBarProps {
+  isFavorite: boolean;
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
   onShare: () => void;
+  onBack: () => void;
 }
 
-const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({ 
-  restaurant, 
+const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({ 
+  isFavorite, 
   onFavoriteToggle, 
   isFavoriteMutating,
   onShare,
+  onBack,
 }) => {
-  const { 
-    name, 
-    logoUrl, 
-    addressSummary, 
-    followersCount, 
-    isFavorite, 
-    isOpen,
-    statusText,
-  } = restaurant;
-
   const isFollowing = isFavorite; 
   const handleFollowToggle = onFavoriteToggle;
-  
-  const statusColor = isOpen ? 'text-green-600' : 'text-red-600';
 
   return (
-    <div className="relative w-full">
-      {/* Ações de Compartilhar/Favoritar (Posicionadas no topo da Capa) */}
-      <div className="absolute top-4 right-4 z-20 flex space-x-2">
+    <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between p-4">
+      {/* Botão Voltar (Movido para cá) */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={onBack}
+        className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+      >
+        <ArrowLeft className="h-5 w-5 text-primary" />
+      </Button>
+      
+      {/* Ações de Compartilhar/Favoritar */}
+      <div className="flex space-x-2">
         {/* Botão de Favoritar/Seguir */}
         <Button
           variant="ghost"
@@ -76,77 +65,8 @@ const RestaurantPublicHeader: React.FC<RestaurantPublicHeaderProps> = ({
           <Share2 className="w-5 h-5 text-gray-500" />
         </Button>
       </div>
-      
-      {/* Conteúdo Principal (Logo, Nome, Botão Seguir) */}
-      <div className="flex items-start justify-between px-4">
-        {/* Logo (Posicionamento ajustado para ficar mais alto) */}
-        <div className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-800 shadow-soft-lg -mt-12 bg-white dark:bg-gray-700 flex-shrink-0">
-          <img 
-            src={logoUrl || PLACEHOLDER_IMAGE_URL} 
-            alt={`Logo de ${name}`} 
-            className="w-full h-full object-cover rounded-full"
-          />
-        </div>
-        
-        {/* Botão Seguir (Posicionado à direita do nome) */}
-        <div className="flex-grow ml-4 mt-1 min-w-0 flex flex-col items-start">
-          <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white truncate max-w-full">{name}</h1>
-          
-          {/* Contagem de Seguidores */}
-          <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
-            {followersCount.toLocaleString()} seguidores
-          </p>
-          
-          {/* Status de Abertura */}
-          {statusText && (
-            <p className={cn("text-sm font-bold mt-1 flex items-center gap-1", statusColor)}>
-              <Clock className={cn("w-4 h-4", statusColor)} />
-              {statusText}
-            </p>
-          )}
-          
-          {/* Botão Seguir */}
-          <motion.div
-            whileTap={{ scale: 0.95 }}
-            className="mt-3 w-full max-w-[150px]"
-          >
-            <Button
-              variant={isFollowing ? "outline" : "highlight"}
-              size="sm"
-              onClick={handleFollowToggle}
-              disabled={isFavoriteMutating}
-              className={cn(
-                "w-full h-9 rounded-xl text-sm font-bold transition-all",
-                isFollowing 
-                  ? "border-primary text-primary hover:bg-primary/5" 
-                  : "shadow-highlight-glow hover:bg-highlight/90"
-              )}
-            >
-              {isFavoriteMutating ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : isFollowing ? (
-                "Seguindo"
-              ) : (
-                <>
-                  <UserPlus className="w-4 h-4 mr-1" /> Seguir
-                </>
-              )}
-            </Button>
-          </motion.div>
-        </div>
-      </div>
-      
-      {/* Endereço (Movido para baixo do botão Seguir) */}
-      {addressSummary && (
-        <div className="px-4 mt-4">
-          <p className="text-sm text-gray-600 dark:text-gray-400 font-medium flex items-center gap-1 truncate">
-            <MapPin className="w-4 h-4 text-highlight shrink-0" />
-            {addressSummary}
-          </p>
-        </div>
-      )}
     </div>
   );
 };
 
-export default RestaurantPublicHeader;
+export default RestaurantActionsBar;
