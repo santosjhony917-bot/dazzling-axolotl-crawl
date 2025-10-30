@@ -1,17 +1,19 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Package, Camera } from 'lucide-react';
+import { Utensils, Camera, Eye } from 'lucide-react'; // Adicionado Eye
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
-import { showError } from '@/utils/toast'; // Importando showError
+import { showError } from '@/utils/toast';
 
 interface ContentManagementSectionProps {
   navigate: ReturnType<typeof useNavigate>;
   isPremium: boolean;
+  restaurantId: string; // Adicionado
+  restaurantName: string; // Adicionado
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium }) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName }) => {
   
   const handleNavigate = (path: string, isFeaturePremium: boolean) => {
     if (isFeaturePremium && !isPremium) {
@@ -23,7 +25,17 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
   
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gerenciamento de Conteúdo</h2>
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
+      
+      {/* NOVO: Ver Perfil Público */}
+      <NavCardItem 
+        title="Ver Perfil Público" 
+        description={`Veja como ${restaurantName} aparece para os clientes.`}
+        icon={Eye} 
+        onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
+        isPremium={isPremium}
+      />
+      
       <NavCardItem 
         title="Cardápio e Categorias" 
         description="Adicione, edite e organize pratos e categorias."

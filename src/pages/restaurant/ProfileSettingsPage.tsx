@@ -9,6 +9,7 @@ import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
 import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
 import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
+import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection'; // NOVO IMPORT
 import { Separator } from '@/components/ui/separator';
 import { showError, showSuccess } from '@/utils/toast';
 import { z } from 'zod';
@@ -28,8 +29,8 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isPremium } = useAuthData();
-  const { updateRestaurant, refetchProfile } = useRestaurantProfile(restaurant);
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthData();
+  const { updateRestaurant } = useRestaurantProfile(restaurant);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
@@ -115,7 +116,7 @@ export default function ProfileSettingsPage() {
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
 
   return (
-    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/profile-menu">
+    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/home">
       <div className="p-4 space-y-8 max-w-md mx-auto">
         
         {/* 1. Card Principal (Logo e Nome) */}
@@ -154,7 +155,17 @@ export default function ProfileSettingsPage() {
         
         <Separator />
 
-        {/* 4. Canais de Venda */}
+        {/* 4. GESTÃO DE CONTEÚDO (NOVA SEÇÃO) */}
+        <ContentManagementSection
+          navigate={navigate}
+          isPremium={isPremium}
+          restaurantId={restaurant?.id || ''}
+          restaurantName={restaurant?.name || 'Meu Restaurante'}
+        />
+        
+        <Separator />
+
+        {/* 5. Canais de Venda */}
         <SalesChannelsSection
           restaurant={restaurant}
           isPremium={isPremium}
@@ -166,7 +177,7 @@ export default function ProfileSettingsPage() {
         
         <Separator />
 
-        {/* 5. Assinatura e Suporte */}
+        {/* 6. Assinatura e Suporte */}
         <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
         
       </div>
