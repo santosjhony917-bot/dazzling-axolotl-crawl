@@ -94,7 +94,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               id="menu"
               restaurantId={restaurant.id}
               isPremium={true}
-              menuCategories={restaurant.menu_categories || []} {/* CORREÇÃO APLICADA AQUI */}
+              menuCategories={restaurant.menu_categories || []}
             />
           </div>
 
@@ -126,8 +126,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
             <RestaurantGallery
               id="gallery"
               restaurantId={restaurant.id}
-              plan={restaurant.plan} // Passando o plano
-              galleryImages={restaurant.gallery_images || []} {/* CORREÇÃO APLICADA AQUI */}
+              plan={restaurant.plan}
+              galleryImages={restaurant.gallery_images || []}
             />
 
             {/* Informações de Contato e Horário */}
