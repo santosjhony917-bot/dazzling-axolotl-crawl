@@ -1,63 +1,59 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Image } from 'lucide-react';
-import { Textarea } from '@/components/ui/textarea';
+import { Loader2, Clock } from 'lucide-react';
+import { saveUploadRecord } from '@/utils/uploadHistory';
+import { showError, showSuccess } from '@/utils/toast';
+import CsvInputArea from '@/components/admin/CsvInputArea';
 
-interface Phase4Data {
-  gallery_images: any[]; // Simplificado para fins de placeholder
-}
+// Colunas obrigatórias para a Fase 4: Horários
+const REQUIRED_COLUMNS_PHASE4 = ['external_url', 'day', 'open_time', 'close_time'];
 
-interface UploadPhase4Props {
-  onNext: (data: Phase4Data) => void;
-  initialData: Partial<Phase4Data>;
-}
+const UploadPhase4: React.FC = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
 
-const UploadPhase4: React.FC<UploadPhase4Props> = ({ onNext, initialData }) => {
-  const [galleryInput, setGalleryInput] = useState('');
-  
-  // NOTE: Em uma implementação real, você processaria o galleryInput aqui
-  // para gerar a estrutura de gallery_images.
+  const handleProcessCsv = (csvData: string) => {
+    setIsProcessing(true);
+    
+    // Simulação de processamento de dados
+    const lines = csvData.trim().split('\n');
+    const dataRows = lines.slice(1);
+    const successCount = dataRows.length;
 
-  const isFormValid = true; // Permitindo avançar mesmo sem dados por enquanto
+    setTimeout(() => {
+      // Simulação de sucesso no upload
+      saveUploadRecord({
+        phase: 4,
+        successCount: successCount,
+        details: `Upload de ${successCount} horários processado.`,
+      });
+      showSuccess(`Fase 4 concluída! ${successCount} registros processados.`);
+      setIsProcessing(false);
+    }, 1500);
+  };
 
-  const handleNext = () => {
-    // Simulação de processamento de dados da galeria
-    const processedData: Phase4Data = {
-        gallery_images: galleryInput.split('\n').filter(line => line.trim() !== '').map(line => ({ url: line.trim() }))
-    };
-    onNext(processedData);
-  }
+  const placeholder = `external_url,day,open_time,close_time
+https://restaurantea.com.br,monday,09:00,18:00
+https://restaurantea.com.br,tuesday,09:00,18:00
+https://restauranteb.com.br,friday,18:00,23:00
+https://restauranteb.com.br,saturday,18:00,23:00`;
 
   return (
-    <Card className="border-none shadow-none">
+    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="text-xl text-[#022D68]">4. Galeria de Imagens</CardTitle>
+        <CardTitle className="text-xl text-primary">Fase 4: Horários de Funcionamento</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole as URLs das imagens da galeria do restaurante (uma URL por linha).
+          Cole os horários de funcionamento. Use o <code>external_url</code> como chave de referência. Use 'monday', 'tuesday', etc., para os dias da semana.
         </p>
-
-        {/* Gallery Input Area */}
-        <div>
-          <label htmlFor="gallery-input" className="text-sm font-medium text-gray-700 block mb-1">URLs das Imagens</label>
-          <Textarea
-            id="gallery-input"
-            value={galleryInput}
-            onChange={(e) => setGalleryInput(e.target.value)}
-            placeholder="Cole aqui as URLs das imagens (uma por linha)"
-            className="rounded-xl min-h-[150px]"
-          />
-        </div>
-
-        <Button 
-          onClick={handleNext}
-          disabled={!isFormValid}
-          className="mt-6 w-full bg-highlight hover:bg-highlight/90 h-10"
-        >
-          Próxima Fase (Finalizar) <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
+        
+        <CsvInputArea
+          onProcess={handleProcessCsv}
+          isLoading={isProcessing}
+          placeholder={placeholder}
+          buttonText="Processar e Salvar Horários"
+          requiredColumns={REQUIRED_COLUMNS_PHASE4}
+        />
       </CardContent>
     </Card>
   );
