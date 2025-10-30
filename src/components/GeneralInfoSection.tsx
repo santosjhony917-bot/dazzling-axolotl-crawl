@@ -1,25 +1,22 @@
 "use client";
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { InfoCardItem } from '@/components/InfoCardItem';
-import { Building2, UtensilsCrossed, FileText, Mail, Phone, Pencil } from 'lucide-react';
+import { Building2, UtensilsCrossed, Pencil } from 'lucide-react';
 import { UpdateRestaurantPayload } from '@/types/payloads';
 
-interface BasicInfoSectionProps {
+interface GeneralInfoSectionProps {
   data: {
     name: string;
     description: string | null;
     category: string | null;
-    phone: string | null;
-    email: string | null;
-    cnpj: string | null;
   } | null;
   isOwner: boolean;
   onUpdate: (payload: UpdateRestaurantPayload) => Promise<void>;
 }
 
-export function BasicInfoSection({ data, isOwner, onUpdate }: BasicInfoSectionProps) {
+export function GeneralInfoSection({ data, isOwner, onUpdate }: GeneralInfoSectionProps) {
   if (!data) return null;
 
   const handleEdit = (field: keyof UpdateRestaurantPayload, initialValue: string | null) => {
@@ -30,7 +27,7 @@ export function BasicInfoSection({ data, isOwner, onUpdate }: BasicInfoSectionPr
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Informações Básicas</CardTitle>
+        <CardTitle>Informações Gerais</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <InfoCardItem
@@ -52,27 +49,6 @@ export function BasicInfoSection({ data, isOwner, onUpdate }: BasicInfoSectionPr
           value={data.category}
           icon={UtensilsCrossed}
           onClick={() => isOwner && handleEdit('category', data.category)}
-          editIcon={isOwner ? Pencil : null}
-        />
-        <InfoCardItem
-          label="Telefone"
-          value={data.phone}
-          icon={Phone}
-          onClick={() => isOwner && handleEdit('phone', data.phone)}
-          editIcon={isOwner ? Pencil : null}
-        />
-        <InfoCardItem
-          label="Email"
-          value={data.email}
-          icon={Mail}
-          onClick={() => isOwner && handleEdit('email', data.email)}
-          editIcon={isOwner ? Pencil : null}
-        />
-        <InfoCardItem
-          label="CNPJ"
-          value={data.cnpj}
-          icon={FileText}
-          onClick={() => isOwner && handleEdit('cnpj', data.cnpj)}
           editIcon={isOwner ? Pencil : null}
         />
       </CardContent>

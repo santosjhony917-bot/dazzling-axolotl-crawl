@@ -1,61 +1,49 @@
 "use client";
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { InfoCardItem } from '@/components/InfoCardItem';
-import { MapPin, Clock, Check, Pencil } from 'lucide-react';
+import { MapPin, Pencil } from 'lucide-react';
 import { UpdateRestaurantPayload } from '@/types/payloads';
 
-interface LocationHoursSectionProps {
+interface LocationSectionProps {
   data: {
     address: string | null;
     number: string | null;
+    neighborhood: string | null;
     city: string | null;
     state: string | null;
     cep: string | null;
-    opening_hours: any | null;
+    latitude: number | null;
+    longitude: number | null;
   } | null;
   isOwner: boolean;
   onUpdate: (payload: UpdateRestaurantPayload) => Promise<void>;
 }
 
-export function LocationHoursSection({ data, isOwner, onUpdate }: LocationHoursSectionProps) {
+export function LocationSection({ data, isOwner, onUpdate }: LocationSectionProps) {
   if (!data) return null;
 
-  const addressSummary = [data.address, data.number, data.city, data.state, data.cep]
+  const addressSummary = [data.address, data.number, data.neighborhood, data.city, data.state, data.cep]
     .filter(Boolean)
     .join(', ');
-
-  const hoursSummary = data.opening_hours ? 'Horário definido' : 'Não definido';
 
   const handleEditLocation = () => {
     // Placeholder for modal logic
     console.log('Editing location');
   };
 
-  const handleEditHours = () => {
-    // Placeholder for modal logic
-    console.log('Editing hours');
-  };
-
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Localização e Horário</CardTitle>
+        <CardTitle>Localização</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <InfoCardItem
-          label="Endereço"
+          label="Endereço Completo"
           value={addressSummary || 'Não definido'}
           icon={MapPin}
           onClick={() => isOwner && handleEditLocation()}
-          editIcon={isOwner ? Pencil : null}
-        />
-        <InfoCardItem
-          label="Horário de Funcionamento"
-          value={hoursSummary}
-          icon={Clock}
-          onClick={() => isOwner && handleEditHours()}
           editIcon={isOwner ? Pencil : null}
         />
       </CardContent>
