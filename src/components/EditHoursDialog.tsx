@@ -52,7 +52,11 @@ const TimeSlotInput: React.FC<{ slot: TimeSlot, onChange: (newSlot: TimeSlot) =>
 
 const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedule, onUpdate: (newSchedule: DaySchedule) => void }> = ({ day, schedule, onUpdate }) => {
   const handleToggleOpen = (isOpen: boolean) => {
-    onUpdate({ ...schedule, isOpen, slots: isOpen && schedule.slots.length === 0 ? [{ start: '09:00', end: '18:00' }] : schedule.slots });
+    onUpdate({ 
+      ...schedule, 
+      isOpen, 
+      slots: isOpen && schedule.slots.length === 0 ? [{ start: '09:00', end: '18:00' }] : schedule.slots 
+    });
   };
 
   const handleAddSlot = () => {

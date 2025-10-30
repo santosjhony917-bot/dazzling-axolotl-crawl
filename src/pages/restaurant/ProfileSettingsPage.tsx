@@ -115,17 +115,18 @@ export default function ProfileSettingsPage() {
     );
   }
   
+  // CORREÇÃO 28: Garantindo que opening_hours seja WeekSchedule ou DEFAULT_SCHEDULE
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
   
-  // CORREÇÃO ERRO 4: Criando um objeto que satisfaça PublicRestaurantData para SalesChannelsSection
+  // CORREÇÃO 28: Criando um objeto que satisfaça PublicRestaurantData
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
+    opening_hours: currentSchedule, // Usando o tipo WeekSchedule
     is_favorite: false, // Mocked
     followers_count: 0, // Mocked
     addressSummary: restaurant?.city || '', // Mocked
     menu_categories: [], // Mocked
     gallery_images: [], // Mocked
-    // CORRIGIDO ERRO 5: Usando 'image_url' que é a propriedade correta no tipo Restaurant
     logoUrl: restaurant?.image_url || '', 
   };
 
@@ -181,7 +182,7 @@ export default function ProfileSettingsPage() {
 
         {/* 5. Canais de Venda */}
         <SalesChannelsSection
-          restaurant={publicRestaurantData} // CORRIGIDO ERRO 4: Passando o tipo PublicRestaurantData
+          restaurant={publicRestaurantData}
         />
         
         <Separator />
@@ -193,12 +194,12 @@ export default function ProfileSettingsPage() {
       
       {/* Dialogs */}
       {editConfig && (
-        <EditClientFieldDialog // CORRIGIDO ERRO 5: Usando o componente correto
+        <EditClientFieldDialog
           isOpen={isEditDialogOpen}
           onClose={() => setIsEditDialogOpen(false)}
           title={editConfig.title}
           fieldName={editConfig.fieldName}
-          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''} // CORRIGIDO ERRO 5: Usando o tipo Restaurant
+          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''}
           icon={editConfig.icon}
           onSave={handleSaveField}
           placeholder={editConfig.placeholder}

@@ -1,10 +1,16 @@
 import React from 'react';
-import { MenuCategory } from '@/types/restaurant';
+import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
+
+// Definindo o tipo de categoria esperado (com itens aninhados)
+interface MenuCategoryWithItems extends MenuCategory {
+  menu_items: MenuItem[];
+}
 
 interface RestaurantMenuProps {
-  menuCategories: MenuCategory[];
+  menuCategories: MenuCategoryWithItems[];
 }
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
@@ -37,8 +43,8 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
                 <div className="flex-grow">
                   <div className="flex justify-between items-start">
                     <h4 className="font-semibold text-lg text-[#022D68]">{item.name}</h4>
-                    <p className="font-bold text-lg text-green-600 ml-4">
-                      R$ {item.price.toFixed(2).replace('.', ',')}
+                    <p className="font-bold text-lg text-highlight ml-4">
+                      {formatPrice(item.price)}
                     </p>
                   </div>
                   {item.description && (

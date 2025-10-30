@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import InfoCardItem from '@/components/InfoCardItem';
 import { MapPin, Clock, Check } from 'lucide-react';
-import { WeekSchedule } from '@/types/schedule';
+import { WeekSchedule, DaySchedule } from '@/types/schedule';
 
 interface LocationHoursSectionProps {
   restaurant: any;

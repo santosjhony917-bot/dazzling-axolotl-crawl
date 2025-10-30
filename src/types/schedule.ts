@@ -1,12 +1,14 @@
 // Define a slot for opening/closing time
 export interface TimeSlot {
-  open_time: string; // e.g., "08:00"
-  close_time: string; // e.g., "18:00"
-  is_closed: boolean;
+  start: string; // e.g., "08:00"
+  end: string; // e.g., "18:00"
 }
 
-// DaySchedule is an array of TimeSlot, allowing for split shifts (e.g., lunch and dinner)
-export type DaySchedule = TimeSlot[];
+// DaySchedule is now an object containing status and an array of TimeSlot
+export interface DaySchedule {
+  isOpen: boolean;
+  slots: TimeSlot[];
+}
 
 // WeekSchedule maps day names to DaySchedule
 export interface WeekSchedule {
