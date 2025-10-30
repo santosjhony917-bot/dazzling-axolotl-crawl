@@ -5,16 +5,6 @@ interface OpeningHoursDisplayProps {
   openingHours: WeekSchedule; // Usando o tipo WeekSchedule
 }
 
-const dayNames: { [key in keyof WeekSchedule]: string } = {
-  mon: 'Segunda-feira', // Chave incorreta, deve ser 'monday'
-  tue: 'Terça-feira',
-  wed: 'Quarta-feira',
-  thu: 'Quinta-feira',
-  fri: 'Sexta-feira',
-  sat: 'Sábado',
-  sun: 'Domingo',
-};
-
 const daysOrder: (keyof WeekSchedule)[] = [
   'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
 ];
