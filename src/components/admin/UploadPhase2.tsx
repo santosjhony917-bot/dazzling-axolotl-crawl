@@ -1,57 +1,92 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, MapPin } from 'lucide-react';
-import { saveUploadRecord } from '@/utils/uploadHistory';
-import { showError, showSuccess } from '@/utils/toast';
-import CsvInputArea from '@/components/admin/CsvInputArea';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, MapPin } from 'lucide-react';
 
-// Colunas obrigatórias para a Fase 2: Endereços e Localização
-const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
+interface Phase2Data {
+  address: string;
+  latitude: number | null;
+  longitude: number | null;
+}
 
-const UploadPhase2: React.FC = () => {
-  const [isProcessing, setIsProcessing] = useState(false);
+interface UploadPhase2Props {
+  onNext: (data: Phase2Data) => void;
+  initialData: Partial<Phase2Data>;
+}
 
-  const handleProcessCsv = (csvData: string) => {
-    setIsProcessing(true);
-    
-    // Simulação de processamento de dados
-    const lines = csvData.trim().split('\n');
-    const dataRows = lines.slice(1);
-    const successCount = dataRows.length;
+const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext, initialData }) => {
+  const [data, setData] = useState<Phase2Data>({
+    address: initialData.address || '',
+    latitude: initialData.latitude || null,
+    longitude: initialData.longitude || null,
+  });
 
-    setTimeout(() => {
-      // Simulação de sucesso no upload
-      saveUploadRecord({
-        phase: 2,
-        successCount: successCount,
-        details: `Upload de ${successCount} endereços processado.`,
-      });
-      showSuccess(`Fase 2 concluída! ${successCount} registros processados.`);
-      setIsProcessing(false);
-    }, 1500);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setData(prev => ({ 
+      ...prev, 
+      [id]: id === 'latitude' || id === 'longitude' ? (parseFloat(value) || null) : value 
+    }));
   };
 
-  const placeholder = `external_url,cep,address,number,neighborhood,city,state
-https://restaurantea.com.br,58039-000,Rua Exemplo,100,Tambaú,João Pessoa,PB
-https://restauranteb.com.br,58040-100,Av. Principal,250,Centro,Campina Grande,PB`;
+  const isFormValid = data.address && data.latitude !== null && data.longitude !== null;
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">Fase 2: Endereços e Localização</CardTitle>
+        <CardTitle className="text-xl text-[#022D68]">2. Localização e Coordenadas</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         <p className="text-gray-600 mb-4">
-          Cole os dados de endereço. Use o <code>external_url</code> como chave de referência. O sistema tentará geocodificar as coordenadas.
+          Insira o endereço completo e as coordenadas geográficas (Latitude e Longitude).
         </p>
-        
-        <CsvInputArea
-          onProcess={handleProcessCsv}
-          isLoading={isProcessing}
-          placeholder={placeholder}
-          buttonText="Processar e Salvar Endereços"
-          requiredColumns={REQUIRED_COLUMNS_PHASE2}
-        />
+
+        {/* Address */}
+        <div>
+          <label htmlFor="address" className="text-sm font-medium text-gray-700 block mb-1">Endereço Completo *</label>
+          <Input
+            id="address"
+            value={data.address}
+            onChange={handleChange}
+            placeholder="Ex: Rua Principal, 123, Centro, Cidade"
+            className="h-10 rounded-xl"
+          />
+        </div>
+
+        {/* Latitude */}
+        <div>
+          <label htmlFor="latitude" className="text-sm font-medium text-gray-700 block mb-1">Latitude *</label>
+          <Input
+            id="latitude"
+            type="number"
+            value={data.latitude ?? ''}
+            onChange={handleChange}
+            placeholder="Ex: -23.5505"
+            className="h-10 rounded-xl"
+          />
+        </div>
+
+        {/* Longitude */}
+        <div>
+          <label htmlFor="longitude" className="text-sm font-medium text-gray-700 block mb-1">Longitude *</label>
+          <Input
+            id="longitude"
+            type="number"
+            value={data.longitude ?? ''}
+            onChange={handleChange}
+            placeholder="Ex: -46.6333"
+            className="h-10 rounded-xl"
+          />
+        </div>
+
+        <Button 
+          onClick={() => onNext(data)}
+          disabled={!isFormValid}
+          className="mt-6 w-full bg-highlight hover:bg-highlight/90 h-10"
+        >
+          Próxima Fase (Cardápio) <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
       </CardContent>
     </Card>
   );

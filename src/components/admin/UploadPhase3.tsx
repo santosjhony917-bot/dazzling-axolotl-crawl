@@ -1,58 +1,63 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, UtensilsCrossed } from 'lucide-react';
-import { saveUploadRecord } from '@/utils/uploadHistory';
-import { showError, showSuccess } from '@/utils/toast';
-import CsvInputArea from '@/components/admin/CsvInputArea';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Menu } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
-// Colunas obrigatórias para a Fase 3: Cardápios e Itens
-const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
+interface Phase3Data {
+  menu_items: any[]; // Simplificado para fins de placeholder
+}
 
-const UploadPhase3: React.FC = () => {
-  const [isProcessing, setIsProcessing] = useState(false);
+interface UploadPhase3Props {
+  onNext: (data: Phase3Data) => void;
+  initialData: Partial<Phase3Data>;
+}
 
-  const handleProcessCsv = (csvData: string) => {
-    setIsProcessing(true);
-    
-    // Simulação de processamento de dados
-    const lines = csvData.trim().split('\n');
-    const dataRows = lines.slice(1);
-    const successCount = dataRows.length;
+const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext, initialData }) => {
+  const [menuInput, setMenuInput] = useState('');
+  
+  // NOTE: Em uma implementação real, você processaria o menuInput aqui
+  // para gerar a estrutura de menu_items.
 
-    setTimeout(() => {
-      // Simulação de sucesso no upload
-      saveUploadRecord({
-        phase: 3,
-        successCount: successCount,
-        details: `Upload de ${successCount} itens de menu processado.`,
-      });
-      showSuccess(`Fase 3 concluída! ${successCount} itens processados.`);
-      setIsProcessing(false);
-    }, 1500);
-  };
+  const isFormValid = true; // Permitindo avançar mesmo sem dados por enquanto
 
-  const placeholder = `external_url,category_name,item_name,price,description,image_url
-https://restaurantea.com.br,Pizzas,Pizza Calabresa,39.90,Mussarela e calabresa,https://link.com/pizza.jpg
-https://restaurantea.com.br,Bebidas,Refrigerante Lata,5.00,Coca-cola 350ml,https://link.com/refri.jpg
-https://restauranteb.com.br,Sanduíches,X-Bacon,25.00,Pão, carne, queijo e bacon,https://link.com/xbacon.jpg`;
+  const handleNext = () => {
+    // Simulação de processamento de dados do menu
+    const processedData: Phase3Data = {
+        menu_items: menuInput.split('\n').filter(line => line.trim() !== '').map(line => ({ name: line.trim() }))
+    };
+    onNext(processedData);
+  }
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-xl text-primary">Fase 3: Cardápios e Itens</CardTitle>
+        <CardTitle className="text-xl text-[#022D68]">3. Cardápio e Itens</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         <p className="text-gray-600 mb-4">
-          Cole os dados do cardápio. Use o <code>external_url</code> como chave de referência. O sistema criará categorias e itens automaticamente.
+          Cole os dados do cardápio (categorias e itens) para este restaurante.
         </p>
-        
-        <CsvInputArea
-          onProcess={handleProcessCsv}
-          isLoading={isProcessing}
-          placeholder={placeholder}
-          buttonText="Processar e Salvar Cardápios"
-          requiredColumns={REQUIRED_COLUMNS_PHASE3}
-        />
+
+        {/* Menu Input Area */}
+        <div>
+          <label htmlFor="menu-input" className="text-sm font-medium text-gray-700 block mb-1">Dados do Cardápio (JSON/CSV/Texto)</label>
+          <Textarea
+            id="menu-input"
+            value={menuInput}
+            onChange={(e) => setMenuInput(e.target.value)}
+            placeholder="Cole aqui os dados do cardápio (Ex: Categoria 1, Item A, Preço; Categoria 2, Item B, Preço)"
+            className="rounded-xl min-h-[150px]"
+          />
+        </div>
+
+        <Button 
+          onClick={handleNext}
+          disabled={!isFormValid}
+          className="mt-6 w-full bg-highlight hover:bg-highlight/90 h-10"
+        >
+          Próxima Fase (Galeria) <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
       </CardContent>
     </Card>
   );
