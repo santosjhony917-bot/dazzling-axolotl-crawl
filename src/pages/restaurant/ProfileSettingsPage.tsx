@@ -14,11 +14,13 @@ import { Separator } from '@/components/ui/separator';
 import { showError, showSuccess } from '@/utils/toast';
 import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
-import EditFieldDialog from '@/components/EditFieldDialog';
+import EditClientFieldDialog from '@/components/EditClientFieldDialog'; // CORRIGIDO: Importando o componente correto
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo base
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo estendido
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -114,6 +116,17 @@ export default function ProfileSettingsPage() {
   }
   
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
+  
+  // CORREÇÃO ERRO 4: Criando um objeto que satisfaça PublicRestaurantData para SalesChannelsSection
+  const publicRestaurantData: PublicRestaurantData = {
+    ...(restaurant as Restaurant),
+    is_favorite: false, // Mocked
+    followers_count: 0, // Mocked
+    addressSummary: restaurant?.city || '', // Mocked
+    menu_categories: [], // Mocked
+    gallery_images: [], // Mocked
+    logoUrl: restaurant?.image_url || '', // Mocked
+  };
 
   return (
     <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/home">
@@ -167,12 +180,7 @@ export default function ProfileSettingsPage() {
 
         {/* 5. Canais de Venda */}
         <SalesChannelsSection
-          restaurant={restaurant}
-          isPremium={isPremium}
-          handleEditField={handleEditField}
-          whatsappSchema={urlSchema}
-          ifoodSchema={urlSchema}
-          otherUrlSchema={urlSchema}
+          restaurant={publicRestaurantData} // CORRIGIDO ERRO 4: Passando o tipo PublicRestaurantData
         />
         
         <Separator />
@@ -184,12 +192,12 @@ export default function ProfileSettingsPage() {
       
       {/* Dialogs */}
       {editConfig && (
-        <EditFieldDialog
+        <EditClientFieldDialog // CORRIGIDO ERRO 5: Usando o componente correto
           isOpen={isEditDialogOpen}
           onClose={() => setIsEditDialogOpen(false)}
           title={editConfig.title}
           fieldName={editConfig.fieldName}
-          currentValue={restaurant?.[editConfig.key as keyof typeof restaurant] as string || ''}
+          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''} // CORRIGIDO ERRO 5: Usando o tipo Restaurant
           icon={editConfig.icon}
           onSave={handleSaveField}
           placeholder={editConfig.placeholder}

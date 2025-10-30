@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import InfoCardItem from '@/components/restaurant/profile/InfoCardItem';
+import InfoCardItem from '@/components/InfoCardItem'; // CORRIGIDO: Caminho de importação
 import EditFieldDialog from '@/components/EditFieldDialog';
 import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 import { toast } from 'react-hot-toast';
@@ -18,7 +18,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
     inputType: 'text' | 'textarea' | 'number' | 'url';
   } | null>(null);
 
-  const { mutate: updateRestaurant, isLoading } = useRestaurantUpdate();
+  const { mutate: updateRestaurant, isPending } = useRestaurantUpdate(); // CORRIGIDO: Usando isPending
 
   const openDialog = (
     name: keyof PublicRestaurantData, 
@@ -132,7 +132,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
           initialValue={restaurant[currentField.name] as string | number | undefined}
           inputType={currentField.inputType}
           onSave={handleSave}
-          loading={isLoading}
+          loading={isPending} // CORRIGIDO: Usando isPending
         />
       )}
     </div>
