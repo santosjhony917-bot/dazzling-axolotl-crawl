@@ -1,15 +1,12 @@
+"use client";
+
 import React from 'react';
-import { MenuCategory } from '@/types/menu';
-import { Card, CardContent } from '@/components/ui/card';
+import { MenuCategory } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, ArrowUp, ArrowDown, Loader2, ChevronRight } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { useCategoryMutations } from '@/hooks/useCategoryManagement';
-import { useNavigate } from 'react-router-dom';
-import { Routes } from '@/router/routes';
-import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
-import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
+import { Edit, Trash2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+// import Link from 'next/link'; // Removido
 
 interface CategoryListItemProps {
   category: MenuCategory;
@@ -19,101 +16,56 @@ interface CategoryListItemProps {
   onMoveDown: () => void;
   isFirst: boolean;
   isLast: boolean;
-  isSwapping: boolean;
+  isMutating: boolean;
 }
 
-export const CategoryListItem: React.FC<CategoryListItemProps> = ({
+const CategoryListItem: React.FC<CategoryListItemProps> = ({
   category,
   onEdit,
   onDelete,
-  onMoveUp,
-  onMoveDown,
-  isFirst,
-  isLast,
-  isSwapping,
+  isMutating,
 }) => {
-  const navigate = useNavigate();
-  const { updateCategoryMutation } = useCategoryMutations(category.restaurant_id);
-  const isUpdating = updateCategoryMutation.isPending;
-
-  const handleToggleActive = (checked: boolean) => {
-    updateCategoryMutation.mutate({
-      id: category.id,
-      updates: { // Changed to updates object based on new type definition
-        name: category.name,
-        is_active: checked,
-      }
-    });
-  };
-
-  const handleNavigateToItems = () => {
-    // Navega para a rota de detalhes da categoria
-    navigate(`/restaurant-area/menu/${category.id}`);
-  };
+  const statusText = category.is_active ? 'Ativa' : 'Inativa';
+  const statusVariant = category.is_active ? 'default' : 'secondary';
 
   return (
-    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
-      <CardContent className="p-0 flex items-center justify-between">
-        {/* Área Clicável para Navegação */}
-        <div 
-          className="flex items-center space-x-4 flex-grow p-4 cursor-pointer hover:bg-gray-50 transition-colors rounded-l-xl"
-          onClick={handleNavigateToItems}
+    <Card className="p-4 flex items-center justify-between transition-shadow hover:shadow-md">
+      <div className="flex items-center space-x-4 min-w-0">
+        <div className="flex-shrink-0">
+          <Badge variant={statusVariant}>{statusText}</Badge>
+        </div>
+        <div className="min-w-0">
+          {/* Substituído Link por <a> */}
+          <a href={`/restaurant-area/menu/${category.id}`} className="text-lg font-semibold text-primary hover:underline truncate">
+            {category.name}
+          </a>
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-2 flex-shrink-0">
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onEdit(category); }}
+          disabled={isMutating}
+          aria-label="Editar Categoria"
         >
-          <h3 className="text-lg font-bold text-primary">{category.name}</h3>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`active-switch-${category.id}`}
-              checked={category.is_active}
-              onCheckedChange={handleToggleActive}
-              disabled={isUpdating}
-              // Previne que o clique no switch navegue
-              onClick={(e) => e.stopPropagation()} 
-              className="data-[state=checked]:bg-highlight"
-            />
-            <Label htmlFor={`active-switch-${category.id}`} className="text-sm text-gray-500">
-              {category.is_active ? 'Ativa' : 'Inativa'}
-            </Label>
-            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-          </div>
-        </div>
-
-        <div className="flex space-x-2 items-center p-4 border-l border-gray-100">
-          {/* Botões de Reordenação */}
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
-            disabled={isFirst || isSwapping}
-            title="Mover para cima"
-            className="h-8 w-8 text-primary hover:bg-primary/5"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
-            disabled={isLast || isSwapping}
-            title="Mover para baixo"
-            className="h-8 w-8 text-primary hover:bg-primary/5"
-          >
-            <ArrowDown className="w-4 h-4" />
-          </Button>
-          
-          {isSwapping && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-
-          {/* Botões de Ação */}
-          <Button variant="outline" size="icon" onClick={(e) => { e.stopPropagation(); onEdit(category); }} title="Editar" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="icon" onClick={(e) => { e.stopPropagation(); onDelete(category.id); }} title="Deletar" className="h-8 w-8 bg-red-600 hover:bg-red-700">
-            <Trash2 className="w-4 h-4" />
-          </Button>
-          
-          {/* Indicador de Navegação */}
-          <ChevronRight className="w-5 h-5 text-gray-400 ml-2" />
-        </div>
-      </CardContent>
+          <Edit className="h-4 w-4" />
+        </Button>
+        
+        <Button 
+          variant="destructive" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onDelete(category.id); }}
+          disabled={isMutating}
+          aria-label="Excluir Categoria"
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
     </Card>
   );
 };
+
+export default CategoryListItem;

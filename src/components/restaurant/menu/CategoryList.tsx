@@ -1,8 +1,10 @@
+"use client";
+
 import React from 'react';
-import { MenuCategory } from '@/types/menu';
-import { CategoryListItem } from './CategoryListItem';
-import { useCategoryMutations } from '@/hooks/useCategoryManagement';
-import { useCategoryReorder } from '@/hooks/useCategoryReorder'; // Importando o hook de reordenação
+import { MenuCategory } from '@/types/supabase';
+import CategoryListItem from './CategoryListItem';
+import { useCategoryMutations } from '@/hooks/useCategoryManagement'; // Usando useCategoryMutations para obter o estado de mutação
+import { Loader2 } from 'lucide-react';
 
 interface CategoryListProps {
   categories: MenuCategory[];
@@ -11,48 +13,51 @@ interface CategoryListProps {
   onDelete: (categoryId: string) => void;
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ categories, restaurantId, onEdit, onDelete }) => {
-  const swapCategoryOrderMutation = useCategoryReorder(restaurantId); // Corrigido para atribuir o resultado diretamente
-
-  const handleSwap = (category_id_a: string, category_id_b: string) => {
-    swapCategoryOrderMutation.mutate({ category_id_a, category_id_b });
-  };
-
-  const handleMoveUp = (index: number) => {
-    if (index > 0) {
-      const categoryA = categories[index];
-      const categoryB = categories[index - 1];
-      handleSwap(categoryA.id, categoryB.id);
-    }
-  };
-
-  const handleMoveDown = (index: number) => {
-    if (index < categories.length - 1) {
-      const categoryA = categories[index];
-      const categoryB = categories[index + 1];
-      handleSwap(categoryA.id, categoryB.id);
-    }
-  };
+const CategoryList: React.FC<CategoryListProps> = ({
+  categories,
+  restaurantId,
+  onEdit,
+  onDelete,
+}) => {
+  // Usamos useCategoryMutations apenas para obter o estado de mutação global
+  const { deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } = useCategoryMutations(restaurantId);
+  
+  // O estado de mutação agora reflete qualquer operação CRUD em andamento
+  const isMutating = deleteCategoryMutation.isPending || createCategoryMutation.isPending || updateCategoryMutation.isPending;
 
   if (categories.length === 0) {
-    return <p className="text-center text-gray-500 mt-8">Nenhuma categoria encontrada. Crie sua primeira categoria!</p>;
+    return (
+      <div className="text-center p-8 border rounded-lg bg-gray-50 text-gray-600">
+        Nenhuma categoria de menu encontrada. Clique em "Adicionar" para começar.
+      </div>
+    );
   }
 
+  // Funções de mover vazias (mantidas para satisfazer a interface do CategoryListItem)
+  const handleMoveUp = () => {};
+  const handleMoveDown = () => {};
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {categories.map((category, index) => (
         <CategoryListItem
           key={category.id}
           category={category}
           onEdit={onEdit}
           onDelete={onDelete}
-          onMoveUp={() => handleMoveUp(index)}
-          onMoveDown={() => handleMoveDown(index)}
+          onMoveUp={handleMoveUp}
+          onMoveDown={handleMoveDown}
           isFirst={index === 0}
           isLast={index === categories.length - 1}
-          isSwapping={swapCategoryOrderMutation.isPending}
+          isMutating={isMutating}
         />
       ))}
+      {isMutating && (
+        <div className="flex items-center justify-center p-4 text-sm text-gray-500">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Atualizando...
+        </div>
+      )}
     </div>
   );
 };
