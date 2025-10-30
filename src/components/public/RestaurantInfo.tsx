@@ -3,29 +3,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Phone, Mail, Clock, ExternalLink } from 'lucide-react';
 import { OpeningHoursDisplay } from './OpeningHoursDisplay';
 import { WeekSchedule } from '@/types/schedule';
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
 
 interface RestaurantInfoProps {
   id: string;
-  restaurant: {
-    address: string | null;
-    number: string | null;
-    neighborhood: string | null;
-    city: string | null;
-    state: string | null;
-    cep: string | null;
-    phone: string | null;
-    email: string | null;
-    whatsappUrl: string | null;
-    ifoodUrl: string | null;
-    otherUrl: string | null;
-    openingHours: any; // JSONB structure
-  };
-  scheduleDisplay: string[];
+  restaurant: PublicRestaurantData; // Usando o tipo completo
+  scheduleDisplay: string[]; // Mantido, mas não usado internamente
   fullAddress: string;
 }
 
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant, scheduleDisplay, fullAddress }) => {
   
+  // Acessando campos diretamente do objeto restaurant (PublicRestaurantData)
+  const { phone, email, opening_hours } = restaurant;
+
   const infoItems = [
     {
       icon: MapPin,
@@ -37,14 +28,14 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant, schedul
     {
       icon: Phone,
       label: 'Telefone',
-      value: restaurant.phone,
-      link: restaurant.phone ? `tel:${restaurant.phone.replace(/\D/g, '')}` : undefined,
+      value: phone,
+      link: phone ? `tel:${phone.replace(/\D/g, '')}` : undefined,
     },
     {
       icon: Mail,
       label: 'Email',
-      value: restaurant.email,
-      link: restaurant.email ? `mailto:${restaurant.email}` : undefined,
+      value: email,
+      link: email ? `mailto:${email}` : undefined,
     },
   ].filter(item => item.value);
 
@@ -82,14 +73,14 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant, schedul
         </div>
 
         {/* Horário de Funcionamento (Usando o componente OpeningHoursDisplay) */}
-        {restaurant.openingHours && (
+        {opening_hours && (
           <div className="pt-4 border-t border-gray-100">
             <div className="flex items-start">
               <Clock className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
                 <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
                 {/* Usando o componente OpeningHoursDisplay que exporta a função */}
-                <OpeningHoursDisplay openingHours={restaurant.openingHours} />
+                <OpeningHoursDisplay openingHours={opening_hours} />
               </div>
             </div>
           </div>

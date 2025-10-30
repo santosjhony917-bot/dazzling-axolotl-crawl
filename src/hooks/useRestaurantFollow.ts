@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthData } from '@/context/AuthContext';
-import { showError, showSuccess } from 'react-hot-toast'; // Usando react-hot-toast
+import { showError, showSuccess } from '@/utils/toast'; // CORRIGIDO: Importando de utils/toast
 
 interface FollowTogglePayload {
   restaurantId: string;
