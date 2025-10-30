@@ -9,7 +9,7 @@ interface RestaurantGalleryProps {
   id: string;
   restaurantId: string;
   plan: RestaurantPlan;
-  galleryImages: PublicGalleryImage[]; // Recebe as imagens diretamente do layout
+  galleryImages: PublicGalleryImage[] | null | undefined; // Recebe as imagens diretamente do layout
 }
 
 const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId, plan, galleryImages }) => {
@@ -17,6 +17,9 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId,
   // CORREÇÃO: Incluindo 'premium_gift' na verificação
   const isPremium = plan === 'premium' || plan === 'premium_gift';
   
+  // Garantir que galleryImages seja um array para evitar o erro .length
+  const images = galleryImages || [];
+
   if (!isPremium) {
     return (
       <Card id={id} className="shadow-soft-md border-none rounded-xl p-6 text-center bg-gray-50 border-dashed border-gray-300">
@@ -27,7 +30,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId,
     );
   }
   
-  if (galleryImages.length === 0) {
+  if (images.length === 0) {
     return null; // Não exibe a seção se não houver fotos, mesmo sendo Premium
   }
 
@@ -39,8 +42,8 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId,
       </CardHeader>
       <CardContent className="p-4">
         <PhotoGalleryDisplay 
-          gallery={galleryImages} 
-          restaurantName={galleryImages[0]?.caption || "Restaurante"} 
+          gallery={images} 
+          restaurantName={images[0]?.caption || "Restaurante"} 
           isLoading={false} // Já carregado pelo layout pai
         />
       </CardContent>
