@@ -1,21 +1,22 @@
 "use client";
 
-import React from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useState } from 'react';
+import { useAuthData } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { createPageUrl } from '@/utils/url';
 import { ClientBasicInfoSection } from '@/components/ClientBasicInfoSection';
-import ChangePasswordDialog from '@/components/ChangePasswordDialog'; // Assuming this component exists or will be created
+import ChangePasswordDialog from '@/components/ChangePasswordDialog';
 import { LogOut, User, Lock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 
 const ClientProfilePage: React.FC = () => {
-  const { user, profile, isLoading } = useAuth();
+  const { user, profile, isLoading } = useAuthData();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -56,11 +57,18 @@ const ClientProfilePage: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChangePasswordDialog>
-              <Button variant="outline" className="w-full justify-start">
-                Alterar Senha
-              </Button>
-            </ChangePasswordDialog>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start"
+              onClick={() => setIsPasswordDialogOpen(true)}
+            >
+              Alterar Senha
+            </Button>
+            
+            <ChangePasswordDialog
+              isOpen={isPasswordDialogOpen}
+              onClose={() => setIsPasswordDialogOpen(false)}
+            />
           </CardContent>
         </Card>
 
