@@ -1,23 +1,32 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
+// Function to format the address into a summary string
+export function formatAddressSummary(
+  address: string | null | undefined, 
+  number: string | null | undefined, 
+  neighborhood: string | null | undefined, 
+  city: string | null | undefined, 
+  state: string | null | undefined
+): string {
+  const parts = [];
+  if (address) parts.push(address);
+  if (number) parts.push(`, ${number}`);
+  if (neighborhood) parts.push(` - ${neighborhood}`);
+  if (city) parts.push(`, ${city}`);
+  if (state) parts.push(`/${state}`);
+  
+  return parts.join('');
+}
+
+// Function to format price to Brazilian Real (R$ X,XX)
 export function formatPrice(price: number): string {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   }).format(price);
-}
-
-// Exporting formatCurrency as an alias for formatPrice
-export const formatCurrency = formatPrice;
-
-export function formatDistance(km: number): string {
-  if (km < 1) {
-    return `${Math.round(km * 1000)} m`;
-  }
-  return `${km.toFixed(1)} km`;
 }

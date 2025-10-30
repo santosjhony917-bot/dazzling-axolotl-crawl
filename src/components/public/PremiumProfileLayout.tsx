@@ -1,168 +1,234 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { Card, CardContent } from '@/components/ui/card';
-import { Check, ExternalLink, Globe, Heart, MessageSquare, Utensils } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
-import RestaurantGallery from '@/components/public/RestaurantGallery';
-import RestaurantMenu from '@/components/public/RestaurantMenu';
-import { OpeningHoursDisplay } from '@/components/public/OpeningHoursDisplay';
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
+import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { MessageSquare, Utensils, Globe, MapPin, Clock, Heart, Share2, Phone, Mail } from 'lucide-react';
+import RestaurantMenu from './RestaurantMenu';
+import RestaurantGallery from './RestaurantGallery';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
+import { formatAddressSummary } from '@/lib/utils';
+import { formatOpeningHours } from '@/lib/schedule';
+import { Link } from 'react-router-dom';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
-  const navigate = useNavigate();
-  const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
+  const { user } = useAuth(); 
+  const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
 
-  const socialLinks = [
-    { label: 'WhatsApp', url: restaurant.whatsapp_url, icon: MessageSquare },
-    { label: 'iFood', url: restaurant.ifood_url, icon: Utensils },
-    { label: 'Site Próprio', url: restaurant.other_url || restaurant.external_url, icon: Globe },
-  ].filter(link => link.url);
+  const socialLinks = useMemo(() => {
+    const links = [];
+    if (restaurant.whatsapp_url) {
+      links.push({ url: restaurant.whatsapp_url, icon: MessageSquare, label: 'WhatsApp', type: 'whatsapp' });
+    }
+    if (restaurant.ifood_url) {
+      // Usamos Utensils como placeholder, mas o OrderLinkButton renderizará o logo simulado
+      links.push({ url: restaurant.ifood_url, icon: Utensils, label: 'iFood', type: 'ifood' });
+    }
+    if (restaurant.other_url) {
+      // Assumindo 'Anotaaí' como o rótulo para 'other_url' baseado na imagem
+      links.push({ url: restaurant.other_url, icon: Utensils, label: 'Anotaaí', type: 'other' });
+    }
+    return links;
+  }, [restaurant]);
+
+  const formattedHours = useMemo(() => {
+    if (!restaurant.opening_hours) return 'Horário não definido';
+    return formatOpeningHours(restaurant.opening_hours);
+  }, [restaurant.opening_hours]);
+
+  const addressSummary = useMemo(() => {
+    return formatAddressSummary(
+      restaurant.address,
+      restaurant.number,
+      restaurant.neighborhood,
+      restaurant.city,
+      restaurant.state
+    );
+  }, [restaurant]);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: restaurant.name,
+        text: `Confira o perfil de ${restaurant.name}!`,
+        url: window.location.href,
+      }).catch(console.error);
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copiado para a área de transferência!');
+    }
+  };
+
+  // Helper function to render icons with specific colors
+  const renderIcon = (IconComponent: React.ElementType, type: string) => {
+    if (type === 'whatsapp') {
+      return <IconComponent className="h-6 w-6 text-green-600" />;
+    }
+    // Default for other links (Anotaaí/Other Link)
+    return <IconComponent className="h-6 w-6 text-[#022D68]" />;
+  };
+
+  // Helper component for the stylized link button (New Design)
+  const OrderLinkButton: React.FC<{ link: typeof socialLinks[0] }> = ({ link }) => {
+    const Icon = link.icon;
+    
+    const isIfood = link.type === 'ifood';
+    
+    return (
+      <a 
+        href={link.url} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        // Estilização para corresponder à imagem: botões grandes, arredondados, fundo claro
+        className="flex flex-col items-center justify-center p-3 w-full h-24 bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-center"
+      >
+        <div className="h-8 flex items-center justify-center">
+          {isIfood ? (
+            // Simulação do logo iFood: negrito, itálico, cor vermelha
+            <span className="text-2xl font-extrabold text-[#EA1D2C] italic leading-none">iFood</span>
+          ) : (
+            renderIcon(Icon, link.type)
+          )}
+        </div>
+        <span className="mt-1 text-sm font-medium text-gray-700 leading-tight">
+          {link.label}
+        </span>
+      </a>
+    );
+  };
+
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="relative">
-        <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
-        
-        {/* Botão de Favorito no topo da capa */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full shadow-lg z-20"
-          onClick={toggleFavorite}
-          disabled={isMutating}
-        >
-          <Heart className={`h-6 w-6 transition-colors ${isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-500'}`} />
-        </Button>
+    <div className="min-h-screen bg-gray-50">
+      {/* Cover Image and Header Section */}
+      <div className="relative h-48 md:h-64 bg-gray-300 overflow-hidden">
+        {restaurant.cover_image_url && (
+          <img
+            src={restaurant.cover_image_url}
+            alt={`Capa de ${restaurant.name}`}
+            className="w-full h-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10">
-        {/* Seção de Perfil e Informações Principais */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* Coluna Principal (Logo, Nome, Descrição, Menu, Galeria) */}
-          <div className="lg:col-span-2 space-y-6">
-            
-            {/* Card de Informações Principais */}
-            <Card className="p-6 shadow-xl rounded-2xl bg-white dark:bg-gray-800">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-                
-                {/* Logo */}
-                <div className="w-24 h-24 flex-shrink-0 rounded-full overflow-hidden border-4 border-white dark:border-gray-900 shadow-lg">
-                  <img 
-                    src={restaurant.image_url || "https://via.placeholder.com/150?text=Premium"} 
+      <div className="container mx-auto px-4 -mt-16 pb-8">
+        {/* Profile Card and Actions */}
+        <Card className="p-6 shadow-lg rounded-xl bg-white relative">
+          <div className="flex items-end justify-between">
+            {/* Logo and Name */}
+            <div className="flex items-end">
+              <div className="w-24 h-24 md:w-32 md:h-32 bg-white border-4 border-white rounded-full shadow-md -mt-12 md:-mt-16 flex items-center justify-center overflow-hidden">
+                {restaurant.image_url ? (
+                  <img
+                    src={restaurant.image_url}
                     alt={`Logo de ${restaurant.name}`}
                     className="w-full h-full object-cover"
                   />
-                </div>
-
-                {/* Nome e Status */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h1 className="text-2xl font-extrabold text-primary">{restaurant.name}</h1>
-                    <Check className="w-4 h-4 text-green-600 fill-green-600" />
-                  </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{restaurant.category}</p>
-                  
-                  <div className="flex items-center gap-3 mt-1">
-                    <p className="text-sm text-gray-600">{restaurant.followers_count.toLocaleString()} seguidores</p>
-                    <span className="text-xs font-bold text-highlight flex items-center">
-                      <Heart className="w-3 h-3 mr-1 text-red-500 fill-red-500" /> {isFavorite ? 'Favoritado' : 'Adicionar aos Favoritos'}
-                    </span>
-                  </div>
-                </div>
+                ) : (
+                  <Utensils className="w-12 h-12 text-gray-400" />
+                )}
               </div>
-            </Card>
+              <div className="ml-4 pb-2">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-[#022D68] leading-tight">
+                  {restaurant.name}
+                </h1>
+                <p className="text-sm text-gray-500">{restaurant.category}</p>
+              </div>
+            </div>
 
-            {/* Descrição */}
-            {restaurant.description && (
-              <Card className="shadow-soft-md border-none rounded-xl p-4">
-                <CardContent className="p-0 text-gray-700 dark:text-gray-300">
-                  {restaurant.description}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Menu */}
-            <RestaurantMenu
-              id="menu"
-              restaurantId={restaurant.id}
-              isPremium={true}
-              menuCategories={restaurant.menu_categories || []}
-            />
-
+            {/* Actions (Favorite/Share) */}
+            <div className="flex space-x-2 pb-2">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                // CORREÇÃO 8: Chamando a função sem argumentos
+                onClick={() => toggleFavorite()} 
+                disabled={!user || isToggling} 
+                className="rounded-full bg-white hover:bg-gray-50"
+              >
+                <Heart 
+                  className={`h-5 w-5 transition-colors ${restaurant.is_favorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} 
+                />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={handleShare}
+                className="rounded-full bg-white hover:bg-gray-50"
+              >
+                <Share2 className="h-5 w-5 text-gray-500" />
+              </Button>
+            </div>
           </div>
 
-          {/* Coluna Lateral (Links, Horários, Galeria) */}
-          <div className="lg:col-span-1 space-y-6">
-            
-            {/* Links Sociais */}
-            {socialLinks.length > 0 && (
-              <Card className="p-4 shadow-soft-md rounded-xl">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Links Rápidos</p>
-                <div className="space-y-2">
-                  {socialLinks.map((link) => (
-                    <a 
-                      key={link.label} 
-                      href={link.url!} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center p-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm font-medium text-gray-800 dark:text-gray-200"
-                    >
-                      <link.icon className="w-4 h-4 mr-3 text-primary" />
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </Card>
+          {/* Description */}
+          {restaurant.description && (
+            <p className="mt-4 text-gray-600">{restaurant.description}</p>
+          )}
+
+          <Separator className="my-4" />
+
+          {/* Contact and Location Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
+            {addressSummary && ( 
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-4 w-4 text-[#022D68]" />
+                <p>{addressSummary}</p>
+              </div>
             )}
-
-            {/* Galeria */}
-            <RestaurantGallery
-              id="gallery"
-              restaurantId={restaurant.id}
-              plan={restaurant.plan}
-              galleryImages={restaurant.gallery_images || []}
-            />
-
-            {/* Informações de Contato e Horário */}
-            <Card className="p-4 shadow-soft-md rounded-xl">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Localização e Contato</p>
-              
-              {/* Endereço */}
-              {restaurant.addressSummary && (
-                <div className="flex items-start text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  <Globe className="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-primary" />
-                  <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.addressSummary)}`} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline flex items-center"
-                  >
-                    {restaurant.addressSummary}
-                    <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />
-                  </a>
-                </div>
-              )}
-
-              {/* Horário de Funcionamento */}
-              <Separator className="my-3" />
-              <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-              {restaurant.opening_hours ? (
-                <OpeningHoursDisplay openingHours={restaurant.opening_hours as any} />
-              ) : (
-                <p className="text-sm text-gray-500">Horário não informado.</p>
-              )}
-            </Card>
+            {restaurant.phone && (
+              <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-2 hover:text-[#022D68] transition-colors">
+                <Phone className="h-4 w-4 text-[#022D68]" />
+                <p>{restaurant.phone}</p>
+              </a>
+            )}
+            {restaurant.email && (
+              <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-2 hover:text-[#022D68] transition-colors">
+                <Mail className="h-4 w-4 text-[#022D68]" />
+                <p>{restaurant.email}</p>
+              </a>
+            )}
+            {restaurant.opening_hours && (
+              <div className="flex items-center space-x-2">
+                <Clock className="h-4 w-4 text-[#022D68]" />
+                <p>{formattedHours}</p>
+              </div>
+            )}
           </div>
+        </Card>
+
+        {/* Main Content Area */}
+        <div className="mt-6 space-y-6">
+          
+          {/* Order Links Section (Redesigned) */}
+          {socialLinks.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-[#022D68]">Faça seu pedido</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {socialLinks.map((link, index) => (
+                  <OrderLinkButton key={index} link={link} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Gallery Section */}
+          {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
+            <RestaurantGallery gallery={restaurant.gallery_images} />
+          )}
+
+          {/* Menu Section */}
+          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
+            <RestaurantMenu menuCategories={restaurant.menu_categories} />
+          )}
         </div>
-        <div className="h-12"></div>
       </div>
     </div>
   );
