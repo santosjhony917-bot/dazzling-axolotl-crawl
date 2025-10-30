@@ -448,6 +448,8 @@ export interface Database {
           latitude: number | null
           longitude: number | null
           category: string | null
+          city: string | null
+          state: string | null
           distance_km: number
         }[]
       }
