@@ -8,13 +8,16 @@ interface RestaurantMenuProps {
   id: string;
   restaurantId: string;
   isPremium: boolean;
-  menuCategories: PublicMenuCategory[]; // Recebe as categorias e itens diretamente do layout
+  menuCategories: PublicMenuCategory[] | null | undefined; // Permitindo null/undefined
 }
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ id, restaurantId, isPremium, menuCategories }) => {
   
+  // Adiciona verificação de null/undefined antes de tentar filtrar
+  const categoriesToProcess = menuCategories || [];
+  
   // Filtrar categorias que não possuem itens ativos
-  const activeCategories = menuCategories.filter(category => category.menu_items && category.menu_items.length > 0);
+  const activeCategories = categoriesToProcess.filter(category => category.menu_items && category.menu_items.length > 0);
 
   if (activeCategories.length === 0) {
     return (
