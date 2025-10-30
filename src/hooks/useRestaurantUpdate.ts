@@ -16,7 +16,6 @@ interface UpdatePayload {
     whatsapp_url: string;
     ifood_url: string;
     other_url: string;
-    external_url: string;
     address: string;
     number: string;
     neighborhood: string;
