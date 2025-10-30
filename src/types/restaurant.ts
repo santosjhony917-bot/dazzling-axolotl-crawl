@@ -11,11 +11,14 @@ export type GalleryImage = SupabaseGalleryImage;
 
 // Type for public restaurant profile data, including menu and gallery
 export interface PublicRestaurantData extends Restaurant {
+  // Overriding the default 'Json' type from Supabase for opening_hours
+  opening_hours: WeekSchedule | null; 
+  
   // Computed fields from the view/query
   is_favorite: boolean;
-  followers_count: number; // Corrected property name (was followersCount in error)
-  addressSummary: string; // Computed field used in layouts
-  logoUrl: string | null; // ADDED: Missing property
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
 
   // Aggregated relations
   menu_categories: (MenuCategory & {
