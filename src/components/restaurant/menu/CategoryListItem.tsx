@@ -4,9 +4,10 @@ import React from 'react';
 import { MenuCategory } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-// import Link from 'next/link'; // Removido
+import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import { createPageUrl } from '@/utils/url'; // Importando createPageUrl
 
 interface CategoryListItemProps {
   category: MenuCategory;
@@ -25,25 +26,36 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
   onDelete,
   isMutating,
 }) => {
+  const navigate = useNavigate(); // Inicializando useNavigate
   const statusText = category.is_active ? 'Ativa' : 'Inativa';
   const statusVariant = category.is_active ? 'default' : 'secondary';
+  
+  const handleNavigateToDetails = (e: React.MouseEvent) => {
+    e.preventDefault(); // Previne o comportamento padrão do link
+    if (!isMutating) {
+      navigate(createPageUrl('restaurant-area/category-details', { categoryId: category.id }));
+    }
+  };
 
   return (
-    <Card className="p-4 flex items-center justify-between transition-shadow hover:shadow-md">
-      <div className="flex items-center space-x-4 min-w-0">
+    <Card 
+      className="p-4 flex items-center justify-between transition-shadow hover:shadow-md cursor-pointer"
+      onClick={handleNavigateToDetails} // Adicionando o clique no card inteiro
+    >
+      <div className="flex items-center space-x-4 min-w-0 flex-1">
         <div className="flex-shrink-0">
           <Badge variant={statusVariant}>{statusText}</Badge>
         </div>
-        <div className="min-w-0">
-          {/* Substituído Link por <a> */}
-          <a href={`/restaurant-area/menu/${category.id}`} className="text-lg font-semibold text-primary hover:underline truncate">
+        <div className="min-w-0 flex-1">
+          <p className="text-lg font-semibold text-primary hover:underline truncate">
             {category.name}
-          </a>
+          </p>
         </div>
       </div>
 
       <div className="flex items-center space-x-2 flex-shrink-0">
         
+        {/* Botão de Edição */}
         <Button 
           variant="outline" 
           size="icon" 
@@ -54,6 +66,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
           <Edit className="h-4 w-4" />
         </Button>
         
+        {/* Botão de Exclusão */}
         <Button 
           variant="destructive" 
           size="icon" 
@@ -63,6 +76,9 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
         >
           <Trash2 className="h-4 w-4" />
         </Button>
+        
+        {/* Ícone de Navegação (Visual) */}
+        <ChevronRight className="h-5 w-5 text-gray-400 ml-2" />
       </div>
     </Card>
   );
