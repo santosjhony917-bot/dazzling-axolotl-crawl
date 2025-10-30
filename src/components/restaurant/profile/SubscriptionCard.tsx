@@ -1,96 +1,84 @@
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { cn } from '@/lib/utils';
+import { Crown, Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Restaurant } from '@/types/supabase';
+import { format } from 'date-fns';
 
 interface SubscriptionCardProps {
-  isPremium: boolean;
+  restaurant: Restaurant;
 }
 
-const premiumFeatures = [
-  { text: "Destaque na busca", icon: Gem },
-  { text: "Aparência personalizada", icon: Trophy },
-  { text: "Estatísticas detalhadas", icon: BarChart3 },
-  { text: "Edição avançada de cardápio", icon: Pencil },
-  { text: "Notificações para seguidores", icon: Bell },
-];
-
-const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ isPremium }) => {
-  const navigate = useNavigate();
+const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ restaurant }) => {
+  const plan = restaurant.plan || 'free';
+  const isPremium = plan === 'premium';
 
   const handleUpgradeClick = () => {
-    navigate(createPageUrl('restaurant-area/upgrade'));
+    // Lógica para redirecionar ou abrir modal de upgrade
+    console.log('Iniciando processo de upgrade...');
+    // Aqui você pode adicionar a navegação para a página de planos
   };
 
-  const currentPlan = isPremium ? 'Premium' : 'Free';
-  const planColor = isPremium ? 'text-amber-600' : 'text-gray-600';
-  const iconBg = isPremium ? 'bg-amber-100' : 'bg-gray-100';
+  const getPlanDetails = () => {
+    switch (plan) {
+      case 'premium':
+        return {
+          title: 'Plano Premium',
+          description: 'Acesso total a todos os recursos, incluindo localização avançada e destaque.',
+          color: 'text-yellow-600',
+          icon: <CheckCircle className="w-5 h-5 text-green-500" />,
+        };
+      case 'basic':
+        return {
+          title: 'Plano Básico',
+          description: 'Recursos essenciais para gerenciar seu menu e perfil.',
+          color: 'text-blue-600',
+          icon: <CheckCircle className="w-5 h-5 text-green-500" />,
+        };
+      case 'free':
+      default:
+        return {
+          title: 'Plano Gratuito',
+          description: 'Funcionalidades limitadas. Considere fazer upgrade para mais visibilidade.',
+          color: 'text-gray-600',
+          icon: <XCircle className="w-5 h-5 text-red-500" />,
+        };
+    }
+  };
+
+  const details = getPlanDetails();
 
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Plano e Assinatura</h2>
-      
-      <Card className="shadow-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
-        <CardContent className="p-0">
-          {/* Status do Plano Atual */}
-          <div className="flex items-center gap-4 pb-4 border-b border-gray-100 dark:border-gray-700">
-            <div className={cn("w-12 h-12 rounded-full flex items-center justify-center", iconBg)}>
-              <Crown className={cn("w-6 h-6 fill-amber-500", planColor)} />
-            </div>
-            <div>
-              <p className="text-xl font-bold text-[#022D68]">Plano atual: {currentPlan}</p>
-              <p className="text-sm text-gray-600">{isPremium ? 'Todos os recursos desbloqueados' : 'Recursos básicos'}</p>
+    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <CardHeader>
+        <CardTitle className="text-xl text-[#022D68] flex items-center gap-2">
+          <Crown className="w-5 h-5 text-yellow-500" /> Assinatura
+        </CardTitle>
+        <CardDescription>Gerencie seu plano de assinatura e benefícios.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center gap-3">
+              {details.icon}
+              <div>
+                <p className="font-semibold text-lg">{details.title}</p>
+                <p className="text-sm text-gray-500">{details.description}</p>
+              </div>
             </div>
           </div>
 
-          {/* Seção de Upgrade (Apenas se for Free) */}
-          {!isPremium && (
-            <div className="mt-4 space-y-4">
-              <div className="bg-yellow-50/50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200">
-                <h3 className="text-base font-bold text-amber-700 dark:text-amber-400 flex items-center mb-3">
-                  <Zap className="w-5 h-5 mr-2 fill-amber-500 text-amber-500" />
-                  Desbloqueie com Premium:
-                </h3>
-                <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                  {premiumFeatures.map((feature, index) => {
-                    const Icon = feature.icon;
-                    return (
-                      <li key={index} className="flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-amber-500 fill-amber-100 dark:fill-amber-900" />
-                        {feature.text}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleUpgradeClick}
-                className="w-full h-12 rounded-xl text-lg font-bold text-white bg-highlight hover:bg-highlight/90 shadow-highlight-glow transition-all hover:shadow-soft-xl"
-              >
-                <Crown className="w-5 h-5 mr-2 fill-white" />
-                Ativar Premium
-              </Button>
-            </div>
-          )}
-          
           {isPremium && (
-            <div className="mt-4">
-                <Button
-                    onClick={handleUpgradeClick}
-                    variant="outline"
-                    className="w-full h-12 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5"
-                >
-                    Gerenciar Assinatura
-                </Button>
+            <div className="text-sm text-gray-600">
+              <p>Início da Assinatura: {format(new Date(restaurant.created_at), 'dd/MM/yyyy')}</p>
+              {/* Se houvesse um campo de expiração, ele seria exibido aqui */}
             </div>
           )}
-        </CardContent>
-      </Card>
-    </div>
+
+          {/* Botão de upgrade removido conforme solicitado */}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
