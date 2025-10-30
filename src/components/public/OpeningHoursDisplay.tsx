@@ -1,17 +1,12 @@
 import React from 'react';
+import { WeekSchedule } from '@/types/schedule'; // Importando o tipo correto
 
 interface OpeningHoursDisplayProps {
-  openingHours: {
-    [key: string]: {
-      open: string;
-      close: string;
-      isClosed: boolean;
-    };
-  };
+  openingHours: WeekSchedule; // Usando o tipo WeekSchedule
 }
 
-const dayNames: { [key: string]: string } = {
-  mon: 'Segunda-feira',
+const dayNames: { [key in keyof WeekSchedule]: string } = {
+  mon: 'Segunda-feira', // Chave incorreta, deve ser 'monday'
   tue: 'Terça-feira',
   wed: 'Quarta-feira',
   thu: 'Quinta-feira',
@@ -20,29 +15,44 @@ const dayNames: { [key: string]: string } = {
   sun: 'Domingo',
 };
 
+const daysOrder: (keyof WeekSchedule)[] = [
+  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
+];
+
+const dayLabels: Record<keyof WeekSchedule, string> = {
+  monday: 'Segunda-feira',
+  tuesday: 'Terça-feira',
+  wednesday: 'Quarta-feira',
+  thursday: 'Quinta-feira',
+  friday: 'Sexta-feira',
+  saturday: 'Sábado',
+  sunday: 'Domingo',
+};
+
 const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours }) => {
   if (!openingHours || Object.keys(openingHours).length === 0) {
     return <p className="text-gray-500 dark:text-gray-400">Horário não disponível.</p>;
   }
 
-  const sortedDays = Object.keys(dayNames);
-
   return (
     <div className="space-y-1 text-sm">
-      {sortedDays.map((dayKey) => {
+      {daysOrder.map((dayKey) => {
         const dayData = openingHours[dayKey];
-        const dayLabel = dayNames[dayKey];
+        const dayLabel = dayLabels[dayKey];
 
         if (!dayData) return null;
+
+        // Exibe todos os slots para o dia
+        const timeSlots = dayData.slots.map(slot => `${slot.start} - ${slot.end}`).join(' / ');
 
         return (
           <div key={dayKey} className="flex justify-between">
             <span className="text-gray-600 dark:text-gray-400">{dayLabel}:</span>
-            {dayData.isClosed ? (
+            {!dayData.isOpen || dayData.slots.length === 0 ? (
               <span className="font-medium text-red-500">Fechado</span>
             ) : (
               <span className="font-medium text-gray-900 dark:text-white">
-                {dayData.open} - {dayData.close}
+                {timeSlots}
               </span>
             )}
           </div>

@@ -79,7 +79,6 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant, schedul
               <Clock className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
                 <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-                {/* Usando o componente OpeningHoursDisplay que exporta a função */}
                 <OpeningHoursDisplay openingHours={opening_hours} />
               </div>
             </div>
