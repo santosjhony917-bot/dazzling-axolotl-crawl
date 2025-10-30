@@ -22,7 +22,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
   const handleFollowToggle = onFavoriteToggle;
 
   return (
-    <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between p-4">
+    <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4">
       {/* Botão Voltar (Movido para cá) */}
       <Button
         variant="ghost"

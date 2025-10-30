@@ -13,7 +13,7 @@ import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a fun√ß√
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
-import RestaurantActionsBar from './RestaurantHeader'; // NOVO: Renomeado de RestaurantPublicHeader
+import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
 import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
