@@ -60,7 +60,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           id="menu"
           restaurantId={restaurant.id}
           isPremium={false}
-          menuCategories={restaurant.menu_categories}
+          menuCategories={restaurant.menu_categories} {/* PASSANDO DADOS DO MENU */}
         />
 
         <Separator className="my-6" />
