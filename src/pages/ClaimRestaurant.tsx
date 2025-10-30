@@ -7,16 +7,16 @@ import { Input } from '@/components/ui/input';
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { createPageUrl } from '@/utils/url';
 import { supabase } from '@/integrations/supabase/client';
+import { claimRestaurant } from '@/integrations/supabase/claimFunctions'; // Importando a nova função
 import { showError, showSuccess } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
 
 export default function ClaimRestaurant() {
   const navigate = useNavigate();
+  const { refetchProfile } = useAuthData();
   const [accessCode, setAccessCode] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,33 +35,38 @@ export default function ClaimRestaurant() {
       setLoading(false);
       return;
     }
+    
+    if (password.length < 6) {
+        showError('A senha deve ter pelo menos 6 caracteres.');
+        setLoading(false);
+        return;
+    }
 
     try {
-      // 1. Attempt to sign up/register the user with the provided email/password
-      
-      // For now, we'll just sign up the user and show a success message.
-      const { data, error: signUpError } = await supabase.auth.signUp({ 
-        email, 
+      // 1. Call the Edge Function to claim the restaurant and create the user
+      const registrationResult = await claimRestaurant({
+        accessCode,
+        email,
         password,
       });
 
-      if (signUpError) {
-        // If user already exists, try to sign them in
-        if (signUpError.message.includes('already exists')) {
-          const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-          if (signInError) throw signInError;
-        } else {
-          throw signUpError;
-        }
-      }
+      // 2. Log the user in using the credentials returned by the Edge Function
+      const { error: signInError } = await supabase.auth.signInWithPassword({ 
+        email: registrationResult.email, 
+        password: registrationResult.password 
+      });
 
-      // Simulate successful claim and role assignment
+      if (signInError) {
+        throw new Error(`Reivindicação concluída, mas falha ao fazer login: ${signInError.message}`);
+      }
+      
+      // 3. Refetch profile data to ensure the restaurant link is recognized
+      refetchProfile();
+
       showSuccess("Restaurante reivindicado com sucesso! Redirecionando para o Dashboard.");
       
-      // In a real app, the backend would handle the role assignment (e.g., 'premium_restaurant')
-      // For now, we redirect to the dashboard.
       setTimeout(() => {
-        navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
+        navigate(createPageUrl('restaurant-area/home'));
       }, 1000);
 
     } catch (error) {
@@ -117,18 +122,18 @@ export default function ClaimRestaurant() {
                 
                 {/* Código de Acesso */}
                 <div>
-                  <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso</label>
+                  <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso (ID do Restaurante)</label>
                   <Input
                     id="access-code"
                     className="h-14 text-base rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
-                    placeholder="Insira o código aqui"
+                    placeholder="Insira o código aqui (UUID)"
                     type="text"
                     value={accessCode}
                     onChange={(e) => setAccessCode(e.target.value)}
                     disabled={loading}
                     required
                   />
-                  <p className="text-gray-500 text-sm pt-1 pl-4">Este código é único para o seu estabelecimento.</p>
+                  <p className="text-gray-500 text-sm pt-1 pl-4">Este código é o ID único do seu estabelecimento.</p>
                 </div>
 
                 {/* E-mail */}
