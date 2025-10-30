@@ -26,14 +26,37 @@ export async function fetchNearbyRestaurants(
   return data || [];
 }
 
-// Função para buscar um restaurante público por ID
+// Define a string de seleção para o perfil público
+const PUBLIC_RESTAURANT_SELECT = `
+    *,
+    followers_count:user_favorites(count),
+    gallery_images:restaurant_gallery(id, image_url, caption, order_index),
+    menu_categories(
+        id, 
+        name, 
+        order_index, 
+        is_active,
+        menu_items(
+            id, 
+            name, 
+            description, 
+            price, 
+            image_url, 
+            order_index, 
+            is_active
+        )
+    )
+`;
+
+/**
+ * Busca os dados públicos de um restaurante pelo ID.
+ * @param restaurantId O ID do restaurante.
+ * @returns Os dados públicos do restaurante, incluindo menu e galeria.
+ */
 export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
   const { data, error } = await supabase
     .from('restaurants')
-    .select(`
-      *,
-      followersCount:user_favorites(count)
-    `)
+    .select(PUBLIC_RESTAURANT_SELECT)
     .eq('id', restaurantId)
     .single();
 
@@ -44,17 +67,34 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
 
   if (!data) return null;
 
-  // Simulação de addressSummary e logoUrl (que pode ser image_url)
-  const addressSummary = data.city && data.state ? `${data.city}, ${data.state}` : data.address;
-  const logoUrl = data.image_url;
-  const followersCount = Array.isArray(data.followersCount) && data.followersCount.length > 0 
-    ? data.followersCount[0].count || 0 
-    : 0;
+  // 1. Processar contagem de seguidores (incluindo override)
+  const followersCount = (data.followers_count?.[0]?.count || 0) + (data.followers_override || 0);
+
+  // 2. Constrói o resumo do endereço
+  const addressParts = [data.city, data.state].filter(Boolean);
+  const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
+
+  // 3. Filtrar categorias e itens inativos
+  const activeMenuCategories = data.menu_categories
+      .filter(cat => cat.is_active)
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      .map(category => ({
+          ...category,
+          menu_items: category.menu_items
+              .filter(item => item.is_active)
+              .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      }));
+      
+  // 4. Ordenar galeria
+  const galleryImages = data.gallery_images
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
 
   return {
     ...data,
     addressSummary,
-    logoUrl,
-    followersCount: followersCount as number,
+    logoUrl: data.image_url, // Mantendo a compatibilidade com o tipo PublicRestaurantData
+    followers_count: followersCount as number,
+    menu_categories: activeMenuCategories,
+    gallery_images: galleryImages,
   } as PublicRestaurantData;
 }
