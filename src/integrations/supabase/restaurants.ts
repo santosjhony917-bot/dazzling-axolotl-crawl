@@ -1,74 +1,120 @@
-import { PublicRestaurantData, PublicMenuCategory } from '@/types/restaurant';
-import { supabase } from './client';
-import { RestaurantWithDistance } from '@/types/supabase';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { showError } from '@/utils/toast';
 
-/**
- * Fetches public restaurant data by ID, including related computed fields and relationships.
- * This function is used for the public profile view.
- */
-export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData> {
-  const { data, error } = await supabase
-    .from('restaurants')
-    .select(`
-      *,
-      logoUrl:image_url,
-      addressSummary:address,
-      followers_count:count_restaurant_followers(restaurant_id),
-      menu_categories (
-        id, name, order_index, is_active,
-        menu_items (id, category_id, name, description, price, image_url, order_index, is_active, created_at)
-      ),
-      gallery_images:restaurant_gallery (id, image_url, caption, order_index)
-    `)
-    .eq('id', restaurantId)
-    .single();
-
-  if (error) {
-    console.error('Supabase fetchPublicRestaurantById error:', error);
-    throw new Error(error.message);
-  }
-
-  // Supabase returns the count function result as an array of objects, 
-  // we need to extract the count value.
-  const followersCount = Array.isArray(data.followers_count) && data.followers_count.length > 0
-    ? data.followers_count[0].count_restaurant_followers
-    : (data.followers_override || 0);
-
-  // Map the data to the PublicRestaurantData interface
-  const result: PublicRestaurantData = {
-    ...data,
-    followers_count: followersCount,
-    menu_categories: (data.menu_categories || []) as PublicMenuCategory[],
-    gallery_images: data.gallery_images || [],
-    addressSummary: [data.address, data.number, data.city, data.state]
-      .filter(Boolean)
-      .join(', '),
-    logoUrl: data.image_url,
-  };
-
-  return result;
-}
-
-/**
- * Fetches nearby restaurants using the find_nearby_restaurants stored procedure.
- */
+// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
-  userLat: number, 
-  userLng: number, 
-  maxDistanceKm: number = 10, 
+  lat: number, 
+  lng: number, 
+  maxDistance: number = 10, 
   searchQuery: string | null = null
 ): Promise<RestaurantWithDistance[]> {
   const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-    user_lat: userLat,
-    user_lng: userLng,
-    max_distance_km: maxDistanceKm,
+    user_lat: lat,
+    user_lng: lng,
+    max_distance_km: maxDistance,
     search_query: searchQuery,
   });
 
   if (error) {
-    console.error('Supabase fetchNearbyRestaurants error:', error);
-    throw new Error(error.message);
+    console.error('Error fetching nearby restaurants:', error);
+    showError('Erro ao buscar restaurantes próximos.');
+    return [];
   }
 
-  return data as RestaurantWithDistance[];
+  return data || [];
+}
+
+// Define a string de seleção para os dados básicos do perfil público
+const PUBLIC_RESTAURANT_BASE_SELECT = `
+    *,
+    followers_count:user_favorites(count),
+    gallery_images:restaurant_gallery(id, image_url, caption, order_index)
+`;
+
+/**
+ * Busca os dados públicos de um restaurante pelo ID.
+ * @param restaurantId O ID do restaurante.
+ * @returns Os dados públicos do restaurante, incluindo menu e galeria.
+ */
+export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
+  // 1. Buscar dados básicos, seguidores e galeria (sem menu aninhado)
+  const { data: baseData, error: baseError } = await supabase
+    .from('restaurants')
+    .select(PUBLIC_RESTAURANT_BASE_SELECT)
+    .eq('id', restaurantId)
+    .single();
+
+  if (baseError && baseError.code !== 'PGRST116') {
+    console.error('Error fetching public restaurant base data:', baseError);
+    throw new Error(`Erro ao carregar dados básicos: ${baseError.message}`);
+  }
+
+  if (!baseData) {
+    return null;
+  }
+  
+  // 2. Buscar categorias e itens de menu separadamente
+  const { data: menuData, error: menuError } = await supabase
+    .from('menu_categories')
+    .select(`
+      id, 
+      name, 
+      order_index, 
+      is_active,
+      menu_items(
+          id, 
+          name, 
+          description, 
+          price, 
+          image_url, 
+          order_index, 
+          is_active
+      )
+    `)
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  if (menuError) {
+    console.error('Error fetching menu data:', menuError);
+    // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
+  }
+
+  // 3. Processar e combinar dados
+  
+  // Processar contagem de seguidores (incluindo override)
+  const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
+
+  // Constrói o resumo do endereço
+  const addressParts = [baseData.city, baseData.state].filter(Boolean);
+  const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
+
+  // Filtrar categorias e itens inativos
+  const activeMenuCategories = (menuData || []) as unknown as (MenuCategory & { menu_items: MenuItem[] })[];
+  
+  const filteredMenuCategories = activeMenuCategories
+      .filter(cat => cat.is_active)
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      .map(category => ({
+          ...category,
+          menu_items: category.menu_items
+              .filter(item => item.is_active)
+              .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      }));
+      
+  // Ordenar galeria
+  const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
+  
+  const sortedGalleryImages = galleryImages
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+
+  return {
+    ...baseData,
+    addressSummary,
+    logoUrl: baseData.image_url,
+    followers_count: followersCount as number,
+    menu_categories: filteredMenuCategories,
+    gallery_images: sortedGalleryImages,
+  } as PublicRestaurantData;
 }

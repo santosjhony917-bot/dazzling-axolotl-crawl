@@ -94,7 +94,7 @@ const RestaurantDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-20 max-w-md mx-auto">
+    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       {/* Header (Localização e Ícone da Loja) */}
       <header className="bg-white p-4 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center justify-between">

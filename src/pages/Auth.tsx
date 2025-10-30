@@ -35,14 +35,14 @@ export default function Auth() {
 
   if (isAuthLoading || user) {
     return (
-      <div className="flex justify-center items-center h-screen bg-white">
+      <div className="flex justify-center items-center h-screen bg-background-light">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
   
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white p-4">
+    <div className="min-h-screen flex flex-col items-center bg-background-light p-4">
       
       {/* Header de Navegação (Apenas botão de voltar) */}
       <header className="flex items-center bg-white p-4 pb-2 justify-start sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">

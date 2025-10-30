@@ -78,7 +78,7 @@ export default function ClaimRestaurant() {
   };
 
   return (
-    <div className="relative bg-white font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
       
       {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">

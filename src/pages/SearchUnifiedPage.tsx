@@ -210,7 +210,7 @@ export default function SearchUnifiedPage() {
         <div className="w-10"></div>
       </header>
       
-      <main className="flex-1 w-full max-w-md mx-auto pb-20 bg-white">
+      <main className="flex-1 w-full max-w-md mx-auto pb-20">
         {pageContent}
       </main>
     </>

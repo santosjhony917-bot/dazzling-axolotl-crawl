@@ -97,7 +97,7 @@ export default function Favorites() {
           title="Meus Favoritos"
           leftAction={{ icon: ArrowLeft, onClick: handleBack }}
         />
-        <div className="p-6 text-center bg-white">
+        <div className="p-6 text-center">
           <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h2 className="text-xl font-bold mb-2">Nenhum Favorito Encontrado</h2>
           <p className="text-gray-600">Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.</p>
@@ -112,7 +112,7 @@ export default function Favorites() {
         title="Meus Favoritos"
         leftAction={{ icon: ArrowLeft, onClick: handleBack }}
       />
-      <div className="p-4 space-y-4 bg-white">
+      <div className="p-4 space-y-4">
         <h1 className="text-2xl font-bold text-primary">Restaurantes Favoritos ({favorites.length})</h1>
         
         <div className="space-y-4">

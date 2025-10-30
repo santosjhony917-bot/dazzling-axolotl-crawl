@@ -38,7 +38,7 @@ export default function RestaurantAreaHub() {
   ];
 
   return (
-    <div className="relative bg-white font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
+    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
       
       {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
@@ -84,7 +84,7 @@ export default function RestaurantAreaHub() {
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center p-4 bg-white rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shadow-soft-sm"
+                    className="flex items-center p-4 bg-[#f5f7f8] rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shadow-soft-sm"
                   >
                     <div className="size-10 rounded-xl bg-[#022D68]/10 flex items-center justify-center mr-4">
                       <Icon className="w-5 h-5 text-[#022D68]" />

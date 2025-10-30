@@ -55,7 +55,7 @@ const RestaurantResultsPage: React.FC = () => {
   const ResultIcon = searchType === 'restaurant' ? Utensils : Pizza;
 
   return (
-    <div className="min-h-screen bg-white max-w-md mx-auto">
+    <div className="min-h-screen bg-background-light max-w-md mx-auto">
       <Header 
         title="Resultados da Busca"
         leftAction={{ icon: ArrowLeft, onClick: handleBack }}

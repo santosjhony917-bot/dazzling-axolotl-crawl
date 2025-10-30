@@ -424,7 +424,7 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background-light flex flex-col">
       {/* Header */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md">
         <Button
@@ -439,7 +439,7 @@ export default function RestaurantSignup() {
           }}
           className="text-primary hover:bg-primary/5"
         >
-          <ArrowLeft className="h-6 w-6" />
+          <ArrowLeft className="w-6 h-6" />
         </Button>
         <div className="flex items-center gap-2">
           <h2 className="text-primary text-xl font-bold">Cadastro</h2>

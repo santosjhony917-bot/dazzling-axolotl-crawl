@@ -82,7 +82,7 @@ export default function SearchRestaurants() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background-light flex flex-col">
       <header className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
           <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-primary hover:bg-primary/5">
