@@ -11,6 +11,7 @@ import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { Card, CardContent } from '@/components/ui/card';
+import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
 
 export default function CategoryDetails() {
@@ -60,26 +61,33 @@ export default function CategoryDetails() {
   };
 
   const handleSaveItem = useCallback(async (data: MenuItemFormValues) => {
-    if (editingItem) {
-      await updateItemMutation.mutateAsync({
-        id: editingItem.id,
-        updates: {
+    try {
+      if (editingItem) {
+        await updateItemMutation.mutateAsync({
+          id: editingItem.id,
+          updates: {
+            name: data.name,
+            description: data.description || null,
+            price: data.price,
+            image_url: data.image_url || null,
+            is_active: data.is_active,
+          }
+        });
+      } else {
+        await createItemMutation.mutateAsync({
+          category_id: categoryId,
           name: data.name,
           description: data.description || null,
           price: data.price,
           image_url: data.image_url || null,
           is_active: data.is_active,
-        }
-      });
-    } else {
-      await createItemMutation.mutateAsync({
-        category_id: categoryId,
-        name: data.name,
-        description: data.description || null,
-        price: data.price,
-        image_url: data.image_url || null,
-        is_active: data.is_active,
-      });
+        });
+      }
+      // Fecha o modal após o sucesso da mutação
+      setIsItemModalOpen(false); 
+    } catch (e) {
+      // O erro é tratado no hook de mutação (toast.error)
+      console.error("Failed to save item:", e);
     }
   }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
 

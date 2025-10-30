@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { MenuItem, CreateItemPayload, UpdateItemPayload } from '@/types/menu'; // Import payloads from types/menu
+import { toast } from 'react-hot-toast'; // Importando toast
 
 // --- API Calls ---
 
@@ -55,9 +56,13 @@ export const useCreateMenuItem = () => {
   return useMutation({
     mutationFn: createMenuItem,
     onSuccess: () => {
+      toast.success('Item de menu criado com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
+    onError: (e) => {
+      toast.error(`Falha ao criar item: ${e.message}`);
+    }
   });
 };
 
@@ -66,9 +71,13 @@ export const useUpdateMenuItem = () => {
   return useMutation({
     mutationFn: updateMenuItem,
     onSuccess: () => {
+      toast.success('Item de menu atualizado com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
+    onError: (e) => {
+      toast.error(`Falha ao atualizar item: ${e.message}`);
+    }
   });
 };
 
@@ -77,9 +86,13 @@ export const useDeleteMenuItem = () => {
   return useMutation({
     mutationFn: deleteMenuItem,
     onSuccess: () => {
+      toast.success('Item de menu deletado com sucesso!');
       queryClient.invalidateQueries({ queryKey: ['menuItems'] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
+    onError: (e) => {
+      toast.error(`Falha ao deletar item: ${e.message}`);
+    }
   });
 };
 
