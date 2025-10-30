@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRestaurant } from '@/hooks/useRestaurant';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile'; // CORRIGIDO: Usando useRestaurantProfile
 import { useAuth } from '@/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,8 +11,8 @@ import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import SubscriptionCard from '@/components/restaurant/profile/SubscriptionCard';
-import LocationForm from '@/components/restaurant/profile/LocationForm';
-import OpeningHoursForm from '@/components/restaurant/profile/OpeningHoursForm';
+import LocationForm from '@/components/restaurant/LocationForm'; // CORRIGIDO: Novo caminho
+import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm'; // CORRIGIDO: Novo caminho
 import ImageUpload from '@/components/ImageUpload';
 import { Separator } from '@/components/ui/separator';
 import { useQueryClient } from '@tanstack/react-query';
@@ -32,7 +32,8 @@ interface RestaurantFormData {
 
 const ProfileSettingsPage: React.FC = () => {
   const { user } = useAuth();
-  const { data: restaurant, isLoading: isRestaurantLoading, refetch } = useRestaurant();
+  // useRestaurantProfile retorna 'restaurant' e 'refetchProfile'
+  const { restaurant, isLoading: isRestaurantLoading, refetchProfile } = useRestaurantProfile(); 
   const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState<RestaurantFormData>({
@@ -84,8 +85,8 @@ const ProfileSettingsPage: React.FC = () => {
       if (error) throw error;
 
       showSuccess('Perfil atualizado com sucesso!');
-      refetch();
-      queryClient.invalidateQueries({ queryKey: ['restaurant', restaurant.id] });
+      refetchProfile(); // Usando refetchProfile
+      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', restaurant.user_id] });
     } catch (error) {
       console.error('Erro ao salvar perfil:', error);
       showError('Falha ao atualizar o perfil. Tente novamente.');
@@ -94,7 +95,6 @@ const ProfileSettingsPage: React.FC = () => {
     }
   };
 
-  // CORRIGIDO: Aceita url: string | null
   const handleImageUpload = async (url: string | null, field: 'image_url' | 'cover_image_url') => {
     if (!restaurant) return;
 
@@ -107,7 +107,7 @@ const ProfileSettingsPage: React.FC = () => {
       if (error) throw error;
 
       showSuccess('Imagem atualizada com sucesso!');
-      refetch();
+      refetchProfile(); // Usando refetchProfile
     } catch (error) {
       console.error(`Erro ao atualizar ${field}:`, error);
       showError('Falha ao atualizar a imagem.');
@@ -211,7 +211,7 @@ const ProfileSettingsPage: React.FC = () => {
               <CardDescription>Atualize o endereço e as coordenadas GPS do seu restaurante.</CardDescription>
             </CardHeader>
             <CardContent>
-              <LocationForm restaurant={restaurant} refetch={refetch} />
+              <LocationForm restaurant={restaurant} refetch={refetchProfile} />
             </CardContent>
           </Card>
 
@@ -222,7 +222,7 @@ const ProfileSettingsPage: React.FC = () => {
               <CardDescription>Defina os horários em que seu restaurante está aberto.</CardDescription>
             </CardHeader>
             <CardContent>
-              <OpeningHoursForm restaurant={restaurant} refetch={refetch} />
+              <OpeningHoursForm restaurant={restaurant} refetch={refetchProfile} />
             </CardContent>
           </Card>
         </div>
