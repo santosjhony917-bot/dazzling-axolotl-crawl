@@ -1,119 +1,153 @@
-import React, { useState } from 'react';
-import { Utensils, AlertTriangle, PlusCircle, Loader2, ArrowUp, ArrowDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+"use client";
 
-import RestaurantAreaPageLayout from '@/components/layouts/RestaurantAreaPageLayout';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Plus, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { useRestaurantOwner } from '@/hooks/useRestaurantOwner';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement';
-import CategoryFormModal from '@/components/restaurant/CategoryFormModal';
-import CategoryCard from '@/components/restaurant/CategoryCard';
-import { Category } from '@/types/restaurant';
+import { useToast } from '@/components/ui/use-toast';
+import { useQueryClient } from '@tanstack/react-query';
+import { MenuCategory, MenuItem } from '@/types/supabase';
+import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Importando do novo hook
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import CategoryDialog from '@/components/restaurant/CategoryDialog';
+import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
+import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
+import { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando do ItemFormDialog
+import ConfirmationDialog from '@/components/ConfirmationDialog';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import CategoryList from '@/components/restaurant/menu/CategoryList';
+import { Card, CardContent } from '@/components/ui/card';
+import { showError } from '@/utils/toast';
 
 const MenuManagement: React.FC = () => {
-  const { restaurantId, isLoading: isRestaurantLoading } = useRestaurantOwner();
-  const { categories, isLoading: isCategoriesLoading, refetchCategories } = useMenuManagement(restaurantId);
-  const { addCategory, swapCategoryOrder } = useCategoryMutations(restaurantId, refetchCategories);
+  const { toast } = useToast();
+  const { restaurant, isLoading: profileLoading } = useRestaurantProfile();
+  const restaurantId = restaurant?.id || '';
+
+  const { categoriesQuery } = useMenuManagement(restaurantId);
+  const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation } = useCategoryMutations(restaurantId);
   
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  // Estado para Categorias
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
+  
+  // Estado para Confirmação
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
+  const [confirmationTitle, setConfirmationTitle] = useState('');
+  const [confirmationDescription, setConfirmationDescription] = useState('');
 
-  const handleOpenModal = (category: Category | null = null) => {
-    setEditingCategory(category);
-    setIsModalOpen(true);
-  };
+  const categories = categoriesQuery.data || [];
+  const isLoading = profileLoading || categoriesQuery.isLoading;
+  const isCategoryMutating = createCategoryMutation.isPending || updateCategoryMutation.isPending || deleteCategoryMutation.isPending;
+  
+  // --- Handlers de Categoria ---
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingCategory(null);
-  };
-
-  const handleSaveCategory = async (name: string) => {
+  const handleOpenCategoryDialog = (category: MenuCategory | null) => {
     if (!restaurantId) {
-      console.error("Cannot add category: Restaurant ID is missing.");
+      showError("ID do restaurante não encontrado. Tente recarregar a página.");
       return;
     }
-    await addCategory(name);
-    handleCloseModal();
+    setEditingCategory(category);
+    setIsCategoryDialogOpen(true);
   };
 
-  const canManageMenu = !!restaurantId;
+  const handleSaveCategory = useCallback(async (data: CategoryFormValues) => {
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado.");
+      return;
+    }
+    
+    if (editingCategory) {
+      await updateCategoryMutation.mutateAsync({ 
+        id: editingCategory.id,
+        updates: { // CORRIGIDO: Usando a estrutura 'updates'
+          name: data.name,
+          is_active: data.is_active,
+          order_index: data.order_index,
+        }
+      });
+    } else {
+      await createCategoryMutation.mutateAsync({ 
+        restaurant_id: restaurantId,
+        name: data.name,
+        is_active: data.is_active,
+        order_index: data.order_index,
+      });
+    }
+  }, [editingCategory, updateCategoryMutation, createCategoryMutation, restaurantId]);
 
-  if (isRestaurantLoading) {
+  const handleDeleteCategory = (categoryId: string) => {
+    setConfirmationTitle("Excluir Categoria");
+    setConfirmationDescription("Tem certeza de que deseja excluir esta categoria? Todos os itens de menu associados serão deletados.");
+    setConfirmationAction(() => () => deleteCategoryMutation.mutate(categoryId));
+    setIsConfirmationOpen(true);
+  };
+  
+  // A reordenação será tratada pelo CategoryList usando useCategoryReorder
+
+  // --- Render Logic ---
+
+  if (isLoading) {
     return (
-      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
-        <div className="p-4 text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-          <p className="mt-2 text-sm text-gray-500">Carregando informações do restaurante...</p>
-        </div>
-      </RestaurantAreaPageLayout>
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
     );
   }
 
+  if (categoriesQuery.isError) {
+    return <div className="text-center text-red-500 p-4">Erro ao carregar categorias: {categoriesQuery.error.message}</div>;
+  }
+
   return (
-    <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="/restaurant-area/profile-menu">
+    <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
       <div className="p-4 space-y-6">
         
-        {!canManageMenu && (
-          <Card className="p-4 text-center border-dashed border-2 border-red-300 bg-red-50">
-            <div className="flex items-center justify-center mb-2">
-              <AlertTriangle className="h-5 w-5 text-red-600 mr-2" />
-              <h3 className="text-lg font-semibold text-red-700">Restaurante Não Configurado</h3>
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
+              <Button 
+                onClick={() => handleOpenCategoryDialog(null)} 
+                disabled={isCategoryMutating || !restaurantId} // Desabilita se não houver restaurantId
+                className="bg-highlight hover:bg-highlight/90"
+              >
+                <Plus className="mr-2 h-4 w-4" /> Adicionar
+              </Button>
             </div>
-            <p className="text-sm text-gray-600 mb-3">
-              Você precisa criar e configurar seu restaurante para adicionar categorias e itens ao cardápio.
-            </p>
-            <Link to="/restaurant-area/profile-menu">
-              <Button size="sm" className="bg-red-600 hover:bg-red-700">Ir para Configuração</Button>
-            </Link>
-          </Card>
-        )}
+          </CardContent>
+        </Card>
 
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold">Categorias do Cardápio</h2>
-          <Button 
-            onClick={() => handleOpenModal()} 
-            disabled={!canManageMenu}
-            className="flex items-center"
-          >
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Adicionar Categoria
-          </Button>
-        </div>
-
-        <Separator />
-
-        {isCategoriesLoading ? (
-          <div className="text-center py-10">
-            <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-            <p className="mt-2 text-sm text-gray-500">Carregando categorias...</p>
-          </div>
-        ) : categories.length === 0 ? (
-          <p className="text-center text-gray-500">
-            {canManageMenu ? "Nenhuma categoria encontrada. Clique em 'Adicionar Categoria' para começar." : "Crie seu restaurante para começar a adicionar categorias."}
-          </p>
-        ) : (
-          <div className="space-y-4">
-            {categories.map((category, index) => (
-              <CategoryCard 
-                key={category.id} 
-                category={category} 
-                onEdit={() => handleOpenModal(category)}
-                onMoveUp={index > 0 ? () => swapCategoryOrder(category.id, categories[index - 1].id) : undefined}
-                onMoveDown={index < categories.length - 1 ? () => swapCategoryOrder(category.id, categories[index + 1].id) : undefined}
-              />
-            ))}
-          </div>
-        )}
+        <CategoryList
+          categories={categories}
+          restaurantId={restaurantId}
+          onEdit={handleOpenCategoryDialog}
+          onDelete={handleDeleteCategory}
+        />
       </div>
 
-      <CategoryFormModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+      {/* Dialogs */}
+      <CategoryDialog
+        isOpen={isCategoryDialogOpen}
+        onOpenChange={setIsCategoryDialogOpen}
+        category={editingCategory}
+        restaurantId={restaurantId}
         onSave={handleSaveCategory}
-        initialData={editingCategory}
+        isLoading={isCategoryMutating}
+      />
+      
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={() => setIsConfirmationOpen(false)}
+        onConfirm={() => {
+          if (confirmationAction) {
+            confirmationAction();
+          }
+          setIsConfirmationOpen(false);
+        }}
+        title={confirmationTitle}
+        description={confirmationDescription}
+        confirmText="Sim, Excluir"
       />
     </RestaurantAreaPageLayout>
   );
