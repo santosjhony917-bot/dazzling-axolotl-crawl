@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PublicRestaurantData } from '@/types/restaurant';
@@ -9,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
 import RestaurantGallery from '@/components/public/RestaurantGallery';
 import RestaurantMenu from '@/components/public/RestaurantMenu';
-import { OpeningHoursDisplay } from '@/components/public/OpeningHoursDisplay'; // Fixed import
+import { OpeningHoursDisplay } from '@/components/public/OpeningHoursDisplay';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 import { Separator } from '@/components/ui/separator';
 
@@ -96,7 +94,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               id="menu"
               restaurantId={restaurant.id}
               isPremium={true}
-              menuCategories={restaurant.menu_categories} {/* PASSANDO DADOS DO MENU */}
+              menuCategories={restaurant.menu_categories}
             />
           </div>
 

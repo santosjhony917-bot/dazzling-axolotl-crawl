@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
@@ -60,7 +58,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           id="menu"
           restaurantId={restaurant.id}
           isPremium={false}
-          menuCategories={restaurant.menu_categories} {/* PASSANDO DADOS DO MENU */}
+          menuCategories={restaurant.menu_categories}
         />
 
         <Separator className="my-6" />
