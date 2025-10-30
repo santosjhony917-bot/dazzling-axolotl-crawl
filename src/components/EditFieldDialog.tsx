@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { useForm, Controller } from 'react-hook-form';
 import { Loader2 } from 'lucide-react';
 
 interface EditFieldDialogProps {
@@ -14,10 +22,14 @@ interface EditFieldDialogProps {
   description: string;
   fieldName: string;
   initialValue: string | number | undefined;
-  inputType?: 'text' | 'textarea' | 'number' | 'url';
-  onSave: (fieldName: string, value: string | number) => Promise<void>;
+  inputType: 'text' | 'textarea' | 'number' | 'url';
+  onSave: (fieldName: string, value: string | number) => void;
   loading: boolean;
 }
+
+type FormValues = {
+    value: string;
+};
 
 const EditFieldDialog: React.FC<EditFieldDialogProps> = ({
   isOpen,
@@ -26,100 +38,105 @@ const EditFieldDialog: React.FC<EditFieldDialogProps> = ({
   description,
   fieldName,
   initialValue,
-  inputType = 'text',
+  inputType,
   onSave,
   loading,
 }) => {
-  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+  
+  // Dynamic Schema Definition
+  const validationSchema = useMemo(() => {
+    if (inputType === 'url') {
+      return z.object({
+        value: z.string()
+          .min(1, { message: "Este campo é obrigatório." })
+          .url({ message: "Insira uma URL válida (deve começar com http:// ou https://)." }),
+      });
+    } 
+    
+    if (inputType === 'number') {
+      return z.object({
+        value: z.string()
+          .min(1, { message: "Este campo é obrigatório." })
+          .refine(val => !isNaN(parseFloat(val)), {
+            message: "Insira um número válido.",
+          }),
+      });
+    }
+
+    // Default (text/textarea)
+    return z.object({ 
+      value: z.string().min(1, { message: "Este campo é obrigatório." }) 
+    });
+  }, [inputType]);
+
+
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors }, 
+    reset,
+  } = useForm<FormValues>({
+    resolver: zodResolver(validationSchema),
     defaultValues: {
-      value: initialValue || '',
+      value: String(initialValue || ''),
     },
   });
 
+  // Reset form when dialog opens or initialValue changes
   useEffect(() => {
-    reset({ value: initialValue || '' });
-  }, [initialValue, isOpen, reset]);
+    if (isOpen) {
+      reset({ value: String(initialValue || '') });
+    }
+  }, [isOpen, initialValue, reset]);
 
-  const onSubmit = async (data: { value: string | number }) => {
-    await onSave(fieldName, data.value);
-    // O fechamento do diálogo deve ser tratado pelo componente pai após o sucesso do onSave
-    // Mas para garantir que o formulário seja resetado, fazemos isso aqui.
+  const onSubmit = (data: FormValues) => {
+    let finalValue: string | number = data.value;
+
+    if (inputType === 'number') {
+      // Convert to number if inputType is number
+      finalValue = parseFloat(data.value);
+    }
+    
+    onSave(fieldName, finalValue);
   };
 
-  const renderInput = (field: any) => {
-    switch (inputType) {
-      case 'textarea':
-        return (
-          <Textarea
-            {...field}
-            id="value"
-            placeholder={`Insira o ${title.toLowerCase()}`}
-            className="min-h-[100px]"
-          />
-        );
-      case 'number':
-        return (
-          <Input
-            {...field}
-            id="value"
-            type="number"
-            placeholder={`Insira o ${title.toLowerCase()}`}
-            onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : '')}
-          />
-        );
-      case 'url':
-        return (
-          <Input
-            {...field}
-            id="value"
-            type="url"
-            placeholder="Ex: https://wa.me/5511999999999"
-          />
-        );
-      case 'text':
-      default:
-        return (
-          <Input
-            {...field}
-            id="value"
-            type="text"
-            placeholder={`Insira o ${title.toLowerCase()}`}
-          />
-        );
+  const handleClose = () => {
+    if (!loading) {
+      onClose();
     }
   };
 
+  const InputComponent = inputType === 'textarea' ? Textarea : Input;
+  const inputProps = inputType === 'number' ? { type: 'number', step: 'any' } : 
+                     inputType === 'url' ? { type: 'url' } : 
+                     { type: 'text' };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogDescription>
+            {description}
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="value">{title}</Label>
-              <Controller
-                name="value"
-                control={control}
-                rules={{ 
-                  required: false, // Links são opcionais
-                  validate: (value) => {
-                    // Adiciona verificação de tipo para garantir que 'value' é uma string
-                    if (inputType === 'url' && typeof value === 'string' && value && !value.startsWith('http')) {
-                      return 'O link deve começar com http:// ou https://';
-                    }
-                    return true;
-                  }
-                }}
-                render={({ field }) => renderInput(field)}
-              />
-              {errors.value && <p className="text-sm text-red-500">{errors.value.message}</p>}
-            </div>
+            <InputComponent
+              id="value"
+              placeholder={`Insira o novo valor para ${title.toLowerCase()}`}
+              className="col-span-3"
+              {...register('value')}
+              {...inputProps}
+            />
+            {errors.value && (
+              <p className="text-sm text-red-500 mt-1">{errors.value.message}</p>
+            )}
           </div>
+          
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
+            <Button type="button" variant="outline" onClick={handleClose} disabled={loading}>
               Cancelar
             </Button>
             <Button
@@ -127,8 +144,8 @@ const EditFieldDialog: React.FC<EditFieldDialogProps> = ({
               disabled={loading || !!errors.value}
               variant="highlight"
             >
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Salvar Alterações
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              Salvar
             </Button>
           </DialogFooter>
         </form>
