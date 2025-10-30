@@ -9,21 +9,14 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Loader2, Save } from 'lucide-react';
 import { z } from 'zod';
-import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuManagement';
+import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuManagement'; // Corrigido
 import { toast } from 'react-hot-toast';
 import ImageUpload from '@/components/ImageUpload';
 import { useRestaurantContext } from '@/context/RestaurantContext';
@@ -132,9 +125,10 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
                   <FormLabel>Imagem do Item (Opcional)</FormLabel>
                   <FormControl>
                     <ImageUpload
-                      bucket="restaurant_images" // CORRIGIDO: Renomeado para 'bucket'
+                      bucketName="menu_items"
                       currentImageUrl={field.value || undefined}
                       onUploadSuccess={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange(null)}
                       folderPath={`${restaurantId}/${categoryId}`}
                     />
                   </FormControl>

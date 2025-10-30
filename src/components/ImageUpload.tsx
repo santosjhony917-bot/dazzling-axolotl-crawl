@@ -1,83 +1,89 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Loader2, Upload, Trash2, Image, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { showError, showSuccess } from '@/utils/toast';
+import { toast } from 'react-hot-toast';
 
 interface ImageUploadProps {
-  bucket: string;
-  currentImageUrl: string | null | undefined;
-  onUploadSuccess: (url: string | null) => void; // Permitindo null para remover
-  folderPath: string;
+  bucketName: string;
+  currentImageUrl?: string;
+  onUploadSuccess: (url: string) => void;
+  onRemove: () => void;
+  folderPath: string; // Ex: 'restaurant_id/menu_items'
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ bucket, currentImageUrl, onUploadSuccess, folderPath }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({
+  bucketName,
+  currentImageUrl,
+  onUploadSuccess,
+  onRemove,
+  folderPath,
+}) => {
   const [isUploading, setIsUploading] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(currentImageUrl);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
-    }
-  };
+  React.useEffect(() => {
+    setPreviewUrl(currentImageUrl);
+  }, [currentImageUrl]);
 
-  const handleUpload = async () => {
-    if (!file) {
-      showError('Selecione um arquivo primeiro.');
-      return;
-    }
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
     setIsUploading(true);
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${folderPath}/${fileName}`;
 
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `${folderPath}/${fileName}`;
-
       const { error: uploadError } = await supabase.storage
-        .from(bucket)
+        .from(bucketName)
         .upload(filePath, file, {
           cacheControl: '3600',
           upsert: false,
         });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        throw uploadError;
+      }
 
-      // Get public URL
       const { data: publicUrlData } = supabase.storage
-        .from(bucket)
+        .from(bucketName)
         .getPublicUrl(filePath);
 
-      if (!publicUrlData.publicUrl) throw new Error("Falha ao obter URL pública.");
-
-      onUploadSuccess(publicUrlData.publicUrl);
-      setFile(null);
-      showSuccess('Upload concluído!');
-
+      if (publicUrlData.publicUrl) {
+        onUploadSuccess(publicUrlData.publicUrl);
+        setPreviewUrl(publicUrlData.publicUrl);
+        toast.success('Imagem enviada com sucesso!');
+      }
     } catch (error) {
-      console.error('Erro no upload:', error);
-      showError('Falha no upload da imagem.');
+      console.error('Erro ao fazer upload:', error);
+      toast.error('Falha ao enviar imagem.');
     } finally {
       setIsUploading(false);
+      // Reset input value to allow re-uploading the same file
+      event.target.value = ''; 
     }
   };
 
-  const handleRemove = async () => {
-    if (!currentImageUrl) return;
-
-    // Pass null to clear the URL in the parent component
-    onUploadSuccess(null); 
-    showSuccess('Imagem removida.');
+  const handleRemove = () => {
+    // Note: We typically don't delete the file from storage immediately 
+    // to avoid accidental data loss, but we clear the URL in the form.
+    setPreviewUrl(undefined);
+    onRemove();
+    toast('URL da imagem removida do formulário.', { icon: '🗑️' });
   };
 
   return (
-    <div className="space-y-4">
-      {currentImageUrl ? (
-        <div className="relative w-full h-40 bg-gray-100 rounded-xl overflow-hidden border-2 border-dashed border-gray-300">
-          <img src={currentImageUrl} alt="Current" className="w-full h-full object-cover" />
-          <Button 
-            variant="destructive" 
-            size="icon" 
+    <div className="space-y-3">
+      {previewUrl ? (
+        <div className="relative w-full h-40 rounded-lg overflow-hidden border border-gray-200">
+          <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+          <Button
+            type="button"
+            variant="destructive"
+            size="icon"
             className="absolute top-2 right-2 h-8 w-8 rounded-full"
             onClick={handleRemove}
           >
@@ -85,27 +91,41 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ bucket, currentImageUrl, onUp
           </Button>
         </div>
       ) : (
-        <div className="w-full h-40 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-500">
-          <ImageIcon className="w-8 h-8 mb-2" />
-          <p className="text-sm">Nenhuma imagem selecionada</p>
+        <div className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+          {isUploading ? (
+            <Loader2 className="h-6 w-6 animate-spin text-primary" />
+          ) : (
+            <Image className="h-6 w-6 text-gray-400" />
+          )}
+          <p className="text-sm text-gray-500 mt-2">
+            {isUploading ? 'Enviando...' : 'Clique para selecionar uma imagem'}
+          </p>
+          <Input
+            type="file"
+            accept="image/*"
+            className="absolute inset-0 opacity-0 cursor-pointer h-full w-full"
+            onChange={handleFileUpload}
+            disabled={isUploading}
+          />
         </div>
       )}
-
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-highlight/10 file:text-highlight hover:file:bg-highlight/20"
-      />
-
-      <Button 
-        onClick={handleUpload} 
-        disabled={isUploading || !file}
-        className="w-full bg-primary hover:bg-primary/90 rounded-xl"
-      >
-        {isUploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
-        {isUploading ? 'Enviando...' : 'Fazer Upload'}
-      </Button>
+      
+      {!previewUrl && (
+        <Button 
+          type="button" 
+          variant="outline" 
+          className="w-full"
+          onClick={() => document.getElementById('file-upload-input')?.click()}
+          disabled={isUploading}
+        >
+          {isUploading ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Upload className="mr-2 h-4 w-4" />
+          )}
+          {isUploading ? 'Enviando...' : 'Selecionar Imagem'}
+        </Button>
+      )}
     </div>
   );
 };
