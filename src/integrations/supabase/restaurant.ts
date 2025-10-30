@@ -9,8 +9,9 @@ export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { r
     .from('menu_items')
     .select(`
       *,
-      category:menu_categories(*),
-      restaurant:menu_categories(restaurant_id, restaurants(*))
+      menu_categories (
+        restaurant:restaurants (*)
+      )
     `)
     .eq('id', itemId)
     .single();
@@ -22,13 +23,14 @@ export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { r
 
   if (!data) return null;
   
-  // Extrai o objeto Restaurant do array aninhado
-  const restaurantData = Array.isArray(data.restaurant) && data.restaurant.length > 0 
-    ? (data.restaurant[0] as unknown as { restaurants: Restaurant }).restaurants
+  // Extract the restaurant data from the nested menu_categories array
+  // data.menu_categories is an array of objects, each containing { restaurant: Restaurant }
+  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
+    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
     : null;
 
-  // Remove as chaves aninhadas para retornar o objeto limpo
-  const { category, restaurant: _, ...item } = data;
+  // Remove the nested key before returning
+  const { menu_categories, ...item } = data;
 
   return {
     ...(item as MenuItem),

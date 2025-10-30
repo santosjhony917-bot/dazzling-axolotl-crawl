@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem } from '@/types/supabase';
-import MenuItemFormDialog, { MenuItemFormValues } from './menu/MenuItemFormDialog'; // Importando o componente real
+import ItemFormDialog, { MenuItemFormValues } from './menu/ItemFormDialog'; // Importando o componente real
 
 interface MenuItemDialogProps {
   categoryId: string;
@@ -13,7 +13,7 @@ interface MenuItemDialogProps {
 
 const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ categoryId, item, isOpen, onOpenChange, onSave, isLoading }) => {
   return (
-    <MenuItemFormDialog
+    <ItemFormDialog
       isOpen={isOpen}
       onClose={() => onOpenChange(false)}
       categoryId={categoryId}

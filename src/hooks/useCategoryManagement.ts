@@ -1,23 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory } from '@/types/menu';
+import { MenuCategory, CreateCategoryPayload, UpdateCategoryPayload } from '@/types/menu';
 import { toast } from 'react-hot-toast';
 
-// --- Types ---
-
-interface CategoryBase {
-  name: string;
-  is_active: boolean;
-  order_index?: number;
-}
-
-interface CreateCategoryPayload extends CategoryBase {
-  restaurant_id: string;
-}
-
-interface UpdateCategoryPayload extends CategoryBase {
-  id: string;
-}
+// --- Types (Assuming they are imported from types/menu.ts) ---
+// interface CategoryBase { name: string; is_active: boolean; order_index?: number; }
+// interface CreateCategoryPayload extends CategoryBase { restaurant_id: string; }
+// interface UpdateCategoryPayload { id: string; updates: Partial<CategoryBase>; } // Defined in types/menu.ts
 
 interface UseCategoryMutationsResult {
   createCategoryMutation: ReturnType<typeof useMutation>;
@@ -53,11 +42,11 @@ const createCategory = async (payload: CreateCategoryPayload) => {
   return data;
 };
 
-const updateCategory = async (payload: UpdateCategoryPayload) => {
+const updateCategory = async ({ id, updates }: UpdateCategoryPayload) => {
   const { data, error } = await supabase
     .from('menu_categories')
-    .update(payload)
-    .eq('id', payload.id)
+    .update(updates) // Use the updates object
+    .eq('id', id)
     .select()
     .single();
 

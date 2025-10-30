@@ -6,15 +6,18 @@ import { Button } from '@/components/ui/button';
 import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { MenuItem } from '@/types/menu'; // Corrected import
-import MenuItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
+import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando ItemFormDialog
 import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { Card, CardContent } from '@/components/ui/card';
+import { useAuthData } from '@/context/AuthContext';
 
 export default function CategoryDetails() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
+  const { restaurant } = useAuthData(); // Get restaurant data to find restaurantId
+  const restaurantId = restaurant?.id || '';
   
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
@@ -29,12 +32,16 @@ export default function CategoryDetails() {
     return <div className="p-4 text-red-500">ID da Categoria não encontrado.</div>;
   }
 
-  // Usando o hook unificado para itens
+  // Use the category management hook to fetch all categories for the restaurant
+  const { categoriesQuery } = useMenuManagement(restaurantId); 
+  
+  // Use the item management hook for the specific category
   const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
   
-  // Busca o nome da categoria (usando o hook de categorias)
-  const { categoriesQuery } = useMenuManagement(itemsQuery.data?.[0]?.category_id || '');
-  const categoryName = categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
+  // Find the category name from the fetched categories
+  const categoryName = useMemo(() => {
+    return categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
+  }, [categoriesQuery.data, categoryId]);
   
   const items = itemsQuery.data || [];
   const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
@@ -56,9 +63,9 @@ export default function CategoryDetails() {
     if (editingItem) {
       await updateItemMutation.mutateAsync({
         id: editingItem.id,
-        updates: { // CORRIGIDO: Passando updates como objeto
+        updates: {
           name: data.name,
-          description: data.description || '',
+          description: data.description || null,
           price: data.price,
           image_url: data.image_url || null,
           is_active: data.is_active,
@@ -68,7 +75,7 @@ export default function CategoryDetails() {
       await createItemMutation.mutateAsync({
         category_id: categoryId,
         name: data.name,
-        description: data.description || '',
+        description: data.description || null,
         price: data.price,
         image_url: data.image_url || null,
         is_active: data.is_active,
@@ -107,7 +114,7 @@ export default function CategoryDetails() {
         )}
       </div>
 
-      <MenuItemFormDialog
+      <ItemFormDialog
         isOpen={isItemModalOpen}
         onClose={() => setIsItemModalOpen(false)}
         categoryId={categoryId}

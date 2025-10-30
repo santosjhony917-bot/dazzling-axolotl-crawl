@@ -47,6 +47,7 @@ export type CreateCategoryPayload = {
   restaurant_id: string;
   name: string;
   is_active: boolean;
+  order_index?: number; // Adicionado order_index
 };
 
 export type UpdateCategoryPayload = {

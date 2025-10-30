@@ -11,7 +11,7 @@ import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
 import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
-import { MenuItemFormValues } from '@/components/restaurant/menu/MenuItemFormDialog';
+import { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando do ItemFormDialog
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import CategoryList from '@/components/restaurant/menu/CategoryList';
@@ -50,9 +50,11 @@ const MenuManagement: React.FC = () => {
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({ 
         id: editingCategory.id,
-        name: data.name,
-        is_active: data.is_active,
-        order_index: data.order_index,
+        updates: { // CORRIGIDO: Usando a estrutura 'updates'
+          name: data.name,
+          is_active: data.is_active,
+          order_index: data.order_index,
+        }
       });
     } else {
       await createCategoryMutation.mutateAsync({ 

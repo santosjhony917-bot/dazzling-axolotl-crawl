@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MenuItem } from '@/types/menu';
+import * as z from 'zod';
+import { MenuItem } from '@/types';
 import {
   Dialog,
   DialogContent,
@@ -9,169 +10,153 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Save } from 'lucide-react';
-import { z } from 'zod';
-import { useUpdateMenuItem, useCreateMenuItem } from '@/hooks/useMenuManagement'; // Corrigido
-import { toast } from 'react-hot-toast';
-import ImageUpload from '@/components/ImageUpload';
-import { useRestaurantContext } from '@/context/RestaurantContext';
+import { Loader2, Camera } from 'lucide-react';
+import { ImageUploadButton } from '@/components/ImageUploadButton';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-// Esquema de validação
-const itemFormSchema = z.object({
+const formSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório.'),
-  description: z.string().optional(),
-  price: z.preprocess(
-    (val) => (typeof val === 'string' ? parseFloat(val.replace(',', '.')) : val),
-    z.number().min(0.01, 'O preço deve ser maior que zero.')
-  ),
-  image_url: z.string().optional().nullable(),
+  description: z.string().max(500, 'A descrição não pode exceder 500 caracteres.').optional(),
+  price: z.coerce.number().min(0.01, 'O preço deve ser maior que zero.'),
+  image_url: z.string().url('URL de imagem inválida.').optional().or(z.literal('')),
   is_active: z.boolean().default(true),
 });
 
-type ItemFormValues = z.infer<typeof itemFormSchema>;
+export type MenuItemFormValues = z.infer<typeof formSchema>;
 
-interface ItemFormDialogProps {
+interface MenuItemFormDialogProps {
   isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-  initialData?: MenuItem;
+  onClose: () => void;
   categoryId: string;
+  initialData: MenuItem | null;
+  onSave: (data: MenuItemFormValues) => Promise<void>;
+  isLoading: boolean;
 }
 
-const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, initialData, categoryId }) => {
-  const { restaurant } = useRestaurantContext();
-  const restaurantId = restaurant?.id;
-
-  const isEdit = !!initialData;
-  const mutationUpdate = useUpdateMenuItem();
-  const mutationCreate = useCreateMenuItem();
-
-  const form = useForm<ItemFormValues>({
-    resolver: zodResolver(itemFormSchema),
+export default function MenuItemFormDialog({
+  isOpen,
+  onClose,
+  categoryId,
+  initialData,
+  onSave,
+  isLoading,
+}: MenuItemFormDialogProps) {
+  const form = useForm<MenuItemFormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: initialData?.name || '',
       description: initialData?.description || '',
       price: initialData?.price || 0,
-      image_url: initialData?.image_url || null,
+      image_url: initialData?.image_url || '',
       is_active: initialData?.is_active ?? true,
     },
   });
 
   useEffect(() => {
-    if (isOpen) {
+    if (initialData) {
       form.reset({
-        name: initialData?.name || '',
-        description: initialData?.description || '',
-        price: initialData?.price || 0,
-        image_url: initialData?.image_url || null,
-        is_active: initialData?.is_active ?? true,
+        name: initialData.name,
+        description: initialData.description || '',
+        price: initialData.price,
+        image_url: initialData.image_url || '',
+        is_active: initialData.is_active,
+      });
+    } else {
+      form.reset({
+        name: '',
+        description: '',
+        price: 0,
+        image_url: '',
+        is_active: true,
       });
     }
-  }, [isOpen, initialData, form]);
+  }, [initialData, form]);
 
-  const onSubmit = async (values: ItemFormValues) => {
-    if (!restaurantId) {
-      toast.error('Erro: ID do restaurante não encontrado.');
-      return;
-    }
-
-    // Construção explícita do payload para garantir que os tipos correspondam a CreateItemPayload
-    const dataToSave = {
-      category_id: categoryId,
-      name: values.name,
-      price: values.price,
-      is_active: values.is_active,
-      description: values.description || null, // Converte undefined/empty string para null
-      image_url: values.image_url || null, // Converte undefined/empty string para null
-    };
-
-    try {
-      if (isEdit && initialData) {
-        await mutationUpdate.mutateAsync({ id: initialData.id, updates: dataToSave });
-        toast.success('Item atualizado com sucesso!');
-      } else {
-        // O tipo de dataToSave agora corresponde a CreateItemPayload
-        await mutationCreate.mutateAsync(dataToSave);
-        toast.success('Item criado com sucesso!');
-      }
-      onOpenChange(false);
-    } catch (error) {
-      console.error('Erro ao salvar item:', error);
-      toast.error(`Falha ao salvar item: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
-    }
+  const onSubmit = async (values: MenuItemFormValues) => {
+    await onSave(values);
+    // Não chama onClose aqui, pois o componente pai faz isso após o sucesso da mutação
   };
-
-  const isSubmitting = mutationUpdate.isPending || mutationCreate.isPending;
+  
+  const currentImageUrl = form.watch('image_url');
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Editar Item do Cardápio' : 'Adicionar Novo Item'}</DialogTitle>
+          <DialogTitle>{initialData ? 'Editar Item' : 'Novo Item de Menu'}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             
-            {/* Upload de Imagem */}
+            {/* Imagem e Upload */}
             <FormField
               control={form.control}
               name="image_url"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Imagem do Item (Opcional)</FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      bucket="restaurant_images"
-                      currentImageUrl={field.value || undefined}
-                      onUploadSuccess={async (url) => { // Tornando a função assíncrona
-                        field.onChange(url);
-                      }}
-                      onRemove={async () => { // Tornando a função assíncrona
-                        field.onChange(null);
-                      }}
-                      folderPath={`${restaurantId}/${categoryId}`}
-                    />
-                  </FormControl>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                      <img 
+                        src={currentImageUrl || PLACEHOLDER_IMAGE_URL} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <ImageUploadButton
+                      onUploadComplete={(url) => field.onChange(url)}
+                      bucketName={RESTAURANT_IMAGES_BUCKET}
+                      folderPath={`${categoryId}/items`}
+                      className="h-10 flex-1 bg-highlight hover:bg-highlight/90"
+                      icon={<Camera className="h-4 w-4 mr-2" />}
+                    >
+                      {field.value ? "Trocar Imagem" : "Adicionar Imagem"}
+                    </ImageUploadButton>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/* Nome */}
+            
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Nome do Item</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ex: Pizza Calabresa" {...field} />
+                    <Input placeholder="Ex: Hambúrguer Clássico" {...field} className="h-10 rounded-lg" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/* Descrição */}
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição (Opcional)</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Ex: Molho de tomate, mussarela, calabresa e cebola." {...field} />
+                    <Textarea placeholder="Breve descrição do item..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/* Preço */}
             <FormField
               control={form.control}
               name="price"
@@ -182,9 +167,10 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
                     <Input 
                       type="number" 
                       step="0.01" 
-                      placeholder="0.00" 
+                      placeholder="19.90" 
                       {...field} 
-                      onChange={(e) => field.onChange(e.target.value)}
+                      className="h-10 rounded-lg"
+                      onChange={(e) => field.onChange(parseFloat(e.target.value))}
                       value={field.value === 0 ? '' : field.value}
                     />
                   </FormControl>
@@ -192,40 +178,32 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
                 </FormItem>
               )}
             />
-
-            {/* Ativo */}
+            
             <FormField
               control={form.control}
               name="is_active"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
-                    <FormLabel>Item Ativo</FormLabel>
-                    <p className="text-sm text-muted-foreground">
-                      Se desativado, o item não aparecerá no perfil público.
-                    </p>
+                    <FormLabel>Ativo (Visível ao público)</FormLabel>
                   </div>
                   <FormControl>
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      className="data-[state=checked]:bg-highlight"
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
-
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
+              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <Save className="mr-2 h-4 w-4" />
-                )}
-                {isEdit ? 'Salvar Alterações' : 'Adicionar Item'}
+              <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90">
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Salvar
               </Button>
             </DialogFooter>
           </form>
@@ -233,6 +211,4 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({ isOpen, onOpenChange, i
       </DialogContent>
     </Dialog>
   );
-};
-
-export default ItemFormDialog;
+}

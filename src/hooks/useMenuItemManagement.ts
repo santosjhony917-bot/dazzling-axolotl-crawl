@@ -1,14 +1,6 @@
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuItem } from '@/types/menu';
-
-// --- Item Management Types ---
-
-interface CreateItemPayload extends Omit<MenuItem, 'id' | 'created_at' | 'order_index'> {}
-interface UpdateItemPayload {
-  id: string;
-  updates: Partial<MenuItem>;
-}
+import { MenuItem, CreateItemPayload, UpdateItemPayload } from '@/types/menu'; // Import payloads from types/menu
 
 // --- API Calls ---
 
@@ -24,6 +16,7 @@ const fetchMenuItems = async (categoryId: string): Promise<MenuItem[]> => {
 };
 
 const createMenuItem = async (payload: CreateItemPayload): Promise<MenuItem> => {
+  // The payload already contains category_id, name, price, is_active, description, image_url
   const { data, error } = await supabase
     .from('menu_items')
     .insert(payload)
