@@ -18,6 +18,7 @@ export default function RestaurantProfilePublic() {
   useEffect(() => {
     console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
     if (error) {
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`); // Log detalhado do erro
       showError(error);
     }
   }, [error, restaurantId]);
