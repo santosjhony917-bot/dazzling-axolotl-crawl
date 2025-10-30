@@ -64,7 +64,7 @@ export function useRestaurantProfile() {
     const { error } = await supabase
       .from('restaurants')
       // Fazendo cast para Partial<Restaurant> para satisfazer a tipagem do Supabase
-      .update(updates as Partial<Restaurant>) 
+      .update(updates as unknown as Partial<Restaurant>) 
       .eq('id', restaurant.id);
       
     if (error) {

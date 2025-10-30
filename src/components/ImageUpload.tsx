@@ -9,6 +9,7 @@ interface ImageUploadProps {
   bucket: string;
   currentImageUrl: string | null | undefined;
   onUploadSuccess: (url: string) => Promise<void>;
+  onRemove?: () => Promise<void>; // Adicionado onRemove
   folderPath: string; // Ex: 'restaurants/uuid/profile'
 }
 
@@ -16,6 +17,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   bucket,
   currentImageUrl,
   onUploadSuccess,
+  onRemove, // Desestruturado
   folderPath,
 }) => {
   const [file, setFile] = useState<File | null>(null);
@@ -76,8 +78,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const handleRemove = async () => {
     if (!currentImageUrl) return;
 
-    // 1. Atualizar o banco de dados para remover a URL
-    await onUploadSuccess(null as any); // Passa null para limpar o campo no DB
+    // 1. Chamar o callback de remoção, se existir
+    if (onRemove) {
+      await onRemove();
+    } else {
+      // Fallback: Atualizar o banco de dados para remover a URL
+      await onUploadSuccess(null as any); 
+    }
 
     // 2. Tenta remover o arquivo do storage (opcional, mas boa prática)
     // Nota: Remover do storage requer o caminho exato do arquivo, que é complexo de extrair da URL pública.
