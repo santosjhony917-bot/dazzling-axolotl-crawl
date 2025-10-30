@@ -592,7 +592,11 @@ export type GalleryImage = Tables<'restaurant_gallery'>;
 export type RestaurantPlan = Enums<'restaurant_plan'>;
 
 // Type for the result of the find_nearby_restaurants RPC
-export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number];
+// CORREÇÃO: Adicionando city e state ao tipo retornado pela função RPC
+export type RestaurantWithDistance = (Database['public']['Functions']['find_nearby_restaurants']['Returns'][number] & {
+  city: string | null;
+  state: string | null;
+});
 
 // Type for nested restaurant data in user_favorites query
 export type FavoriteRestaurant = Tables<'user_favorites'> & {
