@@ -25,7 +25,6 @@ import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-// import RestaurantDashboardPage from '@/pages/restaurant/RestaurantDashboardPage'; // Dashboard Premium - REMOVIDO para limpar imports
 import ProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
 import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
 import GalleryManagement from '@/pages/restaurant/GalleryManagement';
@@ -34,6 +33,7 @@ import RestaurantLogin from '@/pages/RestaurantLogin';
 import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
+import ProfileMenuPage from '@/pages/restaurant/ProfileMenuPage'; // NOVO IMPORT
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -81,7 +81,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
           {/* O Home do Restaurante Free é a página Home do Cliente */}
           <Route path="/restaurant-area/home" element={<Home />} /> 
-          <Route path="/restaurant-area/profile-menu" element={<ProfileSettingsPage />} />
+          <Route path="/restaurant-area/profile-menu" element={<ProfileMenuPage />} /> {/* ROTA CORRIGIDA */}
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
           <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />

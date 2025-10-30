@@ -16,7 +16,7 @@ import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm';
 import ImageUpload from '@/components/ImageUpload';
 import { Separator } from '@/components/ui/separator';
 import { useQueryClient } from '@tanstack/react-query';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o layout correto
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 
 // Tipagem para o estado do formulário
 interface RestaurantFormData {
