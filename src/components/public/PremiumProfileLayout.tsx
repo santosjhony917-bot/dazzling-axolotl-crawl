@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
 import RestaurantGallery from '@/components/public/RestaurantGallery';
 import RestaurantMenu from '@/components/public/RestaurantMenu';
-import { OpeningHoursDisplay } from '@/components/public/OpeningHoursDisplay'; // Corrigido para named export
+import { OpeningHoursDisplay } from '@/components/public/OpeningHoursDisplay'; // Fixed import
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 import { Separator } from '@/components/ui/separator';
 

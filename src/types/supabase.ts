@@ -578,14 +578,25 @@ export type Enums<
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never
 
-// --- Exported Types ---
-export type Profile = Tables<'profiles'>;
+// --- Custom Exported Types ---
+
 export type Restaurant = Tables<'restaurants'>;
-export type MenuCategory = Tables<'menu_categories'>;
+export type Profile = Tables<'profiles'>;
 export type MenuItem = Tables<'menu_items'>;
+export type MenuCategory = Tables<'menu_categories'>;
 export type GalleryImage = Tables<'restaurant_gallery'>;
+
 export type RestaurantPlan = Enums<'restaurant_plan'>;
 
-// Derived types
+// Type for RPC return (find_nearby_restaurants)
 export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number];
-export type MenuCategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
+
+// Type for favorites join (used in useFavorites)
+export type FavoriteRestaurant = Tables<'user_favorites'> & {
+  restaurants: Restaurant;
+};
+
+// Type for nested menu query (used in public profile fetch)
+export type MenuCategoryWithItems = MenuCategory & {
+  menu_items: MenuItem[];
+};

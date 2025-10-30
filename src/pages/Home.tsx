@@ -10,7 +10,6 @@ import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
-import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';

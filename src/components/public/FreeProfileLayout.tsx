@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
-import RestaurantHeader from '@/components/public/RestaurantHeader';
+import ProfileHeader from '@/components/public/ProfileHeader'; // Corrected import
 import RestaurantMenu from '@/components/public/RestaurantMenu';
-import RestaurantInfo from '@/components/public/RestaurantInfo';
+import AdditionalInfo from '@/components/public/AdditionalInfo'; // Corrected import
 import RestaurantGallery from '@/components/public/RestaurantGallery';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 import { formatScheduleForDisplay } from '@/utils/schedule';
 import { Separator } from '@/components/ui/separator';
+import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -20,10 +20,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
   // Usando o hook específico para este restaurante
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
 
-  // Usando o cast para WeekSchedule do types/schedule.ts
+  // Usando o cast para WeekSchedule (assuming opening_hours structure matches WeekSchedule)
   const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
-  // Construindo o endereço completo para o componente RestaurantInfo
+  // Construindo o endereço completo para o componente AdditionalInfo
   const fullAddress = [restaurant.address, restaurant.number, restaurant.neighborhood, restaurant.city, restaurant.state, restaurant.cep]
     .filter(Boolean)
     .join(', ');
@@ -35,7 +35,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
         {/* Header (Logo, Nome, Favorito) */}
-        <RestaurantHeader
+        <ProfileHeader
           restaurant={{
             id: restaurant.id,
             name: restaurant.name,
@@ -66,7 +66,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
         <Separator className="my-6" />
 
         {/* Informações de Contato e Horário */}
-        <RestaurantInfo
+        <AdditionalInfo
           id="info"
           restaurant={{
             address: restaurant.address,

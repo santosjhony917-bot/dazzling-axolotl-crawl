@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
 
-// Define o tipo retornado pela RPC, que é Restaurant + distance_km obrigatório
-// Usamos RestaurantWithDistance diretamente do types/supabase
-type RpcRestaurantResult = RestaurantWithDistance;
-
 interface NearbyCompetitor {
   id: string;
   name: string;
@@ -50,8 +46,8 @@ export const useNearbyCompetitors = (
           throw new Error(error.message);
         }
 
-        // Explicitly cast data to RpcRestaurantResult[]
-        const nearbyRestaurants = data as RpcRestaurantResult[];
+        // Explicitly cast data to RestaurantWithDistance[]
+        const nearbyRestaurants = data as RestaurantWithDistance[];
 
         // Filter out the current restaurant and map to the required structure
         const filteredCompetitors: NearbyCompetitor[] = nearbyRestaurants

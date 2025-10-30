@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -19,6 +17,7 @@ import MenuItemDetails from '@/pages/MenuItemDetails';
 import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
+import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -35,7 +34,7 @@ import RestaurantLogin from '@/pages/RestaurantLogin';
 import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
-import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
+import MetricsPage from '@/pages/restaurant/MetricsPage';
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -64,6 +63,7 @@ function App() {
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
