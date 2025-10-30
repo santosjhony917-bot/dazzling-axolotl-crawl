@@ -31,7 +31,7 @@ const PUBLIC_RESTAURANT_SELECT = `
     *,
     followers_count:user_favorites(count),
     gallery_images:restaurant_gallery(id, image_url, caption, order_index),
-    menu_categories(
+    menu_categories!inner(
         id, 
         name, 
         order_index, 
@@ -62,6 +62,10 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
 
   if (error && error.code !== 'PGRST116') {
     console.error('Error fetching public restaurant (NOT PGRST116):', error); // Log mais detalhado
+    // Se o erro for PGRST200 (relacionamento), lançamos para ser capturado pelo hook
+    if (error.code === 'PGRST200') {
+        throw new Error(`Erro de relacionamento no banco de dados: ${error.message}`);
+    }
     return null;
   }
 
@@ -78,7 +82,16 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
 
   // 3. Filtrar categorias e itens inativos
-  const activeMenuCategories = data.menu_categories
+  // O PostgREST retorna menu_categories como um array de objetos aninhados.
+  const activeMenuCategories = (data.menu_categories || []) as unknown as {
+      id: string;
+      name: string;
+      order_index: number | null;
+      is_active: boolean | null;
+      menu_items: any[];
+  }[];
+  
+  const filteredMenuCategories = activeMenuCategories
       .filter(cat => cat.is_active)
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
       .map(category => ({
@@ -89,7 +102,14 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       }));
       
   // 4. Ordenar galeria
-  const galleryImages = data.gallery_images
+  const galleryImages = (data.gallery_images || []) as unknown as {
+      id: string;
+      image_url: string;
+      caption: string | null;
+      order_index: number | null;
+  }[];
+  
+  const sortedGalleryImages = galleryImages
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
 
   return {
@@ -97,7 +117,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     addressSummary,
     logoUrl: data.image_url, // Mantendo a compatibilidade com o tipo PublicRestaurantData
     followers_count: followersCount as number,
-    menu_categories: activeMenuCategories,
-    gallery_images: galleryImages,
+    menu_categories: filteredMenuCategories,
+    gallery_images: sortedGalleryImages,
   } as PublicRestaurantData;
 }
