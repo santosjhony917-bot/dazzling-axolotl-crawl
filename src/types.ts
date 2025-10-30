@@ -1,10 +1,10 @@
-import { Database } from '@/lib/database.types';
+import { Restaurant as SupabaseRestaurant, MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem, Profile as SupabaseProfile } from '@/types/supabase';
 
 // Utility types
-export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
-export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
-export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
-export type Profile = Database['public']['Tables']['profiles']['Row']; // Tipo Profile adicionado
+export type Restaurant = SupabaseRestaurant;
+export type MenuCategory = SupabaseMenuCategory;
+export type MenuItem = SupabaseMenuItem;
+export type Profile = SupabaseProfile; // Tipo Profile adicionado
 
 // Form types
 export interface RestaurantFormValues {

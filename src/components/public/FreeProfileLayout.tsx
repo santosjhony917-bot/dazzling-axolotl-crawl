@@ -1,7 +1,8 @@
 "use client";
 
 import React from 'react';
-import { PublicRestaurantData, WeekSchedule } from '@/types/restaurant';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { WeekSchedule } from '@/types/schedule'; // Import WeekSchedule from schedule.ts
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
 import RestaurantHeader from '@/components/public/RestaurantHeader';
 import RestaurantMenu from '@/components/public/RestaurantMenu';
@@ -19,7 +20,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
   // Usando o hook específico para este restaurante
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
 
-  // Usando o cast para WeekSchedule
+  // Usando o cast para WeekSchedule do types/schedule.ts
   const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
   // Construindo o endereço completo para o componente RestaurantInfo

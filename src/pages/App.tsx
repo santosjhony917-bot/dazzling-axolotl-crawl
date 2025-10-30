@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -33,6 +35,7 @@ import RestaurantLogin from '@/pages/RestaurantLogin';
 import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
+import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -85,6 +88,7 @@ function App() {
           <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
+          <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
         </Route>
 
         {/* Rotas Protegidas do Admin (Usando AdminLayout) */}

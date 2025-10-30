@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
+import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
 
 // Define o tipo retornado pela RPC, que é Restaurant + distance_km obrigatório
-interface RpcRestaurantResult extends Restaurant {
-  distance_km: number;
-}
+// Usamos RestaurantWithDistance diretamente do types/supabase
+type RpcRestaurantResult = RestaurantWithDistance;
 
 interface NearbyCompetitor {
   id: string;

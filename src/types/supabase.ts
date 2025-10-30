@@ -577,3 +577,15 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
     ? Database['public']['Enums'][PublicEnumNameOrOptions]
     : never
+
+// --- Exported Types ---
+export type Profile = Tables<'profiles'>;
+export type Restaurant = Tables<'restaurants'>;
+export type MenuCategory = Tables<'menu_categories'>;
+export type MenuItem = Tables<'menu_items'>;
+export type GalleryImage = Tables<'restaurant_gallery'>;
+export type RestaurantPlan = Enums<'restaurant_plan'>;
+
+// Derived types
+export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number];
+export type MenuCategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
