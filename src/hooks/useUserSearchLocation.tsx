@@ -94,11 +94,11 @@ export function useUserSearchLocation() {
     };
 
     try {
-      // Sempre insere um novo registro para manter o histórico (se necessário) ou
-      // faz um upsert se quisermos apenas o último. Para simplicidade e histórico, vamos inserir.
+      // Usando UPSERT (INSERT ON CONFLICT) para garantir que apenas uma linha exista por user_id.
+      // O conflito deve ser resolvido na coluna user_id, que deve ser única.
       const { data, error } = await supabase
         .from('user_search_locations')
-        .insert([newLocationData])
+        .upsert(newLocationData, { onConflict: 'user_id' })
         .select()
         .single();
 
