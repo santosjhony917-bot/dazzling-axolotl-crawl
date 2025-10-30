@@ -11,8 +11,9 @@ import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
 import { formatOpeningHours } from '@/lib/schedule';
 import { cn } from '@/lib/utils';
-import OrderChannelsSection from './OrderChannelsSection'; // Importando OrderChannelsSection
-import RestaurantInfo from './RestaurantInfo'; // Importando RestaurantInfo
+import OrderChannelsSection from './OrderChannelsSection';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantPublicHeader from './RestaurantHeader'; // Importando o novo Header
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -20,6 +21,7 @@ interface FreeProfileLayoutProps {
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
   const { user } = useAuth();
+  // Usamos useFavoriteToggle para gerenciar o status de "Seguir" (que é o mesmo que Favoritar)
   const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
 
   const formattedHours = useMemo(() => {
@@ -65,60 +67,28 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       </div>
 
       <div className="container mx-auto px-4 -mt-12 pb-8">
-        {/* Profile Card and Actions (Header) */}
-        <Card className="p-6 shadow-soft-xl rounded-2xl bg-white relative">
-          <div className="flex items-end justify-between">
-            {/* Logo and Name */}
-            <div className="flex items-end">
-              <div className="w-24 h-24 bg-white border-4 border-white rounded-full shadow-lg -mt-12 flex items-center justify-center overflow-hidden flex-shrink-0">
-                {restaurant.image_url ? (
-                  <img
-                    src={restaurant.image_url}
-                    alt={`Logo de ${restaurant.name}`}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <Utensils className="w-12 h-12 text-gray-400" />
-                )}
-              </div>
-              <div className="ml-4 pb-2 min-w-0">
-                <h1 className="text-2xl font-extrabold text-primary leading-tight truncate">
-                  {restaurant.name}
-                </h1>
-                <p className="text-sm text-gray-500">{restaurant.category}</p>
-              </div>
-            </div>
-
-            {/* Actions (Favorite/Share) */}
-            <div className="flex space-x-2 pb-2 flex-shrink-0">
-              <Button 
-                variant="outline" 
-                size="icon" 
-                onClick={() => toggleFavorite()}
-                disabled={!user || isToggling}
-                className="rounded-full bg-white hover:bg-gray-50 shadow-soft-sm border-gray-200"
-              >
-                <Heart 
-                  className={cn(`h-5 w-5 transition-colors`, restaurant.is_favorite ? 'fill-red-500 text-red-500' : 'text-gray-500')} 
-                />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon" 
-                onClick={handleShare}
-                className="rounded-full bg-white hover:bg-gray-50 shadow-soft-sm border-gray-200"
-              >
-                <Share2 className="h-5 w-5 text-gray-500" />
-              </Button>
-            </div>
-          </div>
+        {/* Profile Header (Novo Componente) */}
+        <Card className="p-6 pt-0 shadow-soft-xl rounded-2xl bg-white relative">
+          <RestaurantPublicHeader
+            restaurant={{
+              id: restaurant.id,
+              name: restaurant.name,
+              logoUrl: restaurant.image_url || '',
+              addressSummary: restaurant.addressSummary,
+              followersCount: restaurant.followers_count,
+              isFavorite: restaurant.is_favorite,
+            }}
+            onFavoriteToggle={toggleFavorite}
+            isFavoriteMutating={isToggling}
+            onShare={handleShare}
+          />
 
           {/* Description */}
           {restaurant.description && (
             <p className="mt-4 text-gray-600">{restaurant.description}</p>
           )}
 
-          {/* Info Summary (Mantido aqui para o Free, mas será movido para o final no Premium) */}
+          {/* Info Summary (Mantido aqui para o Free) */}
           <Separator className="my-4" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
             {fullAddress && (
