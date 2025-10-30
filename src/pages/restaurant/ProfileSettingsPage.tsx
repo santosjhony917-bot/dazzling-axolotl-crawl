@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile'; // CORRIGIDO: Usando useRestaurantProfile
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useAuth } from '@/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,11 +11,12 @@ import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import SubscriptionCard from '@/components/restaurant/profile/SubscriptionCard';
-import LocationForm from '@/components/restaurant/LocationForm'; // CORRIGIDO: Novo caminho
-import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm'; // CORRIGIDO: Novo caminho
+import LocationForm from '@/components/restaurant/LocationForm';
+import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm';
 import ImageUpload from '@/components/ImageUpload';
 import { Separator } from '@/components/ui/separator';
 import { useQueryClient } from '@tanstack/react-query';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o layout correto
 
 // Tipagem para o estado do formulário
 interface RestaurantFormData {
@@ -32,7 +33,6 @@ interface RestaurantFormData {
 
 const ProfileSettingsPage: React.FC = () => {
   const { user } = useAuth();
-  // useRestaurantProfile retorna 'restaurant' e 'refetchProfile'
   const { restaurant, isLoading: isRestaurantLoading, refetchProfile } = useRestaurantProfile(); 
   const queryClient = useQueryClient();
 
@@ -85,7 +85,7 @@ const ProfileSettingsPage: React.FC = () => {
       if (error) throw error;
 
       showSuccess('Perfil atualizado com sucesso!');
-      refetchProfile(); // Usando refetchProfile
+      refetchProfile();
       queryClient.invalidateQueries({ queryKey: ['restaurantProfile', restaurant.user_id] });
     } catch (error) {
       console.error('Erro ao salvar perfil:', error);
@@ -107,7 +107,7 @@ const ProfileSettingsPage: React.FC = () => {
       if (error) throw error;
 
       showSuccess('Imagem atualizada com sucesso!');
-      refetchProfile(); // Usando refetchProfile
+      refetchProfile();
     } catch (error) {
       console.error(`Erro ao atualizar ${field}:`, error);
       showError('Falha ao atualizar a imagem.');
@@ -127,14 +127,13 @@ const ProfileSettingsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-8">
-      <h1 className="text-3xl font-bold text-[#022D68]">Configurações do Restaurante</h1>
-      <p className="text-gray-600">Gerencie as informações básicas, localização e plano de assinatura do seu estabelecimento.</p>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <RestaurantAreaPageLayout title="Configurações do Restaurante" icon={Utensils} backPath="restaurant-area/profile-menu">
+      <div className="p-4 space-y-8">
         
-        {/* Coluna 1 & 2: Formulários */}
-        <div className="lg:col-span-2 space-y-8">
+        <p className="text-gray-600">Gerencie as informações básicas, localização e plano de assinatura do seu estabelecimento.</p>
+
+        {/* Layout de Empilhamento Vertical */}
+        <div className="space-y-8">
           
           {/* 1. Informações Básicas */}
           <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -225,10 +224,6 @@ const ProfileSettingsPage: React.FC = () => {
               <OpeningHoursForm restaurant={restaurant} refetch={refetchProfile} />
             </CardContent>
           </Card>
-        </div>
-
-        {/* Coluna 3: Imagens e Assinatura */}
-        <div className="lg:col-span-1 space-y-8">
           
           {/* 5. Imagem de Perfil */}
           <Card className="shadow-soft-lg border-none rounded-xl bg-white">
@@ -266,7 +261,7 @@ const ProfileSettingsPage: React.FC = () => {
           <SubscriptionCard restaurant={restaurant} />
         </div>
       </div>
-    </div>
+    </RestaurantAreaPageLayout>
   );
 };
 
