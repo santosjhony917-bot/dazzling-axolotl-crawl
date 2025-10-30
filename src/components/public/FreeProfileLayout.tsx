@@ -69,6 +69,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
     isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
+    isPremium: false, // CORREÇÃO: Adicionado isPremium
   };
   
   // Verifica se há conteúdo para as abas
