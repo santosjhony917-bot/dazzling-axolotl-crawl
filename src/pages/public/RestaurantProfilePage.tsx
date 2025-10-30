@@ -1,63 +1,85 @@
-import React, { useEffect, useState } from 'react';
+"use client";
+
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Loader2, Utensils } from 'lucide-react';
-import { fetchPublicRestaurantById } from '@/integrations/supabase/restaurants'; // Importando a função correta
-import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo correto
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { PublicRestaurantData } from '@/types/restaurant';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { showError } from '@/utils/toast';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
-export default function RestaurantProfilePage() {
+const fetchRestaurantProfile = async (restaurantId: string): Promise<PublicRestaurantData> => {
+  // 1. Fetch base restaurant data and aggregated data
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select(`
+      *,
+      is_favorite:user_favorites(count),
+      followers_count:user_favorites(count),
+      menu_categories (
+        *,
+        menu_items (*)
+      ),
+      gallery_images:restaurant_gallery (*)
+    `)
+    .eq('id', restaurantId)
+    .single();
+
+  if (error) {
+    console.error('Error fetching restaurant profile:', error);
+    throw new Error('Restaurante não encontrado.');
+  }
+
+  // 2. Process aggregated counts and computed fields
+  const processedData: PublicRestaurantData = {
+    ...data,
+    // Supabase returns count as an array of objects: [{ count: N }]
+    is_favorite: (data.is_favorite as unknown as { count: number }[])[0]?.count > 0,
+    followers_count: (data.followers_count as unknown as { count: number }[])[0]?.count || 0,
+    
+    // Compute address summary for display/maps
+    addressSummary: [data.address, data.number, data.neighborhood, data.city, data.state]
+      .filter(Boolean)
+      .join(', '),
+
+    // Ensure relations are correctly typed (already handled by the select query structure)
+    menu_categories: data.menu_categories as PublicRestaurantData['menu_categories'],
+    gallery_images: data.gallery_images as PublicRestaurantData['gallery_images'],
+  };
+
+  return processedData;
+};
+
+const RestaurantProfilePage: React.FC = () => {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const { data: restaurant, isLoading, error } = useQuery<PublicRestaurantData, Error>({
+    queryKey: ['publicRestaurantProfile', restaurantId],
+    queryFn: () => fetchRestaurantProfile(restaurantId!),
+    enabled: !!restaurantId,
+  });
 
   useEffect(() => {
-    if (!restaurantId) {
-      setError("ID do restaurante não fornecido.");
-      setIsLoading(false);
-      return;
+    if (error) {
+      toast.error(error.message);
     }
-
-    const fetchRestaurant = async () => {
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        const data = await fetchPublicRestaurantById(restaurantId);
-
-        if (data) {
-          setRestaurant(data);
-        } else {
-          setError("Restaurante não encontrado.");
-        }
-      } catch (e) {
-        console.error("Erro ao buscar restaurante:", e);
-        showError("Não foi possível carregar o perfil do restaurante.");
-        setError("Restaurante não encontrado ou erro de conexão.");
-        setRestaurant(null);
-      }
-      setIsLoading(false);
-    };
-
-    fetchRestaurant();
-  }, [restaurantId]);
+  }, [error]);
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (error || !restaurant) {
+  if (!restaurant) {
     return (
-      <div className="p-8 text-center">
-        <Utensils className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-        <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
-        <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+      <div className="text-center p-8">
+        <h1 className="text-2xl font-bold">Restaurante não encontrado</h1>
+        <p className="text-gray-500">Verifique o link e tente novamente.</p>
       </div>
     );
   }
@@ -67,6 +89,7 @@ export default function RestaurantProfilePage() {
     return <PremiumProfileLayout restaurant={restaurant} />;
   }
 
-  // Layout Free (Padrão)
   return <FreeProfileLayout restaurant={restaurant} />;
-}
+};
+
+export default RestaurantProfilePage;

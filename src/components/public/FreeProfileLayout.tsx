@@ -1,57 +1,50 @@
+"use client";
+
 import React from 'react';
-import { Restaurant } from '@/types/supabase';
-import RestaurantCoverImage from './RestaurantCoverImage';
-import RestaurantMenuSection from './RestaurantMenuSection';
-import RestaurantGallerySection from './RestaurantGallerySection';
-import { Separator } from '@/components/ui/separator';
-import { MapPin, Menu, Image, Heart } from 'lucide-react';
+import { PublicRestaurantData, WeekSchedule } from '@/types/restaurant';
+import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
+import RestaurantHeader from '@/components/public/RestaurantHeader';
+import RestaurantMenu from '@/components/public/RestaurantMenu';
+import RestaurantInfo from '@/components/public/RestaurantInfo';
+import RestaurantGallery from '@/components/public/RestaurantGallery';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 import { formatScheduleForDisplay } from '@/utils/schedule';
-import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
-import { WeekSchedule } from '@/types/schedule';
-import RestaurantPublicHeader from '../restaurant/RestaurantPublicHeader';
-import AdditionalInfo from './AdditionalInfo';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // Importação adicionada
+import { Separator } from '@/components/ui/separator';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
-  const navigate = useNavigate();
   // Usando o hook específico para este restaurante
   const { isFavorite, toggleFavorite, isLoading: isMutating } = useRestaurantFavorite(restaurant.id);
-  
+
   // Usando o cast para WeekSchedule
   const scheduleDisplay = formatScheduleForDisplay(restaurant.opening_hours as unknown as WeekSchedule);
 
+  // Construindo o endereço completo para o componente RestaurantInfo
   const fullAddress = [restaurant.address, restaurant.number, restaurant.neighborhood, restaurant.city, restaurant.state, restaurant.cep]
     .filter(Boolean)
     .join(', ');
 
   return (
-    <div className="bg-white dark:bg-gray-900 min-h-screen pb-20 shadow-lg">
-      
-      {/* Botão de Voltar Flutuante - REMOVIDO DAQUI */}
-      
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Imagem de Capa */}
       <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
 
-      {/* Conteúdo Principal Restrito */}
-      <div className="relative -mt-16 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Logo e Header Público */}
-        <RestaurantPublicHeader 
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
+        {/* Header (Logo, Nome, Favorito) */}
+        <RestaurantHeader
           restaurant={{
             id: restaurant.id,
             name: restaurant.name,
             logoUrl: restaurant.image_url,
             addressSummary: restaurant.addressSummary, // Usando o campo computado
             isFavorite: isFavorite,
-            onFavoriteToggle: toggleFavorite,
-            isMutating: isMutating,
+            followersCount: restaurant.followers_count, // Usando followers_count
           }}
+          toggleFavorite={toggleFavorite}
+          isMutating={isMutating}
         />
 
         {/* Descrição */}
@@ -61,57 +54,48 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
 
         <Separator className="my-6" />
 
-        {/* Navegação Rápida (Anchors) */}
-        <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
-          <a href="#menu" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
-            <Menu className="w-4 h-4 mr-1" /> Cardápio
-          </a>
-          <a href="#info" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
-            <MapPin className="w-4 h-4 mr-1" /> Informações
-          </a>
-          {/* Galeria só aparece se houver fotos, mas o link pode ficar */}
-          <a href="#gallery" className="flex items-center text-sm font-medium text-primary hover:text-primary/80">
-            <Image className="w-4 h-4 mr-1" /> Galeria
-          </a>
-        </div>
+        {/* Menu */}
+        <RestaurantMenu
+          id="menu"
+          restaurantId={restaurant.id}
+          isPremium={false}
+          menuCategories={restaurant.menu_categories}
+        />
 
         <Separator className="my-6" />
 
-        {/* Seções de Informação */}
-        <div className="space-y-8">
-          
-          {/* 1. Menu */}
-          <RestaurantMenuSection 
-            id="menu"
-            restaurantId={restaurant.id}
-            isPremium={false}
-          />
+        {/* Informações de Contato e Horário */}
+        <RestaurantInfo
+          id="info"
+          restaurant={{
+            address: restaurant.address,
+            number: restaurant.number,
+            neighborhood: restaurant.neighborhood,
+            city: restaurant.city,
+            state: restaurant.state,
+            cep: restaurant.cep,
+            phone: restaurant.phone,
+            email: restaurant.email,
+            whatsappUrl: restaurant.whatsapp_url,
+            ifoodUrl: restaurant.ifood_url,
+            otherUrl: restaurant.other_url,
+            openingHours: restaurant.opening_hours,
+          }}
+          scheduleDisplay={scheduleDisplay}
+          fullAddress={fullAddress}
+        />
 
-          {/* 2. Informações Adicionais (Endereço, Contato, Horários) */}
-          <AdditionalInfo 
-            restaurant={{
-              address: restaurant.address,
-              number: restaurant.number,
-              neighborhood: restaurant.neighborhood,
-              city: restaurant.city,
-              state: restaurant.state,
-              cep: restaurant.cep,
-              phone: restaurant.phone,
-              email: restaurant.email,
-              whatsappUrl: restaurant.whatsapp_url,
-              ifoodUrl: restaurant.ifood_url,
-              otherUrl: restaurant.other_url,
-              openingHours: restaurant.opening_hours,
-            }}
-          />
+        <Separator className="my-6" />
 
-          {/* 3. Galeria */}
-          <RestaurantGallerySection 
-            id="gallery"
-            restaurantId={restaurant.id}
-            plan={restaurant.plan} // Passando o plano
-          />
-        </div>
+        {/* Galeria */}
+        <RestaurantGallery
+          id="gallery"
+          restaurantId={restaurant.id}
+          plan={restaurant.plan} // Passando o plano
+          galleryImages={restaurant.gallery_images}
+        />
+
+        <div className="h-12"></div>
       </div>
     </div>
   );

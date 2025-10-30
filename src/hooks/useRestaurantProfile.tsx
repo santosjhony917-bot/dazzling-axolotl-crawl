@@ -1,95 +1,69 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState, useCallback } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
-import { showError, showSuccess } from '@/utils/toast';
-import { useAuthData } from '@/context/AuthContext'; 
-import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule
+import { Restaurant } from '@/types/restaurant';
+import { toast } from 'sonner';
 
-/**
- * Hook to fetch and manage the restaurant profile for the currently authenticated owner.
- */
-export function useRestaurantProfile() {
-  const { user, isLoading: authLoading } = useAuthData();
-  const userId = user?.id;
+// Definindo um tipo genérico para updates, já que o formulário específico foi removido.
+type RestaurantUpdatePayload = Partial<Restaurant>;
 
-  const fetchRestaurant = async (): Promise<Restaurant | null> => {
-    if (!userId) return null;
+export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
+  const { user } = useAuth();
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(initialRestaurant ?? null);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const refetchProfile = useCallback(async () => {
+    if (!user) return;
+
+    setIsLoading(true);
     const { data, error } = await supabase
       .from('restaurants')
       .select('*')
-      .eq('user_id', userId)
-      .maybeSingle();
+      .eq('user_id', user.id)
+      .single();
 
     if (error) {
-      throw new Error(error.message);
+      console.error('Error fetching restaurant:', error);
+      toast.error('Erro ao carregar perfil do restaurante.');
+      setRestaurant(null);
+    } else {
+      setRestaurant(data);
+    }
+    setIsLoading(false);
+  }, [user]);
+
+  // Agora aceita um payload de atualização genérico
+  const updateRestaurant = useCallback(async (updates: RestaurantUpdatePayload) => {
+    if (!restaurant) {
+      toast.error('Restaurante não encontrado para atualização.');
+      return;
     }
 
-    return data as Restaurant | null;
-  };
-  
-  const { data: restaurant, isLoading, error, refetch } = useQuery<Restaurant | null, Error>({
-    queryKey: ['restaurantProfile', userId],
-    queryFn: fetchRestaurant,
-    enabled: !!userId && !authLoading,
-    staleTime: 5 * 60 * 1000,
-  });
-  
-  // Query para buscar a contagem de seguidores
-  const { data: actualFollowersCount = 0, isLoading: isFollowersLoading } = useQuery<number, Error>({
-    queryKey: ['restaurantFollowersCount', restaurant?.id],
-    queryFn: async () => {
-      if (!restaurant?.id) return 0;
-      const { data, error } = await supabase.rpc('count_restaurant_followers', { p_restaurant_id: restaurant.id });
-      if (error) {
-        console.error("Error fetching followers count:", error);
-        return 0;
-      }
-      return data || 0;
-    },
-    enabled: !!restaurant?.id,
-    staleTime: 5 * 60 * 1000,
-  });
+    setIsLoading(true);
 
-  // Definindo um tipo de atualização que permite WeekSchedule para opening_hours
-  type RestaurantUpdate = Partial<Omit<Restaurant, 'opening_hours'>> & {
-    opening_hours?: WeekSchedule | null;
-  };
-
-  const updateRestaurant = async (updates: RestaurantUpdate) => {
-    if (!restaurant?.id) {
-      return { error: "Restaurant ID is missing." };
-    }
-    
-    const { error } = await supabase
+    // Usando cast intermediário para 'unknown' para lidar com tipos JSONB como opening_hours
+    const { data: updatedData, error } = await supabase
       .from('restaurants')
-      // Fazendo cast para Partial<Restaurant> para satisfazer a tipagem do Supabase
-      .update(updates as unknown as Partial<Restaurant>) 
-      .eq('id', restaurant.id);
-      
-    if (error) {
-      showError(`Falha ao atualizar restaurante: ${error.message}`);
-      return { error: error.message };
-    }
-    
-    showSuccess("Perfil atualizado com sucesso!");
-    refetch();
-    return { error: null };
-  };
-  
-  // Determina a contagem final de seguidores: usa o override se for definido, senão usa a contagem real.
-  const finalFollowersCount = restaurant?.followers_override !== null && restaurant?.followers_override !== undefined
-    ? restaurant.followers_override
-    : actualFollowersCount;
+      .update(updates as unknown as Partial<Restaurant>)
+      .eq('id', restaurant.id)
+      .select()
+      .single();
 
-  // Combina os dados do restaurante com a contagem de seguidores
-  const combinedRestaurant = restaurant ? { ...restaurant, followersCount: finalFollowersCount } : null;
+    if (error) {
+      console.error('Error updating restaurant:', error);
+      toast.error('Erro ao atualizar perfil do restaurante.');
+    } else {
+      setRestaurant(updatedData);
+      toast.success('Perfil do restaurante atualizado com sucesso!');
+    }
+
+    setIsLoading(false);
+  }, [restaurant]);
 
   return {
-    restaurant: combinedRestaurant,
-    isLoading: isLoading || authLoading || isFollowersLoading,
-    error: error ? error.message : null,
+    restaurant,
+    isLoading,
+    refetchProfile,
     updateRestaurant,
-    refetchProfile: refetch,
   };
-}
+};
