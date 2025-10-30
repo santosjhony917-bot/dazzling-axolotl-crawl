@@ -1,267 +1,378 @@
-import React, { useState, useEffect } from 'react';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { useAuth } from '@/hooks/useAuth';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+"use client";
+
+import React, { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Loader2, Save, Utensils, MapPin, Clock, Phone, Mail, Link, Image as ImageIcon, Crown } from 'lucide-react';
-import { showError, showSuccess } from '@/utils/toast';
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
-import SubscriptionCard from '@/components/restaurant/profile/SubscriptionCard';
-import LocationForm from '@/components/restaurant/LocationForm';
-import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm';
-import ImageUpload from '@/components/ImageUpload';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'sonner';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RestaurantProfileFormValues, WeekSchedule } from '@/types/restaurant';
 import { useQueryClient } from '@tanstack/react-query';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import ImageUpload from '@/components/ImageUpload';
+import OpeningHoursForm from '@/components/restaurant/OpeningHoursForm'; // Updated import path
 
-// Tipagem para o estado do formulário
-interface RestaurantFormData {
-  name: string;
-  description: string;
-  phone: string;
-  email: string;
-  category: string;
-  whatsapp_url: string;
-  ifood_url: string;
-  other_url: string;
-  external_url: string;
-}
+// Schema de validação (simplificado para o exemplo)
+const profileSchema = z.object({
+  name: z.string().min(1, 'O nome é obrigatório.'),
+  description: z.string().nullable(),
+  category: z.string().nullable(),
+  phone: z.string().nullable(),
+  email: z.string().email('Email inválido.').nullable(),
+  cnpj: z.string().nullable(),
+  whatsapp_url: z.string().url('URL inválida.').nullable().or(z.literal('')),
+  ifood_url: z.string().url('URL inválida.').nullable().or(z.literal('')),
+  other_url: z.string().url('URL inválida.').nullable().or(z.literal('')),
+  address: z.string().nullable(),
+  number: z.string().nullable(),
+  neighborhood: z.string().nullable(),
+  city: z.string().nullable(),
+  state: z.string().nullable(),
+  cep: z.string().nullable(),
+  latitude: z.number().nullable(),
+  longitude: z.number().nullable(),
+  opening_hours: z.any().refine((val) => val !== undefined, 'Horário de funcionamento é obrigatório.'),
+  image_url: z.string().nullable(),
+  cover_image_url: z.string().nullable(),
+  image_file: z.any().optional(),
+  cover_image_file: z.any().optional(),
+  external_url: z.string().url('URL inválida.').nullable().or(z.literal('')),
+});
+
+const defaultOpeningHours: WeekSchedule = {
+  monday: [],
+  tuesday: [],
+  wednesday: [],
+  thursday: [],
+  friday: [],
+  saturday: [],
+  sunday: [],
+};
 
 const ProfileSettingsPage: React.FC = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
-  const { restaurant, isLoading: isRestaurantLoading, refetchProfile } = useRestaurantProfile(); 
+  // Chamando useRestaurantProfile sem argumentos, pois ele agora aceita opcionalmente
+  const { restaurant, isLoading: isRestaurantLoading, refetchProfile, updateRestaurant } = useRestaurantProfile();
   const queryClient = useQueryClient();
 
-  const [formData, setFormData] = useState<RestaurantFormData>({
-    name: '',
-    description: '',
-    phone: '',
-    email: '',
-    category: '',
-    whatsapp_url: '',
-    ifood_url: '',
-    other_url: '',
-    external_url: '',
+  const defaultValues = useMemo<RestaurantProfileFormValues>(() => ({
+    name: restaurant?.name || '',
+    description: restaurant?.description || null,
+    category: restaurant?.category || null,
+    phone: restaurant?.phone || null,
+    email: restaurant?.email || null,
+    cnpj: restaurant?.cnpj || null,
+    whatsapp_url: restaurant?.whatsapp_url || null,
+    ifood_url: restaurant?.ifood_url || null,
+    other_url: restaurant?.other_url || null,
+    address: restaurant?.address || null,
+    number: restaurant?.number || null,
+    neighborhood: restaurant?.neighborhood || null,
+    city: restaurant?.city || null,
+    state: restaurant?.state || null,
+    cep: restaurant?.cep || null,
+    latitude: restaurant?.latitude || null,
+    longitude: restaurant?.longitude || null,
+    opening_hours: (restaurant?.opening_hours as WeekSchedule) || defaultOpeningHours,
+    image_url: restaurant?.image_url || null,
+    cover_image_url: restaurant?.cover_image_url || null,
+    external_url: restaurant?.external_url || null,
+  }), [restaurant]);
+
+  const form = useForm<RestaurantProfileFormValues>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: defaultValues,
+    mode: 'onChange',
   });
-  const [isSaving, setIsSaving] = useState(false);
+
+  const { handleSubmit, control, reset, formState: { isSubmitting } } = form;
 
   useEffect(() => {
     if (restaurant) {
-      setFormData({
-        name: restaurant.name || '',
-        description: restaurant.description || '',
-        phone: restaurant.phone || '',
-        email: restaurant.email || '',
-        category: restaurant.category || '',
-        whatsapp_url: restaurant.whatsapp_url || '',
-        ifood_url: restaurant.ifood_url || '',
-        other_url: restaurant.other_url || '',
-        external_url: restaurant.external_url || '',
-      });
-    }
-  }, [restaurant]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleSaveProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!restaurant) return;
-
-    setIsSaving(true);
-
-    try {
-      const { error } = await supabase
-        .from('restaurants')
-        .update(formData)
-        .eq('id', restaurant.id);
-
-      if (error) throw error;
-
-      showSuccess('Perfil atualizado com sucesso!');
+      reset(defaultValues);
+    } else if (user) {
+      // If no restaurant data, try to fetch it
       refetchProfile();
-      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', restaurant.user_id] });
-    } catch (error) {
-      console.error('Erro ao salvar perfil:', error);
-      showError('Falha ao atualizar o perfil. Tente novamente.');
-    } finally {
-      setIsSaving(false);
     }
+  }, [restaurant, defaultValues, reset, user, refetchProfile]);
+
+  const onSubmit = async (data: RestaurantProfileFormValues) => {
+    if (!restaurant) {
+      toast.error('Restaurante não carregado. Tente novamente.');
+      return;
+    }
+
+    await updateRestaurant(data);
+    queryClient.invalidateQueries({ queryKey: ['restaurantProfile'] });
   };
 
-  const handleImageUpload = async (url: string | null, field: 'image_url' | 'cover_image_url') => {
-    if (!restaurant) return;
-
-    try {
-      const { error } = await supabase
-        .from('restaurants')
-        .update({ [field]: url })
-        .eq('id', restaurant.id);
-
-      if (error) throw error;
-
-      showSuccess('Imagem atualizada com sucesso!');
-      refetchProfile();
-    } catch (error) {
-      console.error(`Erro ao atualizar ${field}:`, error);
-      showError('Falha ao atualizar a imagem.');
-    }
-  };
-
-  if (isRestaurantLoading) {
+  if (isRestaurantLoading || !restaurant) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (!restaurant) {
-    return <p className="text-center text-red-500">Erro: Restaurante não encontrado ou você não tem permissão.</p>;
-  }
-
   return (
-    <RestaurantAreaPageLayout title="Configurações do Restaurante" icon={Utensils} backPath="restaurant-area/profile-menu">
-      <div className="p-4 space-y-8">
-        
-        <p className="text-gray-600">Gerencie as informações básicas, localização e plano de assinatura do seu estabelecimento.</p>
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center mb-6">
+          <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="mr-2">
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-2xl font-bold text-gray-800">Configurações do Perfil</h1>
+        </div>
 
-        {/* Layout de Empilhamento Vertical */}
-        <div className="space-y-8">
-          
-          {/* 1. Informações Básicas */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Seção de Imagens */}
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><Utensils className="w-5 h-5" /> Informações Gerais</CardTitle>
+              <CardTitle>Imagens do Restaurante</CardTitle>
+              <CardDescription>Gerencie a imagem de perfil e a capa do seu restaurante.</CardDescription>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSaveProfile} className="space-y-4">
-                <div>
-                  <Label htmlFor="name">Nome do Restaurante</Label>
-                  <Input id="name" value={formData.name} onChange={handleChange} required className="rounded-xl" />
-                </div>
-                <div>
-                  <Label htmlFor="category">Categoria (Ex: Italiana, Japonesa)</Label>
-                  <Input id="category" value={formData.category} onChange={handleChange} className="rounded-xl" />
-                </div>
-                <div>
-                  <Label htmlFor="description">Descrição</Label>
-                  <Textarea id="description" value={formData.description} onChange={handleChange} rows={3} className="rounded-xl" />
-                </div>
-                
-                <Button type="submit" disabled={isSaving} className="w-full bg-highlight hover:bg-highlight/90 rounded-xl">
-                  {isSaving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-                  Salvar Informações
-                </Button>
-              </form>
+            <CardContent className="grid gap-6 md:grid-cols-2">
+              {/* Imagem de Perfil */}
+              <div>
+                <Label htmlFor="image_url">Imagem de Perfil (Logo)</Label>
+                <Controller
+                  name="image_url"
+                  control={control}
+                  render={({ field }) => (
+                    <ImageUpload
+                      bucket="restaurant_images"
+                      currentImageUrl={field.value}
+                      onUploadSuccess={async (url) => {
+                        field.onChange(url);
+                        // Submitting the form immediately after upload is optional, but we update the field value
+                      }}
+                      onRemove={async () => {
+                        field.onChange(null);
+                      }}
+                      folderPath={`restaurant_images/${restaurant.id}/profile`}
+                      className="mt-2"
+                    />
+                  )}
+                />
+              </div>
+
+              {/* Imagem de Capa */}
+              <div>
+                <Label htmlFor="cover_image_url">Imagem de Capa</Label>
+                <Controller
+                  name="cover_image_url"
+                  control={control}
+                  render={({ field }) => (
+                    <ImageUpload
+                      bucket="restaurant_images"
+                      currentImageUrl={field.value}
+                      onUploadSuccess={async (url) => {
+                        field.onChange(url);
+                      }}
+                      onRemove={async () => {
+                        field.onChange(null);
+                      }}
+                      folderPath={`restaurant_images/${restaurant.id}/cover`}
+                      className="mt-2"
+                    />
+                  )}
+                />
+              </div>
             </CardContent>
           </Card>
 
-          {/* 2. Contato e Links */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          {/* Seção de Informações Básicas */}
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><Phone className="w-5 h-5" /> Contato e Redes</CardTitle>
+              <CardTitle>Informações Básicas</CardTitle>
+              <CardDescription>Nome, descrição e categoria do seu estabelecimento.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <form onSubmit={handleSaveProfile} className="space-y-4">
-                <div>
+              <div className="grid gap-2">
+                <Label htmlFor="name">Nome do Restaurante</Label>
+                <Input id="name" {...form.register('name')} />
+                {form.formState.errors.name && <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>}
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="description">Descrição</Label>
+                <Textarea id="description" {...form.register('description')} rows={3} />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="category">Categoria</Label>
+                <Controller
+                  name="category"
+                  control={control}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a Categoria" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Italiana">Italiana</SelectItem>
+                        <SelectItem value="Japonesa">Japonesa</SelectItem>
+                        <SelectItem value="Brasileira">Brasileira</SelectItem>
+                        <SelectItem value="Fast Food">Fast Food</SelectItem>
+                        <SelectItem value="Vegetariana">Vegetariana</SelectItem>
+                        <SelectItem value="Outra">Outra</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Seção de Contato e Documentos */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Contato e Links</CardTitle>
+              <CardDescription>Informações de contato e links externos.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid gap-2">
                   <Label htmlFor="phone">Telefone</Label>
-                  <Input id="phone" value={formData.phone} onChange={handleChange} className="rounded-xl" />
+                  <Input id="phone" {...form.register('phone')} />
                 </div>
-                <div>
+                <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" value={formData.email} onChange={handleChange} className="rounded-xl" />
+                  <Input id="email" type="email" {...form.register('email')} />
+                  {form.formState.errors.email && <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>}
                 </div>
-                <Separator />
-                <div>
-                  <Label htmlFor="whatsapp_url">Link WhatsApp</Label>
-                  <Input id="whatsapp_url" value={formData.whatsapp_url} onChange={handleChange} placeholder="https://wa.me/..." className="rounded-xl" />
-                </div>
-                <div>
-                  <Label htmlFor="ifood_url">Link iFood</Label>
-                  <Input id="ifood_url" value={formData.ifood_url} onChange={handleChange} placeholder="https://www.ifood.com.br/..." className="rounded-xl" />
-                </div>
-                <div>
-                  <Label htmlFor="other_url">Outro Link (Ex: Instagram)</Label>
-                  <Input id="other_url" value={formData.other_url} onChange={handleChange} placeholder="https://instagram.com/..." className="rounded-xl" />
-                </div>
-                <div>
-                  <Label htmlFor="external_url">Link Externo Principal (Menu Próprio)</Label>
-                  <Input id="external_url" value={formData.external_url} onChange={handleChange} placeholder="https://seumenu.com.br" className="rounded-xl" />
-                </div>
-                <Button type="submit" disabled={isSaving} className="w-full bg-highlight hover:bg-highlight/90 rounded-xl">
-                  {isSaving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-                  Salvar Contatos
-                </Button>
-              </form>
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="cnpj">CNPJ</Label>
+                <Input id="cnpj" {...form.register('cnpj')} />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="whatsapp_url">Link do WhatsApp</Label>
+                <Input id="whatsapp_url" {...form.register('whatsapp_url')} placeholder="https://wa.me/..." />
+                {form.formState.errors.whatsapp_url && <p className="text-sm text-red-500">{form.formState.errors.whatsapp_url.message}</p>}
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="ifood_url">Link do iFood</Label>
+                <Input id="ifood_url" {...form.register('ifood_url')} placeholder="https://www.ifood.com.br/..." />
+                {form.formState.errors.ifood_url && <p className="text-sm text-red-500">{form.formState.errors.ifood_url.message}</p>}
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="external_url">Link Externo (Site, Instagram, etc.)</Label>
+                <Input id="external_url" {...form.register('external_url')} placeholder="https://seusite.com" />
+                {form.formState.errors.external_url && <p className="text-sm text-red-500">{form.formState.errors.external_url.message}</p>}
+              </div>
             </CardContent>
           </Card>
 
-          {/* 3. Localização */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          {/* Seção de Endereço e Localização */}
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><MapPin className="w-5 h-5" /> Localização</CardTitle>
-              <CardDescription>Atualize o endereço e as coordenadas GPS do seu restaurante.</CardDescription>
+              <CardTitle>Endereço e Localização</CardTitle>
+              <CardDescription>Detalhes do endereço físico do restaurante.</CardDescription>
             </CardHeader>
-            <CardContent>
-              <LocationForm restaurant={restaurant} refetch={refetchProfile} />
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="cep">CEP</Label>
+                  <Input id="cep" {...form.register('cep')} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="address">Rua/Avenida</Label>
+                  <Input id="address" {...form.register('address')} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="number">Número</Label>
+                  <Input id="number" {...form.register('number')} />
+                </div>
+                <div className="grid gap-2 col-span-2">
+                  <Label htmlFor="neighborhood">Bairro</Label>
+                  <Input id="neighborhood" {...form.register('neighborhood')} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="city">Cidade</Label>
+                  <Input id="city" {...form.register('city')} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="state">Estado</Label>
+                  <Input id="state" {...form.register('state')} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="latitude">Latitude</Label>
+                  <Input 
+                    id="latitude" 
+                    type="number" 
+                    step="any" 
+                    {...form.register('latitude', { valueAsNumber: true })} 
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="longitude">Longitude</Label>
+                  <Input 
+                    id="longitude" 
+                    type="number" 
+                    step="any" 
+                    {...form.register('longitude', { valueAsNumber: true })} 
+                  />
+                </div>
+              </div>
             </CardContent>
           </Card>
 
-          {/* 4. Horário de Funcionamento */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          {/* Seção de Horário de Funcionamento */}
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><Clock className="w-5 h-5" /> Horário de Funcionamento</CardTitle>
-              <CardDescription>Defina os horários em que seu restaurante está aberto.</CardDescription>
+              <CardTitle>Horário de Funcionamento</CardTitle>
+              <CardDescription>Defina os horários de abertura e fechamento para cada dia da semana.</CardDescription>
             </CardHeader>
             <CardContent>
-              <OpeningHoursForm restaurant={restaurant} refetch={refetchProfile} />
-            </CardContent>
-          </Card>
-          
-          {/* 5. Imagem de Perfil */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-            <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><ImageIcon className="w-5 h-5" /> Imagem de Perfil</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ImageUpload
-                bucket="restaurant_images"
-                currentImageUrl={restaurant.image_url}
-                onUploadSuccess={(url) => handleImageUpload(url, 'image_url')}
-                folderPath={`restaurants/${restaurant.id}/profile`}
+              <Controller
+                name="opening_hours"
+                control={control}
+                render={({ field }) => (
+                  <OpeningHoursForm 
+                    schedule={field.value as WeekSchedule} 
+                    onChange={field.onChange} 
+                  />
+                )}
               />
-              <p className="text-xs text-gray-500 mt-2">Logo ou foto principal do restaurante.</p>
+              {form.formState.errors.opening_hours && <p className="text-sm text-red-500 mt-2">{form.formState.errors.opening_hours.message}</p>}
             </CardContent>
           </Card>
 
-          {/* 6. Imagem de Capa */}
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-            <CardHeader>
-              <CardTitle className="text-xl text-[#022D68] flex items-center gap-2"><ImageIcon className="w-5 h-5" /> Imagem de Capa</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ImageUpload
-                bucket="restaurant_images"
-                currentImageUrl={restaurant.cover_image_url}
-                onUploadSuccess={(url) => handleImageUpload(url, 'cover_image_url')}
-                folderPath={`restaurants/${restaurant.id}/cover`}
-              />
-              <p className="text-xs text-gray-500 mt-2">Imagem de fundo para o perfil.</p>
-            </CardContent>
-          </Card>
-
-          {/* 7. Assinatura */}
-          <SubscriptionCard restaurant={restaurant} />
-        </div>
+          <div className="flex justify-end">
+            <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+              {isSubmitting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                'Salvar Alterações'
+              )}
+            </Button>
+          </div>
+        </form>
       </div>
-    </RestaurantAreaPageLayout>
+    </div>
   );
 };
 
