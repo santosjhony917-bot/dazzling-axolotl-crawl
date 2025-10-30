@@ -1,50 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Loader2, Utensils, ArrowLeft } from 'lucide-react';
-import { fetchPublicRestaurantById } from '@/integrations/supabase/restaurants';
+import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant'; // Importando o hook
 
 export default function RestaurantProfilePublic() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
-  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  
+  // Usando o hook para buscar os dados
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
   useEffect(() => {
-    if (!restaurantId) {
-      setError("ID do restaurante não fornecido.");
-      setIsLoading(false);
-      return;
+    if (error) {
+      showError(error);
     }
-
-    const fetchRestaurant = async () => {
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        const data = await fetchPublicRestaurantById(restaurantId);
-
-        if (data) {
-          setRestaurant(data);
-        } else {
-          setError("Restaurante não encontrado.");
-        }
-      } catch (e) {
-        console.error("Erro ao buscar restaurante:", e);
-        showError("Não foi possível carregar o perfil do restaurante.");
-        setError("Restaurante não encontrado ou erro de conexão.");
-        setRestaurant(null);
-      }
-      setIsLoading(false);
-    };
-
-    fetchRestaurant();
-  }, [restaurantId]);
+  }, [error]);
 
   const handleBack = () => navigate(-1);
 
@@ -65,9 +40,12 @@ export default function RestaurantProfilePublic() {
           </Button>
         </div>
         <div className="pt-20">
-          <Utensils className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
           <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
           <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
         </div>
       </div>
     );
@@ -75,7 +53,7 @@ export default function RestaurantProfilePublic() {
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative"> {/* Adicionado relative aqui */}
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
       
       {/* Botão de Voltar ABSOLUTO dentro do contêiner max-w-md */}
       <div className="absolute top-4 left-4 z-50">
@@ -89,7 +67,7 @@ export default function RestaurantProfilePublic() {
         </Button>
       </div>
       
-      {restaurant.plan === 'premium' ? (
+      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
         <PremiumProfileLayout restaurant={restaurant} />
       ) : (
         <FreeProfileLayout restaurant={restaurant} />
