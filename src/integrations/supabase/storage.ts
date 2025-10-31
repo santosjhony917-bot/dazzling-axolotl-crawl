@@ -45,3 +45,5 @@ export async function uploadFile(file: File, bucketName: string, path: string): 
 
 // Define o nome do bucket para imagens de restaurantes
 export const RESTAURANT_IMAGES_BUCKET = 'restaurant_images';
+// Exportando o novo bucket de capas
+export const RESTAURANT_COVERS_BUCKET = 'restaurant_covers';

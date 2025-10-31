@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
-import { useGalleryManagement } from '@/hooks/useGalleryManagement.tsx'; // CORRIGIDO: Adicionado .tsx
+import { useGalleryManagement } from '@/hooks/useGalleryManagement.tsx';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Upload, Image, PlusCircle, AlertTriangle, ArrowLeft, Lock } from 'lucide-react';
@@ -12,6 +12,7 @@ import { ImageUploadButton } from '@/components/ImageUploadButton';
 import GalleryImageCard from '@/components/restaurant/GalleryImageCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import CoverImageUploader from '@/components/restaurant/CoverImageUploader'; // NOVO IMPORT
 
 export default function GalleryManagement() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function GalleryManagement() {
     try {
       // Adiciona a imagem à tabela da galeria
       await addGalleryImage({ 
-        restaurantId: restaurantId, // CORRIGIDO: Passando restaurantId no payload
+        restaurantId: restaurantId,
         image_url: url, 
         caption: null 
       });
@@ -70,7 +71,7 @@ export default function GalleryManagement() {
       return;
     }
     try {
-      await updateGalleryImage({ imageId, updates: { caption: newCaption } }); // CORRIGIDO: Passando payload como objeto
+      await updateGalleryImage({ imageId, updates: { caption: newCaption } });
       showSuccess("Legenda atualizada!");
     } catch (error) {
       showError("Falha ao atualizar legenda.");
@@ -106,7 +107,7 @@ export default function GalleryManagement() {
           <div className="p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-xl flex items-center gap-3">
             <Lock className="w-5 h-5 shrink-0" />
             <p className="text-sm font-medium flex-1">
-              A gestão da galeria é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
+              A gestão da galeria e da imagem de capa é um recurso exclusivo do plano Premium. Faça upgrade para desbloquear.
             </p>
             <Button 
               onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
@@ -116,12 +117,17 @@ export default function GalleryManagement() {
             </Button>
           </div>
         )}
+        
+        {/* Uploader de Imagem de Capa */}
+        <div className={isLocked ? "opacity-50 pointer-events-none" : ""}>
+          <CoverImageUploader />
+        </div>
 
-        {/* Adicionar Nova Imagem */}
+        {/* Adicionar Nova Imagem (Galeria) */}
         <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl text-primary">
-              <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto
+              <PlusCircle className="w-5 h-5" /> Adicionar Nova Foto à Galeria
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -144,7 +150,7 @@ export default function GalleryManagement() {
         <Card className={isLocked ? "opacity-50 pointer-events-none" : ""}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl text-primary">
-              <Image className="w-5 h-5" /> Fotos Atuais ({gallery.length})
+              <Image className="w-5 h-5" /> Fotos Atuais da Galeria ({gallery.length})
             </CardTitle>
           </CardHeader>
           <CardContent>

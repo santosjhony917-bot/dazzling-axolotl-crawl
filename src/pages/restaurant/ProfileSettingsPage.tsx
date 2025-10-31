@@ -42,7 +42,7 @@ export default function ProfileSettingsPage() {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   
   const [uploadingLogo, setUploadingLogo] = useState(false);
-  const [uploadingCover, setUploadingCover] = useState(false);
+  // Removido: const [uploadingCover, setUploadingCover] = useState(false);
 
   const isLoading = authLoading || !restaurant;
 
