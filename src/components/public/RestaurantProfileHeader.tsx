@@ -54,7 +54,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
           className="w-full h-full object-cover"
         />
         {/* Overlay sutil para melhor contraste do texto flutuante (se houver) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
       </div>
 
       {/* 2. Bloco de Conteúdo Principal (Logo e Info) */}
