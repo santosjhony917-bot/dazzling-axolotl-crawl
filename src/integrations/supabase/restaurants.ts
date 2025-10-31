@@ -184,10 +184,10 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     cep: restaurantData.cep,
     latitude: restaurantData.latitude,
     longitude: restaurantData.longitude,
-    opening_hours: restaurantData.opening_hours as OpeningHours[] | null,
+    opening_hours: restaurantData.opening_hours as unknown as OpeningHours[] | null, // FIX 1: TS2352
     created_at: restaurantData.created_at,
     external_url: restaurantData.external_url,
-    followers_override: restaurantData.followers_override,
+    followers_override: restaurantData.followers_override, // FIX 2: TS2339
   };
 
   // Processar dados aninhados
