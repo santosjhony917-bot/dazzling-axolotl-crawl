@@ -40,7 +40,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
           variant="ghost"
           size="icon"
           onClick={handleFollowToggle}
-          disabled={isFavoriteMutating}
+          disabled={isFavoriteMutating} {/* DESABILITADO DURANTE A MUTAÇÃO */}
           className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
         >
           {isFavoriteMutating ? (
