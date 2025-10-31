@@ -36,8 +36,13 @@ export async function updateRestaurantProfile(restaurantId: string, data: Partia
 
 // --- Public/Client Functions ---
 
+// Define DetailedMenuItem explicitly here to resolve generic issues in useQuery
+export interface DetailedMenuItem extends MenuItem {
+  restaurant: Restaurant | null;
+}
+
 // Função para buscar um único item de menu por ID, incluindo dados do restaurante
-export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { restaurant: Restaurant | null }) | null> {
+export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuItem | null> {
   const { data, error } = await supabase
     .from('menu_items')
     .select(`

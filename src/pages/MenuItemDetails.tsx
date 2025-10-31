@@ -9,12 +9,11 @@ import { cn, formatPrice } from '@/lib/utils';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { useQuery } from '@tanstack/react-query';
-import { fetchMenuItemById } from '@/integrations/supabase/restaurants';
+import { fetchMenuItemById, DetailedMenuItem } from '@/integrations/supabase/restaurants'; // Import DetailedMenuItem
 import { MenuItem, Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-// Tipo de dado esperado após o fetch (corrigido para incluir todos os campos de MenuItem)
-type DetailedMenuItem = MenuItem & { restaurant: Restaurant | null };
+// REMOVED: type DetailedMenuItem = MenuItem & { restaurant: Restaurant | null };
 
 const MenuItemDetails: React.FC = () => {
   const { itemId } = useParams<{ itemId: string }>();
@@ -64,9 +63,12 @@ const MenuItemDetails: React.FC = () => {
     );
   }
   
+  // Assert itemData is non-null here to fix errors 2-9
+  const item = itemData;
+
   // Acessando propriedades de itemData (que agora é DetailedMenuItem)
-  const restaurantName = itemData.restaurant?.name || 'Restaurante Desconhecido';
-  const restaurantId = itemData.restaurant?.id;
+  const restaurantName = item.restaurant?.name || 'Restaurante Desconhecido';
+  const restaurantId = item.restaurant?.id;
 
   return (
     <div className="min-h-screen bg-background-light max-w-md mx-auto">
@@ -91,8 +93,8 @@ const MenuItemDetails: React.FC = () => {
           {/* Imagem do Prato */}
           <div className="h-64 w-full bg-gray-200 relative">
             <img 
-              src={itemData.image_url || PLACEHOLDER_IMAGE_URL} 
-              alt={itemData.name} 
+              src={item.image_url || PLACEHOLDER_IMAGE_URL} 
+              alt={item.name} 
               className="w-full h-full object-cover"
             />
             
@@ -118,15 +120,15 @@ const MenuItemDetails: React.FC = () => {
           </div>
 
           <CardContent className="p-6 space-y-4">
-            <h1 className="text-3xl font-extrabold text-primary">{itemData.name}</h1>
+            <h1 className="text-3xl font-extrabold text-primary">{item.name}</h1>
             
             <p className="text-4xl font-extrabold text-highlight">
-              {formatPrice(itemData.price)}
+              {formatPrice(item.price)}
             </p>
             
-            {itemData.description && (
+            {item.description && (
               <p className="text-gray-700 text-base leading-relaxed">
-                {itemData.description}
+                {item.description}
               </p>
             )}
             
