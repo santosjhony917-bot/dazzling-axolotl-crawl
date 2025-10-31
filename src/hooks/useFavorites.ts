@@ -86,8 +86,13 @@ export function useFavorites(): UseFavoritesResult {
         return { action: 'added' };
       }
     },
-    onSuccess: (result) => {
+    onSuccess: (result, variables) => {
+      // Invalida a query de favoritos para forçar o refetch e atualizar o estado isFavorite
       queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
+      
+      // Invalida a query do perfil público para atualizar a contagem de seguidores
+      queryClient.invalidateQueries({ queryKey: ['publicRestaurant', variables.restaurantId] });
+      
       if (result.action === 'added') {
         showSuccess("Restaurante adicionado aos favoritos!");
       } else {
