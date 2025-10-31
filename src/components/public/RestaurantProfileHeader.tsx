@@ -109,7 +109,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
               variant={isFollowing ? "outline" : "highlight"}
               size="sm"
               onClick={handleFollowToggle}
-              disabled={isFavoriteMutating} {/* DESABILITADO DURANTE A MUTAÇÃO */}
+              disabled={isFavoriteMutating} 
               className={cn(
                 "w-full h-10 rounded-xl text-base font-bold transition-all",
                 isFollowing 
