@@ -17,6 +17,12 @@ export const convertOpeningHoursToWeekSchedule = (hours: OpeningHours[] | null):
   if (!hours) {
     return schedule;
   }
+  
+  // Runtime check to ensure 'hours' is an array before calling reduce
+  if (!Array.isArray(hours)) {
+      console.error("Opening hours data is not an array:", hours);
+      return schedule;
+  }
 
   const dayMap: { [key: number]: keyof WeekSchedule } = {
     0: 'sunday',
