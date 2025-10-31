@@ -75,21 +75,34 @@ export function useFavorites(): UseFavoritesResult {
           .eq('user_id', userId)
           .eq('restaurant_id', restaurantId);
         if (error) throw error;
-        return { action: 'removed' };
+        return { action: 'removed', restaurantId };
       } else {
         // INSERT: Adiciona o favorito
         const { error } = await supabase
           .from('user_favorites')
           .insert({ user_id: userId, restaurant_id: restaurantId });
         if (error) throw error;
-        return { action: 'added' };
+        return { action: 'added', restaurantId };
       }
     },
     onSuccess: (result, variables) => {
-      // Invalida a query de favoritos para forçar o refetch e atualizar o estado isFavorite
-      queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
+      // 1. Atualização Otimista do Cache (Garante que o estado mude imediatamente)
+      queryClient.setQueryData(queryKey, (oldFavorites: Favorite[] | undefined) => {
+        if (!oldFavorites) return [];
+        
+        if (result.action === 'added') {
+          // Se adicionado, confiamos no invalidateQueries para buscar os dados completos.
+          return oldFavorites; 
+        } else {
+          // Remove o item do cache local instantaneamente
+          return oldFavorites.filter(fav => fav.restaurant_id !== variables.restaurantId);
+        }
+      });
       
-      // Invalida a query do perfil público para atualizar a contagem de seguidores
+      // 2. Invalida a query de favoritos para forçar o refetch e buscar os dados completos (se adicionado)
+      queryClient.invalidateQueries({ queryKey: queryKey });
+      
+      // 3. Invalida a query do perfil público para atualizar a contagem de seguidores
       queryClient.invalidateQueries({ queryKey: ['publicRestaurant', variables.restaurantId] });
       
       if (result.action === 'added') {
@@ -102,7 +115,7 @@ export function useFavorites(): UseFavoritesResult {
       // Se o erro for de chave duplicada, isso significa que o estado isCurrentlyFavorite estava incorreto.
       // Forçamos a invalidação da query para corrigir o estado local.
       if ((e as Error).message.includes('duplicate key value')) {
-          queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
+          queryClient.invalidateQueries({ queryKey: queryKey });
           showError("Erro de sincronização. O restaurante já estava favoritado.");
       } else {
           showError(`Falha ao atualizar favoritos: ${(e as Error).message}`);
