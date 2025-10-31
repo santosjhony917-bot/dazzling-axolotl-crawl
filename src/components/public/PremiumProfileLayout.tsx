@@ -9,13 +9,13 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantOpenStatus, convertOpeningHoursToWeekSchedule } from '@/lib/schedule'; // Importando conversor
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantActionsBar from './RestaurantActionsBar';
-import RestaurantProfileHeader from './RestaurantProfileHeader';
+import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
+import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
@@ -39,12 +39,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       restaurant.state
     );
   }, [restaurant]);
-  
-  // Convertendo o formato DB (OpeningHours[]) para o formato de exibição (WeekSchedule)
-  const scheduleDisplay = useMemo(() => {
-    return restaurant.opening_hours ? convertOpeningHoursToWeekSchedule(restaurant.opening_hours) : null;
-  }, [restaurant.opening_hours]);
-
 
   const handleShare = () => {
     if (navigator.share) {
@@ -195,8 +189,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               )}
               
               {/* Horário Detalhado */}
-              {scheduleDisplay && ( // Usando scheduleDisplay (WeekSchedule)
-                <DetailedHoursDisplay schedule={scheduleDisplay} />
+              {restaurant.opening_hours && (
+                <DetailedHoursDisplay schedule={restaurant.opening_hours} />
               )}
               
               {/* Contato (Telefone/Email) */}

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantOpenStatus, convertOpeningHoursToWeekSchedule } from '@/lib/schedule'; // Importando a função de status
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
@@ -38,12 +38,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       restaurant.state
     );
   }, [restaurant]);
-  
-  // Convertendo o formato DB (OpeningHours[]) para o formato de exibição (WeekSchedule)
-  const scheduleDisplay = useMemo(() => {
-    return restaurant.opening_hours ? convertOpeningHoursToWeekSchedule(restaurant.opening_hours) : null;
-  }, [restaurant.opening_hours]);
-
 
   const handleShare = () => {
     if (navigator.share) {
@@ -177,11 +171,11 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           )}
           
           {/* 4. Informações Detalhadas */}
-          {hasInfo && scheduleDisplay && (
+          {hasInfo && (
             <RestaurantInfo 
               id="info-section"
               restaurant={restaurant}
-              scheduleDisplay={scheduleDisplay} // Pass the converted schedule
+              scheduleDisplay={[]}
               fullAddress={fullAddress}
             />
           )}

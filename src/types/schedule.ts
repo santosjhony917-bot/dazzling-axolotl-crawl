@@ -1,13 +1,16 @@
+// Define a slot for opening/closing time
 export interface TimeSlot {
-  start: string; // HH:MM
-  end: string; // HH:MM
+  start: string; // e.g., "08:00"
+  end: string; // e.g., "18:00"
 }
 
+// DaySchedule is now an object containing status and an array of TimeSlot
 export interface DaySchedule {
-  isOpen: boolean; // Indica se o restaurante está aberto neste dia
-  slots: TimeSlot[]; // Pode ter múltiplos horários de abertura/fechamento
+  isOpen: boolean;
+  slots: TimeSlot[];
 }
 
+// WeekSchedule maps day names to DaySchedule
 export interface WeekSchedule {
   monday: DaySchedule;
   tuesday: DaySchedule;
@@ -16,11 +19,4 @@ export interface WeekSchedule {
   friday: DaySchedule;
   saturday: DaySchedule;
   sunday: DaySchedule;
-}
-
-// Este é o formato usado no banco de dados (JSONB array)
-export interface OpeningHours {
-  day: number; // 0 (Sunday) to 6 (Saturday)
-  open: string; // HH:MM
-  close: string; // HH:MM
 }

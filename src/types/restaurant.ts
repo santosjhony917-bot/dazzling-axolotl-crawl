@@ -1,92 +1,33 @@
-import { Json, RestaurantWithDistance as SupabaseRestaurantWithDistance } from './supabase';
-import { OpeningHours } from './schedule'; // Importando OpeningHours do novo arquivo
+import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
-export type { OpeningHours }; // Fix TS1205
-export type RestaurantWithDistance = SupabaseRestaurantWithDistance; // Fix TS2305
+export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
 
-export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift'; // Fix TS2367
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
+export type GalleryImage = SupabaseGalleryImage;
 
-export interface RestaurantGalleryImage {
-  id: string;
-  restaurant_id: string;
-  image_url: string;
-  caption: string | null;
-  order_index: number;
-  created_at: string;
-}
-
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number;
-  is_active: boolean;
+// Type for public restaurant profile data, including menu and gallery
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> {
+  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
+  opening_hours: WeekSchedule | null; 
+  
+  // Computed fields from the view/query
   is_favorite: boolean;
-}
-
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number;
-  is_active: boolean;
-  menu_items: MenuItem[];
-}
-
-// Tipo base para dados de restaurante (usado em hooks e settings)
-export interface Restaurant {
-  id: string;
-  user_id: string | null;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  cover_image_url: string | null;
-  plan: RestaurantPlan;
-  phone: string | null;
-  email: string | null;
-  cnpj: string | null;
-  category: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  address: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  opening_hours: OpeningHours[] | null; // Array de OpeningHours (formato DB)
-  created_at: string;
-  external_url: string | null;
-  followers_override: number | null;
-}
-
-
-export interface PublicRestaurantData extends Restaurant {
-  // Computed fields
-  followers_count: number;
-  is_favorite: boolean;
-  distance_km?: number;
-  addressSummary: string;
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
   isOpen: boolean;
   statusText: string;
-  
-  // Relations
-  menu_categories: MenuCategory[];
-  gallery_images: RestaurantGalleryImage[];
-}
+  nextOpenTime: string | null;
 
-export interface UserSearchLocation {
-  id: string;
-  user_id: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  cep: string | null;
-  created_at: string;
+  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
+  menu_categories: (MenuCategory & {
+    menu_items: MenuItem[];
+  })[];
+  gallery_images: GalleryImage[];
 }

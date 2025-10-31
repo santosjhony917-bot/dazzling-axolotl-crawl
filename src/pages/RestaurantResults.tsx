@@ -2,7 +2,7 @@ import React from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { RestaurantWithDistance } from '@/types/supabase';
-import { fetchNearbyRestaurants } from '@/integrations/supabase/restaurants'; // Corrected import
+import { fetchNearbyRestaurants } from '@/integrations/supabase/restaurants';
 import { Card } from '@/components/ui/card';
 import { Loader2, Search, MapPin, AlertTriangle, Utensils, ArrowLeft, Pizza } from 'lucide-react';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';

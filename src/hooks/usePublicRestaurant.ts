@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { fetchRestaurantById } from '@/integrations/supabase/restaurants'; // Corrected import
+import { fetchPublicRestaurantById } from '@/integrations/supabase/restaurants';
 
 export const usePublicRestaurant = (restaurantId: string | undefined) => {
   const { data, isLoading, error } = useQuery<PublicRestaurantData | null, Error>({
     queryKey: ['publicRestaurant', restaurantId],
     queryFn: () => {
       if (!restaurantId) return Promise.resolve(null);
-      return fetchRestaurantById(restaurantId, null); // Pass null for userId since this is public
+      return fetchPublicRestaurantById(restaurantId);
     },
     enabled: !!restaurantId,
     staleTime: 1000 * 60 * 5, // 5 minutes

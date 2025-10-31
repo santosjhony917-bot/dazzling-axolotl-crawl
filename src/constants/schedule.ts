@@ -1,4 +1,4 @@
-import { WeekSchedule, DaySchedule, TimeSlot } from '@/types/schedule';
+import { WeekSchedule } from '@/types/schedule';
 
 export const DEFAULT_SCHEDULE: WeekSchedule = {
   monday: { isOpen: true, slots: [{ start: '09:00', end: '18:00' }] },

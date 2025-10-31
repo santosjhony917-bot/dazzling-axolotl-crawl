@@ -9,11 +9,12 @@ import { cn, formatPrice } from '@/lib/utils';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { useQuery } from '@tanstack/react-query';
-import { fetchMenuItemById, DetailedMenuItem } from '@/integrations/supabase/restaurants'; // Import DetailedMenuItem
+import { fetchMenuItemById } from '@/integrations/supabase/restaurant';
 import { MenuItem, Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-// REMOVED: type DetailedMenuItem = MenuItem & { restaurant: Restaurant | null };
+// Tipo de dado esperado após o fetch
+type DetailedMenuItem = (MenuItem & { restaurant: Restaurant | null });
 
 const MenuItemDetails: React.FC = () => {
   const { itemId } = useParams<{ itemId: string }>();
@@ -52,7 +53,7 @@ const MenuItemDetails: React.FC = () => {
   
   if (error || !itemData) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen p-4 text-center">
+      <div className="p-6 text-center">
         <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Prato Não Encontrado</h2>
         <p className="text-gray-600 mb-6">O item de menu solicitado não existe ou foi removido.</p>
@@ -63,12 +64,8 @@ const MenuItemDetails: React.FC = () => {
     );
   }
   
-  // Assert itemData is non-null here to fix errors 2-9
-  const item = itemData;
-
-  // Acessando propriedades de itemData (que agora é DetailedMenuItem)
-  const restaurantName = item.restaurant?.name || 'Restaurante Desconhecido';
-  const restaurantId = item.restaurant?.id;
+  const restaurantName = itemData.restaurant?.name || 'Restaurante Desconhecido';
+  const restaurantId = itemData.restaurant?.id;
 
   return (
     <div className="min-h-screen bg-background-light max-w-md mx-auto">
@@ -93,8 +90,8 @@ const MenuItemDetails: React.FC = () => {
           {/* Imagem do Prato */}
           <div className="h-64 w-full bg-gray-200 relative">
             <img 
-              src={item.image_url || PLACEHOLDER_IMAGE_URL} 
-              alt={item.name} 
+              src={itemData.image_url || PLACEHOLDER_IMAGE_URL} 
+              alt={itemData.name} 
               className="w-full h-full object-cover"
             />
             
@@ -120,15 +117,15 @@ const MenuItemDetails: React.FC = () => {
           </div>
 
           <CardContent className="p-6 space-y-4">
-            <h1 className="text-3xl font-extrabold text-primary">{item.name}</h1>
+            <h1 className="text-3xl font-extrabold text-primary">{itemData.name}</h1>
             
             <p className="text-4xl font-extrabold text-highlight">
-              {formatPrice(item.price)}
+              {formatPrice(itemData.price)}
             </p>
             
-            {item.description && (
+            {itemData.description && (
               <p className="text-gray-700 text-base leading-relaxed">
-                {item.description}
+                {itemData.description}
               </p>
             )}
             

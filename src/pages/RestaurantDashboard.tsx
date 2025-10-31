@@ -16,7 +16,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { showSuccess, showError } from '@/utils/toast';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { useAuthData } from '@/context/AuthContext'; // Import useAuthData
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useNearbyCompetitors } from '@/hooks/useNearbyCompetitors';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -28,7 +28,7 @@ const RestaurantDashboard = () => {
   const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   
-  const { restaurant, isLoading: isProfileLoading } = useAuthData(); // Use useAuthData
+  const { restaurant, isLoading: isProfileLoading } = useRestaurantProfile();
   const currentRestaurantId = restaurant?.id;
   const userLat = restaurant?.latitude ?? location.latitude;
   const userLon = restaurant?.longitude ?? location.longitude;

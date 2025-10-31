@@ -1,96 +1,10 @@
-import { supabase } from './client';
-import { PublicRestaurantData, Restaurant, RestaurantPlan, OpeningHours, MenuItem, RestaurantWithDistance } from '@/types/restaurant';
-import { getRestaurantOpenStatus, convertOpeningHoursToWeekSchedule } from '@/lib/schedule';
-import { formatAddressSummary } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
+import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
-import { Tables } from '@/lib/database.types'; // Importando Tables do database.types
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
 
-// --- Tipos Auxiliares para a Query Complexa ---
-
-// Tipo para o resultado da query de menu_items aninhada (inclui menu_item_favorites)
-type MenuItemWithFavorites = Tables<'menu_items'> & {
-  menu_item_favorites: { user_id: string | null }[];
-};
-
-// Tipo para o resultado da query de menu_categories aninhada (inclui menu_items)
-type MenuCategoryWithItemsAndFavorites = Tables<'menu_categories'> & {
-  menu_items: MenuItemWithFavorites[];
-};
-
-// Tipo para o resultado da query principal (restaurants)
-type RestaurantProfileQueryResult = Tables<'restaurants'> & {
-  menu_categories: MenuCategoryWithItemsAndFavorites[];
-  restaurant_gallery: Tables<'restaurant_gallery'>[];
-  user_favorites: { user_id: string }[];
-};
-
-// --- Owner/Admin Functions ---
-
-export async function fetchOwnerRestaurantData(restaurantId: string): Promise<Restaurant | null> {
-  const { data, error } = await supabase
-    .from('restaurants')
-    .select('*')
-    .eq('id', restaurantId)
-    .limit(1)
-    .single();
-
-  if (error) {
-    console.error('Error fetching owner restaurant data:', error);
-    return null;
-  }
-
-  return data as Restaurant;
-}
-
-export async function updateRestaurantProfile(restaurantId: string, data: Partial<Restaurant>): Promise<void> {
-  const { error } = await supabase
-    .from('restaurants')
-    .update(data)
-    .eq('id', restaurantId);
-
-  if (error) {
-    console.error('Error updating restaurant profile:', error);
-    throw new Error(error.message);
-  }
-}
-
-// --- Public/Client Functions ---
-
-export type DetailedMenuItem = MenuItem & {
-  restaurant: Restaurant | null;
-};
-
-export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuItem | null> {
-  const { data, error } = await supabase
-    .from('menu_items')
-    .select(`
-      *,
-      menu_categories (
-        restaurant:restaurants (*)
-      )
-    `)
-    .eq('id', itemId)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching menu item:', error);
-    throw new Error(error.message);
-  }
-
-  if (!data) return null;
-  
-  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
-    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
-    : null;
-
-  const { menu_categories, ...item } = data;
-
-  return {
-    ...(item as MenuItem),
-    restaurant: restaurantData,
-  } as DetailedMenuItem;
-}
-
+// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
   lat: number, 
   lng: number, 
@@ -113,133 +27,102 @@ export async function fetchNearbyRestaurants(
   return data || [];
 }
 
-export async function fetchRestaurantById(restaurantId: string, userId: string | null): Promise<PublicRestaurantData | null> {
-  const { data, error } = await supabase
+// Define a string de seleção para os dados básicos do perfil público
+const PUBLIC_RESTAURANT_BASE_SELECT = `
+    *,
+    followers_count:user_favorites(count),
+    gallery_images:restaurant_gallery(id, image_url, caption, order_index)
+`;
+
+/**
+ * Busca os dados públicos de um restaurante pelo ID.
+ * @param restaurantId O ID do restaurante.
+ * @returns Os dados públicos do restaurante, incluindo menu e galeria.
+ */
+export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
+  // 1. Buscar dados básicos, seguidores e galeria (sem menu aninhado)
+  const { data: baseData, error: baseError } = await supabase
     .from('restaurants')
-    .select(
-      `
-        *,
-        menu_categories (
-          id,
-          name,
-          order_index,
-          is_active,
-          menu_items (
-            id,
-            name,
-            description,
-            price,
-            image_url,
-            order_index,
-            is_active,
-            menu_item_favorites (user_id) // Left join
-          )
-        ),
-        restaurant_gallery (
-          id,
-          image_url,
-          caption,
-          order_index
-        ),
-        user_favorites (user_id) // Left join
-      `
-    )
+    .select(PUBLIC_RESTAURANT_BASE_SELECT)
     .eq('id', restaurantId)
-    .limit(1)
     .single();
 
-  if (error) {
-    console.error('Error fetching restaurant data:', error);
-    return null;
+  if (baseError && baseError.code !== 'PGRST116') {
+    console.error('Error fetching public restaurant base data:', baseError);
+    throw new Error(`Erro ao carregar dados básicos: ${baseError.message}`);
   }
 
-  if (!data) {
+  if (!baseData) {
     return null;
   }
   
-  // Forçar a tipagem do dado retornado para o tipo complexo definido
-  const restaurantData = data as unknown as RestaurantProfileQueryResult;
+  // 2. Buscar categorias e itens de menu separadamente
+  const { data: menuData, error: menuError } = await supabase
+    .from('menu_categories')
+    .select(`
+      id, 
+      name, 
+      order_index, 
+      is_active,
+      menu_items(
+          id, 
+          name, 
+          description, 
+          price, 
+          image_url, 
+          order_index, 
+          is_active
+      )
+    `)
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  if (menuError) {
+    console.error('Error fetching menu data:', menuError);
+    // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
+  }
+
+  // 3. Processar e combinar dados
   
-  // Usar 'any' para acessar os campos base de forma segura, contornando o erro TS2339
-  const rawData: any = restaurantData; 
+  // Processar contagem de seguidores (incluindo override)
+  const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
 
-  // Mapear dados brutos para o tipo Restaurant
-  const baseData: Restaurant = {
-    id: rawData.id,
-    user_id: rawData.user_id,
-    name: rawData.name,
-    description: rawData.description,
-    image_url: rawData.image_url,
-    cover_image_url: rawData.cover_image_url,
-    plan: rawData.plan as RestaurantPlan,
-    phone: rawData.phone,
-    email: rawData.email,
-    cnpj: rawData.cnpj,
-    category: rawData.category,
-    whatsapp_url: rawData.whatsapp_url,
-    ifood_url: rawData.ifood_url,
-    other_url: rawData.other_url,
-    address: rawData.address,
-    number: rawData.number,
-    neighborhood: rawData.neighborhood,
-    city: rawData.city,
-    state: rawData.state,
-    cep: rawData.cep,
-    latitude: rawData.latitude,
-    longitude: rawData.longitude,
-    // FIX 1: TS2352 - Casting Json to specific array type requires 'unknown' intermediate cast
-    opening_hours: rawData.opening_hours as unknown as OpeningHours[] | null, 
-    created_at: rawData.created_at,
-    external_url: rawData.external_url,
-    // FIX 2: TS2339 - Accessing followers_override via rawData (any)
-    followers_override: rawData.followers_override, 
-  };
+  // Constrói o resumo do endereço
+  const addressParts = [baseData.city, baseData.state].filter(Boolean);
+  const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
 
-  // Processar dados aninhados
-  const menuCategories = (restaurantData.menu_categories || [])
-    .filter((cat) => cat.is_active)
-    .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-    .map((category) => ({
-      ...category,
-      menu_items: (category.menu_items || [])
-        .filter((item) => item.is_active)
-        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-        .map((item) => ({
-          ...item,
-          // Verifica se o array de favoritos tem algum item (se o usuário estiver logado, o RLS garante que só verá o seu)
-          is_favorite: item.menu_item_favorites.length > 0,
-        })),
-    }));
-
-  const galleryImages = (restaurantData.restaurant_gallery || [])
-    .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-    .map((image) => ({
-      id: image.id,
-      restaurant_id: image.restaurant_id,
-      image_url: image.image_url,
-      caption: image.caption,
-      order_index: image.order_index,
-      created_at: image.created_at,
-    }));
-
+  // Filtrar categorias e itens inativos
+  const activeMenuCategories = (menuData || []) as unknown as (MenuCategory & { menu_items: MenuItem[] })[];
+  
+  const filteredMenuCategories = activeMenuCategories
+      .filter(cat => cat.is_active)
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      .map(category => ({
+          ...category,
+          menu_items: category.menu_items
+              .filter(item => item.is_active)
+              .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      }));
+      
+  // Ordenar galeria
+  const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
+  
+  const sortedGalleryImages = galleryImages
+      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+      
   // Calcular status de abertura
-  const scheduleWeek = convertOpeningHoursToWeekSchedule(baseData.opening_hours);
-  const openStatus = getRestaurantOpenStatus(scheduleWeek);
-
-  // Calcular seguidores
-  const followersCount = restaurantData.user_favorites.length + (baseData.followers_override || 0);
-  
-  // Se userId for null, isFavorite será false. Se userId existir, verifica se o array de user_favorites contém o user_id (graças ao RLS).
-  const isFavorite = userId ? restaurantData.user_favorites.some((fav) => fav.user_id === userId) : false;
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
 
   return {
     ...baseData,
-    followers_count: followersCount,
-    is_favorite: isFavorite,
-    addressSummary: formatAddressSummary(baseData.address, baseData.number, baseData.neighborhood, baseData.city, baseData.state),
+    addressSummary,
+    logoUrl: baseData.image_url,
+    followers_count: followersCount as number,
+    menu_categories: filteredMenuCategories,
+    gallery_images: sortedGalleryImages,
+    // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
-    menu_categories: menuCategories,
-    gallery_images: galleryImages,
-  };
+    nextOpenTime: openStatus.nextOpenTime,
+  } as PublicRestaurantData;
 }

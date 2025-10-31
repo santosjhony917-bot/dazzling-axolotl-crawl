@@ -1,122 +1,57 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchOwnerRestaurantData, updateRestaurantProfile } from '@/integrations/supabase/restaurants';
-import { Restaurant } from '@/types/restaurant';
-import { WeekSchedule, OpeningHours } from '@/types/schedule'; // Importando OpeningHours
-import { convertOpeningHoursToWeekSchedule } from '@/lib/schedule';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Loader2, Save, ArrowLeft, Utensils } from 'lucide-react';
-import { toast } from 'sonner';
-import ScheduleEditor from '@/components/restaurant/ScheduleEditor';
-import ImageUpload from '@/components/restaurant/ImageUpload';
-import { Separator } from '@/components/ui/separator';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { RESTAURANT_CATEGORIES } from '@/constants/categories';
-import { cn } from '@/lib/utils';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
-import { EditAddressDialog } from '@/components/EditAddressDialog';
-import { EditHoursDialog } from '@/components/EditHoursDialog';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { Loader2, Settings, Utensils, Crown } from 'lucide-react';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
 import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
 import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
 import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
+import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection'; // NOVO IMPORT
+import { Separator } from '@/components/ui/separator';
+import { showError, showSuccess } from '@/utils/toast';
+import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
-import * as z from 'zod';
-import EditFieldDialog from '@/components/EditFieldDialog';
-import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
+import EditClientFieldDialog from '@/components/EditClientFieldDialog'; // CORRIGIDO: Importando o componente correto
+import { EditAddressDialog } from '@/components/EditAddressDialog';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
+import { WeekSchedule } from '@/types/schedule';
+import { DEFAULT_SCHEDULE } from '@/constants/schedule';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo base
+import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo estendido
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 
-// --- Schemas de Validação ---
+// Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
 const emailSchema = z.string().email("E-mail inválido.");
-const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
-const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido (Ex: XX.XXX.XXX/XXXX-XX)").optional().or(z.literal(''));
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
+const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido (XX.XXX.XXX/XXXX-XX)").optional().or(z.literal(''));
+const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
-// --- Componente Principal ---
-
-const ProfileSettingsPage: React.FC = () => {
+export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  
-  // Usando useAuthData para obter o restaurante logado
   const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthData();
-  const currentRestaurantId = restaurant?.id;
-
-  // Estados para Modais
+  const { updateRestaurant } = useRestaurantProfile(restaurant);
+  
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
+  
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
-  const [isFieldDialogOpen, setIsFieldDialogOpen] = useState(false);
-  const [editConfig, setEditConfig] = useState<{ 
-    key: keyof Restaurant; 
-    title: string; 
-    fieldName: string; 
-    icon: React.ReactNode; 
-    validationSchema: z.ZodType<string>; 
-    type?: "text" | "tel" | "email" | "url"; 
-    mask?: (value: string) => string; 
-    placeholder?: string 
-  } | null>(null);
+  
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
 
-  // Hook de Mutação
-  const { mutate: updateRestaurant, isPending: isSaving } = useRestaurantUpdate();
+  const isLoading = authLoading || !restaurant;
 
-  // Converte o horário do DB para o formato de edição (WeekSchedule)
-  const currentSchedule: WeekSchedule = useMemo(() => {
-    if (!restaurant?.opening_hours) return convertOpeningHoursToWeekSchedule(null);
-    return convertOpeningHoursToWeekSchedule(restaurant.opening_hours as unknown as OpeningHours[]);
-  }, [restaurant?.opening_hours]);
-
-  // --- Handlers ---
-
-  const handleUpdate = (updates: Partial<Restaurant>) => {
-    if (!currentRestaurantId) {
-      toast.error("ID do restaurante não encontrado.");
-      return { error: "ID do restaurante não encontrado." };
+  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
+    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
+      showError("Recurso Premium. Faça upgrade para desbloquear.");
+      return;
     }
     
-    return new Promise<{ error: string | null }>((resolve) => {
-      updateRestaurant(
-        { restaurantId: currentRestaurantId, data: updates },
-        {
-          onSuccess: () => {
-            refetchProfile(); // Força a atualização do contexto
-            resolve({ error: null });
-          },
-          onError: (error) => {
-            resolve({ error: error.message });
-          },
-        }
-      );
-    });
-  };
-  
-  const handleSaveHours = async (newSchedule: WeekSchedule) => {
-    // Converte WeekSchedule de volta para OpeningHours[] (formato DB)
-    const openingHoursArray: OpeningHours[] = Object.entries(newSchedule)
-      .flatMap(([dayName, schedule]) => {
-        if (!schedule.isOpen || schedule.slots.length === 0) {
-          return [];
-        }
-        // Day index: Sunday=0, Monday=1, ..., Saturday=6
-        const dayIndex = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].indexOf(dayName);
-        
-        return schedule.slots.map(slot => ({
-          day: dayIndex,
-          open: slot.start,
-          close: slot.end,
-        }));
-      }) as OpeningHours[];
-
-    await handleUpdate({ opening_hours: openingHoursArray as any });
-    toast.success("Horários de funcionamento atualizados!");
-  };
-
-  const handleEditField = (key: keyof Restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email" | "url", mask?: (value: string) => string, placeholder?: string) => {
     setEditConfig({
       key,
       title,
@@ -127,73 +62,95 @@ const ProfileSettingsPage: React.FC = () => {
       mask,
       placeholder,
     });
-    setIsFieldDialogOpen(true);
-  };
-  
-  const handleSaveField = async (fieldName: string, value: string | number) => {
-    const updates = { [fieldName]: value };
-    await handleUpdate(updates);
-    setIsFieldDialogOpen(false);
-  };
+    setIsEditDialogOpen(true);
+  }, [isPremium]);
 
-  if (authLoading) {
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editConfig) return;
+    
+    // Remove máscara antes de salvar no DB
+    const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
+    
+    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
+    const { error } = await updateRestaurant({ [editConfig.key]: cleanedValue });
+    
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Campo atualizado com sucesso!");
+      refetchProfile();
+    }
+  }, [editConfig, updateRestaurant, refetchProfile]);
+  
+  const handleLogoUploadComplete = useCallback(async (url: string) => {
+    setUploadingLogo(true);
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
+    const { error } = await updateRestaurant({ image_url: cacheBustedUrl });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Logo atualizado com sucesso!");
+      refetchProfile();
+    }
+    setUploadingLogo(false);
+  }, [updateRestaurant, refetchProfile]);
+  
+  const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
+    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
+    const { error } = await updateRestaurant({ opening_hours: newSchedule as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Horários atualizados com sucesso!");
+      refetchProfile();
+    }
+  }, [updateRestaurant, refetchProfile]);
+
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
-
-  if (!restaurant) {
-    return (
-      <div className="p-4 text-center">
-        <h1 className="text-2xl font-bold text-red-500">Restaurante não encontrado.</h1>
-        <p className="text-gray-600 mt-2">Certifique-se de que sua conta de usuário está vinculada a um restaurante.</p>
-        <Button onClick={() => navigate('/restaurant-area-hub')} className="mt-4">
-          Voltar ao Hub
-        </Button>
-      </div>
-    );
-  }
   
-  // --- Renderização ---
+  // CORREÇÃO 28: Garantindo que opening_hours seja WeekSchedule ou DEFAULT_SCHEDULE
+  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
+  
+  // Calcula o status de abertura
+  const openStatus = getRestaurantOpenStatus(currentSchedule);
 
-  // Helper para mapear tipos de input que EditFieldDialog aceita
-  const getEditFieldInputType = (type: string | undefined): 'text' | 'url' | 'textarea' | 'number' => {
-    if (type === 'url') return 'url';
-    // Se for 'email' ou 'tel', tratamos como 'text' no componente de edição
-    return 'text'; 
+  // CORREÇÃO 28: Criando um objeto que satisfaça PublicRestaurantData
+  const publicRestaurantData: PublicRestaurantData = {
+    ...(restaurant as Restaurant),
+    opening_hours: currentSchedule, // Usando o tipo WeekSchedule
+    is_favorite: false, // Mocked
+    followers_count: 0, // Mocked
+    addressSummary: restaurant?.city || '', // Mocked
+    menu_categories: [], // Mocked
+    gallery_images: [], // Mocked
+    logoUrl: restaurant?.image_url || '', 
+    // Adicionando as propriedades calculadas
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    nextOpenTime: openStatus.nextOpenTime,
   };
 
   return (
-    <RestaurantAreaPageLayout 
-      title="Configurações do Perfil" 
-      icon={Utensils} 
-      backPath="restaurant-area/home"
-    >
-      <div className="p-4 space-y-6">
+    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/home">
+      <div className="p-4 space-y-8 max-w-md mx-auto">
         
-        {/* 1. Header e Logo */}
-        <Card className="shadow-soft-xl border-none rounded-2xl p-6 bg-white">
-          <div className="flex items-start gap-4">
-            {/* Logo Upload (Simplificado) */}
-            <div className="w-24 h-24 rounded-xl border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-hidden">
-              <ImageUpload
-                label=""
-                currentUrl={restaurant.image_url}
-                onUploadComplete={(url) => handleUpdate({ image_url: url })}
-                onRemove={() => handleUpdate({ image_url: null })}
-                folder={`restaurants/${currentRestaurantId}/logo`}
-                aspectRatio={1/1}
-              />
-            </div>
-            
-            <div className="flex-1 pt-2">
-              <h3 className="font-bold text-2xl text-[#022D68] leading-tight">{restaurant.name}</h3>
-              <p className="text-sm text-gray-500 mt-2">Clique na imagem para alterar o logo.</p>
-            </div>
-          </div>
-        </Card>
+        {/* 1. Card Principal (Logo e Nome) */}
+        <MainProfileCard
+          restaurantName={restaurant?.name || "Meu Restaurante"}
+          logoUrl={restaurant?.image_url}
+          isPremium={isPremium}
+          uploading={uploadingLogo}
+          onLogoUploadComplete={handleLogoUploadComplete}
+          restaurantId={restaurant?.id || 'temp'}
+        />
         
         {/* 2. Informações Básicas */}
         <BasicInfoSection
@@ -208,6 +165,8 @@ const ProfileSettingsPage: React.FC = () => {
           cnpjSchema={cnpjSchema}
         />
         
+        <Separator />
+
         {/* 3. Localização e Horários */}
         <LocationHoursSection
           restaurant={restaurant}
@@ -217,27 +176,59 @@ const ProfileSettingsPage: React.FC = () => {
           setIsHoursDialogOpen={setIsHoursDialogOpen}
         />
         
-        {/* 4. Canais de Venda */}
-        <SalesChannelsSection restaurant={restaurant as any} />
+        <Separator />
+
+        {/* 4. GESTÃO DE CONTEÚDO (NOVA SEÇÃO) */}
+        <ContentManagementSection
+          navigate={navigate}
+          isPremium={isPremium}
+          restaurantId={restaurant?.id || ''}
+          restaurantName={restaurant?.name || 'Meu Restaurante'}
+        />
         
-        {/* 5. Assinatura e Suporte */}
+        <Separator />
+
+        {/* 5. Canais de Venda */}
+        <SalesChannelsSection
+          restaurant={publicRestaurantData}
+        />
+        
+        <Separator />
+
+        {/* 6. Assinatura e Suporte */}
         <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
         
       </div>
       
-      {/* Modais */}
+      {/* Dialogs */}
+      {editConfig && (
+        <EditClientFieldDialog
+          isOpen={isEditDialogOpen}
+          onClose={() => setIsEditDialogOpen(false)}
+          title={editConfig.title}
+          fieldName={editConfig.fieldName}
+          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''}
+          icon={editConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editConfig.placeholder}
+          type={editConfig.type}
+          validationSchema={editConfig.validationSchema}
+          mask={editConfig.mask}
+        />
+      )}
+      
       <EditAddressDialog
         open={isAddressDialogOpen}
         onOpenChange={setIsAddressDialogOpen}
-        restaurantId={currentRestaurantId!}
+        restaurantId={restaurant?.id || ''}
         currentAddress={{
-          address: restaurant.address || '',
-          city: restaurant.city || '',
-          state: restaurant.state || '',
-          cep: restaurant.cep || '',
-          neighborhood: restaurant.neighborhood || '',
-          latitude: restaurant.latitude,
-          longitude: restaurant.longitude,
+          address: restaurant?.address || '',
+          city: restaurant?.city || '',
+          state: restaurant?.state || '',
+          cep: restaurant?.cep || '',
+          neighborhood: restaurant?.neighborhood || '',
+          latitude: restaurant?.latitude || null,
+          longitude: restaurant?.longitude || null,
         }}
         onSave={refetchProfile}
       />
@@ -248,22 +239,6 @@ const ProfileSettingsPage: React.FC = () => {
         currentSchedule={currentSchedule}
         onSave={handleSaveHours}
       />
-      
-      {editConfig && (
-        <EditFieldDialog
-          isOpen={isFieldDialogOpen}
-          onClose={() => setIsFieldDialogOpen(false)}
-          title={editConfig.title}
-          description={`Insira o novo valor para ${editConfig.fieldName.toLowerCase()}.`}
-          fieldName={editConfig.key}
-          initialValue={restaurant[editConfig.key] as string | number | undefined}
-          inputType={getEditFieldInputType(editConfig.type)}
-          onSave={handleSaveField}
-          loading={isSaving}
-        />
-      )}
     </RestaurantAreaPageLayout>
   );
-};
-
-export default ProfileSettingsPage;
+}
