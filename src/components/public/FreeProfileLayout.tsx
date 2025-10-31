@@ -1,112 +1,189 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { MapPin, Phone, Mail, Clock, ExternalLink, Heart, Share2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import RestaurantInfo from '@/components/public/RestaurantInfo';
-import { OpeningHoursDisplay } from './OpeningHoursDisplay';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
+import RestaurantMenu from './RestaurantMenu';
+import RestaurantGallery from './RestaurantGallery';
+import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { useFavoriteRestaurant } from '@/hooks/useFavoriteRestaurant';
-import { useToast } from '@/components/ui/use-toast';
-import RestaurantHeader from './RestaurantHeader';
+import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
+import { formatAddressSummary } from '@/lib/utils';
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
+import { cn } from '@/lib/utils';
+import OrderChannelsSection from './OrderChannelsSection';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
+import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
+import { motion } from 'framer-motion';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useNavigate } from 'react-router-dom';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  addressSummary: string; // Adicionado
-  scheduleDisplay: string[]; // Adicionado
-  fullAddress: string; // Adicionado
 }
 
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({
-  restaurant,
-  addressSummary,
-  scheduleDisplay,
-  fullAddress,
-}) => {
-  const { session } = useAuth();
-  const { isFavorite, toggleFavorite, isLoading } = useFavoriteRestaurant(restaurant.id);
-  const { toast } = useToast();
+const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
+  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
+
+  const fullAddress = useMemo(() => {
+    return formatAddressSummary(
+      restaurant.address,
+      restaurant.number,
+      restaurant.neighborhood,
+      restaurant.city,
+      restaurant.state
+    );
+  }, [restaurant]);
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
         title: restaurant.name,
-        text: `Confira o cardápio de ${restaurant.name}!`,
+        text: `Confira o perfil de ${restaurant.name}!`,
         url: window.location.href,
-      });
+      }).catch(console.error);
     } else {
       navigator.clipboard.writeText(window.location.href);
-      toast({
-        title: 'Link copiado!',
-        description: 'O link do restaurante foi copiado para a área de transferência.',
-      });
+      alert('Link copiado para a área de transferência!');
     }
   };
+  
+  // Função para rolar para a seção
+  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
+    setActiveTab(tab);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  
+  // Dados do Header
+  const headerData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    logoUrl: restaurant.image_url || '',
+    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
+    addressSummary: restaurant.addressSummary,
+    followersCount: restaurant.followers_count,
+    isFavorite: restaurant.is_favorite,
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
+    isPremium: false, // CORREÇÃO: Adicionado isPremium
+  };
+  
+  // Verifica se há conteúdo para as abas
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
+  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
+  const hasInfo = fullAddress || restaurant.phone || restaurant.email || restaurant.opening_hours;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <RestaurantHeader restaurant={restaurant} />
+    <div className="min-h-screen bg-background-light">
+      
+      {/* 1. Barra de Ações Flutuante (Sticky) */}
+      <RestaurantActionsBar
+        isFavorite={restaurant.is_favorite}
+        onFavoriteToggle={toggleFavorite}
+        isFavoriteMutating={isToggling}
+        onShare={handleShare}
+        onBack={() => navigate(-1)}
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
-        <div className="bg-white shadow-xl rounded-xl p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
-            <div className="flex-1 min-w-0">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">
-                {restaurant.name} (Plano Gratuito)
-              </h1>
-              {restaurant.category && (
-                <p className="text-lg text-highlight font-medium mb-4">{restaurant.category}</p>
-              )}
-              <p className="text-gray-600 mb-6">{restaurant.description}</p>
+      {/* 2. Cabeçalho Principal (Capa, Logo, Info) */}
+      <RestaurantProfileHeader
+        restaurant={headerData}
+        onFavoriteToggle={toggleFavorite}
+        isFavoriteMutating={isToggling}
+      />
+
+      <div className="container mx-auto px-4 pb-8">
+        {/* Conteúdo Principal */}
+        <div className="mt-6 space-y-6">
+          
+          {/* Description */}
+          {restaurant.description && (
+            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
+              <p className="text-gray-600">{restaurant.description}</p>
+            </Card>
+          )}
+          
+          {/* Canais de Pedido */}
+          <OrderChannelsSection restaurant={restaurant} />
+          
+          {/* Navegação por Abas (Sticky) */}
+          {(hasMenu || hasGallery || hasInfo) && (
+            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
+              <ScrollArea className="w-full whitespace-nowrap">
+                <div className="flex space-x-4">
+                  {hasMenu && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('menu-section', 'menu')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                    </Button>
+                  )}
+                  {hasGallery && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('gallery-section', 'gallery')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Image className="w-4 h-4 mr-2" /> Fotos
+                    </Button>
+                  )}
+                  {hasInfo && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('info-section', 'info')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Info className="w-4 h-4 mr-2" /> Informações
+                    </Button>
+                  )}
+                </div>
+              </ScrollArea>
             </div>
-
-            <div className="flex space-x-3 mt-4 sm:mt-0 sm:ml-6">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={toggleFavorite}
-                disabled={!session || isLoading}
-                className={cn(
-                  'rounded-full transition-colors',
-                  isFavorite ? 'bg-red-500 text-white hover:bg-red-600' : 'hover:bg-gray-100'
-                )}
-                aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-              >
-                <Heart className="h-5 w-5 fill-current" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={handleShare}
-                className="rounded-full hover:bg-gray-100"
-                aria-label="Compartilhar"
-              >
-                <Share2 className="h-5 w-5" />
-              </Button>
+          )}
+          
+          {/* 2. Galeria Section */}
+          {hasGallery && (
+            <div id="gallery-section">
+              <RestaurantGallery gallery={restaurant.gallery_images} />
             </div>
-          </div>
-
-          <Separator className="my-6" />
-
-          {/* Informações Detalhadas */}
-          <div className="mt-12">
-            <RestaurantInfo
-              id="detailed-info"
+          )}
+          
+          {/* 3. Menu Section */}
+          {hasMenu && (
+            <div id="menu-section">
+              <RestaurantMenu 
+                menuCategories={restaurant.menu_categories} 
+                isFullMenuPage={false}
+                restaurantId={restaurant.id}
+              />
+            </div>
+          )}
+          
+          {/* 4. Informações Detalhadas */}
+          {hasInfo && (
+            <RestaurantInfo 
+              id="info-section"
               restaurant={restaurant}
-              scheduleDisplay={scheduleDisplay}
+              scheduleDisplay={[]}
               fullAddress={fullAddress}
             />
-          </div>
-          
-          <div className="mt-8 text-center">
-            <Link to={`/r/${restaurant.id}/menu`}>
-              <Button size="lg" className="w-full sm:w-auto bg-highlight hover:bg-highlight/90 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300">
-                Ver Cardápio Completo
-              </Button>
-            </Link>
-          </div>
+          )}
         </div>
       </div>
     </div>
