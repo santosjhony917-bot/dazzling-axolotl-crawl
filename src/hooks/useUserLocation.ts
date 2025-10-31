@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react';
 
-interface LocationState {
-  latitude: number | null;
-  longitude: number | null;
-  loading: boolean;
+interface Location {
+  latitude: number;
+  longitude: number;
+}
+
+interface UserLocationHook {
+  location: Location | null;
+  isLoading: boolean;
   error: string | null;
 }
 
-const useUserLocation = (): LocationState => {
-  const [location, setLocation] = useState<LocationState>({
-    latitude: null,
-    longitude: null,
-    loading: true,
-    error: null,
-  });
+export const useUserLocation = (): UserLocationHook => {
+  const [location, setLocation] = useState<Location | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setLocation(prev => ({
-        ...prev,
-        loading: false,
-        error: 'Geolocalização não é suportada pelo seu navegador.',
-      }));
+      setError('Geolocalização não é suportada pelo seu navegador.');
+      setIsLoading(false);
       return;
     }
 
@@ -29,28 +27,21 @@ const useUserLocation = (): LocationState => {
       setLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-        loading: false,
-        error: null,
       });
+      setIsLoading(false);
     };
 
-    const error = (err: GeolocationPositionError) => {
-      setLocation(prev => ({
-        ...prev,
-        loading: false,
-        error: `Erro ao obter localização: ${err.message}`,
-      }));
+    const failure = (err: GeolocationPositionError) => {
+      setError(`Erro ao obter localização: ${err.message}`);
+      setIsLoading(false);
     };
 
-    // Tenta obter a localização com alta precisão
-    navigator.geolocation.getCurrentPosition(success, error, {
+    navigator.geolocation.getCurrentPosition(success, failure, {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
     });
   }, []);
 
-  return location;
+  return { location, isLoading, error };
 };
-
-export default useUserLocation;

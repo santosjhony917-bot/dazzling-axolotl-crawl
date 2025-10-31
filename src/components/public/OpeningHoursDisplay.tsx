@@ -1,49 +1,74 @@
 import React from 'react';
-import { WeekSchedule } from '@/types/schedule'; // Importando o tipo correto
+import { WeekSchedule } from '@/types/schedule';
+import { Clock } from 'lucide-react';
 
 interface OpeningHoursDisplayProps {
-  openingHours: WeekSchedule; // Usando o tipo WeekSchedule
+  openingHours: WeekSchedule;
+  isSummary?: boolean; // Adicionando a prop isSummary
 }
 
-const daysOrder: (keyof WeekSchedule)[] = [
-  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-];
-
-const dayLabels: Record<keyof WeekSchedule, string> = {
-  monday: 'Segunda-feira',
-  tuesday: 'Terça-feira',
-  wednesday: 'Quarta-feira',
-  thursday: 'Quinta-feira',
-  friday: 'Sexta-feira',
-  saturday: 'Sábado',
-  sunday: 'Domingo',
-};
-
-const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours }) => {
+export const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours, isSummary = false }) => {
   if (!openingHours || Object.keys(openingHours).length === 0) {
-    return <p className="text-gray-500 dark:text-gray-400">Horário não disponível.</p>;
+    return <p className="text-gray-500 text-sm">Horário não disponível.</p>;
+  }
+
+  const daysOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+  const formatTime = (time: string) => {
+    if (!time) return 'Fechado';
+    const [hour, minute] = time.split(':');
+    return `${hour}:${minute}`;
+  };
+
+  const getDayName = (dayKey: string) => {
+    const names: { [key: string]: string } = {
+      monday: 'Segunda',
+      tuesday: 'Terça',
+      wednesday: 'Quarta',
+      thursday: 'Quinta',
+      friday: 'Sexta',
+      saturday: 'Sábado',
+      sunday: 'Domingo',
+    };
+    return names[dayKey] || dayKey;
+  };
+
+  const todayKey = daysOrder[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
+  const todaySchedule = openingHours[todayKey];
+
+  if (isSummary) {
+    if (!todaySchedule || todaySchedule.isClosed) {
+      return <p className="text-red-600 font-medium text-sm">Fechado hoje</p>;
+    }
+    
+    const scheduleText = todaySchedule.periods.map(p => 
+      `${formatTime(p.open)} - ${formatTime(p.close)}`
+    ).join(' e ');
+
+    return <p className="text-green-600 font-medium text-sm">{scheduleText}</p>;
   }
 
   return (
     <div className="space-y-1 text-sm">
-      {daysOrder.map((dayKey) => {
-        const dayData = openingHours[dayKey];
-        const dayLabel = dayLabels[dayKey];
+      {daysOrder.map(dayKey => {
+        const schedule = openingHours[dayKey];
+        const isToday = dayKey === todayKey;
 
-        if (!dayData) return null;
-
-        // Exibe todos os slots para o dia
-        const timeSlots = dayData.slots.map(slot => `${slot.start} - ${slot.end}`).join(' / ');
+        if (!schedule) return null;
 
         return (
-          <div key={dayKey} className="flex justify-between">
-            <span className="text-gray-600 dark:text-gray-400">{dayLabel}:</span>
-            {!dayData.isOpen || dayData.slots.length === 0 ? (
-              <span className="font-medium text-red-500">Fechado</span>
+          <div key={dayKey} className={`flex justify-between ${isToday ? 'font-bold text-gray-900' : 'text-gray-600'}`}>
+            <span>{getDayName(dayKey)}:</span>
+            {schedule.isClosed ? (
+              <span className="text-red-500">Fechado</span>
             ) : (
-              <span className="font-medium text-gray-900 dark:text-white">
-                {timeSlots}
-              </span>
+              <div className="text-right">
+                {schedule.periods.map((p, index) => (
+                  <p key={index}>
+                    {formatTime(p.open)} - {formatTime(p.close)}
+                  </p>
+                ))}
+              </div>
             )}
           </div>
         );
@@ -51,5 +76,3 @@ const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours 
     </div>
   );
 };
-
-export { OpeningHoursDisplay };
