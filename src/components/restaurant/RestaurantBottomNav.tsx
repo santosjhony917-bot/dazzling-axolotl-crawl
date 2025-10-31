@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Heart, Rocket, Crown } from 'lucide-react';
+import { Home, Search, User, Heart, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { createPageUrl, PathKey } from '@/utils/url';
-import { motion } from 'framer-motion'; // Importação adicionada
+import { motion } from 'framer-motion';
 
 const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
   return (
@@ -31,7 +31,8 @@ const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.Ele
   );
 });
 
-const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string, isFree: boolean }) => {
+const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
+  const location = useLocation(); // Usando useLocation para obter a rota atual
   
   // Definindo o item central baseado no plano
   const centralItem = isFree 
@@ -45,7 +46,6 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
         id: 'favorites', 
         icon: Heart, 
         label: 'Favoritos', 
-        // Usuários de restaurante Premium podem ver os favoritos dos clientes (mock)
         path: createPageUrl('favorites') as string
       };
 
@@ -55,12 +55,23 @@ const RestaurantBottomNav = memo(({ selectedTab, isFree }: { selectedTab: string
     centralItem, // Item central dinâmico
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
+  
+  // Função para verificar se o item está selecionado com base na rota
+  const isPathActive = (itemPath: string) => {
+    // Remove query params e trailing slash para comparação
+    const currentPath = location.pathname.replace(/\/$/, '').split('?')[0];
+    const normalizedItemPath = itemPath.replace(/\/$/, '').split('?')[0];
+    
+    // Verifica se o caminho atual começa com o caminho do item (útil para rotas aninhadas como /menu)
+    return currentPath === normalizedItemPath || 
+           (normalizedItemPath === createPageUrl('restaurant-area/profile-menu') && currentPath.startsWith(normalizedItemPath));
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
-          const isSelected = selectedTab === item.id;
+          const isSelected = isPathActive(item.path);
           const isCentralButton = item.id === centralItem.id;
           
           // Se for o botão central E for o botão de Upgrade (isFree = true)

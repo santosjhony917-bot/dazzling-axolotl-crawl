@@ -15,8 +15,12 @@ const SharedLayoutWrapper: React.FC = () => {
   const currentPath = window.location.pathname;
   let selectedTabKey: string = 'home'; // Default fallback
 
-  // Lógica para determinar a aba ativa
+  // Lógica para determinar a aba ativa (Mantida apenas para o ClientBottomNav, que ainda usa a prop)
   if (isRestaurantOwner) {
+    // A lógica de determinação de aba ativa foi movida para RestaurantBottomNav.tsx
+    // Aqui, apenas garantimos que o ClientBottomNav tenha um valor, se necessário.
+    // No entanto, ClientBottomNav também precisa ser atualizado para usar useLocation.
+    // Por enquanto, vamos manter a lógica de ClientBottomNav no SharedLayoutWrapper para evitar quebrar o ClientBottomNav.
     if (currentPath.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
         currentPath.startsWith(createPageUrl('restaurant-area/menu')) ||
         currentPath.startsWith(createPageUrl('restaurant-area/gallery')) ||
@@ -27,10 +31,8 @@ const SharedLayoutWrapper: React.FC = () => {
     } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
       selectedTabKey = 'search';
     } else if (isPremium && currentPath.startsWith(createPageUrl('favorites'))) {
-      // Se for Premium, a aba central é 'favorites'
       selectedTabKey = 'favorites';
     } else if (isFree && currentPath.startsWith(createPageUrl('restaurant-area/upgrade'))) {
-      // Se for Free, a aba central é 'upgrade'
       selectedTabKey = 'upgrade';
     }
   } else {
@@ -61,7 +63,8 @@ const SharedLayoutWrapper: React.FC = () => {
         <main className="flex-1">
           <Outlet />
         </main>
-        <RestaurantBottomNav selectedTab={selectedTabKey} isFree={isFree} />
+        {/* Removida a prop selectedTab */}
+        <RestaurantBottomNav isFree={isFree} /> 
       </div>
     );
   }
@@ -71,7 +74,7 @@ const SharedLayoutWrapper: React.FC = () => {
     <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
       <main className="flex-1">
         <Outlet />
-        {/* O ClientBottomNav usa as chaves de rota do cliente */}
+        {/* O ClientBottomNav ainda usa a prop selectedTab, mas a lógica de determinação foi mantida acima */}
       </main>
       <ClientBottomNav selectedTab={selectedTabKey} />
     </div>
