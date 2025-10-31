@@ -176,8 +176,8 @@ const Home: React.FC = () => {
               Ver todos
             </Button>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap pb-8 hide-scrollbar">
-            <div className="flex space-x-4">
+          <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
+            <div className="flex space-x-4 pb-6"> {/* Adicionando padding inferior ao div interno */}
               {highlights.length > 0 ? (
                 highlights.map((item) => (
                   <HighlightCard key={item.id} item={item} />
