@@ -3,14 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchOwnerRestaurantData, updateRestaurantProfile } from '@/integrations/supabase/restaurants';
 import { Restaurant } from '@/types/restaurant';
-import { WeekSchedule } from '@/types/schedule';
+import { WeekSchedule, OpeningHours } from '@/types/schedule'; // Importando OpeningHours
 import { convertOpeningHoursToWeekSchedule } from '@/lib/schedule';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Loader2, Save, ArrowLeft } from 'lucide-react';
+import { Loader2, Save, ArrowLeft, Utensils } from 'lucide-react';
 import { toast } from 'sonner';
 import ScheduleEditor from '@/components/restaurant/ScheduleEditor';
 import ImageUpload from '@/components/restaurant/ImageUpload';
@@ -18,134 +18,87 @@ import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RESTAURANT_CATEGORIES } from '@/constants/categories';
 import { cn } from '@/lib/utils';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import { useAuthData } from '@/context/AuthContext';
+import { EditAddressDialog } from '@/components/EditAddressDialog';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
+import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
+import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
+import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
+import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
+import { cnpjMask, phoneMask } from '@/utils/masks';
+import * as z from 'zod';
+import EditFieldDialog from '@/components/EditFieldDialog';
+import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 
-interface FormState {
-  name: string;
-  description: string;
-  category: string;
-  phone: string;
-  email: string;
-  whatsapp_url: string;
-  ifood_url: string;
-  other_url: string;
-  address: string;
-  number: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  cep: string;
-  external_url: string;
-  image_url: string | null;
-  cover_image_url: string | null;
-  opening_hours: WeekSchedule; // Usando WeekSchedule
-}
+// --- Schemas de Validação ---
+const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
+const emailSchema = z.string().email("E-mail inválido.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
+const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido (Ex: XX.XXX.XXX/XXXX-XX)").optional().or(z.literal(''));
 
-const defaultSchedule: WeekSchedule = {
-  monday: { isOpen: false, slots: [] },
-  tuesday: { isOpen: false, slots: [] },
-  wednesday: { isOpen: false, slots: [] },
-  thursday: { isOpen: false, slots: [] },
-  friday: { isOpen: false, slots: [] },
-  saturday: { isOpen: false, slots: [] },
-  sunday: { isOpen: false, slots: [] },
-};
+// --- Componente Principal ---
 
 const ProfileSettingsPage: React.FC = () => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  
+  // Usando useAuthData para obter o restaurante logado
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthData();
+  const currentRestaurantId = restaurant?.id;
 
-  // NOTE: Since this page is protected by ProtectedRoute, we should rely on useAuthData for restaurantId
-  // For now, we keep the useParams logic but ensure restaurantId is available.
-  const currentRestaurantId = restaurantId || 'temp'; 
+  // Estados para Modais
+  const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
+  const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
+  const [isFieldDialogOpen, setIsFieldDialogOpen] = useState(false);
+  const [editConfig, setEditConfig] = useState<{ 
+    key: keyof Restaurant; 
+    title: string; 
+    fieldName: string; 
+    icon: React.ReactNode; 
+    validationSchema: z.ZodType<string>; 
+    type?: "text" | "tel" | "email" | "url"; 
+    mask?: (value: string) => string; 
+    placeholder?: string 
+  } | null>(null);
 
-  const { data: restaurant, isLoading } = useQuery<Restaurant | null>({
-    queryKey: ['ownerRestaurantProfile', currentRestaurantId],
-    queryFn: () => fetchOwnerRestaurantData(currentRestaurantId),
-    enabled: !!currentRestaurantId,
-  });
+  // Hook de Mutação
+  const { mutate: updateRestaurant, isPending: isSaving } = useRestaurantUpdate();
 
-  const [formState, setFormState] = useState<FormState>({
-    name: '',
-    description: '',
-    category: '',
-    phone: '',
-    email: '',
-    whatsapp_url: '',
-    ifood_url: '',
-    other_url: '',
-    address: '',
-    number: '',
-    neighborhood: '',
-    city: '',
-    state: '',
-    cep: '',
-    external_url: '',
-    image_url: null,
-    cover_image_url: null,
-    opening_hours: defaultSchedule,
-  });
+  // Converte o horário do DB para o formato de edição (WeekSchedule)
+  const currentSchedule: WeekSchedule = useMemo(() => {
+    if (!restaurant?.opening_hours) return convertOpeningHoursToWeekSchedule(null);
+    return convertOpeningHoursToWeekSchedule(restaurant.opening_hours as unknown as OpeningHours[]);
+  }, [restaurant?.opening_hours]);
 
-  useEffect(() => {
-    if (restaurant) {
-      const currentSchedule = restaurant.opening_hours 
-        ? convertOpeningHoursToWeekSchedule(restaurant.opening_hours) 
-        : defaultSchedule;
-        
-      setFormState({
-        name: restaurant.name || '',
-        description: restaurant.description || '',
-        category: restaurant.category || '',
-        phone: restaurant.phone || '',
-        email: restaurant.email || '',
-        whatsapp_url: restaurant.whatsapp_url || '',
-        ifood_url: restaurant.ifood_url || '',
-        other_url: restaurant.other_url || '',
-        address: restaurant.address || '',
-        number: restaurant.number || '',
-        neighborhood: restaurant.neighborhood || '',
-        city: restaurant.city || '',
-        state: restaurant.state || '',
-        cep: restaurant.cep || '',
-        external_url: restaurant.external_url || '',
-        image_url: restaurant.image_url,
-        cover_image_url: restaurant.cover_image_url,
-        opening_hours: currentSchedule,
-      });
+  // --- Handlers ---
+
+  const handleUpdate = (updates: Partial<Restaurant>) => {
+    if (!currentRestaurantId) {
+      toast.error("ID do restaurante não encontrado.");
+      return { error: "ID do restaurante não encontrado." };
     }
-  }, [restaurant]);
-
-  const mutation = useMutation({
-    mutationFn: (data: Partial<Restaurant>) => updateRestaurantProfile(currentRestaurantId, data),
-    onSuccess: () => {
-      toast.success('Perfil atualizado com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['ownerRestaurantProfile', currentRestaurantId] });
-      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', currentRestaurantId] });
-    },
-    onError: (error) => {
-      toast.error(`Erro ao salvar: ${error.message}`);
-    },
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormState(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleScheduleChange = (newSchedule: WeekSchedule) => {
-    setFormState(prev => ({ ...prev, opening_hours: newSchedule }));
-  };
-
-  const handleImageChange = (field: 'image_url' | 'cover_image_url', url: string | null) => {
-    setFormState(prev => ({ ...prev, [field]: url }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
     
-    // Convert WeekSchedule back to OpeningHours[] (DB format)
-    const openingHoursArray = Object.entries(formState.opening_hours)
-      .flatMap(([dayName, schedule], index) => {
+    return new Promise<{ error: string | null }>((resolve) => {
+      updateRestaurant(
+        { restaurantId: currentRestaurantId, data: updates },
+        {
+          onSuccess: () => {
+            refetchProfile(); // Força a atualização do contexto
+            resolve({ error: null });
+          },
+          onError: (error) => {
+            resolve({ error: error.message });
+          },
+        }
+      );
+    });
+  };
+  
+  const handleSaveHours = async (newSchedule: WeekSchedule) => {
+    // Converte WeekSchedule de volta para OpeningHours[] (formato DB)
+    const openingHoursArray: OpeningHours[] = Object.entries(newSchedule)
+      .flatMap(([dayName, schedule]) => {
         if (!schedule.isOpen || schedule.slots.length === 0) {
           return [];
         }
@@ -157,33 +110,33 @@ const ProfileSettingsPage: React.FC = () => {
           open: slot.start,
           close: slot.end,
         }));
-      });
+      }) as OpeningHours[];
 
-    const dataToUpdate: Partial<Restaurant> = {
-      name: formState.name,
-      description: formState.description,
-      category: formState.category,
-      phone: formState.phone,
-      email: formState.email,
-      whatsapp_url: formState.whatsapp_url,
-      ifood_url: formState.ifood_url,
-      other_url: formState.other_url,
-      address: formState.address,
-      number: formState.number,
-      neighborhood: formState.neighborhood,
-      city: formState.city,
-      state: formState.state,
-      cep: formState.cep,
-      external_url: formState.external_url,
-      image_url: formState.image_url,
-      cover_image_url: formState.cover_image_url,
-      opening_hours: openingHoursArray as Restaurant['opening_hours'],
-    };
-
-    mutation.mutate(dataToUpdate);
+    await handleUpdate({ opening_hours: openingHoursArray as any });
+    toast.success("Horários de funcionamento atualizados!");
   };
 
-  if (isLoading) {
+  const handleEditField = (key: keyof Restaurant, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email" | "url", mask?: (value: string) => string, placeholder?: string) => {
+    setEditConfig({
+      key,
+      title,
+      fieldName,
+      icon,
+      validationSchema,
+      type,
+      mask,
+      placeholder,
+    });
+    setIsFieldDialogOpen(true);
+  };
+  
+  const handleSaveField = async (fieldName: string, value: string | number) => {
+    const updates = { [fieldName]: value };
+    await handleUpdate(updates);
+    setIsFieldDialogOpen(false);
+  };
+
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -192,168 +145,124 @@ const ProfileSettingsPage: React.FC = () => {
   }
 
   if (!restaurant) {
-    return <div className="p-4 text-center">Restaurante não encontrado.</div>;
-  }
-
-  return (
-    <div className="container mx-auto p-4 max-w-4xl">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-primary">Configurações do Perfil</h1>
-        <Button variant="outline" onClick={() => navigate(`/owner/dashboard/${currentRestaurantId}`)}>
-          <ArrowLeft className="w-4 h-4 mr-2" /> Voltar ao Dashboard
+    return (
+      <div className="p-4 text-center">
+        <h1 className="text-2xl font-bold text-red-500">Restaurante não encontrado.</h1>
+        <p className="text-gray-600 mt-2">Certifique-se de que sua conta de usuário está vinculada a um restaurante.</p>
+        <Button onClick={() => navigate('/restaurant-area-hub')} className="mt-4">
+          Voltar ao Hub
         </Button>
       </div>
+    );
+  }
+  
+  // --- Renderização ---
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+  // Helper para mapear tipos de input que EditFieldDialog aceita
+  const getEditFieldInputType = (type: string | undefined): 'text' | 'url' | 'textarea' | 'number' => {
+    if (type === 'url') return 'url';
+    // Se for 'email' ou 'tel', tratamos como 'text' no componente de edição
+    return 'text'; 
+  };
+
+  return (
+    <RestaurantAreaPageLayout 
+      title="Configurações do Perfil" 
+      icon={Utensils} 
+      backPath="restaurant-area/home"
+    >
+      <div className="p-4 space-y-6">
         
-        {/* Informações Básicas */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Informações Gerais</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Nome do Restaurante</Label>
-              <Input id="name" value={formState.name} onChange={handleChange} required />
+        {/* 1. Header e Logo */}
+        <Card className="shadow-soft-xl border-none rounded-2xl p-6 bg-white">
+          <div className="flex items-start gap-4">
+            {/* Logo Upload (Simplificado) */}
+            <div className="w-24 h-24 rounded-xl border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-hidden">
+              <ImageUpload
+                label=""
+                currentUrl={restaurant.image_url}
+                onUploadComplete={(url) => handleUpdate({ image_url: url })}
+                onRemove={() => handleUpdate({ image_url: null })}
+                folder={`restaurants/${currentRestaurantId}/logo`}
+                aspectRatio={1/1}
+              />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="description">Descrição</Label>
-              <Textarea id="description" value={formState.description} onChange={handleChange} rows={4} />
+            
+            <div className="flex-1 pt-2">
+              <h3 className="font-bold text-2xl text-[#022D68] leading-tight">{restaurant.name}</h3>
+              <p className="text-sm text-gray-500 mt-2">Clique na imagem para alterar o logo.</p>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="category">Categoria</Label>
-              <Select value={formState.category} onValueChange={(value) => setFormState(prev => ({ ...prev, category: value }))}>
-                <SelectTrigger id="category">
-                  <SelectValue placeholder="Selecione a categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {RESTAURANT_CATEGORIES.map(cat => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </CardContent>
+          </div>
         </Card>
-
-        {/* Imagens */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Imagens</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <ImageUpload
-              label="Logo (Imagem de Perfil)"
-              currentUrl={formState.image_url}
-              onUploadComplete={(url) => handleImageChange('image_url', url)}
-              onRemove={() => handleImageChange('image_url', null)}
-              folder={`restaurants/${currentRestaurantId}/logo`}
-              aspectRatio={1/1}
-            />
-            <Separator />
-            <ImageUpload
-              label="Imagem de Capa (Banner)"
-              currentUrl={formState.cover_image_url}
-              onUploadComplete={(url) => handleImageChange('cover_image_url', url)}
-              onRemove={() => handleImageChange('cover_image_url', null)}
-              folder={`restaurants/${currentRestaurantId}/cover`}
-              aspectRatio={16/9}
-            />
-          </CardContent>
-        </Card>
-
-        {/* Contato e Links */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Contato e Links</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="phone">Telefone</Label>
-                <Input id="phone" value={formState.phone} onChange={handleChange} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" value={formState.email} onChange={handleChange} />
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="whatsapp_url">Link WhatsApp (Completo)</Label>
-              <Input id="whatsapp_url" value={formState.whatsapp_url} onChange={handleChange} placeholder="Ex: https://wa.me/5511999999999" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="ifood_url">Link iFood</Label>
-              <Input id="ifood_url" value={formState.ifood_url} onChange={handleChange} />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="external_url">Link Site/Outro</Label>
-              <Input id="external_url" value={formState.external_url} onChange={handleChange} />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Endereço */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Endereço</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="cep">CEP</Label>
-              <Input id="cep" value={formState.cep} onChange={handleChange} />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="address">Rua/Avenida</Label>
-              <Input id="address" value={formState.address} onChange={handleChange} />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="number">Número</Label>
-                <Input id="number" value={formState.number} onChange={handleChange} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="neighborhood">Bairro</Label>
-                <Input id="neighborhood" value={formState.neighborhood} onChange={handleChange} />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="city">Cidade</Label>
-                <Input id="city" value={formState.city} onChange={handleChange} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="state">Estado (UF)</Label>
-                <Input id="state" value={formState.state} onChange={handleChange} maxLength={2} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Horário de Funcionamento */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Horário de Funcionamento</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ScheduleEditor 
-              schedule={formState.opening_hours}
-              onChange={handleScheduleChange}
-            />
-          </CardContent>
-        </Card>
-
-        <Button type="submit" className="w-full h-12 text-lg" disabled={mutation.isPending}>
-          {mutation.isPending ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <>
-              <Save className="h-5 w-5 mr-2" /> Salvar Alterações
-            </>
-          )}
-        </Button>
-      </form>
-    </div>
+        
+        {/* 2. Informações Básicas */}
+        <BasicInfoSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          cnpjMask={cnpjMask}
+          phoneMask={phoneMask}
+          nameSchema={nameSchema}
+          emailSchema={emailSchema}
+          phoneSchema={phoneSchema}
+          cnpjSchema={cnpjSchema}
+        />
+        
+        {/* 3. Localização e Horários */}
+        <LocationHoursSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          currentSchedule={currentSchedule}
+          setIsAddressDialogOpen={setIsAddressDialogOpen}
+          setIsHoursDialogOpen={setIsHoursDialogOpen}
+        />
+        
+        {/* 4. Canais de Venda */}
+        <SalesChannelsSection restaurant={restaurant as any} />
+        
+        {/* 5. Assinatura e Suporte */}
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+        
+      </div>
+      
+      {/* Modais */}
+      <EditAddressDialog
+        open={isAddressDialogOpen}
+        onOpenChange={setIsAddressDialogOpen}
+        restaurantId={currentRestaurantId!}
+        currentAddress={{
+          address: restaurant.address || '',
+          city: restaurant.city || '',
+          state: restaurant.state || '',
+          cep: restaurant.cep || '',
+          neighborhood: restaurant.neighborhood || '',
+          latitude: restaurant.latitude,
+          longitude: restaurant.longitude,
+        }}
+        onSave={refetchProfile}
+      />
+      
+      <EditHoursDialog
+        open={isHoursDialogOpen}
+        onOpenChange={setIsHoursDialogOpen}
+        currentSchedule={currentSchedule}
+        onSave={handleSaveHours}
+      />
+      
+      {editConfig && (
+        <EditFieldDialog
+          isOpen={isFieldDialogOpen}
+          onClose={() => setIsFieldDialogOpen(false)}
+          title={editConfig.title}
+          description={`Insira o novo valor para ${editConfig.fieldName.toLowerCase()}.`}
+          fieldName={editConfig.key}
+          initialValue={restaurant[editConfig.key] as string | number | undefined}
+          inputType={getEditFieldInputType(editConfig.type)}
+          onSave={handleSaveField}
+          loading={isSaving}
+        />
+      )}
+    </RestaurantAreaPageLayout>
   );
 };
 
