@@ -13,8 +13,8 @@ import { fetchMenuItemById } from '@/integrations/supabase/restaurants';
 import { MenuItem, Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-// Tipo de dado esperado após o fetch
-type DetailedMenuItem = (MenuItem & { restaurant: Restaurant | null });
+// Tipo de dado esperado após o fetch (corrigido para incluir todos os campos de MenuItem)
+type DetailedMenuItem = MenuItem & { restaurant: Restaurant | null };
 
 const MenuItemDetails: React.FC = () => {
   const { itemId } = useParams<{ itemId: string }>();
@@ -53,7 +53,7 @@ const MenuItemDetails: React.FC = () => {
   
   if (error || !itemData) {
     return (
-      <div className="p-6 text-center">
+      <div className="flex flex-col items-center justify-center h-screen p-4 text-center">
         <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <h2 className="text-xl font-bold text-gray-800 mb-2">Prato Não Encontrado</h2>
         <p className="text-gray-600 mb-6">O item de menu solicitado não existe ou foi removido.</p>
@@ -64,6 +64,7 @@ const MenuItemDetails: React.FC = () => {
     );
   }
   
+  // Acessando propriedades de itemData (que agora é DetailedMenuItem)
   const restaurantName = itemData.restaurant?.name || 'Restaurante Desconhecido';
   const restaurantId = itemData.restaurant?.id;
 
