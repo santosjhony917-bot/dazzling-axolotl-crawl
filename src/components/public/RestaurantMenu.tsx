@@ -54,7 +54,10 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
 
   return (
     <div id="menu" className="space-y-6">
-      {/* Título da seção removido daqui, será adicionado no layout pai */}
+      {/* Título da seção: Adicionado de volta para a visualização de perfil */}
+      {!isFullMenuPage && (
+        <h2 className="text-2xl font-extrabold text-[#022D68]">Cardápio</h2>
+      )}
       
       {categoriesToDisplay.map((category) => {
         const activeItems = category.menu_items
@@ -69,7 +72,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
 
         return (
           <div key={category.id} className="space-y-4">
-            {/* Ajustado para text-xl (Subtítulo) */}
+            {/* Título da Categoria */}
             <h3 className="text-xl font-extrabold text-gray-800 border-b pb-2">{category.name}</h3>
             
             <div className="grid gap-4">
