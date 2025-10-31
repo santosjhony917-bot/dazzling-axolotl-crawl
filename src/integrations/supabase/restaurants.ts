@@ -3,6 +3,26 @@ import { PublicRestaurantData, Restaurant, RestaurantPlan, OpeningHours, MenuIte
 import { getRestaurantOpenStatus, convertOpeningHoursToWeekSchedule } from '@/lib/schedule';
 import { formatAddressSummary } from '@/lib/utils';
 import { showError } from '@/utils/toast';
+import { Tables } from '@/lib/database.types'; // Importando Tables do database.types
+
+// --- Tipos Auxiliares para a Query Complexa ---
+
+// Tipo para o resultado da query de menu_items aninhada (inclui menu_item_favorites)
+type MenuItemWithFavorites = Tables<'menu_items'> & {
+  menu_item_favorites: { user_id: string | null }[];
+};
+
+// Tipo para o resultado da query de menu_categories aninhada (inclui menu_items)
+type MenuCategoryWithItemsAndFavorites = Tables<'menu_categories'> & {
+  menu_items: MenuItemWithFavorites[];
+};
+
+// Tipo para o resultado da query principal (restaurants)
+type RestaurantProfileQueryResult = Tables<'restaurants'> & {
+  menu_categories: MenuCategoryWithItemsAndFavorites[];
+  restaurant_gallery: Tables<'restaurant_gallery'>[];
+  user_favorites: { user_id: string }[];
+};
 
 // --- Owner/Admin Functions ---
 
@@ -36,13 +56,10 @@ export async function updateRestaurantProfile(restaurantId: string, data: Partia
 
 // --- Public/Client Functions ---
 
-// Define DetailedMenuItem explicitly here to resolve generic issues in useQuery
-// CORREÇÃO: DetailedMenuItem deve ser a união do tipo MenuItem (do DB) mais o objeto Restaurant aninhado.
 export type DetailedMenuItem = MenuItem & {
   restaurant: Restaurant | null;
 };
 
-// Função para buscar um único item de menu por ID, incluindo dados do restaurante
 export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuItem | null> {
   const { data, error } = await supabase
     .from('menu_items')
@@ -62,21 +79,18 @@ export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuIte
 
   if (!data) return null;
   
-  // Extract the restaurant data from the nested menu_categories array
   const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
     ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
     : null;
 
-  // Remove the nested key before returning
   const { menu_categories, ...item } = data;
 
   return {
     ...(item as MenuItem),
     restaurant: restaurantData,
-  } as DetailedMenuItem; // Cast final para garantir o tipo correto
+  } as DetailedMenuItem;
 }
 
-// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
   lat: number, 
   lng: number, 
@@ -99,10 +113,8 @@ export async function fetchNearbyRestaurants(
   return data || [];
 }
 
-// Função para buscar um restaurante público por ID
 export async function fetchRestaurantById(restaurantId: string, userId: string | null): Promise<PublicRestaurantData | null> {
-  // Removendo !inner dos joins de favoritos para permitir que o perfil carregue mesmo para usuários não autenticados (RLS)
-  const { data: restaurantData, error } = await supabase
+  const { data, error } = await supabase
     .from('restaurants')
     .select(
       `
@@ -141,11 +153,14 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     return null;
   }
 
-  if (!restaurantData) {
+  if (!data) {
     return null;
   }
+  
+  // CORREÇÃO: Forçar a tipagem do dado retornado para o tipo complexo definido
+  const restaurantData = data as unknown as RestaurantProfileQueryResult;
 
-  // Mapear dados brutos para o tipo PublicRestaurantData
+  // Mapear dados brutos para o tipo Restaurant
   const baseData: Restaurant = {
     id: restaurantData.id,
     user_id: restaurantData.user_id,
@@ -177,14 +192,14 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
 
   // Processar dados aninhados
   const menuCategories = (restaurantData.menu_categories || [])
-    .filter((cat: any) => cat.is_active)
-    .sort((a: any, b: any) => a.order_index - b.order_index)
-    .map((category: any) => ({
+    .filter((cat) => cat.is_active)
+    .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+    .map((category) => ({
       ...category,
       menu_items: (category.menu_items || [])
-        .filter((item: any) => item.is_active)
-        .sort((a: any, b: any) => a.order_index - b.order_index)
-        .map((item: any) => ({
+        .filter((item) => item.is_active)
+        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+        .map((item) => ({
           ...item,
           // Verifica se o array de favoritos tem algum item (se o usuário estiver logado, o RLS garante que só verá o seu)
           is_favorite: item.menu_item_favorites.length > 0,
@@ -192,8 +207,8 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     }));
 
   const galleryImages = (restaurantData.restaurant_gallery || [])
-    .sort((a: any, b: any) => a.order_index - b.order_index)
-    .map((image: any) => ({
+    .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+    .map((image) => ({
       id: image.id,
       restaurant_id: image.restaurant_id,
       image_url: image.image_url,
@@ -207,11 +222,10 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
   const openStatus = getRestaurantOpenStatus(scheduleWeek);
 
   // Calcular seguidores
-  // user_favorites agora é um array de { user_id: string } se o usuário estiver logado e for um favorito.
   const followersCount = restaurantData.user_favorites.length + (baseData.followers_override || 0);
   
   // Se userId for null, isFavorite será false. Se userId existir, verifica se o array de user_favorites contém o user_id (graças ao RLS).
-  const isFavorite = userId ? restaurantData.user_favorites.some((fav: any) => fav.user_id === userId) : false;
+  const isFavorite = userId ? restaurantData.user_favorites.some((fav) => fav.user_id === userId) : false;
 
   return {
     ...baseData,
