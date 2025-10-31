@@ -28,9 +28,8 @@ const RestaurantProfilePublic: React.FC = () => {
     );
   }
 
-  // Renderiza o layout Premium se o plano for 'premium'
-  {/* Erro 4 corrigido: Removendo 'premium_gift' que não é um tipo válido de RestaurantPlan */}
-  return restaurant.plan === 'premium' ? (
+  // Renderiza o layout Premium se o plano for 'premium' ou 'premium_gift'
+  return (restaurant.plan === 'premium' || restaurant.plan === 'premium_gift') ? (
         <PremiumProfileLayout restaurant={restaurant} />
       ) : (
         <FreeProfileLayout restaurant={restaurant} />

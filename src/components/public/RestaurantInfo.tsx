@@ -1,7 +1,7 @@
 import React from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import OpeningHoursDisplay from './OpeningHoursDisplay';
+import { OpeningHoursDisplay } from './OpeningHoursDisplay'; // Fix Error 8: Using named export
 import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule
 
 interface RestaurantInfoProps {

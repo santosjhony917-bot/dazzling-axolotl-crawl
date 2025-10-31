@@ -1,9 +1,99 @@
 import { supabase } from './client';
-import { PublicRestaurantData, Restaurant, RestaurantPlan, OpeningHours } from '@/types/restaurant';
+import { PublicRestaurantData, Restaurant, RestaurantPlan, OpeningHours, MenuItem, RestaurantWithDistance } from '@/types/restaurant';
 import { getRestaurantOpenStatus, convertOpeningHoursToWeekSchedule } from '@/lib/schedule';
 import { formatAddressSummary } from '@/lib/utils';
+import { showError } from '@/utils/toast';
 
-// Função auxiliar para buscar dados de um restaurante pelo ID
+// --- Owner/Admin Functions ---
+
+export async function fetchOwnerRestaurantData(restaurantId: string): Promise<Restaurant | null> {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .eq('id', restaurantId)
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.error('Error fetching owner restaurant data:', error);
+    return null;
+  }
+
+  return data as Restaurant;
+}
+
+export async function updateRestaurantProfile(restaurantId: string, data: Partial<Restaurant>): Promise<void> {
+  const { error } = await supabase
+    .from('restaurants')
+    .update(data)
+    .eq('id', restaurantId);
+
+  if (error) {
+    console.error('Error updating restaurant profile:', error);
+    throw new Error(error.message);
+  }
+}
+
+// --- Public/Client Functions ---
+
+// Função para buscar um único item de menu por ID, incluindo dados do restaurante
+export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { restaurant: Restaurant | null }) | null> {
+  const { data, error } = await supabase
+    .from('menu_items')
+    .select(`
+      *,
+      menu_categories (
+        restaurant:restaurants (*)
+      )
+    `)
+    .eq('id', itemId)
+    .single();
+
+  if (error && error.code !== 'PGRST116') {
+    console.error('Error fetching menu item:', error);
+    throw new Error(error.message);
+  }
+
+  if (!data) return null;
+  
+  // Extract the restaurant data from the nested menu_categories array
+  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
+    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
+    : null;
+
+  // Remove the nested key before returning
+  const { menu_categories, ...item } = data;
+
+  return {
+    ...(item as MenuItem),
+    restaurant: restaurantData,
+  };
+}
+
+// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
+export async function fetchNearbyRestaurants(
+  lat: number, 
+  lng: number, 
+  maxDistance: number = 10, 
+  searchQuery: string | null = null
+): Promise<RestaurantWithDistance[]> {
+  const { data, error } = await supabase.rpc('find_nearby_restaurants', {
+    user_lat: lat,
+    user_lng: lng,
+    max_distance_km: maxDistance,
+    search_query: searchQuery,
+  });
+
+  if (error) {
+    console.error('Error fetching nearby restaurants:', error);
+    showError('Erro ao buscar restaurantes próximos.');
+    return [];
+  }
+
+  return data || [];
+}
+
+// Função para buscar um restaurante público por ID
 export async function fetchRestaurantById(restaurantId: string, userId: string | null): Promise<PublicRestaurantData | null> {
   const { data: restaurantData, error } = await supabase
     .from('restaurants')
@@ -105,8 +195,8 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     }));
 
   // Calcular status de abertura
-  const scheduleWeek = convertOpeningHoursToWeekSchedule(baseData.opening_hours); // CONVERSÃO APLICADA
-  const openStatus = getRestaurantOpenStatus(scheduleWeek); // Erro 3 corrigido
+  const scheduleWeek = convertOpeningHoursToWeekSchedule(baseData.opening_hours);
+  const openStatus = getRestaurantOpenStatus(scheduleWeek);
 
   // Calcular seguidores
   const followersCount = restaurantData.user_favorites.length + (baseData.followers_override || 0);
@@ -122,21 +212,4 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     menu_categories: menuCategories,
     gallery_images: galleryImages,
   };
-}
-
-// Função auxiliar para buscar dados de um restaurante pelo ID (para o proprietário)
-export async function fetchOwnerRestaurantData(restaurantId: string): Promise<Restaurant | null> {
-  const { data, error } = await supabase
-    .from('restaurants')
-    .select('*')
-    .eq('id', restaurantId)
-    .limit(1)
-    .single();
-
-  if (error) {
-    console.error('Error fetching owner restaurant data:', error);
-    return null;
-  }
-
-  return data as Restaurant;
 }

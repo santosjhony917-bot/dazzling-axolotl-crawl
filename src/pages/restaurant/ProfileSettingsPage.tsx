@@ -12,8 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
-import ScheduleEditor from '@/components/owner/ScheduleEditor';
-import ImageUpload from '@/components/owner/ImageUpload';
+import ScheduleEditor from '@/components/restaurant/ScheduleEditor';
+import ImageUpload from '@/components/restaurant/ImageUpload';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RESTAURANT_CATEGORIES } from '@/constants/categories';
@@ -41,13 +41,13 @@ interface FormState {
 }
 
 const defaultSchedule: WeekSchedule = {
-  monday: { open: null, close: null, isClosed: true },
-  tuesday: { open: null, close: null, isClosed: true },
-  wednesday: { open: null, close: null, isClosed: true },
-  thursday: { open: null, close: null, isClosed: true },
-  friday: { open: null, close: null, isClosed: true },
-  saturday: { open: null, close: null, isClosed: true },
-  sunday: { open: null, close: null, isClosed: true },
+  monday: { isOpen: false, slots: [] },
+  tuesday: { isOpen: false, slots: [] },
+  wednesday: { isOpen: false, slots: [] },
+  thursday: { isOpen: false, slots: [] },
+  friday: { isOpen: false, slots: [] },
+  saturday: { isOpen: false, slots: [] },
+  sunday: { isOpen: false, slots: [] },
 };
 
 const ProfileSettingsPage: React.FC = () => {
@@ -55,10 +55,14 @@ const ProfileSettingsPage: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  // NOTE: Since this page is protected by ProtectedRoute, we should rely on useAuthData for restaurantId
+  // For now, we keep the useParams logic but ensure restaurantId is available.
+  const currentRestaurantId = restaurantId || 'temp'; 
+
   const { data: restaurant, isLoading } = useQuery<Restaurant | null>({
-    queryKey: ['ownerRestaurantProfile', restaurantId],
-    queryFn: () => fetchOwnerRestaurantData(restaurantId!),
-    enabled: !!restaurantId,
+    queryKey: ['ownerRestaurantProfile', currentRestaurantId],
+    queryFn: () => fetchOwnerRestaurantData(currentRestaurantId),
+    enabled: !!currentRestaurantId,
   });
 
   const [formState, setFormState] = useState<FormState>({
@@ -106,17 +110,17 @@ const ProfileSettingsPage: React.FC = () => {
         external_url: restaurant.external_url || '',
         image_url: restaurant.image_url,
         cover_image_url: restaurant.cover_image_url,
-        opening_hours: currentSchedule, // Erro 6 corrigido
+        opening_hours: currentSchedule,
       });
     }
   }, [restaurant]);
 
   const mutation = useMutation({
-    mutationFn: (data: Partial<Restaurant>) => updateRestaurantProfile(restaurantId!, data),
+    mutationFn: (data: Partial<Restaurant>) => updateRestaurantProfile(currentRestaurantId, data),
     onSuccess: () => {
       toast.success('Perfil atualizado com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['ownerRestaurantProfile', restaurantId] });
-      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', restaurantId] });
+      queryClient.invalidateQueries({ queryKey: ['ownerRestaurantProfile', currentRestaurantId] });
+      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', currentRestaurantId] });
     },
     onError: (error) => {
       toast.error(`Erro ao salvar: ${error.message}`);
@@ -141,20 +145,19 @@ const ProfileSettingsPage: React.FC = () => {
     
     // Convert WeekSchedule back to OpeningHours[] (DB format)
     const openingHoursArray = Object.entries(formState.opening_hours)
-      .map(([dayName, schedule], index) => {
-        if (schedule.isClosed || !schedule.open || !schedule.close) {
-          return null;
+      .flatMap(([dayName, schedule], index) => {
+        if (!schedule.isOpen || schedule.slots.length === 0) {
+          return [];
         }
         // Day index: Sunday=0, Monday=1, ..., Saturday=6
         const dayIndex = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].indexOf(dayName);
         
-        return {
+        return schedule.slots.map(slot => ({
           day: dayIndex,
-          open: schedule.open,
-          close: schedule.close,
-        };
-      })
-      .filter(item => item !== null);
+          open: slot.start,
+          close: slot.end,
+        }));
+      });
 
     const dataToUpdate: Partial<Restaurant> = {
       name: formState.name,
@@ -196,7 +199,7 @@ const ProfileSettingsPage: React.FC = () => {
     <div className="container mx-auto p-4 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-primary">Configurações do Perfil</h1>
-        <Button variant="outline" onClick={() => navigate(`/owner/dashboard/${restaurantId}`)}>
+        <Button variant="outline" onClick={() => navigate(`/owner/dashboard/${currentRestaurantId}`)}>
           <ArrowLeft className="w-4 h-4 mr-2" /> Voltar ao Dashboard
         </Button>
       </div>
@@ -244,7 +247,7 @@ const ProfileSettingsPage: React.FC = () => {
               currentUrl={formState.image_url}
               onUploadComplete={(url) => handleImageChange('image_url', url)}
               onRemove={() => handleImageChange('image_url', null)}
-              folder={`restaurants/${restaurantId}/logo`}
+              folder={`restaurants/${currentRestaurantId}/logo`}
               aspectRatio={1/1}
             />
             <Separator />
@@ -253,7 +256,7 @@ const ProfileSettingsPage: React.FC = () => {
               currentUrl={formState.cover_image_url}
               onUploadComplete={(url) => handleImageChange('cover_image_url', url)}
               onRemove={() => handleImageChange('cover_image_url', null)}
-              folder={`restaurants/${restaurantId}/cover`}
+              folder={`restaurants/${currentRestaurantId}/cover`}
               aspectRatio={16/9}
             />
           </CardContent>

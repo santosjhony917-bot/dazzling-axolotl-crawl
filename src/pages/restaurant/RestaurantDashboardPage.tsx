@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { useAuthData } from '@/context/AuthContext';
 import { Loader2, Utensils, Settings, Menu, Image, MapPin, Star, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,7 +33,7 @@ const ActionCard: React.FC<{ title: string; icon: React.ReactNode; description: 
 );
 
 const RestaurantDashboardPage: React.FC = () => {
-  const { restaurant, isLoading: profileLoading } = useRestaurantProfile();
+  const { restaurant, isLoading: profileLoading } = useAuthData();
   const { isPremium, isLoading: authLoading } = useAuthData();
 
   const isLoading = profileLoading || authLoading;

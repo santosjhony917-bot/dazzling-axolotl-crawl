@@ -1,4 +1,4 @@
-export const CATEGORIES = [
+export const RESTAURANT_CATEGORIES = [
   "Pizzaria",
   "Hamburgueria",
   "Japonesa",
