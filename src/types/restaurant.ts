@@ -1,10 +1,10 @@
-import { Json } from './supabase';
+import { Json, RestaurantWithDistance as SupabaseRestaurantWithDistance } from './supabase';
 import { OpeningHours } from './schedule'; // Importando OpeningHours do novo arquivo
 
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
+export type { OpeningHours }; // Fix TS1205
+export type RestaurantWithDistance = SupabaseRestaurantWithDistance; // Fix TS2305
 
-// O tipo OpeningHours agora é importado de schedule.ts
-export { OpeningHours };
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift'; // Fix TS2367
 
 export interface RestaurantGalleryImage {
   id: string;

@@ -41,7 +41,9 @@ export const convertOpeningHoursToWeekSchedule = (hours: OpeningHours[] | null):
   }, {} as Record<keyof WeekSchedule, TimeSlot[]>);
 
   // Map grouped hours to WeekSchedule
-  (Object.keys(dayMap) as (keyof typeof dayMap)[]).forEach(dayIndex => {
+  const dayIndices: number[] = [0, 1, 2, 3, 4, 5, 6];
+  
+  dayIndices.forEach(dayIndex => {
     const dayName = dayMap[dayIndex];
     const slots = groupedHours[dayName] || [];
     

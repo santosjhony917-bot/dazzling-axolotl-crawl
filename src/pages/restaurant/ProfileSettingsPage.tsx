@@ -337,8 +337,8 @@ const ProfileSettingsPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <ScheduleEditor 
-              schedule={formState.opening_hours} 
-              onChange={handleScheduleChange} 
+              schedule={formState.opening_hours}
+              onChange={handleScheduleChange}
             />
           </CardContent>
         </Card>

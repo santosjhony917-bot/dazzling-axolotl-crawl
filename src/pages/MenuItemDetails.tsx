@@ -9,7 +9,7 @@ import { cn, formatPrice } from '@/lib/utils';
 import { showError } from '@/utils/toast';
 import { createPageUrl } from '@/utils/url';
 import { useQuery } from '@tanstack/react-query';
-import { fetchMenuItemById } from '@/integrations/supabase/restaurant';
+import { fetchMenuItemById } from '@/integrations/supabase/restaurants';
 import { MenuItem, Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
