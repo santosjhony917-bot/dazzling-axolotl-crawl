@@ -19,8 +19,9 @@ interface RestaurantMenuProps {
   restaurantId?: string; // Necessário para o link do cardápio completo
 }
 
-const MAX_CATEGORIES_PREVIEW = 3;
-const MAX_ITEMS_PER_CATEGORY_PREVIEW = 3;
+// NOVOS LIMITES
+const MAX_CATEGORIES_PREVIEW = 2;
+const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId }) => {
   const navigate = useNavigate();
