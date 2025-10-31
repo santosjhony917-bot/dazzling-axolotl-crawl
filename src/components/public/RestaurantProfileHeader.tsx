@@ -94,10 +94,10 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
         
         {/* 3. Ações (Seguir e Seguidores) - Abaixo do bloco de informações */}
         <div className="mt-4 flex items-center justify-between">
-          {/* Contagem de Seguidores */}
-          <p className="text-base text-gray-600 dark:text-gray-400 font-bold flex items-center gap-1">
-            <UserPlus className="w-4 h-4 text-primary shrink-0" />
-            {followersCount.toLocaleString()} seguidores
+          {/* Contagem de Seguidores - AUMENTADO O TAMANHO */}
+          <p className="text-xl font-extrabold text-primary dark:text-white flex items-center gap-1">
+            <UserPlus className="w-5 h-5 text-highlight shrink-0" />
+            {followersCount.toLocaleString()} <span className="text-base font-medium text-gray-600 dark:text-gray-400">seguidores</span>
           </p>
           
           {/* Botão Seguir */}
