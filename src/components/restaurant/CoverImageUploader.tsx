@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
-import { RESTAURANT_COVERS_BUCKET } from '@/constants/assets';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage'; // CORRIGIDO: Usando RESTAURANT_IMAGES_BUCKET
 import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 import { useAuthData } from '@/context/AuthContext';
 import { Image, Upload, Loader2, AlertTriangle } from 'lucide-react';
@@ -85,7 +85,7 @@ const CoverImageUploader: React.FC = () => {
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
             <ImageUploadButton
               onUploadComplete={handleUploadComplete}
-              bucketName={RESTAURANT_COVERS_BUCKET}
+              bucketName={RESTAURANT_IMAGES_BUCKET} // CORRIGIDO AQUI
               // O folderPath é [restaurantId]/cover, e o ImageUploadButton adiciona o timestamp.ext
               folderPath={`${restaurantId}/cover`} 
               className="h-10 w-40 bg-highlight hover:bg-highlight/90 text-white font-bold"
