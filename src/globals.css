@@ -66,6 +66,8 @@
     /* Fundo com degradê sutil para dar profundidade */
     background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
     @apply text-foreground;
+    /* CORREÇÃO: Força a barra de rolagem vertical a estar sempre presente */
+    overflow-y: scroll; 
   }
 }
 
@@ -103,7 +105,7 @@
   }
   100% {
     background-position: 200% 0;
-  }
+}
 }
 
 .animate-shine {
