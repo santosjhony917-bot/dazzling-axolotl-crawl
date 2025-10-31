@@ -176,7 +176,7 @@ const Home: React.FC = () => {
               Ver todos
             </Button>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap pb-4 hide-scrollbar">
+          <ScrollArea className="w-full whitespace-nowrap pb-6 hide-scrollbar">
             <div className="flex space-x-4">
               {highlights.length > 0 ? (
                 highlights.map((item) => (
