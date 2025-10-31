@@ -190,7 +190,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                   <div className="flex items-start space-x-3">
                     <MapPin className="h-5 w-5 text-highlight mt-1 shrink-0" />
                     <div className="flex-1">
-                      {/* Removido o título "Endereço" */}
+                      {/* CORREÇÃO: Adicionando o título 'Endereço' de volta, mas com estilo de texto */}
+                      <p className="text-base font-semibold text-primary">Endereço</p>
                       <p className="text-sm text-gray-600 font-medium">{addressSummary}</p>
                     </div>
                   </div>
