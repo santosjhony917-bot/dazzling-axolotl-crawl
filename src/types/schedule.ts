@@ -1,16 +1,9 @@
-// Define a slot for opening/closing time
-export interface TimeSlot {
-  start: string; // e.g., "08:00"
-  end: string; // e.g., "18:00"
-}
-
-// DaySchedule is now an object containing status and an array of TimeSlot
 export interface DaySchedule {
-  isOpen: boolean;
-  slots: TimeSlot[];
+  open: string | null; // HH:MM
+  close: string | null; // HH:MM
+  isClosed: boolean;
 }
 
-// WeekSchedule maps day names to DaySchedule
 export interface WeekSchedule {
   monday: DaySchedule;
   tuesday: DaySchedule;
@@ -19,4 +12,8 @@ export interface WeekSchedule {
   friday: DaySchedule;
   saturday: DaySchedule;
   sunday: DaySchedule;
+}
+
+export interface OpeningHoursDisplayProps {
+  openingHours: WeekSchedule;
 }
