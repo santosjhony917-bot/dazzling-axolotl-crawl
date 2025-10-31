@@ -113,7 +113,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
               className={cn(
                 "w-full h-10 rounded-xl text-base font-bold transition-all",
                 isFollowing 
-                  ? "border-primary text-primary hover:bg-primary/5" 
+                  ? "border-2 border-red-500 text-red-500 hover:bg-red-500/10" // Estilo melhorado para "Seguindo"
                   : "shadow-highlight-glow hover:bg-highlight/90"
               )}
             >
