@@ -100,7 +100,7 @@ export function useFavorites(): UseFavoritesResult {
     },
     onError: (e) => {
       // Se o erro for de chave duplicada, isso significa que o estado isCurrentlyFavorite estava incorreto.
-      // Tentamos forçar a invalidação da query para corrigir o estado local.
+      // Forçamos a invalidação da query para corrigir o estado local.
       if ((e as Error).message.includes('duplicate key value')) {
           queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
           showError("Erro de sincronização. O restaurante já estava favoritado.");
