@@ -6,19 +6,24 @@ import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
-import { usePublicRestaurant } from '@/hooks/usePublicRestaurant'; // Importando o hook
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // NOVO IMPORT
 
 export default function RestaurantProfilePublic() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
   
-  // Usando o hook para buscar os dados
+  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
   const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
+
+  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
+  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
 
   useEffect(() => {
     console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
     if (error) {
-      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`); // Log detalhado do erro
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
       showError(error);
     }
   }, [error, restaurantId]);
@@ -36,7 +41,6 @@ export default function RestaurantProfilePublic() {
   if (error || !restaurant) {
     return (
       <div className="p-8 text-center min-h-screen bg-background-light">
-        {/* O botão de voltar agora é renderizado pelo layout, mas mantemos um fallback aqui */}
         <div className="fixed top-4 left-4 z-50">
           <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
             <ArrowLeft className="h-5 w-5 text-primary" />
@@ -54,18 +58,27 @@ export default function RestaurantProfilePublic() {
     );
   }
   
-  console.log(`[ProfilePublic] Carregando layout para plano: ${restaurant.plan}`);
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
+  const reactiveRestaurantData: PublicRestaurantData = {
+    ...restaurant,
+    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
+  };
+
+  // Props comuns para os layouts
+  const layoutProps = {
+    restaurant: reactiveRestaurantData,
+    toggleFavorite: toggleFavorite,
+    isFavoriteMutating: isFavoriteMutating,
+  };
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
     <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
       
-      {/* O RestaurantActionsBar será renderizado dentro do layout específico */}
-      
       {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
-        <PremiumProfileLayout restaurant={restaurant} />
+        <PremiumProfileLayout {...layoutProps} />
       ) : (
-        <FreeProfileLayout restaurant={restaurant} />
+        <FreeProfileLayout {...layoutProps} />
       )}
     </div>
   );

@@ -7,7 +7,6 @@ import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
@@ -22,12 +21,13 @@ import { useNavigate } from 'react-router-dom';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
+  toggleFavorite: () => void; // NOVO
+  isFavoriteMutating: boolean; // NOVO
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant }) => {
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const navigate = useNavigate();
   const { user } = useAuth(); 
-  const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const addressSummary = useMemo(() => {
@@ -67,7 +67,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
     coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
+    isFavorite: restaurant.is_favorite, // Usando o estado reativo
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
     isPremium: true, // CORREÇÃO: Adicionado isPremium
@@ -86,7 +86,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       <RestaurantActionsBar
         isFavorite={restaurant.is_favorite}
         onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isToggling}
+        isFavoriteMutating={isFavoriteMutating}
         onShare={handleShare}
         onBack={() => navigate(-1)}
       />
@@ -95,7 +95,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
       <RestaurantProfileHeader
         restaurant={headerData}
         onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isToggling}
+        isFavoriteMutating={isFavoriteMutating}
       />
 
       <div className="container mx-auto px-4 pb-8">

@@ -7,7 +7,6 @@ import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { useFavoriteToggle } from '@/hooks/useFavoriteToggle';
 import { formatAddressSummary } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 import { cn } from '@/lib/utils';
@@ -21,12 +20,13 @@ import { useNavigate } from 'react-router-dom';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
+  toggleFavorite: () => void; // NOVO
+  isFavoriteMutating: boolean; // NOVO
 }
 
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => {
+const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { toggleFavorite, isToggling } = useFavoriteToggle(restaurant.id, restaurant.is_favorite);
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
@@ -66,7 +66,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
     coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
+    isFavorite: restaurant.is_favorite, // Usando o estado reativo
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
     isPremium: false, // CORREÇÃO: Adicionado isPremium
@@ -84,7 +84,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       <RestaurantActionsBar
         isFavorite={restaurant.is_favorite}
         onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isToggling}
+        isFavoriteMutating={isFavoriteMutating}
         onShare={handleShare}
         onBack={() => navigate(-1)}
       />
@@ -93,7 +93,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
       <RestaurantProfileHeader
         restaurant={headerData}
         onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isToggling}
+        isFavoriteMutating={isFavoriteMutating}
       />
 
       <div className="container mx-auto px-4 pb-8">
