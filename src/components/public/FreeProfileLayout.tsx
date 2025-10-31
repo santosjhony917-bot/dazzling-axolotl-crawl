@@ -166,7 +166,11 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant }) => 
           {/* 3. Menu Section */}
           {hasMenu && (
             <div id="menu">
-              <RestaurantMenu menuCategories={restaurant.menu_categories} />
+              <RestaurantMenu 
+                menuCategories={restaurant.menu_categories} 
+                isFullMenuPage={false}
+                restaurantId={restaurant.id}
+              />
             </div>
           )}
           

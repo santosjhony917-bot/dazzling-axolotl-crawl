@@ -14,6 +14,9 @@ export const PATH_MAP = {
   forgotPassword: '/forgot-password',
   restaurantResults: '/restaurant-results',
   
+  // NOVO: Rota para o cardápio completo
+  fullMenuPage: '/restaurant/:restaurantId/menu-full',
+  
   // Rotas de Cliente (Autenticadas ou Públicas)
   home: '/home',
   favorites: '/favorites',
@@ -58,6 +61,8 @@ type PathParams<K extends PathKey> =
     ? { itemId: string }
   : K extends 'restaurant-area/category-details'
     ? { categoryId: string }
+  : K extends 'fullMenuPage' // NOVO
+    ? { restaurantId: string }
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)

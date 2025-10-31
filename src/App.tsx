@@ -19,6 +19,8 @@ import MenuItemDetails from '@/pages/MenuItemDetails';
 import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
+import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
+import FullMenuPage from '@/pages/FullMenuPage'; // NOVO IMPORT
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -64,6 +66,8 @@ function App() {
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} /> {/* NOVA ROTA */}
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
