@@ -157,37 +157,42 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
     return null;
   }
   
-  // CORREÇÃO: Forçar a tipagem do dado retornado para o tipo complexo definido
+  // Forçar a tipagem do dado retornado para o tipo complexo definido
   const restaurantData = data as unknown as RestaurantProfileQueryResult;
+  
+  // Usar 'any' para acessar os campos base de forma segura, contornando o erro TS2339
+  const rawData: any = restaurantData; 
 
   // Mapear dados brutos para o tipo Restaurant
   const baseData: Restaurant = {
-    id: restaurantData.id,
-    user_id: restaurantData.user_id,
-    name: restaurantData.name,
-    description: restaurantData.description,
-    image_url: restaurantData.image_url,
-    cover_image_url: restaurantData.cover_image_url,
-    plan: restaurantData.plan as RestaurantPlan,
-    phone: restaurantData.phone,
-    email: restaurantData.email,
-    cnpj: restaurantData.cnpj,
-    category: restaurantData.category,
-    whatsapp_url: restaurantData.whatsapp_url,
-    ifood_url: restaurantData.ifood_url,
-    other_url: restaurantData.other_url,
-    address: restaurantData.address,
-    number: restaurantData.number,
-    neighborhood: restaurantData.neighborhood,
-    city: restaurantData.city,
-    state: restaurantData.state,
-    cep: restaurantData.cep,
-    latitude: restaurantData.latitude,
-    longitude: restaurantData.longitude,
-    opening_hours: restaurantData.opening_hours as unknown as OpeningHours[] | null, // FIX 1: TS2352
-    created_at: restaurantData.created_at,
-    external_url: restaurantData.external_url,
-    followers_override: restaurantData.followers_override, // FIX 2: TS2339
+    id: rawData.id,
+    user_id: rawData.user_id,
+    name: rawData.name,
+    description: rawData.description,
+    image_url: rawData.image_url,
+    cover_image_url: rawData.cover_image_url,
+    plan: rawData.plan as RestaurantPlan,
+    phone: rawData.phone,
+    email: rawData.email,
+    cnpj: rawData.cnpj,
+    category: rawData.category,
+    whatsapp_url: rawData.whatsapp_url,
+    ifood_url: rawData.ifood_url,
+    other_url: rawData.other_url,
+    address: rawData.address,
+    number: rawData.number,
+    neighborhood: rawData.neighborhood,
+    city: rawData.city,
+    state: rawData.state,
+    cep: rawData.cep,
+    latitude: rawData.latitude,
+    longitude: rawData.longitude,
+    // FIX 1: TS2352 - Casting Json to specific array type requires 'unknown' intermediate cast
+    opening_hours: rawData.opening_hours as unknown as OpeningHours[] | null, 
+    created_at: rawData.created_at,
+    external_url: rawData.external_url,
+    // FIX 2: TS2339 - Accessing followers_override via rawData (any)
+    followers_override: rawData.followers_override, 
   };
 
   // Processar dados aninhados
