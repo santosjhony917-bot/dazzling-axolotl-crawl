@@ -183,39 +183,42 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
               {/* Título da seção ajustado para 2xl */}
               <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
               
-              {/* Endereço */}
-              {addressSummary && (
-                <div className="flex items-start space-x-3">
-                  <MapPin className="h-5 w-5 text-highlight mt-1 shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-base font-semibold text-primary">Endereço</p>
-                    <p className="text-sm text-gray-600">{addressSummary}</p>
+              {/* Endereço e Contato (Bloco 1) */}
+              <div className="space-y-4">
+                {/* Endereço */}
+                {addressSummary && (
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-highlight mt-1 shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-base font-semibold text-primary">Endereço</p>
+                      <p className="text-sm text-gray-600">{addressSummary}</p>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+                
+                {/* Contato (Telefone/Email) */}
+                {(restaurant.phone || restaurant.email) && (
+                  <div className="space-y-2 pt-2">
+                    <p className="text-base font-semibold text-primary">Contato</p>
+                    {restaurant.phone && (
+                      <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
+                        <Phone className="h-5 w-5 text-highlight" />
+                        <span>{restaurant.phone}</span>
+                      </a>
+                    )}
+                    {restaurant.email && (
+                      <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
+                        <Mail className="h-5 w-5 text-highlight" />
+                        <span>{restaurant.email}</span>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
               
-              {/* Horário Detalhado */}
+              {/* Horário Detalhado (Bloco 2 - Abaixo do Contato) */}
               {restaurant.opening_hours && (
                 <DetailedHoursDisplay schedule={restaurant.opening_hours} />
-              )}
-              
-              {/* Contato (Telefone/Email) */}
-              {(restaurant.phone || restaurant.email) && (
-                <div className="space-y-2 pt-2">
-                  <p className="text-base font-semibold text-primary">Contato</p>
-                  {restaurant.phone && (
-                    <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
-                      <Phone className="h-5 w-5 text-highlight" />
-                      <span>{restaurant.phone}</span>
-                    </a>
-                  )}
-                  {restaurant.email && (
-                    <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
-                      <Mail className="h-5 w-5 text-highlight" />
-                      <span>{restaurant.email}</span>
-                    </a>
-                  )}
-                </div>
               )}
               
               {/* Formas de Pagamento (Mocked, pois não temos os dados no DB) */}
