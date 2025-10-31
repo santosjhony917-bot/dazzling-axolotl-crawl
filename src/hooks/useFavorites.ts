@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthData } from "@/context/AuthContext";
 import { showError, showSuccess } from "@/utils/toast";
-import { Restaurant } from "@/types/supabase"; // Corrigido o import
+import { Restaurant } from "@/types/supabase";
 
 // --- Tipos de Retorno ---
 interface Favorite {
@@ -10,7 +10,6 @@ interface Favorite {
   restaurant_id: string;
   user_id: string;
   created_at: string;
-  // Incluindo os dados do restaurante para exibição
   restaurants: Restaurant; 
 }
 
@@ -69,7 +68,7 @@ export function useFavorites(): UseFavoritesResult {
       if (!userId) throw new Error("Usuário não autenticado.");
 
       if (isCurrentlyFavorite) {
-        // DELETE
+        // DELETE: Remove o favorito
         const { error } = await supabase
           .from('user_favorites')
           .delete()
@@ -78,7 +77,7 @@ export function useFavorites(): UseFavoritesResult {
         if (error) throw error;
         return { action: 'removed' };
       } else {
-        // INSERT
+        // INSERT: Adiciona o favorito
         const { error } = await supabase
           .from('user_favorites')
           .insert({ user_id: userId, restaurant_id: restaurantId });
@@ -100,7 +99,14 @@ export function useFavorites(): UseFavoritesResult {
       }
     },
     onError: (e) => {
-      showError(`Falha ao atualizar favoritos: ${(e as Error).message}`);
+      // Se o erro for de chave duplicada, isso significa que o estado isCurrentlyFavorite estava incorreto.
+      // Tentamos forçar a invalidação da query para corrigir o estado local.
+      if ((e as Error).message.includes('duplicate key value')) {
+          queryClient.invalidateQueries({ queryKey: FAVORITES_QUERY_KEY(userId!) });
+          showError("Erro de sincronização. O restaurante já estava favoritado.");
+      } else {
+          showError(`Falha ao atualizar favoritos: ${(e as Error).message}`);
+      }
     },
   });
 
