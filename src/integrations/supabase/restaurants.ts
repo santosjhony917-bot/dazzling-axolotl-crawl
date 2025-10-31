@@ -101,6 +101,7 @@ export async function fetchNearbyRestaurants(
 
 // Função para buscar um restaurante público por ID
 export async function fetchRestaurantById(restaurantId: string, userId: string | null): Promise<PublicRestaurantData | null> {
+  // Removendo !inner dos joins de favoritos para permitir que o perfil carregue mesmo para usuários não autenticados (RLS)
   const { data: restaurantData, error } = await supabase
     .from('restaurants')
     .select(
@@ -119,7 +120,7 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
             image_url,
             order_index,
             is_active,
-            menu_item_favorites!inner (user_id)
+            menu_item_favorites (user_id) // Left join
           )
         ),
         restaurant_gallery (
@@ -128,7 +129,7 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
           caption,
           order_index
         ),
-        user_favorites!inner (user_id)
+        user_favorites (user_id) // Left join
       `
     )
     .eq('id', restaurantId)
@@ -185,6 +186,7 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
         .sort((a: any, b: any) => a.order_index - b.order_index)
         .map((item: any) => ({
           ...item,
+          // Verifica se o array de favoritos tem algum item (se o usuário estiver logado, o RLS garante que só verá o seu)
           is_favorite: item.menu_item_favorites.length > 0,
         })),
     }));
@@ -205,7 +207,10 @@ export async function fetchRestaurantById(restaurantId: string, userId: string |
   const openStatus = getRestaurantOpenStatus(scheduleWeek);
 
   // Calcular seguidores
+  // user_favorites agora é um array de { user_id: string } se o usuário estiver logado e for um favorito.
   const followersCount = restaurantData.user_favorites.length + (baseData.followers_override || 0);
+  
+  // Se userId for null, isFavorite será false. Se userId existir, verifica se o array de user_favorites contém o user_id (graças ao RLS).
   const isFavorite = userId ? restaurantData.user_favorites.some((fav: any) => fav.user_id === userId) : false;
 
   return {
