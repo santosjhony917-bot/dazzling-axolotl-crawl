@@ -19,7 +19,8 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
 
   return (
     <div id="gallery" className="space-y-4">
-      <h2 className="text-xl font-bold text-[#022D68]">Fotos</h2>
+      {/* Título da seção ajustado para 2xl */}
+      <h2 className="text-2xl font-extrabold text-[#022D68]">Fotos</h2>
       
       {/* Grid principal 3 colunas, altura fixa para 2 linhas de 156px + gap (320px total) */}
       <div className="grid grid-cols-3 gap-2 h-[320px]"> 

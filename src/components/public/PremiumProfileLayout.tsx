@@ -105,6 +105,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           {/* Description */}
           {restaurant.description && (
             <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
               <p className="text-gray-600">{restaurant.description}</p>
             </Card>
           )}
@@ -120,7 +121,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                   {hasMenu && (
                     <Button
                       variant="ghost"
-                      onClick={() => scrollToSection('menu', 'menu')}
+                      onClick={() => scrollToSection('menu-section', 'menu')}
                       className={cn(
                         "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
                         activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
@@ -132,7 +133,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
                   {hasGallery && (
                     <Button
                       variant="ghost"
-                      onClick={() => scrollToSection('gallery', 'gallery')}
+                      onClick={() => scrollToSection('gallery-section', 'gallery')}
                       className={cn(
                         "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
                         activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
@@ -160,14 +161,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
 
           {/* 2. Galeria Section */}
           {hasGallery && (
-            <div id="gallery">
+            <div id="gallery-section">
               <RestaurantGallery gallery={restaurant.gallery_images} />
             </div>
           )}
 
           {/* 3. Menu Section */}
           {hasMenu && (
-            <div id="menu">
+            <div id="menu-section">
               <RestaurantMenu 
                 menuCategories={restaurant.menu_categories} 
                 isFullMenuPage={false}
@@ -179,7 +180,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant 
           {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
             <div id="info-section" className="space-y-4 pt-4">
-              <h2 className="text-xl font-bold text-primary">Informações</h2>
+              {/* Título da seção ajustado para 2xl */}
+              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
               
               {/* Endereço */}
               {addressSummary && (

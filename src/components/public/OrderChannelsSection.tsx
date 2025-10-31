@@ -41,7 +41,8 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
   return (
     <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
       <CardContent className="p-0">
-        <h2 className="text-xl font-bold text-primary mb-4">Faça seu Pedido</h2>
+        {/* Título da seção ajustado para 2xl */}
+        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
         <div className="grid grid-cols-3 gap-4">
           {orderLinks.map((link) => {
             const Icon = link.icon;

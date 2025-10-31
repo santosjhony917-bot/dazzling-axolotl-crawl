@@ -43,7 +43,8 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant, schedul
     <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         <MapPin className="w-6 h-6 text-primary" />
-        <CardTitle className="text-xl font-semibold text-primary">Informações e Contato</CardTitle>
+        {/* Título da seção ajustado para 2xl */}
+        <CardTitle className="text-2xl font-extrabold text-primary">Informações e Contato</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-6">
         
