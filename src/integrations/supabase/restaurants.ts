@@ -37,9 +37,10 @@ export async function updateRestaurantProfile(restaurantId: string, data: Partia
 // --- Public/Client Functions ---
 
 // Define DetailedMenuItem explicitly here to resolve generic issues in useQuery
-export interface DetailedMenuItem extends MenuItem {
+// CORREÇÃO: DetailedMenuItem deve ser a união do tipo MenuItem (do DB) mais o objeto Restaurant aninhado.
+export type DetailedMenuItem = MenuItem & {
   restaurant: Restaurant | null;
-}
+};
 
 // Função para buscar um único item de menu por ID, incluindo dados do restaurante
 export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuItem | null> {
@@ -72,7 +73,7 @@ export async function fetchMenuItemById(itemId: string): Promise<DetailedMenuIte
   return {
     ...(item as MenuItem),
     restaurant: restaurantData,
-  };
+  } as DetailedMenuItem; // Cast final para garantir o tipo correto
 }
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
