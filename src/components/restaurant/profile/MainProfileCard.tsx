@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Store, Camera, Check } from 'lucide-react';
-import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets"; // Importando a constante
+import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets";
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { cn } from '@/lib/utils';
 
@@ -12,8 +12,8 @@ interface MainProfileCardProps {
   logoUrl: string | null | undefined;
   isPremium: boolean;
   uploading: boolean;
-  onLogoUploadComplete: (url: string) => void; // Nova prop para receber a URL
-  restaurantId: string; // Necessário para o folderPath
+  onLogoUploadComplete: (url: string) => void;
+  restaurantId: string;
 }
 
 const MainProfileCard: React.FC<MainProfileCardProps> = ({
@@ -28,14 +28,14 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
     <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
         {/* 1. Logo Circular */}
-        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-hidden">
+        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible">
           <img 
             src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
             alt="Logo do Restaurante" 
             className="w-full h-full object-cover"
           />
-          {/* 2. Botão de Upload (Flutuante no canto) - Aumentado z-index para 30 */}
-          <div className="absolute bottom-0 right-0 z-30 translate-x-1/4 translate-y-1/4">
+          {/* 2. Botão de Upload (Flutuante no canto) - z-50 para garantir que esteja na frente */}
+          <div className="absolute bottom-0 right-0 z-50 translate-x-1/4 translate-y-1/4">
             <ImageUploadButton
               onUploadComplete={onLogoUploadComplete}
               bucketName={RESTAURANT_IMAGES_BUCKET}
