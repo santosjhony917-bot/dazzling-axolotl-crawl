@@ -50,6 +50,7 @@ import Files from '@/pages/admin/Files';
 import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
+import AdminBanners from '@/pages/admin/AdminBanners'; // NOVO: Importar AdminBanners
 
 function App() {
   return (
@@ -109,6 +110,7 @@ function App() {
           <Route path="/admin/files" element={<Files />} />
           <Route path="/admin/import" element={<ImportMenu />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/banners" element={<AdminBanners />} /> {/* NOVO: Rota para Banners */}
         </Route>
         
       </Routes>
