@@ -14,10 +14,12 @@ interface AuthContextType {
   profile: Profile | null;
   restaurant: Restaurant | null;
   isProfileLoading: boolean;
+  isRestaurantLoading: boolean; // Adicionado: Estado de carregamento do restaurante
   isAdmin: boolean;
   isPremium: boolean;
   // Adicionando refetchProfile para forçar atualização após login/signup
   refetchProfile: () => void; 
+  refetchRestaurant: () => void; // Adicionado: Função para recarregar dados do restaurante
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,7 +37,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   });
 
   // Query para buscar Restaurant
-  const { data: restaurant } = useQuery({
+  const { data: restaurant, isLoading: isRestaurantLoading, refetch: refetchRestaurant } = useQuery({
     queryKey: ['restaurant', user?.id],
     queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
     enabled: isAuthenticated,
@@ -72,9 +74,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         profile: profile || null,
         restaurant: restaurant || null,
         isProfileLoading,
+        isRestaurantLoading, // Adicionado
         isAdmin,
         isPremium,
         refetchProfile,
+        refetchRestaurant, // Adicionado
       }}
     >
       {children}
@@ -107,6 +111,8 @@ export const useAuthData = () => {
     profile: context.profile,
     isAuthenticated: context.isAuthenticated,
     isProfileLoading: context.isProfileLoading,
+    isRestaurantLoading: context.isRestaurantLoading, // Adicionado
     refetchProfile: context.refetchProfile,
+    refetchRestaurant: context.refetchRestaurant, // Adicionado
   };
 };

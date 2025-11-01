@@ -23,7 +23,7 @@ export default function RestaurantLogin() {
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
-  const { refetchProfile } = useAuthData();
+  const { refetchProfile, refetchRestaurant } = useAuthData();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -86,8 +86,9 @@ export default function RestaurantLogin() {
         throw new Error("Falha na autenticação. Tente novamente.");
       }
 
-      // Adicionado: Recarrega o perfil após o login bem-sucedido
+      // Adicionado: Recarrega o perfil e o restaurante após o login bem-sucedido
       refetchProfile();
+      refetchRestaurant();
       
       // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
       const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
