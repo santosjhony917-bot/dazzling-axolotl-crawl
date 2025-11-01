@@ -1,8 +1,10 @@
-import React from 'react';
-import { Toaster } from 'react-hot-toast'; // Importando o Toaster correto
+"use client";
 
-const ToastProvider: React.FC = () => {
-  return <Toaster position="top-center" reverseOrder={false} />;
+import React from 'react';
+import { Toaster } from 'react-hot-toast';
+
+const ToastProvider = () => {
+  return <Toaster position="top-right" />;
 };
 
 export default ToastProvider;
