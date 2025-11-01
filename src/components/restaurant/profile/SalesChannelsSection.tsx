@@ -83,10 +83,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Link do WhatsApp" 
-        value={getDisplayValue(restaurant.whatsapp_url)}
+        value={getDisplayValue(restaurant.whatsappUrl)}
         icon={MessageSquare}
         onClick={() => openDialog(
-          'whatsapp_url', 
+          'whatsappUrl', 
           'Link do WhatsApp', 
           'Insira o link direto para o seu WhatsApp (Ex: https://wa.me/5511999999999).',
           'url'
@@ -95,10 +95,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Link do iFood" 
-        value={getDisplayValue(restaurant.ifood_url)}
+        value={getDisplayValue(restaurant.ifoodUrl)}
         icon={Utensils}
         onClick={() => openDialog(
-          'ifood_url', 
+          'ifoodUrl', 
           'Link do iFood', 
           'Insira o link da sua loja no iFood.',
           'url'
@@ -107,10 +107,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Site Próprio / Outro Link" 
-        value={getDisplayValue(restaurant.other_url)}
+        value={getDisplayValue(restaurant.otherUrl)}
         icon={Globe}
         onClick={() => openDialog(
-          'other_url', 
+          'otherUrl', 
           'Site Próprio / Outro Link', 
           'Insira o link para seu site próprio, Goomer, ou qualquer outro canal de venda.',
           'url'

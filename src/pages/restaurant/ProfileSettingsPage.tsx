@@ -108,7 +108,7 @@ export default function ProfileSettingsPage() {
   }, [updateRestaurant, refetchProfile]);
   
   const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
-    const { error } = await updateRestaurant({ payment_methods: newMethods as any });
+    const { error } = await updateRestaurant({ payment_methods: newMethods });
     if (error) {
       showError(error);
     } else {
@@ -119,7 +119,7 @@ export default function ProfileSettingsPage() {
   
   // NOVO HANDLER: Salvar Redes Sociais
   const handleSaveSocialNetworks = useCallback(async (newLinks: SocialNetworkLink[]) => {
-    const { error } = await updateRestaurant({ social_networks: newLinks as any });
+    const { error } = await updateRestaurant({ social_networks: newLinks as unknown as Json });
     if (error) {
       showError(error);
     } else {
@@ -137,11 +137,11 @@ export default function ProfileSettingsPage() {
     );
   }
   
-  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
+  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as WeekSchedule;
   const openStatus = getRestaurantOpenStatus(currentSchedule);
   
   // CORREÇÃO 2: Usando 'as unknown as string[]'
-  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+  const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
   
   // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
   const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
@@ -149,7 +149,7 @@ export default function ProfileSettingsPage() {
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
     opening_hours: currentSchedule,
-    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
+    payment_methods: (restaurant?.payment_methods as string[] | null) || null,
     social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
     is_favorite: false,
     followers_count: 0,
@@ -157,6 +157,10 @@ export default function ProfileSettingsPage() {
     menu_categories: [],
     gallery_images: [],
     logoUrl: restaurant?.image_url || '', 
+    coverImageUrl: restaurant?.cover_image_url || '',
+    whatsappUrl: restaurant?.whatsapp_url || '',
+    ifoodUrl: restaurant?.ifood_url || '',
+    otherUrl: restaurant?.other_url || '',
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,

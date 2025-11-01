@@ -1,19 +1,19 @@
 "use client";
 
-import { Restaurant } from "@/types/supabase";
+import { PublicRestaurantData } from "@/types/restaurant"; // Alterado para PublicRestaurantData
 import { Button } from "../ui/button";
 import { ExternalLink } from "lucide-react";
 
 interface OrderChannelsSectionProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData; // Alterado para PublicRestaurantData
 }
 
 const IFoodLogoUrl = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
 
 export function OrderChannelsSection({ restaurant }: OrderChannelsSectionProps) {
-  const isWhatsapp = !!restaurant.whatsapp_url;
-  const isIfood = !!restaurant.ifood_url;
-  const isOther = !!restaurant.other_url;
+  const isWhatsapp = !!restaurant.whatsappUrl; // Corrigido para whatsappUrl
+  const isIfood = !!restaurant.ifoodUrl;     // Corrigido para ifoodUrl
+  const isOther = !!restaurant.otherUrl;     // Corrigido para otherUrl
 
   if (!isWhatsapp && !isIfood && !isOther) {
     return null;
@@ -31,7 +31,7 @@ export function OrderChannelsSection({ restaurant }: OrderChannelsSectionProps) 
             variant="outline"
             className="w-full justify-start h-12 text-base border-green-500 text-green-600 hover:bg-green-50"
           >
-            <a href={restaurant.whatsapp_url!} target="_blank" rel="noopener noreferrer">
+            <a href={restaurant.whatsappUrl!} target="_blank" rel="noopener noreferrer"> {/* Corrigido para whatsappUrl */}
               <img
                 src="/assets/whatsapp-logo.svg"
                 alt="WhatsApp Logo"
@@ -49,7 +49,7 @@ export function OrderChannelsSection({ restaurant }: OrderChannelsSectionProps) 
             variant="outline"
             className="w-full justify-start h-12 text-base border-red-500 text-red-600 hover:bg-red-50"
           >
-            <a href={restaurant.ifood_url!} target="_blank" rel="noopener noreferrer">
+            <a href={restaurant.ifoodUrl!} target="_blank" rel="noopener noreferrer"> {/* Corrigido para ifoodUrl */}
               <img
                 src={IFoodLogoUrl}
                 alt="iFood Logo"
@@ -67,7 +67,7 @@ export function OrderChannelsSection({ restaurant }: OrderChannelsSectionProps) 
             variant="outline"
             className="w-full justify-start h-12 text-base"
           >
-            <a href={restaurant.other_url!} target="_blank" rel="noopener noreferrer">
+            <a href={restaurant.otherUrl!} target="_blank" rel="noopener noreferrer"> {/* Corrigido para otherUrl */}
               <ExternalLink className="h-5 w-5 mr-3" />
               Outro Canal de Pedido
               <ExternalLink className="ml-auto h-4 w-4" />

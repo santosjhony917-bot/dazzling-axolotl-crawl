@@ -9,10 +9,16 @@ export type Restaurant = Database['public']['Tables']['restaurants']['Row'] & {
   payment_methods?: string[] | null;
   social_networks?: Json | null; // Assuming social_networks is stored as JSONB
 };
-export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type Profile = Database['public']['Tables']['profiles']['Row'] & {
+  email?: string | null;
+  phone?: string | null;
+};
 export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
 export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
 export type UserFavorite = Database['public']['Tables']['user_favorites']['Row'];
+export type GalleryImage = Database['public']['Tables']['restaurant_gallery']['Row'];
+export type ScheduledMetric = Database['public']['Tables']['scheduled_metrics']['Row'];
+
 
 export type RestaurantWithDistance = Restaurant & {
   distance_km: number;

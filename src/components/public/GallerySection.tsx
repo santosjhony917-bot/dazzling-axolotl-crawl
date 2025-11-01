@@ -1,6 +1,6 @@
 "use client";
 
-import { PublicRestaurantData } from "@/types/supabase";
+import { PublicRestaurantData } from "@/types/restaurant";
 import React from "react";
 import { GalleryImage } from "@/types/supabase";
 import { useQuery } from "@tanstack/react-query";

@@ -1,4 +1,4 @@
-import { Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage, WeekSchedule } from './supabase';
+import { Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage, WeekSchedule, Json } from './supabase';
 
 export type Restaurant = SupabaseRestaurant;
 export type MenuItem = SupabaseMenuItem;

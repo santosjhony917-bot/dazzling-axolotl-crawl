@@ -1,13 +1,14 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, FavoriteRestaurant } from '@/types/supabase'; // CORREÇÃO: FavoriteRestaurant agora é exportado
+import { Restaurant, FavoriteRestaurant, RestaurantWithDistance } from '@/types/supabase'; // CORREÇÃO: FavoriteRestaurant agora é exportado
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, HeartCrack } from 'lucide-react';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { createPageUrl } from '@/utils/url';
 import { useAuthData } from '@/context/AuthContext';
 import Header from '@/components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const fetchFavoriteRestaurants = async (userId: string): Promise<FavoriteRestaurant[]> => {
   const { data, error } = await supabase
@@ -63,7 +64,7 @@ const FavoritesPage: React.FC = () => {
             {favoriteRestaurants.map((fav) => (
               <RestaurantCard
                 key={fav.restaurant.id}
-                restaurant={fav.restaurant}
+                restaurant={fav.restaurant as RestaurantWithDistance}
                 onClick={() => handleRestaurantClick(fav.restaurant.id)}
                 isFavorite={true}
               />

@@ -18,12 +18,13 @@ const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
   
   const openDays = days.filter(day => schedule[day]?.isOpen);
   
-  if (openDays.length === 0) return null;
+  if (openDays.length === 0) return "Fechado todos os dias";
   
   // Simplificação: se todos os dias abertos tiverem o mesmo slot, mostra o resumo.
-  const firstSlot = schedule[openDays[0]].slots[0];
-  if (!firstSlot) return "Horários definidos";
+  const firstOpenDaySchedule = schedule[openDays[0]];
+  if (!firstOpenDaySchedule || firstOpenDaySchedule.slots.length === 0) return "Horários definidos";
 
+  const firstSlot = firstOpenDaySchedule.slots[0];
   const summary = `${openDays.length} dias abertos. Ex: ${firstSlot.start} - ${firstSlot.end}`;
   return summary;
 };
