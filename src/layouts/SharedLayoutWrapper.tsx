@@ -1,49 +1,42 @@
+"use client";
+
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import ClientBottomNav from '@/components/ClientBottomNav';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importar RestaurantBottomNav
 import { useAuthData } from '@/context/AuthContext';
-import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import RestaurantHeader from '@/components/restaurant/RestaurantHeader';
+import AdminHeader from '@/components/admin/AdminHeader';
+import { Loader2 } from 'lucide-react';
 
 const SharedLayoutWrapper: React.FC = () => {
   const location = useLocation();
-  const { restaurant, isPremium } = useAuthData(); // Obter dados do restaurante e isPremium
+  const { restaurant, isPremium, isAdmin, isProfileLoading } = useAuthData();
 
-  // Determine if the current route is one that should display the client bottom navigation bar
-  const clientRoutes = ['/home', '/search', '/favorites', '/profile'];
-  const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
+  const isRestaurantRoute = location.pathname.startsWith('/restaurant');
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
-  // Determine if the current route is a restaurant owner route
-  const isRestaurantOwnerRoute = location.pathname.startsWith('/restaurant-area/');
-
-  // Determine if the current route is a public restaurant profile (handled por seu próprio layout)
-  // Rotas públicas de perfil de restaurante (ex: /restaurant/id) não devem ser envolvidas por este wrapper
-  // mas se por algum motivo forem, não devem ter max-w-md.
-  const isPublicRestaurantProfile = location.pathname.startsWith('/restaurant/') && !isRestaurantOwnerRoute;
+  if (isProfileLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Main content area */}
-      <main
-        className={cn(
-          "flex-grow mx-auto w-full",
-          !isPublicRestaurantProfile && "max-w-md", // Aplicar max-w-md a todas as rotas do wrapper, exceto perfis públicos
-          // Adicionar padding inferior apenas se um dos menus de navegação estiver visível
-          (showClientNav || isRestaurantOwnerRoute) ? 'pb-20' : 'pb-0'
-        )}
-      >
+    <div className="flex flex-col min-h-screen">
+      {isAdminRoute && isAdmin ? (
+        <AdminHeader />
+      ) : isRestaurantRoute && restaurant ? (
+        <RestaurantHeader restaurant={restaurant} isPremium={isPremium} />
+      ) : (
+        <Header />
+      )}
+      <main className="flex-grow">
         <Outlet />
       </main>
-      
-      {/* Bottom Navigation Bar for Client Routes */}
-      {showClientNav && (
-        <ClientBottomNav />
-      )}
-
-      {/* Bottom Navigation Bar for Restaurant Owner Routes */}
-      {isRestaurantOwnerRoute && (
-        <RestaurantBottomNav isFree={!isPremium} />
-      )}
+      <Footer />
     </div>
   );
 };

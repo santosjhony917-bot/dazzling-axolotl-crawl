@@ -1,99 +1,68 @@
-import React, { useState, useCallback, useMemo } from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
-import { Loader2, User, LogOut, Settings } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Loader2, User as UserIcon, Phone, Mail } from 'lucide-react';
 import { showError, showSuccess } from '@/utils/toast';
-import { z } from 'zod';
-import { phoneMask } from '@/utils/masks';
-import EditClientFieldDialog from '@/components/EditClientFieldDialog';
-import ClientAvatarCard from '@/components/client/profile/ClientAvatarCard';
-import ClientInfoSection from '@/components/client/profile/ClientInfoSection';
-import { supabase } from '@/integrations/supabase/client';
-import { Profile } from '@/types/supabase';
-import InfoCardItem from '@/components/InfoCardItem';
+import ClientBasicInfoSection from '@/components/ClientBasicInfoSection';
 
-// Schemas de validação
-const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
-const phoneSchema = z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
-
-export default function ClientProfilePage() {
+const ClientProfilePage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, profile, isLoading: authLoading, refetchProfile } = useAuthData();
+  const { user, profile, isProfileLoading, refetchProfile } = useAuthData(); // Corrigido: usando 'isProfileLoading' e 'refetchProfile'
   const { updateProfile } = useProfile(user);
-  
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
-  const isLoading = authLoading || !user;
+  const [firstName, setFirstName] = useState(profile?.first_name || '');
+  const [lastName, setLastName] = useState(profile?.last_name || '');
+  const [phone, setPhone] = useState(profile?.phone || '');
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
-    setEditConfig({
-      key,
-      title,
-      fieldName,
-      icon,
-      validationSchema,
-      type,
-      mask,
-      placeholder,
-    });
-    setIsEditDialogOpen(true);
-  }, []);
-
-  const handleSaveField = useCallback(async (value: string) => {
-    if (!editConfig) return;
-    
-    // Remove máscara antes de salvar no DB
-    const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
-    
-    const { error } = await updateProfile({ [editConfig.key]: cleanedValue });
-    
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Campo atualizado com sucesso!");
-      refetchProfile();
+  useEffect(() => {
+    if (profile) {
+      setFirstName(profile.first_name || '');
+      setLastName(profile.last_name || '');
+      setPhone(profile.phone || '');
     }
-  }, [editConfig, updateProfile, refetchProfile]);
-  
-  const handleAvatarUploadComplete = useCallback(async (url: string) => {
-    setUploadingAvatar(true);
-    const cacheBustedUrl = `${url}?t=${Date.now()}`;
-    const { error } = await updateProfile({ avatar_url: cacheBustedUrl });
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Avatar atualizado com sucesso!");
-      refetchProfile();
+  }, [profile]);
+
+  const handleSave = async () => {
+    if (!user) {
+      showError('Usuário não autenticado.');
+      return;
     }
-    setUploadingAvatar(false);
-  }, [updateProfile, refetchProfile]);
-  
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      showError("Erro ao sair: " + error.message);
-    } else {
-      showSuccess("Você saiu da sua conta.");
-      navigate('/login');
+
+    const updatedFields = {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+    };
+
+    try {
+      await updateProfile(updatedFields);
+      await refetchProfile(); // Refetch para atualizar o contexto
+      showSuccess('Perfil atualizado com sucesso!');
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Erro ao atualizar perfil:', error);
+      showError('Erro ao atualizar perfil. Tente novamente.');
     }
   };
 
-  const currentProfile = useMemo(() => ({
-    ...profile,
-    email: user?.email,
-  }), [profile, user]);
-
-  if (isLoading) {
+  if (isProfileLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     );
+  }
+
+  if (!user) {
+    navigate('/auth');
+    return null;
   }
 
   return (
@@ -101,68 +70,76 @@ export default function ClientProfilePage() {
       
       {/* Header */}
       <div className="flex items-center gap-3">
-        <Settings className="w-6 h-6 text-primary" />
-        <h1 className="text-2xl font-bold text-[#022D68]">Meu Perfil</h1>
+        <UserIcon className="h-8 w-8 text-[#022D68]" />
+        <h1 className="text-3xl font-bold text-[#022D68]">Meu Perfil</h1>
       </div>
 
-      {/* 1. Card Principal (Avatar e Nome) */}
-      <ClientAvatarCard
-        firstName={currentProfile?.first_name || ''}
-        lastName={currentProfile?.last_name || ''}
-        avatarUrl={currentProfile?.avatar_url}
-        uploading={uploadingAvatar}
-        onAvatarUploadComplete={handleAvatarUploadComplete}
-        userId={user?.id || 'temp'}
-      />
-      
-      <Separator />
+      {/* Basic Info Section */}
+      <ClientBasicInfoSection profile={profile} isLoading={isProfileLoading} />
 
-      {/* 2. Informações Pessoais */}
-      <ClientInfoSection
-        profile={currentProfile}
-        handleEditField={handleEditField}
-        phoneMask={phoneMask}
-        nameSchema={nameSchema}
-        phoneSchema={phoneSchema}
-      />
-      
-      <Separator />
-
-      {/* 3. Opções de Conta */}
-      <div className="w-full space-y-3">
-        <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Opções de Conta</h2>
-        
-        <InfoCardItem 
-          label="Meus Favoritos" 
-          value="Ver restaurantes e itens salvos" 
-          icon={User}
-          onClick={() => navigate('/favorites')}
-        />
-        
-        <InfoCardItem 
-          label="Sair da Conta" 
-          value="Desconectar deste dispositivo" 
-          icon={LogOut}
-          onClick={handleLogout}
-        />
+      {/* Profile Edit Form */}
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold text-[#022D68] mb-4">Informações Pessoais</h2>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="firstName">Nome</Label>
+            <Input
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              disabled={!isEditing}
+            />
+          </div>
+          <div>
+            <Label htmlFor="lastName">Sobrenome</Label>
+            <Input
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              disabled={!isEditing}
+            />
+          </div>
+          <div>
+            <Label htmlFor="phone">Telefone</Label>
+            <Input
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              disabled={!isEditing}
+            />
+          </div>
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={user.email || ''}
+              disabled
+              className="bg-gray-100"
+            />
+          </div>
+        </div>
+        <div className="mt-6 flex justify-end space-x-2">
+          {isEditing ? (
+            <>
+              <Button variant="outline" onClick={() => {
+                setIsEditing(false);
+                // Reset fields if canceling edit
+                setFirstName(profile?.first_name || '');
+                setLastName(profile?.last_name || '');
+                setPhone(profile?.phone || '');
+              }}>
+                Cancelar
+              </Button>
+              <Button onClick={handleSave}>Salvar</Button>
+            </>
+          ) : (
+            <Button onClick={() => setIsEditing(true)}>Editar</Button>
+          )}
+        </div>
       </div>
-      
-      {/* Dialogs */}
-      {editConfig && (
-        <EditClientFieldDialog
-          isOpen={isEditDialogOpen}
-          onClose={() => setIsEditDialogOpen(false)}
-          title={editConfig.title}
-          fieldName={editConfig.fieldName}
-          currentValue={currentProfile?.[editConfig.key as keyof Profile] as string || ''}
-          icon={editConfig.icon}
-          onSave={handleSaveField}
-          placeholder={editConfig.placeholder}
-          type={editConfig.type}
-          validationSchema={editConfig.validationSchema}
-          mask={editConfig.mask}
-        />
-      )}
     </div>
   );
-}
+};
+
+export default ClientProfilePage;

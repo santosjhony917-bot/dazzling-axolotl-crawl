@@ -1,88 +1,43 @@
+"use client";
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
+import { MessageSquare, Phone, Mail, Globe, ExternalLink, UtensilsCrossed } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import WhatsappIcon from './WhatsappIcon'; // Importando o novo componente
 
 interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
 }
 
-// URLs PNGs fornecidas pelo usuário
-const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
-// Removida a constante WHATSAPP_PNG_URL
-
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
-  const orderLinks = [
-    { 
-      label: 'WhatsApp', 
-      url: restaurant.whatsapp_url, 
-      icon: MessageSquare, 
-      colorClass: 'text-green-600',
-      target: '_blank',
-    },
-    { 
-      label: 'iFood', 
-      url: restaurant.ifood_url, 
-      icon: Utensils, 
-      colorClass: 'text-red-600',
-      target: '_blank',
-    },
-    { 
-      label: 'Outro Link', 
-      url: restaurant.other_url || restaurant.external_url, 
-      icon: Globe, 
-      colorClass: 'text-primary',
-      target: '_blank',
-    },
-  ].filter(link => link.url);
+  const channels = [
+    { label: 'WhatsApp', url: restaurant.whatsapp_url, icon: MessageSquare, color: 'bg-green-500 hover:bg-green-600' },
+    { label: 'Telefone', url: restaurant.phone ? `tel:${restaurant.phone}` : null, icon: Phone, color: 'bg-blue-500 hover:bg-blue-600' },
+    { label: 'Email', url: restaurant.email ? `mailto:${restaurant.email}` : null, icon: Mail, color: 'bg-red-500 hover:bg-red-600' },
+    { label: 'iFood', url: restaurant.ifood_url, icon: UtensilsCrossed, color: 'bg-red-600 hover:bg-red-700' },
+    { label: 'Outro Link', url: restaurant.other_url, icon: ExternalLink, color: 'bg-gray-500 hover:bg-gray-600' },
+    { label: 'Site Externo', url: restaurant.external_url, icon: Globe, color: 'bg-purple-500 hover:bg-purple-600' },
+  ].filter(channel => channel.url); // Filter out channels without a URL
 
-  if (orderLinks.length === 0) {
-    return null;
+  if (channels.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-4">
+        <p>Nenhum canal de pedido disponível.</p>
+      </div>
+    );
   }
 
   return (
-    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
-      <CardContent className="p-0">
-        {/* Título da seção ajustado para 2xl */}
-        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {orderLinks.map((link) => {
-            const Icon = link.icon;
-            const isIfood = link.label === 'iFood';
-            const isWhatsapp = link.label === 'WhatsApp';
-            
-            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
-            const iconSizeClass = "w-8 h-8";
-
-            return (
-              <a 
-                key={link.label} 
-                href={link.url!}
-                target={link.target}
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
-              >
-                {isIfood ? (
-                  <img 
-                    src={IFOOD_PNG_URL} 
-                    alt="iFood Logo" 
-                    className={cn(iconSizeClass, "object-contain")} 
-                  />
-                ) : isWhatsapp ? (
-                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
-                ) : (
-                  <Icon className={cn(iconSizeClass, link.colorClass)} />
-                )}
-                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
-              </a>
-            );
-          })}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {channels.map((channel, index) => (
+        <Button key={index} asChild className={`w-full flex items-center justify-center ${channel.color} text-white`}>
+          <a href={channel.url!} target="_blank" rel="noopener noreferrer">
+            {channel.icon && <channel.icon className="h-5 w-5 mr-2" />}
+            {channel.label}
+          </a>
+        </Button>
+      ))}
+    </div>
   );
 };
 

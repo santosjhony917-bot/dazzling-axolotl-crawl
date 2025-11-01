@@ -1,43 +1,50 @@
+"use client";
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { RestaurantPlan } from '@/types/supabase';
+import { RestaurantPlan } from '@/types/supabase'; // Importando o tipo correto
 
 interface PlanPreviewToggleProps {
   currentPlan: RestaurantPlan;
-  previewPlan: RestaurantPlan;
-  setPreviewPlan: (plan: RestaurantPlan) => void;
+  onToggle: (plan: RestaurantPlan) => void;
 }
 
-const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, previewPlan, setPreviewPlan }) => {
-  const isFree = currentPlan === 'free';
-  const isPremium = currentPlan === 'premium';
-
+const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, onToggle }) => {
   return (
-    <div className="flex w-full p-1 bg-gray-100 rounded-xl mb-6 shadow-inner">
+    <div className="flex space-x-2 p-1 bg-gray-100 rounded-md">
       <Button
-        onClick={() => setPreviewPlan('free')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'free'
-            ? "bg-white text-primary shadow-soft-md hover:bg-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
         variant="ghost"
+        size="sm"
+        className={cn(
+          "flex-1",
+          currentPlan === 'free' && "bg-white shadow-sm text-[#E47948]"
+        )}
+        onClick={() => onToggle('free')}
       >
-        {isFree ? 'Seu Plano (Free)' : 'Visualização Free'}
+        Plano Grátis
       </Button>
       <Button
-        onClick={() => setPreviewPlan('premium')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'premium'
-            ? "bg-highlight text-white shadow-highlight-glow hover:bg-highlight/90"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
         variant="ghost"
+        size="sm"
+        className={cn(
+          "flex-1",
+          currentPlan === 'basic' && "bg-white shadow-sm text-[#E47948]"
+        )}
+        onClick={() => onToggle('basic')}
       >
-        {isPremium ? 'Seu Plano (Premium)' : 'Visualização Premium'}
+        Plano Básico
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          "flex-1",
+          currentPlan === 'premium' && "bg-white shadow-sm text-[#E47948]"
+        )}
+        onClick={() => onToggle('premium')}
+      >
+        Plano Premium
       </Button>
     </div>
   );

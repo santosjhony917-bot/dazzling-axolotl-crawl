@@ -1,135 +1,119 @@
-import React from 'react';
-import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
-import { ChevronRight, Utensils } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { Button } from '@/components/ui/button'; // Importando Button
+"use client";
 
-// Definindo o tipo de categoria esperado (com itens aninhados)
-interface MenuCategoryWithItems extends MenuCategory {
-  menu_items: MenuItem[];
-}
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ChevronDown, ChevronUp, Heart } from 'lucide-react';
+import { MenuCategoryWithItems, MenuItem } from '@/types/supabase'; // Importando tipos corretos
+import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface RestaurantMenuProps {
   menuCategories: MenuCategoryWithItems[];
-  isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
-  restaurantId?: string; // Necessário para o link do cardápio completo
 }
 
-// NOVOS LIMITES
-const MAX_CATEGORIES_PREVIEW = 2;
-const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories }) => {
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [showAllItems, setShowAllItems] = useState<Set<string>>(new Set());
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId }) => {
-  const navigate = useNavigate();
-  
-  if (menuCategories.length === 0) return null;
-
-  const handleItemClick = (itemId: string) => {
-    navigate(createPageUrl('menuItemDetails', { itemId }));
-  };
-  
-  const handleViewFullMenu = () => {
-    if (restaurantId) {
-      navigate(createPageUrl('fullMenuPage', { restaurantId }));
-    }
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryId)) {
+        newSet.delete(categoryId);
+      } else {
+        newSet.add(categoryId);
+      }
+      return newSet;
+    });
   };
 
-  // Lógica de filtragem e limitação
+  const toggleShowAllItems = (categoryId: string) => {
+    setShowAllItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryId)) {
+        newSet.delete(categoryId);
+      } else {
+        newSet.add(categoryId);
+      }
+      return newSet;
+    });
+  };
+
   const activeCategories = menuCategories
     .filter(category => category.is_active)
     .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-    
-  const categoriesToDisplay = isFullMenuPage 
-    ? activeCategories 
-    : activeCategories.slice(0, MAX_CATEGORIES_PREVIEW);
-    
-  const shouldShowFullMenuButton = !isFullMenuPage && (
-    activeCategories.length > MAX_CATEGORIES_PREVIEW || 
-    activeCategories.some(cat => cat.menu_items.filter(item => item.is_active).length > MAX_ITEMS_PER_CATEGORY_PREVIEW)
-  );
+
+  if (activeCategories.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-8">
+        <p>Nenhum item de menu disponível no momento.</p>
+      </div>
+    );
+  }
 
   return (
-    <div id="menu" className="space-y-6">
-      {/* Título da seção: Adicionado de volta para a visualização de perfil */}
-      {!isFullMenuPage && (
-        <h2 className="text-2xl font-extrabold text-[#022D68]">Cardápio</h2>
-      )}
-      
-      {categoriesToDisplay.map((category) => {
-        const activeItems = category.menu_items
-          .filter(item => item.is_active)
-          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-          
-        const itemsToDisplay = isFullMenuPage 
-          ? activeItems 
-          : activeItems.slice(0, MAX_ITEMS_PER_CATEGORY_PREVIEW);
-          
-        const remainingItemsCount = activeItems.length - itemsToDisplay.length;
+    <div className="space-y-8">
+      {activeCategories.map(category => {
+        const isExpanded = expandedCategories.has(category.id);
+        const visibleItems = showAllItems.has(category.id) ? category.menu_items : category.menu_items.slice(0, 3);
+        const remainingItemsCount = category.menu_items.length - visibleItems.length;
 
         return (
           <div key={category.id} className="space-y-4">
             {/* Título da Categoria */}
-            <h3 className="text-xl font-extrabold text-gray-800 border-b pb-2">{category.name}</h3>
-            
-            <div className="grid gap-4">
-              {itemsToDisplay.map((item) => (
-                <Card 
-                  key={item.id} 
-                  className="p-4 flex items-start space-x-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => handleItemClick(item.id)}
-                >
-                  {item.image_url && (
-                    <img 
-                      src={item.image_url} 
-                      alt={item.name} 
-                      className="w-20 h-20 object-cover rounded-md flex-shrink-0"
-                    />
-                  )}
-                  <div className="flex-grow">
-                    <div className="flex justify-between items-start">
-                      <h4 className="font-semibold text-lg text-[#022D68]">{item.name}</h4>
-                      <p className="font-bold text-lg text-highlight ml-4">
-                        {formatPrice(item.price)}
-                      </p>
-                    </div>
-                    {item.description && (
-                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
-                    )}
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
-                </Card>
-              ))}
-              
-              {/* Botão para ver mais itens na categoria (apenas na prévia) */}
-              {!isFullMenuPage && remainingItemsCount > 0 && (
-                <Button 
-                  variant="link" 
-                  onClick={handleViewFullMenu}
-                  className="text-highlight p-0 h-auto text-sm font-semibold justify-start"
-                >
-                  Ver mais {remainingItemsCount} itens em {category.name}
-                </Button>
-              )}
+            <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleCategory(category.id)}>
+              <h3 className="text-xl font-extrabold text-gray-800">{category.name}</h3>
+              {isExpanded ? <ChevronUp className="h-5 w-5 text-gray-600" /> : <ChevronDown className="h-5 w-5 text-gray-600" />}
             </div>
-            <Separator className="mt-6" />
+
+            {/* Itens do Menu */}
+            {isExpanded && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {visibleItems.filter(item => item.is_active).sort((a, b) => (a.order_index || 0) - (b.order_index || 0)).map(item => (
+                  <MenuItemCard key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+
+            {/* Botão "Ver mais" */}
+            {isExpanded && remainingItemsCount > 0 && (
+              <Button
+                variant="ghost"
+                className="w-full text-[#E47948] hover:text-[#C2653B]"
+                onClick={() => toggleShowAllItems(category.id)}
+              >
+                Ver mais {remainingItemsCount} itens em {category.name}
+              </Button>
+            )}
           </div>
         );
       })}
-      
-      {/* Botão Ver Cardápio Completo (apenas na prévia) */}
-      {shouldShowFullMenuButton && restaurantId && (
-        <Button 
-          onClick={handleViewFullMenu}
-          variant="highlight"
-          className="w-full h-12 rounded-xl text-lg font-bold shadow-highlight-glow mt-6"
-        >
-          Ver Cardápio Completo
-        </Button>
-      )}
+    </div>
+  );
+};
+
+interface MenuItemCardProps {
+  item: MenuItem;
+}
+
+const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
+  const { isFavorite, toggleFavorite } = useMenuItemFavorites(item.id);
+
+  return (
+    <div className="flex items-center bg-white rounded-lg shadow-sm p-4">
+      <img
+        src={item.image_url || PLACEHOLDER_IMAGE_URL}
+        alt={item.name}
+        className="w-24 h-24 object-cover rounded-md mr-4"
+      />
+      <div className="flex-grow">
+        <h4 className="font-semibold text-lg text-[#022D68]">{item.name}</h4>
+        {item.description && <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>}
+        <p className="text-md font-bold text-[#E47948] mt-1">R$ {item.price.toFixed(2)}</p>
+      </div>
+      <Button variant="ghost" size="icon" onClick={toggleFavorite} className="ml-4">
+        <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
+      </Button>
     </div>
   );
 };

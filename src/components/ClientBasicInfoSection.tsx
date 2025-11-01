@@ -1,123 +1,110 @@
+"use client";
+
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import InfoCardItem from '@/components/InfoCardItem';
-import { Profile } from '@/types/supabase';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { Loader2, Save, User, Mail, Phone } from 'lucide-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProfile } from '@/integrations/supabase/profiles';
-import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
-import EditClientFieldDialog from '@/components/EditClientFieldDialog';
-import { phoneMask } from '@/utils/masks';
+import { Profile } from '@/types/supabase';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Mail, Phone, User as UserIcon } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client'; // Importando supabase
 
 interface ClientBasicInfoSectionProps {
   profile: Profile | null;
   isLoading: boolean;
 }
 
-const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
-const phoneSchema = z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
-
 const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({ profile, isLoading }) => {
   const { user, refetchProfile } = useAuthData();
   const queryClient = useQueryClient();
-  
-  const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
-  const [editConfig, setEditConfig] = React.useState<{ key: keyof Profile, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
 
-  const updateProfileMutation = useMutation({
-    mutationFn: async (updates: Partial<Profile>) => {
-      if (!user) throw new Error("Usuário não autenticado.");
-      await updateProfile({ ...updates, id: user.id });
-    },
-    onSuccess: () => {
-      showSuccess("Perfil atualizado com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ['profile', user?.id] });
-      refetchProfile();
-    },
-    onError: (e) => {
-      showError(`Falha ao atualizar perfil: ${(e as Error).message}`);
-    },
-  });
+  // Placeholder for avatar upload logic
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user || !event.target.files || event.target.files.length === 0) {
+      return;
+    }
+    const file = event.target.files[0];
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
 
-  const handleEditField = (key: keyof Profile, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
-    setEditConfig({
-      key,
-      title,
-      fieldName,
-      icon,
-      validationSchema,
-      type,
-      mask,
-      placeholder,
-    });
-    setIsEditDialogOpen(true);
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Error uploading avatar:', uploadError);
+      return;
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(filePath);
+
+    if (publicUrlData?.publicUrl) {
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: publicUrlData.publicUrl })
+        .eq('id', user.id);
+
+      if (updateError) {
+        console.error('Error updating avatar URL:', updateError);
+      } else {
+        await refetchProfile(); // Refetch para atualizar o contexto
+        queryClient.invalidateQueries({ queryKey: ['profile', user.id] });
+      }
+    }
   };
-
-  const handleSaveField = async (value: string) => {
-    if (!editConfig) return;
-    await updateProfileMutation.mutateAsync({ [editConfig.key]: value });
-  };
-
-  if (isLoading) {
-    return <Card className="p-6 text-center"><Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" /></Card>;
-  }
-
-  const fullName = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ');
-  const displayName = fullName || user?.email?.split('@')[0] || 'Usuário';
 
   return (
-    <Card className="shadow-soft-xl border-none rounded-2xl p-6 bg-white">
-      <CardHeader className="p-0 mb-4">
-        <CardTitle className="text-xl font-bold text-primary">Informações Pessoais</CardTitle>
+    <Card>
+      <CardHeader>
+        <CardTitle>Informações do Cliente</CardTitle>
       </CardHeader>
-      <CardContent className="p-0 space-y-3">
-        
-        <InfoCardItem 
-          label="Nome Completo" 
-          value={fullName} 
-          icon={User} 
-          onClick={() => handleEditField('first_name', 'Editar Nome', 'Nome', <User className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Seu nome e sobrenome")}
-        />
-        
-        <InfoCardItem 
-          label="E-mail" 
-          value={user?.email || 'Não definido'} 
-          icon={Mail} 
-          onClick={() => showError("O e-mail só pode ser alterado nas configurações de conta.")}
-        />
-        
-        <InfoCardItem 
-          label="Telefone" 
-          value={profile?.phone || 'Não definido'} 
-          icon={Phone} 
-          onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask, "(83) 99999-9999")}
-        />
-        
+      <CardContent className="space-y-4">
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            {profile?.avatar_url ? (
+              <img
+                src={profile.avatar_url}
+                alt="Avatar"
+                className="w-24 h-24 rounded-full object-cover border-2 border-[#E47948]"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center border-2 border-[#E47948]">
+                <UserIcon className="h-12 w-12 text-gray-500" />
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarUpload}
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              title="Mudar avatar"
+            />
+          </div>
+          <div>
+            <p className="text-xl font-semibold text-[#022D68]">
+              {profile?.first_name || 'Usuário'} {profile?.last_name || ''}
+            </p>
+            <p className="text-sm text-gray-500">
+              {user?.email}
+            </p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          {profile?.phone && (
+            <div className="flex items-center text-gray-700">
+              <Phone className="h-4 w-4 mr-2" /> {profile.phone}
+            </div>
+          )}
+          {user?.email && (
+            <div className="flex items-center text-gray-700">
+              <Mail className="h-4 w-4 mr-2" /> {user.email}
+            </div>
+          )}
+        </div>
       </CardContent>
-      
-      {editConfig && (
-        <EditClientFieldDialog
-          isOpen={isEditDialogOpen}
-          onClose={() => setIsEditDialogOpen(false)}
-          title={editConfig.title}
-          fieldName={editConfig.fieldName}
-          currentValue={profile?.[editConfig.key] as string || ''}
-          icon={editConfig.icon}
-          onSave={handleSaveField}
-          placeholder={editConfig.placeholder}
-          type={editConfig.type}
-          validationSchema={editConfig.validationSchema}
-          mask={editConfig.mask}
-        />
-      )}
     </Card>
   );
 };

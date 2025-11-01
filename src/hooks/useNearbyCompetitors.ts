@@ -1,76 +1,56 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
+"use client";
 
-interface NearbyCompetitor {
-  id: string;
-  name: string;
-  distance_km: number;
-  category: string;
-  imageUrl: string;
+import { useState, useEffect, useCallback } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { RestaurantWithDistance } from "@/types/supabase"; // Importando o tipo correto
+import { useQuery } from "@tanstack/react-query";
+
+interface UseNearbyCompetitorsOptions {
+  restaurantId: string;
+  userLat: number;
+  userLng: number;
+  maxDistanceKm?: number;
+  enabled?: boolean;
 }
 
-/**
- * Fetches nearby restaurants (competitors) based on the provided location,
- * excluding the restaurant with the given ID.
- */
-export const useNearbyCompetitors = (
-  currentRestaurantId: string | undefined,
-  latitude: number | undefined,
-  longitude: number | undefined
-) => {
-  const [competitors, setCompetitors] = useState<NearbyCompetitor[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!currentRestaurantId || latitude === undefined || longitude === undefined) {
-      setIsLoading(false);
-      return;
+export function useNearbyCompetitors({
+  restaurantId,
+  userLat,
+  userLng,
+  maxDistanceKm = 10,
+  enabled = true,
+}: UseNearbyCompetitorsOptions) {
+  const fetchCompetitors = useCallback(async () => {
+    if (!userLat || !userLng || !restaurantId) {
+      return [];
     }
 
-    const fetchCompetitors = async () => {
-      setIsLoading(true);
-      setError(null);
+    const { data, error } = await supabase.rpc("find_nearby_restaurants", {
+      user_lat: userLat,
+      user_lng: userLng,
+      max_distance_km: maxDistanceKm,
+      search_query: null, // Not searching by query for competitors
+    });
 
-      try {
-        // Using the existing RPC function to find nearby restaurants
-        const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-          user_lat: latitude,
-          user_lng: longitude,
-          max_distance_km: 10, // Default search radius of 10km
-          search_query: null,
-        });
+    if (error) {
+      console.error("Error fetching nearby competitors:", error);
+      throw error;
+    }
 
-        if (error) {
-          throw new Error(error.message);
-        }
+    // Filter out the current restaurant itself
+    return (data || []).filter(r => r.id !== restaurantId);
+  }, [restaurantId, userLat, userLng, maxDistanceKm]);
 
-        // Explicitly cast data to RestaurantWithDistance[]
-        const nearbyRestaurants = data as RestaurantWithDistance[];
+  const {
+    data: competitors,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<RestaurantWithDistance[], Error>({
+    queryKey: ["nearbyCompetitors", restaurantId, userLat, userLng, maxDistanceKm],
+    queryFn: fetchCompetitors,
+    enabled: enabled && userLat !== 0 && userLng !== 0 && !!restaurantId,
+  });
 
-        // Filter out the current restaurant and map to the required structure
-        const filteredCompetitors: NearbyCompetitor[] = nearbyRestaurants
-          .filter((r) => r.id !== currentRestaurantId)
-          .map((r) => ({
-            id: r.id,
-            name: r.name,
-            distance_km: r.distance_km, 
-            category: r.category || 'Geral',
-            imageUrl: r.image_url || 'https://via.placeholder.com/150?text=Restaurante',
-          }));
-
-        setCompetitors(filteredCompetitors);
-      } catch (err) {
-        console.error('Error fetching nearby competitors:', err);
-        setError('Falha ao carregar concorrentes próximos.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCompetitors();
-  }, [currentRestaurantId, latitude, longitude]);
-
-  return { competitors, isLoading, error };
-};
+  return { competitors, isLoading, error, refetch };
+}

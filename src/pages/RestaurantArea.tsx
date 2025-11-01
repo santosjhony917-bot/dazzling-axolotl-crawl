@@ -1,37 +1,41 @@
+"use client";
+
 import React, { useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
 import { Loader2 } from 'lucide-react';
+import { showError } from '@/utils/toast';
 
 export default function RestaurantArea() {
-  const { user, isLoading, restaurant } = useAuthData(); // CORRIGIDO: Usando useAuthData
+  const { user, isProfileLoading, restaurant } = useAuthData(); // CORRIGIDO: Usando isProfileLoading
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoading) return;
-
-    if (!user) {
-      // Não autenticado, redireciona para o login do restaurante
-      navigate(createPageUrl('restaurant-login'), { state: { from: location }, replace: true });
-    } else if (!restaurant) {
-      // Autenticado, mas sem restaurante associado (deve ir para o hub ou claim)
-      navigate(createPageUrl('restaurant-area-hub'), { replace: true });
-    } else {
-      // Autenticado e com restaurante, vai para o dashboard
-      navigate(createPageUrl('restaurant-area/home'), { replace: true });
+    if (!isProfileLoading) {
+      if (!user) {
+        showError('Você precisa estar logado para acessar a área do restaurante.');
+        navigate('/auth');
+      } else if (!restaurant) {
+        showError('Você precisa ter um restaurante registrado para acessar esta área.');
+        navigate('/claim-restaurant');
+      }
     }
-  }, [isLoading, user, restaurant, navigate, location]);
+  }, [user, restaurant, isProfileLoading, navigate]);
 
-  if (isLoading) {
+  if (isProfileLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     );
   }
 
-  // Este componente deve sempre redirecionar, então não deve renderizar nada no final
+  // Renderiza o Outlet apenas se o usuário estiver logado E tiver um restaurante
+  if (user && restaurant) {
+    return <Outlet />;
+  }
+
+  // Caso contrário, não renderiza nada (o useEffect já cuidou do redirecionamento)
   return null;
 }

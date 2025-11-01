@@ -1,135 +1,158 @@
+"use client";
+
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { MessageSquare, Phone, Mail, Globe, ExternalLink, UtensilsCrossed } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import InfoCardItem from '@/components/InfoCardItem';
-import EditFieldDialog from '@/components/EditFieldDialog';
-import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
-import { toast } from 'react-hot-toast';
-import { MessageSquare, Utensils, Globe } from 'lucide-react'; // Removido LinkIcon
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { showError, showSuccess } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
 
 interface SalesChannelsSectionProps {
   restaurant: PublicRestaurantData;
 }
 
+type ChannelKey = 'whatsapp_url' | 'phone' | 'email' | 'ifood_url' | 'other_url' | 'external_url';
+
 const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant }) => {
+  const { updateRestaurant } = useRestaurantProfile(restaurant);
+  const { refetchProfile } = useAuthData();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentField, setCurrentField] = useState<{ 
-    name: keyof PublicRestaurantData; 
-    title: string; 
-    description: string; 
-    inputType: 'text' | 'textarea' | 'number' | 'url';
-  } | null>(null);
+  const [currentField, setCurrentField] = useState<ChannelKey | null>(null);
+  const [currentValue, setCurrentValue] = useState('');
+  const [dialogTitle, setDialogTitle] = useState('');
 
-  // CORREÇÃO 1: Usando isPending em vez de isLoading
-  const { mutate: updateRestaurant, isPending: isLoading } = useRestaurantUpdate();
+  const getDisplayValue = (value: string | null | undefined) => value || 'Não informado';
 
-  const openDialog = (
-    name: keyof PublicRestaurantData, 
-    title: string, 
-    description: string, 
-    inputType: 'text' | 'textarea' | 'number' | 'url' = 'text'
-  ) => {
-    setCurrentField({ name, title, description, inputType });
+  const openDialog = (field: ChannelKey, title: string) => {
+    setCurrentField(field);
+    setCurrentValue(restaurant[field] || '');
+    setDialogTitle(title);
     setIsDialogOpen(true);
   };
 
-  const handleSave = async (fieldName: string, value: string | number) => {
-    if (!restaurant.id) {
-      toast.error("ID do restaurante não encontrado.");
-      return;
-    }
-
-    const payload = { [fieldName]: value };
-    
-    const updatePromise = new Promise<void>((resolve, reject) => {
-      updateRestaurant(
-        { restaurantId: restaurant.id, data: payload },
-        {
-          onSuccess: () => {
-            toast.success(`${currentField?.title} atualizado com sucesso!`);
-            resolve();
-          },
-          onError: (error) => {
-            console.error("Erro ao atualizar o restaurante:", error);
-            toast.error(`Falha ao atualizar ${currentField?.title}.`);
-            reject(error);
-          },
-        }
-      );
-    });
+  const handleSave = async () => {
+    if (!currentField) return;
 
     try {
-      await updatePromise;
+      await updateRestaurant({ [currentField]: currentValue === '' ? null : currentValue });
+      await refetchProfile();
+      showSuccess('Canal de venda atualizado com sucesso!');
       setIsDialogOpen(false);
-      setCurrentField(null);
-    } catch (e) {
-      // O erro já foi tratado no onError do useRestaurantUpdate
+    } catch (error) {
+      console.error('Erro ao atualizar canal de venda:', error);
+      showError('Erro ao atualizar canal de venda. Tente novamente.');
     }
-  };
-
-  // CORREÇÃO 2, 3, 4: Garantindo que o retorno seja sempre string
-  const getDisplayValue = (value: string | number | null | undefined): string => {
-    if (typeof value === 'string' && value.startsWith('http')) {
-      return value.length > 40 ? value.substring(0, 37) + '...' : value;
-    }
-    if (value === null || value === undefined) {
-        return 'Não definido';
-    }
-    return String(value);
   };
 
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Canais de Venda e Links</h2>
-      
-      <InfoCardItem 
-        label="Link do WhatsApp" 
-        value={getDisplayValue(restaurant.whatsapp_url)}
-        icon={MessageSquare}
-        onClick={() => openDialog(
-          'whatsapp_url', 
-          'Link do WhatsApp', 
-          'Insira o link direto para o seu WhatsApp (Ex: https://wa.me/5511999999999).',
-          'url'
-        )}
-      />
-      
-      <InfoCardItem 
-        label="Link do iFood" 
-        value={getDisplayValue(restaurant.ifood_url)}
-        icon={Utensils}
-        onClick={() => openDialog(
-          'ifood_url', 
-          'Link do iFood', 
-          'Insira o link da sua loja no iFood.',
-          'url'
-        )}
-      />
-      
-      <InfoCardItem 
-        label="Site Próprio / Outro Link" 
-        value={getDisplayValue(restaurant.other_url)}
-        icon={Globe}
-        onClick={() => openDialog(
-          'other_url', 
-          'Site Próprio / Outro Link', 
-          'Insira o link para seu site próprio, Goomer, ou qualquer outro canal de venda.',
-          'url'
-        )}
-      />
+    <div className="space-y-4">
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <MessageSquare className="h-5 w-5 mr-3 text-green-600" />
+          <div>
+            <p className="font-medium">WhatsApp</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.whatsapp_url)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('whatsapp_url', 'Link do WhatsApp')}>
+          Editar
+        </Button>
+      </div>
 
-      {currentField && (
-        <EditFieldDialog
-          isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
-          title={currentField.title}
-          description={currentField.description}
-          fieldName={currentField.name}
-          initialValue={restaurant[currentField.name] as string | number | undefined}
-          inputType={currentField.inputType}
-          onSave={handleSave}
-          loading={isLoading}
-        />
-      )}
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <Phone className="h-5 w-5 mr-3 text-blue-600" />
+          <div>
+            <p className="font-medium">Telefone</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.phone)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('phone', 'Número de Telefone')}>
+          Editar
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <Mail className="h-5 w-5 mr-3 text-red-600" />
+          <div>
+            <p className="font-medium">Email</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.email)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('email', 'Endereço de Email')}>
+          Editar
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <UtensilsCrossed className="h-5 w-5 mr-3 text-red-700" />
+          <div>
+            <p className="font-medium">iFood</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.ifood_url)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('ifood_url', 'Link do iFood')}>
+          Editar
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <ExternalLink className="h-5 w-5 mr-3 text-gray-600" />
+          <div>
+            <p className="font-medium">Outro Link</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.other_url)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('other_url', 'Outro Link de Pedido')}>
+          Editar
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-between p-3 border rounded-md">
+        <div className="flex items-center">
+          <Globe className="h-5 w-5 mr-3 text-purple-600" />
+          <div>
+            <p className="font-medium">Site Externo</p>
+            <p className="text-sm text-gray-600">{getDisplayValue(restaurant.external_url)}</p>
+          </div>
+        </div>
+        <Button variant="outline" size="sm" onClick={() => openDialog('external_url', 'Link do Site Externo')}>
+          Editar
+        </Button>
+      </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{dialogTitle}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="value" className="text-right">
+                Link
+              </Label>
+              <Input
+                id="value"
+                value={currentValue}
+                onChange={(e) => setCurrentValue(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancelar</Button>
+            <Button onClick={handleSave}>Salvar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

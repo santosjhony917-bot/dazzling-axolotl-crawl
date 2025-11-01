@@ -1,78 +1,76 @@
-import { useState, useCallback } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+"use client";
+
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/restaurant';
-import { toast } from 'sonner';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo correto
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { showError, showSuccess } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
 
-// Definindo um tipo genérico para updates, já que o formulário específico foi removido.
-type RestaurantUpdatePayload = Partial<Restaurant>;
+interface UseRestaurantProfileResult {
+  restaurant: Restaurant | null;
+  isLoading: boolean;
+  error: Error | null;
+  updateRestaurant: (updates: Partial<Restaurant>) => Promise<void>;
+  isUpdating: boolean;
+  refetch: () => Promise<void>;
+}
 
-export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
-  const { user } = useAuth();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(initialRestaurant ?? null);
-  const [isLoading, setIsLoading] = useState(false);
+export function useRestaurantProfile(initialRestaurant?: Restaurant | null): UseRestaurantProfileResult {
+  const { user, isProfileLoading } = useAuthData();
+  const queryClient = useQueryClient();
+  const userId = user?.id;
 
-  const refetchProfile = useCallback(async () => {
-    if (!user) return;
-
-    setIsLoading(true);
+  const fetchRestaurant = useCallback(async () => {
+    if (!userId) return null;
     const { data, error } = await supabase
       .from('restaurants')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .single();
 
-    if (error) {
-      console.error('Error fetching restaurant:', error);
-      toast.error('Erro ao carregar perfil do restaurante.');
-      setRestaurant(null);
-    } else {
-      setRestaurant(data);
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error fetching restaurant profile:', error);
+      throw error;
     }
-    setIsLoading(false);
-  }, [user]);
+    return data || null;
+  }, [userId]);
 
-  // Agora retorna { error: string | null }
-  const updateRestaurant = useCallback(async (updates: RestaurantUpdatePayload): Promise<{ error: string | null }> => {
-    if (!restaurant) {
-      const msg = 'Restaurante não encontrado para atualização.';
-      toast.error(msg);
-      return { error: msg };
-    }
+  const { data: restaurant, isLoading, error, refetch } = useQuery<Restaurant | null, Error>({
+    queryKey: ['restaurantProfile', userId],
+    queryFn: fetchRestaurant,
+    enabled: !!userId && !isProfileLoading,
+    initialData: initialRestaurant,
+  });
 
-    setIsLoading(true);
-    let errorMsg: string | null = null;
-
-    try {
-      // Usando cast intermediário para 'unknown' para lidar com tipos JSONB como opening_hours
-      const { data: updatedData, error } = await supabase
+  const updateRestaurantMutation = useMutation<void, Error, Partial<Restaurant>>({
+    mutationFn: async (updates) => {
+      if (!userId || !restaurant?.id) throw new Error('Restaurant or user not found.');
+      const { error } = await supabase
         .from('restaurants')
-        .update(updates as unknown as Partial<Restaurant>)
-        .eq('id', restaurant.id)
-        .select()
-        .single();
+        .update(updates)
+        .eq('id', restaurant.id);
 
       if (error) {
-        errorMsg = error.message;
-        console.error('Error updating restaurant:', error);
-        toast.error('Erro ao atualizar perfil do restaurante.');
-      } else {
-        setRestaurant(updatedData);
-        toast.success('Perfil do restaurante atualizado com sucesso!');
+        console.error('Error updating restaurant profile:', error);
+        throw error;
       }
-    } catch (e) {
-      errorMsg = (e as Error).message;
-    } finally {
-      setIsLoading(false);
-    }
-    
-    return { error: errorMsg };
-  }, [restaurant]);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['restaurantProfile', userId] });
+      showSuccess('Perfil do restaurante atualizado!');
+    },
+    onError: (err) => {
+      showError(`Erro ao atualizar perfil do restaurante: ${err.message}`);
+    },
+  });
 
   return {
     restaurant,
-    isLoading,
-    refetchProfile,
-    updateRestaurant,
+    isLoading: isLoading || isProfileLoading,
+    error,
+    updateRestaurant: updateRestaurantMutation.mutateAsync,
+    isUpdating: updateRestaurantMutation.isPending,
+    refetch,
   };
-};
+}

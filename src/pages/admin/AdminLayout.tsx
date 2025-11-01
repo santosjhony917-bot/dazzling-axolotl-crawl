@@ -1,94 +1,78 @@
+"use client";
+
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext'; // Corrigido: usando 'useAuthData'
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { createPageUrl, PathKey } from '@/utils/url';
 import { cn } from '@/lib/utils';
-
-const navItems = [
-  { name: 'Dashboard', icon: Home, path: 'dashboard' },
-  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-  { name: 'Configurações', icon: Settings, path: 'settings' },
-];
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const { user, isProfileLoading, isAdmin, signOut } = useAuthData(); // Corrigido: usando 'isProfileLoading', 'isAdmin', 'signOut'
+  const location = useLocation();
 
-  if (isLoading) {
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/admin/login');
+  };
+
+  if (isProfileLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     );
   }
 
   if (!user || !isAdmin) {
-    // Redireciona se não for admin
-    navigate(createPageUrl('adminLogin'));
-    return null;
+    // Se não for admin ou não estiver logado, redireciona para a página de login do admin
+    return <Loader2 className="h-8 w-8 animate-spin text-blue-600" />; // Ou um componente de redirecionamento
   }
 
-  const currentPath = window.location.pathname.split('/').pop();
-
-  // Adicionando o item de Banners aqui
-  const adminNavItems = [
-    { name: 'Dashboard', icon: Home, path: 'dashboard' },
-    { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-    { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-    { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-    { name: 'Gerenciar Banners', icon: Megaphone, path: 'adminBanners' }, // CORRIGIDO: Usando a chave PATH_MAP
-    { name: 'Configurações', icon: Settings, path: 'settings' },
+  const navItems = [
+    { name: 'Dashboard', icon: Home, path: '/admin/dashboard' },
+    { name: 'Restaurantes', icon: Utensils, path: '/admin/restaurants' },
+    { name: 'Usuários', icon: Users, path: '/admin/users' },
+    { name: 'Planos', icon: Crown, path: '/admin/plans' },
+    { name: 'Banners', icon: Megaphone, path: '/admin/banners' },
+    { name: 'Configurações', icon: Settings, path: '/admin/settings' },
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
-        <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
-        
-        <nav className="flex-grow space-y-2">
-          {adminNavItems.map((item) => (
-            <Button
-              key={item.path}
-              variant="ghost"
-              className={cn(
-                "w-full justify-start gap-3 rounded-lg",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
-              )}
-              onClick={() => navigate(createPageUrl(item.path as PathKey))} // CORRIGIDO: Passando a chave diretamente
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Button>
-          ))}
+      <aside className="w-64 bg-white shadow-lg p-4 flex flex-col">
+        <div className="text-2xl font-bold text-[#022D68] mb-6">Admin Panel</div>
+        <nav className="flex-grow">
+          <ul className="space-y-2">
+            {navItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  to={item.path}
+                  className={cn(
+                    "flex items-center p-3 rounded-md text-gray-700 hover:bg-gray-100",
+                    location.pathname.startsWith(item.path) && "bg-gray-100 font-semibold text-[#E47948]"
+                  )}
+                >
+                  <item.icon className="h-5 w-5 mr-3" />
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
-        
         <Separator className="my-4" />
-        
-        <div className="space-y-2">
-          <div className="text-sm text-gray-600 truncate p-2">
-            Logado como: <span className="font-medium">{user.email}</span>
-          </div>
-          <Button 
-            variant="outline" 
-            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg"
-            onClick={signOut}
-          >
-            <LogOut className="w-5 h-5" />
-            Sair
-          </Button>
-        </div>
+        <Button variant="ghost" className="w-full justify-start text-red-600 hover:bg-red-50" onClick={handleLogout}>
+          <LogOut className="h-5 w-5 mr-3" /> Sair
+        </Button>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <div className="flex-grow p-6">
         <Outlet />
-      </main>
+      </div>
     </div>
   );
 };

@@ -1,132 +1,111 @@
+"use client";
+
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO
-import { GeocodedAddress, reverseGeocode } from '@/services/geolocation';
-import { showError } from '@/utils/toast';
-
-interface UserSearchLocation {
-  id: string | null;
-  user_id: string | null;
-  address: string;
-  latitude: number;
-  longitude: number;
-  cep: string | null; // Adicionado o campo CEP
-}
+import { useAuthData } from '@/context/AuthContext';
+import { UserSearchLocation } from '@/types/user'; // Assuming this type exists
 
 const DEFAULT_LOCATION: UserSearchLocation = {
-  id: null,
-  user_id: null,
-  address: "Localização Padrão (João Pessoa)",
-  latitude: -7.1195,
-  longitude: -34.8450,
-  cep: '58038-000', // CEP mockado para João Pessoa
+  address: 'São Paulo, SP, Brasil',
+  latitude: -23.55052,
+  longitude: -46.633309,
+  cep: '01000-000',
 };
 
 export function useUserSearchLocation() {
-  const { user, isLoading: authLoading } = useAuthData(); // CORRIGIDO
+  const { user, isProfileLoading: authLoading } = useAuthData();
   const [location, setLocation] = useState<UserSearchLocation>(DEFAULT_LOCATION);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchLocation = useCallback(async (userId: string) => {
+  const fetchAndSetLocation = useCallback(async () => {
     setIsLoading(true);
-    try {
-      // 1. Tenta buscar a última localização salva pelo usuário
-      const { data, error } = await supabase
+    setError(null);
+
+    if (user) {
+      const { data, error: fetchError } = await supabase
         .from('user_search_locations')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
 
-      if (error && error.code !== 'PGRST116') { // PGRST116: No rows found
-        throw new Error(error.message);
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        console.error('Error fetching user location:', fetchError);
+        setError('Erro ao carregar sua última localização.');
       }
 
       if (data) {
-        setLocation({
-          id: data.id,
-          user_id: data.user_id,
-          address: data.address,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          cep: data.cep, // Mapeando o CEP
-        });
-      } else {
-        // 2. Se não houver localização salva, usa o padrão
-        setLocation({ ...DEFAULT_LOCATION, user_id: userId });
-      }
-    } catch (e) {
-      console.error("Error fetching user search location:", e);
-      showError("Falha ao carregar localização de busca.");
-      setLocation({ ...DEFAULT_LOCATION, user_id: userId });
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!authLoading) {
-      if (user) {
-        fetchLocation(user.id);
-      } else {
-        // Não logado, usa a localização padrão
+        setLocation(data);
         setIsLoading(false);
-        setLocation(DEFAULT_LOCATION);
+        return;
       }
     }
-  }, [user, authLoading, fetchLocation]);
 
-  const saveLocation = useCallback(async (addressData: GeocodedAddress) => {
-    if (!user) {
-      showError("Usuário não autenticado.");
-      return { error: "Usuário não autenticado." };
-    }
-    
-    setIsLoading(true);
-    
-    const newLocationData = {
-      user_id: user.id,
-      address: addressData.formattedAddress,
-      latitude: addressData.lat,
-      longitude: addressData.lon,
-      cep: addressData.cep, // Salvando o CEP
-    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const newLocation: UserSearchLocation = {
+            address: `Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`,
+            latitude,
+            longitude,
+          };
+          setLocation(newLocation);
 
-    try {
-      // Usando UPSERT (INSERT ON CONFLICT) para garantir que apenas uma linha exista por user_id.
-      // O conflito deve ser resolvido na coluna user_id, que deve ser única.
-      const { data, error } = await supabase
-        .from('user_search_locations')
-        .upsert(newLocationData, { onConflict: 'user_id' })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      setLocation({
-        id: data.id,
-        user_id: data.user_id,
-        address: data.address,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        cep: data.cep,
-      });
-      
+          if (user) {
+            const { error: insertError } = await supabase
+              .from('user_search_locations')
+              .insert({ user_id: user.id, ...newLocation });
+            if (insertError) {
+              console.error('Error saving user location:', insertError);
+            }
+          }
+          setIsLoading(false);
+        },
+        (geoError) => {
+          console.error('Error getting geolocation:', geoError);
+          setError('Não foi possível obter sua localização atual. Usando localização padrão.');
+          setLocation(DEFAULT_LOCATION);
+          setIsLoading(false);
+        }
+      );
+    } else {
+      setError('Geolocalização não suportada. Usando localização padrão.');
+      setLocation(DEFAULT_LOCATION);
       setIsLoading(false);
-      return { error: null };
-
-    } catch (e) {
-      console.error("Error saving user search location:", e);
-      setIsLoading(false);
-      return { error: (e as Error).message };
     }
   }, [user]);
 
-  return {
-    location,
-    isLoading,
-    saveLocation,
-    refetch: () => user && fetchLocation(user.id),
-  };
+  useEffect(() => {
+    if (!authLoading) {
+      fetchAndSetLocation();
+    }
+  }, [user, authLoading, fetchAndSetLocation]);
+
+  const saveLocation = useCallback(async (newLocation: UserSearchLocation) => {
+    if (!user) {
+      setError('Usuário não autenticado para salvar localização.');
+      return;
+    }
+    setIsLoading(true);
+    const { error: insertError } = await supabase
+      .from('user_search_locations')
+      .insert({ user_id: user.id, ...newLocation });
+    if (insertError) {
+      console.error('Error saving user location:', insertError);
+      setError('Erro ao salvar localização.');
+    } else {
+      setLocation(newLocation);
+      setError(null);
+    }
+    setIsLoading(false);
+  }, [user]);
+
+  const refetch = useCallback(() => {
+    fetchAndSetLocation();
+  }, [fetchAndSetLocation]);
+
+  return { location, isLoading, error, saveLocation, refetch };
 }

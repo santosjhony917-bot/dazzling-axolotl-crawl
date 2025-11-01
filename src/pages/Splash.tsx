@@ -1,66 +1,31 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils/url";
-import { useAuthData } from "@/context/AuthContext"; 
-import { Loader2 } from "lucide-react"; // Adicionando Loader2
+"use client";
 
-// Caminho para o novo logo
-const LOGO_URL = "/assets/filterfood-logo.png";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthData } from '@/context/AuthContext';
+import { Loader2 } from 'lucide-react';
 
-export default function Splash() {
+const Splash: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthData(); 
+  const { user, isProfileLoading } = useAuthData(); // Corrigido: usando isProfileLoading
 
-  // Auto-navigate after 2 seconds
   useEffect(() => {
-    if (isLoading) return; // Espera o estado de autenticação ser resolvido
-
-    const targetPath = user ? createPageUrl("home") : createPageUrl("onboarding");
-    
-    // Se o usuário estiver autenticado, navega imediatamente para a home.
-    // Se não estiver, espera 2 segundos.
-    const delay = user ? 50 : 2000; // 50ms delay for authenticated users, 2s for splash screen effect
-    
-    console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
-    
-    const timer = setTimeout(() => {
-      // Se o usuário estiver autenticado, mas a rota atual for a raiz, navega para a home.
-      // Se a rota atual for /profile, não devemos redirecionar para /home.
-      if (user && window.location.pathname === '/') {
-        navigate(createPageUrl("home"), { replace: true });
-      } else if (!user) {
-        navigate(targetPath, { replace: true });
+    if (!isProfileLoading) {
+      if (user) {
+        navigate('/'); // Redireciona para a página inicial se o usuário estiver logado
+      } else {
+        navigate('/auth'); // Redireciona para a página de autenticação se não estiver logado
       }
-      // Se o usuário estiver autenticado e já estiver em uma rota protegida (/profile), não faz nada aqui.
-    }, delay);
-    
-    return () => clearTimeout(timer);
-  }, [navigate, user, isLoading]);
+    }
+  }, [user, isProfileLoading, navigate]);
 
   return (
-    <div className="h-screen w-full relative flex flex-col items-center justify-center bg-[#E47948]">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }} 
-        className="text-center px-8"
-      >
-        <div className="mx-auto max-w-[520px]">
-          <img 
-            src={LOGO_URL} 
-            alt="Filter Food Logo" 
-            className="w-64 h-auto mx-auto drop-shadow-xl" 
-          />
-        </div>
-      </motion.div>
-      
-      {/* Indicador de carregamento enquanto isLoading é true */}
-      {isLoading && (
-        <div className="absolute bottom-10">
-          <Loader2 className="w-8 h-8 animate-spin text-white" />
-        </div>
-      )}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+      <Loader2 className="h-16 w-16 animate-spin mb-4" />
+      <h1 className="text-4xl font-bold">Carregando...</h1>
+      <p className="text-lg mt-2">Preparando sua experiência gastronômica</p>
     </div>
   );
-}
+};
+
+export default Splash;

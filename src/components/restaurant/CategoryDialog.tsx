@@ -1,25 +1,25 @@
+"use client";
+
 import React from 'react';
 import { MenuCategory } from '@/types/supabase';
 import CategoryFormDialog, { CategoryFormValues } from './menu/CategoryFormDialog'; // Importando o componente real
 
 interface CategoryDialogProps {
-  restaurantId: string;
-  category?: MenuCategory;
-  isOpen: boolean;
+  open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (data: CategoryFormValues) => Promise<void>;
-  isLoading: boolean;
+  category?: MenuCategory;
+  onSave: (values: CategoryFormValues) => Promise<void>; // onSave agora retorna Promise<void>
+  isSaving: boolean;
 }
 
-const CategoryDialog: React.FC<CategoryDialogProps> = ({ restaurantId, category, isOpen, onOpenChange, onSave, isLoading }) => {
+const CategoryDialog: React.FC<CategoryDialogProps> = ({ open, onOpenChange, category, onSave, isSaving }) => {
   return (
     <CategoryFormDialog
-      isOpen={isOpen}
-      onClose={() => onOpenChange(false)}
-      restaurantId={restaurantId}
-      initialData={category || null}
+      open={open}
+      onOpenChange={onOpenChange}
+      initialData={category ? { name: category.name, is_active: category.is_active || false } : undefined}
       onSave={onSave}
-      isLoading={isLoading}
+      isSaving={isSaving}
     />
   );
 };

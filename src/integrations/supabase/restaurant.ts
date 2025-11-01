@@ -1,95 +1,100 @@
 import { supabase } from './client';
 import { MenuCategory, MenuItem, Restaurant, GalleryImage, RestaurantWithDistance } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { showError } from '@/utils/toast';
 
-// Função para buscar um único item de menu por ID, incluindo dados do restaurante
-export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { restaurant: Restaurant | null }) | null> {
+// Fetch a single restaurant by ID for public view
+export const fetchPublicRestaurantById = async (id: string): Promise<PublicRestaurantData | null> => {
   const { data, error } = await supabase
-    .from('menu_items')
+    .from('restaurants')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error fetching public restaurant:', error);
+    return null;
+  }
+  return data;
+};
+
+// Fetch all menu categories for a restaurant, including their items
+export const fetchRestaurantMenu = async (restaurantId: string): Promise<MenuCategory[] | null> => {
+  const { data, error } = await supabase
+    .from('menu_categories')
     .select(`
       *,
-      menu_categories (
-        restaurant:restaurants (*)
+      menu_items (
+        *
       )
     `)
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true })
+    .order('order_index', { foreignTable: 'menu_items', ascending: true });
+
+  if (error) {
+    console.error('Error fetching restaurant menu:', error);
+    return null;
+  }
+  return data;
+};
+
+// Fetch gallery images for a restaurant
+export const fetchRestaurantGallery = async (restaurantId: string): Promise<GalleryImage[] | null> => {
+  const { data, error } = await supabase
+    .from('restaurant_gallery')
+    .select('*')
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching restaurant gallery:', error);
+    return null;
+  }
+  return data;
+};
+
+// Fetch a single menu item by ID
+export const fetchMenuItemById = async (itemId: string): Promise<MenuItem | null> => {
+  const { data, error } = await supabase
+    .from('menu_items')
+    .select('*')
     .eq('id', itemId)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
+  if (error) {
     console.error('Error fetching menu item:', error);
-    throw new Error(error.message);
+    return null;
   }
+  return data;
+};
 
-  if (!data) return null;
-  
-  // Extract the restaurant data from the nested menu_categories array
-  // data.menu_categories is an array of objects, each containing { restaurant: Restaurant }
-  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
-    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
-    : null;
-
-  // Remove the nested key before returning
-  const { menu_categories, ...item } = data;
-
-  return {
-    ...(item as MenuItem),
-    restaurant: restaurantData,
-  };
-}
-
-// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
-export async function fetchNearbyRestaurants(
-  lat: number, 
-  lng: number, 
-  maxDistance: number = 10, 
-  searchQuery: string | null = null
-): Promise<RestaurantWithDistance[]> {
+// Fetch nearby restaurants using RPC function
+export const fetchNearbyRestaurants = async (userLat: number, userLng: number, maxDistanceKm: number = 10, searchQuery: string | null = null): Promise<RestaurantWithDistance[] | null> => {
   const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-    user_lat: lat,
-    user_lng: lng,
-    max_distance_km: maxDistance,
+    user_lat: userLat,
+    user_lng: userLng,
+    max_distance_km: maxDistanceKm,
     search_query: searchQuery,
   });
 
   if (error) {
     console.error('Error fetching nearby restaurants:', error);
-    showError('Erro ao buscar restaurantes próximos.');
-    return [];
-  }
-
-  return data || [];
-}
-
-// Função para buscar um restaurante público por ID
-export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
-  const { data, error } = await supabase
-    .from('restaurants')
-    .select(`
-      *,
-      followersCount:user_favorites(count)
-    `)
-    .eq('id', restaurantId)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant:', error);
     return null;
   }
+  return data;
+};
 
-  if (!data) return null;
+// Fetch a single restaurant by ID for owner view
+export const fetchRestaurantById = async (id: string): Promise<Restaurant | null> => {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .eq('id', id)
+    .single();
 
-  // Simulação de addressSummary e logoUrl (que pode ser image_url)
-  const addressSummary = data.city && data.state ? `${data.city}, ${data.state}` : data.address;
-  const logoUrl = data.image_url;
-  const followersCount = Array.isArray(data.followersCount) && data.followersCount.length > 0 
-    ? data.followersCount[0].count || 0 
-    : 0;
-
-  return {
-    ...data,
-    addressSummary,
-    logoUrl,
-    followersCount: followersCount as number,
-  } as PublicRestaurantData;
-}
+  if (error) {
+    console.error('Error fetching restaurant:', error);
+    return null;
+  }
+  return data;
+};

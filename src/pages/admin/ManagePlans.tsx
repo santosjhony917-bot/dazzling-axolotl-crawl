@@ -1,122 +1,137 @@
+"use client";
+
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Crown, Loader2, AlertTriangle, Utensils } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
-import { Restaurant, RestaurantPlan } from '@/types/supabase';
+import { Restaurant, RestaurantPlan } from '@/types/supabase'; // Importando o tipo correto
 import { Badge } from '@/components/ui/badge';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { cn } from '@/lib/utils';
-
-const planColors: Record<RestaurantPlan, string> = {
-  free: 'bg-gray-200 text-gray-700',
-  basic: 'bg-blue-100 text-blue-700',
-  premium: 'bg-yellow-100 text-yellow-800',
-  premium_gift: 'bg-green-100 text-green-700', // CORREÇÃO: Adicionado premium_gift
-};
-
-const planLabels: Record<RestaurantPlan, string> = {
-  free: 'Free',
-  basic: 'Basic',
-  premium: 'Premium',
-  premium_gift: 'Premium (Gift)', // CORREÇÃO: Adicionado premium_gift
-};
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
 
 const ManagePlans: React.FC = () => {
-  const { restaurants, isLoading, error, updatePlan, isUpdating } = useAdminRestaurants();
-  const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const { restaurants, isLoading, updateRestaurantPlan, isUpdatingPlan, updateRestaurantFollowersOverride, isUpdatingFollowers } = useAdminRestaurants();
+  const [editingFollowersId, setEditingFollowersId] = useState<string | null>(null);
+  const [newFollowersCount, setNewFollowersCount] = useState<number>(0);
 
-  const handlePlanChange = (restaurantId: string, newPlan: string) => {
-    setUpdatingId(restaurantId);
-    updatePlan({ restaurantId, newPlan: newPlan as RestaurantPlan });
+  const handleUpdatePlan = async (restaurantId: string, newPlan: RestaurantPlan) => {
+    await updateRestaurantPlan({ id: restaurantId, plan: newPlan });
+  };
+
+  const handleEditFollowers = (restaurant: Restaurant) => {
+    setEditingFollowersId(restaurant.id);
+    setNewFollowersCount(restaurant.followers_override || 0);
+  };
+
+  const handleSaveFollowers = async (restaurantId: string) => {
+    await updateRestaurantFollowersOverride({ id: restaurantId, followers_override: newFollowersCount });
+    setEditingFollowersId(null);
   };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
       </div>
     );
   }
 
-  if (error) {
-    return (
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white p-6">
-        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-3" />
-        <p className="text-red-600 text-center">Erro ao carregar restaurantes: {error.message}</p>
-      </Card>
-    );
-  }
-
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
-          <Crown className="w-6 h-6" /> Gerenciar Planos
-        </CardTitle>
-        <CardDescription>Total de {restaurants.length} restaurantes cadastrados. Altere o plano de assinatura abaixo.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Restaurante</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plano Atual</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {restaurants.map((restaurant) => {
-                const isCurrentlyUpdating = isUpdating && updatingId === restaurant.id;
-                return (
-                  <tr key={restaurant.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 truncate max-w-[150px]">
+    <div className="container mx-auto p-4 space-y-6">
+      <h1 className="text-3xl font-bold text-[#022D68] mb-6">Gerenciar Planos e Seguidores</h1>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Restaurantes</CardTitle>
+          <CardDescription>Gerencie os planos de assinatura e a contagem de seguidores dos restaurantes.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Nome do Restaurante
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Plano Atual
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Alterar Plano
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Seguidores (Override)
+                  </th>
+                  <th scope="col" className="relative px-6 py-3">
+                    <span className="sr-only">Ações</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {restaurants.map((restaurant) => (
+                  <tr key={restaurant.id}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {restaurant.name}
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <Badge variant="outline" className="bg-gray-100 text-gray-600 border-gray-300">
-                        <Utensils className="w-3 h-3 mr-1" /> {restaurant.category || 'Não definido'}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <Badge variant={restaurant.plan === 'premium' ? 'default' : 'outline'}>
+                        {restaurant.plan}
                       </Badge>
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap">
-                      <Badge className={cn("font-bold", planColors[restaurant.plan])}>
-                        {planLabels[restaurant.plan]}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium">
-                      <Select 
-                        onValueChange={(value) => handlePlanChange(restaurant.id, value)}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <Select
                         value={restaurant.plan}
-                        disabled={isCurrentlyUpdating}
+                        onValueChange={(value: RestaurantPlan) => handleUpdatePlan(restaurant.id, value)}
+                        disabled={isUpdatingPlan}
                       >
-                        <SelectTrigger className="w-[180px] h-9 rounded-lg">
-                          <SelectValue placeholder="Alterar Plano" />
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Selecionar Plano" />
                         </SelectTrigger>
                         <SelectContent>
-                          {Object.entries(planLabels).map(([key, label]) => (
-                            <SelectItem key={key} value={key} className={cn(planColors[key as RestaurantPlan])}>
-                              {label}
-                            </SelectItem>
-                          ))}
+                          <SelectItem value="free">Free</SelectItem>
+                          <SelectItem value="basic">Basic</SelectItem>
+                          <SelectItem value="premium">Premium</SelectItem>
                         </SelectContent>
                       </Select>
-                      {isCurrentlyUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary inline-block ml-2" />}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {editingFollowersId === restaurant.id ? (
+                        <div className="flex items-center space-x-2">
+                          <Input
+                            type="number"
+                            value={newFollowersCount}
+                            onChange={(e) => setNewFollowersCount(parseInt(e.target.value))}
+                            className="w-24"
+                          />
+                          <Button size="sm" onClick={() => handleSaveFollowers(restaurant.id)} disabled={isUpdatingFollowers}>
+                            {isUpdatingFollowers ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Salvar'}
+                          </Button>
+                          <Button variant="outline" size="sm" onClick={() => setEditingFollowersId(null)}>
+                            Cancelar
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2">
+                          <span>{restaurant.followers_override || 0}</span>
+                          <Button variant="outline" size="sm" onClick={() => handleEditFollowers(restaurant)}>
+                            Editar
+                          </Button>
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      {/* Ações adicionais aqui, se necessário */}
                     </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </CardContent>
-    </Card>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
