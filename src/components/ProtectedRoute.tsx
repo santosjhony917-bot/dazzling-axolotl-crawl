@@ -1,59 +1,42 @@
+"use client";
+
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthData } from '@/context/AuthContext';
-import { Loader2 } from 'lucide-react';
-import { createPageUrl } from '@/utils/url';
+import { useSession } from '@/integrations/supabase/session-provider';
+import { useAuth } from '../hooks/useAuth';
 
 interface ProtectedRouteProps {
-  requiredRole: 'authenticated' | 'admin' | 'restaurant_owner';
-  element?: React.ReactNode; // Opcional: O layout a ser renderizado se autorizado
+  requiredRole?: 'authenticated' | 'restaurant_owner' | 'admin';
+  layout?: React.ComponentType<{ children: React.ReactNode }>; // Layout component deve aceitar children
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { isAuthenticated, isLoading, isAdmin, restaurant, isProfileLoading } = useAuthData();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, layout: LayoutComponent }) => {
+  const { session, isLoading: isLoadingSession } = useSession();
+  const { isLoggedIn, isRestaurantOwner, isAdmin, isLoading: isLoadingAuth } = useAuth();
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+  if (isLoadingSession || isLoadingAuth) {
+    return <div>Carregando autenticação...</div>; // Ou um spinner de carregamento
   }
 
-  if (!isAuthenticated) {
-    // User is not authenticated, redirect to login page
-    return <Navigate to={createPageUrl("auth")} replace />;
-  }
-  
-  let isAuthorized = false;
-  
-  if (requiredRole === 'authenticated') {
-    isAuthorized = true; // Already checked by isAuthenticated
-  } else if (requiredRole === 'admin') {
-    isAuthorized = isAdmin;
-  } else if (requiredRole === 'restaurant_owner') {
-    // NEW LOGIC: If the required role is restaurant_owner, we must wait for the profile/restaurant data to load.
-    if (isProfileLoading) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-        );
-    }
-    // Once loading is complete, check if the restaurant object exists.
-    isAuthorized = !!restaurant;
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
   }
 
-  if (!isAuthorized) {
-    // User is authenticated but does not have the required role, redirect to home
-    // Se o usuário for um restaurante, mas tentar acessar uma rota de cliente, ele deve ir para o dashboard do restaurante.
-    // Se for um cliente, deve ir para a home.
-    const redirectPath = restaurant ? createPageUrl('restaurant-area/home') : createPageUrl('home');
-    return <Navigate to={redirectPath} replace />;
+  // Autorização baseada em role
+  if (requiredRole === 'restaurant_owner' && !isRestaurantOwner) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+  if (requiredRole === 'admin' && !isAdmin) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  // Se autorizado, renderiza o elemento (layout) ou o Outlet (se for uma rota folha)
-  return element ? <>{element}</> : <Outlet />;
+  // Se um LayoutComponent for fornecido, renderize-o e deixe-o lidar com o Outlet
+  if (LayoutComponent) {
+    return <LayoutComponent><Outlet /></LayoutComponent>;
+  }
+
+  // Caso contrário, apenas renderize o Outlet diretamente
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
