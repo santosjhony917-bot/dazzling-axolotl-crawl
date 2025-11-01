@@ -9,10 +9,13 @@ export type Restaurant = DB['public']['Tables']['restaurants']['Row'] & {
   payment_methods?: string[] | null;
   social_networks?: Json | null; // Assuming social_networks is stored as JSONB
 };
-export type Profile = DB['public']['Tables']['profiles']['Row'];
+export type Profile = DB['public']['Tables']['profiles']['Row'] & {
+  phone?: string | null;
+};
 export type MenuItem = DB['public']['Tables']['menu_items']['Row'];
 export type MenuCategory = DB['public']['Tables']['menu_categories']['Row'];
 export type GalleryImage = DB['public']['Tables']['restaurant_gallery']['Row'];
+export type ScheduledMetric = DB['public']['Tables']['scheduled_metrics']['Row'];
 export type UserFavorite = DB['public']['Tables']['user_favorites']['Row'];
 
 export type RestaurantWithDistance = Restaurant & {

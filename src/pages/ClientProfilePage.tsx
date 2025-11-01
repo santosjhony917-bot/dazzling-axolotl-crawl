@@ -42,13 +42,12 @@ export default function ClientProfilePage() {
     
     const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
 
-    const { error } = await updateProfile({ [editConfig.key]: cleanedValue });
-    
-    if (error) {
-      showError(error);
-    } else {
+    try {
+      await updateProfile({ [editConfig.key]: cleanedValue });
       showSuccess("Campo atualizado com sucesso!");
       refetchProfile();
+    } catch (error: any) {
+      showError(error.message || "Ocorreu um erro ao atualizar o perfil.");
     }
   }, [editConfig, updateProfile, refetchProfile]);
 
@@ -64,7 +63,11 @@ export default function ClientProfilePage() {
     <ClientAreaPageLayout title="Meu Perfil" icon={User} backPath="/">
       <div className="p-4 space-y-8 max-w-md mx-auto">
         {/* Informações Básicas */}
-        <ClientBasicInfoSection profile={profile} handleEditField={handleEditField} />
+        <ClientBasicInfoSection 
+          profile={profile} 
+          email={user?.email}
+          handleEditField={handleEditField} 
+        />
         
         <Separator />
 

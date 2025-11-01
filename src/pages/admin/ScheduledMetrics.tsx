@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, ScheduledMetric } from '@/types/supabase'; // Importar Restaurant e ScheduledMetric
@@ -12,6 +12,10 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { CalendarIcon, Loader2, PlusCircle, Trash2 } from 'lucide-react';
+
+interface ScheduledMetricsPageProps {
+  restaurantId: string;
+}
 
 const fetchRestaurants = async (): Promise<Restaurant[]> => {
   const { data, error } = await supabase.from('restaurants').select('*');
@@ -35,7 +39,7 @@ const deleteScheduledMetric = async (id: string) => {
   if (error) throw error;
 };
 
-const ScheduledMetricsPage: React.FC = () => {
+const ScheduledMetricsPage: React.FC<ScheduledMetricsPageProps> = ({ restaurantId }) => {
   const queryClient = useQueryClient();
   const { data: restaurants, isLoading: isLoadingRestaurants } = useQuery<Restaurant[], Error>({
     queryKey: ['adminRestaurants'],
