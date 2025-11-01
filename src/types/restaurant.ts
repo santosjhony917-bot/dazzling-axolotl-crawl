@@ -18,7 +18,7 @@ export interface SocialNetworkLink {
 }
 
 // Type for public restaurant profile data, including menu and gallery
-export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> {
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
   // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
   opening_hours: WeekSchedule | null; 
   
