@@ -50,7 +50,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         icon={Crown}
         title="Gerenciar Assinatura"
         description="Veja detalhes do seu plano e faturas."
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/upgrade'))}
+        onClick={() => handleNavigate(createPageUrl('restaurantAreaUpgrade'))}
         isPremium={isPremium}
       />
       

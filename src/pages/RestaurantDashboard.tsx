@@ -55,7 +55,7 @@ const RestaurantDashboard = () => {
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('searchUnified'));
   };
 
   const handleSearchNearby = () => {
@@ -69,7 +69,7 @@ const RestaurantDashboard = () => {
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('searchUnified'));
   };
   
   const handleViewCompetitor = (id: string) => {
@@ -120,7 +120,7 @@ const RestaurantDashboard = () => {
             variant="ghost" 
             size="icon" 
             className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl"
-            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
+            onClick={() => navigate(createPageUrl('restaurantAreaProfileMenu'))}
           >
             <Store className="h-6 w-6" />
           </Button>

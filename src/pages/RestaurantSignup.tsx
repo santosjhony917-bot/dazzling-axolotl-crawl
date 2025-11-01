@@ -167,7 +167,7 @@ export default function RestaurantSignup() {
       }
       
       showSuccess(`Restaurante cadastrado! Redirecionando para o painel.`);
-      navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
+      navigate(createPageUrl('restaurantAreaHome')); // CORRIGIDO: Redireciona para o Dashboard
       
     } catch (error) {
       const errorMessage = (error as Error).message;
@@ -175,7 +175,7 @@ export default function RestaurantSignup() {
       
       if (errorMessage.includes('already been registered') || errorMessage.includes('Usuário já existe')) {
         showError("Este e-mail já está em uso. Por favor, faça login na página de acesso do restaurante.");
-        navigate(createPageUrl('restaurant-login'));
+        navigate(createPageUrl('restaurantLogin'));
       } else {
         showError(errorMessage || "Ocorreu um erro ao criar a conta ou registrar o restaurante.");
       }
@@ -434,7 +434,7 @@ export default function RestaurantSignup() {
             if (currentStep > 1) {
               handleBack();
             } else {
-              navigate(createPageUrl('restaurant-area-hub'));
+              navigate(createPageUrl('restaurantAreaHub'));
             }
           }}
           className="text-primary hover:bg-primary/5"
@@ -540,7 +540,7 @@ export default function RestaurantSignup() {
           <p className="text-center text-sm text-gray-600">
             Já possui cadastro?{" "}
             <Link
-              to={createPageUrl('restaurant-login')}
+              to={createPageUrl('restaurantLogin')}
               className="font-bold text-highlight hover:underline"
             >
               Fazer login

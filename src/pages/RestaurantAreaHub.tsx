@@ -21,19 +21,19 @@ export default function RestaurantAreaHub() {
       title: "Fazer Login", 
       description: "Acesse seu painel de controle.", 
       icon: LogIn, 
-      path: 'restaurant-login' 
+      path: 'restaurantLogin' 
     },
     { 
       title: "Cadastrar Restaurante", 
       description: "Crie sua conta e adicione seu estabelecimento.", 
       icon: UserPlus, 
-      path: 'restaurant-signup' 
+      path: 'restaurantSignup' 
     },
     { 
       title: "Reivindicar Restaurante", 
       description: "Use o código de acesso fornecido pela FilterFood.", 
       icon: FileText, 
-      path: 'claim-restaurant' 
+      path: 'claimRestaurant' 
     },
   ];
 

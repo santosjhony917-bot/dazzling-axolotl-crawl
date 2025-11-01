@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, HelpCircle } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
+import { RestaurantAreaHeader } from '@/components/restaurant/RestaurantAreaHeader';
 
 export default function HelpCenter() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function HelpCenter() {
           <p className="text-gray-600 mb-6">
             Esta é a Central de Ajuda. Em breve, você encontrará tutoriais e respostas para as perguntas mais frequentes aqui.
           </p>
-          <Button onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}>
+          <Button onClick={() => navigate(createPageUrl('restaurantAreaProfileMenu'))}>
             Voltar ao Perfil
           </Button>
         </div>

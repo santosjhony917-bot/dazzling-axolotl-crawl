@@ -41,20 +41,20 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
         id: 'upgrade', 
         icon: Crown, 
         label: 'Premium', 
-        path: createPageUrl('restaurant-area/upgrade') as string
+        path: createPageUrl('restaurantAreaUpgrade') as string
       }
     : { 
         id: 'favorites', 
         icon: Heart, 
         label: 'Favoritos', 
-        path: createPageUrl('restaurant-area/favorites') as string // Alterado para rota de restaurante
+        path: createPageUrl('restaurantAreaFavorites') as string // Alterado para rota de restaurante
       };
 
   const navItems = [
-    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/search') }, // Alterado para rota de restaurante
+    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurantAreaHome') },
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurantAreaSearch') }, // Alterado para rota de restaurante
     centralItem, // Item central dinâmico
-    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
+    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurantAreaProfileMenu') },
   ];
   
   // Função para verificar se o item está selecionado com base na rota
@@ -65,7 +65,7 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
     
     // Verifica se o caminho atual começa com o caminho do item (útil para rotas aninhadas como /menu)
     return currentPath === normalizedItemPath || 
-           (normalizedItemPath === createPageUrl('restaurant-area/profile-menu') && currentPath.startsWith(normalizedItemPath));
+           (normalizedItemPath === createPageUrl('restaurantAreaProfileMenu') && currentPath.startsWith(normalizedItemPath));
   };
 
   return (

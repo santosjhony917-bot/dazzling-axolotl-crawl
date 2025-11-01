@@ -37,7 +37,7 @@ const MetricsPage: React.FC = () => {
           As métricas de desempenho e o acompanhamento de seguidores são exclusivos do plano Premium.
         </p>
         <Button 
-          onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+          onClick={() => navigate(createPageUrl('restaurantAreaUpgrade'))}
           className="bg-highlight hover:bg-highlight/90"
         >
           Fazer Upgrade

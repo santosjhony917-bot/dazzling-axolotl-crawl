@@ -14,13 +14,13 @@ export default function RestaurantArea() {
 
     if (!user) {
       // Não autenticado, redireciona para o login do restaurante
-      navigate(createPageUrl('restaurant-login'), { state: { from: location }, replace: true });
+      navigate(createPageUrl('restaurantLogin'), { state: { from: location }, replace: true });
     } else if (!restaurant) {
       // Autenticado, mas sem restaurante associado (deve ir para o hub ou claim)
-      navigate(createPageUrl('restaurant-area-hub'), { replace: true });
+      navigate(createPageUrl('restaurantAreaHub'), { replace: true });
     } else {
       // Autenticado e com restaurante, vai para o dashboard
-      navigate(createPageUrl('restaurant-area/home'), { replace: true });
+      navigate(createPageUrl('restaurantAreaHome'), { replace: true });
     }
   }, [isLoading, user, restaurant, navigate, location]);
 
