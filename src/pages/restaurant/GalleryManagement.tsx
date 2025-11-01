@@ -183,7 +183,7 @@ export default function GalleryManagement() {
 
   return (
     <RestaurantAreaPageLayout 
-      title="Galeria de Imagens" 
+      title="Gerenciamento de Imagens" 
       icon={Image} 
       backPath="restaurant-area/profile-menu"
     >
@@ -265,7 +265,7 @@ export default function GalleryManagement() {
               </SortableContext>
             </DndContext>
             
-            {localGallery.length === 0 && !loading && (
+            {localGallery.length === 0 && !isLoading && (
               <p className="text-center text-gray-500 mt-8">Nenhuma imagem na galeria ainda. Adicione a primeira!</p>
             )}
           </CardContent>
