@@ -33,7 +33,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
   const handleNavigateToDetails = (e: React.MouseEvent) => {
     e.preventDefault(); // Previne o comportamento padrão do link
     if (!isMutating) {
-      navigate(createPageUrl('restaurantAreaCategoryDetails', { categoryId: category.id }));
+      navigate(createPageUrl('restaurant-area/category-details', { categoryId: category.id }));
     }
   };
 

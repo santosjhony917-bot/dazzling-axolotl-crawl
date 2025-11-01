@@ -42,7 +42,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         title="Cardápio e Categorias" 
         description="Adicione, edite e organize pratos e categorias."
         icon={Utensils} 
-        onClick={() => handleNavigate(createPageUrl('restaurantAreaMenu'), false)}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
         isPremium={isPremium}
       />
       <NavCardItem 
@@ -51,7 +51,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         icon={Camera} 
         isPremiumFeature={true}
         isPremium={isPremium}
-        onClick={() => handleNavigate(createPageUrl('restaurantAreaGallery'), true)}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
         premiumDescription="Exclusivo Premium"
       />
       

@@ -2,64 +2,57 @@ import { generatePath } from 'react-router-dom';
 
 // Define as chaves de rota e seus tipos de parâmetros
 export const PATH_MAP = {
-  // Public Routes
+  // Rotas Públicas
   index: '/',
   splash: '/splash',
   welcome: '/welcome',
-  auth: '/auth',
+  auth: '/auth', // Rota de login/cadastro (usa query params: ?mode=signup)
   onboarding: '/onboarding',
   legal: '/legal',
-  forgotPassword: '/forgot-password',
+  menuItemDetails: '/menu-item/:itemId',
   helpCenter: '/help-center',
-  unauthorized: '/unauthorized',
-  notFound: '*',
-
-  // Client-facing Public Routes (can be accessed by anyone, but might show different content if authenticated)
-  restaurantProfile: '/restaurant/:restaurantId', // Public profile view
-  fullMenuPage: '/restaurant/:restaurantId/menu-full', // Public full menu view
-  menuItemDetails: '/menu-item/:itemId', // Public menu item details
-  restaurantResults: '/restaurant-results', // Search results page
-  searchUnified: '/search-unified', // Unified search page
-  popularDishes: '/popular-dishes', // Popular dishes page
-
-  // Authenticated Client Routes (requires login)
-  home: '/home', // Main client home after login
+  forgotPassword: '/forgot-password',
+  restaurantResults: '/restaurant-results',
+  
+  // NOVO: Rota para o cardápio completo
+  fullMenuPage: '/restaurant/:restaurantId/menu-full',
+  
+  // Rotas de Cliente (Autenticadas ou Públicas)
+  home: '/home',
   favorites: '/favorites',
-  clientProfile: '/profile', // Client's own profile settings
-
-  // Restaurant Owner Routes (requires restaurant owner role)
-  restaurantAreaHub: '/restaurant-area-hub', // Hub for restaurant owners (login, signup, claim)
-  restaurantLogin: '/restaurant-area/login',
-  restaurantSignup: '/restaurant-area/signup',
-  claimRestaurant: '/restaurant-area/claim',
-  restaurantAreaHome: '/restaurant-area/home', // Restaurant owner dashboard/home
-  restaurantAreaProfileMenu: '/restaurant-area/profile-menu', // Profile settings for restaurant
-  restaurantAreaMenu: '/restaurant-area/menu', // Menu management overview
-  restaurantAreaCategoryDetails: '/restaurant-area/menu/:categoryId', // Specific category details
-  restaurantAreaGallery: '/restaurant-area/gallery', // Gallery management
-  restaurantAreaMetrics: '/restaurant-area/metrics', // Metrics page
-  restaurantAreaUpgrade: '/restaurant-area/upgrade', // Upgrade plan page
-  restaurantAreaSearch: '/restaurant-area/search', // Restaurant-specific search (if any)
-  restaurantAreaFavorites: '/restaurant-area/favorites', // Restaurant-specific favorites (if any)
-
-  // Admin Routes (requires admin role)
+  clientProfile: '/profile',
+  'search-unified': '/search-unified',
+  
+  // Rotas de Proprietário de Restaurante (Autenticadas)
+  'restaurant-area-hub': '/restaurant-area-hub',
+  'restaurant-login': '/restaurant-area/login',
+  'restaurant-signup': '/restaurant-area/signup',
+  'claim-restaurant': '/restaurant-area/claim',
+  'restaurant-area/upgrade': '/restaurant-area/upgrade',
+  
+  'restaurant-area/home': '/restaurant-area/home',
+  'restaurant-area/profile-menu': '/restaurant-area/profile-menu',
+  'restaurant-area/menu': '/restaurant-area/menu',
+  'restaurant-area/category-details': '/restaurant-area/menu/:categoryId',
+  'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/metrics': '/restaurant-area/metrics', // Adicionado
+  'restaurant-area/search': '/restaurant-area/search', // NOVA ROTA
+  'restaurant-area/favorites': '/restaurant-area/favorites', // NOVA ROTA
+  
+  // Rotas Admin
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
   adminRestaurants: '/admin/restaurants',
   adminPlans: '/admin/plans',
   adminUsers: '/admin/users',
   adminSettings: '/admin/settings',
-  adminCategories: '/admin/categories',
-  adminFiles: '/admin/files',
-  adminImport: '/admin/import',
-  adminBanners: '/admin/banners',
-  adminUploadInfo: '/admin/upload-info',
-  adminEditRestaurant: '/admin/restaurants/:restaurantId/edit',
-  adminManageAdmins: '/admin/manage-admins',
-  adminPopularCategories: '/admin/popular-categories',
-  adminInstantMetrics: '/admin/instant-metrics',
-  adminManagePlans: '/admin/manage-plans',
-  adminScheduledMetrics: '/admin/scheduled-metrics',
+  adminCategories: '/admin/categories', // Adicionado para consistência
+  adminFiles: '/admin/files', // Adicionado para consistência
+  adminImport: '/admin/import', // Adicionado para consistência
+  adminBanners: '/admin/banners', // NOVO: Adicionado para a página de banners
+  
+  // Rotas com parâmetros complexos (mantidas)
+  restaurantProfile: '/restaurant/:restaurantId',
 } as const;
 
 export type PathKey = keyof typeof PATH_MAP; // EXPORTED
@@ -70,11 +63,9 @@ type PathParams<K extends PathKey> =
     ? { restaurantId: string }
   : K extends 'menuItemDetails'
     ? { itemId: string }
-  : K extends 'restaurantAreaCategoryDetails'
+  : K extends 'restaurant-area/category-details'
     ? { categoryId: string }
-  : K extends 'fullMenuPage'
-    ? { restaurantId: string }
-  : K extends 'adminEditRestaurant'
+  : K extends 'fullMenuPage' // NOVO
     ? { restaurantId: string }
   : undefined;
 
@@ -92,12 +83,19 @@ export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
   const excludedKeys: PathKey[] = [
     'auth', 'onboarding', 'legal', 'menuItemDetails', 'forgotPassword', 'restaurantResults',
     'fullMenuPage', 'restaurantProfile', // Rotas com parâmetros
-    'restaurantAreaCategoryDetails', // Mantido, pois exige parâmetro
+    // 'restaurant-area-hub', // Removido da exclusão
+    'restaurant-login', 'restaurant-signup', 'claim-restaurant',
+    // 'restaurant-area/upgrade', // Removido da exclusão
+    // 'restaurant-area/home', // Removido da exclusão
+    // 'restaurant-area/profile-menu', // Removido da exclusão
+    // 'restaurant-area/menu', // Removido da exclusão
+    'restaurant-area/category-details', // Mantido, pois exige parâmetro
+    // 'restaurant-area/gallery', // Removido da exclusão
+    // 'restaurant-area/metrics', // Removido da exclusão
+    // 'restaurant-area/search', // Removido da exclusão
+    // 'restaurant-area/favorites', // Removido da exclusão
     'adminLogin', 'adminDashboard', 'adminRestaurants', 'adminPlans', 'adminUsers',
     'adminSettings', 'adminCategories', 'adminFiles', 'adminImport', 'adminBanners', // Rotas de admin
-    'adminUploadInfo', 'adminEditRestaurant', 'adminManageAdmins', 'adminPopularCategories',
-    'adminInstantMetrics', 'adminManagePlans', 'adminScheduledMetrics',
-    'unauthorized', 'notFound', 'index', 'splash', // Rotas de sistema
   ];
 
   const selectablePaths: { key: PathKey; label: string }[] = [];

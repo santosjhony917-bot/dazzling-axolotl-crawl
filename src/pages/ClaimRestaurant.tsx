@@ -66,7 +66,7 @@ export default function ClaimRestaurant() {
       showSuccess("Restaurante reivindicado com sucesso! Redirecionando para o Dashboard.");
       
       setTimeout(() => {
-        navigate(createPageUrl('restaurantAreaHome'));
+        navigate(createPageUrl('restaurant-area/home'));
       }, 1000);
 
     } catch (error) {
@@ -85,7 +85,7 @@ export default function ClaimRestaurant() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurantAreaHub'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-[#022D68] hover:bg-[#022D68]/5"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -216,7 +216,7 @@ export default function ClaimRestaurant() {
               <p className="pt-6 text-center text-base text-gray-600">
                 Já tem uma conta?
                 <Link
-                  to={createPageUrl('restaurantLogin')}
+                  to={createPageUrl('restaurant-login')}
                   className="font-bold text-[#E47948] hover:underline ml-1"
                 >
                   Fazer login

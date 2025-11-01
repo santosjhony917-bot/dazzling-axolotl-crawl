@@ -93,7 +93,7 @@ export default function RestaurantLogin() {
       
       showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
       // CORRIGIDO: Redirecionar para a rota do Dashboard do restaurante
-      navigate(createPageUrl("restaurantAreaHome")); 
+      navigate(createPageUrl("restaurant-area/home")); 
 
     } catch (error) {
       const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";
@@ -108,11 +108,11 @@ export default function RestaurantLogin() {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
       
       {/* Header/Botão Voltar */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-10 shadow-soft-md w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => navigate(createPageUrl('restaurantAreaHub'))}
+          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
           className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
@@ -216,7 +216,7 @@ export default function RestaurantLogin() {
               <p className="pt-6 text-center text-base text-gray-600">
                 Não tem uma conta?
                 <Link
-                  to={createPageUrl('restaurantSignup')}
+                  to={createPageUrl('restaurant-signup')}
                   className="font-bold text-highlight hover:underline ml-1"
                 >
                   Crie uma agora

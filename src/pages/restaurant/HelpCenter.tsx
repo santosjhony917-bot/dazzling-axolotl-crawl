@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search, ChevronDown, ChevronUp, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { RestaurantAreaHeader } from '@/components/restaurant/RestaurantAreaHeader';
+import RestaurantAreaHeader from '@/components/restaurant/RestaurantAreaHeader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPageUrl } from '@/utils/url';
 import { Card, CardContent } from '@/components/ui/card';
@@ -91,7 +91,7 @@ export default function HelpCenter() {
     <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
       {/* Header */}
-      <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurantAreaProfileMenu" />
+      <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurant-area/profile-menu" />
 
       <main className="flex-1 w-full max-w-md p-4">
         
