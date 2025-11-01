@@ -56,6 +56,7 @@ const AdminBanners: React.FC = () => {
   const [textColor, setTextColor] = useState('#FFFFFF');
   const [textPosition, setTextPosition] = useState<'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center'>('bottom-left');
   const [textSize, setTextSize] = useState<'sm' | 'md' | 'lg' | 'xl' | '2xl'>('md');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const selectablePagePaths = getSelectablePagePaths();
 
@@ -146,6 +147,8 @@ const AdminBanners: React.FC = () => {
       return; // Impede a submissão se a URL da imagem estiver vazia
     }
 
+    setIsSubmitting(true);
+
     const bannerData = {
       title,
       subtitle,
@@ -170,9 +173,10 @@ const AdminBanners: React.FC = () => {
         .eq('id', editingBanner.id);
 
       if (error) {
+        console.error("Supabase update error:", error);
         toast({
           title: 'Erro ao atualizar banner',
-          description: error.message,
+          description: error.message || 'Ocorreu um erro desconhecido ao atualizar o banner. Verifique suas permissões.',
           variant: 'destructive',
         });
       } else {
@@ -189,9 +193,10 @@ const AdminBanners: React.FC = () => {
         .insert(bannerData);
 
       if (error) {
+        console.error("Supabase insert error:", error);
         toast({
           title: 'Erro ao criar banner',
-          description: error.message,
+          description: error.message || 'Ocorreu um erro desconhecido ao criar o banner. Verifique suas permissões.',
           variant: 'destructive',
         });
       } else {
@@ -203,6 +208,7 @@ const AdminBanners: React.FC = () => {
         setIsModalOpen(false);
       }
     }
+    setIsSubmitting(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -425,8 +431,11 @@ const AdminBanners: React.FC = () => {
 
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSubmit}>{editingBanner ? 'Salvar Alterações' : 'Criar Banner'}</Button>
+            <Button variant="outline" onClick={() => setIsModalOpen(false)} disabled={isSubmitting}>Cancelar</Button>
+            <Button onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {editingBanner ? 'Salvar Alterações' : 'Criar Banner'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
