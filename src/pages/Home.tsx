@@ -17,6 +17,7 @@ import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompet
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -42,6 +43,13 @@ const Home: React.FC = () => {
     enabled: userLat !== null && userLon !== null,
     searchQuery: searchQuery, // Passa a query de busca
   });
+
+  // Novo hook para pratos populares
+  const { 
+    data: popularMenuItems, 
+    isLoading: isLoadingPopularItems, 
+    error: popularItemsError 
+  } = usePopularMenuItems();
 
   const handleLocationSaved = () => {
     refetchLocation();
@@ -87,15 +95,6 @@ const Home: React.FC = () => {
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
     navigate(createPageUrl('search-unified'));
   };
-
-  // Usando os 3 primeiros restaurantes próximos como Destaques (se houver)
-  const highlights = restaurants.slice(0, 3).map(r => ({
-    id: r.id,
-    name: r.name,
-    restaurantName: r.category || 'Geral',
-    price: 25.00, // Preço mockado, pois não temos o preço médio
-    imageUrl: r.image_url || 'https://via.placeholder.com/300x200?text=Destaque',
-  }));
 
   return (
     <div className="bg-[#f5f7f8]"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
@@ -178,13 +177,32 @@ const Home: React.FC = () => {
           </div>
           <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
             <div className="flex space-x-4 pb-6"> {/* Adicionando padding inferior ao div interno */}
-              {highlights.length > 0 ? (
-                highlights.map((item) => (
-                  <HighlightCard key={item.id} item={item} />
+              {isLoadingPopularItems ? (
+                <>
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
+                </>
+              ) : popularItemsError ? (
+                <div className="text-center p-4 text-red-500 bg-red-100 rounded-xl shadow-soft-md w-full">
+                  Erro ao carregar pratos populares: {popularItemsError.message}
+                </div>
+              ) : popularMenuItems && popularMenuItems.length > 0 ? (
+                popularMenuItems.map((item) => (
+                  <HighlightCard 
+                    key={item.id} 
+                    item={{
+                      id: item.id,
+                      name: item.name,
+                      restaurantName: item.restaurantName,
+                      price: item.price,
+                      imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato+Popular', // Fallback image
+                    }} 
+                  />
                 ))
               ) : (
                 <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
-                  Nenhum destaque encontrado.
+                  Nenhum prato popular encontrado.
                 </div>
               )}
             </div>
