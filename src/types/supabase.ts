@@ -79,6 +79,7 @@ export interface Database {
           name: string
           order_index: number | null
           restaurant_id: string
+          is_popular: boolean | null
         }
         Insert: {
           created_at?: string | null
@@ -87,6 +88,7 @@ export interface Database {
           name: string
           order_index?: number | null
           restaurant_id: string
+          is_popular?: boolean | null
         }
         Update: {
           created_at?: string | null
@@ -95,6 +97,7 @@ export interface Database {
           name?: string
           order_index?: number | null
           restaurant_id?: string
+          is_popular?: boolean | null
         }
         Relationships: [
           {
