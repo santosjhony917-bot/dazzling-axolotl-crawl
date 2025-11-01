@@ -1,87 +1,63 @@
-"use client";
-
-import { useState, useCallback } from 'react';
+import { useQuery, useMutation, useQueryClient, UseMutateFunction } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, RestaurantPlan } from '@/types/supabase'; // Importando o tipo correto
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
 
-interface UseAdminRestaurantsProps {
-  initialData?: Restaurant[];
+const ADMIN_RESTAURANTS_QUERY_KEY = ['adminRestaurants'];
+
+interface UpdatePlanPayload {
+  restaurantId: string;
+  newPlan: RestaurantPlan;
 }
 
-export function useAdminRestaurants(props?: UseAdminRestaurantsProps) {
+const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
+  // Nota: Esta query usa a chave de anon, mas RLS deve ser configurado para permitir
+  // que administradores (via auth.uid() = is_admin()) leiam todos os registros.
+  // Assumindo que o RLS está configurado corretamente para admins.
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw new Error(error.message);
+  return data as Restaurant[];
+};
+
+const updateRestaurantPlan = async ({ restaurantId, newPlan }: UpdatePlanPayload): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .update({ plan: newPlan })
+    .eq('id', restaurantId);
+
+  if (error) throw new Error(error.message);
+};
+
+export function useAdminRestaurants() {
   const queryClient = useQueryClient();
 
-  const fetchRestaurants = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('restaurants')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching restaurants:', error);
-      throw error;
-    }
-    return data || [];
-  }, []);
-
-  const { data: restaurants = [], isLoading, error, refetch } = useQuery<Restaurant[], Error>({
-    queryKey: ['adminRestaurants'],
-    queryFn: fetchRestaurants,
-    initialData: props?.initialData,
+  const restaurantsQuery = useQuery<Restaurant[], Error>({
+    queryKey: ADMIN_RESTAURANTS_QUERY_KEY,
+    queryFn: fetchAllRestaurants,
+    staleTime: 60000,
   });
 
-  const updateRestaurantPlanMutation = useMutation<void, Error, { id: string; plan: RestaurantPlan }>({
-    mutationFn: async ({ id, plan }) => {
-      const { error } = await supabase
-        .from('restaurants')
-        .update({ plan })
-        .eq('id', id);
-
-      if (error) {
-        console.error('Error updating restaurant plan:', error);
-        throw error;
-      }
+  const updatePlanMutation = useMutation({
+    mutationFn: updateRestaurantPlan,
+    onSuccess: (_, variables) => {
+      showSuccess(`Plano do restaurante atualizado para ${variables.newPlan}!`);
+      queryClient.invalidateQueries({ queryKey: ADMIN_RESTAURANTS_QUERY_KEY });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['adminRestaurants'] });
-      showSuccess('Plano do restaurante atualizado com sucesso!');
-    },
-    onError: (err) => {
-      showError(`Erro ao atualizar plano: ${err.message}`);
-    },
-  });
-
-  const updateRestaurantFollowersOverrideMutation = useMutation<void, Error, { id: string; followers_override: number }>({
-    mutationFn: async ({ id, followers_override }) => {
-      const { error } = await supabase
-        .from('restaurants')
-        .update({ followers_override })
-        .eq('id', id);
-
-      if (error) {
-        console.error('Error updating followers override:', error);
-        throw error;
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['adminRestaurants'] });
-      showSuccess('Contagem de seguidores ajustada com sucesso!');
-    },
-    onError: (err) => {
-      showError(`Erro ao ajustar seguidores: ${err.message}`);
+    onError: (error) => {
+      showError(`Falha ao atualizar plano: ${error.message}`);
     },
   });
 
   return {
-    restaurants,
-    isLoading,
-    error,
-    refetch,
-    updateRestaurantPlan: updateRestaurantPlanMutation.mutateAsync,
-    isUpdatingPlan: updateRestaurantPlanMutation.isPending,
-    updateRestaurantFollowersOverride: updateRestaurantFollowersOverrideMutation.mutateAsync,
-    isUpdatingFollowers: updateRestaurantFollowersOverrideMutation.isPending,
+    restaurants: restaurantsQuery.data || [],
+    isLoading: restaurantsQuery.isLoading,
+    error: restaurantsQuery.error,
+    updatePlan: updatePlanMutation.mutate,
+    isUpdating: updatePlanMutation.isPending,
+    refetch: restaurantsQuery.refetch,
   };
 }

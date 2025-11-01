@@ -1,51 +1,67 @@
-"use client";
-
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuthData } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
+import { createPageUrl } from '@/utils/url';
+import NavCardItem from '@/components/NavCardItem';
+import { useAuthData } from '@/context/AuthContext';
 
 interface SubscriptionSupportSectionProps {
+  navigate: ReturnType<typeof useNavigate>;
   isPremium: boolean;
 }
 
-const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ isPremium }) => {
-  const { signOut } = useAuthData(); // Adicionado signOut
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await signOut();
-    navigate('/auth');
+const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
+  const { signOut } = useAuthData();
+  
+  const handleNavigate = (path: string) => {
+    navigate(path);
   };
-
+  
+  const handleSignOut = async () => {
+    await signOut();
+    // Redireciona para a tela de boas-vindas após o logout
+    navigate(createPageUrl('welcome'), { replace: true });
+  };
+  
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Assinatura e Suporte</CardTitle>
-        <CardDescription>Gerencie sua assinatura e acesse o suporte.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <p className="font-medium">Status da Assinatura:</p>
-          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${isPremium ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800'}`}>
-            {isPremium ? 'Premium' : 'Grátis'}
-          </span>
-        </div>
-        {!isPremium && (
-          <Button className="w-full bg-[#E47948] hover:bg-[#C2653B]" onClick={() => navigate('/restaurant/upgrade')}>
-            Fazer Upgrade para Premium
-          </Button>
-        )}
-        <Button variant="outline" className="w-full" onClick={() => alert('Funcionalidade de suporte em breve!')}>
-          Contatar Suporte
-        </Button>
-        <Button variant="destructive" className="w-full" onClick={handleLogout}>
-          <LogOut className="h-4 w-4 mr-2" /> Sair
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="w-full space-y-3">
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
+      
+      <NavCardItem 
+        icon={HelpCircle} // CORRIGIDO
+        title="Central de Ajuda"
+        description="Encontre respostas rápidas e tutoriais."
+        onClick={() => handleNavigate(createPageUrl('helpCenter'))}
+      />
+      
+      <NavCardItem 
+        icon={MessageSquare}
+        title="Falar com Suporte"
+        description="Entre em contato direto com nossa equipe."
+        onClick={() => {
+          // Ação para abrir chat ou link de contato (ex: WhatsApp)
+          alert("Abrindo chat de suporte...");
+        }}
+        isPremium={isPremium}
+        premiumDescription="Suporte prioritário 24h"
+      />
+      
+      <NavCardItem 
+        icon={Crown}
+        title="Gerenciar Assinatura"
+        description="Veja detalhes do seu plano e faturas."
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/upgrade'))}
+        isPremium={isPremium}
+      />
+      
+      {/* NOVO: Botão de Sair */}
+      <NavCardItem 
+        icon={LogOut}
+        title="Sair da Conta"
+        description="Desconectar-se do painel do restaurante."
+        onClick={handleSignOut} // Usando o novo handler
+      />
+    </div>
   );
 };
 

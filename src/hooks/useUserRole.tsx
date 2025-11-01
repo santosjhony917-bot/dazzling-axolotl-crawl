@@ -1,9 +1,11 @@
-"use client";
-
 import { useAuthData } from '@/context/AuthContext';
 
 export function useUserRole() {
-  const { isPremium, isAdmin, isProfileLoading } = useAuthData(); // Corrigido: usando 'isProfileLoading', 'isPremium', 'isAdmin'
+  const { isPremium, isAdmin, isLoading } = useAuthData();
 
-  return { isPremium, isAdmin, isLoading: isProfileLoading };
+  return {
+    isPremium,
+    isAdmin,
+    isLoading,
+  };
 }

@@ -1,58 +1,158 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Auth } from '@supabase/auth-ui-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthData } from '@/context/AuthContext';
+import { Loader2, MapPin, ArrowLeft, ArrowRight } from 'lucide-react';
+import { createPageUrl } from '@/utils/url';
+import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
 
-const AuthPage: React.FC = () => {
+export default function Auth() {
   const navigate = useNavigate();
-  const { user, isProfileLoading } = useAuthData(); // CORRIGIDO: Usando 'isProfileLoading'
-  const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in');
+  const { user, isLoading: isAuthLoading, refetchProfile } = useAuthData(); // CORRIGIDO: Usando 'useAuthData'
+  const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in'); 
 
+  // Redireciona se já estiver logado
   useEffect(() => {
-    if (!isProfileLoading && user) {
-      navigate('/'); // Redireciona para a página inicial se o usuário estiver logado
+    if (user) {
+      navigate(createPageUrl('home'));
     }
-  }, [user, isProfileLoading, navigate]);
+  }, [user, navigate]);
 
-  if (isProfileLoading) {
+  // Lida com a mudança de estado de autenticação (para erros e sucesso)
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        refetchProfile(); 
+        navigate(createPageUrl('home'));
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate, refetchProfile]);
+
+  if (isAuthLoading || user) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
-
+  
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-[#022D68]">
-          {mode === 'sign_in' ? 'Entrar' : 'Criar Conta'}
-        </h2>
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={[]} // Removendo provedores de terceiros por enquanto
-          redirectTo={window.location.origin + '/'} // Redireciona para a home após o login
-          view={mode}
-          // onAuthStateChange e email não são props diretas do componente Auth,
-          // o AuthContext já lida com onAuthStateChange globalmente.
-        />
+    <div className="min-h-screen flex flex-col items-center bg-background-light p-4">
+      
+      {/* Header de Navegação (Apenas botão de voltar) */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-start sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
         <Button
-          variant="link"
-          className="w-full mt-4 text-[#E47948]"
-          onClick={() => setMode(mode === 'sign_in' ? 'sign_up' : 'sign_in')}
+          variant="ghost"
+          size="icon"
+          onClick={() => navigate(createPageUrl('welcome'))}
+          className="text-primary hover:bg-primary/5"
         >
-          {mode === 'sign_in' ? 'Não tem uma conta? Cadastre-se' : 'Já tem uma conta? Faça login'}
+          <ArrowLeft className="h-6 w-6" />
         </Button>
-      </div>
+        <h2 className="text-primary text-xl font-bold ml-4">Login</h2>
+      </header>
+
+      <main className="flex-1 flex flex-col justify-center w-full max-w-md pt-20">
+        {/* Bloco de Conteúdo Superior (Ícone e Título) */}
+        <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <MapPin className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
+            Acesso rápido
+          </h1>
+          <p className="text-text-secondary text-base mt-1">
+            Seu acesso aos melhores pratos!
+          </p>
+        </div>
+
+        {/* Card Principal */}
+        <div className="bg-white rounded-2xl shadow-soft-xl p-6">
+          
+          <SupabaseAuth
+            supabaseClient={supabase}
+            appearance={{
+              theme: ThemeSupa,
+              variables: {
+                default: {
+                  colors: {
+                    // Cores do nosso tema
+                    brand: '#E47948', // Botão principal (Highlight)
+                    brandAccent: '#022D68', // Cor de destaque (Primary)
+                    
+                    // Botão Principal (Entrar/Criar Conta)
+                    defaultButtonBackground: '#E47948', 
+                    defaultButtonBackgroundHover: '#E47948CC', 
+                    defaultButtonText: '#ffffff',
+                    
+                    // Inputs
+                    inputBackground: '#ffffff',
+                    inputBorder: '#e5e7eb',
+                    inputBorderHover: '#E47948', 
+                    inputBorderFocus: '#E47948', 
+                    inputLabelText: '#022D68', 
+                    inputText: '#1f2937',
+                    
+                    // Links (Esqueceu a senha, etc.)
+                    anchorTextColor: '#E47948', // Usando Highlight para links
+                    anchorTextHoverColor: '#022D68', 
+                  },
+                  radii: {
+                    borderRadiusButton: '0.75rem', // rounded-xl
+                    inputBorderRadius: '0.75rem', // rounded-xl
+                  },
+                },
+              },
+            }}
+            theme="light"
+            providers={['google', 'apple']} // Habilitando provedores sociais
+            view={mode}
+            redirectTo={window.location.origin + createPageUrl('auth')} 
+            localization={{
+              variables: {
+                sign_in: {
+                  email_label: 'E-mail',
+                  password_label: 'Senha',
+                  email_input_placeholder: 'E-mail',
+                  password_input_placeholder: '••••••••',
+                  button_label: 'Entrar',
+                  loading_button_label: 'Entrando...',
+                  link_text: 'Esqueceu sua senha?',
+                  social_provider_text: 'ou continue com',
+                },
+                sign_up: {
+                  email_label: 'E-mail',
+                  password_label: 'Crie uma senha',
+                  email_input_placeholder: 'E-mail',
+                  password_input_placeholder: '••••••••',
+                  button_label: 'Cadastrar-se',
+                  loading_button_label: 'Cadastrando...',
+                  link_text: 'Já tem uma conta? Entrar',
+                  social_provider_text: 'ou continue com',
+                },
+                forgotten_password: {
+                  link_text: 'Voltar para o login',
+                  email_label: 'E-mail',
+                  email_input_placeholder: 'E-mail',
+                  button_label: 'Enviar instruções de recuperação',
+                  loading_button_label: 'Enviando...',
+                },
+              },
+            }}
+          />
+          
+          {/* Links Legais no Rodapé do Card */}
+          <div className="flex justify-center gap-6 pt-6 border-t border-gray-100 mt-6">
+            <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
+            <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
+          </div>
+        </div>
+      </main>
     </div>
   );
-};
-
-export default AuthPage;
+}

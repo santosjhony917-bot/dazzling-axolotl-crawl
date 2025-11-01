@@ -1,77 +1,122 @@
-"use client";
-
 import React, { useState } from 'react';
 import { Trash2, Loader2, Edit, Save, GripVertical } from 'lucide-react';
 import { GalleryImage } from '@/types/supabase';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { DraggableProvided } from '@hello-pangea/dnd'; // Importando DraggableProvided
 
 interface GalleryImageCardProps {
   image: GalleryImage;
-  onUpdateCaption: (id: string, caption: string) => Promise<GalleryImage>; // Corrigido o tipo de retorno
   onDelete: (imageId: string) => Promise<void>;
-  isUpdating: boolean;
+  onUpdateCaption: (imageId: string, newCaption: string) => Promise<void>;
   isDeleting: boolean;
-  provided: DraggableProvided;
+  isUpdating: boolean;
+  // Adicionado props para DND
+  attributes: any;
+  listeners: any;
+  setNodeRef: (element: HTMLElement | null) => void;
+  style: React.CSSProperties;
 }
 
-const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
-  image,
-  onUpdateCaption,
-  onDelete,
+const GalleryImageCard: React.FC<GalleryImageCardProps> = ({ 
+  image, 
+  onDelete, 
+  onUpdateCaption, 
+  isDeleting, 
   isUpdating,
-  isDeleting,
-  provided,
+  attributes,
+  listeners,
+  setNodeRef,
+  style,
 }) => {
-  const [isEditingCaption, setIsEditingCaption] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [caption, setCaption] = useState(image.caption || '');
+  const [isSaving, setIsSaving] = useState(false);
 
-  const handleSaveCaption = async () => {
-    await onUpdateCaption(image.id, caption);
-    setIsEditingCaption(false);
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      await onUpdateCaption(image.id, caption);
+      setIsEditing(false);
+    } catch (e) {
+      // Error handled in parent hook
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm("Tem certeza que deseja deletar esta imagem?")) {
+      await onDelete(image.id);
+    }
   };
 
   return (
-    <div
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      className="relative bg-white rounded-lg shadow-md overflow-hidden group"
+    <div 
+      ref={setNodeRef} 
+      style={style} 
+      className="relative rounded-xl overflow-hidden shadow-soft-md group bg-white"
     >
-      <img src={image.image_url} alt={image.caption || 'Imagem da galeria'} className="w-full h-48 object-cover" />
-      <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-        <div className="flex justify-between items-center">
-          <div {...provided.dragHandleProps} className="cursor-grab text-white hover:text-gray-200">
-            <GripVertical className="h-6 w-6" />
-          </div>
-          <div className="flex space-x-1">
-            {isEditingCaption ? (
-              <Button variant="ghost" size="icon" onClick={handleSaveCaption} disabled={isUpdating}>
-                {isUpdating ? <Loader2 className="h-5 w-5 animate-spin text-white" /> : <Save className="h-5 w-5 text-white" />}
-              </Button>
-            ) : (
-              <Button variant="ghost" size="icon" onClick={() => setIsEditingCaption(true)}>
-                <Edit className="h-5 w-5 text-white" />
-              </Button>
-            )}
-            <Button variant="ghost" size="icon" onClick={() => onDelete(image.id)} disabled={isDeleting}>
-              {isDeleting ? <Loader2 className="h-5 w-5 animate-spin text-red-500" /> : <Trash2 className="h-5 w-5 text-red-500" />}
-            </Button>
-          </div>
-        </div>
-        <div className="mt-auto">
-          {isEditingCaption ? (
+      <img
+        src={image.image_url}
+        alt={image.caption || 'Imagem da galeria'}
+        className="w-full h-48 object-cover"
+      />
+      
+      {/* Handle de Arrastar */}
+      <div 
+        {...attributes} 
+        {...listeners} 
+        className="absolute top-2 left-2 cursor-grab p-1 bg-white/80 rounded-full shadow-md hover:bg-white transition-colors z-10"
+      >
+        <GripVertical className="h-5 w-5 text-gray-600" />
+      </div>
+      
+      <div className="absolute inset-0 bg-black/30 flex items-end p-3">
+        <div className="flex-1">
+          {isEditing ? (
             <Input
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
-              className="bg-white bg-opacity-80 text-gray-900 text-sm p-1 rounded"
-              placeholder="Adicionar legenda"
-              onClick={(e) => e.stopPropagation()} // Prevent closing dialog when clicking input
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSave(); }}
+              placeholder="Adicionar legenda..."
+              className="h-8 text-sm bg-white/90 border-none"
+              disabled={isSaving || isUpdating}
             />
           ) : (
-            image.caption && <p className="text-white text-sm">{image.caption}</p>
+            <p className="text-white text-sm font-semibold truncate">{image.caption || 'Sem legenda'}</p>
           )}
+        </div>
+        
+        <div className="flex space-x-2 ml-2">
+          {isEditing ? (
+            <Button 
+              size="icon" 
+              className="h-8 w-8 bg-green-500 hover:bg-green-600" 
+              onClick={handleSave}
+              disabled={isSaving || isUpdating}
+            >
+              {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            </Button>
+          ) : (
+            <Button 
+              size="icon" 
+              className="h-8 w-8 bg-blue-500 hover:bg-blue-600" 
+              onClick={() => setIsEditing(true)}
+              disabled={isUpdating}
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+          )}
+          <Button 
+            size="icon" 
+            className="h-8 w-8 bg-red-600 hover:bg-red-700" 
+            onClick={handleDelete}
+            disabled={isDeleting || isUpdating}
+          >
+            {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+          </Button>
         </div>
       </div>
     </div>

@@ -3,51 +3,84 @@
 import React from 'react';
 import { MenuCategory } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
-import { GripVertical, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
-import { DraggableProvided } from '@hello-pangea/dnd'; // Importando DraggableProvided
-import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
+import { Edit, Trash2, ChevronRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import { createPageUrl } from '@/utils/url'; // Importando createPageUrl
 
 interface CategoryListItemProps {
   category: MenuCategory;
   onEdit: (category: MenuCategory) => void;
   onDelete: (categoryId: string) => void;
-  onToggleActive: (categoryId: string, isActive: boolean) => void;
-  provided: DraggableProvided;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  isFirst: boolean;
+  isLast: boolean;
+  isMutating: boolean;
 }
 
-const CategoryListItem: React.FC<CategoryListItemProps> = ({ category, onEdit, onDelete, onToggleActive, provided }) => {
+const CategoryListItem: React.FC<CategoryListItemProps> = ({
+  category,
+  onEdit,
+  onDelete,
+  isMutating,
+}) => {
+  const navigate = useNavigate(); // Inicializando useNavigate
+  const statusText = category.is_active ? 'Ativa' : 'Inativa';
+  const statusVariant = category.is_active ? 'default' : 'secondary';
+  
+  const handleNavigateToDetails = (e: React.MouseEvent) => {
+    e.preventDefault(); // Previne o comportamento padrão do link
+    if (!isMutating) {
+      navigate(createPageUrl('restaurant-area/category-details', { categoryId: category.id }));
+    }
+  };
+
   return (
-    <div
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      className={cn(
-        "flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border",
-        !category.is_active && "opacity-60 bg-gray-50"
-      )}
+    <Card 
+      className="p-4 flex items-center justify-between transition-shadow hover:shadow-md cursor-pointer"
+      onClick={handleNavigateToDetails} // Adicionando o clique no card inteiro
     >
-      <div className="flex items-center flex-grow">
-        <div {...provided.dragHandleProps} className="mr-3 cursor-grab text-gray-400 hover:text-gray-600">
-          <GripVertical className="h-5 w-5" />
+      <div className="flex items-center space-x-4 min-w-0 flex-1">
+        <div className="flex-shrink-0">
+          <Badge variant={statusVariant}>{statusText}</Badge>
         </div>
-        <span className="font-medium text-lg text-[#022D68]">{category.name}</span>
+        <div className="min-w-0 flex-1">
+          <p className="text-lg font-semibold text-primary hover:underline truncate">
+            {category.name}
+          </p>
+        </div>
       </div>
-      <div className="flex items-center space-x-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => onToggleActive(category.id, !category.is_active)}
-          title={category.is_active ? "Desativar Categoria" : "Ativar Categoria"}
+
+      <div className="flex items-center space-x-2 flex-shrink-0">
+        
+        {/* Botão de Edição */}
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onEdit(category); }}
+          disabled={isMutating}
+          aria-label="Editar Categoria"
         >
-          {category.is_active ? <Eye className="h-5 w-5 text-green-600" /> : <EyeOff className="h-5 w-5 text-red-600" />}
+          <Edit className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={() => onEdit(category)} title="Editar Categoria">
-          <Edit className="h-5 w-5 text-blue-600" />
+        
+        {/* Botão de Exclusão */}
+        <Button 
+          variant="destructive" 
+          size="icon" 
+          onClick={(e) => { e.stopPropagation(); onDelete(category.id); }}
+          disabled={isMutating}
+          aria-label="Excluir Categoria"
+        >
+          <Trash2 className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="icon" onClick={() => onDelete(category.id)} title="Excluir Categoria">
-          <Trash2 className="h-5 w-5 text-red-600" />
-        </Button>
+        
+        {/* Ícone de Navegação (Visual) */}
+        <ChevronRight className="h-5 w-5 text-gray-400 ml-2" />
       </div>
-    </div>
+    </Card>
   );
 };
 

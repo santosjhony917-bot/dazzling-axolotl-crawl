@@ -10,7 +10,7 @@ export function useRestaurantFavorite(restaurantId: string) {
   
   // Destructuring the functions and mutation state from the main hook
   const { 
-    isFavorited: checkIsFavorite, // Renamed to avoid conflict with local isFavorite
+    isFavorite: checkIsFavorite, 
     toggleFavorite: mutateToggleFavorite, 
     isMutating, 
     isLoading: isFavoritesLoading
@@ -25,7 +25,7 @@ export function useRestaurantFavorite(restaurantId: string) {
       return;
     }
     // Call the mutation function with the correct arguments
-    mutateToggleFavorite(restaurantId); // Only pass restaurantId
+    mutateToggleFavorite(restaurantId, isCurrentlyFavorite); 
   };
 
   return {

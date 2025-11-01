@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { MapPin, Phone, Mail, Clock, Link, ExternalLink } from 'lucide-react';
-import OpeningHoursDisplay from './OpeningHoursDisplay'; // Corrigido para importação padrão
+import { OpeningHoursDisplay } from './OpeningHoursDisplay';
 
 interface AdditionalInfoProps {
   restaurant: {

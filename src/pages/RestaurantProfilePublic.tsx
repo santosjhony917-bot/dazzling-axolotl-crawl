@@ -1,85 +1,85 @@
-"use client";
-
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { MenuCategoryWithItems, GalleryImage } from '@/types/supabase';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { Loader2 } from 'lucide-react';
 import { showError } from '@/utils/toast';
-import { fetchPublicRestaurantById, fetchRestaurantMenu, fetchRestaurantGallery } from '@/integrations/supabase/restaurants';
+import { Button } from '@/components/ui/button';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // NOVO IMPORT
 
-const RestaurantProfilePublic: React.FC = () => {
+export default function RestaurantProfilePublic() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
+  const navigate = useNavigate();
+  
+  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
-  const { data: restaurant, isLoading: isLoadingRestaurant, error: errorRestaurant } = useQuery<PublicRestaurantData | null, Error>({
-    queryKey: ['publicRestaurant', restaurantId],
-    queryFn: () => fetchPublicRestaurantById(restaurantId!),
-    enabled: !!restaurantId,
-  });
+  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
+  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
 
-  const { data: menuCategories, isLoading: isLoadingMenu, error: errorMenu } = useQuery<MenuCategoryWithItems[] | null, Error>({
-    queryKey: ['restaurantMenu', restaurantId],
-    queryFn: async () => {
-      const data = await fetchRestaurantMenu(restaurantId!);
-      // Ensure menu_items are included for MenuCategoryWithItems type
-      return data?.map(category => ({
-        ...category,
-        menu_items: (category as MenuCategoryWithItems).menu_items || [] // Explicitly cast to MenuCategoryWithItems
-      })) || null;
-    },
-    enabled: !!restaurantId,
-  });
+  useEffect(() => {
+    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
+    if (error) {
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
+      showError(error);
+    }
+  }, [error, restaurantId]);
 
-  const { data: galleryImages, isLoading: isLoadingGallery, error: errorGallery } = useQuery<GalleryImage[] | null, Error>({
-    queryKey: ['restaurantGallery', restaurantId],
-    queryFn: () => fetchRestaurantGallery(restaurantId!),
-    enabled: !!restaurantId,
-  });
+  const handleBack = () => navigate(-1);
 
-  if (isLoadingRestaurant || isLoadingMenu || isLoadingGallery) {
+  if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (errorRestaurant || errorMenu || errorGallery) {
-    showError('Erro ao carregar o perfil do restaurante.');
+  if (error || !restaurant) {
     return (
-      <div className="text-center text-red-500 py-8">
-        <p>Não foi possível carregar o perfil do restaurante. Por favor, tente novamente mais tarde.</p>
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <div className="fixed top-4 left-4 z-50">
+          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
+            <ArrowLeft className="h-5 w-5 text-primary" />
+          </Button>
+        </div>
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
+          <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
       </div>
     );
   }
-
-  if (!restaurant) {
-    return (
-      <div className="text-center text-gray-500 py-8">
-        <p>Restaurante não encontrado.</p>
-      </div>
-    );
-  }
-
-  const layoutProps = {
-    restaurant,
-    menuCategories: menuCategories || [],
-    galleryImages: galleryImages || [],
+  
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
+  const reactiveRestaurantData: PublicRestaurantData = {
+    ...restaurant,
+    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
   };
 
+  // Props comuns para os layouts
+  const layoutProps = {
+    restaurant: reactiveRestaurantData,
+    toggleFavorite: toggleFavorite,
+    isFavoriteMutating: isFavoriteMutating,
+  };
+
+  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <>
-      {restaurant.plan === 'premium' ? (
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
+      
+      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
         <PremiumProfileLayout {...layoutProps} />
       ) : (
         <FreeProfileLayout {...layoutProps} />
       )}
-    </>
+    </div>
   );
-};
-
-export default RestaurantProfilePublic;
+}

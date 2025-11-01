@@ -1,128 +1,153 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Plus, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { MenuCategory } from '@/types/supabase';
 import { useMenuManagement, useCategoryMutations } from '@/hooks/useCategoryManagement';
-import CategoryList from '@/components/restaurant/menu/CategoryList';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useNavigate } from 'react-router-dom';
-import { useAuthData } from '@/context/AuthContext'; // Import useAuthData to get restaurantId
+import { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
+import ConfirmationDialog from '@/components/ConfirmationDialog';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import CategoryList from '@/components/restaurant/menu/CategoryList';
+import { Card, CardContent } from '@/components/ui/card';
+import { showError } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
-  const { restaurant } = useAuthData(); // Get restaurant from AuthContext
-  const { categories, isLoading, error, refetchCategories, reorderCategories } = useMenuManagement();
-  const {
-    addCategoryMutation,
-    updateCategoryMutation,
-    deleteCategoryMutation,
-    toggleCategoryActiveMutation,
-    isSavingCategory,
-  } = useCategoryMutations(refetchCategories, toast);
+  // Usando useAuthData para obter o objeto restaurant gerenciado globalmente
+  const { restaurant, isProfileLoading: profileLoading } = useAuthData(); 
+  const restaurantId = restaurant?.id || '';
 
+  const { categoriesQuery } = useMenuManagement(restaurantId);
+  const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation } = useCategoryMutations(restaurantId);
+  
+  // Estado para Categorias
   const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
-  const [editingCategory, setEditingCategory] = useState<MenuCategory | undefined>(undefined);
+  const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
+  
+  // Estado para Confirmação
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
+  const [confirmationTitle, setConfirmationTitle] = useState('');
+  const [confirmationDescription, setConfirmationDescription] = useState('');
 
-  const handleAddCategory = () => {
-    setEditingCategory(undefined);
-    setIsCategoryDialogOpen(true);
-  };
+  const categories = categoriesQuery.data || [];
+  const isLoading = profileLoading || categoriesQuery.isLoading;
+  const isCategoryMutating = createCategoryMutation.isPending || updateCategoryMutation.isPending || deleteCategoryMutation.isPending;
+  
+  // --- Handlers de Categoria ---
 
-  const handleEditCategory = (category: MenuCategory) => {
+  const handleOpenCategoryDialog = (category: MenuCategory | null) => {
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado. Tente recarregar a página.");
+      return;
+    }
     setEditingCategory(category);
     setIsCategoryDialogOpen(true);
   };
 
-  const handleSaveCategory = async (values: { name: string; is_active?: boolean }) => {
-    if (!restaurant?.id) {
-      toast({ title: "Erro", description: "ID do restaurante não encontrado.", variant: "destructive" });
+  const handleSaveCategory = useCallback(async (data: CategoryFormValues) => {
+    if (!restaurantId) {
+      showError("ID do restaurante não encontrado.");
       return;
     }
+    
     if (editingCategory) {
-      await updateCategoryMutation.mutateAsync({ id: editingCategory.id, ...values });
+      await updateCategoryMutation.mutateAsync({ 
+        id: editingCategory.id,
+        updates: { // CORRIGIDO: Usando a estrutura 'updates'
+          name: data.name,
+          is_active: data.is_active,
+          order_index: data.order_index,
+        }
+      });
     } else {
-      await addCategoryMutation.mutateAsync({ restaurant_id: restaurant.id, ...values, name: values.name }); // Ensure name is passed
+      await createCategoryMutation.mutateAsync({ 
+        restaurant_id: restaurantId,
+        name: data.name,
+        is_active: data.is_active,
+        order_index: data.order_index,
+      });
     }
-    setIsCategoryDialogOpen(false);
-  };
+  }, [editingCategory, updateCategoryMutation, createCategoryMutation, restaurantId]);
 
-  const handleDeleteCategory = async (categoryId: string) => {
-    if (window.confirm('Tem certeza que deseja excluir esta categoria? Todos os itens associados serão perdidos.')) {
-      await deleteCategoryMutation.mutateAsync(categoryId);
-    }
+  const handleDeleteCategory = (categoryId: string) => {
+    setConfirmationTitle("Excluir Categoria");
+    setConfirmationDescription("Tem certeza de que deseja excluir esta categoria? Todos os itens de menu associados serão deletados.");
+    setConfirmationAction(() => () => deleteCategoryMutation.mutate(categoryId));
+    setIsConfirmationOpen(true);
   };
+  
+  // A reordenação será tratada pelo CategoryList usando useCategoryReorder
 
-  const handleToggleCategoryActive = async (categoryId: string, isActive: boolean) => {
-    await toggleCategoryActiveMutation.mutateAsync({ id: categoryId, is_active: isActive });
-  };
-
-  const handleReorderCategories = async (newOrder: MenuCategory[]) => {
-    await reorderCategories(newOrder);
-  };
+  // --- Render Logic ---
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (error) {
-    toast({
-      title: "Erro",
-      description: "Não foi possível carregar as categorias do menu.",
-      variant: "destructive",
-    });
-    return (
-      <div className="text-center text-red-500 py-8">
-        <p>Erro ao carregar o menu. Por favor, tente novamente.</p>
-      </div>
-    );
+  if (categoriesQuery.isError) {
+    return <div className="text-center text-red-500 p-4">Erro ao carregar categorias: {categoriesQuery.error.message}</div>;
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <h1 className="text-3xl font-bold text-[#022D68] mb-6">Gerenciamento de Menu</h1>
+    <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
+      <div className="p-4 space-y-6">
+        
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
+              <Button 
+                onClick={() => handleOpenCategoryDialog(null)} 
+                disabled={isCategoryMutating || !restaurantId} // Desabilita se não houver restaurantId
+                className="bg-highlight hover:bg-highlight/90"
+              >
+                <Plus className="mr-2 h-4 w-4" /> Adicionar
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-2xl font-bold">Categorias do Menu</CardTitle>
-          <Button onClick={handleAddCategory} className="bg-[#E47948] hover:bg-[#C2653B]">
-            <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Categoria
-          </Button>
-        </CardHeader>
-        <CardDescription className="px-6">
-          Organize seu cardápio em categorias. Arraste e solte para reordenar.
-        </CardDescription>
-        <CardContent className="pt-4">
-          {categories.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">Nenhuma categoria adicionada ainda.</p>
-          ) : (
-            <CategoryList
-              categories={categories}
-              onEditCategory={handleEditCategory}
-              onDeleteCategory={handleDeleteCategory}
-              onToggleCategoryActive={handleToggleCategoryActive}
-              onReorderCategories={handleReorderCategories}
-            />
-          )}
-        </CardContent>
-      </Card>
+        <CategoryList
+          categories={categories}
+          restaurantId={restaurantId}
+          onEdit={handleOpenCategoryDialog}
+          onDelete={handleDeleteCategory}
+        />
+      </div>
 
+      {/* Dialogs */}
       <CategoryDialog
-        open={isCategoryDialogOpen}
+        isOpen={isCategoryDialogOpen}
         onOpenChange={setIsCategoryDialogOpen}
         category={editingCategory}
+        restaurantId={restaurantId}
         onSave={handleSaveCategory}
-        isSaving={isSavingCategory}
+        isLoading={isCategoryMutating}
       />
-    </div>
+      
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={() => setIsConfirmationOpen(false)}
+        onConfirm={() => {
+          if (confirmationAction) {
+            confirmationAction();
+          }
+          setIsConfirmationOpen(false);
+        }}
+        title={confirmationTitle}
+        description={confirmationDescription}
+        confirmText="Sim, Excluir"
+      />
+    </RestaurantAreaPageLayout>
   );
 };
 

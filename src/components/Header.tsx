@@ -1,43 +1,51 @@
-"use client";
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuthData } from '@/context/AuthContext';
-import { User, LogOut } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-interface HeaderProps {
-  title?: string; // Adicionando title como opcional
+interface Action {
+  icon: LucideIcon;
+  onClick: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = "FoodApp" }) => {
-  const { isAuthenticated, signOut } = useAuthData();
+interface HeaderProps {
+  title: string;
+  leftAction?: Action;
+  rightAction?: Action;
+}
 
-  const handleLogout = async () => {
-    await signOut();
-  };
-
+const Header: React.FC<HeaderProps> = ({ title, leftAction, rightAction }) => {
   return (
-    <header className="bg-[#022D68] text-white p-4 shadow-md flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">{title}</Link>
-      <nav className="flex items-center space-x-4">
-        {isAuthenticated ? (
-          <>
-            <Button variant="ghost" className="text-white hover:bg-[#E47948]" asChild>
-              <Link to="/profile">
-                <User className="h-5 w-5 mr-2" /> Perfil
-              </Link>
-            </Button>
-            <Button variant="ghost" className="text-white hover:bg-red-500" onClick={handleLogout}>
-              <LogOut className="h-5 w-5 mr-2" /> Sair
-            </Button>
-          </>
-        ) : (
-          <Button variant="ghost" className="text-white hover:bg-[#E47948]" asChild>
-            <Link to="/auth">Entrar</Link>
+    <header className="sticky top-0 z-10 bg-white dark:bg-background-dark border-b border-gray-100 dark:border-gray-800 shadow-soft-md p-4 flex items-center justify-between h-16">
+      <div className="w-10">
+        {leftAction && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={leftAction.onClick}
+            className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg"
+          >
+            <leftAction.icon className="h-5 w-5" />
           </Button>
         )}
-      </nav>
+      </div>
+      
+      <h1 className="text-xl font-extrabold text-primary dark:text-white tracking-tight truncate max-w-[60%]">
+        {title}
+      </h1>
+      
+      <div className="w-10 flex justify-end">
+        {rightAction && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={rightAction.onClick}
+            className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg"
+          >
+            <rightAction.icon className="h-5 w-5" />
+          </Button>
+        )}
+      </div>
     </header>
   );
 };

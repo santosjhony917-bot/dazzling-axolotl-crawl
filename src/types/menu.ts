@@ -3,41 +3,54 @@ import { MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } fr
 export type MenuItem = SupabaseMenuItem;
 export type MenuCategory = SupabaseMenuCategory;
 
-export type MenuCategoryWithItems = SupabaseMenuCategory & {
-  menu_items: SupabaseMenuItem[];
+// --- Public Menu Types ---
+
+// Item de menu simplificado para visualização pública
+export interface PublicMenuItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image_url: string | null;
+  is_favorite?: boolean; // Adicionado para contexto de cliente
+}
+
+// Categoria de menu para visualização pública (contém apenas itens ativos)
+export interface PublicMenuCategory extends MenuCategory {
+  menu_items: PublicMenuItem[];
+}
+
+// Resultado do hook usePublicMenu
+export interface UsePublicMenuResult {
+  menu: PublicMenuCategory[];
+  isLoading: boolean;
+  error: Error | null;
+}
+
+// --- Management Payloads ---
+
+export type CreateItemPayload = {
+  category_id: string;
+  name: string;
+  price: number;
+  is_active: boolean;
+  description: string | null;
+  image_url: string | null;
 };
 
-// Payloads for category mutations
-export interface CreateCategoryPayload {
-  name: string;
-  is_active?: boolean;
+export type UpdateItemPayload = {
+  id: string;
+  updates: Partial<CreateItemPayload>;
+};
+
+export type CreateCategoryPayload = {
   restaurant_id: string;
-}
-
-export interface UpdateCategoryPayload {
-  id: string;
-  name?: string;
-  is_active?: boolean;
-  order_index?: number;
-}
-
-// Payloads for item mutations
-export interface CreateItemPayload {
   name: string;
-  description?: string;
-  price: number;
-  image_url?: string;
-  category_id: string;
-  is_active?: boolean;
-}
+  is_active: boolean;
+  order_index?: number; // Adicionado order_index
+};
 
-export interface UpdateItemPayload {
+export type UpdateCategoryPayload = {
   id: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  image_url?: string;
-  category_id?: string;
-  is_active?: boolean;
-  order_index?: number;
-}
+  updates: Partial<CreateCategoryPayload>;
+};

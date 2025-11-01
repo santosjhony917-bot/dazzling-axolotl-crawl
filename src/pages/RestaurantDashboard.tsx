@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/navigation';
+import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Utensils, TrendingUp, Pencil, Store, Loader2, BarChart3, Search, DollarSign, Compass } from 'lucide-react';
@@ -38,7 +38,7 @@ const RestaurantDashboard = () => {
     competitors, 
     isLoading: isCompetitorsLoading, 
     error: competitorsError 
-  } = useNearbyCompetitors({ restaurantId: currentRestaurantId || '', userLat: userLat || 0, userLng: userLon || 0 }); // Corrigido para passar um objeto
+  } = useNearbyCompetitors(currentRestaurantId, userLat, userLon);
 
   const handleLocationSaved = () => {
     refetchLocation();
@@ -55,7 +55,7 @@ const RestaurantDashboard = () => {
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('searchUnified'));
+    navigate(createPageUrl('search-unified'));
   };
 
   const handleSearchNearby = () => {
@@ -69,7 +69,7 @@ const RestaurantDashboard = () => {
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('searchUnified'));
+    navigate(createPageUrl('search-unified'));
   };
   
   const handleViewCompetitor = (id: string) => {
@@ -82,8 +82,8 @@ const RestaurantDashboard = () => {
     name: r.name,
     restaurantName: r.category || 'Geral',
     price: 25.00, // Preço mockado
-    imageUrl: r.image_url, // Usando image_url
-  })) || [];
+    imageUrl: r.imageUrl, // Usando a URL real
+  }));
 
   if (isProfileLoading) {
     return (
@@ -107,7 +107,7 @@ const RestaurantDashboard = () => {
               <p className="text-xs text-gray-500">Localização do Restaurante</p>
               {isProfileLoading ? (
                 <div className="flex items-center text-sm font-bold text-[#022D68]">
-                  <Loader2 className="h-4 w-4 mr-1 animate-spin" /> Carregando...
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
                 </div>
               ) : (
                 <p className="text-base font-bold text-[#022D68] truncate max-w-[200px]">
@@ -120,7 +120,7 @@ const RestaurantDashboard = () => {
             variant="ghost" 
             size="icon" 
             className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl"
-            onClick={() => navigate(createPageUrl('restaurantSettings'))}
+            onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           >
             <Store className="h-6 w-6" />
           </Button>
@@ -211,7 +211,7 @@ const RestaurantDashboard = () => {
                     cuisine: item.category, // Mapeado de category
                     distance: item.distance_km, // Mapeado de distance_km
                     rating: 0, // Mocked
-                    imageUrl: item.image_url, // Mapeado do hook
+                    imageUrl: item.imageUrl, // Mapeado do hook
                   }} 
                   onClick={handleViewCompetitor} 
                 />

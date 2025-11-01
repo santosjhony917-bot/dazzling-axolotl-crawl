@@ -1,34 +1,45 @@
-import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase'; // Import all necessary types
+import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
-// Define a more specific type for restaurant data that is publicly visible.
-// Manually adding properties as a workaround for potentially stale auto-generated Supabase types.
-export type PublicRestaurantData = Database['public']['Tables']['restaurants']['Row'] & {
-  distance_km?: number; // For nearby restaurants
-  whatsapp_url?: string | null;
-  phone?: string | null;
-  email?: string | null;
-  ifood_url?: string | null;
-  other_url?: string | null;
-  external_url?: string | null;
-};
+export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
 
-export type RestaurantMenuItem = SupabaseMenuItem;
-export type RestaurantMenuCategory = SupabaseMenuCategory;
-export type RestaurantGalleryImage = SupabaseGalleryImage;
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
+export type GalleryImage = SupabaseGalleryImage;
 
-export type RestaurantWithSchedule = PublicRestaurantData & {
-  schedule: Json; // Use Json for schedule as it's a complex object
-};
-
-export type RestaurantWithMenu = PublicRestaurantData & {
-  menuCategories: RestaurantMenuCategory[];
-};
-
-export type RestaurantWithGallery = PublicRestaurantData & {
-  gallery: RestaurantGalleryImage[];
-};
-
+// Tipo para um link de rede social
 export interface SocialNetworkLink {
-  platform: string;
+  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
   url: string;
+}
+
+// Type for public restaurant profile data, including menu and gallery
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
+  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
+  opening_hours: WeekSchedule | null; 
+  
+  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
+  payment_methods: string[] | null; 
+  
+  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
+  social_networks: SocialNetworkLink[] | null;
+  
+  // Computed fields from the view/query
+  is_favorite: boolean;
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
+  isOpen: boolean;
+  statusText: string;
+  nextOpenTime: string | null;
+
+  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
+  menu_categories: (MenuCategory & {
+    menu_items: MenuItem[];
+  })[];
+  gallery_images: GalleryImage[];
 }

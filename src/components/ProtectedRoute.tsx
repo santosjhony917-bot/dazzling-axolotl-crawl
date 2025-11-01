@@ -1,39 +1,59 @@
-"use client";
-
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
+import { createPageUrl } from '@/utils/url';
 
 interface ProtectedRouteProps {
-  requiredRole?: 'admin' | 'restaurant_owner' | 'authenticated';
-  element: React.ReactNode;
+  requiredRole: 'authenticated' | 'admin' | 'restaurant_owner';
+  element?: React.ReactNode; // Opcional: O layout a ser renderizado se autorizado
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { isAuthenticated, isProfileLoading, isAdmin, restaurant } = useAuthData();
+  const { isAuthenticated, isLoading, isAdmin, restaurant, isProfileLoading } = useAuthData();
 
-  if (isProfileLoading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
+    // User is not authenticated, redirect to login page
+    return <Navigate to={createPageUrl("auth")} replace />;
+  }
+  
+  let isAuthorized = false;
+  
+  if (requiredRole === 'authenticated') {
+    isAuthorized = true; // Already checked by isAuthenticated
+  } else if (requiredRole === 'admin') {
+    isAuthorized = isAdmin;
+  } else if (requiredRole === 'restaurant_owner') {
+    // NEW LOGIC: If the required role is restaurant_owner, we must wait for the profile/restaurant data to load.
+    if (isProfileLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
+    // Once loading is complete, check if the restaurant object exists.
+    isAuthorized = !!restaurant;
   }
 
-  if (requiredRole === 'admin' && !isAdmin) {
-    return <Navigate to="/" replace />; // Redireciona para a home se não for admin
+  if (!isAuthorized) {
+    // User is authenticated but does not have the required role, redirect to home
+    // Se o usuário for um restaurante, mas tentar acessar uma rota de cliente, ele deve ir para o dashboard do restaurante.
+    // Se for um cliente, deve ir para a home.
+    const redirectPath = restaurant ? createPageUrl('restaurant-area/home') : createPageUrl('home');
+    return <Navigate to={redirectPath} replace />;
   }
 
-  if (requiredRole === 'restaurant_owner' && !restaurant) {
-    return <Navigate to="/restaurant-area/claim" replace />; // Redireciona para a página de reivindicação se não tiver restaurante
-  }
-
-  return <>{element}</>;
+  // Se autorizado, renderiza o elemento (layout) ou o Outlet (se for uma rota folha)
+  return element ? <>{element}</> : <Outlet />;
 };
 
 export default ProtectedRoute;

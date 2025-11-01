@@ -1,214 +1,158 @@
-"use client";
-
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMenuItemManagement } from '@/hooks/useMenuItemManagement';
+import { useMenuManagement } from '@/hooks/useCategoryManagement';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Loader2, Edit, Trash2, Eye, EyeOff, ArrowLeft, GripVertical } from 'lucide-react'; // Importando GripVertical
-import { useToast } from '@/components/ui/use-toast';
+import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { MenuItem, MenuCategory } from '@/types/supabase';
 import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
-import { useMenuManagement, useItemMutations } from '@/hooks/useCategoryManagement'; // Importando useItemMutations
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'; // Importando do @hello-pangea/dnd
-import { cn } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { MenuItemList } from '@/components/restaurant/menu/MenuItemList'; // RE-ADICIONADO: Importando MenuItemList
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import ConfirmationDialog from '@/components/ConfirmationDialog';
+import { Card, CardContent } from '@/components/ui/card';
+import { showError, showSuccess } from '@/utils/toast';
+import { useAuthData } from '@/context/AuthContext';
+import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
 
-const CategoryDetails: React.FC = () => {
+export default function CategoryDetails() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { restaurant } = useAuthData();
+  const restaurantId = restaurant?.id || '';
+  
+  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  
+  // Estado para Confirmação
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
+  const [confirmationTitle, setConfirmationTitle] = useState('');
+  const [confirmationDescription, setConfirmationDescription] = useState('');
 
-  const { categories, isLoading: isLoadingCategories, error: errorCategories, refetchCategories } = useMenuManagement();
-  const currentCategory = categories.find(cat => cat.id === categoryId);
+  if (!categoryId) {
+    return <div className="p-4 text-red-500">ID da Categoria não encontrado.</div>;
+  }
 
-  // Declare refetchItems outside useItemMutations to avoid block-scoped variable error
-  let refetchItemsFn: (() => Promise<any>) | undefined;
+  // Use the category management hook to fetch all categories for the restaurant
+  const { categoriesQuery } = useMenuManagement(restaurantId); 
+  
+  // Use the item management hook for the specific category
+  const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
+  
+  // Find the category from the fetched categories
+  const currentCategory = useMemo(() => {
+    return categoriesQuery.data?.find(c => c.id === categoryId);
+  }, [categoriesQuery.data, categoryId]);
 
-  const {
-    items,
-    isLoading: isLoadingItems,
-    error: errorItems,
-    refetchItems,
-    reorderItems,
-    addItemMutation,
-    updateItemMutation,
-    deleteItemMutation,
-    toggleItemActiveMutation,
-    isSavingItem,
-  } = useItemMutations(categoryId || '', () => refetchItemsFn && refetchItemsFn(), toast); // Pass a function to get refetchItems
+  const categoryName = currentCategory?.name || 'Carregando...';
+  
+  const items = itemsQuery.data || [];
+  const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
+  const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending;
 
-  // Assign refetchItems to the outer variable after it's defined
-  refetchItemsFn = refetchItems;
-
-  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | undefined>(undefined);
-
-  const handleAddItem = () => {
-    setEditingItem(undefined);
-    setIsItemDialogOpen(true);
-  };
-
-  const handleEditItem = (item: MenuItem) => {
+  const handleOpenDialog = (item: MenuItem | null = null) => {
     setEditingItem(item);
-    setIsItemDialogOpen(true);
+    setIsItemModalOpen(true);
   };
 
-  const handleSaveItem = async (values: MenuItemFormValues) => {
-    if (!categoryId) {
-      toast({ title: "Erro", description: "ID da categoria não encontrado.", variant: "destructive" });
-      return;
+  const handleDeleteItem = (itemId: string) => {
+    setConfirmationTitle("Excluir Item de Menu");
+    setConfirmationDescription("Tem certeza de que deseja excluir este item de menu?");
+    setConfirmationAction(() => () => deleteItemMutation.mutate(itemId));
+    setIsConfirmationOpen(true);
+  };
+
+  const handleSaveItem = useCallback(async (data: MenuItemFormValues) => {
+    try {
+      if (editingItem) {
+        await updateItemMutation.mutateAsync({
+          id: editingItem.id,
+          updates: {
+            name: data.name,
+            description: data.description || null,
+            price: data.price,
+            image_url: data.image_url || null,
+            is_active: data.is_active,
+          }
+        });
+      } else {
+        await createItemMutation.mutateAsync({
+          category_id: categoryId,
+          name: data.name,
+          description: data.description || null,
+          price: data.price,
+          image_url: data.image_url || null,
+          is_active: data.is_active,
+        });
+      }
+      // Fecha o modal após o sucesso da mutação
+      setIsItemModalOpen(false); 
+    } catch (e) {
+      // O erro é tratado no hook de mutação (toast.error)
+      console.error("Failed to save item:", e);
     }
-    if (editingItem) {
-      await updateItemMutation.mutateAsync({ id: editingItem.id, category_id: categoryId, ...values });
-    } else {
-      await addItemMutation.mutateAsync({ category_id: categoryId, name: values.name, price: values.price, description: values.description, image_url: values.image_url, is_active: values.is_active });
-    }
-    setIsItemDialogOpen(false);
-  };
+  }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
 
-  const handleDeleteItem = async (itemId: string) => {
-    if (window.confirm('Tem certeza que deseja excluir este item?')) {
-      await deleteItemMutation.mutateAsync(itemId);
-    }
-  };
-
-  const handleToggleItemActive = async (itemId: string, isActive: boolean) => {
-    await toggleItemActiveMutation.mutateAsync({ id: itemId, is_active: isActive });
-  };
-
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) {
-      return;
-    }
-
-    const reorderedItemsList = Array.from(items);
-    const [removed] = reorderedItemsList.splice(result.source.index, 1);
-    reorderedItemsList.splice(result.destination.index, 0, removed);
-
-    reorderItems(reorderedItemsList);
-  };
-
-  if (isLoadingCategories || isLoadingItems) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
-
-  if (errorCategories || errorItems) {
-    toast({
-      title: "Erro",
-      description: "Não foi possível carregar os detalhes da categoria ou itens.",
-      variant: "destructive",
-    });
-    return (
-      <div className="text-center text-red-500 py-8">
-        <p>Erro ao carregar. Por favor, tente novamente.</p>
-      </div>
-    );
-  }
-
-  if (!currentCategory) {
-    return (
-      <div className="container mx-auto p-4 text-center">
-        <p className="text-gray-600">Categoria não encontrada.</p>
-        <Button onClick={() => navigate('/restaurant/menu')} className="mt-4">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para o Menu
-        </Button>
-      </div>
-    );
+  if (!currentCategory && !isLoading) {
+    return <div className="p-4 text-red-500">Categoria não encontrada.</div>;
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="outline" onClick={() => navigate('/restaurant/menu')}>
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Categorias
-        </Button>
-        <h1 className="text-3xl font-bold text-[#022D68]">Itens de {currentCategory.name}</h1>
-        <Button onClick={handleAddItem} className="bg-[#E47948] hover:bg-[#C2653B]">
-          <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Item
-        </Button>
+    <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
+      <div className="p-4 space-y-6">
+        
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Itens em: {categoryName}</h1>
+              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
+                <PlusCircle className="w-4 h-4 mr-2" />
+                Novo Item
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {isLoading ? (
+          <div className="space-y-3">
+            <Skeleton className="h-20 w-full rounded-xl" />
+            <Skeleton className="h-20 w-full rounded-xl" />
+            <Skeleton className="h-20 w-full rounded-xl" />
+          </div>
+        ) : (
+          <MenuItemList
+            items={items}
+            onEdit={handleOpenDialog}
+            onDelete={handleDeleteItem}
+          />
+        )}
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Lista de Itens</CardTitle>
-          <CardDescription>Arraste e solte para reordenar os itens.</CardDescription>
-        </CardHeader>
-        <CardContent className="pt-4">
-          {items.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">Nenhum item nesta categoria ainda.</p>
-          ) : (
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="menu-items">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-3">
-                    {items.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            className={cn(
-                              "flex items-center bg-white p-4 rounded-lg shadow-sm border",
-                              !item.is_active && "opacity-60 bg-gray-50"
-                            )}
-                          >
-                            <div {...provided.dragHandleProps} className="mr-3 cursor-grab text-gray-400 hover:text-gray-600">
-                              <GripVertical className="h-5 w-5" />
-                            </div>
-                            <img
-                              src={item.image_url || PLACEHOLDER_IMAGE_URL}
-                              alt={item.name}
-                              className="w-16 h-16 object-cover rounded-md mr-4"
-                            />
-                            <div className="flex-grow">
-                              <h3 className="font-semibold text-lg text-[#022D68]">{item.name}</h3>
-                              <p className="text-sm text-gray-600">R$ {item.price.toFixed(2)}</p>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => handleToggleItemActive(item.id, !item.is_active)}
-                                title={item.is_active ? "Desativar Item" : "Ativar Item"}
-                              >
-                                {item.is_active ? <Eye className="h-5 w-5 text-green-600" /> : <EyeOff className="h-5 w-5 text-red-600" />}
-                              </Button>
-                              <Button variant="ghost" size="icon" onClick={() => handleEditItem(item)} title="Editar Item">
-                                <Edit className="h-5 w-5 text-blue-600" />
-                              </Button>
-                              <Button variant="ghost" size="icon" onClick={() => handleDeleteItem(item.id)} title="Excluir Item">
-                                <Trash2 className="h-5 w-5 text-red-600" />
-                              </Button>
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          )}
-        </CardContent>
-      </Card>
-
-      <ItemFormDialog
-        open={isItemDialogOpen}
-        onOpenChange={setIsItemDialogOpen}
-        initialData={editingItem}
-        onSave={handleSaveItem}
-        isSaving={isSavingItem}
-        categories={categories} // Pass all categories for selection
+      {currentCategory && (
+        <MenuItemDialog
+          isOpen={isItemModalOpen}
+          onOpenChange={setIsItemModalOpen}
+          category={currentCategory}
+          item={editingItem}
+          onSave={handleSaveItem}
+          // REMOVIDO: isLoading={isSaving} // Não é mais passado para MenuItemDialog
+        />
+      )}
+      
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        onClose={() => setIsConfirmationOpen(false)}
+        onConfirm={() => {
+          if (confirmationAction) {
+            confirmationAction();
+          }
+          setIsConfirmationOpen(false);
+        }}
+        title={confirmationTitle}
+        description={confirmationDescription}
+        confirmText="Sim, Excluir"
       />
-    </div>
+    </RestaurantAreaPageLayout>
   );
-};
-
-export default CategoryDetails;
+}

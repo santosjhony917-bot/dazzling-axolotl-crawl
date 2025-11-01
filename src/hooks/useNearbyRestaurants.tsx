@@ -1,54 +1,62 @@
-"use client";
-
-import { useState, useEffect, useCallback } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { RestaurantWithDistance } from "@/types/supabase"; // Importando o tipo correto
 import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useCallback } from "react";
+import { RestaurantWithDistance } from "@/types/supabase"; // Importando o tipo correto
 
-interface UseNearbyRestaurantsOptions {
-  userLat: number;
-  userLng: number;
+// Define the structure of the restaurant data returned by the RPC
+// NOTE: The RPC returns a structure that is essentially RestaurantWithDistance
+export interface NearbyRestaurant extends RestaurantWithDistance {
+  // The RPC returns all columns of 'restaurants' plus 'distance_km'
+  // We extend RestaurantWithDistance to ensure compatibility.
+}
+
+interface UseNearbyRestaurantsParams {
+  userLat: number | null;
+  userLon: number | null;
   maxDistanceKm?: number;
   searchQuery?: string;
-  enabled?: boolean;
+  enabled: boolean;
 }
 
 export function useNearbyRestaurants({
   userLat,
-  userLng,
+  userLon,
   maxDistanceKm = 10,
   searchQuery,
-  enabled = true,
-}: UseNearbyRestaurantsOptions) {
-  const fetchRestaurants = useCallback(async () => {
-    if (!userLat || !userLng) {
-      return [];
+  enabled,
+}: UseNearbyRestaurantsParams) {
+  const fetchNearbyRestaurants = useCallback(async () => {
+    if (userLat === null || userLon === null) {
+      throw new Error("User location is required.");
     }
 
-    const { data, error } = await supabase.rpc("find_nearby_restaurants", {
+    const { data, error } = await supabase.rpc('find_nearby_restaurants', {
       user_lat: userLat,
-      user_lng: userLng,
+      user_lng: userLon,
       max_distance_km: maxDistanceKm,
-      search_query: searchQuery,
+      search_query: searchQuery || null,
     });
 
     if (error) {
-      console.error("Error fetching nearby restaurants:", error);
-      throw error;
+      throw new Error(error.message);
     }
-    return data || [];
-  }, [userLat, userLng, maxDistanceKm, searchQuery]);
+    
+    // Casting the result to the correct type
+    return data as NearbyRestaurant[];
+  }, [userLat, userLon, maxDistanceKm, searchQuery]);
 
-  const {
-    data: restaurants,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ["nearbyRestaurants", userLat, userLng, maxDistanceKm, searchQuery],
-    queryFn: fetchRestaurants,
-    enabled: enabled && userLat !== 0 && userLng !== 0, // Only enable if location is valid
+  const { data, isLoading, error, refetch } = useQuery<NearbyRestaurant[], Error>({
+    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery],
+    queryFn: fetchNearbyRestaurants,
+    enabled: enabled && userLat !== null && userLon !== null,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+    gcTime: 10 * 60 * 1000, // 10 minutos (substitui cacheTime)
   });
 
-  return { restaurants, isLoading, error, refetch };
+  return {
+    restaurants: data || [],
+    loading: isLoading,
+    error: error ? error.message : null,
+    refetch,
+  };
 }

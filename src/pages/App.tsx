@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
@@ -49,9 +49,6 @@ import Files from '@/pages/admin/Files';
 import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
-import { useAuthData } from '@/context/AuthContext';
-
-// REMOVED: Conflicting local ProtectedRoute component and its interface.
 
 function App() {
   return (

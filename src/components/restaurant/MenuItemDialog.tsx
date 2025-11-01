@@ -1,27 +1,25 @@
-"use client";
-
 import React from 'react';
-import { MenuItem, MenuCategory } from '@/types/supabase'; // Importando tipos corretos
+import { MenuItem, MenuCategory } from '@/types/supabase';
 import ItemFormDialog, { MenuItemFormValues } from './menu/ItemFormDialog';
 
 interface MenuItemDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  category: MenuCategory;
   item?: MenuItem;
-  onSave: (values: MenuItemFormValues) => Promise<void>; // onSave agora retorna Promise<void>
-  isSaving: boolean;
-  categories: MenuCategory[];
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSave: (data: MenuItemFormValues) => Promise<void>;
+  // REMOVIDO: isLoading: boolean; // Esta prop não é necessária aqui, ItemFormDialog gerencia seu próprio estado de salvamento
 }
 
-const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ open, onOpenChange, item, onSave, isSaving, categories }) => {
+const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ category, item, isOpen, onOpenChange, onSave }) => { // Removido isLoading dos props
   return (
     <ItemFormDialog
-      open={open}
-      onOpenChange={onOpenChange}
-      initialData={item}
+      isOpen={isOpen}
+      onClose={() => onOpenChange(false)}
+      category={category}
+      itemToEdit={item || null}
       onSave={onSave}
-      isSaving={isSaving}
-      categories={categories}
+      // REMOVIDO: isLoading={isLoading} // Não é mais passado para ItemFormDialog
     />
   );
 };
