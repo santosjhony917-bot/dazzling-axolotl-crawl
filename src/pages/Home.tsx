@@ -195,13 +195,15 @@ const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {popularItems?.map((item: SupabaseMenuItem & { restaurant_name: string, restaurant_category: string }) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src={item.image_url || 'https://via.placeholder.com/150'} alt={item.name} className="w-full h-32 object-cover" />
+            {popularItems?.map((item: any) => (
+              <div key={item.item_id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src={item.item_image_url || 'https://via.placeholder.com/150'} alt={item.item_name} className="w-full h-32 object-cover" />
                 <div className="p-4">
-                  <h3 className="font-semibold text-lg text-[#022D68]">{item.name}</h3>
+                  <h3 className="font-semibold text-lg text-[#022D68]">{item.item_name}</h3>
                   <p className="text-sm text-gray-600 mb-2">{item.restaurant_name}</p>
-                  <p className="text-md font-bold text-[#E47948]">R$ {item.price.toFixed(2)}</p>
+                  <p className="text-md font-bold text-[#E47948]">
+                    {typeof item.item_price === 'number' ? `R$ ${item.item_price.toFixed(2)}` : 'Preço indisponível'}
+                  </p>
                   <div className="flex items-center mt-2">
                     <Heart className="h-4 w-4 text-gray-400 mr-1" />
                     <span className="text-sm text-gray-500">Favoritar</span>

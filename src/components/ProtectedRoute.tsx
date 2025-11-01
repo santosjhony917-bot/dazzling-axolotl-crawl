@@ -6,7 +6,7 @@ import { useAuthData } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 
 interface ProtectedRouteProps {
-  requiredRole?: 'admin' | 'restaurant' | 'user';
+  requiredRole?: 'admin' | 'restaurant_owner' | 'authenticated';
   element: React.ReactNode;
 }
 
@@ -29,8 +29,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }
     return <Navigate to="/" replace />; // Redireciona para a home se não for admin
   }
 
-  if (requiredRole === 'restaurant' && !restaurant) {
-    return <Navigate to="/claim-restaurant" replace />; // Redireciona para a página de reivindicação se não tiver restaurante
+  if (requiredRole === 'restaurant_owner' && !restaurant) {
+    return <Navigate to="/restaurant-area/claim" replace />; // Redireciona para a página de reivindicação se não tiver restaurante
   }
 
   return <>{element}</>;

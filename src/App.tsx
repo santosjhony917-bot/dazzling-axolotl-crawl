@@ -56,14 +56,14 @@ function App() {
             </Route>
 
             {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
-            <Route element={<ProtectedRoute requiredRole="user" element={<SharedLayoutWrapper />} />}> {/* Corrigido para 'user' */}
+            <Route element={<ProtectedRoute requiredRole="authenticated" element={<SharedLayoutWrapper />} />}>
               <Route path="/profile" element={<ClientProfilePage />} />
               <Route path="/favorites" element={<Favorites />} />
+              <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
             </Route>
 
             {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
-            <Route element={<ProtectedRoute requiredRole="restaurant" element={<SharedLayoutWrapper />} />}> {/* Corrigido para 'restaurant' */}
-              <Route path="/claim-restaurant" element={<ClaimRestaurant />} />
+            <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
               <Route path="/restaurant-area" element={<RestaurantAreaHub />}>
                 <Route path="home" element={<RestaurantDashboardPage />} />
                 <Route path="menu" element={<MenuManagement />} />
