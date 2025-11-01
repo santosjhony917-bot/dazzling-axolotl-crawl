@@ -209,7 +209,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
               )}
               
               {/* Formas de Pagamento (Novo Componente) */}
-              <RestaurantPaymentSection id="payment-section" />
+              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
             </div>
           )}
         </div>

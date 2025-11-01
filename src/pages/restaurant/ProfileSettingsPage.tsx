@@ -153,6 +153,8 @@ export default function ProfileSettingsPage() {
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,
+    // CORREÇÃO 3: Garantindo que payment_methods seja string[] | null
+    payment_methods: (restaurant?.payment_methods as string[] | null) || null,
   };
 
   return (

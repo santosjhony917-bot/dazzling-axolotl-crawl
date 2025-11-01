@@ -206,7 +206,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
               )}
               
               {/* Formas de Pagamento (Novo Componente) */}
-              <RestaurantPaymentSection id="payment-section" />
+              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
             </div>
           )}
         </div>
