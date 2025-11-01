@@ -21,7 +21,7 @@ const navItems: NavItem[] = [
   { name: 'Categorias Populares', icon: Crown, pathKey: 'adminPopularCategories' }, // Adicionado
   { name: 'Gerenciar Usuários', icon: Users, pathKey: 'adminUsers' },
   { name: 'Configurações', icon: Settings, pathKey: 'adminSettings' },
-  { name: 'Banners', icon: Crown, pathKey: 'adminBanners' }, // Usando Crown como ícone temporário para Banners
+  { name: 'Banners', icon: Megaphone, pathKey: 'adminBanners' }, // Usando Megaphone para Banners
 ];
 
 const AdminLayout: React.FC = () => {
@@ -42,17 +42,7 @@ const AdminLayout: React.FC = () => {
     return null;
   }
 
-  const currentPath = window.location.pathname.split('/').pop();
-
-  // Adicionando o item de Banners aqui
-  const adminNavItems = [
-    { name: 'Dashboard', icon: Home, path: 'dashboard' },
-    { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-    { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-    { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-    { name: 'Gerenciar Banners', icon: Megaphone, path: 'adminBanners' }, // CORRIGIDO: Usando a chave PATH_MAP
-    { name: 'Configurações', icon: Settings, path: 'settings' },
-  ];
+  const currentFullPath = window.location.pathname; // Obtém o caminho completo da URL
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -61,20 +51,23 @@ const AdminLayout: React.FC = () => {
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
-          {adminNavItems.map((item) => (
-            <Button
-              key={item.path}
-              variant="ghost"
-              className={cn(
-                "w-full justify-start gap-3 rounded-lg",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
-              )}
-              onClick={() => navigate(createPageUrl(item.path as PathKey))} // CORRIGIDO: Passando a chave diretamente
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Button>
-          ))}
+          {navItems.map((item) => { // Usando a lista 'navItems' correta
+            const itemUrl = createPageUrl(item.pathKey); // Gera a URL completa para comparação
+            return (
+              <Button
+                key={item.pathKey} // Usando pathKey como chave
+                variant="ghost"
+                className={cn(
+                  "w-full justify-start gap-3 rounded-lg",
+                  currentFullPath === itemUrl && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
+                )}
+                onClick={() => navigate(itemUrl)} // Navega para a URL completa
+              >
+                <item.icon className="w-5 h-5" />
+                {item.name}
+              </Button>
+            );
+          })}
         </nav>
         
         <Separator className="my-4" />
