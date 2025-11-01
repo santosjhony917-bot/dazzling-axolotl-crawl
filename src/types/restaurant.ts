@@ -1,33 +1,45 @@
-import { Database } from './supabase';
+import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
-export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
-export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
-export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
-export type RestaurantGalleryItem = Database['public']['Tables']['restaurant_gallery']['Row'];
+export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
 
-export type WeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
+export type GalleryImage = SupabaseGalleryImage;
 
-export interface TimeSlot {
-  open: string; // e.g., "08:00"
-  close: string; // e.g., "18:00"
-}
-
-export type WeekSchedule = Record<WeekDay, TimeSlot[] | null>;
-
+// Tipo para um link de rede social
 export interface SocialNetworkLink {
-  type: 'instagram' | 'facebook' | 'twitter' | 'tiktok';
+  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
   url: string;
 }
 
-export interface MenuItemWithFavorites extends MenuItem {
+// Type for public restaurant profile data, including menu and gallery
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
+  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
+  opening_hours: WeekSchedule | null; 
+  
+  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
+  payment_methods: string[] | null; 
+  
+  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
+  social_networks: SocialNetworkLink[] | null;
+  
+  // Computed fields from the view/query
   is_favorite: boolean;
-}
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
+  isOpen: boolean;
+  statusText: string;
+  nextOpenTime: string | null;
 
-export interface MenuCategoryWithItems extends MenuCategory {
-  menu_items: MenuItemWithFavorites[];
-}
-
-export interface PublicRestaurantData extends Restaurant {
-  menu_categories: MenuCategoryWithItems[];
-  gallery: RestaurantGalleryItem[];
+  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
+  menu_categories: (MenuCategory & {
+    menu_items: MenuItem[];
+  })[];
+  gallery_images: GalleryImage[];
 }

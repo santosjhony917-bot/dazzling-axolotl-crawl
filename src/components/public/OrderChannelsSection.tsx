@@ -1,95 +1,77 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface OrderChannelsSectionProps {
-  whatsappUrl?: string;
-  ifoodUrl?: string;
-  otherUrl?: string;
-  externalUrl?: string;
+  restaurant: PublicRestaurantData;
 }
 
-const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({
-  whatsappUrl,
-  ifoodUrl,
-  otherUrl,
-  externalUrl,
-}) => {
-  const ifoodLogoUrl = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
+const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
+  const orderLinks = [
+    { 
+      label: 'WhatsApp', 
+      url: restaurant.whatsapp_url, 
+      icon: MessageSquare, 
+      colorClass: 'text-green-600',
+      target: '_blank',
+    },
+    { 
+      label: 'iFood', 
+      url: restaurant.ifood_url, 
+      icon: Utensils, // Icon is irrelevant here as we will use an image
+      colorClass: 'text-red-600',
+      target: '_blank',
+    },
+    { 
+      label: 'Outro Link', 
+      url: restaurant.other_url || restaurant.external_url, 
+      icon: Globe, 
+      colorClass: 'text-primary',
+      target: '_blank',
+    },
+  ].filter(link => link.url);
 
-  const channels = [
-    {
-      name: 'WhatsApp',
-      url: whatsappUrl,
-      icon: '/assets/whatsapp-logo.svg',
-      isWhatsapp: true,
-    },
-    {
-      name: 'iFood',
-      url: ifoodUrl,
-      icon: '/assets/ifood-logo.svg',
-      isIfood: true,
-    },
-    {
-      name: 'Outro Link',
-      url: otherUrl,
-      icon: '/assets/link-icon.svg',
-      isOther: true,
-    },
-    {
-      name: 'Site Oficial',
-      url: externalUrl,
-      icon: '/assets/website-icon.svg',
-      isExternal: true,
-    },
-  ].filter(channel => channel.url);
-
-  if (channels.length === 0) {
+  if (orderLinks.length === 0) {
     return null;
   }
 
   return (
-    <div className="p-4 border-t">
-      <h3 className="text-lg font-semibold mb-3">Canais de Pedido</h3>
-      <div className="space-y-3">
-        {channels.map((channel) => {
-          const isIfood = channel.name === 'iFood';
-          const isWhatsapp = channel.name === 'WhatsApp';
-          const isOther = channel.name === 'Outro Link';
-          const isExternal = channel.name === 'Site Oficial';
+    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
+      <CardContent className="p-0">
+        {/* Título da seção ajustado para 2xl */}
+        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
+        <div className="grid grid-cols-3 gap-4">
+          {orderLinks.map((link) => {
+            const Icon = link.icon;
+            const isIfood = link.label === 'iFood';
 
-          return (
-            <Button
-              key={channel.name}
-              asChild
-              variant="outline"
-              className="w-full justify-start h-12 text-base"
-            >
-              <a href={channel.url} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center space-x-3">
-                  {isWhatsapp ? (
-                    <img
-                      src="/assets/whatsapp-logo.svg"
-                      alt="WhatsApp Logo"
-                      className="w-7 h-7 object-contain"
-                    />
-                  ) : isIfood ? (
-                    <img
-                      src={ifoodLogoUrl}
-                      alt="iFood Logo"
-                      className="w-7 h-7 object-contain"
-                    />
-                  ) : isOther || isExternal ? (
-                    <ExternalLink className="w-5 h-5 text-gray-600" />
-                  ) : null}
-                  <span className="font-medium">{channel.name}</span>
-                </div>
+            return (
+              <a 
+                key={link.label} 
+                href={link.url!}
+                target={link.target}
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
+              >
+                {isIfood ? (
+                  <img 
+                    src="/assets/ifood-logo.svg" 
+                    alt="iFood Logo" 
+                    className="w-7 h-7 object-contain" 
+                  />
+                ) : (
+                  <Icon className={cn("w-7 h-7", link.colorClass)} />
+                )}
+                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
               </a>
-            </Button>
-          );
-        })}
-      </div>
-    </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

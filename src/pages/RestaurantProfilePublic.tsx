@@ -1,125 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { supabase } from '@/integrations/supabase/client';
-import { useUser } from '@/hooks/useUser';
-import { useToast } from '@/components/ui/use-toast';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import ErrorMessage from '@/components/ErrorMessage';
+import { showError } from '@/utils/toast';
+import { Button } from '@/components/ui/button';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // NOVO IMPORT
 
-const RestaurantProfilePublic: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { user, isLoading: isUserLoading } = useUser();
-  const { toast } = useToast();
+export default function RestaurantProfilePublic() {
+  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const navigate = useNavigate();
+  
+  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
-  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isFavoriteMutating, setIsFavoriteMutating] = useState(false);
-
-  const isOwner = user?.id === restaurant?.user_id;
+  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
+  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
 
   useEffect(() => {
-    if (!slug) {
-      setError('Slug do restaurante não fornecido.');
-      setIsLoading(false);
-      return;
+    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
+    if (error) {
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
+      showError(error);
     }
+  }, [error, restaurantId]);
 
-    const fetchRestaurant = async () => {
-      setIsLoading(true);
-      setError(null);
+  const handleBack = () => navigate(-1);
 
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select(
-          `
-            *,
-            gallery:restaurant_gallery(*),
-            menu_categories(
-              *,
-              menu_items(*)
-            )
-          `
-        )
-        .eq('external_url', slug)
-        .single();
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
-      if (error) {
-        console.error('Error fetching restaurant:', error);
-        setError('Não foi possível carregar o perfil do restaurante.');
-        setRestaurant(null);
-      } else if (data) {
-        // Type casting the result to PublicRestaurantData
-        setRestaurant(data as PublicRestaurantData);
-      }
-      setIsLoading(false);
-    };
-
-    fetchRestaurant();
-  }, [slug]);
-
-  // Favorite status logic (simplified for now)
-  useEffect(() => {
-    if (user && restaurant) {
-      // Placeholder for fetching favorite status
-      // In a real app, you would check the user_favorites table here
-      setIsFavorite(false); 
-    }
-  }, [user, restaurant]);
-
-  const toggleFavorite = async () => {
-    if (!user || !restaurant || isFavoriteMutating) return;
-
-    setIsFavoriteMutating(true);
-    // Placeholder for API call to toggle favorite
-    // This should interact with the user_favorites table
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    const newFavoriteState = !isFavorite;
-    setIsFavorite(newFavoriteState);
-    
-    toast({
-      title: newFavoriteState ? "Adicionado aos favoritos!" : "Removido dos favoritos.",
-      description: `O restaurante ${restaurant.name} foi ${newFavoriteState ? 'adicionado' : 'removido'} da sua lista.`,
-    });
-
-    setIsFavoriteMutating(false);
+  if (error || !restaurant) {
+    return (
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <div className="fixed top-4 left-4 z-50">
+          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
+            <ArrowLeft className="h-5 w-5 text-primary" />
+          </Button>
+        </div>
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
+          <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
+  const reactiveRestaurantData: PublicRestaurantData = {
+    ...restaurant,
+    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
   };
 
-  if (isLoading || isUserLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error} />;
-  }
-
-  if (!restaurant) {
-    return <ErrorMessage message="Restaurante não encontrado." />;
-  }
-
+  // Props comuns para os layouts
   const layoutProps = {
-    restaurant,
-    isOwner, // <-- Added isOwner here
-    toggleFavorite,
-    isFavoriteMutating,
+    restaurant: reactiveRestaurantData,
+    toggleFavorite: toggleFavorite,
+    isFavoriteMutating: isFavoriteMutating,
   };
 
+  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <>
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
+      
       {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
-        <PremiumProfileLayout {...layoutProps} isOwner={isOwner} />
+        <PremiumProfileLayout {...layoutProps} />
       ) : (
-        <FreeProfileLayout {...layoutProps} isOwner={isOwner} />
+        <FreeProfileLayout {...layoutProps} />
       )}
-    </>
+    </div>
   );
-};
-
-export default RestaurantProfilePublic;
+}
