@@ -4,6 +4,7 @@ import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import WhatsappIcon from './WhatsappIcon'; // Importando o novo componente
 
 interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
@@ -11,7 +12,7 @@ interface OrderChannelsSectionProps {
 
 // URLs PNGs fornecidas pelo usuário
 const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
-const WHATSAPP_PNG_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsFc58uLs722aknd42f0vPp6AT0pGXqe-qPQ&s";
+// Removida a constante WHATSAPP_PNG_URL
 
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
   const orderLinks = [
@@ -71,11 +72,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                     className={cn(iconSizeClass, "object-contain")} 
                   />
                 ) : isWhatsapp ? (
-                  <img 
-                    src={WHATSAPP_PNG_URL} 
-                    alt="WhatsApp Logo" 
-                    className={cn(iconSizeClass, "object-contain")} 
-                  />
+                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG
                 ) : (
                   <Icon className={cn(iconSizeClass, link.colorClass)} />
                 )}
