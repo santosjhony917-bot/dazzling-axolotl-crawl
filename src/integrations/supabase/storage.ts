@@ -1,49 +1,47 @@
 import { supabase } from './client';
 
-/**
- * Uploads a file to a specified Supabase Storage bucket.
- * @param file The file object to upload.
- * @param bucketName The name of the storage bucket.
- * @param path The path where o file should be stored inside the bucket (e.g., 'avatars/user_id/image.jpg').
- * @returns The public URL of the uploaded file or null on failure.
- */
-export async function uploadFile(file: File, bucketName: string, path: string): Promise<string | null> {
-  if (!file) return null;
-
-  try {
-    console.log(`[Storage] Iniciando upload para bucket: ${bucketName}, path: ${path}`);
-    
-    const { data, error } = await supabase.storage
-      .from(bucketName)
-      .upload(path, file, {
-        cacheControl: '3600',
-        upsert: true,
-      });
-
-    if (error) {
-      console.error('[Storage] Supabase Storage Upload Error:', error);
-      throw new Error(`Falha ao fazer upload da imagem: ${error.message}`);
-    }
-    
-    console.log('[Storage] Upload bem-sucedido. Obtendo URL pública...');
-
-    // Construct the public URL
-    const { data: publicUrlData } = supabase.storage
-      .from(bucketName)
-      .getPublicUrl(path);
-      
-    console.log('[Storage] URL pública obtida:', publicUrlData.publicUrl);
-
-    return publicUrlData.publicUrl;
-
-  } catch (e) {
-    console.error('[Storage] Erro capturado em uploadFile:', e);
-    // Re-lança o erro para ser capturado pelo hook/componente chamador
-    throw e; 
-  }
-}
-
-// Define o nome do bucket para imagens de restaurantes
+// Nomes dos buckets de armazenamento do Supabase
 export const RESTAURANT_IMAGES_BUCKET = 'restaurant_images';
-// Exportando o novo bucket de capas
-export const RESTAURANT_COVERS_BUCKET = 'restaurant_covers';
+export const USER_AVATARS_BUCKET = 'user_avatars';
+
+/**
+ * Faz o upload de um arquivo para um bucket específico no Supabase Storage.
+ * @param file O arquivo a ser enviado.
+ * @param bucketName O nome do bucket (ex: 'restaurant_images').
+ * @param folderPath O caminho da pasta dentro do bucket (ex: ID do restaurante).
+ * @param fileName O nome do arquivo a ser salvo (opcional, usa o nome original se não fornecido).
+ * @returns A URL pública do arquivo ou um erro.
+ */
+export const uploadFile = async (
+  file: File, 
+  bucketName: string, 
+  folderPath: string, 
+  fileName?: string
+): Promise<{ url: string | null; error: string | null }> => {
+  
+  const finalFileName = fileName || file.name;
+  const filePath = `${folderPath}/${finalFileName}`;
+
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: true,
+    });
+
+  if (error) {
+    console.error('Supabase Storage Upload Error:', error);
+    return { url: null, error: error.message };
+  }
+
+  // Obter a URL pública
+  const { data: publicUrlData } = supabase.storage
+    .from(bucketName)
+    .getPublicUrl(filePath);
+
+  if (!publicUrlData || !publicUrlData.publicUrl) {
+    return { url: null, error: "Falha ao obter a URL pública após o upload." };
+  }
+
+  return { url: publicUrlData.publicUrl, error: null };
+};

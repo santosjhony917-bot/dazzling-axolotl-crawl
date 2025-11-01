@@ -1,132 +1,168 @@
-import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useAuthData } from '@/context/AuthContext';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import ClientBasicInfoSection from '@/components/ClientBasicInfoSection';
-import ChangePasswordDialog from '@/components/ChangePasswordDialog';
-import { ImageUploadButton } from '@/components/ImageUploadButton';
-import { User, Camera, Loader2 } from 'lucide-react';
-import { AVATAR_BUCKET } from '@/constants/assets';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProfile } from '@/integrations/supabase/profiles';
+import { useAuthData } from '@/context/AuthContext';
+import { useProfile } from '@/hooks/useProfile';
+import { Loader2, User, LogOut, Settings } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 import { showError, showSuccess } from '@/utils/toast';
+import { z } from 'zod';
+import { phoneMask } from '@/utils/masks';
+import EditClientFieldDialog from '@/components/EditClientFieldDialog';
+import ClientAvatarCard from '@/components/client/profile/ClientAvatarCard';
+import ClientInfoSection from '@/components/client/profile/ClientInfoSection';
+import { supabase } from '@/integrations/supabase/client';
+import { Profile } from '@/types/supabase';
+import InfoCardItem from '@/components/InfoCardItem';
+
+// Schemas de validação
+const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
 
 export default function ClientProfilePage() {
-  const { isAuthenticated, signOut, profile, isProfileLoading, user, refetchProfile } = useAuthData();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const { user, profile, isLoading: authLoading, refetchProfile } = useAuthData();
+  const { updateProfile } = useProfile(user);
+  
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
-  const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
-  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const isLoading = authLoading || !user;
 
-  const updateProfileMutation = useMutation({
-    mutationFn: async (updates: { avatar_url: string }) => {
-      if (!user) throw new Error("Usuário não autenticado.");
-      await updateProfile({ ...updates, id: user.id });
-    },
-    onSuccess: () => {
-      showSuccess("Avatar atualizado com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ['profile', user?.id] });
+  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
+    setEditConfig({
+      key,
+      title,
+      fieldName,
+      icon,
+      validationSchema,
+      type,
+      mask,
+      placeholder,
+    });
+    setIsEditDialogOpen(true);
+  }, []);
+
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editConfig) return;
+    
+    // Remove máscara antes de salvar no DB
+    const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
+    
+    const { error } = await updateProfile({ [editConfig.key]: cleanedValue });
+    
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Campo atualizado com sucesso!");
       refetchProfile();
-    },
-    onError: (e) => {
-      showError(`Falha ao atualizar avatar: ${(e as Error).message}`);
-    },
-    onSettled: () => {
-      setIsUploadingAvatar(false);
     }
-  });
-
-  const handleAvatarUploadComplete = useCallback((url: string) => {
-    setIsUploadingAvatar(true);
-    // Adiciona um timestamp para cache busting
+  }, [editConfig, updateProfile, refetchProfile]);
+  
+  const handleAvatarUploadComplete = useCallback(async (url: string) => {
+    setUploadingAvatar(true);
     const cacheBustedUrl = `${url}?t=${Date.now()}`;
-    updateProfileMutation.mutate({ avatar_url: cacheBustedUrl });
-  }, [updateProfileMutation]);
+    const { error } = await updateProfile({ avatar_url: cacheBustedUrl });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Avatar atualizado com sucesso!");
+      refetchProfile();
+    }
+    setUploadingAvatar(false);
+  }, [updateProfile, refetchProfile]);
+  
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      showError("Erro ao sair: " + error.message);
+    } else {
+      showSuccess("Você saiu da sua conta.");
+      navigate('/login');
+    }
+  };
 
-  if (!isAuthenticated) {
+  const currentProfile = useMemo(() => ({
+    ...profile,
+    email: user?.email,
+  }), [profile, user]);
+
+  if (isLoading) {
     return (
-      <div className="p-6 text-center">
-        <h2 className="text-xl font-bold mb-4">Acesso Negado</h2>
-        <p className="text-gray-600 mb-6">Faça login para gerenciar seu perfil.</p>
-        <Button onClick={() => navigate(createPageUrl('auth'))}>
-          Fazer Login
-        </Button>
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
-  
-  const displayName = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ') || user?.email?.split('@')[0] || 'Usuário';
 
   return (
-    <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold text-primary">Meu Perfil</h1>
-
-      {/* Avatar Section */}
-      <Card className="shadow-soft-xl border-none rounded-2xl p-6 bg-white">
-        <CardContent className="p-0 flex flex-col items-center">
-          <div className="relative w-28 h-28 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg mb-4">
-            {profile?.avatar_url ? (
-              <img 
-                src={profile.avatar_url} 
-                alt="Avatar do Usuário" 
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-600 rounded-full">
-                <User className="h-12 w-12" />
-              </div>
-            )}
-            
-            <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4">
-              <ImageUploadButton
-                onUploadComplete={handleAvatarUploadComplete}
-                bucketName={AVATAR_BUCKET}
-                folderPath={`user_${user?.id}`}
-                className="h-8 w-8 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
-                icon={isUploadingAvatar ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
-                disabled={isUploadingAvatar}
-              />
-            </div>
-          </div>
-          <h2 className="text-xl font-bold text-primary">{displayName}</h2>
-          <p className="text-sm text-gray-500">{user?.email}</p>
-        </CardContent>
-      </Card>
-
-      {/* Informações Básicas */}
-      <ClientBasicInfoSection profile={profile} isLoading={isProfileLoading} />
-
-      {/* Configurações de Conta */}
-      <Card className="shadow-soft-md border-none rounded-xl">
-        <CardHeader>
-          <CardTitle className="text-lg text-primary">Configurações de Conta</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Button 
-            variant="outline" 
-            className="w-full h-12 border-2 border-primary text-primary font-bold hover:bg-primary/5 rounded-xl"
-            onClick={() => setIsPasswordDialogOpen(true)}
-          >
-            Alterar Senha
-          </Button>
-          <Button 
-            variant="destructive" 
-            onClick={signOut} 
-            className="w-full h-12 font-bold rounded-xl"
-          >
-            Sair
-          </Button>
-        </CardContent>
-      </Card>
+    <div className="p-4 space-y-8 max-w-md mx-auto">
       
-      {/* Dialog de Alteração de Senha */}
-      <ChangePasswordDialog 
-        isOpen={isPasswordDialogOpen}
-        onClose={() => setIsPasswordDialogOpen(false)}
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <Settings className="w-6 h-6 text-primary" />
+        <h1 className="text-2xl font-bold text-[#022D68]">Meu Perfil</h1>
+      </div>
+
+      {/* 1. Card Principal (Avatar e Nome) */}
+      <ClientAvatarCard
+        firstName={currentProfile?.first_name || ''}
+        lastName={currentProfile?.last_name || ''}
+        avatarUrl={currentProfile?.avatar_url}
+        uploading={uploadingAvatar}
+        onAvatarUploadComplete={handleAvatarUploadComplete}
+        userId={user?.id || 'temp'}
       />
+      
+      <Separator />
+
+      {/* 2. Informações Pessoais */}
+      <ClientInfoSection
+        profile={currentProfile}
+        handleEditField={handleEditField}
+        phoneMask={phoneMask}
+        nameSchema={nameSchema}
+        phoneSchema={phoneSchema}
+      />
+      
+      <Separator />
+
+      {/* 3. Opções de Conta */}
+      <div className="w-full space-y-3">
+        <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Opções de Conta</h2>
+        
+        <InfoCardItem 
+          label="Meus Favoritos" 
+          value="Ver restaurantes e itens salvos" 
+          icon={User}
+          onClick={() => navigate('/favorites')}
+        />
+        
+        <InfoCardItem 
+          label="Sair da Conta" 
+          value="Desconectar deste dispositivo" 
+          icon={LogOut}
+          onClick={handleLogout}
+        />
+      </div>
+      
+      {/* Dialogs */}
+      {editConfig && (
+        <EditClientFieldDialog
+          isOpen={isEditDialogOpen}
+          onClose={() => setIsEditDialogOpen(false)}
+          title={editConfig.title}
+          fieldName={editConfig.fieldName}
+          currentValue={currentProfile?.[editConfig.key as keyof Profile] as string || ''}
+          icon={editConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editConfig.placeholder}
+          type={editConfig.type}
+          validationSchema={editConfig.validationSchema}
+          mask={editConfig.mask}
+        />
+      )}
     </div>
   );
 }
