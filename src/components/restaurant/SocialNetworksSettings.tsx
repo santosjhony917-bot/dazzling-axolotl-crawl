@@ -9,6 +9,7 @@ import { useRestaurantUpdate } from '@/hooks/useRestaurantUpdate';
 import { showError, showSuccess } from '@/utils/toast';
 import { SocialNetworkLink } from '@/types/restaurant';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Restaurant } from '@/types/supabase'; // Importando o tipo Restaurant
 
 const availableNetworks = [
   { type: 'Instagram', icon: Instagram },
@@ -35,10 +36,12 @@ const SocialNetworksSettings: React.FC = () => {
   const { mutateAsync: updateRestaurant, isPending: isSaving } = useRestaurantUpdate();
 
   useEffect(() => {
-    if (restaurant?.social_networks) {
-      setNetworks(restaurant.social_networks as SocialNetworkLink[]);
+    // CORREÇÃO: Garantindo que restaurant seja do tipo Restaurant para acessar social_networks
+    const currentNetworks = (restaurant as Restaurant)?.social_networks as SocialNetworkLink[] | null;
+    if (currentNetworks) {
+      setNetworks(currentNetworks);
     }
-  }, [restaurant?.social_networks]);
+  }, [restaurant]); // Dependência corrigida
 
   const handleAddLink = () => {
     if (newLink.url.trim() && newLink.type.trim()) {

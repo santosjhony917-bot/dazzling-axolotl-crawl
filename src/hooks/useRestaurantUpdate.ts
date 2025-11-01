@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'react-hot-toast';
+import { Json } from '@/types/supabase'; // Importando Json para tipos JSONB
 
 interface UpdatePayload {
   restaurantId: string;
@@ -24,7 +25,9 @@ interface UpdatePayload {
     cep: string;
     latitude: number;
     longitude: number;
-    opening_hours: any;
+    opening_hours: Json;
+    payment_methods: Json;
+    social_networks: Json; // ADICIONADO
   }>;
 }
 

@@ -225,6 +225,7 @@ export interface Database {
           payment_methods: Json | null
           phone: string | null
           plan: Database["public"]["Enums"]["restaurant_plan"]
+          social_networks: Json | null // ADICIONADO
           state: string | null
           user_id: string | null
           whatsapp_url: string | null
@@ -254,6 +255,7 @@ export interface Database {
           payment_methods?: Json | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
+          social_networks?: Json | null // ADICIONADO
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null
@@ -283,6 +285,7 @@ export interface Database {
           payment_methods?: Json | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
+          social_networks?: Json | null // ADICIONADO
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null

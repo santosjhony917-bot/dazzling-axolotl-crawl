@@ -155,6 +155,8 @@ export default function ProfileSettingsPage() {
     nextOpenTime: openStatus.nextOpenTime,
     // CORREÇÃO 3: Garantindo que payment_methods seja string[] | null
     payment_methods: (restaurant?.payment_methods as string[] | null) || null,
+    // CORREÇÃO 4: Adicionando social_networks
+    social_networks: (restaurant?.social_networks as PublicRestaurantData['social_networks']) || null,
   };
 
   return (

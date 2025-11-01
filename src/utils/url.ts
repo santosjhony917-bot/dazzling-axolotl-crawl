@@ -35,6 +35,7 @@ export const PATH_MAP = {
   'restaurant-area/menu': '/restaurant-area/menu',
   'restaurant-area/category-details': '/restaurant-area/menu/:categoryId',
   'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/social-networks': '/restaurant-area/social-networks', // ADICIONADO
   
   // Rotas Admin
   adminLogin: '/admin/login',
