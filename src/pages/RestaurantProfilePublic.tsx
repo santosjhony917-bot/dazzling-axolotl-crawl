@@ -106,8 +106,8 @@ const toggleFavoriteStatus = async (restaurantId: string, isFavorite: boolean, u
 };
 
 export default function RestaurantProfilePublic() {
-  const params = useParams<{ slug?: string; id?: string }>();
-  const slug = params.slug || params.id;
+  const params = useParams<{ slug?: string; id?: string; restaurantId?: string }>();
+  const slug = params.slug || params.id || params.restaurantId;
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
