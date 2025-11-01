@@ -11,7 +11,7 @@ interface RestaurantInfoProps {
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
   // Removendo other_url e external_url daqui, pois serão gerenciados em social_networks
-  const { phone, email, whatsapp_url, ifood_url, social_networks } = restaurant;
+  const { phone, email, social_networks } = restaurant;
 
   const contactItems = [
     {
