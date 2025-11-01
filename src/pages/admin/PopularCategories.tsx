@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
+import { MenuCategoryWithRestaurant } from '@/types/menu';
 
 export default function PopularCategories() {
   const { categories, isLoading, error, updatePopularStatus, isUpdating } = usePopularCategoriesManagement();
@@ -53,13 +54,15 @@ export default function PopularCategories() {
             <TableHeader>
               <TableRow>
                 <TableHead>Nome da Categoria</TableHead>
+                <TableHead>Restaurante</TableHead>
                 <TableHead className="text-right">Popular</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {categories?.map((category) => (
+              {categories?.map((category: MenuCategoryWithRestaurant) => (
                 <TableRow key={category.id}>
                   <TableCell className="font-medium">{category.name}</TableCell>
+                  <TableCell className="text-sm text-gray-500">{category.restaurants?.name || 'N/A'}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end space-x-2">
                       <Switch

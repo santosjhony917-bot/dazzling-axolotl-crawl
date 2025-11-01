@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory, CreateCategoryPayload, UpdateCategoryPayload } from '@/types/menu';
+import { CreateCategoryPayload, UpdateCategoryPayload } from '@/types/menu';
+import { MenuCategory } from '@/types/supabase'; // Import MenuCategory from supabase types
 import { toast } from 'react-hot-toast';
 
 // --- Types (Assuming they are imported from types/menu.ts) ---

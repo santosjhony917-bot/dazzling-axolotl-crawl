@@ -1,57 +1,49 @@
-import { MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory } from './supabase';
+import { MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem } from '@/types/supabase';
 
-export type MenuItem = SupabaseMenuItem;
-export type MenuCategory = SupabaseMenuCategory;
-
-// --- Public Menu Types ---
-
-// Item de menu simplificado para visualização pública
-export interface PublicMenuItem {
-  id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  is_favorite?: boolean; // Adicionado para contexto de cliente
-}
-
-// Categoria de menu para visualização pública (contém apenas itens ativos)
-export interface PublicMenuCategory extends MenuCategory {
-  menu_items: PublicMenuItem[];
-}
-
-// Resultado do hook usePublicMenu
-export interface UsePublicMenuResult {
-  menu: PublicMenuCategory[];
-  isLoading: boolean;
-  error: Error | null;
-}
-
-// --- Management Payloads ---
-
-export type CreateItemPayload = {
-  category_id: string;
-  name: string;
-  price: number;
-  is_active: boolean;
-  description: string | null;
-  image_url: string | null;
+// Type for menu categories with associated restaurant name for admin view
+export type MenuCategoryWithRestaurant = SupabaseMenuCategory & {
+  restaurants: {
+    name: string;
+  };
 };
 
-export type UpdateItemPayload = {
-  id: string;
-  updates: Partial<CreateItemPayload>;
-};
-
-export type CreateCategoryPayload = {
-  restaurant_id: string;
+// Base type for category creation/update
+interface CategoryBase {
   name: string;
   is_active: boolean;
   order_index?: number;
-  is_popular?: boolean; // Adicionado
+  is_popular?: boolean;
+}
+
+export type CreateCategoryPayload = CategoryBase & {
+  restaurant_id: string;
 };
 
 export type UpdateCategoryPayload = {
   id: string;
-  updates: Partial<CreateCategoryPayload>;
+  updates: Partial<CategoryBase>;
+};
+
+// Base type for menu item creation/update
+interface MenuItemBase {
+  name: string;
+  description?: string;
+  price: number;
+  image_url?: string;
+  is_active: boolean;
+  order_index?: number;
+}
+
+export type CreateItemPayload = MenuItemBase & {
+  category_id: string;
+};
+
+export type UpdateItemPayload = {
+  id: string;
+  updates: Partial<MenuItemBase>;
+};
+
+// Type for public menu items (might include favorite status)
+export type PublicMenuItem = SupabaseMenuItem & {
+  is_favorite?: boolean;
 };

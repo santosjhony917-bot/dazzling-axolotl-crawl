@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuCategory } from '@/types/menu'; // Corrigido
+import { MenuCategory } from '@/types/supabase'; // Import MenuCategory from supabase types
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

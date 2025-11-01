@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuItem, CreateItemPayload, UpdateItemPayload } from '@/types/menu'; // Import payloads from types/menu
+import { CreateItemPayload, UpdateItemPayload } from '@/types/menu'; // Import payloads from types/menu
+import { MenuItem } from '@/types/supabase'; // Import MenuItem from supabase types
 import { toast } from 'react-hot-toast'; // Importando toast
 
 // --- API Calls ---
