@@ -1,260 +1,121 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { Search, DollarSign, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { createPageUrl } from '@/utils/url';
-import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
-import { Skeleton } from '@/components/ui/skeleton';
-import { showError, showSuccess } from '@/utils/toast';
-import ActionCard from '@/components/restaurant/dashboard/ActionCard';
-import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
-import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
-import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import BottomNavigation from '@/components/layout/BottomNavigation'; // Importando o componente de navegação inferior
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
+  // Mock data for demonstration
+  const dailyHighlights = [
+    { id: '1', name: 'Restaurante Teste Premium', cuisine: 'Culinária Internacional', price: 'R$ 25,00', imageUrl: 'https://images.unsplash.com/photo-1504674590-ba0953925254?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: '2', name: 'Bodega do danilo', cuisine: 'Churrasco', price: 'R$ 25,00', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    // Add more mock data as needed
+  ];
 
-  const userLat = location.latitude;
-  const userLon = location.longitude;
-
-  // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
-  const { 
-    restaurants, 
-    loading: isRestaurantsLoading, 
-    error: restaurantsError, 
-    refetch: refetchRestaurants 
-  } = useNearbyRestaurants({
-    userLat,
-    userLon,
-    enabled: userLat !== null && userLon !== null,
-    searchQuery: searchQuery, // Passa a query de busca
-  });
-
-  const handleLocationSaved = () => {
-    refetchLocation();
-    setIsLocationModalOpen(false);
-  };
-  
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
-      return;
-    }
-    // Redireciona para a página de resultados com a query
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
-  };
-
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsPriceModalOpen(true);
-  };
-
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
-    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
-  };
-
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
-    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
-  };
-
-  // Usando os 3 primeiros restaurantes próximos como Destaques (se houver)
-  const highlights = restaurants.slice(0, 3).map(r => ({
-    id: r.id,
-    name: r.name,
-    restaurantName: r.category || 'Geral',
-    price: 25.00, // Preço mockado, pois não temos o preço médio
-    imageUrl: r.image_url || 'https://via.placeholder.com/300x200?text=Destaque',
-  }));
+  const nearbyRestaurants = [
+    { id: '1', name: 'Restaurante Teste Premium', cuisine: 'Culinária Internacional', distance: '4.1 km', plan: 'Premium', imageUrl: 'https://images.unsplash.com/photo-1504674590-ba0953925254?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { id: '2', name: 'Bodega do danilo', cuisine: 'Churrasco', distance: '3.9 km', plan: 'Básico', imageUrl: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    // Add more mock data as needed
+  ];
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8]">
-      
-      {/* Header com Localização */}
-      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
-        <div 
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)}
-        >
-          <MapPin className="h-6 w-6 text-[#E47948]" />
-          <div>
-            <p className="text-xs text-gray-500">Localização de Busca</p>
-            {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-[#022D68]">
-                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-              </div>
-            ) : (
-              <p className="text-base font-extrabold text-[#022D68] tracking-tight truncate max-w-[250px]">
-                {location.address.split(',')[0] || "Definir Local"}
-              </p>
-            )}
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <header className="p-4 bg-white shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center text-gray-700">
+            <MapPin className="h-5 w-5 mr-2" />
+            <span className="font-medium">Localização de Busca</span>
           </div>
+          <Link to="/restaurant-area/home" className="text-sm text-blue-600">
+            /restaurant-area/home
+          </Link>
         </div>
-        
-        {/* Barra de Busca Principal */}
-        <form onSubmit={handleSearchSubmit} className="flex gap-2 mt-4">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-            <Input
-              type="text"
-              placeholder="Buscar por prato ou restaurante..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            size="icon" 
-            variant="highlight" 
-            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
-          >
-            <Search className="w-5 h-5" />
+        <div className="flex items-center space-x-2">
+          <Input
+            type="text"
+            placeholder="Buscar por prato ou restaurante..."
+            className="flex-grow"
+          />
+          <Button size="icon">
+            <Search className="h-4 w-4" />
           </Button>
-        </form>
-        
+        </div>
       </header>
 
-      <main className="p-4 space-y-6">
+      <main className="flex-grow p-4 space-y-6 max-w-md mx-auto w-full">
         
         {/* Ações Rápidas (Filtros) */}
         <div className="flex gap-4 pt-2">
-          <ActionCard 
-            title="Buscar Prato|por Preço" 
-            icon={DollarSign} 
-            onClick={handleSearchByPrice}
-          />
-          <ActionCard 
-            title="Buscar Restaurantes|Próximos" 
-            icon={Compass} 
-            onClick={handleSearchNearby}
-          />
+          <Card className="flex-1 p-4 flex flex-col items-center justify-center text-center">
+            <DollarSign className="h-6 w-6 text-orange-500 mb-2" />
+            <span className="text-sm font-medium">Buscar Prato por Preço</span>
+          </Card>
+          <Card className="flex-1 p-4 flex flex-col items-center justify-center text-center">
+            <MapPin className="h-6 w-6 text-orange-500 mb-2" />
+            <span className="text-sm font-medium">Buscar Restaurantes Próximos</span>
+          </Card>
         </div>
-        
-        {/* Banner Premium */}
-        <PremiumBanner />
-        
+
         {/* Destaques do Dia */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Destaques do Dia</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
-            >
-              Ver todos
-            </Button>
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-semibold">Destaques do Dia</h2>
+            <Link to="#" className="text-sm text-blue-600">Ver todos</Link>
           </div>
-          <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
-            <div className="flex space-x-4 pb-6"> {/* Adicionando padding inferior ao div interno */}
-              {highlights.length > 0 ? (
-                highlights.map((item) => (
-                  <HighlightCard key={item.id} item={item} />
-                ))
-              ) : (
-                <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
-                  Nenhum destaque encontrado.
-                </div>
-              )}
-            </div>
-          </ScrollArea>
-        </div>
+          <Carousel className="w-full">
+            <CarouselContent>
+              {dailyHighlights.map((item) => (
+                <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
+                  <Card className="overflow-hidden">
+                    <img src={item.imageUrl} alt={item.name} className="w-full h-32 object-cover" />
+                    <div className="p-3">
+                      <h3 className="font-semibold text-sm">{item.name}</h3>
+                      <p className="text-xs text-gray-500">{item.cuisine}</p>
+                      <p className="text-sm font-bold text-orange-600 mt-1">{item.price}</p>
+                    </div>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </section>
 
         {/* Restaurantes Próximos */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Restaurantes Próximos</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleSearchNearby}
-            >
-              Ver todos
-            </Button>
+        <section>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-semibold">Restaurantes Próximos</h2>
+            <Link to="#" className="text-sm text-blue-600">Ver todos</Link>
           </div>
-          <div className="space-y-4">
-            {isRestaurantsLoading || isLocationLoading ? (
-              <>
-                <Skeleton className="w-full h-24 rounded-xl" />
-                <Skeleton className="w-full h-24 rounded-xl" />
-              </>
-            ) : restaurantsError ? (
-              <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
-                <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                <p>{restaurantsError}</p>
-                <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
-              </div>
-            ) : restaurants.length > 0 ? (
-              <div className="space-y-4">
-                {restaurants.map((restaurant) => (
-                  <RestaurantCard 
-                    key={restaurant.id} 
-                    restaurant={restaurant} 
-                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
-                <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
-                <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>
-              </div>
-            )}
+          <div className="space-y-3">
+            {nearbyRestaurants.map((restaurant) => (
+              <Card key={restaurant.id} className="flex items-center p-3">
+                <Avatar className="h-12 w-12 mr-3">
+                  <AvatarImage src={restaurant.imageUrl} alt={restaurant.name} />
+                  <AvatarFallback>{restaurant.name[0]}</AvatarFallback>
+                </Avatar>
+                <div className="flex-grow">
+                  <h3 className="font-semibold">{restaurant.name}</h3>
+                  <p className="text-sm text-gray-500">{restaurant.cuisine}</p>
+                  <div className="flex items-center text-sm text-gray-500 mt-1">
+                    <MapPin className="h-3 w-3 mr-1" />
+                    <span>{restaurant.distance}</span>
+                    <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs font-medium">
+                      {restaurant.plan}
+                    </Badge>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
-        </div>
+        </section>
       </main>
 
-      {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={location.address}
-        onLocationSaved={handleLocationSaved}
-      />
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
+      <BottomNavigation />
     </div>
   );
 };
