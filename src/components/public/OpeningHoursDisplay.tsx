@@ -1,15 +1,14 @@
+"use client";
+
 import React from 'react';
-import { WeekSchedule } from '@/types/schedule'; // Importando o tipo correto
+import { WeekSchedule, DayOfWeek, DaySchedule } from '@/types/schedule';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface OpeningHoursDisplayProps {
-  openingHours: WeekSchedule; // Usando o tipo WeekSchedule
+  openingHours: WeekSchedule | null;
 }
 
-const daysOrder: (keyof WeekSchedule)[] = [
-  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-];
-
-const dayLabels: Record<keyof WeekSchedule, string> = {
+const dayNames: Record<DayOfWeek, string> = {
   monday: 'Segunda-feira',
   tuesday: 'Terça-feira',
   wednesday: 'Quarta-feira',
@@ -20,35 +19,43 @@ const dayLabels: Record<keyof WeekSchedule, string> = {
 };
 
 const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours }) => {
-  if (!openingHours || Object.keys(openingHours).length === 0) {
-    return <p className="text-gray-500 dark:text-gray-400">Horário não disponível.</p>;
+  if (!openingHours) {
+    return <p className="text-sm text-gray-500">Horário não disponível.</p>;
   }
 
+  const daysOrder: DayOfWeek[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
   return (
-    <div className="space-y-1 text-sm">
-      {daysOrder.map((dayKey) => {
-        const dayData = openingHours[dayKey];
-        const dayLabel = dayLabels[dayKey];
+    <Card className="shadow-none border-gray-200">
+      <CardContent className="p-4 space-y-1">
+        {daysOrder.map((day) => {
+          const schedule: DaySchedule | undefined = openingHours[day];
+          const dayName = dayNames[day];
 
-        if (!dayData) return null;
+          if (!schedule || schedule.slots.length === 0) {
+            return (
+              <div key={day} className="flex justify-between text-sm text-gray-500">
+                <span>{dayName}</span>
+                <span className="font-medium text-red-600">Fechado</span>
+              </div>
+            );
+          }
 
-        // Exibe todos os slots para o dia
-        const timeSlots = dayData.slots.map(slot => `${slot.start} - ${slot.end}`).join(' / ');
-
-        return (
-          <div key={dayKey} className="flex justify-between">
-            <span className="text-gray-600 dark:text-gray-400">{dayLabel}:</span>
-            {!dayData.isOpen || dayData.slots.length === 0 ? (
-              <span className="font-medium text-red-500">Fechado</span>
-            ) : (
-              <span className="font-medium text-gray-900 dark:text-white">
-                {timeSlots}
-              </span>
-            )}
-          </div>
-        );
-      })}
-    </div>
+          return (
+            <div key={day} className="flex justify-between text-sm text-gray-700">
+              <span>{dayName}</span>
+              <div className="text-right">
+                {schedule.slots.map((slot, index) => (
+                  <p key={index} className="font-medium">
+                    {slot.open} - {slot.close}
+                  </p>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
   );
 };
 

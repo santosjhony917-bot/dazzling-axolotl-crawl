@@ -1,135 +1,121 @@
-import React from 'react';
-import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
-import { ChevronRight, Utensils } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { Button } from '@/components/ui/button'; // Importando Button
+"use client";
 
-// Definindo o tipo de categoria esperado (com itens aninhados)
-interface MenuCategoryWithItems extends MenuCategory {
-  menu_items: MenuItem[];
-}
+import React, { useState } from 'react';
+import { MenuCategoryWithItems, MenuItem } from '@/types/restaurant';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { formatPrice } from '@/utils/formatters';
 
 interface RestaurantMenuProps {
-  menuCategories: MenuCategoryWithItems[];
-  isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
-  restaurantId?: string; // Necessário para o link do cardápio completo
+  menuCategories: MenuCategoryWithItems[] | null;
+  isFullMenuPage: boolean;
 }
 
-// NOVOS LIMITES
-const MAX_CATEGORIES_PREVIEW = 2;
-const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
+const MAX_ITEMS_PER_CATEGORY = 5;
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId }) => {
-  const navigate = useNavigate();
-  
-  if (menuCategories.length === 0) return null;
+const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => {
+  return (
+    <Card className="flex overflow-hidden transition-shadow hover:shadow-md">
+      {item.image_url && (
+        <div className="w-24 h-24 flex-shrink-0">
+          <img
+            src={item.image_url}
+            alt={item.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+      <CardContent className="flex-1 p-3 flex flex-col justify-between">
+        <div className="space-y-1">
+          <h4 className="text-base font-semibold text-gray-800 line-clamp-2">{item.name}</h4>
+          {item.description && (
+            <p className="text-xs text-gray-500 line-clamp-2">{item.description}</p>
+          )}
+        </div>
+        <p className="text-sm font-bold text-green-600 mt-1">{formatPrice(item.price)}</p>
+      </CardContent>
+    </Card>
+  );
+};
 
-  const handleItemClick = (itemId: string) => {
-    navigate(createPageUrl('menuItemDetails', { itemId }));
-  };
-  
-  const handleViewFullMenu = () => {
-    if (restaurantId) {
-      navigate(createPageUrl('fullMenuPage', { restaurantId }));
-    }
-  };
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage }) => {
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
-  // Lógica de filtragem e limitação
+  if (!menuCategories || menuCategories.length === 0) {
+    return <p className="text-center text-gray-500 p-8">Nenhum item de menu disponível.</p>;
+  }
+
   const activeCategories = menuCategories
     .filter(category => category.is_active)
     .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-    
-  const categoriesToDisplay = isFullMenuPage 
-    ? activeCategories 
-    : activeCategories.slice(0, MAX_CATEGORIES_PREVIEW);
-    
-  const shouldShowFullMenuButton = !isFullMenuPage && (
-    activeCategories.length > MAX_CATEGORIES_PREVIEW || 
-    activeCategories.some(cat => cat.menu_items.filter(item => item.is_active).length > MAX_ITEMS_PER_CATEGORY_PREVIEW)
-  );
+
+  if (activeCategories.length === 0) {
+    return <p className="text-center text-gray-500 p-8">Nenhuma categoria ativa disponível.</p>;
+  }
+
+  const toggleExpand = (categoryId: string) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
 
   return (
-    <div id="menu" className="space-y-6">
-      {/* Título da seção: Adicionado de volta para a visualização de perfil */}
-      {!isFullMenuPage && (
-        <h2 className="text-2xl font-extrabold text-[#022D68]">Cardápio</h2>
-      )}
-      
-      {categoriesToDisplay.map((category) => {
+    <div className="space-y-8">
+      {activeCategories.map((category) => {
         const activeItems = category.menu_items
           .filter(item => item.is_active)
           .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-          
-        const itemsToDisplay = isFullMenuPage 
-          ? activeItems 
-          : activeItems.slice(0, MAX_ITEMS_PER_CATEGORY_PREVIEW);
-          
-        const remainingItemsCount = activeItems.length - itemsToDisplay.length;
+
+        if (activeItems.length === 0) return null;
+
+        const isExpanded = expandedCategories[category.id] || isFullMenuPage;
+        const displayItems = isExpanded || isFullMenuPage
+          ? activeItems
+          : activeItems.slice(0, MAX_ITEMS_PER_CATEGORY);
+
+        const remainingItemsCount = activeItems.length - MAX_ITEMS_PER_CATEGORY;
+        const showExpandButton = !isFullMenuPage && remainingItemsCount > 0;
 
         return (
           <div key={category.id} className="space-y-4">
             {/* Título da Categoria */}
             <h3 className="text-xl font-extrabold text-gray-800 border-b pb-2">{category.name}</h3>
-            
+
+            {/* Lista de Itens */}
             <div className="grid gap-4">
-              {itemsToDisplay.map((item) => (
-                <Card 
-                  key={item.id} 
-                  className="p-4 flex items-start space-x-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => handleItemClick(item.id)}
-                >
-                  {item.image_url && (
-                    <img 
-                      src={item.image_url} 
-                      alt={item.name} 
-                      className="w-20 h-20 object-cover rounded-md flex-shrink-0"
-                    />
-                  )}
-                  <div className="flex-grow">
-                    <div className="flex justify-between items-start">
-                      <h4 className="font-semibold text-lg text-[#022D68]">{item.name}</h4>
-                      <p className="font-bold text-lg text-highlight ml-4">
-                        {formatPrice(item.price)}
-                      </p>
-                    </div>
-                    {item.description && (
-                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
-                    )}
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
-                </Card>
+              {displayItems.map((item) => (
+                <MenuItemCard key={item.id} item={item} />
               ))}
-              
-              {/* Botão para ver mais itens na categoria (apenas na prévia) */}
-              {!isFullMenuPage && remainingItemsCount > 0 && (
-                <Button 
-                  variant="link" 
-                  onClick={handleViewFullMenu}
-                  className="text-highlight p-0 h-auto text-sm font-semibold justify-start"
-                >
-                  Ver mais {remainingItemsCount} itens em {category.name}
-                </Button>
-              )}
             </div>
-            <Separator className="mt-6" />
+
+            {/* Botão de Expansão */}
+            {showExpandButton && (
+              <div className="text-center pt-2">
+                <Button
+                  variant="outline"
+                  onClick={() => toggleExpand(category.id)}
+                  className="w-full sm:w-auto"
+                >
+                  {isExpanded ? (
+                    <>
+                      <ChevronUp className="w-4 h-4 mr-2" />
+                      Ver menos
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="w-4 h-4 mr-2" />
+                      Ver mais {remainingItemsCount} itens em {category.name}
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
           </div>
         );
       })}
-      
-      {/* Botão Ver Cardápio Completo (apenas na prévia) */}
-      {shouldShowFullMenuButton && restaurantId && (
-        <Button 
-          onClick={handleViewFullMenu}
-          variant="highlight"
-          className="w-full h-12 rounded-xl text-lg font-bold shadow-highlight-glow mt-6"
-        >
-          Ver Cardápio Completo
-        </Button>
-      )}
     </div>
   );
 };
