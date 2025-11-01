@@ -29,7 +29,7 @@ const SocialNetworksSettings: React.FC = () => {
   
   // Inicializa o estado com os dados do restaurante ou array vazio
   const [networks, setNetworks] = useState<SocialNetworkLink[]>(
-    (restaurant?.social_networks as SocialNetworkLink[] || [])
+    (restaurant?.social_networks as unknown as SocialNetworkLink[] || [])
   );
   const [newLink, setNewLink] = useState<{ type: string, url: string }>({ type: 'Instagram', url: '' });
 
@@ -37,7 +37,7 @@ const SocialNetworksSettings: React.FC = () => {
 
   useEffect(() => {
     // CORREÇÃO: Garantindo que restaurant seja do tipo Restaurant para acessar social_networks
-    const currentNetworks = (restaurant as Restaurant)?.social_networks as SocialNetworkLink[] | null;
+    const currentNetworks = (restaurant as Restaurant)?.social_networks as unknown as SocialNetworkLink[] | null;
     if (currentNetworks) {
       setNetworks(currentNetworks);
     }

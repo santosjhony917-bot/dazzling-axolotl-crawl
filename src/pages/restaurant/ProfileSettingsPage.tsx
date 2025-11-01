@@ -21,7 +21,7 @@ import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase'; // Importando o tipo base
-import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo estendido
+import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant'; // Importando o tipo estendido
 import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 
 // Schemas de validação
@@ -156,7 +156,7 @@ export default function ProfileSettingsPage() {
     // CORREÇÃO 3: Garantindo que payment_methods seja string[] | null
     payment_methods: (restaurant?.payment_methods as string[] | null) || null,
     // CORREÇÃO 4: Adicionando social_networks
-    social_networks: (restaurant?.social_networks as PublicRestaurantData['social_networks']) || null,
+    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null,
   };
 
   return (

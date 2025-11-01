@@ -13,6 +13,8 @@ export type GalleryImage = SupabaseGalleryImage;
 export interface SocialNetworkLink {
   type: string; // e.g., 'instagram', 'facebook', 'tiktok'
   url: string;
+  // Required to satisfy the generic Json type constraint from Supabase
+  [key: string]: Json | undefined | string; 
 }
 
 // Type for public restaurant profile data, including menu and gallery
