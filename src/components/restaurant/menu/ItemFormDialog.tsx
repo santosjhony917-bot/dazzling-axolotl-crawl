@@ -1,8 +1,4 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { MenuItem } from '@/types';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -10,205 +6,267 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, Camera } from 'lucide-react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { MenuCategory, MenuItem } from '@/types/supabase';
+import { supabase } from '@/integrations/supabase/client';
+import { showError, showSuccess } from '@/utils/toast';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { Camera, Utensils, Loader2 } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { cn } from '@/lib/utils';
 
-const formSchema = z.object({
-  name: z.string().min(1, 'O nome é obrigatório.'),
+// Esquema de validação
+const itemSchema = z.object({
+  name: z.string().min(3, 'O nome é obrigatório.'),
   description: z.string().max(500, 'A descrição não pode exceder 500 caracteres.').optional(),
-  price: z.coerce.number().min(0.01, 'O preço deve ser maior que zero.'),
+  price: z.number().min(0.01, 'O preço deve ser maior que zero.'),
   image_url: z.string().url('URL de imagem inválida.').optional().or(z.literal('')),
-  is_active: z.boolean().default(true),
+  is_active: z.boolean(),
 });
 
-export type MenuItemFormValues = z.infer<typeof formSchema>;
+type ItemFormValues = z.infer<typeof itemSchema>;
 
-interface MenuItemFormDialogProps {
+interface ItemFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  categoryId: string;
-  initialData: MenuItem | null;
-  onSave: (data: MenuItemFormValues) => Promise<void>;
-  isLoading: boolean;
+  category: MenuCategory;
+  itemToEdit?: MenuItem | null;
+  onSave: () => void;
 }
 
-export default function MenuItemFormDialog({
+const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
   isOpen,
   onClose,
-  categoryId,
-  initialData,
+  category,
+  itemToEdit,
   onSave,
-  isLoading,
-}: MenuItemFormDialogProps) {
-  const form = useForm<MenuItemFormValues>({
-    resolver: zodResolver(formSchema),
+}) => {
+  const isEditing = !!itemToEdit;
+  const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<ItemFormValues>({
+    resolver: zodResolver(itemSchema),
     defaultValues: {
-      name: initialData?.name || '',
-      description: initialData?.description || '',
-      price: initialData?.price || 0,
-      image_url: initialData?.image_url || '',
-      is_active: initialData?.is_active ?? true,
+      name: '',
+      description: '',
+      price: 0,
+      image_url: '',
+      is_active: true,
     },
   });
 
   useEffect(() => {
-    if (initialData) {
-      form.reset({
-        name: initialData.name,
-        description: initialData.description || '',
-        price: initialData.price,
-        image_url: initialData.image_url || '',
-        is_active: initialData.is_active,
+    if (itemToEdit) {
+      reset({
+        name: itemToEdit.name,
+        description: itemToEdit.description || '',
+        price: itemToEdit.price,
+        image_url: itemToEdit.image_url || '',
+        is_active: itemToEdit.is_active,
       });
     } else {
-      form.reset({
-        name: '',
-        description: '',
-        price: 0,
-        image_url: '',
-        is_active: true,
-      });
+      reset();
     }
-  }, [initialData, form]);
+  }, [itemToEdit, reset]);
 
-  const onSubmit = async (values: MenuItemFormValues) => {
-    await onSave(values);
-    // Não chama onClose aqui, pois o componente pai faz isso após o sucesso da mutação
+  const onSubmit = async (data: ItemFormValues) => {
+    setIsSaving(true);
+    
+    const itemData = {
+      ...data,
+      category_id: category.id,
+      // Garantir que a URL seja null se for string vazia
+      image_url: data.image_url || null,
+      description: data.description || null,
+    };
+
+    let error = null;
+
+    if (isEditing) {
+      const { error: updateError } = await supabase
+        .from('menu_items')
+        .update(itemData)
+        .eq('id', itemToEdit.id);
+      error = updateError;
+    } else {
+      // 1. Determinar o próximo order_index
+      const { data: maxOrderData } = await supabase
+        .from('menu_items')
+        .select('order_index')
+        .eq('category_id', category.id)
+        .order('order_index', { ascending: false })
+        .limit(1)
+        .single();
+        
+      const newOrderIndex = (maxOrderData?.order_index || 0) + 1;
+
+      const { error: insertError } = await supabase
+        .from('menu_items')
+        .insert({ ...itemData, order_index: newOrderIndex });
+      error = insertError;
+    }
+
+    setIsSaving(false);
+
+    if (error) {
+      showError(`Erro ao salvar item: ${error.message}`);
+    } else {
+      showSuccess(`Item salvo com sucesso!`);
+      onSave();
+      onClose();
+    }
   };
   
-  const currentImageUrl = form.watch('image_url');
+  const handleUploadStart = useCallback(() => {
+    setIsUploading(true);
+  }, []);
+  
+  const handleUploadComplete = useCallback((url: string) => {
+    setValue('image_url', url, { shouldValidate: true });
+    setIsUploading(false);
+    showSuccess("Imagem enviada com sucesso!");
+  }, [setValue]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{initialData ? 'Editar Item' : 'Novo Item de Menu'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar Item' : 'Novo Item'}</DialogTitle>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            
-            {/* Imagem e Upload */}
-            <FormField
-              control={form.control}
-              name="image_url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Imagem do Item (Opcional)</FormLabel>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                      <img 
-                        src={currentImageUrl || PLACEHOLDER_IMAGE_URL} 
-                        alt="Preview" 
-                        className="w-full h-full object-cover"
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          
+          {/* Imagem e Upload */}
+          <Controller
+            name="image_url"
+            control={control}
+            render={({ field }) => (
+              <div className="space-y-2">
+                <Label>Imagem do Item</Label>
+                <div className="flex items-center gap-4">
+                  <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-50 shrink-0">
+                    <img 
+                      src={field.value || PLACEHOLDER_IMAGE_URL} 
+                      alt="Prévia do Item" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                      <ImageUploadButton
+                        onUploadComplete={handleUploadComplete}
+                        bucketName={RESTAURANT_IMAGES_BUCKET}
+                        folderPath={`${category.restaurant_id}/menu`}
+                        className="bg-white text-primary hover:bg-gray-100 h-8 w-8 p-0 rounded-full shadow-lg"
+                        icon={<Camera className="h-4 w-4" />}
                       />
                     </div>
-                    <ImageUploadButton
-                      onUploadComplete={(url) => field.onChange(url)}
-                      bucketName={RESTAURANT_IMAGES_BUCKET}
-                      folderPath={`${categoryId}/items`}
-                      className="h-10 flex-1 bg-highlight hover:bg-highlight/90"
-                      icon={<Camera className="h-4 w-4 mr-2" />}
-                    >
-                      {field.value ? "Trocar Imagem" : "Adicionar Imagem"}
-                    </ImageUploadButton>
                   </div>
-                  <FormMessage />
-                </FormItem>
-              )}
+                  <div className="flex-1">
+                    <Input
+                      {...field}
+                      placeholder="URL da imagem (opcional)"
+                      value={field.value || ''}
+                      onChange={(e) => field.onChange(e.target.value)}
+                      disabled={isUploading}
+                    />
+                    {errors.image_url && <p className="text-xs text-red-500 mt-1">{errors.image_url.message}</p>}
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+
+          {/* Nome */}
+          <div className="space-y-2">
+            <Label htmlFor="name">Nome</Label>
+            <Input
+              id="name"
+              placeholder="Ex: Pizza Margherita"
+              {...register('name')}
             />
-            
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome do Item</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ex: Hambúrguer Clássico" {...field} className="h-10 rounded-lg" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+            {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
+          </div>
+
+          {/* Descrição */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Descrição (Opcional)</Label>
+            <Textarea
+              id="description"
+              placeholder="Ingredientes e detalhes..."
+              {...register('description')}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Breve descrição do item..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
+            {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description.message}</p>}
+          </div>
+
+          {/* Preço */}
+          <div className="space-y-2">
+            <Label htmlFor="price">Preço (R$)</Label>
+            <Controller
               name="price"
+              control={control}
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Preço (R$)</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="number" 
-                      step="0.01" 
-                      placeholder="19.90" 
-                      {...field} 
-                      className="h-10 rounded-lg"
-                      onChange={(e) => field.onChange(parseFloat(e.target.value))}
-                      value={field.value === 0 ? '' : field.value}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <Input
+                  id="price"
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00"
+                  {...field}
+                  onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                  value={field.value === 0 ? '' : field.value}
+                />
               )}
             />
-            
-            <FormField
-              control={form.control}
+            {errors.price && <p className="text-xs text-red-500 mt-1">{errors.price.message}</p>}
+          </div>
+
+          {/* Ativo */}
+          <div className="flex items-center justify-between space-x-2 pt-2">
+            <Label htmlFor="is_active" className="flex flex-col space-y-1">
+              <span>Item Ativo</span>
+              <span className="font-normal leading-snug text-muted-foreground text-sm">
+                Se desativado, não aparecerá no menu público.
+              </span>
+            </Label>
+            <Controller
               name="is_active"
+              control={control}
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="space-y-0.5">
-                    <FormLabel>Ativo (Visível ao público)</FormLabel>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      className="data-[state=checked]:bg-highlight"
-                    />
-                  </FormControl>
-                </FormItem>
+                <Switch
+                  id="is_active"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
               )}
             />
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
-                Cancelar
-              </Button>
-              <Button type="submit" disabled={isLoading} className="bg-primary hover:bg-primary/90">
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Salvar
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+          </div>
+
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose} disabled={isSaving}>
+              Cancelar
+            </Button>
+            <Button type="submit" disabled={isSaving || isUploading}>
+              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              {isEditing ? 'Salvar Alterações' : 'Criar Item'}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default ItemFormDialog;

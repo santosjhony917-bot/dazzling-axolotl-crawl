@@ -39,7 +39,8 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
             <User className="w-12 h-12 text-gray-500" />
           )}
           
-          <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4">
+          {/* Aumentando o z-index para z-20 */}
+          <div className="absolute bottom-0 right-0 z-20 translate-x-1/4 translate-y-1/4">
             <ImageUploadButton
               imageUrl={avatarUrl || undefined}
               onUploadComplete={onAvatarUploadComplete}

@@ -1,77 +1,65 @@
-import React, { useRef, useState, useMemo, memo } from 'react';
-import { Button } from '@/components/ui/button';
-import { Upload, Loader2, Camera } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { ButtonProps } from '@/components/ui/button';
-import { uploadFile } from '@/integrations/supabase/storage';
-import toast from 'react-hot-toast';
+"use client";
 
-interface ImageUploadButtonProps extends ButtonProps {
+import React, { useRef, useState } from 'react';
+import { Button } from './ui/button';
+import { Camera, Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { uploadFile } from '@/integrations/supabase/storage';
+import { showError } from '@/utils/toast';
+
+interface ImageUploadButtonProps {
+  imageUrl?: string;
   onUploadComplete: (url: string) => void;
-  imageUrl?: string; // Mantido para compatibilidade, mas não usado para preview interno
   bucketName: string;
   folderPath: string;
   className?: string;
   icon?: React.ReactNode;
-  children?: React.ReactNode;
 }
 
-export const ImageUploadButton = memo(({ 
-  onUploadComplete, 
-  imageUrl, // Não usado para preview interno
-  bucketName, 
-  folderPath, 
-  className, 
-  icon, 
-  children, 
-  ...props 
-}: ImageUploadButtonProps) => {
+export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
+  onUploadComplete,
+  bucketName,
+  folderPath,
+  className,
+  icon = <Camera className="h-4 w-4" />,
+}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-
-  const handleClick = () => {
-    if (!uploading) {
-      fileInputRef.current?.click();
-    }
-  };
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    setUploading(true);
-    
-    // Define o caminho do arquivo: [folderPath]/[timestamp].[extensao]
-    const fileExt = file.name.split('.').pop();
-    const path = `${folderPath}/${Date.now()}.${fileExt}`;
-    
-    try {
-      const publicUrl = await uploadFile(file, bucketName, path);
+    setIsUploading(true);
 
-      if (publicUrl) {
+    try {
+      const fileName = `${Date.now()}-${file.name}`;
+      
+      const { url: publicUrl, error: uploadError } = await uploadFile(
+        file,
+        bucketName,
+        folderPath,
+        fileName
+      );
+
+      if (uploadError) {
+        showError(`Erro ao enviar imagem: ${uploadError}`);
+      } else if (publicUrl) {
         onUploadComplete(publicUrl);
-        // toast.success("Imagem enviada com sucesso!"); // Toast movido para o componente pai (ProfileHeaderManagement)
       } else {
-        toast.error("Falha ao fazer upload da imagem.");
+        showError("Erro desconhecido ao obter a URL da imagem.");
       }
     } catch (e) {
-      const errorMessage = (e as Error).message || "Erro desconhecido durante o upload.";
-      toast.error(errorMessage);
+      showError("Falha no processo de upload.");
+      console.error(e);
     } finally {
-      setUploading(false);
-      // Reset input value to allow re-uploading the same file
+      setIsUploading(false);
+      // Limpar o input para permitir o upload do mesmo arquivo novamente
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
     }
   };
-
-  const displayIcon = useMemo(() => {
-    if (uploading) {
-      return <Loader2 className="h-4 w-4 animate-spin" />;
-    }
-    return icon || <Camera className="h-4 w-4" />;
-  }, [uploading, icon]);
 
   return (
     <>
@@ -79,24 +67,25 @@ export const ImageUploadButton = memo(({
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        className="hidden"
         accept="image/*"
-        disabled={uploading}
+        className="hidden"
+        disabled={isUploading}
       />
-      
       <Button
         type="button"
-        onClick={handleClick}
+        onClick={() => fileInputRef.current?.click()}
         className={cn(
-          "h-8 w-8 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 transition-all",
+          "p-2 rounded-full",
           className
         )}
-        size="icon"
-        disabled={uploading}
-        {...props}
+        disabled={isUploading}
       >
-        {children || displayIcon}
+        {isUploading ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          icon
+        )}
       </Button>
     </>
   );
-});
+};
