@@ -68,6 +68,7 @@
     @apply text-foreground;
     /* CORREÇÃO: Força a barra de rolagem vertical a estar sempre presente */
     overflow-y: scroll; 
+    overflow-x: hidden; /* Adicionado para evitar rolagem horizontal */
   }
 }
 
