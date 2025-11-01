@@ -58,7 +58,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
               >
                 {isIfood ? (
                   <img 
-                    src="/assets/ifood-logo.png" 
+                    src="/assets/ifood-logo.svg" 
                     alt="iFood Logo" 
                     className="w-7 h-7 object-contain" 
                   />
