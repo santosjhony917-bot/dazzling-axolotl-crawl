@@ -6,7 +6,7 @@ import { PublicRestaurantData } from '@/types/restaurant';
 import PhotoGalleryDisplay from '@/components/PhotoGalleryDisplay';
 import RestaurantMenu from '@/components/public/RestaurantMenu';
 import OrderChannelsSection from '@/components/public/OrderChannelsSection';
-import { MenuCategoryWithItems } from '@/types/supabase';
+import { MenuCategoryWithItems, GalleryImage } from '@/types/supabase';
 import { formatOpeningHours } from '@/utils/formatters';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 

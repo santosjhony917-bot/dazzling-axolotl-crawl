@@ -15,11 +15,12 @@ interface CategoryDialogProps {
 const CategoryDialog: React.FC<CategoryDialogProps> = ({ open, onOpenChange, category, onSave, isSaving }) => {
   return (
     <CategoryFormDialog
-      open={open}
-      onOpenChange={onOpenChange}
-      initialData={category ? { name: category.name, is_active: category.is_active || false } : undefined}
+      isOpen={open}
+      onClose={() => onOpenChange(false)}
+      initialData={category || null}
       onSave={onSave}
-      isSaving={isSaving}
+      isLoading={isSaving}
+      restaurantId={category?.restaurant_id || ''}
     />
   );
 };

@@ -1,34 +1,61 @@
+"use client";
+
 import React from 'react';
 import { MenuItem } from '@/types/supabase';
 import MenuItemListItem from './MenuItemListItem';
-import { Utensils } from 'lucide-react';
+import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
 interface MenuItemListProps {
   items: MenuItem[];
-  onEdit: (item: MenuItem) => void;
-  onDelete: (itemId: string) => void;
+  onEditItem: (item: MenuItem) => void;
+  onDeleteItem: (itemId: string) => void;
+  onToggleItemActive: (itemId: string, isActive: boolean) => void;
+  onReorderItems: (newOrder: MenuItem[]) => void;
 }
 
-export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDelete }) => {
-  if (items.length === 0) {
-    return (
-      <div className="text-center text-gray-500 mt-8 p-6 bg-white rounded-xl shadow-soft-md">
-        <Utensils className="w-8 h-8 mx-auto mb-3 text-gray-400" />
-        <p>Nenhum item de menu encontrado nesta categoria.</p>
-      </div>
-    );
-  }
+const MenuItemList: React.FC<MenuItemListProps> = ({
+  items,
+  onEditItem,
+  onDeleteItem,
+  onToggleItemActive,
+  onReorderItems,
+}) => {
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const reorderedItems = Array.from(items);
+    const [removed] = reorderedItems.splice(result.source.index, 1);
+    reorderedItems.splice(result.destination.index, 0, removed);
+
+    onReorderItems(reorderedItems);
+  };
 
   return (
-    <div className="space-y-4">
-      {items.map((item) => (
-        <MenuItemListItem
-          key={item.id}
-          item={item}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-      ))}
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="items">
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-3">
+            {items.map((item, index) => (
+              <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(providedDraggable) => (
+                  <MenuItemListItem
+                    item={item}
+                    onEdit={onEditItem}
+                    onDelete={onDeleteItem}
+                    onToggleActive={onToggleItemActive}
+                    provided={providedDraggable}
+                  />
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
+
+export default MenuItemList;
