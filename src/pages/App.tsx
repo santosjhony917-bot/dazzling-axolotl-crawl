@@ -20,6 +20,7 @@ import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
+import FullMenuPage from '@/pages/FullMenuPage'; // NOVO IMPORT
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -37,6 +38,7 @@ import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
+import SocialNetworksPage from '@/pages/restaurant/SocialNetworksPage'; // NOVO IMPORT
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -66,6 +68,7 @@ function App() {
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} /> {/* NOVA ROTA */}
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -91,6 +94,7 @@ function App() {
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
           <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
+          <Route path="/restaurant-area/social-networks" element={<SocialNetworksPage />} /> {/* NOVA ROTA */}
         </Route>
 
         {/* Rotas Admin */}

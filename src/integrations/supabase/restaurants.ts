@@ -115,6 +115,10 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
+  
+  // Processar redes sociais (assumindo que é um array de SocialNetworkLink)
+  const socialNetworks = (baseData.social_networks as PublicRestaurantData['social_networks']) || null;
+
 
   return {
     ...baseData,
@@ -123,7 +127,8 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
-    payment_methods: paymentMethods, // ADICIONADO
+    payment_methods: paymentMethods,
+    social_networks: socialNetworks, // ADICIONADO
     // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,

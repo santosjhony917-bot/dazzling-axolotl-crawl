@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Camera, Eye, CreditCard } from 'lucide-react'; // Adicionado CreditCard
+import { Utensils, Camera, Eye, CreditCard, Link } from 'lucide-react'; // Adicionado Link
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
@@ -60,6 +60,15 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         description="Defina quais métodos de pagamento você aceita."
         icon={CreditCard} 
         onClick={() => setIsPaymentMethodsDialogOpen(true)}
+        isPremium={isPremium}
+      />
+      
+      {/* NOVO: Outras Redes */}
+      <NavCardItem 
+        title="Outras Redes" 
+        description="Adicione links para Instagram, Facebook e outros."
+        icon={Link} 
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/social-networks'), false)}
         isPremium={isPremium}
       />
     </div>

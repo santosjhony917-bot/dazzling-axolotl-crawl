@@ -9,6 +9,12 @@ export type MenuItem = SupabaseMenuItem;
 export type MenuCategory = SupabaseMenuCategory;
 export type GalleryImage = SupabaseGalleryImage;
 
+// Define a slot for social network links
+export interface SocialNetworkLink {
+  type: string; // e.g., 'instagram', 'facebook', 'tiktok'
+  url: string;
+}
+
 // Type for public restaurant profile data, including menu and gallery
 export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> {
   // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
@@ -27,6 +33,9 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> 
   isOpen: boolean;
   statusText: string;
   nextOpenTime: string | null;
+
+  // NOVO: Redes Sociais
+  social_networks: SocialNetworkLink[] | null; // Adicionado novo campo
 
   // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
   menu_categories: (MenuCategory & {
