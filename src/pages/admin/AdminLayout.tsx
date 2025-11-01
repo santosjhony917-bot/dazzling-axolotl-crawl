@@ -1,23 +1,32 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { createPageUrl, PathKey } from '@/utils/url';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { name: 'Dashboard', icon: Home, path: 'dashboard' },
-  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-  { name: 'Configurações', icon: Settings, path: 'settings' },
+// Definindo um tipo para os itens de navegação para garantir segurança de tipo
+type NavItem = {
+  name: string;
+  icon: React.ElementType; // Usamos React.ElementType para os ícones Lucide
+  pathKey: PathKey; // Agora, esta é uma chave direta do PATH_MAP
+};
+
+const navItems: NavItem[] = [
+  { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
+  { name: 'Gerenciar Restaurantes', icon: Utensils, pathKey: 'adminRestaurants' },
+  { name: 'Gerenciar Planos', icon: Crown, pathKey: 'adminPlans' },
+  { name: 'Categorias Populares', icon: Crown, pathKey: 'adminPopularCategories' }, // Adicionado
+  { name: 'Gerenciar Usuários', icon: Users, pathKey: 'adminUsers' },
+  { name: 'Configurações', icon: Settings, pathKey: 'adminSettings' },
+  { name: 'Banners', icon: Crown, pathKey: 'adminBanners' }, // Usando Crown como ícone temporário para Banners
 ];
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthContext();
+  const { user, isLoading, isAdmin, signOut } = useAuthData();
 
   if (isLoading) {
     return (
