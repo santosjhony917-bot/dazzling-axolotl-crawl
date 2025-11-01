@@ -1,6 +1,6 @@
 import React from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import RestaurantHeader from './RestaurantHeader';
+import RestaurantHeader from './RestaurantProfileHeader';
 import RestaurantInfo from './RestaurantInfo';
 import MenuSection from './MenuSection';
 import RestaurantGallery from './RestaurantGallery';

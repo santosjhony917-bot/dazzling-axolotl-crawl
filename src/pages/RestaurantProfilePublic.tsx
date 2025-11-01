@@ -8,7 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertTriangle, Heart } from 'lucide-react';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { useAuth } from '@/integrations/supabase/auth';
+import { useAuth } from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
 
 // Tipagem para os dados do menu

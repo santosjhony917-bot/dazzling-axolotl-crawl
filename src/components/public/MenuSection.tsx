@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Utensils, ChevronDown, ChevronUp } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
+import { formatPrice } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -84,7 +84,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ id, menuCategories, restauran
                               <p className="text-sm text-gray-600 mt-0.5 line-clamp-2">{item.description}</p>
                             )}
                             <p className="text-base font-bold text-primary mt-1">
-                              {formatCurrency(item.price)}
+                              {formatPrice(item.price)}
                             </p>
                           </div>
                         </div>
