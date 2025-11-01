@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Search, Heart, User, LucideIcon } from 'lucide-react';
 
-type PathKey = '/home' | '/search' | '/favorites' | '/profile'; // CORRIGIDO: Adicionado '/home' ao tipo PathKey
+type PathKey = '/home' | '/search' | '/favorites' | '/profile';
 
 interface NavItem {
   key: PathKey;
@@ -11,7 +11,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { key: '/home', label: 'Início', icon: Home },
+  { key: '/home', label: 'Início', icon: Home }, // CORRIGIDO: Apontando para /home
   { key: '/search', label: 'Busca', icon: Search },
   { key: '/favorites', label: 'Favoritos', icon: Heart },
   { key: '/profile', label: 'Perfil', icon: User },
