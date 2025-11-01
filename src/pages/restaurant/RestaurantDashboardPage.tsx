@@ -57,7 +57,7 @@ const RestaurantDashboardPage: React.FC = () => {
       icon={Utensils} 
       backPath="/" // Volta para a home pública
     >
-      <div className="p-4 space-y-8">
+      <div className="p-4 space-y-8"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
         
         {/* Seção de Status e Visão Geral */}
         <Card className="bg-primary/5 dark:bg-gray-800">

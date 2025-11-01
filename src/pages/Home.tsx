@@ -98,7 +98,7 @@ const Home: React.FC = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-[#f5f7f8]">
+    <div className="bg-[#f5f7f8]"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
