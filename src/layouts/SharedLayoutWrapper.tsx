@@ -1,82 +1,45 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { useAuthData } from '@/context/AuthContext';
+import { Outlet, useLocation } from 'react-router-dom';
 import ClientBottomNav from '@/components/ClientBottomNav';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
-import { Loader2 } from 'lucide-react';
-import { createPageUrl, PathKey } from '@/utils/url'; // Importando utilitários de URL
+import { useAuth } from '@/integrations/supabase/auth';
+import { cn } from '@/lib/utils';
 
 const SharedLayoutWrapper: React.FC = () => {
-  const { restaurant, isPremium, isLoading } = useAuthData();
-  const isRestaurantOwner = !!restaurant;
-  const isFree = !isPremium;
-  
-  // Determine the current path key for highlighting the correct tab
-  const currentPath = window.location.pathname;
-  let selectedTabKey: string = 'home'; // Default fallback
+  const location = useLocation();
+  const { session } = useAuth();
 
-  // Lógica para determinar a aba ativa (Mantida apenas para o ClientBottomNav, que ainda usa a prop)
-  if (isRestaurantOwner) {
-    // A lógica de determinação de aba ativa foi movida para RestaurantBottomNav.tsx
-    // Aqui, apenas garantimos que o ClientBottomNav tenha um valor, se necessário.
-    // No entanto, ClientBottomNav também precisa ser atualizado para usar useLocation.
-    // Por enquanto, vamos manter a lógica de ClientBottomNav no SharedLayoutWrapper para evitar quebrar o ClientBottomNav.
-    if (currentPath.startsWith(createPageUrl('restaurant-area/profile-menu')) || 
-        currentPath.startsWith(createPageUrl('restaurant-area/menu')) ||
-        currentPath.startsWith(createPageUrl('restaurant-area/gallery')) ||
-        currentPath.startsWith(createPageUrl('restaurant-area/upgrade'))) {
-      selectedTabKey = 'perfil';
-    } else if (currentPath.startsWith(createPageUrl('restaurant-area/home'))) {
-      selectedTabKey = 'home';
-    } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
-      selectedTabKey = 'search';
-    } else if (isPremium && currentPath.startsWith(createPageUrl('favorites'))) {
-      selectedTabKey = 'favorites';
-    } else if (isFree && currentPath.startsWith(createPageUrl('restaurant-area/upgrade'))) {
-      selectedTabKey = 'upgrade';
-    }
-  } else {
-    // Cliente
-    if (currentPath.startsWith(createPageUrl('clientProfile'))) {
-      selectedTabKey = 'clientProfile';
-    } else if (currentPath.startsWith(createPageUrl('favorites'))) {
-      selectedTabKey = 'favorites';
-    } else if (currentPath.startsWith(createPageUrl('search-unified'))) {
-      selectedTabKey = 'search-unified';
-    } else if (currentPath === createPageUrl('home') || currentPath === createPageUrl('index')) {
-      selectedTabKey = 'home';
-    }
-  }
+  // Determine if the current route is one that should display the bottom navigation bar
+  const clientRoutes = ['/', '/search', '/favorites', '/profile'];
+  const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-  
-  // If the user is a restaurant owner, use the restaurant layout structure
-  if (isRestaurantOwner) {
-    return (
-      <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        {/* Removida a prop selectedTab */}
-        <RestaurantBottomNav isFree={isFree} /> 
-      </div>
-    );
-  }
-  
-  // If the user is a regular client, use the client layout structure
+  // Determine if the current route is a public route (e.g., restaurant profile)
+  const isPublicRoute = location.pathname.startsWith('/restaurant/');
+
+  // Determine if the current route is a management route (e.g., /restaurant-management)
+  const isManagementRoute = location.pathname.startsWith('/restaurant-management');
+
+  // Determine the key for the selected tab (no longer needed for ClientBottomNav, but kept for context)
+  // const selectedTabKey = clientRoutes.find(route => location.pathname === route || location.pathname.startsWith(route + '/')) || '/';
+
   return (
-    <div className="min-h-screen bg-[#f5f7f8] pb-20 max-w-md mx-auto">
-      <main className="flex-1">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Main content area */}
+      <main
+        className={cn(
+          "flex-grow",
+          // Add padding bottom only if client nav is shown
+          showClientNav ? 'pb-20' : 'pb-0',
+          // Center content for public/management routes if needed, otherwise full width
+          isPublicRoute || isManagementRoute ? 'mx-auto w-full' : 'mx-auto w-full max-w-md'
+        )}
+      >
         <Outlet />
-        {/* O ClientBottomNav ainda usa a prop selectedTab, mas a lógica de determinação foi mantida acima */}
       </main>
-      <ClientBottomNav selectedTab={selectedTabKey} />
+      
+      {/* Bottom Navigation Bar for Client Routes */}
+      {showClientNav && (
+        <ClientBottomNav />
+      )}
     </div>
   );
 };
