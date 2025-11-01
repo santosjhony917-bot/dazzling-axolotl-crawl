@@ -1,4 +1,4 @@
-import { Database } from "./database.types";
+import { Database, Json } from "./database.types";
 
 export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
 export type Profile = Database['public']['Tables']['profiles']['Row'];
