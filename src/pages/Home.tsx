@@ -1,260 +1,232 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { createPageUrl } from '@/utils/url';
-import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
-import RestaurantCard from '@/components/restaurant/RestaurantCard';
-import { Skeleton } from '@/components/ui/skeleton';
-import { showError, showSuccess } from '@/utils/toast';
-import ActionCard from '@/components/restaurant/dashboard/ActionCard';
+import { Search, MapPin, Star, Heart, UtensilsCrossed } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from '@tanstack/react-query';
+import RestaurantCard from '@/components/RestaurantCard'; // Corrigido para default import
+import { useAuthData } from '@/context/AuthContext';
 import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
-import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
-import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay"; // Mantido, esperando que o rebuild resolva o erro de tipo
 
-const Home: React.FC = () => {
-  const navigate = useNavigate();
-  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
+const fetchBanners = async () => {
+  const { data, error } = await supabase
+    .from('banners')
+    .select('*')
+    .eq('is_active', true)
+    .eq('target_audience', 'user')
+    .order('order_index', { ascending: true });
+  if (error) throw error;
+  return data;
+};
 
-  const userLat = location.latitude;
-  const userLon = location.longitude;
+const fetchPopularItems = async () => {
+  const { data, error } = await supabase
+    .rpc('search_menu_items', { search_query: null, p_limit: 10 });
+  if (error) throw error;
+  return data;
+};
 
-  // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
-  const { 
-    restaurants, 
-    loading: isRestaurantsLoading, 
-    error: restaurantsError, 
-    refetch: refetchRestaurants 
-  } = useNearbyRestaurants({
-    userLat,
-    userLon,
-    enabled: userLat !== null && userLon !== null,
-    searchQuery: searchQuery, // Passa a query de busca
+const Home = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [locationError, setLocationError] = useState<string | null>(null);
+  const { restaurant, isAuthenticated } = useAuthData();
+
+  const { data: banners, isLoading: isLoadingBanners } = useQuery({
+    queryKey: ['banners'],
+    queryFn: fetchBanners,
   });
 
-  const handleLocationSaved = () => {
-    refetchLocation();
-    setIsLocationModalOpen(false);
-  };
-  
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
-      return;
+  const { data: popularItems, isLoading: isLoadingPopularItems } = useQuery({
+    queryKey: ['popularItems'],
+    queryFn: fetchPopularItems,
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          setLocationError("Não foi possível obter sua localização. Por favor, habilite a localização no seu navegador.");
+        }
+      );
+    } else {
+      setLocationError("Geolocalização não é suportada pelo seu navegador.");
     }
-    // Redireciona para a página de resultados com a query
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
-  };
+  }, []);
 
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsPriceModalOpen(true);
+  const handleSearch = () => {
+    // Implement search logic or navigate to search results page
+    console.log('Searching for:', searchQuery);
   };
-
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
-    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
-  };
-
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
-    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
-  };
-
-  // Usando os 3 primeiros restaurantes próximos como Destaques (se houver)
-  const highlights = restaurants.slice(0, 3).map(r => ({
-    id: r.id,
-    name: r.name,
-    restaurantName: r.category || 'Geral',
-    price: 25.00, // Preço mockado, pois não temos o preço médio
-    imageUrl: r.image_url || 'https://via.placeholder.com/300x200?text=Destaque',
-  }));
 
   return (
-    <div className="bg-[#f5f7f8]"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
-      
-      {/* Header com Localização */}
-      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
-        <div 
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)}
-        >
-          <MapPin className="h-6 w-6 text-[#E47948]" />
-          <div>
-            <p className="text-xs text-gray-500">Localização de Busca</p>
-            {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-[#022D68]">
-                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-              </div>
-            ) : (
-              <p className="text-base font-extrabold text-[#022D68] tracking-tight truncate max-w-[250px]">
-                {location.address.split(',')[0] || "Definir Local"}
-              </p>
-            )}
-          </div>
-        </div>
-        
-        {/* Barra de Busca Principal */}
-        <form onSubmit={handleSearchSubmit} className="flex gap-2 mt-4">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-            <Input
-              type="text"
-              placeholder="Buscar por prato ou restaurante..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            size="icon" 
-            variant="highlight" 
-            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
-          >
-            <Search className="w-5 h-5" />
-          </Button>
-        </form>
-        
-      </header>
-
-      <main className="p-4 space-y-6">
-        
-        {/* Ações Rápidas (Filtros) */}
-        <div className="flex gap-4 pt-2">
-          <ActionCard 
-            title="Buscar Prato|por Preço" 
-            icon={DollarSign} 
-            onClick={handleSearchByPrice}
-          />
-          <ActionCard 
-            title="Buscar Restaurantes|Próximos" 
-            icon={Compass} 
-            onClick={handleSearchNearby}
-          />
-        </div>
-        
-        {/* Banner Premium */}
+    <div className="container mx-auto p-4">
+      {isAuthenticated && restaurant && (
         <PremiumBanner />
-        
-        {/* Destaques do Dia */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Destaques do Dia</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
-            >
-              Ver todos
-            </Button>
+      )}
+
+      {/* Search Bar */}
+      <div className="flex items-center space-x-2 mb-6">
+        <Input
+          type="text"
+          placeholder="Buscar restaurantes ou pratos..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-grow"
+        />
+        <Button onClick={handleSearch}>
+          <Search className="h-4 w-4 mr-2" /> Buscar
+        </Button>
+      </div>
+
+      {/* Location Display */}
+      {userLocation ? (
+        <div className="flex items-center text-sm text-gray-600 mb-6">
+          <MapPin className="h-4 w-4 mr-1" />
+          <span>Localização atual: {userLocation.latitude.toFixed(2)}, {userLocation.longitude.toFixed(2)}</span>
+        </div>
+      ) : (
+        <div className="flex items-center text-sm text-red-600 mb-6">
+          <MapPin className="h-4 w-4 mr-1" />
+          <span>{locationError || "Obtendo localização..."}</span>
+        </div>
+      )}
+
+      {/* Banners */}
+      {!isLoadingBanners && banners && banners.length > 0 && (
+        <div className="mb-6">
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {banners.map((banner) => (
+                <CarouselItem key={banner.id}>
+                  <div className="relative w-full h-48 rounded-lg overflow-hidden shadow-lg">
+                    <img
+                      src={banner.image_url}
+                      alt={banner.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    {/* Overlay Escuro para Contraste */}
+                    <div className="absolute inset-0 bg-black/50" />
+                    <div className="absolute bottom-4 left-4 z-10 p-4 text-white">
+                      <h3 className="text-xl font-bold">{banner.title}</h3>
+                      {banner.subtitle && <p className="text-sm mt-1">{banner.subtitle}</p>}
+                      {banner.link_url && (
+                        <Button asChild className="mt-2 px-4 py-2 rounded-md text-sm font-semibold bg-[#E47948] hover:bg-[#C2653B]">
+                          <Link to={banner.link_url}>Ver Mais</Link>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+      )}
+
+      {/* Pratos Populares */}
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Pratos Populares</h2>
+          <Button variant="ghost" className="text-[#E47948] hover:text-[#C2653B]">
+            Ver Todos
+          </Button>
+        </div>
+        {isLoadingPopularItems ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {[...Array(4)].map((_, index) => (
+              <div key={index} className="bg-gray-200 rounded-lg shadow-md p-4 animate-pulse h-48"></div>
+            ))}
           </div>
-          <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
-            <div className="flex space-x-4 pb-6"> {/* Adicionando padding inferior ao div interno */}
-              {highlights.length > 0 ? (
-                highlights.map((item) => (
-                  <HighlightCard key={item.id} item={item} />
-                ))
-              ) : (
-                <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
-                  Nenhum destaque encontrado.
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {popularItems?.map((item: any) => (
+              <div key={item.item_id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src={item.item_image_url || 'https://via.placeholder.com/150'} alt={item.item_name} className="w-full h-32 object-cover" />
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg text-[#022D68]">{item.item_name}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{item.restaurant_name}</p>
+                  <p className="text-md font-bold text-[#E47948]">R$ {item.item_price.toFixed(2)}</p>
+                  <div className="flex items-center mt-2">
+                    <Heart className="h-4 w-4 text-gray-400 mr-1" />
+                    <span className="text-sm text-gray-500">Favoritar</span>
+                  </div>
                 </div>
-              )}
-            </div>
-          </ScrollArea>
-        </div>
-
-        {/* Restaurantes Próximos */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Restaurantes Próximos</h2>
-            <Button 
-              variant="link" 
-              className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleSearchNearby}
-            >
-              Ver todos
-            </Button>
+              </div>
+            ))}
           </div>
-          <div className="space-y-4">
-            {isRestaurantsLoading || isLocationLoading ? (
-              <>
-                <Skeleton className="w-full h-24 rounded-xl" />
-                <Skeleton className="w-full h-24 rounded-xl" />
-              </>
-            ) : restaurantsError ? (
-              <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
-                <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                <p>{restaurantsError}</p>
-                <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
-              </div>
-            ) : restaurants.length > 0 ? (
-              <div className="space-y-4">
-                {restaurants.map((restaurant) => (
-                  <RestaurantCard 
-                    key={restaurant.id} 
-                    restaurant={restaurant} 
-                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
-                <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
-                <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
+        )}
+      </div>
 
-      {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={location.address}
-        onLocationSaved={handleLocationSaved}
-      />
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
+      {/* Restaurantes em Destaque (Placeholder) */}
+      <div className="mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Restaurantes em Destaque</h2>
+          <Button variant="ghost" className="text-[#E47948] hover:text-[#C2653B]">
+            Ver Todos
+          </Button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Placeholder for restaurant cards */}
+          {[...Array(4)].map((_, index) => (
+            <RestaurantCard key={index} restaurant={{
+              id: `placeholder-${index}`,
+              name: `Restaurante Exemplo ${index + 1}`,
+              description: 'Uma breve descrição do restaurante.',
+              image_url: 'https://via.placeholder.com/300',
+              cover_image_url: 'https://via.placeholder.com/600',
+              plan: 'free',
+              category: 'Comida Brasileira',
+              city: 'São Paulo',
+              state: 'SP',
+              latitude: -23.55,
+              longitude: -46.63,
+              user_id: 'some-user-id',
+              created_at: new Date().toISOString(),
+              phone: null,
+              email: null,
+              cnpj: null,
+              whatsapp_url: null,
+              ifood_url: null,
+              other_url: null,
+              address: null,
+              number: null,
+              neighborhood: null,
+              cep: null,
+              opening_hours: null,
+              external_url: null,
+              followers_override: 0,
+              payment_methods: null,
+              social_networks: null,
+            }} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
