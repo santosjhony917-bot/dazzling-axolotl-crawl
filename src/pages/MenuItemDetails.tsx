@@ -11,7 +11,7 @@ import { createPageUrl } from '@/utils/url';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenuItemById } from '@/integrations/supabase/restaurant';
 import { MenuItem, Restaurant } from '@/types/supabase';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
 
 // Tipo de dado esperado após o fetch
 type DetailedMenuItem = (MenuItem & { restaurant: Restaurant | null });
@@ -90,7 +90,7 @@ const MenuItemDetails: React.FC = () => {
           {/* Imagem do Prato */}
           <div className="h-64 w-full bg-gray-200 relative">
             <img 
-              src={itemData.image_url || PLACEHOLDER_IMAGE_URL} 
+              src={itemData.image_url || DEFAULT_MENU_ITEM_IMAGE_URL} 
               alt={itemData.name} 
               className="w-full h-full object-cover"
             />

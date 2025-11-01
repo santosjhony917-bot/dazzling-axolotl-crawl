@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Camera, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { PLACEHOLDER_COVER_URL } from '@/constants/assets';
+import { DEFAULT_RESTAURANT_COVER_URL } from '@/constants/assets';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { Button } from '@/components/ui/button';
 
@@ -26,7 +26,7 @@ const CoverImageUploader: React.FC<CoverImageUploaderProps> = ({
     setIsUploading(false);
   }, [onUploadComplete]);
 
-  const displayUrl = coverImageUrl || PLACEHOLDER_COVER_URL;
+  const displayUrl = coverImageUrl || DEFAULT_RESTAURANT_COVER_URL;
 
   return (
     <Card className="w-full aspect-[3/1] overflow-hidden relative rounded-xl shadow-lg">

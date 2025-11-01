@@ -7,7 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
 import { formatPrice } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
 
 interface MenuItemListItemProps {
   item: MenuItem;
@@ -38,7 +38,7 @@ export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit
       <CardContent className="p-4 flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-grow">
           <img 
-            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
+            src={item.image_url || DEFAULT_MENU_ITEM_IMAGE_URL} 
             alt={item.name} 
             className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
           />

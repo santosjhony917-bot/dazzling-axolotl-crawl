@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Camera, User } from 'lucide-react';
-import { DEFAULT_AVATAR_URL } from "@/constants/assets";
+import { DEFAULT_USER_AVATAR_URL } from "@/constants/assets";
 import { USER_AVATARS_BUCKET } from '@/integrations/supabase/storage';
 
 interface ClientAvatarCardProps {

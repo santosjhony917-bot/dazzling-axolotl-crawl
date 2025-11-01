@@ -6,7 +6,7 @@ import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthContext } from '@/context/AuthContext';
 import { formatAddressSummary } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
@@ -30,7 +30,7 @@ interface PremiumProfileLayoutProps {
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const navigate = useNavigate();
-  const { user } = useAuth(); 
+  const { user } = useAuthContext();
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
@@ -86,7 +86,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
   const hasInfo = hasAddressHours || hasContactLinks;
-
 
   return (
     <div className="min-h-screen bg-background-light">

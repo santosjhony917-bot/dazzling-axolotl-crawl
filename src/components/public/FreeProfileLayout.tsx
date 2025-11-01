@@ -6,7 +6,7 @@ import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthContext } from '@/context/AuthContext';
 import { formatAddressSummary } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
 import { cn } from '@/lib/utils';
@@ -28,7 +28,7 @@ interface FreeProfileLayoutProps {
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
