@@ -9,15 +9,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 import { Card, CardContent } from "../ui/card";
 import { DollarSign, Heart } from "lucide-react";
 import { Button } from "../ui/button";
-import { MenuCategoryWithItems as MenuCategoryWithItemsType } from '@/types/supabase';
+import { MenuCategoryWithItems } from '@/types/supabase';
 
 interface MenuSectionProps {
   restaurantId: string;
 }
 
-interface CategoryWithItems extends MenuCategoryWithItemsType {}
-
-const fetchMenu = async (restaurantId: string): Promise<CategoryWithItems[]> => {
+const fetchMenu = async (restaurantId: string): Promise<MenuCategoryWithItems[]> => {
   const { data, error } = await supabase
     .from("menu_categories")
     .select(
@@ -36,7 +34,7 @@ const fetchMenu = async (restaurantId: string): Promise<CategoryWithItems[]> => 
   if (error) throw error;
 
   // Filter out categories with no active items
-  return data.filter(category => category.menu_items && category.menu_items.length > 0) as CategoryWithItems[];
+  return data.filter(category => category.menu_items && category.menu_items.length > 0) as MenuCategoryWithItems[];
 };
 
 const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
@@ -72,7 +70,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = ({ item }) => (
 );
 
 const MenuSection: React.FC<MenuSectionProps> = ({ restaurantId }) => {
-  const { data: menu, isLoading } = useQuery<CategoryWithItems[]>({
+  const { data: menu, isLoading } = useQuery<MenuCategoryWithItems[]>({
     queryKey: ["restaurantMenu", restaurantId],
     queryFn: () => fetchMenu(restaurantId),
   });

@@ -43,7 +43,7 @@ const processRestaurantData = (
     menu_categories: [],
     gallery_images: [],
     payment_methods: rawRestaurant.payment_methods as string[] | null,
-    social_networks: (rawRestaurant.social_networks as unknown as PublicRestaurantData['social_networks']),
+    social_networks: rawRestaurant.social_networks as unknown as PublicRestaurantData['social_networks'],
   };
 };
 

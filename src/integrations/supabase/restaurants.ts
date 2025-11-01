@@ -1,9 +1,8 @@
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
+import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
-import { WeekSchedule } from '@/types/schedule';
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
@@ -112,25 +111,20 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
   // Calcular status de abertura
-  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as WeekSchedule | null);
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
   
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
-  const socialNetworks = (baseData.social_networks as SocialNetworkLink[] | null) || null;
 
   return {
     ...baseData,
-    addressSummary: addressSummary || '',
+    addressSummary,
     logoUrl: baseData.image_url,
-    coverImageUrl: baseData.cover_image_url,
-    whatsappUrl: baseData.whatsapp_url,
-    ifoodUrl: baseData.ifood_url,
-    otherUrl: baseData.other_url,
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
-    payment_methods: paymentMethods,
-    social_networks: socialNetworks,
+    payment_methods: paymentMethods, // ADICIONADO
+    // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,

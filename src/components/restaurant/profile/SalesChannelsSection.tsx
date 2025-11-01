@@ -123,7 +123,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
           onClose={() => setIsDialogOpen(false)}
           title={currentField.title}
           description={currentField.description}
-          fieldName={currentField.name as string} // Type assertion here
+          fieldName={currentField.name as string}
           initialValue={restaurant[currentField.name] as string | number | undefined}
           inputType={currentField.inputType}
           onSave={handleSave}
