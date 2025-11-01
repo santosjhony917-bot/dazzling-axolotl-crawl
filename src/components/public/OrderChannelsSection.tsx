@@ -9,6 +9,9 @@ interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
 }
 
+// URL PNG do iFood fornecida pelo usuário
+const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
+
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
   const orderLinks = [
     { 
@@ -58,7 +61,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
               >
                 {isIfood ? (
                   <img 
-                    src="/assets/ifood-logo.svg" 
+                    src={IFOOD_PNG_URL} 
                     alt="iFood Logo" 
                     className="w-7 h-7 object-contain" 
                   />
