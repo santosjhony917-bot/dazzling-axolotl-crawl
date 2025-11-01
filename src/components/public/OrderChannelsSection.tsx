@@ -65,16 +65,16 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                   <img 
                     src={IFOOD_PNG_URL} 
                     alt="iFood Logo" 
-                    className="w-7 h-7 object-contain" 
+                    className="w-8 h-8 object-contain" 
                   />
                 ) : isWhatsapp ? (
                   <img 
                     src={WHATSAPP_PNG_URL} 
                     alt="WhatsApp Logo" 
-                    className="w-7 h-7 object-contain" 
+                    className="w-8 h-8 object-contain" 
                   />
                 ) : (
-                  <Icon className={cn("w-7 h-7", link.colorClass)} />
+                  <Icon className={cn("w-8 h-8", link.colorClass)} />
                 )}
                 <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
               </a>
