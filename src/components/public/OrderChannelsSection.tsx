@@ -11,7 +11,7 @@ interface OrderChannelsSectionProps {
 
 // URLs PNGs fornecidas pelo usuário
 const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
-const WHATSAPP_PNG_URL = "https://www.pngall.com/wp-content/uploads/13/Whatsapp-Logo-PNG-Images-HD.png";
+const WHATSAPP_PNG_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsFc58uLs722aknd42f0vPp6AT0pGXqe-qPQ&s";
 
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
   const orderLinks = [
