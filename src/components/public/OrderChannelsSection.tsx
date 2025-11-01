@@ -52,6 +52,9 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
             const Icon = link.icon;
             const isIfood = link.label === 'iFood';
             const isWhatsapp = link.label === 'WhatsApp';
+            
+            // Define o tamanho do ícone/imagem
+            const iconSizeClass = isWhatsapp ? "w-9 h-9" : "w-8 h-8";
 
             return (
               <a 
@@ -65,16 +68,16 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                   <img 
                     src={IFOOD_PNG_URL} 
                     alt="iFood Logo" 
-                    className="w-8 h-8 object-contain" 
+                    className={cn(iconSizeClass, "object-contain")} 
                   />
                 ) : isWhatsapp ? (
                   <img 
                     src={WHATSAPP_PNG_URL} 
                     alt="WhatsApp Logo" 
-                    className="w-8 h-8 object-contain" 
+                    className={cn(iconSizeClass, "object-contain")} 
                   />
                 ) : (
-                  <Icon className={cn("w-8 h-8", link.colorClass)} />
+                  <Icon className={cn(iconSizeClass, link.colorClass)} />
                 )}
                 <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
               </a>
