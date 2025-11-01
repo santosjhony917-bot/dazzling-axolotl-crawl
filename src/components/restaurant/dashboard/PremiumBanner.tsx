@@ -1,76 +1,65 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl, PathKey } from '@/utils/url';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 
-interface BannerItem {
+interface BannerProps {
   title: string;
   subtitle: string;
-  buttonText: string;
   imageUrl: string;
-  actionPath: PathKey;
+  linkTo: string;
+  buttonText: string;
 }
 
-const mockBanners: BannerItem[] = [
-  {
-    title: "Torne-se Premium!",
-    subtitle: "Apareça para mais clientes e aumente suas vendas.",
-    buttonText: "Saiba Mais",
-    imageUrl: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2074&auto=format&fit=crop",
-    actionPath: 'restaurant-area/upgrade',
-  },
-  {
-    title: "Estatísticas Avançadas",
-    subtitle: "Veja quem são seus concorrentes e como se destacar.",
-    buttonText: "Ver Recursos",
-    imageUrl: "https://images.unsplash.com/photo-1556742111-a301076d9d18?q=80&w=2070&auto=format&fit=crop",
-    actionPath: 'restaurant-area/upgrade',
-  },
-];
-
 const PremiumBanner: React.FC = () => {
-  const navigate = useNavigate();
+  const banners: BannerProps[] = [
+    {
+      title: 'Destaque seu Restaurante',
+      subtitle: 'Alcance mais clientes com o plano Premium.',
+      imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      linkTo: '/restaurant-area/premium',
+      buttonText: 'Saiba Mais',
+    },
+    {
+      title: 'Gerencie seu Cardápio',
+      subtitle: 'Adicione, edite e organize seus pratos facilmente.',
+      imageUrl: 'https://images.unsplash.com/photo-1555396273-367ba0b6ee66?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      linkTo: '/restaurant-area/menu',
+      buttonText: 'Ver Cardápio',
+    },
+    {
+      title: 'Veja suas Estatísticas',
+      subtitle: 'Acompanhe o desempenho do seu restaurante.',
+      imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      linkTo: '/restaurant-area/analytics',
+      buttonText: 'Ver Estatísticas',
+    },
+  ];
 
   return (
-    <div className="relative w-full">
-      <Carousel className="w-full">
-        <CarouselContent>
-          {mockBanners.map((banner, index) => (
-            <CarouselItem key={index}>
-              <div 
-                className="relative h-40 rounded-xl overflow-hidden bg-cover bg-center p-4 flex flex-col justify-end shadow-soft-xl"
-                style={{ backgroundImage: `url(${banner.imageUrl})` }}
-              >
-                {/* Overlay Escuro para Contraste */}
-                <div className="absolute inset-0 bg-black/50" />
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white leading-tight">{banner.title}</h3>
-                  <p className="text-sm text-gray-200 mt-1 mb-3">{banner.subtitle}</p>
-                  <motion.div
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button 
-                      onClick={() => navigate(createPageUrl(banner.actionPath))}
-                      className="bg-highlight hover:bg-highlight/90 text-white rounded-full font-bold shadow-highlight-glow animate-shine"
-                    >
-                      {banner.buttonText}
-                    </Button>
-                  </motion.div>
-                </div>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        {/* Indicadores de Posição (Dots) - Usando classes Tailwind para simular */}
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-          {/* Note: Implementação real de dots requer estado do Carousel, mas simulamos a estrutura */}
-          <div className="w-2 h-2 bg-white rounded-full opacity-80" />
-          <div className="w-2 h-2 bg-white rounded-full opacity-40" />
+    <div className="space-y-4 p-4">
+      {banners.map((banner, index) => (
+        <div
+          key={index}
+          className="relative w-full h-48 rounded-lg overflow-hidden shadow-lg flex items-center justify-center"
+        >
+          <img
+            src={banner.imageUrl}
+            alt={banner.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Overlay Bege com 55% de Transparência */}
+          <div className="absolute inset-0 bg-stone-200/55" />
+          <div className="relative z-10 text-center p-4">
+            <h3 className="text-xl font-bold text-gray-900 leading-tight">{banner.title}</h3>
+            <p className="text-sm text-gray-700 mt-1 mb-3">{banner.subtitle}</p>
+            <Link to={banner.linkTo}>
+              <Button className="bg-[#E47948] hover:bg-[#D06A3F] text-white">
+                {banner.buttonText}
+              </Button>
+            </Link>
+          </div>
         </div>
-      </Carousel>
+      ))}
     </div>
   );
 };
