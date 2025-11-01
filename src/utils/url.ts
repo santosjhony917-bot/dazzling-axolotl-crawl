@@ -50,6 +50,7 @@ export const PATH_MAP = {
   adminFiles: '/admin/files', // Adicionado para consistência
   adminImport: '/admin/import', // Adicionado para consistência
   adminBanners: '/admin/banners', // NOVO: Adicionado para a página de banners
+  adminPopularCategories: '/admin/popular-categories', // NOVO: Adicionado para categorias populares
   
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',
@@ -96,6 +97,7 @@ export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
     // 'restaurant-area/favorites', // Removido da exclusão
     'adminLogin', 'adminDashboard', 'adminRestaurants', 'adminPlans', 'adminUsers',
     'adminSettings', 'adminCategories', 'adminFiles', 'adminImport', 'adminBanners', // Rotas de admin
+    'adminPopularCategories', // Excluído, pois é uma rota de admin
   ];
 
   const selectablePaths: { key: PathKey; label: string }[] = [];

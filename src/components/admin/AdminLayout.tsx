@@ -7,13 +7,21 @@ import { Separator } from '@/components/ui/separator';
 import { createPageUrl, PathKey } from '@/utils/url';
 import { cn } from '@/lib/utils';
 
-const navItems = [
-  { name: 'Dashboard', icon: Home, path: 'dashboard' },
-  { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
-  { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
-  { name: 'Categorias Populares', icon: Crown, path: 'popular-categories' },
-  { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-  { name: 'Configurações', icon: Settings, path: 'settings' },
+// Definindo um tipo para os itens de navegação para garantir segurança de tipo
+type NavItem = {
+  name: string;
+  icon: React.ElementType; // Usamos React.ElementType para os ícones Lucide
+  pathKey: PathKey; // Agora, esta é uma chave direta do PATH_MAP
+};
+
+const navItems: NavItem[] = [
+  { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
+  { name: 'Gerenciar Restaurantes', icon: Utensils, pathKey: 'adminRestaurants' },
+  { name: 'Gerenciar Planos', icon: Crown, pathKey: 'adminPlans' },
+  { name: 'Categorias Populares', icon: Crown, pathKey: 'adminPopularCategories' }, // Usando a nova PathKey
+  { name: 'Gerenciar Usuários', icon: Users, pathKey: 'adminUsers' },
+  { name: 'Configurações', icon: Settings, pathKey: 'adminSettings' },
+  { name: 'Banners', icon: Crown, pathKey: 'adminBanners' }, // Usando Crown como ícone temporário para Banners
 ];
 
 const AdminLayout: React.FC = () => {
@@ -34,7 +42,7 @@ const AdminLayout: React.FC = () => {
     return null;
   }
 
-  const currentPath = window.location.pathname.split('/').pop();
+  const currentFullPath = window.location.pathname; // Obtém o caminho completo da URL
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -43,20 +51,23 @@ const AdminLayout: React.FC = () => {
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
-          {navItems.map((item) => (
-            <Button
-              key={item.path}
-              variant="ghost"
-              className={cn(
-                "w-full justify-start gap-3 rounded-lg",
-                currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
-              )}
-              onClick={() => navigate(createPageUrl(`admin/${item.path}` as PathKey))}
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Button>
-          ))}
+          {navItems.map((item) => {
+            const itemUrl = createPageUrl(item.pathKey); // Gera a URL completa para comparação
+            return (
+              <Button
+                key={item.pathKey}
+                variant="ghost"
+                className={cn(
+                  "w-full justify-start gap-3 rounded-lg",
+                  currentFullPath === itemUrl && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
+                )}
+                onClick={() => navigate(itemUrl)} // Navega para a URL completa
+              >
+                <item.icon className="w-5 h-5" />
+                {item.name}
+              </Button>
+            );
+          })}
         </nav>
         
         <Separator className="my-4" />
