@@ -17,7 +17,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({ open, onOpenChange, cat
     <CategoryFormDialog
       isOpen={open}
       onClose={() => onOpenChange(false)}
-      initialData={category || null}
+      initialData={category}
       onSave={onSave}
       isLoading={isSaving}
       restaurantId={category?.restaurant_id || ''}
