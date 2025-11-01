@@ -20,16 +20,17 @@ import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
+import FullMenuPage from '@/pages/FullMenuPage'; // Adicionado FullMenuPage
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
 import FavoritesPage from '@/pages/Favorites';
-import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
+import SearchUnifiedPage from '@/pages/SearchUnifiedPage'; // Componente de busca
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
 import ProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
-import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
+import MenuManagement from '@/pages/restaurant/MenuManagement';
 import GalleryManagement from '@/pages/restaurant/GalleryManagement';
 import UpgradePage from '@/pages/Upgrade';
 import RestaurantLogin from '@/pages/RestaurantLogin';
@@ -37,7 +38,6 @@ import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
-import BannersPage from '@/pages/restaurant-area/BannersPage'; // Importar a nova página
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -67,6 +67,7 @@ function App() {
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} />
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -79,7 +80,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/search-unified" element={<SearchUnifiedPage />} />
+          <Route path="/search" element={<SearchUnifiedPage />} /> {/* Rota corrigida para /search */}
         </Route>
 
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
@@ -92,7 +93,6 @@ function App() {
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
           <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
-          <Route path="/restaurant-area/banners" element={<BannersPage />} /> {/* Nova rota para banners */}
         </Route>
 
         {/* Rotas Admin */}
