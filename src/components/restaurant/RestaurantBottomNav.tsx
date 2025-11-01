@@ -46,12 +46,12 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
         id: 'favorites', 
         icon: Heart, 
         label: 'Favoritos', 
-        path: createPageUrl('favorites') as string
+        path: createPageUrl('restaurant-area/favorites') as string // Alterado para rota de restaurante
       };
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') }, 
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/search') }, // Alterado para rota de restaurante
     centralItem, // Item central dinâmico
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];

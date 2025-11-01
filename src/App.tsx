@@ -93,6 +93,8 @@ function App() {
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
           <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
+          <Route path="/restaurant-area/search" element={<SearchUnifiedPage />} /> {/* NOVA ROTA */}
+          <Route path="/restaurant-area/favorites" element={<FavoritesPage />} /> {/* NOVA ROTA */}
         </Route>
 
         {/* Rotas Admin */}
