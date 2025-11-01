@@ -10,4 +10,5 @@ export const Routes = {
   ADMIN_DASHBOARD: '/admin',
   ADMIN_LOGIN: '/admin/login',
   ONBOARDING: '/onboarding',
+  WELCOME: '/welcome',
 };
