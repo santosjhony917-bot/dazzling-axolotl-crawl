@@ -1,6 +1,6 @@
 "use client";
 
-import { PublicRestaurantData } from "@/types/supabase";
+import { PublicRestaurantData } from "@/types/restaurant";
 import { cn } from '@/lib/utils';
 import { OrderChannelsSection } from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';

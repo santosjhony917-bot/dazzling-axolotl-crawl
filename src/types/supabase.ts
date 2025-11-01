@@ -1,37 +1,31 @@
-import { Database, Json } from "./database.types";
+import { Database as DB, Json as DBJson } from "@/lib/database.types";
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule';
 
-export type Restaurant = Database['public']['Tables']['restaurants']['Row'];
+export type Json = DBJson;
+export type Database = DB;
+
+export type Restaurant = Database['public']['Tables']['restaurants']['Row'] & {
+  followers_override?: number | null;
+  payment_methods?: string[] | null;
+  social_networks?: Json | null; // Assuming social_networks is stored as JSONB
+};
 export type Profile = Database['public']['Tables']['profiles']['Row'];
 export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
 export type MenuCategory = Database['public']['Tables']['menu_categories']['Row'];
-export type GalleryImage = Database['public']['Tables']['restaurant_gallery']['Row'];
+export type UserFavorite = Database['public']['Tables']['user_favorites']['Row'];
 
-// Define o tipo para o horário de funcionamento
-export type DaySchedule = {
-  open: string; // e.g., "08:00"
-  close: string; // e.g., "18:00"
-  is_closed: boolean;
+export type RestaurantWithDistance = Restaurant & {
+  distance_km: number;
 };
 
-export type WeekSchedule = {
-  monday: DaySchedule[];
-  tuesday: DaySchedule[];
-  wednesday: DaySchedule[];
-  thursday: DaySchedule[];
-  friday: DaySchedule[];
-  saturday: DaySchedule[];
-  sunday: DaySchedule[];
+export type RestaurantPlan = Database['public']['Enums']['restaurant_plan'];
+
+export type MenuCategoryWithItems = MenuCategory & {
+  menu_items: MenuItem[];
 };
 
-// Tipo de dados públicos do restaurante, incluindo dados calculados/relacionados
-export type PublicRestaurantData = Omit<Restaurant, 'user_id' | 'cnpj' | 'email' | 'phone' | 'opening_hours'> & {
-  is_favorite: boolean;
-  followers_count: number;
-  addressSummary: string;
-  logoUrl: string;
-  coverImageUrl: string;
-  whatsappUrl: string;
-  ifoodUrl: string;
-  otherUrl: string;
-  opening_hours: WeekSchedule | null; // Usamos o tipo WeekSchedule aqui
+export type FavoriteRestaurant = UserFavorite & {
+  restaurant: Restaurant;
 };
+
+export type WeekSchedule = ScheduleWeekSchedule;

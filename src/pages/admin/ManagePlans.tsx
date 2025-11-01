@@ -4,6 +4,7 @@ import { Crown, Loader2, AlertTriangle, Utensils } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,

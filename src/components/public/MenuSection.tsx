@@ -1,6 +1,6 @@
 "use client";
 
-import { PublicRestaurantData, MenuCategory, MenuItem } from "@/types/supabase";
+import { MenuCategory, MenuItem } from "@/types/supabase";
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,14 +9,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 import { Card, CardContent } from "../ui/card";
 import { DollarSign, Heart } from "lucide-react";
 import { Button } from "../ui/button";
+import { MenuCategoryWithItems as MenuCategoryWithItemsType } from '@/types/supabase';
 
 interface MenuSectionProps {
   restaurantId: string;
 }
 
-interface CategoryWithItems extends MenuCategory {
-  menu_items: MenuItem[];
-}
+interface CategoryWithItems extends MenuCategoryWithItemsType {}
 
 const fetchMenu = async (restaurantId: string): Promise<CategoryWithItems[]> => {
   const { data, error } = await supabase

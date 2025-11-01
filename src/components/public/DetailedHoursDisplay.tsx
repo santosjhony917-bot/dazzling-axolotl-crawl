@@ -1,6 +1,6 @@
 "use client";
 
-import { WeekSchedule, DaySchedule } from "@/types/supabase";
+import { WeekSchedule, DaySchedule } from "@/types/schedule";
 import React from "react";
 import { Clock } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
@@ -19,11 +19,11 @@ const dayNames: { [key: string]: string } = {
   sunday: "Domingo",
 };
 
-const formatTimeSlot = (slot: DaySchedule): string => {
-  if (slot.is_closed) {
+const formatTimeSlots = (daySchedule: DaySchedule): string => {
+  if (!daySchedule.isOpen || daySchedule.slots.length === 0) {
     return "Fechado";
   }
-  return `${slot.open} - ${slot.close}`;
+  return daySchedule.slots.map(slot => `${slot.start} - ${slot.end}`).join(" / ");
 };
 
 const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ schedule }) => {
@@ -43,15 +43,11 @@ const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ schedule })
         <div className="space-y-1 text-sm">
           {days.map((dayKey) => {
             const daySchedule = schedule[dayKey];
-            const isClosedAllDay = !daySchedule || daySchedule.every(s => s.is_closed);
-
             return (
               <div key={dayKey} className="flex justify-between">
                 <span className="font-medium text-gray-700">{dayNames[dayKey]}</span>
-                <span className={isClosedAllDay ? "text-red-500" : "text-gray-600"}>
-                  {isClosedAllDay
-                    ? "Fechado"
-                    : daySchedule.map(formatTimeSlot).join(" / ")}
+                <span className={!daySchedule.isOpen ? "text-red-500" : "text-gray-600"}>
+                  {formatTimeSlots(daySchedule)}
                 </span>
               </div>
             );

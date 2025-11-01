@@ -4,12 +4,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { PublicRestaurantData, Restaurant } from '@/types/supabase';
+import { PublicRestaurantData, Restaurant } from '@/types/restaurant';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
+import { WeekSchedule } from '@/types/schedule';
 
 // Helper function to process raw restaurant data into PublicRestaurantData
 const processRestaurantData = (
@@ -22,6 +24,8 @@ const processRestaurantData = (
   if (rawRestaurant.neighborhood) addressParts.push(rawRestaurant.neighborhood);
   if (rawRestaurant.city && rawRestaurant.state) addressParts.push(`${rawRestaurant.city}, ${rawRestaurant.state}`);
 
+  const openStatus = getRestaurantOpenStatus(rawRestaurant.opening_hours as WeekSchedule | null);
+
   return {
     ...rawRestaurant,
     is_favorite: isFavorite,
@@ -32,8 +36,14 @@ const processRestaurantData = (
     whatsappUrl: rawRestaurant.whatsapp_url || '',
     ifoodUrl: rawRestaurant.ifood_url || '',
     otherUrl: rawRestaurant.other_url || '',
-    // Ensure opening_hours is correctly typed as WeekSchedule or null
-    opening_hours: rawRestaurant.opening_hours as PublicRestaurantData['opening_hours'],
+    opening_hours: rawRestaurant.opening_hours as WeekSchedule | null,
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    nextOpenTime: openStatus.nextOpenTime,
+    menu_categories: [],
+    gallery_images: [],
+    payment_methods: rawRestaurant.payment_methods as string[] | null,
+    social_networks: rawRestaurant.social_networks as PublicRestaurantData['social_networks'],
   };
 };
 
