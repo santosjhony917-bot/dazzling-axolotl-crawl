@@ -1,14 +1,17 @@
-export type TimeSlot = {
+// Define a slot for opening/closing time
+export interface TimeSlot {
   start: string; // e.g., "08:00"
   end: string; // e.g., "18:00"
-};
+}
 
-export type DaySchedule = {
+// DaySchedule is now an object containing status and an array of TimeSlot
+export interface DaySchedule {
   isOpen: boolean;
   slots: TimeSlot[];
-};
+}
 
-export type WeekSchedule = {
+// WeekSchedule maps day names to DaySchedule
+export interface WeekSchedule {
   monday: DaySchedule;
   tuesday: DaySchedule;
   wednesday: DaySchedule;
@@ -16,4 +19,4 @@ export type WeekSchedule = {
   friday: DaySchedule;
   saturday: DaySchedule;
   sunday: DaySchedule;
-};
+}

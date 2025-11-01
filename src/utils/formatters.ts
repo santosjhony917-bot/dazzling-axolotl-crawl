@@ -1,13 +1,22 @@
-export const formatPhoneNumber = (phoneNumber: string): string => {
-  const cleaned = ('' + phoneNumber).replace(/\D/g, '');
-  const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-  if (match) {
-    return `(${match[1]}) ${match[2]}-${match[3]}`;
-  }
-  // Match for numbers without the 9th digit
-  const match2 = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/);
-  if (match2) {
-    return `(${match2[1]}) ${match2[2]}-${match2[3]}`;
-  }
-  return phoneNumber;
+/**
+ * Formats a number with locale-specific separators.
+ * @param num The number to format.
+ * @returns The formatted string.
+ */
+export const formatNumber = (num: number): string => {
+  if (num === undefined || num === null) return '0';
+  return num.toLocaleString('pt-BR');
+};
+
+/**
+ * Formats a price number into currency format (R$).
+ * @param price The price to format.
+ * @returns The formatted currency string.
+ */
+export const formatPrice = (price: number): string => {
+  if (price === undefined || price === null) return 'R$ 0,00';
+  return price.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 };

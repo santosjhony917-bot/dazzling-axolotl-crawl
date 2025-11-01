@@ -83,10 +83,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Link do WhatsApp" 
-        value={getDisplayValue(restaurant.whatsappUrl)}
+        value={getDisplayValue(restaurant.whatsapp_url)}
         icon={MessageSquare}
         onClick={() => openDialog(
-          'whatsappUrl', 
+          'whatsapp_url', 
           'Link do WhatsApp', 
           'Insira o link direto para o seu WhatsApp (Ex: https://wa.me/5511999999999).',
           'url'
@@ -95,10 +95,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Link do iFood" 
-        value={getDisplayValue(restaurant.ifoodUrl)}
+        value={getDisplayValue(restaurant.ifood_url)}
         icon={Utensils}
         onClick={() => openDialog(
-          'ifoodUrl', 
+          'ifood_url', 
           'Link do iFood', 
           'Insira o link da sua loja no iFood.',
           'url'
@@ -107,10 +107,10 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
       
       <InfoCardItem 
         label="Site Próprio / Outro Link" 
-        value={getDisplayValue(restaurant.otherUrl)}
+        value={getDisplayValue(restaurant.other_url)}
         icon={Globe}
         onClick={() => openDialog(
-          'otherUrl', 
+          'other_url', 
           'Site Próprio / Outro Link', 
           'Insira o link para seu site próprio, Goomer, ou qualquer outro canal de venda.',
           'url'
@@ -123,7 +123,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
           onClose={() => setIsDialogOpen(false)}
           title={currentField.title}
           description={currentField.description}
-          fieldName={currentField.name as string}
+          fieldName={currentField.name}
           initialValue={restaurant[currentField.name] as string | number | undefined}
           inputType={currentField.inputType}
           onSave={handleSave}

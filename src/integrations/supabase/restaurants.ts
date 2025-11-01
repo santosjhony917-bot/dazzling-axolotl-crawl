@@ -2,7 +2,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(

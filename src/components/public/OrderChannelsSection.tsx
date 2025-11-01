@@ -1,80 +1,78 @@
-"use client";
-
-import { PublicRestaurantData } from "@/types/restaurant";
-import { Button } from "../ui/button";
-import { ExternalLink } from "lucide-react";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
 }
 
-const IFoodLogoUrl = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
+const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
+  const orderLinks = [
+    { 
+      label: 'WhatsApp', 
+      url: restaurant.whatsapp_url, 
+      icon: MessageSquare, 
+      colorClass: 'text-green-600',
+      target: '_blank',
+    },
+    { 
+      label: 'iFood', 
+      url: restaurant.ifood_url, 
+      icon: Utensils, // Icon is irrelevant here as we will use an image
+      colorClass: 'text-red-600',
+      target: '_blank',
+    },
+    { 
+      label: 'Outro Link', 
+      url: restaurant.other_url || restaurant.external_url, 
+      icon: Globe, 
+      colorClass: 'text-primary',
+      target: '_blank',
+    },
+  ].filter(link => link.url);
 
-export function OrderChannelsSection({ restaurant }: OrderChannelsSectionProps) {
-  const isWhatsapp = !!restaurant.whatsappUrl;
-  const isIfood = !!restaurant.ifoodUrl;
-  const isOther = !!restaurant.otherUrl;
-
-  if (!isWhatsapp && !isIfood && !isOther) {
+  if (orderLinks.length === 0) {
     return null;
   }
 
   return (
-    <section className="p-4 border-t border-gray-100 bg-white">
-      <h2 className="text-lg font-semibold mb-3 text-gray-800">
-        Canais de Pedido
-      </h2>
-      <div className="space-y-3">
-        {isWhatsapp && (
-          <Button
-            asChild
-            variant="outline"
-            className="w-full justify-start h-12 text-base border-green-500 text-green-600 hover:bg-green-50"
-          >
-            <a href={restaurant.whatsappUrl!} target="_blank" rel="noopener noreferrer">
-              <img
-                src="/assets/whatsapp-logo.svg"
-                alt="WhatsApp Logo"
-                className="w-7 h-7 object-contain mr-3"
-              />
-              Pedir pelo WhatsApp
-              <ExternalLink className="ml-auto h-4 w-4" />
-            </a>
-          </Button>
-        )}
+    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
+      <CardContent className="p-0">
+        {/* Título da seção ajustado para 2xl */}
+        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
+        <div className="grid grid-cols-3 gap-4">
+          {orderLinks.map((link) => {
+            const Icon = link.icon;
+            const isIfood = link.label === 'iFood';
 
-        {isIfood && (
-          <Button
-            asChild
-            variant="outline"
-            className="w-full justify-start h-12 text-base border-red-500 text-red-600 hover:bg-red-50"
-          >
-            <a href={restaurant.ifoodUrl!} target="_blank" rel="noopener noreferrer">
-              <img
-                src={IFoodLogoUrl}
-                alt="iFood Logo"
-                className="w-7 h-7 object-contain mr-3"
-              />
-              Pedir pelo iFood
-              <ExternalLink className="ml-auto h-4 w-4" />
-            </a>
-          </Button>
-        )}
-
-        {isOther && (
-          <Button
-            asChild
-            variant="outline"
-            className="w-full justify-start h-12 text-base"
-          >
-            <a href={restaurant.otherUrl!} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-5 w-5 mr-3" />
-              Outro Canal de Pedido
-              <ExternalLink className="ml-auto h-4 w-4" />
-            </a>
-          </Button>
-        )}
-      </div>
-    </section>
+            return (
+              <a 
+                key={link.label} 
+                href={link.url!}
+                target={link.target}
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
+              >
+                {isIfood ? (
+                  <img 
+                    src="/assets/ifood-logo.svg" 
+                    alt="iFood Logo" 
+                    className="w-7 h-7 object-contain" 
+                  />
+                ) : (
+                  <Icon className={cn("w-7 h-7", link.colorClass)} />
+                )}
+                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
+              </a>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
   );
-}
+};
+
+export default OrderChannelsSection;

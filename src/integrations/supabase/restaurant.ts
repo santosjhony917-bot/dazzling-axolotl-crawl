@@ -2,7 +2,6 @@ import { supabase } from './client';
 import { MenuCategory, MenuItem, Restaurant, GalleryImage, RestaurantWithDistance } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
 
 // Função para buscar um único item de menu por ID, incluindo dados do restaurante
 export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { restaurant: Restaurant | null }) | null> {

@@ -155,47 +155,6 @@ export interface Database {
           },
         ]
       }
-      scheduled_metrics: {
-        Row: {
-          created_at: string | null
-          end_time: string
-          id: string
-          initial_followers: number
-          restaurant_id: string
-          start_time: string
-          status: string
-          target_followers: number
-        }
-        Insert: {
-          created_at?: string | null
-          end_time: string
-          id?: string
-          initial_followers: number
-          restaurant_id: string
-          start_time?: string
-          status?: string
-          target_followers: number
-        }
-        Update: {
-          created_at?: string | null
-          end_time?: string
-          id?: string
-          initial_followers?: number
-          restaurant_id?: string
-          start_time?: string
-          status?: string
-          target_followers?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "scheduled_metrics_restaurant_id_fkey"
-            columns: ["restaurant_id"]
-            isOneToOne: false
-            referencedRelation: "restaurants"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       restaurants: {
         Row: {
           address: string | null

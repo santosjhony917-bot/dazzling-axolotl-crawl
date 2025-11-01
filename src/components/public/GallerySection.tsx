@@ -1,68 +1,78 @@
-"use client";
+import React from 'react';
+import { Camera, Loader2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { showError } from '@/utils/toast';
 
-import React from "react";
-import { GalleryImage } from "@/types/supabase";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Skeleton } from "../ui/skeleton";
+interface GalleryImage {
+  id: string;
+  image_url: string;
+  caption: string | null;
+}
+
+const fetchGallery = async (restaurantId: string): Promise<GalleryImage[]> => {
+  const { data, error } = await supabase
+    .from('restaurant_gallery')
+    .select('id, image_url, caption')
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  if (error) {
+    showError("Erro ao carregar galeria.");
+    throw error;
+  }
+  return data as GalleryImage[];
+};
 
 interface GallerySectionProps {
   restaurantId: string;
 }
 
-const fetchGallery = async (restaurantId: string): Promise<GalleryImage[]> => {
-  const { data, error } = await supabase
-    .from("restaurant_gallery")
-    .select("*")
-    .eq("restaurant_id", restaurantId)
-    .order("order_index", { ascending: true });
-
-  if (error) throw error;
-  return data;
-};
-
 const GallerySection: React.FC<GallerySectionProps> = ({ restaurantId }) => {
-  const { data: gallery, isLoading } = useQuery<GalleryImage[]>({
-    queryKey: ["restaurantGallery", restaurantId],
+  const { data: images, isLoading } = useQuery({
+    queryKey: ['restaurantGallery', restaurantId],
     queryFn: () => fetchGallery(restaurantId),
+    enabled: !!restaurantId,
   });
 
   if (isLoading) {
     return (
-      <section className="p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-lg font-semibold mb-3 text-gray-800">Galeria</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-32 w-full" />
-        </div>
-      </section>
+      <div className="p-6 flex justify-center">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
     );
   }
 
-  if (!gallery || gallery.length === 0) {
+  if (!images || images.length === 0) {
     return null;
   }
 
   return (
-    <section className="p-4 bg-white shadow-md rounded-lg">
-      <h2 className="text-lg font-semibold mb-3 text-gray-800">Galeria</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {gallery.map((image) => (
-          <div key={image.id} className="relative overflow-hidden rounded-lg aspect-square">
-            <img
-              src={image.image_url}
-              alt={image.caption || "Imagem da galeria"}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-            />
-            {image.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white text-xs truncate">
-                {image.caption}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+    <section id="gallery" className="p-4">
+      <Card className="shadow-lg border-none rounded-xl">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-2xl font-extrabold text-primary flex items-center gap-2">
+            <Camera className="w-6 h-6" /> Galeria
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-2">
+          {images.slice(0, 4).map((image) => (
+            <div key={image.id} className="relative aspect-square overflow-hidden rounded-lg">
+              <img
+                src={image.image_url}
+                alt={image.caption || 'Imagem do restaurante'}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          ))}
+          {images.length > 4 && (
+            <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 flex items-center justify-center text-gray-600 font-bold">
+              +{images.length - 4} fotos
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </section>
   );
 };

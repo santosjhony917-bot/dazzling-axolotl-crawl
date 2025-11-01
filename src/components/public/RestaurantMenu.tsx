@@ -7,7 +7,11 @@ import { ChevronRight, Utensils } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button'; // Importando Button
-import { MenuCategoryWithItems } from '@/types/supabase'; // Importar o tipo correto
+
+// Definindo o tipo de categoria esperado (com itens aninhados)
+interface MenuCategoryWithItems extends MenuCategory {
+  menu_items: MenuItem[];
+}
 
 interface RestaurantMenuProps {
   menuCategories: MenuCategoryWithItems[];

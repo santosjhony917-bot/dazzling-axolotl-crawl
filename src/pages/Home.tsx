@@ -17,7 +17,6 @@ import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompet
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { RestaurantWithDistance } from '@/types/supabase';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { WeekSchedule, DaySchedule } from '@/types/schedule'; // Importando o tipo correto
+import { WeekSchedule } from '@/types/schedule'; // Importando o tipo correto
 
 interface OpeningHoursDisplayProps {
   openingHours: WeekSchedule; // Usando o tipo WeekSchedule

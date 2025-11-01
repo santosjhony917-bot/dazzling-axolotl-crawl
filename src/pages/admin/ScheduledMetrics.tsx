@@ -1,126 +1,157 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, ScheduledMetric } from '@/types/supabase'; // Importar Restaurant e ScheduledMetric
-import { showError, showSuccess } from '@/utils/toast';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Clock, Loader2, AlertTriangle, Save, Utensils, Calendar, Users } from 'lucide-react';
+import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { supabase } from '@/integrations/supabase/client';
+import { showError, showSuccess } from '@/utils/toast';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { format } from 'date-fns';
-import { CalendarIcon, Loader2, PlusCircle, Trash2 } from 'lucide-react';
+import { ptBR } from 'date-fns/locale';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Restaurant } from '@/types/supabase';
+import { Badge } from '@/components/ui/badge'; // CORRIGIDO: Importando Badge
 
-interface ScheduledMetricsPageProps {
-  restaurantId: string;
+// --- Tipos ---
+interface ScheduledMetric {
+  id: string;
+  restaurant_id: string;
+  target_followers: number;
+  start_time: string;
+  end_time: string;
+  initial_followers: number;
+  status: 'pending' | 'active' | 'completed' | 'cancelled';
+  created_at: string;
+  restaurants: { name: string } | null; // CORRIGIDO: Adicionando a propriedade aninhada
 }
 
-const fetchRestaurants = async (): Promise<Restaurant[]> => {
-  const { data, error } = await supabase.from('restaurants').select('*');
-  if (error) throw error;
-  return data;
-};
+// --- Hooks de Dados ---
 
 const fetchScheduledMetrics = async (): Promise<ScheduledMetric[]> => {
-  const { data, error } = await supabase.from('scheduled_metrics').select('*').order('start_time', { ascending: false });
-  if (error) throw error;
-  return data;
+  const { data, error } = await supabase
+    .from('scheduled_metrics')
+    .select(`
+      *,
+      restaurants (name)
+    `)
+    .order('created_at', { ascending: false });
+
+  if (error) throw new Error(error.message);
+  return data as ScheduledMetric[];
 };
 
-const createScheduledMetric = async (metric: Omit<ScheduledMetric, 'id' | 'created_at' | 'status'>) => {
-  const { error } = await supabase.from('scheduled_metrics').insert(metric);
-  if (error) throw error;
-};
-
-const deleteScheduledMetric = async (id: string) => {
-  const { error } = await supabase.from('scheduled_metrics').delete().eq('id', id);
-  if (error) throw error;
-};
-
-const ScheduledMetricsPage: React.FC<ScheduledMetricsPageProps> = ({ restaurantId }) => {
-  const queryClient = useQueryClient();
-  const { data: restaurants, isLoading: isLoadingRestaurants } = useQuery<Restaurant[], Error>({
-    queryKey: ['adminRestaurants'],
-    queryFn: fetchRestaurants,
-  });
-  const { data: scheduledMetrics, isLoading: isLoadingMetrics } = useQuery<ScheduledMetric[], Error>({
+const useScheduledMetrics = () => {
+  return useQuery<ScheduledMetric[], Error>({
     queryKey: ['scheduledMetrics'],
     queryFn: fetchScheduledMetrics,
+    staleTime: 5000, // Atualiza a cada 5 segundos para ver o status
   });
+};
 
-  const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | undefined>(undefined);
+// --- Componente Principal ---
+
+const ScheduledMetrics: React.FC = () => {
+  const { restaurants, isLoading: isRestaurantsLoading } = useAdminRestaurants();
+  const { data: schedules, isLoading: isSchedulesLoading, error: schedulesError, refetch: refetchSchedules } = useScheduledMetrics();
+  const queryClient = useQueryClient();
+
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState<string>('');
   const [targetFollowers, setTargetFollowers] = useState<number>(0);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [durationHours, setDurationHours] = useState<number>(24);
+  const [isScheduling, setIsScheduling] = useState(false);
 
-  const createMutation = useMutation({
-    mutationFn: createScheduledMetric,
-    onSuccess: () => {
-      showSuccess('Métrica agendada com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['scheduledMetrics'] });
-      setSelectedRestaurantId(undefined);
+  const handleSchedule = async () => {
+    if (!selectedRestaurantId || targetFollowers <= 0 || durationHours <= 0) {
+      showError("Preencha todos os campos corretamente.");
+      return;
+    }
+
+    setIsScheduling(true);
+
+    try {
+      const restaurant = restaurants.find(r => r.id === selectedRestaurantId);
+      if (!restaurant) throw new Error("Restaurante não encontrado.");
+
+      const initialFollowers = restaurant.followers_override || 0;
+      
+      if (targetFollowers <= initialFollowers) {
+          showError(`O alvo de seguidores (${targetFollowers}) deve ser maior que o valor atual (${initialFollowers}).`);
+          setIsScheduling(false);
+          return;
+      }
+
+      const startTime = new Date();
+      const endTime = new Date(startTime.getTime() + durationHours * 60 * 60 * 1000);
+
+      const payload = {
+        restaurant_id: selectedRestaurantId,
+        target_followers: targetFollowers,
+        start_time: startTime.toISOString(),
+        end_time: endTime.toISOString(),
+        initial_followers: initialFollowers,
+        status: 'pending',
+      };
+
+      const { error: insertError } = await supabase
+        .from('scheduled_metrics')
+        .insert([payload]);
+
+      if (insertError) throw insertError;
+
+      showSuccess("Agendamento criado com sucesso! O aumento gradual começará em breve.");
+      
+      // Limpar formulário e refetch
+      setSelectedRestaurantId('');
       setTargetFollowers(0);
-      setStartDate(undefined);
-      setEndDate(undefined);
-    },
-    onError: (err) => {
-      showError(`Erro ao agendar métrica: ${err.message}`);
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteScheduledMetric,
-    onSuccess: () => {
-      showSuccess('Métrica removida com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['scheduledMetrics'] });
-    },
-    onError: (err) => {
-      showError(`Erro ao remover métrica: ${err.message}`);
-    },
-  });
-
-  const handleCreateMetric = () => {
-    if (!selectedRestaurantId || !targetFollowers || !startDate || !endDate) {
-      showError('Preencha todos os campos para agendar uma métrica.');
-      return;
+      setDurationHours(24);
+      refetchSchedules();
+      queryClient.invalidateQueries({ queryKey: ['adminRestaurants'] }); // Para atualizar a lista de restaurantes
+      
+    } catch (e) {
+      showError(`Falha ao agendar: ${(e as Error).message}`);
+    } finally {
+      setIsScheduling(false);
     }
-
-    const restaurant = restaurants?.find(r => r.id === selectedRestaurantId);
-    if (!restaurant) {
-      showError('Restaurante selecionado inválido.');
-      return;
+  };
+  
+  const getStatusBadge = (status: ScheduledMetric['status']) => {
+    switch (status) {
+      case 'active': return <Badge className="bg-green-500 text-white">Ativo</Badge>;
+      case 'completed': return <Badge className="bg-blue-500 text-white">Concluído</Badge>;
+      case 'cancelled': return <Badge className="bg-red-500 text-white">Cancelado</Badge>;
+      case 'pending': return <Badge className="bg-yellow-500 text-white">Pendente</Badge>;
+      default: return <Badge variant="secondary">{status}</Badge>;
     }
-
-    const initialFollowers = restaurant.followers_override || 0;
-
-    createMutation.mutate({
-      restaurant_id: selectedRestaurantId,
-      target_followers: targetFollowers,
-      start_time: startDate.toISOString(),
-      end_time: endDate.toISOString(),
-      initial_followers: initialFollowers,
-    });
   };
 
   return (
-    <div className="p-4 space-y-6">
-      <h1 className="text-2xl font-bold text-primary">Gerenciar Métricas Agendadas</h1>
-
-      <Card className="shadow-soft-md border-none rounded-xl">
+    <div className="space-y-6">
+      {/* Seção de Criação de Agendamento */}
+      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
         <CardHeader>
-          <CardTitle>Agendar Nova Métrica</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+            <Clock className="w-6 h-6" /> Agendar Aumento de Seguidores
+          </CardTitle>
+          <CardDescription>Simule o crescimento orgânico de seguidores ao longo do tempo.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          
+          {/* Seleção de Restaurante */}
           <div>
-            <Label htmlFor="restaurant">Restaurante</Label>
-            <Select onValueChange={setSelectedRestaurantId} value={selectedRestaurantId}>
-              <SelectTrigger id="restaurant">
-                <SelectValue placeholder="Selecione um restaurante" />
+            <label className="text-sm font-medium text-gray-700 block mb-1">Restaurante</label>
+            <Select value={selectedRestaurantId} onValueChange={setSelectedRestaurantId} disabled={isRestaurantsLoading || isScheduling}>
+              <SelectTrigger className="h-10 rounded-xl">
+                <SelectValue placeholder="Selecione o restaurante" />
               </SelectTrigger>
               <SelectContent>
-                {restaurants?.map((r) => (
+                {restaurants.map((r) => (
                   <SelectItem key={r.id} value={r.id}>
                     {r.name} (Atual: {r.followers_override || 0})
                   </SelectItem>
@@ -128,94 +159,89 @@ const ScheduledMetricsPage: React.FC<ScheduledMetricsPageProps> = ({ restaurantI
               </SelectContent>
             </Select>
           </div>
+          
+          {/* Seguidores Alvo */}
           <div>
-            <Label htmlFor="targetFollowers">Meta de Seguidores</Label>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Seguidores Alvo</label>
             <Input
-              id="targetFollowers"
               type="number"
-              value={targetFollowers}
+              value={targetFollowers || ''}
               onChange={(e) => setTargetFollowers(parseInt(e.target.value) || 0)}
+              min="1"
+              placeholder="Ex: 5000"
+              className="h-10 rounded-xl"
+              disabled={isScheduling}
             />
           </div>
-          <div className="flex space-x-4">
-            <div className="flex-1">
-              <Label htmlFor="startDate">Data de Início</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={`w-full justify-start text-left font-normal ${!startDate && "text-muted-foreground"}`}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {startDate ? format(startDate, "PPP") : <span>Selecione a data</span>}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={startDate}
-                    onSelect={setStartDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="flex-1">
-              <Label htmlFor="endDate">Data de Término</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={`w-full justify-start text-left font-normal ${!endDate && "text-muted-foreground"}`}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {endDate ? format(endDate, "PPP") : <span>Selecione a data</span>}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={endDate}
-                    onSelect={setEndDate}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
+          
+          {/* Duração */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 block mb-1">Duração (Horas)</label>
+            <Input
+              type="number"
+              value={durationHours || ''}
+              onChange={(e) => setDurationHours(parseInt(e.target.value) || 0)}
+              min="1"
+              placeholder="Ex: 24"
+              className="h-10 rounded-xl"
+              disabled={isScheduling}
+            />
           </div>
-          <Button onClick={handleCreateMetric} disabled={createMutation.isPending} className="w-full">
-            <PlusCircle className="h-4 w-4 mr-2" /> Agendar Métrica
+          
+          <Button 
+            onClick={handleSchedule}
+            disabled={isScheduling || !selectedRestaurantId || targetFollowers <= 0 || durationHours <= 0}
+            className="w-full bg-highlight hover:bg-highlight/90 h-10"
+          >
+            {isScheduling ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+            Agendar Aumento
           </Button>
         </CardContent>
       </Card>
 
-      <h2 className="text-xl font-bold text-primary mt-8">Métricas Ativas</h2>
-      {isLoadingMetrics ? (
-        <div className="flex justify-center items-center h-40">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      ) : scheduledMetrics && scheduledMetrics.length > 0 ? (
-        <div className="space-y-4">
-          {scheduledMetrics.map((metric) => (
-            <Card key={metric.id} className="shadow-soft-md border-none rounded-xl p-4 flex items-center justify-between">
-              <div>
-                <p className="font-semibold">{restaurants?.find(r => r.id === metric.restaurant_id)?.name}</p>
-                <p className="text-sm text-gray-600">Meta: {metric.target_followers} seguidores</p>
-                <p className="text-xs text-gray-500">
-                  {format(new Date(metric.start_time), 'dd/MM/yyyy')} - {format(new Date(metric.end_time), 'dd/MM/yyyy')}
-                </p>
-              </div>
-              <Button variant="destructive" size="icon" onClick={() => deleteMutation.mutate(metric.id)} disabled={deleteMutation.isPending}>
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <p className="text-gray-600">Nenhuma métrica agendada.</p>
-      )}
+      {/* Histórico de Agendamentos */}
+      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+            <Calendar className="w-6 h-6" /> Agendamentos Ativos
+          </CardTitle>
+          <CardDescription>Monitoramento dos aumentos de seguidores em andamento.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isSchedulesLoading ? (
+            <div className="flex justify-center items-center h-20">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
+          ) : schedulesError ? (
+            <AlertTriangle className="h-4 w-4 text-red-500" />
+          ) : schedules && schedules.length > 0 ? (
+            <div className="space-y-3">
+              {schedules.map((schedule) => (
+                <div key={schedule.id} className="p-4 border rounded-xl shadow-soft-sm flex justify-between items-center">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-base font-bold text-primary truncate">
+                      {schedule.restaurants?.name || 'Restaurante Desconhecido'}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Alvo: {schedule.target_followers} seguidores (De {schedule.initial_followers})
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Início: {format(new Date(schedule.start_time), 'dd/MM HH:mm', { locale: ptBR })} | Fim: {format(new Date(schedule.end_time), 'dd/MM HH:mm', { locale: ptBR })}
+                    </p>
+                  </div>
+                  <div className="shrink-0 ml-4">
+                    {getStatusBadge(schedule.status)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500">Nenhum agendamento ativo.</p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
 
-export default ScheduledMetricsPage;
+export default ScheduledMetrics;
