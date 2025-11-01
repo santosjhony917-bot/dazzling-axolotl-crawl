@@ -6,6 +6,7 @@ import { createPageUrl, PathKey } from '@/utils/url';
 import { motion } from 'framer-motion';
 
 const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+  // console.log(`NavItem: ${label}, Path: ${path}, isSelected: ${isSelected}`); // Temporarily added for debugging
   return (
     <motion.div
       whileTap={{ scale: 0.95 }}

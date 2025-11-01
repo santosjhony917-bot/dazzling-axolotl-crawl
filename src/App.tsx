@@ -75,15 +75,8 @@ function App() {
         <Route path="/restaurant-area/signup" element={<RestaurantSignup />} />
         <Route path="/restaurant-area/claim" element={<ClaimRestaurant />} />
 
-        {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
-        <Route element={<ProtectedRoute requiredRole="authenticated" element={<SharedLayoutWrapper />} />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<ClientProfilePage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/search" element={<SearchUnifiedPage />} /> {/* Rota corrigida para /search */}
-        </Route>
-
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
+        {/* Colocadas antes das rotas de cliente para evitar conflitos de path como /search ou /favorites */}
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
           {/* O Home do Restaurante Free é a página Home do Cliente */}
           <Route path="/restaurant-area/home" element={<Home />} /> 
@@ -93,8 +86,16 @@ function App() {
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
           <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
-          <Route path="/restaurant-area/search" element={<SearchUnifiedPage />} /> {/* NOVA ROTA */}
-          <Route path="/restaurant-area/favorites" element={<FavoritesPage />} /> {/* NOVA ROTA */}
+          <Route path="/restaurant-area/search" element={<SearchUnifiedPage />} />
+          <Route path="/restaurant-area/favorites" element={<FavoritesPage />} />
+        </Route>
+
+        {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
+        <Route element={<ProtectedRoute requiredRole="authenticated" element={<SharedLayoutWrapper />} />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<ClientProfilePage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/search" element={<SearchUnifiedPage />} />
         </Route>
 
         {/* Rotas Admin */}
