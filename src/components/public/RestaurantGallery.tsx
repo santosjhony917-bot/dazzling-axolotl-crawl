@@ -1,85 +1,101 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Image as ImageIcon } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { Skeleton } from '@/components/ui/skeleton';
-
-interface GalleryImage {
-  id: string;
-  image_url: string;
-  caption: string | null;
-  order_index: number;
-}
+import { GalleryImage } from '@/types/restaurant';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Image } from 'lucide-react';
 
 interface RestaurantGalleryProps {
-  id: string; // Adicionando a prop 'id'
-  restaurantId: string;
+  gallery: GalleryImage[];
 }
 
-const fetchGallery = async (restaurantId: string): Promise<GalleryImage[]> => {
-  const { data, error } = await supabase
-    .from('restaurant_gallery')
-    .select('id, image_url, caption, order_index')
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
+const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
+  if (gallery.length === 0) return null;
 
-  if (error) throw new Error(error.message);
-  return data as GalleryImage[];
-};
+  const topImages = gallery.slice(0, 3);
+  const remainingCount = gallery.length > 3 ? gallery.length - 3 : 0;
 
-const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ id, restaurantId }) => {
-  const { data: gallery, isLoading } = useQuery<GalleryImage[]>({
-    queryKey: ['restaurantGallery', restaurantId],
-    queryFn: () => fetchGallery(restaurantId),
-    enabled: !!restaurantId,
-  });
-
-  if (isLoading) {
-    return (
-      <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
-        <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-          <ImageIcon className="w-6 h-6 text-primary" />
-          <CardTitle className="text-2xl font-extrabold text-primary">Galeria</CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-32 w-full" />
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (!gallery || gallery.length === 0) {
-    return null;
-  }
+  // Array representando os 3 slots que queremos preencher
+  const slots = [0, 1, 2]; 
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        <ImageIcon className="w-6 h-6 text-primary" />
-        <CardTitle className="text-2xl font-extrabold text-primary">Galeria</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {gallery.map((image) => (
-            <div key={image.id} className="relative overflow-hidden rounded-lg shadow-md group">
+    <div id="gallery" className="space-y-4">
+      {/* Título da seção ajustado para 2xl */}
+      <h2 className="text-2xl font-extrabold text-[#022D68]">Fotos</h2>
+      
+      {/* Grid principal 3 colunas, altura fixa para 2 linhas de 156px + gap (320px total) */}
+      <div className="grid grid-cols-3 gap-2 h-[320px]"> 
+        {slots.map((slotIndex) => {
+          const image = topImages[slotIndex];
+          
+          let classes = "col-span-1 h-[156px]";
+          let content;
+          
+          if (slotIndex === 0) {
+            // Slot 1: Imagem grande (2x2)
+            classes = "col-span-2 row-span-2 h-full";
+          }
+          
+          // 1. Verifica se deve renderizar o placeholder "+X fotos" no terceiro slot
+          if (slotIndex === 2 && remainingCount > 0) {
+            content = (
+              <div className="text-center text-primary font-bold">
+                +{remainingCount} fotos
+              </div>
+            );
+            classes = cn(classes, "bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors");
+          } else if (image) {
+            // 2. Renderiza a imagem real
+            const showCaption = slotIndex !== 0;
+            content = (
+              <>
+                <img
+                  src={image.image_url}
+                  alt={image.caption || 'Imagem da galeria'}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                {showCaption && image.caption && (
+                  <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
+                    <p className="text-white text-sm font-semibold drop-shadow-md truncate">{image.caption}</p>
+                  </div>
+                )}
+              </>
+            );
+          } else {
+            // 3. Renderiza placeholder genérico (se houver menos de 3 imagens e não for o slot de contagem)
+            content = <Image className="w-8 h-8 text-gray-500" />;
+            classes = cn(classes, "bg-gray-200 flex items-center justify-center");
+          }
+
+          // Aplica Card wrapper e classes
+          return (
+            <Card 
+              key={slotIndex} 
+              className={cn("relative overflow-hidden rounded-xl shadow-soft-md border-none p-0", classes)}
+            >
+              {content}
+            </Card>
+          );
+        })}
+      </div>
+      
+      {/* Se houver mais de 3 imagens, listamos o restante em um grid simples abaixo */}
+      {remainingCount > 0 && (
+        <div className="grid grid-cols-3 gap-2 mt-4">
+          {gallery.slice(3).map((image) => (
+            <Card 
+              key={image.id} 
+              className="overflow-hidden rounded-xl shadow-soft-md border-none p-0 aspect-square"
+            >
               <img
                 src={image.image_url}
-                alt={image.caption || "Imagem da galeria"}
-                className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-105"
+                alt={image.caption || 'Imagem da galeria'}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
-              {image.caption && (
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <p className="text-white text-xs truncate">{image.caption}</p>
-                </div>
-              )}
-            </div>
+            </Card>
           ))}
         </div>
-      </CardContent>
-    </Card>
+      )}
+    </div>
   );
 };
 

@@ -13,20 +13,19 @@ interface RestaurantProfileHeaderProps {
     coverImageUrl: string | null;
     addressSummary: string | null;
     followersCount: number;
+    isFavorite: boolean;
     isOpen: boolean;
     statusText: string;
-    isPremium: boolean;
+    isPremium: boolean; // Adicionado para controle de estilo
   };
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
-  isFavorite: boolean; // Keep as direct prop
 }
 
 const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ 
   restaurant, 
   onFavoriteToggle, 
   isFavoriteMutating,
-  isFavorite,
 }) => {
   const { 
     name, 
@@ -34,6 +33,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
     coverImageUrl, 
     addressSummary, 
     followersCount, 
+    isFavorite, 
     isOpen,
     statusText,
     isPremium,
