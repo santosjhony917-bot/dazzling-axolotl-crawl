@@ -17,6 +17,7 @@ import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Compon
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -75,7 +76,13 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  const hasInfo = fullAddress || restaurant.phone || restaurant.email || restaurant.opening_hours;
+  
+  // Verifica se há informações de endereço/horário ou contato/links
+  const hasAddressHours = fullAddress || restaurant.opening_hours;
+  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
+  
+  // A aba 'info' agora é exibida se houver qualquer uma das subseções
+  const hasInfo = hasAddressHours || hasContactLinks;
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -175,14 +182,28 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
             </div>
           )}
           
-          {/* 4. Informações Detalhadas */}
+          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
-            <RestaurantInfo 
-              id="info-section"
-              restaurant={restaurant}
-              scheduleDisplay={[]}
-              fullAddress={fullAddress}
-            />
+            <div id="info-section" className="space-y-6">
+              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
+              
+              {/* Endereço e Horário (Novo Componente) */}
+              {hasAddressHours && (
+                <RestaurantAddressHoursSection
+                  id="address-hours-section"
+                  restaurant={restaurant}
+                  fullAddress={fullAddress}
+                />
+              )}
+              
+              {/* Contato e Links (Componente Refatorado) */}
+              {hasContactLinks && (
+                <RestaurantInfo 
+                  id="contact-links-section"
+                  restaurant={restaurant}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>

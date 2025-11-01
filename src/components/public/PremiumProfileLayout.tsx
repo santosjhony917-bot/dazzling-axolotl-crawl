@@ -18,6 +18,8 @@ import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Compon
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
+import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -30,7 +32,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const { user } = useAuth(); 
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
-  const addressSummary = useMemo(() => {
+  const fullAddress = useMemo(() => {
     return formatAddressSummary(
       restaurant.address,
       restaurant.number,
@@ -76,7 +78,13 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  const hasInfo = addressSummary || restaurant.phone || restaurant.email || restaurant.opening_hours;
+  
+  // Verifica se há informações de endereço/horário ou contato/links
+  const hasAddressHours = fullAddress || restaurant.opening_hours;
+  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
+  
+  // A aba 'info' agora é exibida se houver qualquer uma das subseções
+  const hasInfo = hasAddressHours || hasContactLinks;
 
 
   return (
@@ -179,58 +187,36 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           
           {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
-            <div id="info-section" className="space-y-4 pt-4">
-              {/* Título da seção ajustado para 2xl */}
+            <div id="info-section" className="space-y-6">
               <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
               
-              {/* Endereço e Contato (Bloco 1) */}
-              <div className="space-y-4">
-                {/* Endereço */}
-                {addressSummary && (
-                  <div className="space-y-2">
-                    <p className="text-base font-semibold text-primary">Endereço</p>
-                    <div className="flex items-start space-x-3">
-                      <MapPin className="h-5 w-5 text-highlight mt-1 shrink-0" />
-                      <p className="text-sm text-gray-600 font-medium">{addressSummary}</p>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Contato (Telefone/Email) */}
-                {(restaurant.phone || restaurant.email) && (
-                  <div className="space-y-2 pt-2">
-                    <p className="text-base font-semibold text-primary">Contato</p>
-                    {restaurant.phone && (
-                      <a href={`tel:${restaurant.phone}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
-                        <Phone className="h-5 w-5 text-highlight" />
-                        <span>{restaurant.phone}</span>
-                      </a>
-                    )}
-                    {restaurant.email && (
-                      <a href={`mailto:${restaurant.email}`} className="flex items-center space-x-3 text-gray-700 hover:text-highlight transition-colors">
-                        <Mail className="h-5 w-5 text-highlight" />
-                        <span>{restaurant.email}</span>
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
+              {/* Endereço e Horário (Novo Componente) */}
+              {hasAddressHours && (
+                <RestaurantAddressHoursSection
+                  id="address-hours-section"
+                  restaurant={restaurant}
+                  fullAddress={fullAddress}
+                />
+              )}
               
-              {/* Horário Detalhado (Bloco 2 - Abaixo do Contato) */}
-              {restaurant.opening_hours && (
-                <DetailedHoursDisplay schedule={restaurant.opening_hours} />
+              {/* Contato e Links (Componente Refatorado) */}
+              {hasContactLinks && (
+                <RestaurantInfo 
+                  id="contact-links-section"
+                  restaurant={restaurant}
+                />
               )}
               
               {/* Formas de Pagamento (Mocked, pois não temos os dados no DB) */}
-              <div className="space-y-2 pt-2">
-                  <p className="text-base font-semibold text-primary">Formas de Pagamento</p>
+              <Card className="shadow-soft-md border-none rounded-xl p-4">
+                  <p className="text-2xl font-extrabold text-primary mb-3">Formas de Pagamento</p>
                   <div className="flex flex-wrap gap-2">
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PIX</span>
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Crédito</span>
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Débito</span>
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Dinheiro</span>
                   </div>
-              </div>
+              </Card>
             </div>
           )}
         </div>
