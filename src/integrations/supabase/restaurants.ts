@@ -112,6 +112,9 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       
   // Calcular status de abertura
   const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
+  
+  // Processar formas de pagamento (assumindo que é um array de strings)
+  const paymentMethods = (baseData.payment_methods as string[] | null) || null;
 
   return {
     ...baseData,
@@ -120,6 +123,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
+    payment_methods: paymentMethods, // ADICIONADO
     // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,

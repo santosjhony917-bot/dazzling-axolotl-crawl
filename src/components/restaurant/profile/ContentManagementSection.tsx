@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Camera, Eye } from 'lucide-react'; // Adicionado Eye
+import { Utensils, Camera, Eye, CreditCard } from 'lucide-react'; // Adicionado CreditCard
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
@@ -11,9 +11,10 @@ interface ContentManagementSectionProps {
   isPremium: boolean;
   restaurantId: string; // Adicionado
   restaurantName: string; // Adicionado
+  setIsPaymentMethodsDialogOpen: (open: boolean) => void; // NOVO PROP
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName }) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen }) => {
   
   const handleNavigate = (path: string, isFeaturePremium: boolean) => {
     if (isFeaturePremium && !isPremium) {
@@ -51,6 +52,15 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         isPremium={isPremium}
         onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
         premiumDescription="Exclusivo Premium"
+      />
+      
+      {/* NOVO: Formas de Pagamento */}
+      <NavCardItem 
+        title="Formas de Pagamento" 
+        description="Defina quais métodos de pagamento você aceita."
+        icon={CreditCard} 
+        onClick={() => setIsPaymentMethodsDialogOpen(true)}
+        isPremium={isPremium}
       />
     </div>
   );

@@ -14,6 +14,9 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours'> 
   // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
   opening_hours: WeekSchedule | null; 
   
+  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
+  payment_methods: string[] | null; 
+  
   // Computed fields from the view/query
   is_favorite: boolean;
   followers_count: number; 

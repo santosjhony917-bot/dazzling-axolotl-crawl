@@ -222,6 +222,7 @@ export interface Database {
           number: string | null
           opening_hours: Json | null
           other_url: string | null
+          payment_methods: Json | null
           phone: string | null
           plan: Database["public"]["Enums"]["restaurant_plan"]
           state: string | null
@@ -250,6 +251,7 @@ export interface Database {
           number?: string | null
           opening_hours?: Json | null
           other_url?: string | null
+          payment_methods?: Json | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
           state?: string | null
@@ -278,6 +280,7 @@ export interface Database {
           number?: string | null
           opening_hours?: Json | null
           other_url?: string | null
+          payment_methods?: Json | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
           state?: string | null

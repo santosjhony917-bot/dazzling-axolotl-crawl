@@ -17,6 +17,7 @@ import { cnpjMask, phoneMask } from '@/utils/masks';
 import EditClientFieldDialog from '@/components/EditClientFieldDialog'; // CORRIGIDO: Importando o componente correto
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
+import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog'; // NOVO IMPORT
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase'; // Importando o tipo base
@@ -40,6 +41,7 @@ export default function ProfileSettingsPage() {
   
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
+  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false); // NOVO ESTADO
   
   const [uploadingLogo, setUploadingLogo] = useState(false);
   // Removido: const [uploadingCover, setUploadingCover] = useState(false);
@@ -106,6 +108,18 @@ export default function ProfileSettingsPage() {
       refetchProfile();
     }
   }, [updateRestaurant, refetchProfile]);
+  
+  // NOVO HANDLER: Salvar Formas de Pagamento
+  const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
+    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
+    const { error } = await updateRestaurant({ payment_methods: newMethods as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Formas de pagamento atualizadas com sucesso!");
+      refetchProfile();
+    }
+  }, [updateRestaurant, refetchProfile]);
 
 
   if (isLoading) {
@@ -121,6 +135,9 @@ export default function ProfileSettingsPage() {
   
   // Calcula o status de abertura
   const openStatus = getRestaurantOpenStatus(currentSchedule);
+  
+  // Obtém as formas de pagamento atuais (assumindo que payment_methods é um array de strings ou null)
+  const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro']; // Fallback para mock
 
   // CORREÇÃO 28: Criando um objeto que satisfaça PublicRestaurantData
   const publicRestaurantData: PublicRestaurantData = {
@@ -152,6 +169,8 @@ export default function ProfileSettingsPage() {
           restaurantId={restaurant?.id || 'temp'}
         />
         
+        <Separator />
+
         {/* 2. Informações Básicas */}
         <BasicInfoSection
           restaurant={restaurant}
@@ -184,6 +203,7 @@ export default function ProfileSettingsPage() {
           isPremium={isPremium}
           restaurantId={restaurant?.id || ''}
           restaurantName={restaurant?.name || 'Meu Restaurante'}
+          setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen} // PASSANDO NOVO PROP
         />
         
         <Separator />
@@ -238,6 +258,15 @@ export default function ProfileSettingsPage() {
         onOpenChange={setIsHoursDialogOpen}
         currentSchedule={currentSchedule}
         onSave={handleSaveHours}
+      />
+      
+      {/* NOVO DIALOG: Formas de Pagamento */}
+      <PaymentMethodsDialog
+        isOpen={isPaymentMethodsDialogOpen}
+        onClose={() => setIsPaymentMethodsDialogOpen(false)}
+        currentMethods={currentPaymentMethods}
+        onSave={handleSavePaymentMethods}
+        isLoading={false} // O estado de loading é gerenciado pelo useRestaurantProfile
       />
     </RestaurantAreaPageLayout>
   );
