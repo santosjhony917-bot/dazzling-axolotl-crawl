@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPrice } from '@/lib/utils';
-import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface MenuItem {
   id: string;
@@ -24,7 +24,7 @@ const PublicMenuItemCard: React.FC<PublicMenuItemCardProps> = ({ item, onClick }
     >
       <div 
         className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-20 flex-shrink-0" 
-        style={{ backgroundImage: `url("${item.image_url || DEFAULT_MENU_ITEM_IMAGE_URL}")` }}
+        style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
         data-alt={item.name}
       />
       <div className="flex-1 min-w-0">

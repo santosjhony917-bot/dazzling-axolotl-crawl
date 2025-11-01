@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, Clock, UserPlus, Loader2, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { DEFAULT_RESTAURANT_LOGO_URL, DEFAULT_RESTAURANT_COVER_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL, PLACEHOLDER_COVER_URL } from '@/constants/assets';
 import { motion } from 'framer-motion';
 
 interface RestaurantProfileHeaderProps {
@@ -49,7 +49,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
       {/* 1. Imagem de Capa (Banner) - Adicionado z-10 para garantir que fique abaixo do z-30 da barra de ações */}
       <div className="h-40 w-full overflow-hidden bg-gray-300 relative z-10">
         <img
-          src={coverImageUrl || DEFAULT_RESTAURANT_COVER_URL}
+          src={coverImageUrl || PLACEHOLDER_COVER_URL}
           alt={`Capa de ${name}`}
           className="w-full h-full object-cover"
         />
@@ -64,7 +64,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
           {/* Logo (Ajustado para ficar no topo do card de informações) */}
           <div className="w-24 h-24 rounded-xl border-4 border-white dark:border-gray-800 shadow-soft-lg bg-white dark:bg-gray-700 flex-shrink-0 overflow-hidden">
             <img 
-              src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
+              src={logoUrl || PLACEHOLDER_IMAGE_URL} 
               alt={`Logo de ${name}`} 
               className="w-full h-full object-cover"
             />

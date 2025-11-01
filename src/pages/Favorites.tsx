@@ -9,7 +9,7 @@ import { Loader2, Heart, MapPin, Utensils, Trash2, ArrowLeft } from 'lucide-reac
 import { useAuthData } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import Header from '@/components/Header'; // Importando o componente Header
 
 // Definindo o tipo de dado que esperamos do join (user_favorites -> restaurants)
@@ -132,7 +132,7 @@ export default function Favorites() {
                   onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
                 >
                   <img 
-                    src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL} 
+                    src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
                     alt={restaurant.name}
                     className="w-24 h-24 object-cover flex-shrink-0"
                   />

@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, Utensils, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { RestaurantWithDistance } from '@/types/supabase';
 
 interface RestaurantCardProps {
@@ -22,7 +22,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick, is
     >
       <div className="w-28 h-28 flex-shrink-0">
         <img 
-          src={restaurant.image_url || DEFAULT_RESTAURANT_LOGO_URL} 
+          src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />

@@ -3,7 +3,7 @@ import { MenuCategory, MenuItem } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatPrice } from '@/lib/utils';
 import { Utensils } from 'lucide-react';
-import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface PublicMenuSectionProps {
   categories: (MenuCategory & { items: MenuItem[] })[];
@@ -35,7 +35,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories }) => 
                   <CardContent className="p-3 flex items-center gap-4">
                     <div 
                       className="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0" 
-                      style={{ backgroundImage: `url("${item.image_url || DEFAULT_MENU_ITEM_IMAGE_URL}")` }}
+                      style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
                       data-alt={item.name}
                     />
                     <div className="flex-1 pr-4">

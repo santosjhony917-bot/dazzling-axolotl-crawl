@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPrice } from '@/lib/utils';
-import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Utensils, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
@@ -38,7 +38,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
       >
         <div 
           className="bg-center bg-no-repeat aspect-square bg-cover rounded-xl size-20 flex-shrink-0 shadow-soft-sm" 
-          style={{ backgroundImage: `url("${item.imageUrl || DEFAULT_MENU_ITEM_IMAGE_URL}")` }}
+          style={{ backgroundImage: `url("${item.imageUrl || PLACEHOLDER_IMAGE_URL}")` }}
           data-alt={item.name}
         />
         <div className="flex-1 min-w-0">

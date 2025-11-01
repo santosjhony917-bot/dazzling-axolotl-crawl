@@ -20,7 +20,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { Camera, Utensils, Loader2 } from 'lucide-react';
-import { DEFAULT_MENU_ITEM_IMAGE_URL } from '@/constants/assets';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { cn } from '@/lib/utils';
 
 // Esquema de validação
@@ -161,7 +161,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
                 <div className="flex items-center gap-4">
                   <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-50 shrink-0">
                     <img 
-                      src={field.value || DEFAULT_MENU_ITEM_IMAGE_URL} 
+                      src={field.value || PLACEHOLDER_IMAGE_URL} 
                       alt="Prévia do Item" 
                       className="w-full h-full object-cover"
                     />
