@@ -25,7 +25,7 @@ import FullMenuPage from '@/pages/FullMenuPage'; // Adicionado FullMenuPage
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
 import FavoritesPage from '@/pages/Favorites';
-import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
+import SearchUnifiedPage from '@/pages/SearchUnifiedPage'; // Componente de busca
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
@@ -80,7 +80,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/search-unified" element={<SearchUnifiedPage />} />
+          <Route path="/search" element={<SearchUnifiedPage />} /> {/* Rota corrigida para /search */}
         </Route>
 
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}

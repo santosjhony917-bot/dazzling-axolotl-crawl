@@ -1,24 +1,24 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import ClientBottomNav from '@/components/ClientBottomNav';
-import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO: Usando o hook correto
+import { useAuthData } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 
 const SharedLayoutWrapper: React.FC = () => {
   const location = useLocation();
-  const { user } = useAuthData(); // Usando useAuthData
+  const { user } = useAuthData();
 
   // Determine if the current route is one that should display the bottom navigation bar
-  const clientRoutes = ['/home', '/search-unified', '/favorites', '/profile'];
-  
-  // Ajustando a lógica para rotas do cliente
+  // Rotas de cliente que usam a navegação inferior
+  const clientRoutes = ['/home', '/search', '/favorites', '/profile']; // CORRIGIDO: Usando /search
+
+  // Verifica se o caminho atual corresponde exatamente ou começa com uma das rotas de cliente
   const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
 
   // Determine if the current route is a public route (e.g., restaurant profile)
   const isPublicRoute = location.pathname.startsWith('/restaurant/');
 
-  // Determine if the current route is a management route (e.g., /restaurant-management)
-  // No seu novo roteamento, as rotas de gerenciamento estão sob /restaurant-area/
+  // Determine if the current route is a management route (e.g., /restaurant-area)
   const isManagementRoute = location.pathname.startsWith('/restaurant-area/');
 
   return (
