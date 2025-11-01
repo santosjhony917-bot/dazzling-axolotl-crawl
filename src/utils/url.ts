@@ -35,6 +35,7 @@ export const PATH_MAP = {
   'restaurant-area/menu': '/restaurant-area/menu',
   'restaurant-area/category-details': '/restaurant-area/menu/:categoryId',
   'restaurant-area/gallery': '/restaurant-area/gallery',
+  'restaurant-area/metrics': '/restaurant-area/metrics', // Adicionado
   'restaurant-area/search': '/restaurant-area/search', // NOVA ROTA
   'restaurant-area/favorites': '/restaurant-area/favorites', // NOVA ROTA
   
@@ -82,10 +83,17 @@ export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
   const excludedKeys: PathKey[] = [
     'auth', 'onboarding', 'legal', 'menuItemDetails', 'forgotPassword', 'restaurantResults',
     'fullMenuPage', 'restaurantProfile', // Rotas com parâmetros
-    'restaurant-area-hub', 'restaurant-login', 'restaurant-signup', 'claim-restaurant',
-    'restaurant-area/upgrade', 'restaurant-area/home', 'restaurant-area/profile-menu',
-    'restaurant-area/menu', 'restaurant-area/category-details', 'restaurant-area/gallery',
-    'restaurant-area/search', 'restaurant-area/favorites', // Rotas de restaurante
+    // 'restaurant-area-hub', // Removido da exclusão
+    'restaurant-login', 'restaurant-signup', 'claim-restaurant',
+    // 'restaurant-area/upgrade', // Removido da exclusão
+    // 'restaurant-area/home', // Removido da exclusão
+    // 'restaurant-area/profile-menu', // Removido da exclusão
+    // 'restaurant-area/menu', // Removido da exclusão
+    'restaurant-area/category-details', // Mantido, pois exige parâmetro
+    // 'restaurant-area/gallery', // Removido da exclusão
+    // 'restaurant-area/metrics', // Removido da exclusão
+    // 'restaurant-area/search', // Removido da exclusão
+    // 'restaurant-area/favorites', // Removido da exclusão
     'adminLogin', 'adminDashboard', 'adminRestaurants', 'adminPlans', 'adminUsers',
     'adminSettings', 'adminCategories', 'adminFiles', 'adminImport', 'adminBanners', // Rotas de admin
   ];
