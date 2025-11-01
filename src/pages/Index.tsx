@@ -75,10 +75,13 @@ export default function Index() {
             <p className="col-span-full text-center text-gray-500">Nenhum restaurante encontrado.</p>
           ) : (
             restaurants?.map((restaurant) => (
-              <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              <RestaurantCard 
+                key={restaurant.id} 
+                restaurant={restaurant} 
+                onClick={() => console.log('Restaurant clicked:', restaurant.id)} 
+              />
             ))
           )}
-        )}
         </div>
       )}
     </div>
