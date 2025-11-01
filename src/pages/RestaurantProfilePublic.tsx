@@ -48,11 +48,13 @@ const processRestaurantData = (
 };
 
 const fetchRestaurantData = async (slug: string, userId: string | null): Promise<PublicRestaurantData> => {
-  // 1. Fetch Restaurant details
+  const isUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(slug);
+
+  // 1. Fetch Restaurant details by ID if it's a UUID, otherwise by external_url slug
   const { data: restaurantData, error: restaurantError } = await supabase
     .from('restaurants')
     .select('*')
-    .eq('external_url', slug)
+    .eq(isUUID ? 'id' : 'external_url', slug)
     .single();
 
   if (restaurantError || !restaurantData) {
