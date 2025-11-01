@@ -11,6 +11,7 @@ const navItems = [
   { name: 'Dashboard', icon: Home, path: 'dashboard' },
   { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
   { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
+  { name: 'Categorias Populares', icon: Crown, path: 'popular-categories' },
   { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
   { name: 'Configurações', icon: Settings, path: 'settings' },
 ];
