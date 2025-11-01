@@ -13,6 +13,7 @@ import AdminLogin from "./pages/AdminLogin"; // Importar a nova página
 import AdminDashboard from "./pages/AdminDashboard"; // Importar a nova página
 import RestaurantManage from "./pages/RestaurantManage"; // Importar a nova página
 import RestaurantMenu from "./pages/RestaurantMenu"; // Importar a nova página
+import Onboarding from "./pages/Onboarding"; // Importando o componente Onboarding
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/popular-dishes" element={<PopularDishes />} />
             <Route path="/unauthorized" element={<Unauthorized />} /> {/* Rota para acesso negado */}
+            <Route path="/onboarding" element={<Onboarding />} /> {/* Adicionando a rota de onboarding */}
 
             {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
             <Route element={<ProtectedRoute requiredRole="authenticated" layout={SharedLayoutWrapper} />}>
