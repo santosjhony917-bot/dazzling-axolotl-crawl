@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import InfoCardItem from '@/components/InfoCardItem';
-import { Building2, UtensilsCrossed, FileText, Mail, Phone } from 'lucide-react';
+import { Building2, UtensilsCrossed, FileText, Mail, Phone, File } from 'lucide-react'; // Adicionado File
 import { z } from 'zod';
 
 interface BasicInfoSectionProps {
@@ -33,21 +33,21 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
       <InfoCardItem 
         label="Nome do Restaurante" 
         value={restaurant?.name || "Restaurante Teste Free"} 
-        icon={Building2} 
+        icon={FileText} // Ícone de documento/arquivo
         isPremium={isPremium}
-        onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <Building2 className="h-6 w-6 text-primary" />, nameSchema)}
+        onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <FileText className="h-6 w-6 text-primary" />, nameSchema)}
       />
       <InfoCardItem 
         label="Categoria Principal" 
         value={restaurant?.category || "Não definida"} 
-        icon={UtensilsCrossed} 
+        icon={UtensilsCrossed} // Ícone de talheres cruzados
         isPremium={isPremium}
         onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <UtensilsCrossed className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
       />
       <InfoCardItem 
         label="CNPJ" 
         value={restaurant?.cnpj || "12.345.678/0001-90"} 
-        icon={FileText} 
+        icon={FileText} // Ícone de documento/arquivo
         isPremium={isPremium}
         onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
       />

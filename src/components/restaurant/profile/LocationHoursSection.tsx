@@ -28,6 +28,31 @@ const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
   return summary;
 };
 
+// NOVO: Componente para renderizar o endereço em múltiplas linhas
+const AddressValue: React.FC<{ restaurant: any }> = ({ restaurant }) => {
+  const addressParts = [
+    restaurant?.address,
+    restaurant?.number,
+    restaurant?.neighborhood,
+    restaurant?.city,
+    restaurant?.state,
+  ].filter(Boolean);
+  
+  const displayAddress = addressParts.join(', ');
+  
+  if (!displayAddress) {
+    return <p className="text-sm text-gray-400 italic">Não definido</p>;
+  }
+  
+  // Exibe o endereço em múltiplas linhas se for muito longo
+  return (
+    <div className="flex flex-col text-sm text-text-secondary mt-0.5">
+      <p>{restaurant.address}, {restaurant.number}</p>
+      <p>{restaurant.neighborhood}, {restaurant.city} - {restaurant.state}</p>
+    </div>
+  );
+};
+
 
 const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
   restaurant,
@@ -43,15 +68,20 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
       <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Localização e Horários</h2>
       <InfoCardItem
         label="Endereço Principal"
-        value={restaurant?.address ? `${restaurant.address}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}` : null}
+        value={null} // Definido como null para usar o extraContent
         icon={MapPin}
         isPremium={isPremium}
         onClick={() => setIsAddressDialogOpen(true)}
-        extraContent={restaurant?.latitude && restaurant?.longitude ? (
-          <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
-            <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
-          </p>
-        ) : undefined}
+        extraContent={
+          <>
+            <AddressValue restaurant={restaurant} />
+            {restaurant?.latitude && restaurant?.longitude ? (
+              <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
+                <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
+              </p>
+            ) : undefined}
+          </>
+        }
       />
 
       {/* Horários */}

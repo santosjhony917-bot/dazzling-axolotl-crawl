@@ -40,26 +40,26 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
       whileTap={{ scale: isLocked ? 1 : 0.99 }}
       onClick={handleEditClick}
       className={cn(
-        "w-full p-4 flex items-start justify-between transition-all cursor-pointer",
-        // Estilo Hub: Fundo branco, arredondado, sombra sutil
-        "bg-white border border-gray-100 rounded-xl shadow-soft-md hover:shadow-soft-lg", // Sombra mais suave
+        "w-full p-4 flex items-center justify-between transition-all cursor-pointer",
+        // Estilo do Card: Fundo branco, arredondado, sombra sutil
+        "bg-white border border-gray-100 rounded-xl shadow-soft-md hover:shadow-soft-lg",
         "dark:bg-gray-800 dark:hover:bg-gray-700",
         isLocked && "opacity-70 cursor-not-allowed hover:shadow-soft-md"
       )}
     >
-      <div className="flex items-start gap-4 flex-1">
-        {/* Ícone Circular (Estilo Hub) */}
-        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
+      <div className="flex items-center gap-4 flex-1">
+        {/* Ícone Circular/Quadrado Arredondado (Estilo do Design) */}
+        <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
           <Icon className="w-5 h-5" />
         </div>
         
-        {/* Texto */}
+        {/* Texto (Título em negrito + Valor abaixo) */}
         <div className="flex-1 min-w-0">
           <p className="text-base font-bold text-primary leading-snug">
             {label}
           </p>
           <p className={cn("text-sm text-text-secondary mt-0.5", !value && "italic text-gray-400 font-normal")}>
-            {value || "Não definido"}
+            {isLocked ? "Exclusivo Premium" : (value || "Não definido")}
           </p>
           {extraContent}
         </div>
@@ -73,7 +73,7 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
         onClick={handleEditClick}
         disabled={isLocked}
       >
-        {isLocked ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4" />}
+        {isLocked ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4 text-highlight" />}
       </Button>
     </motion.div>
   );

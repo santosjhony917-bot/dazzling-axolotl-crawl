@@ -27,27 +27,29 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   return (
     <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
-        {/* Logo */}
-        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg">
+        {/* Logo Circular */}
+        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-hidden">
           <img 
             src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
             alt="Logo do Restaurante" 
-            className="w-full h-full object-cover rounded-full"
+            className="w-full h-full object-cover"
           />
-          <ImageUploadButton
-            imageUrl={logoUrl || undefined}
-            onUploadComplete={onLogoUploadComplete}
-            bucketName={RESTAURANT_IMAGES_BUCKET}
-            folderPath={restaurantId || 'temp'}
-            className="absolute bottom-0 right-0 h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
-            icon={<Camera className="h-3 w-3" />}
-          />
+          <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4">
+            <ImageUploadButton
+              imageUrl={logoUrl || undefined}
+              onUploadComplete={onLogoUploadComplete}
+              bucketName={RESTAURANT_IMAGES_BUCKET}
+              folderPath={restaurantId || 'temp'}
+              className="h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
+              icon={<Camera className="h-3 w-3" />}
+            />
+          </div>
         </div>
         
-        {/* Status */}
+        {/* Status e Nome */}
         <div className="flex-1 pt-2">
-          <h3 className="font-bold text-2xl text-[#022D68] leading-tight">{restaurantName}</h3>
-          <div className="flex items-center gap-2 mt-2">
+          <h3 className="font-bold text-2xl text-[#022D68] leading-tight truncate">{restaurantName}</h3>
+          <div className="flex items-center gap-2 mt-1">
             <Badge 
               variant="outline" 
               className={cn(
