@@ -10,7 +10,7 @@ const SharedLayoutWrapper: React.FC = () => {
 
   // Determine if the current route is one that should display the bottom navigation bar
   // Rotas de cliente que usam a navegação inferior
-  const clientRoutes = ['/home', '/search', '/favorites', '/profile']; // CORRIGIDO: Usando /search
+  const clientRoutes = ['/home', '/search', '/favorites', '/profile']; // CORRIGIDO: Usando /home
 
   // Verifica se o caminho atual corresponde exatamente ou começa com uma das rotas de cliente
   const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));

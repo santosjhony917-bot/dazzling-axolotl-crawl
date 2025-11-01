@@ -11,7 +11,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { key: '/', label: 'Início', icon: Home },
+  { key: '/home', label: 'Início', icon: Home }, // CORRIGIDO: Apontando para /home
   { key: '/search', label: 'Busca', icon: Search },
   { key: '/favorites', label: 'Favoritos', icon: Heart },
   { key: '/profile', label: 'Perfil', icon: User },
@@ -20,17 +20,15 @@ const navItems: NavItem[] = [
 const ClientBottomNav: React.FC = () => {
   const location = useLocation();
 
-  const getActivePath = (pathKey: PathKey): boolean => {
+  const getActivePath = (pathKey: string): boolean => {
     const currentPath = location.pathname;
 
-    if (pathKey === '/') {
-      // A rota de início só é ativa se for exatamente a raiz, 
-      // ou se for a rota raiz seguida de um trailing slash (embora o React Router geralmente normalize isso)
-      return currentPath === '/';
+    if (pathKey === '/home') {
+      // A rota de início é ativa se for exatamente /home
+      return currentPath === '/home';
     }
     
     // Para outras rotas, verifica se o caminho atual começa com o pathKey
-    // Isso permite que rotas aninhadas (ex: /profile/edit) ativem o item pai (/profile)
     return currentPath.startsWith(pathKey);
   };
 
