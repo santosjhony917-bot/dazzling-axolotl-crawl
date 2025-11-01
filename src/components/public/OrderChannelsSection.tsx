@@ -54,8 +54,8 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
             const isIfood = link.label === 'iFood';
             const isWhatsapp = link.label === 'WhatsApp';
             
-            // Define o tamanho do ícone/imagem
-            const iconSizeClass = isWhatsapp ? "w-9 h-9" : "w-8 h-8";
+            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
+            const iconSizeClass = "w-8 h-8";
 
             return (
               <a 
@@ -72,7 +72,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                     className={cn(iconSizeClass, "object-contain")} 
                   />
                 ) : isWhatsapp ? (
-                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG
+                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
                 ) : (
                   <Icon className={cn(iconSizeClass, link.colorClass)} />
                 )}
