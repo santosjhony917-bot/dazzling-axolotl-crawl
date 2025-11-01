@@ -9,20 +9,21 @@ import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
 import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
 import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
-import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection'; // NOVO IMPORT
+import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
 import { Separator } from '@/components/ui/separator';
 import { showError, showSuccess } from '@/utils/toast';
 import { z } from 'zod';
 import { cnpjMask, phoneMask } from '@/utils/masks';
-import EditClientFieldDialog from '@/components/EditClientFieldDialog'; // CORRIGIDO: Importando o componente correto
+import EditClientFieldDialog from '@/components/EditClientFieldDialog';
 import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
-import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog'; // NOVO IMPORT
+import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
+import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
-import { Restaurant } from '@/types/supabase'; // Importando o tipo base
-import { PublicRestaurantData } from '@/types/restaurant'; // Importando o tipo estendido
-import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
+import { Restaurant } from '@/types/supabase';
+import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -41,10 +42,10 @@ export default function ProfileSettingsPage() {
   
   const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
-  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false); // NOVO ESTADO
+  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false);
+  const [isSocialNetworksDialogOpen, setIsSocialNetworksDialogOpen] = useState(false);
   
   const [uploadingLogo, setUploadingLogo] = useState(false);
-  // Removido: const [uploadingCover, setUploadingCover] = useState(false);
 
   const isLoading = authLoading || !restaurant;
 
@@ -73,7 +74,6 @@ export default function ProfileSettingsPage() {
     // Remove máscara antes de salvar no DB
     const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
     
-    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
     const { error } = await updateRestaurant({ [editConfig.key]: cleanedValue });
     
     if (error) {
@@ -87,7 +87,6 @@ export default function ProfileSettingsPage() {
   const handleLogoUploadComplete = useCallback(async (url: string) => {
     setUploadingLogo(true);
     const cacheBustedUrl = `${url}?t=${Date.now()}`;
-    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
     const { error } = await updateRestaurant({ image_url: cacheBustedUrl });
     if (error) {
       showError(error);
@@ -99,7 +98,6 @@ export default function ProfileSettingsPage() {
   }, [updateRestaurant, refetchProfile]);
   
   const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
-    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
     const { error } = await updateRestaurant({ opening_hours: newSchedule as any });
     if (error) {
       showError(error);
@@ -109,14 +107,23 @@ export default function ProfileSettingsPage() {
     }
   }, [updateRestaurant, refetchProfile]);
   
-  // NOVO HANDLER: Salvar Formas de Pagamento
   const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
-    // CORREÇÃO: updateRestaurant agora retorna { error: string | null }
     const { error } = await updateRestaurant({ payment_methods: newMethods as any });
     if (error) {
       showError(error);
     } else {
       showSuccess("Formas de pagamento atualizadas com sucesso!");
+      refetchProfile();
+    }
+  }, [updateRestaurant, refetchProfile]);
+  
+  // NOVO HANDLER: Salvar Redes Sociais
+  const handleSaveSocialNetworks = useCallback(async (newLinks: SocialNetworkLink[]) => {
+    const { error } = await updateRestaurant({ social_networks: newLinks as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Redes sociais atualizadas com sucesso!");
       refetchProfile();
     }
   }, [updateRestaurant, refetchProfile]);
@@ -130,31 +137,29 @@ export default function ProfileSettingsPage() {
     );
   }
   
-  // CORREÇÃO 28: Garantindo que opening_hours seja WeekSchedule ou DEFAULT_SCHEDULE
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
-  
-  // Calcula o status de abertura
   const openStatus = getRestaurantOpenStatus(currentSchedule);
   
-  // Obtém as formas de pagamento atuais (assumindo que payment_methods é um array de strings ou null)
-  const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro']; // Fallback para mock
+  // CORREÇÃO 2: Usando 'as unknown as string[]'
+  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+  
+  // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
+  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
 
-  // CORREÇÃO 28: Criando um objeto que satisfaça PublicRestaurantData
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
-    opening_hours: currentSchedule, // Usando o tipo WeekSchedule
-    is_favorite: false, // Mocked
-    followers_count: 0, // Mocked
-    addressSummary: restaurant?.city || '', // Mocked
-    menu_categories: [], // Mocked
-    gallery_images: [], // Mocked
+    opening_hours: currentSchedule,
+    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
+    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
+    is_favorite: false,
+    followers_count: 0,
+    addressSummary: restaurant?.city || '',
+    menu_categories: [],
+    gallery_images: [],
     logoUrl: restaurant?.image_url || '', 
-    // Adicionando as propriedades calculadas
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,
-    // CORREÇÃO 3: Garantindo que payment_methods seja string[] | null
-    payment_methods: (restaurant?.payment_methods as string[] | null) || null,
   };
 
   return (
@@ -199,18 +204,19 @@ export default function ProfileSettingsPage() {
         
         <Separator />
 
-        {/* 4. GESTÃO DE CONTEÚDO (NOVA SEÇÃO) */}
+        {/* 4. GESTÃO DE CONTEÚDO */}
         <ContentManagementSection
           navigate={navigate}
           isPremium={isPremium}
           restaurantId={restaurant?.id || ''}
           restaurantName={restaurant?.name || 'Meu Restaurante'}
-          setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen} // PASSANDO NOVO PROP
+          setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
+          setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
         />
         
         <Separator />
 
-        {/* 5. Canais de Venda */}
+        {/* 5. Canais de Venda (Mantido, mas sem other_url/external_url) */}
         <SalesChannelsSection
           restaurant={publicRestaurantData}
         />
@@ -262,13 +268,21 @@ export default function ProfileSettingsPage() {
         onSave={handleSaveHours}
       />
       
-      {/* NOVO DIALOG: Formas de Pagamento */}
       <PaymentMethodsDialog
         isOpen={isPaymentMethodsDialogOpen}
         onClose={() => setIsPaymentMethodsDialogOpen(false)}
         currentMethods={currentPaymentMethods}
         onSave={handleSavePaymentMethods}
-        isLoading={false} // O estado de loading é gerenciado pelo useRestaurantProfile
+        isLoading={false}
+      />
+      
+      {/* NOVO DIALOG: Redes Sociais */}
+      <SocialNetworksDialog
+        isOpen={isSocialNetworksDialogOpen}
+        onClose={() => setIsSocialNetworksDialogOpen(false)}
+        currentLinks={currentSocialLinks}
+        onSave={handleSaveSocialNetworks}
+        isLoading={false}
       />
     </RestaurantAreaPageLayout>
   );

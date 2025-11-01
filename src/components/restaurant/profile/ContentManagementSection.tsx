@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Camera, Eye, CreditCard } from 'lucide-react'; // Adicionado CreditCard
+import { Utensils, Camera, Eye, CreditCard, Link } from 'lucide-react'; // Adicionado Link
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
@@ -11,10 +11,11 @@ interface ContentManagementSectionProps {
   isPremium: boolean;
   restaurantId: string; // Adicionado
   restaurantName: string; // Adicionado
-  setIsPaymentMethodsDialogOpen: (open: boolean) => void; // NOVO PROP
+  setIsPaymentMethodsDialogOpen: (open: boolean) => void;
+  setIsSocialNetworksDialogOpen: (open: boolean) => void; // NOVO PROP
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen }) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen }) => {
   
   const handleNavigate = (path: string, isFeaturePremium: boolean) => {
     if (isFeaturePremium && !isPremium) {
@@ -54,12 +55,21 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         premiumDescription="Exclusivo Premium"
       />
       
-      {/* NOVO: Formas de Pagamento */}
+      {/* Formas de Pagamento */}
       <NavCardItem 
         title="Formas de Pagamento" 
         description="Defina quais métodos de pagamento você aceita."
         icon={CreditCard} 
         onClick={() => setIsPaymentMethodsDialogOpen(true)}
+        isPremium={isPremium}
+      />
+      
+      {/* NOVO: Outras Redes */}
+      <NavCardItem 
+        title="Outras Redes" 
+        description="Adicione links para Instagram, Facebook e site."
+        icon={Link} 
+        onClick={() => setIsSocialNetworksDialogOpen(true)}
         isPremium={isPremium}
       />
     </div>

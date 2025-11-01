@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, ExternalLink, Link } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant'; // Importando SocialNetworkLink
 
 interface RestaurantInfoProps {
   id: string;
@@ -10,7 +10,8 @@ interface RestaurantInfoProps {
 
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
-  const { phone, email, whatsapp_url, ifood_url, other_url, external_url } = restaurant;
+  // Removendo other_url e external_url daqui, pois serão gerenciados em social_networks
+  const { phone, email, whatsapp_url, ifood_url, social_networks } = restaurant;
 
   const contactItems = [
     {
@@ -27,11 +28,8 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
     },
   ].filter(item => item.value);
   
-  const socialLinks = [
-    { label: 'WhatsApp', url: whatsapp_url },
-    { label: 'iFood', url: ifood_url },
-    { label: 'Site Próprio', url: other_url || external_url },
-  ].filter(link => link.url);
+  // Usando o novo campo social_networks
+  const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
 
   if (contactItems.length === 0 && socialLinks.length === 0) {
       return null;
@@ -71,20 +69,20 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
             </div>
         )}
 
-        {/* Links Úteis */}
+        {/* Outras Redes (Antigo Links Úteis) */}
         {socialLinks.length > 0 && (
           <div className="pt-4 border-t border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Links Úteis</p>
+            <p className="text-sm font-semibold text-gray-700 mb-2">Outras Redes</p>
             <div className="flex flex-wrap gap-3">
               {socialLinks.map((link, index) => (
                 <a
                   key={index}
-                  href={link.url!}
+                  href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium text-highlight hover:underline flex items-center"
                 >
-                  {link.label}
+                  {link.platform}
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </a>
               ))}
