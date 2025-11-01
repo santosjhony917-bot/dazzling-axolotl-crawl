@@ -9,7 +9,7 @@ import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { showError, showSuccess } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
-import { RestaurantGallery } from '@/types/supabase';
+import { GalleryImage as SupabaseGalleryImage } from '@/types/supabase'; // Corrigido: Importando GalleryImage
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import {
   DndContext,
@@ -35,7 +35,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 // --- Tipos e Componentes Auxiliares ---
 
-interface GalleryImage extends RestaurantGallery {
+interface GalleryImage extends SupabaseGalleryImage { // Corrigido: Estendendo SupabaseGalleryImage
   isNew?: boolean;
 }
 
@@ -277,7 +277,7 @@ export default function GalleryManagement() {
                 folderPath={`${restaurantId}/gallery`}
                 className="bg-primary text-white hover:bg-primary/90 h-10 w-10 p-0 rounded-lg shadow-md"
                 icon={<Plus className="h-5 w-5" />}
-                disabled={isUploading}
+                disabled={isUploading} // A prop 'disabled' agora é reconhecida
               />
               <span className="text-sm font-medium text-gray-700">
                 {isUploading ? "Enviando..." : "Adicionar Imagem"}

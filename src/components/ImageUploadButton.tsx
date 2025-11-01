@@ -14,6 +14,7 @@ interface ImageUploadButtonProps {
   folderPath: string;
   className?: string;
   icon?: React.ReactNode;
+  disabled?: boolean; // Adicionado para resolver o erro #16
 }
 
 export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
@@ -22,6 +23,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   folderPath,
   className,
   icon = <Camera className="h-4 w-4" />,
+  disabled = false, // Adicionado para resolver o erro #16
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -69,7 +71,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
         onChange={handleFileChange}
         accept="image/*"
         className="hidden"
-        disabled={isUploading}
+        disabled={isUploading || disabled} // Usar a prop disabled também
       />
       <Button
         type="button"
@@ -78,7 +80,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
           "p-2 rounded-full",
           className
         )}
-        disabled={isUploading}
+        disabled={isUploading || disabled} // Usar a prop disabled também
       >
         {isUploading ? (
           <Loader2 className="h-4 w-4 animate-spin" />

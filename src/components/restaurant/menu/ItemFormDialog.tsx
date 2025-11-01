@@ -32,14 +32,14 @@ const itemSchema = z.object({
   is_active: z.boolean(),
 });
 
-type ItemFormValues = z.infer<typeof itemSchema>;
+export type MenuItemFormValues = z.infer<typeof itemSchema>; // Corrigido: Exportando a interface
 
 interface ItemFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
   category: MenuCategory;
   itemToEdit?: MenuItem | null;
-  onSave: () => void;
+  onSave: (data: MenuItemFormValues) => Promise<void>; // Corrigido: Assinatura da prop onSave
 }
 
 const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
@@ -60,7 +60,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
     control,
     setValue,
     formState: { errors },
-  } = useForm<ItemFormValues>({
+  } = useForm<MenuItemFormValues>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
       name: '',
@@ -85,7 +85,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
     }
   }, [itemToEdit, reset]);
 
-  const onSubmit = async (data: ItemFormValues) => {
+  const onSubmit = async (data: MenuItemFormValues) => {
     setIsSaving(true);
     
     const itemData = {
@@ -128,7 +128,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
       showError(`Erro ao salvar item: ${error.message}`);
     } else {
       showSuccess(`Item salvo com sucesso!`);
-      onSave();
+      await onSave(data); // Chamando onSave com os dados
       onClose();
     }
   };
@@ -172,6 +172,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
                         folderPath={`${category.restaurant_id}/menu`}
                         className="bg-white text-primary hover:bg-gray-100 h-8 w-8 p-0 rounded-full shadow-lg"
                         icon={<Camera className="h-4 w-4" />}
+                        disabled={isUploading} // A prop 'disabled' agora é reconhecida
                       />
                     </div>
                   </div>

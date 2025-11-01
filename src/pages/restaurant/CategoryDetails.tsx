@@ -1,23 +1,24 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMenuItemManagement } from '@/hooks/useMenuItemManagement'; // CORRIGIDO
-import { useMenuManagement } from '@/hooks/useCategoryManagement'; // CORRIGIDO: Usando o hook de categorias para buscar o nome
+import { useMenuItemManagement } from '@/hooks/useMenuItemManagement';
+import { useMenuManagement } from '@/hooks/useCategoryManagement';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, ArrowLeft, Loader2, Utensils } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { MenuItem } from '@/types/menu'; // Corrected import
-import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog'; // CORRIGIDO: Importando ItemFormDialog
-import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
+import { MenuItem, MenuCategory } from '@/types/supabase';
+import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
+import { MenuItemList } from '@/components/restaurant/menu/MenuItemList'; // RE-ADICIONADO: Importando MenuItemList
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 import { Card, CardContent } from '@/components/ui/card';
 import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
+import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
 
 export default function CategoryDetails() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
-  const { restaurant } = useAuthData(); // Get restaurant data to find restaurantId
+  const { restaurant } = useAuthData();
   const restaurantId = restaurant?.id || '';
   
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
@@ -39,10 +40,12 @@ export default function CategoryDetails() {
   // Use the item management hook for the specific category
   const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
   
-  // Find the category name from the fetched categories
-  const categoryName = useMemo(() => {
-    return categoriesQuery.data?.find(c => c.id === categoryId)?.name || 'Carregando...';
+  // Find the category from the fetched categories
+  const currentCategory = useMemo(() => {
+    return categoriesQuery.data?.find(c => c.id === categoryId);
   }, [categoriesQuery.data, categoryId]);
+
+  const categoryName = currentCategory?.name || 'Carregando...';
   
   const items = itemsQuery.data || [];
   const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
@@ -91,6 +94,10 @@ export default function CategoryDetails() {
     }
   }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
 
+  if (!currentCategory && !isLoading) {
+    return <div className="p-4 text-red-500">Categoria não encontrada.</div>;
+  }
+
   return (
     <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
       <div className="p-4 space-y-6">
@@ -122,14 +129,16 @@ export default function CategoryDetails() {
         )}
       </div>
 
-      <ItemFormDialog
-        isOpen={isItemModalOpen}
-        onClose={() => setIsItemModalOpen(false)}
-        categoryId={categoryId}
-        initialData={editingItem}
-        onSave={handleSaveItem}
-        isLoading={isSaving}
-      />
+      {currentCategory && (
+        <MenuItemDialog
+          isOpen={isItemModalOpen}
+          onOpenChange={setIsItemModalOpen}
+          category={currentCategory}
+          item={editingItem}
+          onSave={handleSaveItem}
+          // REMOVIDO: isLoading={isSaving} // Não é mais passado para MenuItemDialog
+        />
+      )}
       
       <ConfirmationDialog
         isOpen={isConfirmationOpen}
