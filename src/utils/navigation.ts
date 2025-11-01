@@ -6,14 +6,14 @@ const routePaths = {
   auth: '/auth',
   profile: '/profile',
   restaurantProfile: '/restaurant/:restaurantId',
-  searchResults: '/search-results',
+  searchResults: '/restaurant-results', // Corrected to match App.tsx
   claimRestaurant: '/claim-restaurant',
-  restaurantDashboard: '/restaurant/dashboard',
-  restaurantMenu: '/restaurant/menu',
-  restaurantGallery: '/restaurant/gallery',
-  restaurantSettings: '/restaurant/settings',
-  restaurantMetrics: '/restaurant/metrics',
-  restaurantUpgrade: '/restaurant/upgrade',
+  restaurantDashboard: '/restaurant-area/home', // Corrected to match App.tsx
+  restaurantMenu: '/restaurant-area/menu',
+  restaurantGallery: '/restaurant-area/gallery',
+  restaurantSettings: '/restaurant-area/profile-menu', // Corrected to match App.tsx
+  restaurantMetrics: '/restaurant-area/metrics',
+  restaurantUpgrade: '/restaurant-area/upgrade',
   adminDashboard: '/admin/dashboard',
   adminLogin: '/admin/login',
   adminRestaurants: '/admin/restaurants',
@@ -21,10 +21,11 @@ const routePaths = {
   adminPlans: '/admin/plans',
   adminBanners: '/admin/banners',
   adminSettings: '/admin/settings',
-  categoryDetails: '/restaurant/menu/:categoryId',
+  categoryDetails: '/restaurant-area/menu/:categoryId',
   menuItemDetails: '/menu-item/:itemId',
   favorites: '/favorites',
-  fullMenu: '/restaurant/:restaurantId/menu',
+  fullMenu: '/restaurant/:restaurantId/menu-full', // Corrected to match App.tsx
+  searchUnified: '/search', // Added for unified search page
   // Adicione outras rotas conforme necessário
 };
 

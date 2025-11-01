@@ -13,7 +13,7 @@ const SharedLayoutWrapper: React.FC = () => {
   const location = useLocation();
   const { restaurant, isPremium, isAdmin, isProfileLoading } = useAuthData();
 
-  const isRestaurantRoute = location.pathname.startsWith('/restaurant');
+  const isRestaurantRoute = location.pathname.startsWith('/restaurant-area'); // Corrigido para o prefixo correto
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   if (isProfileLoading) {

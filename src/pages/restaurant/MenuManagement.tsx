@@ -10,10 +10,12 @@ import CategoryList from '@/components/restaurant/menu/CategoryList';
 import CategoryDialog from '@/components/restaurant/CategoryDialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
+import { useAuthData } from '@/context/AuthContext'; // Import useAuthData to get restaurantId
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { restaurant } = useAuthData(); // Get restaurant from AuthContext
   const { categories, isLoading, error, refetchCategories, reorderCategories } = useMenuManagement();
   const {
     addCategoryMutation,
@@ -36,11 +38,15 @@ const MenuManagement: React.FC = () => {
     setIsCategoryDialogOpen(true);
   };
 
-  const handleSaveCategory = async (values: { name: string; is_active: boolean }) => {
+  const handleSaveCategory = async (values: { name: string; is_active?: boolean }) => {
+    if (!restaurant?.id) {
+      toast({ title: "Erro", description: "ID do restaurante não encontrado.", variant: "destructive" });
+      return;
+    }
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({ id: editingCategory.id, ...values });
     } else {
-      await addCategoryMutation.mutateAsync({ restaurant_id: categories[0]?.restaurant_id || '', ...values }); // Assuming restaurant_id is available from an existing category or context
+      await addCategoryMutation.mutateAsync({ restaurant_id: restaurant.id, ...values, name: values.name }); // Ensure name is passed
     }
     setIsCategoryDialogOpen(false);
   };

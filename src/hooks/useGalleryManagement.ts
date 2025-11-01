@@ -103,7 +103,7 @@ export function useGalleryManagement({ restaurantId }: UseGalleryManagementProps
     },
   });
 
-  const reorderImagesMutation = useMutation<void, Error, GalleryImage[]>({
+  const reorderImagesMutation = useMutation<void, Error, GalleryImage[], { previousImages: GalleryImage[] | undefined }>({ // Adicionado tipo para o contexto
     mutationFn: async (newOrder) => {
       const updates = newOrder.map((image, index) => ({
         id: image.id,

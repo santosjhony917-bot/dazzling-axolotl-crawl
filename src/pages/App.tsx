@@ -50,6 +50,25 @@ import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
 
+interface ProtectedRouteProps {
+  requiredRole?: 'admin' | 'restaurant' | 'user' | 'authenticated' | 'restaurant_owner'; // Adicionado 'authenticated' e 'restaurant_owner'
+  element: React.ReactNode;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
+  const { user } = useAuth();
+  
+  if (!user) {
+    return <Navigate to="/auth" />;
+  }
+
+  if (requiredRole && requiredRole !== user.role) {
+    return <Navigate to="/unauthorized" />;
+  }
+
+  return <>{element}</>;
+};
+
 function App() {
   return (
     <Router>

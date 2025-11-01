@@ -1,6 +1,6 @@
 import React from 'react';
-import { MenuItem } from '@/types';
-import { MenuItemListItem } from './MenuItemListItem';
+import { MenuItem } from '@/types/supabase';
+import MenuItemListItem from './MenuItemListItem';
 import { Utensils } from 'lucide-react';
 
 interface MenuItemListProps {

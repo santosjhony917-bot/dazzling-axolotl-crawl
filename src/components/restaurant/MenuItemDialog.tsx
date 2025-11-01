@@ -8,7 +8,7 @@ interface MenuItemDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   item?: MenuItem;
-  onSave: (values: MenuItemFormValues) => void;
+  onSave: (values: MenuItemFormValues) => Promise<void>; // onSave agora retorna Promise<void>
   isSaving: boolean;
   categories: MenuCategory[];
 }

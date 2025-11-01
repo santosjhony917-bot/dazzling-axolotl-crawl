@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { MenuCategory, CreateCategoryPayload, UpdateCategoryPayload, MenuItem, UpdateItemPayload, CreateItemPayload } from '@/types/menu'; // Importando payloads e MenuItem
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, QueryObserverResult, RefetchOptions } from '@tanstack/react-query'; // Importando QueryObserverResult e RefetchOptions
 import { showSuccess, showError } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
 import { toast as reactHotToast } from 'react-hot-toast'; // Renomeado para evitar conflito com shadcn/ui toast
@@ -12,7 +12,7 @@ interface UseMenuManagementResult {
   categories: MenuCategory[];
   isLoading: boolean;
   error: Error | null;
-  refetchCategories: () => Promise<void>;
+  refetchCategories: (options?: RefetchOptions) => Promise<QueryObserverResult<MenuCategory[], Error>>; // Corrigido o tipo de retorno de refetch
   reorderCategories: (newOrder: MenuCategory[]) => Promise<void>;
 }
 
@@ -28,7 +28,7 @@ interface UseItemMutationsResult {
   items: MenuItem[];
   isLoading: boolean;
   error: Error | null;
-  refetchItems: () => Promise<void>;
+  refetchItems: (options?: RefetchOptions) => Promise<QueryObserverResult<MenuItem[], Error>>; // Corrigido o tipo de retorno de refetch
   reorderItems: (newOrder: MenuItem[]) => Promise<void>;
   addItemMutation: ReturnType<typeof useMutation<MenuItem, Error, CreateItemPayload>>;
   updateItemMutation: ReturnType<typeof useMutation<MenuItem, Error, UpdateItemPayload>>;
@@ -63,7 +63,7 @@ export function useMenuManagement(): UseMenuManagementResult {
     enabled: !!restaurantId && !isProfileLoading,
   });
 
-  const reorderCategoriesMutation = useMutation<void, Error, MenuCategory[]>({
+  const reorderCategoriesMutation = useMutation<void, Error, MenuCategory[], { previousCategories: MenuCategory[] | undefined }>({ // Adicionado tipo para o contexto
     mutationFn: async (newOrder) => {
       const updates = newOrder.map((category, index) => ({
         id: category.id,
@@ -86,7 +86,9 @@ export function useMenuManagement(): UseMenuManagementResult {
       return { previousCategories };
     },
     onError: (err, newOrder, context) => {
-      queryClient.setQueryData(['menuCategories', restaurantId], context?.previousCategories);
+      if (context?.previousCategories) { // Acessando previousCategories do contexto tipado
+        queryClient.setQueryData(['menuCategories', restaurantId], context.previousCategories);
+      }
       showError(`Erro ao reordenar categorias: ${err.message}`);
     },
     onSettled: () => {
@@ -107,7 +109,7 @@ export function useMenuManagement(): UseMenuManagementResult {
   };
 }
 
-export function useCategoryMutations(refetchCategories: () => Promise<void>, shadcnToast: any): UseCategoryMutationsResult {
+export function useCategoryMutations(refetchCategories: (options?: RefetchOptions) => Promise<QueryObserverResult<MenuCategory[], Error>>, shadcnToast: any): UseCategoryMutationsResult { // Corrigido o tipo de refetchCategories
   const { restaurant } = useAuthData();
   const restaurantId = restaurant?.id;
 
@@ -197,7 +199,7 @@ export function useCategoryMutations(refetchCategories: () => Promise<void>, sha
   };
 }
 
-export function useItemMutations(categoryId: string, refetchItems: () => Promise<void>, shadcnToast: any): UseItemMutationsResult {
+export function useItemMutations(categoryId: string, refetchItems: (options?: RefetchOptions) => Promise<QueryObserverResult<MenuItem[], Error>>, shadcnToast: any): UseItemMutationsResult { // Corrigido o tipo de refetchItems
   const queryClient = useQueryClient();
 
   const fetchItems = useCallback(async () => {
@@ -221,7 +223,7 @@ export function useItemMutations(categoryId: string, refetchItems: () => Promise
     enabled: !!categoryId,
   });
 
-  const reorderItemsMutation = useMutation<void, Error, MenuItem[]>({
+  const reorderItemsMutation = useMutation<void, Error, MenuItem[], { previousItems: MenuItem[] | undefined }>({ // Adicionado tipo para o contexto
     mutationFn: async (newOrder) => {
       const updates = newOrder.map((item, index) => ({
         id: item.id,
@@ -244,7 +246,9 @@ export function useItemMutations(categoryId: string, refetchItems: () => Promise
       return { previousItems };
     },
     onError: (err, newOrder, context) => {
-      queryClient.setQueryData(['menuItems', categoryId], context?.previousItems);
+      if (context?.previousItems) { // Acessando previousItems do contexto tipado
+        queryClient.setQueryData(['menuItems', categoryId], context.previousItems);
+      }
       showError(`Erro ao reordenar itens: ${err.message}`);
     },
     onSettled: () => {

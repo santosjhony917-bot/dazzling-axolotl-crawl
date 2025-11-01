@@ -28,7 +28,7 @@ const RestaurantProfilePublic: React.FC = () => {
       // Ensure menu_items are included for MenuCategoryWithItems type
       return data?.map(category => ({
         ...category,
-        menu_items: category.menu_items || [] // Ensure menu_items is an array
+        menu_items: (category as MenuCategoryWithItems).menu_items || [] // Explicitly cast to MenuCategoryWithItems
       })) || null;
     },
     enabled: !!restaurantId,

@@ -12,6 +12,7 @@ interface UseFavoritesResult {
   isLoading: boolean;
   isFavorited: (restaurantId: string) => boolean;
   toggleFavorite: (restaurantId: string) => Promise<void>;
+  isMutating: boolean; // Adicionado isMutating
 }
 
 export function useFavorites(): UseFavoritesResult {
@@ -91,5 +92,7 @@ export function useFavorites(): UseFavoritesResult {
     }
   }, [userId, isFavorited, addFavoriteMutation, removeFavoriteMutation]);
 
-  return { favorites, isLoading: isLoading || authLoading, isFavorited, toggleFavorite };
+  const isMutating = addFavoriteMutation.isPending || removeFavoriteMutation.isPending;
+
+  return { favorites, isLoading: isLoading || authLoading, isFavorited, toggleFavorite, isMutating };
 }

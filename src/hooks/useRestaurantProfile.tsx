@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase'; // Importando o tipo correto
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, QueryObserverResult, RefetchOptions } from '@tanstack/react-query'; // Importando QueryObserverResult e RefetchOptions
 import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
 
@@ -13,7 +13,7 @@ interface UseRestaurantProfileResult {
   error: Error | null;
   updateRestaurant: (updates: Partial<Restaurant>) => Promise<void>;
   isUpdating: boolean;
-  refetch: () => Promise<void>;
+  refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<Restaurant | null, Error>>; // Corrigido o tipo de retorno de refetch
 }
 
 export function useRestaurantProfile(initialRestaurant?: Restaurant | null): UseRestaurantProfileResult {

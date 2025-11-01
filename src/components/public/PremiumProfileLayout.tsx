@@ -13,7 +13,7 @@ import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
   menuCategories: MenuCategoryWithItems[];
-  galleryImages: { id: string; image_url: string; caption: string | null }[];
+  galleryImages: GalleryImage[]; // Corrigido para GalleryImage[]
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, menuCategories, galleryImages }) => {

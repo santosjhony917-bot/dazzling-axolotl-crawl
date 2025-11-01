@@ -23,6 +23,9 @@ const CategoryDetails: React.FC = () => {
   const { categories, isLoading: isLoadingCategories, error: errorCategories, refetchCategories } = useMenuManagement();
   const currentCategory = categories.find(cat => cat.id === categoryId);
 
+  // Declare refetchItems outside useItemMutations to avoid block-scoped variable error
+  let refetchItemsFn: (() => Promise<any>) | undefined;
+
   const {
     items,
     isLoading: isLoadingItems,
@@ -34,7 +37,10 @@ const CategoryDetails: React.FC = () => {
     deleteItemMutation,
     toggleItemActiveMutation,
     isSavingItem,
-  } = useItemMutations(categoryId || '', refetchItems, toast);
+  } = useItemMutations(categoryId || '', () => refetchItemsFn && refetchItemsFn(), toast); // Pass a function to get refetchItems
+
+  // Assign refetchItems to the outer variable after it's defined
+  refetchItemsFn = refetchItems;
 
   const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | undefined>(undefined);
@@ -57,7 +63,7 @@ const CategoryDetails: React.FC = () => {
     if (editingItem) {
       await updateItemMutation.mutateAsync({ id: editingItem.id, category_id: categoryId, ...values });
     } else {
-      await addItemMutation.mutateAsync({ category_id: categoryId, ...values });
+      await addItemMutation.mutateAsync({ category_id: categoryId, name: values.name, price: values.price, description: values.description, image_url: values.image_url, is_active: values.is_active });
     }
     setIsItemDialogOpen(false);
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { GalleryImage } from '@/types/restaurant';
+import { GalleryImage } from '@/types/supabase'; // Corrigido para importar de types/supabase
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Image } from 'lucide-react';

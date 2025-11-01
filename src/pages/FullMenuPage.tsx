@@ -25,7 +25,7 @@ const FullMenuPage: React.FC = () => {
       const data = await fetchRestaurantMenu(restaurantId!);
       return data?.map(category => ({
         ...category,
-        menu_items: category.menu_items || []
+        menu_items: (category as MenuCategoryWithItems).menu_items || []
       })) || null;
     },
     enabled: !!restaurantId,

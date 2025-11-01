@@ -109,9 +109,9 @@ const GalleryManagement: React.FC = () => {
             <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Imagem
           </Button>
         </CardHeader>
-        <CardDescription className="px-6">
-          Adicione e organize as imagens do seu restaurante. Arraste e solte para reordenar.
-        </CardDescription>
+          <CardDescription className="px-6">
+            Adicione e organize as imagens do seu restaurante. Arraste e solte para reordenar.
+          </CardDescription>
         <CardContent className="pt-4">
           {galleryImages.length === 0 ? (
             <p className="text-center text-gray-500 py-8">Nenhuma imagem na galeria ainda.</p>
@@ -129,7 +129,7 @@ const GalleryManagement: React.FC = () => {
                         {(provided) => (
                           <GalleryImageCard
                             image={image}
-                            onUpdateCaption={(id, caption) => updateImage({ id, caption })} // Corrigido o uso de updateImage
+                            onUpdateCaption={(id, caption) => updateImage({ id, caption })}
                             onDelete={deleteImage}
                             isUpdating={isUpdatingImage}
                             isDeleting={isDeletingImage}

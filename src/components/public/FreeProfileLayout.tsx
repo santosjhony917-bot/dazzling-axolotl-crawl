@@ -13,7 +13,7 @@ import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
   menuCategories: MenuCategoryWithItems[];
-  galleryImages: { id: string; image_url: string; caption: string | null }[];
+  galleryImages: GalleryImage[];
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, menuCategories, galleryImages }) => {

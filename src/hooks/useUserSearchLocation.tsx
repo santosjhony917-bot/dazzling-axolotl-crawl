@@ -84,10 +84,10 @@ export function useUserSearchLocation() {
     }
   }, [user, authLoading, fetchAndSetLocation]);
 
-  const saveLocation = useCallback(async (newLocation: UserSearchLocation) => {
+  const saveLocation = useCallback(async (newLocation: UserSearchLocation): Promise<{ error: string | null }> => {
     if (!user) {
       setError('Usuário não autenticado para salvar localização.');
-      return;
+      return { error: 'Usuário não autenticado para salvar localização.' };
     }
     setIsLoading(true);
     const { error: insertError } = await supabase
@@ -96,11 +96,14 @@ export function useUserSearchLocation() {
     if (insertError) {
       console.error('Error saving user location:', insertError);
       setError('Erro ao salvar localização.');
+      setIsLoading(false);
+      return { error: 'Erro ao salvar localização.' };
     } else {
       setLocation(newLocation);
       setError(null);
+      setIsLoading(false);
+      return { error: null };
     }
-    setIsLoading(false);
   }, [user]);
 
   const refetch = useCallback(() => {

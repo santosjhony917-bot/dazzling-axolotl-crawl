@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         <nav className="flex space-x-6">
           <Link to="/about" className="hover:text-[#E47948]">Sobre Nós</Link>
           <Link to="/contact" className="hover:text-[#E47948]">Contato</Link>
-          <Link to="/privacy" className="hover:text-[#E47948]">Política de Privacidade</Link>
+          <Link to="/legal" className="hover:text-[#E47948]">Política de Privacidade</Link>
         </nav>
       </div>
     </footer>

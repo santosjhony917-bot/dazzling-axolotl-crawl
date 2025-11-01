@@ -10,7 +10,7 @@ import { DraggableProvided } from '@hello-pangea/dnd'; // Importando DraggablePr
 
 interface GalleryImageCardProps {
   image: GalleryImage;
-  onUpdateCaption: (imageId: string, caption: string) => Promise<void>;
+  onUpdateCaption: (id: string, caption: string) => Promise<GalleryImage>; // Corrigido o tipo de retorno
   onDelete: (imageId: string) => Promise<void>;
   isUpdating: boolean;
   isDeleting: boolean;

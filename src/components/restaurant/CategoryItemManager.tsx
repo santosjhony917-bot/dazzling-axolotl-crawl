@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando tipos corretos
 import { cn } from '@/lib/utils';
 import { Edit, Trash2, Eye, EyeOff, GripVertical } from 'lucide-react';
-import { DraggableProvided } from '@hello-pangea/dnd';
+import { DraggableProvided } from '@hello-pangea/dnd'; // Importando DraggableProvided
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface CategoryItemManagerProps {
