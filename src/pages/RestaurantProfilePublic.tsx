@@ -168,6 +168,7 @@ const RestaurantProfilePublic: React.FC = () => {
     menuCategories,
     isFavorite,
     onToggleFavorite: toggleFavoriteMutation.mutate,
+    isFavoriteMutating: toggleFavoriteMutation.isPending,
   };
 
   return (

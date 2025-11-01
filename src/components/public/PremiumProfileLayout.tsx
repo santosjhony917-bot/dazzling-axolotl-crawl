@@ -25,6 +25,7 @@ interface PremiumProfileLayoutProps {
   }[];
   isFavorite: boolean;
   onToggleFavorite: () => void;
+  isFavoriteMutating: boolean;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({
@@ -32,19 +33,33 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({
   menuCategories,
   isFavorite,
   onToggleFavorite,
+  isFavoriteMutating,
 }) => {
   const { name, description, address, number, neighborhood, city, state, cep, latitude, longitude } = restaurant;
 
   const fullAddress = [address, number, neighborhood, city, state, cep].filter(Boolean).join(', ');
+
+  const restaurantForHeader = {
+    id: restaurant.id,
+    name: restaurant.name,
+    logoUrl: restaurant.logoUrl,
+    coverImageUrl: restaurant.cover_image_url,
+    addressSummary: restaurant.addressSummary,
+    followersCount: restaurant.followers_count,
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
+    isPremium: restaurant.plan === 'premium' || restaurant.plan === 'premium_gift',
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       
       {/* Header (Cover and Logo) */}
       <RestaurantHeader 
-        restaurant={restaurant} 
+        restaurant={restaurantForHeader}
         isFavorite={isFavorite}
-        onToggleFavorite={onToggleFavorite}
+        onFavoriteToggle={onToggleFavorite}
+        isFavoriteMutating={isFavoriteMutating}
       />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-16 pb-12">
