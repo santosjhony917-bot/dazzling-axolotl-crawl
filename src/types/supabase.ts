@@ -14,6 +14,63 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      banner: {
+        Row: {
+          button_color: string | null
+          button_link: string | null
+          button_text: string | null
+          created_at: string | null
+          has_button: boolean
+          id: string
+          image_url: string
+          is_active: boolean | null
+          link_url: string | null
+          order_index: number | null
+          subtitle: string | null
+          target_audience: Database["public"]["Enums"]["banner_target_audience"]
+          text_color: string | null
+          text_position: Database["public"]["Enums"]["banner_text_position"]
+          text_size: Database["public"]["Enums"]["banner_text_size"]
+          title: string
+        }
+        Insert: {
+          button_color?: string | null
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string | null
+          has_button?: boolean
+          id?: string
+          image_url: string
+          is_active?: boolean | null
+          link_url?: string | null
+          order_index?: number | null
+          subtitle?: string | null
+          target_audience?: Database["public"]["Enums"]["banner_target_audience"]
+          text_color?: string | null
+          text_position?: Database["public"]["Enums"]["banner_text_position"]
+          text_size?: Database["public"]["Enums"]["banner_text_size"]
+          title: string
+        }
+        Update: {
+          button_color?: string | null
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string | null
+          has_button?: boolean
+          id?: string
+          image_url?: string
+          is_active?: boolean | null
+          link_url?: string | null
+          order_index?: number | null
+          subtitle?: string | null
+          target_audience?: Database["public"]["Enums"]["banner_target_audience"]
+          text_color?: string | null
+          text_position?: Database["public"]["Enums"]["banner_text_position"]
+          text_size?: Database["public"]["Enums"]["banner_text_size"]
+          title?: string
+        }
+        Relationships: []
+      }
       menu_categories: {
         Row: {
           created_at: string | null
@@ -498,6 +555,16 @@ export interface Database {
       }
     }
     Enums: {
+      banner_target_audience: "user" | "restaurant_free" | "restaurant_premium"
+      banner_text_position: 
+        | "bottom-left"
+        | "bottom-center"
+        | "bottom-right"
+        | "top-left"
+        | "top-center"
+        | "top-right"
+        | "center"
+      banner_text_size: "sm" | "md" | "lg" | "xl" | "2xl"
       restaurant_plan: "free" | "basic" | "premium" | "premium_gift"
     }
     CompositeTypes: {
@@ -613,3 +680,6 @@ export type FavoriteRestaurant = Tables<'user_favorites'> & {
 export type MenuCategoryWithItems = MenuCategory & {
   menu_items: MenuItem[];
 };
+
+// Type for the result of the swap_category_order RPC
+export type SwapCategoryOrderResult = Database['public']['Functions']['swap_category_order']['Returns'];

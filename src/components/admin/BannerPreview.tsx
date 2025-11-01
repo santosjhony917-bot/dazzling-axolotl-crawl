@@ -16,6 +16,7 @@ interface BannerPreviewProps {
   buttonColor: string;
   textColor: string;
   textPosition: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center';
+  textSize: 'sm' | 'md' | 'lg' | 'xl' | '2xl'; // Adicionado
 }
 
 const BannerPreview: React.FC<BannerPreviewProps> = ({
@@ -29,6 +30,7 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({
   buttonColor,
   textColor,
   textPosition,
+  textSize, // Adicionado
 }) => {
   const finalImageUrl = imageUrl || PLACEHOLDER_IMAGE_URL;
 
@@ -80,6 +82,32 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({
       break;
   }
 
+  // Determine text size classes
+  let titleSizeClass = 'text-xl';
+  let subtitleSizeClass = 'text-sm';
+  switch (textSize) {
+    case 'sm':
+      titleSizeClass = 'text-lg';
+      subtitleSizeClass = 'text-xs';
+      break;
+    case 'md':
+      titleSizeClass = 'text-xl';
+      subtitleSizeClass = 'text-sm';
+      break;
+    case 'lg':
+      titleSizeClass = 'text-2xl';
+      subtitleSizeClass = 'text-base';
+      break;
+    case 'xl':
+      titleSizeClass = 'text-3xl';
+      subtitleSizeClass = 'text-lg';
+      break;
+    case '2xl':
+      titleSizeClass = 'text-4xl';
+      subtitleSizeClass = 'text-xl';
+      break;
+  }
+
   return (
     <div className="relative w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
       <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 Aspect Ratio */}
@@ -93,8 +121,8 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({
           justifyClasses,
           alignClasses
         )}>
-          <h3 className={cn("text-xl font-bold mb-1", textAlignment)} style={{ color: textColor }}>{title || "Título do Banner"}</h3>
-          <p className={cn("text-sm mb-3", textAlignment)} style={{ color: textColor }}>{subtitle || "Subtítulo do banner aqui."}</p>
+          <h3 className={cn(titleSizeClass, "font-bold mb-1", textAlignment)} style={{ color: textColor }}>{title || "Título do Banner"}</h3>
+          <p className={cn(subtitleSizeClass, "mb-3", textAlignment)} style={{ color: textColor }}>{subtitle || "Subtítulo do banner aqui."}</p>
           {hasButton && (
             <Button
               style={{ backgroundColor: buttonColor, color: textColor }}

@@ -32,6 +32,7 @@ interface Banner {
   button_color: string;
   text_color: string;
   text_position: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center';
+  text_size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }
 
 const AdminBanners: React.FC = () => {
@@ -54,6 +55,7 @@ const AdminBanners: React.FC = () => {
   const [buttonColor, setButtonColor] = useState('#E47948');
   const [textColor, setTextColor] = useState('#FFFFFF');
   const [textPosition, setTextPosition] = useState<'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center'>('bottom-left');
+  const [textSize, setTextSize] = useState<'sm' | 'md' | 'lg' | 'xl' | '2xl'>('md');
 
   const selectablePagePaths = getSelectablePagePaths();
 
@@ -97,6 +99,7 @@ const AdminBanners: React.FC = () => {
     setButtonColor('#E47948');
     setTextColor('#FFFFFF');
     setTextPosition('bottom-left');
+    setTextSize('md');
   };
 
   const openCreateModal = () => {
@@ -120,12 +123,11 @@ const AdminBanners: React.FC = () => {
     setButtonColor(banner.button_color);
     setTextColor(banner.text_color);
     setTextPosition(banner.text_position);
+    setTextSize(banner.text_size);
     setIsModalOpen(true);
   };
 
   const handleSubmit = async () => {
-    const generatedButtonLink = selectedPageKey ? createPageUrl(selectedPageKey) : '';
-
     const bannerData = {
       title,
       subtitle,
@@ -140,6 +142,7 @@ const AdminBanners: React.FC = () => {
       button_color: hasButton ? buttonColor : '#E47948',
       text_color: textColor,
       text_position: textPosition,
+      text_size: textSize,
     };
 
     if (editingBanner) {
@@ -369,6 +372,22 @@ const AdminBanners: React.FC = () => {
               </Select>
             </div>
 
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="textSize" className="text-right">Tamanho do Texto</Label>
+              <Select value={textSize} onValueChange={(value: 'sm' | 'md' | 'lg' | 'xl' | '2xl') => setTextSize(value)}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Selecione o tamanho" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="sm">Pequeno</SelectItem>
+                  <SelectItem value="md">Médio</SelectItem>
+                  <SelectItem value="lg">Grande</SelectItem>
+                  <SelectItem value="xl">Extra Grande</SelectItem>
+                  <SelectItem value="2xl">2x Extra Grande</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="col-span-4 mt-6">
               <h4 className="text-lg font-semibold mb-2 text-center">Pré-visualização do Banner</h4>
               <BannerPreview
@@ -382,6 +401,7 @@ const AdminBanners: React.FC = () => {
                 buttonColor={buttonColor}
                 textColor={textColor}
                 textPosition={textPosition}
+                textSize={textSize}
               />
             </div>
 
