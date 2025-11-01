@@ -9,8 +9,9 @@ interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
 }
 
-// URL PNG do iFood fornecida pelo usuário
+// URLs PNGs fornecidas pelo usuário
 const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
+const WHATSAPP_PNG_URL = "https://www.pngall.com/wp-content/uploads/13/Whatsapp-Logo-PNG-Images-HD.png";
 
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
   const orderLinks = [
@@ -24,7 +25,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
     { 
       label: 'iFood', 
       url: restaurant.ifood_url, 
-      icon: Utensils, // Icon is irrelevant here as we will use an image
+      icon: Utensils, 
       colorClass: 'text-red-600',
       target: '_blank',
     },
@@ -50,6 +51,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
           {orderLinks.map((link) => {
             const Icon = link.icon;
             const isIfood = link.label === 'iFood';
+            const isWhatsapp = link.label === 'WhatsApp';
 
             return (
               <a 
@@ -63,6 +65,12 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                   <img 
                     src={IFOOD_PNG_URL} 
                     alt="iFood Logo" 
+                    className="w-7 h-7 object-contain" 
+                  />
+                ) : isWhatsapp ? (
+                  <img 
+                    src={WHATSAPP_PNG_URL} 
+                    alt="WhatsApp Logo" 
                     className="w-7 h-7 object-contain" 
                   />
                 ) : (
