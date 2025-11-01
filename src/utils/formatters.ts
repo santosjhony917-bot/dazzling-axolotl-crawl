@@ -1,22 +1,28 @@
-/**
- * Formats a number with locale-specific separators.
- * @param num The number to format.
- * @returns The formatted string.
- */
-export const formatNumber = (num: number): string => {
-  if (num === undefined || num === null) return '0';
-  return num.toLocaleString('pt-BR');
-};
+export function formatPhoneNumber(phoneNumber: string): string {
+  // Remove todos os caracteres não numéricos
+  const cleaned = ('' + phoneNumber).replace(/\D/g, '');
 
-/**
- * Formats a price number into currency format (R$).
- * @param price The price to format.
- * @returns The formatted currency string.
- */
-export const formatPrice = (price: number): string => {
-  if (price === undefined || price === null) return 'R$ 0,00';
-  return price.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
-};
+  // Verifica se é um número de 11 dígitos (com DDD)
+  if (cleaned.length === 11) {
+    // Formato: (XX) XXXXX-XXXX
+    return `(${cleaned.substring(0, 2)}) ${cleaned.substring(2, 7)}-${cleaned.substring(7, 11)}`;
+  }
+  // Verifica se é um número de 10 dígitos (com DDD)
+  if (cleaned.length === 10) {
+    // Formato: (XX) XXXX-XXXX
+    return `(${cleaned.substring(0, 2)}) ${cleaned.substring(2, 6)}-${cleaned.substring(6, 10)}`;
+  }
+
+  // Retorna o original se não corresponder a um formato comum
+  return phoneNumber;
+}
+
+export function formatNumber(value: number | string): string {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) {
+    return 'N/A';
+  }
+  return value.toLocaleString('pt-BR');
+}
