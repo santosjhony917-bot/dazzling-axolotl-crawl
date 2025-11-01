@@ -21,7 +21,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
     { 
       label: 'iFood', 
       url: restaurant.ifood_url, 
-      icon: Utensils, // Usando Utensils como ícone seguro
+      icon: Utensils, // Icon is irrelevant here as we will use an image
       colorClass: 'text-red-600',
       target: '_blank',
     },
@@ -46,6 +46,8 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
         <div className="grid grid-cols-3 gap-4">
           {orderLinks.map((link) => {
             const Icon = link.icon;
+            const isIfood = link.label === 'iFood';
+
             return (
               <a 
                 key={link.label} 
@@ -54,7 +56,15 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
               >
-                <Icon className={cn("w-7 h-7", link.colorClass)} />
+                {isIfood ? (
+                  <img 
+                    src="/assets/ifood-logo.png" 
+                    alt="iFood Logo" 
+                    className="w-7 h-7 object-contain" 
+                  />
+                ) : (
+                  <Icon className={cn("w-7 h-7", link.colorClass)} />
+                )}
                 <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
               </a>
             );
