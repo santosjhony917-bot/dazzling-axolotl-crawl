@@ -16,21 +16,24 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
       url: restaurant.whatsapp_url, 
       icon: MessageSquare, 
       colorClass: 'text-green-600',
-      target: '_blank'
+      target: '_blank',
+      isImage: false,
     },
     { 
       label: 'iFood', 
       url: restaurant.ifood_url, 
       icon: Utensils, 
       colorClass: 'text-red-600',
-      target: '_blank'
+      target: '_blank',
+      isImage: true, // Marcado para usar imagem
     },
     { 
       label: 'Outro Link', 
       url: restaurant.other_url || restaurant.external_url, 
       icon: Globe, 
       colorClass: 'text-primary',
-      target: '_blank'
+      target: '_blank',
+      isImage: false,
     },
   ].filter(link => link.url);
 
@@ -54,7 +57,15 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
               >
-                <Icon className={cn("w-7 h-7", link.colorClass)} />
+                {link.isImage ? (
+                  <img 
+                    src="/assets/ifood-logo.png" 
+                    alt="iFood Logo" 
+                    className="w-7 h-7 object-contain" 
+                  />
+                ) : (
+                  <Icon className={cn("w-7 h-7", link.colorClass)} />
+                )}
                 <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
               </a>
             );
