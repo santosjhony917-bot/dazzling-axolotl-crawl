@@ -1,44 +1,39 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import ClientBottomNav from '@/components/ClientBottomNav';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { useAuthData } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 
 const SharedLayoutWrapper: React.FC = () => {
   const location = useLocation();
-  const { user } = useAuthData();
+  const { restaurant, isPremium } = useAuthData();
 
-  // Determine if the current route is one that should display the bottom navigation bar
-  // Rotas de cliente que usam a navegação inferior
-  const clientRoutes = ['/home', '/search', '/favorites', '/profile']; // CORRIGIDO: Usando /home
+  const clientNavRoutes = ['/home', '/favorites', '/search-unified', '/profile']; 
+  const showClientNav = clientNavRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
 
-  // Verifica se o caminho atual corresponde exatamente ou começa com uma das rotas de cliente
-  const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
-
-  // Determine if the current route is a public route (e.g., restaurant profile)
-  const isPublicRoute = location.pathname.startsWith('/restaurant/');
-
-  // Determine if the current route is a management route (e.g., /restaurant-area)
   const isManagementRoute = location.pathname.startsWith('/restaurant-area/');
+  const showRestaurantNav = isManagementRoute && !!restaurant;
+
+  const showAnyBottomNav = showClientNav || showRestaurantNav;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Main content area */}
       <main
         className={cn(
           "flex-grow",
-          // Add padding bottom only if client nav is shown
-          showClientNav ? 'pb-20' : 'pb-0',
-          // Center content for public/management routes if needed, otherwise full width
-          isPublicRoute || isManagementRoute ? 'mx-auto w-full' : 'mx-auto w-full max-w-md'
+          showAnyBottomNav ? 'pb-20' : 'pb-0',
+          isManagementRoute ? 'mx-auto w-full' : 'mx-auto w-full max-w-md' 
         )}
       >
         <Outlet />
       </main>
       
-      {/* Bottom Navigation Bar for Client Routes */}
       {showClientNav && (
         <ClientBottomNav />
+      )}
+      {showRestaurantNav && (
+        <RestaurantBottomNav isFree={!isPremium} />
       )}
     </div>
   );
