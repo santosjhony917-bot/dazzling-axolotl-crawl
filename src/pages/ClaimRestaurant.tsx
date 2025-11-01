@@ -16,7 +16,7 @@ import { useAuthData } from '@/context/AuthContext';
 
 export default function ClaimRestaurant() {
   const navigate = useNavigate();
-  const { refetchProfile } = useAuthData();
+  const { refetchProfile, refetchRestaurant } = useAuthData();
   const [accessCode, setAccessCode] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,6 +62,7 @@ export default function ClaimRestaurant() {
       
       // 3. Refetch profile data to ensure the restaurant link is recognized
       refetchProfile();
+      refetchRestaurant();
 
       showSuccess("Restaurante reivindicado com sucesso! Redirecionando para o Dashboard.");
       
