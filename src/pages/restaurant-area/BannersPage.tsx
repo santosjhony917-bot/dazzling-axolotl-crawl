@@ -258,7 +258,7 @@ const BannerForm: React.FC<BannerFormProps> = ({ initialData, onSave, onCancel }
         </Button>
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-          {editingBanner ? 'Salvar Alterações' : 'Adicionar Banner'}
+          {initialData ? 'Salvar Alterações' : 'Adicionar Banner'}
         </Button>
       </DialogFooter>
     </form>
