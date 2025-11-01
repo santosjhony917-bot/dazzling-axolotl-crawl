@@ -13,6 +13,7 @@ import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import RestaurantManage from "./RestaurantManage";
 import RestaurantMenu from "./RestaurantMenu";
+import Onboarding from "./Onboarding";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/popular-dishes" element={<PopularDishes />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/onboarding" element={<Onboarding />} />
 
             {/* Rotas Protegidas do Cliente (Usando SharedLayoutWrapper) */}
             <Route element={<ProtectedRoute requiredRole="authenticated" layout={SharedLayoutWrapper} />}>

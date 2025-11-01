@@ -9,4 +9,5 @@ export const Routes = {
   GALLERY: '/restaurant-area/gallery',
   ADMIN_DASHBOARD: '/admin',
   ADMIN_LOGIN: '/admin/login',
+  ONBOARDING: '/onboarding',
 };
