@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Utensils, ShoppingCart, Link, Phone, Mail, ExternalLink, MessageSquare } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { cn } from '@/lib/utils';
-import IfoodIcon from '../../icons/IfoodIcon'; // Corrigido o caminho de importação
+import IfoodIcon from '@/components/icons/IfoodIcon'; // Corrigido o caminho de importação
 
 interface OrderChannelsSectionProps {
   id: string;
