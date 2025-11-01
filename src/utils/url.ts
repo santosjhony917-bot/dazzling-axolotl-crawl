@@ -75,6 +75,33 @@ type QueryParams<K extends PathKey> =
     : Record<string, string> | undefined;
 
 /**
+ * Retorna uma lista de chaves de rota que podem ser usadas como links de botões,
+ * excluindo rotas que exigem parâmetros ou são específicas de autenticação/admin.
+ */
+export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
+  const excludedKeys: PathKey[] = [
+    'auth', 'onboarding', 'legal', 'menuItemDetails', 'forgotPassword', 'restaurantResults',
+    'fullMenuPage', 'restaurantProfile', // Rotas com parâmetros
+    'restaurant-area-hub', 'restaurant-login', 'restaurant-signup', 'claim-restaurant',
+    'restaurant-area/upgrade', 'restaurant-area/home', 'restaurant-area/profile-menu',
+    'restaurant-area/menu', 'restaurant-area/category-details', 'restaurant-area/gallery',
+    'restaurant-area/search', 'restaurant-area/favorites', // Rotas de restaurante
+    'adminLogin', 'adminDashboard', 'adminRestaurants', 'adminPlans', 'adminUsers',
+    'adminSettings', 'adminCategories', 'adminFiles', 'adminImport', 'adminBanners', // Rotas de admin
+  ];
+
+  const selectablePaths: { key: PathKey; label: string }[] = [];
+  for (const key in PATH_MAP) {
+    if (Object.prototype.hasOwnProperty.call(PATH_MAP, key) && !excludedKeys.includes(key as PathKey)) {
+      // Capitaliza a primeira letra e substitui hífens por espaços para um label mais amigável
+      const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).replace(/-/g, ' ');
+      selectablePaths.push({ key: key as PathKey, label });
+    }
+  }
+  return selectablePaths;
+}
+
+/**
  * Cria uma URL completa com base na chave da página, parâmetros de rota e parâmetros de consulta.
  * @param key A chave da rota definida em PATH_MAP.
  * @param params Parâmetros de rota (ex: { restaurantId: '123' }).

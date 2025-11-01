@@ -15,6 +15,7 @@ import { useToast } from '@/components/ui/use-toast';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import ImageUpload from '@/components/ImageUpload';
 import BannerPreview from '@/components/admin/BannerPreview';
+import { getSelectablePagePaths, createPageUrl, PathKey } from '@/utils/url';
 
 interface Banner {
   id: string;
@@ -30,6 +31,7 @@ interface Banner {
   button_link: string;
   button_color: string;
   text_color: string;
+  text_position: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center';
 }
 
 const AdminBanners: React.FC = () => {
@@ -48,9 +50,14 @@ const AdminBanners: React.FC = () => {
   const [targetAudience, setTargetAudience] = useState<'user' | 'restaurant_free' | 'restaurant_premium'>('user');
   const [hasButton, setHasButton] = useState(false);
   const [buttonText, setButtonText] = useState('');
-  const [buttonLink, setButtonLink] = useState('');
-  const [buttonColor, setButtonColor] = useState('#E47948'); // Default highlight color
-  const [textColor, setTextColor] = useState('#FFFFFF'); // Default white
+  const [selectedPageKey, setSelectedPageKey] = useState<PathKey | ''>('');
+  const [buttonColor, setButtonColor] = useState('#E47948');
+  const [textColor, setTextColor] = useState('#FFFFFF');
+  const [textPosition, setTextPosition] = useState<'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center'>('bottom-left');
+
+  const selectablePagePaths = getSelectablePagePaths();
+
+  const generatedButtonLink = selectedPageKey ? createPageUrl(selectedPageKey) : '';
 
   useEffect(() => {
     fetchBanners();
@@ -86,9 +93,10 @@ const AdminBanners: React.FC = () => {
     setTargetAudience('user');
     setHasButton(false);
     setButtonText('');
-    setButtonLink('');
+    setSelectedPageKey('');
     setButtonColor('#E47948');
     setTextColor('#FFFFFF');
+    setTextPosition('bottom-left');
   };
 
   const openCreateModal = () => {
@@ -107,13 +115,17 @@ const AdminBanners: React.FC = () => {
     setTargetAudience(banner.target_audience);
     setHasButton(banner.has_button);
     setButtonText(banner.button_text);
-    setButtonLink(banner.button_link);
+    const foundKey = selectablePagePaths.find(p => createPageUrl(p.key) === banner.button_link)?.key || '';
+    setSelectedPageKey(foundKey);
     setButtonColor(banner.button_color);
     setTextColor(banner.text_color);
+    setTextPosition(banner.text_position);
     setIsModalOpen(true);
   };
 
   const handleSubmit = async () => {
+    const generatedButtonLink = selectedPageKey ? createPageUrl(selectedPageKey) : '';
+
     const bannerData = {
       title,
       subtitle,
@@ -124,9 +136,10 @@ const AdminBanners: React.FC = () => {
       target_audience: targetAudience,
       has_button: hasButton,
       button_text: hasButton ? buttonText : '',
-      button_link: hasButton ? buttonLink : '',
+      button_link: hasButton ? generatedButtonLink : '',
       button_color: hasButton ? buttonColor : '#E47948',
       text_color: textColor,
+      text_position: textPosition,
     };
 
     if (editingBanner) {
@@ -274,7 +287,7 @@ const AdminBanners: React.FC = () => {
             />
 
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="linkUrl" className="text-right">URL do Link</Label>
+              <Label htmlFor="linkUrl" className="text-right">URL do Link Externo</Label>
               <Input id="linkUrl" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -311,8 +324,19 @@ const AdminBanners: React.FC = () => {
                   <Input id="buttonText" value={buttonText} onChange={(e) => setButtonText(e.target.value)} className="col-span-3" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="buttonLink" className="text-right">Link do Botão</Label>
-                  <Input id="buttonLink" value={buttonLink} onChange={(e) => setButtonLink(e.target.value)} className="col-span-3" />
+                  <Label htmlFor="buttonLink" className="text-right">Link do Botão (Página)</Label>
+                  <Select value={selectedPageKey} onValueChange={(value: PathKey) => setSelectedPageKey(value)}>
+                    <SelectTrigger className="col-span-3">
+                      <SelectValue placeholder="Selecione uma página" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {selectablePagePaths.map((path) => (
+                        <SelectItem key={path.key} value={path.key}>
+                          {path.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="buttonColor" className="text-right">Cor do Botão</Label>
@@ -327,6 +351,24 @@ const AdminBanners: React.FC = () => {
               <Input id="textColorHex" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="col-span-1" />
             </div>
 
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="textPosition" className="text-right">Posição do Texto</Label>
+              <Select value={textPosition} onValueChange={(value: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center') => setTextPosition(value)}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Selecione a posição" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="top-left">Superior Esquerda</SelectItem>
+                  <SelectItem value="top-center">Superior Centro</SelectItem>
+                  <SelectItem value="top-right">Superior Direita</SelectItem>
+                  <SelectItem value="center">Centro</SelectItem>
+                  <SelectItem value="bottom-left">Inferior Esquerda</SelectItem>
+                  <SelectItem value="bottom-center">Inferior Centro</SelectItem>
+                  <SelectItem value="bottom-right">Inferior Direita</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="col-span-4 mt-6">
               <h4 className="text-lg font-semibold mb-2 text-center">Pré-visualização do Banner</h4>
               <BannerPreview
@@ -336,9 +378,10 @@ const AdminBanners: React.FC = () => {
                 linkUrl={linkUrl}
                 hasButton={hasButton}
                 buttonText={buttonText}
-                buttonLink={buttonLink}
+                buttonLink={generatedButtonLink}
                 buttonColor={buttonColor}
                 textColor={textColor}
+                textPosition={textPosition}
               />
             </div>
 
