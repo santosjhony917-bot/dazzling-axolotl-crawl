@@ -2,7 +2,7 @@ import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseM
 
 // Define a more specific type for restaurant data that is publicly visible
 // This now correctly includes all fields from the base SupabaseRestaurant type.
-export type PublicRestaurantData = SupabaseRestaurant & {
+export type PublicRestaurantData = Database['public']['Tables']['restaurants']['Row'] & {
   distance_km?: number; // For nearby restaurants
 };
 
