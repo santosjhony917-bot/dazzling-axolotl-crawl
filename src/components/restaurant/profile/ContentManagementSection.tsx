@@ -1,93 +1,68 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Utensils, Image, CreditCard, Link, Eye, Camera } from 'lucide-react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import NavCardItem from '@/components/NavCardItem';
+import { Utensils, Camera, Eye, CreditCard } from 'lucide-react'; // Adicionado CreditCard
 import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 import { showError } from '@/utils/toast';
-// import { createPageUrl } from '@/lib/router'; // Importação removida
 
 interface ContentManagementSectionProps {
   navigate: ReturnType<typeof useNavigate>;
   isPremium: boolean;
-  restaurantId: string;
-  restaurantName: string;
-  setIsPaymentMethodsDialogOpen: (open: boolean) => void;
+  restaurantId: string; // Adicionado
+  restaurantName: string; // Adicionado
+  setIsPaymentMethodsDialogOpen: (open: boolean) => void; // NOVO PROP
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({
-  navigate,
-  isPremium,
-  restaurantId,
-  restaurantName,
-  setIsPaymentMethodsDialogOpen,
-}) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen }) => {
   
-  // Função auxiliar para navegação e verificação premium
-  const handleNavigate = (path: string, requiresPremium: boolean) => {
-    if (requiresPremium && !isPremium) {
+  const handleNavigate = (path: string, isFeaturePremium: boolean) => {
+    if (isFeaturePremium && !isPremium) {
       showError("Recurso Premium. Faça upgrade para desbloquear.");
       return;
     }
     navigate(path);
   };
-
+  
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
-          <Utensils className="w-6 h-6" /> Gestão de Conteúdo
-        </CardTitle>
-        <CardDescription>Gerencie o menu, galeria de fotos e outras informações públicas do seu restaurante.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        
-        <NavCardItem
-          title="Ver Perfil Público"
-          description={`Veja como ${restaurantName} aparece para os clientes.`}
-          icon={Eye} 
-          // Usando caminho literal, pois createPageUrl não está disponível
-          onClick={() => navigate(`/restaurant/${restaurantId}`)} 
-        />
-        
-        <NavCardItem
-          title="Menu Digital"
-          description="Adicione, edite e organize pratos e categorias."
-          icon={Utensils} 
-          onClick={() => handleNavigate(`/restaurant-area/menu/${restaurantId}`, false)}
-        />
-        
-        <NavCardItem
-          title="Galeria de Fotos"
-          description="Gerencie as imagens do seu restaurante."
-          icon={Camera} 
-          onClick={() => handleNavigate(`/restaurant-area/gallery/${restaurantId}`, true)}
-          isLocked={!isPremium}
-        />
-        
-        <NavCardItem
-          title="Formas de Pagamento"
-          description="Defina quais métodos de pagamento você aceita."
-          icon={CreditCard} 
-          onClick={() => {
-            if (!isPremium) {
-              showError("Recurso Premium. Faça upgrade para desbloquear a gestão de formas de pagamento.");
-              return;
-            }
-            setIsPaymentMethodsDialogOpen(true);
-          }}
-          isLocked={!isPremium}
-        />
-        
-        <NavCardItem
-          title="Redes Sociais"
-          description="Adicione links para Instagram, Facebook e outros."
-          icon={Link} 
-          onClick={() => handleNavigate(`/restaurant-area/settings/social-networks`, true)}
-          isLocked={!isPremium}
-        />
-        
-      </CardContent>
-    </Card>
+    <div className="w-full space-y-3">
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
+      
+      {/* NOVO: Ver Perfil Público */}
+      <NavCardItem 
+        title="Ver Perfil Público" 
+        description={`Veja como ${restaurantName} aparece para os clientes.`}
+        icon={Eye} 
+        onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
+        isPremium={isPremium}
+      />
+      
+      <NavCardItem 
+        title="Cardápio e Categorias" 
+        description="Adicione, edite e organize pratos e categorias."
+        icon={Utensils} 
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
+        isPremium={isPremium}
+      />
+      <NavCardItem 
+        title="Galeria de Fotos" 
+        description="Gerencie as imagens do seu restaurante."
+        icon={Camera} 
+        isPremiumFeature={true}
+        isPremium={isPremium}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
+        premiumDescription="Exclusivo Premium"
+      />
+      
+      {/* NOVO: Formas de Pagamento */}
+      <NavCardItem 
+        title="Formas de Pagamento" 
+        description="Defina quais métodos de pagamento você aceita."
+        icon={CreditCard} 
+        onClick={() => setIsPaymentMethodsDialogOpen(true)}
+        isPremium={isPremium}
+      />
+    </div>
   );
 };
 

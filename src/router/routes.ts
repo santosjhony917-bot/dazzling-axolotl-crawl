@@ -9,6 +9,4 @@ export const Routes = {
   GALLERY: '/restaurant-area/gallery',
   ADMIN_DASHBOARD: '/admin',
   ADMIN_LOGIN: '/admin/login',
-  // NOVO: Rota para gerenciamento de redes sociais
-  'restaurant-area/social-networks': '/restaurant-area/social-networks',
 };

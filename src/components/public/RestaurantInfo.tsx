@@ -1,33 +1,17 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, ExternalLink, Link, Instagram, Facebook, Twitter } from 'lucide-react';
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant'; // Importando SocialNetworkLink
+import { Phone, Mail, ExternalLink, Link } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 interface RestaurantInfoProps {
   id: string;
   restaurant: PublicRestaurantData;
 }
 
-// Helper para mapear tipo de rede social para ícone
-const getSocialIcon = (type: string) => {
-    switch (type.toLowerCase()) {
-        case 'instagram':
-            return Instagram;
-        case 'facebook':
-            return Facebook;
-        case 'twitter':
-        case 'x':
-            return Twitter;
-        default:
-            return Link;
-    }
-};
-
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
-  const { phone, email, social_networks } = restaurant;
+  const { phone, email, whatsapp_url, ifood_url, other_url, external_url } = restaurant;
 
-  // 1. Contato Direto (Phone/Email)
   const contactItems = [
     {
       icon: Phone,
@@ -43,8 +27,11 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
     },
   ].filter(item => item.value);
   
-  // 2. Redes Sociais (Usando o novo campo social_networks)
-  const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
+  const socialLinks = [
+    { label: 'WhatsApp', url: whatsapp_url },
+    { label: 'iFood', url: ifood_url },
+    { label: 'Site Próprio', url: other_url || external_url },
+  ].filter(link => link.url);
 
   if (contactItems.length === 0 && socialLinks.length === 0) {
       return null;
@@ -84,27 +71,23 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
             </div>
         )}
 
-        {/* Outras Redes (Social Networks) */}
+        {/* Links Úteis */}
         {socialLinks.length > 0 && (
           <div className="pt-4 border-t border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Outras Redes</p>
+            <p className="text-sm font-semibold text-gray-700 mb-2">Links Úteis</p>
             <div className="flex flex-wrap gap-3">
-              {socialLinks.map((link, index) => {
-                const Icon = getSocialIcon(link.type);
-                return (
-                  <a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-highlight hover:underline flex items-center"
-                  >
-                    <Icon className="w-4 h-4 mr-1" />
-                    {link.type}
-                    <ExternalLink className="w-3 h-3 ml-1" />
-                  </a>
-                );
-              })}
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-highlight hover:underline flex items-center"
+                >
+                  {link.label}
+                  <ExternalLink className="w-3 h-3 ml-1" />
+                </a>
+              ))}
             </div>
           </div>
         )}
