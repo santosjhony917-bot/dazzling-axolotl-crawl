@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
 // Layouts
@@ -50,8 +49,6 @@ import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
 import { useAuthData } from '@/context/AuthContext';
-
-// REMOVED: Conflicting local ProtectedRoute component
 
 interface ProtectedRouteProps {
   requiredRole?: 'admin' | 'restaurant' | 'user' | 'authenticated' | 'restaurant_owner'; // Adicionado 'authenticated' e 'restaurant_owner'
