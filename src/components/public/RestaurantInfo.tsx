@@ -1,16 +1,24 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, ExternalLink, Link } from 'lucide-react';
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant'; // Importando SocialNetworkLink
+import { Phone, Mail, ExternalLink, Link, Instagram, Facebook, Globe } from 'lucide-react'; // Importando ícones sociais
+import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
 
 interface RestaurantInfoProps {
   id: string;
   restaurant: PublicRestaurantData;
 }
 
+// Mapeamento de plataformas para ícones
+const getSocialIcon = (platform: string) => {
+  const lowerPlatform = platform.toLowerCase();
+  if (lowerPlatform.includes('instagram')) return Instagram;
+  if (lowerPlatform.includes('facebook')) return Facebook;
+  if (lowerPlatform.includes('site') || lowerPlatform.includes('website')) return Globe;
+  return Link; // Ícone padrão para outras redes
+};
+
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
-  // Removendo other_url e external_url daqui, pois serão gerenciados em social_networks
   const { phone, email, social_networks } = restaurant;
 
   const contactItems = [
@@ -28,7 +36,6 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
     },
   ].filter(item => item.value);
   
-  // Usando o novo campo social_networks
   const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
 
   if (contactItems.length === 0 && socialLinks.length === 0) {
@@ -69,23 +76,26 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
             </div>
         )}
 
-        {/* Outras Redes (Antigo Links Úteis) */}
+        {/* Outras Redes */}
         {socialLinks.length > 0 && (
           <div className="pt-4 border-t border-gray-100">
             <p className="text-sm font-semibold text-gray-700 mb-2">Outras Redes</p>
-            <div className="flex flex-wrap gap-3">
-              {socialLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-highlight hover:underline flex items-center"
-                >
-                  {link.platform}
-                  <ExternalLink className="w-3 h-3 ml-1" />
-                </a>
-              ))}
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map((link, index) => {
+                const Icon = getSocialIcon(link.platform);
+                return (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-highlight hover:underline flex items-center transition-colors"
+                  >
+                    <Icon className="w-4 h-4 mr-1 text-primary" /> {/* Usando o ícone específico */}
+                    {link.platform}
+                  </a>
+                );
+              })}
             </div>
           </div>
         )}
