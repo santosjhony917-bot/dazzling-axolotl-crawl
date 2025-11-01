@@ -1,138 +1,137 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, Upload, X, Image as ImageIcon } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { showError, showSuccess } from '@/utils/toast';
+import { Label } from '@/components/ui/label';
+import { Loader2, UploadCloud, XCircle } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
+import { uploadFile } from '@/integrations/supabase/storage';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface ImageUploadProps {
-  bucket: string;
-  currentImageUrl: string | null | undefined;
-  onUploadSuccess: (url: string) => Promise<void>;
-  onRemove?: () => Promise<void>; // Adicionado onRemove
-  folderPath: string; // Ex: 'restaurants/uuid/profile'
+  value: string; // Current image URL
+  onChange: (url: string) => void; // Callback to update parent with new URL
+  bucketName: string;
+  folderPath: string;
+  label?: string;
+  aspectRatio?: string; // e.g., "16/9", "4/3", "1/1"
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
-  bucket,
-  currentImageUrl,
-  onUploadSuccess,
-  onRemove, // Desestruturado
+  value,
+  onChange,
+  bucketName,
   folderPath,
+  label = "Imagem",
+  aspectRatio = "16/9",
 }) => {
   const [file, setFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
     }
   };
 
   const handleUpload = async () => {
     if (!file) {
-      showError('Selecione um arquivo primeiro.');
+      toast({
+        title: "Nenhum arquivo selecionado",
+        description: "Por favor, selecione uma imagem para fazer upload.",
+        variant: "destructive",
+      });
       return;
     }
 
-    setIsUploading(true);
+    setLoading(true);
+    const fileName = `${Date.now()}-${file.name}`;
+    const { url, error } = await uploadFile(file, bucketName, folderPath, fileName);
 
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `${folderPath}/${fileName}`;
-
-      // 1. Upload do arquivo
-      const { error: uploadError } = await supabase.storage
-        .from(bucket)
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false,
-        });
-
-      if (uploadError) throw uploadError;
-
-      // 2. Obter a URL pública
-      const { data: publicUrlData } = supabase.storage
-        .from(bucket)
-        .getPublicUrl(filePath);
-
-      if (!publicUrlData || !publicUrlData.publicUrl) {
-        throw new Error('Falha ao obter URL pública.');
-      }
-
-      // 3. Chamar o callback de sucesso (que atualiza o banco de dados)
-      await onUploadSuccess(publicUrlData.publicUrl);
-      
-      setFile(null);
-      showSuccess('Imagem enviada com sucesso!');
-
-    } catch (error) {
-      console.error('Erro durante o upload:', error);
-      showError('Falha no upload da imagem.');
-    } finally {
-      setIsUploading(false);
+    if (error) {
+      toast({
+        title: "Erro no upload da imagem",
+        description: error,
+        variant: "destructive",
+      });
+    } else if (url) {
+      onChange(url);
+      setFile(null); // Clear selected file after successful upload
+      toast({
+        title: "Upload realizado com sucesso!",
+        description: "A imagem foi enviada para o servidor.",
+        variant: "default",
+      });
     }
+    setLoading(false);
   };
 
-  const handleRemove = async () => {
-    if (!currentImageUrl) return;
-
-    // 1. Chamar o callback de remoção, se existir
-    if (onRemove) {
-      await onRemove();
-    } else {
-      // Fallback: Atualizar o banco de dados para remover a URL
-      await onUploadSuccess(null as any); 
-    }
-
-    // 2. Tenta remover o arquivo do storage (opcional, mas boa prática)
-    // Nota: Remover do storage requer o caminho exato do arquivo, que é complexo de extrair da URL pública.
-    // Por simplicidade, focamos em limpar o link no DB.
-
-    showSuccess('Imagem removida com sucesso!');
+  const handleRemoveImage = () => {
+    onChange(''); // Clear the image URL
+    setFile(null); // Clear any selected file
   };
 
   return (
-    <div className="space-y-4">
-      {currentImageUrl ? (
-        <div className="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
-          <img src={currentImageUrl} alt="Imagem Atual" className="object-cover w-full h-full" />
-          <Button
-            type="button"
-            variant="destructive"
-            size="icon"
-            onClick={handleRemove}
-            className="absolute top-2 right-2 rounded-full h-8 w-8"
-            disabled={isUploading}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      ) : (
-        <div className="w-full h-48 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center text-gray-500">
-          <ImageIcon className="h-8 w-8 mb-2" />
-          <p>Nenhuma imagem selecionada.</p>
-        </div>
-      )}
+    <div className="grid grid-cols-4 items-center gap-4">
+      <Label className="text-right">{label}</Label>
+      <div className="col-span-3 flex flex-col gap-2">
+        {value ? (
+          <div className="relative w-full rounded-md overflow-hidden border border-gray-200 dark:border-gray-700" style={{ aspectRatio: aspectRatio }}>
+            <img src={value} alt="Preview" className="w-full h-full object-cover" />
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon"
+              className="absolute top-2 right-2 rounded-full"
+              onClick={handleRemoveImage}
+            >
+              <XCircle className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-md cursor-pointer bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <Label htmlFor="file-upload" className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+              <UploadCloud className="h-8 w-8 text-gray-400" />
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">Clique para fazer upload</span> ou arraste e solte
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF (MAX. 5MB)</p>
+            </Label>
+            <Input
+              id="file-upload"
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </div>
+        )}
 
-      <div className="flex gap-2">
-        <Input 
-          type="file" 
-          accept="image/*" 
-          onChange={handleFileChange} 
-          className="flex-1 rounded-xl"
-          disabled={isUploading}
-        />
-        <Button 
-          onClick={handleUpload} 
-          disabled={isUploading || !file} 
-          className="bg-primary hover:bg-primary/90 rounded-xl"
-        >
-          {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-        </Button>
+        {file && !value && (
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-sm text-gray-700 dark:text-gray-300 truncate">{file.name}</span>
+            <Button
+              type="button"
+              onClick={handleUpload}
+              disabled={loading}
+              size="sm"
+            >
+              {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <UploadCloud className="mr-2 h-4 w-4" />}
+              Upload
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setFile(null)}
+            >
+              Cancelar
+            </Button>
+          </div>
+        )}
       </div>
-      {file && <p className="text-sm text-gray-600">Arquivo pronto para upload: {file.name}</p>}
     </div>
   );
 };

@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, PlusCircle, Edit, Trash2, Image as ImageIcon, Link as LinkIcon, Palette, Type, CheckCircle2, XCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import ImageUpload from '@/components/ImageUpload';
+import BannerPreview from '@/components/admin/BannerPreview';
 
 interface Banner {
   id: string;
@@ -142,7 +144,7 @@ const AdminBanners: React.FC = () => {
       } else {
         toast({
           title: 'Banner atualizado com sucesso!',
-          variant: 'default', // Corrigido para 'default'
+          variant: 'default',
         });
         fetchBanners();
         setIsModalOpen(false);
@@ -161,7 +163,7 @@ const AdminBanners: React.FC = () => {
       } else {
         toast({
           title: 'Banner criado com sucesso!',
-          variant: 'default', // Corrigido para 'default'
+          variant: 'default',
         });
         fetchBanners();
         setIsModalOpen(false);
@@ -186,7 +188,7 @@ const AdminBanners: React.FC = () => {
     } else {
       toast({
         title: 'Banner excluído com sucesso!',
-        variant: 'default', // Corrigido para 'default'
+        variant: 'default',
       });
       fetchBanners();
     }
@@ -261,10 +263,16 @@ const AdminBanners: React.FC = () => {
               <Label htmlFor="subtitle" className="text-right">Subtítulo</Label>
               <Textarea id="subtitle" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="col-span-3" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="imageUrl" className="text-right">URL da Imagem</Label>
-              <Input id="imageUrl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="col-span-3" />
-            </div>
+            
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              bucketName="restaurant_images"
+              folderPath="banners"
+              label="Imagem do Banner"
+              aspectRatio="16/9"
+            />
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="linkUrl" className="text-right">URL do Link</Label>
               <Input id="linkUrl" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} className="col-span-3" />
@@ -318,6 +326,22 @@ const AdminBanners: React.FC = () => {
               <Input id="textColor" type="color" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="col-span-2 h-8" />
               <Input id="textColorHex" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="col-span-1" />
             </div>
+
+            <div className="col-span-4 mt-6">
+              <h4 className="text-lg font-semibold mb-2 text-center">Pré-visualização do Banner</h4>
+              <BannerPreview
+                title={title}
+                subtitle={subtitle}
+                imageUrl={imageUrl}
+                linkUrl={linkUrl}
+                hasButton={hasButton}
+                buttonText={buttonText}
+                buttonLink={buttonLink}
+                buttonColor={buttonColor}
+                textColor={textColor}
+              />
+            </div>
+
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancelar</Button>
