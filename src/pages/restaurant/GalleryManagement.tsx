@@ -2,15 +2,17 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import { Image, Plus, Loader2, Trash2, GripVertical } from 'lucide-react';
+import { Image, Plus, Loader2, AlertTriangle, GripVertical, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { showError, showSuccess } from '@/utils/toast';
-import { supabase } from '@/integrations/supabase/client';
-import { GalleryImage as SupabaseGalleryImage } from '@/types/supabase'; // Corrigido: Importando GalleryImage
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { useGalleryManagement } from '@/hooks/useGalleryManagement';
+import GalleryImageCard from '@/components/restaurant/GalleryImageCard';
+import CoverImageUploader from '@/components/restaurant/CoverImageUploader';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { GalleryImage as SupabaseGalleryImage } from '@/types/supabase';
 import {
   DndContext,
   closestCenter,
@@ -28,24 +30,17 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 
-// --- Tipos e Componentes Auxiliares ---
+// --- Componente Auxiliar para DND ---
 
-interface GalleryImage extends SupabaseGalleryImage { // Corrigido: Estendendo SupabaseGalleryImage
-  isNew?: boolean;
+interface SortableItemWrapperProps {
+  image: SupabaseGalleryImage;
+  onDelete: (id: string) => Promise<void>;
+  onUpdateCaption: (id: string, newCaption: string) => Promise<void>;
+  isMutating: boolean;
 }
 
-interface SortableItemProps {
-  image: GalleryImage;
-  onDelete: (id: string) => void;
-  onEdit: (image: GalleryImage) => void;
-}
-
-const SortableItem: React.FC<SortableItemProps> = ({ image, onDelete, onEdit }) => {
+const SortableItemWrapper: React.FC<SortableItemWrapperProps> = ({ image, onDelete, onUpdateCaption, isMutating }) => {
   const {
     attributes,
     listeners,
@@ -58,64 +53,53 @@ const SortableItem: React.FC<SortableItemProps> = ({ image, onDelete, onEdit }) 
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
+  
   return (
-    <div ref={setNodeRef} style={style} className="relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-      <img 
-        src={image.image_url || PLACEHOLDER_IMAGE_URL} 
-        alt={image.caption || 'Imagem da Galeria'} 
-        className="w-full h-32 object-cover"
-      />
-      
-      <div className="p-3">
-        <p className="text-sm font-medium truncate">{image.caption || 'Sem legenda'}</p>
-      </div>
-
-      {/* Overlay de Ações */}
-      <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <Button 
-          variant="secondary" 
-          size="sm" 
-          onClick={() => onEdit(image)}
-          className="bg-white text-primary hover:bg-gray-100"
-        >
-          Editar
-        </Button>
-        <Button 
-          variant="destructive" 
-          size="sm" 
-          onClick={() => onDelete(image.id)}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      </div>
-
-      {/* Handle de Arrastar */}
-      <div 
-        {...attributes} 
-        {...listeners} 
-        className="absolute top-2 left-2 cursor-grab p-1 bg-white/80 rounded-full shadow-md hover:bg-white transition-colors"
-      >
-        <GripVertical className="h-5 w-5 text-gray-600" />
-      </div>
-    </div>
+    <GalleryImageCard
+      image={image}
+      onDelete={onDelete}
+      onUpdateCaption={onUpdateCaption}
+      isDeleting={isMutating}
+      isUpdating={isMutating}
+      attributes={attributes}
+      listeners={listeners}
+      setNodeRef={setNodeRef}
+      style={style}
+    />
   );
 };
+
 
 // --- Componente Principal ---
 
 export default function GalleryManagement() {
-  const { restaurant, isLoading: authLoading } = useAuthData();
+  const { restaurant, isLoading: authLoading, refetchProfile } = useAuthData();
+  const { updateRestaurant } = useRestaurantProfile(restaurant);
   const navigate = useNavigate();
-  const [gallery, setGallery] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isUploading, setIsUploading] = useState(false);
-  
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState<GalleryImage | null>(null);
-  const [editCaption, setEditCaption] = useState('');
 
-  const restaurantId = restaurant?.id;
+  const restaurantId = restaurant?.id || '';
+  
+  // Gerenciamento da Galeria (Imagens internas)
+  const { 
+    gallery, 
+    isLoading: isGalleryLoading, 
+    error: galleryError, 
+    addGalleryImage, 
+    deleteGalleryImage, 
+    updateGalleryImage,
+    saveGalleryOrder, // NOVO: Mutação para salvar a ordem
+    isMutating,
+    refetch: refetchGallery
+  } = useGalleryManagement(restaurantId);
+
+  const [localGallery, setLocalGallery] = useState<SupabaseGalleryImage[]>(gallery);
+  
+  // Sincroniza o estado local com o estado da query
+  useEffect(() => {
+    setLocalGallery(gallery);
+  }, [gallery]);
+
+  const isLoading = authLoading || isGalleryLoading;
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -124,221 +108,169 @@ export default function GalleryManagement() {
     })
   );
 
-  const fetchGallery = useCallback(async () => {
+  // --- Handlers de Imagem de Capa ---
+  const handleCoverUploadComplete = useCallback(async (url: string) => {
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    const { error } = await updateRestaurant({ cover_image_url: cacheBustedUrl });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Capa atualizada com sucesso!");
+      refetchProfile(); // Força a atualização do contexto
+    }
+  }, [updateRestaurant, refetchProfile]);
+
+  // --- Handlers de Imagem da Galeria ---
+  const handleGalleryImageUploadComplete = useCallback(async (url: string) => {
     if (!restaurantId) return;
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('restaurant_gallery')
-      .select('*')
-      .eq('restaurant_id', restaurantId)
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      showError("Erro ao carregar galeria: " + error.message);
-    } else {
-      setGallery(data as GalleryImage[]);
+    
+    try {
+      // O hook useGalleryManagement agora calcula o order_index
+      await addGalleryImage({ restaurantId, image_url: url, caption: '' });
+      // O refetch é disparado pelo hook, o useEffect sincronizará o localGallery
+    } catch (e) {
+      // Erro tratado no hook
     }
-    setLoading(false);
-  }, [restaurantId]);
+  }, [restaurantId, addGalleryImage]);
+  
+  const handleUpdateCaption = useCallback(async (imageId: string, newCaption: string) => {
+    await updateGalleryImage({ imageId, updates: { caption: newCaption } });
+  }, [updateGalleryImage]);
+  
+  const handleDeleteImage = useCallback(async (imageId: string) => {
+    await deleteGalleryImage(imageId);
+  }, [deleteGalleryImage]);
 
-  useEffect(() => {
-    fetchGallery();
-  }, [fetchGallery]);
-
-  const handleUploadComplete = useCallback(async (url: string) => {
-    if (!restaurantId) return;
-    setIsUploading(true);
-
-    // 1. Determinar o próximo order_index
-    const maxOrder = gallery.reduce((max, item) => Math.max(max, item.order_index || 0), 0);
-    const newOrderIndex = maxOrder + 1;
-
-    // 2. Inserir a nova imagem no DB
-    const { data, error } = await supabase
-      .from('restaurant_gallery')
-      .insert({
-        restaurant_id: restaurantId,
-        image_url: url,
-        caption: '',
-        order_index: newOrderIndex,
-      })
-      .select()
-      .single();
-
-    setIsUploading(false);
-
-    if (error) {
-      showError("Erro ao salvar imagem: " + error.message);
-    } else {
-      showSuccess("Imagem adicionada com sucesso!");
-      setGallery(prev => [...prev, data as GalleryImage]);
-    }
-  }, [restaurantId, gallery]);
-
-  const handleDelete = useCallback(async (id: string) => {
-    if (!window.confirm("Tem certeza que deseja deletar esta imagem?")) return;
-
-    // 1. Deletar do Storage (opcional, mas recomendado)
-    // Não implementado aqui para simplificar, mas idealmente deveria ser feito.
-
-    // 2. Deletar do DB
-    const { error } = await supabase
-      .from('restaurant_gallery')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      showError("Erro ao deletar imagem: " + error.message);
-    } else {
-      showSuccess("Imagem deletada com sucesso!");
-      setGallery(prev => prev.filter(item => item.id !== id));
-    }
-  }, []);
-
-  const handleDragEnd = useCallback(async (event: DragEndEvent) => {
+  // --- DND Handler ---
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
-      setGallery((items) => {
+      setLocalGallery((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
-        const newItems = arrayMove(items, oldIndex, newIndex);
-        
-        // 3. Atualizar order_index no DB (em lote)
-        const updates = newItems.map((item, index) => ({
-          id: item.id,
-          order_index: index,
-        }));
-        
-        // Disparar atualização assíncrona (sem esperar)
-        supabase.from('restaurant_gallery')
-          .upsert(updates)
-          .then(({ error }) => {
-            if (error) {
-              console.error("Erro ao reordenar galeria:", error);
-              showError("Erro ao salvar a nova ordem.");
-            }
-          });
-
-        return newItems;
+        return arrayMove(items, oldIndex, newIndex);
       });
     }
   }, []);
   
-  const handleEditClick = (image: GalleryImage) => {
-    setCurrentImage(image);
-    setEditCaption(image.caption || '');
-    setIsEditDialogOpen(true);
-  };
-  
-  const handleSaveCaption = async () => {
-    if (!currentImage) return;
+  // --- Salvar Ordem ---
+  const handleSaveOrder = useCallback(async () => {
+    const updates = localGallery.map((item, index) => ({
+      id: item.id,
+      order_index: index,
+    }));
     
-    const { error } = await supabase
-      .from('restaurant_gallery')
-      .update({ caption: editCaption })
-      .eq('id', currentImage.id);
-      
-    if (error) {
-      showError("Erro ao salvar legenda: " + error.message);
-    } else {
-      showSuccess("Legenda atualizada!");
-      setGallery(prev => prev.map(item => 
-        item.id === currentImage.id ? { ...item, caption: editCaption } : item
-      ));
-      setIsEditDialogOpen(false);
-    }
-  };
+    await saveGalleryOrder(updates);
+  }, [localGallery, saveGalleryOrder]);
 
-  if (authLoading || loading) {
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
+  
+  if (galleryError) {
+    return (
+      <div className="p-4 text-red-500">
+        <AlertTriangle className="h-6 w-6 inline mr-2" /> Erro ao carregar galeria: {galleryError}
+      </div>
+    );
+  }
 
   return (
-    <RestaurantAreaPageLayout title="Galeria de Imagens" icon={Image} backPath="/restaurant-area/profile">
-      <div className="p-4 space-y-6 max-w-4xl mx-auto">
-        <Card className="shadow-soft-md">
+    <RestaurantAreaPageLayout 
+      title="Galeria de Imagens" 
+      icon={Image} 
+      backPath="restaurant-area/profile-menu"
+    >
+      <div className="p-4 space-y-8 max-w-4xl mx-auto">
+        
+        {/* 1. Uploader de Imagem de Capa */}
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
           <CardHeader>
-            <CardTitle className="text-xl">Gerenciar Imagens</CardTitle>
+            <CardTitle className="text-xl text-primary">Imagem de Capa</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CoverImageUploader
+              restaurantId={restaurantId}
+              coverImageUrl={restaurant?.cover_image_url}
+              onUploadComplete={handleCoverUploadComplete}
+            />
+            <p className="text-sm text-gray-600 mt-4">
+              Esta imagem aparece no topo do seu perfil público.
+            </p>
+          </CardContent>
+        </Card>
+        
+        {/* 2. Gerenciamento da Galeria */}
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardHeader>
+            <CardTitle className="text-xl text-primary">Galeria de Fotos</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-600 mb-4">
-              Arraste e solte as imagens para reordenar. A primeira imagem será usada como destaque na galeria.
+              Arraste e solte as imagens para reordenar. A primeira imagem será usada como destaque.
             </p>
             
-            <div className="flex items-center gap-4 mb-6">
-              <ImageUploadButton
-                onUploadComplete={handleUploadComplete}
-                bucketName={RESTAURANT_IMAGES_BUCKET}
-                folderPath={`${restaurantId}/gallery`}
-                className="bg-primary text-white hover:bg-primary/90 h-10 w-10 p-0 rounded-lg shadow-md"
-                icon={<Plus className="h-5 w-5" />}
-                disabled={isUploading} // A prop 'disabled' agora é reconhecida
-              />
-              <span className="text-sm font-medium text-gray-700">
-                {isUploading ? "Enviando..." : "Adicionar Imagem"}
-              </span>
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-4">
+                <ImageUploadButton
+                  onUploadComplete={handleGalleryImageUploadComplete}
+                  bucketName={RESTAURANT_IMAGES_BUCKET}
+                  folderPath={`${restaurantId}/gallery`}
+                  className="bg-primary text-white hover:bg-primary/90 h-10 w-10 p-0 rounded-lg shadow-md"
+                  icon={<Plus className="h-5 w-5" />}
+                  disabled={isMutating}
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  {isMutating ? "Processando..." : "Adicionar Imagem"}
+                </span>
+              </div>
+              
+              <Button 
+                onClick={handleSaveOrder}
+                disabled={isMutating || localGallery.length === 0}
+                className="bg-highlight hover:bg-highlight/90"
+              >
+                {isMutating ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+                Salvar Ordem
+              </Button>
             </div>
 
+            {/* Lista de Imagens da Galeria com DND */}
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >
               <SortableContext
-                items={gallery.map(item => item.id)}
+                items={localGallery.map(item => item.id)}
                 strategy={verticalListSortingStrategy}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {gallery.map((image) => (
-                    <SortableItem 
+                  {localGallery.map((image) => (
+                    <SortableItemWrapper 
                       key={image.id} 
                       image={image} 
-                      onDelete={handleDelete} 
-                      onEdit={handleEditClick}
+                      onDelete={handleDeleteImage} 
+                      onUpdateCaption={handleUpdateCaption}
+                      isMutating={isMutating}
                     />
                   ))}
                 </div>
               </SortableContext>
             </DndContext>
             
-            {gallery.length === 0 && !loading && (
+            {localGallery.length === 0 && !loading && (
               <p className="text-center text-gray-500 mt-8">Nenhuma imagem na galeria ainda. Adicione a primeira!</p>
             )}
           </CardContent>
         </Card>
       </div>
-      
-      {/* Dialog de Edição de Legenda */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Editar Legenda</DialogTitle>
-            <DialogDescription>
-              Adicione uma breve descrição para a imagem.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="caption">Legenda</Label>
-              <Textarea
-                id="caption"
-                value={editCaption}
-                onChange={(e) => setEditCaption(e.target.value)}
-                placeholder="Ex: Nosso prato mais vendido!"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancelar</Button>
-            <Button onClick={handleSaveCaption}>Salvar Legenda</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </RestaurantAreaPageLayout>
   );
 }

@@ -42,15 +42,19 @@ export function useGalleryManagement(restaurantId: string | null) {
 
   // Mutação para adicionar uma nova imagem
   const addImageMutation = useMutation({
-    mutationFn: async (image: { image_url: string, caption?: string }) => {
-      if (!restaurantId) throw new Error("Restaurant ID is missing.");
+    mutationFn: async (payload: { restaurantId: string, image_url: string, caption?: string }) => {
+      // 1. Determinar o próximo order_index (lógica movida para o hook)
+      const currentGallery = queryClient.getQueryData(queryKey) as GalleryImage[] || [];
+      const maxOrder = currentGallery.reduce((max, item) => Math.max(max, item.order_index || 0), 0);
+      const newOrderIndex = maxOrder + 1;
       
       const { error } = await supabase
         .from('restaurant_gallery')
         .insert({
-          restaurant_id: restaurantId,
-          image_url: image.image_url,
-          caption: image.caption || null,
+          restaurant_id: payload.restaurantId,
+          image_url: payload.image_url,
+          caption: payload.caption || null,
+          order_index: newOrderIndex, // Adicionando order_index
         });
       
       if (error) throw error;
@@ -65,13 +69,13 @@ export function useGalleryManagement(restaurantId: string | null) {
     },
   });
   
-  // Mutação para atualizar legenda (adicionada para uso em GalleryImageCard)
+  // Mutação para atualizar legenda e ordem
   const updateImageMutation = useMutation({
-    mutationFn: async ({ imageId, updates }: { imageId: string, updates: Partial<GalleryImage> }) => {
+    mutationFn: async (payload: { imageId: string, updates: Partial<GalleryImage> }) => {
       const { error } = await supabase
         .from('restaurant_gallery')
-        .update(updates)
-        .eq('id', imageId);
+        .update(payload.updates)
+        .eq('id', payload.imageId);
       
       if (error) throw error;
     },
@@ -105,6 +109,25 @@ export function useGalleryManagement(restaurantId: string | null) {
       showError(`Falha ao remover foto: ${(e as Error).message}`);
     },
   });
+  
+  // Mutação para salvar a ordem completa
+  const saveOrderMutation = useMutation({
+    mutationFn: async (updates: { id: string, order_index: number }[]) => {
+      const { error } = await supabase
+        .from('restaurant_gallery')
+        .upsert(updates, { onConflict: 'id' });
+        
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      showSuccess("Ordem da galeria salva!");
+      invalidateGallery();
+    },
+    onError: (e) => {
+      logError(e, { context: 'saveOrderMutation' });
+      showError(`Falha ao salvar a ordem: ${(e as Error).message}`);
+    },
+  });
 
   return {
     gallery: gallery || [],
@@ -114,8 +137,9 @@ export function useGalleryManagement(restaurantId: string | null) {
     addGalleryImage: addImageMutation.mutateAsync,
     deleteGalleryImage: removeImageMutation.mutateAsync,
     updateGalleryImage: updateImageMutation.mutateAsync,
+    saveGalleryOrder: saveOrderMutation.mutateAsync,
     isAdding: addImageMutation.isPending,
     isRemoving: removeImageMutation.isPending,
-    isMutating: addImageMutation.isPending || removeImageMutation.isPending || updateImageMutation.isPending,
+    isMutating: addImageMutation.isPending || removeImageMutation.isPending || updateImageMutation.isPending || saveOrderMutation.isPending,
   };
 }
