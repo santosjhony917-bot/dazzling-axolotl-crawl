@@ -1,113 +1,132 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Loader2, CreditCard, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Loader2, CreditCard, Plus, X } from 'lucide-react';
-import { showError } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast';
 
 interface PaymentMethodsDialogProps {
   isOpen: boolean;
   onClose: () => void;
   currentMethods: string[];
-  onSave: (newMethods: string[]) => Promise<void>;
+  onSave: (methods: string[]) => Promise<void>;
   isLoading: boolean;
 }
 
+const predefinedMethods = ['PIX', 'Crédito', 'Débito', 'Dinheiro', 'Vale Refeição', 'Transferência'];
+
 const PaymentMethodsDialog: React.FC<PaymentMethodsDialogProps> = ({ isOpen, onClose, currentMethods, onSave, isLoading }) => {
-  const [methods, setMethods] = useState<string[]>(currentMethods);
-  const [newMethod, setNewMethod] = useState('');
+  const [selectedMethods, setSelectedMethods] = useState<string[]>(currentMethods);
+  const [customMethod, setCustomMethod] = useState('');
 
   useEffect(() => {
-    if (isOpen) {
-      setMethods(currentMethods);
-    }
-  }, [isOpen, currentMethods]);
+    setSelectedMethods(currentMethods);
+  }, [currentMethods]);
 
-  const handleAddMethod = () => {
-    const trimmedMethod = newMethod.trim();
-    if (trimmedMethod && !methods.includes(trimmedMethod)) {
-      setMethods([...methods, trimmedMethod]);
-      setNewMethod('');
-    } else if (methods.includes(trimmedMethod)) {
-      showError("Esta forma de pagamento já foi adicionada.");
-    }
-  };
+  const handleToggleMethod = useCallback((method: string) => {
+    setSelectedMethods(prev => 
+      prev.includes(method)
+        ? prev.filter(m => m !== method)
+        : [...prev, method]
+    );
+  }, []);
 
-  const handleRemoveMethod = (methodToRemove: string) => {
-    setMethods(methods.filter(m => m !== methodToRemove));
-  };
+  const handleAddCustomMethod = useCallback(() => {
+    const trimmedMethod = customMethod.trim();
+    if (trimmedMethod && !selectedMethods.includes(trimmedMethod)) {
+      setSelectedMethods(prev => [...prev, trimmedMethod]);
+      setCustomMethod('');
+    }
+  }, [customMethod, selectedMethods]);
 
   const handleSave = async () => {
-    if (methods.length === 0) {
-      showError("Adicione pelo menos uma forma de pagamento.");
-      return;
+    try {
+      await onSave(selectedMethods);
+      showSuccess("Formas de pagamento salvas com sucesso!");
+      onClose(); // Fechar o diálogo após o sucesso
+    } catch (error) {
+      showError("Erro ao salvar formas de pagamento.");
+      console.error("Save payment methods error:", error);
     }
-    await onSave(methods);
-    // onClose é chamado no ProfileSettingsPage após o sucesso da mutação
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] flex flex-col shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary flex items-center gap-2">
-            <CreditCard className="h-6 w-6" /> Gerenciar Pagamentos
+          <DialogTitle className="flex items-center">
+            <CreditCard className="mr-2 h-5 w-5" /> Gerenciar Pagamentos
           </DialogTitle>
           <DialogDescription>
-            Adicione as formas de pagamento aceitas pelo seu restaurante.
+            Selecione as formas de pagamento aceitas pelo seu restaurante.
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4 py-4 overflow-y-auto">
-          {/* Lista de Métodos Atuais */}
-          <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-700">Formas Ativas ({methods.length})</p>
-            <div className="flex flex-wrap gap-2">
-              {methods.map((method, index) => (
-                <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm font-medium text-gray-700 border border-gray-200">
+        <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-2">
+          <h3 className="text-lg font-semibold text-gray-700">Métodos Comuns</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {predefinedMethods.map(method => (
+              <div key={method} className="flex items-center space-x-2">
+                <Checkbox
+                  id={method}
+                  checked={selectedMethods.includes(method)}
+                  onCheckedChange={() => handleToggleMethod(method)}
+                />
+                <Label htmlFor={method} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   {method}
-                  <button 
-                    type="button" 
-                    onClick={() => handleRemoveMethod(method)}
-                    className="ml-2 text-red-500 hover:text-red-700 transition-colors"
-                    disabled={isLoading}
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              ))}
-            </div>
+                </Label>
+              </div>
+            ))}
           </div>
 
-          {/* Adicionar Novo Método */}
-          <div className="space-y-2 pt-2 border-t border-gray-100">
-            <p className="text-sm font-medium text-gray-700">Adicionar Novo</p>
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                value={newMethod}
-                onChange={(e) => setNewMethod(e.target.value)}
-                placeholder="Ex: Vale Refeição"
-                className="h-10 rounded-xl text-sm focus:border-highlight focus:ring-highlight"
-                disabled={isLoading}
-                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddMethod(); } }}
-              />
-              <Button type="button" size="icon" onClick={handleAddMethod} disabled={isLoading || !newMethod.trim()} className="bg-primary hover:bg-primary/90 rounded-xl">
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
+          <h3 className="text-lg font-semibold text-gray-700 mt-4">Outros Métodos</h3>
+          <div className="space-y-2">
+            {selectedMethods
+              .filter(method => !predefinedMethods.includes(method))
+              .map(method => (
+                <div key={method} className="flex items-center justify-between p-2 bg-gray-50 rounded-md border">
+                  <span className="text-sm">{method}</span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => handleToggleMethod(method)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Remover
+                  </Button>
+                </div>
+              ))}
+          </div>
+
+          <div className="flex space-x-2 mt-2">
+            <Input
+              placeholder="Adicionar novo método"
+              value={customMethod}
+              onChange={(e) => setCustomMethod(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleAddCustomMethod();
+                }
+              }}
+            />
+            <Button onClick={handleAddCustomMethod} type="button" variant="outline" size="icon" disabled={!customMethod.trim()}>
+              <Plus className="h-4 w-4" />
+            </Button>
           </div>
         </div>
 
-        <DialogFooter className="mt-4">
-          <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
+        <DialogFooter>
+          <Button type="button" onClick={onClose} variant="outline">
             Cancelar
           </Button>
           <Button type="button" onClick={handleSave} disabled={isLoading} variant="highlight">
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "Salvar Formas de Pagamento"
+              'Salvar Alterações'
             )}
           </Button>
         </DialogFooter>
