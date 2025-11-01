@@ -11,4 +11,5 @@ export const Routes = {
   ADMIN_LOGIN: '/admin/login',
   ONBOARDING: '/onboarding',
   WELCOME: '/welcome',
+  AUTH: '/auth',
 };
