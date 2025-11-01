@@ -164,14 +164,14 @@ const Home: React.FC = () => {
         {/* Banner Premium */}
         <PremiumBanner />
         
-        {/* Destaques do Dia */}
+        {/* Pratos Populares */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Destaques do Dia</h2>
+            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Pratos Populares</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os destaques")}
+              onClick={() => alert("Ver todos os pratos populares")}
             >
               Ver todos
             </Button>
