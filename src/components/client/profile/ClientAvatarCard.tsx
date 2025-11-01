@@ -28,7 +28,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
     <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
         {/* Avatar Circular */}
-        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-hidden flex items-center justify-center">
+        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible flex items-center justify-center">
           {avatarUrl ? (
             <img 
               src={avatarUrl} 
