@@ -1,26 +1,22 @@
-export type DayOfWeek = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
-
-export interface ScheduleEntry {
-  open: string; // e.g., "09:00"
-  close: string; // e.g., "18:00"
+// Define a slot for opening/closing time
+export interface TimeSlot {
+  start: string; // e.g., "08:00"
+  end: string; // e.g., "18:00"
 }
 
+// DaySchedule is now an object containing status and an array of TimeSlot
 export interface DaySchedule {
   isOpen: boolean;
-  slots: ScheduleEntry[];
+  slots: TimeSlot[];
 }
 
-// This is the structure stored in the DB (JSONB)
-export type DBWeekSchedule = {
-  [key in DayOfWeek]?: ScheduleEntry[];
-};
-
-// This is the structure used for display/logic after processing
-export type WeekSchedule = {
-  [key in DayOfWeek]?: DaySchedule;
-};
-
-export interface OpenStatus {
-  isOpen: boolean;
-  statusText: string;
+// WeekSchedule maps day names to DaySchedule
+export interface WeekSchedule {
+  monday: DaySchedule;
+  tuesday: DaySchedule;
+  wednesday: DaySchedule;
+  thursday: DaySchedule;
+  friday: DaySchedule;
+  saturday: DaySchedule;
+  sunday: DaySchedule;
 }

@@ -1,67 +1,85 @@
-"use client";
-
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { fetchPublicRestaurantData } from '@/integrations/supabase/restaurants';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertTriangle } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { showError } from '@/utils/toast';
+import { Button } from '@/components/ui/button';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // NOVO IMPORT
 
-const RestaurantProfilePublic: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { user } = useAuth();
+export default function RestaurantProfilePublic() {
+  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const navigate = useNavigate();
+  
+  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
-  const restaurantId = slug; // Assuming slug is the restaurant ID for now
+  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
+  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
 
-  const { data, isLoading, error } = useQuery<PublicRestaurantData | null>({
-    queryKey: ['publicRestaurant', restaurantId, user?.id],
-    queryFn: () => fetchPublicRestaurantData(restaurantId!, user?.id),
-    enabled: !!restaurantId,
-  });
+  useEffect(() => {
+    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
+    if (error) {
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
+      showError(error);
+    }
+  }, [error, restaurantId]);
+
+  const handleBack = () => navigate(-1);
 
   if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error || !data) {
     return (
-      <div className="p-8 max-w-xl mx-auto">
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Erro</AlertTitle>
-          <AlertDescription>
-            Não foi possível carregar o perfil do restaurante. Verifique o ID ou tente novamente.
-          </AlertDescription>
-        </Alert>
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  const restaurant = data;
-
-  // The useFavoriteToggle hook handles the reactive state of is_favorite, 
-  // so we pass the fetched data as initial data.
-  const layoutProps = {
-    initialRestaurantData: restaurant,
+  if (error || !restaurant) {
+    return (
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <div className="fixed top-4 left-4 z-50">
+          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
+            <ArrowLeft className="h-5 w-5 text-primary" />
+          </Button>
+        </div>
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
+          <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
+  const reactiveRestaurantData: PublicRestaurantData = {
+    ...restaurant,
+    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
   };
 
-  // Determine which layout to use based on the plan
-  const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
+  // Props comuns para os layouts
+  const layoutProps = {
+    restaurant: reactiveRestaurantData,
+    toggleFavorite: toggleFavorite,
+    isFavoriteMutating: isFavoriteMutating,
+  };
 
+  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <>
-      {isPremium ? (
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
+      
+      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
         <PremiumProfileLayout {...layoutProps} />
       ) : (
         <FreeProfileLayout {...layoutProps} />
       )}
-    </>
+    </div>
   );
-};
-
-export default RestaurantProfilePublic;
+}
