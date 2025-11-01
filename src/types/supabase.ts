@@ -14,6 +14,51 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      banners: {
+        Row: {
+          button_link: string | null
+          button_text: string | null
+          created_at: string | null
+          has_button: boolean
+          id: string
+          image_url: string
+          is_active: boolean | null
+          link_url: string | null
+          order_index: number | null
+          subtitle: string | null
+          target_audience: Database["public"]["Enums"]["banner_target_audience"]
+          title: string
+        }
+        Insert: {
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string | null
+          has_button?: boolean
+          id?: string
+          image_url: string
+          is_active?: boolean | null
+          link_url?: string | null
+          order_index?: number | null
+          subtitle?: string | null
+          target_audience?: Database["public"]["Enums"]["banner_target_audience"]
+          title: string
+        }
+        Update: {
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string | null
+          has_button?: boolean
+          id?: string
+          image_url?: string
+          is_active?: boolean | null
+          link_url?: string | null
+          order_index?: number | null
+          subtitle?: string | null
+          target_audience?: Database["public"]["Enums"]["banner_target_audience"]
+          title?: string
+        }
+        Relationships: []
+      }
       menu_categories: {
         Row: {
           created_at: string | null
@@ -498,6 +543,7 @@ export interface Database {
       }
     }
     Enums: {
+      banner_target_audience: "user" | "premium_restaurant" | "free_restaurant"
       restaurant_plan: "free" | "basic" | "premium" | "premium_gift"
     }
     CompositeTypes: {
@@ -596,6 +642,7 @@ export type MenuItem = Tables<'menu_items'>;
 export type MenuCategory = Tables<'menu_categories'>;
 export type GalleryImage = Tables<'restaurant_gallery'>;
 export type RestaurantPlan = Enums<'restaurant_plan'>;
+export type Banner = Tables<'banners'>; // Adicionado o tipo Banner
 
 // Type for the result of the find_nearby_restaurants RPC
 // CORREÇÃO: Adicionando city e state ao tipo retornado pela função RPC
