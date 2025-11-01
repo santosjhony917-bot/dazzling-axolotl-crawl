@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Camera, User } from 'lucide-react';
 import { DEFAULT_AVATAR_URL } from "@/constants/assets";
-import { USER_AVATARS_BUCKET } from '@/integrations/supabase/storage';
+import { USER_AVATAR_BUCKET } from '@/integrations/supabase/storage';
 
 interface ClientAvatarCardProps {
   firstName: string;
@@ -44,7 +44,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
             <ImageUploadButton
               imageUrl={avatarUrl || undefined}
               onUploadComplete={onAvatarUploadComplete}
-              bucketName={USER_AVATARS_BUCKET}
+              bucketName={USER_AVATAR_BUCKET}
               folderPath={userId || 'temp'}
               className="h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
               icon={<Camera className="h-3 w-3" />}
