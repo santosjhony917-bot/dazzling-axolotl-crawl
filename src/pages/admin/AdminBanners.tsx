@@ -128,6 +128,24 @@ const AdminBanners: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    // Validação no lado do cliente para campos obrigatórios
+    if (!title.trim()) {
+      toast({
+        title: 'Erro de validação',
+        description: 'O título do banner não pode ser vazio.',
+        variant: 'destructive',
+      });
+      return; // Impede a submissão se o título estiver vazio
+    }
+    if (!imageUrl.trim()) {
+      toast({
+        title: 'Erro de validação',
+        description: 'A imagem do banner é obrigatória. Por favor, faça o upload de uma imagem.',
+        variant: 'destructive',
+      });
+      return; // Impede a submissão se a URL da imagem estiver vazia
+    }
+
     const bannerData = {
       title,
       subtitle,
@@ -142,7 +160,7 @@ const AdminBanners: React.FC = () => {
       button_color: hasButton ? buttonColor : '#E47948',
       text_color: textColor,
       text_position: textPosition,
-      text_size: textSize,
+      text_size: textSize, // Salvar tamanho do texto
     };
 
     if (editingBanner) {
