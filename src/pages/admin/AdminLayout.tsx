@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-react';
+import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
 import { useAuthContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -35,6 +35,16 @@ const AdminLayout: React.FC = () => {
 
   const currentPath = window.location.pathname.split('/').pop();
 
+  // Adicionando o item de Banners aqui
+  const adminNavItems = [
+    { name: 'Dashboard', icon: Home, path: 'dashboard' },
+    { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
+    { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
+    { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
+    { name: 'Gerenciar Banners', icon: Megaphone, path: 'banners' }, // NOVO: Adicionado item de Banners
+    { name: 'Configurações', icon: Settings, path: 'settings' },
+  ];
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
@@ -42,7 +52,7 @@ const AdminLayout: React.FC = () => {
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
-          {navItems.map((item) => (
+          {adminNavItems.map((item) => (
             <Button
               key={item.path}
               variant="ghost"
