@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
 // Layouts
@@ -50,24 +51,7 @@ import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
 import { useAuthData } from '@/context/AuthContext';
 
-interface ProtectedRouteProps {
-  requiredRole?: 'admin' | 'restaurant' | 'user' | 'authenticated' | 'restaurant_owner'; // Adicionado 'authenticated' e 'restaurant_owner'
-  element: React.ReactNode;
-}
-
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }) => {
-  const { user } = useAuthData();
-  
-  if (!user) {
-    return <Navigate to="/auth" />;
-  }
-
-  if (requiredRole && requiredRole !== user.role) {
-    return <Navigate to="/unauthorized" />;
-  }
-
-  return <>{element}</>;
-};
+// REMOVED: Conflicting local ProtectedRoute component and its interface.
 
 function App() {
   return (
