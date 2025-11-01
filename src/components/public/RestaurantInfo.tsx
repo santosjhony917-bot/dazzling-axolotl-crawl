@@ -1,106 +1,115 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, ExternalLink, Link, Instagram, Facebook, Globe } from 'lucide-react'; // Importando ícones sociais
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
+import { MapPin, Clock, CreditCard, Phone, Mail, Globe, Instagram, Facebook, Twitter, Link } from 'lucide-react';
+import { WeekSchedule, SocialNetworkLink } from '@/types/restaurant';
 
 interface RestaurantInfoProps {
-  id: string;
-  restaurant: PublicRestaurantData;
+  category?: string | null;
+  address?: string | null;
+  city?: string | null;
+  state?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  openingHours?: WeekSchedule | null;
+  paymentMethods?: string[] | null;
+  socialNetworks?: SocialNetworkLink[] | null;
 }
 
-// Mapeamento de plataformas para ícones
-const getSocialIcon = (platform: string) => {
-  const lowerPlatform = platform.toLowerCase();
-  if (lowerPlatform.includes('instagram')) return Instagram;
-  if (lowerPlatform.includes('facebook')) return Facebook;
-  if (lowerPlatform.includes('site') || lowerPlatform.includes('website')) return Globe;
-  return Link; // Ícone padrão para outras redes
+const getSocialIcon = (type: string) => {
+  switch (type) {
+    case 'instagram':
+      return <Instagram className="w-5 h-5 text-pink-600" />;
+    case 'facebook':
+      return <Facebook className="w-5 h-5 text-blue-600" />;
+    case 'twitter':
+      return <Twitter className="w-5 h-5 text-blue-400" />;
+    default:
+      return <Link className="w-5 h-5 text-gray-600" />;
+  }
 };
 
-const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
-  
-  const { phone, email, social_networks } = restaurant;
-
-  const contactItems = [
-    {
-      icon: Phone,
-      label: 'Telefone',
-      value: phone,
-      link: phone ? `tel:${phone.replace(/\D/g, '')}` : undefined,
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      value: email,
-      link: email ? `mailto:${email}` : undefined,
-    },
-  ].filter(item => item.value);
-  
-  const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
-
-  if (contactItems.length === 0 && socialLinks.length === 0) {
-      return null;
-  }
+const RestaurantInfo: React.FC<RestaurantInfoProps> = ({
+  category,
+  address,
+  city,
+  state,
+  phone,
+  email,
+  openingHours,
+  paymentMethods,
+  socialNetworks,
+}) => {
+  const location = [address, city, state].filter(Boolean).join(', ');
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        <Phone className="w-6 h-6 text-primary" />
-        <CardTitle className="text-2xl font-extrabold text-primary">Contato e Links</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 space-y-6">
-        
-        {/* Contato Direto */}
-        {contactItems.length > 0 && (
-            <div className="space-y-4">
-                <p className="text-sm font-semibold text-gray-700">Contato Direto</p>
-                {contactItems.map((item, index) => (
-                    <div key={index} className="flex items-start">
-                        <item.icon className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
-                        <div className="ml-3 min-w-0">
-                            {item.link ? (
-                                <a 
-                                    href={item.link} 
-                                    target={item.link.startsWith('tel:') || item.link.startsWith('mailto:') ? '_self' : '_blank'}
-                                    rel="noopener noreferrer" 
-                                    className="text-base text-gray-900 hover:text-highlight transition-colors break-words flex items-center"
-                                >
-                                    {item.value}
-                                </a>
-                            ) : (
-                                <p className="text-base text-gray-900 break-words">{item.value}</p>
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        )}
+    <div className="space-y-4 text-gray-700">
+      {category && (
+        <p className="text-sm font-medium text-primary">{category}</p>
+      )}
 
-        {/* Outras Redes */}
-        {socialLinks.length > 0 && (
-          <div className="pt-4 border-t border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Outras Redes</p>
-            <div className="flex flex-wrap gap-4">
-              {socialLinks.map((link, index) => {
-                const Icon = getSocialIcon(link.platform);
-                return (
-                  <a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-highlight hover:underline flex items-center transition-colors"
-                  >
-                    <Icon className="w-4 h-4 mr-1 text-primary" /> {/* Usando o ícone específico */}
-                    {link.platform}
-                  </a>
-                );
-              })}
-            </div>
+      {location && (
+        <div className="flex items-center space-x-2">
+          <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          <p className="text-base">{location}</p>
+        </div>
+      )}
+
+      {phone && (
+        <div className="flex items-center space-x-2">
+          <Phone className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          <a href={`tel:${phone}`} className="text-base hover:underline">{phone}</a>
+        </div>
+      )}
+
+      {email && (
+        <div className="flex items-center space-x-2">
+          <Mail className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          <a href={`mailto:${email}`} className="text-base hover:underline">{email}</a>
+        </div>
+      )}
+
+      {/* Horários de Funcionamento (Simplificado) */}
+      {openingHours && Object.values(openingHours).some(slots => slots && slots.length > 0) && (
+        <div className="flex items-start space-x-2">
+          <Clock className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1" />
+          <div>
+            <p className="font-semibold">Horário de Funcionamento</p>
+            {/* Exibição simplificada: apenas o primeiro horário de hoje */}
+            <p className="text-sm text-gray-600">
+              Verifique os horários completos na seção de informações.
+            </p>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </div>
+      )}
+
+      {/* Métodos de Pagamento */}
+      {paymentMethods && paymentMethods.length > 0 && (
+        <div className="flex items-start space-x-2">
+          <CreditCard className="w-5 h-5 text-gray-500 flex-shrink-0 mt-1" />
+          <div>
+            <p className="font-semibold">Pagamentos</p>
+            <p className="text-sm text-gray-600">{paymentMethods.join(', ')}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Redes Sociais */}
+      {socialNetworks && socialNetworks.length > 0 && (
+        <div className="flex items-center space-x-4 pt-2">
+          {socialNetworks.map((social, index) => (
+            <a
+              key={index}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-75"
+              aria-label={social.type}
+            >
+              {getSocialIcon(social.type)}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
