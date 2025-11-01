@@ -27,12 +27,12 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
   return (
     <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
       <div className="flex items-start gap-4">
-        {/* 1. Logo Circular */}
+        {/* 1. Logo Circular - Usando overflow-visible para o botão flutuante */}
         <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible">
           <img 
             src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
             alt="Logo do Restaurante" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-full"
           />
           {/* 2. Botão de Upload (Flutuante no canto) - z-50 para garantir que esteja na frente */}
           <div className="absolute bottom-0 right-0 z-50 translate-x-1/4 translate-y-1/4">
