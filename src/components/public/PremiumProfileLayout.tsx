@@ -20,6 +20,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
 import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
+import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -207,16 +208,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                 />
               )}
               
-              {/* Formas de Pagamento (Mocked, pois não temos os dados no DB) */}
-              <Card className="shadow-soft-md border-none rounded-xl p-4">
-                  <p className="text-2xl font-extrabold text-primary mb-3">Formas de Pagamento</p>
-                  <div className="flex flex-wrap gap-2">
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">PIX</span>
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Crédito</span>
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Débito</span>
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Dinheiro</span>
-                  </div>
-              </Card>
+              {/* Formas de Pagamento (Novo Componente) */}
+              <RestaurantPaymentSection id="payment-section" />
             </div>
           )}
         </div>

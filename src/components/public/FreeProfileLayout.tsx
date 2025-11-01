@@ -18,6 +18,7 @@ import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
+import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -203,6 +204,9 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
                   restaurant={restaurant}
                 />
               )}
+              
+              {/* Formas de Pagamento (Novo Componente) */}
+              <RestaurantPaymentSection id="payment-section" />
             </div>
           )}
         </div>
