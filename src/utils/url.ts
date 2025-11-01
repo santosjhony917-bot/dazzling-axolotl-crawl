@@ -48,6 +48,7 @@ export const PATH_MAP = {
   adminCategories: '/admin/categories', // Adicionado para consistência
   adminFiles: '/admin/files', // Adicionado para consistência
   adminImport: '/admin/import', // Adicionado para consistência
+  adminBanners: '/admin/banners', // NOVO: Adicionado para a página de banners
   
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',

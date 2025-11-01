@@ -41,7 +41,7 @@ const AdminLayout: React.FC = () => {
     { name: 'Gerenciar Restaurantes', icon: Utensils, path: 'restaurants' },
     { name: 'Gerenciar Planos', icon: Crown, path: 'plans' },
     { name: 'Gerenciar Usuários', icon: Users, path: 'users' },
-    { name: 'Gerenciar Banners', icon: Megaphone, path: 'banners' }, // NOVO: Adicionado item de Banners
+    { name: 'Gerenciar Banners', icon: Megaphone, path: 'adminBanners' }, // CORRIGIDO: Usando a chave PATH_MAP
     { name: 'Configurações', icon: Settings, path: 'settings' },
   ];
 
@@ -60,7 +60,7 @@ const AdminLayout: React.FC = () => {
                 "w-full justify-start gap-3 rounded-lg",
                 currentPath === item.path && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
               )}
-              onClick={() => navigate(createPageUrl(`admin/${item.path}` as PathKey))}
+              onClick={() => navigate(createPageUrl(item.path as PathKey))} // CORRIGIDO: Passando a chave diretamente
             >
               <item.icon className="w-5 h-5" />
               {item.name}
