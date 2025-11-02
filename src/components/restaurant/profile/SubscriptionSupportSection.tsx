@@ -1,37 +1,67 @@
 import React from 'react';
-import { CreditCard, LifeBuoy } from 'lucide-react';
-import NavCardItem from '@/components/NavCardItem';
 import { useNavigate } from 'react-router-dom';
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
 import { createPageUrl } from '@/utils/url';
+import NavCardItem from '@/components/NavCardItem';
+import { useAuthData } from '@/context/AuthContext';
 
 interface SubscriptionSupportSectionProps {
+  navigate: ReturnType<typeof useNavigate>;
   isPremium: boolean;
 }
 
-const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ isPremium }) => {
-  const navigate = useNavigate();
-
-  const handleNavigate = (path: string, requiresPremium: boolean) => {
-    if (requiresPremium && !isPremium) {
-      // O tipo PageKey agora inclui 'restaurant-area-upgrade'
-      navigate(createPageUrl('restaurant-area-upgrade')); 
-    } else {
-      // Para rotas que não são PageKey, o tipo 'string' é aceitável
-      navigate(path);
-    }
+const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
+  const { signOut } = useAuthData();
+  
+  const handleNavigate = (path: string) => {
+    navigate(path);
   };
-
+  
+  const handleSignOut = async () => {
+    await signOut();
+    // Redireciona para a tela de boas-vindas após o logout
+    navigate(createPageUrl('welcome'), { replace: true });
+  };
+  
   return (
-    <section className="space-y-4">
-      <h2 className="text-xl font-bold text-primary">Assinatura e Suporte</h2>
-      <NavCardItem
-        icon={LifeBuoy}
-        title="Suporte"
-        description="Obtenha ajuda e suporte para seu restaurante."
-        onClick={() => handleNavigate(createPageUrl('helpCenter'), false)}
+    <div className="w-full space-y-3">
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
+      
+      <NavCardItem 
+        icon={HelpCircle} // CORRIGIDO
+        title="Central de Ajuda"
+        description="Encontre respostas rápidas e tutoriais."
+        onClick={() => handleNavigate(createPageUrl('helpCenter'))}
       />
-      {/* O item 'Meu Plano' foi removido conforme solicitado. */}
-    </section>
+      
+      <NavCardItem 
+        icon={MessageSquare}
+        title="Falar com Suporte"
+        description="Entre em contato direto com nossa equipe."
+        onClick={() => {
+          // Ação para abrir chat ou link de contato (ex: WhatsApp)
+          alert("Abrindo chat de suporte...");
+        }}
+        isPremium={isPremium}
+        premiumDescription="Suporte prioritário 24h"
+      />
+      
+      <NavCardItem 
+        icon={Crown}
+        title="Gerenciar Assinatura"
+        description="Veja detalhes do seu plano e faturas."
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/upgrade'))}
+        isPremium={isPremium}
+      />
+      
+      {/* NOVO: Botão de Sair */}
+      <NavCardItem 
+        icon={LogOut}
+        title="Sair da Conta"
+        description="Desconectar-se do painel do restaurante."
+        onClick={handleSignOut} // Usando o novo handler
+      />
+    </div>
   );
 };
 

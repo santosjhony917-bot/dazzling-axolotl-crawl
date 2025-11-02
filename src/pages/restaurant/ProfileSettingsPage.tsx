@@ -142,6 +142,7 @@ export default function ProfileSettingsPage() {
     }
   }, [updateRestaurant, refetchRestaurant]);
 
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -231,7 +232,7 @@ export default function ProfileSettingsPage() {
         <Separator />
 
         {/* 6. Assinatura e Suporte */}
-        <SubscriptionSupportSection isPremium={isPremium} />
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
         
       </div>
       
