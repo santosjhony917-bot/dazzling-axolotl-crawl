@@ -1,16 +1,14 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/context/AuthContext"; // Importar AuthProvider
-import React from "react";
+import React from 'react';
+import { AuthProvider } from '@/context/AuthContext'; // Corrigido para AuthProvider
+import QueryProvider from './QueryProvider';
 
-const AppProvider = ({ children }: { children: React.ReactNode }) => {
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <AuthProvider> {/* Envolver children com AuthProvider */}
+    <QueryProvider>
+      <AuthProvider>
         {children}
       </AuthProvider>
-      <Toaster />
-    </ThemeProvider>
+    </QueryProvider>
   );
 };
 
