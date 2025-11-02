@@ -1,59 +1,47 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
-import { createPageUrl } from '@/utils/url';
+import { HelpCircle, MessageSquare, LogOut } from 'lucide-react';
 import NavCardItem from '@/components/NavCardItem';
-import { useAuthData } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/createPageUrl';
 
 interface SubscriptionSupportSectionProps {
-  navigate: ReturnType<typeof useNavigate>;
-  isPremium: boolean;
+  restaurantId: string;
 }
 
-const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
-  const { signOut } = useAuthData();
-  
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
-  
+const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ restaurantId }) => {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
   const handleSignOut = async () => {
     await signOut();
-    // Redireciona para a tela de boas-vindas após o logout
-    navigate(createPageUrl('welcome'), { replace: true });
+    navigate(createPageUrl('login'));
   };
-  
+
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Suporte</h2>
-      
-      <NavCardItem 
-        icon={HelpCircle} // CORRIGIDO
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Assinatura e Suporte</h2>
+
+      <NavCardItem
+        icon={<HelpCircle className="w-6 h-6 text-primary" />}
         title="Central de Ajuda"
-        description="Encontre respostas rápidas e tutoriais."
-        onClick={() => handleNavigate(createPageUrl('helpCenter'))}
+        description="Encontre respostas para suas perguntas frequentes."
+        href={createPageUrl('help-center')}
       />
-      
-      <NavCardItem 
-        icon={MessageSquare}
+
+      <NavCardItem
+        icon={<MessageSquare className="w-6 h-6 text-primary" />}
         title="Falar com Suporte"
-        description="Entre em contato direto com nossa equipe."
-        onClick={() => {
-          // Ação para abrir chat ou link de contato (ex: WhatsApp)
-          alert("Abrindo chat de suporte...");
-        }}
-        isPremium={isPremium}
-        premiumDescription="Suporte prioritário 24h"
+        description="Entre em contato com nossa equipe de suporte."
+        href={createPageUrl('contact-support')}
       />
-      
-      {/* REMOVIDO: Botão "Gerenciar Assinatura" */}
-      
-      {/* NOVO: Botão de Sair */}
-      <NavCardItem 
-        icon={LogOut}
+
+      <NavCardItem
+        icon={<LogOut className="w-6 h-6 text-primary" />}
         title="Sair da Conta"
-        description="Desconectar-se do painel do restaurante."
-        onClick={handleSignOut} // Usando o novo handler
+        description="Desconectar-se da sua conta."
+        href="#"
+        onClick={handleSignOut}
       />
     </div>
   );

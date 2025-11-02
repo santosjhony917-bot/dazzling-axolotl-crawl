@@ -1,88 +1,87 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Eye, Utensils, Camera, CreditCard, Link as LinkIcon } from 'lucide-react'; // Renomeado Link para LinkIcon
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Camera, Eye, CreditCard, Link } from 'lucide-react'; // Adicionado Link
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { showError } from '@/utils/toast';
+import { useNavigate, Link } from 'react-router-dom'; // Importa Link do react-router-dom
+import { createPageUrl } from '@/utils/createPageUrl';
+import { Restaurant } from '@/types';
 
 interface ContentManagementSectionProps {
-  navigate: ReturnType<typeof useNavigate>;
-  isPremium: boolean;
-  restaurantId: string; // Adicionado
-  restaurantName: string; // Adicionado
-  setIsPaymentMethodsDialogOpen: (open: boolean) => void;
-  setIsSocialNetworksDialogOpen: (open: boolean) => void; // NOVO PROP
-  setIsSalesChannelsDialogOpen: (open: boolean) => void; // NOVO PROP
+  restaurant: Restaurant;
+  setIsPaymentMethodsDialogOpen: (isOpen: boolean) => void;
+  setIsSocialNetworksDialogOpen: (isOpen: boolean) => void;
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen, setIsSalesChannelsDialogOpen }) => {
-  
-  const handleNavigate = (path: string, isFeaturePremium: boolean) => {
-    if (isFeaturePremium && !isPremium) {
-      showError("Recurso Premium. Faça upgrade para desbloquear.");
-      return;
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({
+  restaurant,
+  setIsPaymentMethodsDialogOpen,
+  setIsSocialNetworksDialogOpen,
+}) => {
+  const navigate = useNavigate();
+  const { id: restaurantId, name: restaurantName, plan } = restaurant;
+  const isPremium = plan === 'premium';
+
+  const handleNavigate = (path: string, requiresPremium: boolean) => {
+    if (requiresPremium && !isPremium) {
+      // Implementar lógica para notificar o usuário sobre o recurso premium
+      console.log('Recurso Premium! Faça upgrade para acessar.');
+      // Poderíamos usar um toast aqui: toast.info('Este é um recurso Premium!');
+    } else {
+      navigate(path);
     }
-    navigate(path);
   };
-  
+
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
-      
-      {/* NOVO: Ver Perfil Público */}
-      <NavCardItem 
-        title="Ver Perfil Público" 
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Gerenciamento de Conteúdo</h2>
+
+      <NavCardItem
+        title="Ver Perfil Público"
         description={`Veja como ${restaurantName} aparece para os clientes.`}
-        icon={Eye} 
+        icon={<Eye className="w-6 h-6 text-primary" />}
         onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
-        isPremium={isPremium}
-      />
-      
-      <NavCardItem 
-        title="Cardápio e Categorias" 
-        description="Adicione, edite e organize pratos e categorias."
-        icon={Utensils} 
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
-        isPremium={isPremium}
-      />
-      <NavCardItem 
-        title="Galeria de Fotos" 
-        description="Gerencie as imagens do seu restaurante."
-        icon={Camera} 
-        isPremiumFeature={true}
-        isPremium={isPremium}
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
-        premiumDescription="Exclusivo Premium"
-      />
-      
-      {/* Formas de Pagamento */}
-      <NavCardItem 
-        title="Formas de Pagamento" 
-        description="Defina quais métodos de pagamento você aceita."
-        icon={CreditCard} 
-        onClick={() => setIsPaymentMethodsDialogOpen(true)}
-        isPremium={isPremium}
-      />
-      
-      {/* NOVO: Outras Redes */}
-      <NavCardItem 
-        title="Outras Redes" 
-        description="Adicione links para Instagram, Facebook e site."
-        icon={Link} 
-        onClick={() => setIsSocialNetworksDialogOpen(true)}
-        isPremium={isPremium}
+        href={createPageUrl('restaurantProfile', { restaurantId: restaurantId })}
       />
 
-      {/* NOVO: Canais de Venda e Links */}
-      <NavCardItem 
-        title="Canais de Venda e Links" 
+      <NavCardItem
+        title="Cardápio"
+        description="Adicione, edite e organize pratos e categorias."
+        icon={<Utensils className="w-6 h-6 text-primary" />}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
+        href={createPageUrl('restaurant-area/menu')}
+      />
+
+      <NavCardItem
+        title="Galeria de Fotos"
+        description="Gerencie as imagens do seu restaurante."
+        icon={<Camera className="w-6 h-6 text-primary" />}
+        isLocked={!isPremium}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
+        href={createPageUrl('restaurant-area/gallery')}
+      />
+
+      <NavCardItem
+        title="Métodos de Pagamento"
+        description="Defina quais métodos de pagamento você aceita."
+        icon={<CreditCard className="w-6 h-6 text-primary" />}
+        onClick={() => setIsPaymentMethodsDialogOpen(true)}
+        href="#"
+      />
+
+      <NavCardItem
+        title="Redes Sociais"
+        description="Adicione links para Instagram, Facebook e site."
+        icon={<LinkIcon className="w-6 h-6 text-primary" />}
+        onClick={() => setIsSocialNetworksDialogOpen(true)}
+        href="#"
+      />
+
+      <NavCardItem
+        title="Links Externos"
         description="Gerencie seus links de WhatsApp, iFood e site próprio."
-        icon={Link} // Reutilizando o ícone Link, ou podemos adicionar um novo se preferir
-        isPremiumFeature={true} // Marcado como Premium, pois os links são Premium
-        isPremium={isPremium}
-        onClick={() => setIsSalesChannelsDialogOpen(true)}
-        premiumDescription="Exclusivo Premium"
+        icon={<LinkIcon className="w-6 h-6 text-primary" />} // Reutilizando o ícone Link, ou podemos adicionar um novo se preferir
+        isLocked={!isPremium} // Marcado como Premium, pois os links são Premium
+        onClick={() => handleNavigate(createPageUrl('restaurant-area/external-links'), true)}
+        href={createPageUrl('restaurant-area/external-links')}
       />
     </div>
   );
