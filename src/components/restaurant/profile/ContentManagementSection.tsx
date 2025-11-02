@@ -18,12 +18,12 @@ interface ContentManagementSectionProps {
 
 const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen, setIsSalesChannelsDialogOpen }) => {
   
-  const handleNavigate = (path: string, isFeaturePremium: boolean) => {
+  const handleAction = (action: () => void, isFeaturePremium: boolean) => {
     if (isFeaturePremium && !isPremium) {
       showError("Recurso Premium. Faça upgrade para desbloquear.");
       return;
     }
-    navigate(path);
+    action();
   };
   
   return (
@@ -43,7 +43,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         title="Cardápio e Categorias" 
         description="Adicione, edite e organize pratos e categorias."
         icon={Utensils} 
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
+        onClick={() => handleAction(() => navigate(createPageUrl('restaurant-area/menu')), false)}
         isPremium={isPremium}
       />
       <NavCardItem 
@@ -52,7 +52,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         icon={Camera} 
         isPremiumFeature={true}
         isPremium={isPremium}
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
+        onClick={() => handleAction(() => navigate(createPageUrl('restaurant-area/gallery')), true)}
         premiumDescription="Exclusivo Premium"
       />
       
@@ -70,8 +70,10 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         title="Outras Redes" 
         description="Adicione links para Instagram, Facebook e site."
         icon={Link} 
-        onClick={() => setIsSocialNetworksDialogOpen(true)}
+        isPremiumFeature={true}
         isPremium={isPremium}
+        onClick={() => handleAction(() => setIsSocialNetworksDialogOpen(true), true)}
+        premiumDescription="Exclusivo Premium"
       />
 
       {/* NOVO: Canais de Venda e Links */}
@@ -81,7 +83,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         icon={Link} // Reutilizando o ícone Link, ou podemos adicionar um novo se preferir
         isPremiumFeature={true} // Marcado como Premium, pois os links são Premium
         isPremium={isPremium}
-        onClick={() => setIsSalesChannelsDialogOpen(true)}
+        onClick={() => handleAction(() => setIsSalesChannelsDialogOpen(true), true)}
         premiumDescription="Exclusivo Premium"
       />
     </div>
