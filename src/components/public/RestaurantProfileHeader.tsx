@@ -43,11 +43,14 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   const isFollowing = isFavorite;
   const handleFollowToggle = onFavoriteToggle;
 
+  // Determine if a cover image will actually be displayed
+  const showCoverImage = isPremium && coverImageUrl;
+
   return (
-    <div className="relative w-full bg-white dark:bg-gray-800 shadow-soft-md">
+    <div className="relative w-full bg-white dark:bg-gray-800 shadow-soft-md pt-16"> {/* Adicionado pt-16 para empurrar o conteúdo para baixo da barra de ações */}
       
-      {/* 1. Imagem de Capa (Banner) - Adicionado z-10 para garantir que fique abaixo do z-30 da barra de ações */}
-      {isPremium && coverImageUrl && (
+      {/* 1. Imagem de Capa (Banner) */}
+      {showCoverImage && (
         <div className="h-40 w-full overflow-hidden bg-gray-300 relative z-10">
           <img
             src={coverImageUrl || PLACEHOLDER_COVER_URL}
@@ -62,7 +65,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
       {/* 2. Bloco de Conteúdo Principal (Logo e Info) */}
       <div className={cn(
         "px-4 pb-4 relative z-20",
-        isPremium && coverImageUrl ? "-mt-12 pt-0" : "mt-4 pt-4" // Aplica -mt-12 e pt-0 se for premium com capa, senão mt-4 e pt-4
+        showCoverImage ? "-mt-12 pt-0" : "mt-4" // Ajustado: se não houver capa, apenas mt-4, sem pt-4 adicional
       )}> 
         <div className="flex items-start gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-soft-xl border border-gray-100">
           
