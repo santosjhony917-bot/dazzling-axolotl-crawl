@@ -19,7 +19,7 @@ const getSocialIcon = (platform: string) => {
 
 const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
-  const { phone, email, social_networks } = restaurant;
+  const { phone, email, social_networks, plan } = restaurant;
 
   const contactItems = [
     {
@@ -38,7 +38,7 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   
   const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
 
-  if (contactItems.length === 0 && socialLinks.length === 0) {
+  if (plan !== 'premium' || (contactItems.length === 0 && socialLinks.length === 0)) {
       return null;
   }
 
