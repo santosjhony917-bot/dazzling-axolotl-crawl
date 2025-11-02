@@ -64,7 +64,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
           {/* Logo (Ajustado para ficar no topo do card de informações) */}
           <div className="w-24 h-24 rounded-xl border-4 border-white dark:border-gray-800 shadow-soft-lg bg-white dark:bg-gray-700 flex-shrink-0 overflow-hidden">
             <img 
-              src={logoUrl || PLACEHOLDER_IMAGE_URL} 
+              src={isPremium && logoUrl ? logoUrl : PLACEHOLDER_IMAGE_URL} 
               alt={`Logo de ${name}`} 
               className="w-full h-full object-cover"
             />
