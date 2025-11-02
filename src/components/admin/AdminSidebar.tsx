@@ -12,7 +12,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/edit-restaurant', label: 'Restaurantes', icon: Utensils },
+  { href: '/admin/restaurants', label: 'Gerenciar Restaurantes', icon: Utensils },
   { href: '/admin/manage-admins', label: 'Administradores', icon: Users },
   { href: '/admin/popular-categories', label: 'Categorias', icon: Settings },
   { href: '/admin/files', label: 'Arquivos', icon: Folder },
