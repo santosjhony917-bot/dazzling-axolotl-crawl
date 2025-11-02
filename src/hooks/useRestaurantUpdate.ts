@@ -48,6 +48,8 @@ export const useRestaurantUpdate = () => {
       // Invalida as queries de restaurante para buscar os dados atualizados
       queryClient.invalidateQueries({ queryKey: ['restaurant', variables.restaurantId] });
       queryClient.invalidateQueries({ queryKey: ['myRestaurants'] });
+      // NOVO: Invalida a query do perfil público para garantir que os dados sejam atualizados
+      queryClient.invalidateQueries({ queryKey: ['publicRestaurant', variables.restaurantId] });
     },
     onError: (error) => {
       console.error("Update failed:", error);
