@@ -13,9 +13,10 @@ interface ContentManagementSectionProps {
   restaurantName: string; // Adicionado
   setIsPaymentMethodsDialogOpen: (open: boolean) => void;
   setIsSocialNetworksDialogOpen: (open: boolean) => void; // NOVO PROP
+  setIsSalesChannelsDialogOpen: (open: boolean) => void; // NOVO PROP
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen }) => {
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen, setIsSalesChannelsDialogOpen }) => {
   
   const handleNavigate = (path: string, isFeaturePremium: boolean) => {
     if (isFeaturePremium && !isPremium) {
@@ -71,6 +72,17 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
         icon={Link} 
         onClick={() => setIsSocialNetworksDialogOpen(true)}
         isPremium={isPremium}
+      />
+
+      {/* NOVO: Canais de Venda e Links */}
+      <NavCardItem 
+        title="Canais de Venda e Links" 
+        description="Gerencie seus links de WhatsApp, iFood e site próprio."
+        icon={Link} // Reutilizando o ícone Link, ou podemos adicionar um novo se preferir
+        isPremiumFeature={true} // Marcado como Premium, pois os links são Premium
+        isPremium={isPremium}
+        onClick={() => setIsSalesChannelsDialogOpen(true)}
+        premiumDescription="Exclusivo Premium"
       />
     </div>
   );

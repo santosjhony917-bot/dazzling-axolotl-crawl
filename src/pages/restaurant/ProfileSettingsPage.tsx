@@ -19,6 +19,7 @@ import { EditAddressDialog } from '@/components/EditAddressDialog';
 import { EditHoursDialog } from '@/components/EditHoursDialog';
 import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
 import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
+import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase';
@@ -44,6 +45,7 @@ export default function ProfileSettingsPage() {
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
   const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false);
   const [isSocialNetworksDialogOpen, setIsSocialNetworksDialogOpen] = useState(false);
+  const [isSalesChannelsDialogOpen, setIsSalesChannelsDialogOpen] = useState(false);
   
   const [uploadingLogo, setUploadingLogo] = useState(false);
 
@@ -125,6 +127,18 @@ export default function ProfileSettingsPage() {
     } else {
       showSuccess("Redes sociais atualizadas com sucesso!");
       refetchProfile();
+    }
+  }, [updateRestaurant, refetchProfile]);
+
+  // NOVO HANDLER: Salvar Canais de Venda
+  const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null }) => {
+    const { error } = await updateRestaurant(data);
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Canais de venda atualizados com sucesso!");
+      refetchProfile();
+      setIsSalesChannelsDialogOpen(false); // Fechar o diálogo após salvar
     }
   }, [updateRestaurant, refetchProfile]);
 
@@ -212,13 +226,7 @@ export default function ProfileSettingsPage() {
           restaurantName={restaurant?.name || 'Meu Restaurante'}
           setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
           setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
-        />
-        
-        <Separator />
-
-        {/* 5. Canais de Venda (Mantido, mas sem other_url/external_url) */}
-        <SalesChannelsSection
-          restaurant={publicRestaurantData}
+          setIsSalesChannelsDialogOpen={setIsSalesChannelsDialogOpen}
         />
         
         <Separator />
@@ -282,6 +290,17 @@ export default function ProfileSettingsPage() {
         onClose={() => setIsSocialNetworksDialogOpen(false)}
         currentLinks={currentSocialLinks}
         onSave={handleSaveSocialNetworks}
+        isLoading={false}
+      />
+
+      {/* NOVO DIALOG: Canais de Venda */}
+      <SalesChannelsDialog
+        isOpen={isSalesChannelsDialogOpen}
+        onClose={() => setIsSalesChannelsDialogOpen(false)}
+        initialWhatsappUrl={restaurant?.whatsapp_url || null}
+        initialIfoodUrl={restaurant?.ifood_url || null}
+        initialOtherUrl={restaurant?.other_url || null}
+        onSave={handleSaveSalesChannels}
         isLoading={false}
       />
     </RestaurantAreaPageLayout>
