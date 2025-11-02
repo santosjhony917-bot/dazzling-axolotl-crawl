@@ -1,49 +1,71 @@
 import { supabase } from './client';
 
-// Substitua pelo seu Project ID real
-const SUPABASE_PROJECT_ID = 'ystffcohclbtykangfnt'; 
-const EDGE_FUNCTION_URL = `https://${SUPABASE_PROJECT_ID}.supabase.co/functions/v1/register-restaurant`;
-
-interface LocationPayload {
-  cep: string;
-  street: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  phone: string;
+interface ClaimRestaurantPayload {
+  accessCode: string;
+  email: string;
+  password?: string; // Password is optional for existing users, but required for new ones
 }
 
-interface RegisterRestaurantPayload {
-  restaurantName: string;
-  location: LocationPayload; // Alterado para um único objeto
+interface ClaimRestaurantResponse {
   email: string;
-  password: string;
+  password?: string; // Password might be returned for new user creation
+  message: string;
+}
+
+export const claimRestaurant = async (payload: ClaimRestaurantPayload): Promise<ClaimRestaurantResponse> => {
+  const { data, error } = await supabase.functions.invoke('claim-restaurant', {
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (error) {
+    console.error('Error invoking claim-restaurant edge function:', error);
+    throw new Error(error.message || 'Failed to claim restaurant via edge function.');
+  }
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+};
+
+interface RegisterRestaurantPayload {
+  name: string;
+  email: string;
+  password?: string;
+  phone?: string;
+  category?: string;
+  address?: string;
+  number?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  cep?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 interface RegisterRestaurantResponse {
-  restaurantId: string;
-  message: string;
   email: string;
-  password: string;
+  password?: string;
+  message: string;
 }
 
-export async function registerRestaurant(payload: RegisterRestaurantPayload): Promise<RegisterRestaurantResponse> {
-  
-  const response = await fetch(EDGE_FUNCTION_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+export const registerRestaurant = async (payload: RegisterRestaurantPayload): Promise<RegisterRestaurantResponse> => {
+  const { data, error } = await supabase.functions.invoke('register-restaurant', {
     body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || "Failed to register restaurant via Edge Function.");
+  if (error) {
+    console.error('Error invoking register-restaurant edge function:', error);
+    throw new Error(error.message || 'Failed to register restaurant via edge function.');
   }
 
-  return data as RegisterRestaurantResponse;
-}
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+};

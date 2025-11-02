@@ -150,10 +150,17 @@ export default function RestaurantSignup() {
     try {
       // 1. Envia todos os dados para a Edge Function para criação segura do usuário e registro do restaurante.
       const payload = {
-        restaurantName,
-        location, // Objeto de localização única
+        name: restaurantName, // Corrigido: usando 'name' em vez de 'restaurantName'
         email,
         password,
+        phone: location.phone,
+        address: location.street,
+        number: location.number,
+        neighborhood: location.neighborhood,
+        city: location.city,
+        state: location.state,
+        cep: location.cep,
+        // latitude e longitude não estão no tipo Location atual, então não serão passados.
       };
       
       const registrationResult = await registerRestaurant(payload);
