@@ -1,6 +1,7 @@
 import { Restaurant } from './supabase';
 
-// Se houver outras definições de tipo neste arquivo, elas devem ser mantidas.
-// Por exemplo:
-// export type PublicMenuItem = MenuItem;
-// export type PublicMenuCategory = MenuCategory;
+// Tipo de dados que o layout público espera, incluindo dados calculados
+export interface PublicRestaurantData extends Restaurant {
+  addressSummary: string;
+  followersCount: number;
+}

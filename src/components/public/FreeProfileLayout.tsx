@@ -12,21 +12,18 @@ import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a funç�
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
-import RestaurantPaymentSection from './RestaurantPaymentSection';
-import { Info } from 'lucide-react'; // Importar Info
 import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
 import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
-import RestaurantInfo from './RestaurantInfo';
-import RestaurantPaymentSection from './RestaurantPaymentSection';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
+import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  toggleFavorite: () => void;
-  isFavoriteMutating: boolean;
+  toggleFavorite: () => void; // NOVO
+  isFavoriteMutating: boolean; // NOVO
 }
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
@@ -67,14 +64,14 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    logoUrl: restaurant.logoUrl || '',
-    coverImageUrl: restaurant.cover_image_url || '',
+    logoUrl: restaurant.image_url || '',
+    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
+    isFavorite: restaurant.is_favorite, // Usando o estado reativo
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
-    isPremium: false,
+    isPremium: false, // CORREÇÃO: Adicionado isPremium
   };
   
   // Verifica se há conteúdo para as abas
@@ -83,10 +80,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   
   // Verifica se há informações de endereço/horário ou contato/links
   const hasAddressHours = fullAddress || restaurant.opening_hours;
-  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url || (restaurant.social_networks && restaurant.social_networks.length > 0);
-  const hasPaymentMethods = restaurant.payment_methods && restaurant.payment_methods.length > 0;
-
-  const hasInfo = hasAddressHours || hasContactLinks || hasPaymentMethods; // Definindo hasInfo
+  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
+  
+  // A aba 'info' agora é exibida se houver qualquer uma das subseções
+  const hasInfo = hasAddressHours || hasContactLinks;
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -121,52 +118,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           
           {/* Canais de Pedido */}
           <OrderChannelsSection restaurant={restaurant} />
-          
-          {/* Navegação por Abas (Sticky) */}
-          {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
-              <ScrollArea className="w-full whitespace-nowrap">
-                <div className="flex space-x-4">
-                  {hasGallery && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('gallery-section', 'gallery')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Image className="w-4 h-4 mr-2" /> Fotos
-                    </Button>
-                  )}
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
-                  {hasInfo && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('info-section', 'info')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Info className="w-4 h-4 mr-2" /> Informações
-                    </Button>
-                  )}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
           
           {/* 2. Galeria Section */}
           {hasGallery && (
@@ -209,7 +160,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
               )}
               
               {/* Formas de Pagamento (Novo Componente) */}
-              {hasPaymentMethods && <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />}
+              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
             </div>
           )}
         </div>

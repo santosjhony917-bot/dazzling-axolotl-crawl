@@ -1,8 +1,8 @@
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
-import { PublicRestaurantData, SocialNetworkLink, WeekSchedule } from '@/types/restaurant';
+import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
@@ -55,22 +55,22 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   if (!baseData) {
     return null;
   }
-
+  
   // 2. Buscar categorias e itens de menu separadamente
   const { data: menuData, error: menuError } = await supabase
     .from('menu_categories')
     .select(`
-      id,
-      name,
-      order_index,
+      id, 
+      name, 
+      order_index, 
       is_active,
       menu_items(
-          id,
-          name,
-          description,
-          price,
-          image_url,
-          order_index,
+          id, 
+          name, 
+          description, 
+          price, 
+          image_url, 
+          order_index, 
           is_active
       )
     `)
@@ -83,7 +83,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   }
 
   // 3. Processar e combinar dados
-
+  
   // Processar contagem de seguidores (incluindo override)
   const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
 
@@ -93,7 +93,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
 
   // Filtrar categorias e itens inativos
   const activeMenuCategories = (menuData || []) as unknown as (MenuCategory & { menu_items: MenuItem[] })[];
-
+  
   const filteredMenuCategories = activeMenuCategories
       .filter(cat => cat.is_active)
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
@@ -103,21 +103,18 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
               .filter(item => item.is_active)
               .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
       }));
-
+      
   // Ordenar galeria
   const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
-
+  
   const sortedGalleryImages = galleryImages
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-
+      
   // Calcular status de abertura
-  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as WeekSchedule);
-
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
+  
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
-
-  // Processar redes sociais
-  const socialNetworks = (baseData.social_networks as SocialNetworkLink[] | null) || null;
 
   return {
     ...baseData,
@@ -126,9 +123,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
-    payment_methods: paymentMethods,
-    social_networks: socialNetworks,
-    is_favorite: false,
+    payment_methods: paymentMethods, // ADICIONADO
     // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
