@@ -1,30 +1,39 @@
 import React, { useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
 import { Loader2 } from 'lucide-react';
 
 export default function RestaurantArea() {
-  const { user, isLoading, restaurant } = useAuthData(); // CORRIGIDO: Usando useAuthData
-  const location = useLocation();
+  const { user, isLoading, restaurant, isRestaurantLoading } = useAuthData();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || isRestaurantLoading) {
+      return; // Ainda carregando dados de autenticação ou restaurante
+    }
 
     if (!user) {
       // Não autenticado, redireciona para o login do restaurante
       navigate(createPageUrl('restaurant-login'), { state: { from: location }, replace: true });
+    } else if (user.user_role !== 'restaurant') {
+      // Usuário autenticado, mas não é um restaurante, redireciona para o hub
+      navigate(createPageUrl('restaurant-area-hub'), { replace: true });
     } else if (!restaurant) {
-      // Autenticado, mas sem restaurante associado (deve ir para o hub ou claim)
+      // Autenticado como restaurante, mas sem restaurante associado (deve ir para o hub ou create)
       navigate(createPageUrl('restaurant-area-hub'), { replace: true });
     } else {
-      // Autenticado e com restaurante, vai para o dashboard
-      navigate(createPageUrl('restaurant-area/home'), { replace: true });
+      // Autenticado e com restaurante, garante que está na área correta
+      if (location.pathname === createPageUrl('restaurant-area-hub') || location.pathname === createPageUrl('restaurant-signup') || location.pathname === createPageUrl('restaurant-login')) {
+        navigate(createPageUrl('restaurant-area-home'), { replace: true });
+      }
     }
-  }, [isLoading, user, restaurant, navigate, location]);
+  }, [user, isLoading, restaurant, isRestaurantLoading, navigate, location]);
 
-  if (isLoading) {
+  if (isLoading || isRestaurantLoading || !user || user.user_role !== 'restaurant' || !restaurant) {
+    // Renderiza um loader enquanto decide para onde navegar
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -32,6 +41,12 @@ export default function RestaurantArea() {
     );
   }
 
-  // Este componente deve sempre redirecionar, então não deve renderizar nada no final
-  return null;
+  return (
+    <div className="relative min-h-screen flex flex-col">
+      <div className="flex-1 pb-16"> {/* Adiciona padding-bottom para a nav bar */}
+        <Outlet />
+      </div>
+      <RestaurantBottomNav />
+    </div>
+  );
 }

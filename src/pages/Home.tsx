@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { MapPin, Search, DollarSign, Compass, Utensils, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { createPageUrl } from '@/utils/url';
-import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
+import { Button } from '@/components/ui/button';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import { createPageUrl } from '@/utils/url';
+import { useUserLocation } from '@/hooks/useUserLocation';
+import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError, showSuccess } from '@/utils/toast';
 import ActionCard from '@/components/restaurant/dashboard/ActionCard';
@@ -22,89 +21,57 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
-  const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
+  const { location, isLocationLoading, error: locationError, refetchLocation } = useUserLocation();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchByPriceModalOpen, setIsSearchByPriceModalOpen] = useState(false);
+  const [isSearchByDistanceModalOpen, setIsSearchByDistanceModalOpen] = useState(false);
 
-  const userLat = location.latitude;
-  const userLon = location.longitude;
+  const {
+    restaurants,
+    isLoading: isRestaurantsLoading,
+    error: restaurantsError,
+    refetch: refetchRestaurants,
+  } = useNearbyRestaurants(location?.latitude, location?.longitude, searchQuery);
 
-  // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
-  const { 
-    data: restaurants, // Corrigido: usar 'data' e renomear para 'restaurants'
-    isLoading: isRestaurantsLoading, // Corrigido: usar 'isLoading' e renomear
-    error: restaurantsError, 
-    refetch: refetchRestaurants 
-  } = useNearbyRestaurants({
-    userLat,
-    userLon,
-    enabled: userLat !== null && userLon !== null,
-    searchQuery: searchQuery, // Passa a query de busca
-  });
-
-  // Novo hook para pratos populares
-  const { 
-    data: popularMenuItems, 
-    isLoading: isLoadingPopularItems, 
-    error: popularItemsError 
+  const {
+    popularMenuItems,
+    isLoading: isLoadingPopularItems,
+    error: popularItemsError,
   } = usePopularMenuItems();
 
-  const handleLocationSaved = () => {
-    refetchLocation();
-    setIsLocationModalOpen(false);
-  };
-  
+  useEffect(() => {
+    if (locationError) {
+      showError(locationError.message);
+    }
+  }, [locationError]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
-      return;
+    if (searchQuery.trim()) {
+      navigate(createPageUrl('search-unified', { searchQuery }));
     }
-    // Redireciona para a página de resultados com a query
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
   };
 
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsPriceModalOpen(true);
-  };
-
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+  const handleSearchByPrice = (minPrice: number, maxPrice: number) => {
+    setIsSearchByPriceModalOpen(false);
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('search-unified', { minPrice: minPrice.toString(), maxPrice: maxPrice.toString() }));
   };
 
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      setIsLocationModalOpen(true);
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+  const handleSearchByDistance = (maxDistanceKm: number) => {
+    setIsSearchByDistanceModalOpen(false);
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('search-unified', { maxDistance: maxDistanceKm.toString() }));
   };
 
   return (
-    <div className="bg-[#f5f7f8]"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
+    <div className="bg-[#f5f7f8]">
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
         <div 
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)}
+          onClick={() => setIsSearchByDistanceModalOpen(true)} // Usando o modal de distância para definir localização
         >
           <MapPin className="h-6 w-6 text-[#E47948]" />
           <div>
@@ -115,7 +82,7 @@ const Home: React.FC = () => {
               </div>
             ) : (
               <p className="text-base font-extrabold text-[#022D68] tracking-tight truncate max-w-[250px]">
-                {location.address.split(',')[0] || "Definir Local"}
+                {location?.address?.split(',')[0] || "Definir Local"}
               </p>
             )}
           </div>
@@ -152,12 +119,12 @@ const Home: React.FC = () => {
           <ActionCard 
             title="Buscar Prato|por Preço" 
             icon={DollarSign} 
-            onClick={handleSearchByPrice}
+            onClick={() => setIsSearchByPriceModalOpen(true)}
           />
           <ActionCard 
             title="Buscar Restaurantes|Próximos" 
             icon={Compass} 
-            onClick={handleSearchNearby}
+            onClick={() => setIsSearchByDistanceModalOpen(true)}
           />
         </div>
         
@@ -171,13 +138,13 @@ const Home: React.FC = () => {
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={() => alert("Ver todos os pratos populares")}
+              onClick={() => navigate(createPageUrl('search-unified', { category: 'popular' }))} // Exemplo de navegação
             >
               Ver todos
             </Button>
           </div>
           <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
-            <div className="flex flex-nowrap space-x-4 pb-6"> {/* Adicionando flex-nowrap e padding inferior ao div interno */}
+            <div className="flex flex-nowrap space-x-4 pb-6">
               <AnimatePresence mode="wait">
                 {isLoadingPopularItems ? (
                   <motion.div
@@ -209,7 +176,7 @@ const Home: React.FC = () => {
                           price: item.price,
                           imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato+Popular', // Fallback image
                         }} 
-                        className="flex-shrink-0" // Adicionado flex-shrink-0
+                        className="flex-shrink-0"
                       />
                     ))}
                   </motion.div>
@@ -226,7 +193,7 @@ const Home: React.FC = () => {
                 )}
               </AnimatePresence>
             </div>
-            <ScrollBar orientation="horizontal" className="hidden" /> {/* Adicionado className="hidden" */}
+            <ScrollBar orientation="horizontal" className="hidden" />
           </ScrollArea>
         </div>
 
@@ -237,7 +204,7 @@ const Home: React.FC = () => {
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
-              onClick={handleSearchNearby}
+              onClick={() => navigate(createPageUrl('search-unified', { type: 'nearby' }))} // Exemplo de navegação
             >
               Ver todos
             </Button>
@@ -264,7 +231,7 @@ const Home: React.FC = () => {
                   className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md"
                 >
                   <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                  <p>{restaurantsError.message}</p> {/* Corrigido: acessar .message */}
+                  <p>{restaurantsError.message}</p>
                   <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
                 </motion.div>
               ) : restaurants && restaurants.length > 0 ? (
@@ -302,23 +269,17 @@ const Home: React.FC = () => {
       </main>
 
       {/* User Location Modal */}
-      <UserLocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-        currentAddress={location.address}
-        onLocationSaved={handleLocationSaved}
-      />
-      
-      {/* Modais de Filtro */}
       <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
+        isOpen={isSearchByPriceModalOpen}
+        onClose={() => setIsSearchByPriceModalOpen(false)}
+        onApply={handleSearchByPrice}
       />
       <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
+        isOpen={isSearchByDistanceModalOpen}
+        onClose={() => setIsSearchByDistanceModalOpen(false)}
+        onApply={handleSearchByDistance}
+        currentLocation={location}
+        onLocationChange={refetchLocation}
       />
     </div>
   );

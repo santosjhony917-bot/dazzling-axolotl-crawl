@@ -1,218 +1,183 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Search, MapPin, Utensils, DollarSign, ChevronLeft, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
+import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import { createPageUrl } from '@/utils/url';
-import { showInfo, showError } from '@/utils/toast';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import SearchToggle from '@/components/SearchToggle';
-import SearchItemCard from '@/components/search/SearchItemCard';
-import { useAuthData } from '@/context/AuthContext';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { useUserRole } from '@/hooks/useUserRole';
-import { motion } from 'framer-motion'; // Import motion
+import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
+import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
+import { useUserLocation } from '@/hooks/useUserLocation';
 import { Skeleton } from '@/components/ui/skeleton';
+import { showError } from '@/utils/toast';
 
-type SearchType = 'dish' | 'restaurant';
-
-// Placeholder para Destaques (será preenchido por lógica futura ou permanecerá vazio)
-const placeholderHighlights: any[] = [];
-
-
-export default function SearchUnifiedPage() {
+const SearchUnifiedPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, restaurant } = useAuthData();
-  const { isPremium } = useUserRole();
-  const isRestaurantOwner = !!restaurant;
-  
-  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
-  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  const userLat = location.latitude;
-  const userLon = location.longitude;
+  const initialSearchQuery = queryParams.get('searchQuery') || '';
+  const initialMinPrice = queryParams.get('minPrice');
+  const initialMaxPrice = queryParams.get('maxPrice');
+  const initialMaxDistance = queryParams.get('maxDistance');
+  const initialCategory = queryParams.get('category');
+  const initialType = queryParams.get('type'); // 'nearby' para restaurantes próximos
 
-  // Lógica de Busca
-  const handleSearch = (e: React.FormEvent) => {
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [activeTab, setActiveTab] = useState<'restaurants' | 'menuItems'>(
+    initialSearchQuery || initialType === 'nearby' ? 'restaurants' : 'menuItems'
+  );
+
+  const { location: userLocation, isLocationLoading, error: locationError } = useUserLocation();
+
+  const {
+    restaurants,
+    isLoading: isRestaurantsLoading,
+    error: restaurantsError,
+    refetch: refetchRestaurants,
+  } = useNearbyRestaurants(
+    userLocation?.latitude,
+    userLocation?.longitude,
+    searchQuery,
+    initialMaxDistance ? parseFloat(initialMaxDistance) : undefined
+  );
+
+  const {
+    popularMenuItems,
+    isLoading: isLoadingPopularItems,
+    error: popularItemsError,
+  } = usePopularMenuItems(searchQuery, initialMinPrice ? parseFloat(initialMinPrice) : undefined, initialMaxPrice ? parseFloat(initialMaxPrice) : undefined);
+
+  useEffect(() => {
+    if (locationError) {
+      showError(locationError.message);
+    }
+  }, [locationError]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localização é definida.");
-      return;
-    }
-    
-    // Navega para a página de resultados, passando a localização, a query e o tipo de busca
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
-  };
-  
-  const handleItemClick = (itemId: string, type: SearchType) => {
-    if (type === 'restaurant') {
-      navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
-    } else {
-      navigate(createPageUrl('menuItemDetails', { itemId: itemId }));
-    }
-  };
-  
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      return;
-    }
-    setIsPriceModalOpen(true);
+    // Atualiza a URL com a nova query de busca
+    const newParams = new URLSearchParams();
+    if (searchQuery) newParams.set('searchQuery', searchQuery);
+    navigate(`${location.pathname}?${newParams.toString()}`);
   };
 
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de preço
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
-    setIsPriceModalOpen(false);
+  const handleMenuItemClick = (menuItemId: string, restaurantId: string) => {
+    navigate(createPageUrl('menuItemDetails', { menuItemId, restaurantId }));
   };
 
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    showInfo(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de distância
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
-    setIsDistanceModalOpen(false);
-  };
-
-  const highlights = placeholderHighlights; // Usando placeholder vazio
-  const highlightTitle = activeSearchType === 'dish' ? 'Pratos em Destaque' : 'Restaurantes em Destaque';
-
-  const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
-  const handleToggleChange = (type: 'dishes' | 'restaurants') => {
-    setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-  };
-  
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  // Renderiza o conteúdo da página
-  const pageContent = (
-    <div className="p-4 space-y-6">
-      
-      {/* Barra de Busca e Filtro */}
-      <form onSubmit={handleSearch} className="flex gap-2">
-        <div className="relative flex-grow">
+  return (
+    <div className="min-h-screen bg-gray-50 md:max-w-md md:mx-auto">
+      <header className="flex items-center p-4 bg-white shadow-sm sticky top-0 z-10">
+        <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
+          <ChevronLeft className="h-6 w-6" />
+        </Button>
+        <form onSubmit={handleSearchSubmit} className="flex-grow flex items-center relative ml-2">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
           <Input
             type="text"
-            placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
+            placeholder="Buscar por prato ou restaurante..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
+            className="w-full pl-10 h-10 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
           />
-        </div>
-        <Button 
-          type="submit" // Alterado para submit para iniciar a busca
-          size="icon" 
-          variant="highlight" 
-          className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </Button>
-      </form>
-      
-      {/* Ações Rápidas (Filtros) - Transformadas em Chips Elegantes */}
-      <div className="flex gap-4">
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchByPrice}
-            variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
-          >
-            <DollarSign className="w-5 h-5 mr-2 text-highlight" /> Preço
-          </Button>
-        </motion.div>
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchNearby}
-            variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
-          >
-            <Compass className="w-5 h-5 mr-2 text-highlight" /> Distância
-          </Button>
-        </motion.div>
-      </div>
-      
-      {/* Toggle Pratos / Restaurantes */}
-      <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
+        </form>
+      </header>
 
-      {/* Destaques */}
-      <motion.div
-        key={activeSearchType} // Key change triggers animation
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="space-y-4"
-      >
-        <h2 className="text-xl font-bold text-primary">{highlightTitle}</h2>
-        <div className="space-y-3">
-          {highlights.length > 0 ? (
-            highlights.map((item) => (
-              <SearchItemCard 
-                key={item.id} 
-                item={item} 
-                onClick={handleItemClick}
-              />
-            ))
-          ) : (
-            <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
-              <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">Nenhum destaque encontrado. Tente pesquisar!</p>
-            </Card>
-          )}
-        </div>
-      </motion.div>
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
-    </div>
-  );
-
-  return (
-    <>
-      {/* Cabeçalho Manual */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+      <div className="flex justify-around p-2 bg-white border-b border-gray-200 sticky top-[64px] z-10">
         <Button
           variant="ghost"
-          size="icon"
-          onClick={handleBack}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className={activeTab === 'restaurants' ? 'border-b-2 border-highlight text-highlight' : 'text-gray-500'}
+          onClick={() => setActiveTab('restaurants')}
         >
-          <ArrowLeft className="h-6 w-6" />
+          Restaurantes
         </Button>
-        <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Busca</h2>
-        </div>
-        <div className="w-10"></div>
-      </header>
-      
-      <main className="flex-1 w-full max-w-md mx-auto pb-20">
-        {pageContent}
+        <Button
+          variant="ghost"
+          className={activeTab === 'menuItems' ? 'border-b-2 border-highlight text-highlight' : 'text-gray-500'}
+          onClick={() => setActiveTab('menuItems')}
+        >
+          Pratos
+        </Button>
+      </div>
+
+      <main className="p-4 space-y-6">
+        {activeTab === 'restaurants' && (
+          <div>
+            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight mb-4">Resultados de Restaurantes</h2>
+            {isRestaurantsLoading || isLocationLoading ? (
+              <div className="space-y-4">
+                <Skeleton className="w-full h-24 rounded-xl" />
+                <Skeleton className="w-full h-24 rounded-xl" />
+              </div>
+            ) : restaurantsError ? (
+              <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
+                <p className="font-semibold">Erro ao carregar restaurantes:</p>
+                <p>{restaurantsError.message}</p>
+                <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
+              </div>
+            ) : restaurants && restaurants.length > 0 ? (
+              <div className="space-y-4">
+                {restaurants.map((restaurant) => (
+                  <RestaurantCard
+                    key={restaurant.id}
+                    restaurant={restaurant}
+                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
+                <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
+                <p className="mt-2">Tente ajustar sua busca ou filtros.</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'menuItems' && (
+          <div>
+            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight mb-4">Resultados de Pratos</h2>
+            {isLoadingPopularItems ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Skeleton className="w-full h-[200px] rounded-2xl" />
+                <Skeleton className="w-full h-[200px] rounded-2xl" />
+              </div>
+            ) : popularItemsError ? (
+              <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
+                <p className="font-semibold">Erro ao carregar pratos:</p>
+                <p>{popularItemsError.message}</p>
+              </div>
+            ) : popularMenuItems && popularMenuItems.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {popularMenuItems.map((item) => (
+                  <HighlightCard
+                    key={item.id}
+                    item={{
+                      id: item.id,
+                      name: item.name,
+                      restaurantName: item.restaurantName,
+                      price: item.price,
+                      imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato',
+                    }}
+                    onClick={() => handleMenuItemClick(item.id, item.restaurantId)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
+                <DollarSign className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                <p className="text-xl font-semibold">Nenhum prato encontrado</p>
+                <p className="mt-2">Tente ajustar sua busca ou filtros.</p>
+              </div>
+            )}
+          </div>
+        )}
       </main>
-    </>
+    </div>
   );
-}
+};
+
+export default SearchUnifiedPage;

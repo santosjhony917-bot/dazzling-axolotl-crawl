@@ -1,18 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
 
 interface RestaurantMenuProps {
   restaurantId: string;
 }
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
-  const navigate = useNavigate();
-
-  const handleItemClick = (menuItemId: string) => {
-    navigate(createPageUrl('menuItemDetails', { restaurantId, menuItemId }));
-  };
-
   // TODO: Implementar a lógica para buscar e exibir o menu do restaurante
   return (
     <div className="space-y-4">
@@ -20,9 +12,6 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
       <div className="p-4 bg-gray-50 rounded-lg text-gray-600 text-center">
         <p>O cardápio do restaurante será exibido aqui.</p>
         <p className="text-sm mt-2">ID do Restaurante: {restaurantId}</p>
-        <button onClick={() => handleItemClick('some-menu-item-id')} className="text-blue-500 underline mt-2">
-          Ver Detalhes de um Item (Exemplo)
-        </button>
       </div>
     </div>
   );

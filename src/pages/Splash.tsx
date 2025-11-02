@@ -26,7 +26,7 @@ export default function Splash() {
     if (user) {
       if (restaurant) {
         // Usuário autenticado E possui um restaurante
-        targetPath = createPageUrl("restaurant-area/home");
+        targetPath = createPageUrl("restaurant-area-home");
         delay = 50; // Redirecionamento rápido para proprietários de restaurante
       } else {
         // Usuário autenticado, mas NÃO possui um restaurante (usuário cliente)

@@ -1,90 +1,127 @@
-import React from 'react';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Utensils, Camera, Link, CreditCard, Share2, Clock } from 'lucide-react';
 import NavCardItem from '@/components/NavCardItem';
-import { Utensils, Camera, Eye, CreditCard, Link } from 'lucide-react'; // Adicionado Link
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
-import { showError } from '@/utils/toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 interface ContentManagementSectionProps {
-  navigate: ReturnType<typeof useNavigate>;
+  restaurantId: string;
   isPremium: boolean;
-  restaurantId: string; // Adicionado
-  restaurantName: string; // Adicionado
-  setIsPaymentMethodsDialogOpen: (open: boolean) => void;
-  setIsSocialNetworksDialogOpen: (open: boolean) => void; // NOVO PROP
-  setIsSalesChannelsDialogOpen: (open: boolean) => void; // NOVO PROP
 }
 
-const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ navigate, isPremium, restaurantId, restaurantName, setIsPaymentMethodsDialogOpen, setIsSocialNetworksDialogOpen, setIsSalesChannelsDialogOpen }) => {
-  
-  const handleNavigate = (path: string, isFeaturePremium: boolean) => {
-    if (isFeaturePremium && !isPremium) {
-      showError("Recurso Premium. Faça upgrade para desbloquear.");
-      return;
+const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ restaurantId, isPremium }) => {
+  const navigate = useNavigate();
+  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false);
+  const [isSocialNetworksDialogOpen, setIsSocialNetworksDialogOpen] = useState(false);
+
+  const handleNavigate = (path: string, requiresPremium: boolean) => {
+    if (requiresPremium && !isPremium) {
+      navigate(createPageUrl('restaurant-area-upgrade'));
+    } else {
+      navigate(path);
     }
-    navigate(path);
   };
-  
+
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
-      
-      {/* NOVO: Ver Perfil Público */}
-      <NavCardItem 
-        title="Ver Perfil Público" 
-        description={`Veja como ${restaurantName} aparece para os clientes.`}
-        icon={Eye} 
+    <section className="space-y-4">
+      <h2 className="text-xl font-bold text-primary">Gerenciamento de Conteúdo</h2>
+      <NavCardItem
+        icon={Utensils}
+        title="Ver Perfil Público"
+        description="Veja como seu restaurante aparece para os clientes."
         onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
-        isPremium={isPremium}
       />
-      
-      <NavCardItem 
-        title="Cardápio e Categorias" 
-        description="Adicione, edite e organize pratos e categorias."
-        icon={Utensils} 
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/menu'), false)}
-        isPremium={isPremium}
+      <NavCardItem
+        icon={Utensils}
+        title="Cardápio"
+        description="Gerencie categorias e itens do seu menu."
+        onClick={() => handleNavigate(createPageUrl('restaurant-area-menu'), false)}
       />
-      <NavCardItem 
-        title="Galeria de Fotos" 
-        description="Gerencie as imagens do seu restaurante."
-        icon={Camera} 
-        isPremiumFeature={true}
-        isPremium={isPremium}
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/gallery'), true)}
-        premiumDescription="Exclusivo Premium"
+      <NavCardItem
+        icon={Camera}
+        title="Galeria de Fotos"
+        description="Adicione e organize as fotos do seu restaurante."
+        isLocked={!isPremium}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area-gallery'), true)}
       />
-      
-      {/* Formas de Pagamento */}
-      <NavCardItem 
-        title="Formas de Pagamento" 
-        description="Defina quais métodos de pagamento você aceita."
-        icon={CreditCard} 
+      <NavCardItem
+        icon={CreditCard}
+        title="Métodos de Pagamento"
+        description="Configure as formas de pagamento aceitas."
         onClick={() => setIsPaymentMethodsDialogOpen(true)}
-        isPremium={isPremium}
       />
-      
-      {/* NOVO: Outras Redes */}
-      <NavCardItem 
-        title="Outras Redes" 
-        description="Adicione links para Instagram, Facebook e site."
-        icon={Link} 
-        onClick={() => setIsSocialNetworksDialogOpen(true)}
-        isPremium={isPremium}
+      <NavCardItem
+        icon={Share2}
+        title="Redes Sociais"
+        description="Conecte suas redes sociais e outras plataformas."
+        isLocked={!isPremium}
+        onClick={() => handleNavigate(createPageUrl('restaurant-area-social-media'), true)}
+      />
+      <NavCardItem
+        icon={Clock}
+        title="Horário de Funcionamento"
+        description="Defina os horários de abertura e fechamento."
+        onClick={() => handleNavigate(createPageUrl('restaurant-area-opening-hours'), false)}
       />
 
-      {/* NOVO: Canais de Venda e Links */}
-      <NavCardItem 
-        title="Canais de Venda e Links" 
-        description="Gerencie seus links de WhatsApp, iFood e site próprio."
-        icon={Link} // Reutilizando o ícone Link, ou podemos adicionar um novo se preferir
-        isPremiumFeature={true} // Marcado como Premium, pois os links são Premium
-        isPremium={isPremium}
-        onClick={() => setIsSalesChannelsDialogOpen(true)}
-        premiumDescription="Exclusivo Premium"
-      />
-    </div>
+      {/* Payment Methods Dialog */}
+      <Dialog open={isPaymentMethodsDialogOpen} onOpenChange={setIsPaymentMethodsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Métodos de Pagamento</DialogTitle>
+            <DialogDescription>
+              Gerencie os métodos de pagamento aceitos pelo seu restaurante.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="card" className="text-right">
+                Cartão
+              </Label>
+              <Input id="card" value="Crédito, Débito" className="col-span-3" readOnly />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="cash" className="text-right">
+                Dinheiro
+              </Label>
+              <Input id="cash" value="Sim" className="col-span-3" readOnly />
+            </div>
+          </div>
+          <Button onClick={() => setIsPaymentMethodsDialogOpen(false)}>Salvar</Button>
+        </DialogContent>
+      </Dialog>
+
+      {/* Social Networks Dialog */}
+      <Dialog open={isSocialNetworksDialogOpen} onOpenChange={setIsSocialNetworksDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Redes Sociais</DialogTitle>
+            <DialogDescription>
+              Conecte suas redes sociais e outras plataformas.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="whatsapp" className="text-right">
+                WhatsApp
+              </Label>
+              <Input id="whatsapp" value="link-do-whatsapp" className="col-span-3" />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="instagram" className="text-right">
+                Instagram
+              </Label>
+              <Input id="instagram" value="link-do-instagram" className="col-span-3" />
+            </div>
+          </div>
+          <Button onClick={() => setIsSocialNetworksDialogOpen(false)}>Salvar</Button>
+        </DialogContent>
+      </Dialog>
+    </section>
   );
 };
 
