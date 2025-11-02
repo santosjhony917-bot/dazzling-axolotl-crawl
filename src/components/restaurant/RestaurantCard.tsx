@@ -1,39 +1,27 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Utensils, MapPin, Star, Heart } from 'lucide-react';
+import { Utensils, MapPin, Star } from 'lucide-react'; // Removido Heart
 import { RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
-import { Button } from '@/components/ui/button'; // Importar Button
 
 interface RestaurantCardProps {
   restaurant: RestaurantWithDistance;
   onClick: () => void;
-  isFavorite?: boolean; // Adicionado a prop isFavorite
+  // isFavorite?: boolean; // Removido a prop isFavorite
 }
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick, isFavorite = false }) => {
+const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) => { // Removido isFavorite do destructuring
   return (
     <Card
       className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative border-none shadow-soft-md rounded-xl h-28"
       onClick={onClick}
     >
-      <div className="relative w-1/3 h-full">
+      <div className="relative w-1/4 h-full"> {/* Ajustado de w-1/3 para w-1/4 */}
         <img
           src={restaurant.image_url || 'https://via.placeholder.com/150'}
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-2 right-2 bg-white/80 rounded-full"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent card click
-            // Handle favorite toggle
-            console.log(`Toggle favorite for restaurant ${restaurant.id}`);
-          }}
-        >
-          <Heart className={`h-5 w-5 ${isFavorite ? 'text-red-500 fill-red-500' : 'text-gray-400'}`} />
-        </Button>
+        {/* Botão de favorito removido */}
       </div>
       <div className="p-3 flex-1 flex flex-col justify-between">
         <div>
