@@ -87,7 +87,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
   const hasInfo = hasAddressHours || hasContactLinks;
 
-
   return (
     <div className="min-h-screen bg-background-light">
       

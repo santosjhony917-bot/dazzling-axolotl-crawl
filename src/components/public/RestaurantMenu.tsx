@@ -91,7 +91,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                   )}
                   <div className="flex-grow">
                     <div className="flex justify-between items-start">
-                      <h4 className="font-semibold text-lg text-[#022D68]">{item.name}</h4>
+                      <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
                       <p className="font-bold text-lg text-highlight ml-4">
                         {formatPrice(item.price)}
                       </p>

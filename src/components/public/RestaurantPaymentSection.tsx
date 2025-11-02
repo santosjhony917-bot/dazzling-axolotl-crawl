@@ -2,21 +2,18 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CreditCard } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
+import { Badge } from '@/components/ui/badge';
 
 interface RestaurantPaymentSectionProps {
   id: string;
-  restaurant: PublicRestaurantData; // Recebe o objeto restaurante
+  restaurant: PublicRestaurantData;
 }
 
-const DEFAULT_PAYMENT_METHODS = ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
-
 const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id, restaurant }) => {
-  // Usa os métodos do restaurante ou um fallback se não houver dados
-  const paymentMethods = restaurant.payment_methods && restaurant.payment_methods.length > 0 
-    ? restaurant.payment_methods 
-    : DEFAULT_PAYMENT_METHODS;
+  const { payment_methods, plan } = restaurant;
 
-  if (paymentMethods.length === 0) {
+  // Só exibe a seção se for premium e houver métodos de pagamento
+  if (plan !== 'premium' && plan !== 'premium_gift' || !payment_methods || payment_methods.length === 0) {
     return null;
   }
 
@@ -28,13 +25,10 @@ const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id,
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex flex-wrap gap-2">
-          {paymentMethods.map((method) => (
-            <span 
-              key={method} 
-              className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200"
-            >
+          {payment_methods.map((method, index) => (
+            <Badge key={index} variant="secondary" className="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-700 rounded-full">
               {method}
-            </span>
+            </Badge>
           ))}
         </div>
       </CardContent>
