@@ -1,22 +1,25 @@
-/**
- * Formats a number with locale-specific separators.
- * @param num The number to format.
- * @returns The formatted string.
- */
-export const formatNumber = (num: number): string => {
-  if (num === undefined || num === null) return '0';
-  return num.toLocaleString('pt-BR');
+export const formatPhoneNumber = (phoneNumber: string): string => {
+  // Remove all non-digit characters
+  const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+
+  // Apply formatting based on length
+  if (cleaned.length === 10) {
+    // (XX) XXXX-XXXX
+    return `(${cleaned.substring(0, 2)}) ${cleaned.substring(2, 6)}-${cleaned.substring(6, 10)}`;
+  } else if (cleaned.length === 11) {
+    // (XX) XXXXX-XXXX
+    return `(${cleaned.substring(0, 2)}) ${cleaned.substring(2, 7)}-${cleaned.substring(7, 11)}`;
+  }
+  // Return original if not a standard phone number length
+  return phoneNumber;
 };
 
-/**
- * Formats a price number into currency format (R$).
- * @param price The price to format.
- * @returns The formatted currency string.
- */
-export const formatPrice = (price: number): string => {
-  if (price === undefined || price === null) return 'R$ 0,00';
-  return price.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+export const formatNumber = (value: number | string): string => {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+  }
+  if (isNaN(value)) {
+    return '';
+  }
+  return value.toLocaleString('pt-BR');
 };
