@@ -1,118 +1,53 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, Profile } from '@/types/supabase';
-import { useQuery } from '@tanstack/react-query';
-import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client'; // Assumindo que este caminho está correto
 
 interface AuthContextType {
-  user: User | null;
-  isLoading: boolean;
-  signOut: () => Promise<void>;
-  isAuthenticated: boolean;
-  // Dados do perfil e restaurante
-  profile: Profile | null;
-  restaurant: Restaurant | null;
-  isProfileLoading: boolean;
-  isRestaurantLoading: boolean; // Adicionado: Estado de carregamento do restaurante
-  isAdmin: boolean;
-  isPremium: boolean;
-  // Adicionando refetchProfile para forçar atualização após login/signup
-  refetchProfile: () => void; 
-  refetchRestaurant: () => void; // Adicionado: Função para recarregar dados do restaurante
+  user: any; // Substitua 'any' pelo tipo de usuário real do Supabase
+  session: any; // Substitua 'any' pelo tipo de sessão real do Supabase
+  // Adicione outras propriedades ou funções de autenticação aqui, se houver
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const isAuthenticated = !!user;
-
-  // Query para buscar Profile
-  const { data: profile, isLoading: isProfileLoading, refetch: refetchProfile } = useQuery({
-    queryKey: ['profile', user?.id],
-    queryFn: () => (user ? getProfile(user.id) : null),
-    enabled: isAuthenticated,
-  });
-
-  // Query para buscar Restaurant
-  const { data: restaurant, isLoading: isRestaurantLoading, refetch: refetchRestaurant } = useQuery({
-    queryKey: ['restaurant', user?.id],
-    queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
-    enabled: isAuthenticated,
-  });
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<any>(null);
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-      setIsLoading(false);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user || null);
+      setLoading(false);
     });
 
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user || null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
+  const value = {
+    user,
+    session,
+    // Adicione outras propriedades ou funções de autenticação aqui, se houver
   };
 
-  // Lógica de Admin e Premium (simplificada)
-  const isAdmin = user?.email === 'joaoedasilva018@gmail.com';
-  // CORREÇÃO: Incluindo 'premium_gift' na verificação
-  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
-
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        signOut,
-        isAuthenticated,
-        profile: profile || null,
-        restaurant: restaurant || null,
-        isProfileLoading,
-        isRestaurantLoading, // Adicionado
-        isAdmin,
-        isPremium,
-        refetchProfile,
-        refetchRestaurant, // Adicionado
-      }}
-    >
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuthContext = () => {
+// Exportando o hook useAuth
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuthContext must be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-};
-
-// Renomeando o hook useAuth para useAuthData para evitar conflito de nome
-// e para que ele seja um wrapper simples que expõe todos os dados.
-export const useAuthData = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuthData must be used within an AuthProvider');
-  }
-  return {
-    user: context.user,
-    isLoading: context.isLoading,
-    signOut: context.signOut,
-    isAdmin: context.isAdmin,
-    isPremium: context.isPremium,
-    restaurant: context.restaurant,
-    profile: context.profile,
-    isAuthenticated: context.isAuthenticated,
-    isProfileLoading: context.isProfileLoading,
-    isRestaurantLoading: context.isRestaurantLoading, // Adicionado
-    refetchProfile: context.refetchProfile,
-    refetchRestaurant: context.refetchRestaurant, // Adicionado
-  };
 };
