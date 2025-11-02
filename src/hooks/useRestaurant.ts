@@ -37,7 +37,20 @@ export const useRestaurant = (id: string | undefined) => {
         setError(error);
         setData(null);
       } else {
-        setData(data as PublicRestaurantData);
+        // Map restaurant_gallery to gallery_images to match PublicRestaurantData type
+        const formattedData: PublicRestaurantData = {
+          ...data,
+          gallery_images: data.restaurant_gallery || [],
+          // Ensure other computed fields are handled if necessary, or set to default/null
+          is_favorite: false, // Default value, will be updated by RestaurantProfilePublic
+          followers_count: 0, // Default value
+          addressSummary: '', // Default value
+          logoUrl: null, // Default value
+          isOpen: false, // Default value
+          statusText: '', // Default value
+          nextOpenTime: null, // Default value
+        };
+        setData(formattedData);
       }
       setIsLoading(false);
     };

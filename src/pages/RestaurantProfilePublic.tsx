@@ -89,7 +89,7 @@ const RestaurantProfilePublic = () => {
   }
 
   // Determine if the restaurant has a gallery, menu, or reviews based on actual data
-  const hasGallery = restaurant.restaurant_gallery && restaurant.restaurant_gallery.length > 0;
+  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   const hasReviews = true; // Assuming all restaurants can have reviews
 

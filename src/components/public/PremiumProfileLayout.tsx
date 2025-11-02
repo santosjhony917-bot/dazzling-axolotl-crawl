@@ -156,7 +156,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({
             <RestaurantMenu
               restaurantId={restaurant.id}
               menuCategories={menuCategories}
-              menuItems={menuItems}
             />
           </div>
         )}
