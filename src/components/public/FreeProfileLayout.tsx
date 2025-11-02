@@ -124,18 +124,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
             <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
               <ScrollArea className="w-full whitespace-nowrap">
                 <div className="flex space-x-4">
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
                   {hasGallery && (
                     <Button
                       variant="ghost"
