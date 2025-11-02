@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Importando useNavigate
+import { Link } from "react-router-dom"; // Removendo useNavigate
 import { MapPin, Search, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import useUserLocation from "@/hooks/useUserLocation";
-import BannerCarousel from "@/components/BannerCarousel";
+// Removendo importação do BannerCarousel
 
 const fetchRestaurants = async (
   latitude: number | null,
@@ -48,20 +48,12 @@ const fetchPopularItems = async () => {
   return data;
 };
 
-const fetchBanners = async () => {
-  const { data, error } = await supabase
-    .from("banners")
-    .select("*")
-    .eq("is_active", true)
-    .order("order_index", { ascending: true });
-  if (error) throw error;
-  return data;
-};
+// Removendo fetchBanners
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const { location, loading: locationLoading, error: locationError } = useUserLocation();
-  const navigate = useNavigate(); // Inicializando useNavigate
+  // Removendo inicialização do useNavigate
 
   const {
     data: restaurants,
@@ -82,14 +74,7 @@ export default function Home() {
     queryFn: fetchPopularItems,
   });
 
-  const {
-    data: banners,
-    isLoading: isLoadingBanners,
-    error: bannersError,
-  } = useQuery({
-    queryKey: ["banners"],
-    queryFn: fetchBanners,
-  });
+  // Removendo useQuery para banners
 
   return (
     <div className="container mx-auto p-4 pb-16">
@@ -123,11 +108,7 @@ export default function Home() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
       </div>
 
-      {isLoadingBanners ? (
-        <Skeleton className="w-full h-[150px] rounded-lg mb-6" />
-      ) : banners && banners.length > 0 ? (
-        <BannerCarousel banners={banners} className="mb-6" />
-      ) : null}
+      {/* Removendo renderização do BannerCarousel */}
 
       <h2 className="text-xl font-bold mb-4">Pratos Populares</h2>
       <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
@@ -163,7 +144,7 @@ export default function Home() {
             <RestaurantCard
               key={restaurant.id}
               restaurant={restaurant}
-              onClick={() => navigate(`/restaurants/${restaurant.id}`)} // Adicionando onClick
+              onClick={() => {}}
             />
           ))
         ) : (
