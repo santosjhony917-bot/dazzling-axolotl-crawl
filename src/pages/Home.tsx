@@ -176,17 +176,13 @@ const Home: React.FC = () => {
             </Button>
           </div>
           <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
-            <div className="flex space-x-4 pb-6"> {/* Adicionando padding inferior ao div interno */}
+            <div className="flex flex-nowrap space-x-4 pb-6"> {/* Adicionando flex-nowrap e padding inferior ao div interno */}
               {isLoadingPopularItems ? (
                 <>
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl" />
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
+                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
                 </>
-              ) : popularItemsError ? (
-                <div className="text-center p-4 text-red-500 bg-red-100 rounded-xl shadow-soft-md w-full">
-                  Erro ao carregar pratos populares: {popularItemsError.message}
-                </div>
               ) : popularMenuItems && popularMenuItems.length > 0 ? (
                 popularMenuItems.map((item) => (
                   <HighlightCard 
@@ -198,6 +194,7 @@ const Home: React.FC = () => {
                       price: item.price,
                       imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato+Popular', // Fallback image
                     }} 
+                    className="flex-shrink-0" // Adicionado flex-shrink-0
                   />
                 ))
               ) : (
@@ -206,6 +203,7 @@ const Home: React.FC = () => {
                 </div>
               )}
             </div>
+            <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
 

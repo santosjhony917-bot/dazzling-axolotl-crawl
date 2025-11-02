@@ -13,16 +13,20 @@ interface HighlightItem {
 
 interface HighlightCardProps {
   item: HighlightItem;
+  className?: string;
 }
 
-const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
+const HighlightCard: React.FC<HighlightCardProps> = ({ item, className }) => {
   const formattedPrice = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
   
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="flex h-full flex-col gap-0 rounded-xl min-w-[200px] shadow-soft-lg bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300"
+      className={cn(
+        "flex h-full flex-col gap-0 rounded-xl min-w-[200px] shadow-soft-lg bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300",
+        className
+      )}
     >
       <div 
         className="w-full bg-center bg-no-repeat aspect-[1.4/1] bg-cover flex flex-col rounded-t-xl relative" // Aumentado o aspect ratio
