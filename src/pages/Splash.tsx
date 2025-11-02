@@ -50,7 +50,7 @@ export default function Splash() {
   }, [navigate, user, isLoading, restaurant, isRestaurantLoading]); // Adicionando restaurant e isRestaurantLoading às dependências
 
   return (
-    <div className="h-screen w-full relative flex flex-col items-center justify-center bg-[#E47948]">
+    <div className="h-screen w-full relative flex flex-col items-center justify-center bg-[#E47948] md:max-w-md md:mx-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}

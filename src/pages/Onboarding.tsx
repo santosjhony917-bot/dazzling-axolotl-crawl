@@ -118,7 +118,7 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-background-light">
+    <div className="relative w-full h-screen overflow-hidden bg-background-light md:max-w-md md:mx-auto">
       <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentScreen}

@@ -22,7 +22,7 @@ export default function Welcome() {
   };
 
   return (
-    <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-white">
+    <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-white md:max-w-md md:mx-auto">
       <div className="flex flex-col items-center justify-center flex-grow p-4">
         {/* Logo and Icon */}
         <motion.div 
