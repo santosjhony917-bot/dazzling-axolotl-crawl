@@ -7,6 +7,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../components/ui/carousel';
 import { MapPin, Search, Heart } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatPrice } from '../utils/formatters';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -176,7 +177,7 @@ const Home = () => {
                 <img src={item.image_url} alt={item.name} className="w-full h-32 object-cover rounded-md mb-2" />
                 <h3 className="font-semibold text-lg">{item.name}</h3>
                 <p className="text-sm text-gray-600">{item.restaurant_name}</p>
-                <p className="text-lg font-bold text-[#E47948] mt-2">R$ {item.price.toFixed(2)}</p>
+                <p className="text-lg font-bold text-[#E47948] mt-2">{formatPrice(item.price)}</p>
               </CardContent>
             </Card>
           ))}
