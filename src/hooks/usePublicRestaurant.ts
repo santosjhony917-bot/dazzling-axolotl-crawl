@@ -4,7 +4,7 @@ import { PublicRestaurantData } from '@/types/restaurant';
 import { fetchPublicRestaurantById } from '@/integrations/supabase/restaurants';
 
 export const usePublicRestaurant = (restaurantId: string | undefined) => {
-  const { data, isLoading, error } = useQuery<PublicRestaurantData | null, Error>({
+  const { data, isLoading, error, refetch } = useQuery<PublicRestaurantData | null, Error>({
     queryKey: ['publicRestaurant', restaurantId],
     queryFn: () => {
       if (!restaurantId) return Promise.resolve(null);
@@ -18,5 +18,6 @@ export const usePublicRestaurant = (restaurantId: string | undefined) => {
     restaurant: data,
     isLoading,
     error: error ? error.message : null,
+    refetch, // Expondo a função refetch
   };
 };

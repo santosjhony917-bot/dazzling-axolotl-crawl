@@ -7,14 +7,22 @@ import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite'; // NOVO IMPORT
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 
 export default function RestaurantProfilePublic() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
   
   // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
-  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(restaurantId);
+
+  // Adiciona um efeito para chamar refetch quando o restaurantId muda ou na montagem
+  useEffect(() => {
+    if (restaurantId) {
+      console.log(`[RestaurantProfilePublic] Forçando refetch para o ID: ${restaurantId}`);
+      refetch(); // Força uma nova busca dos dados
+    }
+  }, [restaurantId, refetch]);
 
   // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
   // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
