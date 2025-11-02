@@ -31,8 +31,9 @@ const premiumFeatures = [
 // --- IDs de Restaurantes de Exemplo ---
 // ATENÇÃO: Substitua estes IDs por IDs REAIS do seu banco de dados Supabase.
 // Um ID deve ser de um restaurante com plano 'free' e outro com plano 'premium' ou 'premium_gift'.
-const FREE_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Substitua por um ID de restaurante Free real
-const PREMIUM_RESTAURANT_ID = "b2c3d4e5-f6a7-8901-2345-67890abcdef0"; // Substitua por um ID de restaurante Premium real
+// Você pode encontrar esses IDs na tabela 'restaurants' do seu projeto Supabase.
+const FREE_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE FREE REAL DO SEU BANCO DE DADOS
+const PREMIUM_RESTAURANT_ID = "b2c3d4e5-f6a7-8901-2345-67890abcdef0"; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE PREMIUM REAL DO SEU BANCO DE DADOS
 
 // --- Componentes Auxiliares ---
 
