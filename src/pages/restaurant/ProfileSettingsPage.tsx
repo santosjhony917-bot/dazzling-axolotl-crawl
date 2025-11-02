@@ -35,7 +35,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isPremium, refetchProfile } = useAuthData();
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile, refetchRestaurant } = useAuthData();
   const { updateRestaurant } = useRestaurantProfile(restaurant);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -82,9 +82,9 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Campo atualizado com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
     }
-  }, [editConfig, updateRestaurant, refetchProfile]);
+  }, [editConfig, updateRestaurant, refetchRestaurant]);
   
   const handleLogoUploadComplete = useCallback(async (url: string) => {
     setUploadingLogo(true);
@@ -94,10 +94,10 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Logo atualizado com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
     }
     setUploadingLogo(false);
-  }, [updateRestaurant, refetchProfile]);
+  }, [updateRestaurant, refetchRestaurant]);
   
   const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
     const { error } = await updateRestaurant({ opening_hours: newSchedule as any });
@@ -105,9 +105,9 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Horários atualizados com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
     }
-  }, [updateRestaurant, refetchProfile]);
+  }, [updateRestaurant, refetchRestaurant]);
   
   const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
     const { error } = await updateRestaurant({ payment_methods: newMethods as any });
@@ -115,9 +115,9 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Formas de pagamento atualizadas com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
     }
-  }, [updateRestaurant, refetchProfile]);
+  }, [updateRestaurant, refetchRestaurant]);
   
   // NOVO HANDLER: Salvar Redes Sociais
   const handleSaveSocialNetworks = useCallback(async (newLinks: SocialNetworkLink[]) => {
@@ -126,9 +126,9 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Redes sociais atualizadas com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
     }
-  }, [updateRestaurant, refetchProfile]);
+  }, [updateRestaurant, refetchRestaurant]);
 
   // NOVO HANDLER: Salvar Canais de Venda
   const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null }) => {
@@ -137,10 +137,10 @@ export default function ProfileSettingsPage() {
       showError(error);
     } else {
       showSuccess("Canais de venda atualizados com sucesso!");
-      refetchProfile();
+      refetchRestaurant();
       setIsSalesChannelsDialogOpen(false); // Fechar o diálogo após salvar
     }
-  }, [updateRestaurant, refetchProfile]);
+  }, [updateRestaurant, refetchRestaurant]);
 
 
   if (isLoading) {
