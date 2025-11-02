@@ -1,8 +1,6 @@
-"use client";
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { PublicRestaurantData, SupabaseRestaurantData } from '@/types';
+import { PublicRestaurantData, SupabaseRestaurantData } from '@/types'; // Importação correta
 
 export const useRestaurant = (restaurantId: string | undefined) => {
   const [data, setData] = useState<PublicRestaurantData | null>(null);
@@ -43,19 +41,19 @@ export const useRestaurant = (restaurantId: string | undefined) => {
         }
 
         if (supabaseData) {
-          // Cast to SupabaseRestaurantData to ensure correct typing before mapping
+          // Cast para SupabaseRestaurantData para garantir a tipagem correta antes do mapeamento
           const rawData = supabaseData as SupabaseRestaurantData;
 
           const formattedData: PublicRestaurantData = {
             ...rawData,
             gallery_images: rawData.restaurant_gallery || [],
-            is_favorite: false, // Default value, will be updated by RestaurantProfilePublic
-            followers_count: 0, // Default value
-            addressSummary: '', // Default value
-            logoUrl: null, // Default value
-            isOpen: false, // Default value
-            statusText: '', // Default value
-            nextOpenTime: null, // Default value
+            is_favorite: false, // Valor padrão, será atualizado por RestaurantProfilePublic
+            followers_count: 0, // Valor padrão
+            addressSummary: '', // Valor padrão
+            logoUrl: null, // Valor padrão
+            isOpen: false, // Valor padrão
+            statusText: '', // Valor padrão
+            nextOpenTime: null, // Valor padrão
           };
           setData(formattedData);
         } else {
