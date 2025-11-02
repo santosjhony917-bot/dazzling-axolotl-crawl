@@ -1,93 +1,131 @@
-import { useState, useEffect } from 'react';
-import { User } from '@supabase/supabase-js';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Profile, Restaurant } from '@/types'; // Assumindo que estes tipos existem
+import { User } from '@supabase/supabase-js';
+
+// Tipos para Profile e Restaurant (baseados no seu schema Supabase)
+interface Profile {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  phone: string | null;
+}
+
+interface Restaurant {
+  id: string;
+  user_id: string | null;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  cover_image_url: string | null;
+  plan: 'free' | 'basic' | 'premium';
+  phone: string | null;
+  email: string | null;
+  cnpj: string | null;
+  category: string | null;
+  whatsapp_url: string | null;
+  ifood_url: string | null;
+  other_url: string | null;
+  address: string | null;
+  number: string | null;
+  neighborhood: string | null;
+  city: string | null;
+  state: string | null;
+  cep: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  opening_hours: any | null; // Pode ser mais específico se tiver um tipo JSONB definido
+  created_at: string;
+  external_url: string | null;
+  followers_override: number | null;
+  payment_methods: any | null; // Pode ser mais específico se tiver um tipo JSONB definido
+  social_networks: any | null; // Pode ser mais específico se tiver um tipo JSONB definido
+}
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const fetchProfile = useCallback(async (userId: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+      console.error('Error fetching profile:', error);
+      setProfile(null);
+    } else if (data) {
+      setProfile(data);
+    } else {
+      setProfile(null);
+    }
+  }, []);
+
+  const fetchRestaurant = useCallback(async (userId: string) => {
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
+    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+      console.error('Error fetching restaurant:', error);
+      setRestaurant(null);
+    } else if (data) {
+      setRestaurant(data);
+    } else {
+      setRestaurant(null);
+    }
+  }, []);
+
+  const refetchProfile = useCallback(async () => {
+    if (user?.id) {
+      await fetchProfile(user.id);
+    } else {
+      setProfile(null);
+    }
+  }, [user, fetchProfile]);
+
+  const refetchRestaurant = useCallback(async () => {
+    if (user?.id) {
+      await fetchRestaurant(user.id);
+    } else {
+      setRestaurant(null);
+    }
+  }, [user, fetchRestaurant]);
 
   useEffect(() => {
-    const fetchUserData = async (sessionUser: User | null) => {
-      if (sessionUser) {
-        // Fetch profile
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', sessionUser.id)
-          .single();
-        if (profileError) console.error('Error fetching profile:', profileError);
-        setProfile(profileData);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      setIsLoading(false);
 
-        // Fetch restaurant (assuming one restaurant per user for simplicity)
-        const { data: restaurantData, error: restaurantError } = await supabase
-          .from('restaurants')
-          .select('*')
-          .eq('user_id', sessionUser.id)
-          .single();
-        if (restaurantError) console.error('Error fetching restaurant:', restaurantError);
-        setRestaurant(restaurantData);
-
-        setIsAuthenticated(true);
+      if (currentUser) {
+        await fetchProfile(currentUser.id);
+        await fetchRestaurant(currentUser.id);
       } else {
         setProfile(null);
         setRestaurant(null);
-        setIsAuthenticated(false);
       }
-      setIsLoading(false);
-    };
+    });
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user || null);
-        await fetchUserData(session?.user || null);
-      }
-    );
-
+    // Fetch initial session state and data
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setUser(session?.user || null);
-      await fetchUserData(session?.user || null);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      setIsLoading(false);
+      if (currentUser) {
+        await fetchProfile(currentUser.id);
+        await fetchRestaurant(currentUser.id);
+      }
     });
 
     return () => {
-      authListener.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
-  }, []);
+  }, [fetchProfile, fetchRestaurant]);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setProfile(null);
-    setRestaurant(null);
-    setIsAuthenticated(false);
-  };
-
-  const refetchProfile = async () => {
-    if (user) {
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single();
-      if (profileError) console.error('Error refetching profile:', profileError);
-      setProfile(profileData);
-    }
-  };
-
-  const refetchRestaurant = async () => {
-    if (user) {
-      const { data: restaurantData, error: restaurantError } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
-      if (restaurantError) console.error('Error refetching restaurant:', restaurantError);
-      setRestaurant(restaurantData);
-    }
-  };
-
-  return { user, profile, restaurant, isLoading, isAuthenticated, signOut, refetchProfile, refetchRestaurant };
+  return { user, profile, restaurant, isLoading, isAuthenticated: !!user, refetchProfile, refetchRestaurant };
 };
