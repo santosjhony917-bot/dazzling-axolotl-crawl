@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Eye, EyeOff, Utensils, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,20 +9,21 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { createPageUrl } from '@/utils/url';
-import { supabase } from '@/integrations/supabase/client';
-import { claimRestaurant } from '@/integrations/supabase/claimFunctions'; // Importando a nova função
-import { showError, showSuccess } from '@/utils/toast';
-import { useAuthData } from '@/context/AuthContext';
+import { supabase } from "@/integrations/supabase/client";
+import { showError, showSuccess } from "@/utils/toast";
+import { useAuth } from "@/hooks/useAuth"; // Importar useAuth
+import { claimRestaurant } from "@/integrations/supabase/edgeFunctions"; // Importar claimRestaurant
 
 export default function ClaimRestaurant() {
   const navigate = useNavigate();
-  const { refetchProfile, refetchRestaurant } = useAuthData();
-  const [accessCode, setAccessCode] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [accessCode, setAccessCode] = useState(restaurantId || ""); // Adicionado, inicializa com restaurantId se disponível
+  const [confirmPassword, setConfirmPassword] = useState(""); // Adicionado
+  const { refetchProfile, refetchRestaurant } = useAuth(); // Usar o hook useAuth para obter as funções de refetch
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
@@ -30,12 +31,6 @@ export default function ClaimRestaurant() {
     e.preventDefault();
     setLoading(true);
 
-    if (password !== confirmPassword) {
-      showError('As senhas não coincidem.');
-      setLoading(false);
-      return;
-    }
-    
     if (password.length < 6) {
         showError('A senha deve ter pelo menos 6 caracteres.');
         setLoading(false);

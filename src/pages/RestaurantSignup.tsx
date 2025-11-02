@@ -12,6 +12,7 @@ import { registerRestaurant } from "@/integrations/supabase/edgeFunctions";
 import { showError, showSuccess } from "@/utils/toast";
 import { formatCEP } from "@/services/geocoding";
 import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
 
 // Tipagem para a localização única
 interface Location {
@@ -33,6 +34,7 @@ export default function RestaurantSignup() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
+  const { refetchProfile, refetchRestaurant } = useAuth();
 
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
@@ -166,6 +168,10 @@ export default function RestaurantSignup() {
         throw new Error(`Registro concluído, mas falha ao fazer login: ${signInError.message}`);
       }
       
+      // 3. Refetch profile data to ensure the restaurant link is recognized
+      refetchProfile();
+      refetchRestaurant();
+
       showSuccess(`Restaurante cadastrado! Redirecionando para o painel.`);
       navigate(createPageUrl('restaurant-area/home')); // CORRIGIDO: Redireciona para o Dashboard
       

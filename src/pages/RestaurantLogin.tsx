@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { showError, showSuccess } from "@/utils/toast";
 import { createPageUrl } from "@/utils/url";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
 import { useAuthData } from '@/context/AuthContext';
 
 export default function RestaurantLogin() {
@@ -23,11 +24,9 @@ export default function RestaurantLogin() {
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
-  const { refetchProfile, refetchRestaurant } = useAuthData();
+  const { refetchProfile, refetchRestaurant } = useAuth();
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   const attemptLogin = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
