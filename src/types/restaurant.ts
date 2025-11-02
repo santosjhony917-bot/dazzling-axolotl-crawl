@@ -1,42 +1,45 @@
-export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
+import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
-export interface SocialNetwork {
-  platform: string;
+export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
+
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
+export type GalleryImage = SupabaseGalleryImage;
+
+// Tipo para um link de rede social
+export interface SocialNetworkLink {
+  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
   url: string;
 }
 
-export interface PublicRestaurantData {
-  id: string;
-  user_id?: string;
-  name: string;
-  description?: string;
-  image_url?: string;
-  cover_image_url?: string;
-  plan: RestaurantPlan;
-  phone?: string;
-  email?: string;
-  cnpj?: string;
-  category?: string;
-  whatsapp_url?: string;
-  ifood_url?: string;
-  other_url?: string;
-  address?: string;
-  number?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
-  cep?: string;
-  latitude?: number;
-  longitude?: number;
-  opening_hours?: any; // Pode ser mais específico se tivermos um tipo para isso
-  created_at: string;
-  external_url?: string;
-  followers_override?: number;
-  payment_methods?: any; // Pode ser mais específico se tivermos um tipo para isso
-  social_networks?: SocialNetwork[];
+// Type for public restaurant profile data, including menu and gallery
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
+  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
+  opening_hours: WeekSchedule | null; 
   
-  // Propriedades adicionadas pela lógica da aplicação ou funções Supabase
-  is_favorite?: boolean;
-  average_rating?: number; // Adicionado para resolver o erro
-  followers_count?: number; // Assumindo que pode ser usado
+  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
+  payment_methods: string[] | null; 
+  
+  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
+  social_networks: SocialNetworkLink[] | null;
+  
+  // Computed fields from the view/query
+  is_favorite: boolean;
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
+  isOpen: boolean;
+  statusText: string;
+  nextOpenTime: string | null;
+
+  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
+  menu_categories: (MenuCategory & {
+    menu_items: MenuItem[];
+  })[];
+  gallery_images: GalleryImage[];
 }
