@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2 } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
@@ -32,8 +32,11 @@ const premiumFeatures = [
 // ATENÇÃO: Substitua estes IDs por IDs REAIS do seu banco de dados Supabase.
 // Um ID deve ser de um restaurante com plano 'free' e outro com plano 'premium' ou 'premium_gift'.
 // Você pode encontrar esses IDs na tabela 'restaurants' do seu projeto Supabase.
-const FREE_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE FREE REAL DO SEU BANCO DE DADOS
-const PREMIUM_RESTAURANT_ID = "b2c3d4e5-f6a7-8901-2345-67890abcdef0"; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE PREMIUM REAL DO SEU BANCO DE DADOS
+const PLACEHOLDER_FREE_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef";
+const PLACEHOLDER_PREMIUM_ID = "b2c3d4e5-f6a7-8901-2345-67890abcdef0";
+
+const FREE_RESTAURANT_ID = PLACEHOLDER_FREE_ID; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE FREE REAL DO SEU BANCO DE DADOS
+const PREMIUM_RESTAURANT_ID = PLACEHOLDER_PREMIUM_ID; // <-- SUBSTITUA ESTE ID POR UM ID DE RESTAURANTE PREMIUM REAL DO SEU BANCO DE DADOS
 
 // --- Componentes Auxiliares ---
 
@@ -105,6 +108,8 @@ const UpgradePageContent: React.FC = () => {
     // CORRIGIDO: Usando a chave de rota correta
     navigate(createPageUrl('restaurantResults'));
   };
+
+  const areIdsPlaceholders = FREE_RESTAURANT_ID === PLACEHOLDER_FREE_ID || PREMIUM_RESTAURANT_ID === PLACEHOLDER_PREMIUM_ID;
 
   return (
     <div className="min-h-screen bg-white dark:bg-background-dark">
@@ -182,10 +187,20 @@ const UpgradePageContent: React.FC = () => {
               exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
               transition={{ duration: 0.3 }}
             >
-              {previewPlan === 'free' ? (
-                <RestaurantProfilePublic initialRestaurantId={FREE_RESTAURANT_ID} />
+              {areIdsPlaceholders ? (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>IDs de Restaurante Inválidos</AlertTitle>
+                  <AlertDescription>
+                    Por favor, substitua os IDs de restaurante `FREE_RESTAURANT_ID` e `PREMIUM_RESTAURANT_ID` no arquivo `src/pages/Upgrade.tsx` por IDs reais do seu banco de dados Supabase para ver as prévias.
+                  </AlertDescription>
+                </Alert>
               ) : (
-                <RestaurantProfilePublic initialRestaurantId={PREMIUM_RESTAURANT_ID} />
+                previewPlan === 'free' ? (
+                  <RestaurantProfilePublic initialRestaurantId={FREE_RESTAURANT_ID} />
+                ) : (
+                  <RestaurantProfilePublic initialRestaurantId={PREMIUM_RESTAURANT_ID} />
+                )
               )}
             </motion.div>
           </div>
