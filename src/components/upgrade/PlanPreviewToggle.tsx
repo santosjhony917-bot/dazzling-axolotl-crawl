@@ -1,7 +1,8 @@
+"use client";
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { RestaurantPlan } from '@/types/supabase';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { RestaurantPlan } from '@/types/supabase'; // Assumindo que RestaurantPlan está definido aqui
 
 interface PlanPreviewToggleProps {
   currentPlan: RestaurantPlan;
@@ -10,35 +11,35 @@ interface PlanPreviewToggleProps {
 }
 
 const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, previewPlan, setPreviewPlan }) => {
-  const isFree = currentPlan === 'free';
-  const isPremium = currentPlan === 'premium';
-
   return (
-    <div className="flex w-full p-1 bg-gray-100 rounded-xl mb-6 shadow-inner">
-      <Button
-        onClick={() => setPreviewPlan('free')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'free'
-            ? "bg-white text-primary shadow-soft-md hover:bg-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
-        variant="ghost"
+    <div className="flex justify-center mb-6">
+      <ToggleGroup
+        type="single"
+        value={previewPlan}
+        onValueChange={(value: 'free' | 'premium') => {
+          if (value) setPreviewPlan(value);
+        }}
+        className="bg-gray-100 rounded-full p-1"
       >
-        {isFree ? 'Seu Plano (Free)' : 'Visualização Free'}
-      </Button>
-      <Button
-        onClick={() => setPreviewPlan('premium')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'premium'
-            ? "bg-highlight text-white shadow-highlight-glow hover:bg-highlight/90"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
-        variant="ghost"
-      >
-        {isPremium ? 'Seu Plano (Premium)' : 'Visualização Premium'}
-      </Button>
+        <ToggleGroupItem
+          value="free"
+          aria-label="Visualizar como Free"
+          className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+            previewPlan === 'free' ? 'bg-primary text-white shadow-md' : 'text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Visualização Free
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="premium"
+          aria-label="Visualizar como Premium"
+          className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+            previewPlan === 'premium' ? 'bg-primary text-white shadow-md' : 'text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Visualização Premium
+        </ToggleGroupItem>
+      </ToggleGroup>
     </div>
   );
 };
