@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Star, MapPin, Clock, Phone, Globe } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 const RestaurantProfilePreviewPremium: React.FC = () => {
   const { restaurant } = useAuthData();

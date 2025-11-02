@@ -12,8 +12,11 @@ interface RestaurantPaymentSectionProps {
 const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id, restaurant }) => {
   const { payment_methods, plan } = restaurant;
 
+  // Converte payment_methods para string[]
+  const currentPaymentMethods = payment_methods as string[] | null;
+
   // Só exibe a seção se houver métodos de pagamento, independentemente do plano
-  if (!payment_methods || payment_methods.length === 0) {
+  if (!currentPaymentMethods || currentPaymentMethods.length === 0) {
     return null;
   }
 
@@ -25,7 +28,7 @@ const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id,
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex flex-wrap gap-2">
-          {payment_methods.map((method, index) => (
+          {currentPaymentMethods.map((method, index) => (
             <Badge key={index} variant="secondary" className="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-700 rounded-full">
               {method}
             </Badge>

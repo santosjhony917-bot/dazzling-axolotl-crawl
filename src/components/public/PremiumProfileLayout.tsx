@@ -18,19 +18,20 @@ import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Compon
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
-import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantPaymentSection from './RestaurantPaymentSection';
+import { Info } from 'lucide-react';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  toggleFavorite: () => void; // NOVO
-  isFavoriteMutating: boolean; // NOVO
+  toggleFavorite: () => void;
+  isFavoriteMutating: boolean;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const navigate = useNavigate();
-  const { user } = useAuth(); 
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
@@ -55,41 +56,41 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       alert('Link copiado para a área de transferência!');
     }
   };
-  
+
   // Função para rolar para a seção
   const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
     setActiveTab(tab);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-  
+
   // Dados do Header
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    logoUrl: restaurant.image_url || '',
-    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
+    logoUrl: restaurant.logoUrl || '',
+    coverImageUrl: restaurant.cover_image_url || '',
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite, // Usando o estado reativo
+    isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
-    isPremium: true, // CORREÇÃO: Adicionado isPremium
+    isPremium: true,
   };
-  
+
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  
+
   // Verifica se há informações de endereço/horário ou contato/links
   const hasAddressHours = fullAddress || restaurant.opening_hours;
-  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
-  
-  // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks;
+  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url || (restaurant.social_networks && restaurant.social_networks.length > 0);
+  const hasPaymentMethods = restaurant.payment_methods && restaurant.payment_methods.length > 0;
+
+  const hasInfo = hasAddressHours || hasContactLinks || hasPaymentMethods;
 
   return (
     <div className="min-h-screen bg-background-light">
-      
+
       {/* 1. Barra de Ações Flutuante (Sticky) */}
       <RestaurantActionsBar
         isFavorite={restaurant.is_favorite}
@@ -109,7 +110,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       <div className="container mx-auto px-4 pb-8">
         {/* Conteúdo Principal */}
         <div className="mt-6 space-y-6">
-          
+
           {/* Description */}
           {restaurant.description && (
             <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
@@ -117,7 +118,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
               <p className="text-gray-600">{restaurant.description}</p>
             </Card>
           )}
-          
+
           {/* Canais de Pedido */}
           <OrderChannelsSection restaurant={restaurant} />
 
@@ -177,19 +178,19 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           {/* 3. Menu Section */}
           {hasMenu && (
             <div id="menu-section">
-              <RestaurantMenu 
-                menuCategories={restaurant.menu_categories} 
+              <RestaurantMenu
+                menuCategories={restaurant.menu_categories}
                 isFullMenuPage={false}
                 restaurantId={restaurant.id}
               />
             </div>
           )}
-          
+
           {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
             <div id="info-section" className="space-y-6">
               <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-              
+
               {/* Endereço e Horário (Novo Componente) */}
               {hasAddressHours && (
                 <RestaurantAddressHoursSection
@@ -198,17 +199,17 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                   fullAddress={fullAddress}
                 />
               )}
-              
+
               {/* Contato e Links (Componente Refatorado) */}
               {hasContactLinks && (
-                <RestaurantInfo 
+                <RestaurantInfo
                   id="contact-links-section"
                   restaurant={restaurant}
                 />
               )}
-              
+
               {/* Formas de Pagamento (Novo Componente) */}
-              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
+              {hasPaymentMethods && <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />}
             </div>
           )}
         </div>

@@ -22,7 +22,7 @@ import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
 import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
 import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
-import { Restaurant } from '@/types/supabase';
+import { Restaurant, Json } from '@/types/supabase';
 import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 
@@ -142,7 +142,6 @@ export default function ProfileSettingsPage() {
     }
   }, [updateRestaurant, refetchRestaurant]);
 
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -151,20 +150,20 @@ export default function ProfileSettingsPage() {
     );
   }
   
-  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
+  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as WeekSchedule;
   const openStatus = getRestaurantOpenStatus(currentSchedule);
   
-  // CORREÇÃO 2: Usando 'as unknown as string[]'
-  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+  // CORREÇÃO 2: Usando 'as string[] | null'
+  const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
   
-  // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
-  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
+  // CORREÇÃO 3: Usando 'as SocialNetworkLink[] | null'
+  const currentSocialLinks = (restaurant?.social_networks as SocialNetworkLink[] | null) || [];
 
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
-    opening_hours: currentSchedule,
-    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
-    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
+    opening_hours: currentSchedule as Json,
+    payment_methods: currentPaymentMethods as Json,
+    social_networks: currentSocialLinks as Json,
     is_favorite: false,
     followers_count: 0,
     addressSummary: restaurant?.city || '',

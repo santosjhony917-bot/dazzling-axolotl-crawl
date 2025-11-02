@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { PublicRestaurantData } from '@/types/restaurant';
 import { createPageUrl } from '@/utils/url';
 import Header from '@/components/Header';
 import { Card, CardContent } from '@/components/ui/card';
@@ -27,7 +28,7 @@ export default function FullMenuPage() {
   if (error || !restaurant) {
     return (
       <div className="p-8 text-center min-h-screen bg-background-light">
-        <Header 
+        <Header
           title="Cardápio"
           leftAction={{ icon: ArrowLeft, onClick: handleBack }}
         />
@@ -42,16 +43,16 @@ export default function FullMenuPage() {
       </div>
     );
   }
-  
+
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
 
   return (
     <div className="min-h-screen bg-background-light max-w-md mx-auto">
-      <Header 
+      <Header
         title={`Cardápio: ${restaurant.name}`}
         leftAction={{ icon: ArrowLeft, onClick: handleBack }}
       />
-      
+
       <main className="p-4 space-y-6">
         <Card className="shadow-soft-md border-none rounded-xl p-4">
           <CardContent className="p-0 flex items-center gap-3">
@@ -59,11 +60,11 @@ export default function FullMenuPage() {
             <h1 className="text-xl font-bold text-primary">Cardápio Completo</h1>
           </CardContent>
         </Card>
-        
+
         {hasMenu ? (
-          <RestaurantMenu 
-            menuCategories={restaurant.menu_categories} 
-            isFullMenuPage={true} // Nova prop para indicar que é a página completa
+          <RestaurantMenu
+            menuCategories={restaurant.menu_categories}
+            isFullMenuPage={true}
           />
         ) : (
           <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">

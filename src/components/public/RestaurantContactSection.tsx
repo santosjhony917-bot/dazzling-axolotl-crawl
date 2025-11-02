@@ -1,11 +1,11 @@
 import React from 'react';
 import { Phone, Mail, Globe } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Restaurant } from '@/types/supabase';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 interface RestaurantContactSectionProps {
   id: string;
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData;
   isPremium: boolean;
 }
 
