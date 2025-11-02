@@ -62,13 +62,15 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
         <div className="flex items-start gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-soft-xl border border-gray-100">
           
           {/* Logo (Ajustado para ficar no topo do card de informações) */}
-          <div className="w-24 h-24 rounded-xl border-4 border-white dark:border-gray-800 shadow-soft-lg bg-white dark:bg-gray-700 flex-shrink-0 overflow-hidden">
-            <img 
-              src={isPremium && logoUrl ? logoUrl : PLACEHOLDER_IMAGE_URL} 
-              alt={`Logo de ${name}`} 
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {isPremium && logoUrl && (
+            <div className="w-24 h-24 rounded-xl border-4 border-white dark:border-gray-800 shadow-soft-lg bg-white dark:bg-gray-700 flex-shrink-0 overflow-hidden">
+              <img 
+                src={logoUrl} 
+                alt={`Logo de ${name}`} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
           
           {/* Informações */}
           <div className="flex-grow pt-1 min-w-0">
