@@ -9,8 +9,13 @@ import { Button } from '@/components/ui/button';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 
-export default function RestaurantProfilePublic() {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
+interface RestaurantProfilePublicProps {
+  initialRestaurantId?: string; // Novo prop para passar o ID diretamente
+}
+
+export default function RestaurantProfilePublic({ initialRestaurantId }: RestaurantProfilePublicProps) {
+  const { restaurantId: paramRestaurantId } = useParams<{ restaurantId: string }>();
+  const restaurantId = initialRestaurantId || paramRestaurantId; // Prioriza o prop, senão usa o param da URL
   const navigate = useNavigate();
   
   // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)

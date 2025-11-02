@@ -9,9 +9,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
-import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfilePreviewFree'; // Importar prévia Free
-import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium'; // Importar prévia Premium
 import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
+import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -28,6 +27,12 @@ const premiumFeatures = [
   { text: 'Envio de promoções e cupons', icon: Zap, color: 'text-amber-500' },
   { text: 'Painel com estatísticas de visualizações', icon: Shield, color: 'text-green-500' },
 ];
+
+// --- IDs de Restaurantes de Exemplo ---
+// ATENÇÃO: Substitua estes IDs por IDs REAIS do seu banco de dados Supabase.
+// Um ID deve ser de um restaurante com plano 'free' e outro com plano 'premium' ou 'premium_gift'.
+const FREE_RESTAURANT_ID = "a1b2c3d4-e5f6-7890-1234-567890abcdef"; // Substitua por um ID de restaurante Free real
+const PREMIUM_RESTAURANT_ID = "b2c3d4e5-f6a7-8901-2345-67890abcdef0"; // Substitua por um ID de restaurante Premium real
 
 // --- Componentes Auxiliares ---
 
@@ -177,9 +182,9 @@ const UpgradePageContent: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               {previewPlan === 'free' ? (
-                <RestaurantProfilePreviewFree />
+                <RestaurantProfilePublic initialRestaurantId={FREE_RESTAURANT_ID} />
               ) : (
-                <RestaurantProfilePreviewPremium />
+                <RestaurantProfilePublic initialRestaurantId={PREMIUM_RESTAURANT_ID} />
               )}
             </motion.div>
           </div>
