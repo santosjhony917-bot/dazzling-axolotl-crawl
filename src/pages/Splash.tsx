@@ -1,42 +1,53 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import { useAuthData } from "@/context/AuthContext"; 
-import { Loader2 } from "lucide-react"; // Adicionando Loader2
+import { Loader2 } from "lucide-react";
 
-// Caminho para o novo logo
 const LOGO_URL = "/assets/filterfood-logo.png";
 
 export default function Splash() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthData(); 
+  // Agora estamos pegando também os dados do restaurante e o estado de carregamento do restaurante
+  const { user, isLoading, restaurant, isRestaurantLoading } = useAuthData(); 
 
-  // Auto-navigate after 2 seconds
   useEffect(() => {
-    if (isLoading) return; // Espera o estado de autenticação ser resolvido
+    // Espera o estado de autenticação e os dados do restaurante serem resolvidos
+    if (isLoading || isRestaurantLoading) {
+      return;
+    }
 
-    const targetPath = user ? createPageUrl("home") : createPageUrl("onboarding");
-    
-    // Se o usuário estiver autenticado, navega imediatamente para a home.
-    // Se não estiver, espera 2 segundos.
-    const delay = user ? 50 : 2000; // 50ms delay for authenticated users, 2s for splash screen effect
+    let targetPath: string;
+    let delay = 2000; // Atraso padrão para a tela de splash
+
+    if (user) {
+      if (restaurant) {
+        // Usuário autenticado E possui um restaurante
+        targetPath = createPageUrl("restaurant-area/home");
+        delay = 50; // Redirecionamento rápido para proprietários de restaurante
+      } else {
+        // Usuário autenticado, mas NÃO possui um restaurante (usuário cliente)
+        targetPath = createPageUrl("home");
+        delay = 50; // Redirecionamento rápido para usuários clientes
+      }
+    } else {
+      // Usuário não autenticado
+      targetPath = createPageUrl("onboarding");
+      delay = 2000; // Atraso da tela de splash para usuários não autenticados
+    }
     
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
     
     const timer = setTimeout(() => {
-      // Se o usuário estiver autenticado, mas a rota atual for a raiz, navega para a home.
-      // Se a rota atual for /profile, não devemos redirecionar para /home.
-      if (user && window.location.pathname === '/') {
-        navigate(createPageUrl("home"), { replace: true });
-      } else if (!user) {
-        navigate(targetPath, { replace: true });
-      }
-      // Se o usuário estiver autenticado e já estiver em uma rota protegida (/profile), não faz nada aqui.
+      // Redireciona sempre que a lógica for resolvida, pois a tela de splash é um ponto de entrada.
+      navigate(targetPath, { replace: true });
     }, delay);
     
     return () => clearTimeout(timer);
-  }, [navigate, user, isLoading]);
+  }, [navigate, user, isLoading, restaurant, isRestaurantLoading]); // Adicionando restaurant e isRestaurantLoading às dependências
 
   return (
     <div className="h-screen w-full relative flex flex-col items-center justify-center bg-[#E47948]">
@@ -55,8 +66,8 @@ export default function Splash() {
         </div>
       </motion.div>
       
-      {/* Indicador de carregamento enquanto isLoading é true */}
-      {isLoading && (
+      {/* Indicador de carregamento enquanto isLoading ou isRestaurantLoading é true */}
+      {(isLoading || isRestaurantLoading) && (
         <div className="absolute bottom-10">
           <Loader2 className="w-8 h-8 animate-spin text-white" />
         </div>
