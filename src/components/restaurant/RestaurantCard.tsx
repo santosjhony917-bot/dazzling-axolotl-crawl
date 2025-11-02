@@ -1,67 +1,57 @@
 import React from 'react';
-import { MapPin, Utensils, Heart } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { RestaurantWithDistance } from '@/types/supabase';
+import { Card } from '@/components/ui/card';
+import { Utensils, MapPin, Star, Heart } from 'lucide-react';
+import { RestaurantWithDistance } from '@/hooks/useNearbyRestaurants'; // Importa o tipo correto
 
 interface RestaurantCardProps {
-  restaurant: RestaurantWithDistance;
+  restaurant: RestaurantWithDistance; // Usa o tipo RestaurantWithDistance
   onClick: () => void;
-  isFavorite?: boolean;
 }
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick, isFavorite = false }) => {
-  // distance_km agora existe no tipo RestaurantWithDistance
-  const distance = restaurant.distance_km ? restaurant.distance_km.toFixed(1) : null; 
-
+const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) => {
   return (
-    <Card 
+    <Card
       className="flex overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
       onClick={onClick}
     >
-      <div className="w-28 h-28 flex-shrink-0">
-        <img 
-          src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
+      <div className="relative w-1/3 h-full">
+        <img
+          src={restaurant.image_url || 'https://via.placeholder.com/150'}
           alt={restaurant.name}
           className="w-full h-full object-cover"
         />
+        {/* TODO: Adicionar botão de favorito aqui */}
+        {/* <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 bg-white/80 rounded-full"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent card click
+            // Handle favorite toggle
+          }}
+        >
+          <Heart className="h-5 w-5 text-red-500 fill-red-500" />
+        </Button> */}
       </div>
-      <CardContent className="p-3 flex-1 flex flex-col justify-between">
+      <div className="p-3 flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="text-lg font-bold truncate text-primary">{restaurant.name}</h3>
-          
-          {restaurant.category && (
-            <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
-              <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
-            </p>
-          )}
-
-          {/* CORREÇÃO: Acessando city diretamente do objeto, que agora está no tipo RestaurantWithDistance */}
-          {(restaurant.city || distance) && (
-            <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-              <MapPin className="w-4 h-4 text-highlight" /> 
-              {distance ? `${distance} km` : restaurant.city}
-            </p>
-          )}
+          <h3 className="font-bold text-lg text-[#022D68] leading-tight">{restaurant.name}</h3>
+          <p className="text-sm text-gray-600 flex items-center mt-1">
+            <Utensils className="h-4 w-4 mr-1 text-highlight" /> {restaurant.category || 'Geral'}
+          </p>
+          <p className="text-sm text-gray-600 flex items-center mt-1">
+            <MapPin className="h-4 w-4 mr-1 text-highlight" /> {restaurant.city || 'Cidade Desconhecida'}
+          </p>
         </div>
-        
-        {/* Plano de destaque */}
-        {restaurant.plan !== 'free' && (
-          <span className={cn(
-            "text-xs font-semibold px-2 py-0.5 rounded-full mt-2 self-start",
-            restaurant.plan === 'premium' ? "bg-yellow-100 text-yellow-800" : "bg-blue-100 text-blue-800"
-          )}>
-            {restaurant.plan === 'premium' ? 'Premium' : 'Básico'}
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center text-sm text-gray-700">
+            <Star className="h-4 w-4 mr-1 text-yellow-400 fill-yellow-400" /> 4.5 (120) {/* Mock data */}
+          </div>
+          <span className="text-sm font-semibold text-highlight">
+            {restaurant.distance_km ? `${restaurant.distance_km.toFixed(1)} km` : 'N/A'}
           </span>
-        )}
-      </CardContent>
-
-      {isFavorite && (
-        <div className="absolute top-2 right-2">
-          <Heart className="w-5 h-5 text-red-500 fill-red-500" />
         </div>
-      )}
+      </div>
     </Card>
   );
 };

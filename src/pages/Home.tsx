@@ -33,8 +33,8 @@ const Home: React.FC = () => {
 
   // Busca restaurantes próximos (habilitada apenas se a localização for conhecida)
   const { 
-    restaurants, 
-    loading: isRestaurantsLoading, 
+    data: restaurants, // Corrigido: usar 'data' e renomear para 'restaurants'
+    isLoading: isRestaurantsLoading, // Corrigido: usar 'isLoading' e renomear
     error: restaurantsError, 
     refetch: refetchRestaurants 
   } = useNearbyRestaurants({
@@ -228,10 +228,10 @@ const Home: React.FC = () => {
             ) : restaurantsError ? (
               <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
                 <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                <p>{restaurantsError}</p>
+                <p>{restaurantsError.message}</p> {/* Corrigido: acessar .message */}
                 <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
               </div>
-            ) : restaurants.length > 0 ? (
+            ) : restaurants && restaurants.length > 0 ? (
               <div className="space-y-4">
                 {restaurants.map((restaurant) => (
                   <RestaurantCard 
