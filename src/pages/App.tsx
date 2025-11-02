@@ -49,6 +49,8 @@ import Files from '@/pages/admin/Files';
 import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
+import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
+import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
 
 function App() {
   return (
@@ -98,6 +100,8 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/restaurants" element={<AdminRestaurants />} />
+          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
+          <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
           <Route path="/admin/plans" element={<AdminPlans />} />
           <Route path="/admin/users" element={<ManageAdmins />} />
           <Route path="/admin/categories" element={<PopularCategories />} />

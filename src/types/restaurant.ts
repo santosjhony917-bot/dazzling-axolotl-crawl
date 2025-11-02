@@ -43,3 +43,8 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' |
   })[];
   gallery_images: GalleryImage[];
 }
+
+// Adicionando um tipo para o restaurante com a galeria incluída, para uso no AdminEditRestaurant
+export interface AdminRestaurant extends Restaurant {
+  restaurant_gallery: GalleryImage[];
+}
