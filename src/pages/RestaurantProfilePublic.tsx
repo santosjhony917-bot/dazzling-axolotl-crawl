@@ -1,46 +1,80 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import FreeProfileLayout from '@/components/public/FreeProfileLayout';
-import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { showError } from '@/utils/toast';
-import { Button } from '@/components/ui/button';
-import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
-import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
+import { FreeProfileLayout } from '@/components/public/FreeProfileLayout'; // Corrigido para importação nomeada
+import PremiumProfileLayout from '@/components/public/PremiumProfileLayout'; // Corrigido para importação padrão
+import { useUser } from '@/hooks/useUser'; // Corrigido para importação nomeada
+import { useRestaurant } from '@/hooks/useRestaurant'; // Corrigido para importação nomeada
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
-export default function RestaurantProfilePublic() {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
-  const navigate = useNavigate();
-  
-  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
-  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(restaurantId);
-
-  // Adiciona um efeito para chamar refetch quando o restaurantId muda ou na montagem
-  useEffect(() => {
-    if (restaurantId) {
-      console.log(`[RestaurantProfilePublic] Forçando refetch para o ID: ${restaurantId}`);
-      refetch(); // Força uma nova busca dos dados
-    }
-  }, [restaurantId, refetch]);
-
-  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
-  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
-  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
+const RestaurantProfilePublic = () => {
+  const { id } = useParams<{ id: string }>();
+  const { user } = useUser();
+  const { data: restaurant, isLoading, error } = useRestaurant(id);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
-    if (error) {
-      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
-      showError(error);
+    if (user && restaurant) {
+      checkIfFavorite();
     }
-  }, [error, restaurantId]);
+  }, [user, restaurant]);
 
-  const handleBack = () => navigate(-1);
+  const checkIfFavorite = async () => {
+    if (!user || !restaurant) return;
+    const { data, error } = await supabase
+      .from('user_favorites')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('restaurant_id', restaurant.id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+      console.error('Error checking favorite:', error);
+      toast.error('Erro ao verificar favoritos.');
+    }
+    setIsFavorite(!!data);
+  };
+
+  const handleFavoriteToggle = async () => {
+    if (!user || !restaurant) {
+      toast.info('Faça login para adicionar aos favoritos.');
+      return;
+    }
+
+    if (isFavorite) {
+      const { error } = await supabase
+        .from('user_favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('restaurant_id', restaurant.id);
+
+      if (error) {
+        console.error('Error removing favorite:', error);
+        toast.error('Erro ao remover dos favoritos.');
+      } else {
+        setIsFavorite(false);
+        toast.success('Removido dos favoritos!');
+      }
+    } else {
+      const { error } = await supabase
+        .from('user_favorites')
+        .insert({ user_id: user.id, restaurant_id: restaurant.id });
+
+      if (error) {
+        console.error('Error adding favorite:', error);
+        toast.error('Erro ao adicionar aos favoritos.');
+      } else {
+        setIsFavorite(true);
+        toast.success('Adicionado aos favoritos!');
+      }
+    }
+  };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-background-light">
+      <div className="flex justify-center items-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -48,46 +82,41 @@ export default function RestaurantProfilePublic() {
 
   if (error || !restaurant) {
     return (
-      <div className="p-8 text-center min-h-screen bg-background-light">
-        <div className="fixed top-4 left-4 z-50">
-          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
-            <ArrowLeft className="h-5 w-5 text-primary" />
-          </Button>
-        </div>
-        <div className="pt-20">
-          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
-          <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
-          <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
-          <Button onClick={handleBack} className="mt-6">
-            Voltar
-          </Button>
-        </div>
+      <div className="flex justify-center items-center min-h-screen text-red-500">
+        Erro ao carregar perfil do restaurante ou restaurante não encontrado.
       </div>
     );
   }
-  
-  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
-  const reactiveRestaurantData: PublicRestaurantData = {
-    ...restaurant,
-    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
-  };
 
-  // Props comuns para os layouts
-  const layoutProps = {
-    restaurant: reactiveRestaurantData,
-    toggleFavorite: toggleFavorite,
-    isFavoriteMutating: isFavoriteMutating,
-  };
+  // Determine if the restaurant has a gallery, menu, or reviews based on actual data
+  const hasGallery = restaurant.restaurant_gallery && restaurant.restaurant_gallery.length > 0;
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
+  const hasReviews = true; // Assuming all restaurants can have reviews
 
-  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
-  return (
-    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
-      
-      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
-        <PremiumProfileLayout {...layoutProps} />
-      ) : (
-        <FreeProfileLayout {...layoutProps} />
-      )}
-    </div>
-  );
-}
+  if (restaurant.plan === 'premium') {
+    return (
+      <PremiumProfileLayout
+        restaurant={restaurant}
+        menuCategories={restaurant.menu_categories || []}
+        menuItems={restaurant.menu_categories?.flatMap((cat: any) => cat.menu_items) || []}
+        hasGallery={hasGallery}
+        hasMenu={hasMenu}
+        hasReviews={hasReviews}
+        isFavorite={isFavorite}
+        onFavoriteToggle={handleFavoriteToggle}
+      />
+    );
+  } else {
+    return (
+      <FreeProfileLayout
+        restaurant={restaurant}
+        hasGallery={hasGallery}
+        hasReviews={hasReviews}
+        isFavorite={isFavorite}
+        onFavoriteToggle={handleFavoriteToggle}
+      />
+    );
+  }
+};
+
+export default RestaurantProfilePublic;

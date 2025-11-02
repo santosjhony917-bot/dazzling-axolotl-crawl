@@ -1,217 +1,174 @@
-import React, { useMemo, useState } from 'react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
-import RestaurantMenu from './RestaurantMenu';
+"use client";
+
+import React, { useRef, useState } from 'react';
+import RestaurantProfileHeader from './RestaurantProfileHeader';
+import RestaurantAbout from './RestaurantAbout';
 import RestaurantGallery from './RestaurantGallery';
+import RestaurantMenu from './RestaurantMenu'; // Assumindo que este componente existe e é exportado por padrão
+import RestaurantReviews from './RestaurantReviews';
+import RestaurantContact from './RestaurantContact';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
-import { Link } from 'react-router-dom';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import OrderChannelsSection from './OrderChannelsSection';
-import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
-import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
-import { motion } from 'framer-motion';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
-import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
+import { Image, BookOpenText } from 'lucide-react'; // Importando ícones para os botões
 
 interface PremiumProfileLayoutProps {
-  restaurant: PublicRestaurantData;
-  toggleFavorite: () => void; // NOVO
-  isFavoriteMutating: boolean; // NOVO
+  restaurant: any;
+  menuCategories: any[];
+  menuItems: any[];
+  hasGallery: boolean;
+  hasMenu: boolean;
+  hasReviews: boolean;
+  isFavorite: boolean;
+  onFavoriteToggle: () => void;
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
-  const navigate = useNavigate();
-  const { user } = useAuth(); 
-  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({
+  restaurant,
+  menuCategories,
+  menuItems,
+  hasGallery,
+  hasMenu,
+  hasReviews,
+  isFavorite,
+  onFavoriteToggle,
+}) => {
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const reviewsRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
-  const fullAddress = useMemo(() => {
-    return formatAddressSummary(
-      restaurant.address,
-      restaurant.number,
-      restaurant.neighborhood,
-      restaurant.city,
-      restaurant.state
-    );
-  }, [restaurant]);
+  const [activeTab, setActiveTab] = useState('about'); // Estado para a aba ativa
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: restaurant.name,
-        text: `Confira o perfil de ${restaurant.name}!`,
-        url: window.location.href,
-      }).catch(console.error);
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
+  const scrollToSection = (section: string, tabName: string) => {
+    let ref;
+    switch (section) {
+      case 'about':
+        ref = aboutRef;
+        break;
+      case 'gallery':
+        ref = galleryRef;
+        break;
+      case 'menu':
+        ref = menuRef;
+        break;
+      case 'reviews':
+        ref = reviewsRef;
+        break;
+      case 'contact':
+        ref = contactRef;
+        break;
+      default:
+        return;
     }
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    setActiveTab(tabName);
   };
-  
-  // Função para rolar para a seção
-  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
-    setActiveTab(tab);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-  
-  // Dados do Header
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    logoUrl: restaurant.image_url || '',
-    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
-    addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite, // Usando o estado reativo
-    isOpen: restaurant.isOpen,
-    statusText: restaurant.statusText,
-    isPremium: true, // CORREÇÃO: Adicionado isPremium
-  };
-  
-  // Verifica se há conteúdo para as abas
-  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
-  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  
-  // Verifica se há informações de endereço/horário ou contato/links
-  const hasAddressHours = fullAddress || restaurant.opening_hours;
-  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
-  
-  // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks;
-
 
   return (
-    <div className="min-h-screen bg-background-light">
-      
-      {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <RestaurantActionsBar
-        isFavorite={restaurant.is_favorite}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        onShare={handleShare}
-        onBack={() => navigate(-1)}
-      />
-
-      {/* 2. Cabeçalho Principal (Capa, Logo, Info) */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <RestaurantProfileHeader
-        restaurant={headerData}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
+        restaurant={restaurant}
+        isFavorite={isFavorite}
+        onFavoriteToggle={onFavoriteToggle}
       />
 
-      <div className="container mx-auto px-4 pb-8">
-        {/* Conteúdo Principal */}
-        <div className="mt-6 space-y-6">
-          
-          {/* Description */}
-          {restaurant.description && (
-            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
-              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
-              <p className="text-gray-600">{restaurant.description}</p>
-            </Card>
-          )}
-          
-          {/* Canais de Pedido */}
-          <OrderChannelsSection restaurant={restaurant} />
-
-          {/* Navegação por Abas (Sticky) */}
-          {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
-              <ScrollArea className="w-full whitespace-nowrap">
-                <div className="flex space-x-4">
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
-                  {hasGallery && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('gallery-section', 'gallery')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Image className="w-4 h-4 mr-2" /> Fotos
-                    </Button>
-                  )}
-                  {hasInfo && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('info-section', 'info')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Info className="w-4 h-4 mr-2" /> Informações
-                    </Button>
-                  )}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
-
-          {/* 2. Galeria Section */}
-          {hasGallery && (
-            <div id="gallery-section">
-              <RestaurantGallery gallery={restaurant.gallery_images} />
-            </div>
-          )}
-
-          {/* 3. Menu Section */}
-          {hasMenu && (
-            <div id="menu-section">
-              <RestaurantMenu 
-                menuCategories={restaurant.menu_categories} 
-                isFullMenuPage={false}
-                restaurantId={restaurant.id}
-              />
-            </div>
-          )}
-          
-          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
-          {hasInfo && (
-            <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-              
-              {/* Endereço e Horário (Novo Componente) */}
-              {hasAddressHours && (
-                <RestaurantAddressHoursSection
-                  id="address-hours-section"
-                  restaurant={restaurant}
-                  fullAddress={fullAddress}
-                />
+      <div className="sticky top-0 z-30 bg-white dark:bg-gray-800 shadow-sm py-2">
+        <ScrollArea className="w-full whitespace-nowrap">
+          <div className="flex space-x-4 px-4">
+            <Button
+              variant="ghost"
+              onClick={() => scrollToSection('about', 'about')}
+              className={cn(
+                "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                activeTab === 'about' ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               )}
-              
-              {/* Contato e Links (Componente Refatorado) */}
-              {hasContactLinks && (
-                <RestaurantInfo 
-                  id="contact-links-section"
-                  restaurant={restaurant}
-                />
+            >
+              Sobre
+            </Button>
+            {hasGallery && (
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('gallery', 'gallery')}
+                className={cn(
+                  "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                  activeTab === 'gallery' ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                )}
+              >
+                <Image className="w-4 h-4 mr-2" /> Galeria
+              </Button>
+            )}
+            {hasMenu && (
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('menu', 'menu')}
+                className={cn(
+                  "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                  activeTab === 'menu' ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                )}
+              >
+                <BookOpenText className="w-4 h-4 mr-2" /> Cardápio
+              </Button>
+            )}
+            {hasReviews && (
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('reviews', 'reviews')}
+                className={cn(
+                  "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                  activeTab === 'reviews' ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                )}
+              >
+                Avaliações
+              </Button>
+            )}
+            <Button
+              variant="ghost"
+              onClick={() => scrollToSection('contact', 'contact')}
+              className={cn(
+                "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                activeTab === 'contact' ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               )}
-              
-              {/* Formas de Pagamento (Novo Componente) */}
-              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
-            </div>
-          )}
+            >
+              Contato
+            </Button>
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+        <Separator />
+      </div>
+
+      <div className="container mx-auto p-4 space-y-8">
+        <div ref={aboutRef}>
+          <RestaurantAbout restaurant={restaurant} />
+        </div>
+
+        {hasGallery && (
+          <div ref={galleryRef}>
+            <RestaurantGallery restaurantId={restaurant.id} />
+          </div>
+        )}
+
+        {hasMenu && (
+          <div ref={menuRef}>
+            <RestaurantMenu
+              restaurantId={restaurant.id}
+              menuCategories={menuCategories}
+              menuItems={menuItems}
+            />
+          </div>
+        )}
+
+        {hasReviews && (
+          <div ref={reviewsRef}>
+            <RestaurantReviews restaurantId={restaurant.id} />
+          </div>
+        )}
+
+        <div ref={contactRef}>
+          <RestaurantContact restaurant={restaurant} />
         </div>
       </div>
     </div>
