@@ -18,6 +18,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -177,31 +178,53 @@ const Home: React.FC = () => {
           </div>
           <ScrollArea className="w-full whitespace-nowrap hide-scrollbar">
             <div className="flex flex-nowrap space-x-4 pb-6"> {/* Adicionando flex-nowrap e padding inferior ao div interno */}
-              {isLoadingPopularItems ? (
-                <>
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
-                  <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
-                </>
-              ) : popularMenuItems && popularMenuItems.length > 0 ? (
-                popularMenuItems.map((item) => (
-                  <HighlightCard 
-                    key={item.id} 
-                    item={{
-                      id: item.id,
-                      name: item.name,
-                      restaurantName: item.restaurantName,
-                      price: item.price,
-                      imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato+Popular', // Fallback image
-                    }} 
-                    className="flex-shrink-0" // Adicionado flex-shrink-0
-                  />
-                ))
-              ) : (
-                <div className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full">
-                  Nenhum prato popular encontrado.
-                </div>
-              )}
+              <AnimatePresence mode="wait">
+                {isLoadingPopularItems ? (
+                  <motion.div
+                    key="popular-items-loading"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-nowrap space-x-4"
+                  >
+                    <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
+                    <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
+                    <Skeleton className="w-[180px] h-[200px] rounded-2xl flex-shrink-0" />
+                  </motion.div>
+                ) : popularMenuItems && popularMenuItems.length > 0 ? (
+                  <motion.div
+                    key="popular-items-content"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="flex flex-nowrap space-x-4"
+                  >
+                    {popularMenuItems.map((item) => (
+                      <HighlightCard 
+                        key={item.id} 
+                        item={{
+                          id: item.id,
+                          name: item.name,
+                          restaurantName: item.restaurantName,
+                          price: item.price,
+                          imageUrl: item.imageUrl || 'https://via.placeholder.com/300x200?text=Prato+Popular', // Fallback image
+                        }} 
+                        className="flex-shrink-0" // Adicionado flex-shrink-0
+                      />
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="popular-items-empty"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="text-center p-4 text-gray-500 bg-white rounded-xl shadow-soft-md w-full"
+                  >
+                    Nenhum prato popular encontrado.
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <ScrollBar orientation="horizontal" className="hidden" /> {/* Adicionado className="hidden" */}
           </ScrollArea>
@@ -220,34 +243,60 @@ const Home: React.FC = () => {
             </Button>
           </div>
           <div className="space-y-4">
-            {isRestaurantsLoading || isLocationLoading ? (
-              <>
-                <Skeleton className="w-full h-24 rounded-xl" />
-                <Skeleton className="w-full h-24 rounded-xl" />
-              </>
-            ) : restaurantsError ? (
-              <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
-                <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                <p>{restaurantsError.message}</p> {/* Corrigido: acessar .message */}
-                <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
-              </div>
-            ) : restaurants && restaurants.length > 0 ? (
-              <div className="space-y-4">
-                {restaurants.map((restaurant) => (
-                  <RestaurantCard 
-                    key={restaurant.id} 
-                    restaurant={restaurant} 
-                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
-                <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
-                <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>
-              </div>
-            )}
+            <AnimatePresence mode="wait">
+              {isRestaurantsLoading || isLocationLoading ? (
+                <motion.div
+                  key="restaurants-loading"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
+                  <Skeleton className="w-full h-24 rounded-xl" />
+                  <Skeleton className="w-full h-24 rounded-xl" />
+                </motion.div>
+              ) : restaurantsError ? (
+                <motion.div
+                  key="restaurants-error"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md"
+                >
+                  <p className="font-semibold">Erro ao carregar restaurantes:</p>
+                  <p>{restaurantsError.message}</p> {/* Corrigido: acessar .message */}
+                  <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
+                </motion.div>
+              ) : restaurants && restaurants.length > 0 ? (
+                <motion.div
+                  key="restaurants-content"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="space-y-4"
+                >
+                  {restaurants.map((restaurant) => (
+                    <RestaurantCard 
+                      key={restaurant.id} 
+                      restaurant={restaurant} 
+                      onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="restaurants-empty"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md"
+                >
+                  <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
+                  <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </main>
