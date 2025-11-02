@@ -47,15 +47,17 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
     <div className="relative w-full bg-white dark:bg-gray-800 shadow-soft-md">
       
       {/* 1. Imagem de Capa (Banner) - Adicionado z-10 para garantir que fique abaixo do z-30 da barra de ações */}
-      <div className="h-40 w-full overflow-hidden bg-gray-300 relative z-10">
-        <img
-          src={coverImageUrl || PLACEHOLDER_COVER_URL}
-          alt={`Capa de ${name}`}
-          className="w-full h-full object-cover"
-        />
-        {/* Overlay sutil para melhor contraste do texto flutuante (se houver) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-      </div>
+      {isPremium && coverImageUrl && (
+        <div className="h-40 w-full overflow-hidden bg-gray-300 relative z-10">
+          <img
+            src={coverImageUrl || PLACEHOLDER_COVER_URL}
+            alt={`Capa de ${name}`}
+            className="w-full h-full object-cover"
+          />
+          {/* Overlay sutil para melhor contraste do texto flutuante (se houver) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        </div>
+      )}
 
       {/* 2. Bloco de Conteúdo Principal (Logo e Info) */}
       <div className="px-4 pb-4 -mt-12 pt-0 relative z-20"> 
