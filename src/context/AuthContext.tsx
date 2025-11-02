@@ -1,62 +1,43 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, Profile } from '@/types/supabase';
-import { useQuery } from '@tanstack/react-query';
-import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
+import { Session, User } from '@supabase/supabase-js';
+import { toast } from 'sonner';
 
 interface AuthContextType {
+  session: Session | null;
   user: User | null;
-  isLoading: boolean;
-  signOut: () => Promise<void>;
-  isAuthenticated: boolean;
-  // Dados do perfil e restaurante
-  profile: Profile | null;
-  restaurant: Restaurant | null;
-  isProfileLoading: boolean;
-  isRestaurantLoading: boolean; // Adicionado: Estado de carregamento do restaurante
-  isAdmin: boolean;
-  isPremium: boolean;
-  // Adicionando refetchProfile para forçar atualização após login/signup
-  refetchProfile: () => void; 
-  refetchRestaurant: () => void; // Adicionado: Função para recarregar dados do restaurante
+  restaurant: any | null; // Adicionei o tipo any para o restaurante
+  isPremium: boolean; // Adicionei a propriedade isPremium
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const isAuthenticated = !!user;
-
-  // Query para buscar Profile
-  const { data: profile, isLoading: isProfileLoading, refetch: refetchProfile } = useQuery({
-    queryKey: ['profile', user?.id],
-    queryFn: () => (user ? getProfile(user.id) : null),
-    enabled: isAuthenticated,
-  });
-
-  // Query para buscar Restaurant
-  const { data: restaurant, isLoading: isRestaurantLoading, refetch: refetchRestaurant } = useQuery({
-    queryKey: ['restaurant', user?.id],
-    queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
-    enabled: isAuthenticated,
-  });
+  const [restaurant, setRestaurant] = useState<any | null>(null);
+  const [isPremium, setIsPremium] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      // Garante que o estado de carregamento seja falso após qualquer evento de autenticação
-      // e que o usuário seja definido corretamente.
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    });
+    const getSession = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        toast.error('Erro ao carregar sessão de usuário.');
+        console.error('Error getting session:', error);
+      }
+      setSession(session);
+      setUser(session?.user || null);
+      setLoading(false);
+    };
 
-    // Adiciona uma verificação inicial para garantir que o isLoading seja falso
-    // mesmo que o onAuthStateChange demore a disparar o INITIAL_SESSION.
-    // Isso é importante para o caso de um refresh de página.
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setIsLoading(false);
+    getSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user || null);
+      setLoading(false);
     });
 
     return () => {
@@ -64,65 +45,45 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-  };
+  useEffect(() => {
+    const fetchRestaurantData = async () => {
+      if (user) {
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
 
-  // Lógica de Admin e Premium (simplificada)
-  const isAdmin = user?.email === 'joaoedasilva018@gmail.com';
-  // CORREÇÃO: Incluindo 'premium_gift' na verificação
-  const isPremium = restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift';
+        if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+          toast.error('Erro ao carregar dados do restaurante.');
+          console.error('Error fetching restaurant data:', error);
+        } else if (data) {
+          setRestaurant(data);
+          setIsPremium(data.plan === 'premium');
+        } else {
+          setRestaurant(null);
+          setIsPremium(false);
+        }
+      } else {
+        setRestaurant(null);
+        setIsPremium(false);
+      }
+    };
+
+    fetchRestaurantData();
+  }, [user]);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        signOut,
-        isAuthenticated,
-        profile: profile || null,
-        restaurant: restaurant || null,
-        isProfileLoading,
-        isRestaurantLoading, // Adicionado
-        isAdmin,
-        isPremium,
-        refetchProfile,
-        refetchRestaurant, // Adicionado
-      }}
-    >
+    <AuthContext.Provider value={{ session, user, restaurant, isPremium, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuthContext = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuthContext must be used within an AuthProvider');
-  }
-  return context;
-};
-
-// Renomeando o hook useAuth para useAuthData para evitar conflito de nome
-// e para que ele seja um wrapper simples que expõe todos os dados.
 export const useAuthData = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuthData must be used within an AuthProvider');
   }
-  return {
-    user: context.user,
-    isLoading: context.isLoading,
-    signOut: context.signOut,
-    isAdmin: context.isAdmin,
-    isPremium: context.isPremium,
-    restaurant: context.restaurant,
-    profile: context.profile,
-    isAuthenticated: context.isAuthenticated,
-    isProfileLoading: context.isProfileLoading,
-    isRestaurantLoading: context.isRestaurantLoading, // Adicionado
-    refetchProfile: context.refetchProfile,
-    refetchRestaurant: context.refetchRestaurant, // Adicionado
-  };
+  return context;
 };
