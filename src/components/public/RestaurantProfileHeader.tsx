@@ -60,7 +60,10 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
       )}
 
       {/* 2. Bloco de Conteúdo Principal (Logo e Info) */}
-      <div className="px-4 pb-4 -mt-12 pt-0 relative z-20"> 
+      <div className={cn(
+        "px-4 pb-4 relative z-20",
+        isPremium && coverImageUrl ? "-mt-12 pt-0" : "mt-4 pt-4" // Aplica -mt-12 e pt-0 se for premium com capa, senão mt-4 e pt-4
+      )}> 
         <div className="flex items-start gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-soft-xl border border-gray-100">
           
           {/* Logo (Ajustado para ficar no topo do card de informações) */}
