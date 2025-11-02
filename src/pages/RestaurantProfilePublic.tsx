@@ -1,12 +1,14 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import FreeProfileLayout from '@/components/public/FreeProfileLayout';
-import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
+import { ArrowLeft, Loader2, AlertTriangle } from 'lucide-react'; // Adicionado AlertTriangle aqui
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { showError } from '@/utils/toast';
+import FreeProfileLayout from '@/components/restaurant/FreeProfileLayout';
+import PremiumProfileLayout from '@/components/restaurant/PremiumProfileLayout';
+import { PublicRestaurantData } from '@/types/restaurant';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 
 interface RestaurantProfilePublicProps {
