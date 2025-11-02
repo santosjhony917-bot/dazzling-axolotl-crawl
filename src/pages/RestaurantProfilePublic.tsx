@@ -11,9 +11,10 @@ import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string; // Novo prop para passar o ID diretamente
+  simulatedPlan?: 'free' | 'premium'; // Novo prop para simular o plano
 }
 
-export default function RestaurantProfilePublic({ initialRestaurantId }: RestaurantProfilePublicProps) {
+export default function RestaurantProfilePublic({ initialRestaurantId, simulatedPlan }: RestaurantProfilePublicProps) {
   const { restaurantId: paramRestaurantId } = useParams<{ restaurantId: string }>();
   const restaurantId = initialRestaurantId || paramRestaurantId; // Prioriza o prop, senão usa o param da URL
   const navigate = useNavigate();
@@ -84,11 +85,14 @@ export default function RestaurantProfilePublic({ initialRestaurantId }: Restaur
     isFavoriteMutating: isFavoriteMutating,
   };
 
+  // Determina o plano a ser usado para renderização (simulado ou real)
+  const planToRender = simulatedPlan || restaurant.plan;
+
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
     <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
       
-      {restaurant.plan === 'premium' || restaurant.plan === 'premium_gift' ? (
+      {planToRender === 'premium' || planToRender === 'premium_gift' ? (
         <PremiumProfileLayout {...layoutProps} />
       ) : (
         <FreeProfileLayout {...layoutProps} />
