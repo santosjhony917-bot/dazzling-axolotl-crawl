@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
-import { Utensils, MapPin } from 'lucide-react'; // Removido Star
+import { Utensils, MapPin } from 'lucide-react';
 
 import { RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
 
@@ -22,7 +22,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) 
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="p-3 flex-1 flex flex-col justify-between">
+      <div className="p-3 flex-1 flex flex-col justify-center"> {/* Alterado para justify-center */}
         <div>
           <h3 className="font-bold text-lg text-[#022D68] leading-tight">{restaurant.name}</h3>
           <p className="text-sm text-gray-600 flex items-center mt-1">
@@ -32,7 +32,6 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) 
             <MapPin className="h-4 w-4 mr-1 text-highlight" /> {restaurant.city || 'Cidade Desconhecida'}
           </p>
         </div>
-        {/* O div que continha o span da distância foi removido */}
       </div>
     </Card>
   );
