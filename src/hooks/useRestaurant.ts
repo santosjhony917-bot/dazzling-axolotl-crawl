@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { PublicRestaurantData, SupabaseRestaurantData } from '@/types';
 
-export const useRestaurant = (id: string | undefined) => {
+export const useRestaurant = (restaurantId: string | undefined) => {
   const [data, setData] = useState<PublicRestaurantData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    if (!id) {
+    if (!restaurantId) {
       setIsLoading(false);
       return;
     }
@@ -18,45 +18,59 @@ export const useRestaurant = (id: string | undefined) => {
     const fetchRestaurant = async () => {
       setIsLoading(true);
       setError(null);
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select(
-          `
-          *,
-          restaurant_gallery(*),
-          menu_categories(
+      try {
+        const { data: supabaseData, error: supabaseError } = await supabase
+          .from('restaurants')
+          .select(
+            `
             *,
-            menu_items(*)
+            restaurant_gallery (
+              id, image_url, caption, order_index
+            ),
+            menu_categories (
+              id, name, order_index, is_active, is_popular,
+              menu_items (
+                id, name, description, price, image_url, order_index, is_active
+              )
+            )
+            `
           )
-          `
-        )
-        .eq('id', id)
-        .single();
+          .eq('id', restaurantId)
+          .single();
 
-      if (error) {
-        setError(error);
-        setData(null);
-      } else {
-        // Map restaurant_gallery to gallery_images to match PublicRestaurantData type
-        const formattedData: PublicRestaurantData = {
-          ...data,
-          gallery_images: data.restaurant_gallery || [],
-          // Ensure other computed fields are handled if necessary, or set to default/null
-          is_favorite: false, // Default value, will be updated by RestaurantProfilePublic
-          followers_count: 0, // Default value
-          addressSummary: '', // Default value
-          logoUrl: null, // Default value
-          isOpen: false, // Default value
-          statusText: '', // Default value
-          nextOpenTime: null, // Default value
-        };
-        setData(formattedData);
+        if (supabaseError) {
+          throw supabaseError;
+        }
+
+        if (supabaseData) {
+          // Cast to SupabaseRestaurantData to ensure correct typing before mapping
+          const rawData = supabaseData as SupabaseRestaurantData;
+
+          const formattedData: PublicRestaurantData = {
+            ...rawData,
+            gallery_images: rawData.restaurant_gallery || [],
+            is_favorite: false, // Default value, will be updated by RestaurantProfilePublic
+            followers_count: 0, // Default value
+            addressSummary: '', // Default value
+            logoUrl: null, // Default value
+            isOpen: false, // Default value
+            statusText: '', // Default value
+            nextOpenTime: null, // Default value
+          };
+          setData(formattedData);
+        } else {
+          setError(new Error("Restaurant not found."));
+        }
+      } catch (err) {
+        console.error("Error fetching restaurant:", err);
+        setError(err as Error);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     fetchRestaurant();
-  }, [id]);
+  }, [restaurantId]);
 
   return { data, isLoading, error };
 };
