@@ -1,82 +1,115 @@
-import { WeekSchedule, DaySchedule } from '@/types/schedule'; // Importar WeekSchedule do novo arquivo
+import { WeekSchedule, DaySchedule } from '@/types/schedule';
 
-export function getRestaurantOpenStatus(openingHours: WeekSchedule | null): { isOpen: boolean; statusText: string } {
-  if (!openingHours) {
-    return { isOpen: false, statusText: 'Horário não informado' };
+// Helper function to get the current day name in Portuguese
+const getCurrentDayName = (date: Date): keyof WeekSchedule => {
+  const days: (keyof WeekSchedule)[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return days[date.getDay()];
+};
+
+// Function to format opening hours for display
+export const formatOpeningHours = (schedule: WeekSchedule): string => {
+  const today = new Date();
+  const currentDay = getCurrentDayName(today);
+  const daySchedule: DaySchedule | undefined = schedule[currentDay];
+
+  if (!daySchedule || !daySchedule.isOpen || daySchedule.slots.length === 0) { 
+    return 'Fechado hoje';
+  }
+
+  const formattedTimes = daySchedule.slots.map(slot => {
+    // Assumindo que se isOpen é true, os slots não estão fechados individualmente
+    return `${slot.start} - ${slot.end}`;
+  }).join(' / ');
+
+  return `Hoje: ${formattedTimes}`;
+};
+
+interface OpenStatus {
+  isOpen: boolean;
+  statusText: string;
+  nextOpenTime: string | null;
+}
+
+/**
+ * Calcula o status de abertura do restaurante em tempo real.
+ */
+export const getRestaurantOpenStatus = (schedule: WeekSchedule | null): OpenStatus => {
+  if (!schedule) {
+    return { isOpen: false, statusText: 'Horário não definido', nextOpenTime: null };
   }
 
   const now = new Date();
-  const dayOfWeek = now.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
-  const currentTime = now.getHours() * 60 + now.getMinutes(); // Current time in minutes
+  const currentDayKey = getCurrentDayName(now);
+  const currentDaySchedule = schedule[currentDayKey];
+  
+  const currentTimeMinutes = now.getHours() * 60 + now.getMinutes();
 
-  const daysMap: { [key: number]: keyof WeekSchedule } = {
-    0: 'sunday',
-    1: 'monday',
-    2: 'tuesday',
-    3: 'wednesday',
-    4: 'thursday',
-    5: 'friday',
-    6: 'saturday',
-  };
+  // 1. Verificar se está aberto hoje
+  if (currentDaySchedule?.isOpen && currentDaySchedule.slots.length > 0) {
+    for (const slot of currentDaySchedule.slots) {
+      const [startHour, startMinute] = slot.start.split(':').map(Number);
+      const [endHour, endMinute] = slot.end.split(':').map(Number);
+      
+      const startMinutes = startHour * 60 + startMinute;
+      const endMinutes = endHour * 60 + endMinute;
 
-  const currentDayKey = daysMap[dayOfWeek];
-  const schedulesForToday: DaySchedule[] = openingHours[currentDayKey];
-
-  if (!schedulesForToday || schedulesForToday.length === 0 || schedulesForToday.every(s => s.is_closed)) {
-    return { isOpen: false, statusText: 'Fechado hoje' };
-  }
-
-  for (const schedule of schedulesForToday) {
-    if (schedule.is_closed) continue;
-
-    const [openHour, openMinute] = schedule.open.split(':').map(Number);
-    const [closeHour, closeMinute] = schedule.close.split(':').map(Number);
-
-    const openTime = openHour * 60 + openMinute;
-    const closeTime = closeHour * 60 + closeMinute;
-
-    // Handle overnight schedules (e.g., 22:00 - 02:00)
-    if (openTime > closeTime) {
-      // If current time is after open time OR before close time (next day)
-      if (currentTime >= openTime || currentTime < closeTime) {
-        return { isOpen: true, statusText: `Aberto até ${schedule.close}` };
-      }
-    } else {
-      // Normal schedule
-      if (currentTime >= openTime && currentTime < closeTime) {
-        return { isOpen: true, statusText: `Aberto até ${schedule.close}` };
+      // Lógica simples: verifica se o tempo atual está dentro de um slot
+      if (currentTimeMinutes >= startMinutes && currentTimeMinutes < endMinutes) {
+        return { 
+          isOpen: true, 
+          statusText: `Aberto agora até ${slot.end}`, 
+          nextOpenTime: null 
+        };
       }
     }
   }
-
-  // Check for next opening time
-  const nextOpen = findNextOpening(openingHours, now);
-  if (nextOpen) {
-    return { isOpen: false, statusText: `Fecha às ${schedulesForToday[schedulesForToday.length - 1].close}. Abre ${nextOpen.day} às ${nextOpen.time}` };
-  }
-
-  return { isOpen: false, statusText: 'Fechado agora' };
-}
-
-function findNextOpening(openingHours: WeekSchedule, fromDate: Date): { day: string; time: string } | null {
-  const daysMap: { [key: number]: keyof WeekSchedule } = {
-    0: 'domingo', 1: 'segunda', 2: 'terça', 3: 'quarta', 4: 'quinta', 5: 'sexta', 6: 'sábado',
-  };
-
+  
+  // 2. Se não estiver aberto agora, encontrar o próximo horário de abertura
+  const daysOrder: (keyof WeekSchedule)[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  
   for (let i = 0; i < 7; i++) {
-    const checkDate = new Date(fromDate);
-    checkDate.setDate(fromDate.getDate() + i);
-    const dayOfWeek = checkDate.getDay();
-    const dayKey = daysMap[dayOfWeek];
-    const schedulesForDay: DaySchedule[] = openingHours[dayKey as keyof WeekSchedule];
-
-    if (schedulesForDay && schedulesForDay.length > 0 && !schedulesForDay.every(s => s.is_closed)) {
-      for (const schedule of schedulesForDay) {
-        if (!schedule.is_closed) {
-          return { day: daysMap[dayOfWeek], time: schedule.open };
+    const dayIndex = (now.getDay() + i) % 7;
+    const dayKey = daysOrder[dayIndex];
+    const daySchedule = schedule[dayKey];
+    
+    if (daySchedule?.isOpen && daySchedule.slots.length > 0) {
+      // Ordena os slots para encontrar o próximo
+      const sortedSlots = daySchedule.slots.sort((a, b) => a.start.localeCompare(b.start));
+      
+      for (const slot of sortedSlots) {
+        const [startHour, startMinute] = slot.start.split(':').map(Number);
+        const startMinutes = startHour * 60 + startMinute;
+        
+        // Se for hoje, e o slot ainda não passou
+        if (i === 0 && startMinutes > currentTimeMinutes) {
+          return { 
+            isOpen: false, 
+            statusText: 'Fechado', 
+            nextOpenTime: `Abre hoje às ${slot.start}` 
+          };
+        } 
+        // Se for um dia futuro
+        else if (i > 0) {
+          const dayLabel = dayLabels[dayKey];
+          return { 
+            isOpen: false, 
+            statusText: 'Fechado', 
+            nextOpenTime: `Abre ${dayLabel} às ${slot.start}` 
+          };
         }
       }
     }
   }
-  return null;
-}
+
+  return { isOpen: false, statusText: 'Fechado', nextOpenTime: 'Sem horário de abertura futuro' };
+};
+
+const dayLabels: Record<keyof WeekSchedule, string> = {
+  monday: 'Segunda',
+  tuesday: 'Terça',
+  wednesday: 'Quarta',
+  thursday: 'Quinta',
+  friday: 'Sexta',
+  saturday: 'Sábado',
+  sunday: 'Domingo',
+};
