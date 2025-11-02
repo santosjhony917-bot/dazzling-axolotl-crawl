@@ -5,8 +5,8 @@ import { RestaurantPlan } from '@/types/supabase';
 
 interface PlanPreviewToggleProps {
   currentPlan: RestaurantPlan;
-  previewPlan: RestaurantPlan;
-  setPreviewPlan: (plan: RestaurantPlan) => void;
+  previewPlan: 'free' | 'premium';
+  setPreviewPlan: (plan: 'free' | 'premium') => void;
 }
 
 const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, previewPlan, setPreviewPlan }) => {

@@ -8,6 +8,10 @@ import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
+import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
+import RestaurantProfilePreviewFree from '@/components/upgrade/RestaurantProfilePreviewFree'; // Importar prévia Free
+import RestaurantProfilePreviewPremium from '@/components/upgrade/RestaurantProfilePreviewPremium'; // Importar prévia Premium
+import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -79,6 +83,8 @@ const FreeCard: React.FC = () => (
 const UpgradePageContent: React.FC = () => {
   const navigate = useNavigate();
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free'); // Estado para controlar a prévia
+  const { restaurant } = useAuthData(); // Obter dados do restaurante logado
 
   const handleSubscribe = () => {
     setIsSubscribing(true);
@@ -153,7 +159,32 @@ const UpgradePageContent: React.FC = () => {
           <h2 className="text-lg font-bold text-primary text-center mb-6">
             Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          
+          {/* Toggle para alternar entre as prévias */}
+          <PlanPreviewToggle 
+            currentPlan={restaurant?.plan || 'free'} // Passa o plano real do restaurante
+            previewPlan={previewPlan} 
+            setPreviewPlan={setPreviewPlan} 
+          />
+
+          {/* Área de prévia */}
+          <div className="relative overflow-hidden">
+            <motion.div
+              key={previewPlan} // Key para forçar a re-renderização e animação
+              initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              {previewPlan === 'free' ? (
+                <RestaurantProfilePreviewFree />
+              ) : (
+                <RestaurantProfilePreviewPremium />
+              )}
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-6"> {/* Adicionado mt-6 para espaçamento */}
             <FreeCard />
             <PremiumCard />
           </div>
