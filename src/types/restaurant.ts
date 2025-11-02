@@ -1,45 +1,83 @@
-import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
-import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
+import { Json } from './supabase';
+import { WeekSchedule } from './schedule'; // Importar WeekSchedule do novo arquivo
 
-export type Restaurant = SupabaseRestaurant;
-// Use the correct schedule type
-export type WeekSchedule = ScheduleWeekSchedule; 
+export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift'; // Adicionado 'premium_gift'
 
-export type MenuItem = SupabaseMenuItem;
-export type MenuCategory = SupabaseMenuCategory;
-export type GalleryImage = SupabaseGalleryImage;
-
-// Tipo para um link de rede social
-export interface SocialNetworkLink {
-  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
+export type SocialNetwork = {
+  platform: 'instagram' | 'facebook' | 'website' | string;
   url: string;
+};
+
+export type GalleryImage = {
+  id: string;
+  restaurant_id: string;
+  image_url: string;
+  caption: string | null;
+  order_index: number;
+  created_at: string;
+};
+
+export type MenuItem = {
+  id: string;
+  category_id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image_url: string | null;
+  order_index: number;
+  is_active: boolean;
+  created_at: string;
+};
+
+export type MenuCategory = {
+  id: string;
+  restaurant_id: string;
+  name: string;
+  order_index: number;
+  is_active: boolean;
+  created_at: string;
+  is_popular: boolean;
+  menu_items: MenuItem[]; // Adicionado para incluir os itens do menu diretamente na categoria
+};
+
+export interface Restaurant {
+  id: string;
+  user_id: string | null;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  cover_image_url: string | null;
+  plan: RestaurantPlan;
+  phone: string | null;
+  email: string | null;
+  cnpj: string | null;
+  category: string | null;
+  whatsapp_url: string | null;
+  ifood_url: string | null;
+  other_url: string | null;
+  address: string | null;
+  number: string | null;
+  neighborhood: string | null;
+  city: string | null;
+  state: string | null;
+  cep: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  opening_hours: WeekSchedule | null;
+  created_at: string;
+  external_url: string | null;
+  followers_override: number | null;
+  payment_methods: Json | null;
+  social_networks: SocialNetwork[] | null;
 }
 
-// Type for public restaurant profile data, including menu and gallery
-export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
-  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
-  opening_hours: WeekSchedule | null; 
-  
-  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
-  payment_methods: string[] | null; 
-  
-  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
-  social_networks: SocialNetworkLink[] | null;
-  
-  // Computed fields from the view/query
-  is_favorite: boolean;
-  followers_count: number; 
-  addressSummary: string; 
-  logoUrl: string | null; 
-  
-  // NOVO: Status de abertura
-  isOpen: boolean;
-  statusText: string;
-  nextOpenTime: string | null;
-
-  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
-  menu_categories: (MenuCategory & {
-    menu_items: MenuItem[];
-  })[];
-  gallery_images: GalleryImage[];
+// PublicRestaurantData agora estende Restaurant e adiciona campos específicos para a visualização pública
+export interface PublicRestaurantData extends Restaurant {
+  addressSummary?: string;
+  followers_count?: number;
+  is_favorite?: boolean;
+  isOpen?: boolean;
+  statusText?: string;
+  menu_categories?: MenuCategory[]; // Adicionado
+  gallery_images?: GalleryImage[]; // Adicionado
 }

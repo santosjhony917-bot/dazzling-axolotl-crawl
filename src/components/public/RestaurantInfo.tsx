@@ -1,104 +1,138 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, Mail, ExternalLink, Link, Instagram, Facebook, Globe } from 'lucide-react'; // Importando ícones sociais
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
+import { MapPin, Phone, Mail, Globe, Utensils, Clock, DollarSign, Instagram, Facebook, Link as LinkIcon, Whatsapp } from 'lucide-react';
+import { Restaurant, SocialNetwork } from '@/types/restaurant'; // Importando tipos atualizados
+import { formatCurrency } from '@/utils/formatters';
+import OpeningHoursDisplay from '@/components/restaurant/OpeningHoursDisplay'; // Importando o novo componente
+import { Button } from '@/components/ui/button';
 
 interface RestaurantInfoProps {
-  id: string;
-  restaurant: PublicRestaurantData;
+  restaurant: Restaurant;
 }
 
-// Mapeamento de plataformas para ícones
-const getSocialIcon = (platform: string) => {
-  const lowerPlatform = platform.toLowerCase();
-  if (lowerPlatform.includes('instagram')) return Instagram;
-  if (lowerPlatform.includes('facebook')) return Facebook;
-  if (lowerPlatform.includes('site') || lowerPlatform.includes('website')) return Globe;
-  return Link; // Ícone padrão para outras redes
-};
-
-const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
-  
-  const { phone, email, social_networks } = restaurant;
+const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ restaurant }) => {
+  const addressParts = [
+    restaurant.address,
+    restaurant.number,
+    restaurant.neighborhood,
+    restaurant.city,
+    restaurant.state,
+    restaurant.cep,
+  ].filter(Boolean);
 
   const contactItems = [
-    {
-      icon: Phone,
-      label: 'Telefone',
-      value: phone,
-      link: phone ? `tel:${phone.replace(/\D/g, '')}` : undefined,
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      value: email,
-      link: email ? `mailto:${email}` : undefined,
-    },
-  ].filter(item => item.value);
-  
-  const socialLinks: SocialNetworkLink[] = (social_networks || []) as SocialNetworkLink[];
+    restaurant.whatsapp_url && { icon: Whatsapp, label: 'WhatsApp', value: restaurant.whatsapp_url, type: 'link' },
+    restaurant.ifood_url && { icon: Utensils, label: 'iFood', value: restaurant.ifood_url, type: 'link' },
+    restaurant.other_url && { icon: LinkIcon, label: 'Outro Link', value: restaurant.other_url, type: 'link' },
+    restaurant.phone && { icon: Phone, label: 'Telefone', value: restaurant.phone, type: 'phone' },
+    restaurant.email && { icon: Mail, label: 'Email', value: restaurant.email, type: 'email' },
+  ].filter(Boolean);
 
-  if (contactItems.length === 0 && socialLinks.length === 0) {
-      return null;
-  }
+  // Garantir que social_networks seja um array para usar .map e .length
+  const socialNetworks: SocialNetwork[] = (restaurant.social_networks || []) as SocialNetwork[];
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        <Phone className="w-6 h-6 text-primary" />
-        <CardTitle className="text-2xl font-extrabold text-primary">Contato e Links</CardTitle>
+    <Card className="w-full shadow-soft-md rounded-xl">
+      <CardHeader className="p-4 pb-0">
+        <CardTitle className="text-2xl font-extrabold text-[#022D68] tracking-tight">Informações</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-6">
         
         {/* Contato Direto */}
-        {contactItems.length > 0 && (
-            <div className="space-y-4">
-                <p className="text-sm font-semibold text-gray-700">Contato Direto</p>
-                {contactItems.map((item, index) => (
-                    <div key={index} className="flex items-start">
-                        <item.icon className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
-                        <div className="ml-3 min-w-0">
-                            {item.link ? (
-                                <a 
-                                    href={item.link} 
-                                    target={item.link.startsWith('tel:') || item.link.startsWith('mailto:') ? '_self' : '_blank'}
-                                    rel="noopener noreferrer" 
-                                    className="text-base text-gray-900 hover:text-highlight transition-colors break-words flex items-center"
-                                >
-                                    {item.value}
-                                </a>
-                            ) : (
-                                <p className="text-base text-gray-900 break-words">{item.value}</p>
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        )}
-
-        {/* Outras Redes */}
-        {socialLinks.length > 0 && (
-          <div className="pt-4 border-t border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Outras Redes</p>
-            <div className="flex flex-wrap gap-4">
-              {socialLinks.map((link, index) => {
-                const Icon = getSocialIcon(link.platform);
-                return (
-                  <a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-highlight hover:underline flex items-center transition-colors"
-                  >
-                    <Icon className="w-4 h-4 mr-1 text-primary" /> {/* Usando o ícone específico */}
-                    {link.platform}
-                  </a>
-                );
-              })}
+        {restaurant.plan === 'premium' && contactItems.length > 0 && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Contato e Links</h3>
+            <div className="space-y-3">
+              {contactItems.map((item, index) => (
+                <div key={index} className="flex items-center gap-3 text-gray-700">
+                  <item.icon className="w-5 h-5 text-highlight" />
+                  {item.type === 'link' ? (
+                    <a 
+                      href={item.value} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-blue-600 hover:underline text-base"
+                    >
+                      {item.label}
+                    </a>
+                  ) : item.type === 'phone' ? (
+                    <a href={`tel:${item.value}`} className="text-base">{item.value}</a>
+                  ) : item.type === 'email' ? (
+                    <a href={`mailto:${item.value}`} className="text-base">{item.value}</a>
+                  ) : (
+                    <span className="text-base">{item.value}</span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}
+
+        {/* Redes Sociais */}
+        {restaurant.plan === 'premium' && socialNetworks.length > 0 && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Redes Sociais</h3>
+            <div className="flex flex-wrap gap-3">
+              {socialNetworks.map((social, index) => (
+                <Button 
+                  key={index} 
+                  variant="outline" 
+                  size="icon" 
+                  asChild
+                  className="rounded-full w-10 h-10 border-gray-300 hover:bg-gray-100"
+                >
+                  <a href={social.url} target="_blank" rel="noopener noreferrer">
+                    {social.platform === 'instagram' && <Instagram className="w-5 h-5 text-gray-700" />}
+                    {social.platform === 'facebook' && <Facebook className="w-5 h-5 text-gray-700" />}
+                    {social.platform === 'website' && <Globe className="w-5 h-5 text-gray-700" />}
+                    {/* Adicione outros ícones de redes sociais conforme necessário */}
+                  </a>
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Endereço */}
+        {addressParts.length > 0 && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Endereço</h3>
+            <div className="flex items-start gap-3 text-gray-700">
+              <MapPin className="w-5 h-5 text-highlight mt-1" />
+              <p className="text-base">{addressParts.join(', ')}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Horário de Funcionamento */}
+        {restaurant.opening_hours && Object.keys(restaurant.opening_hours).length > 0 && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Horário de Funcionamento</h3>
+            <OpeningHoursDisplay openingHours={restaurant.opening_hours} />
+          </div>
+        )}
+
+        {/* Categoria */}
+        {restaurant.category && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Categoria</h3>
+            <div className="flex items-center gap-3 text-gray-700">
+              <Utensils className="w-5 h-5 text-highlight" />
+              <p className="text-base">{restaurant.category}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Preço Médio (se aplicável) */}
+        {/* {restaurant.average_price && (
+          <div>
+            <h3 className="text-lg font-bold text-[#022D68] mb-3">Preço Médio</h3>
+            <div className="flex items-center gap-3 text-gray-700">
+              <DollarSign className="w-5 h-5 text-highlight" />
+              <p className="text-base">{formatCurrency(restaurant.average_price)}</p>
+            </div>
+          </div>
+        )} */}
       </CardContent>
     </Card>
   );

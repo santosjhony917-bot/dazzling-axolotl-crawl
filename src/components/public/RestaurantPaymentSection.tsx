@@ -1,42 +1,54 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CreditCard } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { CreditCard, QrCode, DollarSign } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant'; // Importar PublicRestaurantData
+import { Json } from '@/types/supabase'; // Importar Json
 
 interface RestaurantPaymentSectionProps {
-  id: string;
-  restaurant: PublicRestaurantData; // Recebe o objeto restaurante
+  restaurant: PublicRestaurantData;
 }
 
-const DEFAULT_PAYMENT_METHODS = ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+const DEFAULT_PAYMENT_METHODS = [
+  { name: 'Cartão de Crédito', icon: CreditCard },
+  { name: 'Cartão de Débito', icon: CreditCard },
+  { name: 'Pix', icon: QrCode },
+  { name: 'Dinheiro', icon: DollarSign },
+];
 
-const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id, restaurant }) => {
+const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ restaurant }) => {
   // Usa os métodos do restaurante ou um fallback se não houver dados
-  const paymentMethods = restaurant.payment_methods && restaurant.payment_methods.length > 0 
-    ? restaurant.payment_methods 
-    : DEFAULT_PAYMENT_METHODS;
+  const paymentMethods = (restaurant.payment_methods as string[] | null) || DEFAULT_PAYMENT_METHODS.map(m => m.name);
 
-  if (paymentMethods.length === 0) {
+  if (!paymentMethods || paymentMethods.length === 0) {
     return null;
   }
 
+  const getIconForPaymentMethod = (methodName: string) => {
+    switch (methodName.toLowerCase()) {
+      case 'cartão de crédito':
+      case 'cartão de débito':
+        return <CreditCard className="w-5 h-5 text-highlight" />;
+      case 'pix':
+        return <QrCode className="w-5 h-5 text-highlight" />;
+      case 'dinheiro':
+        return <DollarSign className="w-5 h-5 text-highlight" />;
+      default:
+        return <CreditCard className="w-5 h-5 text-highlight" />; // Ícone padrão
+    }
+  };
+
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        <CreditCard className="w-6 h-6 text-primary" />
-        <CardTitle className="text-2xl font-extrabold text-primary">Formas de Pagamento</CardTitle>
+    <Card className="w-full shadow-soft-md rounded-xl">
+      <CardHeader className="p-4 pb-0">
+        <CardTitle className="text-2xl font-extrabold text-[#022D68] tracking-tight">Formas de Pagamento</CardTitle>
       </CardHeader>
-      <CardContent className="p-4">
-        <div className="flex flex-wrap gap-2">
-          {paymentMethods.map((method) => (
-            <span 
-              key={method} 
-              className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-gray-200"
-            >
-              {method}
-            </span>
-          ))}
-        </div>
+      <CardContent className="p-4 space-y-3">
+        {paymentMethods.map((method, index) => (
+          <div key={index} className="flex items-center gap-3 text-gray-700">
+            {getIconForPaymentMethod(method)}
+            <p className="text-base">{method}</p>
+          </div>
+        ))}
       </CardContent>
     </Card>
   );
