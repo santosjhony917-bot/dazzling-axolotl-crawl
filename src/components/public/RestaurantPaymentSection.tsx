@@ -12,8 +12,8 @@ interface RestaurantPaymentSectionProps {
 const RestaurantPaymentSection: React.FC<RestaurantPaymentSectionProps> = ({ id, restaurant }) => {
   const { payment_methods, plan } = restaurant;
 
-  // Só exibe a seção se for premium e houver métodos de pagamento
-  if (plan !== 'premium' && plan !== 'premium_gift' || !payment_methods || payment_methods.length === 0) {
+  // Só exibe a seção se houver métodos de pagamento, independentemente do plano
+  if (!payment_methods || payment_methods.length === 0) {
     return null;
   }
 
