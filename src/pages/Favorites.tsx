@@ -134,7 +134,7 @@ export default function Favorites() {
                   <img 
                     src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
                     alt={restaurant.name}
-                    className="w-24 h-32 object-cover flex-shrink-0"
+                    className="w-24 h-28 object-cover flex-shrink-0"
                   />
                   <div className="p-3 flex-1 min-w-0">
                     <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
