@@ -46,13 +46,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         premiumDescription="Suporte prioritário 24h"
       />
       
-      <NavCardItem 
-        icon={Crown}
-        title="Gerenciar Assinatura"
-        description="Veja detalhes do seu plano e faturas."
-        onClick={() => handleNavigate(createPageUrl('restaurant-area/upgrade'))}
-        isPremium={isPremium}
-      />
+      {/* REMOVIDO: Botão "Gerenciar Assinatura" */}
       
       {/* NOVO: Botão de Sair */}
       <NavCardItem 
