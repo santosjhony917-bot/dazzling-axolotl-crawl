@@ -45,6 +45,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      // Garante que o estado de carregamento seja falso após qualquer evento de autenticação
+      // e que o usuário seja definido corretamente.
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+    });
+
+    // Adiciona uma verificação inicial para garantir que o isLoading seja falso
+    // mesmo que o onAuthStateChange demore a disparar o INITIAL_SESSION.
+    // Isso é importante para o caso de um refresh de página.
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setIsLoading(false);
     });
