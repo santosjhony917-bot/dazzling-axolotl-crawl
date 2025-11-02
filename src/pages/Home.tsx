@@ -203,7 +203,7 @@ const Home: React.FC = () => {
                 </div>
               )}
             </div>
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="horizontal" className="hidden" /> {/* Adicionado className="hidden" */}
           </ScrollArea>
         </div>
 
