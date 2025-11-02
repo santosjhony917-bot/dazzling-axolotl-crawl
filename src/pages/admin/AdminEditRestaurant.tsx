@@ -510,7 +510,7 @@ const AdminEditRestaurant: React.FC = () => {
         <ScheduleEditor
           isOpen={isScheduleEditorOpen}
           onClose={() => setIsScheduleEditorOpen(false)}
-          initialSchedule={restaurant.opening_hours as WeekSchedule}
+          initialSchedule={restaurant.opening_hours as unknown as WeekSchedule}
           onSave={handleSaveSchedule}
           isLoading={isSaving}
         />
@@ -528,7 +528,7 @@ const AdminEditRestaurant: React.FC = () => {
         <SocialNetworksDialog
           isOpen={isSocialNetworksDialogOpen}
           onClose={() => setIsSocialNetworksDialogOpen(false)}
-          currentLinks={restaurant.social_networks as SocialNetworkLink[]}
+          currentLinks={restaurant.social_networks as unknown as SocialNetworkLink[]}
           onSave={handleSaveSocialNetworks}
           isLoading={isSaving}
         />

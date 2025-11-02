@@ -131,7 +131,7 @@ export default function ProfileSettingsPage() {
   }, [updateRestaurant, refetchRestaurant]);
 
   // NOVO HANDLER: Salvar Canais de Venda
-  const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null }) => {
+  const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null; external_url: string | null }) => {
     const { error } = await updateRestaurant(data);
     if (error) {
       showError(error);
@@ -300,6 +300,7 @@ export default function ProfileSettingsPage() {
         initialWhatsappUrl={restaurant?.whatsapp_url || null}
         initialIfoodUrl={restaurant?.ifood_url || null}
         initialOtherUrl={restaurant?.other_url || null}
+        initialExternalUrl={restaurant?.external_url || null}
         onSave={handleSaveSalesChannels}
         isLoading={false}
       />
