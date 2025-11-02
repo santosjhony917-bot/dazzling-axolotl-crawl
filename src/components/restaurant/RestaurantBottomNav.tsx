@@ -1,73 +1,119 @@
-import React from 'react';
-import { Home, Search, User, Star, Crown } from 'lucide-react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { memo } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Home, Search, User, Heart, Crown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl } from '@/utils/url';
+import { createPageUrl, PathKey } from '@/utils/url';
 import { motion } from 'framer-motion';
-import { useAuthData } from '@/context/AuthContext';
 
-const RestaurantBottomNav: React.FC = () => {
-  const location = useLocation();
-  const { restaurant } = useAuthData();
+const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
+  // console.log(`NavItem: ${label}, Path: ${path}, isSelected: ${isSelected}`); // Temporarily added for debugging
+  return (
+    <motion.div
+      whileTap={{ scale: 0.95 }}
+      className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
+    >
+      <Link
+        to={path}
+        className={cn(
+          "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
+          isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
+        )}
+      >
+        <Icon 
+          className={cn(
+            "w-6 h-6",
+          )} 
+        />
+        <span className="text-sm font-medium">
+          {label}
+        </span>
+      </Link>
+    </motion.div>
+  );
+});
 
-  const isPremium = restaurant?.plan === 'premium';
-
-  const isActive = (path: string) => {
-    const currentPath = location.pathname;
-    const normalizedItemPath = path.split('?')[0]; // Remove query params for comparison
-    return currentPath === normalizedItemPath || 
-           (normalizedItemPath === createPageUrl('restaurant-area-profile-menu') && currentPath.startsWith(normalizedItemPath));
-  };
-
-  const centralItem = isPremium ? { 
-    id: 'favorites', 
-    icon: Star, 
-    label: 'Favoritos', 
-    path: createPageUrl('restaurant-area-favorites') 
-  } : { 
-    id: 'premium', 
-    icon: Crown, 
-    label: 'Premium', 
-    path: createPageUrl('restaurant-area-upgrade') 
-  };
+const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
+  const location = useLocation(); // Usando useLocation para obter a rota atual
+  
+  // Definindo o item central baseado no plano
+  const centralItem = isFree 
+    ? { 
+        id: 'upgrade', 
+        icon: Crown, 
+        label: 'Premium', 
+        path: createPageUrl('restaurant-area/upgrade') as string
+      }
+    : { 
+        id: 'favorites', 
+        icon: Heart, 
+        label: 'Favoritos', 
+        path: createPageUrl('restaurant-area/favorites') as string // Alterado para rota de restaurante
+      };
 
   const navItems = [
-    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area-home') },
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area-search') },
+    { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('restaurant-area/search') }, // Alterado para rota de restaurante
     centralItem, // Item central dinâmico
-    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area-profile-menu') },
+    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];
+  
+  // Função para verificar se o item está selecionado com base na rota
+  const isPathActive = (itemPath: string) => {
+    // Remove query params e trailing slash para comparação
+    const currentPath = location.pathname.replace(/\/$/, '').split('?')[0];
+    const normalizedItemPath = itemPath.replace(/\/$/, '').split('?')[0];
+    
+    // Verifica se o caminho atual começa com o caminho do item (útil para rotas aninhadas como /menu)
+    return currentPath === normalizedItemPath || 
+           (normalizedItemPath === createPageUrl('restaurant-area/profile-menu') && currentPath.startsWith(normalizedItemPath));
+  };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-200 z-50 md:max-w-md md:mx-auto">
-      <div className="flex justify-around h-16">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.id}
-            to={item.path}
-            className={({ isActive: navIsActive }) => cn(
-              "flex flex-col items-center justify-center text-xs font-medium transition-colors duration-200",
-              isActive(item.path) ? "text-highlight" : "text-gray-500 hover:text-gray-700"
-            )}
-          >
-            {({ isActive: navIsActive }) => (
-              <>
-                <motion.div
-                  className="relative"
-                  initial={false}
-                  animate={{ scale: isActive(item.path) ? 1.1 : 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
+      <div className="flex justify-around items-center h-20">
+        {navItems.map((item) => {
+          const isSelected = isPathActive(item.path);
+          const isCentralButton = item.id === centralItem.id;
+          
+          // Se for o botão central E for o botão de Upgrade (isFree = true)
+          if (isCentralButton && isFree) {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
+              >
+                <motion.div // Adicionado motion.div
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
+                    "bg-highlight text-white"
+                  )}
                 >
-                  <item.icon className="h-6 w-6" />
+                  <Icon className={cn("h-7 w-7 fill-white")} />
                 </motion.div>
-                <span className="mt-1">{item.label}</span>
-              </>
-            )}
-          </NavLink>
-        ))}
+                <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
+                  {item.label}
+                </span>
+              </Link>
+            );
+          }
+          
+          // Caso contrário (Premium ou botões laterais), usa o NavItem padrão
+          return (
+            <NavItem
+              key={item.path}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              isSelected={isSelected}
+            />
+          );
+        })}
       </div>
-    </nav>
+    </div>
   );
-};
+});
 
 export default RestaurantBottomNav;

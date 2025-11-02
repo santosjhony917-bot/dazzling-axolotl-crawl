@@ -1,266 +1,446 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/integrations/base44Client';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { PlusCircle, Trash2, Loader2 } from 'lucide-react';
-import { showError, showSuccess } from '@/utils/toast';
+import { Loader2, PlusCircle, Edit, Trash2, Image as ImageIcon, Link as LinkIcon, Palette, Type, CheckCircle2, XCircle } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
+import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import ImageUpload from '@/components/ImageUpload';
 import BannerPreview from '@/components/admin/BannerPreview';
-import { getSelectablePagePaths, createPageUrl } from '@/utils/url';
+import { getSelectablePagePaths, createPageUrl, PathKey } from '@/utils/url';
 
 interface Banner {
   id: string;
   title: string;
-  subtitle?: string;
+  subtitle: string;
   image_url: string;
-  link_url?: string;
+  link_url: string;
   order_index: number;
   is_active: boolean;
-  target_audience: 'user' | 'restaurant' | 'admin';
+  target_audience: 'user' | 'restaurant_free' | 'restaurant_premium';
   has_button: boolean;
-  button_text?: string;
-  button_link?: string;
-  button_color?: string;
-  text_color?: string;
-  text_position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
-  text_size?: 'sm' | 'md' | 'lg';
+  button_text: string;
+  button_link: string;
+  button_color: string;
+  text_color: string;
+  text_position: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center';
+  text_size: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }
 
-export default function AdminBanners() {
-  const queryClient = useQueryClient();
-  const [editingBanner, setEditingBanner] = useState<Partial<Banner> | null>(null);
+const AdminBanners: React.FC = () => {
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingBanner, setEditingBanner] = useState<Banner | null>(null);
+  const { toast } = useToast();
+
+  const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
+  const [orderIndex, setOrderIndex] = useState(0);
+  const [isActive, setIsActive] = useState(true);
+  const [targetAudience, setTargetAudience] = useState<'user' | 'restaurant_free' | 'restaurant_premium'>('user');
+  const [hasButton, setHasButton] = useState(false);
+  const [buttonText, setButtonText] = useState('');
+  const [selectedPageKey, setSelectedPageKey] = useState<PathKey | ''>('');
+  const [buttonColor, setButtonColor] = useState('#E47948');
+  const [textColor, setTextColor] = useState('#FFFFFF');
+  const [textPosition, setTextPosition] = useState<'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center'>('bottom-left');
+  const [textSize, setTextSize] = useState<'sm' | 'md' | 'lg' | 'xl' | '2xl'>('md');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { data: banners, isLoading, error } = useQuery<Banner[], Error>({
-    queryKey: ['adminBanners'],
-    queryFn: async () => {
-      const { data, error } = await base44.integrations.supabase.from('banners').select('*').order('order_index');
-      if (error) throw error;
-      return data;
-    },
-  });
-
-  const addUpdateBannerMutation = useMutation({
-    mutationFn: async (banner: Partial<Banner>) => {
-      if (banner.id) {
-        const { error } = await base44.integrations.supabase.from('banners').update(banner).eq('id', banner.id);
-        if (error) throw error;
-      } else {
-        const { error } = await base44.integrations.supabase.from('banners').insert(banner);
-        if (error) throw error;
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['adminBanners'] });
-      showSuccess(editingBanner?.id ? "Banner atualizado com sucesso!" : "Banner adicionado com sucesso!");
-      setEditingBanner(null);
-    },
-    onError: (err: any) => {
-      showError(`Erro: ${err.message}`);
-    },
-    onSettled: () => {
-      setIsSubmitting(false);
-    }
-  });
-
-  const deleteBannerMutation = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await base44.integrations.supabase.from('banners').delete().eq('id', id);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['adminBanners'] });
-      showSuccess("Banner excluído com sucesso!");
-    },
-    onError: (err: any) => {
-      showError(`Erro ao excluir banner: ${err.message}`);
-    },
-  });
-
-  const handleSave = async () => {
-    if (!editingBanner?.title || !editingBanner?.image_url) {
-      showError("Título e URL da imagem são obrigatórios.");
-      return;
-    }
-    setIsSubmitting(true);
-    addUpdateBannerMutation.mutate(editingBanner);
-  };
 
   const selectablePagePaths = getSelectablePagePaths();
 
-  if (isLoading) return <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto my-10" />;
-  if (error) return <div className="text-red-500 text-center">Erro ao carregar banners: {error.message}</div>;
+  const generatedButtonLink = selectedPageKey ? createPageUrl(selectedPageKey) : '';
+
+  useEffect(() => {
+    fetchBanners();
+  }, []);
+
+  const fetchBanners = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('banners')
+      .select('*')
+      .order('order_index', { ascending: true });
+
+    if (error) {
+      toast({
+        title: 'Erro ao carregar banners',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } else {
+      setBanners(data as Banner[]);
+    }
+    setLoading(false);
+  };
+
+  const resetForm = () => {
+    setEditingBanner(null);
+    setTitle('');
+    setSubtitle('');
+    setImageUrl('');
+    setLinkUrl('');
+    setOrderIndex(0);
+    setIsActive(true);
+    setTargetAudience('user');
+    setHasButton(false);
+    setButtonText('');
+    setSelectedPageKey('');
+    setButtonColor('#E47948');
+    setTextColor('#FFFFFF');
+    setTextPosition('bottom-left');
+    setTextSize('md');
+  };
+
+  const openCreateModal = () => {
+    resetForm();
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (banner: Banner) => {
+    setEditingBanner(banner);
+    setTitle(banner.title);
+    setSubtitle(banner.subtitle);
+    setImageUrl(banner.image_url);
+    setLinkUrl(banner.link_url);
+    setOrderIndex(banner.order_index);
+    setIsActive(banner.is_active);
+    setTargetAudience(banner.target_audience);
+    setHasButton(banner.has_button);
+    setButtonText(banner.button_text);
+    const foundKey = selectablePagePaths.find(p => createPageUrl(p.key) === banner.button_link)?.key || '';
+    setSelectedPageKey(foundKey);
+    setButtonColor(banner.button_color);
+    setTextColor(banner.text_color);
+    setTextPosition(banner.text_position);
+    setTextSize(banner.text_size);
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    // Validação no lado do cliente para campos obrigatórios
+    if (!title.trim()) {
+      toast({
+        title: 'Erro de validação',
+        description: 'O título do banner não pode ser vazio.',
+        variant: 'destructive',
+      });
+      return; // Impede a submissão se o título estiver vazio
+    }
+    if (!imageUrl.trim()) {
+      toast({
+        title: 'Erro de validação',
+        description: 'A imagem do banner é obrigatória. Por favor, faça o upload de uma imagem.',
+        variant: 'destructive',
+      });
+      return; // Impede a submissão se a URL da imagem estiver vazia
+    }
+
+    setIsSubmitting(true);
+
+    const bannerData = {
+      title,
+      subtitle,
+      image_url: imageUrl,
+      link_url: linkUrl,
+      order_index: orderIndex,
+      is_active: isActive,
+      target_audience: targetAudience,
+      has_button: hasButton,
+      button_text: hasButton ? buttonText : '',
+      button_link: hasButton ? generatedButtonLink : '',
+      button_color: hasButton ? buttonColor : '#E47948',
+      text_color: textColor,
+      text_position: textPosition,
+      text_size: textSize, // Salvar tamanho do texto
+    };
+
+    if (editingBanner) {
+      const { error } = await supabase
+        .from('banners')
+        .update(bannerData)
+        .eq('id', editingBanner.id);
+
+      if (error) {
+        console.error("Supabase update error:", error);
+        toast({
+          title: 'Erro ao atualizar banner',
+          description: error.message || 'Ocorreu um erro desconhecido ao atualizar o banner. Verifique suas permissões.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Banner atualizado com sucesso!',
+          variant: 'default',
+        });
+        fetchBanners();
+        setIsModalOpen(false);
+      }
+    } else {
+      const { error } = await supabase
+        .from('banners')
+        .insert(bannerData);
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        toast({
+          title: 'Erro ao criar banner',
+          description: error.message || 'Ocorreu um erro desconhecido ao criar o banner. Verifique suas permissões.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Banner criado com sucesso!',
+          variant: 'default',
+        });
+        fetchBanners();
+        setIsModalOpen(false);
+      }
+    }
+    setIsSubmitting(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Tem certeza que deseja excluir este banner?')) return;
+
+    const { error } = await supabase
+      .from('banners')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: 'Erro ao excluir banner',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } else {
+      toast({
+        title: 'Banner excluído com sucesso!',
+        variant: 'default',
+      });
+      fetchBanners();
+    }
+  };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold text-primary mb-6">Gerenciar Banners</h1>
+    <AdminPageLayout
+      title="Gerenciar Banners"
+      description="Crie e edite banners para diferentes públicos (usuário final, restaurante free, restaurante premium)."
+    >
+      <div className="flex justify-end mb-4">
+        <Button onClick={openCreateModal}>
+          <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Novo Banner
+        </Button>
+      </div>
 
-      <Button onClick={() => setEditingBanner({ is_active: true, order_index: 0, target_audience: 'user', has_button: false, button_color: '#E47948', text_color: '#FFFFFF', text_position: 'bottom-left', text_size: 'md' })} className="mb-6">
-        <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Novo Banner
-      </Button>
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      ) : (
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Título</TableHead>
+                <TableHead>Público</TableHead>
+                <TableHead>Ativo</TableHead>
+                <TableHead>Ordem</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {banners.map((banner) => (
+                <TableRow key={banner.id}>
+                  <TableCell className="font-medium">{banner.title}</TableCell>
+                  <TableCell>{banner.target_audience}</TableCell>
+                  <TableCell>
+                    {banner.is_active ? (
+                      <CheckCircle2 className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <XCircle className="h-5 w-5 text-red-500" />
+                    )}
+                  </TableCell>
+                  <TableCell>{banner.order_index}</TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => openEditModal(banner)}>
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => handleDelete(banner.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
 
-      {editingBanner && (
-        <div className="bg-white p-6 rounded-lg shadow-lg mb-6 space-y-4">
-          <h2 className="text-xl font-semibold text-primary">{editingBanner.id ? "Editar Banner" : "Novo Banner"}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="title">Título</Label>
-              <Input id="title" value={editingBanner.title || ''} onChange={(e) => setEditingBanner({ ...editingBanner, title: e.target.value })} />
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editingBanner ? 'Editar Banner' : 'Adicionar Novo Banner'}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="title" className="text-right">Título</Label>
+              <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="col-span-3" />
             </div>
-            <div>
-              <Label htmlFor="subtitle">Subtítulo</Label>
-              <Input id="subtitle" value={editingBanner.subtitle || ''} onChange={(e) => setEditingBanner({ ...editingBanner, subtitle: e.target.value })} />
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="subtitle" className="text-right">Subtítulo</Label>
+              <Textarea id="subtitle" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="col-span-3" />
             </div>
-            <div>
-              <Label htmlFor="imageUrl">URL da Imagem</Label>
-              <Input id="imageUrl" value={editingBanner.image_url || ''} onChange={(e) => setEditingBanner({ ...editingBanner, image_url: e.target.value })} />
+            
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              bucketName="restaurant_images"
+              folderPath="banners"
+              label="Imagem do Banner"
+              aspectRatio="16/9"
+            />
+
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="linkUrl" className="text-right">URL do Link Externo</Label>
+              <Input id="linkUrl" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} className="col-span-3" />
             </div>
-            <div>
-              <Label htmlFor="linkUrl">URL de Destino (clique no banner)</Label>
-              <Select
-                value={editingBanner.link_url || ''}
-                onValueChange={(value) => setEditingBanner({ ...editingBanner, link_url: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma página ou insira uma URL" />
-                </SelectTrigger>
-                <SelectContent>
-                  {selectablePagePaths.map(page => (
-                    <SelectItem key={page.value} value={page.value}>{page.label}</SelectItem>
-                  ))}
-                  {/* Opção para inserir URL manual */}
-                  <SelectItem value="custom-url">Outra URL...</SelectItem>
-                </SelectContent>
-              </Select>
-              {editingBanner.link_url === 'custom-url' && (
-                <Input
-                  className="mt-2"
-                  placeholder="https://exemplo.com"
-                  value={editingBanner.link_url === 'custom-url' ? '' : editingBanner.link_url || ''}
-                  onChange={(e) => setEditingBanner({ ...editingBanner, link_url: e.target.value })}
-                />
-              )}
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="orderIndex" className="text-right">Ordem</Label>
+              <Input id="orderIndex" type="number" value={orderIndex} onChange={(e) => setOrderIndex(parseInt(e.target.value))} className="col-span-3" />
             </div>
-            <div>
-              <Label htmlFor="orderIndex">Ordem</Label>
-              <Input id="orderIndex" type="number" value={editingBanner.order_index || 0} onChange={(e) => setEditingBanner({ ...editingBanner, order_index: parseInt(e.target.value) })} />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Switch id="isActive" checked={editingBanner.is_active} onCheckedChange={(checked) => setEditingBanner({ ...editingBanner, is_active: checked })} />
-              <Label htmlFor="isActive">Ativo</Label>
-            </div>
-            <div>
-              <Label htmlFor="targetAudience">Público Alvo</Label>
-              <Select
-                value={editingBanner.target_audience || 'user'}
-                onValueChange={(value: 'user' | 'restaurant' | 'admin') => setEditingBanner({ ...editingBanner, target_audience: value })}
-              >
-                <SelectTrigger>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="targetAudience" className="text-right">Público-alvo</Label>
+              <Select value={targetAudience} onValueChange={(value: 'user' | 'restaurant_free' | 'restaurant_premium') => setTargetAudience(value)}>
+                <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Selecione o público" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="user">Usuários (Clientes)</SelectItem>
-                  <SelectItem value="restaurant">Restaurantes</SelectItem>
-                  <SelectItem value="admin">Administradores</SelectItem>
+                  <SelectItem value="user">Usuário Final</SelectItem>
+                  <SelectItem value="restaurant_free">Restaurante Free</SelectItem>
+                  <SelectItem value="restaurant_premium">Restaurante Premium</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-center space-x-2">
-              <Switch id="hasButton" checked={editingBanner.has_button} onCheckedChange={(checked) => setEditingBanner({ ...editingBanner, has_button: checked })} />
-              <Label htmlFor="hasButton">Tem Botão</Label>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="isActive" className="text-right">Ativo</Label>
+              <Switch id="isActive" checked={isActive} onCheckedChange={setIsActive} className="col-span-3" />
             </div>
-            {editingBanner.has_button && (
+            
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="hasButton" className="text-right">Tem Botão</Label>
+              <Switch id="hasButton" checked={hasButton} onCheckedChange={setHasButton} className="col-span-3" />
+            </div>
+
+            {hasButton && (
               <>
-                <div>
-                  <Label htmlFor="buttonText">Texto do Botão</Label>
-                  <Input id="buttonText" value={editingBanner.button_text || ''} onChange={(e) => setEditingBanner({ ...editingBanner, button_text: e.target.value })} />
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="buttonText" className="text-right">Texto do Botão</Label>
+                  <Input id="buttonText" value={buttonText} onChange={(e) => setButtonText(e.target.value)} className="col-span-3" />
                 </div>
-                <div>
-                  <Label htmlFor="buttonLink">Link do Botão</Label>
-                  <Input id="buttonLink" value={editingBanner.button_link || ''} onChange={(e) => setEditingBanner({ ...editingBanner, button_link: e.target.value })} />
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="buttonLink" className="text-right">Link do Botão (Página)</Label>
+                  <Select value={selectedPageKey} onValueChange={(value: PathKey) => setSelectedPageKey(value)}>
+                    <SelectTrigger className="col-span-3">
+                      <SelectValue placeholder="Selecione uma página" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {selectablePagePaths.map((path) => (
+                        <SelectItem key={path.key} value={path.key}>
+                          {path.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-                <div>
-                  <Label htmlFor="buttonColor">Cor do Botão</Label>
-                  <Input id="buttonColor" type="color" value={editingBanner.button_color || '#E47948'} onChange={(e) => setEditingBanner({ ...editingBanner, button_color: e.target.value })} />
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="buttonColor" className="text-right">Cor do Botão</Label>
+                  <Input id="buttonColor" type="color" value={buttonColor} onChange={(e) => setButtonColor(e.target.value)} className="col-span-2 h-8" />
+                  <Input id="buttonColorHex" value={buttonColor} onChange={(e) => setButtonColor(e.target.value)} className="col-span-1" />
                 </div>
               </>
             )}
-            <div>
-              <Label htmlFor="textColor">Cor do Texto</Label>
-              <Input id="textColor" type="color" value={editingBanner.text_color || '#FFFFFF'} onChange={(e) => setEditingBanner({ ...editingBanner, text_color: e.target.value })} />
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="textColor" className="text-right">Cor do Texto</Label>
+              <Input id="textColor" type="color" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="col-span-2 h-8" />
+              <Input id="textColorHex" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="col-span-1" />
             </div>
-            <div>
-              <Label htmlFor="textPosition">Posição do Texto</Label>
-              <Select
-                value={editingBanner.text_position || 'bottom-left'}
-                onValueChange={(value: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center') => setEditingBanner({ ...editingBanner, text_position: value })}
-              >
-                <SelectTrigger>
+
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="textPosition" className="text-right">Posição do Texto</Label>
+              <Select value={textPosition} onValueChange={(value: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right' | 'center') => setTextPosition(value)}>
+                <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Selecione a posição" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="top-left">Superior Esquerdo</SelectItem>
-                  <SelectItem value="top-right">Superior Direito</SelectItem>
-                  <SelectItem value="bottom-left">Inferior Esquerdo</SelectItem>
-                  <SelectItem value="bottom-right">Inferior Direito</SelectItem>
+                  <SelectItem value="top-left">Superior Esquerda</SelectItem>
+                  <SelectItem value="top-center">Superior Centro</SelectItem>
+                  <SelectItem value="top-right">Superior Direita</SelectItem>
                   <SelectItem value="center">Centro</SelectItem>
+                  <SelectItem value="bottom-left">Inferior Esquerda</SelectItem>
+                  <SelectItem value="bottom-center">Inferior Centro</SelectItem>
+                  <SelectItem value="bottom-right">Inferior Direita</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label htmlFor="textSize">Tamanho do Texto</Label>
-              <Select
-                value={editingBanner.text_size || 'md'}
-                onValueChange={(value: 'sm' | 'md' | 'lg') => setEditingBanner({ ...editingBanner, text_size: value })}
-              >
-                <SelectTrigger>
+
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="textSize" className="text-right">Tamanho do Texto</Label>
+              <Select value={textSize} onValueChange={(value: 'sm' | 'md' | 'lg' | 'xl' | '2xl') => setTextSize(value)}>
+                <SelectTrigger className="col-span-3">
                   <SelectValue placeholder="Selecione o tamanho" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="sm">Pequeno</SelectItem>
                   <SelectItem value="md">Médio</SelectItem>
                   <SelectItem value="lg">Grande</SelectItem>
+                  <SelectItem value="xl">Extra Grande</SelectItem>
+                  <SelectItem value="2xl">2x Extra Grande</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-          </div>
-          <div className="flex justify-end space-x-2 mt-4">
-            <Button variant="outline" onClick={() => setEditingBanner(null)}>Cancelar</Button>
-            <Button onClick={handleSave} disabled={isSubmitting}>
-              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-              {editingBanner.id ? "Salvar Alterações" : "Adicionar Banner"}
-            </Button>
-          </div>
-          {editingBanner.image_url && editingBanner.title && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold mb-2">Pré-visualização:</h3>
-              <BannerPreview banner={editingBanner as Banner} />
-            </div>
-          )}
-        </div>
-      )}
 
-      <div className="space-y-4">
-        {banners?.map((banner) => (
-          <div key={banner.id} className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
-            <div className="flex-1">
-              <h3 className="font-semibold text-primary">{banner.title}</h3>
-              <p className="text-sm text-text-secondary">{banner.subtitle}</p>
-              <p className="text-xs text-gray-500">Ordem: {banner.order_index} | Ativo: {banner.is_active ? 'Sim' : 'Não'}</p>
+            <div className="col-span-4 mt-6">
+              <h4 className="text-lg font-semibold mb-2 text-center">Pré-visualização do Banner</h4>
+              <BannerPreview
+                title={title}
+                subtitle={subtitle}
+                imageUrl={imageUrl}
+                linkUrl={linkUrl}
+                hasButton={hasButton}
+                buttonText={buttonText}
+                buttonLink={generatedButtonLink}
+                buttonColor={buttonColor}
+                textColor={textColor}
+                textPosition={textPosition}
+                textSize={textSize}
+              />
             </div>
-            <div className="flex space-x-2">
-              <Button variant="outline" size="sm" onClick={() => setEditingBanner(banner)}>Editar</Button>
-              <Button variant="destructive" size="sm" onClick={() => deleteBannerMutation.mutate(banner.id)}>
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
+
           </div>
-        ))}
-      </div>
-    </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsModalOpen(false)} disabled={isSubmitting}>Cancelar</Button>
+            <Button onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {editingBanner ? 'Salvar Alterações' : 'Criar Banner'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </AdminPageLayout>
   );
-}
+};
+
+export default AdminBanners;
