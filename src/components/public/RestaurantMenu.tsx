@@ -18,13 +18,14 @@ interface RestaurantMenuProps {
   menuCategories: MenuCategoryWithItems[];
   isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
   restaurantId?: string; // Necessário para o link do cardápio completo
+  forceShowFullMenuButton?: boolean; // NOVO: Prop para forçar a exibição do botão de menu completo
 }
 
 // NOVOS LIMITES
 const MAX_CATEGORIES_PREVIEW = 2;
 const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId }) => {
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton }) => {
   const navigate = useNavigate();
   
   if (menuCategories.length === 0) return null;
@@ -48,10 +49,10 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
     ? activeCategories 
     : activeCategories.slice(0, MAX_CATEGORIES_PREVIEW);
     
-  const shouldShowFullMenuButton = !isFullMenuPage && (
+  const shouldShowFullMenuButton = forceShowFullMenuButton || (!isFullMenuPage && (
     activeCategories.length > MAX_CATEGORIES_PREVIEW || 
     activeCategories.some(cat => cat.menu_items.filter(item => item.is_active).length > MAX_ITEMS_PER_CATEGORY_PREVIEW)
-  );
+  ));
 
   return (
     <div 

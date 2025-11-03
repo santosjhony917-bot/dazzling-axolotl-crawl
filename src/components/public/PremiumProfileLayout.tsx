@@ -198,6 +198,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                 menuCategories={restaurant.menu_categories} 
                 isFullMenuPage={false}
                 restaurantId={restaurant.id}
+                forceShowFullMenuButton={isCompact} // NOVO: Força a exibição do botão no modo compacto
               />
             </div>
           )}
