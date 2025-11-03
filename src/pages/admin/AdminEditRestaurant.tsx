@@ -23,6 +23,7 @@ import { createPageUrl } from '@/utils/url';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RestaurantPlan } from '@/types/supabase';
 import { AdminRestaurant, WeekSchedule, SocialNetworkLink } from '@/types/restaurant';
+import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 
 // Schemas de validação
 const nameSchema = z.string().min(1, { message: "O nome é obrigatório." });
@@ -506,15 +507,13 @@ const AdminEditRestaurant: React.FC = () => {
           loading={isSaving}
         />
       )}
-      {restaurant.opening_hours && (
-        <ScheduleEditor
-          isOpen={isScheduleEditorOpen}
-          onClose={() => setIsScheduleEditorOpen(false)}
-          initialSchedule={restaurant.opening_hours as unknown as WeekSchedule}
-          onSave={handleSaveSchedule}
-          isLoading={isSaving}
-        />
-      )}
+      <ScheduleEditor
+        isOpen={isScheduleEditorOpen}
+        onClose={() => setIsScheduleEditorOpen(false)}
+        initialSchedule={(restaurant.opening_hours as unknown as WeekSchedule) || DEFAULT_SCHEDULE}
+        onSave={handleSaveSchedule}
+        isLoading={isSaving}
+      />
       <PaymentMethodsDialog
         isOpen={isPaymentMethodsDialogOpen}
         onClose={() => setIsPaymentMethodsDialogOpen(false)}
