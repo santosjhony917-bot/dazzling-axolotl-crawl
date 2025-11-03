@@ -134,7 +134,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
           {/* Navegação por Abas (Sticky) */}
           {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4">
+            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
               <ScrollArea className="w-full whitespace-nowrap">
                 <div className="flex space-x-4">
                   {hasGallery && (

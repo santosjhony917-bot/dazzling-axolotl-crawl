@@ -66,8 +66,12 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
               <Button 
                 key={link.label} 
                 asChild
-                variant="channel" // Usando o novo variant 'channel'
-                className="flex flex-col items-center gap-2 rounded-xl p-4 h-auto" // Removendo classes de background/border/shadow daqui
+                // Condicionalmente aplica o variant 'highlight' para WhatsApp
+                variant={isWhatsapp ? "highlight" : "channel"} 
+                className={cn(
+                  "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
+                  isWhatsapp ? "bg-green-500 hover:bg-green-600 text-white" : "" // Estilo específico para WhatsApp
+                )}
               >
                 <a 
                   href={link.url!}
@@ -81,13 +85,13 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                       className={cn(iconSizeClass, "object-contain")} 
                     />
                   ) : isWhatsapp ? (
-                    <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
+                    <WhatsappIcon className={cn(iconSizeClass, "text-white")} />
                   ) : (
                     <Icon className={cn(iconSizeClass, link.colorClass)} />
                   )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
-                    isIfood ? "text-highlight" : "text-primary" // Destaque para o texto do iFood
+                    isIfood ? "text-highlight" : (isWhatsapp ? "text-white" : "text-primary") // Destaque para o texto do iFood e WhatsApp
                   )}>
                     {link.label}
                   </p>

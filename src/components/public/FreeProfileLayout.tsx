@@ -131,6 +131,52 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           {/* Canais de Pedido */}
           <OrderChannelsSection restaurant={restaurant} />
           
+          {/* Navegação por Abas (Sticky) - Adicionado para FreeLayout também */}
+          {(hasMenu || hasGallery || hasInfo) && (
+            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6"> {/* Adicionado mt-6 para aumentar o gutter */}
+              <ScrollArea className="w-full whitespace-nowrap">
+                <div className="flex space-x-4">
+                  {hasGallery && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('gallery-section', 'gallery')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Image className="w-4 h-4 mr-2" /> Fotos
+                    </Button>
+                  )}
+                  {hasMenu && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('menu-section', 'menu')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                    </Button>
+                  )}
+                  {hasInfo && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => scrollToSection('info-section', 'info')}
+                      className={cn(
+                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                      )}
+                    >
+                      <Info className="w-4 h-4 mr-2" /> Informações
+                    </Button>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+          )}
+          
           {/* 2. Galeria Section */}
           {hasGallery && (
             <div id="gallery-section">
