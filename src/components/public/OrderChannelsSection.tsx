@@ -95,8 +95,8 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                   )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
-                    // Texto na cor de destaque para WhatsApp e iFood
-                    isWhatsapp || isIfood ? "text-highlight" : "text-primary" 
+                    // Texto na cor vermelha para iFood, cor de destaque para WhatsApp, e primária para outros
+                    isIfood ? "text-red-600" : (isWhatsapp ? "text-highlight" : "text-primary") 
                   )}>
                     {link.label}
                   </p>
