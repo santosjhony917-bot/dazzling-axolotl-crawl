@@ -19,13 +19,14 @@ interface RestaurantMenuProps {
   isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
   restaurantId?: string; // Necessário para o link do cardápio completo
   forceShowFullMenuButton?: boolean; // NOVO: Prop para forçar a exibição do botão de menu completo
+  isCompact?: boolean; // NOVO: Prop para indicar modo compacto
 }
 
 // NOVOS LIMITES
 const MAX_CATEGORIES_PREVIEW = 2;
 const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton }) => {
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton, isCompact }) => {
   const navigate = useNavigate();
   
   if (menuCategories.length === 0) return null;
@@ -133,7 +134,10 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
         <Button 
           onClick={handleViewFullMenu}
           variant="default"
-          className="w-full h-12 rounded-xl text-lg font-bold mt-6"
+          className={cn("w-full font-bold mt-6", {
+            "h-12 text-lg rounded-xl": !isCompact, // Tamanho padrão
+            "h-9 text-sm rounded-lg": isCompact // Tamanho menor para modo compacto
+          })}
         >
           Ver Cardápio Completo
         </Button>
