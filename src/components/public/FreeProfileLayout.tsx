@@ -82,7 +82,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       />
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
-      <div className="container mx-auto px-4 pt-4 pb-8">
+      <div className="container mx-auto px-4 pt-8 pb-8">
         <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
         
         {restaurant.addressSummary && (
@@ -91,7 +91,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           </p>
         )}
 
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-2 mb-4">
           <span className="flex items-center text-sm text-gray-500">
             <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
           </span>
@@ -126,7 +126,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           {/* Description */}
           {restaurant.description && (
             <Card className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
-              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
+              <h2 className="text-2xl font-bold text-primary mb-3">Sobre</h2>
               <p className="text-gray-600">{restaurant.description}</p>
             </Card>
           )}
@@ -201,7 +201,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
             <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
+              <h2 className="text-2xl font-bold text-primary">Informações</h2>
               
               {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
               {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
