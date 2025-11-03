@@ -21,24 +21,24 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
   }
 
   const orderLinks = [
-    {
-      label: 'WhatsApp',
-      url: restaurant.whatsapp_url,
-      icon: MessageSquare,
+    { 
+      label: 'WhatsApp', 
+      url: restaurant.whatsapp_url, 
+      icon: MessageSquare, 
       colorClass: 'text-green-600',
       target: '_blank',
     },
-    {
-      label: 'iFood',
-      url: restaurant.ifood_url,
-      icon: Utensils,
-      colorClass: 'text-red-600', // Esta classe será sobrescrita pelo variant="highlight"
+    { 
+      label: 'iFood', 
+      url: restaurant.ifood_url, 
+      icon: Utensils, 
+      colorClass: 'text-red-600',
       target: '_blank',
     },
-    {
-      label: 'Outro Link',
-      url: restaurant.other_url || restaurant.external_url,
-      icon: Globe,
+    { 
+      label: 'Outro Link', 
+      url: restaurant.other_url || restaurant.external_url, 
+      icon: Globe, 
       colorClass: 'text-primary',
       target: '_blank',
     },
@@ -58,49 +58,31 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
             const Icon = link.icon;
             const isIfood = link.label === 'iFood';
             const isWhatsapp = link.label === 'WhatsApp';
-
-            // Define o tamanho do ícone/imagem
+            
+            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
             const iconSizeClass = "w-8 h-8";
 
-            // Determine button variant and additional classes
-            const buttonVariant = isIfood ? "highlight" : "ghost";
-            const buttonClasses = cn(
-              "flex flex-col items-center gap-2 rounded-xl p-4 shadow-soft-sm border",
-              isIfood ? "border-transparent" : "bg-gray-50 border-gray-200 hover:shadow-soft-md",
-              "cursor-pointer transition-shadow h-auto" // Garante que a altura do botão se ajuste ao conteúdo
-            );
-
             return (
-              <Button
-                key={link.label}
-                asChild // Renderiza como um <a> tag
-                variant={buttonVariant}
-                className={buttonClasses}
+              <a 
+                key={link.label} 
+                href={link.url!}
+                target={link.target}
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
               >
-                <a
-                  href={link.url!}
-                  target={link.target}
-                  rel="noopener noreferrer"
-                >
-                  {isIfood ? (
-                    <img
-                      src={IFOOD_PNG_URL}
-                      alt="iFood Logo"
-                      className={cn(iconSizeClass, "object-contain")}
-                    />
-                  ) : isWhatsapp ? (
-                    <WhatsappIcon className={iconSizeClass} />
-                  ) : (
-                    <Icon className={cn(iconSizeClass, link.colorClass)} />
-                  )}
-                  <p className={cn(
-                    "text-xs font-semibold text-center",
-                    isIfood ? "text-white" : "text-gray-700" // Cor do texto para o variant highlight
-                  )}>
-                    {link.label}
-                  </p>
-                </a>
-              </Button>
+                {isIfood ? (
+                  <img 
+                    src={IFOOD_PNG_URL} 
+                    alt="iFood Logo" 
+                    className={cn(iconSizeClass, "object-contain")} 
+                  />
+                ) : isWhatsapp ? (
+                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
+                ) : (
+                  <Icon className={cn(iconSizeClass, link.colorClass)} />
+                )}
+                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
+              </a>
             );
           })}
         </div>
