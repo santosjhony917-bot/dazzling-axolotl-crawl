@@ -40,18 +40,19 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
           <div className="flex items-start">
             {addressItems[0].icon} {/* Renderiza o ícone do array */}
             <div className="ml-3 min-w-0">
+              <p className="text-sm font-semibold text-gray-700 mb-2">Localização</p>
               {addressItems[0].link ? (
                 <a 
                   href={addressItems[0].link} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center mt-2"
+                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center"
                 >
                   {addressItems[0].value}
                   {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
                 </a>
               ) : (
-                <p className="text-base font-bold text-primary break-words mt-2">{addressItems[0].value}</p>
+                <p className="text-base font-bold text-primary break-words">{addressItems[0].value}</p>
               )}
             </div>
           </div>
