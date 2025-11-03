@@ -2,7 +2,7 @@ import React from 'react';
 import { Heart, MapPin, Utensils } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export interface RestaurantProfileHeaderProps { // Exportado
+interface RestaurantProfileHeaderProps {
   restaurant: {
     id: string;
     name: string;
