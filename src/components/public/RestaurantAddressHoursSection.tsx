@@ -17,18 +17,20 @@ interface RestaurantAddressHoursSectionProps {
 const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
   const { opening_hours } = restaurant;
 
-  const addressItem = {
-    icon: MapPin,
-    label: 'Endereço',
-    value: fullAddress,
-    link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
-    isExternal: true,
-  };
+  // Usando um array para consistência, mesmo que haja apenas um item de endereço
+  const addressItems = [
+    {
+      icon: <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />,
+      value: fullAddress,
+      link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
+      isExternal: true,
+    },
+  ];
 
   return (
     <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        <MapPin className="w-6 h-6 text-primary" />
+        {/* Ícone MapPin removido conforme solicitado */}
         <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-6">
@@ -36,20 +38,20 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
         {/* Endereço */}
         <div className="space-y-4">
           <div className="flex items-start">
-            <addressItem.icon className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
+            {addressItems[0].icon} {/* Renderiza o ícone do array */}
             <div className="ml-3 min-w-0">
-              {addressItem.link ? (
+              {addressItems[0].link ? (
                 <a 
-                  href={addressItem.link} 
+                  href={addressItems[0].link} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-base font-bold text-highlight hover:text-highlight/90 transition-colors break-words flex items-center mt-2"
                 >
-                  {addressItem.value}
-                  {addressItem.isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
+                  {addressItems[0].value}
+                  {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
                 </a>
               ) : (
-                <p className="text-base font-bold text-highlight break-words mt-2">{addressItem.value}</p>
+                <p className="text-base font-bold text-highlight break-words mt-2">{addressItems[0].value}</p>
               )}
             </div>
           </div>
