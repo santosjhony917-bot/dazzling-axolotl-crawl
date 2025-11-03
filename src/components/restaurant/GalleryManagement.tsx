@@ -114,7 +114,7 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
     isUploading: isUploadingCover,
     uploadImage: uploadCoverImage,
     deleteImage: deleteCoverImage,
-  } = useImageUpload({ bucketName: 'restaurant-images' });
+  } = useImageUpload();
 
   useEffect(() => {
     setCoverImageUrl(initialCoverImageUrl);
