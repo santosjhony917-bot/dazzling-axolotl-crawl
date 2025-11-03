@@ -21,7 +21,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   } = restaurant;
 
   return (
-    <div className="relative w-full h-64 md:h-80 bg-gray-200 overflow-hidden">
+    <div className="relative w-full h-52 md:h-64 bg-gray-200 overflow-hidden">
       {/* Imagem de Capa - Apenas para Premium */}
       {isPremium && coverImageUrl ? (
         <img
