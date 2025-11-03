@@ -1,108 +1,104 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, ExternalLink, CreditCard } from 'lucide-react';
-import { OpeningHoursDisplay } from './OpeningHoursDisplay';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import { MapPin, Clock, CreditCard } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { Restaurant } from '@/types';
 
 interface RestaurantAddressHoursSectionProps {
-  id: string;
-  restaurant: PublicRestaurantData;
-  fullAddress: string;
-  paymentMethods: string[] | null;
+  restaurant: Restaurant;
+  fullAddress: string | null;
+  paymentMethods: string[];
+  id?: string;
 }
 
-const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
-  const { opening_hours } = restaurant;
+const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({
+  restaurant,
+  fullAddress,
+  paymentMethods,
+  id,
+}) => {
+  const renderOpeningHours = () => {
+    if (!restaurant.opening_hours || Object.keys(restaurant.opening_hours).length === 0) {
+      return <p className="text-gray-500">Não informado</p>;
+    }
 
-  // Usando um array para consistência, mesmo que haja apenas um item de endereço
-  const addressItems = [
-    {
+    const daysOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const dayNames = {
+      monday: 'Segunda-feira',
+      tuesday: 'Terça-feira',
+      wednesday: 'Quarta-feira',
+      thursday: 'Quinta-feira',
+      friday: 'Sexta-feira',
+      saturday: 'Sábado',
+      sunday: 'Domingo',
+    };
+
+    return (
+      <div className="space-y-1">
+        {daysOrder.map(dayKey => {
+          const hours = restaurant.opening_hours[dayKey];
+          if (hours && hours.length > 0) {
+            return (
+              <p key={dayKey} className="text-gray-700">
+                <span className="font-medium">{dayNames[dayKey]}:</span> {hours.map(h => `${h.open} - ${h.close}`).join(', ')}
+              </p>
+            );
+          }
+          return null;
+        })}
+      </div>
+    );
+  };
+
+  const sections = [];
+
+  if (fullAddress) {
+    sections.push({
       icon: <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />,
+      label: "Localização",
       value: fullAddress,
       link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
       isExternal: true,
-    },
-  ];
+    });
+  }
+
+  if (restaurant.opening_hours && Object.keys(restaurant.opening_hours).length > 0) {
+    sections.push({
+      icon: <Clock className="w-5 h-5 text-gray-500 flex-shrink-0" />,
+      label: "Horário de Funcionamento",
+      value: renderOpeningHours(),
+      isHtml: true, // Flag para indicar que o valor é JSX
+    });
+  }
+
+  if (paymentMethods && paymentMethods.length > 0) {
+    sections.push({
+      icon: <CreditCard className="w-5 h-5 text-gray-500 flex-shrink-0" />,
+      label: "Formas de Pagamento",
+      value: paymentMethods.join(', '),
+    });
+  }
 
   return (
-    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        {/* Ícone MapPin removido conforme solicitado */}
-        <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 space-y-6">
-        
-        {/* Endereço */}
-        <div className="space-y-4">
-          <div className="flex items-start">
-            {addressItems[0].icon} {/* Renderiza o ícone do array */}
-            <div className="ml-3 min-w-0">
-              {addressItems[0].link ? (
-                <a 
-                  href={addressItems[0].link} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center mt-2"
-                >
-                  {addressItems[0].value}
-                  {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
+    <Card id={id} className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
+      <h2 className="text-2xl font-bold text-primary mb-3">Informações</h2>
+      <div className="space-y-3">
+        {sections.map((section, index) => (
+          <div key={index} className="flex items-start text-gray-700">
+            {section.icon}
+            <div className="ml-2">
+              <p className="font-semibold">{section.label}</p>
+              {section.link ? (
+                <a href={section.link} target={section.isExternal ? "_blank" : "_self"} rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                  {section.value}
                 </a>
               ) : (
-                <p className="text-base font-bold text-primary break-words mt-2">{addressItems[0].value}</p>
+                section.isHtml ? section.value : <p>{section.value}</p>
               )}
             </div>
           </div>
-        </div>
-
-        {/* Separator between Address and Opening Hours */}
-        {fullAddress && opening_hours && <Separator className="my-4 bg-gray-100" />}
-
-        {/* Horário de Funcionamento */}
-        {opening_hours && (
-          <div className="pt-4">
-            <div className="flex items-start">
-              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
-              <div className="ml-3 min-w-0">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-                <OpeningHoursDisplay openingHours={opening_hours} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Separador e Formas de Pagamento */}
-        {paymentMethods && paymentMethods.length > 0 && (
-          <>
-            {/* Separator between Opening Hours and Payment Methods */}
-            {(fullAddress || opening_hours) && <Separator className="my-4 bg-gray-100" />}
-            <div className="pt-4">
-              <div className="flex items-start">
-                <CreditCard className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
-                <div className="ml-3 min-w-0">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
-                  <div className="flex flex-wrap gap-2">
-                    {paymentMethods.map((method, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary"
-                        className={cn(
-                          "px-3 py-1 text-sm font-medium rounded-full",
-                          "bg-gray-100 text-gray-700 border border-gray-200"
-                        )}
-                      >
-                        {method}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </CardContent>
+        ))}
+      </div>
     </Card>
   );
 };
