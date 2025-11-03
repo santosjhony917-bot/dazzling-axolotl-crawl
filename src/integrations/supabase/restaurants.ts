@@ -1,132 +1,123 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { showError } from '@/utils/toast';
-import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
+import { supabase } from './client';
+import { Restaurant, PublicRestaurantData } from '@/types/restaurant';
+import { WeekSchedule } from '@/types/schedule'; // Importando WeekSchedule do novo arquivo
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 
-// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
-export async function fetchNearbyRestaurants(
-  lat: number, 
-  lng: number, 
-  maxDistance: number = 10, 
-  searchQuery: string | null = null
-): Promise<RestaurantWithDistance[]> {
+// Função para buscar um restaurante público por ID
+export async function getPublicRestaurantById(id: string): Promise<PublicRestaurantData | null> {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select(`
+      *,
+      menu_categories (
+        id, name, order_index, is_active, is_popular,
+        menu_items (id, name, description, price, image_url, order_index, is_active)
+      ),
+      restaurant_gallery (id, image_url, caption, order_index)
+    `)
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error fetching public restaurant:', error);
+    return null;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  // Mapear os dados para o tipo PublicRestaurantData
+  const baseData: PublicRestaurantData = {
+    ...data,
+    menu_categories: data.menu_categories || [],
+    gallery_images: data.restaurant_gallery || [],
+    // Certifique-se de que opening_hours é do tipo WeekSchedule
+    opening_hours: data.opening_hours as WeekSchedule | null,
+    payment_methods: data.payment_methods as string[] | null,
+    social_networks: data.social_networks as any[] | null, // Ajustar se SocialNetworkLink for mais complexo
+  };
+
+  // Calcular status de abertura
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours);
+
+  return {
+    ...baseData,
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    addressSummary: baseData.address ? `${baseData.address}, ${baseData.number || 'S/N'} - ${baseData.neighborhood}, ${baseData.city} - ${baseData.state}` : null,
+  };
+}
+
+// Função para buscar restaurantes próximos
+export async function findNearbyRestaurants(
+  user_lat: number,
+  user_lng: number,
+  max_distance_km: number = 10,
+  search_query: string | null = null
+): Promise<PublicRestaurantData[]> {
   const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-    user_lat: lat,
-    user_lng: lng,
-    max_distance_km: maxDistance,
-    search_query: searchQuery,
+    user_lat,
+    user_lng,
+    max_distance_km,
+    search_query,
   });
 
   if (error) {
-    console.error('Error fetching nearby restaurants:', error);
-    showError('Erro ao buscar restaurantes próximos.');
+    console.error('Error finding nearby restaurants:', error);
     return [];
   }
 
   return data || [];
 }
 
-// Define a string de seleção para os dados básicos do perfil público
-const PUBLIC_RESTAURANT_BASE_SELECT = `
-    *,
-    followers_count:user_favorites(count),
-    gallery_images:restaurant_gallery(id, image_url, caption, order_index)
-`;
-
-/**
- * Busca os dados públicos de um restaurante pelo ID.
- * @param restaurantId O ID do restaurante.
- * @returns Os dados públicos do restaurante, incluindo menu e galeria.
- */
-export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
-  // 1. Buscar dados básicos, seguidores e galeria (sem menu aninhado)
-  const { data: baseData, error: baseError } = await supabase
+// Função para atualizar um restaurante (para uso administrativo ou pelo proprietário)
+export async function updateRestaurant(
+  restaurantId: string,
+  updates: Partial<Omit<Restaurant, 'id' | 'created_at' | 'user_id'>> // Omitindo campos que não devem ser atualizados diretamente
+) {
+  const { data, error } = await supabase
     .from('restaurants')
-    .select(PUBLIC_RESTAURANT_BASE_SELECT)
+    .update(updates)
     .eq('id', restaurantId)
+    .select()
     .single();
 
-  if (baseError && baseError.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant base data:', baseError);
-    throw new Error(`Erro ao carregar dados básicos: ${baseError.message}`);
+  if (error) {
+    console.error('Error updating restaurant:', error);
+    return { data: null, error };
   }
 
-  if (!baseData) {
-    return null;
-  }
-  
-  // 2. Buscar categorias e itens de menu separadamente
-  const { data: menuData, error: menuError } = await supabase
-    .from('menu_categories')
-    .select(`
-      id, 
-      name, 
-      order_index, 
-      is_active,
-      menu_items(
-          id, 
-          name, 
-          description, 
-          price, 
-          image_url, 
-          order_index, 
-          is_active
-      )
-    `)
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
+  return { data, error: null };
+}
 
-  if (menuError) {
-    console.error('Error fetching menu data:', menuError);
-    // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
+// Função para adicionar um restaurante
+export async function addRestaurant(newRestaurant: Omit<Restaurant, 'id' | 'created_at'>) {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .insert(newRestaurant)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error adding restaurant:', error);
+    return { data: null, error };
   }
 
-  // 3. Processar e combinar dados
-  
-  // Processar contagem de seguidores (incluindo override)
-  const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
+  return { data, error: null };
+}
 
-  // Constrói o resumo do endereço
-  const addressParts = [baseData.city, baseData.state].filter(Boolean);
-  const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
+// Função para deletar um restaurante
+export async function deleteRestaurant(restaurantId: string) {
+  const { error } = await supabase
+    .from('restaurants')
+    .delete()
+    .eq('id', restaurantId);
 
-  // Filtrar categorias e itens inativos
-  const activeMenuCategories = (menuData || []) as unknown as (MenuCategory & { menu_items: MenuItem[] })[];
-  
-  const filteredMenuCategories = activeMenuCategories
-      .filter(cat => cat.is_active)
-      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-      .map(category => ({
-          ...category,
-          menu_items: category.menu_items
-              .filter(item => item.is_active)
-              .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-      }));
-      
-  // Ordenar galeria
-  const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
-  
-  const sortedGalleryImages = galleryImages
-      .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-      
-  // Calcular status de abertura
-  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
-  
-  // Processar formas de pagamento (assumindo que é um array de strings)
-  const paymentMethods = (baseData.payment_methods as string[] | null) || null;
+  if (error) {
+    console.error('Error deleting restaurant:', error);
+    return { success: false, error };
+  }
 
-  return {
-    ...baseData,
-    addressSummary,
-    logoUrl: baseData.image_url,
-    followers_count: followersCount as number,
-    menu_categories: filteredMenuCategories,
-    gallery_images: sortedGalleryImages,
-    payment_methods: paymentMethods, // ADICIONADO
-    // Adicionando status de abertura
-    isOpen: openStatus.isOpen,
-    statusText: openStatus.statusText,
-    nextOpenTime: openStatus.nextOpenTime,
-  } as PublicRestaurantData;
+  return { success: true, error: null };
 }
