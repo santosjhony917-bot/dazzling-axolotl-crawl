@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { logError } from '@/utils/errorLogger';
 import { v4 as uuidv4 } from 'uuid';
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 
 interface UseImageUploadOptions {
   bucketName?: string;
@@ -11,7 +12,7 @@ interface UseImageUploadOptions {
 }
 
 export function useImageUpload(options?: UseImageUploadOptions) {
-  const { bucketName = 'restaurant-images', onUploadSuccess, onUploadError } = options || {};
+  const { bucketName = RESTAURANT_IMAGES_BUCKET, onUploadSuccess, onUploadError } = options || {};
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
