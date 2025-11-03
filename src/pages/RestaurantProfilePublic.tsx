@@ -8,15 +8,13 @@ import { showError } from '@/utils/toast';
 import { Button } from '@/components/ui/button';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
 import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
-import { cn } from '@/lib/utils';
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string; // Novo prop para passar o ID diretamente
   simulatedPlan?: 'free' | 'premium'; // Novo prop para simular o plano
-  isPreview?: boolean; // NOVO: Prop para indicar se é uma prévia
 }
 
-export default function RestaurantProfilePublic({ initialRestaurantId, simulatedPlan, isPreview }: RestaurantProfilePublicProps) {
+export default function RestaurantProfilePublic({ initialRestaurantId, simulatedPlan }: RestaurantProfilePublicProps) {
   const { restaurantId: paramRestaurantId } = useParams<{ restaurantId: string }>();
   const restaurantId = initialRestaurantId || paramRestaurantId; // Prioriza o prop, senão usa o param da URL
   const navigate = useNavigate();
@@ -93,14 +91,7 @@ export default function RestaurantProfilePublic({ initialRestaurantId, simulated
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <div
-      className={cn(
-        "bg-background-light relative",
-        isPreview
-          ? "w-full h-full transform scale-[0.82] origin-top overflow-hidden" // Apply scale and origin for preview
-          : "max-w-md mx-auto min-h-screen shadow-2xl" // Original styles for full page
-      )}
-    >
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
       
       {planToRender === 'premium' || planToRender === 'premium_gift' ? (
         <PremiumProfileLayout {...layoutProps} />
