@@ -1,18 +1,19 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { WeekSchedule, DaySchedule } from "@/types/schedule"; // Import WeekSchedule and DaySchedule
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
 // Utility function to format opening hours for display
-export function formatOpeningHours(openingHours: Record<string, string[]> | null | undefined): string[] {
+export function formatOpeningHours(openingHours: WeekSchedule | null | undefined): string[] {
   if (!openingHours) {
     return ["Horário não disponível"];
   }
 
-  const daysOrder = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-  const dayNames: Record<string, string> = {
+  const daysOrder: Array<keyof WeekSchedule> = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  const dayNames: Record<keyof WeekSchedule, string> = {
     monday: "Segunda-feira",
     tuesday: "Terça-feira",
     wednesday: "Quarta-feira",
@@ -25,11 +26,12 @@ export function formatOpeningHours(openingHours: Record<string, string[]> | null
   const formattedHours: string[] = [];
 
   daysOrder.forEach(dayKey => {
-    const hours = openingHours[dayKey];
+    const daySchedule: DaySchedule = openingHours[dayKey];
     const dayName = dayNames[dayKey];
 
-    if (hours && hours.length > 0) {
-      formattedHours.push(`${dayName}: ${hours.join(', ')}`);
+    if (daySchedule && daySchedule.isOpen && daySchedule.slots.length > 0) {
+      const times = daySchedule.slots.map(slot => `${slot.start} - ${slot.end}`).join(', ');
+      formattedHours.push(`${dayName}: ${times}`);
     } else {
       formattedHours.push(`${dayName}: Fechado`);
     }

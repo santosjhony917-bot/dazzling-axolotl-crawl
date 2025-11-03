@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/restaurant';
 import { Button } from '@/components/ui/button';
 import { MapPin, Clock, Phone, Mail, Link as LinkIcon, Heart, Share2, ChevronLeft, Star } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -27,7 +26,7 @@ interface FreeProfileLayoutProps {
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant: initialRestaurant, toggleFavorite, isFavoriteMutating, isCompact }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(initialRestaurant);
+  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(initialRestaurant); // Changed type here
   const [loading, setLoading] = useState(false); // Initial loading handled by parent
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false); // This will be managed by parent's isFavoriteMutating

@@ -2,18 +2,18 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Clock, Phone, Mail, Link as LinkIcon } from "lucide-react";
-import { Restaurant } from "@/types/restaurant";
+import { PublicRestaurantData } from "@/types/restaurant";
 import { formatOpeningHours } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 interface RestaurantAddressHoursSectionProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData;
 }
 
 export function RestaurantAddressHoursSection({ restaurant }: RestaurantAddressHoursSectionProps) {
   const hasAddress = restaurant.address && restaurant.number && restaurant.neighborhood && restaurant.city && restaurant.state && restaurant.cep;
   const hasContact = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url;
-  const hasOpeningHours = restaurant.opening_hours && Object.values(restaurant.opening_hours).some(hours => hours.length > 0);
+  const hasOpeningHours = restaurant.opening_hours && Object.values(restaurant.opening_hours).some(day => day.isOpen && day.slots.length > 0); // Adjusted check for opening hours
 
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg">
@@ -40,7 +40,7 @@ export function RestaurantAddressHoursSection({ restaurant }: RestaurantAddressH
             <div>
               <h3 className="text-lg font-semibold text-gray-800">Horário de Funcionamento</h3>
               <div className="text-gray-600">
-                {formatOpeningHours(restaurant.opening_hours as Record<string, string[]>).map((line, index) => (
+                {formatOpeningHours(restaurant.opening_hours).map((line, index) => ( // Removed type cast
                   <p key={index}>{line}</p>
                 ))}
               </div>

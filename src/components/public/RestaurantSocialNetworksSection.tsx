@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Restaurant } from '@/types/restaurant';
+import { PublicRestaurantData } from '@/types/restaurant'; // Changed from Restaurant
 import { Facebook, Instagram, Twitter, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface RestaurantSocialNetworksSectionProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData; // Changed type here
 }
 
 export function RestaurantSocialNetworksSection({ restaurant }: RestaurantSocialNetworksSectionProps) {
@@ -30,7 +30,7 @@ export function RestaurantSocialNetworksSection({ restaurant }: RestaurantSocial
       <CardContent className="p-4 space-y-4">
         {socialNetworks.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {socialNetworks.map((network: any, index: number) => (
+            {socialNetworks.map((network, index: number) => ( // Removed 'any' type
               <Link
                 key={index}
                 to={network.url}

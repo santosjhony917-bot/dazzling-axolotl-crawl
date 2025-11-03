@@ -1,295 +1,226 @@
-import React, { useState, useRef } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2, AlertTriangle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createPageUrl } from '@/utils/url';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { motion } from 'framer-motion';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
-import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
-import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
-import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
+import { supabase } from '@/integrations/supabase/client';
+import { PublicRestaurantData } from '@/types/restaurant';
+import FreeProfileLayout from '@/components/public/FreeProfileLayout';
+import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { CATEGORIES } from '@/constants/categories'; // Corrected import from 'categories' to 'CATEGORIES'
+import { useAuthData } from '@/context/AuthContext';
+import { toast } from 'sonner';
 
-// --- Mock Data ---
-const freeFeatures = [
-  { text: 'Visual limitado', icon: X, color: 'text-red-500' },
-  { text: 'Sem destaque na busca', icon: X, color: 'text-red-500' },
-  { text: 'Sem galeria de fotos', icon: X, color: 'text-red-500' },
-  { text: 'Sem estatísticas', icon: X, color: 'text-red-500' },
-];
-
-const premiumFeatures = [
-  { text: 'Design atrativo e profissional', icon: Check, color: 'text-green-500' },
-  { text: 'Destaque nos resultados', icon: Star, color: 'text-amber-500' },
-  { text: 'Fotos, cardápio completo e links', icon: Check, color: 'text-green-500' },
-  { text: 'Envio de promoções e cupons', icon: Zap, color: 'text-amber-500' },
-  { text: 'Painel com estatísticas de visualizações', icon: Shield, color: 'text-green-500' },
-];
-
-// --- Componentes Auxiliares ---
-
-const PremiumCard: React.FC = () => (
-  <motion.div
-    initial={{ scale: 0.95, opacity: 0 }}
-    animate={{ scale: 1, opacity: 1 }}
-    transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
-    whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(228, 121, 72, 0.3), 0 10px 10px -5px rgba(228, 121, 72, 0.1)' }}
-    className="relative flex flex-col h-full p-6 bg-white rounded-xl shadow-2xl border-2 border-highlight"
-  >
-    <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
-      MAIS ESCOLHIDO
-    </div>
-    <div className="flex items-center justify-center size-12 rounded-full bg-highlight/10 mb-4">
-      <Crown className="w-6 h-6 text-highlight fill-highlight/50" />
-    </div>
-    <h3 className="text-xl font-bold text-highlight mb-4">Premium</h3>
-    <ul className="space-y-3 flex-1">
-      {premiumFeatures.map((feature, index) => {
-        const Icon = feature.icon;
-        return (
-          <li key={index} className="flex items-start gap-3 text-sm text-gray-800">
-            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
-            <span className="font-medium">{feature.text}</span>
-          </li>
-        );
-      })}
-    </ul>
-  </motion.div>
-);
-
-const FreeCard: React.FC = () => (
-  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-soft-md rounded-xl">
-    <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4">
-      <Lock className="w-6 h-6 text-gray-500" />
-    </div>
-    <h3 className="text-xl font-bold text-primary mb-4">Free (Atual)</h3>
-    <ul className="space-y-3 flex-1">
-      {freeFeatures.map((feature, index) => {
-        const Icon = feature.icon;
-        return (
-          <li key={index} className="flex items-start gap-3 text-sm text-gray-600">
-            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
-            <span className="font-medium">{feature.text}</span>
-          </li>
-        );
-      })}
-    </ul>
-  </Card>
-);
-
-const UpgradePageContent: React.FC = () => {
+const Upgrade = () => {
   const navigate = useNavigate();
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free'); // Estado para controlar a prévia
-  const { restaurant } = useAuthData(); // Obter dados do restaurante logado
+  const { user } = useAuthData();
+  const [restaurant, setRestaurant] = useState<PublicRestaurantData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free');
 
-  const handleSubscribe = () => {
-    setIsSubscribing(true);
-    // Simulação de navegação para checkout/assinatura
-    setTimeout(() => {
-      alert("Iniciando processo de assinatura Premium!");
-      setIsSubscribing(false);
-    }, 1500);
-  };
-  
-  const handleViewPremiumRestaurants = () => {
-    // CORRIGIDO: Usando a chave de rota correta
-    navigate(createPageUrl('restaurantResults'));
+  // Form states for creating a dummy restaurant
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [coverImageUrl, setCoverImageUrl] = useState('');
+
+  useEffect(() => {
+    const fetchUserRestaurant = async () => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+        setError(error.message);
+        setRestaurant(null);
+      } else if (data) {
+        setRestaurant(data as PublicRestaurantData);
+        setName(data.name || '');
+        setDescription(data.description || '');
+        setCategory(data.category || '');
+        setImageUrl(data.image_url || '');
+        setCoverImageUrl(data.cover_image_url || '');
+      } else {
+        // No restaurant found, initialize with empty data
+        setRestaurant({
+          id: 'preview-id',
+          user_id: user.id,
+          name: 'Nome do Restaurante',
+          description: 'Descrição do seu restaurante. Fale sobre sua culinária, ambiente e diferenciais.',
+          image_url: '/placeholder-restaurant.jpg',
+          cover_image_url: '/placeholder-cover.jpg',
+          plan: 'free',
+          phone: null,
+          email: null,
+          cnpj: null,
+          category: 'Geral',
+          whatsapp_url: null,
+          ifood_url: null,
+          other_url: null,
+          address: 'Rua Exemplo',
+          number: '123',
+          neighborhood: 'Bairro Teste',
+          city: 'Cidade Exemplo',
+          state: 'UF',
+          cep: '00000-000',
+          latitude: null,
+          longitude: null,
+          opening_hours: null,
+          created_at: new Date().toISOString(),
+          external_url: null,
+          followers_override: 0,
+          payment_methods: null,
+          social_networks: null,
+          other_url_label: null,
+          is_favorite: false,
+          followers_count: 0,
+          addressSummary: 'Rua Exemplo, 123',
+          logoUrl: '/placeholder-restaurant.jpg',
+          isOpen: false,
+          statusText: 'Fechado',
+          nextOpenTime: null,
+          menu_categories: [],
+          gallery_images: [],
+        });
+      }
+      setLoading(false);
+    };
+
+    fetchUserRestaurant();
+  }, [user]);
+
+  const handleUpdatePreview = () => {
+    if (restaurant) {
+      setRestaurant({
+        ...restaurant,
+        name,
+        description,
+        category,
+        image_url: imageUrl || '/placeholder-restaurant.jpg',
+        cover_image_url: coverImageUrl || '/placeholder-cover.jpg',
+        plan: previewPlan,
+      });
+      toast.success('Prévia atualizada!');
+    }
   };
 
-  // Verifica se o ID do restaurante do usuário logado está disponível
-  const isRestaurantIdAvailable = !!restaurant?.id;
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">Carregando...</div>;
+  }
+
+  if (error) {
+    return <div className="flex justify-center items-center min-h-screen text-red-500">Erro: {error}</div>;
+  }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background-dark">
-      
-      {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
-      <motion.header
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative bg-[#022D68] text-white pt-16 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
-      >
-        {/* Gradiente Diagonal Suave */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#022D68] to-[#022D68]/80 opacity-90"></div>
-        
-        <div className="relative z-10 max-w-md mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-3xl font-extrabold leading-tight mb-3"
-          >
-            Transforme seu perfil em um ímã de clientes 🍽️
-          </motion.h1>
-          <p className="text-base font-medium text-gray-200 mb-6">
-            Mais de 70% dos restaurantes da cidade já são Premium. O próximo destaque pode ser o seu.
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">Gerenciar Plano e Prévia</h1>
+
+      <Card className="mb-8 shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-primary">Seu Plano Atual</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-lg mb-4">
+            Você está atualmente no plano <span className="font-semibold text-blue-600">{restaurant?.plan === 'premium' || restaurant?.plan === 'premium_gift' ? 'Premium' : 'Grátis'}</span>.
           </p>
-          
-          {/* Imagem Ilustrativa (Mock) */}
-          <div className="flex justify-center mb-6">
-            <motion.div
-              initial={{ scale: 0.8, rotate: -5 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
-              className="relative w-40 h-40 bg-white/10 rounded-xl shadow-2xl border border-white/20 flex items-center justify-center"
-            >
-              <Smartphone className="w-16 h-16 text-white/80" />
-              <div className="absolute inset-0 bg-white/5 opacity-5 blur-sm" />
-              {/* Brilho sutil */}
-              <div className="absolute top-0 left-0 w-full h-full bg-white opacity-10 blur-sm" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
-            </motion.div>
-          </div>
-          
-          {/* Botão Pequeno */}
-          <Button 
-            variant="link" 
-            onClick={handleViewPremiumRestaurants}
-            className="text-white/80 hover:text-white text-sm font-semibold p-0 h-auto flex items-center mx-auto"
-          >
-            Ver restaurantes Premium <ArrowRight className="w-4 h-4 ml-1" />
+          <Button onClick={() => toast.info('Funcionalidade de upgrade em desenvolvimento!')}>
+            Fazer Upgrade para Premium
           </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="mb-8 shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-primary">Configurar Prévia do Perfil</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="name">Nome do Restaurante</Label>
+            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="description">Descrição</Label>
+            <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="category">Categoria</Label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione uma categoria" />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORIES.map((cat) => ( // Changed to CATEGORIES
+                  <SelectItem key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="imageUrl">URL da Imagem do Perfil</Label>
+            <Input id="imageUrl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="/placeholder-restaurant.jpg" />
+          </div>
+          <div>
+            <Label htmlFor="coverImageUrl">URL da Imagem de Capa</Label>
+            <Input id="coverImageUrl" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} placeholder="/placeholder-cover.jpg" />
+          </div>
+          <div>
+            <Label>Plano para Prévia</Label>
+            <RadioGroup value={previewPlan} onValueChange={(value: 'free' | 'premium') => setPreviewPlan(value)} className="flex space-x-4 mt-2">
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="free" id="preview-free" />
+                <Label htmlFor="preview-free">Grátis</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="premium" id="preview-premium" />
+                <Label htmlFor="preview-premium">Premium</Label>
+              </div>
+            </RadioGroup>
+          </div>
+          <Button onClick={handleUpdatePreview}>Atualizar Prévia</Button>
+        </CardContent>
+      </Card>
+
+      {restaurant && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Prévia do Perfil</h2>
+          {previewPlan === 'free' ? (
+            <FreeProfileLayout
+              restaurant={restaurant}
+              toggleFavorite={() => toast.info('Funcionalidade de favoritar desabilitada na prévia.')}
+              isFavoriteMutating={false}
+              isCompact={true}
+            />
+          ) : (
+            <PremiumProfileLayout
+              restaurant={restaurant}
+              toggleFavorite={() => toast.info('Funcionalidade de favoritar desabilitada na prévia.')}
+              isFavoriteMutating={false}
+              isCompact={true}
+            />
+          )}
         </div>
-      </motion.header>
-
-      <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
-        
-        {/* 2. Comparativo Free vs Premium */}
-        <Card className="p-6 shadow-soft-xl border-none rounded-2xl bg-white">
-          <h2 className="text-lg font-bold text-primary text-center mb-6">
-            Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
-          </h2>
-          
-          {/* Toggle para alternar entre as prévias */}
-          <PlanPreviewToggle 
-            currentPlan={restaurant?.plan || 'free'} // Passa o plano real do restaurante
-            previewPlan={previewPlan} 
-            setPreviewPlan={setPreviewPlan} 
-          />
-
-          {/* Área de prévia */}
-          <div className="relative overflow-hidden">
-            <motion.div
-              key={previewPlan} // Key para forçar a re-renderização e animação
-              initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
-              transition={{ duration: 0.3 }}
-            >
-              {!isRestaurantIdAvailable ? (
-                <Alert variant="destructive" className="mb-4">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertTitle>Restaurante Não Encontrado</AlertTitle>
-                  <AlertDescription>
-                    Não foi possível carregar a prévia. Certifique-se de que seu restaurante está cadastrado e associado à sua conta.
-                  </AlertDescription>
-                </Alert>
-              ) : (
-                previewPlan === 'free' ? (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isCompact />
-                ) : (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isCompact />
-                )
-              )}
-            </motion.div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-6"> {/* Adicionado mt-6 para espaçamento */}
-            <FreeCard />
-            <PremiumCard />
-          </div>
-        </Card>
-        
-        {/* 3. Bloco emocional com fundo azul e texto branco */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 bg-[#022D68] text-white p-8 rounded-xl shadow-xl relative overflow-hidden"
-        >
-          {/* Efeito Brilho Diagonal Suave */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent animate-pulse-slow" />
-          
-          <h2 className="relative z-10 text-center text-2xl font-extrabold leading-snug">
-            Os clientes confiam em quem aparece primeiro.
-            <br />
-            <span className="text-highlight">Deixe seu restaurante impossível de ignorar.</span>
-          </h2>
-        </motion.div>
-
-        {/* 4. Bloco de planos e botão de ação */}
-        <Card className="mt-12 p-6 shadow-soft-xl border-none rounded-2xl bg-white">
-          <h2 className="text-xl font-bold text-primary text-center mb-4">
-            Assine o Premium e seja encontrado todos os dias.
-          </h2>
-          
-          <div className="text-center my-6">
-            <p className="text-5xl font-extrabold text-highlight">
-              R$ 37
-              <span className="text-xl font-normal text-gray-500"> / mês</span>
-            </p>
-            <p className="text-sm text-gray-500 mt-2">
-              Sem fidelidade. Cancele quando quiser.
-            </p>
-          </div>
-
-          <motion.div
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Button
-              onClick={handleSubscribe}
-              disabled={isSubscribing}
-              variant="highlight"
-              className="w-full h-14 rounded-xl text-lg font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
-            >
-              {isSubscribing ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              ) : (
-                <>
-                  <Crown className="w-5 h-5 mr-2 fill-white" />
-                  Ativar Premium Agora
-                </>
-              )}
-            </Button>
-          </motion.div>
-          
-          {/* Ícones de Segurança */}
-          <div className="flex justify-center items-center gap-4 mt-4 text-gray-500 text-xs">
-            <div className="flex items-center gap-1">
-              <Lock className="w-3 h-3" />
-              Pagamento Seguro
-            </div>
-            <div className="flex items-center gap-1">
-              <CreditCard className="w-3 h-3" />
-              Via App Store/Play Store
-            </div>
-          </div>
-        </Card>
-      </main>
-      
-      {/* 5. Rodapé de Autoridade */}
-      <footer className="mt-12 bg-[#022D68] text-white p-8 rounded-t-3xl">
-        <div className="max-w-md mx-auto text-center">
-          <p className="text-lg font-bold mb-2">
-            Filter Food é o mapa gastronômico oficial da cidade.
-          </p>
-          <p className="text-sm text-gray-300">
-            Restaurantes Premium são vistos, lembrados e escolhidos primeiro.
-          </p>
-        </div>
-      </footer>
+      )}
     </div>
   );
 };
 
-export default function UpgradePage() {
-    return (
-        <RestaurantAreaPageLayout title="Upgrade Premium" icon={Crown} backPath="restaurant-area/profile-menu">
-            <UpgradePageContent />
-        </RestaurantAreaPageLayout>
-    );
-}
+export default Upgrade;

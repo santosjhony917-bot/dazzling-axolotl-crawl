@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Restaurant } from '@/types/restaurant';
+import { PublicRestaurantData } from '@/types/restaurant'; // Changed from Restaurant
 
 interface RestaurantInfoProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData; // Updated prop type
 }
 
 export function RestaurantInfo({ restaurant }: RestaurantInfoProps) {
