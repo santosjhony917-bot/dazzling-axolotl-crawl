@@ -1,50 +1,41 @@
+"use client";
+
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, ExternalLink, CreditCard } from 'lucide-react';
+import { MapPin, Clock, CreditCard, ExternalLink } from 'lucide-react';
 import { OpeningHoursDisplay } from './OpeningHoursDisplay';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { RestaurantProfile } from '@/types/restaurant'; // Corrigido para RestaurantProfile
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
 
 interface RestaurantAddressHoursSectionProps {
-  id: string;
-  restaurant: PublicRestaurantData;
+  restaurant: RestaurantProfile;
+  addressItems: { icon: JSX.Element; value: string; link?: string; isExternal?: boolean }[];
   fullAddress: string;
-  paymentMethods: string[] | null;
+  paymentMethods: string[];
 }
 
-const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
+const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({
+  restaurant,
+  addressItems,
+  fullAddress,
+  paymentMethods,
+}) => {
   const { opening_hours } = restaurant;
 
-  // Usando um array para consistência, mesmo que haja apenas um item de endereço
-  const addressItems = [
-    {
-      icon: <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />,
-      value: fullAddress,
-      link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
-      isExternal: true,
-    },
-  ];
-
   return (
-    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        {/* Ícone MapPin removido conforme solicitado */}
-        <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 space-y-6">
-        
+    <Card className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
+      <h2 className="text-2xl font-bold text-primary mb-3">Informações</h2>
+      <div className="space-y-4">
         {/* Endereço */}
         <div className="space-y-4">
           <div className="flex items-start">
-            {addressItems[0].icon} {/* Renderiza o ícone do array */}
+            {addressItems[0].icon}
             <div className="ml-3 min-w-0">
               {addressItems[0].link ? (
-                <a 
-                  href={addressItems[0].link} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={addressItems[0].link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center mt-2"
                 >
                   {addressItems[0].value}
@@ -85,16 +76,9 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
                   <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
                   <div className="flex flex-wrap gap-2">
                     {paymentMethods.map((method, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary"
-                        className={cn(
-                          "px-3 py-1 text-sm font-medium rounded-full",
-                          "bg-gray-100 text-gray-700 border border-gray-200"
-                        )}
-                      >
+                      <span key={index} className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">
                         {method}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -102,7 +86,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
             </div>
           </>
         )}
-      </CardContent>
+      </div>
     </Card>
   );
 };

@@ -1,95 +1,48 @@
 import { supabase } from './client';
 import { MenuCategory, MenuItem, Restaurant, GalleryImage, RestaurantWithDistance } from '@/types/supabase';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { RestaurantProfile } from '@/types/restaurant'; // Corrigido para RestaurantProfile
 import { showError } from '@/utils/toast';
 
-// Função para buscar um único item de menu por ID, incluindo dados do restaurante
-export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { restaurant: Restaurant | null }) | null> {
-  const { data, error } = await supabase
-    .from('menu_items')
-    .select(`
-      *,
-      menu_categories (
-        restaurant:restaurants (*)
-      )
-    `)
-    .eq('id', itemId)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching menu item:', error);
-    throw new Error(error.message);
-  }
-
-  if (!data) return null;
-  
-  // Extract the restaurant data from the nested menu_categories array
-  // data.menu_categories is an array of objects, each containing { restaurant: Restaurant }
-  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
-    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
-    : null;
-
-  // Remove the nested key before returning
-  const { menu_categories, ...item } = data;
-
-  return {
-    ...(item as MenuItem),
-    restaurant: restaurantData,
-  };
-}
-
-// Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
-export async function fetchNearbyRestaurants(
-  lat: number, 
-  lng: number, 
-  maxDistance: number = 10, 
-  searchQuery: string | null = null
-): Promise<RestaurantWithDistance[]> {
-  const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-    user_lat: lat,
-    user_lng: lng,
-    max_distance_km: maxDistance,
-    search_query: searchQuery,
-  });
-
-  if (error) {
-    console.error('Error fetching nearby restaurants:', error);
-    showError('Erro ao buscar restaurantes próximos.');
-    return [];
-  }
-
-  return data || [];
-}
-
-// Função para buscar um restaurante público por ID
-export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
+export const fetchRestaurantById = async (id: string): Promise<RestaurantProfile | null> => {
   const { data, error } = await supabase
     .from('restaurants')
     .select(`
       *,
-      followersCount:user_favorites(count)
+      restaurant_gallery(id, image_url, caption, order_index),
+      menu_categories(
+        id, name, order_index, is_active, is_popular,
+        menu_items(id, name, description, price, image_url, order_index, is_active)
+      ),
+      user_favorites(id, user_id)
     `)
-    .eq('id', restaurantId)
+    .eq('id', id)
     .single();
 
-  if (error && error.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant:', error);
+  if (error) {
+    showError(error.message);
     return null;
   }
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
-  // Simulação de addressSummary e logoUrl (que pode ser image_url)
-  const addressSummary = data.city && data.state ? `${data.city}, ${data.state}` : data.address;
-  const logoUrl = data.image_url;
-  const followersCount = Array.isArray(data.followersCount) && data.followersCount.length > 0 
-    ? data.followersCount[0].count || 0 
-    : 0;
-
-  return {
+  // Transformar os dados para o tipo RestaurantProfile
+  const restaurantProfile: RestaurantProfile = {
     ...data,
-    addressSummary,
-    logoUrl,
-    followersCount: followersCount as number,
-  } as PublicRestaurantData;
-}
+    followers_count: 0, // Será preenchido no frontend ou por outra função
+    isOpen: false, // Será preenchido no frontend
+    statusText: 'Fechado', // Será preenchido no frontend
+    distance: null, // Será preenchido no frontend
+    is_favorite: false, // Será preenchido no frontend
+    fullAddress: '', // Será preenchido no frontend
+    addressSummary: '', // Será preenchido no frontend
+    restaurant_gallery: data.restaurant_gallery || [],
+    menu_categories: data.menu_categories || [],
+    user_favorites: data.user_favorites || [],
+    social_networks: data.social_networks as RestaurantProfile['social_networks'], // Cast para o tipo correto
+    opening_hours: data.opening_hours as RestaurantProfile['opening_hours'], // Cast para o tipo correto
+  };
+
+  return restaurantProfile;
+};
