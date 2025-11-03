@@ -533,18 +533,16 @@ const AdminEditRestaurant: React.FC = () => {
           isLoading={isSaving}
         />
       )}
-      {(restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url) && (
-        <SalesChannelsDialog
-          isOpen={isSalesChannelsDialogOpen}
-          onClose={() => setIsSalesChannelsDialogOpen(false)}
-          initialWhatsappUrl={restaurant.whatsapp_url || null}
-          initialIfoodUrl={restaurant.ifood_url || null}
-          initialOtherUrl={restaurant.other_url || null}
-          initialExternalUrl={restaurant.external_url || null}
-          onSave={handleSaveSalesChannels}
-          isLoading={isSaving}
-        />
-      )}
+      <SalesChannelsDialog
+        isOpen={isSalesChannelsDialogOpen}
+        onClose={() => setIsSalesChannelsDialogOpen(false)}
+        initialWhatsappUrl={restaurant.whatsapp_url || null}
+        initialIfoodUrl={restaurant.ifood_url || null}
+        initialOtherUrl={restaurant.other_url || null}
+        initialExternalUrl={restaurant.external_url || null}
+        onSave={handleSaveSalesChannels}
+        isLoading={isSaving}
+      />
     </div>
   );
 };
