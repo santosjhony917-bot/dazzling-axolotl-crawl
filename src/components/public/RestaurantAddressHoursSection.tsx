@@ -57,6 +57,9 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
           </div>
         </div>
 
+        {/* Separator between Address and Opening Hours */}
+        {fullAddress && opening_hours && <Separator className="my-4 bg-gray-100" />}
+
         {/* Horário de Funcionamento */}
         {opening_hours && (
           <div className="pt-4">
@@ -73,7 +76,8 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
         {/* Separador e Formas de Pagamento */}
         {paymentMethods && paymentMethods.length > 0 && (
           <>
-            <Separator className="my-6 bg-gray-200" />
+            {/* Separator between Opening Hours and Payment Methods */}
+            {(fullAddress || opening_hours) && <Separator className="my-4 bg-gray-100" />}
             <div className="pt-4">
               <div className="flex items-start">
                 <CreditCard className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />

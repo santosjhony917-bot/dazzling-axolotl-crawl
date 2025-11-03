@@ -77,20 +77,20 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
         return (
           <div key={category.id} className="space-y-4">
             {/* Título da Categoria */}
-            <h3 className="text-xl font-extrabold text-gray-800 border-b pb-2">{category.name}</h3>
+            <h3 className="text-xl font-extrabold text-gray-800 pb-2">{category.name}</h3>
             
             <div className="grid gap-y-3"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado */}
               {itemsToDisplay.map((item) => (
                 <Card 
                   key={item.id} 
-                  className="p-4 flex items-start space-x-4 border border-gray-300"
+                  className="p-3 flex items-start space-x-3"
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.image_url && (
                     <img 
                       src={item.image_url} 
                       alt={item.name} 
-                      className="w-20 h-20 object-cover rounded-md flex-shrink-0"
+                      className="w-12 h-12 object-cover flex-shrink-0"
                     />
                   )}
                   <div className="flex-grow">
