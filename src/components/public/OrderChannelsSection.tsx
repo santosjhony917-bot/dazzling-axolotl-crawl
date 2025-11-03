@@ -15,6 +15,11 @@ const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/ico
 // Removida a constante WHATSAPP_PNG_URL
 
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
+  // A seção de canais de pedido só deve ser exibida para planos Premium
+  if (restaurant.plan !== 'premium' && restaurant.plan !== 'premium_gift') {
+    return null;
+  }
+
   const orderLinks = [
     { 
       label: 'WhatsApp', 

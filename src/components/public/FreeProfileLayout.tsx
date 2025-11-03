@@ -76,7 +76,8 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
-  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
+  // A galeria só deve ser exibida se houver imagens E o plano não for 'free'
+  const hasGallery = (restaurant.gallery_images && restaurant.gallery_images.length > 0) && (restaurant.plan !== 'free');
   
   // Verifica se há informações de endereço/horário ou contato/links
   const hasAddressHours = fullAddress || restaurant.opening_hours;
