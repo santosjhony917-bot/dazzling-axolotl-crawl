@@ -136,7 +136,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
           variant="default"
           className={cn("w-full font-bold mt-6", {
             "h-12 text-lg rounded-xl": !isCompact, // Tamanho padrão
-            "h-9 text-sm rounded-lg": isCompact // Tamanho menor para modo compacto
+            "h-8 text-xs rounded-lg": isCompact // Tamanho menor para modo compacto
           })}
         >
           Ver Cardápio Completo
