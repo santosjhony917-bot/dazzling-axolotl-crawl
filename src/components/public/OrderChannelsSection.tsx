@@ -1,93 +1,54 @@
 import React from 'react';
+import { PublicRestaurantData } from '@/pages/RestaurantProfilePublic';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import WhatsappIcon from './WhatsappIcon'; // Importando o novo componente
+import { ExternalLink, Phone, MessageCircle } from 'lucide-react';
 
 interface OrderChannelsSectionProps {
   restaurant: PublicRestaurantData;
+  isPremium: boolean;
 }
 
-// URLs PNGs fornecidas pelo usuário
-const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
-// Removida a constante WHATSAPP_PNG_URL
-
 const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
-  // A seção de canais de pedido só deve ser exibida para planos Premium
-  if (restaurant.plan !== 'premium' && restaurant.plan !== 'premium_gift') {
-    return null;
-  }
+  const hasChannels = restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.phone;
 
-  const orderLinks = [
-    { 
-      label: 'WhatsApp', 
-      url: restaurant.whatsapp_url, 
-      icon: MessageSquare, 
-      colorClass: 'text-green-600',
-      target: '_blank',
-    },
-    { 
-      label: 'iFood', 
-      url: restaurant.ifood_url, 
-      icon: Utensils, 
-      colorClass: 'text-red-600',
-      target: '_blank',
-    },
-    { 
-      label: 'Outro Link', 
-      url: restaurant.other_url || restaurant.external_url, 
-      icon: Globe, 
-      colorClass: 'text-primary',
-      target: '_blank',
-    },
-  ].filter(link => link.url);
-
-  if (orderLinks.length === 0) {
-    return null;
+  if (!hasChannels) {
+    return null; // Don't render if no channels are available
   }
 
   return (
-    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
-      <CardContent className="p-0">
-        {/* Título da seção ajustado para 2xl */}
-        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {orderLinks.map((link) => {
-            const Icon = link.icon;
-            const isIfood = link.label === 'iFood';
-            const isWhatsapp = link.label === 'WhatsApp';
-            
-            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
-            const iconSizeClass = "w-8 h-8";
-
-            return (
-              <a 
-                key={link.label} 
-                href={link.url!}
-                target={link.target}
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
-              >
-                {isIfood ? (
-                  <img 
-                    src={IFOOD_PNG_URL} 
-                    alt="iFood Logo" 
-                    className={cn(iconSizeClass, "object-contain")} 
-                  />
-                ) : isWhatsapp ? (
-                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
-                ) : (
-                  <Icon className={cn(iconSizeClass, link.colorClass)} />
-                )}
-                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
-              </a>
-            );
-          })}
-        </div>
-      </CardContent>
-    </Card>
+    <section className="py-6">
+      <h2 className="text-2xl font-bold mb-4">Canais de Pedido</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {restaurant.whatsapp_url && (
+          <Button asChild className="w-full bg-green-500 hover:bg-green-600 text-white">
+            <a href={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="mr-2 h-4 w-4" /> Pedir via WhatsApp
+            </a>
+          </Button>
+        )}
+        {restaurant.ifood_url && (
+          <Button asChild className="w-full bg-red-500 hover:bg-red-600 text-white">
+            <a href={restaurant.ifood_url} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" /> Pedir via iFood
+            </a>
+          </Button>
+        )}
+        {restaurant.other_url && (
+          <Button asChild className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+            <a href={restaurant.other_url} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" /> Outro Canal
+            </a>
+          </Button>
+        )}
+        {restaurant.phone && (
+          <Button asChild className="w-full bg-gray-700 hover:bg-gray-800 text-white">
+            <a href={`tel:${restaurant.phone}`}>
+              <Phone className="mr-2 h-4 w-4" /> Ligar para o Restaurante
+            </a>
+          </Button>
+        )}
+      </div>
+    </section>
   );
 };
 
