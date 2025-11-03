@@ -18,7 +18,6 @@ import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantPaymentSection from './RestaurantPaymentSection'; // NOVO IMPORT
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -84,7 +83,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
   
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks;
+  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -143,12 +142,13 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
             <div id="info-section" className="space-y-6">
               <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
               
-              {/* Endereço e Horário (Novo Componente) */}
-              {hasAddressHours && (
+              {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
+              {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
                 <RestaurantAddressHoursSection
                   id="address-hours-section"
                   restaurant={restaurant}
                   fullAddress={fullAddress}
+                  paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
                 />
               )}
               
@@ -160,8 +160,8 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
                 />
               )}
               
-              {/* Formas de Pagamento (Novo Componente) */}
-              <RestaurantPaymentSection id="payment-section" restaurant={restaurant} />
+              {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
+              {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
             </div>
           )}
         </div>

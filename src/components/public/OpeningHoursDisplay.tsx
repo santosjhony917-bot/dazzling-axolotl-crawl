@@ -1,5 +1,6 @@
 import React from 'react';
 import { WeekSchedule } from '@/types/schedule'; // Importando o tipo correto
+import { Badge } from '@/components/ui/badge'; // Importar Badge
 
 interface OpeningHoursDisplayProps {
   openingHours: WeekSchedule; // Usando o tipo WeekSchedule
@@ -39,7 +40,7 @@ const OpeningHoursDisplay: React.FC<OpeningHoursDisplayProps> = ({ openingHours 
           <div key={dayKey} className="flex justify-between">
             <span className="text-gray-600 dark:text-gray-400">{dayLabel}:</span>
             {!dayData.isOpen || dayData.slots.length === 0 ? (
-              <span className="font-medium text-red-500">Fechado</span>
+              <Badge className="font-medium bg-red-100 text-red-700 border border-red-200">Fechado</Badge>
             ) : (
               <span className="font-medium text-gray-900 dark:text-white">
                 {timeSlots}
