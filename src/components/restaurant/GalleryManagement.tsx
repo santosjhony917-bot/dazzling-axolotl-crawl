@@ -26,6 +26,8 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useImageUpload } from '@/hooks/useImageUpload';
+import { useGalleryManagement } from '@/hooks/useGalleryManagement';
 
 interface GalleryImage {
   id: string;
@@ -88,25 +90,41 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
   onGalleryImagesChange,
   onCoverImageChange,
 }) => {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(initialGalleryImages);
   const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>(initialCoverImageUrl);
-  const [isUploadingCover, setIsUploadingCover] = useState(false);
-  const [isUploadingGallery, setIsUploadingGallery] = useState(false);
   const [isSavingOrder, setIsSavingOrder] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [imageToDelete, setImageToDelete] = useState<{ id: string; url: string } | null>(null);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const coverFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
-  useEffect(() => {
-    setGalleryImages(initialGalleryImages);
-  }, [initialGalleryImages]);
+  const {
+    gallery,
+    isLoading: isGalleryLoading,
+    addGalleryImage,
+    deleteGalleryImage,
+    saveGalleryOrder,
+    isAdding: isAddingGalleryImage,
+    isRemoving: isRemovingGalleryImage,
+    isMutating: isGalleryMutating,
+  } = useGalleryManagement(restaurantId);
+
+  const {
+    isUploading: isUploadingCover,
+    uploadImage: uploadCoverImage,
+    deleteImage: deleteCoverImage,
+  } = useImageUpload({ bucketName: 'restaurant-images' });
 
   useEffect(() => {
     setCoverImageUrl(initialCoverImageUrl);
   }, [initialCoverImageUrl]);
+
+  useEffect(() => {
+    if (!isGalleryLoading) {
+      onGalleryImagesChange(gallery);
+    }
+  }, [gallery, isGalleryLoading, onGalleryImagesChange]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -119,163 +137,83 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
     const { active, over } = event;
 
     if (active.id !== over?.id) {
-      setGalleryImages((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over?.id);
-        const newOrder = arrayMove(items, oldIndex, newIndex);
-        // Update order_index property for consistency before saving
-        const updatedOrderWithIndices = newOrder.map((item, idx) => ({ ...item, order_index: idx }));
-        onGalleryImagesChange(updatedOrderWithIndices); // Notify parent immediately for UI update
-        return updatedOrderWithIndices;
-      });
+      const oldIndex = gallery.findIndex((item) => item.id === active.id);
+      const newIndex = gallery.findIndex((item) => item.id === over?.id);
+      const newOrder = arrayMove(gallery, oldIndex, newIndex);
+      
+      // Atualiza order_index para consistência antes de salvar
+      const updatedOrderWithIndices = newOrder.map((item, idx) => ({ ...item, order_index: idx }));
+      
+      // Notifica o pai imediatamente para atualização da UI
+      onGalleryImagesChange(updatedOrderWithIndices); 
+      
+      // Salva a nova ordem no banco de dados
+      setIsSavingOrder(true);
+      try {
+        await saveGalleryOrder(updatedOrderWithIndices.map(img => ({ id: img.id, order_index: img.order_index! })));
+      } catch (error) {
+        toast({
+          title: 'Erro ao salvar ordem das imagens',
+          description: (error as Error).message,
+          variant: 'destructive',
+        });
+      } finally {
+        setIsSavingOrder(false);
+      }
     }
-  }, [onGalleryImagesChange]);
+  }, [gallery, onGalleryImagesChange, saveGalleryOrder, toast]);
 
   const handleCoverImageUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    setIsUploadingCover(true);
+    const uploadResult = await uploadCoverImage(file, `${restaurantId}/covers`);
 
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${uuidv4()}.${fileExt}`;
-    const filePath = `${restaurantId}/covers/${fileName}`;
+    if (uploadResult) {
+      const { publicUrl } = uploadResult;
+      const { error: updateError } = await supabase
+        .from('restaurants')
+        .update({ cover_image_url: publicUrl })
+        .eq('id', restaurantId);
 
-    const { data, error } = await supabase.storage
-      .from('restaurant-images')
-      .upload(filePath, file, {
-        cacheControl: '3600',
-        upsert: false,
-      });
+      if (updateError) {
+        toast({
+          title: 'Erro ao atualizar capa do restaurante',
+          description: updateError.message,
+          variant: 'destructive',
+        });
+        // Tenta remover a imagem do storage se a atualização do DB falhar
+        await deleteCoverImage(uploadResult.filePath);
+        return;
+      }
 
-    if (error) {
+      setCoverImageUrl(publicUrl);
+      onCoverImageChange?.(publicUrl);
       toast({
-        title: 'Erro ao fazer upload da capa',
-        description: error.message,
-        variant: 'destructive',
+        title: 'Capa atualizada com sucesso!',
+        description: 'A imagem de capa do restaurante foi atualizada.',
       });
-      setIsUploadingCover(false);
-      return;
     }
-
-    const { data: publicUrlData } = supabase.storage
-      .from('restaurant-images')
-      .getPublicUrl(filePath);
-
-    if (!publicUrlData?.publicUrl) {
-      toast({
-        title: 'Erro ao obter URL da capa',
-        description: 'Não foi possível obter a URL pública da imagem.',
-        variant: 'destructive',
-      });
-      setIsUploadingCover(false);
-      return;
+    if (coverFileInputRef.current) {
+      coverFileInputRef.current.value = '';
     }
-
-    const { error: updateError } = await supabase
-      .from('restaurants')
-      .update({ cover_image_url: publicUrlData.publicUrl })
-      .eq('id', restaurantId);
-
-    if (updateError) {
-      toast({
-        title: 'Erro ao atualizar capa do restaurante',
-        description: updateError.message,
-        variant: 'destructive',
-      });
-      await supabase.storage.from('restaurant-images').remove([filePath]);
-      setIsUploadingCover(false);
-      return;
-    }
-
-    setCoverImageUrl(publicUrlData.publicUrl);
-    onCoverImageChange?.(publicUrlData.publicUrl);
-    toast({
-      title: 'Capa atualizada com sucesso!',
-      description: 'A imagem de capa do restaurante foi atualizada.',
-    });
-    setIsUploadingCover(false);
-  }, [restaurantId, onCoverImageChange, toast]);
+  }, [restaurantId, onCoverImageChange, toast, uploadCoverImage, deleteCoverImage]);
 
   const handleGalleryImageUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     if (files.length === 0) return;
 
-    setIsUploadingGallery(true);
-    const uploadedUrls: Omit<GalleryImage, 'id'>[] = [];
-
     for (const file of files) {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${uuidv4()}.${fileExt}`;
-      const filePath = `${restaurantId}/gallery/${fileName}`;
-
-      const { data, error } = await supabase.storage
-        .from('restaurant-images')
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false,
-        });
-
-      if (error) {
-        toast({
-          title: 'Erro ao fazer upload da imagem da galeria',
-          description: error.message,
-          variant: 'destructive',
-        });
-        continue;
-      }
-
-      const { data: publicUrlData } = supabase.storage
-        .from('restaurant-images')
-        .getPublicUrl(filePath);
-
-      if (publicUrlData?.publicUrl) {
-        uploadedUrls.push({
-          image_url: publicUrlData.publicUrl,
-          order_index: galleryImages.length + uploadedUrls.length,
-        });
-      } else {
-        toast({
-          title: 'Erro ao obter URL da imagem da galeria',
-          description: 'Não foi possível obter a URL pública da imagem.',
-          variant: 'destructive',
-        });
+      const uploadResult = await uploadCoverImage(file, `${restaurantId}/gallery`);
+      if (uploadResult) {
+        await addGalleryImage({ restaurantId, image_url: uploadResult.publicUrl });
       }
     }
 
-    if (uploadedUrls.length > 0) {
-      const { data: insertedImages, error: insertError } = await supabase
-        .from('restaurant_gallery')
-        .insert(uploadedUrls.map(img => ({
-          restaurant_id: restaurantId,
-          image_url: img.image_url,
-          order_index: img.order_index,
-        })))
-        .select();
-
-      if (insertError) {
-        toast({
-          title: 'Erro ao salvar imagens da galeria',
-          description: insertError.message,
-          variant: 'destructive',
-        });
-        await supabase.storage.from('restaurant-images').remove(uploadedUrls.map(u => u.image_url.split('/').pop()!));
-      } else {
-        const newGallery = [...galleryImages, ...insertedImages];
-        setGalleryImages(newGallery);
-        onGalleryImagesChange(newGallery);
-        toast({
-          title: 'Imagens da galeria adicionadas!',
-          description: `${uploadedUrls.length} imagem(ns) adicionada(s) à galeria.`,
-        });
-      }
+    if (galleryFileInputRef.current) {
+      galleryFileInputRef.current.value = '';
     }
-
-    setIsUploadingGallery(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  }, [restaurantId, galleryImages, onGalleryImagesChange, toast]);
+  }, [restaurantId, addGalleryImage, uploadCoverImage]);
 
   const handleDeleteImage = useCallback(async () => {
     if (!imageToDelete) return;
@@ -283,74 +221,25 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
     const { id, url } = imageToDelete;
     setIsSavingOrder(true);
 
-    const filePath = url.split('restaurant-images/')[1];
-    const { error: storageError } = await supabase.storage
-      .from('restaurant-images')
-      .remove([filePath]);
+    try {
+      const filePath = url.split('restaurant-images/')[1];
+      const deletedFromStorage = await deleteCoverImage(filePath);
 
-    if (storageError) {
+      if (deletedFromStorage) {
+        await deleteGalleryImage(id);
+      }
+    } catch (error) {
       toast({
-        title: 'Erro ao deletar imagem do armazenamento',
-        description: storageError.message,
+        title: 'Erro ao deletar imagem',
+        description: (error as Error).message,
         variant: 'destructive',
       });
+    } finally {
       setIsSavingOrder(false);
-      return;
+      setIsDeleteDialogOpen(false);
+      setImageToDelete(null);
     }
-
-    const { error: dbError } = await supabase
-      .from('restaurant_gallery')
-      .delete()
-      .eq('id', id);
-
-    if (dbError) {
-      toast({
-        title: 'Erro ao deletar imagem do banco de dados',
-        description: dbError.message,
-        variant: 'destructive',
-      });
-      setIsSavingOrder(false);
-      return;
-    }
-
-    const updatedImages = galleryImages.filter(img => img.id !== id);
-    setGalleryImages(updatedImages);
-    onGalleryImagesChange(updatedImages);
-    toast({
-      title: 'Imagem deletada com sucesso!',
-      description: 'A imagem foi removida da galeria.',
-    });
-
-    setIsSavingOrder(false);
-    setIsDeleteDialogOpen(false);
-    setImageToDelete(null);
-  }, [imageToDelete, galleryImages, onGalleryImagesChange, toast]);
-
-  const handleSaveOrder = useCallback(async () => {
-    setIsSavingOrder(true);
-    const updates = galleryImages.map((img, index) => ({
-      id: img.id,
-      order_index: index,
-    }));
-
-    const { error } = await supabase
-      .from('restaurant_gallery')
-      .upsert(updates, { onConflict: 'id' });
-
-    if (error) {
-      toast({
-        title: 'Erro ao salvar ordem das imagens',
-        description: error.message,
-        variant: 'destructive',
-      });
-    } else {
-      toast({
-        title: 'Ordem das imagens salva!',
-        description: 'A nova ordem da galeria foi salva com sucesso.',
-      });
-    }
-    setIsSavingOrder(false);
-  }, [galleryImages, toast]);
+  }, [imageToDelete, deleteGalleryImage, deleteCoverImage, toast]);
 
   return (
     <div className="space-y-8 p-4">
@@ -417,10 +306,10 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={galleryImages.map(img => img.id)}
+              items={gallery.map(img => img.id)}
               strategy={verticalListSortingStrategy}
             >
-              {galleryImages.map((image) => (
+              {gallery.map((image) => (
                 <SortableImage key={image.id} image={image} onDelete={(id, url) => {
                   setImageToDelete({ id, url });
                   setIsDeleteDialogOpen(true);
@@ -435,16 +324,16 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
             type="file"
             accept="image/*"
             multiple
-            ref={fileInputRef}
+            ref={galleryFileInputRef}
             onChange={handleGalleryImageUpload}
             className="hidden"
-            disabled={isUploadingGallery}
+            disabled={isAddingGalleryImage || isUploadingCover}
           />
           <Button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploadingGallery}
+            onClick={() => galleryFileInputRef.current?.click()}
+            disabled={isAddingGalleryImage || isUploadingCover}
           >
-            {isUploadingGallery ? (
+            {isAddingGalleryImage || isUploadingCover ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Fazendo upload...
@@ -457,8 +346,8 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
             )}
           </Button>
           <Button
-            onClick={handleSaveOrder}
-            disabled={isSavingOrder || galleryImages.length === 0}
+            onClick={() => { /* handleSaveOrder agora é automático no dragEnd */ }}
+            disabled={isSavingOrder || gallery.length === 0}
           >
             {isSavingOrder ? (
               <>
@@ -466,7 +355,7 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
                 Salvando ordem...
               </>
             ) : (
-              'Salvar Ordem'
+              'Ordem Salva Automaticamente'
             )}
           </Button>
         </div>
@@ -484,8 +373,8 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
             <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
               Cancelar
             </Button>
-            <Button variant="destructive" onClick={handleDeleteImage} disabled={isSavingOrder}>
-              {isSavingOrder ? (
+            <Button variant="destructive" onClick={handleDeleteImage} disabled={isRemovingGalleryImage || isSavingOrder}>
+              {isRemovingGalleryImage || isSavingOrder ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Excluindo...
