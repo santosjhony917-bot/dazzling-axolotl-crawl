@@ -1,102 +1,75 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import WhatsappIcon from './WhatsappIcon'; // Importando o novo componente
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Phone, Utensils, Link as LinkIcon } from "lucide-react";
+import { Restaurant } from "@/types"; // Importando o tipo Restaurant
 
 interface OrderChannelsSectionProps {
-  restaurant: PublicRestaurantData;
+  restaurant: Restaurant;
 }
 
-// URLs PNGs fornecidas pelo usuário
-const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
-// Removida a constante WHATSAPP_PNG_URL
-
-const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
-  // A seção de canais de pedido só deve ser exibida para planos Premium
-  if (restaurant.plan !== 'premium' && restaurant.plan !== 'premium_gift') {
-    return null;
-  }
-
+const OrderChannelsSection = ({ restaurant }: OrderChannelsSectionProps) => {
   const orderLinks = [
-    { 
-      label: 'WhatsApp', 
-      url: restaurant.whatsapp_url, 
-      icon: MessageSquare, 
-      colorClass: 'text-green-600',
-      target: '_blank',
+    {
+      type: "whatsapp",
+      label: "WhatsApp",
+      url: restaurant.whatsapp_url,
+      icon: "/whatsapp-logo.svg",
     },
-    { 
-      label: 'iFood', 
-      url: restaurant.ifood_url, 
-      icon: Utensils, 
-      colorClass: 'text-red-600',
-      target: '_blank',
+    {
+      type: "ifood",
+      label: "iFood",
+      url: restaurant.ifood_url,
+      icon: "/ifood-logo.svg",
     },
-    { 
-      label: 'Outro Link', 
-      url: restaurant.other_url || restaurant.external_url, 
-      icon: Globe, 
-      colorClass: 'text-primary',
-      target: '_blank',
+    {
+      type: "other",
+      label: restaurant.other_url_label || "Outro Link", // Usando o rótulo personalizado
+      url: restaurant.other_url,
+      icon: null, // Sem ícone específico para 'other'
     },
-  ].filter(link => link.url);
+  ].filter((link) => link.url); // Apenas mostra links que possuem URL
 
   if (orderLinks.length === 0) {
-    return null;
+    return null; // Não renderiza a seção se não houver links
   }
 
   return (
-    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
-      <CardContent className="p-0">
-        {/* Título da seção ajustado para 2xl */}
-        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
-        <div className="grid grid-cols-3 gap-4">
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle className="text-lg">Canais de Pedido</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 gap-3">
           {orderLinks.map((link) => {
-            const Icon = link.icon;
-            const isIfood = link.label === 'iFood';
-            const isWhatsapp = link.label === 'WhatsApp';
-            
-            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
-            const iconSizeClass = "w-8 h-8";
+            const isWhatsapp = link.type === "whatsapp";
+            const isIfood = link.type === "ifood";
+            const isOther = link.type === "other";
 
             return (
-              <Button 
-                key={link.label} 
-                asChild
-                // Todos os botões usam o variant 'channel' para fundo branco
-                variant="channel" 
-                className={cn(
-                  "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
-                  // Adiciona borda e hover para WhatsApp
-                  isWhatsapp && "border-2 border-highlight hover:bg-highlight/10", 
-                  // Remove o estilo de fundo verde anterior para WhatsApp
-                  isWhatsapp && "bg-white text-highlight" 
-                )}
-              >
-                <a 
-                  href={link.url!}
-                  target={link.target}
+              <Button asChild key={link.type} variant="outline" className="h-auto p-0">
+                <a
+                  href={link.url || "#"}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 p-3 w-full"
                 >
-                  {isIfood ? (
-                    <img 
-                      src={IFOOD_PNG_URL} 
-                      alt="iFood Logo" 
-                      className={cn(iconSizeClass, "object-contain")} 
+                  {link.icon ? (
+                    <img // Usando tag <img> padrão
+                      src={link.icon}
+                      alt={link.label}
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
                     />
-                  ) : isWhatsapp ? (
-                    // Ícone na cor de destaque para WhatsApp
-                    <WhatsappIcon className={cn(iconSizeClass, "text-highlight")} /> 
                   ) : (
-                    <Icon className={cn(iconSizeClass, link.colorClass)} />
+                    isOther && <LinkIcon className="w-6 h-6 text-primary" />
                   )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
-                    // Texto na cor vermelha para iFood, verde para WhatsApp, e primária para outros
-                    isIfood ? "text-red-600" : (isWhatsapp ? "text-green-600" : "text-primary") 
+                    isIfood ? "text-red-600" : (isWhatsapp ? "text-green-600" : "text-primary")
                   )}>
                     {link.label}
                   </p>

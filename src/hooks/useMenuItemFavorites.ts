@@ -1,87 +1,73 @@
-import { useState, useEffect } from 'react';
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthData } from '@/context/AuthContext'; // CORRIGIDO
 import { showError, showSuccess } from "@/utils/toast";
-import { MenuItem } from "@/types/supabase";
+import { MenuItem, MenuItemFavorite } from "@/types"; // Importando de "@/types"
 
-// Query key para a lista de IDs de itens favoritos
-const ITEM_FAVORITES_ID_LIST_QUERY_KEY = (userId: string) => ['menuItemFavoriteIds', userId];
-
-const fetchItemFavoriteIds = async (userId: string): Promise<string[]> => {
-  const { data, error } = await supabase
-    .from('menu_item_favorites')
-    .select('menu_item_id')
-    .eq('user_id', userId);
-
-  if (error) throw new Error(error.message);
-  
-  return data.map(f => f.menu_item_id);
-};
-
-export function useMenuItemFavorites(itemId: string) {
-  const { user, isLoading: isAuthLoading } = useAuthData(); // CORRIGIDO
-  const userId = user?.id;
+export const useMenuItemFavorites = (userId: string | undefined) => {
   const queryClient = useQueryClient();
 
-  const { data: favoriteIds = [], isLoading: isFavoritesLoading } = useQuery<string[], Error>({
-    queryKey: ITEM_FAVORITES_ID_LIST_QUERY_KEY(userId || 'null'),
-    queryFn: () => fetchItemFavoriteIds(userId!),
-    enabled: !!userId && !isAuthLoading,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+  const { data: favoriteMenuItems, isLoading } = useQuery<MenuItemFavorite[]>({
+    queryKey: ['menuItemFavorites', userId],
+    queryFn: async () => {
+      if (!userId) return [];
+      const { data, error } = await supabase
+        .from('menu_item_favorites')
+        .select('*, menu_items(*)')
+        .eq('user_id', userId);
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!userId,
   });
 
-  const isFavorite = favoriteIds.includes(itemId);
-  const isLoading = isAuthLoading || isFavoritesLoading;
-
-  const mutation = useMutation<void, Error, boolean>({
-    mutationFn: async (isCurrentlyFavorite) => {
-      if (!userId) throw new Error("User not authenticated.");
-
-      if (isCurrentlyFavorite) {
-        // Remove favorite
-        const { error } = await supabase
-          .from('menu_item_favorites')
-          .delete()
-          .eq('user_id', userId)
-          .eq('menu_item_id', itemId);
-        
-        if (error) throw new Error(error.message);
-      } else {
-        // Add favorite
-        const { error } = await supabase
-          .from('menu_item_favorites')
-          .insert({ user_id: userId, menu_item_id: itemId });
-        
-        if (error) throw new Error(error.message);
-      }
+  const addFavoriteMutation = useMutation({
+    mutationFn: async (menuItemId: string) => {
+      const { data, error } = await supabase
+        .from('menu_item_favorites')
+        .insert({ user_id: userId!, menu_item_id: menuItemId })
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
     },
-    onSuccess: (_, isCurrentlyFavorite) => {
-      queryClient.invalidateQueries({ queryKey: ITEM_FAVORITES_ID_LIST_QUERY_KEY(userId!) });
-      
-      if (isCurrentlyFavorite) {
-        showSuccess("Item removido dos favoritos.");
-      } else {
-        showSuccess("Item adicionado aos favoritos!");
-      }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['menuItemFavorites', userId] });
+      showSuccess('Item adicionado aos favoritos!');
     },
-    onError: (err) => {
-      showError(`Erro ao gerenciar favoritos: ${err.message}`);
-    }
+    onError: (error) => {
+      showError('Erro ao adicionar aos favoritos.');
+      console.error(error);
+    },
   });
 
-  const toggleFavorite = () => {
-    if (isLoading || mutation.isPending) return;
-    if (!user) {
-      showError("Você precisa estar logado para favoritar itens.");
-      return;
-    }
-    mutation.mutate(isFavorite);
+  const removeFavoriteMutation = useMutation({
+    mutationFn: async (menuItemId: string) => {
+      const { error } = await supabase
+        .from('menu_item_favorites')
+        .delete()
+        .eq('user_id', userId!)
+        .eq('menu_item_id', menuItemId);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['menuItemFavorites', userId] });
+      showSuccess('Item removido dos favoritos.');
+    },
+    onError: (error) => {
+      showError('Erro ao remover dos favoritos.');
+      console.error(error);
+    },
+  });
+
+  const isFavorite = (menuItemId: string) => {
+    return favoriteMenuItems?.some(fav => fav.menu_item_id === menuItemId) || false;
   };
 
   return {
+    favoriteMenuItems,
+    isLoading,
+    addFavorite: addFavoriteMutation.mutate,
+    removeFavorite: removeFavoriteMutation.mutate,
     isFavorite,
-    toggleFavorite,
-    isLoading: isLoading || mutation.isPending,
   };
-}
+};
