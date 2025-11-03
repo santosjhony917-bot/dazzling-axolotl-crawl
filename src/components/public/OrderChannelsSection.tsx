@@ -63,26 +63,36 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
             const iconSizeClass = "w-8 h-8";
 
             return (
-              <a 
+              <Button 
                 key={link.label} 
-                href={link.url!}
-                target={link.target}
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 rounded-xl bg-gray-50 p-4 shadow-soft-sm border border-gray-200 cursor-pointer hover:shadow-soft-md transition-shadow"
+                asChild
+                variant="channel" // Usando o novo variant 'channel'
+                className="flex flex-col items-center gap-2 rounded-xl p-4 h-auto" // Removendo classes de background/border/shadow daqui
               >
-                {isIfood ? (
-                  <img 
-                    src={IFOOD_PNG_URL} 
-                    alt="iFood Logo" 
-                    className={cn(iconSizeClass, "object-contain")} 
-                  />
-                ) : isWhatsapp ? (
-                  <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
-                ) : (
-                  <Icon className={cn(iconSizeClass, link.colorClass)} />
-                )}
-                <p className="text-xs font-semibold text-gray-700 text-center">{link.label}</p>
-              </a>
+                <a 
+                  href={link.url!}
+                  target={link.target}
+                  rel="noopener noreferrer"
+                >
+                  {isIfood ? (
+                    <img 
+                      src={IFOOD_PNG_URL} 
+                      alt="iFood Logo" 
+                      className={cn(iconSizeClass, "object-contain")} 
+                    />
+                  ) : isWhatsapp ? (
+                    <WhatsappIcon className={iconSizeClass} /> // Usando o componente SVG com w-8 h-8
+                  ) : (
+                    <Icon className={cn(iconSizeClass, link.colorClass)} />
+                  )}
+                  <p className={cn(
+                    "text-xs font-semibold text-center",
+                    isIfood ? "text-highlight" : "text-primary" // Destaque para o texto do iFood
+                  )}>
+                    {link.label}
+                  </p>
+                </a>
+              </Button>
             );
           })}
         </div>

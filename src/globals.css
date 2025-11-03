@@ -11,9 +11,6 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222 80% 15%; /* #022D68 - Ligeiramente ajustado para ser mais vibrante */
     --primary-foreground: 210 40% 98%;
 
@@ -53,7 +50,7 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --primary: 222 80% 15%;
-    --highlight: 24 84.2% 60.2%;
+    --highlight: 15 70% 50%; /* Atualizado para o novo tom de laranja terroso */
   }
 }
 

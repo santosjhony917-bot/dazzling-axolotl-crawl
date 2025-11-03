@@ -19,6 +19,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         // Novo variante de destaque (Laranja)
         highlight: "bg-highlight text-white hover:bg-highlight/90 shadow-highlight-glow font-bold transition-all duration-300",
+        // Novo variante para canais de pedido
+        channel: "bg-white border border-gray-200 text-primary hover:bg-gray-50 shadow-soft-sm",
       },
       size: {
         default: "h-10 px-4 py-2",

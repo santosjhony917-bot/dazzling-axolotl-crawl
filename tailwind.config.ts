@@ -67,7 +67,7 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Cores customizadas do novo design
-        "highlight": "#E47948",
+        "highlight": "#CC6640", // Novo tom de laranja terroso
         "background-light": "#F9FAFB", // Ajustado para um cinza mais claro
         "background-dark": "#111821", // Mantido, mas não usado no modo light
         "text-primary": "#022D68", // Novo alias para a cor primária de texto
@@ -92,7 +92,7 @@ export default {
         'soft-lg': '0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)', // Aumentado a intensidade
         'soft-xl': '0 20px 40px rgba(0, 0, 0, 0.2), 0 10px 15px rgba(0, 0, 0, 0.1)', // Aumentado a intensidade
         // Sombra de destaque para o botão principal
-        'highlight-glow': '0 8px 20px rgba(228, 121, 72, 0.4)',
+        'highlight-glow': '0 8px 20px rgba(204, 102, 64, 0.4)', // Ajustado para a nova cor highlight
       },
       keyframes: {
         "accordion-down": {
