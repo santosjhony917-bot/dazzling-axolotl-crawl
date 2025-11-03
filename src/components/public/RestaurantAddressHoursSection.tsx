@@ -1,111 +1,89 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, ExternalLink, CreditCard } from 'lucide-react';
-import { OpeningHoursDisplay } from './OpeningHoursDisplay';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapPin, Clock, Phone, Mail, Link as LinkIcon } from "lucide-react";
+import { Restaurant } from "@/types/restaurant";
+import { formatOpeningHours } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface RestaurantAddressHoursSectionProps {
-  id: string;
-  restaurant: PublicRestaurantData;
-  fullAddress: string;
-  paymentMethods: string[] | null;
+  restaurant: Restaurant;
 }
 
-const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
-  const { opening_hours } = restaurant;
-
-  // Usando um array para consistência, mesmo que haja apenas um item de endereço
-  const addressItems = [
-    {
-      icon: <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />,
-      value: fullAddress,
-      link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
-      isExternal: true,
-    },
-  ];
+export function RestaurantAddressHoursSection({ restaurant }: RestaurantAddressHoursSectionProps) {
+  const hasAddress = restaurant.address && restaurant.number && restaurant.neighborhood && restaurant.city && restaurant.state && restaurant.cep;
+  const hasContact = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url;
+  const hasOpeningHours = restaurant.opening_hours && Object.values(restaurant.opening_hours).some(hours => hours.length > 0);
 
   return (
-    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
-      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
+    <Card className="w-full max-w-4xl mx-auto shadow-lg">
+      <CardHeader className="pb-0">
         {/* Ícone MapPin removido conforme solicitado */}
-        <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
+        <CardTitle className="text-2xl font-extrabold text-primary">Gerais</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-6">
-        
-        {/* Endereço */}
-        <div className="space-y-4">
-          <div className="flex items-start">
-            {addressItems[0].icon} {/* Renderiza o ícone do array */}
-            <div className="ml-3 min-w-0">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Localização</p>
-              {addressItems[0].link ? (
-                <a 
-                  href={addressItems[0].link} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center"
-                >
-                  {addressItems[0].value}
-                  {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
-                </a>
-              ) : (
-                <p className="text-base font-bold text-primary break-words">{addressItems[0].value}</p>
-              )}
+        {hasAddress && (
+          <div className="flex items-start space-x-3">
+            <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">Endereço</h3>
+              <p className="text-gray-600">
+                {restaurant.address}, {restaurant.number} - {restaurant.neighborhood}, {restaurant.city} - {restaurant.state}, {restaurant.cep}
+              </p>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Separator between Address and Opening Hours */}
-        {fullAddress && opening_hours && <Separator className="my-4 bg-gray-100" />}
-
-        {/* Horário de Funcionamento */}
-        {opening_hours && (
-          <div className="pt-4">
-            <div className="flex items-start">
-              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
-              <div className="ml-3 min-w-0">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-                <OpeningHoursDisplay openingHours={opening_hours} />
+        {hasOpeningHours && (
+          <div className="flex items-start space-x-3">
+            <Clock className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">Horário de Funcionamento</h3>
+              <div className="text-gray-600">
+                {formatOpeningHours(restaurant.opening_hours as Record<string, string[]>).map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
               </div>
             </div>
           </div>
         )}
 
-        {/* Separador e Formas de Pagamento */}
-        {paymentMethods && paymentMethods.length > 0 && (
-          <>
-            {/* Separator between Opening Hours and Payment Methods */}
-            {(fullAddress || opening_hours) && <Separator className="my-4 bg-gray-100" />}
-            <div className="pt-4">
-              <div className="flex items-start">
-                <CreditCard className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
-                <div className="ml-3 min-w-0">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
-                  <div className="flex flex-wrap gap-2">
-                    {paymentMethods.map((method, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="secondary"
-                        className={cn(
-                          "px-3 py-1 text-sm font-medium rounded-full",
-                          "bg-gray-100 text-gray-700 border border-gray-200"
-                        )}
-                      >
-                        {method}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+        {hasContact && (
+          <div className="flex items-start space-x-3">
+            <Phone className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">Contato</h3>
+              <div className="space-y-1">
+                {restaurant.phone && (
+                  <p className="text-gray-600 flex items-center">
+                    <Phone className="h-4 w-4 mr-2" /> {restaurant.phone}
+                  </p>
+                )}
+                {restaurant.email && (
+                  <p className="text-gray-600 flex items-center">
+                    <Mail className="h-4 w-4 mr-2" /> {restaurant.email}
+                  </p>
+                )}
+                {restaurant.whatsapp_url && (
+                  <Link to={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center">
+                    <LinkIcon className="h-4 w-4 mr-2" /> WhatsApp
+                  </Link>
+                )}
+                {restaurant.ifood_url && (
+                  <Link to={restaurant.ifood_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center">
+                    <LinkIcon className="h-4 w-4 mr-2" /> iFood
+                  </Link>
+                )}
+                {restaurant.other_url && (
+                  <Link to={restaurant.other_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline flex items-center">
+                    <LinkIcon className="h-4 w-4 mr-2" /> {restaurant.other_url_label || "Outro Link"}
+                  </Link>
+                )}
               </div>
             </div>
-          </>
+          </div>
         )}
       </CardContent>
     </Card>
   );
-};
-
-export default RestaurantAddressHoursSection;
+}

@@ -1,237 +1,234 @@
-import React, { useMemo, useState } from 'react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
-import RestaurantMenu from './RestaurantMenu';
-import RestaurantGallery from './RestaurantGallery';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant } from '@/types/restaurant';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import OrderChannelsSection from './OrderChannelsSection';
-import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
-import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
-import { motion } from 'framer-motion';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
-import RestaurantMainInfoCard from './RestaurantMainInfoCard'; // NOVO IMPORT
+import { MapPin, Clock, Phone, Mail, Link as LinkIcon, Heart, Share2, ChevronLeft, Star } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { RestaurantAddressHoursSection } from './RestaurantAddressHoursSection';
+import { RestaurantGallerySection } from './RestaurantGallerySection'; // Corrected import
+import { RestaurantMenuSection } from './RestaurantMenuSection'; // Corrected import
+import { RestaurantReviewsSection } from './RestaurantReviewsSection'; // Corrected import
+import { RestaurantSocialNetworksSection } from './RestaurantSocialNetworksSection'; // Corrected import
+import { RestaurantInfo } from './RestaurantInfo'; // Corrected import
+import { PublicRestaurantData } from '@/types/restaurant'; // Assuming this type exists
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  toggleFavorite: () => void; // NOVO
-  isFavoriteMutating: boolean; // NOVO
-  isCompact?: boolean; // NOVO: Prop para modo compacto
+  toggleFavorite: () => void;
+  isFavoriteMutating: boolean;
+  isCompact: boolean;
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant: initialRestaurant, toggleFavorite, isFavoriteMutating, isCompact }) => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth(); 
-  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(initialRestaurant);
+  const [loading, setLoading] = useState(false); // Initial loading handled by parent
+  const [error, setError] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false); // This will be managed by parent's isFavoriteMutating
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
-  const fullAddress = useMemo(() => {
-    return formatAddressSummary(
-      restaurant.address,
-      restaurant.number,
-      restaurant.neighborhood,
-      restaurant.city,
-      restaurant.state
-    );
-  }, [restaurant]);
+  useEffect(() => {
+    setRestaurant(initialRestaurant);
+  }, [initialRestaurant]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if (user && restaurant) {
+        const { data, error } = await supabase
+          .from('user_favorites')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('restaurant_id', restaurant.id)
+          .single();
+
+        if (data) {
+          setIsFavorite(true);
+        } else {
+          setIsFavorite(false);
+        }
+        if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+          console.error("Error checking favorite:", error);
+        }
+      } else {
+        setIsFavorite(false);
+      }
+    };
+
+    checkFavorite();
+  }, [user, restaurant]);
+
+  const handleFavoriteToggle = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    toggleFavorite(); // Use the parent's toggleFavorite
+  };
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: restaurant.name,
-        text: `Confira o perfil de ${restaurant.name}!`,
+        title: restaurant?.name || 'Restaurante',
+        text: `Confira este restaurante: ${restaurant?.name}`,
         url: window.location.href,
-      }).catch(console.error);
+      })
+        .then(() => console.log('Compartilhado com sucesso!'))
+        .catch((error) => console.error('Erro ao compartilhar:', error));
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
+      setShowShareDialog(true);
     }
   };
-  
-  // Função para rolar para a seção
-  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
-    setActiveTab(tab);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-  
-  // Dados do Header (agora apenas para a capa)
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
-    isPremium: true, // CORREÇÃO: Adicionado isPremium
-    isCompact: isCompact, // NOVO: Passa a prop isCompact
-  };
-  
-  // Dados para o novo RestaurantMainInfoCard
-  const mainInfoCardData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    logoUrl: restaurant.image_url || null,
-    addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
-    isOpen: restaurant.isOpen,
-    statusText: restaurant.statusText,
-    plan: restaurant.plan, // Adicionado 'plan'
+
+  const copyShareLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert('Link copiado para a área de transferência!');
+    setShowShareDialog(false);
   };
 
-  // Verifica se há conteúdo para as abas
-  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
-  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  
-  // Verifica se há informações de endereço/horário ou contato/links
-  const hasAddressHours = fullAddress || restaurant.opening_hours;
-  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
-  
-  // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">Carregando...</div>;
+  }
 
-  const containerPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do container principal
+  if (error) {
+    return <div className="flex justify-center items-center min-h-screen text-red-500">Erro: {error}</div>;
+  }
+
+  if (!restaurant) {
+    return <div className="flex justify-center items-center min-h-screen">Restaurante não encontrado.</div>;
+  }
+
+  const restaurantImage = restaurant.image_url || '/placeholder-restaurant.jpg';
+  const coverImage = restaurant.cover_image_url || '/placeholder-cover.jpg';
 
   return (
-    <div className="min-h-screen bg-background-light">
-      
-      {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <RestaurantActionsBar
-        isFavorite={restaurant.is_favorite}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        onShare={handleShare}
-        onBack={() => navigate(-1)}
-      />
-
-      {/* 2. Cabeçalho Principal (Capa) */}
-      <RestaurantProfileHeader
-        restaurant={headerData}
-      />
-      
-      {/* 3. Novo Card de Informações Principais (com logo sobreposta) */}
-      <RestaurantMainInfoCard
-        restaurant={mainInfoCardData}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        isCompact={isCompact} // PASSA A PROP isCompact
-      />
-
-      <div className={cn("container mx-auto pb-8", containerPxClass)}>
-        {/* Conteúdo Principal */}
-        <div className="mt-6 space-y-6">
-          
-          {/* Description */}
-          {restaurant.description && (
-            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
-              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
-              <p className="text-gray-600">{restaurant.description}</p>
-            </Card>
-          )}
-          
-          {/* Canais de Pedido */}
-          <OrderChannelsSection restaurant={restaurant} />
-
-          {/* Navegação por Abas (Sticky) */}
-          {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
-              <ScrollArea className="w-full whitespace-nowrap">
-                <div className="flex space-x-4">
-                  {hasGallery && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('gallery-section', 'gallery')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Image className="w-4 h-4 mr-2" /> Fotos
-                    </Button>
-                  )}
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
-                  {hasInfo && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('info-section', 'info')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Info className="w-4 h-4 mr-2" /> Informações
-                    </Button>
-                  )}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
-
-          {/* 2. Galeria Section */}
-          {hasGallery && (
-            <div id="gallery-section">
-              <RestaurantGallery gallery={restaurant.gallery_images} />
-            </div>
-          )}
-
-          {/* 3. Menu Section */}
-          {hasMenu && (
-            <div id="menu-section">
-              <RestaurantMenu 
-                menuCategories={restaurant.menu_categories} 
-                isFullMenuPage={false}
-                restaurantId={restaurant.id}
-                forceShowFullMenuButton={isCompact} // NOVO: Força a exibição do botão no modo compacto
-              />
-            </div>
-          )}
-          
-          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
-          {hasInfo && (
-            <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-              
-              {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
-              {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
-                <RestaurantAddressHoursSection
-                  id="address-hours-section"
-                  restaurant={restaurant}
-                  fullAddress={fullAddress}
-                  paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
-                />
-              )}
-              
-              {/* Contato e Links (Componente Refatorado) */}
-              {hasContactLinks && (
-                <RestaurantInfo 
-                  id="contact-links-section"
-                  restaurant={restaurant}
-                />
-              )}
-              
-              {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
-              {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
-            </div>
-          )}
+    <div className="min-h-screen bg-gray-50">
+      {/* Cover Image */}
+      <div className="relative h-48 md:h-64 bg-cover bg-center" style={{ backgroundImage: `url(${coverImage})` }}>
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4 text-white hover:bg-white hover:text-primary"
+          onClick={() => navigate(-1)}
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </Button>
+        <div className="absolute bottom-4 left-4 flex items-center space-x-4">
+          <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
+            <AvatarImage src={restaurantImage} alt={restaurant.name} />
+            <AvatarFallback>{restaurant.name.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <h1 className="text-3xl font-bold text-white drop-shadow-lg">{restaurant.name}</h1>
         </div>
       </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto p-4 -mt-12 relative z-10">
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-bold text-gray-800">{restaurant.name}</h2>
+            <div className="flex space-x-2">
+              <Button variant="outline" size="icon" onClick={handleFavoriteToggle} className={isFavorite ? "text-red-500 border-red-500" : ""} disabled={isFavoriteMutating}>
+                <Heart className={isFavorite ? "fill-current" : ""} />
+              </Button>
+              <Button variant="outline" size="icon" onClick={handleShare}>
+                <Share2 />
+              </Button>
+            </div>
+          </div>
+          <p className="text-gray-600 mb-4">{restaurant.description}</p>
+          <div className="flex items-center text-yellow-500 mb-4">
+            <Star className="h-5 w-5 fill-current mr-1" />
+            <span>4.5 (120 avaliações)</span> {/* Placeholder for ratings */}
+          </div>
+          <Separator className="my-4" />
+          <div className="flex flex-wrap gap-4 text-gray-700 text-sm">
+            {restaurant.category && (
+              <span className="flex items-center">
+                <MapPin className="h-4 w-4 mr-1" /> {restaurant.category}
+              </span>
+            )}
+            {restaurant.city && restaurant.state && (
+              <span className="flex items-center">
+                <MapPin className="h-4 w-4 mr-1" /> {restaurant.city}, {restaurant.state}
+              </span>
+            )}
+            {/* Add more quick info here if needed */}
+          </div>
+        </div>
+
+        {/* Tabs for more details */}
+        <Tabs defaultValue="gerais" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <TabsTrigger value="gerais">Gerais</TabsTrigger>
+            <TabsTrigger value="cardapio">Cardápio</TabsTrigger>
+            <TabsTrigger value="galeria">Galeria</TabsTrigger>
+            <TabsTrigger value="redes-sociais">Redes Sociais</TabsTrigger>
+            <TabsTrigger value="avaliacoes">Avaliações</TabsTrigger>
+          </TabsList>
+          <TabsContent value="gerais" className="mt-4">
+            <RestaurantAddressHoursSection restaurant={restaurant} />
+            <RestaurantInfo restaurant={restaurant} /> {/* Added RestaurantInfo */}
+          </TabsContent>
+          <TabsContent value="cardapio" className="mt-4">
+            <RestaurantMenuSection restaurantId={restaurant.id} />
+          </TabsContent>
+          <TabsContent value="galeria" className="mt-4">
+            <RestaurantGallerySection restaurantId={restaurant.id} />
+          </TabsContent>
+          <TabsContent value="redes-sociais" className="mt-4">
+            <RestaurantSocialNetworksSection restaurant={restaurant} />
+          </TabsContent>
+          <TabsContent value="avaliacoes" className="mt-4">
+            <RestaurantReviewsSection restaurantId={restaurant.id} />
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Share Dialog */}
+      <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Compartilhar Restaurante</DialogTitle>
+            <DialogDescription>
+              Copie o link abaixo para compartilhar este restaurante.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center space-x-2">
+            <input
+              type="text"
+              readOnly
+              value={window.location.href}
+              className="flex-1 p-2 border rounded-md bg-gray-100"
+            />
+            <Button onClick={copyShareLink}>Copiar</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
