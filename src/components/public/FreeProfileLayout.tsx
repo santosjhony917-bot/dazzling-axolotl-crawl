@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
+import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info, Loader2 } from 'lucide-react';
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
@@ -13,12 +13,9 @@ import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
 import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
-import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
-import { motion } from 'framer-motion';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantMainInfoCard from './RestaurantMainInfoCard'; // NOVO IMPORT
+import { ScrollArea } from '@/components/ui/scroll-area'; // Importando ScrollArea
+import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // Importando RestaurantAddressHoursSection
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -60,27 +57,6 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-  // Dados do Header (agora apenas para a capa)
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
-    isPremium: false, // CORREÇÃO: Adicionado isPremium
-  };
-  
-  // Dados para o novo RestaurantMainInfoCard
-  const mainInfoCardData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    logoUrl: restaurant.image_url || null,
-    addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
-    isOpen: restaurant.isOpen,
-    statusText: restaurant.statusText,
-    plan: restaurant.plan, // Adicionado 'plan'
-  };
-
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   // A galeria só deve ser exibida se houver imagens E o plano não for 'free'
@@ -105,19 +81,45 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
         onBack={() => navigate(-1)}
       />
 
-      {/* 2. Cabeçalho Principal (Capa) */}
-      <RestaurantProfileHeader
-        restaurant={headerData}
-      />
-      
-      {/* 3. Novo Card de Informações Principais (com logo sobreposta) */}
-      <RestaurantMainInfoCard
-        restaurant={mainInfoCardData}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-      />
+      {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
+      <div className="container mx-auto px-4 pt-4 pb-8">
+        <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
+        
+        {restaurant.addressSummary && (
+          <p className="flex items-center text-sm md:text-base text-gray-600 mb-2">
+            <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
+          </p>
+        )}
 
-      <div className="container mx-auto px-4 pb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="flex items-center text-sm text-gray-500">
+            <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
+          </span>
+          <Button
+            variant="default" // Usando variant="default" para um visual mais simples
+            size="sm"
+            onClick={toggleFavorite}
+            disabled={isFavoriteMutating}
+            className="px-4 py-2 text-sm"
+          >
+            {isFavoriteMutating ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              restaurant.is_favorite ? 'Seguindo' : 'Seguir'
+            )}
+          </Button>
+        </div>
+
+        {/* Status de Abertura */}
+        <span
+          className={cn(
+            "px-3 py-1 rounded-full text-xs font-semibold mb-4",
+            restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+          )}
+        >
+          {restaurant.statusText}
+        </span>
+
         {/* Conteúdo Principal */}
         <div className="mt-6 space-y-6">
           
@@ -130,7 +132,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           )}
           
           {/* Canais de Pedido */}
-          <OrderChannelsSection restaurant={restaurant} />
+          {restaurant.plan !== 'free' && <OrderChannelsSection restaurant={restaurant} />}
           
           {/* Navegação por Abas (Sticky) - Adicionado para FreeLayout também */}
           {(hasMenu || hasGallery || hasInfo) && (
@@ -179,7 +181,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           )}
           
           {/* 2. Galeria Section */}
-          {hasGallery && (
+          {hasGallery && restaurant.plan !== 'free' && (
             <div id="gallery-section">
               <RestaurantGallery gallery={restaurant.gallery_images} />
             </div>
