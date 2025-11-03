@@ -7,15 +7,11 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, Search, DollarSign, MapPin, UtensilsCrossed, Building2 } from 'lucide-react';
-import DishCard from '@/components/DishCard';
-import { usePopularDishes } from '@/hooks/usePopularDishes';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const SearchResultsPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'dishes' | 'restaurants'>('dishes');
-  const { dishes, loading, error } = usePopularDishes();
 
   const handleSearch = () => {
     console.log('Searching for:', searchQuery, 'in tab:', activeTab);
@@ -74,37 +70,14 @@ const SearchResultsPage: React.FC = () => {
           <TabsTrigger value="restaurants">Restaurantes</TabsTrigger>
         </TabsList>
         <TabsContent value="dishes" className="mt-4">
-          <h2 className="text-lg font-semibold mb-3">Pratos Populares</h2>
-          {loading ? (
-            <p className="text-center text-gray-500">Carregando pratos populares...</p>
-          ) : error ? (
-            <p className="text-center text-red-500">{error}</p>
-          ) : dishes.length > 0 ? (
-            <ScrollArea className="w-full whitespace-nowrap rounded-md">
-              <div className="flex w-max space-x-4 p-1">
-                {dishes.map((dish) => (
-                  <div key={dish.id} className="w-[200px]">
-                    <DishCard
-                      id={dish.id}
-                      name={dish.name}
-                      description={dish.description || undefined}
-                      price={dish.price}
-                      imageUrl={dish.image_url || undefined}
-                      categoryName={dish.category_name}
-                    />
-                  </div>
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-          ) : (
-            <Card className="text-center py-8">
-              <CardContent className="flex flex-col items-center justify-center">
-                <UtensilsCrossed className="h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-500">Nenhum prato popular encontrado.</p>
-              </CardContent>
-            </Card>
-          )}
+          <h2 className="text-lg font-semibold mb-3">Pratos em Destaque</h2>
+          <Card className="text-center py-8">
+            <CardContent className="flex flex-col items-center justify-center">
+              <UtensilsCrossed className="h-12 w-12 text-gray-400 mb-4" />
+              <p className="text-gray-500">Nenhum destaque encontrado. Tente pesquisar!</p>
+            </CardContent>
+          </Card>
+          {/* Future: Display dish search results here */}
         </TabsContent>
         <TabsContent value="restaurants" className="mt-4">
           <h2 className="text-lg font-semibold mb-3">Restaurantes em Destaque</h2>
