@@ -15,7 +15,7 @@ import ReviewsSection from '@/components/public/ReviewsSection';
 import MapSection from '@/components/public/MapSection';
 import { Button } from '@/components/ui/button';
 import { Heart, Share2 } from 'lucide-react';
-import { useAuth } from '@/components/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
@@ -197,7 +197,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
 }) => {
   const { id: paramId } = useParams<{ id: string }>();
   const restaurantId = initialRestaurantId || paramId;
-  const { user } = useAuth();
+  const { user } = useAuthData();
   const queryClient = useQueryClient();
 
   const [simulatedPlanState, setSimulatedPlanState] = useState<
