@@ -51,7 +51,8 @@ import Files from '@/pages/admin/Files';
 import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
-import AdminBanners from '@/pages/admin/AdminBanners'; // NOVO: Importar AdminBanners
+import AdminBanners from '@/pages/admin/AdminBanners';
+import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importação adicionada
 
 function App() {
   return (
@@ -105,14 +106,15 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} /> {/* NOVO: Rota para editar restaurante */}
+          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
+          <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
           <Route path="/admin/plans" element={<AdminPlans />} />
           <Route path="/admin/users" element={<ManageAdmins />} />
           <Route path="/admin/categories" element={<PopularCategories />} />
           <Route path="/admin/files" element={<Files />} />
           <Route path="/admin/import" element={<ImportMenu />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/banners" element={<AdminBanners />} /> {/* NOVO: Rota para Banners */}
+          <Route path="/admin/banners" element={<AdminBanners />} />
         </Route>
         
       </Routes>
