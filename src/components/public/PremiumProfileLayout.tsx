@@ -20,6 +20,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
 import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
+import RestaurantMainInfoCard from './RestaurantMainInfoCard'; // NOVO IMPORT
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -61,20 +62,26 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
-  // Dados do Header
+  // Dados do Header (agora apenas para a capa)
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    logoUrl: restaurant.image_url || '',
     coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
-    addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite, // Usando o estado reativo
-    isOpen: restaurant.isOpen,
-    statusText: restaurant.statusText,
     isPremium: true, // CORREÇÃO: Adicionado isPremium
   };
   
+  // Dados para o novo RestaurantMainInfoCard
+  const mainInfoCardData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    logoUrl: restaurant.image_url || null,
+    addressSummary: restaurant.addressSummary,
+    followersCount: restaurant.followers_count,
+    isFavorite: restaurant.is_favorite,
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
+  };
+
   // Verifica se há conteúdo para as abas
   const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
   const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
@@ -98,9 +105,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         onBack={() => navigate(-1)}
       />
 
-      {/* 2. Cabeçalho Principal (Capa, Logo, Info) */}
+      {/* 2. Cabeçalho Principal (Capa) */}
       <RestaurantProfileHeader
         restaurant={headerData}
+      />
+      
+      {/* 3. Novo Card de Informações Principais (com logo sobreposta) */}
+      <RestaurantMainInfoCard
+        restaurant={mainInfoCardData}
         onFavoriteToggle={toggleFavorite}
         isFavoriteMutating={isFavoriteMutating}
       />
