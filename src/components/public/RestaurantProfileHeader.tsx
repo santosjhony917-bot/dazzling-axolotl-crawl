@@ -55,7 +55,8 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
         <div className="flex items-end justify-between">
           {/* Logo e Nome do Restaurante */}
           <div className="flex items-end">
-            {logoUrl && (
+            {/* Logo - Apenas para Premium */}
+            {isPremium && logoUrl && (
               <img
                 src={logoUrl}
                 alt={`Logo de ${name}`}
