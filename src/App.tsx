@@ -44,6 +44,7 @@ import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminRestaurants from '@/pages/admin/AdminRestaurants';
+import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant';
 import ManageAdmins from '@/pages/admin/ManageAdmins';
 import PopularCategories from '@/pages/admin/PopularCategories';
 import Files from '@/pages/admin/Files';
@@ -104,6 +105,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/restaurants" element={<AdminRestaurants />} />
+          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} /> {/* NOVO: Rota para editar restaurante */}
           <Route path="/admin/plans" element={<AdminPlans />} />
           <Route path="/admin/users" element={<ManageAdmins />} />
           <Route path="/admin/categories" element={<PopularCategories />} />
