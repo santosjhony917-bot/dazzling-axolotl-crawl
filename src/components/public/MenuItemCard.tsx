@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { PublicMenuItem } from '@/types/menu';
 import { cn, formatPrice } from '@/lib/utils';
@@ -7,7 +5,7 @@ import { Heart } from 'lucide-react';
 
 interface MenuItemCardProps {
   item: PublicMenuItem;
-  isPremium: boolean; // Manter para lógica, mas não para estilo de hover
+  isPremium: boolean;
 }
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
@@ -18,13 +16,13 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
 
   return (
     <div className={cn(
-      "flex gap-4 p-3 rounded-lg transition-all bg-white border border-gray-200", // Estilo de card mais simples e com borda
-      // isPremium ? "hover:bg-gray-50 cursor-pointer" : "bg-white" // Removido hover de premium para despriorizar
+      "flex gap-4 p-3 rounded-lg transition-all",
+      isPremium ? "hover:bg-gray-50 cursor-pointer" : "bg-white"
     )}>
       
       {/* Imagem do Item (se existir) */}
       {item.image_url && (
-        <div className="flex-shrink-0 w-20 h-20 rounded-md overflow-hidden shadow-sm"> {/* Sombra mais sutil */}
+        <div className="flex-shrink-0 w-20 h-20 rounded-md overflow-hidden shadow-md">
           <img 
             src={item.image_url} 
             alt={item.name} 
@@ -36,8 +34,8 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
       {/* Detalhes do Item */}
       <div className="flex-grow min-w-0">
         <div className="flex justify-between items-start">
-          <h4 className="text-base font-semibold text-gray-900 truncate pr-2">{item.name}</h4> {/* Tipografia mais genérica */}
-          {isPremium && ( // Manter a lógica de favoritar apenas para premium, se for o caso
+          <h4 className="text-base font-semibold text-gray-900 truncate pr-2">{item.name}</h4>
+          {isPremium && (
             <button 
               onClick={handleFavoriteToggle}
               className="flex-shrink-0 p-1 text-gray-400 hover:text-red-500 transition-colors"

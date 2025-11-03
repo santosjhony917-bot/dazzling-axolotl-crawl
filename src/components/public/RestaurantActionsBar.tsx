@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { Heart, Loader2, Share2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,14 +23,14 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
 
   return (
     <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between p-4">
-      {/* Botão Voltar */}
+      {/* Botão Voltar (Movido para cá) */}
       <Button
         variant="ghost"
         size="icon"
         onClick={onBack}
-        className="rounded-full h-10 w-10 bg-white/70 hover:bg-gray-100" // Estilo mais simples para FREE
+        className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
       >
-        <ArrowLeft className="h-5 w-5 text-gray-700" /> {/* Cor mais neutra */}
+        <ArrowLeft className="h-5 w-5 text-primary" />
       </Button>
       
       {/* Ações de Compartilhar/Favoritar */}
@@ -43,7 +41,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
           size="icon"
           onClick={handleFollowToggle}
           disabled={isFavoriteMutating} 
-          className="rounded-full h-10 w-10 bg-white/70 hover:bg-gray-100" // Estilo mais simples para FREE
+          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
         >
           {isFavoriteMutating ? (
             <Loader2 className="w-5 h-5 animate-spin text-red-500" />
@@ -61,7 +59,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full h-10 w-10 bg-white/70 hover:bg-gray-100" // Estilo mais simples para FREE
+          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
           onClick={onShare}
         >
           <Share2 className="w-5 h-5 text-gray-500" />
