@@ -187,11 +187,13 @@ const UpgradePageContent: React.FC = () => {
                   </AlertDescription>
                 </Alert>
               ) : (
-                previewPlan === 'free' ? (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" />
-                ) : (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" />
-                )
+                <div className="relative h-[574px] overflow-hidden rounded-lg shadow-inner"> {/* Wrapper for scaled preview */}
+                  {previewPlan === 'free' ? (
+                    <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isPreview={true} />
+                  ) : (
+                    <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isPreview={true} />
+                  )}
+                </div>
               )}
             </motion.div>
           </div>
