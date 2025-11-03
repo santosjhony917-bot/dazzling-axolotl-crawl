@@ -142,7 +142,6 @@ export default function ProfileSettingsPage() {
     }
   }, [updateRestaurant, refetchRestaurant]);
 
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -174,6 +173,7 @@ export default function ProfileSettingsPage() {
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,
+    other_url_label: restaurant?.other_url_label || null, // Adicionado other_url_label
   };
 
   return (

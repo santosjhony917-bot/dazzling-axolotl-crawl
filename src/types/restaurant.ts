@@ -42,6 +42,7 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' |
     menu_items: MenuItem[];
   })[];
   gallery_images: GalleryImage[];
+  other_url_label: string | null; // Adicionado other_url_label
 }
 
 // Adicionando um tipo para o restaurante com a galeria incluída, para uso no AdminEditRestaurant

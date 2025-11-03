@@ -70,10 +70,8 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                 variant="channel" 
                 className={cn(
                   "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
-                  // Adiciona borda e hover para WhatsApp
-                  isWhatsapp && "border-2 border-highlight hover:bg-highlight/10", 
-                  // Remove o estilo de fundo verde anterior para WhatsApp
-                  isWhatsapp && "bg-white text-highlight" 
+                  // Removido o estilo de destaque para WhatsApp
+                  "border border-gray-200 hover:bg-gray-50" // Estilo genérico para todos os botões de canal
                 )}
               >
                 <a 
@@ -88,15 +86,14 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                       className={cn(iconSizeClass, "object-contain")} 
                     />
                   ) : isWhatsapp ? (
-                    // Ícone na cor de destaque para WhatsApp
-                    <WhatsappIcon className={cn(iconSizeClass, "text-highlight")} /> 
+                    // Ícone na cor primária para WhatsApp
+                    <WhatsappIcon className={cn(iconSizeClass, "text-primary")} /> 
                   ) : (
-                    <Icon className={cn(iconSizeClass, link.colorClass)} />
+                    <Icon className={cn(iconSizeClass, "text-primary")} />
                   )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
-                    // Texto na cor vermelha para iFood, verde para WhatsApp, e primária para outros
-                    isIfood ? "text-red-600" : (isWhatsapp ? "text-green-600" : "text-primary") 
+                    "text-gray-700" // Texto genérico text-gray-700 para todos
                   )}>
                     {link.label}
                   </p>

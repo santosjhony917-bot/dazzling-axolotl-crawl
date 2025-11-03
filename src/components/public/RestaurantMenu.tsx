@@ -62,7 +62,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
       )}
     >
       {/* Título da seção: Removido para evitar redundância com a aba ativa */}
-      
+
       {categoriesToDisplay.map((category, index) => {
         const activeItems = category.menu_items
           .filter(item => item.is_active)
@@ -83,7 +83,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
               {itemsToDisplay.map((item) => (
                 <Card 
                   key={item.id} 
-                  className="p-4 flex items-start space-x-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                  className="p-4 flex items-start space-x-4 border border-gray-200"
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.image_url && (
@@ -96,7 +96,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                   <div className="flex-grow">
                     <div className="flex justify-between items-start">
                       <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
-                      <p className="font-bold text-lg text-highlight ml-4">
+                      <p className="font-bold text-lg text-primary ml-4">
                         {formatPrice(item.price)}
                       </p>
                     </div>
@@ -113,7 +113,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                 <Button 
                   variant="link" 
                   onClick={handleViewFullMenu}
-                  className="text-highlight p-0 h-auto text-sm font-semibold justify-start"
+                  className="text-primary p-0 h-auto text-sm font-semibold justify-start"
                 >
                   Ver mais {remainingItemsCount} itens em {category.name}
                 </Button>
@@ -131,8 +131,8 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
       {shouldShowFullMenuButton && restaurantId && (
         <Button 
           onClick={handleViewFullMenu}
-          variant="highlight"
-          className="w-full h-12 rounded-xl text-lg font-bold shadow-highlight-glow mt-6"
+          variant="default"
+          className="w-full h-12 rounded-xl text-lg font-bold mt-6"
         >
           Ver Cardápio Completo
         </Button>

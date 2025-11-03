@@ -30,8 +30,8 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
           className="w-full h-full object-cover object-center"
         />
       ) : (
-        <div className="w-full h-full bg-gradient-to-r from-primary to-highlight flex items-center justify-center">
-          <Utensils className="w-24 h-24 text-white opacity-30" />
+        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+          <Utensils className="w-24 h-24 text-gray-300" />
         </div>
       )}
     </div>

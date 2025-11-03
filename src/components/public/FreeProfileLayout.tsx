@@ -142,7 +142,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
                       onClick={() => scrollToSection('gallery-section', 'gallery')}
                       className={cn(
                         "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        activeTab === 'gallery' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
                       )}
                     >
                       <Image className="w-4 h-4 mr-2" /> Fotos
@@ -154,7 +154,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
                       onClick={() => scrollToSection('menu-section', 'menu')}
                       className={cn(
                         "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        activeTab === 'menu' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
                       )}
                     >
                       <Utensils className="w-4 h-4 mr-2" /> Cardápio
@@ -166,7 +166,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
                       onClick={() => scrollToSection('info-section', 'info')}
                       className={cn(
                         "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        activeTab === 'info' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
                       )}
                     >
                       <Info className="w-4 h-4 mr-2" /> Informações

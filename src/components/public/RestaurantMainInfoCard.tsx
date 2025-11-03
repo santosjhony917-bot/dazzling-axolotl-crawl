@@ -52,7 +52,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
           <div className="flex items-center gap-2">
             {addressSummary && (
               <p className="flex items-center text-sm md:text-base text-gray-600">
-                <MapPin className="w-4 h-4 mr-1 text-highlight" /> {addressSummary}
+                <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {addressSummary}
               </p>
             )}
             {/* Status de Abertura */}
@@ -69,7 +69,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
           {/* Grupo de Seguidores e Botão Seguir */}
           <div className="flex items-center justify-between pt-4">
             <span className="flex items-center text-sm text-gray-500">
-              <Heart className="w-4 h-4 mr-1 fill-highlight text-highlight" /> {followersCount} Seguidores
+              <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {followersCount} Seguidores
             </span>
             <Button
               variant="highlight"

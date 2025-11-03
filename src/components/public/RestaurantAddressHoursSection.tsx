@@ -20,7 +20,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
   // Usando um array para consistência, mesmo que haja apenas um item de endereço
   const addressItems = [
     {
-      icon: <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />,
+      icon: <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />,
       value: fullAddress,
       link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
       isExternal: true,
@@ -45,13 +45,13 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
                   href={addressItems[0].link} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-base font-bold text-highlight hover:text-highlight/90 transition-colors break-words flex items-center mt-2"
+                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center mt-2"
                 >
                   {addressItems[0].value}
                   {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
                 </a>
               ) : (
-                <p className="text-base font-bold text-highlight break-words mt-2">{addressItems[0].value}</p>
+                <p className="text-base font-bold text-primary break-words mt-2">{addressItems[0].value}</p>
               )}
             </div>
           </div>
@@ -61,7 +61,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
         {opening_hours && (
           <div className="pt-4">
             <div className="flex items-start">
-              <Clock className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
+              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
                 <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
                 <OpeningHoursDisplay openingHours={opening_hours} />
@@ -76,17 +76,17 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
             <Separator className="my-6 bg-gray-200" />
             <div className="pt-4">
               <div className="flex items-start">
-                <CreditCard className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
+                <CreditCard className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
                 <div className="ml-3 min-w-0">
                   <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
                   <div className="flex flex-wrap gap-2">
                     {paymentMethods.map((method, index) => (
                       <Badge 
                         key={index} 
-                        variant={method.toLowerCase() === 'pix' ? 'highlight' : 'secondary'}
+                        variant="secondary"
                         className={cn(
                           "px-3 py-1 text-sm font-medium rounded-full",
-                          method.toLowerCase() === 'pix' ? "bg-highlight text-white" : "bg-gray-100 text-gray-700 border border-gray-200"
+                          "bg-gray-100 text-gray-700 border border-gray-200"
                         )}
                       >
                         {method}
