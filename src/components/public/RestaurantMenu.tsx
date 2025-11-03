@@ -7,6 +7,7 @@ import { ChevronRight, Utensils } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button'; // Importando Button
+import { cn } from '@/lib/utils';
 
 // Definindo o tipo de categoria esperado (com itens aninhados)
 interface MenuCategoryWithItems extends MenuCategory {
@@ -53,13 +54,16 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
   );
 
   return (
-    <div id="menu" className="space-y-6">
-      {/* Título da seção: Adicionado de volta para a visualização de perfil */}
-      {!isFullMenuPage && (
-        <h2 className="text-2xl font-extrabold text-[#022D68]">Cardápio</h2>
+    <div 
+      id="menu" 
+      className={cn(
+        "space-y-6",
+        shouldShowFullMenuButton && "mb-8" // Adiciona margem inferior extra se o botão de menu completo estiver visível
       )}
+    >
+      {/* Título da seção: Removido para evitar redundância com a aba ativa */}
       
-      {categoriesToDisplay.map((category) => {
+      {categoriesToDisplay.map((category, index) => {
         const activeItems = category.menu_items
           .filter(item => item.is_active)
           .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
@@ -75,7 +79,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
             {/* Título da Categoria */}
             <h3 className="text-xl font-extrabold text-gray-800 border-b pb-2">{category.name}</h3>
             
-            <div className="grid gap-4">
+            <div className="grid gap-y-3"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado */}
               {itemsToDisplay.map((item) => (
                 <Card 
                   key={item.id} 
@@ -115,7 +119,10 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                 </Button>
               )}
             </div>
-            <Separator className="mt-6" />
+            {/* Separador entre categorias, exceto a última e apenas na prévia */}
+            {!isFullMenuPage && index < categoriesToDisplay.length - 1 && (
+              <Separator className="my-6 bg-gray-200" />
+            )}
           </div>
         );
       })}
