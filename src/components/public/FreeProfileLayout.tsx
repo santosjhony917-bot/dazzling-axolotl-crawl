@@ -73,10 +73,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   // Classes condicionais para modo compacto
   const h1SizeClass = isCompact ? "text-2xl" : "text-3xl md:text-4xl";
   const pSizeClass = isCompact ? "text-sm" : "text-sm md:text-base";
-  const headerPaddingClass = isCompact ? "px-3 pb-6" : "px-4 pb-8";
+  const headerPaddingClass = isCompact ? "px-4 pb-6" : "px-4 pb-8"; // Ajustado de px-3 para px-4
   const containerPtClass = isCompact ? "pt-16" : "pt-20";
-  const contentMxClass = isCompact ? "mx-3" : "mx-auto"; // Reduz a margem horizontal do conteúdo principal
-  const contentPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do conteúdo principal
+  // const contentMxClass = isCompact ? "mx-3" : "mx-auto"; // Removido, será tratado no div principal
+  const contentPxClass = isCompact ? "px-4" : "px-4"; // Ajustado de px-3 para px-4
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -91,7 +91,13 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       />
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
-      <div className={cn("container", contentMxClass, containerPtClass)}> {/* Mantém o padding superior */}
+      <div className={cn(
+        {
+          "max-w-sm mx-auto": isCompact, // Aplica max-w-sm e mx-auto para o modo compacto
+          "container mx-auto": !isCompact // Usa container para o modo não compacto
+        },
+        containerPtClass
+      )}> {/* Mantém o padding superior */}
         <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
           <h1 className={cn("font-extrabold leading-tight text-primary mb-2", h1SizeClass)}>{restaurant.name}</h1>
           
