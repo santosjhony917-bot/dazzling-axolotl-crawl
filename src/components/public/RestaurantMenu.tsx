@@ -1,115 +1,146 @@
-"use client";
-
 import React from 'react';
-import { MenuCategoryWithItems, MenuItem } from '@/types/restaurant'; // Importando MenuCategoryWithItems e MenuItem
+import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { formatPrice } from '@/utils/formatters';
+import { Separator } from '@/components/ui/separator';
+import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
+import { ChevronRight, Utensils } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
+import { Button } from '@/components/ui/button'; // Importando Button
+import { cn } from '@/lib/utils';
 
-interface RestaurantMenuProps {
-  menuCategories: MenuCategoryWithItems[]; // Usando o novo tipo
-  isFullMenuPage?: boolean;
-  restaurantId: string;
+// Definindo o tipo de categoria esperado (com itens aninhados)
+interface MenuCategoryWithItems extends MenuCategory {
+  menu_items: MenuItem[];
 }
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({
-  menuCategories,
-  isFullMenuPage = false,
-  restaurantId,
-}) => {
-  const navigate = useNavigate();
-  const [expandedCategories, setExpandedCategories] = React.useState<string[]>([]);
+interface RestaurantMenuProps {
+  menuCategories: MenuCategoryWithItems[];
+  isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
+  restaurantId?: string; // Necessário para o link do cardápio completo
+  forceShowFullMenuButton?: boolean; // NOVO: Prop para forçar a exibição do botão de menu completo
+  isCompact?: boolean; // NOVO: Prop para indicar modo compacto
+}
 
-  const toggleCategoryExpansion = (categoryId: string) => {
-    setExpandedCategories(prev =>
-      prev.includes(categoryId) ? prev.filter(id => id !== categoryId) : [...prev, categoryId]
-    );
+// NOVOS LIMITES
+const MAX_CATEGORIES_PREVIEW = 2;
+const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
+
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton, isCompact }) => {
+  const navigate = useNavigate();
+  
+  if (menuCategories.length === 0) return null;
+
+  const handleItemClick = (itemId: string) => {
+    navigate(createPageUrl('menuItemDetails', { itemId }));
+  };
+  
+  const handleViewFullMenu = () => {
+    if (restaurantId) {
+      navigate(createPageUrl('fullMenuPage', { restaurantId }));
+    }
   };
 
+  // Lógica de filtragem e limitação
   const activeCategories = menuCategories
     .filter(category => category.is_active)
     .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-
-  if (activeCategories.length === 0) {
-    return (
-      <p className="text-gray-500 text-center py-8">Nenhum item de cardápio disponível no momento.</p>
-    );
-  }
+    
+  const categoriesToDisplay = isFullMenuPage 
+    ? activeCategories 
+    : activeCategories.slice(0, MAX_CATEGORIES_PREVIEW);
+    
+  const shouldShowFullMenuButton = forceShowFullMenuButton || (!isFullMenuPage && (
+    activeCategories.length > MAX_CATEGORIES_PREVIEW || 
+    activeCategories.some(cat => cat.menu_items.filter(item => item.is_active).length > MAX_ITEMS_PER_CATEGORY_PREVIEW)
+  ));
 
   return (
-    <div className="space-y-8">
-      {activeCategories.map(category => {
+    <div 
+      id="menu" 
+      className={cn(
+        "space-y-6",
+        shouldShowFullMenuButton && "mb-8" // Adiciona margem inferior extra se o botão de menu completo estiver visível
+      )}
+    >
+      {/* Título da seção: Removido para evitar redundância com a aba ativa */}
+
+      {categoriesToDisplay.map((category, index) => {
         const activeItems = category.menu_items
           .filter(item => item.is_active)
           .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-
-        if (activeItems.length === 0) {
-          return null;
-        }
-
-        const displayItems = isFullMenuPage ? activeItems : activeItems.slice(0, 3);
-        const remainingItemsCount = activeItems.length - displayItems.length;
-        const isExpanded = expandedCategories.includes(category.id);
+          
+        const itemsToDisplay = isFullMenuPage 
+          ? activeItems 
+          : activeItems.slice(0, MAX_ITEMS_PER_CATEGORY_PREVIEW);
+          
+        const remainingItemsCount = activeItems.length - itemsToDisplay.length;
 
         return (
           <div key={category.id} className="space-y-4">
             {/* Título da Categoria */}
             <h3 className="text-xl font-extrabold text-gray-800 pb-2">{category.name}</h3>
-
-            {/* Itens do Cardápio */}
-            <div className="grid gap-4">
-              {(isExpanded ? activeItems : displayItems).map(item => (
-                <Card key={item.id} className="flex items-center p-3 shadow-soft-md rounded-xl bg-white border border-gray-300">
+            
+            <div className="grid gap-y-3"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado */}
+              {itemsToDisplay.map((item) => (
+                <Card 
+                  key={item.id} 
+                  className="p-3 flex items-start space-x-3"
+                  onClick={() => handleItemClick(item.id)}
+                >
                   {item.image_url && (
-                    <img
-                      src={item.image_url}
-                      alt={item.name}
-                      className="w-20 h-20 object-cover rounded-lg mr-4 flex-shrink-0"
+                    <img 
+                      src={item.image_url} 
+                      alt={item.name} 
+                      className="w-12 h-12 object-cover flex-shrink-0"
                     />
                   )}
-                  <CardContent className="flex-grow p-0">
-                    <h4 className="font-semibold text-gray-800">{item.name}</h4>
+                  <div className="flex-grow">
+                    <div className="flex justify-between items-start">
+                      <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
+                      <p className="font-bold text-lg text-primary ml-4">
+                        {formatPrice(item.price)}
+                      </p>
+                    </div>
                     {item.description && (
-                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">{item.description}</p>
+                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
                     )}
-                    <p className="text-primary font-bold mt-2">{formatPrice(item.price)}</p>
-                  </CardContent>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
                 </Card>
               ))}
+              
+              {/* Botão para ver mais itens na categoria (apenas na prévia) */}
+              {!isFullMenuPage && remainingItemsCount > 0 && (
+                <Button 
+                  variant="link" 
+                  onClick={handleViewFullMenu}
+                  className="text-primary p-0 h-auto text-sm font-semibold justify-start"
+                >
+                  Ver mais {remainingItemsCount} itens em {category.name}
+                </Button>
+              )}
             </div>
-
-            {/* Botão "Ver mais" para categorias não expandidas e não na página de menu completo */}
-            {!isFullMenuPage && remainingItemsCount > 0 && (
-              <Button
-                variant="outline"
-                className="w-full mt-4 text-primary border-primary hover:bg-primary hover:text-white"
-                onClick={() => toggleCategoryExpansion(category.id)}
-              >
-                {isExpanded ? 'Ver menos' : `Ver mais ${remainingItemsCount} itens em ${category.name}`}
-              </Button>
+            {/* Separador entre categorias, exceto a última e apenas na prévia */}
+            {!isFullMenuPage && index < categoriesToDisplay.length - 1 && (
+              <Separator className="my-6 bg-gray-200" />
             )}
           </div>
         );
       })}
-
-      {/* Botão "Ver Cardápio Completo" */}
-      {!isFullMenuPage && (
-        <div className="mt-8 text-center">
-          <Button
-            onClick={() => navigate(`/restaurant/${restaurantId}/menu`)}
-            className={cn(
-              "w-full font-bold transition-all duration-300 ease-in-out",
-              {
-                "h-12 text-lg rounded-xl": !isFullMenuPage, // Tamanho padrão
-                "h-2 text-xs rounded-lg": isFullMenuPage // Altura ainda mais reduzida para modo compacto
-              }
-            )}
-          >
-            Ver Cardápio Completo
-          </Button>
-        </div>
+      
+      {/* Botão Ver Cardápio Completo (apenas na prévia) */}
+      {shouldShowFullMenuButton && restaurantId && (
+        <Button 
+          onClick={handleViewFullMenu}
+          variant="default"
+          className={cn("w-full font-bold mt-6", {
+            "h-12 text-lg rounded-xl": !isCompact, // Tamanho padrão
+            "h-2 text-xs rounded-lg": isCompact // Altura ainda mais reduzida para modo compacto
+          })}
+        >
+          Ver Cardápio Completo
+        </Button>
       )}
     </div>
   );
