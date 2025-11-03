@@ -47,3 +47,8 @@ export type UpdateItemPayload = {
 export type PublicMenuItem = SupabaseMenuItem & {
   is_favorite?: boolean;
 };
+
+// Type for public menu categories with nested items
+export type PublicMenuCategory = SupabaseMenuCategory & {
+  menu_items: PublicMenuItem[]; // Usando PublicMenuItem aqui
+};

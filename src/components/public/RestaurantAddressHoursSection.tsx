@@ -1,102 +1,75 @@
+"use client";
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, ExternalLink, CreditCard } from 'lucide-react';
-import { OpeningHoursDisplay } from './OpeningHoursDisplay';
+import { MapPin, Clock, CreditCard } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import DetailedHoursDisplay from './DetailedHoursDisplay';
 import { cn } from '@/lib/utils';
 
 interface RestaurantAddressHoursSectionProps {
   id: string;
   restaurant: PublicRestaurantData;
   fullAddress: string;
-  paymentMethods: string[] | null;
+  paymentMethods: string[];
 }
 
-const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
+const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({
+  id,
+  restaurant,
+  fullAddress,
+  paymentMethods,
+}) => {
   const { opening_hours } = restaurant;
 
-  // Usando um array para consistência, mesmo que haja apenas um item de endereço
-  const addressItems = [
-    {
-      icon: <MapPin className="w-5 h-5 text-highlight flex-shrink-0" />,
-      value: fullAddress,
-      link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
-      isExternal: true,
-    },
-  ];
+  const hasAddress = !!fullAddress;
+  const hasHours = opening_hours && Object.values(opening_hours).some(day => day.length > 0);
+  const hasPaymentMethods = paymentMethods && paymentMethods.length > 0;
+
+  if (!hasAddress && !hasHours && !hasPaymentMethods) {
+    return null;
+  }
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
+    <Card id={id} className="shadow-sm border border-gray-200 rounded-lg p-0"> {/* Estilo de card mais simples */}
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
-        {/* Ícone MapPin removido conforme solicitado */}
-        <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
+        <MapPin className="w-5 h-5 text-gray-700" /> {/* Ícone mais neutro */}
+        <CardTitle className="text-xl font-bold text-gray-800">Endereço e Horário</CardTitle> {/* Tipografia mais genérica */}
       </CardHeader>
       <CardContent className="p-4 space-y-6">
-        
-        {/* Endereço */}
-        <div className="space-y-4">
-          <div className="flex items-start">
-            {addressItems[0].icon} {/* Renderiza o ícone do array */}
-            <div className="ml-3 min-w-0">
-              {addressItems[0].link ? (
-                <a 
-                  href={addressItems[0].link} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-base font-bold text-highlight hover:text-highlight/90 transition-colors break-words flex items-center mt-2"
-                >
-                  {addressItems[0].value}
-                  {addressItems[0].isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
-                </a>
-              ) : (
-                <p className="text-base font-bold text-highlight break-words mt-2">{addressItems[0].value}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Horário de Funcionamento */}
-        {opening_hours && (
-          <div className="pt-4">
-            <div className="flex items-start">
-              <Clock className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
-              <div className="ml-3 min-w-0">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-                <OpeningHoursDisplay openingHours={opening_hours} />
-              </div>
-            </div>
+        {hasAddress && (
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-gray-700">Endereço</p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start text-base text-gray-900 hover:text-gray-700 transition-colors" // Cor de hover mais neutra
+            >
+              <MapPin className="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-gray-600" /> {/* Ícone mais neutro */}
+              {fullAddress}
+            </a>
           </div>
         )}
 
-        {/* Separador e Formas de Pagamento */}
-        {paymentMethods && paymentMethods.length > 0 && (
-          <>
-            <Separator className="my-6 bg-gray-200" />
-            <div className="pt-4">
-              <div className="flex items-start">
-                <CreditCard className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
-                <div className="ml-3 min-w-0">
-                  <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
-                  <div className="flex flex-wrap gap-2">
-                    {paymentMethods.map((method, index) => (
-                      <Badge 
-                        key={index} 
-                        variant={method.toLowerCase() === 'pix' ? 'highlight' : 'secondary'}
-                        className={cn(
-                          "px-3 py-1 text-sm font-medium rounded-full",
-                          method.toLowerCase() === 'pix' ? "bg-highlight text-white" : "bg-gray-100 text-gray-700 border border-gray-200"
-                        )}
-                      >
-                        {method}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
+        {hasHours && (
+          <div className={cn("space-y-2", hasAddress && "pt-4 border-t border-gray-100")}>
+            <p className="text-sm font-semibold text-gray-700">Horário de Funcionamento</p>
+            <DetailedHoursDisplay schedule={opening_hours} />
+          </div>
+        )}
+
+        {hasPaymentMethods && (
+          <div className={cn("space-y-2", (hasAddress || hasHours) && "pt-4 border-t border-gray-100")}>
+            <p className="text-sm font-semibold text-gray-700">Formas de Pagamento</p>
+            <div className="flex flex-wrap gap-2">
+              {paymentMethods.map((method, index) => (
+                <span key={index} className="px-3 py-1 rounded-md bg-gray-100 text-gray-700 text-sm font-medium"> {/* Estilo de pill mais simples */}
+                  {method}
+                </span>
+              ))}
             </div>
-          </>
+          </div>
         )}
       </CardContent>
     </Card>

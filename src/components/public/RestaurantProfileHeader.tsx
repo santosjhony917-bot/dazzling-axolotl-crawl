@@ -1,5 +1,7 @@
+"use client";
+
 import React from 'react';
-import { Heart, MapPin, Utensils } from 'lucide-react';
+import { Utensils } from 'lucide-react'; // Mantendo Utensils caso seja necessário para o premium, mas não para o free
 import { cn } from '@/lib/utils';
 
 interface RestaurantProfileHeaderProps {
@@ -7,7 +9,7 @@ interface RestaurantProfileHeaderProps {
     id: string;
     name: string;
     coverImageUrl: string;
-    isPremium: boolean;
+    isPremium: boolean; // Usar esta prop para diferenciar
   };
 }
 
@@ -21,8 +23,8 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   } = restaurant;
 
   return (
-    <div className="relative w-full h-64 md:h-80 bg-gray-200 overflow-hidden">
-      {/* Imagem de Capa - Apenas para Premium */}
+    <div className="relative w-full h-64 md:h-80 overflow-hidden">
+      {/* Imagem de Capa - Apenas para Premium. Para Free, um fundo sólido e neutro. */}
       {isPremium && coverImageUrl ? (
         <img
           src={coverImageUrl}
@@ -30,8 +32,8 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
           className="w-full h-full object-cover object-center"
         />
       ) : (
-        <div className="w-full h-full bg-gradient-to-r from-primary to-highlight flex items-center justify-center">
-          <Utensils className="w-24 h-24 text-white opacity-30" />
+        <div className="w-full h-full bg-gray-100 flex items-center justify-center"> {/* Fundo cinza claro para FREE */}
+          {/* Ícone de talheres removido para FREE para despriorizar */}
         </div>
       )}
     </div>

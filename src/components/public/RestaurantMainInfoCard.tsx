@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Heart, MapPin, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -41,24 +43,26 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
       <img
         src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
         alt={`Logo de ${name}`}
-        className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white shadow-lg object-cover z-30"
+        className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-white shadow-sm object-cover z-30" // Sombra e borda mais simples
       />
 
-      <Card className="pt-16 pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border-none text-left">
+      <Card className="pt-16 pb-4 px-4 shadow-sm rounded-lg bg-white border border-gray-200 text-left"> {/* Sombra, borda e arredondamento mais simples */}
         <CardContent className="p-0 space-y-2">
-          <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary">{name}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold leading-tight text-gray-900"> {/* Tipografia mais genérica */}
+            {name}
+          </h1>
           
           {/* Endereço e Status de Abertura alinhados */}
           <div className="flex items-center gap-2">
             {addressSummary && (
               <p className="flex items-center text-sm md:text-base text-gray-600">
-                <MapPin className="w-4 h-4 mr-1 text-highlight" /> {addressSummary}
+                <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {addressSummary} {/* Ícone mais neutro */}
               </p>
             )}
             {/* Status de Abertura */}
             <span
               className={cn(
-                "px-3 py-1 rounded-full text-xs font-semibold",
+                "px-2 py-0.5 rounded-full text-xs font-semibold",
                 isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
               )}
             >
@@ -69,10 +73,10 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
           {/* Grupo de Seguidores e Botão Seguir */}
           <div className="flex items-center justify-between pt-4">
             <span className="flex items-center text-sm text-gray-500">
-              <Heart className="w-4 h-4 mr-1 fill-highlight text-highlight" /> {followersCount} Seguidores
+              <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {followersCount} Seguidores {/* Ícone mais neutro */}
             </span>
             <Button
-              variant="highlight"
+              variant="default" // Usar variante padrão para ser mais genérico
               size="sm"
               onClick={onFavoriteToggle}
               disabled={isFavoriteMutating}
