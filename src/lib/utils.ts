@@ -5,28 +5,37 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Function to format the address into a summary string
-export function formatAddressSummary(
-  address: string | null | undefined, 
-  number: string | null | undefined, 
-  neighborhood: string | null | undefined, 
-  city: string | null | undefined, 
-  state: string | null | undefined
-): string {
-  const parts = [];
-  if (address) parts.push(address);
-  if (number) parts.push(`, ${number}`);
-  if (neighborhood) parts.push(` - ${neighborhood}`);
-  if (city) parts.push(`, ${city}`);
-  if (state) parts.push(`/${state}`);
-  
-  return parts.join('');
+// Helper function to format opening hours
+export function formatOpeningHours(openingHours: any): string {
+  if (!openingHours) {
+    return "Horário de funcionamento não disponível.";
+  }
+
+  const daysOfWeek = [
+    "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+    "Quinta-feira", "Sexta-feira", "Sábado"
+  ];
+
+  let formattedHours = "";
+  for (const day of daysOfWeek) {
+    const dayKey = day.toLowerCase().replace('-', '_'); // e.g., "segunda_feira"
+    if (openingHours[dayKey] && openingHours[dayKey].open && openingHours[dayKey].close) {
+      formattedHours += `${day}: ${openingHours[dayKey].open} - ${openingHours[dayKey].close}\n`;
+    } else {
+      formattedHours += `${day}: Fechado\n`;
+    }
+  }
+  return formattedHours.trim();
 }
 
-// Function to format price to Brazilian Real (R$ X,XX)
-export function formatPrice(price: number): string {
+// Helper function to format price
+export function formatPrice(price: number | string): string {
+  const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
+  if (isNaN(numericPrice)) {
+    return 'N/A';
+  }
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
-  }).format(price);
+  }).format(numericPrice);
 }
