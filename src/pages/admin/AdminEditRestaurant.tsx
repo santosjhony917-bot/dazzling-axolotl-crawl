@@ -515,15 +515,13 @@ const AdminEditRestaurant: React.FC = () => {
           isLoading={isSaving}
         />
       )}
-      {restaurant.payment_methods && (
-        <PaymentMethodsDialog
-          isOpen={isPaymentMethodsDialogOpen}
-          onClose={() => setIsPaymentMethodsDialogOpen(false)}
-          currentMethods={restaurant.payment_methods as string[]}
-          onSave={handleSavePaymentMethods}
-          isLoading={isSaving}
-        />
-      )}
+      <PaymentMethodsDialog
+        isOpen={isPaymentMethodsDialogOpen}
+        onClose={() => setIsPaymentMethodsDialogOpen(false)}
+        currentMethods={(restaurant.payment_methods as string[] | null) || []}
+        onSave={handleSavePaymentMethods}
+        isLoading={isSaving}
+      />
       {restaurant.social_networks && (
         <SocialNetworksDialog
           isOpen={isSocialNetworksDialogOpen}
