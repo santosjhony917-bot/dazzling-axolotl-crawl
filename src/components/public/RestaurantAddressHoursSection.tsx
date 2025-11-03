@@ -1,47 +1,40 @@
-"use client";
-
-import { MapPin, Clock, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Restaurant } from "@/types/restaurant";
-import { formatOpeningHours } from "@/lib/utils";
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MapPin, Clock, ExternalLink, CreditCard } from 'lucide-react';
+import { OpeningHoursDisplay } from './OpeningHoursDisplay';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface RestaurantAddressHoursSectionProps {
-  restaurant: Restaurant;
+  id: string;
+  restaurant: PublicRestaurantData;
+  fullAddress: string;
+  paymentMethods: string[] | null;
 }
 
-export function RestaurantAddressHoursSection({ restaurant }: RestaurantAddressHoursSectionProps) {
-  const { address, number, neighborhood, city, state, cep, latitude, longitude, opening_hours } = restaurant;
+const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps> = ({ id, restaurant, fullAddress, paymentMethods }) => {
+  const { opening_hours } = restaurant;
 
-  const fullAddress = [address, number, neighborhood, city, state, cep].filter(Boolean).join(", ");
-
-  const googleMapsLink =
-    latitude && longitude
-      ? `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
-
+  // Usando um array para consistência, mesmo que haja apenas um item de endereço
   const addressItems = [
     {
-      icon: <MapPin className="w-5 h-5 text-primary flex-shrink-0" />,
+      icon: <MapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />,
       value: fullAddress,
-      link: googleMapsLink,
+      link: fullAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}` : undefined,
       isExternal: true,
     },
   ];
 
-  const openingHoursItems = [
-    {
-      icon: <Clock className="w-5 h-5 text-primary flex-shrink-0" />,
-      value: formatOpeningHours(opening_hours),
-    },
-  ];
-
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg flex flex-row items-center justify-between">
+    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
+      <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         {/* Ícone MapPin removido conforme solicitado */}
-        <CardTitle className="text-2xl font-extrabold text-white">Gerais</CardTitle>
+        <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-6">
+        
         {/* Endereço */}
         <div className="space-y-4">
           <div className="flex items-start">
@@ -66,21 +59,53 @@ export function RestaurantAddressHoursSection({ restaurant }: RestaurantAddressH
         </div>
 
         {/* Separator between Address and Opening Hours */}
-        <div className="border-t border-gray-200 my-4"></div>
+        {fullAddress && opening_hours && <Separator className="my-4 bg-gray-100" />}
 
         {/* Horário de Funcionamento */}
-        <div className="space-y-4">
-          <div className="flex items-start">
-            {openingHoursItems[0].icon}
-            <div className="ml-3 min-w-0">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
-              <p className="text-base font-bold text-primary break-words whitespace-pre-line">
-                {openingHoursItems[0].value}
-              </p>
+        {opening_hours && (
+          <div className="pt-4">
+            <div className="flex items-start">
+              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
+              <div className="ml-3 min-w-0">
+                <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
+                <OpeningHoursDisplay openingHours={opening_hours} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/* Separador e Formas de Pagamento */}
+        {paymentMethods && paymentMethods.length > 0 && (
+          <>
+            {/* Separator between Opening Hours and Payment Methods */}
+            {(fullAddress || opening_hours) && <Separator className="my-4 bg-gray-100" />}
+            <div className="pt-4">
+              <div className="flex items-start">
+                <CreditCard className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
+                <div className="ml-3 min-w-0">
+                  <p className="text-sm font-semibold text-gray-700 mb-2">Formas de Pagamento</p>
+                  <div className="flex flex-wrap gap-2">
+                    {paymentMethods.map((method, index) => (
+                      <Badge 
+                        key={index} 
+                        variant="secondary"
+                        className={cn(
+                          "px-3 py-1 text-sm font-medium rounded-full",
+                          "bg-gray-100 text-gray-700 border border-gray-200"
+                        )}
+                      >
+                        {method}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </CardContent>
     </Card>
   );
-}
+};
+
+export default RestaurantAddressHoursSection;
