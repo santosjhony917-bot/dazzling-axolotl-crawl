@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart, MapPin, Utensils } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface RestaurantProfileHeaderProps {
   restaurant: {
@@ -13,14 +14,16 @@ interface RestaurantProfileHeaderProps {
     isFavorite: boolean;
     isOpen: boolean;
     statusText: string;
-    isPremium: boolean; // Crucial para renderização condicional
+    isPremium: boolean;
   };
-  onFavoriteToggle: () => void; // Mantido para compatibilidade, mas o botão de favorito está na barra de ações
-  isFavoriteMutating: boolean; // Mantido para compatibilidade
+  onFavoriteToggle: () => void;
+  isFavoriteMutating: boolean;
 }
 
 const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   restaurant,
+  onFavoriteToggle,
+  isFavoriteMutating,
 }) => {
   const {
     name,
@@ -28,6 +31,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
     coverImageUrl,
     addressSummary,
     followersCount,
+    isFavorite,
     isOpen,
     statusText,
     isPremium,
@@ -49,46 +53,50 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
       )}
 
       {/* Overlay para escurecer a imagem e melhorar a legibilidade do texto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+      <div className="absolute inset-0 bg-black/50"></div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-        <div className="flex items-end justify-between">
-          {/* Logo e Nome do Restaurante */}
-          <div className="flex items-end">
-            {/* Logo - Apenas para Premium */}
-            {isPremium && logoUrl && (
-              <img
-                src={logoUrl}
-                alt={`Logo de ${name}`}
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white shadow-lg -mb-10 mr-4 object-cover"
-              />
-            )}
-            <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold leading-tight drop-shadow-md">{name}</h1>
-              {addressSummary && (
-                <p className="flex items-center text-sm md:text-base text-gray-200 mt-1">
-                  <MapPin className="w-4 h-4 mr-1" /> {addressSummary}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
+      {/* Logo do Restaurante (posicionada no canto superior esquerdo) */}
+      {isPremium && logoUrl && (
+        <img
+          src={logoUrl}
+          alt={`Logo de ${name}`}
+          className="absolute top-4 left-4 w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-white shadow-lg object-cover z-10"
+        />
+      )}
 
-        {/* Status de Abertura e Seguidores */}
-        <div className="flex items-center justify-between mt-4 pt-2 border-t border-white/20">
-          <div className="flex items-center space-x-4">
-            <span
-              className={cn(
-                "px-3 py-1 rounded-full text-xs font-semibold",
-                isOpen ? "bg-green-500" : "bg-red-500"
-              )}
-            >
-              {statusText}
-            </span>
-            <span className="flex items-center text-sm text-gray-200">
-              <Heart className="w-4 h-4 mr-1 fill-current text-red-400" /> {followersCount} Seguidores
-            </span>
-          </div>
+      {/* Conteúdo Central (Nome, Endereço, Status, Seguidores/Botão Seguir) */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-md mb-2">{name}</h1>
+        {addressSummary && (
+          <p className="flex items-center text-base md:text-lg text-gray-200 mb-2">
+            <MapPin className="w-5 h-5 mr-2" /> {addressSummary}
+          </p>
+        )}
+
+        {/* Status de Abertura (movido para abaixo do endereço) */}
+        <span
+          className={cn(
+            "px-3 py-1 rounded-full text-sm font-semibold mb-4",
+            isOpen ? "bg-green-500" : "bg-red-500"
+          )}
+        >
+          {statusText}
+        </span>
+
+        {/* Grupo de Seguidores e Botão Seguir */}
+        <div className="flex items-center space-x-3">
+          <span className="flex items-center text-lg text-gray-200">
+            <Heart className="w-5 h-5 mr-1 fill-current text-red-400" /> {followersCount} Seguidores
+          </span>
+          <Button
+            variant="highlight"
+            size="sm"
+            onClick={onFavoriteToggle}
+            disabled={isFavoriteMutating}
+            className="px-5 py-2"
+          >
+            {isFavorite ? 'Seguindo' : 'Seguir'}
+          </Button>
         </div>
       </div>
     </div>
