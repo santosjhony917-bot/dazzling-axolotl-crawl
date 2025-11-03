@@ -1,71 +1,102 @@
-"use client";
-
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Link as LinkIcon, MessageCircle, UtensilsCrossed } from "lucide-react"; // Alterado Whatsapp para MessageCircle
-
-// Assumindo que o tipo Restaurant já inclui 'other_url_label'
-interface Restaurant {
-  id: string;
-  name: string;
-  whatsapp_url?: string;
-  ifood_url?: string;
-  other_url?: string;
-  other_url_label?: string; // Adicionado para permitir a personalização do label
-  // ... outras propriedades do restaurante
-}
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { MessageSquare, Utensils, Globe, ExternalLink } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import WhatsappIcon from './WhatsappIcon'; // Importando o novo componente
 
 interface OrderChannelsSectionProps {
-  restaurant: Restaurant;
+  restaurant: PublicRestaurantData;
 }
 
-const OrderChannelsSection = ({ restaurant }: OrderChannelsSectionProps) => {
+// URLs PNGs fornecidas pelo usuário
+const IFOOD_PNG_URL = "https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png";
+// Removida a constante WHATSAPP_PNG_URL
+
+const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant }) => {
+  // A seção de canais de pedido só deve ser exibida para planos Premium
+  if (restaurant.plan !== 'premium' && restaurant.plan !== 'premium_gift') {
+    return null;
+  }
+
   const orderLinks = [
-    {
-      type: "whatsapp",
-      label: "WhatsApp",
-      url: restaurant.whatsapp_url,
-      icon: <MessageCircle className="h-6 w-6" />, // Usando MessageCircle como ícone do WhatsApp
+    { 
+      label: 'WhatsApp', 
+      url: restaurant.whatsapp_url, 
+      icon: MessageSquare, 
+      colorClass: 'text-green-600',
+      target: '_blank',
     },
-    {
-      type: "ifood",
-      label: "iFood",
-      url: restaurant.ifood_url,
-      icon: <UtensilsCrossed className="h-6 w-6" />, // Usando UtensilsCrossed como ícone do iFood
+    { 
+      label: 'iFood', 
+      url: restaurant.ifood_url, 
+      icon: Utensils, 
+      colorClass: 'text-red-600',
+      target: '_blank',
     },
-    {
-      type: "other",
-      label: restaurant.other_url_label || "Outro Link", // Usa o label personalizado ou "Outro Link" como padrão
-      url: restaurant.other_url,
-      icon: <LinkIcon className="h-6 w-6" />,
+    { 
+      label: 'Outro Link', 
+      url: restaurant.other_url || restaurant.external_url, 
+      icon: Globe, 
+      colorClass: 'text-primary',
+      target: '_blank',
     },
-  ].filter((link) => link.url); // Filtra links sem URL
+  ].filter(link => link.url);
 
   if (orderLinks.length === 0) {
-    return null; // Não renderiza a seção se não houver links disponíveis
+    return null;
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-lg">Faça Seu Pedido</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap gap-2">
+    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
+      <CardContent className="p-0">
+        {/* Título da seção ajustado para 2xl */}
+        <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
+        <div className="grid grid-cols-3 gap-4">
           {orderLinks.map((link) => {
-            const isWhatsapp = link.type === "whatsapp";
-            const isIfood = link.type === "ifood";
+            const Icon = link.icon;
+            const isIfood = link.label === 'iFood';
+            const isWhatsapp = link.label === 'WhatsApp';
+            
+            // Define o tamanho do ícone/imagem: agora w-8 h-8 para WhatsApp
+            const iconSizeClass = "w-8 h-8";
 
             return (
-              <Button asChild key={link.type} variant="outline" className="flex-1 min-w-[100px] h-auto py-3">
-                <a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center space-y-1">
-                  {link.icon}
+              <Button 
+                key={link.label} 
+                asChild
+                // Todos os botões usam o variant 'channel' para fundo branco
+                variant="channel" 
+                className={cn(
+                  "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
+                  // Adiciona borda e hover para WhatsApp
+                  isWhatsapp && "border-2 border-highlight hover:bg-highlight/10", 
+                  // Remove o estilo de fundo verde anterior para WhatsApp
+                  isWhatsapp && "bg-white text-highlight" 
+                )}
+              >
+                <a 
+                  href={link.url!}
+                  target={link.target}
+                  rel="noopener noreferrer"
+                >
+                  {isIfood ? (
+                    <img 
+                      src={IFOOD_PNG_URL} 
+                      alt="iFood Logo" 
+                      className={cn(iconSizeClass, "object-contain")} 
+                    />
+                  ) : isWhatsapp ? (
+                    // Ícone na cor de destaque para WhatsApp
+                    <WhatsappIcon className={cn(iconSizeClass, "text-highlight")} /> 
+                  ) : (
+                    <Icon className={cn(iconSizeClass, link.colorClass)} />
+                  )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
                     // Texto na cor vermelha para iFood, verde para WhatsApp, e primária para outros
-                    isIfood ? "text-red-600" : (isWhatsapp ? "text-green-600" : "text-primary")
+                    isIfood ? "text-red-600" : (isWhatsapp ? "text-green-600" : "text-primary") 
                   )}>
                     {link.label}
                   </p>
