@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, MapPin, Loader2 } from 'lucide-react';
+import { Heart, MapPin, Loader2, Utensils } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,7 @@ interface RestaurantMainInfoCardProps {
     isFavorite: boolean;
     isOpen: boolean;
     statusText: string;
+    plan: string;
   };
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
@@ -33,18 +34,26 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
     isFavorite,
     isOpen,
     statusText,
+    plan,
   } = restaurant;
 
   return (
     <div className="relative -mt-16 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
-      {/* Logo do Restaurante */}
-      <img
-        src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
-        alt={`Logo de ${name}`}
-        className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white shadow-lg object-cover z-30"
-      />
+      {/* Logo do Restaurante - Condicionalmente exibido para planos não-free */}
+      {restaurant.plan !== 'free' && logoUrl ? (
+        <img
+          src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
+          alt={`Logo de ${name}`}
+          className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white shadow-lg object-cover z-30"
+        />
+      ) : (
+        // Placeholder ou nada para planos free sem logo
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30">
+          <Utensils className="w-12 h-12 text-gray-400" />
+        </div>
+      )}
 
-      <Card className="pt-16 pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border-none text-left">
+      <Card className="pt-16 pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border border-gray-300 text-left">
         <CardContent className="p-0 space-y-2">
           <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary">{name}</h1>
           

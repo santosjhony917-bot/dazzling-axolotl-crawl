@@ -28,7 +28,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
   ];
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
+    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         {/* Ícone MapPin removido conforme solicitado */}
         <CardTitle className="text-2xl font-extrabold text-primary">Localização e Horário</CardTitle>

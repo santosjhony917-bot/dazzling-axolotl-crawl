@@ -80,6 +80,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
+    plan: restaurant.plan, // Adicionado 'plan'
   };
 
   // Verifica se há conteúdo para as abas

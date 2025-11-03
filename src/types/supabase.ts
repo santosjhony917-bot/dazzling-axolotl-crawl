@@ -289,6 +289,7 @@ export interface Database {
           state: string | null
           user_id: string | null
           whatsapp_url: string | null
+          other_url_label: string | null
         }
         Insert: {
           address?: string | null
@@ -319,6 +320,7 @@ export interface Database {
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null
+          other_url_label?: string | null
         }
         Update: {
           address?: string | null
@@ -349,6 +351,7 @@ export interface Database {
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null
+          other_url_label?: string | null
         }
         Relationships: [
           {
@@ -583,19 +586,19 @@ export type Tables<
     | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] & 
         Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] & 
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & 
         PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
+    ? (PublicSchema["Tables"] & 
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }

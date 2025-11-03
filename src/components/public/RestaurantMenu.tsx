@@ -83,7 +83,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
               {itemsToDisplay.map((item) => (
                 <Card 
                   key={item.id} 
-                  className="p-4 flex items-start space-x-4 border border-gray-200"
+                  className="p-4 flex items-start space-x-4 border border-gray-300"
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.image_url && (

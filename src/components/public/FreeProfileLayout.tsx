@@ -78,6 +78,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
     isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
+    plan: restaurant.plan, // Adicionado 'plan'
   };
 
   // Verifica se há conteúdo para as abas
@@ -122,7 +123,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           
           {/* Description */}
           {restaurant.description && (
-            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+            <Card className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
               <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
               <p className="text-gray-600">{restaurant.description}</p>
             </Card>
@@ -211,7 +212,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
               )}
               
               {/* Contato e Links (Componente Refatorado) */}
-              {hasContactLinks && (
+              {hasContactLinks && restaurant.plan !== 'free' && (
                 <RestaurantInfo 
                   id="contact-links-section"
                   restaurant={restaurant}
