@@ -55,7 +55,7 @@ const AdminEditRestaurant: React.FC = () => {
     enabled: !!restaurantId,
   });
 
-  const { updateRestaurant } = useRestaurantProfile(restaurant || undefined); // Usar o hook de atualização
+  const { updateRestaurant } = useRestaurantProfile(restaurant?.id); // Corrigido aqui: passando restaurant?.id
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editFieldConfig, setEditFieldConfig] = useState<{

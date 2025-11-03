@@ -70,11 +70,11 @@ const SortableItemWrapper: React.FC<SortableItemWrapperProps> = ({ image, onDele
 };
 
 
-// --- Componente Principal ---
+// --- Componente Principal --- 
 
 export default function GalleryManagement() {
   const { restaurant, isLoading: authLoading, refetchProfile } = useAuthData();
-  const { updateRestaurant } = useRestaurantProfile(restaurant);
+  const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
   const navigate = useNavigate();
 
   const restaurantId = restaurant?.id || '';
@@ -163,7 +163,6 @@ export default function GalleryManagement() {
     
     await saveGalleryOrder(updates);
   }, [localGallery, saveGalleryOrder]);
-
 
   if (isLoading) {
     return (

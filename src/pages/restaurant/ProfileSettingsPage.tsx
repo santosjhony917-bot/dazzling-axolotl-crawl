@@ -36,7 +36,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
   const { restaurant, isLoading: authLoading, isPremium, refetchProfile, refetchRestaurant } = useAuthData();
-  const { updateRestaurant } = useRestaurantProfile(restaurant);
+  const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);

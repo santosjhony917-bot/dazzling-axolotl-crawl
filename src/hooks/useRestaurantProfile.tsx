@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/restaurant';
@@ -7,20 +7,26 @@ import { toast } from 'sonner';
 // Definindo um tipo genérico para updates, já que o formulário específico foi removido.
 type RestaurantUpdatePayload = Partial<Restaurant>;
 
-export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
+export const useRestaurantProfile = (restaurantIdFromProps?: string) => {
   const { user } = useAuth();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(initialRestaurant ?? null);
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const refetchProfile = useCallback(async () => {
-    if (!user) return;
-
+  const fetchRestaurant = useCallback(async (idToFetch?: string) => {
     setIsLoading(true);
-    const { data, error } = await supabase
-      .from('restaurants')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
+    let query = supabase.from('restaurants').select('*');
+
+    if (idToFetch) {
+      query = query.eq('id', idToFetch);
+    } else if (user?.id) {
+      query = query.eq('user_id', user.id);
+    } else {
+      setRestaurant(null);
+      setIsLoading(false);
+      return;
+    }
+
+    const { data, error } = await query.single();
 
     if (error) {
       console.error('Error fetching restaurant:', error);
@@ -32,9 +38,13 @@ export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
     setIsLoading(false);
   }, [user]);
 
+  useEffect(() => {
+    fetchRestaurant(restaurantIdFromProps);
+  }, [fetchRestaurant, restaurantIdFromProps]);
+
   // Agora retorna { error: string | null }
   const updateRestaurant = useCallback(async (updates: RestaurantUpdatePayload): Promise<{ error: string | null }> => {
-    if (!restaurant) {
+    if (!restaurant || !restaurant.id) {
       const msg = 'Restaurante não encontrado para atualização.';
       toast.error(msg);
       return { error: msg };
@@ -72,7 +82,7 @@ export const useRestaurantProfile = (initialRestaurant?: Restaurant | null) => {
   return {
     restaurant,
     isLoading,
-    refetchProfile,
+    refetchProfile: () => fetchRestaurant(restaurantIdFromProps),
     updateRestaurant,
   };
 };
