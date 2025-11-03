@@ -72,10 +72,14 @@ export default function RestaurantProfilePublic({ initialRestaurantId, simulated
     );
   }
   
-  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito
+  // Determina o plano a ser usado para renderização (simulado ou real)
+  const planToRender = simulatedPlan || restaurant.plan;
+
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito E o plano a ser renderizado
   const reactiveRestaurantData: PublicRestaurantData = {
     ...restaurant,
     is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
+    plan: planToRender, // Sobrescreve o plano original com o plano simulado, se houver
   };
 
   // Props comuns para os layouts
@@ -84,9 +88,6 @@ export default function RestaurantProfilePublic({ initialRestaurantId, simulated
     toggleFavorite: toggleFavorite,
     isFavoriteMutating: isFavoriteMutating,
   };
-
-  // Determina o plano a ser usado para renderização (simulado ou real)
-  const planToRender = simulatedPlan || restaurant.plan;
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
