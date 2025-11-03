@@ -1,127 +1,191 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Loader2, Link, Plus, Instagram, Facebook, Globe, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { showSuccess, showError } from '@/utils/toast';
-import { SocialNetworkLink } from '@/types/restaurant'; // Corrigido para SocialNetworkLink
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { RestaurantProfile } from '@/types/restaurant';
+import { SocialNetworkLink } from '@/types/restaurant';
 
 interface SocialNetworksDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  restaurantId: string;
-  initialSocialNetworks: SocialNetworkLink[];
+  currentLinks: SocialNetworkLink[];
+  onSave: (links: SocialNetworkLink[]) => Promise<void>;
+  isLoading: boolean;
 }
 
-const SocialNetworksDialog: React.FC<SocialNetworksDialogProps> = ({
-  isOpen,
-  onClose,
-  restaurantId,
-  initialSocialNetworks,
-}) => {
-  const queryClient = useQueryClient();
-  const [socialNetworks, setSocialNetworks] = useState<SocialNetworkLink[]>(initialSocialNetworks);
-  const [newLink, setNewLink] = useState<SocialNetworkLink>({ platform: '', url: '' });
+const predefinedPlatforms = [
+  { platform: 'Instagram', icon: Instagram, placeholder: 'https://instagram.com/seuuser' },
+  { platform: 'Facebook', icon: Facebook, placeholder: 'https://facebook.com/suapagina' },
+  { platform: 'Website', icon: Globe, placeholder: 'https://seusite.com.br' },
+];
+
+const SocialNetworksDialog: React.FC<SocialNetworksDialogProps> = ({ isOpen, onClose, currentLinks, onSave, isLoading }) => {
+  const [links, setLinks] = useState<SocialNetworkLink[]>(currentLinks);
+  const [customPlatform, setCustomPlatform] = useState('');
+  const [customUrl, setCustomUrl] = useState('');
 
   useEffect(() => {
-    setSocialNetworks(initialSocialNetworks);
-  }, [initialSocialNetworks]);
+    // Filtra links nulos ou inválidos e garante que os links iniciais sejam carregados
+    setLinks(currentLinks.filter(link => link.platform && link.url));
+  }, [currentLinks]);
 
-  const handleAddLink = () => {
-    if (newLink.platform && newLink.url) {
-      setSocialNetworks([...socialNetworks, newLink]);
-      setNewLink({ platform: '', url: '' });
-    } else {
-      showError('Por favor, preencha a plataforma e a URL.');
+  const handleUpdateLink = useCallback((platform: string, url: string) => {
+    setLinks(prev => {
+      const existingIndex = prev.findIndex(link => link.platform === platform);
+      if (url.trim()) {
+        const newLink = { platform, url };
+        if (existingIndex !== -1) {
+          // Update existing
+          return prev.map((link, index) => index === existingIndex ? newLink : link);
+        } else {
+          // Add new
+          return [...prev, newLink];
+        }
+      } else {
+        // Remove if URL is empty
+        return prev.filter(link => link.platform !== platform);
+      }
+    });
+  }, []);
+
+  const handleAddCustomLink = useCallback(() => {
+    const trimmedPlatform = customPlatform.trim();
+    const trimmedUrl = customUrl.trim();
+    
+    if (!trimmedPlatform || !trimmedUrl) {
+      showError("Preencha a plataforma e a URL.");
+      return;
     }
-  };
+    
+    if (links.some(link => link.platform.toLowerCase() === trimmedPlatform.toLowerCase())) {
+      showError("Esta plataforma já foi adicionada.");
+      return;
+    }
+    
+    handleUpdateLink(trimmedPlatform, trimmedUrl);
+    setCustomPlatform('');
+    setCustomUrl('');
+  }, [customPlatform, customUrl, links, handleUpdateLink]);
 
-  const handleRemoveLink = (index: number) => {
-    setSocialNetworks(socialNetworks.filter((_, i) => i !== index));
-  };
-
-  const updateSocialNetworksMutation = useMutation({
-    mutationFn: async (updatedLinks: SocialNetworkLink[]) => {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .update({ social_networks: updatedLinks as any }) // Cast para any devido ao tipo Jsonb
-        .eq('id', restaurantId)
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['restaurantProfile', restaurantId]);
-      showSuccess('Redes sociais atualizadas com sucesso!');
+  const handleSave = async () => {
+    // Validação final: garante que todas as URLs sejam válidas (opcional, mas bom)
+    const validLinks = links.filter(link => {
+        try {
+            new URL(link.url);
+            return true;
+        } catch {
+            return false;
+        }
+    });
+    
+    if (validLinks.length !== links.length) {
+        showError("Algumas URLs são inválidas. Por favor, corrija ou remova.");
+        return;
+    }
+    
+    try {
+      await onSave(validLinks);
+      showSuccess("Redes sociais salvas com sucesso!");
       onClose();
-    },
-    onError: (error) => {
-      showError(`Erro ao atualizar redes sociais: ${error.message}`);
-    },
-  });
-
-  const handleSave = () => {
-    updateSocialNetworksMutation.mutate(socialNetworks);
+    } catch (error) {
+      showError("Erro ao salvar redes sociais.");
+      console.error("Save social networks error:", error);
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Gerenciar Redes Sociais</DialogTitle>
+          <DialogTitle className="flex items-center">
+            <Link className="mr-2 h-5 w-5" /> Gerenciar Outras Redes
+          </DialogTitle>
+          <DialogDescription>
+            Adicione links para suas redes sociais e site.
+          </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          {socialNetworks.map((link, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <span className="flex-grow">{link.platform}: {link.url}</span>
-              <Button variant="destructive" size="sm" onClick={() => handleRemoveLink(index)}>
-                Remover
-              </Button>
-            </div>
-          ))}
-          <div className="grid grid-cols-3 items-center gap-4">
-            <Label htmlFor="platform" className="text-right">
-              Plataforma
-            </Label>
-            <Select
-              value={newLink.platform}
-              onValueChange={(value) => setNewLink((prev) => ({ ...prev, platform: value }))}
-            >
-              <SelectTrigger className="col-span-2">
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="facebook">Facebook</SelectItem>
-                <SelectItem value="instagram">Instagram</SelectItem>
-                <SelectItem value="twitter">Twitter</SelectItem>
-                <SelectItem value="linkedin">LinkedIn</SelectItem>
-                <SelectItem value="website">Website</SelectItem>
-                <SelectItem value="other">Outro</SelectItem>
-              </SelectContent>
-            </Select>
+        
+        <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto pr-2">
+          <h3 className="text-lg font-semibold text-gray-700">Redes Comuns</h3>
+          <div className="space-y-3">
+            {predefinedPlatforms.map(({ platform, icon: Icon, placeholder }) => {
+              const currentLink = links.find(link => link.platform === platform)?.url || '';
+              return (
+                <div key={platform} className="flex items-center space-x-2">
+                  <Icon className="h-5 w-5 text-primary shrink-0" />
+                  <Input
+                    placeholder={placeholder}
+                    value={currentLink}
+                    onChange={(e) => handleUpdateLink(platform, e.target.value)}
+                    className="h-10 rounded-lg"
+                    type="url"
+                  />
+                </div>
+              );
+            })}
           </div>
-          <div className="grid grid-cols-3 items-center gap-4">
-            <Label htmlFor="url" className="text-right">
-              URL
-            </Label>
+
+          <h3 className="text-lg font-semibold text-gray-700 mt-4">Links Personalizados</h3>
+          <div className="space-y-3">
+            {links
+              .filter(link => !predefinedPlatforms.some(p => p.platform === link.platform))
+              .map(link => (
+                <div key={link.platform} className="flex items-center space-x-2 p-2 bg-gray-50 rounded-md border">
+                  <span className="text-sm font-medium w-20 truncate">{link.platform}</span>
+                  <Input
+                    value={link.url}
+                    onChange={(e) => handleUpdateLink(link.platform, e.target.value)}
+                    className="h-9 text-sm flex-1"
+                    type="url"
+                  />
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => handleUpdateLink(link.platform, '')}
+                    className="text-red-500 hover:bg-red-100 h-8 w-8"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+          </div>
+
+          <div className="flex flex-col space-y-2 mt-2 p-3 border rounded-lg bg-gray-50">
             <Input
-              id="url"
-              value={newLink.url}
-              onChange={(e) => setNewLink((prev) => ({ ...prev, url: e.target.value }))}
-              className="col-span-2"
+              placeholder="Nome da Plataforma (Ex: TikTok)"
+              value={customPlatform}
+              onChange={(e) => setCustomPlatform(e.target.value)}
+              className="h-10"
             />
+            <Input
+              placeholder="URL Completa (Ex: https://tiktok.com/...)"
+              value={customUrl}
+              onChange={(e) => setCustomUrl(e.target.value)}
+              type="url"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleAddCustomLink();
+                }
+              }}
+            />
+            <Button onClick={handleAddCustomLink} type="button" variant="outline" size="sm" disabled={!customPlatform.trim() || !customUrl.trim()}>
+              <Plus className="h-4 w-4 mr-1" /> Adicionar Link
+            </Button>
           </div>
-          <Button onClick={handleAddLink}>Adicionar Link</Button>
         </div>
+
         <DialogFooter>
-          <Button onClick={handleSave} disabled={updateSocialNetworksMutation.isPending}>
-            {updateSocialNetworksMutation.isPending ? 'Salvando...' : 'Salvar alterações'}
+          <Button type="button" onClick={onClose} variant="outline">
+            Cancelar
+          </Button>
+          <Button type="button" onClick={handleSave} disabled={isLoading} variant="highlight">
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              'Salvar Redes'
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

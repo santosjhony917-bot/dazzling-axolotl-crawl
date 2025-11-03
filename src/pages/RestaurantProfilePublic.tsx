@@ -1,181 +1,103 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Loader2, Utensils, ArrowLeft, AlertTriangle } from 'lucide-react';
-import { RestaurantProfile } from '@/types/restaurant'; // Corrigido para RestaurantProfile
+import { PublicRestaurantData } from '@/types/restaurant';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
+import { showError } from '@/utils/toast';
+import { Button } from '@/components/ui/button';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
-import { useAuth } from '@/hooks/useAuth';
-import { useMutation } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
-import { calculateDistance } from '@/lib/utils';
-import useUserLocation from '@/hooks/useUserLocation';
+import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 
-const RestaurantProfilePublic: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+interface RestaurantProfilePublicProps {
+  initialRestaurantId?: string; // Novo prop para passar o ID diretamente
+  simulatedPlan?: 'free' | 'premium'; // Novo prop para simular o plano
+}
+
+export default function RestaurantProfilePublic({ initialRestaurantId, simulatedPlan }: RestaurantProfilePublicProps) {
+  const { restaurantId: paramRestaurantId } = useParams<{ restaurantId: string }>();
+  const restaurantId = initialRestaurantId || paramRestaurantId; // Prioriza o prop, senão usa o param da URL
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const { session } = useAuth();
-  const { userLocation } = useUserLocation();
+  
+  // 1. Busca os dados públicos do restaurante (inclui a contagem de seguidores)
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(restaurantId);
 
-  const { data: restaurant, isLoading, error, refetch } = usePublicRestaurant(id || '');
-
-  const toggleFavoriteMutation = useMutation({
-    mutationFn: async () => {
-      if (!session?.user) {
-        toast({
-          title: "Faça login para favoritar",
-          description: "Você precisa estar logado para adicionar restaurantes aos seus favoritos.",
-          variant: "destructive",
-        });
-        navigate('/login');
-        return;
-      }
-
-      if (restaurant?.is_favorite) {
-        const { error } = await supabase
-          .from('user_favorites')
-          .delete()
-          .eq('user_id', session.user.id)
-          .eq('restaurant_id', id);
-        if (error) throw error;
-      } else {
-        const { error } = await supabase
-          .from('user_favorites')
-          .insert({ user_id: session.user.id, restaurant_id: id });
-        if (error) throw error;
-      }
-    },
-    onSuccess: () => {
-      refetch();
-      toast({
-        title: "Sucesso",
-        description: restaurant?.is_favorite ? "Restaurante removido dos favoritos." : "Restaurante adicionado aos favoritos.",
-      });
-    },
-    onError: (err) => {
-      toast({
-        title: "Erro",
-        description: `Não foi possível atualizar favoritos: ${err.message}`,
-        variant: "destructive",
-      });
-    },
-  });
-
-  const layoutProps = useMemo(() => {
-    if (!restaurant) return null;
-
-    const now = new Date();
-    const today = now.toLocaleString('en-US', { weekday: 'long' }).toLowerCase();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // minutes since midnight
-
-    let isOpen = false;
-    let statusText = 'Fechado';
-
-    if (restaurant.opening_hours && typeof restaurant.opening_hours === 'object' && restaurant.opening_hours[today]) {
-      const dayHours = restaurant.opening_hours[today];
-      for (const period of dayHours) {
-        const [openHour, openMinute] = period.open.split(':').map(Number);
-        const [closeHour, closeMinute] = period.close.split(':').map(Number);
-
-        const openTime = openHour * 60 + openMinute;
-        const closeTime = closeHour * 60 + closeMinute;
-
-        if (currentTime >= openTime && currentTime <= closeTime) {
-          isOpen = true;
-          statusText = 'Aberto agora';
-          break;
-        }
-      }
-    } else {
-      statusText = 'Horário não definido';
+  // Adiciona um efeito para chamar refetch quando o restaurantId muda ou na montagem
+  useEffect(() => {
+    if (restaurantId) {
+      console.log(`[RestaurantProfilePublic] Forçando refetch para o ID: ${restaurantId}`);
+      refetch(); // Força uma nova busca dos dados
     }
+  }, [restaurantId, refetch]);
 
-    let distance = null;
-    if (userLocation && restaurant.latitude && restaurant.longitude) {
-      distance = calculateDistance(userLocation.latitude, userLocation.longitude, restaurant.latitude, restaurant.longitude);
+  // 2. Usa o hook de favorito para obter o estado reativo e a função de toggle
+  // O estado inicial de isFavorite é lido do cache do useFavorites, que é atualizado otimisticamente.
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useRestaurantFavorite(restaurantId || '');
+
+  useEffect(() => {
+    console.log(`[ProfilePublic] ID recebido: ${restaurantId}`);
+    if (error) {
+      console.error(`[ProfilePublic] Erro ao carregar dados: ${error}`);
+      showError(error);
     }
+  }, [error, restaurantId]);
 
-    const is_favorite = restaurant.user_favorites.some(fav => fav.user_id === session?.user?.id);
-
-    const addressParts = [];
-    if (restaurant.address) addressParts.push(restaurant.address);
-    if (restaurant.number) addressParts.push(restaurant.number);
-    if (restaurant.neighborhood) addressParts.push(restaurant.neighborhood);
-    if (restaurant.city) addressParts.push(restaurant.city);
-    if (restaurant.state) addressParts.push(restaurant.state);
-    const fullAddress = addressParts.join(', ');
-
-    const addressSummaryParts = [];
-    if (restaurant.city) addressSummaryParts.push(restaurant.city);
-    if (restaurant.state) addressSummaryParts.push(restaurant.state);
-    const addressSummary = addressSummaryParts.join(', ');
-
-    return {
-      ...restaurant,
-      isOpen,
-      statusText,
-      distance,
-      is_favorite,
-      fullAddress,
-      addressSummary,
-      menu_categories: restaurant.menu_categories?.sort((a, b) => a.order_index - b.order_index) || [],
-    };
-  }, [restaurant, userLocation, session]);
+  const handleBack = () => navigate(-1);
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center h-screen bg-background-light">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (error) {
+  if (error || !restaurant) {
     return (
-      <div className="text-center p-4 text-red-500">
-        <AlertTriangle className="mx-auto h-12 w-12 text-red-500" />
-        <p className="mt-2 text-lg">Erro ao carregar o restaurante.</p>
-        <p className="text-sm text-gray-600">{error.message}</p>
-        <button onClick={() => navigate('/')} className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para a página inicial
-        </button>
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <div className="fixed top-4 left-4 z-50">
+          <Button variant="ghost" size="icon" onClick={handleBack} className="bg-white/80 backdrop-blur-sm shadow-soft-md hover:bg-white">
+            <ArrowLeft className="h-5 w-5 text-primary" />
+          </Button>
+        </div>
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Erro ao carregar perfil</h1>
+          <p className="text-gray-500 mt-2">{error || "O perfil solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
       </div>
     );
   }
+  
+  // Determina o plano a ser usado para renderização (simulado ou real)
+  const planToRender = simulatedPlan || restaurant.plan;
 
-  if (!restaurant || !layoutProps) {
-    return (
-      <div className="text-center p-4 text-gray-500">
-        <Utensils className="mx-auto h-12 w-12 text-gray-400" />
-        <p className="mt-2 text-lg">Restaurante não encontrado.</p>
-        <button onClick={() => navigate('/')} className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para a página inicial
-        </button>
-      </div>
-    );
-  }
+  // Criamos uma versão dos dados do restaurante que inclui o estado reativo de favorito E o plano a ser renderizado
+  const reactiveRestaurantData: PublicRestaurantData = {
+    ...restaurant,
+    is_favorite: isFavorite, // Sobrescreve o valor estático com o valor reativo do hook
+    plan: planToRender, // Sobrescreve o plano original com o plano simulado, se houver
+  };
 
-  const planToRender = restaurant.plan; // Ou determine a partir de layoutProps se necessário
+  // Props comuns para os layouts
+  const layoutProps = {
+    restaurant: reactiveRestaurantData,
+    toggleFavorite: toggleFavorite,
+    isFavoriteMutating: isFavoriteMutating,
+  };
 
+  // Envolve o layout em um contêiner de largura máxima para simular o layout de celular
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="max-w-md mx-auto min-h-screen bg-background-light shadow-2xl relative">
+      
       {planToRender === 'premium' || planToRender === 'premium_gift' ? (
-        <PremiumProfileLayout
-          restaurant={layoutProps as RestaurantProfile} // Cast para RestaurantProfile
-          toggleFavorite={toggleFavoriteMutation.mutate}
-          isFavoriteMutating={toggleFavoriteMutation.isPending}
-        />
+        <PremiumProfileLayout {...layoutProps} />
       ) : (
-        <FreeProfileLayout
-          restaurant={layoutProps as RestaurantProfile} // Cast para RestaurantProfile
-          toggleFavorite={toggleFavoriteMutation.mutate}
-          isFavoriteMutating={toggleFavoriteMutation.isPending}
-        />
+        <FreeProfileLayout {...layoutProps} />
       )}
     </div>
   );
-};
-
-export default RestaurantProfilePublic;
+}

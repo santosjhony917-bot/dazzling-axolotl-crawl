@@ -1,112 +1,51 @@
-import { Json } from './supabase'; // Assumindo que 'Json' é um tipo existente ou será definido
+import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
+import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
 
-export type RestaurantPlan = 'free' | 'basic' | 'premium';
+export type Restaurant = SupabaseRestaurant;
+// Use the correct schedule type
+export type WeekSchedule = ScheduleWeekSchedule; 
 
-export type DaySchedule = {
-  open: string; // e.g., "09:00"
-  close: string; // e.g., "18:00"
-}[];
+export type MenuItem = SupabaseMenuItem;
+export type MenuCategory = SupabaseMenuCategory;
+export type GalleryImage = SupabaseGalleryImage;
 
-export interface WeekSchedule {
-  monday?: DaySchedule;
-  tuesday?: DaySchedule;
-  wednesday?: DaySchedule;
-  thursday?: DaySchedule;
-  friday?: DaySchedule;
-  saturday?: DaySchedule;
-  sunday?: DaySchedule;
-}
-
-export interface MenuItem {
-  id: string;
-  category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image_url: string | null;
-  order_index: number;
-  is_active: boolean;
-  created_at: string;
-}
-
-export interface MenuCategory {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  order_index: number;
-  is_active: boolean;
-  is_popular: boolean;
-  created_at: string;
-  menu_items: MenuItem[];
-}
-
-export interface RestaurantGalleryItem {
-  id: string;
-  restaurant_id: string;
-  image_url: string;
-  caption: string | null;
-  order_index: number;
-  created_at: string;
-}
-
-export interface UserFavorite {
-  id: string;
-  user_id: string;
-  restaurant_id: string;
-  created_at: string;
-}
-
+// Tipo para um link de rede social
 export interface SocialNetworkLink {
-  platform: string;
+  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
   url: string;
 }
 
-export interface RestaurantProfile {
-  id: string;
-  user_id: string | null;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  cover_image_url: string | null;
-  plan: RestaurantPlan;
-  phone: string | null;
-  email: string | null;
-  cnpj: string | null;
-  category: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  address: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  opening_hours: WeekSchedule | null; // Alterado para WeekSchedule
-  created_at: string;
-  external_url: string | null;
-  followers_override: number | null;
-  payment_methods: Json | null; // Assuming Json type from Supabase
-  social_networks: SocialNetworkLink[] | null; // Alterado para SocialNetworkLink[]
-  other_url_label: string | null;
-
-  // Campos adicionados via RPC ou processamento no frontend
-  followers_count: number;
+// Type for public restaurant profile data, including menu and gallery
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
+  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
+  opening_hours: WeekSchedule | null; 
+  
+  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
+  payment_methods: string[] | null; 
+  
+  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
+  social_networks: SocialNetworkLink[] | null;
+  
+  // Computed fields from the view/query
+  is_favorite: boolean;
+  followers_count: number; 
+  addressSummary: string; 
+  logoUrl: string | null; 
+  
+  // NOVO: Status de abertura
   isOpen: boolean;
   statusText: string;
-  distance: number | null;
-  is_favorite: boolean;
-  fullAddress: string;
-  addressSummary: string;
+  nextOpenTime: string | null;
 
-  // Relações
-  restaurant_gallery: RestaurantGalleryItem[];
-  menu_categories: MenuCategory[];
-  user_favorites: UserFavorite[];
+  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
+  menu_categories: (MenuCategory & {
+    menu_items: MenuItem[];
+  })[];
+  gallery_images: GalleryImage[];
+  other_url_label: string | null; // Adicionado other_url_label
 }
 
-// Alias para compatibilidade, se PublicRestaurantData for o mesmo que RestaurantProfile
-export type PublicRestaurantData = RestaurantProfile;
-export type AdminRestaurant = RestaurantProfile; // Alias para compatibilidade
+// Adicionando um tipo para o restaurante com a galeria incluída, para uso no AdminEditRestaurant
+export interface AdminRestaurant extends Restaurant {
+  restaurant_gallery: GalleryImage[];
+}
