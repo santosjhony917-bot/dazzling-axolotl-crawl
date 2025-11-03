@@ -82,46 +82,48 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       />
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
-      <div className="container mx-auto px-4 pt-20 pb-8">
-        <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
-        
-        {restaurant.addressSummary && (
-          <p className="flex items-center text-sm md:text-base text-gray-600 mb-2">
-            <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
-          </p>
-        )}
+      <div className="container mx-auto pt-20"> {/* Mantém o padding superior */}
+        <div className="bg-gray-50 px-4 pb-8 rounded-b-lg shadow-sm"> {/* Nova seção com fundo, padding e sombra */}
+          <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
+          
+          {restaurant.addressSummary && (
+            <p className="flex items-center text-sm md:text-base text-gray-600 mb-2">
+              <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
+            </p>
+          )}
 
-        <div className="flex items-center gap-2 mb-4">
-          <span className="flex items-center text-sm text-gray-500">
-            <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
-          </span>
-          <Button
-            variant="default" // Usando variant="default" para um visual mais simples
-            size="sm"
-            onClick={toggleFavorite}
-            disabled={isFavoriteMutating}
-            className="px-4 py-2 text-sm"
-          >
-            {isFavoriteMutating ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              restaurant.is_favorite ? 'Seguindo' : 'Seguir'
+          <div className="flex items-center gap-2 mb-4">
+            <span className="flex items-center text-sm text-gray-500">
+              <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
+            </span>
+            <Button
+              variant="default" // Usando variant="default" para um visual mais simples
+              size="sm"
+              onClick={toggleFavorite}
+              disabled={isFavoriteMutating}
+              className="px-4 py-2 text-sm"
+            >
+              {isFavoriteMutating ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                restaurant.is_favorite ? 'Seguindo' : 'Seguir'
+              )}
+            </Button>
+          </div>
+
+          {/* Status de Abertura */}
+          <span
+            className={cn(
+              "px-3 py-1 rounded-full text-xs font-semibold mb-4",
+              restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
             )}
-          </Button>
+          >
+            {restaurant.statusText}
+          </span>
         </div>
 
-        {/* Status de Abertura */}
-        <span
-          className={cn(
-            "px-3 py-1 rounded-full text-xs font-semibold mb-4",
-            restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-          )}
-        >
-          {restaurant.statusText}
-        </span>
-
         {/* Conteúdo Principal */}
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 space-y-6 px-4"> {/* Adiciona px-4 para alinhamento */}
           
           {/* Description */}
           {restaurant.description && (
