@@ -82,7 +82,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       />
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
-      <div className="container mx-auto px-4 pt-8 pb-8">
+      <div className="container mx-auto px-4 pt-20 pb-8">
         <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
         
         {restaurant.addressSummary && (
