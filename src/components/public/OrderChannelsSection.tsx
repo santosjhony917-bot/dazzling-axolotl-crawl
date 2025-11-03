@@ -66,11 +66,14 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
               <Button 
                 key={link.label} 
                 asChild
-                // Condicionalmente aplica o variant 'highlight' para WhatsApp
-                variant={isWhatsapp ? "highlight" : "channel"} 
+                // Todos os botões usam o variant 'channel' para fundo branco
+                variant="channel" 
                 className={cn(
                   "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
-                  isWhatsapp ? "bg-green-500 hover:bg-green-600 text-white" : "" // Estilo específico para WhatsApp
+                  // Adiciona borda e hover para WhatsApp
+                  isWhatsapp && "border-2 border-highlight hover:bg-highlight/10", 
+                  // Remove o estilo de fundo verde anterior para WhatsApp
+                  isWhatsapp && "bg-white text-highlight" 
                 )}
               >
                 <a 
@@ -85,13 +88,15 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                       className={cn(iconSizeClass, "object-contain")} 
                     />
                   ) : isWhatsapp ? (
-                    <WhatsappIcon className={cn(iconSizeClass, "text-white")} />
+                    // Ícone na cor de destaque para WhatsApp
+                    <WhatsappIcon className={cn(iconSizeClass, "text-highlight")} /> 
                   ) : (
                     <Icon className={cn(iconSizeClass, link.colorClass)} />
                   )}
                   <p className={cn(
                     "text-xs font-semibold text-center",
-                    isIfood ? "text-highlight" : (isWhatsapp ? "text-white" : "text-primary") // Destaque para o texto do iFood e WhatsApp
+                    // Texto na cor de destaque para WhatsApp e iFood
+                    isWhatsapp || isIfood ? "text-highlight" : "text-primary" 
                   )}>
                     {link.label}
                   </p>
