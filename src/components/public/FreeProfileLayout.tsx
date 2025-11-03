@@ -21,9 +21,10 @@ interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
   toggleFavorite: () => void; // NOVO
   isFavoriteMutating: boolean; // NOVO
+  isCompact?: boolean; // NOVO: Prop para modo compacto
 }
 
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
+const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
@@ -69,6 +70,14 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
   const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
 
+  // Classes condicionais para modo compacto
+  const h1SizeClass = isCompact ? "text-2xl" : "text-3xl md:text-4xl";
+  const pSizeClass = isCompact ? "text-sm" : "text-sm md:text-base";
+  const headerPaddingClass = isCompact ? "px-3 pb-6" : "px-4 pb-8";
+  const containerPtClass = isCompact ? "pt-16" : "pt-20";
+  const contentMxClass = isCompact ? "mx-3" : "mx-auto"; // Reduz a margem horizontal do conteúdo principal
+  const contentPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do conteúdo principal
+
   return (
     <div className="min-h-screen bg-background-light">
       
@@ -82,12 +91,12 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       />
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
-      <div className="container mx-auto pt-20"> {/* Mantém o padding superior */}
-        <div className="bg-gray-50 px-4 pb-8 rounded-b-lg shadow-sm"> {/* Nova seção com fundo, padding e sombra */}
-          <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-primary mb-2">{restaurant.name}</h1>
+      <div className={cn("container", contentMxClass, containerPtClass)}> {/* Mantém o padding superior */}
+        <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
+          <h1 className={cn("font-extrabold leading-tight text-primary mb-2", h1SizeClass)}>{restaurant.name}</h1>
           
           {restaurant.addressSummary && (
-            <p className="flex items-center text-sm md:text-base text-gray-600 mb-2">
+            <p className={cn("flex items-center text-gray-600 mb-2", pSizeClass)}>
               <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
             </p>
           )}
@@ -123,7 +132,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
         </div>
 
         {/* Conteúdo Principal */}
-        <div className="mt-6 space-y-6 px-4"> {/* Adiciona px-4 para alinhamento */}
+        <div className={cn("mt-6 space-y-6", contentPxClass)}> {/* Adiciona px-4 para alinhamento */}
           
           {/* Description */}
           {restaurant.description && (

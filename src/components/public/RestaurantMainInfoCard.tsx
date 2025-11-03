@@ -19,12 +19,14 @@ interface RestaurantMainInfoCardProps {
   };
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
+  isCompact?: boolean; // NOVO: Prop para modo compacto
 }
 
 const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   restaurant,
   onFavoriteToggle,
   isFavoriteMutating,
+  isCompact = false, // Valor padrão
 }) => {
   const {
     name,
@@ -37,6 +39,10 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
     plan,
   } = restaurant;
 
+  // Classes condicionais para tamanho e posição da logo
+  const logoSizeClasses = isCompact ? "w-16 h-16 -top-8" : "w-24 h-24 md:w-28 md:h-28 -top-12";
+  const utensilsSizeClasses = isCompact ? "w-8 h-8" : "w-12 h-12"; // Ajusta o ícone Utensils
+
   return (
     <div className="relative -mt-16 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
       {/* Logo do Restaurante - Condicionalmente exibido para planos não-free */}
@@ -44,12 +50,18 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
         <img
           src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
           alt={`Logo de ${name}`}
-          className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white shadow-lg object-cover z-30"
+          className={cn(
+            "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white shadow-lg object-cover z-30",
+            logoSizeClasses
+          )}
         />
       ) : (
         // Placeholder ou nada para planos free sem logo
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30">
-          <Utensils className="w-12 h-12 text-gray-400" />
+        <div className={cn(
+          "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30",
+          logoSizeClasses
+        )}>
+          <Utensils className={cn("text-gray-400", utensilsSizeClasses)} />
         </div>
       )}
 

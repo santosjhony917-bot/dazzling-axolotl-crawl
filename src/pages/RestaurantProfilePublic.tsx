@@ -12,6 +12,7 @@ import { useRestaurantFavorite } from '@/hooks/useRestaurantFavorite';
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string; // Novo prop para passar o ID diretamente
   simulatedPlan?: 'free' | 'premium'; // Novo prop para simular o plano
+  isCompact?: boolean; // NOVO: Prop para indicar modo compacto
 }
 
 export default function RestaurantProfilePublic({ initialRestaurantId, simulatedPlan }: RestaurantProfilePublicProps) {
@@ -87,6 +88,7 @@ export default function RestaurantProfilePublic({ initialRestaurantId, simulated
     restaurant: reactiveRestaurantData,
     toggleFavorite: toggleFavorite,
     isFavoriteMutating: isFavoriteMutating,
+    isCompact: true, // NOVO: Indica que este é um modo compacto para prévia
   };
 
   // Envolve o layout em um contêiner de largura máxima para simular o layout de celular

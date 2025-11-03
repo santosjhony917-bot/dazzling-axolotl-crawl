@@ -26,9 +26,10 @@ interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
   toggleFavorite: () => void; // NOVO
   isFavoriteMutating: boolean; // NOVO
+  isCompact?: boolean; // NOVO: Prop para modo compacto
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
   const navigate = useNavigate();
   const { user } = useAuth(); 
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
@@ -68,6 +69,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     name: restaurant.name,
     coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
     isPremium: true, // CORREÇÃO: Adicionado isPremium
+    isCompact: isCompact, // NOVO: Passa a prop isCompact
   };
   
   // Dados para o novo RestaurantMainInfoCard
@@ -94,6 +96,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
   const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
 
+  const containerPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do container principal
+
   return (
     <div className="min-h-screen bg-background-light">
       
@@ -116,9 +120,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         restaurant={mainInfoCardData}
         onFavoriteToggle={toggleFavorite}
         isFavoriteMutating={isFavoriteMutating}
+        isCompact={isCompact} // PASSA A PROP isCompact
       />
 
-      <div className="container mx-auto px-4 pb-8">
+      <div className={cn("container mx-auto pb-8", containerPxClass)}>
         {/* Conteúdo Principal */}
         <div className="mt-6 space-y-6">
           

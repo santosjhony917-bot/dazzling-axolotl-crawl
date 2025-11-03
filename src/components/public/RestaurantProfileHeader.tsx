@@ -8,6 +8,7 @@ interface RestaurantProfileHeaderProps {
     name: string;
     coverImageUrl: string;
     isPremium: boolean;
+    isCompact?: boolean; // NOVO: Prop para modo compacto
   };
 }
 
@@ -18,10 +19,14 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
     name,
     coverImageUrl,
     isPremium,
+    isCompact = false, // Valor padrão
   } = restaurant;
 
+  // Classes condicionais para altura da capa
+  const coverHeightClasses = isCompact ? "h-44 md:h-52" : "h-52 md:h-64"; // Reduzido em ~20%
+
   return (
-    <div className="relative w-full h-52 md:h-64 bg-gray-200 overflow-hidden">
+    <div className={cn("relative w-full bg-gray-200 overflow-hidden", coverHeightClasses)}>
       {/* Imagem de Capa - Apenas para Premium */}
       {isPremium && coverImageUrl ? (
         <img
