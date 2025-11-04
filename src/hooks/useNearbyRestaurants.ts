@@ -28,7 +28,7 @@ interface UseNearbyRestaurantsOptions {
 }
 
 export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, maxDistanceKm }: UseNearbyRestaurantsOptions) => {
-  return useQuery<RestaurantWithDistance[], Error>({
+  const { data, isLoading, error, refetch } = useQuery<RestaurantWithDistance[], Error>({
     queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery, maxDistanceKm],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
@@ -49,4 +49,11 @@ export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, m
     },
     enabled: enabled && userLat !== null && userLon !== null,
   });
+
+  return {
+    data: data || [],
+    isLoading,
+    error: error ? error.message : null, // Retorna a mensagem de erro como string ou null
+    refetch, // Adicionado refetch
+  };
 };
