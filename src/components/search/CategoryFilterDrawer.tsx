@@ -46,10 +46,10 @@ export default function CategoryFilterDrawer({
     <Drawer>
       <DrawerTrigger asChild>
         <Button
-          variant="outline"
-          className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all flex-shrink-0"
+          variant="ghost" // Remove o fundo e a borda, dando uma aparência mais leve
+          className="h-12 px-3 text-foreground hover:bg-accent hover:text-accent-foreground flex-shrink-0" // Ajusta a altura, padding, cor do ícone e efeitos de hover
         >
-          <Filter className="w-5 h-5 mr-2 text-highlight" /> Categorias
+          <Filter className="w-5 h-5" /> {/* Apenas o ícone, sem texto */}
         </Button>
       </DrawerTrigger>
       <DrawerContent>
