@@ -1,149 +1,162 @@
-import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { toast } from 'sonner';
-
-export interface DayHours {
-  isOpen: boolean;
-  open: string;
-  close: string;
-}
-
-export interface OpeningHours {
-  [key: string]: DayHours;
-}
-
-interface DayScheduleEditorProps {
-  day: string;
-  label: string;
-  schedule: DayHours;
-  onChange: (day: string, value: DayHours) => void;
-}
-
-function DayScheduleEditor({ day, label, schedule, onChange }: DayScheduleEditorProps) {
-  const { isOpen, open, close } = schedule || { isOpen: false, open: '09:00', close: '18:00' };
-
-  const handleToggle = (checked: boolean) => {
-    onChange(day, { ...schedule, isOpen: checked, open: schedule?.open || '09:00', close: schedule?.close || '18:00' });
-  };
-
-  const handleTimeChange = (field: 'open' | 'close', value: string) => {
-    onChange(day, { ...schedule, [field]: value, isOpen: true });
-  };
-
-  return (
-    <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
-      <div className="flex items-center space-x-4">
-        <Switch
-          id={`switch-${day}`}
-          checked={isOpen}
-          onCheckedChange={handleToggle}
-        />
-        <label htmlFor={`switch-${day}`} className="font-medium text-gray-700 w-28">{label}</label>
-      </div>
-      {isOpen && (
-        <div className="flex items-center space-x-2">
-          <Input
-            type="time"
-            value={open}
-            onChange={(e) => handleTimeChange('open', e.target.value)}
-            className="w-28"
-          />
-          <span className="text-gray-500">-</span>
-          <Input
-            type="time"
-            value={close}
-            onChange={(e) => handleTimeChange('close', e.target.value)}
-            className="w-28"
-          />
-        </div>
-      )}
-      {!isOpen && (
-        <div className="text-gray-500 w-[calc(7rem*2+0.5rem+1rem)] text-center">Fechado</div>
-      )}
-    </div>
-  );
-}
+import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Input } from '@/components/ui/input';
+import { Loader2, Plus, X } from 'lucide-react';
+import { WeekSchedule, DaySchedule, TimeSlot } from '@/types/schedule';
+import { Card, CardContent } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface EditHoursDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  currentSchedule: OpeningHours;
-  onSave: (newSchedule: OpeningHours) => Promise<void>;
+  currentSchedule: WeekSchedule;
+  onSave: (newSchedule: WeekSchedule) => Promise<void>;
 }
 
-const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-const dayLabels: { [key: string]: string } = {
-  monday: "Segunda-feira",
-  tuesday: "Terça-feira",
-  wednesday: "Quarta-feira",
-  thursday: "Quinta-feira",
-  friday: "Sexta-feira",
-  saturday: "Sábado",
-  sunday: "Domingo",
+const daysOfWeek: (keyof WeekSchedule)[] = [
+  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
+];
+
+const dayLabels: Record<keyof WeekSchedule, string> = {
+  monday: 'Segunda-feira',
+  tuesday: 'Terça-feira',
+  wednesday: 'Quarta-feira',
+  thursday: 'Quinta-feira',
+  friday: 'Sexta-feira',
+  saturday: 'Sábado',
+  sunday: 'Domingo',
+};
+
+const TimeSlotInput: React.FC<{ slot: TimeSlot, onChange: (newSlot: TimeSlot) => void, onRemove: () => void }> = ({ slot, onChange, onRemove }) => (
+  <div className="flex items-center gap-2">
+    <Input
+      type="time"
+      value={slot.start}
+      onChange={(e) => onChange({ ...slot, start: e.target.value })}
+      className="h-9 text-sm focus:border-highlight focus:ring-highlight"
+    />
+    <span className="text-gray-500">-</span>
+    <Input
+      type="time"
+      value={slot.end}
+      onChange={(e) => onChange({ ...slot, end: e.target.value })}
+      className="h-9 text-sm focus:border-highlight focus:ring-highlight"
+    />
+    <Button type="button" variant="ghost" size="icon" onClick={onRemove} className="h-8 w-8 text-red-500 hover:bg-red-50">
+      <X className="h-4 w-4" />
+    </Button>
+  </div>
+);
+
+const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedule, onUpdate: (newSchedule: DaySchedule) => void }> = ({ day, schedule, onUpdate }) => {
+  const handleToggleOpen = (isOpen: boolean) => {
+    onUpdate({ 
+      ...schedule, 
+      isOpen, 
+      slots: isOpen && schedule.slots.length === 0 ? [{ start: '09:00', end: '18:00' }] : schedule.slots 
+    });
+  };
+
+  const handleAddSlot = () => {
+    onUpdate({ ...schedule, slots: [...schedule.slots, { start: '09:00', end: '18:00' }] });
+  };
+
+  const handleSlotChange = (index: number, newSlot: TimeSlot) => {
+    const newSlots = schedule.slots.map((s, i) => (i === index ? newSlot : s));
+    onUpdate({ ...schedule, slots: newSlots });
+  };
+
+  const handleRemoveSlot = (index: number) => {
+    const newSlots = schedule.slots.filter((_, i) => i !== index);
+    onUpdate({ ...schedule, slots: newSlots });
+  };
+
+  return (
+    <Card className="p-4 shadow-soft-sm rounded-xl border-gray-200">
+      <div className="flex items-center justify-between">
+        <h4 className="font-semibold text-sm">{dayLabels[day]}</h4>
+        <Switch checked={schedule.isOpen} onCheckedChange={handleToggleOpen} className="data-[state=checked]:bg-[#E47948]" />
+      </div>
+      {schedule.isOpen && (
+        <div className="mt-3 space-y-3">
+          {schedule.slots.map((slot, index) => (
+            <TimeSlotInput
+              key={index}
+              slot={slot}
+              onChange={(newSlot) => handleSlotChange(index, newSlot)}
+              onRemove={() => handleRemoveSlot(index)}
+            />
+          ))}
+          <Button type="button" variant="outline" size="sm" onClick={handleAddSlot} className="w-full h-8 text-xs border-primary text-primary hover:bg-primary/5">
+            <Plus className="h-3 w-3 mr-1" /> Adicionar Horário
+          </Button>
+        </div>
+      )}
+    </Card>
+  );
 };
 
 export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }: EditHoursDialogProps) {
-  const [openingHours, setOpeningHours] = useState<OpeningHours>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [schedule, setSchedule] = useState<WeekSchedule>(currentSchedule);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const initialHours: OpeningHours = {};
-    daysOfWeek.forEach(day => {
-        initialHours[day] = currentSchedule?.[day] || { isOpen: false, open: "09:00", close: "18:00" };
-    });
-    setOpeningHours(initialHours);
-  }, [currentSchedule, open]);
+    if (open) {
+      setSchedule(currentSchedule);
+    }
+  }, [open, currentSchedule]);
 
-  const handleDayChange = (day: string, value: DayHours) => {
-    setOpeningHours(prev => ({ ...prev, [day]: value }));
+  const handleUpdateDay = (day: keyof WeekSchedule, newSchedule: DaySchedule) => {
+    setSchedule(prev => ({ ...prev, [day]: newSchedule }));
   };
 
   const handleSave = async () => {
-    setIsLoading(true);
+    setLoading(true);
     try {
-      await onSave(openingHours);
-      toast.success("Horários de funcionamento atualizados com sucesso!");
+      await onSave(schedule);
       onOpenChange(false);
-    } catch (error) {
-      toast.error("Erro ao atualizar os horários. Tente novamente.");
-      console.error(error);
+    } catch (e) {
+      // Error handled in parent
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] flex flex-col shadow-soft-xl">
-        <DialogHeader className="p-6 pb-4">
+        <DialogHeader>
           <DialogTitle className="text-xl font-bold text-primary">Horários de Funcionamento</DialogTitle>
           <DialogDescription>
-            Defina os dias e horários que seu restaurante está aberto.
+            Defina os horários em que seu restaurante estará aberto.
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="flex-1 px-6">
-          <div className="space-y-4 py-4">
+        <ScrollArea className="flex-1 pr-4">
+          <div className="space-y-4">
             {daysOfWeek.map(day => (
               <DayScheduleEditor
                 key={day}
                 day={day}
-                label={dayLabels[day]}
-                schedule={openingHours[day]}
-                onChange={handleDayChange}
+                schedule={schedule[day]}
+                onUpdate={(newSchedule) => handleUpdateDay(day, newSchedule)}
               />
             ))}
           </div>
         </ScrollArea>
 
-        <DialogFooter className="p-6 pt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isLoading}>Cancelar</Button>
-          <Button onClick={handleSave} disabled={isLoading}>
-            {isLoading ? "Salvando..." : "Salvar alterações"}
+        <DialogFooter className="mt-4">
+          <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            Cancelar
+          </Button>
+          <Button type="button" onClick={handleSave} disabled={loading} variant="highlight">
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Salvar Horários"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

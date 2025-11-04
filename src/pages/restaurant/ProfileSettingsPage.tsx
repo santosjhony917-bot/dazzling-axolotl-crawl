@@ -1,314 +1,309 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
-import { useRestaurant } from '@/context/RestaurantContext';
-import { toast } from 'sonner';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from '@/components/ui/label';
-import { EditHoursDialog, OpeningHours } from '@/components/EditHoursDialog';
-import { ImageUploader } from '@/components/ImageUploader';
-import { Loader2, MapPin, Clock } from 'lucide-react';
-import { PaymentMethodsEditor } from '@/components/PaymentMethodsEditor';
-import { SocialNetworksEditor } from '@/components/SocialNetworksEditor';
-import { Restaurant, PaymentMethod, SocialNetwork } from '@/types';
+import { useAuthData } from '@/context/AuthContext';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { Loader2, Settings, Utensils, Crown } from 'lucide-react';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
+import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
+import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
+import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
+import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
+import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
+import { Separator } from '@/components/ui/separator';
+import { showError, showSuccess } from '@/utils/toast';
+import { z } from 'zod';
+import { cnpjMask, phoneMask } from '@/utils/masks';
+import EditClientFieldDialog from '@/components/EditClientFieldDialog';
+import { EditAddressDialog } from '@/components/EditAddressDialog';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
+import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
+import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
+import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
+import { WeekSchedule } from '@/types/schedule';
+import { DEFAULT_SCHEDULE } from '@/constants/schedule';
+import { Restaurant } from '@/types/supabase';
+import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 
-const weekdayLabels: { [key: string]: string } = {
-  monday: 'Segunda',
-  tuesday: 'Terça',
-  wednesday: 'Quarta',
-  thursday: 'Quinta',
-  friday: 'Sexta',
-  saturday: 'Sábado',
-  sunday: 'Domingo',
-};
-
-const weekOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+// Schemas de validação
+const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
+const emailSchema = z.string().email("E-mail inválido.");
+const phoneSchema = z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
+const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido (XX.XXX.XXX/XXXX-XX)").optional().or(z.literal(''));
+const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 export default function ProfileSettingsPage() {
-  const { user } = useAuth();
-  const { restaurant, loading, updateRestaurant } = useRestaurant();
   const navigate = useNavigate();
-
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [cep, setCep] = useState('');
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
+  const { restaurant, isLoading: authLoading, isPremium, refetchProfile, refetchRestaurant } = useAuthData();
+  const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
+  
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
+  
+  const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
   const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
-  const [currentSchedule, setCurrentSchedule] = useState<OpeningHours>({});
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
-  const [socialNetworks, setSocialNetworks] = useState<SocialNetwork[]>([]);
+  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false);
+  const [isSocialNetworksDialogOpen, setIsSocialNetworksDialogOpen] = useState(false);
+  const [isSalesChannelsDialogOpen, setIsSalesChannelsDialogOpen] = useState(false);
+  
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
-  useEffect(() => {
-    if (restaurant) {
-      setName(restaurant.name || '');
-      setDescription(restaurant.description || '');
-      setCategory(restaurant.category || '');
-      setPhone(restaurant.phone || '');
-      setAddress(restaurant.address || '');
-      setCity(restaurant.city || '');
-      setState(restaurant.state || '');
-      setCep(restaurant.cep || '');
-      setImageUrl(restaurant.image_url || null);
-      setCoverImageUrl(restaurant.cover_image_url || null);
-      setCurrentSchedule((restaurant.opening_hours as unknown as OpeningHours) || {});
-      setPaymentMethods((restaurant.payment_methods as unknown as PaymentMethod[]) || []);
-      setSocialNetworks((restaurant.social_networks as unknown as SocialNetwork[]) || []);
-    }
-  }, [restaurant]);
+  const isLoading = authLoading || !restaurant;
 
-  if (loading) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 className="h-8 w-8 animate-spin" /></div>;
-  }
-
-  if (!user || !restaurant) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen text-center">
-        <p className="mb-4">Você precisa estar logado e ter um restaurante para ver esta página.</p>
-        <Button onClick={() => navigate('/login')}>Ir para o Login</Button>
-      </div>
-    );
-  }
-
-  const handleSave = async () => {
-    setIsSaving(true);
-    const updatedData: Partial<Restaurant> = {
-      name,
-      description,
-      category,
-      phone,
-      address,
-      city,
-      state,
-      cep,
-      image_url: imageUrl,
-      cover_image_url: coverImageUrl,
-      payment_methods: paymentMethods,
-      social_networks: socialNetworks as any,
-    };
-
-    try {
-      await updateRestaurant(updatedData);
-      toast.success('Perfil do restaurante atualizado com sucesso!');
-    } catch (error: any) {
-      toast.error('Erro ao atualizar o perfil.', { description: error.message });
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleSaveHours = async (newSchedule: OpeningHours) => {
-    await updateRestaurant({ opening_hours: newSchedule as any });
-  };
-
-  const handleImageUpload = async (file: File, type: 'profile' | 'cover') => {
-    if (!user) return;
-    setIsUploading(true);
-    const fileName = `${user.id}/${Date.now()}-${file.name}`;
-    const { data, error } = await supabase.storage.from('restaurant-images').upload(fileName, file);
-
-    if (error) {
-      toast.error('Erro no upload da imagem.', { description: error.message });
-      setIsUploading(false);
+  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
+    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
+      showError("Recurso Premium. Faça upgrade para desbloquear.");
       return;
     }
+    
+    setEditConfig({
+      key,
+      title,
+      fieldName,
+      icon,
+      validationSchema,
+      type,
+      mask,
+      placeholder,
+    });
+    setIsEditDialogOpen(true);
+  }, [isPremium]);
 
-    const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(data.path);
-
-    if (type === 'profile') {
-      setImageUrl(publicUrl);
+  const handleSaveField = useCallback(async (value: string) => {
+    if (!editConfig) return;
+    
+    // Remove máscara antes de salvar no DB
+    const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
+    
+    const { error } = await updateRestaurant({ [editConfig.key]: cleanedValue });
+    
+    if (error) {
+      showError(error);
     } else {
-      setCoverImageUrl(publicUrl);
+      showSuccess("Campo atualizado com sucesso!");
+      refetchRestaurant();
     }
-    setIsUploading(false);
-    toast.success('Imagem enviada com sucesso!');
-  };
-
-  const renderOpeningHoursSummary = () => {
-    const scheduleExists = currentSchedule && Object.keys(currentSchedule).length > 0;
-
-    if (!scheduleExists) {
-      return <p className="text-sm text-gray-500">Nenhum horário definido.</p>;
+  }, [editConfig, updateRestaurant, refetchRestaurant]);
+  
+  const handleLogoUploadComplete = useCallback(async (url: string) => {
+    setUploadingLogo(true);
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    const { error } = await updateRestaurant({ image_url: cacheBustedUrl });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Logo atualizado com sucesso!");
+      refetchRestaurant();
     }
-
-    const sortedDays = weekOrder.filter(day => currentSchedule[day]?.isOpen);
-
-    if (sortedDays.length === 0) {
-      return <p className="text-sm text-gray-500">Fechado todos os dias.</p>;
+    setUploadingLogo(false);
+  }, [updateRestaurant, refetchRestaurant]);
+  
+  const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
+    const { error } = await updateRestaurant({ opening_hours: newSchedule as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Horários atualizados com sucesso!");
+      refetchRestaurant();
     }
+  }, [updateRestaurant, refetchRestaurant]);
+  
+  const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
+    const { error } = await updateRestaurant({ payment_methods: newMethods as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Formas de pagamento atualizadas com sucesso!");
+      refetchRestaurant();
+    }
+  }, [updateRestaurant, refetchRestaurant]);
+  
+  // NOVO HANDLER: Salvar Redes Sociais
+  const handleSaveSocialNetworks = useCallback(async (newLinks: SocialNetworkLink[]) => {
+    const { error } = await updateRestaurant({ social_networks: newLinks as any });
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Redes sociais atualizadas com sucesso!");
+      refetchRestaurant();
+    }
+  }, [updateRestaurant, refetchRestaurant]);
 
+  // NOVO HANDLER: Salvar Canais de Venda
+  const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null; external_url: string | null }) => {
+    const { error } = await updateRestaurant(data);
+    if (error) {
+      showError(error);
+    } else {
+      showSuccess("Canais de venda atualizados com sucesso!");
+      refetchRestaurant();
+      setIsSalesChannelsDialogOpen(false); // Fechar o diálogo após salvar
+    }
+  }, [updateRestaurant, refetchRestaurant]);
+
+  if (isLoading) {
     return (
-      <div className="space-y-1">
-        {sortedDays.map(day => (
-          <div key={day} className="flex justify-between text-sm">
-            <span className="font-medium text-gray-700">{weekdayLabels[day]}</span>
-            <span className="text-gray-600">{currentSchedule[day].open} - {currentSchedule[day].close}</span>
-          </div>
-        ))}
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
+  }
+  
+  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
+  const openStatus = getRestaurantOpenStatus(currentSchedule);
+  
+  // CORREÇÃO 2: Usando 'as unknown as string[]'
+  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+  
+  // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
+  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
+
+  const publicRestaurantData: PublicRestaurantData = {
+    ...(restaurant as Restaurant),
+    opening_hours: currentSchedule,
+    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
+    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
+    is_favorite: false,
+    followers_count: 0,
+    addressSummary: restaurant?.city || '',
+    menu_categories: [],
+    gallery_images: [],
+    logoUrl: restaurant?.image_url || '', 
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    nextOpenTime: openStatus.nextOpenTime,
+    other_url_label: restaurant?.other_url_label || null, // Adicionado other_url_label
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold text-primary">Configurações do Perfil</h1>
-        <p className="text-gray-600">Gerencie as informações do seu restaurante.</p>
-      </header>
+    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/home">
+      <div className="p-4 space-y-8 max-w-md mx-auto">
+        
+        {/* 1. Card Principal (Logo e Nome) */}
+        <MainProfileCard
+          restaurantName={restaurant?.name || "Meu Restaurante"}
+          logoUrl={restaurant?.image_url}
+          isPremium={isPremium}
+          uploading={uploadingLogo}
+          onLogoUploadComplete={handleLogoUploadComplete}
+          restaurantId={restaurant?.id || 'temp'}
+        />
+        
+        <Separator />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle>Informações Básicas</CardTitle>
-              <CardDescription>Atualize os detalhes principais do seu restaurante.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nome do Restaurante</Label>
-                <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex: Cantina da Mama" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="description">Descrição</Label>
-                <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Fale um pouco sobre seu restaurante..." />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="category">Categoria</Label>
-                <Input id="category" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Ex: Italiana, Brasileira, Japonesa" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Telefone para Contato</Label>
-                <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(99) 99999-9999" />
-              </div>
-            </CardContent>
-          </Card>
+        {/* 2. Informações Básicas */}
+        <BasicInfoSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          handleEditField={handleEditField}
+          cnpjMask={cnpjMask}
+          phoneMask={phoneMask}
+          nameSchema={nameSchema}
+          emailSchema={emailSchema}
+          phoneSchema={phoneSchema}
+          cnpjSchema={cnpjSchema}
+        />
+        
+        <Separator />
 
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center"><MapPin className="mr-2 h-5 w-5 text-primary"/> Endereço</CardTitle>
-              <CardDescription>Mantenha seu endereço atualizado para que os clientes possam te encontrar.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="cep">CEP</Label>
-                  <Input id="cep" value={cep} onChange={(e) => setCep(e.target.value)} placeholder="99999-999" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="address">Logradouro</Label>
-                  <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Rua das Flores, 123" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="city">Cidade</Label>
-                  <Input id="city" value={city} onChange={(e) => setCity(e.target.value)} placeholder="São Paulo" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="state">Estado</Label>
-                  <Input id="state" value={state} onChange={(e) => setState(e.target.value)} placeholder="SP" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* 3. Localização e Horários */}
+        <LocationHoursSection
+          restaurant={restaurant}
+          isPremium={isPremium}
+          currentSchedule={currentSchedule}
+          setIsAddressDialogOpen={setIsAddressDialogOpen}
+          setIsHoursDialogOpen={setIsHoursDialogOpen}
+        />
+        
+        <Separator />
 
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle>Redes Sociais</CardTitle>
-              <CardDescription>Conecte suas redes para que os clientes possam te seguir.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <SocialNetworksEditor
-                socialNetworks={socialNetworks}
-                onChange={setSocialNetworks}
-              />
-            </CardContent>
-          </Card>
+        {/* 4. GESTÃO DE CONTEÚDO */}
+        <ContentManagementSection
+          navigate={navigate}
+          isPremium={isPremium}
+          restaurantId={restaurant?.id || ''}
+          restaurantName={restaurant?.name || 'Meu Restaurante'}
+          setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
+          setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
+          setIsSalesChannelsDialogOpen={setIsSalesChannelsDialogOpen}
+        />
+        
+        <Separator />
 
-        </div>
-
-        <div className="space-y-8">
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle>Imagens</CardTitle>
-              <CardDescription>Uma boa imagem atrai mais clientes.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <Label>Foto de Perfil</Label>
-                <ImageUploader
-                  currentImage={imageUrl}
-                  onImageUpload={(file) => handleImageUpload(file, 'profile')}
-                  onImageRemove={() => setImageUrl(null)}
-                  isUploading={isUploading}
-                  label="Enviar foto de perfil"
-                />
-              </div>
-              <div>
-                <Label>Foto de Capa</Label>
-                <ImageUploader
-                  currentImage={coverImageUrl}
-                  onImageUpload={(file) => handleImageUpload(file, 'cover')}
-                  onImageRemove={() => setCoverImageUrl(null)}
-                  isUploading={isUploading}
-                  label="Enviar foto de capa"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center"><Clock className="mr-2 h-5 w-5 text-primary"/> Horários de Funcionamento</CardTitle>
-              <CardDescription>Informe aos clientes quando você está aberto.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {renderOpeningHoursSummary()}
-              <Button variant="outline" className="w-full" onClick={() => setIsHoursDialogOpen(true)}>
-                Editar Horários
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-soft-lg">
-            <CardHeader>
-              <CardTitle>Formas de Pagamento</CardTitle>
-              <CardDescription>Selecione os métodos de pagamento que você aceita.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <PaymentMethodsEditor
-                selectedMethods={paymentMethods}
-                onChange={setPaymentMethods}
-              />
-            </CardContent>
-          </Card>
-        </div>
+        {/* 6. Assinatura e Suporte */}
+        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+        
       </div>
-
-      <footer className="mt-12 text-center">
-        <Button size="lg" onClick={handleSave} disabled={isSaving || isUploading} className="bg-primary hover:bg-primary-dark text-white">
-          {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-          Salvar Alterações
-        </Button>
-      </footer>
-
+      
+      {/* Dialogs */}
+      {editConfig && (
+        <EditClientFieldDialog
+          isOpen={isEditDialogOpen}
+          onClose={() => setIsEditDialogOpen(false)}
+          title={editConfig.title}
+          fieldName={editConfig.fieldName}
+          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''}
+          icon={editConfig.icon}
+          onSave={handleSaveField}
+          placeholder={editConfig.placeholder}
+          type={editConfig.type}
+          validationSchema={editConfig.validationSchema}
+          mask={editConfig.mask}
+        />
+      )}
+      
+      <EditAddressDialog
+        open={isAddressDialogOpen}
+        onOpenChange={setIsAddressDialogOpen}
+        restaurantId={restaurant?.id || ''}
+        currentAddress={{
+          address: restaurant?.address || '',
+          city: restaurant?.city || '',
+          state: restaurant?.state || '',
+          cep: restaurant?.cep || '',
+          neighborhood: restaurant?.neighborhood || '',
+          latitude: restaurant?.latitude || null,
+          longitude: restaurant?.longitude || null,
+        }}
+        onSave={refetchProfile}
+      />
+      
       <EditHoursDialog
         open={isHoursDialogOpen}
         onOpenChange={setIsHoursDialogOpen}
         currentSchedule={currentSchedule}
         onSave={handleSaveHours}
       />
-    </div>
+      
+      <PaymentMethodsDialog
+        isOpen={isPaymentMethodsDialogOpen}
+        onClose={() => setIsPaymentMethodsDialogOpen(false)}
+        currentMethods={currentPaymentMethods}
+        onSave={handleSavePaymentMethods}
+        isLoading={false}
+      />
+      
+      {/* NOVO DIALOG: Redes Sociais */}
+      <SocialNetworksDialog
+        isOpen={isSocialNetworksDialogOpen}
+        onClose={() => setIsSocialNetworksDialogOpen(false)}
+        currentLinks={currentSocialLinks}
+        onSave={handleSaveSocialNetworks}
+        isLoading={false}
+      />
+
+      {/* NOVO DIALOG: Canais de Venda */}
+      <SalesChannelsDialog
+        isOpen={isSalesChannelsDialogOpen}
+        onClose={() => setIsSalesChannelsDialogOpen(false)}
+        initialWhatsappUrl={restaurant?.whatsapp_url || null}
+        initialIfoodUrl={restaurant?.ifood_url || null}
+        initialOtherUrl={restaurant?.other_url || null}
+        initialExternalUrl={restaurant?.external_url || null}
+        onSave={handleSaveSalesChannels}
+        isLoading={false}
+      />
+    </RestaurantAreaPageLayout>
   );
 }

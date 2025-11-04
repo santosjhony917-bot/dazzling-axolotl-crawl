@@ -1,85 +1,74 @@
-import { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { Restaurant } from '@/types/supabase'; // Assumindo que Restaurant está em types/supabase
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
-import { Restaurant } from '@/types';
-import { toast } from 'sonner';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
 interface RestaurantContextType {
   restaurant: Restaurant | null;
-  loading: boolean;
-  updateRestaurant: (data: Partial<Restaurant>) => Promise<void>;
-  fetchRestaurant: () => Promise<void>;
+  isLoading: boolean;
+  error: Error | null;
+  refetch: () => void;
 }
 
 const RestaurantContext = createContext<RestaurantContextType | undefined>(undefined);
 
-export const RestaurantProvider = ({ children }: { children: ReactNode }) => {
-  const { user } = useAuth();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [loading, setLoading] = useState(true);
+const fetchRestaurant = async (userId: string): Promise<Restaurant | null> => {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
 
-  const fetchRestaurant = async () => {
-    if (!user) {
-      setRestaurant(null);
-      setLoading(false);
-      return;
-    }
-    setLoading(true);
-    try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+  if (error && error.code !== 'PGRST116') { // PGRST116 = No rows found
+    throw new Error(error.message);
+  }
 
-      if (error && error.code !== 'PGRST116') { // PGRST116: no rows returned
-        throw error;
-      }
-      setRestaurant(data);
-    } catch (error: any) {
-      console.error('Error fetching restaurant:', error);
-      toast.error('Erro ao buscar dados do restaurante.', { description: error.message });
-    } finally {
-      setLoading(false);
-    }
-  };
+  return data;
+};
+
+export const RestaurantProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchRestaurant();
-  }, [user]);
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUserId(session?.user?.id ?? null);
+    });
 
-  const updateRestaurant = async (updatedData: Partial<Restaurant>) => {
-    if (!restaurant) {
-      toast.error("Nenhum restaurante encontrado para atualizar.");
-      throw new Error("No restaurant to update.");
-    }
+    // Fetch initial session user ID
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user?.id ?? null);
+    });
 
-    const { data, error } = await supabase
-      .from('restaurants')
-      .update(updatedData)
-      .eq('id', restaurant.id)
-      .select()
-      .single();
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
 
-    if (error) {
-      throw error;
-    }
-    if (data) {
-      setRestaurant(data);
-    }
+  const { data: restaurant, isLoading, error, refetch } = useQuery<Restaurant | null, Error>({
+    queryKey: ['userRestaurant', userId],
+    queryFn: () => fetchRestaurant(userId!),
+    enabled: !!userId,
+  });
+
+  const contextValue: RestaurantContextType = {
+    restaurant: restaurant || null,
+    isLoading,
+    error: error || null,
+    refetch,
   };
 
   return (
-    <RestaurantContext.Provider value={{ restaurant, loading, updateRestaurant, fetchRestaurant }}>
+    <RestaurantContext.Provider value={contextValue}>
       {children}
     </RestaurantContext.Provider>
   );
 };
 
-export const useRestaurant = (): RestaurantContextType => {
+export const useRestaurantContext = () => {
   const context = useContext(RestaurantContext);
   if (context === undefined) {
-    throw new Error('useRestaurant must be used within a RestaurantProvider');
+    throw new Error('useRestaurantContext must be used within a RestaurantProvider');
   }
   return context;
 };

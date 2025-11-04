@@ -5,11 +5,6 @@ export type Restaurant = SupabaseRestaurant;
 export type MenuCategory = SupabaseMenuCategory;
 export type MenuItem = SupabaseMenuItem;
 export type Profile = SupabaseProfile; // Tipo Profile adicionado
-export type PaymentMethod = 'credit_card' | 'debit_card' | 'cash' | 'pix';
-export interface SocialNetwork {
-  platform: string;
-  url: string;
-}
 
 // Form types
 export interface RestaurantFormValues {
