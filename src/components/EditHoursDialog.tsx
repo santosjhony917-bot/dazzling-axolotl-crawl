@@ -10,7 +10,7 @@ import { WeekSchedule, DaySchedule } from '@/types/schedule';
 interface EditHoursDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  currentSchedule: WeekSchedule;
+  currentSchedule?: WeekSchedule | null;
   onSave: (newSchedule: WeekSchedule) => Promise<void>;
 }
 
@@ -24,17 +24,28 @@ const daysOfWeekNames = [
   'Domingo',
 ];
 
+const createDefaultSchedule = (): WeekSchedule =>
+  daysOfWeekNames.map(dayName => ({
+    day: dayName,
+    isActive: false,
+    timeSlots: [{ start: '09:00', end: '18:00' }],
+  }));
+
 export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }: EditHoursDialogProps) {
-  const [editedSchedule, setEditedSchedule] = useState<WeekSchedule>(currentSchedule);
+  const [editedSchedule, setEditedSchedule] = useState<WeekSchedule>(() => createDefaultSchedule());
 
   useEffect(() => {
-    if (open) {
-      const initializedSchedule: WeekSchedule = daysOfWeekNames.map(dayName => {
-        const existingDay = currentSchedule.find(day => day.day === dayName);
-        return existingDay || { day: dayName, isActive: false, timeSlots: [{ start: '09:00', end: '18:00' }] };
-      });
-      setEditedSchedule(initializedSchedule);
+    if (!open) {
+      return;
     }
+
+    const sourceSchedule = Array.isArray(currentSchedule) ? currentSchedule : [];
+    const initializedSchedule: WeekSchedule = daysOfWeekNames.map(dayName => {
+      const existingDay = sourceSchedule.find(day => day.day === dayName);
+      return existingDay || { day: dayName, isActive: false, timeSlots: [{ start: '09:00', end: '18:00' }] };
+    });
+
+    setEditedSchedule(initializedSchedule);
   }, [open, currentSchedule]);
 
   const handleDayScheduleChange = (updatedDaySchedule: DaySchedule) => {
