@@ -25,12 +25,11 @@ export function useSearchItems({
   limit = 50,
 }: UseSearchItemsParams) {
   const fetchSearchItems = useCallback(async () => {
-    if (!searchQuery) {
-      return [];
-    }
+    // Se searchQuery for uma string vazia, passamos null para a RPC para obter itens padrão
+    const queryParam = searchQuery === '' ? null : searchQuery;
 
     const { data, error } = await supabase.rpc('search_menu_items', {
-      search_query: searchQuery,
+      search_query: queryParam,
       p_limit: limit,
     });
 
@@ -44,7 +43,7 @@ export function useSearchItems({
   const { data, isLoading, error, refetch } = useQuery<SearchItemResult[], Error>({
     queryKey: ['searchItems', searchQuery, limit],
     queryFn: fetchSearchItems,
-    enabled: enabled && searchQuery.length > 0,
+    enabled: enabled, // Permite que a query seja executada mesmo com searchQuery vazia
     staleTime: 60000,
   });
 

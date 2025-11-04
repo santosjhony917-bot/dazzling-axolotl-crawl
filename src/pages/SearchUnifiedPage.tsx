@@ -17,7 +17,6 @@ import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
 import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
-import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -26,9 +25,10 @@ interface SearchItem {
   id: string;
   name: string;
   description: string | null;
-  price?: number;
+  price?: number; // Apenas para pratos
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
+  // Campos adicionais para restaurante
   category?: string | null;
   city?: string | null;
   distance_km?: number; // Adicionado para ordenação de restaurantes
@@ -79,40 +79,19 @@ export default function SearchUnifiedPage() {
     searchQuery,
   });
 
-  const { data: popularMenuItems, isLoading: popularItemsLoading } = usePopularMenuItems();
-
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
   const [resultsLoading, setResultsLoading] = useState(true);
 
-  // Determina se devemos mostrar os itens populares
-  const shouldShowPopularItems = 
-    searchQuery === '' &&
-    minPriceFilter === null &&
-    maxPriceFilter === null &&
-    maxDistanceFilter === null &&
-    activeSearchType === 'dish';
-
   // Atualiza o estado de carregamento geral
   useEffect(() => {
-    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || (shouldShowPopularItems && popularItemsLoading));
-  }, [isLocationLoading, dishesLoading, restaurantsLoading, shouldShowPopularItems, popularItemsLoading]);
+    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading);
+  }, [isLocationLoading, dishesLoading, restaurantsLoading]);
 
   // Efeito para processar e ordenar os resultados
   useEffect(() => {
     let processedResults: SearchItem[] = [];
 
-    if (shouldShowPopularItems && popularMenuItems) {
-      processedResults = popularMenuItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        imageUrl: item.imageUrl,
-        type: 'dish',
-        category: item.restaurantCategory,
-        city: null, // Popular items don't have city directly
-      }));
-    } else if (activeSearchType === 'dish') {
+    if (activeSearchType === 'dish') {
       processedResults = dishSearchResults
         .filter(item => {
           const price = item.item_price;
@@ -158,8 +137,6 @@ export default function SearchUnifiedPage() {
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
-    shouldShowPopularItems,
-    popularMenuItems,
   ]);
 
   // Lógica de Busca
@@ -284,7 +261,7 @@ export default function SearchUnifiedPage() {
         className="space-y-4"
       >
         <h2 className="text-xl font-bold text-primary">
-          {shouldShowPopularItems ? "Pratos Populares" : "Resultados da Busca"}
+          Resultados da Busca
         </h2>
         <div className="space-y-3">
           {resultsLoading ? (
