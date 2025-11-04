@@ -15,7 +15,6 @@ interface SearchItem {
   // Campos adicionais para restaurante
   category?: string | null;
   city?: string | null;
-  restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
 }
 
 interface SearchItemCardProps {
@@ -26,8 +25,7 @@ interface SearchItemCardProps {
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
-  // Se for um prato, exibe o nome do restaurante; caso contrário, exibe a categoria do restaurante
-  const displayDescription = isDish ? item.restaurantName : item.category;
+  const displayDescription = isDish ? item.description : item.category;
 
   return (
     <motion.div

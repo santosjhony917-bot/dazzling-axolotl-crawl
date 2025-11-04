@@ -10,53 +10,47 @@ interface SearchToggleProps {
   onToggle: (type: SearchType) => void;
 }
 
-// Create a motion-compatible version of the Button component
-const MotionButton = motion(Button);
-
 const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => {
   const isDishesActive = activeType === 'dishes';
   const isRestaurantsActive = activeType === 'restaurants';
 
+  const ActiveButton = ({ children, isActive, type }: { children: React.ReactNode, isActive: boolean, type: SearchType }) => (
+    <motion.div 
+      className="flex-1 relative"
+      whileTap={{ scale: isActive ? 1 : 0.98 }}
+    >
+      <Button
+        onClick={() => onToggle(type)}
+        className={cn(
+          "w-full h-11 rounded-xl text-base font-semibold transition-all duration-300 relative z-10",
+          isActive
+            ? "bg-highlight text-white shadow-soft-md hover:bg-highlight/90"
+            : "bg-transparent text-gray-600 hover:bg-gray-200/50 hover:text-primary"
+        )}
+        variant={isActive ? 'highlight' : 'ghost'}
+      >
+        {children}
+      </Button>
+      {/* Sombra sutil sob o botão ativo */}
+      {isActive && (
+        <motion.div
+          layoutId="active-tab-indicator"
+          className="absolute inset-0 rounded-xl shadow-soft-lg pointer-events-none"
+          initial={false}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        />
+      )}
+    </motion.div>
+  );
+
   return (
-    <div className="relative flex w-full p-1 bg-gray-100 rounded-2xl mb-6 shadow-inner">
-      {/* Active indicator */}
-      <motion.div
-        layoutId="active-tab-indicator"
-        className={cn(
-          "absolute top-1 bottom-1 rounded-xl shadow-soft-lg bg-highlight pointer-events-none",
-          isDishesActive ? "left-1 right-[50%]" : "left-[50%] right-1"
-        )}
-        initial={false}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      />
-
-      <MotionButton
-        onClick={() => onToggle('dishes')}
-        className={cn(
-          "flex-1 h-11 rounded-xl text-base font-semibold transition-all duration-300 relative z-10",
-          isDishesActive
-            ? "text-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50 hover:text-primary"
-        )}
-        variant={isDishesActive ? 'highlight' : 'ghost'}
-        whileTap={{ scale: isDishesActive ? 1 : 0.98 }}
-      >
+    <div className="flex w-full p-1 bg-gray-100 rounded-2xl mb-6 shadow-inner">
+      <ActiveButton isActive={isDishesActive} type="dishes">
         Pratos
-      </MotionButton>
-
-      <MotionButton
-        onClick={() => onToggle('restaurants')}
-        className={cn(
-          "flex-1 h-11 rounded-xl text-base font-semibold transition-all duration-300 relative z-10",
-          isRestaurantsActive
-            ? "text-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50 hover:text-primary"
-        )}
-        variant={isRestaurantsActive ? 'highlight' : 'ghost'}
-        whileTap={{ scale: isRestaurantsActive ? 1 : 0.98 }}
-      >
+      </ActiveButton>
+      <ActiveButton isActive={isRestaurantsActive} type="restaurants">
         Restaurantes
-      </MotionButton>
+      </ActiveButton>
     </div>
   );
 };
