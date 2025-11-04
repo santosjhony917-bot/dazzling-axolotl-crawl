@@ -13,14 +13,13 @@ import { useAuthData } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { useUserRole } from '@/hooks/useUserRole';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useSearchItems } from '@/hooks/useSearchItems';
+import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
+import RestaurantCard from '@/components/restaurant/RestaurantCard';
 
 type SearchType = 'dish' | 'restaurant';
-
-// Placeholder para Destaques (será preenchido por lógica futura ou permanecerá vazio)
-const placeholderHighlights: any[] = [];
-
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
@@ -34,9 +33,32 @@ export default function SearchUnifiedPage() {
   const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
+  const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
+  const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
+  const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
+  const [triggerSearch, setTriggerSearch] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
+
+  // Hooks de busca
+  const { items: dishResults, loading: loadingDishes, error: dishError } = useSearchItems({
+    searchQuery: searchQuery,
+    enabled: triggerSearch && activeSearchType === 'dish',
+  });
+
+  const { restaurants: restaurantResults, loading: loadingRestaurants, error: restaurantError } = useNearbyRestaurants({
+    userLat: userLat,
+    userLon: userLon,
+    maxDistanceKm: maxDistanceFilter || undefined,
+    searchQuery: searchQuery,
+    enabled: triggerSearch && activeSearchType === 'restaurant' && userLat !== null && userLon !== null,
+  });
+
+  useEffect(() => {
+    if (dishError) showError(dishError);
+    if (restaurantError) showError(restaurantError);
+  }, [dishError, restaurantError]);
 
   // Lógica de Busca
   const handleSearch = (e: React.FormEvent) => {
@@ -45,9 +67,7 @@ export default function SearchUnifiedPage() {
       showError("Aguarde enquanto sua localização é definida.");
       return;
     }
-    
-    // Navega para a página de resultados, passando a localização, a query e o tipo de busca
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+    setTriggerSearch(true);
   };
   
   const handleItemClick = (itemId: string, type: SearchType) => {
@@ -67,9 +87,10 @@ export default function SearchUnifiedPage() {
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de preço
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+    setMinPriceFilter(minPrice);
+    setMaxPriceFilter(maxPrice);
+    setTriggerSearch(true);
+    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}.`);
     setIsPriceModalOpen(false);
   };
 
@@ -82,23 +103,28 @@ export default function SearchUnifiedPage() {
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
+    setMaxDistanceFilter(maxDistanceKm);
+    setTriggerSearch(true);
     showInfo(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de distância
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
     setIsDistanceModalOpen(false);
   };
-
-  const highlights = placeholderHighlights; // Usando placeholder vazio
-  const highlightTitle = activeSearchType === 'dish' ? 'Pratos em Destaque' : 'Restaurantes em Destaque';
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
+    setTriggerSearch(false);
+    setSearchQuery('');
+    setMinPriceFilter(null);
+    setMaxPriceFilter(null);
+    setMaxDistanceFilter(null);
   };
   
   const handleBack = () => {
     navigate(-1);
   };
+
+  const isLoading = isLocationLoading || loadingDishes || loadingRestaurants;
+  const hasResults = (activeSearchType === 'dish' && dishResults.length > 0) || (activeSearchType === 'restaurant' && restaurantResults.length > 0);
 
   // Renderiza o conteúdo da página
   const pageContent = (
@@ -117,7 +143,7 @@ export default function SearchUnifiedPage() {
           />
         </div>
         <Button 
-          type="submit" // Alterado para submit para iniciar a busca
+          type="submit"
           size="icon" 
           variant="highlight" 
           className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
@@ -151,28 +177,49 @@ export default function SearchUnifiedPage() {
       {/* Toggle Pratos / Restaurantes */}
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
-      {/* Destaques */}
+      {/* Resultados da Busca */}
       <motion.div
-        key={activeSearchType} // Key change triggers animation
+        key={activeSearchType}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="space-y-4"
       >
-        <h2 className="text-xl font-bold text-primary">{highlightTitle}</h2>
+        <h2 className="text-xl font-bold text-primary">Resultados da Busca</h2>
         <div className="space-y-3">
-          {highlights.length > 0 ? (
-            highlights.map((item) => (
-              <SearchItemCard 
-                key={item.id} 
-                item={item} 
-                onClick={handleItemClick}
-              />
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} className="h-28 w-full rounded-xl" />
             ))
+          ) : hasResults ? (
+            activeSearchType === 'dish' ? (
+              dishResults.map((item) => (
+                <SearchItemCard 
+                  key={item.item_id} 
+                  item={{
+                    id: item.item_id,
+                    name: item.item_name,
+                    description: item.item_description,
+                    price: item.item_price,
+                    imageUrl: item.item_image_url,
+                    type: 'dish',
+                  }}
+                  onClick={handleItemClick}
+                />
+              ))
+            ) : (
+              restaurantResults.map((restaurant) => (
+                <RestaurantCard 
+                  key={restaurant.id} 
+                  restaurant={restaurant} 
+                  onClick={() => handleItemClick(restaurant.id, 'restaurant')}
+                />
+              ))
+            )
           ) : (
             <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
               <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">Nenhum destaque encontrado. Tente pesquisar!</p>
+              <p className="text-gray-600">Nenhum resultado encontrado. Tente pesquisar!</p>
             </Card>
           )}
         </div>
