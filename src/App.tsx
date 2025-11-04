@@ -91,7 +91,7 @@ function App() {
             {/* Rotas de Cliente (com layout compartilhado e proteção) */}
             <Route element={<SharedLayoutWrapper />}>
               <Route path="/home" element={<ProtectedRoute element={<Home />} requiredRole="authenticated" />} />
-              <Route path="/onboarding" element={<ProtectedRoute element={<Onboarding />} requiredRole="authenticated" />} />
+              <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/profile" element={<ProtectedRoute element={<ClientProfilePage />} requiredRole="authenticated" />} />
               <Route path="/favorites" element={<ProtectedRoute element={<Favorites />} requiredRole="authenticated" />} />
               <Route path="/search-unified" element={<ProtectedRoute element={<SearchUnifiedPage />} requiredRole="authenticated" />} /> {/* Nova página de busca unificada */}
