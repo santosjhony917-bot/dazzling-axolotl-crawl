@@ -96,7 +96,7 @@ const UpgradePageContent: React.FC = () => {
   
   const handleViewPremiumRestaurants = () => {
     // CORRIGIDO: Usando a chave de rota correta
-    navigate(createPageUrl('restaurantResults'));
+    navigate(createPageUrl('search-unified'));
   };
 
   // Verifica se o ID do restaurante do usuário logado está disponível

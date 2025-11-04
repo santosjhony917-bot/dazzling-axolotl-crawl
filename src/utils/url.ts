@@ -12,6 +12,7 @@ export const PATH_MAP = {
   menuItemDetails: '/menu-item/:itemId',
   helpCenter: '/help-center',
   forgotPassword: '/forgot-password',
+  // restaurantResults: '/restaurant-results', // Removido
   
   // NOVO: Rota para o cardápio completo
   fullMenuPage: '/restaurant/:restaurantId/menu-full',
@@ -88,6 +89,7 @@ type QueryParams<K extends PathKey> =
 export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
   const excludedKeys: PathKey[] = [
     'auth', 'onboarding', 'legal', 'menuItemDetails', 'forgotPassword', 
+    // 'restaurantResults', // Removido
     'fullMenuPage', 'restaurantProfile', // Rotas com parâmetros
     // 'restaurant-area-hub', // Removido da exclusão
     'restaurant-login', 'restaurant-signup', 'claim-restaurant',

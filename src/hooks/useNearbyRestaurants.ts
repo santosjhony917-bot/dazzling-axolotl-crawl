@@ -24,11 +24,12 @@ interface UseNearbyRestaurantsOptions {
   userLon: number | null;
   enabled: boolean;
   searchQuery?: string;
+  maxDistanceKm?: number; // Adicionado
 }
 
-export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery }: UseNearbyRestaurantsOptions) => {
+export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, maxDistanceKm }: UseNearbyRestaurantsOptions) => {
   return useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery],
+    queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery, maxDistanceKm],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
         throw new Error('User location is not available.');
@@ -37,7 +38,7 @@ export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery }:
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: userLat,
         user_lng: userLon,
-        max_distance_km: 10, // Default distance
+        max_distance_km: maxDistanceKm || 10, // Default distance
         search_query: searchQuery || null,
       });
 

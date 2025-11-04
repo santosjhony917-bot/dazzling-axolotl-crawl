@@ -45,9 +45,10 @@ export default function SearchUnifiedPage() {
   const { items: dishResults, loading: loadingDishes, error: dishError } = useSearchItems({
     searchQuery: searchQuery,
     enabled: triggerSearch && activeSearchType === 'dish',
+    // Adicionar filtros de preço aqui se a RPC search_menu_items suportar
   });
 
-  const { restaurants: restaurantResults, loading: loadingRestaurants, error: restaurantError } = useNearbyRestaurants({
+  const { data: restaurantResults, isLoading: loadingRestaurants, error: restaurantError } = useNearbyRestaurants({
     userLat: userLat,
     userLon: userLon,
     maxDistanceKm: maxDistanceFilter || undefined,
@@ -124,7 +125,7 @@ export default function SearchUnifiedPage() {
   };
 
   const isLoading = isLocationLoading || loadingDishes || loadingRestaurants;
-  const hasResults = (activeSearchType === 'dish' && dishResults.length > 0) || (activeSearchType === 'restaurant' && restaurantResults.length > 0);
+  const hasResults = (activeSearchType === 'dish' && dishResults?.length > 0) || (activeSearchType === 'restaurant' && restaurantResults?.length > 0);
 
   // Renderiza o conteúdo da página
   const pageContent = (
@@ -193,7 +194,7 @@ export default function SearchUnifiedPage() {
             ))
           ) : hasResults ? (
             activeSearchType === 'dish' ? (
-              dishResults.map((item) => (
+              (dishResults || []).map((item) => (
                 <SearchItemCard 
                   key={item.item_id} 
                   item={{
@@ -208,7 +209,7 @@ export default function SearchUnifiedPage() {
                 />
               ))
             ) : (
-              restaurantResults.map((restaurant) => (
+              (restaurantResults || []).map((restaurant) => (
                 <RestaurantCard 
                   key={restaurant.id} 
                   restaurant={restaurant} 
