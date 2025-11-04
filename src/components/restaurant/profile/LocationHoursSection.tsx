@@ -8,12 +8,17 @@ import { Restaurant } from '@/types/supabase';
 interface LocationHoursSectionProps {
   restaurant: Restaurant | null;
   isPremium: boolean;
-  currentSchedule: WeekSchedule;
-  setIsAddressDialogOpen: (isOpen: boolean) => void; // Adicionado
-  setIsHoursDialogOpen: (isOpen: boolean) => void;   // Adicionado
+  currentSchedule: WeekSchedule | null | undefined; // Atualizado para permitir null/undefined
+  setIsAddressDialogOpen: (isOpen: boolean) => void;
+  setIsHoursDialogOpen: (isOpen: boolean) => void;
 }
 
-const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+const formatScheduleSummary = (schedule: WeekSchedule | null | undefined): string | null => {
+  // Adicionado: Verifica se schedule é nulo, indefinido ou não é um array
+  if (!schedule || !Array.isArray(schedule)) {
+    return "Horários não definidos";
+  }
+
   const days = [
     'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'
   ];
