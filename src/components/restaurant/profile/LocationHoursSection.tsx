@@ -1,77 +1,99 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Pencil } from 'lucide-react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import InfoCardItem from '@/components/InfoCardItem';
+import { MapPin, Clock, Check } from 'lucide-react';
 import { WeekSchedule, DaySchedule } from '@/types/schedule';
-import { Restaurant } from '@/types/supabase';
 
 interface LocationHoursSectionProps {
-  restaurant: Restaurant | null;
+  restaurant: any;
   isPremium: boolean;
-  currentSchedule: WeekSchedule | null | undefined; // Atualizado para permitir null/undefined
-  setIsAddressDialogOpen: (isOpen: boolean) => void;
-  setIsHoursDialogOpen: (isOpen: boolean) => void;
+  currentSchedule: WeekSchedule;
+  setIsAddressDialogOpen: (open: boolean) => void;
+  setIsHoursDialogOpen: (open: boolean) => void;
 }
 
-const formatScheduleSummary = (schedule: WeekSchedule | null | undefined): string | null => {
-  // Adicionado: Verifica se schedule é nulo, indefinido ou não é um array
-  if (!schedule || !Array.isArray(schedule)) {
-    return "Horários não definidos";
-  }
-
-  const days = [
-    'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'
-  ];
-
-  const openDays = schedule.filter(day => day.isActive && day.timeSlots.length > 0);
-
-  if (openDays.length === 0) {
-    return "Fechado todos os dias";
-  }
-
-  // Simplificação: se todos os dias abertos tiverem o mesmo slot, mostra o resumo.
-  const firstOpenDay = openDays[0];
-  if (!firstOpenDay || firstOpenDay.timeSlots.length === 0) return "Horários definidos";
-
-  const firstSlot = firstOpenDay.timeSlots[0];
+// Helper para formatar o resumo dos horários
+const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
   
-  const allSame = openDays.every(day => 
-    day.timeSlots.length === firstOpenDay.timeSlots.length &&
-    day.timeSlots.every((slot, index) => 
-      slot.start === firstOpenDay.timeSlots[index].start && 
-      slot.end === firstOpenDay.timeSlots[index].end
-    )
-  );
+  const openDays = days.filter(day => schedule[day]?.isOpen);
+  
+  if (openDays.length === 0) return null;
+  
+  // Simplificação: se todos os dias abertos tiverem o mesmo slot, mostra o resumo.
+  const firstSlot = schedule[openDays[0]].slots[0];
+  if (!firstSlot) return "Horários definidos";
 
-  if (allSame) {
-    if (openDays.length === 7) {
-      return `Aberto todos os dias das ${firstSlot.start} às ${firstSlot.end}`;
-    } else if (openDays.length > 1) {
-      const firstDayName = openDays[0].day;
-      const lastDayName = openDays[openDays.length - 1].day;
-      return `Aberto de ${firstDayName} a ${lastDayName} das ${firstSlot.start} às ${firstSlot.end}`;
-    }
+  const summary = `${openDays.length} dias abertos. Ex: ${firstSlot.start} - ${firstSlot.end}`;
+  return summary;
+};
+
+// NOVO: Componente para renderizar o endereço em múltiplas linhas
+const AddressValue: React.FC<{ restaurant: any }> = ({ restaurant }) => {
+  const addressParts = [
+    restaurant?.address,
+    restaurant?.number,
+    restaurant?.neighborhood,
+    restaurant?.city,
+    restaurant?.state,
+  ].filter(Boolean);
+  
+  const displayAddress = addressParts.join(', ');
+  
+  if (!displayAddress) {
+    return <p className="text-sm text-gray-400 italic">Não definido</p>;
   }
-
-  return "Horários personalizados";
-};
-
-export const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({ currentSchedule, setIsAddressDialogOpen, setIsHoursDialogOpen }) => {
-  const summary = formatScheduleSummary(currentSchedule);
-
+  
+  // Exibe o endereço em múltiplas linhas se for muito longo
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-semibold">Horários de Funcionamento</CardTitle>
-        <Button variant="ghost" size="icon" onClick={() => setIsHoursDialogOpen(true)}>
-          <Pencil className="h-4 w-4" />
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {summary}
-        </p>
-      </CardContent>
-    </Card>
+    <div className="flex flex-col text-sm text-text-secondary mt-0.5">
+      <p>{restaurant.address}, {restaurant.number}</p>
+      <p>{restaurant.neighborhood}, {restaurant.city} - {restaurant.state}</p>
+    </div>
   );
 };
+
+
+const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
+  restaurant,
+  isPremium,
+  currentSchedule,
+  setIsAddressDialogOpen,
+  setIsHoursDialogOpen,
+}) => {
+  const scheduleSummary = formatScheduleSummary(currentSchedule);
+  
+  return (
+    <div className="w-full space-y-3">
+      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Localização e Horários</h2>
+      <InfoCardItem
+        label="Endereço Principal"
+        value={null} // Definido como null para usar o extraContent
+        icon={MapPin}
+        isPremium={isPremium}
+        onClick={() => setIsAddressDialogOpen(true)}
+        extraContent={
+          <>
+            <AddressValue restaurant={restaurant} />
+            {restaurant?.latitude && restaurant?.longitude ? (
+              <p className="text-xs text-green-600 mt-1 flex items-center gap-1 font-normal">
+                <Check className="h-3 w-3" /> Coordenadas Geográficas Salvas
+              </p>
+            ) : undefined}
+          </>
+        }
+      />
+
+      {/* Horários */}
+      <InfoCardItem
+        label="Horários de Funcionamento"
+        value={scheduleSummary}
+        icon={Clock}
+        isPremium={isPremium}
+        onClick={() => setIsHoursDialogOpen(true)}
+      />
+    </div>
+  );
+};
+
+export default LocationHoursSection;

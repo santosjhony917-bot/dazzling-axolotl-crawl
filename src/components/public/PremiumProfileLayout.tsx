@@ -8,11 +8,11 @@ import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantDetailedStatus } from '@/lib/schedule';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
-import { DetailedHoursDisplay } from './DetailedHoursDisplay';
+import DetailedHoursDisplay from './DetailedHoursDisplay';
 import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
 import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
 import { motion } from 'framer-motion';
@@ -80,8 +80,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
     isFavorite: restaurant.is_favorite,
-    isOpen: restaurant.isOpen, // Já vem do restaurant.isOpen
-    statusText: restaurant.statusText, // Já vem do restaurant.statusText
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
     plan: restaurant.plan, // Adicionado 'plan'
   };
 

@@ -2,7 +2,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImage } from '@/types/supabase';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
-import { getRestaurantDetailedStatus } from '@/lib/schedule'; // Importando a nova função
+import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
@@ -111,7 +111,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
   // Calcular status de abertura
-  const openStatus = getRestaurantDetailedStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
   
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
