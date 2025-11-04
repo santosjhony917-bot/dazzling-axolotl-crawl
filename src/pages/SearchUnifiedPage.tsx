@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,14 +13,25 @@ import { useAuthData } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { useUserRole } from '@/hooks/useUserRole';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
+import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
 
 type SearchType = 'dish' | 'restaurant';
 
-// Placeholder para Destaques (será preenchido por lógica futura ou permanecerá vazio)
-const placeholderHighlights: any[] = [];
-
+// Definindo o tipo SearchItem para compatibilidade com SearchItemCard
+interface SearchItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price?: number;
+  imageUrl: string | null;
+  type: 'dish' | 'restaurant';
+  category?: string | null;
+  city?: string | null;
+  distance_km?: number; // Adicionado para ordenação de restaurantes
+}
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
@@ -35,19 +46,108 @@ export default function SearchUnifiedPage() {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
 
+  // Estados para os filtros
+  const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
+  const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
+  const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
+
   const userLat = location.latitude;
   const userLon = location.longitude;
+
+  // Hooks de busca
+  const {
+    items: dishSearchResults,
+    loading: dishesLoading,
+    error: dishesError,
+    refetch: refetchDishes,
+  } = useSearchItems({
+    searchQuery,
+    enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
+    limit: 50,
+  });
+
+  const {
+    data: restaurantSearchResults,
+    isLoading: restaurantsLoading,
+    error: restaurantsError,
+    refetch: refetchRestaurants,
+  } = useNearbyRestaurants({
+    userLat,
+    userLon,
+    enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
+    searchQuery,
+  });
+
+  const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
+  const [resultsLoading, setResultsLoading] = useState(true);
+
+  // Atualiza o estado de carregamento geral
+  useEffect(() => {
+    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading);
+  }, [isLocationLoading, dishesLoading, restaurantsLoading]);
+
+  // Efeito para processar e ordenar os resultados
+  useEffect(() => {
+    let processedResults: SearchItem[] = [];
+
+    if (activeSearchType === 'dish') {
+      processedResults = dishSearchResults
+        .filter(item => {
+          const price = item.item_price;
+          const matchesMinPrice = minPriceFilter === null || price >= minPriceFilter;
+          const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
+          return matchesMinPrice && matchesMaxPrice;
+        })
+        .sort((a, b) => a.item_price - b.item_price) // Ordenar por preço crescente
+        .map(item => ({
+          id: item.item_id,
+          name: item.item_name,
+          description: item.item_description,
+          price: item.item_price,
+          imageUrl: item.item_image_url,
+          type: 'dish',
+          category: null,
+          city: null,
+        }));
+    } else { // activeSearchType === 'restaurant'
+      processedResults = (restaurantSearchResults || [])
+        .filter(restaurant => {
+          const distance = restaurant.distance_km;
+          return maxDistanceFilter === null || distance <= maxDistanceFilter;
+        })
+        .sort((a, b) => b.distance_km - a.distance_km) // Ordenar por distância decrescente
+        .map(restaurant => ({
+          id: restaurant.id,
+          name: restaurant.name,
+          description: restaurant.description,
+          price: undefined,
+          imageUrl: restaurant.image_url,
+          type: 'restaurant',
+          category: restaurant.category,
+          city: restaurant.city,
+          distance_km: restaurant.distance_km,
+        }));
+    }
+    setDisplayedResults(processedResults);
+  }, [
+    activeSearchType,
+    dishSearchResults,
+    restaurantSearchResults,
+    minPriceFilter,
+    maxPriceFilter,
+    maxDistanceFilter,
+  ]);
 
   // Lógica de Busca
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localização é definida.");
+      showError("Aguarde enquanto sua localização é definida para realizar a busca.");
       return;
     }
-    
-    // Navega para a página de resultados, passando a localização, a query e o tipo de busca
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&query=${searchQuery}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+    // Aciona o refetch para ambos os tipos de busca com a query atual
+    refetchDishes();
+    refetchRestaurants();
   };
   
   const handleItemClick = (itemId: string, type: SearchType) => {
@@ -66,10 +166,10 @@ export default function SearchUnifiedPage() {
     setIsPriceModalOpen(true);
   };
 
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    showInfo(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de preço
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&minPrice=${minPrice}&maxPrice=${maxPrice}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+  const handleApplyPriceFilter = (min: number, max: number) => {
+    setMinPriceFilter(min);
+    setMaxPriceFilter(max);
+    showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
   };
 
@@ -81,19 +181,19 @@ export default function SearchUnifiedPage() {
     setIsDistanceModalOpen(true);
   };
   
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    showInfo(`Filtro de distância aplicado: até ${maxDistanceKm} km.`);
-    // Para fins de demonstração, navegamos para a página de resultados com a query de distância
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${maxDistanceKm}&type=${activeSearchType}&address=${encodeURIComponent(location.address)}`);
+  const handleApplyDistanceFilter = (distance: number) => {
+    setMaxDistanceFilter(distance);
+    showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
   };
-
-  const highlights = placeholderHighlights; // Usando placeholder vazio
-  const highlightTitle = activeSearchType === 'dish' ? 'Pratos em Destaque' : 'Restaurantes em Destaque';
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
+    // Resetar filtros de preço/distância ao trocar de aba, se fizer sentido
+    setMinPriceFilter(null);
+    setMaxPriceFilter(null);
+    setMaxDistanceFilter(null);
   };
   
   const handleBack = () => {
@@ -117,7 +217,7 @@ export default function SearchUnifiedPage() {
           />
         </div>
         <Button 
-          type="submit" // Alterado para submit para iniciar a busca
+          type="submit"
           size="icon" 
           variant="highlight" 
           className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
@@ -151,18 +251,23 @@ export default function SearchUnifiedPage() {
       {/* Toggle Pratos / Restaurantes */}
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
-      {/* Destaques */}
+      {/* Resultados da Busca */}
       <motion.div
-        key={activeSearchType} // Key change triggers animation
+        key={activeSearchType}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="space-y-4"
       >
-        <h2 className="text-xl font-bold text-primary">{highlightTitle}</h2>
+        <h2 className="text-xl font-bold text-primary">Resultados da Busca</h2>
         <div className="space-y-3">
-          {highlights.length > 0 ? (
-            highlights.map((item) => (
+          {resultsLoading ? (
+            // Skeletons para o estado de carregamento
+            Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton key={index} className="h-24 w-full rounded-xl" />
+            ))
+          ) : displayedResults.length > 0 ? (
+            displayedResults.map((item) => (
               <SearchItemCard 
                 key={item.id} 
                 item={item} 
@@ -172,7 +277,7 @@ export default function SearchUnifiedPage() {
           ) : (
             <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
               <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">Nenhum destaque encontrado. Tente pesquisar!</p>
+              <p className="text-gray-600">Nenhum resultado encontrado. Tente ajustar sua busca ou filtros.</p>
             </Card>
           )}
         </div>
