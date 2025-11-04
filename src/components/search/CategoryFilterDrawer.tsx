@@ -16,51 +16,78 @@ import { Filter, X } from "lucide-react";
 import { MenuCategory } from "@/types/supabase";
 
 interface CategoryFilterDrawerProps {
-  selectedCategoryIds: string[];
+  selectedCategoryIds: string[]; // Estes são os IDs que o pai *já* tem como excluídos
   onApply: (excludedIds: string[]) => void;
   allCategories: MenuCategory[];
 }
+
+// Helper para normalizar nomes de categorias (minúsculas e sem acentos)
+const normalizeCategoryName = (name: string) =>
+  name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 export default function CategoryFilterDrawer({
   selectedCategoryIds,
   onApply,
   allCategories,
 }: CategoryFilterDrawerProps) {
-  const [localExcludedCategoryIds, setLocalExcludedCategoryIds] =
-    useState<string[]>(selectedCategoryIds);
+  // Estado local para os nomes normalizados das categorias que o usuário deseja excluir
+  const [localExcludedNormalizedNames, setLocalExcludedNormalizedNames] =
+    useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    setLocalExcludedCategoryIds(selectedCategoryIds);
-  }, [selectedCategoryIds]);
-
-  const uniqueAndNormalizedCategories = useMemo(() => {
-    const seenNames = new Set<string>();
-    const filtered: MenuCategory[] = [];
-
+  // Mapeia todos os IDs de categorias para seus nomes normalizados
+  const categoryIdToNormalizedNameMap = useMemo(() => {
+    const map = new Map<string, string>();
     allCategories.forEach(category => {
-      // Normaliza o nome da categoria para comparação (minúsculas e sem acentos)
-      const normalizedName = category.name
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-
-      if (!seenNames.has(normalizedName)) {
-        seenNames.add(normalizedName);
-        filtered.push(category);
-      }
+      map.set(category.id, normalizeCategoryName(category.name));
     });
-    return filtered;
+    return map;
   }, [allCategories]);
 
+  // Cria uma lista de categorias únicas para exibição no ToggleGroup
+  const uniqueDisplayCategories = useMemo(() => {
+    const seenNormalizedNames = new Set<string>();
+    const displayCategories: { normalizedName: string; originalName: string }[] = [];
+
+    allCategories.forEach(category => {
+      const normalized = normalizeCategoryName(category.name);
+      if (!seenNormalizedNames.has(normalized)) {
+        seenNormalizedNames.add(normalized);
+        displayCategories.push({ normalizedName: normalized, originalName: category.name });
+      }
+    });
+    return displayCategories;
+  }, [allCategories]);
+
+  // Inicializa o estado local de nomes excluídos com base nos IDs já excluídos pelo pai
+  useEffect(() => {
+    const initialNormalizedNames = new Set<string>();
+    selectedCategoryIds.forEach(id => {
+      const normalizedName = categoryIdToNormalizedNameMap.get(id);
+      if (normalizedName) {
+        initialNormalizedNames.add(normalizedName);
+      }
+    });
+    setLocalExcludedNormalizedNames(Array.from(initialNormalizedNames));
+  }, [selectedCategoryIds, categoryIdToNormalizedNameMap]);
+
   const handleApplyFilter = () => {
-    onApply(localExcludedCategoryIds);
+    // Converte os nomes normalizados selecionados de volta para *todos* os IDs correspondentes
+    const finalExcludedIds: string[] = [];
+    localExcludedNormalizedNames.forEach(normalizedName => {
+      allCategories.forEach(category => {
+        if (normalizeCategoryName(category.name) === normalizedName) {
+          finalExcludedIds.push(category.id);
+        }
+      });
+    });
+    onApply(finalExcludedIds);
     setIsOpen(false);
   };
 
   const handleClearFilter = () => {
-    setLocalExcludedCategoryIds([]);
-    onApply([]);
+    setLocalExcludedNormalizedNames([]);
+    onApply([]); // Limpa todos os filtros
     setIsOpen(false);
   };
 
@@ -94,22 +121,22 @@ export default function CategoryFilterDrawer({
           </Label>
           <ToggleGroup
             type="multiple"
-            value={localExcludedCategoryIds}
-            onValueChange={setLocalExcludedCategoryIds}
+            value={localExcludedNormalizedNames} // Agora o valor é o nome normalizado
+            onValueChange={setLocalExcludedNormalizedNames}
             className="flex flex-wrap gap-2 justify-start"
           >
-            {uniqueAndNormalizedCategories.map((category) => (
+            {uniqueDisplayCategories.map((category) => (
               <ToggleGroupItem
-                key={category.id}
-                value={category.id}
-                aria-label={`Toggle ${category.name}`}
+                key={category.normalizedName} // Chave pelo nome normalizado
+                value={category.normalizedName} // Valor é o nome normalizado
+                aria-label={`Toggle ${category.originalName}`}
                 className={`rounded-full px-4 py-2 text-sm ${
-                  localExcludedCategoryIds.includes(category.id)
+                  localExcludedNormalizedNames.includes(category.normalizedName)
                     ? "bg-highlight text-white hover:bg-highlight/90"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                {category.name}
+                {category.originalName} {/* Exibe o nome original */}
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
