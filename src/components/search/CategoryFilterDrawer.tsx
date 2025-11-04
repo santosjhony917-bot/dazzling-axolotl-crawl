@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ToggleGroupItem } from "@/components/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Filter } from "lucide-react";
 import { MenuCategory } from "@/types/supabase"; // Importa o tipo MenuCategory do supabase.ts
 
@@ -74,7 +74,12 @@ const CategoryFilterDrawer: React.FC<CategoryFilterDrawerProps> = ({
           <Label className="mb-2 block text-sm font-medium text-gray-700">
             Categorias a Excluir
           </Label>
-          <div className="flex flex-wrap gap-2">
+          <ToggleGroup
+            type="multiple"
+            value={localExcludedCategoryIds}
+            onValueChange={setLocalExcludedCategoryIds}
+            className="flex flex-wrap gap-2 justify-start"
+          >
             {allCategories.map((category) => (
               <ToggleGroupItem
                 key={category.id}
@@ -85,12 +90,11 @@ const CategoryFilterDrawer: React.FC<CategoryFilterDrawerProps> = ({
                     ? "bg-highlight text-white hover:bg-highlight/90"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
-                onClick={() => handleToggleCategory(category.id)}
               >
                 {category.name}
               </ToggleGroupItem>
             ))}
-          </div>
+          </ToggleGroup>
         </div>
         <DrawerFooter>
           <Button onClick={handleApplyFilter} variant="highlight">
