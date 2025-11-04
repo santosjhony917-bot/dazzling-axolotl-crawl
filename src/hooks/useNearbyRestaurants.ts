@@ -24,12 +24,11 @@ interface UseNearbyRestaurantsOptions {
   userLon: number | null;
   enabled: boolean;
   searchQuery?: string;
-  maxDistanceKm?: number; // Adicionado
 }
 
-export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, maxDistanceKm }: UseNearbyRestaurantsOptions) => {
-  const { data, isLoading, error, refetch } = useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery, maxDistanceKm],
+export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery }: UseNearbyRestaurantsOptions) => {
+  return useQuery<RestaurantWithDistance[], Error>({
+    queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
         throw new Error('User location is not available.');
@@ -38,7 +37,7 @@ export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, m
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: userLat,
         user_lng: userLon,
-        max_distance_km: maxDistanceKm || 10, // Default distance
+        max_distance_km: 10, // Default distance
         search_query: searchQuery || null,
       });
 
@@ -49,11 +48,4 @@ export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery, m
     },
     enabled: enabled && userLat !== null && userLon !== null,
   });
-
-  return {
-    data: data || [],
-    isLoading,
-    error: error ? error.message : null, // Retorna a mensagem de erro como string ou null
-    refetch, // Adicionado refetch
-  };
 };

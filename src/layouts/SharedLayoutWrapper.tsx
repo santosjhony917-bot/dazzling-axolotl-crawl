@@ -10,7 +10,7 @@ const SharedLayoutWrapper: React.FC = () => {
   const { restaurant, isPremium } = useAuthData(); // Obter dados do restaurante e isPremium
 
   // Determine if the current route is one that should display the client bottom navigation bar
-  const clientRoutes = ['/home', '/search', '/favorites', '/profile', '/search-unified'];
+  const clientRoutes = ['/home', '/search', '/favorites', '/profile', '/restaurant-results'];
   const showClientNav = clientRoutes.some(route => location.pathname === route || location.pathname.startsWith(route + '/'));
 
   // Determine if the current route is a restaurant owner route

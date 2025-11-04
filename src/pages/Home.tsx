@@ -264,7 +264,7 @@ const Home: React.FC = () => {
                   className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md"
                 >
                   <p className="font-semibold">Erro ao carregar restaurantes:</p>
-                  <p>{restaurantsError}</p> {/* Corrigido: remover .message */}
+                  <p>{restaurantsError.message}</p> {/* Corrigido: acessar .message */}
                   <Button onClick={() => refetchRestaurants()} className="mt-4">Tentar Novamente</Button>
                 </motion.div>
               ) : restaurants && restaurants.length > 0 ? (
