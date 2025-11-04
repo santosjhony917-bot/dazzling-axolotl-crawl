@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/context/AuthContext';
-import { useRestaurant } from '@/context/RestaurantContext';
+import { useAuth } from '@/hooks/useAuth';
+import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ const weekOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'frid
 
 export default function ProfileSettingsPage() {
   const { user } = useAuth();
-  const { restaurant, loading, updateRestaurant } = useRestaurant();
+  const { restaurant, loading, updateRestaurant } = useRestaurantProfile();
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -95,7 +95,7 @@ export default function ProfileSettingsPage() {
       image_url: imageUrl,
       cover_image_url: coverImageUrl,
       payment_methods: paymentMethods,
-      social_networks: socialNetworks,
+      social_networks: socialNetworks as any,
     };
 
     try {
