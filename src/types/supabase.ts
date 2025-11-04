@@ -540,6 +540,7 @@ export interface Database {
         Args: {
           search_query: string
           p_limit?: number
+          excluded_category_ids?: string[]
         }
         Returns: {
           item_id: string
@@ -550,6 +551,8 @@ export interface Database {
           restaurant_id: string | null
           restaurant_name: string
           restaurant_category: string | null
+          item_category_id: string
+          item_category_name: string
         }[]
       }
       swap_category_order: {
