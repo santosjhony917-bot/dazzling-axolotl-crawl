@@ -24,7 +24,7 @@ interface UseNearbyRestaurantsOptions {
   maxDistanceKm?: number;
   searchQuery?: string;
   enabled?: boolean;
-  includedCategories?: string[];
+  includedCategories?: string[]; // A propriedade 'includedCategories' está aqui.
 }
 
 export const useNearbyRestaurants = ({
@@ -53,7 +53,7 @@ export const useNearbyRestaurants = ({
           user_lng: userLon,
           max_distance_km: maxDistanceKm,
           search_query: searchQuery || null,
-          included_categories: includedCategories.length > 0 ? includedCategories : null, // Passa as categorias para a função RPC
+          included_categories: includedCategories.length > 0 ? includedCategories : null,
         });
 
       if (error) {
