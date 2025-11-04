@@ -32,6 +32,7 @@ interface SearchItem {
   category?: string | null;
   city?: string | null;
   distance_km?: number; // Adicionado para ordenação de restaurantes
+  restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
 }
 
 export default function SearchUnifiedPage() {
@@ -109,6 +110,7 @@ export default function SearchUnifiedPage() {
           type: 'dish',
           category: null,
           city: null,
+          restaurantName: item.restaurant_name, // Passando o nome do restaurante
         }));
     } else { // activeSearchType === 'restaurant'
       processedResults = (restaurantSearchResults || [])
