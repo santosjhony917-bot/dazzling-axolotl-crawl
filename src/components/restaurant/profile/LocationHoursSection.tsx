@@ -9,7 +9,8 @@ interface LocationHoursSectionProps {
   restaurant: Restaurant | null;
   isPremium: boolean;
   currentSchedule: WeekSchedule;
-  onEditHours: () => void;
+  setIsAddressDialogOpen: (isOpen: boolean) => void; // Adicionado
+  setIsHoursDialogOpen: (isOpen: boolean) => void;   // Adicionado
 }
 
 const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
@@ -50,14 +51,14 @@ const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
   return "Horários personalizados";
 };
 
-export const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({ currentSchedule, onEditHours }) => {
+export const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({ currentSchedule, setIsAddressDialogOpen, setIsHoursDialogOpen }) => {
   const summary = formatScheduleSummary(currentSchedule);
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-lg font-semibold">Horários de Funcionamento</CardTitle>
-        <Button variant="ghost" size="icon" onClick={onEditHours}>
+        <Button variant="ghost" size="icon" onClick={() => setIsHoursDialogOpen(true)}>
           <Pencil className="h-4 w-4" />
         </Button>
       </CardHeader>
