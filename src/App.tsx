@@ -21,7 +21,6 @@ import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
 import FullMenuPage from '@/pages/FullMenuPage'; // Adicionado FullMenuPage
-import SearchResultsPage from './pages/SearchResultsPage';
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
