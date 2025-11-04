@@ -5,7 +5,7 @@ import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Loader2, Plus, X } from 'lucide-react';
 import { WeekSchedule, DaySchedule, TimeSlot } from '@/types/schedule';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface EditHoursDialogProps {
@@ -126,16 +126,16 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] flex flex-col shadow-soft-xl">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] grid grid-rows-[auto_1fr_auto] p-0 shadow-soft-xl">
+        <DialogHeader className="p-6 pb-4">
           <DialogTitle className="text-xl font-bold text-primary">Horários de Funcionamento</DialogTitle>
           <DialogDescription>
             Defina os horários em que seu restaurante estará aberto.
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="flex-1 pr-4 min-h-0">
-          <div className="space-y-4">
+        <ScrollArea className="px-6">
+          <div className="space-y-4 py-4">
             {daysOfWeek.map(day => (
               <DayScheduleEditor
                 key={day}
@@ -147,7 +147,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
           </div>
         </ScrollArea>
 
-        <DialogFooter className="mt-4">
+        <DialogFooter className="p-6 pt-4">
           <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             Cancelar
           </Button>
