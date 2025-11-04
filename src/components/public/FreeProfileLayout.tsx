@@ -8,7 +8,7 @@ import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { formatAddressSummary } from '@/lib/utils';
-import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a função de status
+import { getRestaurantDetailedStatus } from '@/lib/schedule'; // Importando a função de status
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantInfo from './RestaurantInfo';
@@ -19,14 +19,13 @@ import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // 
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  toggleFavorite: () => void; // NOVO
-  isFavoriteMutating: boolean; // NOVO
-  isCompact?: boolean; // NOVO: Prop para modo compacto
+  toggleFavorite: () => void;
+  isFavoriteMutating: boolean;
 }
 
-const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
-  const navigate = useNavigate();
+const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
@@ -38,6 +37,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       restaurant.state
     );
   }, [restaurant]);
+
+  const openStatus = useMemo(() => {
+    return getRestaurantDetailedStatus(restaurant.opening_hours);
+  }, [restaurant.opening_hours]);
 
   const handleShare = () => {
     if (navigator.share) {
@@ -71,12 +74,12 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
 
   // Classes condicionais para modo compacto
-  const h1SizeClass = isCompact ? "text-2xl" : "text-3xl md:text-4xl";
-  const pSizeClass = isCompact ? "text-sm" : "text-sm md:text-base";
-  const headerPaddingClass = isCompact ? "px-4 pb-6" : "px-4 pb-8"; // Ajustado de px-3 para px-4
-  const containerPtClass = isCompact ? "pt-16" : "pt-20";
+  const h1SizeClass = "text-3xl md:text-4xl";
+  const pSizeClass = "text-sm md:text-base";
+  const headerPaddingClass = "px-4 pb-8"; // Ajustado de px-3 para px-4
+  const containerPtClass = "pt-20";
   // const contentMxClass = isCompact ? "mx-3" : "mx-auto"; // Removido, será tratado no div principal
-  const contentPxClass = isCompact ? "px-4" : "px-4"; // Ajustado de px-3 para px-4
+  const contentPxClass = "px-4"; // Ajustado de px-3 para px-4
 
   return (
     <div className="min-h-screen bg-background-light">
@@ -92,10 +95,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
 
       {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
       <div className={cn(
-        {
-          "max-w-sm mx-auto": isCompact, // Aplica max-w-sm e mx-auto para o modo compacto
-          "container mx-auto": !isCompact // Usa container para o modo não compacto
-        },
+        "container mx-auto", // Simplificado para usar sempre o container mx-auto
         containerPtClass
       )}> {/* Mantém o padding superior */}
         <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
@@ -130,10 +130,10 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           <span
             className={cn(
               "px-3 py-1 rounded-full text-xs font-semibold mb-4",
-              restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              openStatus.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
             )}
           >
-            {restaurant.statusText}
+            {openStatus.statusText}
           </span>
         </div>
 

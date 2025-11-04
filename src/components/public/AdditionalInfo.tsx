@@ -102,10 +102,10 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = ({ restaurant }) => {
         {openingHours && Object.keys(openingHours).length > 0 && (
           <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-start">
-              <Clock className="w-5 h-5 text-highlight mt-1 flex-shrink-0" />
+              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Horário de Funcionamento</p>
-                <OpeningHoursDisplay openingHours={openingHours} />
+                <OpeningHoursDisplay schedule={openingHours} />
               </div>
             </div>
           </div>

@@ -3,8 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import { WeekSchedule, DaySchedule } from '@/types/schedule';
+import { Restaurant } from '@/types/supabase';
 
 interface LocationHoursSectionProps {
+  restaurant: Restaurant | null;
+  isPremium: boolean;
   currentSchedule: WeekSchedule;
   onEditHours: () => void;
 }

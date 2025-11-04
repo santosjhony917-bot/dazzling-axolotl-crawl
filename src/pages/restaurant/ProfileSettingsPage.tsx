@@ -6,7 +6,7 @@ import { Loader2, Settings, Utensils, Crown } from 'lucide-react';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
 import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
-import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
+import { LocationHoursSection } from '@/components/restaurant/profile/LocationHoursSection';
 import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
 import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
@@ -24,7 +24,7 @@ import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase';
 import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
+import { getRestaurantDetailedStatus } from '@/lib/schedule';
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -151,7 +151,7 @@ export default function ProfileSettingsPage() {
   }
   
   const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
-  const openStatus = getRestaurantOpenStatus(currentSchedule);
+  const openStatus = getRestaurantDetailedStatus(currentSchedule);
   
   // CORREÇÃO 2: Usando 'as unknown as string[]'
   const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
