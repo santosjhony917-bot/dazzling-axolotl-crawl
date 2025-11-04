@@ -24,7 +24,7 @@ interface UseNearbyRestaurantsOptions {
   maxDistanceKm?: number;
   searchQuery?: string;
   enabled?: boolean;
-  includedCategories?: string[]; // Renomeado para 'includedCategories'
+  includedCategories?: string[]; // Esta propriedade é crucial e está sendo adicionada/confirmada aqui.
 }
 
 export const useNearbyRestaurants = ({
@@ -33,7 +33,7 @@ export const useNearbyRestaurants = ({
   maxDistanceKm = 10,
   searchQuery,
   enabled = true,
-  includedCategories = [], // Agora aceita categorias a serem incluídas
+  includedCategories = [],
 }: UseNearbyRestaurantsOptions) => {
   const {
     data,
@@ -41,7 +41,7 @@ export const useNearbyRestaurants = ({
     error,
     refetch
   } = useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, includedCategories], // Atualizado queryKey
+    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, includedCategories],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
         throw new Error('User location is not available.');
