@@ -24,7 +24,7 @@ interface UseNearbyRestaurantsOptions {
   maxDistanceKm?: number;
   searchQuery?: string;
   enabled?: boolean;
-  excludedCategories?: string[]; // Propriedade 'excludedCategories' adicionada aqui
+  includedCategories?: string[]; // Renomeado para 'includedCategories'
 }
 
 export const useNearbyRestaurants = ({
@@ -33,7 +33,7 @@ export const useNearbyRestaurants = ({
   maxDistanceKm = 10,
   searchQuery,
   enabled = true,
-  excludedCategories = [],
+  includedCategories = [], // Agora aceita categorias a serem incluídas
 }: UseNearbyRestaurantsOptions) => {
   const {
     data,
@@ -41,7 +41,7 @@ export const useNearbyRestaurants = ({
     error,
     refetch
   } = useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, excludedCategories],
+    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, includedCategories], // Atualizado queryKey
     queryFn: async () => {
       if (userLat === null || userLon === null) {
         throw new Error('User location is not available.');
@@ -61,11 +61,11 @@ export const useNearbyRestaurants = ({
         throw error;
       }
 
-      // Filtrar os resultados no cliente se houver categorias excluídas
       let filteredData = data;
-      if (excludedCategories.length > 0) {
+      // Agora filtra para categorias INCLUÍDAS
+      if (includedCategories.length > 0) {
         filteredData = data.filter(restaurant => 
-          restaurant.category && !excludedCategories.includes(restaurant.category)
+          restaurant.category && includedCategories.includes(restaurant.category)
         );
       }
 

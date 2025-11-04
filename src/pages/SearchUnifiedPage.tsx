@@ -22,21 +22,19 @@ import { useMenuCategories } from '@/hooks/useMenuCategories';
 
 type SearchType = 'dish' | 'restaurant';
 
-// Definindo o tipo SearchItem para compatibilidade com SearchItemCard
 interface SearchItem {
   id: string;
   name: string;
   description: string | null;
-  price?: number; // Apenas para pratos
+  price?: number;
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
-  // Campos adicionais para restaurante
   category?: string | null;
   city?: string | null;
-  distance_km?: number; // Adicionado para ordenação de restaurantes
-  restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
-  itemCategoryName?: string | null; // Adicionado para exibir a categoria do item
-  itemCategoryId?: string; // Adicionado para o ID da categoria do item
+  distance_km?: number;
+  restaurantName?: string | null;
+  itemCategoryName?: string | null;
+  itemCategoryId?: string;
 }
 
 export default function SearchUnifiedPage() {
@@ -53,17 +51,15 @@ export default function SearchUnifiedPage() {
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
 
-  // Estados para os filtros
   const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
-  const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]); // Renomeado para clareza
-  const [excludedRestaurantCategories, setExcludedRestaurantCategories] = useState<string[]>([]); // Novo estado para categorias de restaurante
+  const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
+  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
 
   const userLat = location.latitude;
   const userLon = location.longitude;
 
-  // Hooks de busca
   const {
     items: dishSearchResults,
     loading: dishesLoading,
@@ -73,7 +69,7 @@ export default function SearchUnifiedPage() {
     searchQuery,
     enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
     limit: 50,
-    excludedCategoryIds: excludedDishCategoryIds, // Passa as categorias de prato excluídas
+    excludedCategoryIds: excludedDishCategoryIds,
   });
 
   const {
@@ -86,18 +82,16 @@ export default function SearchUnifiedPage() {
     userLon,
     enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
     searchQuery,
-    excludedCategories: excludedRestaurantCategories, // Passa as categorias de restaurante excluídas
+    includedCategories: includedRestaurantCategories, // Passa as categorias de restaurante a serem INCLUÍDAS
   });
 
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
   const [resultsLoading, setResultsLoading] = useState(true);
 
-  // Atualiza o estado de carregamento geral
   useEffect(() => {
     setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || categoriesLoading);
   }, [isLocationLoading, dishesLoading, restaurantsLoading, categoriesLoading]);
 
-  // Efeito para processar e ordenar os resultados
   useEffect(() => {
     let processedResults: SearchItem[] = [];
 
@@ -109,7 +103,7 @@ export default function SearchUnifiedPage() {
           const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
           return matchesMinPrice && matchesMaxPrice;
         })
-        .sort((a, b) => a.item_price - b.item_price) // Ordenar por preço crescente
+        .sort((a, b) => a.item_price - b.item_price)
         .map(item => ({
           id: item.item_id,
           name: item.item_name,
@@ -119,9 +113,9 @@ export default function SearchUnifiedPage() {
           type: 'dish',
           category: null,
           city: null,
-          restaurantName: item.restaurant_name, // Passando o nome do restaurante
-          itemCategoryName: item.item_category_name, // Passando o nome da categoria do item
-          itemCategoryId: item.item_category_id, // Passando o ID da categoria do item
+          restaurantName: item.restaurant_name,
+          itemCategoryName: item.item_category_name,
+          itemCategoryId: item.item_category_id,
         }));
     } else { // activeSearchType === 'restaurant'
       processedResults = (restaurantSearchResults || [])
@@ -129,7 +123,7 @@ export default function SearchUnifiedPage() {
           const distance = restaurant.distance_km;
           return maxDistanceFilter === null || distance <= maxDistanceFilter;
         })
-        .sort((a, b) => b.distance_km - a.distance_km) // Ordenar por distância decrescente
+        .sort((a, b) => b.distance_km - a.distance_km)
         .map(restaurant => ({
           id: restaurant.id,
           name: restaurant.name,
@@ -150,18 +144,16 @@ export default function SearchUnifiedPage() {
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
-    excludedDishCategoryIds, // Add excludedDishCategoryIds to dependencies
-    excludedRestaurantCategories, // Adicionado excludedRestaurantCategories
+    excludedDishCategoryIds,
+    includedRestaurantCategories, // Adicionado includedRestaurantCategories
   ]);
 
-  // Lógica de Busca
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (userLat === null || userLon === null) {
       showError("Aguarde enquanto sua localização é definida para realizar a busca.");
       return;
     }
-    // Aciona o refetch para ambos os tipos de busca com a query atual
     refetchDishes();
     refetchRestaurants();
   };
@@ -187,7 +179,7 @@ export default function SearchUnifiedPage() {
     setMaxPriceFilter(max);
     showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
-    refetchDishes(); // Refetch dishes after applying price filter
+    refetchDishes();
   };
 
   const handleSearchNearby = () => {
@@ -202,19 +194,19 @@ export default function SearchUnifiedPage() {
     setMaxDistanceFilter(distance);
     showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
-    refetchRestaurants(); // Refetch restaurants after applying distance filter
+    refetchRestaurants();
   };
 
-  const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => { // Renomeado
+  const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    refetchDishes(); // Refetch dishes after applying category filter
+    refetchDishes();
   };
 
-  const handleApplyRestaurantCategoryFilter = (newExcludedCategories: string[]) => { // Novo handler
-    setExcludedRestaurantCategories(newExcludedCategories);
+  const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => { // Alterado para categorias INCLUÍDAS
+    setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    refetchRestaurants(); // Refetch restaurants after applying category filter
+    refetchRestaurants();
   };
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
@@ -224,15 +216,14 @@ export default function SearchUnifiedPage() {
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
-    setExcludedDishCategoryIds([]); // Limpa filtro de pratos
-    setExcludedRestaurantCategories([]); // Limpa filtro de restaurantes
+    setExcludedDishCategoryIds([]);
+    setIncludedRestaurantCategories([]); // Limpa filtro de restaurantes (agora inclusivo)
   };
   
   const handleBack = () => {
     navigate(-1);
   };
 
-  // Extrair categorias únicas de restaurantes para o filtro
   const allRestaurantCategories = useMemo(() => {
     const categories = new Set<string>();
     restaurantSearchResults?.forEach(r => {
@@ -240,14 +231,12 @@ export default function SearchUnifiedPage() {
         categories.add(r.category);
       }
     });
-    return Array.from(categories).map(cat => ({ id: cat, name: cat })); // Adaptar para o formato esperado pelo CategoryFilterDrawer
+    return Array.from(categories).map(cat => ({ id: cat, name: cat }));
   }, [restaurantSearchResults]);
 
-  // Renderiza o conteúdo da página
   const pageContent = (
     <div className="p-4 space-y-6">
       
-      {/* Barra de Busca e Filtro */}
       <form onSubmit={handleSearch} className="flex gap-2">
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -269,7 +258,6 @@ export default function SearchUnifiedPage() {
         </Button>
       </form>
       
-      {/* Ações Rápidas (Filtros) - Transformadas em Chips Elegantes */}
       <div className="flex gap-2">
         <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
           <Button 
@@ -291,11 +279,9 @@ export default function SearchUnifiedPage() {
         </motion.div>
       </div>
       
-      {/* Toggle Pratos / Restaurantes */}
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
-      {/* Resultados da Busca e Botão de Filtro */}
-      <div className="flex items-center justify-between"> {/* Contêiner flexível para alinhar título e botão */}
+      <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-primary">
           Resultados da Busca
         </h2>
@@ -304,13 +290,15 @@ export default function SearchUnifiedPage() {
             selectedCategoryIds={excludedDishCategoryIds}
             onApply={handleApplyDishCategoryFilter}
             allCategories={allMenuCategories}
+            filterMode="exclude" // Explicitamente 'exclude' para pratos
           />
         )}
         {activeSearchType === 'restaurant' && (
           <CategoryFilterDrawer
-            selectedCategoryIds={excludedRestaurantCategories}
+            selectedCategoryIds={includedRestaurantCategories} // Passa as categorias a serem INCLUÍDAS
             onApply={handleApplyRestaurantCategoryFilter}
             allCategories={allRestaurantCategories}
+            filterMode="include" // Explicitamente 'include' para restaurantes
           />
         )}
       </div>
@@ -324,7 +312,6 @@ export default function SearchUnifiedPage() {
       >
         <div className="space-y-3">
           {resultsLoading ? (
-            // Skeletons para o estado de carregamento
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} className="h-24 w-full rounded-xl" />
             ))
@@ -345,7 +332,6 @@ export default function SearchUnifiedPage() {
         </div>
       </motion.div>
       
-      {/* Modais de Filtro */}
       <SearchByPriceModal
         isOpen={isPriceModalOpen}
         onClose={() => setIsPriceModalOpen(false)}
@@ -361,7 +347,6 @@ export default function SearchUnifiedPage() {
 
   return (
     <>
-      {/* Cabeçalho Manual */}
       <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button
           variant="ghost"
