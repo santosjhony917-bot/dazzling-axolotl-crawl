@@ -13,61 +13,51 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Filter } from "lucide-react";
-import { MenuCategory } from "@/types/supabase"; // Importa o tipo MenuCategory do supabase.ts
+import { MenuCategory } from "@/types/supabase";
 
 interface CategoryFilterDrawerProps {
-  selectedCategoryIds: string[]; // IDs das categorias atualmente EXCLUÍDAS
+  selectedCategoryIds: string[];
   onApply: (excludedIds: string[]) => void;
-  allCategories: MenuCategory[]; // Todas as categorias disponíveis
+  allCategories: MenuCategory[];
 }
 
-const CategoryFilterDrawer: React.FC<CategoryFilterDrawerProps> = ({
+export default function CategoryFilterDrawer({
   selectedCategoryIds,
   onApply,
   allCategories,
-}) => {
-  const [open, setOpen] = useState(false);
-  const [localExcludedCategoryIds, setLocalExcludedCategoryIds] = useState<string[]>(selectedCategoryIds);
+}: CategoryFilterDrawerProps) {
+  const [localExcludedCategoryIds, setLocalExcludedCategoryIds] =
+    useState<string[]>(selectedCategoryIds);
 
   useEffect(() => {
     setLocalExcludedCategoryIds(selectedCategoryIds);
   }, [selectedCategoryIds]);
 
-  const handleToggleCategory = (categoryId: string) => {
-    setLocalExcludedCategoryIds((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
-    );
-  };
-
   const handleApplyFilter = () => {
     onApply(localExcludedCategoryIds);
-    setOpen(false);
   };
 
   const handleClearFilter = () => {
     setLocalExcludedCategoryIds([]);
     onApply([]);
-    setOpen(false);
   };
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer>
       <DrawerTrigger asChild>
         <Button
           variant="outline"
-          size="sm" // Alterado para 'sm' para um botão mais compacto
-          className="border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all" // Removido w-full
+          className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all flex-shrink-0"
         >
-          <Filter className="w-4 h-4 mr-1 text-highlight" /> Categorias
+          <Filter className="w-5 h-5 mr-2 text-highlight" /> Categorias
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Filtrar por Categoria</DrawerTitle>
+          <DrawerTitle>Filtrar por Categorias</DrawerTitle>
           <DrawerDescription>
-            Selecione as categorias que você deseja excluir da busca de pratos.
+            Selecione as categorias que você deseja excluir dos resultados da
+            busca.
           </DrawerDescription>
         </DrawerHeader>
         <div className="p-4 pb-0">
@@ -97,19 +87,15 @@ const CategoryFilterDrawer: React.FC<CategoryFilterDrawerProps> = ({
           </ToggleGroup>
         </div>
         <DrawerFooter>
-          <Button onClick={handleApplyFilter} variant="highlight">
-            Aplicar Filtros
-          </Button>
-          <Button onClick={handleClearFilter} variant="outline">
-            Limpar Filtros
+          <Button onClick={handleApplyFilter}>Aplicar Filtro</Button>
+          <Button variant="outline" onClick={handleClearFilter}>
+            Limpar Filtro
           </Button>
           <DrawerClose asChild>
-            <Button variant="ghost">Cancelar</Button>
+            <Button variant="outline">Cancelar</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
-};
-
-export default CategoryFilterDrawer;
+}
