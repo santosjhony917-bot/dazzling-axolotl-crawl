@@ -24,7 +24,7 @@ interface UseNearbyRestaurantsOptions {
   maxDistanceKm?: number;
   searchQuery?: string;
   enabled?: boolean;
-  includedCategories?: string[]; // Esta propriedade é crucial e está sendo adicionada/confirmada aqui.
+  includedCategories?: string[];
 }
 
 export const useNearbyRestaurants = ({
@@ -47,29 +47,20 @@ export const useNearbyRestaurants = ({
         throw new Error('User location is not available.');
       }
 
-      let query = supabase
+      const { data, error } = await supabase
         .rpc('find_nearby_restaurants', {
           user_lat: userLat,
           user_lng: userLon,
           max_distance_km: maxDistanceKm,
           search_query: searchQuery || null,
+          included_categories: includedCategories.length > 0 ? includedCategories : null, // Passa as categorias para a função RPC
         });
-
-      const { data, error } = await query;
 
       if (error) {
         throw error;
       }
 
-      let filteredData = data;
-      // Agora filtra para categorias INCLUÍDAS
-      if (includedCategories.length > 0) {
-        filteredData = data.filter(restaurant => 
-          restaurant.category && includedCategories.includes(restaurant.category)
-        );
-      }
-
-      return filteredData || [];
+      return data || [];
     },
     enabled: enabled && userLat !== null && userLon !== null,
     staleTime: 1000 * 60 * 5, // 5 minutes
