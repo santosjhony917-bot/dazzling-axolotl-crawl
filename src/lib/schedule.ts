@@ -17,7 +17,11 @@ const formatTime = (time: string): string => time;
  * @param schedule A agenda semanal do restaurante.
  * @returns Um objeto com isOpen (booleano), statusText (string) e nextOpenTime (string | null).
  */
-export const getRestaurantDetailedStatus = (schedule: WeekSchedule) => {
+export const getRestaurantDetailedStatus = (schedule: WeekSchedule | null) => {
+  if (!schedule || !Array.isArray(schedule)) { // Adicionado: Verifica se schedule é nulo ou não é um array
+    return { isOpen: false, statusText: 'Fechado', nextOpenTime: null };
+  }
+
   const today = new Date();
   const currentDayDisplayName = getDayDisplayName(today);
   const currentDaySchedule: DaySchedule | undefined = schedule.find(d => d.day === currentDayDisplayName);
