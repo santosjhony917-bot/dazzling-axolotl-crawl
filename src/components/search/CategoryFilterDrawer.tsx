@@ -13,12 +13,19 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Filter, X } from "lucide-react";
-import { MenuCategory } from "@/types/supabase";
+// Não precisamos mais do MenuCategory aqui, pois a interface será mais genérica
+// import { MenuCategory } from "@/types/supabase"; 
+
+// Define a interface mais genérica para categorias que o drawer pode exibir
+interface CategoryDisplay {
+  id: string;
+  name: string;
+}
 
 interface CategoryFilterDrawerProps {
   selectedCategoryIds: string[]; // Estes são os IDs que o pai *já* tem como excluídos
   onApply: (excludedIds: string[]) => void;
-  allCategories: MenuCategory[];
+  allCategories: CategoryDisplay[]; // Agora aceita um tipo mais genérico
 }
 
 // Helper para normalizar nomes de categorias (minúsculas e sem acentos)

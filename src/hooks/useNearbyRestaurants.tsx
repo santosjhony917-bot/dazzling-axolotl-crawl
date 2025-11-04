@@ -1,62 +1,79 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useCallback } from "react";
-import { RestaurantWithDistance } from "@/types/supabase"; // Importando o tipo correto
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
-// Define the structure of the restaurant data returned by the RPC
-// NOTE: The RPC returns a structure that is essentially RestaurantWithDistance
-export interface NearbyRestaurant extends RestaurantWithDistance {
-  // The RPC returns all columns of 'restaurants' plus 'distance_km'
-  // We extend RestaurantWithDistance to ensure compatibility.
+export interface RestaurantWithDistance {
+  id: string;
+  user_id: string | null;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  cover_image_url: string | null;
+  plan: 'free' | 'basic' | 'premium';
+  created_at: string;
+  latitude: number | null;
+  longitude: number | null;
+  category: string | null;
+  city: string | null;
+  state: string | null;
+  distance_km: number;
 }
 
-interface UseNearbyRestaurantsParams {
+interface UseNearbyRestaurantsOptions {
   userLat: number | null;
   userLon: number | null;
   maxDistanceKm?: number;
   searchQuery?: string;
-  enabled: boolean;
+  enabled?: boolean;
+  excludedCategories?: string[]; // Propriedade 'excludedCategories' adicionada aqui
 }
 
-export function useNearbyRestaurants({
+export const useNearbyRestaurants = ({
   userLat,
   userLon,
   maxDistanceKm = 10,
   searchQuery,
-  enabled,
-}: UseNearbyRestaurantsParams) {
-  const fetchNearbyRestaurants = useCallback(async () => {
-    if (userLat === null || userLon === null) {
-      throw new Error("User location is required.");
-    }
+  enabled = true,
+  excludedCategories = [],
+}: UseNearbyRestaurantsOptions) => {
+  const {
+    data,
+    isLoading,
+    error,
+    refetch
+  } = useQuery<RestaurantWithDistance[], Error>({
+    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, excludedCategories],
+    queryFn: async () => {
+      if (userLat === null || userLon === null) {
+        throw new Error('User location is not available.');
+      }
 
-    const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-      user_lat: userLat,
-      user_lng: userLon,
-      max_distance_km: maxDistanceKm,
-      search_query: searchQuery || null,
-    });
+      let query = supabase
+        .rpc('find_nearby_restaurants', {
+          user_lat: userLat,
+          user_lng: userLon,
+          max_distance_km: maxDistanceKm,
+          search_query: searchQuery || null,
+        });
 
-    if (error) {
-      throw new Error(error.message);
-    }
-    
-    // Casting the result to the correct type
-    return data as NearbyRestaurant[];
-  }, [userLat, userLon, maxDistanceKm, searchQuery]);
+      const { data, error } = await query;
 
-  const { data, isLoading, error, refetch } = useQuery<NearbyRestaurant[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery],
-    queryFn: fetchNearbyRestaurants,
+      if (error) {
+        throw error;
+      }
+
+      // Filtrar os resultados no cliente se houver categorias excluídas
+      let filteredData = data;
+      if (excludedCategories.length > 0) {
+        filteredData = data.filter(restaurant => 
+          restaurant.category && !excludedCategories.includes(restaurant.category)
+        );
+      }
+
+      return filteredData || [];
+    },
     enabled: enabled && userLat !== null && userLon !== null,
-    staleTime: 5 * 60 * 1000, // 5 minutos
-    gcTime: 10 * 60 * 1000, // 10 minutos (substitui cacheTime)
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  return {
-    restaurants: data || [],
-    loading: isLoading,
-    error: error ? error.message : null,
-    refetch,
-  };
-}
+  return { data, isLoading, error, refetch };
+};

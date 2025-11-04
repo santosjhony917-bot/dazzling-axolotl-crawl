@@ -57,7 +57,8 @@ export default function SearchUnifiedPage() {
   const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
-  const [excludedCategoryIds, setExcludedCategoryIds] = useState<string[]>([]); // New state for excluded categories
+  const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]); // Renomeado para clareza
+  const [excludedRestaurantCategories, setExcludedRestaurantCategories] = useState<string[]>([]); // Novo estado para categorias de restaurante
 
   const userLat = location.latitude;
   const userLon = location.longitude;
@@ -72,7 +73,7 @@ export default function SearchUnifiedPage() {
     searchQuery,
     enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
     limit: 50,
-    excludedCategoryIds: excludedCategoryIds, // Pass excluded categories
+    excludedCategoryIds: excludedDishCategoryIds, // Passa as categorias de prato excluídas
   });
 
   const {
@@ -85,6 +86,7 @@ export default function SearchUnifiedPage() {
     userLon,
     enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
     searchQuery,
+    excludedCategories: excludedRestaurantCategories, // Passa as categorias de restaurante excluídas
   });
 
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
@@ -148,7 +150,8 @@ export default function SearchUnifiedPage() {
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
-    excludedCategoryIds, // Add excludedCategoryIds to dependencies
+    excludedDishCategoryIds, // Add excludedDishCategoryIds to dependencies
+    excludedRestaurantCategories, // Adicionado excludedRestaurantCategories
   ]);
 
   // Lógica de Busca
@@ -202,10 +205,16 @@ export default function SearchUnifiedPage() {
     refetchRestaurants(); // Refetch restaurants after applying distance filter
   };
 
-  const handleApplyCategoryFilter = (newExcludedIds: string[]) => {
-    setExcludedCategoryIds(newExcludedIds);
-    showInfo(`Filtro de categorias aplicado. Atualizando resultados.`);
+  const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => { // Renomeado
+    setExcludedDishCategoryIds(newExcludedIds);
+    showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
     refetchDishes(); // Refetch dishes after applying category filter
+  };
+
+  const handleApplyRestaurantCategoryFilter = (newExcludedCategories: string[]) => { // Novo handler
+    setExcludedRestaurantCategories(newExcludedCategories);
+    showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
+    refetchRestaurants(); // Refetch restaurants after applying category filter
   };
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
@@ -215,12 +224,24 @@ export default function SearchUnifiedPage() {
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
-    setExcludedCategoryIds([]);
+    setExcludedDishCategoryIds([]); // Limpa filtro de pratos
+    setExcludedRestaurantCategories([]); // Limpa filtro de restaurantes
   };
   
   const handleBack = () => {
     navigate(-1);
   };
+
+  // Extrair categorias únicas de restaurantes para o filtro
+  const allRestaurantCategories = useMemo(() => {
+    const categories = new Set<string>();
+    restaurantSearchResults?.forEach(r => {
+      if (r.category) {
+        categories.add(r.category);
+      }
+    });
+    return Array.from(categories).map(cat => ({ id: cat, name: cat })); // Adaptar para o formato esperado pelo CategoryFilterDrawer
+  }, [restaurantSearchResults]);
 
   // Renderiza o conteúdo da página
   const pageContent = (
@@ -280,9 +301,16 @@ export default function SearchUnifiedPage() {
         </h2>
         {activeSearchType === 'dish' && (
           <CategoryFilterDrawer
-            selectedCategoryIds={excludedCategoryIds}
-            onApply={handleApplyCategoryFilter}
+            selectedCategoryIds={excludedDishCategoryIds}
+            onApply={handleApplyDishCategoryFilter}
             allCategories={allMenuCategories}
+          />
+        )}
+        {activeSearchType === 'restaurant' && (
+          <CategoryFilterDrawer
+            selectedCategoryIds={excludedRestaurantCategories}
+            onApply={handleApplyRestaurantCategoryFilter}
+            allCategories={allRestaurantCategories}
           />
         )}
       </div>
