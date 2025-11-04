@@ -268,21 +268,25 @@ export default function SearchUnifiedPage() {
             <Compass className="w-5 h-5 mr-2 text-highlight" /> Distância
           </Button>
         </motion.div>
-        {activeSearchType === 'dish' && (
-          <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-            <CategoryFilterDrawer
-              selectedCategoryIds={excludedCategoryIds}
-              onApply={handleApplyCategoryFilter}
-              allCategories={allMenuCategories}
-            />
-          </motion.div>
-        )}
       </div>
       
       {/* Toggle Pratos / Restaurantes */}
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
-      {/* Resultados da Busca */}
+      {/* Resultados da Busca e Botão de Filtro */}
+      <div className="flex items-center justify-between"> {/* Contêiner flexível para alinhar título e botão */}
+        <h2 className="text-xl font-bold text-primary">
+          Resultados da Busca
+        </h2>
+        {activeSearchType === 'dish' && (
+          <CategoryFilterDrawer
+            selectedCategoryIds={excludedCategoryIds}
+            onApply={handleApplyCategoryFilter}
+            allCategories={allMenuCategories}
+          />
+        )}
+      </div>
+
       <motion.div
         key={activeSearchType}
         initial={{ opacity: 0, y: 10 }}
@@ -290,9 +294,6 @@ export default function SearchUnifiedPage() {
         transition={{ duration: 0.4 }}
         className="space-y-4"
       >
-        <h2 className="text-xl font-bold text-primary">
-          Resultados da Busca
-        </h2>
         <div className="space-y-3">
           {resultsLoading ? (
             // Skeletons para o estado de carregamento

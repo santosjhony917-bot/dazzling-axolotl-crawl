@@ -57,9 +57,10 @@ const CategoryFilterDrawer: React.FC<CategoryFilterDrawerProps> = ({
       <DrawerTrigger asChild>
         <Button
           variant="outline"
-          className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
+          size="sm" // Alterado para 'sm' para um botão mais compacto
+          className="border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all" // Removido w-full
         >
-          <Filter className="w-5 h-5 mr-2 text-highlight" /> Categorias
+          <Filter className="w-4 h-4 mr-1 text-highlight" /> Categorias
         </Button>
       </DrawerTrigger>
       <DrawerContent>
