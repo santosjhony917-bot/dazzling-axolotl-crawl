@@ -52,7 +52,7 @@ export default function CategoryFilterDrawer({
           <Filter className="w-5 h-5" /> {/* Apenas o ícone, sem texto */}
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="w-full max-w-full">
         <DrawerHeader>
           <DrawerTitle>Filtrar por Categorias</DrawerTitle>
           <DrawerDescription>
