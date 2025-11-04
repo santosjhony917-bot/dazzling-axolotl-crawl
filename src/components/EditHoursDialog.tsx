@@ -134,7 +134,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="flex-1 pr-4">
+        <ScrollArea className="flex-1 pr-4 min-h-0">
           <div className="space-y-4">
             {daysOfWeek.map(day => (
               <DayScheduleEditor
