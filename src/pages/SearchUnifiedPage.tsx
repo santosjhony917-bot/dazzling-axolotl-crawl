@@ -7,7 +7,7 @@ import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { supabase } from '@/integrations/supabase/client';
 import { useDebounce } from 'use-debounce';
-import useUserLocation from '@/hooks/useUserLocation'; // Corrigido para importação padrão
+import useUserLocation from '@/hooks/useUserLocation';
 import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -44,7 +44,8 @@ const SearchUnifiedPage: React.FC = () => {
   const [activeType, setActiveType] = useState<SearchType>('dishes');
   const [searchResults, setSearchResults] = useState<MenuItem[] | Restaurant[]>([]);
   const [loading, setLoading] = useState(false);
-  const { userLocation, loading: locationLoading, error: locationError } = useUserLocation();
+  // Corrigido: Desestruturando latitude, longitude, loading e error diretamente do hook
+  const { latitude, longitude, loading: locationLoading, error: locationError } = useUserLocation();
 
   const handleToggle = (type: SearchType) => {
     setActiveType(type);
@@ -80,14 +81,15 @@ const SearchUnifiedPage: React.FC = () => {
         p_limit: 50,
       }));
     } else {
-      if (!userLocation) {
+      // Corrigido: Verificando latitude e longitude diretamente
+      if (latitude === null || longitude === null) {
         toast.error('Localização necessária para buscar restaurantes próximos.');
         setLoading(false);
         return;
       }
       ({ data, error } = await supabase.rpc('find_nearby_restaurants', {
-        user_lat: userLocation.latitude,
-        user_lng: userLocation.longitude,
+        user_lat: latitude, // Corrigido
+        user_lng: longitude, // Corrigido
         max_distance_km: 50, // Default search radius
         search_query: debouncedSearchQuery,
       }));
@@ -101,7 +103,7 @@ const SearchUnifiedPage: React.FC = () => {
       setSearchResults(data || []);
     }
     setLoading(false);
-  }, [debouncedSearchQuery, activeType, userLocation]);
+  }, [debouncedSearchQuery, activeType, latitude, longitude]); // Adicionado latitude e longitude às dependências
 
   useEffect(() => {
     fetchSearchResults();
