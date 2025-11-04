@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Filter, X } from "lucide-react"; // Importando o ícone X
+import { Filter, X } from "lucide-react";
 import { MenuCategory } from "@/types/supabase";
 
 interface CategoryFilterDrawerProps {
@@ -28,37 +28,56 @@ export default function CategoryFilterDrawer({
 }: CategoryFilterDrawerProps) {
   const [localExcludedCategoryIds, setLocalExcludedCategoryIds] =
     useState<string[]>(selectedCategoryIds);
-  const [isOpen, setIsOpen] = useState(false); // Estado para controlar a abertura do Drawer
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setLocalExcludedCategoryIds(selectedCategoryIds);
   }, [selectedCategoryIds]);
 
+  const uniqueAndNormalizedCategories = useMemo(() => {
+    const seenNames = new Set<string>();
+    const filtered: MenuCategory[] = [];
+
+    allCategories.forEach(category => {
+      // Normaliza o nome da categoria para comparação (minúsculas e sem acentos)
+      const normalizedName = category.name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+      if (!seenNames.has(normalizedName)) {
+        seenNames.add(normalizedName);
+        filtered.push(category);
+      }
+    });
+    return filtered;
+  }, [allCategories]);
+
   const handleApplyFilter = () => {
     onApply(localExcludedCategoryIds);
-    setIsOpen(false); // Fecha o Drawer após aplicar o filtro
+    setIsOpen(false);
   };
 
   const handleClearFilter = () => {
     setLocalExcludedCategoryIds([]);
     onApply([]);
-    setIsOpen(false); // Fecha o Drawer após limpar o filtro
+    setIsOpen(false);
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}> {/* Controla a abertura do Drawer */}
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <Button
-          variant="ghost" // Remove o fundo e a borda, dando uma aparência mais leve
-          className="h-12 px-3 text-foreground hover:bg-accent hover:text-accent-foreground flex-shrink-0" // Ajusta a altura, padding, cor do ícone e efeitos de hover
+          variant="ghost"
+          className="h-12 px-3 text-foreground hover:bg-accent hover:text-accent-foreground flex-shrink-0"
         >
-          <Filter className="w-5 h-5" /> {/* Apenas o ícone, sem texto */}
+          <Filter className="w-5 h-5" />
         </Button>
       </DrawerTrigger>
       <DrawerContent
         className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background outline-none w-full max-w-md mx-auto"
       >
-        <DrawerHeader className="relative"> {/* Adicionado 'relative' para posicionamento absoluto do botão */}
+        <DrawerHeader className="relative">
           <DrawerTitle>Filtrar por Categorias</DrawerTitle>
           <DrawerDescription>
             Selecione as categorias que você deseja excluir dos resultados da
@@ -79,7 +98,7 @@ export default function CategoryFilterDrawer({
             onValueChange={setLocalExcludedCategoryIds}
             className="flex flex-wrap gap-2 justify-start"
           >
-            {allCategories.map((category) => (
+            {uniqueAndNormalizedCategories.map((category) => (
               <ToggleGroupItem
                 key={category.id}
                 value={category.id}
