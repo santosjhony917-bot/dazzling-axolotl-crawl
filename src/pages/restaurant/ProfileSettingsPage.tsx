@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
+import { useRestaurant } from '@/context/RestaurantContext';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ const weekOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'frid
 
 export default function ProfileSettingsPage() {
   const { user } = useAuth();
-  const { restaurant, loading, updateRestaurant } = useRestaurantProfile();
+  const { restaurant, loading, updateRestaurant } = useRestaurant();
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -62,9 +62,9 @@ export default function ProfileSettingsPage() {
       setCep(restaurant.cep || '');
       setImageUrl(restaurant.image_url || null);
       setCoverImageUrl(restaurant.cover_image_url || null);
-      setCurrentSchedule((restaurant.opening_hours as OpeningHours) || {});
-      setPaymentMethods((restaurant.payment_methods as PaymentMethod[]) || []);
-      setSocialNetworks(restaurant.social_networks || []);
+      setCurrentSchedule((restaurant.opening_hours as unknown as OpeningHours) || {});
+      setPaymentMethods((restaurant.payment_methods as unknown as PaymentMethod[]) || []);
+      setSocialNetworks((restaurant.social_networks as unknown as SocialNetwork[]) || []);
     }
   }, [restaurant]);
 
@@ -109,7 +109,7 @@ export default function ProfileSettingsPage() {
   };
 
   const handleSaveHours = async (newSchedule: OpeningHours) => {
-    await updateRestaurant({ opening_hours: newSchedule });
+    await updateRestaurant({ opening_hours: newSchedule as any });
   };
 
   const handleImageUpload = async (file: File, type: 'profile' | 'cover') => {
