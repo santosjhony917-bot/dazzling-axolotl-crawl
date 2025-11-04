@@ -53,7 +53,7 @@ export default function CategoryFilterDrawer({
         </Button>
       </DrawerTrigger>
       <DrawerContent
-        className="fixed bottom-0 left-1/2 right-auto -translate-x-1/2 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background outline-none w-full max-w-lg"
+        className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background outline-none w-full max-w-lg mx-auto"
       >
         <DrawerHeader>
           <DrawerTitle>Filtrar por Categorias</DrawerTitle>
