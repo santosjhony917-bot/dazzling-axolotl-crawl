@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
-// Define o tipo para o restaurante retornado pela função find_nearby_restaurants
 export type RestaurantWithDistance = {
   id: string;
   user_id: string | null;
@@ -9,7 +8,7 @@ export type RestaurantWithDistance = {
   description: string | null;
   image_url: string | null;
   cover_image_url: string | null;
-  plan: 'free' | 'basic' | 'premium' | 'premium_gift'; // Adicionado 'premium_gift'
+  plan: 'free' | 'basic' | 'premium' | 'premium_gift';
   created_at: string;
   latitude: number | null;
   longitude: number | null;
@@ -22,13 +21,29 @@ export type RestaurantWithDistance = {
 interface UseNearbyRestaurantsOptions {
   userLat: number | null;
   userLon: number | null;
-  enabled: boolean;
+  enabled?: boolean;
   searchQuery?: string;
+  maxDistanceKm?: number;
+  includedCategories?: string[];
 }
 
-export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery }: UseNearbyRestaurantsOptions) => {
+export const useNearbyRestaurants = ({
+  userLat,
+  userLon,
+  enabled = true,
+  searchQuery,
+  maxDistanceKm = 10,
+  includedCategories = [],
+}: UseNearbyRestaurantsOptions) => {
   return useQuery<RestaurantWithDistance[], Error>({
-    queryKey: ['nearbyRestaurants', userLat, userLon, searchQuery],
+    queryKey: [
+      'nearbyRestaurants',
+      userLat,
+      userLon,
+      maxDistanceKm,
+      searchQuery,
+      includedCategories,
+    ],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
         throw new Error('User location is not available.');
@@ -37,15 +52,18 @@ export const useNearbyRestaurants = ({ userLat, userLon, enabled, searchQuery }:
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: userLat,
         user_lng: userLon,
-        max_distance_km: 10, // Default distance
+        max_distance_km: maxDistanceKm,
         search_query: searchQuery || null,
+        included_categories: includedCategories.length > 0 ? includedCategories : null,
       });
 
       if (error) {
         throw error;
       }
-      return data;
+
+      return data ?? [];
     },
     enabled: enabled && userLat !== null && userLon !== null,
+    staleTime: 1000 * 60 * 5,
   });
 };
