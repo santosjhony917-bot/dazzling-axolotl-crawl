@@ -28,6 +28,7 @@ export default function CategoryFilterDrawer({
 }: CategoryFilterDrawerProps) {
   const [localExcludedCategoryIds, setLocalExcludedCategoryIds] =
     useState<string[]>(selectedCategoryIds);
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar a abertura do Drawer
 
   useEffect(() => {
     setLocalExcludedCategoryIds(selectedCategoryIds);
@@ -35,15 +36,17 @@ export default function CategoryFilterDrawer({
 
   const handleApplyFilter = () => {
     onApply(localExcludedCategoryIds);
+    setIsOpen(false); // Fecha o Drawer após aplicar o filtro
   };
 
   const handleClearFilter = () => {
     setLocalExcludedCategoryIds([]);
     onApply([]);
+    setIsOpen(false); // Fecha o Drawer após limpar o filtro
   };
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}> {/* Controla a abertura do Drawer */}
       <DrawerTrigger asChild>
         <Button
           variant="ghost" // Remove o fundo e a borda, dando uma aparência mais leve
