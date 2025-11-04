@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Filter } from "lucide-react";
+import { Filter, X } from "lucide-react"; // Importando o ícone X
 import { MenuCategory } from "@/types/supabase";
 
 interface CategoryFilterDrawerProps {
@@ -55,12 +55,16 @@ export default function CategoryFilterDrawer({
       <DrawerContent
         className="fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background outline-none w-full max-w-md mx-auto"
       >
-        <DrawerHeader>
+        <DrawerHeader className="relative"> {/* Adicionado 'relative' para posicionamento absoluto do botão */}
           <DrawerTitle>Filtrar por Categorias</DrawerTitle>
           <DrawerDescription>
             Selecione as categorias que você deseja excluir dos resultados da
             busca.
           </DrawerDescription>
+          <DrawerClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Fechar</span>
+          </DrawerClose>
         </DrawerHeader>
         <div className="p-4 pb-0">
           <Label className="mb-2 block text-sm font-medium text-gray-700">
