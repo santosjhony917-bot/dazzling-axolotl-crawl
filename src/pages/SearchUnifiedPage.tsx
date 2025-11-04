@@ -1,349 +1,199 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { createPageUrl } from '@/utils/url';
-import { showInfo, showError } from '@/utils/toast';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
+import { Button } from '@/components/ui/button';
+import { Search, ChevronRight, DollarSign, MapPin } from 'lucide-react';
 import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
-import { useAuthData } from '@/context/AuthContext';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { useUserRole } from '@/hooks/useUserRole';
-import { motion } from 'framer-motion';
+import { supabase } from '@/integrations/supabase/client';
+import { useDebounce } from 'use-debounce';
+import useUserLocation from '@/hooks/useUserLocation'; // Corrigido para importação padrão
+import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
-import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
-import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
-type SearchType = 'dish' | 'restaurant';
+type SearchType = 'dishes' | 'restaurants';
 
-// Definindo o tipo SearchItem para compatibilidade com SearchItemCard
-interface SearchItem {
-  id: string;
-  name: string;
-  description: string | null;
-  price?: number;
-  imageUrl: string | null;
-  type: 'dish' | 'restaurant';
-  category?: string | null;
-  city?: string | null;
-  distance_km?: number; // Adicionado para ordenação de restaurantes
+interface MenuItem {
+  item_id: string;
+  item_name: string;
+  item_description: string;
+  item_price: number;
+  item_image_url: string;
+  restaurant_id: string;
+  restaurant_name: string;
+  restaurant_category: string;
 }
 
-export default function SearchUnifiedPage() {
+interface Restaurant {
+  id: string;
+  name: string;
+  description: string;
+  image_url: string;
+  cover_image_url: string;
+  category: string;
+  city: string;
+  state: string;
+  distance_km: number;
+}
+
+const SearchUnifiedPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user, restaurant } = useAuthData();
-  const { isPremium } = useUserRole();
-  const isRestaurantOwner = !!restaurant;
-  
-  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
-  
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
-  const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
+  const [activeType, setActiveType] = useState<SearchType>('dishes');
+  const [searchResults, setSearchResults] = useState<MenuItem[] | Restaurant[]>([]);
+  const [loading, setLoading] = useState(false);
+  const { userLocation, loading: locationLoading, error: locationError } = useUserLocation();
 
-  // Estados para os filtros
-  const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
-  const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
-  const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
-
-  const userLat = location.latitude;
-  const userLon = location.longitude;
-
-  // Hooks de busca
-  const {
-    items: dishSearchResults,
-    loading: dishesLoading,
-    error: dishesError,
-    refetch: refetchDishes,
-  } = useSearchItems({
-    searchQuery,
-    enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
-    limit: 50,
-  });
-
-  const {
-    data: restaurantSearchResults,
-    isLoading: restaurantsLoading,
-    error: restaurantsError,
-    refetch: refetchRestaurants,
-  } = useNearbyRestaurants({
-    userLat,
-    userLon,
-    enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
-    searchQuery,
-  });
-
-  const { data: popularMenuItems, isLoading: popularItemsLoading } = usePopularMenuItems();
-
-  const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
-  const [resultsLoading, setResultsLoading] = useState(true);
-
-  // Determina se devemos mostrar os itens populares
-  const shouldShowPopularItems = 
-    searchQuery === '' &&
-    minPriceFilter === null &&
-    maxPriceFilter === null &&
-    maxDistanceFilter === null &&
-    activeSearchType === 'dish';
-
-  // Atualiza o estado de carregamento geral
-  useEffect(() => {
-    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || (shouldShowPopularItems && popularItemsLoading));
-  }, [isLocationLoading, dishesLoading, restaurantsLoading, shouldShowPopularItems, popularItemsLoading]);
-
-  // Efeito para processar e ordenar os resultados
-  useEffect(() => {
-    let processedResults: SearchItem[] = [];
-
-    if (shouldShowPopularItems && popularMenuItems) {
-      processedResults = popularMenuItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        imageUrl: item.imageUrl,
-        type: 'dish',
-        category: item.restaurantCategory,
-        city: null, // Popular items don't have city directly
-      }));
-    } else if (activeSearchType === 'dish') {
-      processedResults = dishSearchResults
-        .filter(item => {
-          const price = item.item_price;
-          const matchesMinPrice = minPriceFilter === null || price >= minPriceFilter;
-          const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
-          return matchesMinPrice && matchesMaxPrice;
-        })
-        .sort((a, b) => a.item_price - b.item_price) // Ordenar por preço crescente
-        .map(item => ({
-          id: item.item_id,
-          name: item.item_name,
-          description: item.item_description,
-          price: item.item_price,
-          imageUrl: item.item_image_url,
-          type: 'dish',
-          category: null,
-          city: null,
-        }));
-    } else { // activeSearchType === 'restaurant'
-      processedResults = (restaurantSearchResults || [])
-        .filter(restaurant => {
-          const distance = restaurant.distance_km;
-          return maxDistanceFilter === null || distance <= maxDistanceFilter;
-        })
-        .sort((a, b) => b.distance_km - a.distance_km) // Ordenar por distância decrescente
-        .map(restaurant => ({
-          id: restaurant.id,
-          name: restaurant.name,
-          description: restaurant.description,
-          price: undefined,
-          imageUrl: restaurant.image_url,
-          type: 'restaurant',
-          category: restaurant.category,
-          city: restaurant.city,
-          distance_km: restaurant.distance_km,
-        }));
-    }
-    setDisplayedResults(processedResults);
-  }, [
-    activeSearchType,
-    dishSearchResults,
-    restaurantSearchResults,
-    minPriceFilter,
-    maxPriceFilter,
-    maxDistanceFilter,
-    shouldShowPopularItems,
-    popularMenuItems,
-  ]);
-
-  // Lógica de Busca
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localização é definida para realizar a busca.");
-      return;
-    }
-    // Aciona o refetch para ambos os tipos de busca com a query atual
-    refetchDishes();
-    refetchRestaurants();
+  const handleToggle = (type: SearchType) => {
+    setActiveType(type);
+    setSearchResults([]); // Clear results when toggling type
   };
-  
-  const handleItemClick = (itemId: string, type: SearchType) => {
-    if (type === 'restaurant') {
-      navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
+
+  const handleItemClick = useCallback((itemId: string, type: SearchType) => {
+    if (type === 'dishes') {
+      // For dishes, we might want to navigate to the restaurant page or a dish detail page
+      // For now, let's just log it or navigate to a generic item page
+      console.log(`Clicked dish with ID: ${itemId}`);
+      // Example: navigate(`/dish/${itemId}`);
     } else {
-      navigate(createPageUrl('menuItemDetails', { itemId: itemId }));
+      // For restaurants, navigate to the restaurant detail page
+      console.log(`Clicked restaurant with ID: ${itemId}`);
+      navigate(`/restaurant/${itemId}`);
     }
-  };
-  
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
+  }, [navigate]);
+
+  const fetchSearchResults = useCallback(async () => {
+    if (!debouncedSearchQuery) {
+      setSearchResults([]);
+      setLoading(false);
       return;
     }
-    setIsPriceModalOpen(true);
-  };
 
-  const handleApplyPriceFilter = (min: number, max: number) => {
-    setMinPriceFilter(min);
-    setMaxPriceFilter(max);
-    showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
-    setIsPriceModalOpen(false);
-  };
+    setLoading(true);
+    let { data, error } = { data: null, error: null };
 
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      return;
+    if (activeType === 'dishes') {
+      ({ data, error } = await supabase.rpc('search_menu_items', {
+        search_query: debouncedSearchQuery,
+        p_limit: 50,
+      }));
+    } else {
+      if (!userLocation) {
+        toast.error('Localização necessária para buscar restaurantes próximos.');
+        setLoading(false);
+        return;
+      }
+      ({ data, error } = await supabase.rpc('find_nearby_restaurants', {
+        user_lat: userLocation.latitude,
+        user_lng: userLocation.longitude,
+        max_distance_km: 50, // Default search radius
+        search_query: debouncedSearchQuery,
+      }));
     }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (distance: number) => {
-    setMaxDistanceFilter(distance);
-    showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
-    setIsDistanceModalOpen(false);
-  };
 
-  const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
-  const handleToggleChange = (type: 'dishes' | 'restaurants') => {
-    setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-    // Resetar filtros de preço/distância ao trocar de aba, se fizer sentido
-    setMinPriceFilter(null);
-    setMaxPriceFilter(null);
-    setMaxDistanceFilter(null);
-  };
-  
-  const handleBack = () => {
-    navigate(-1);
-  };
+    if (error) {
+      console.error('Error fetching search results:', error);
+      toast.error('Erro ao buscar resultados. Tente novamente.');
+      setSearchResults([]);
+    } else {
+      setSearchResults(data || []);
+    }
+    setLoading(false);
+  }, [debouncedSearchQuery, activeType, userLocation]);
 
-  // Renderiza o conteúdo da página
-  const pageContent = (
-    <div className="p-4 space-y-6">
-      
-      {/* Barra de Busca e Filtro */}
-      <form onSubmit={handleSearch} className="flex gap-2">
-        <div className="relative flex-grow">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <Input
-            type="text"
-            placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
-          />
+  useEffect(() => {
+    fetchSearchResults();
+  }, [fetchSearchResults]);
+
+  useEffect(() => {
+    if (locationError) {
+      toast.error('Não foi possível obter sua localização. Algumas funcionalidades podem ser limitadas.');
+    }
+  }, [locationError]);
+
+  const renderSkeletons = () => (
+    Array.from({ length: 5 }).map((_, index) => (
+      <div key={index} className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-4 shadow-soft-lg border border-gray-100">
+        <Skeleton className="w-20 h-20 rounded-lg" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+          <Skeleton className="h-3 w-full" />
+          <Skeleton className="h-3 w-2/3" />
         </div>
-        <Button 
-          type="submit"
-          size="icon" 
-          variant="highlight" 
-          className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </Button>
-      </form>
-      
-      {/* Ações Rápidas (Filtros) - Transformadas em Chips Elegantes */}
-      <div className="flex gap-4">
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchByPrice}
-            variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
-          >
-            <DollarSign className="w-5 h-5 mr-2 text-highlight" /> Preço
-          </Button>
-        </motion.div>
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchNearby}
-            variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
-          >
-            <Compass className="w-5 h-5 mr-2 text-highlight" /> Distância
-          </Button>
-        </motion.div>
       </div>
-      
-      {/* Toggle Pratos / Restaurantes */}
-      <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
-
-      {/* Resultados da Busca */}
-      <motion.div
-        key={activeSearchType}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="space-y-4"
-      >
-        <h2 className="text-xl font-bold text-primary">
-          {shouldShowPopularItems ? "Pratos Populares" : "Resultados da Busca"}
-        </h2>
-        <div className="space-y-3">
-          {resultsLoading ? (
-            // Skeletons para o estado de carregamento
-            Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} className="h-24 w-full rounded-xl" />
-            ))
-          ) : displayedResults.length > 0 ? (
-            displayedResults.map((item) => (
-              <SearchItemCard 
-                key={item.id} 
-                item={item} 
-                onClick={handleItemClick}
-              />
-            ))
-          ) : (
-            <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
-              <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600">Nenhum resultado encontrado. Tente ajustar sua busca ou filtros.</p>
-            </Card>
-          )}
-        </div>
-      </motion.div>
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
-      />
-    </div>
+    ))
   );
 
   return (
-    <>
-      {/* Cabeçalho Manual */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleBack}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Busca</h2>
+    <div className="flex flex-col h-full bg-gray-50 dark:bg-background-dark-alt">
+      <div className="p-4 bg-white dark:bg-background-dark shadow-md">
+        <div className="flex items-center mb-4">
+          <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-gray-600 dark:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+          </Button>
+          <h1 className="flex-1 text-center text-xl font-bold text-gray-800 dark:text-white">Busca</h1>
+          <div className="w-10"></div> {/* Placeholder for alignment */}
         </div>
-        <div className="w-10"></div>
-      </header>
-      
-      <main className="flex-1 w-full max-w-md mx-auto pb-20">
-        {pageContent}
-      </main>
-    </>
+
+        <div className="relative flex items-center mb-4">
+          <Search className="absolute left-3 text-gray-400" size={20} />
+          <Input
+            type="text"
+            placeholder={activeType === 'dishes' ? 'Buscar por prato...' : 'Buscar por restaurante...'}
+            className="w-full pl-10 pr-4 py-2 rounded-xl border-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-0 shadow-inner bg-gray-100 dark:bg-gray-700 dark:text-white"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button variant="ghost" size="icon" className="ml-2 text-gray-600 dark:text-gray-300">
+            <ChevronRight size={20} />
+          </Button>
+        </div>
+
+        <div className="flex justify-around mb-4 space-x-2">
+          <Button variant="outline" className="flex-1 rounded-xl border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700">
+            <DollarSign size={16} className="mr-2" /> Preço
+          </Button>
+          <Button variant="outline" className="flex-1 rounded-xl border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700">
+            <MapPin size={16} className="mr-2" /> Distância
+          </Button>
+        </div>
+
+        <SearchToggle activeType={activeType} onToggle={handleToggle} />
+      </div>
+
+      <ScrollArea className="flex-1 p-4">
+        <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">
+          {activeType === 'dishes' ? 'Pratos Populares' : 'Restaurantes Populares'}
+        </h2>
+
+        <div className="space-y-4">
+          {loading || locationLoading ? (
+            renderSkeletons()
+          ) : searchResults.length > 0 ? (
+            searchResults.map((item) => (
+              <SearchItemCard
+                key={item.id}
+                id={item.id}
+                name={item.name || (item as MenuItem).item_name}
+                price={(item as MenuItem).item_price || 0} // Only for dishes
+                description={item.description || (item as MenuItem).item_description}
+                imageUrl={item.image_url || (item as MenuItem).item_image_url}
+                restaurantName={(item as MenuItem).restaurant_name || item.name} // Use restaurant_name for dishes, or item.name for restaurants
+                onClick={(itemId) => handleItemClick(itemId, activeType)}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 dark:text-gray-400">Nenhum resultado encontrado.</p>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
   );
-}
+};
+
+export default SearchUnifiedPage;
