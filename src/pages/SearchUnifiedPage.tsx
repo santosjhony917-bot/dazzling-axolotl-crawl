@@ -57,8 +57,8 @@ export default function SearchUnifiedPage() {
   });
 
   useEffect(() => {
-    if (dishError) showError(dishError);
-    if (restaurantError) showError(restaurantError);
+    if (dishError) showError(dishError.message);
+    if (restaurantError) showError(restaurantError.message);
   }, [dishError, restaurantError]);
 
   // Lógica de Busca
