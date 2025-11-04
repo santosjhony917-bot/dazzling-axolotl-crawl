@@ -13,11 +13,9 @@ interface SearchItem {
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
   // Campos adicionais para restaurante
-  category?: string | null; // restaurant_category
+  category?: string | null;
   city?: string | null;
   restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
-  itemCategoryName?: string | null; // Adicionado para exibir a categoria do item
-  itemCategoryId?: string; // Adicionado para o ID da categoria do item
 }
 
 interface SearchItemCardProps {
@@ -28,10 +26,8 @@ interface SearchItemCardProps {
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
-  // Se for um prato, exibe o nome do restaurante E a categoria do item; caso contrário, exibe a categoria do restaurante
-  const displayDescription = isDish
-    ? (item.restaurantName && item.itemCategoryName ? `${item.restaurantName} - ${item.itemCategoryName}` : item.restaurantName || item.itemCategoryName)
-    : item.category;
+  // Se for um prato, exibe o nome do restaurante; caso contrário, exibe a categoria do restaurante
+  const displayDescription = isDish ? item.restaurantName : item.category;
 
   return (
     <motion.div
@@ -62,7 +58,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
           
           {!isDish && item.city && (
             <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-              <MapPin className="h-3 w-3 text-highlight" /> {item.city}
+              <MapPin className="w-3 h-3 text-highlight" /> {item.city}
             </p>
           )}
         </div>

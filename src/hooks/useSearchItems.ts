@@ -11,22 +11,18 @@ export interface SearchItemResult {
   restaurant_id: string;
   restaurant_name: string;
   restaurant_category: string | null;
-  item_category_id: string;
-  item_category_name: string;
 }
 
 interface UseSearchItemsParams {
   searchQuery: string;
   enabled: boolean;
   limit?: number;
-  excludedCategoryIds?: string[];
 }
 
 export function useSearchItems({
   searchQuery,
   enabled,
   limit = 50,
-  excludedCategoryIds,
 }: UseSearchItemsParams) {
   const fetchSearchItems = useCallback(async () => {
     // Se searchQuery for uma string vazia, passamos null para a RPC para obter itens padrão
@@ -35,7 +31,6 @@ export function useSearchItems({
     const { data, error } = await supabase.rpc('search_menu_items', {
       search_query: queryParam,
       p_limit: limit,
-      excluded_category_ids: excludedCategoryIds,
     });
 
     if (error) {
@@ -43,10 +38,10 @@ export function useSearchItems({
     }
     
     return data as SearchItemResult[];
-  }, [searchQuery, limit, excludedCategoryIds]);
+  }, [searchQuery, limit]);
 
   const { data, isLoading, error, refetch } = useQuery<SearchItemResult[], Error>({
-    queryKey: ['searchItems', searchQuery, limit, excludedCategoryIds],
+    queryKey: ['searchItems', searchQuery, limit],
     queryFn: fetchSearchItems,
     enabled: enabled, // Permite que a query seja executada mesmo com searchQuery vazia
     staleTime: 60000,
