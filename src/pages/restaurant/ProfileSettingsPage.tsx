@@ -1,309 +1,338 @@
-import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthData } from '@/context/AuthContext';
-import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { Loader2, Settings, Utensils, Crown } from 'lucide-react';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
-import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
-import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
-import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
-import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
-import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
-import { Separator } from '@/components/ui/separator';
-import { showError, showSuccess } from '@/utils/toast';
-import { z } from 'zod';
-import { cnpjMask, phoneMask } from '@/utils/masks';
-import EditClientFieldDialog from '@/components/EditClientFieldDialog';
-import { EditAddressDialog } from '@/components/EditAddressDialog';
-import { EditHoursDialog } from '@/components/EditHoursDialog';
-import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
-import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
-import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
-import { WeekSchedule } from '@/types/schedule';
-import { DEFAULT_SCHEDULE } from '@/constants/schedule';
-import { Restaurant } from '@/types/supabase';
-import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
+"use client"
 
-// Schemas de validação
-const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
-const emailSchema = z.string().email("E-mail inválido.");
-const phoneSchema = z.string().regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, "Telefone inválido (Ex: (83) 99999-9999)").optional().or(z.literal(''));
-const cnpjSchema = z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido (XX.XXX.XXX/XXXX-XX)").optional().or(z.literal(''));
-const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { supabase } from '@/integrations/supabase/client'
+import { useAuth } from '@/contexts/AuthContext'
+import { toast } from 'sonner'
+import { MainLayout } from '@/layouts/MainLayout'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Upload, X, MapPin, Clock, Link as LinkIcon, Trash2, Plus, Image as ImageIcon, Building, Mail, Phone, Info, Globe, Edit, Save, ImagePlus } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { RestaurantSocialLinks } from '@/components/dashboard/restaurant/RestaurantSocialLinks'
+import { RestaurantPaymentMethods } from '@/components/dashboard/restaurant/RestaurantPaymentMethods'
+import { EditHoursDialog } from '@/components/EditHoursDialog'
+import { ImageUploader } from '@/components/ImageUploader'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { GalleryManager } from '@/components/dashboard/restaurant/GalleryManager'
+import { RestaurantAddressForm } from '@/components/dashboard/restaurant/RestaurantAddressForm'
+
+const restaurantCategories = [
+  "Açaí", "Alemã", "Árabe", "Brasileira", "Cafeteria", "Carnes", "Chinesa", "Contemporânea",
+  "Coreana", "Doces & Bolos", "Espanhola", "Francesa", "Frutos do Mar", "Galeteria",
+  "Gourmet", "Indiana", "Italiana", "Japonesa", "Lanches", "Marmitas", "Mediterrânea",
+  "Mexicana", "Pizzaria", "Portuguesa", "Saudável", "Sorveteria", "Tailandesa", "Variada", "Vegana", "Vegetariana"
+]
 
 export default function ProfileSettingsPage() {
-  const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isPremium, refetchProfile, refetchRestaurant } = useAuthData();
-  const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
-  
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
-  
-  const [isAddressDialogOpen, setIsAddressDialogOpen] = useState(false);
-  const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false);
-  const [isPaymentMethodsDialogOpen, setIsPaymentMethodsDialogOpen] = useState(false);
-  const [isSocialNetworksDialogOpen, setIsSocialNetworksDialogOpen] = useState(false);
-  const [isSalesChannelsDialogOpen, setIsSalesChannelsDialogOpen] = useState(false);
-  
-  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const { user } = useAuth()
+  const navigate = useNavigate()
+  const [restaurant, setRestaurant] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [isHoursDialogOpen, setIsHoursDialogOpen] = useState(false)
 
-  const isLoading = authLoading || !restaurant;
+  useEffect(() => {
+    if (user) {
+      fetchRestaurant()
+    }
+  }, [user])
 
-  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
-    if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
-      showError("Recurso Premium. Faça upgrade para desbloquear.");
-      return;
-    }
-    
-    setEditConfig({
-      key,
-      title,
-      fieldName,
-      icon,
-      validationSchema,
-      type,
-      mask,
-      placeholder,
-    });
-    setIsEditDialogOpen(true);
-  }, [isPremium]);
+  const fetchRestaurant = async () => {
+    setLoading(true)
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('user_id', user.id)
+      .single()
 
-  const handleSaveField = useCallback(async (value: string) => {
-    if (!editConfig) return;
-    
-    // Remove máscara antes de salvar no DB
-    const cleanedValue = editConfig.mask ? value.replace(/\D/g, '') : value;
-    
-    const { error } = await updateRestaurant({ [editConfig.key]: cleanedValue });
-    
-    if (error) {
-      showError(error);
+    if (error && error.code !== 'PGRST116') {
+      toast.error('Erro ao carregar os dados do restaurante.')
+      console.error(error)
     } else {
-      showSuccess("Campo atualizado com sucesso!");
-      refetchRestaurant();
+      setRestaurant(data)
     }
-  }, [editConfig, updateRestaurant, refetchRestaurant]);
-  
-  const handleLogoUploadComplete = useCallback(async (url: string) => {
-    setUploadingLogo(true);
-    const cacheBustedUrl = `${url}?t=${Date.now()}`;
-    const { error } = await updateRestaurant({ image_url: cacheBustedUrl });
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Logo atualizado com sucesso!");
-      refetchRestaurant();
-    }
-    setUploadingLogo(false);
-  }, [updateRestaurant, refetchRestaurant]);
-  
-  const handleSaveHours = useCallback(async (newSchedule: WeekSchedule) => {
-    const { error } = await updateRestaurant({ opening_hours: newSchedule as any });
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Horários atualizados com sucesso!");
-      refetchRestaurant();
-    }
-  }, [updateRestaurant, refetchRestaurant]);
-  
-  const handleSavePaymentMethods = useCallback(async (newMethods: string[]) => {
-    const { error } = await updateRestaurant({ payment_methods: newMethods as any });
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Formas de pagamento atualizadas com sucesso!");
-      refetchRestaurant();
-    }
-  }, [updateRestaurant, refetchRestaurant]);
-  
-  // NOVO HANDLER: Salvar Redes Sociais
-  const handleSaveSocialNetworks = useCallback(async (newLinks: SocialNetworkLink[]) => {
-    const { error } = await updateRestaurant({ social_networks: newLinks as any });
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Redes sociais atualizadas com sucesso!");
-      refetchRestaurant();
-    }
-  }, [updateRestaurant, refetchRestaurant]);
+    setLoading(false)
+  }
 
-  // NOVO HANDLER: Salvar Canais de Venda
-  const handleSaveSalesChannels = useCallback(async (data: { whatsapp_url: string | null; ifood_url: string | null; other_url: string | null; external_url: string | null }) => {
-    const { error } = await updateRestaurant(data);
-    if (error) {
-      showError(error);
-    } else {
-      showSuccess("Canais de venda atualizados com sucesso!");
-      refetchRestaurant();
-      setIsSalesChannelsDialogOpen(false); // Fechar o diálogo após salvar
-    }
-  }, [updateRestaurant, refetchRestaurant]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setRestaurant({ ...restaurant, [name]: value })
+  }
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+  const handleSelectChange = (name, value) => {
+    setRestaurant({ ...restaurant, [name]: value })
+  }
+
+  const handleSocialLinksChange = (newLinks) => {
+    setRestaurant({ ...restaurant, social_networks: newLinks })
+  }
+
+  const handlePaymentMethodsChange = (newMethods) => {
+    setRestaurant({ ...restaurant, payment_methods: newMethods })
+  }
+
+  const handleImageUpload = async (file, type) => {
+    if (!file) return
+
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${user.id}-${type}-${Date.now()}.${fileExt}`
+    const filePath = `${user.id}/${fileName}`
+
+    setSaving(true)
+    const { error: uploadError } = await supabase.storage
+      .from('restaurant-images')
+      .upload(filePath, file)
+
+    if (uploadError) {
+      toast.error(`Erro ao fazer upload da imagem: ${uploadError.message}`)
+      setSaving(false)
+      return
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('restaurant-images')
+      .getPublicUrl(filePath)
+
+    setRestaurant({ ...restaurant, [type]: publicUrl })
+    await handleSave({ [type]: publicUrl })
+    setSaving(false)
+  }
+
+  const handleSave = async (updatedFields = {}) => {
+    setSaving(true)
+    const updates = { ...restaurant, ...updatedFields }
+    // Remove fields that should not be sent
+    delete updates.id
+    delete updates.created_at
+    delete updates.user_id
+
+    const { data, error } = await supabase
+      .from('restaurants')
+      .update(updates)
+      .eq('user_id', user.id)
+      .select()
+      .single()
+
+    if (error) {
+      toast.error('Erro ao salvar as alterações.')
+      console.error(error)
+    } else {
+      toast.success('Perfil atualizado com sucesso!')
+      setRestaurant(data)
+    }
+    setSaving(false)
   }
   
-  const currentSchedule = (restaurant?.opening_hours || DEFAULT_SCHEDULE) as unknown as WeekSchedule;
-  const openStatus = getRestaurantOpenStatus(currentSchedule);
-  
-  // CORREÇÃO 2: Usando 'as unknown as string[]'
-  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
-  
-  // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
-  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
+  const handleRestaurantUpdate = (updatedRestaurant) => {
+    setRestaurant(updatedRestaurant);
+  }
 
-  const publicRestaurantData: PublicRestaurantData = {
-    ...(restaurant as Restaurant),
-    opening_hours: currentSchedule,
-    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
-    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
-    is_favorite: false,
-    followers_count: 0,
-    addressSummary: restaurant?.city || '',
-    menu_categories: [],
-    gallery_images: [],
-    logoUrl: restaurant?.image_url || '', 
-    isOpen: openStatus.isOpen,
-    statusText: openStatus.statusText,
-    nextOpenTime: openStatus.nextOpenTime,
-    other_url_label: restaurant?.other_url_label || null, // Adicionado other_url_label
-  };
+  if (loading) {
+    return <MainLayout><div className="flex justify-center items-center h-screen"><p>Carregando...</p></div></MainLayout>
+  }
+
+  if (!restaurant) {
+    return (
+      <MainLayout>
+        <div className="container mx-auto py-10 px-4 text-center">
+          <h1 className="text-3xl font-bold mb-4">Você ainda não tem um restaurante</h1>
+          <p className="mb-6">Crie o perfil do seu restaurante para começar a gerenciar seu cardápio digital.</p>
+          <Button onClick={() => navigate('/create-restaurant')}>Criar Perfil do Restaurante</Button>
+        </div>
+      </MainLayout>
+    )
+  }
 
   return (
-    <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="restaurant-area/home">
-      <div className="p-4 space-y-8 max-w-md mx-auto">
-        
-        {/* 1. Card Principal (Logo e Nome) */}
-        <MainProfileCard
-          restaurantName={restaurant?.name || "Meu Restaurante"}
-          logoUrl={restaurant?.image_url}
-          isPremium={isPremium}
-          uploading={uploadingLogo}
-          onLogoUploadComplete={handleLogoUploadComplete}
-          restaurantId={restaurant?.id || 'temp'}
-        />
-        
-        <Separator />
+    <MainLayout>
+      <div className="container mx-auto py-10 px-4">
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900">Configurações do Perfil</h1>
+          <p className="mt-2 text-lg text-gray-600">Gerencie as informações do seu restaurante que serão exibidas aos clientes.</p>
+        </header>
 
-        {/* 2. Informações Básicas */}
-        <BasicInfoSection
-          restaurant={restaurant}
-          isPremium={isPremium}
-          handleEditField={handleEditField}
-          cnpjMask={cnpjMask}
-          phoneMask={phoneMask}
-          nameSchema={nameSchema}
-          emailSchema={emailSchema}
-          phoneSchema={phoneSchema}
-          cnpjSchema={cnpjSchema}
-        />
-        
-        <Separator />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-8">
+            {/* Basic Info Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center"><Info className="mr-2 h-5 w-5" />Informações Básicas</CardTitle>
+                <CardDescription>Nome, descrição e categoria do seu restaurante.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nome do Restaurante</Label>
+                  <Input id="name" name="name" value={restaurant.name || ''} onChange={handleInputChange} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="description">Descrição</Label>
+                  <Textarea id="description" name="description" value={restaurant.description || ''} onChange={handleInputChange} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category">Categoria</Label>
+                  <Select name="category" value={restaurant.category || ''} onValueChange={(value) => handleSelectChange('category', value)}>
+                    <SelectTrigger id="category">
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {restaurantCategories.map(cat => <SelectItem key={cat} value={cat}>{cat}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
 
-        {/* 3. Localização e Horários */}
-        <LocationHoursSection
-          restaurant={restaurant}
-          isPremium={isPremium}
-          currentSchedule={currentSchedule}
-          setIsAddressDialogOpen={setIsAddressDialogOpen}
-          setIsHoursDialogOpen={setIsHoursDialogOpen}
-        />
-        
-        <Separator />
+            {/* Contact Info Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center"><Mail className="mr-2 h-5 w-5" />Informações de Contato</CardTitle>
+                <CardDescription>Como seus clientes podem entrar em contato.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Telefone</Label>
+                  <Input id="phone" name="phone" type="tel" value={restaurant.phone || ''} onChange={handleInputChange} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp_url">WhatsApp (link completo, ex: https://wa.me/5511...)</Label>
+                  <Input id="whatsapp_url" name="whatsapp_url" type="url" value={restaurant.whatsapp_url || ''} onChange={handleInputChange} />
+                </div>
+              </CardContent>
+            </Card>
 
-        {/* 4. GESTÃO DE CONTEÚDO */}
-        <ContentManagementSection
-          navigate={navigate}
-          isPremium={isPremium}
-          restaurantId={restaurant?.id || ''}
-          restaurantName={restaurant?.name || 'Meu Restaurante'}
-          setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
-          setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
-          setIsSalesChannelsDialogOpen={setIsSalesChannelsDialogOpen}
-        />
-        
-        <Separator />
+            {/* Address Card */}
+            <RestaurantAddressForm restaurant={restaurant} onUpdate={setRestaurant} />
 
-        {/* 6. Assinatura e Suporte */}
-        <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
-        
+            {/* Images Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center"><ImageIcon className="mr-2 h-5 w-5" />Imagens</CardTitle>
+                <CardDescription>Logo e imagem de capa do seu perfil.</CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label>Logo</Label>
+                  <ImageUploader
+                    currentImage={restaurant.image_url}
+                    onImageSelect={(file) => handleImageUpload(file, 'image_url')}
+                    buttonText="Trocar Logo"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Imagem de Capa</Label>
+                  <ImageUploader
+                    currentImage={restaurant.cover_image_url}
+                    onImageSelect={(file) => handleImageUpload(file, 'cover_image_url')}
+                    buttonText="Trocar Capa"
+                    aspectRatio="aspect-[2/1]"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Gallery Card */}
+            <GalleryManager restaurantId={restaurant.id} />
+
+            {/* Links & Hours Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center"><LinkIcon className="mr-2 h-5 w-5" />Links e Horários</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <Label>Horários de Funcionamento</Label>
+                  <Button variant="outline" onClick={() => setIsHoursDialogOpen(true)}>
+                    <Clock className="mr-2 h-4 w-4" />
+                    Definir horários de funcionamento
+                  </Button>
+                </div>
+                <RestaurantSocialLinks
+                  socialLinks={restaurant.social_networks || []}
+                  onSocialLinksChange={handleSocialLinksChange}
+                />
+                <RestaurantPaymentMethods
+                  paymentMethods={restaurant.payment_methods || {}}
+                  onPaymentMethodsChange={handlePaymentMethodsChange}
+                />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="lg:col-span-1">
+            <Card className="sticky top-24">
+              <CardHeader>
+                <CardTitle>Salvar Alterações</CardTitle>
+                <CardDescription>Revise e salve as informações do seu perfil.</CardDescription>
+              </CardHeader>
+              <CardFooter className="flex flex-col space-y-4">
+                <Button className="w-full" onClick={() => handleSave()} disabled={saving}>
+                  {saving ? 'Salvando...' : 'Salvar Tudo'}
+                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" className="w-full">
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Excluir Restaurante
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Essa ação não pode ser desfeita. Isso excluirá permanentemente seu restaurante
+                        e todos os dados associados, como cardápios e itens.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-red-600 hover:bg-red-700"
+                        // onClick={handleDeleteRestaurant}
+                      >
+                        Sim, excluir restaurante
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
       </div>
-      
-      {/* Dialogs */}
-      {editConfig && (
-        <EditClientFieldDialog
-          isOpen={isEditDialogOpen}
-          onClose={() => setIsEditDialogOpen(false)}
-          title={editConfig.title}
-          fieldName={editConfig.fieldName}
-          currentValue={restaurant?.[editConfig.key as keyof Restaurant] as string || ''}
-          icon={editConfig.icon}
-          onSave={handleSaveField}
-          placeholder={editConfig.placeholder}
-          type={editConfig.type}
-          validationSchema={editConfig.validationSchema}
-          mask={editConfig.mask}
-        />
-      )}
-      
-      <EditAddressDialog
-        open={isAddressDialogOpen}
-        onOpenChange={setIsAddressDialogOpen}
-        restaurantId={restaurant?.id || ''}
-        currentAddress={{
-          address: restaurant?.address || '',
-          city: restaurant?.city || '',
-          state: restaurant?.state || '',
-          cep: restaurant?.cep || '',
-          neighborhood: restaurant?.neighborhood || '',
-          latitude: restaurant?.latitude || null,
-          longitude: restaurant?.longitude || null,
-        }}
-        onSave={refetchProfile}
-      />
-      
       <EditHoursDialog
         open={isHoursDialogOpen}
         onOpenChange={setIsHoursDialogOpen}
-        currentSchedule={currentSchedule}
-        onSave={handleSaveHours}
+        restaurant={restaurant}
+        onUpdate={handleRestaurantUpdate}
       />
-      
-      <PaymentMethodsDialog
-        isOpen={isPaymentMethodsDialogOpen}
-        onClose={() => setIsPaymentMethodsDialogOpen(false)}
-        currentMethods={currentPaymentMethods}
-        onSave={handleSavePaymentMethods}
-        isLoading={false}
-      />
-      
-      {/* NOVO DIALOG: Redes Sociais */}
-      <SocialNetworksDialog
-        isOpen={isSocialNetworksDialogOpen}
-        onClose={() => setIsSocialNetworksDialogOpen(false)}
-        currentLinks={currentSocialLinks}
-        onSave={handleSaveSocialNetworks}
-        isLoading={false}
-      />
-
-      {/* NOVO DIALOG: Canais de Venda */}
-      <SalesChannelsDialog
-        isOpen={isSalesChannelsDialogOpen}
-        onClose={() => setIsSalesChannelsDialogOpen(false)}
-        initialWhatsappUrl={restaurant?.whatsapp_url || null}
-        initialIfoodUrl={restaurant?.ifood_url || null}
-        initialOtherUrl={restaurant?.other_url || null}
-        initialExternalUrl={restaurant?.external_url || null}
-        onSave={handleSaveSalesChannels}
-        isLoading={false}
-      />
-    </RestaurantAreaPageLayout>
-  );
+    </MainLayout>
+  )
 }
