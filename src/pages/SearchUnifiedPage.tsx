@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
 import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
+import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -78,19 +79,40 @@ export default function SearchUnifiedPage() {
     searchQuery,
   });
 
+  const { data: popularMenuItems, isLoading: popularItemsLoading } = usePopularMenuItems();
+
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
   const [resultsLoading, setResultsLoading] = useState(true);
 
+  // Determina se devemos mostrar os itens populares
+  const shouldShowPopularItems = 
+    searchQuery === '' &&
+    minPriceFilter === null &&
+    maxPriceFilter === null &&
+    maxDistanceFilter === null &&
+    activeSearchType === 'dish';
+
   // Atualiza o estado de carregamento geral
   useEffect(() => {
-    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading);
-  }, [isLocationLoading, dishesLoading, restaurantsLoading]);
+    setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || (shouldShowPopularItems && popularItemsLoading));
+  }, [isLocationLoading, dishesLoading, restaurantsLoading, shouldShowPopularItems, popularItemsLoading]);
 
   // Efeito para processar e ordenar os resultados
   useEffect(() => {
     let processedResults: SearchItem[] = [];
 
-    if (activeSearchType === 'dish') {
+    if (shouldShowPopularItems && popularMenuItems) {
+      processedResults = popularMenuItems.map(item => ({
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        imageUrl: item.imageUrl,
+        type: 'dish',
+        category: item.restaurantCategory,
+        city: null, // Popular items don't have city directly
+      }));
+    } else if (activeSearchType === 'dish') {
       processedResults = dishSearchResults
         .filter(item => {
           const price = item.item_price;
@@ -136,6 +158,8 @@ export default function SearchUnifiedPage() {
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
+    shouldShowPopularItems,
+    popularMenuItems,
   ]);
 
   // Lógica de Busca
@@ -259,7 +283,9 @@ export default function SearchUnifiedPage() {
         transition={{ duration: 0.4 }}
         className="space-y-4"
       >
-        <h2 className="text-xl font-bold text-primary">Resultados da Busca</h2>
+        <h2 className="text-xl font-bold text-primary">
+          {shouldShowPopularItems ? "Pratos Populares" : "Resultados da Busca"}
+        </h2>
         <div className="space-y-3">
           {resultsLoading ? (
             // Skeletons para o estado de carregamento
