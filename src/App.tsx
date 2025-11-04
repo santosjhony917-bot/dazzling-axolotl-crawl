@@ -104,7 +104,7 @@ function App() {
             <Route path="/restaurant-area/signup" element={<RestaurantSignup />} />
             <Route path="/restaurant-area/claim" element={<ProtectedRoute element={<ClaimRestaurant />} requiredRole="restaurant_owner" />} />
             <Route path="/restaurant-area/upgrade" element={<ProtectedRoute element={<Upgrade />} requiredRole="restaurant_owner" />} />
-            <Route path="/restaurant-area/hub" element={<ProtectedRoute element={<RestaurantAreaHub />} requiredRole="restaurant_owner" />} />
+            <Route path="/restaurant-area/hub" element={<RestaurantAreaHub />} /> {/* Removido ProtectedRoute */}
             <Route path="/restaurant-area/home" element={<ProtectedRoute element={<RestaurantDashboardPage />} requiredRole="restaurant_owner" />} />
             <Route path="/restaurant-area/profile-menu" element={<ProtectedRoute element={<ProfileSettingsPage />} requiredRole="restaurant_owner" />} />
             <Route path="/restaurant-area/menu" element={<ProtectedRoute element={<MenuManagementPage />} requiredRole="restaurant_owner" />} />
