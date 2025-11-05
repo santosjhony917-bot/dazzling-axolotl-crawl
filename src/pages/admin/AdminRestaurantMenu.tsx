@@ -14,6 +14,7 @@ import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
 import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
 import { MenuCategory, MenuItem } from '@/types/supabase';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
+import { useQueryClient } from '@tanstack/react-query';
 
 type CategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
 
@@ -32,6 +33,8 @@ const AdminRestaurantMenu: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isConfirmDeleteItemDialogOpen, setIsConfirmDeleteItemDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+
+  const queryClient = useQueryClient();
 
   if (!restaurantId) {
     return (
@@ -115,16 +118,12 @@ const AdminRestaurantMenu: React.FC = () => {
   };
 
   const handleDeleteItem = (itemId: string) => {
-    setItemToDelete(itemId);
-    setIsConfirmDeleteItemDialogOpen(true);
-  };
-
-  const confirmDeleteItem = async () => {
-    if (itemToDelete) {
-      await deleteItemMutation.mutateAsync(itemToDelete);
-      setItemToDelete(null);
-      setIsConfirmDeleteItemDialogOpen(false);
-    }
+    if (!viewingCategory) return;
+    deleteItemMutation.mutate(itemId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['menuItems', viewingCategory.id] });
+      }
+    });
   };
 
   const isCategoryMutating = createCategoryMutation.isPending || updateCategoryMutation.isPending || deleteCategoryMutation.isPending;
@@ -176,7 +175,7 @@ const AdminRestaurantMenu: React.FC = () => {
         <ConfirmationDialog
           isOpen={isConfirmDeleteItemDialogOpen}
           onClose={() => setIsConfirmDeleteItemDialogOpen(false)}
-          onConfirm={confirmDeleteItem}
+          onConfirm={confirmDeleteCategory}
           title="Confirmar Exclusão do Item"
           description="Tem certeza de que deseja excluir este item do cardápio?"
           isLoading={isItemMutating}

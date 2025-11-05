@@ -56,9 +56,9 @@ export const useCreateMenuItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createMenuItem,
-    onSuccess: () => {
+    onSuccess: (newItem) => {
       toast.success('Item de menu criado com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      queryClient.invalidateQueries({ queryKey: ['menuItems', newItem.category_id] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
     onError: (e) => {
@@ -71,9 +71,9 @@ export const useUpdateMenuItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateMenuItem,
-    onSuccess: () => {
+    onSuccess: (updatedItem) => {
       toast.success('Item de menu atualizado com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      queryClient.invalidateQueries({ queryKey: ['menuItems', updatedItem.category_id] });
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
     onError: (e) => {
@@ -86,9 +86,13 @@ export const useDeleteMenuItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteMenuItem,
-    onSuccess: () => {
+    onSuccess: (_data, variables, context: any) => {
       toast.success('Item de menu deletado com sucesso!');
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      if (context?.categoryId) {
+        queryClient.invalidateQueries({ queryKey: ['menuItems', context.categoryId] });
+      } else {
+        queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      }
       queryClient.invalidateQueries({ queryKey: ['publicMenu'] });
     },
     onError: (e) => {
