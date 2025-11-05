@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, ArrowRight, Utensils } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { AppleIcon } from '@/components/icons/AppleIcon';
@@ -56,7 +56,14 @@ export default function RestaurantLogin() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
+      <header className="w-full max-w-sm">
+        <Button variant="ghost" onClick={() => navigate(-1)} className="text-gray-600">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Voltar
+        </Button>
+      </header>
+
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,8 +71,8 @@ export default function RestaurantLogin() {
           className="w-full"
         >
           <div className="text-center mb-8">
-            <div className="inline-block bg-orange-600 p-4 rounded-full shadow-md mb-4">
-              <Utensils className="w-10 h-10 text-white" />
+            <div className="inline-block bg-white p-3 rounded-full shadow-sm mb-4">
+              <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
             </div>
             <h1 className="text-3xl font-bold text-gray-800">Acesse sua conta</h1>
             <p className="text-gray-500 mt-2">Gerencie seu restaurante!</p>
