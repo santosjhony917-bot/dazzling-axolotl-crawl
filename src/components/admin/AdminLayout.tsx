@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2 } from 'lucide-react';
+import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -18,15 +18,15 @@ const navItems: NavItem[] = [
   { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
   { name: 'Gerenciar Restaurantes', icon: Utensils, pathKey: 'adminRestaurants' },
   { name: 'Gerenciar Planos', icon: Crown, pathKey: 'adminPlans' },
-  { name: 'Categorias Populares', icon: Crown, pathKey: 'adminPopularCategories' }, // Usando a nova PathKey
+  { name: 'Categorias Populares', icon: Crown, pathKey: 'adminPopularCategories' },
   { name: 'Gerenciar Usuários', icon: Users, pathKey: 'adminUsers' },
   { name: 'Configurações', icon: Settings, pathKey: 'adminSettings' },
-  { name: 'Banners', icon: Crown, pathKey: 'adminBanners' }, // Usando Crown como ícone temporário para Banners
+  { name: 'Banners', icon: Megaphone, pathKey: 'adminBanners' },
 ];
 
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin, signOut } = useAuthData();
+  const { user, isLoading, signOut } = useAuthData();
 
   if (isLoading) {
     return (
@@ -34,12 +34,6 @@ const AdminLayout: React.FC = () => {
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
-  }
-
-  if (!user || !isAdmin) {
-    // Redireciona se não for admin
-    navigate(createPageUrl('adminLogin'));
-    return null;
   }
 
   const currentFullPath = window.location.pathname; // Obtém o caminho completo da URL
@@ -74,7 +68,7 @@ const AdminLayout: React.FC = () => {
         
         <div className="space-y-2">
           <div className="text-sm text-gray-600 truncate p-2">
-            Logado como: <span className="font-medium">{user.email}</span>
+            Logado como: <span className="font-medium">{user?.email}</span>
           </div>
           <Button 
             variant="outline" 
