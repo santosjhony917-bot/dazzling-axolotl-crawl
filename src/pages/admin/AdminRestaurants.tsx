@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Restaurant, RestaurantPlan, VisitStatus } from '@/types/supabase';
 import VisitNotesDialog from '@/components/admin/VisitNotesDialog';
 import { showSuccess } from '@/utils/toast';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const visitStatusOptions: VisitStatus[] = [
   'Pendente',
@@ -135,20 +136,21 @@ export default function AdminRestaurants() {
                   <TableHead>Código</TableHead>
                   <TableHead>Plano</TableHead>
                   <TableHead>Status Visita</TableHead>
+                  <TableHead>Anotações</TableHead>
                   <TableHead>Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {isLoading && (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-4">
+                    <TableCell colSpan={7} className="text-center py-4">
                       <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                     </TableCell>
                   </TableRow>
                 )}
                 {!isLoading && restaurants.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-4 text-muted-foreground">
+                    <TableCell colSpan={7} className="text-center py-4 text-muted-foreground">
                       Nenhum restaurante encontrado com os filtros aplicados.
                     </TableCell>
                   </TableRow>
@@ -192,6 +194,22 @@ export default function AdminRestaurants() {
                             ))}
                           </SelectContent>
                         </Select>
+                      </TableCell>
+                      <TableCell>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="max-w-[200px] truncate text-sm text-muted-foreground">
+                                {restaurant.visit_notes || 'Nenhuma anotação.'}
+                              </p>
+                            </TooltipTrigger>
+                            {restaurant.visit_notes && (
+                              <TooltipContent>
+                                <p className="max-w-sm">{restaurant.visit_notes}</p>
+                              </TooltipContent>
+                            )}
+                          </Tooltip>
+                        </TooltipProvider>
                       </TableCell>
                       <TableCell className="space-x-1">
                         <Button
