@@ -8,11 +8,11 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft } from 'lucide-react'; // Removido ArrowRight
 import { useAuthData } from '@/context/AuthContext';
 // Removidos GoogleIcon e AppleIcon, pois não são usados no novo design
-import Header from '@/components/Header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+// Removido Header, pois o design da imagem não o utiliza
+import { Card, CardContent } from '@/components/ui/card'; // Removidos CardHeader, CardDescription, CardTitle
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -41,41 +41,48 @@ export default function RestaurantLogin() {
     setLoading(false);
   };
 
-  // Removido handleOAuthLogin, pois os botões de login social foram removidos
+  // handleOAuthLogin e botões de login social removidos conforme o design da imagem
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
-      <Header
-        title="Login" // Alterado o título para "Login"
-        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
-      />
+      {/* Botão de "Voltar" e "Login" replicando o cabeçalho da imagem */}
+      <div className="w-full max-w-sm flex justify-start mt-4">
+        <Button 
+          variant="ghost" 
+          onClick={() => navigate(-1)}
+          className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg flex items-center gap-2"
+        >
+          <ArrowLeft className="h-5 w-5" />
+          Login
+        </Button>
+      </div>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm"> {/* Alterado para max-w-sm */}
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="text-center mb-6"> {/* Ajustado espaçamento inferior */}
+          <div className="text-center mb-6">
             {/* Logo estilizado como na imagem */}
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-sm mb-4">
-              <img src="/logo.svg" alt="Logo" className="w-10 h-10" /> {/* Ajustado tamanho do logo */}
+              <img src="/logo.svg" alt="Logo" className="w-10 h-10" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">Acesse sua conta</h2> {/* Título principal */}
-            <p className="text-sm text-gray-600">Gerencie seu restaurante!</p> {/* Subtítulo */}
+            <h2 className="text-2xl font-bold text-gray-800 mb-1">Acesse sua conta</h2>
+            <p className="text-sm text-gray-600">Gerencie seu restaurante!</p>
           </div>
 
           <Card className="w-full">
             {/* CardHeader e CardDescription removidos daqui, pois o texto foi movido para cima */}
-            <CardContent className="pt-6"> {/* Ajustado padding superior */}
+            <CardContent className="pt-6">
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <Label htmlFor="email">E-mail</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="sssjoajo@gmail.com" // Placeholder atualizado
+                    placeholder="sssjoajo@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -87,7 +94,7 @@ export default function RestaurantLogin() {
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="********" // Placeholder atualizado
+                    placeholder="********"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -115,8 +122,8 @@ export default function RestaurantLogin() {
               {/* Botão "Login de Cliente" adicionado */}
               <Button
                 variant="outline"
-                className="w-full mt-4" // Adicionado espaçamento superior
-                onClick={() => navigate('/login')} // Redireciona para a página de login do cliente
+                className="w-full mt-4"
+                onClick={() => navigate('/auth')}
                 disabled={loading}
               >
                 Login de Cliente
