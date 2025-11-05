@@ -43,7 +43,7 @@ const AdminRestaurantMenu: React.FC = () => {
 
   const { categoriesQuery } = useMenuManagement(restaurantId);
   const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation } = useCategoryMutations(restaurantId);
-  const { createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(viewingCategory?.id);
+  const { createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(restaurantId);
 
   // --- Category Handlers ---
   const handleAddCategory = () => {
@@ -160,6 +160,7 @@ const AdminRestaurantMenu: React.FC = () => {
               items={currentMenuItems}
               onEdit={handleEditItem}
               onDelete={handleDeleteItem}
+              restaurantId={restaurantId}
             />
           </CardContent>
         </Card>

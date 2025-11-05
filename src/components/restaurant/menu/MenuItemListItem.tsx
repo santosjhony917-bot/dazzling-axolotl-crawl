@@ -13,11 +13,12 @@ interface MenuItemListItemProps {
   item: MenuItem;
   onEdit: (item: MenuItem) => void;
   onDelete: (itemId: string) => void;
+  restaurantId?: string;
 }
 
-export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete }) => {
+export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, restaurantId }) => {
   // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const updateItemMutation = useUpdateMenuItem();
+  const updateItemMutation = useUpdateMenuItem(restaurantId);
   const isUpdating = updateItemMutation.isPending;
 
   const handleToggleActive = (checked: boolean) => {

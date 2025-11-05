@@ -38,7 +38,7 @@ export default function CategoryDetails() {
   const { categoriesQuery } = useMenuManagement(restaurantId); 
   
   // Use the item management hook for the specific category
-  const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
+  const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId, restaurantId);
   
   // Find the category from the fetched categories
   const currentCategory = useMemo(() => {

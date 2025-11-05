@@ -7,9 +7,10 @@ interface MenuItemListProps {
   items: MenuItem[];
   onEdit: (item: MenuItem) => void;
   onDelete: (itemId: string) => void;
+  restaurantId?: string;
 }
 
-export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDelete }) => {
+export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDelete, restaurantId }) => {
   if (items.length === 0) {
     return (
       <div className="text-center text-gray-500 mt-8 p-6 bg-white rounded-xl shadow-soft-md">
@@ -27,6 +28,7 @@ export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDel
           item={item}
           onEdit={onEdit}
           onDelete={onDelete}
+          restaurantId={restaurantId}
         />
       ))}
     </div>
