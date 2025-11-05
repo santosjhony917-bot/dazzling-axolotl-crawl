@@ -12,6 +12,8 @@ import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { AppleIcon } from '@/components/icons/AppleIcon';
+import Header from '@/components/Header'; // Importar o componente Header
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'; // Importar componentes Card
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -56,14 +58,12 @@ export default function RestaurantLogin() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
-      <header className="w-full max-w-sm">
-        <Button variant="ghost" onClick={() => navigate(-1)} className="text-gray-600">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Voltar
-        </Button>
-      </header>
+      <Header
+        title="Acesse sua conta"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+      />
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm"> {/* Removido pt-20 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,85 +74,89 @@ export default function RestaurantLogin() {
             <div className="inline-block bg-white p-3 rounded-full shadow-sm mb-4">
               <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">Acesse sua conta</h1>
-            <p className="text-gray-500 mt-2">Gerencie seu restaurante!</p>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-lg w-full">
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div>
-                <Label htmlFor="email">E-mail</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="mt-1"
-                />
-              </div>
-              <div className="relative">
-                <Label htmlFor="password">Senha</Label>
-                <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Sua senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="mt-1"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9 text-gray-500"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              <div className="text-right">
-                <a href="/forgot-password" tabIndex={-1} className="text-sm text-orange-600 hover:underline">
-                  Esqueceu sua senha?
-                </a>
-              </div>
-              <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white" disabled={loading}>
-                {loading ? 'Entrando...' : 'Entrar'}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
+          <Card className="w-full"> {/* Usando o componente Card */}
+            <CardHeader className="text-center">
+              <CardTitle>Acesse sua conta</CardTitle>
+              <CardDescription>Gerencie seu restaurante!</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div>
+                  <Label htmlFor="email">E-mail</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1"
+                  />
+                </div>
+                <div className="relative">
+                  <Label htmlFor="password">Senha</Label>
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Sua senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="mt-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-9 text-gray-500"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                <div className="text-right">
+                  <a href="/forgot-password" tabIndex={-1} className="text-sm text-orange-600 hover:underline">
+                    Esqueceu sua senha?
+                  </a>
+                </div>
+                <Button type="submit" variant="highlight" className="w-full" disabled={loading}> {/* Usando variant="highlight" */}
+                  {loading ? 'Entrando...' : 'Entrar'}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
 
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-2 text-muted-foreground">
+                    Ou continue com
+                  </span>
+                </div>
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-muted-foreground">
-                  Ou continue com
-                </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Button variant="outline" onClick={() => handleOAuthLogin('google')} disabled={loading}>
+                  <GoogleIcon className="mr-2 h-5 w-5" />
+                  Google
+                </Button>
+                <Button variant="outline" onClick={() => handleOAuthLogin('apple')} disabled={loading}>
+                  <AppleIcon className="mr-2 h-5 w-5" />
+                  Apple
+                </Button>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Button variant="outline" onClick={() => handleOAuthLogin('google')} disabled={loading}>
-                <GoogleIcon className="mr-2 h-5 w-5" />
-                Google
-              </Button>
-              <Button variant="outline" onClick={() => handleOAuthLogin('apple')} disabled={loading}>
-                <AppleIcon className="mr-2 h-5 w-5" />
-                Apple
-              </Button>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Não tem uma conta?{' '}
-                <a href="/restaurant-area/signup" className="font-medium text-orange-600 hover:underline">
-                  Crie uma agora
-                </a>
-              </p>
-            </div>
-          </div>
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-600">
+                  Não tem uma conta?{' '}
+                  <a href="/restaurant-area/signup" className="font-medium text-orange-600 hover:underline">
+                    Crie uma agora
+                  </a>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
       </main>
 
