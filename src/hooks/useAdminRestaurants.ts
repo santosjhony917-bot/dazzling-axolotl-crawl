@@ -38,7 +38,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
   if (filters.state) {
     query = query.eq('state', filters.state);
   }
-  if (filters.plan) {
+  if (filters.plan && filters.plan !== 'all') {
     query = query.eq('plan', filters.plan);
   }
 
