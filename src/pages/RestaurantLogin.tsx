@@ -9,23 +9,23 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthData } from '@/context/AuthContext';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { AppleIcon } from '@/components/icons/AppleIcon';
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
-  const { session } = useAuth();
+  const { isAuthenticated } = useAuthData();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (session) {
+    if (isAuthenticated) {
       navigate('/restaurant-area');
     }
-  }, [session, navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
