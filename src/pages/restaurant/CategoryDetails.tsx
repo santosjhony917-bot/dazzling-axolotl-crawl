@@ -14,7 +14,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { showError, showSuccess } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
 import MenuItemDialog from '@/components/restaurant/MenuItemDialog';
-import { useQueryClient } from '@tanstack/react-query';
 
 export default function CategoryDetails() {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -24,7 +23,6 @@ export default function CategoryDetails() {
   
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [deletingItem, setDeletingItem] = useState<MenuItem | null>(null);
   
   // Estado para Confirmação
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -41,64 +39,28 @@ export default function CategoryDetails() {
   
   // Use the item management hook for the specific category
   const { itemsQuery, createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(categoryId);
-  const queryClient = useQueryClient();
   
   // Find the category from the fetched categories
   const currentCategory = useMemo(() => {
     return categoriesQuery.data?.find(c => c.id === categoryId);
   }, [categoriesQuery.data, categoryId]);
 
-  const items = itemsQuery.data || [];
-
-  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [deletingItem, setDeletingItem] = useState<MenuItem | null>(null);
+  const categoryName = currentCategory?.name || 'Carregando...';
   
-  // Estado para Confirmação
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [confirmationAction, setConfirmationAction] = useState<(() => void) | null>(null);
-  const [confirmationTitle, setConfirmationTitle] = useState('');
-  const [confirmationDescription, setConfirmationDescription] = useState('');
-
-  if (!currentCategory && !categoriesQuery.isLoading) {
-    return <div className="p-4 text-red-500">Categoria não encontrada.</div>;
-  }
-
-  const isSaving = createItemMutation.isPending || updateItemMutation.isPending;
+  const items = itemsQuery.data || [];
+  const isLoading = itemsQuery.isLoading || categoriesQuery.isLoading;
+  const isSaving = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending;
 
   const handleOpenDialog = (item: MenuItem | null = null) => {
     setEditingItem(item);
     setIsItemModalOpen(true);
   };
 
-  const handleDeleteRequest = (itemId: string) => {
-    const itemToDelete = items.find(item => item.id === itemId);
-    if (!itemToDelete) {
-      showError("Item não encontrado para exclusão.");
-      return;
-    }
-    setDeletingItem(itemToDelete);
-    setConfirmationTitle('Confirmar Exclusão');
-    setConfirmationDescription(`Tem certeza que deseja excluir o item "${itemToDelete.name}"?`);
-    setConfirmationAction(() => () => handleDeleteItem());
+  const handleDeleteItem = (itemId: string) => {
+    setConfirmationTitle("Excluir Item de Menu");
+    setConfirmationDescription("Tem certeza de que deseja excluir este item de menu?");
+    setConfirmationAction(() => () => deleteItemMutation.mutate(itemId));
     setIsConfirmationOpen(true);
-  };
-
-  const handleDeleteItem = () => {
-    if (deletingItem) {
-      deleteItemMutation.mutate(deletingItem.id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['menuItems', categoryId] });
-          setDeletingItem(null);
-          setIsConfirmationOpen(false);
-          showSuccess('Item excluído com sucesso!');
-        },
-        onError: (error) => {
-          showError(`Falha ao excluir item: ${error.message}`);
-          setIsConfirmationOpen(false);
-        }
-      });
-    }
   };
 
   const handleSaveItem = useCallback(async (data: MenuItemFormValues) => {
@@ -108,56 +70,61 @@ export default function CategoryDetails() {
           id: editingItem.id,
           updates: {
             name: data.name,
-            description: data.description,
+            description: data.description || null,
             price: data.price,
-            image_url: data.image_url,
+            image_url: data.image_url || null,
             is_active: data.is_active,
-          },
+          }
         });
       } else {
         await createItemMutation.mutateAsync({
           category_id: categoryId,
           name: data.name,
-          description: data.description,
+          description: data.description || null,
           price: data.price,
-          image_url: data.image_url,
+          image_url: data.image_url || null,
           is_active: data.is_active,
         });
       }
       // Fecha o modal após o sucesso da mutação
       setIsItemModalOpen(false); 
     } catch (e) {
-      // O erro já é tratado no hook, mas pode-se adicionar lógica extra aqui se necessário
+      // O erro é tratado no hook de mutação (toast.error)
+      console.error("Failed to save item:", e);
     }
   }, [editingItem, updateItemMutation, createItemMutation, categoryId]);
 
-  return (
-    <RestaurantAreaPageLayout
-      title={currentCategory ? `Itens: ${currentCategory.name}` : 'Carregando Categoria...'}
-      backLink={`/restaurant-area/menu`}
-    >
-      <div className="p-4">
-        <div className="flex justify-end mb-4">
-          <Button onClick={() => handleOpenDialog(null)}>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Adicionar Item
-          </Button>
-        </div>
+  if (!currentCategory && !isLoading) {
+    return <div className="p-4 text-red-500">Categoria não encontrada.</div>;
+  }
 
-        {itemsQuery.isLoading ? (
-          <div className="text-center p-8">
-            <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
-            <p className="mt-2 text-gray-500">Carregando itens...</p>
-          </div>
-        ) : itemsQuery.isError ? (
-          <div className="text-center text-red-500 p-8 bg-red-50 rounded-lg">
-            <p>Ocorreu um erro ao carregar os itens.</p>
+  return (
+    <RestaurantAreaPageLayout title="Gerenciar Itens" icon={Utensils} backPath="restaurant-area/menu">
+      <div className="p-4 space-y-6">
+        
+        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Itens em: {categoryName}</h1>
+              <Button onClick={() => handleOpenDialog(null)} disabled={isSaving} className="bg-highlight hover:bg-highlight/90">
+                <PlusCircle className="w-4 h-4 mr-2" />
+                Novo Item
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {isLoading ? (
+          <div className="space-y-3">
+            <Skeleton className="h-20 w-full rounded-xl" />
+            <Skeleton className="h-20 w-full rounded-xl" />
+            <Skeleton className="h-20 w-full rounded-xl" />
           </div>
         ) : (
           <MenuItemList
             items={items}
             onEdit={handleOpenDialog}
-            onDelete={handleDeleteRequest}
+            onDelete={handleDeleteItem}
           />
         )}
       </div>
