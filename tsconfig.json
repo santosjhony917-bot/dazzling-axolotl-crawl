@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["supabase/functions"]
+  "include": ["src"],
+  "exclude": ["supabase/functions"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

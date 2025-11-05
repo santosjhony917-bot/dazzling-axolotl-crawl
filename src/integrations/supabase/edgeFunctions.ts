@@ -30,6 +30,23 @@ export const claimRestaurant = async (payload: ClaimRestaurantPayload): Promise<
   return data;
 };
 
+export const bulkCreateRestaurants = async (csvData: string): Promise<{ successCount: number; message: string }> => {
+  const { data, error } = await supabase.functions.invoke('bulk-create-restaurants', {
+    body: { csvData },
+  });
+
+  if (error) {
+    console.error('Error invoking bulk-create-restaurants edge function:', error);
+    throw new Error(error.message || 'Falha ao processar a criação de restaurantes em massa.');
+  }
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+};
+
 interface RegisterRestaurantPayload {
   name: string;
   email: string;

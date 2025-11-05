@@ -6,6 +6,7 @@ export interface UploadRecord {
   phase: number;
   successCount: number;
   details: string;
+  error?: boolean;
 }
 
 const HISTORY_KEY = 'admin_upload_history';
