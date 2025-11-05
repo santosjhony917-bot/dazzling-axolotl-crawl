@@ -43,7 +43,10 @@ import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsP
 import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
-import AdminRestaurants from '@/pages/admin/AdminRestaurants';
+import AdminRestaurants from './pages/admin/AdminRestaurants';
+import AdminUploadInfo from './pages/admin/AdminUploadInfo';
+import AdminBanners from './pages/admin/AdminBanners';
+import ManagePlans from './pages/admin/ManagePlans';
 import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant';
 import ManageAdmins from '@/pages/admin/ManageAdmins';
 import PopularCategories from '@/pages/admin/PopularCategories';
@@ -51,7 +54,6 @@ import Files from '@/pages/admin/Files';
 import ImportMenu from '@/pages/admin/ImportMenu';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
-import AdminBanners from '@/pages/admin/AdminBanners';
 import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importação adicionada
 
 function App() {
@@ -104,17 +106,18 @@ function App() {
         {/* Rotas Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
-          <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
-          <Route path="/admin/plans" element={<AdminPlans />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="restaurants" element={<AdminRestaurants />} />
+          <Route path="upload-info" element={<AdminUploadInfo />} />
+          <Route path="banners" element={<AdminBanners />} />
+          <Route path="plans" element={<ManagePlans />} />
+          <Route path="edit-restaurant/:id" element={<AdminEditRestaurant />} />
+          <Route path="restaurant-menu/:id" element={<AdminRestaurantMenu />} />
           <Route path="/admin/users" element={<ManageAdmins />} />
           <Route path="/admin/categories" element={<PopularCategories />} />
           <Route path="/admin/files" element={<Files />} />
           <Route path="/admin/import" element={<ImportMenu />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/admin/banners" element={<AdminBanners />} />
         </Route>
         
       </Routes>

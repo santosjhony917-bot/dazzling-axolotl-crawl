@@ -1,69 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Restaurant } from '@/types/supabase';
 import { Loader2 } from 'lucide-react';
 
 interface VisitNotesDialogProps {
   isOpen: boolean;
-  onClose: () => void;
-  restaurantName: string;
-  initialNotes: string | null;
-  onSave: (notes: string) => void;
+  onOpenChange: (isOpen: boolean) => void;
+  restaurant: Restaurant;
+  onSave: (newNotes: string) => void;
   isSaving: boolean;
 }
 
 const VisitNotesDialog: React.FC<VisitNotesDialogProps> = ({
   isOpen,
-  onClose,
-  restaurantName,
-  initialNotes,
+  onOpenChange,
+  restaurant,
   onSave,
   isSaving,
 }) => {
-  const [notes, setNotes] = useState(initialNotes || '');
+  const [notes, setNotes] = useState(restaurant.visit_notes || '');
 
   useEffect(() => {
     if (isOpen) {
-      setNotes(initialNotes || '');
+      setNotes(restaurant.visit_notes || '');
     }
-  }, [isOpen, initialNotes]);
+  }, [isOpen, restaurant.visit_notes]);
 
   const handleSave = () => {
     onSave(notes);
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle>Anotações para {restaurantName}</DialogTitle>
-          <DialogDescription>
-            Adicione ou edite as anotações sobre a visita a este restaurante.
-          </DialogDescription>
+          <DialogTitle>Anotações de Visita para: {restaurant.name}</DialogTitle>
         </DialogHeader>
         <div className="py-4">
           <Textarea
-            placeholder="Digite suas anotações aqui..."
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
+            placeholder="Adicione suas anotações sobre o contato com este restaurante..."
             rows={6}
           />
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={isSaving}>
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isSaving}>
             Cancelar
           </Button>
           <Button onClick={handleSave} disabled={isSaving}>
-            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            Salvar
+            {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Salvar'}
           </Button>
         </DialogFooter>
       </DialogContent>
