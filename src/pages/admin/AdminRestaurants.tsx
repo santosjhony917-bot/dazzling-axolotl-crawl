@@ -34,7 +34,7 @@ const planLabels: Record<RestaurantPlan | 'all', string> = {
 
 export default function AdminRestaurants() {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState({ city: '', state: '', plan: 'all' });
+  const [filters, setFilters] = useState({ city: '', neighborhood: '', state: '', plan: 'all' });
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
 
@@ -99,11 +99,16 @@ export default function AdminRestaurants() {
 
       <Card className="shadow-soft-lg border-none rounded-xl bg-white">
         <CardContent className="p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <Input
               placeholder="Filtrar por cidade..."
               value={filters.city}
               onChange={(e) => handleFilterChange('city', e.target.value)}
+            />
+            <Input
+              placeholder="Filtrar por bairro..."
+              value={filters.neighborhood}
+              onChange={(e) => handleFilterChange('neighborhood', e.target.value)}
             />
             <Select value={filters.state} onValueChange={(value) => handleFilterChange('state', value)}>
               <SelectTrigger>
@@ -158,7 +163,7 @@ export default function AdminRestaurants() {
                   restaurants.map((restaurant) => (
                     <TableRow key={restaurant.id}>
                       <TableCell className="font-medium">{restaurant.name}</TableCell>
-                      <TableCell>{restaurant.city || 'N/A'}, {restaurant.state || 'N/A'}</TableCell>
+                      <TableCell>{[restaurant.neighborhood, restaurant.city, restaurant.state].filter(Boolean).join(', ') || 'N/A'}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-sm">{restaurant.claim_code}</span>

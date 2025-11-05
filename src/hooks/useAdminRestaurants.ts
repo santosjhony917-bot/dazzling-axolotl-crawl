@@ -24,6 +24,7 @@ interface FetchRestaurantsFilters {
   city?: string;
   state?: string;
   plan?: string;
+  neighborhood?: string;
 }
 
 const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
@@ -34,6 +35,9 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
 
   if (filters.city) {
     query = query.ilike('city', `%${filters.city}%`);
+  }
+  if (filters.neighborhood) {
+    query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
   }
   if (filters.state) {
     query = query.eq('state', filters.state);
