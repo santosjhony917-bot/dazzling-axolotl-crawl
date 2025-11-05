@@ -14,7 +14,7 @@ import { cnpjMask, phoneMask } from '@/utils/masks';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
 import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
 import GalleryManagement from '@/components/restaurant/GalleryManagement';
-import ScheduleEditor from '@/components/restaurant/ScheduleEditor';
+import { EditHoursDialog } from '@/components/EditHoursDialog';
 import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
 import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
 import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
@@ -507,12 +507,11 @@ const AdminEditRestaurant: React.FC = () => {
           loading={isSaving}
         />
       )}
-      <ScheduleEditor
-        isOpen={isScheduleEditorOpen}
-        onClose={() => setIsScheduleEditorOpen(false)}
-        initialSchedule={(restaurant.opening_hours as unknown as WeekSchedule) || DEFAULT_SCHEDULE}
+      <EditHoursDialog
+        open={isScheduleEditorOpen}
+        onOpenChange={setIsScheduleEditorOpen}
+        currentSchedule={(restaurant.opening_hours as unknown as WeekSchedule) || DEFAULT_SCHEDULE}
         onSave={handleSaveSchedule}
-        isLoading={isSaving}
       />
       <PaymentMethodsDialog
         isOpen={isPaymentMethodsDialogOpen}
