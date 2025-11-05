@@ -39,7 +39,7 @@ import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
 
 // Admin Pages
-import AdminLayout from '@/components/admin/AdminLayout';
+import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminRestaurants from '@/pages/admin/AdminRestaurants';

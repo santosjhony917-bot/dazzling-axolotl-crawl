@@ -1,20 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import {
-  Home,
-  Users,
-  Settings,
-  UploadCloud,
-  Shield,
-  Building2,
-  BarChart,
-  Ticket,
-  Image as ImageIcon,
-  ClipboardList,
-  ChevronRight,
-  ChevronLeft
-} from 'lucide-react';
+import { LayoutDashboard, Upload, Users, Utensils, Folder, Settings, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface NavItem {
@@ -24,15 +11,12 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: '/admin', icon: Home, label: 'Dashboard' },
-  { href: '/admin/restaurants', icon: Building2, label: 'Restaurantes' },
-  { href: '/admin/upload-info', icon: UploadCloud, label: 'Upload em Massa' },
-  { href: '/admin/banners', icon: ImageIcon, label: 'Banners' },
-  { href: '/admin/plans', icon: Ticket, label: 'Planos' },
+  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/restaurants', label: 'Gerenciar Restaurantes', icon: Utensils },
   { href: '/admin/manage-admins', label: 'Administradores', icon: Users },
   { href: '/admin/popular-categories', label: 'Categorias', icon: Settings },
-  { href: '/admin/files', label: 'Arquivos', icon: ClipboardList },
-  { href: '/admin/import', label: 'Importar Cardápio', icon: UploadCloud },
+  { href: '/admin/files', label: 'Arquivos', icon: Folder },
+  { href: '/admin/import', label: 'Importar Cardápio', icon: Upload },
 ];
 
 interface AdminSidebarProps {

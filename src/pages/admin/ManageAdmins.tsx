@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { listAdmins, addAdmin, removeAdmin } from '@/integrations/supabase/admin';
+import { listAdmins, addAdmin, removeAdmin } from '@/integrations/supabase/adminFunctions';
 import { showError, showSuccess } from '@/utils/toast';
 import {
   AlertDialog,
