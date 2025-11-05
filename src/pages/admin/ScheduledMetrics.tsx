@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Clock, Loader2, AlertTriangle, Save, Utensils, Calendar, Users } from 'lucide-react';
+import { Clock, Loader2, AlertTriangle, Save, Utensils, Calendar, Users, Trash2 } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,6 +18,7 @@ import { ptBR } from 'date-fns/locale';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Restaurant } from '@/types/supabase';
 import { Badge } from '@/components/ui/badge'; // CORRIGIDO: Importando Badge
+import ConfirmationDialog from '@/components/ConfirmationDialog';
 
 // --- Tipos ---
 interface ScheduledMetric {
@@ -47,6 +48,11 @@ const fetchScheduledMetrics = async (): Promise<ScheduledMetric[]> => {
   return data as ScheduledMetric[];
 };
 
+const deleteScheduledMetric = async (id: string) => {
+  const { error } = await supabase.from('scheduled_metrics').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+};
+
 const useScheduledMetrics = () => {
   return useQuery<ScheduledMetric[], Error>({
     queryKey: ['scheduledMetrics'],
@@ -66,6 +72,23 @@ const ScheduledMetrics: React.FC = () => {
   const [targetFollowers, setTargetFollowers] = useState<number>(0);
   const [durationHours, setDurationHours] = useState<number>(24);
   const [isScheduling, setIsScheduling] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [scheduleToDelete, setScheduleToDelete] = useState<string | null>(null);
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteScheduledMetric,
+    onSuccess: () => {
+      showSuccess("Agendamento excluído com sucesso.");
+      queryClient.invalidateQueries({ queryKey: ['scheduledMetrics'] });
+    },
+    onError: (e) => {
+      showError(`Falha ao excluir: ${(e as Error).message}`);
+    },
+    onSettled: () => {
+      setIsDeleteDialogOpen(false);
+      setScheduleToDelete(null);
+    },
+  });
 
   const handleSchedule = async () => {
     if (!selectedRestaurantId || targetFollowers <= 0 || durationHours <= 0) {
@@ -118,6 +141,17 @@ const ScheduledMetrics: React.FC = () => {
       showError(`Falha ao agendar: ${(e as Error).message}`);
     } finally {
       setIsScheduling(false);
+    }
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setScheduleToDelete(id);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (scheduleToDelete) {
+      deleteMutation.mutate(scheduleToDelete);
     }
   };
   
@@ -229,8 +263,21 @@ const ScheduledMetrics: React.FC = () => {
                       Início: {format(new Date(schedule.start_time), 'dd/MM HH:mm', { locale: ptBR })} | Fim: {format(new Date(schedule.end_time), 'dd/MM HH:mm', { locale: ptBR })}
                     </p>
                   </div>
-                  <div className="shrink-0 ml-4">
+                  <div className="shrink-0 ml-4 flex items-center gap-2">
                     {getStatusBadge(schedule.status)}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteClick(schedule.id)}
+                      disabled={deleteMutation.isPending && scheduleToDelete === schedule.id}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      {deleteMutation.isPending && scheduleToDelete === schedule.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-4 w-4" />
+                      )}
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -240,6 +287,16 @@ const ScheduledMetrics: React.FC = () => {
           )}
         </CardContent>
       </Card>
+
+      <ConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Confirmar Exclusão"
+        description="Tem certeza de que deseja excluir este agendamento? Esta ação não pode ser desfeita."
+        confirmText="Excluir"
+        isLoading={deleteMutation.isPending}
+      />
     </div>
   );
 };
