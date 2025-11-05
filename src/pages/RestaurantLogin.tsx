@@ -1,131 +1,66 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, ArrowRight, Loader2, Utensils } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
-import { showError, showSuccess } from "@/utils/toast";
-import { createPageUrl } from "@/utils/url";
-import { motion } from "framer-motion";
-import { useAuth } from "@/hooks/useAuth";
-import { useAuthData } from '@/context/AuthContext';
+"use client";
+
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { AppleIcon } from '@/components/icons/AppleIcon';
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { session } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [lastError, setLastError] = useState<string | null>(null);
-  const { refetchProfile, refetchRestaurant } = useAuth();
 
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
-
-  const attemptLogin = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      throw error;
+  useEffect(() => {
+    if (session) {
+      navigate('/restaurant-area');
     }
-    return data.user?.id;
-  };
+  }, [session, navigate]);
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setLastError(null);
-    
-    try {
-      let userId: string | undefined;
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success('Login bem-sucedido!');
+      navigate('/restaurant-area');
+    }
+    setLoading(false);
+  };
 
-      try {
-        // Tenta o login normal
-        userId = await attemptLogin(email, password);
-      } catch (loginError) {
-        const errorMessage = (loginError as Error).message;
-        
-        // Se o login falhar (ex: usuário não existe ou e-mail não confirmado)
-        if (errorMessage.includes('Invalid login credentials') || errorMessage.includes('Email not confirmed')) {
-          setLastError(errorMessage);
-          showError(errorMessage);
-          setLoading(false);
-          return;
-        }
-        
-        // Se for outro erro, tenta o cadastro (fallback)
-        showSuccess("Usuário não encontrado. Tentando cadastrar...");
-        
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-
-        if (signUpError) {
-          throw signUpError;
-        }
-        
-        // Se o cadastro for bem-sucedido, o Supabase enviou o e-mail de confirmação.
-        setLastError("Conta criada! Verifique seu e-mail para confirmar e tente o login novamente.");
-        showSuccess("Conta criada! Verifique seu e-mail para confirmar e prossiga para o login.");
-        setLoading(false);
-        return;
-      }
-
-      if (!userId) {
-        throw new Error("Falha na autenticação. Tente novamente.");
-      }
-
-      // Adicionado: Recarrega o perfil e o restaurante após o login bem-sucedido
-      refetchProfile();
-      refetchRestaurant();
-      
-      // 1. Tenta vincular o restaurante mockado ao ID do usuário logado
-      const MOCK_RESTAURANT_ID = 'a1b2c3d4-e5f6-7890-1234-567890abcdef';
-      
-      // NOTE: Esta lógica de vinculação deve ser feita no backend (Edge Function/Trigger)
-      // para garantir que o user_id seja um UUID válido e que o usuário tenha permissão.
-      // Para fins de desenvolvimento, vamos apenas logar e navegar.
-      
-      showSuccess("Login realizado com sucesso! Redirecionando para o painel.");
-      // CORRIGIDO: Redirecionar para a rota do Dashboard do restaurante
-      navigate(createPageUrl("restaurant-area/home")); 
-
-    } catch (error) {
-      const msg = (error as Error).message || "Ocorreu um erro ao fazer login. Verifique suas credenciais.";
-      setLastError(msg);
-      showError(msg);
-    } finally {
+  const handleOAuthLogin = async (provider: 'google' | 'apple') => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/restaurant-area`,
+      },
+    });
+    if (error) {
+      toast.error(error.message);
       setLoading(false);
     }
   };
-  
+
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
-      
-      {/* Header/Botão Voltar */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
+    <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
+      <header className="w-full max-w-sm">
+        <Button variant="ghost" onClick={() => navigate(-1)} className="text-gray-600">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Voltar
         </Button>
-        <div className="flex items-center gap-2">
-          <h2 className="text-primary text-xl font-bold">Login</h2>
-        </div>
-        <div className="w-10"></div> {/* Placeholder para alinhamento */}
       </header>
 
       <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
@@ -135,108 +70,96 @@ export default function RestaurantLogin() {
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          {/* Icon and Title (Padrão Consistente) */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
-              <Utensils className="w-8 h-8 text-primary" />
+          <div className="text-center mb-8">
+            <div className="inline-block bg-white p-3 rounded-full shadow-sm mb-4">
+              <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
             </div>
-            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
-              Acesse sua conta
-            </h1>
-            <p className="text-text-secondary text-base mt-1">
-              Gerencie seu restaurante!
-            </p>
+            <h1 className="text-3xl font-bold text-gray-800">Acesse sua conta</h1>
+            <p className="text-gray-500 mt-2">Gerencie seu restaurante!</p>
           </div>
 
-          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
-            <CardContent className="p-6 pt-4">
-              <form onSubmit={handleLogin} className="space-y-4">
+          <div className="bg-white p-8 rounded-2xl shadow-lg w-full">
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div>
+                <Label htmlFor="email">E-mail</Label>
                 <Input
-                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
-                  placeholder="E-mail"
+                  id="email"
                   type="email"
+                  placeholder="seu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
                   required
+                  className="mt-1"
                 />
-                <div className="relative">
-                  <Input
-                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
-                    placeholder="Senha"
-                    type={passwordVisible ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={loading}
-                    required
-                  />
-                  <button
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors"
-                    type="button"
-                  >
-                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                <div className="flex justify-end">
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm font-medium text-primary hover:underline"
-                  >
-                    Esqueceu sua senha?
-                  </Link>
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  variant="highlight"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
-                >
-                  <span className="truncate">
-                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Entrar"}
-                  </span>
-                  {!loading && <ArrowRight className="w-5 h-5" />}
-                </Button>
-              </form>
-              
-              {/* Botão de Login de Cliente */}
-              <div className="pt-4 space-y-2">
-                <Button
-                  onClick={() => navigate(createPageUrl('auth'))}
-                  variant="secondary"
-                  className="w-full h-10 text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-xl shadow-soft-sm"
-                  disabled={loading}
-                >
-                  Login de Cliente
-                </Button>
               </div>
-
-              {lastError && (
-                <p className="pt-4 text-center text-sm text-red-500">
-                  {lastError}
-                </p>
-              )}
-
-              <p className="pt-6 text-center text-base text-gray-600">
-                Não tem uma conta?
-                <Link
-                  to={createPageUrl('restaurant-signup')}
-                  className="font-bold text-highlight hover:underline ml-1"
+              <div className="relative">
+                <Label htmlFor="password">Senha</Label>
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="mt-1"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-9 text-gray-500"
                 >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <div className="text-right">
+                <a href="/forgot-password" tabIndex={-1} className="text-sm text-orange-600 hover:underline">
+                  Esqueceu sua senha?
+                </a>
+              </div>
+              <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white" disabled={loading}>
+                {loading ? 'Entrando...' : 'Entrar'}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-muted-foreground">
+                  Ou continue com
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Button variant="outline" onClick={() => handleOAuthLogin('google')} disabled={loading}>
+                <GoogleIcon className="mr-2 h-5 w-5" />
+                Google
+              </Button>
+              <Button variant="outline" onClick={() => handleOAuthLogin('apple')} disabled={loading}>
+                <AppleIcon className="mr-2 h-5 w-5" />
+                Apple
+              </Button>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                Não tem uma conta?{' '}
+                <a href="/restaurant-area/signup" className="font-medium text-orange-600 hover:underline">
                   Crie uma agora
-                </Link>
+                </a>
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full max-w-md mx-auto py-6">
-        <div className="flex justify-center items-center gap-6">
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
+      <footer className="w-full max-w-sm text-center py-4">
+        <div className="text-xs text-gray-500 space-x-4">
+          <a href="/terms" className="hover:underline">Termos</a>
+          <a href="/privacy" className="hover:underline">Privacidade (LGPD)</a>
         </div>
       </footer>
     </div>
