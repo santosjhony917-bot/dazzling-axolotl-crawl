@@ -18,6 +18,7 @@ interface CategoryListItemProps {
   isFirst: boolean;
   isLast: boolean;
   isMutating: boolean;
+  disableNavigation?: boolean;
 }
 
 const CategoryListItem: React.FC<CategoryListItemProps> = ({
@@ -25,6 +26,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
   onEdit,
   onDelete,
   isMutating,
+  disableNavigation = false,
 }) => {
   const navigate = useNavigate(); // Inicializando useNavigate
   const statusText = category.is_active ? 'Ativa' : 'Inativa';
@@ -32,14 +34,14 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
   
   const handleNavigateToDetails = (e: React.MouseEvent) => {
     e.preventDefault(); // Previne o comportamento padrão do link
-    if (!isMutating) {
+    if (!isMutating && !disableNavigation) {
       navigate(createPageUrl('restaurant-area/category-details', { categoryId: category.id }));
     }
   };
 
   return (
     <Card 
-      className="p-4 flex items-center justify-between transition-shadow hover:shadow-md cursor-pointer"
+      className={`p-4 flex items-center justify-between transition-shadow hover:shadow-md ${!disableNavigation ? 'cursor-pointer' : 'cursor-default'}`}
       onClick={handleNavigateToDetails} // Adicionando o clique no card inteiro
     >
       <div className="flex items-center space-x-4 min-w-0 flex-1">

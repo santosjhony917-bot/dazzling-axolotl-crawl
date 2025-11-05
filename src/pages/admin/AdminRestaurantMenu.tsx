@@ -95,6 +95,7 @@ const AdminRestaurantMenu: React.FC = () => {
               restaurantId={restaurantId}
               onEdit={handleEditCategory}
               onDelete={handleDeleteCategory}
+              disableNavigation={true}
             />
           )}
         </CardContent>

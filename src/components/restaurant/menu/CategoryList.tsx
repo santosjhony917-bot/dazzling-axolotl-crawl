@@ -11,6 +11,7 @@ interface CategoryListProps {
   restaurantId: string;
   onEdit: (category: MenuCategory) => void;
   onDelete: (categoryId: string) => void;
+  disableNavigation?: boolean;
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({
@@ -18,6 +19,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
   restaurantId,
   onEdit,
   onDelete,
+  disableNavigation,
 }) => {
   // Usamos useCategoryMutations apenas para obter o estado de mutação global
   const { deleteCategoryMutation, createCategoryMutation, updateCategoryMutation } = useCategoryMutations(restaurantId);
@@ -50,6 +52,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
           isFirst={index === 0}
           isLast={index === categories.length - 1}
           isMutating={isMutating}
+          disableNavigation={disableNavigation}
         />
       ))}
       {isMutating && (
