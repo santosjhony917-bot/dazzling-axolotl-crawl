@@ -29,7 +29,7 @@ const ClaimRestaurant = () => {
           setIsLoading(true);
           try {
             const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
-              body: { restaurantId: storedClaimCode },
+              body: { claimCode: storedClaimCode },
             });
 
             if (functionError) {
@@ -77,7 +77,7 @@ const ClaimRestaurant = () => {
       const { data: restaurant, error: dbError } = await supabase
         .from('restaurants')
         .select('id, user_id')
-        .eq('id', claimCode)
+        .eq('claim_code', claimCode.toUpperCase())
         .single();
 
       if (dbError || !restaurant) {
@@ -88,7 +88,7 @@ const ClaimRestaurant = () => {
         throw new Error('Este restaurante já foi reivindicado.');
       }
 
-      localStorage.setItem('claimCode', claimCode);
+      localStorage.setItem('claimCode', claimCode.toUpperCase());
       setIsCodeVerified(true);
     } catch (e: any) {
       setError(e.message);
@@ -131,7 +131,7 @@ const ClaimRestaurant = () => {
           {!isCodeVerified ? (
             <>
               <p className="text-gray-600 mb-6">
-                Use o código de acesso fornecido para liberar seu perfil.
+                Use o código de acesso de 8 caracteres para liberar seu perfil.
               </p>
               <form onSubmit={handleVerifyCode} className="space-y-4 text-left">
                 <div>
@@ -143,8 +143,10 @@ const ClaimRestaurant = () => {
                     onChange={(e) => setClaimCode(e.target.value)}
                     required
                     disabled={isLoading}
+                    maxLength={8}
+                    className="uppercase"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Este código é o ID único do seu estabelecimento.</p>
+                  <p className="text-xs text-gray-500 mt-1">O código de 8 caracteres fornecido a você.</p>
                 </div>
                 {error && <p className="text-sm text-red-500 text-center pt-2">{error}</p>}
                 <Button type="submit" className="w-full" disabled={isLoading || !claimCode}>

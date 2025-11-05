@@ -13,19 +13,16 @@ serve(async (req: Request) => {
   }
 
   try {
-    const { restaurantId } = await req.json()
-    if (!restaurantId) {
-      throw new Error('ID do restaurante é obrigatório.')
+    const { claimCode } = await req.json()
+    if (!claimCode) {
+      throw new Error('Código de reivindicação é obrigatório.')
     }
 
-    // Crie um cliente Supabase para interagir com o seu banco de dados.
-    // Importante: use o SERVICE_ROLE_KEY para ter permissões de administrador.
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
-    // Obtenha o usuário a partir do token de autorização.
     const authHeader = req.headers.get('Authorization')!
     const { data: { user } } = await supabaseAdmin.auth.getUser(authHeader.replace('Bearer ', ''))
 
@@ -36,13 +33,10 @@ serve(async (req: Request) => {
       })
     }
 
-    // Verificação de segurança no lado do servidor:
-    // 1. Verifique se o restaurante existe.
-    // 2. Verifique se o restaurante ainda não foi reivindicado (user_id é nulo).
     const { data: restaurant, error: fetchError } = await supabaseAdmin
       .from('restaurants')
       .select('user_id')
-      .eq('id', restaurantId)
+      .eq('claim_code', claimCode)
       .single()
 
     if (fetchError || !restaurant) {
@@ -59,11 +53,10 @@ serve(async (req: Request) => {
       })
     }
 
-    // Se tudo estiver correto, atualize o restaurante com o ID do novo usuário.
     const { error: updateError } = await supabaseAdmin
       .from('restaurants')
       .update({ user_id: user.id })
-      .eq('id', restaurantId)
+      .eq('claim_code', claimCode)
 
     if (updateError) {
       throw updateError
