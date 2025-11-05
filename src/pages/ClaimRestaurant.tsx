@@ -1,235 +1,192 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Eye, EyeOff, Utensils, Loader2 } from 'lucide-react';
+"use client";
+
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { supabase } from '../integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
-import { createPageUrl } from '@/utils/url';
-import { supabase } from "@/integrations/supabase/client";
-import { showError, showSuccess } from "@/utils/toast";
-import { useAuth } from "@/hooks/useAuth"; // Importar useAuth
-import { claimRestaurant } from "@/integrations/supabase/edgeFunctions"; // Importar claimRestaurant
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/components/ui/use-toast';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import Logo from '@/components/Logo';
 
-export default function ClaimRestaurant() {
+const ClaimRestaurant = () => {
+  const [claimCode, setClaimCode] = useState('');
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { restaurantId } = useParams<{ restaurantId: string }>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [accessCode, setAccessCode] = useState(restaurantId || ""); // Adicionado, inicializa com restaurantId se disponível
-  const [confirmPassword, setConfirmPassword] = useState(""); // Adicionado
-  const { refetchProfile, refetchRestaurant } = useAuth(); // Usar o hook useAuth para obter as funções de refetch
+  const { toast } = useToast();
 
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
+  useEffect(() => {
+    const handleAuthChange = async (event: string, session: any) => {
+      if (event === 'SIGNED_IN') {
+        const storedClaimCode = localStorage.getItem('claimCode');
+        if (storedClaimCode && session?.user) {
+          setIsLoading(true);
+          try {
+            const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
+              body: { restaurantId: storedClaimCode },
+            });
 
-  const handleClaim = async (e: React.FormEvent<HTMLFormElement>) => {
+            if (functionError) {
+              throw functionError;
+            }
+
+            toast({
+              title: 'Restaurante reivindicado com sucesso!',
+              description: 'Você agora gerencia este perfil.',
+            });
+            localStorage.removeItem('claimCode');
+            navigate('/restaurant-area/dashboard');
+          } catch (e: any) {
+            toast({
+              variant: 'destructive',
+              title: 'Erro ao reivindicar restaurante',
+              description: e.message || 'Por favor, tente novamente.',
+            });
+          } finally {
+            setIsLoading(false);
+          }
+        }
+      }
+    };
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      handleAuthChange(event, session);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [navigate, toast]);
+
+  const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (password.length < 6) {
-        showError('A senha deve ter pelo menos 6 caracteres.');
-        setLoading(false);
+    if (!claimCode) {
+        setError('Por favor, insira um código de acesso.');
         return;
     }
+    setIsLoading(true);
+    setError(null);
 
     try {
-      // 1. Call the Edge Function to claim the restaurant and create the user
-      const registrationResult = await claimRestaurant({
-        accessCode,
-        email,
-        password,
-      });
+      const { data: restaurant, error: dbError } = await supabase
+        .from('restaurants')
+        .select('id, user_id')
+        .eq('id', claimCode)
+        .single();
 
-      // 2. Log the user in using the credentials returned by the Edge Function
-      const { error: signInError } = await supabase.auth.signInWithPassword({ 
-        email: registrationResult.email, 
-        password: registrationResult.password 
-      });
-
-      if (signInError) {
-        throw new Error(`Reivindicação concluída, mas falha ao fazer login: ${signInError.message}`);
+      if (dbError || !restaurant) {
+        throw new Error('Código de acesso inválido ou não encontrado.');
       }
-      
-      // 3. Refetch profile data to ensure the restaurant link is recognized
-      refetchProfile();
-      refetchRestaurant();
 
-      showSuccess("Restaurante reivindicado com sucesso! Redirecionando para o Dashboard.");
-      
-      setTimeout(() => {
-        navigate(createPageUrl('restaurant-area/home'));
-      }, 1000);
+      if (restaurant.user_id) {
+        throw new Error('Este restaurante já foi reivindicado.');
+      }
 
-    } catch (error) {
-      console.error("Claim error:", error);
-      showError((error as Error).message || "Falha ao reivindicar o restaurante. Verifique o código e tente novamente.");
+      localStorage.setItem('claimCode', claimCode);
+      setIsCodeVerified(true);
+    } catch (e: any) {
+      setError(e.message);
+      toast({
+        variant: 'destructive',
+        title: 'Erro na verificação',
+        description: e.message,
+      });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col justify-center items-center p-4">
-      
-      {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl('restaurant-area-hub'))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Reivindicar</h2>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <header className="p-4 border-b bg-white sticky top-0 z-10">
+        <div className="container mx-auto flex items-center justify-between">
+          <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-lg font-semibold">Reivindicar</h1>
+          <div className="w-10"></div>
         </div>
-        <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
+      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-sm mx-auto p-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full"
+          className="w-full bg-white p-6 md:p-8 rounded-xl shadow-lg"
         >
-          {/* Icon and Title */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#E47948]/10 rounded-xl mx-auto mb-4">
-              <Utensils className="w-8 h-8 text-[#E47948]" />
-            </div>
-            <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
-              Reivindicar Restaurante
-            </h1>
-            <p className="text-gray-600 text-base mt-1">
-              Use o código de acesso fornecido pela FilterFood.
-            </p>
+          <div className="mx-auto mb-6 flex justify-center">
+            <Logo />
           </div>
-
-          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
-            <CardContent className="p-6 pt-4">
-              <form onSubmit={handleClaim} className="space-y-4">
-                
-                {/* Código de Acesso */}
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            Reivindicar Restaurante
+          </h2>
+          
+          {!isCodeVerified ? (
+            <>
+              <p className="text-gray-600 mb-6">
+                Use o código de acesso fornecido para liberar seu perfil.
+              </p>
+              <form onSubmit={handleVerifyCode} className="space-y-4 text-left">
                 <div>
-                  <label htmlFor="access-code" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Código de Acesso (ID do Restaurante)</label>
+                  <Label htmlFor="claim-code">Código de Acesso</Label>
                   <Input
-                    id="access-code"
-                    className="h-14 text-base rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
-                    placeholder="Insira o código aqui (UUID)"
-                    type="text"
-                    value={accessCode}
-                    onChange={(e) => setAccessCode(e.target.value)}
-                    disabled={loading}
+                    id="claim-code"
+                    placeholder="Insira o código aqui"
+                    value={claimCode}
+                    onChange={(e) => setClaimCode(e.target.value)}
                     required
+                    disabled={isLoading}
                   />
-                  <p className="text-gray-500 text-sm pt-1 pl-4">Este código é o ID único do seu estabelecimento.</p>
+                  <p className="text-xs text-gray-500 mt-1">Este código é o ID único do seu estabelecimento.</p>
                 </div>
-
-                {/* E-mail */}
-                <div>
-                  <label htmlFor="email" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">E-mail</label>
-                  <Input
-                    id="email"
-                    className="h-14 text-base rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
-                    placeholder="seuemail@exemplo.com"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={loading}
-                    required
-                  />
-                </div>
-
-                {/* Senha */}
-                <div>
-                  <label htmlFor="password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Senha</label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
-                      placeholder="Crie uma senha"
-                      type={passwordVisible ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      disabled={loading}
-                      required
-                    />
-                    <button
-                      onClick={togglePasswordVisibility}
-                      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
-                      type="button"
-                    >
-                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Confirmar Senha */}
-                <div>
-                  <label htmlFor="confirm-password" className="text-[#022D68] text-base font-medium leading-normal pb-2 block">Confirmar Senha</label>
-                  <div className="relative">
-                    <Input
-                      id="confirm-password"
-                      className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-[#E47948] focus:ring-[#E47948] shadow-soft-sm"
-                      placeholder="Confirme sua senha"
-                      type={passwordVisible ? "text" : "password"}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      disabled={loading}
-                      required
-                    />
-                    <button
-                      onClick={togglePasswordVisibility}
-                      className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-[#022D68] transition-colors"
-                      type="button"
-                    >
-                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  variant="highlight"
-                  className="w-full font-bold h-12 text-lg shadow-highlight-glow mt-6"
-                >
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    "Reivindicar Restaurante"
-                  )}
+                {error && <p className="text-sm text-red-500 text-center pt-2">{error}</p>}
+                <Button type="submit" className="w-full" disabled={isLoading || !claimCode}>
+                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Verificar Código'}
                 </Button>
               </form>
-
-              <p className="pt-6 text-center text-base text-gray-600">
-                Já tem uma conta?
-                <Link
-                  to={createPageUrl('restaurant-login')}
-                  className="font-bold text-[#E47948] hover:underline ml-1"
-                >
-                  Fazer login
-                </Link>
+            </>
+          ) : (
+            <div className="mt-6">
+              <p className="text-gray-600 mb-6">
+                Código verificado! Agora, crie sua conta ou faça login para continuar.
               </p>
-            </CardContent>
-          </Card>
+              <Auth
+                supabaseClient={supabase}
+                appearance={{ theme: ThemeSupa }}
+                providers={['google', 'apple']}
+                theme="light"
+                localization={{
+                  variables: {
+                    sign_up: {
+                      email_label: 'Seu e-mail',
+                      password_label: 'Crie uma senha',
+                      button_label: 'Criar conta',
+                      social_provider_text: 'Entrar com {{provider}}',
+                      link_text: 'Já tem uma conta? Faça login',
+                    },
+                    sign_in: {
+                        email_label: 'Seu e-mail',
+                        password_label: 'Sua senha',
+                        button_label: 'Entrar',
+                        social_provider_text: 'Entrar com {{provider}}',
+                        link_text: 'Não tem uma conta? Crie uma',
+                    }
+                  },
+                }}
+              />
+            </div>
+          )}
         </motion.div>
       </main>
-
-      {/* Footer */}
-      <footer className="w-full max-w-md mx-auto py-6">
-        <div className="flex justify-center items-center gap-6">
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
-        </div>
-      </footer>
     </div>
   );
-}
+};
+
+export default ClaimRestaurant;
