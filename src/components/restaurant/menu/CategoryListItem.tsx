@@ -19,6 +19,7 @@ interface CategoryListItemProps {
   isLast: boolean;
   isMutating: boolean;
   disableNavigation?: boolean;
+  onView?: (category: MenuCategory) => void;
 }
 
 const CategoryListItem: React.FC<CategoryListItemProps> = ({
@@ -27,22 +28,27 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
   onDelete,
   isMutating,
   disableNavigation = false,
+  onView,
 }) => {
   const navigate = useNavigate(); // Inicializando useNavigate
   const statusText = category.is_active ? 'Ativa' : 'Inativa';
   const statusVariant = category.is_active ? 'default' : 'secondary';
   
-  const handleNavigateToDetails = (e: React.MouseEvent) => {
-    e.preventDefault(); // Previne o comportamento padrão do link
-    if (!isMutating && !disableNavigation) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isMutating) return;
+
+    if (disableNavigation) {
+      onView?.(category);
+    } else {
       navigate(createPageUrl('restaurant-area/category-details', { categoryId: category.id }));
     }
   };
 
   return (
     <Card 
-      className={`p-4 flex items-center justify-between transition-shadow hover:shadow-md ${!disableNavigation ? 'cursor-pointer' : 'cursor-default'}`}
-      onClick={handleNavigateToDetails} // Adicionando o clique no card inteiro
+      className={`p-4 flex items-center justify-between transition-shadow hover:shadow-md ${onView || !disableNavigation ? 'cursor-pointer' : 'cursor-default'}`}
+      onClick={handleClick}
     >
       <div className="flex items-center space-x-4 min-w-0 flex-1">
         <div className="flex-shrink-0">

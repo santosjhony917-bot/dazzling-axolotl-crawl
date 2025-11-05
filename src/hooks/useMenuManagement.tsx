@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { MenuCategory } from '@/types';
+import { MenuCategory, MenuItem } from '@/types';
 import { toast } from 'sonner';
 
 // --- Types ---
+
+type CategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
 
 interface CategoryBase {
   name: string;
@@ -20,7 +22,7 @@ interface UpdateCategoryPayload extends CategoryBase {
 }
 
 interface UseMenuManagementResult {
-  categoriesQuery: ReturnType<typeof useQuery<MenuCategory[]>>;
+  categoriesQuery: ReturnType<typeof useQuery<CategoryWithItems[]>>;
   deleteCategoryMutation: ReturnType<typeof useMutation>;
 }
 
@@ -32,10 +34,10 @@ interface UseCategoryMutationsResult {
 
 // --- API Calls ---
 
-const fetchCategories = async (restaurantId: string): Promise<MenuCategory[]> => {
+const fetchCategories = async (restaurantId: string): Promise<CategoryWithItems[]> => {
   const { data, error } = await supabase
     .from('menu_categories')
-    .select('*')
+    .select('*, menu_items(*)')
     .eq('restaurant_id', restaurantId)
     .order('order_index', { ascending: true });
 
@@ -119,7 +121,7 @@ export const useCategoryMutations = (restaurantId: string): UseCategoryMutations
 export const useMenuManagement = (restaurantId: string): UseMenuManagementResult => {
   const { deleteCategoryMutation } = useCategoryMutations(restaurantId);
 
-  const categoriesQuery = useQuery<MenuCategory[]>({
+  const categoriesQuery = useQuery<CategoryWithItems[]>({
     queryKey: ['menu_categories', restaurantId],
     queryFn: () => fetchCategories(restaurantId),
     enabled: !!restaurantId,

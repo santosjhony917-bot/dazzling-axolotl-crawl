@@ -26,20 +26,21 @@ import { cn } from '@/lib/utils';
 // Esquema de validação
 const itemSchema = z.object({
   name: z.string().min(3, 'O nome é obrigatório.'),
-  description: z.string().max(500, 'A descrição não pode exceder 500 caracteres.').optional(),
+  description: z.string().max(500, 'A descrição não pode exceder 500 caracteres.').optional().nullable(),
   price: z.number().min(0.01, 'O preço deve ser maior que zero.'),
   image_url: z.string().url('URL de imagem inválida.').optional().or(z.literal('')),
   is_active: z.boolean(),
 });
 
-export type MenuItemFormValues = z.infer<typeof itemSchema>; // Corrigido: Exportando a interface
+export type MenuItemFormValues = z.infer<typeof itemSchema>;
 
 interface ItemFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
   category: MenuCategory;
   itemToEdit?: MenuItem | null;
-  onSave: (data: MenuItemFormValues) => Promise<void>; // Corrigido: Assinatura da prop onSave
+  onSave: (data: MenuItemFormValues) => Promise<void>;
+  isLoading: boolean;
 }
 
 const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
@@ -48,9 +49,9 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
   category,
   itemToEdit,
   onSave,
+  isLoading,
 }) => {
   const isEditing = !!itemToEdit;
-  const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
   const {
@@ -72,65 +73,30 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
   });
 
   useEffect(() => {
-    if (itemToEdit) {
-      reset({
-        name: itemToEdit.name,
-        description: itemToEdit.description || '',
-        price: itemToEdit.price,
-        image_url: itemToEdit.image_url || '',
-        is_active: itemToEdit.is_active,
-      });
-    } else {
-      reset();
+    if (isOpen) {
+      if (itemToEdit) {
+        reset({
+          name: itemToEdit.name,
+          description: itemToEdit.description || '',
+          price: itemToEdit.price,
+          image_url: itemToEdit.image_url || '',
+          is_active: itemToEdit.is_active,
+        });
+      } else {
+        reset({
+          name: '',
+          description: '',
+          price: 0,
+          image_url: '',
+          is_active: true,
+        });
+      }
     }
-  }, [itemToEdit, reset]);
+  }, [itemToEdit, isOpen, reset]);
 
   const onSubmit = async (data: MenuItemFormValues) => {
-    setIsSaving(true);
-    
-    const itemData = {
-      ...data,
-      category_id: category.id,
-      // Garantir que a URL seja null se for string vazia
-      image_url: data.image_url || null,
-      description: data.description || null,
-    };
-
-    let error = null;
-
-    if (isEditing) {
-      const { error: updateError } = await supabase
-        .from('menu_items')
-        .update(itemData)
-        .eq('id', itemToEdit.id);
-      error = updateError;
-    } else {
-      // 1. Determinar o próximo order_index
-      const { data: maxOrderData } = await supabase
-        .from('menu_items')
-        .select('order_index')
-        .eq('category_id', category.id)
-        .order('order_index', { ascending: false })
-        .limit(1)
-        .single();
-        
-      const newOrderIndex = (maxOrderData?.order_index || 0) + 1;
-
-      const { error: insertError } = await supabase
-        .from('menu_items')
-        .insert({ ...itemData, order_index: newOrderIndex });
-      error = insertError;
-    }
-
-    setIsSaving(false);
-
-    if (error) {
-      showError(`Erro ao salvar item: ${error.message}`);
-    } else {
-      showSuccess(`Item salvo com sucesso!`);
-      await onSave(data); // Chamando onSave com os dados
-      onClose();
-    }
+    await onSave(data);
+    onClose();
   };
   
   const handleUploadStart = useCallback(() => {
@@ -172,7 +138,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
                         folderPath={`${category.restaurant_id}/menu`}
                         className="bg-white text-primary hover:bg-gray-100 h-8 w-8 p-0 rounded-full shadow-lg"
                         icon={<Camera className="h-4 w-4" />}
-                        disabled={isUploading} // A prop 'disabled' agora é reconhecida
+                        disabled={isUploading}
                       />
                     </div>
                   </div>
@@ -256,11 +222,11 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={onClose} disabled={isSaving}>
+            <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSaving || isUploading}>
-              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            <Button type="submit" disabled={isLoading || isUploading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               {isEditing ? 'Salvar Alterações' : 'Criar Item'}
             </Button>
           </DialogFooter>

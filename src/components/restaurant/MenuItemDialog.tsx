@@ -8,10 +8,10 @@ interface MenuItemDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onSave: (data: MenuItemFormValues) => Promise<void>;
-  // REMOVIDO: isLoading: boolean; // Esta prop não é necessária aqui, ItemFormDialog gerencia seu próprio estado de salvamento
+  isLoading: boolean;
 }
 
-const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ category, item, isOpen, onOpenChange, onSave }) => { // Removido isLoading dos props
+const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ category, item, isOpen, onOpenChange, onSave, isLoading }) => {
   return (
     <ItemFormDialog
       isOpen={isOpen}
@@ -19,7 +19,7 @@ const MenuItemDialog: React.FC<MenuItemDialogProps> = ({ category, item, isOpen,
       category={category}
       itemToEdit={item || null}
       onSave={onSave}
-      // REMOVIDO: isLoading={isLoading} // Não é mais passado para ItemFormDialog
+      isLoading={isLoading}
     />
   );
 };
