@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, MapPin } from 'lucide-react';
 import { saveUploadRecord } from '@/utils/uploadHistory';
-import { showError, showSuccess } from '@/utils/toast';
-import CsvInputArea from '@/components/admin/CsvInputArea';
+import { showSuccess } from '@/utils/toast';
+import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 
 // Colunas obrigatórias para a Fase 2: Endereços e Localização
 const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
@@ -31,10 +30,6 @@ const UploadPhase2: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `external_url,cep,address,number,neighborhood,city,state
-https://restaurantea.com.br,58039-000,Rua Exemplo,100,Tambaú,João Pessoa,PB
-https://restauranteb.com.br,58040-100,Av. Principal,250,Centro,Campina Grande,PB`;
-
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
@@ -42,13 +37,12 @@ https://restauranteb.com.br,58040-100,Av. Principal,250,Centro,Campina Grande,PB
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os dados de endereço. Use o <code>external_url</code> como chave de referência. O sistema tentará geocodificar as coordenadas.
+          Cole os dados de endereço, uma coluna de cada vez. Use o <code>external_url</code> como chave de referência. O sistema tentará geocodificar as coordenadas.
         </p>
         
-        <CsvInputArea
+        <ColumnarCsvInput
           onProcess={handleProcessCsv}
           isLoading={isProcessing}
-          placeholder={placeholder}
           buttonText="Processar e Salvar Endereços"
           requiredColumns={REQUIRED_COLUMNS_PHASE2}
         />

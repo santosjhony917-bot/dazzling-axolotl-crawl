@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Clock } from 'lucide-react';
 import { saveUploadRecord } from '@/utils/uploadHistory';
-import { showError, showSuccess } from '@/utils/toast';
-import CsvInputArea from '@/components/admin/CsvInputArea';
+import { showSuccess } from '@/utils/toast';
+import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 
 // Colunas obrigatórias para a Fase 4: Horários
 const REQUIRED_COLUMNS_PHASE4 = ['external_url', 'day', 'open_time', 'close_time'];
@@ -31,12 +30,6 @@ const UploadPhase4: React.FC = () => {
     }, 1500);
   };
 
-  const placeholder = `external_url,day,open_time,close_time
-https://restaurantea.com.br,monday,09:00,18:00
-https://restaurantea.com.br,tuesday,09:00,18:00
-https://restauranteb.com.br,friday,18:00,23:00
-https://restauranteb.com.br,saturday,18:00,23:00`;
-
   return (
     <Card className="shadow-soft-lg border-none rounded-xl bg-white">
       <CardHeader>
@@ -44,13 +37,12 @@ https://restauranteb.com.br,saturday,18:00,23:00`;
       </CardHeader>
       <CardContent>
         <p className="text-gray-600 mb-4">
-          Cole os horários de funcionamento. Use o <code>external_url</code> como chave de referência. Use 'monday', 'tuesday', etc., para os dias da semana.
+          Cole os horários de funcionamento, uma coluna de cada vez. Use o <code>external_url</code> como chave de referência. Use 'monday', 'tuesday', etc., para os dias da semana.
         </p>
         
-        <CsvInputArea
+        <ColumnarCsvInput
           onProcess={handleProcessCsv}
           isLoading={isProcessing}
-          placeholder={placeholder}
           buttonText="Processar e Salvar Horários"
           requiredColumns={REQUIRED_COLUMNS_PHASE4}
         />
