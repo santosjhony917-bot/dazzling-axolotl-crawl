@@ -136,7 +136,7 @@ export default function CategoryDetails() {
           category={currentCategory}
           item={editingItem}
           onSave={handleSaveItem}
-          // REMOVIDO: isLoading={isSaving} // Não é mais passado para MenuItemDialog
+          isLoading={isSaving}
         />
       )}
       

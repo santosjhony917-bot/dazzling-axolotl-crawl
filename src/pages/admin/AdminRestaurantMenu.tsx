@@ -101,7 +101,15 @@ const AdminRestaurantMenu: React.FC = () => {
     if (selectedItem) {
       await updateItemMutation.mutateAsync({ id: selectedItem.id, updates: data });
     } else {
-      await createItemMutation.mutateAsync({ ...data, category_id: viewingCategory.id });
+      // Explicitly construct the object to satisfy the type requirements
+      await createItemMutation.mutateAsync({
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        image_url: data.image_url,
+        is_active: data.is_active,
+        category_id: viewingCategory.id
+      });
     }
     setIsItemDialogOpen(false);
   };
