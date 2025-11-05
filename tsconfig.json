@@ -18,6 +18,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "exclude": ["supabase/functions"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["node_modules", "supabase/functions"]
 }

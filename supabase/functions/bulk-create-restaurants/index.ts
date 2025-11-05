@@ -7,18 +7,43 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Função simples para converter uma string CSV em um array de objetos
-function parseCsv(csv: string): Record<string, string>[] {
+/**
+ * Analisa uma string CSV, lidando com valores entre aspas que podem conter vírgulas.
+ * @param csv A string CSV para analisar.
+ * @returns Um array de objetos representando as linhas do CSV.
+ */
+function robustParseCsv(csv: string): Record<string, string>[] {
   const lines = csv.trim().split('\n');
   if (lines.length < 2) return [];
-  
+
   const header = lines[0].split(',').map(h => h.trim());
   const rows = lines.slice(1).map(line => {
-    // Lida com valores que podem conter vírgulas, assumindo que não estão entre aspas
-    const values = line.split(',');
+    const values = [];
+    let current = '';
+    let inQuotes = false;
+
+    // Itera sobre cada caractere para construir os valores, respeitando as aspas
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"' && (i === 0 || line[i - 1] !== '\\')) { // Lida com aspas não escapadas
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        values.push(current);
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    values.push(current); // Adiciona o último valor
+
     const obj: Record<string, string> = {};
     header.forEach((key, index) => {
-      obj[key] = values[index]?.trim() || '';
+      let value = (values[index] || '').trim();
+      // Remove as aspas do início e do fim, se existirem
+      if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.substring(1, value.length - 1);
+      }
+      obj[key] = value.replace(/\\"/g, '"'); // Substitui aspas escapadas
     });
     return obj;
   });
@@ -45,7 +70,7 @@ serve(async (req) => {
       { auth: { autoRefreshToken: false, persistSession: false } }
     );
 
-    const records = parseCsv(csvData);
+    const records = robustParseCsv(csvData);
     if (records.length === 0) {
         return new Response(JSON.stringify({ error: "Nenhum registro válido encontrado nos dados CSV." }), {
             status: 400,
