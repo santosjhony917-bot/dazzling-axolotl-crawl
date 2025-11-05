@@ -46,7 +46,7 @@ const AdminRestaurants: React.FC = () => {
   const statusOptions: VisitStatus[] = ['Pendente', 'Contatado', 'Interessado', 'Não Interessado', 'Não Localizado'];
 
   return (
-    <AdminPageLayout title="Gerenciamento de Restaurantes" breadcrumbs={[{ label: 'Admin', path: '/admin' }, { label: 'Restaurantes' }]}>
+    <AdminPageLayout title="Gerenciamento de Restaurantes">
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border">
           <Input

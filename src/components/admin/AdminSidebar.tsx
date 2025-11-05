@@ -11,7 +11,9 @@ import {
   BarChart,
   Ticket,
   Image as ImageIcon,
-  ClipboardList
+  ClipboardList,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
