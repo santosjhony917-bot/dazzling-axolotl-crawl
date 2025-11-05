@@ -63,20 +63,18 @@ export default function RestaurantLogin() {
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
       />
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm"> {/* Removido pt-20 */}
+      <main className="flex-1 flex flex-col justify-center w-full max-w-md"> {/* Alterado de max-w-sm para max-w-md */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="text-center mb-8">
-            <div className="inline-block bg-white p-3 rounded-full shadow-sm mb-4">
-              <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
-            </div>
+          <div className="text-center mb-12"> {/* Aumentado o espaçamento inferior */}
+            <img src="/logo.svg" alt="Logo" className="w-24 h-24 mx-auto" /> {/* Logo maior e centralizado */}
           </div>
 
-          <Card className="w-full"> {/* Usando o componente Card */}
+          <Card className="w-full">
             <CardHeader className="text-center">
               <CardTitle>Acesse sua conta</CardTitle>
               <CardDescription>Gerencie seu restaurante!</CardDescription>
@@ -119,7 +117,7 @@ export default function RestaurantLogin() {
                     Esqueceu sua senha?
                   </a>
                 </div>
-                <Button type="submit" variant="highlight" className="w-full" disabled={loading}> {/* Usando variant="highlight" */}
+                <Button type="submit" variant="highlight" className="w-full" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
