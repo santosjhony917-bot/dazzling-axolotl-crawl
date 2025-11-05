@@ -266,6 +266,7 @@ export interface Database {
           cep: string | null
           city: string | null
           cnpj: string | null
+          claim_code: string | null
           cover_image_url: string | null
           created_at: string | null
           description: string | null
@@ -288,6 +289,8 @@ export interface Database {
           social_networks: Json | null
           state: string | null
           user_id: string | null
+          visit_notes: string | null
+          visit_status: Database["public"]["Enums"]["visit_status_enum"] | null
           whatsapp_url: string | null
           other_url_label: string | null
         }
@@ -297,6 +300,7 @@ export interface Database {
           cep?: string | null
           city?: string | null
           cnpj?: string | null
+          claim_code?: string | null
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -319,6 +323,8 @@ export interface Database {
           social_networks?: Json | null
           state?: string | null
           user_id?: string | null
+          visit_notes?: string | null
+          visit_status?: Database["public"]["Enums"]["visit_status_enum"] | null
           whatsapp_url?: string | null
           other_url_label?: string | null
         }
@@ -328,6 +334,7 @@ export interface Database {
           cep?: string | null
           city?: string | null
           cnpj?: string | null
+          claim_code?: string | null
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -350,6 +357,8 @@ export interface Database {
           social_networks?: Json | null
           state?: string | null
           user_id?: string | null
+          visit_notes?: string | null
+          visit_status?: Database["public"]["Enums"]["visit_status_enum"] | null
           whatsapp_url?: string | null
           other_url_label?: string | null
         }
@@ -572,6 +581,12 @@ export interface Database {
         | "center"
       banner_text_size: "sm" | "md" | "lg" | "xl" | "2xl"
       restaurant_plan: "free" | "basic" | "premium" | "premium_gift"
+      visit_status_enum:
+        | "Pendente"
+        | "Contatado"
+        | "Interessado"
+        | "Não Interessado"
+        | "Não Localizado"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -669,23 +684,7 @@ export type MenuItem = Tables<'menu_items'>;
 export type MenuCategory = Tables<'menu_categories'>;
 export type GalleryImage = Tables<'restaurant_gallery'>;
 export type RestaurantPlan = Enums<'restaurant_plan'>;
-
-// Type for the result of the find_nearby_restaurants RPC
-// CORREÇÃO: Adicionando city e state ao tipo retornado pela função RPC
-export type RestaurantWithDistance = (Database['public']['Functions']['find_nearby_restaurants']['Returns'][number] & {
-  city: string | null;
-  state: string | null;
-});
-
-// Type for nested restaurant data in user_favorites query
-export type FavoriteRestaurant = Tables<'user_favorites'> & {
-  restaurants: Restaurant;
-};
-
-// Type for nested menu items in menu_categories query
-export type MenuCategoryWithItems = MenuCategory & {
-  menu_items: MenuItem[];
-};
+export type VisitStatus = Enums<'visit_status_enum'>;
 
 // Type for the result of the swap_category_order RPC
 export type SwapCategoryOrderResult = Database['public']['Functions']['swap_category_order']['Returns'];

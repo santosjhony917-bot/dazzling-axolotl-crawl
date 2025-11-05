@@ -58,7 +58,7 @@ const useScheduledMetrics = () => {
 // --- Componente Principal ---
 
 const ScheduledMetrics: React.FC = () => {
-  const { restaurants, isLoading: isRestaurantsLoading } = useAdminRestaurants();
+  const { restaurants, isLoading: isRestaurantsLoading } = useAdminRestaurants({});
   const { data: schedules, isLoading: isSchedulesLoading, error: schedulesError, refetch: refetchSchedules } = useScheduledMetrics();
   const queryClient = useQueryClient();
 

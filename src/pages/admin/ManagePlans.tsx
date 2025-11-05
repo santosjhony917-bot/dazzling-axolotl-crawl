@@ -28,7 +28,7 @@ const planLabels: Record<RestaurantPlan, string> = {
 };
 
 const ManagePlans: React.FC = () => {
-  const { restaurants, isLoading, error, updatePlan, isUpdating } = useAdminRestaurants();
+  const { restaurants, isLoading, error, updatePlan, isUpdatingPlan: isUpdating } = useAdminRestaurants({});
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const handlePlanChange = (restaurantId: string, newPlan: string) => {

@@ -1,23 +1,48 @@
-import { useQuery, useMutation, useQueryClient, UseMutateFunction } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, RestaurantPlan } from '@/types/supabase';
+import { Restaurant, RestaurantPlan, VisitStatus } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
 
-const ADMIN_RESTAURANTS_QUERY_KEY = ['adminRestaurants'];
+const ADMIN_RESTAURANTS_QUERY_KEY = 'adminRestaurants';
 
 interface UpdatePlanPayload {
   restaurantId: string;
   newPlan: RestaurantPlan;
 }
 
-const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
-  // Nota: Esta query usa a chave de anon, mas RLS deve ser configurado para permitir
-  // que administradores (via auth.uid() = is_admin()) leiam todos os registros.
-  // Assumindo que o RLS está configurado corretamente para admins.
-  const { data, error } = await supabase
+interface UpdateStatusPayload {
+  restaurantId: string;
+  newStatus: VisitStatus;
+}
+
+interface UpdateNotesPayload {
+  restaurantId: string;
+  newNotes: string;
+}
+
+interface FetchRestaurantsFilters {
+  city?: string;
+  state?: string;
+  plan?: string;
+}
+
+const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
+  let query = supabase
     .from('restaurants')
     .select('*')
     .order('created_at', { ascending: false });
+
+  if (filters.city) {
+    query = query.ilike('city', `%${filters.city}%`);
+  }
+  if (filters.state) {
+    query = query.eq('state', filters.state);
+  }
+  if (filters.plan) {
+    query = query.eq('plan', filters.plan);
+  }
+
+  const { data, error } = await query;
 
   if (error) throw new Error(error.message);
   return data as Restaurant[];
@@ -32,12 +57,30 @@ const updateRestaurantPlan = async ({ restaurantId, newPlan }: UpdatePlanPayload
   if (error) throw new Error(error.message);
 };
 
-export function useAdminRestaurants() {
+const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateStatusPayload): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .update({ visit_status: newStatus })
+    .eq('id', restaurantId);
+
+  if (error) throw new Error(error.message);
+};
+
+const updateRestaurantVisitNotes = async ({ restaurantId, newNotes }: UpdateNotesPayload): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .update({ visit_notes: newNotes })
+    .eq('id', restaurantId);
+
+  if (error) throw new Error(error.message);
+};
+
+export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   const queryClient = useQueryClient();
 
   const restaurantsQuery = useQuery<Restaurant[], Error>({
-    queryKey: ADMIN_RESTAURANTS_QUERY_KEY,
-    queryFn: fetchAllRestaurants,
+    queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters],
+    queryFn: () => fetchAllRestaurants(filters),
     staleTime: 60000,
   });
 
@@ -45,10 +88,32 @@ export function useAdminRestaurants() {
     mutationFn: updateRestaurantPlan,
     onSuccess: (_, variables) => {
       showSuccess(`Plano do restaurante atualizado para ${variables.newPlan}!`);
-      queryClient.invalidateQueries({ queryKey: ADMIN_RESTAURANTS_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
     },
     onError: (error) => {
       showError(`Falha ao atualizar plano: ${error.message}`);
+    },
+  });
+
+  const updateStatusMutation = useMutation({
+    mutationFn: updateRestaurantVisitStatus,
+    onSuccess: (_, variables) => {
+      showSuccess(`Status do restaurante atualizado para ${variables.newStatus}!`);
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+    },
+    onError: (error) => {
+      showError(`Falha ao atualizar status: ${error.message}`);
+    },
+  });
+
+  const updateNotesMutation = useMutation({
+    mutationFn: updateRestaurantVisitNotes,
+    onSuccess: () => {
+      showSuccess(`Anotações do restaurante atualizadas!`);
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+    },
+    onError: (error) => {
+      showError(`Falha ao atualizar anotações: ${error.message}`);
     },
   });
 
@@ -57,7 +122,11 @@ export function useAdminRestaurants() {
     isLoading: restaurantsQuery.isLoading,
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,
-    isUpdating: updatePlanMutation.isPending,
+    isUpdatingPlan: updatePlanMutation.isPending,
+    updateStatus: updateStatusMutation.mutate,
+    isUpdatingStatus: updateStatusMutation.isPending,
+    updateNotes: updateNotesMutation.mutate,
+    isUpdatingNotes: updateNotesMutation.isPending,
     refetch: restaurantsQuery.refetch,
   };
 }

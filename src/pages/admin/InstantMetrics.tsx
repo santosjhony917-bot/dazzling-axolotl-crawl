@@ -11,7 +11,7 @@ import { Restaurant } from '@/types/supabase';
 
 const InstantMetrics: React.FC = () => {
   // Error 4 fixed by updating useAdminRestaurants return type
-  const { restaurants, isLoading, error, refetch } = useAdminRestaurants(); 
+  const { restaurants, isLoading, error, refetch } = useAdminRestaurants({}); 
   const queryClient = useQueryClient();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [tempFollowers, setTempFollowers] = useState<number | null>(null);
