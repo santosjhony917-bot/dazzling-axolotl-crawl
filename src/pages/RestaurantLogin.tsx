@@ -10,10 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
-import { GoogleIcon } from '@/components/icons/GoogleIcon';
-import { AppleIcon } from '@/components/icons/AppleIcon';
-import Header from '@/components/Header'; // Importar o componente Header
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'; // Importar componentes Card
+// Removidos GoogleIcon e AppleIcon, pois não são usados no novo design
+import Header from '@/components/Header';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -42,51 +41,41 @@ export default function RestaurantLogin() {
     setLoading(false);
   };
 
-  const handleOAuthLogin = async (provider: 'google' | 'apple') => {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: `${window.location.origin}/restaurant-area`,
-      },
-    });
-    if (error) {
-      toast.error(error.message);
-      setLoading(false);
-    }
-  };
+  // Removido handleOAuthLogin, pois os botões de login social foram removidos
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
       <Header
-        title="Acesse sua conta"
+        title="Login" // Alterado o título para "Login"
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
       />
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-md"> {/* Alterado de max-w-sm para max-w-md */}
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm"> {/* Alterado para max-w-sm */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="text-center mb-12"> {/* Aumentado o espaçamento inferior */}
-            <img src="/logo.svg" alt="Logo" className="w-24 h-24 mx-auto" /> {/* Logo maior e centralizado */}
+          <div className="text-center mb-6"> {/* Ajustado espaçamento inferior */}
+            {/* Logo estilizado como na imagem */}
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-sm mb-4">
+              <img src="/logo.svg" alt="Logo" className="w-10 h-10" /> {/* Ajustado tamanho do logo */}
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-1">Acesse sua conta</h2> {/* Título principal */}
+            <p className="text-sm text-gray-600">Gerencie seu restaurante!</p> {/* Subtítulo */}
           </div>
 
           <Card className="w-full">
-            <CardHeader className="text-center">
-              <CardTitle>Acesse sua conta</CardTitle>
-              <CardDescription>Gerencie seu restaurante!</CardDescription>
-            </CardHeader>
-            <CardContent>
+            {/* CardHeader e CardDescription removidos daqui, pois o texto foi movido para cima */}
+            <CardContent className="pt-6"> {/* Ajustado padding superior */}
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <Label htmlFor="email">E-mail</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="seu@email.com"
+                    placeholder="sssjoajo@gmail.com" // Placeholder atualizado
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -98,7 +87,7 @@ export default function RestaurantLogin() {
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Sua senha"
+                    placeholder="********" // Placeholder atualizado
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -119,31 +108,19 @@ export default function RestaurantLogin() {
                 </div>
                 <Button type="submit" variant="highlight" className="w-full" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  {/* ArrowRight removido, pois não está na imagem para o botão principal */}
                 </Button>
               </form>
 
-              <div className="relative my-6">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-muted-foreground">
-                    Ou continue com
-                  </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Button variant="outline" onClick={() => handleOAuthLogin('google')} disabled={loading}>
-                  <GoogleIcon className="mr-2 h-5 w-5" />
-                  Google
-                </Button>
-                <Button variant="outline" onClick={() => handleOAuthLogin('apple')} disabled={loading}>
-                  <AppleIcon className="mr-2 h-5 w-5" />
-                  Apple
-                </Button>
-              </div>
+              {/* Botão "Login de Cliente" adicionado */}
+              <Button
+                variant="outline"
+                className="w-full mt-4" // Adicionado espaçamento superior
+                onClick={() => navigate('/login')} // Redireciona para a página de login do cliente
+                disabled={loading}
+              >
+                Login de Cliente
+              </Button>
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
