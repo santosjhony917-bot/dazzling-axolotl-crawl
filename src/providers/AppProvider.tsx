@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthProvider } from '@/context/AuthContext'; // Corrigido para AuthProvider
+import { AuthProvider } from '@/contexts/AuthContext';
 import QueryProvider from './QueryProvider';
 
 const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
