@@ -8,11 +8,10 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, ArrowLeft } from 'lucide-react'; // Removido ArrowRight
+import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
-// Removidos GoogleIcon e AppleIcon, pois não são usados no novo design
-// Removido Header, pois o design da imagem não o utiliza
-import { Card, CardContent } from '@/components/ui/card'; // Removidos CardHeader, CardDescription, CardTitle
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { AppleIcon } from '@/components/icons/AppleIcon';
 
 export default function RestaurantLogin() {
   const navigate = useNavigate();
@@ -41,104 +40,119 @@ export default function RestaurantLogin() {
     setLoading(false);
   };
 
-  // handleOAuthLogin e botões de login social removidos conforme o design da imagem
+  const handleOAuthLogin = async (provider: 'google' | 'apple') => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/restaurant-area`,
+      },
+    });
+    if (error) {
+      toast.error(error.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-gray-50 p-4 font-sans">
-      {/* Botão de "Voltar" e "Login" replicando o cabeçalho da imagem */}
-      <div className="w-full max-w-sm flex justify-start mt-4">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate(-1)}
-          className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg flex items-center gap-2"
-        >
-          <ArrowLeft className="h-5 w-5" />
-          Login
+      <header className="w-full max-w-sm">
+        <Button variant="ghost" onClick={() => navigate(-1)} className="text-gray-600">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Voltar
         </Button>
-      </div>
+      </header>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="text-center mb-6">
-            {/* Logo estilizado como na imagem */}
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-sm mb-4">
-              <img src="/logo.svg" alt="Logo" className="w-10 h-10" />
+          <div className="text-center mb-8">
+            <div className="inline-block bg-white p-3 rounded-full shadow-sm mb-4">
+              <img src="/logo.svg" alt="Logo" className="w-8 h-8" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">Acesse sua conta</h2>
-            <p className="text-sm text-gray-600">Gerencie seu restaurante!</p>
+            <h1 className="text-3xl font-bold text-gray-800">Acesse sua conta</h1>
+            <p className="text-gray-500 mt-2">Gerencie seu restaurante!</p>
           </div>
 
-          <Card className="w-full">
-            {/* CardHeader e CardDescription removidos daqui, pois o texto foi movido para cima */}
-            <CardContent className="pt-6">
-              <form onSubmit={handleLogin} className="space-y-6">
-                <div>
-                  <Label htmlFor="email">E-mail</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="sssjoajo@gmail.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="mt-1"
-                  />
-                </div>
-                <div className="relative">
-                  <Label htmlFor="password">Senha</Label>
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="********"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="mt-1"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-9 text-gray-500"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                <div className="text-right">
-                  <a href="/forgot-password" tabIndex={-1} className="text-sm text-orange-600 hover:underline">
-                    Esqueceu sua senha?
-                  </a>
-                </div>
-                <Button type="submit" variant="highlight" className="w-full" disabled={loading}>
-                  {loading ? 'Entrando...' : 'Entrar'}
-                  {/* ArrowRight removido, pois não está na imagem para o botão principal */}
-                </Button>
-              </form>
-
-              {/* Botão "Login de Cliente" adicionado */}
-              <Button
-                variant="outline"
-                className="w-full mt-4"
-                onClick={() => navigate('/auth')}
-                disabled={loading}
-              >
-                Login de Cliente
-              </Button>
-
-              <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
-                  Não tem uma conta?{' '}
-                  <a href="/restaurant-area/signup" className="font-medium text-orange-600 hover:underline">
-                    Crie uma agora
-                  </a>
-                </p>
+          <div className="bg-white p-8 rounded-2xl shadow-lg w-full">
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div>
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="mt-1"
+                />
               </div>
-            </CardContent>
-          </Card>
+              <div className="relative">
+                <Label htmlFor="password">Senha</Label>
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="mt-1"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-9 text-gray-500"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <div className="text-right">
+                <a href="/forgot-password" tabIndex={-1} className="text-sm text-orange-600 hover:underline">
+                  Esqueceu sua senha?
+                </a>
+              </div>
+              <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white" disabled={loading}>
+                {loading ? 'Entrando...' : 'Entrar'}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </form>
+
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-muted-foreground">
+                  Ou continue com
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Button variant="outline" onClick={() => handleOAuthLogin('google')} disabled={loading}>
+                <GoogleIcon className="mr-2 h-5 w-5" />
+                Google
+              </Button>
+              <Button variant="outline" onClick={() => handleOAuthLogin('apple')} disabled={loading}>
+                <AppleIcon className="mr-2 h-5 w-5" />
+                Apple
+              </Button>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                Não tem uma conta?{' '}
+                <a href="/restaurant-area/signup" className="font-medium text-orange-600 hover:underline">
+                  Crie uma agora
+                </a>
+              </p>
+            </div>
+          </div>
         </motion.div>
       </main>
 
