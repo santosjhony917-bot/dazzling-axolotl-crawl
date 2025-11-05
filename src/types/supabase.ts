@@ -685,6 +685,13 @@ export type MenuCategory = Tables<'menu_categories'>;
 export type GalleryImage = Tables<'restaurant_gallery'>;
 export type RestaurantPlan = Enums<'restaurant_plan'>;
 export type VisitStatus = Enums<'visit_status_enum'>;
+export type FavoriteRestaurant = Tables<'user_favorites'>;
+
+// Type for a menu category that includes its items
+export type MenuCategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
+
+// Type for the result of the find_nearby_restaurants RPC
+export type RestaurantWithDistance = Database['public']['Functions']['find_nearby_restaurants']['Returns'][number];
 
 // Type for the result of the swap_category_order RPC
 export type SwapCategoryOrderResult = Database['public']['Functions']['swap_category_order']['Returns'];
