@@ -23,6 +23,16 @@ const visitStatusOptions: VisitStatus[] = [
   'Não Localizado',
 ];
 
+const allVisitStatusOptions: (VisitStatus | 'all')[] = ['all', ...visitStatusOptions];
+const visitStatusLabels: Record<VisitStatus | 'all', string> = {
+  all: 'Todos os Status',
+  Pendente: 'Pendente',
+  Contatado: 'Contatado',
+  Interessado: 'Interessado',
+  'Não Interessado': 'Não Interessado',
+  'Não Localizado': 'Não Localizado',
+};
+
 const planOptions: (RestaurantPlan | 'all')[] = ['all', 'free', 'basic', 'premium', 'premium_gift'];
 const planLabels: Record<RestaurantPlan | 'all', string> = {
   all: 'Todos os Planos',
@@ -34,7 +44,7 @@ const planLabels: Record<RestaurantPlan | 'all', string> = {
 
 export default function AdminRestaurants() {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState({ city: '', neighborhood: '', state: '', plan: 'all' });
+  const [filters, setFilters] = useState({ city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
 
@@ -99,7 +109,7 @@ export default function AdminRestaurants() {
 
       <Card className="shadow-soft-lg border-none rounded-xl bg-white">
         <CardContent className="p-6 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <Input
               placeholder="Filtrar por cidade..."
               value={filters.city}
@@ -127,6 +137,16 @@ export default function AdminRestaurants() {
               <SelectContent>
                 {planOptions.map(plan => (
                   <SelectItem key={plan} value={plan}>{planLabels[plan]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={filters.visit_status} onValueChange={(value) => handleFilterChange('visit_status', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filtrar por status" />
+              </SelectTrigger>
+              <SelectContent>
+                {allVisitStatusOptions.map(status => (
+                  <SelectItem key={status} value={status}>{visitStatusLabels[status]}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

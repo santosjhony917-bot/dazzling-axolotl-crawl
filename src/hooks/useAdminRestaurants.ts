@@ -30,6 +30,7 @@ interface FetchRestaurantsFilters {
   state?: string;
   plan?: string;
   neighborhood?: string;
+  visit_status?: string;
 }
 
 const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
@@ -49,6 +50,10 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
   }
   if (filters.plan && filters.plan !== 'all') {
     query = query.eq('plan', filters.plan);
+  }
+
+  if (filters.visit_status && filters.visit_status !== 'all') {
+    query = query.eq('visit_status', filters.visit_status);
   }
 
   const { data, error } = await query;
