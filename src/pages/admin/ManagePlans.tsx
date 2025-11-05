@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Crown, Loader2, AlertTriangle, Utensils } from 'lucide-react';
+import { Crown, Loader2, AlertTriangle } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +12,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 
 const planColors: Record<RestaurantPlan, string> = {
   free: 'bg-gray-200 text-gray-700',
@@ -28,13 +31,61 @@ const planLabels: Record<RestaurantPlan, string> = {
 };
 
 const ManagePlans: React.FC = () => {
-  const { restaurants, isLoading, error, updatePlan, isUpdatingPlan: isUpdating } = useAdminRestaurants({});
+  const [filters, setFilters] = useState({ city: '', neighborhood: '' });
+  const {
+    restaurants,
+    isLoading,
+    error,
+    updatePlan,
+    isUpdatingPlan,
+    updateMultiplePlans,
+    isUpdatingMultiplePlans,
+  } = useAdminRestaurants(filters);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkPlan, setBulkPlan] = useState<RestaurantPlan | ''>('');
+
+  const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
+    setFilters(prev => ({ ...prev, [filterName]: value }));
+  };
 
   const handlePlanChange = (restaurantId: string, newPlan: string) => {
     setUpdatingId(restaurantId);
-    updatePlan({ restaurantId, newPlan: newPlan as RestaurantPlan });
+    updatePlan({ restaurantId, newPlan: newPlan as RestaurantPlan }, {
+      onSettled: () => setUpdatingId(null),
+    });
   };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedIds(restaurants.map(r => r.id));
+    } else {
+      setSelectedIds([]);
+    }
+  };
+
+  const handleSelectRow = (id: string, checked: boolean) => {
+    if (checked) {
+      setSelectedIds(prev => [...prev, id]);
+    } else {
+      setSelectedIds(prev => prev.filter(selectedId => selectedId !== id));
+    }
+  };
+
+  const handleBulkUpdate = () => {
+    if (selectedIds.length > 0 && bulkPlan) {
+      updateMultiplePlans({ restaurantIds: selectedIds, newPlan: bulkPlan }, {
+        onSuccess: () => {
+          setSelectedIds([]);
+          setBulkPlan('');
+        },
+      });
+    }
+  };
+
+  const allSelected = useMemo(() => {
+    return restaurants.length > 0 && selectedIds.length === restaurants.length;
+  }, [restaurants, selectedIds]);
 
   if (isLoading) {
     return (
@@ -62,28 +113,77 @@ const ManagePlans: React.FC = () => {
         <CardDescription>Total de {restaurants.length} restaurantes cadastrados. Altere o plano de assinatura abaixo.</CardDescription>
       </CardHeader>
       <CardContent>
+        <div className="space-y-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input
+              placeholder="Filtrar por cidade..."
+              value={filters.city}
+              onChange={(e) => handleFilterChange('city', e.target.value)}
+              disabled={isLoading}
+            />
+            <Input
+              placeholder="Filtrar por bairro..."
+              value={filters.neighborhood}
+              onChange={(e) => handleFilterChange('neighborhood', e.target.value)}
+              disabled={isLoading}
+            />
+          </div>
+          {selectedIds.length > 0 && (
+            <div className="p-4 bg-gray-50 rounded-lg flex items-center gap-4 border">
+              <p className="text-sm font-medium">{selectedIds.length} restaurante(s) selecionado(s).</p>
+              <Select value={bulkPlan} onValueChange={(value) => setBulkPlan(value as RestaurantPlan)}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Selecione um novo plano" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(planLabels).map(([key, label]) => (
+                    <SelectItem key={key} value={key}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button onClick={handleBulkUpdate} disabled={!bulkPlan || isUpdatingMultiplePlans}>
+                {isUpdatingMultiplePlans ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Aplicar a Todos'}
+              </Button>
+            </div>
+          )}
+        </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr className="bg-gray-50">
+                <th className="px-4 py-3 text-left">
+                  <Checkbox
+                    checked={allSelected}
+                    onCheckedChange={handleSelectAll}
+                    aria-label="Selecionar todos"
+                    disabled={restaurants.length === 0}
+                  />
+                </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Restaurante</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Local</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plano Atual</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {restaurants.map((restaurant) => {
-                const isCurrentlyUpdating = isUpdating && updatingId === restaurant.id;
+                const isCurrentlyUpdating = isUpdatingPlan && updatingId === restaurant.id;
                 return (
-                  <tr key={restaurant.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={restaurant.id} className={cn("hover:bg-gray-50 transition-colors", selectedIds.includes(restaurant.id) && "bg-blue-50")}>
+                    <td className="px-4 py-4">
+                      <Checkbox
+                        checked={selectedIds.includes(restaurant.id)}
+                        onCheckedChange={(checked) => handleSelectRow(restaurant.id, !!checked)}
+                        aria-label={`Selecionar ${restaurant.name}`}
+                      />
+                    </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 truncate max-w-[150px]">
                       {restaurant.name}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <Badge variant="outline" className="bg-gray-100 text-gray-600 border-gray-300">
-                        <Utensils className="w-3 h-3 mr-1" /> {restaurant.category || 'Não definido'}
-                      </Badge>
+                      {[restaurant.neighborhood, restaurant.city].filter(Boolean).join(', ')}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <Badge className={cn("font-bold", planColors[restaurant.plan])}>
@@ -94,7 +194,7 @@ const ManagePlans: React.FC = () => {
                       <Select 
                         onValueChange={(value) => handlePlanChange(restaurant.id, value)}
                         value={restaurant.plan}
-                        disabled={isCurrentlyUpdating}
+                        disabled={isCurrentlyUpdating || isUpdatingMultiplePlans}
                       >
                         <SelectTrigger className="w-[180px] h-9 rounded-lg">
                           <SelectValue placeholder="Alterar Plano" />

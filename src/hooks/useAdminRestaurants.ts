@@ -10,6 +10,11 @@ interface UpdatePlanPayload {
   newPlan: RestaurantPlan;
 }
 
+interface UpdateMultiplePlansPayload {
+  restaurantIds: string[];
+  newPlan: RestaurantPlan;
+}
+
 interface UpdateStatusPayload {
   restaurantId: string;
   newStatus: VisitStatus;
@@ -61,6 +66,15 @@ const updateRestaurantPlan = async ({ restaurantId, newPlan }: UpdatePlanPayload
   if (error) throw new Error(error.message);
 };
 
+const updateMultipleRestaurantPlans = async ({ restaurantIds, newPlan }: UpdateMultiplePlansPayload): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .update({ plan: newPlan })
+    .in('id', restaurantIds);
+
+  if (error) throw new Error(error.message);
+};
+
 const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateStatusPayload): Promise<void> => {
   const { error } = await supabase
     .from('restaurants')
@@ -99,6 +113,17 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     },
   });
 
+  const updateMultiplePlansMutation = useMutation({
+    mutationFn: updateMultipleRestaurantPlans,
+    onSuccess: (_, variables) => {
+      showSuccess(`${variables.restaurantIds.length} restaurante(s) atualizado(s) para o plano ${variables.newPlan}!`);
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+    },
+    onError: (error) => {
+      showError(`Falha ao atualizar planos: ${error.message}`);
+    },
+  });
+
   const updateStatusMutation = useMutation({
     mutationFn: updateRestaurantVisitStatus,
     onSuccess: (_, variables) => {
@@ -127,6 +152,8 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,
     isUpdatingPlan: updatePlanMutation.isPending,
+    updateMultiplePlans: updateMultiplePlansMutation.mutate,
+    isUpdatingMultiplePlans: updateMultiplePlansMutation.isPending,
     updateStatus: updateStatusMutation.mutate,
     isUpdatingStatus: updateStatusMutation.isPending,
     updateNotes: updateNotesMutation.mutate,
