@@ -1,49 +1,51 @@
+"use client";
+
 import React from 'react';
-import { WeekSchedule } from '@/types/schedule';
-import { XCircle } from 'lucide-react';
+import { WeekSchedule, DaySchedule } from '@/types'; // Importando os tipos WeekSchedule e DaySchedule
 
 interface DetailedHoursDisplayProps {
-  schedule: WeekSchedule;
+  openingHours: WeekSchedule | null; // Tipo corrigido
 }
 
-const dayLabels: Record<keyof WeekSchedule, string> = {
-  monday: 'Segunda-feira',
-  tuesday: 'Terça-feira',
-  wednesday: 'Quarta-feira',
-  thursday: 'Quinta-feira',
-  friday: 'Sexta-feira',
-  saturday: 'Sábado',
-  sunday: 'Domingo',
-};
+const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ openingHours }) => {
+  if (!openingHours) {
+    return <p className="text-gray-500">Horário de funcionamento não disponível.</p>;
+  }
 
-const daysOfWeek: (keyof WeekSchedule)[] = [
-  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-];
+  const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+  const dayNames = {
+    monday: 'Segunda-feira',
+    tuesday: 'Terça-feira',
+    wednesday: 'Quarta-feira',
+    thursday: 'Quinta-feira',
+    friday: 'Sexta-feira',
+    saturday: 'Sábado',
+    sunday: 'Domingo',
+  };
 
-const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ schedule }) => {
+  const formatTime = (time: string) => {
+    // Assuming time is in "HH:MM" format
+    return time;
+  };
+
   return (
-    <div className="space-y-2 rounded-xl border border-gray-100 p-4 bg-background-light">
-      {daysOfWeek.map(day => {
-        const daySchedule = schedule[day];
-        const label = dayLabels[day];
-        
+    <div className="space-y-2">
+      {daysOfWeek.map((dayKey) => {
+        const schedule: DaySchedule = openingHours[dayKey as keyof WeekSchedule];
         return (
-          <div key={day} className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-2 last:border-b-0">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
-            
-            {daySchedule?.isOpen ? (
-              <div className="flex flex-col items-end">
-                {daySchedule.slots.map((slot, index) => (
-                  <span key={index} className="text-sm font-bold text-green-600 dark:text-green-400">
-                    {slot.start} - {slot.end}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <span className="text-sm font-medium text-red-600 dark:text-red-400 flex items-center">
-                <XCircle className="w-4 h-4 mr-1" /> Fechado
-              </span>
-            )}
+          <div key={dayKey} className="flex justify-between">
+            <span className="font-medium">{dayNames[dayKey as keyof typeof dayNames]}</span>
+            <div>
+              {schedule && schedule.length > 0 ? (
+                schedule.map((slot, index) => (
+                  <p key={index} className="text-gray-700">
+                    {formatTime(slot.start)} - {formatTime(slot.end)}
+                  </p>
+                ))
+              ) : (
+                <p className="text-gray-500">Fechado</p>
+              )}
+            </div>
           </div>
         );
       })}

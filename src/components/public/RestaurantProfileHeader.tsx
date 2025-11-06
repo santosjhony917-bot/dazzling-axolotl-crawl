@@ -1,44 +1,24 @@
+"use client";
+
 import React from 'react';
-import { Heart, MapPin, Utensils } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Restaurant } from '@/types'; // Importando o tipo Restaurant
 
 interface RestaurantProfileHeaderProps {
-  restaurant: {
-    id: string;
-    name: string;
-    coverImageUrl: string;
-    isPremium: boolean;
-    isCompact?: boolean; // NOVO: Prop para modo compacto
-  };
+  restaurant: Restaurant; // Agora aceita o tipo Restaurant completo
 }
 
-const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
-  restaurant,
-}) => {
-  const {
-    name,
-    coverImageUrl,
-    isPremium,
-    isCompact = false, // Valor padrão
-  } = restaurant;
-
-  // Classes condicionais para altura da capa
-  const coverHeightClasses = isCompact ? "h-44 md:h-52" : "h-52 md:h-64"; // Reduzido em ~20%
+const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant }) => {
+  const coverImageUrl = restaurant.cover_image_url || '/placeholder-cover.jpg'; // Derivando coverImageUrl
+  const isPremium = restaurant.plan === 'premium'; // Derivando isPremium
 
   return (
-    <div className={cn("relative w-full bg-gray-200 overflow-hidden", coverHeightClasses)}>
-      {/* Imagem de Capa - Apenas para Premium */}
-      {isPremium && coverImageUrl ? (
-        <img
-          src={coverImageUrl}
-          alt={`Capa de ${name}`}
-          className="w-full h-full object-cover object-center"
-        />
-      ) : (
-        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-          <Utensils className="w-24 h-24 text-gray-300" />
-        </div>
-      )}
+    <div className="relative h-48 bg-gray-200 overflow-hidden">
+      <img src={coverImageUrl} alt={restaurant.name || 'Restaurant cover'} className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 p-4 text-white">
+        <h1 className="text-3xl font-bold">{restaurant.name}</h1>
+        {isPremium && <span className="text-sm bg-yellow-500 px-2 py-1 rounded-full mt-1 inline-block">Premium</span>}
+      </div>
     </div>
   );
 };

@@ -1,112 +1,183 @@
 "use client";
 
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant, PublicRestaurantData } from '@/types'; // Importando os tipos
+import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
+import FreeProfileLayout from '@/components/public/FreeProfileLayout';
+import { useAuth } from '@/lib/auth'; // Assumindo que você tem um hook de autenticação
+import { toast } from 'sonner'; // Para notificações
 
-import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
-import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
-import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
-import FreeProfileLayout from "@/components/public/FreeProfileLayout";
-import { PublicRestaurantData } from "@/types/restaurant";
+const RestaurantProfilePublic: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { user } = useAuth(); // Obter o usuário logado
 
-interface RestaurantProfilePublicProps {
-  initialRestaurantId?: string;
-  simulatedPlan?: 'free' | 'premium';
-  isCompact?: boolean;
-}
-
-const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
-  const params = useParams();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  
-  const id = initialRestaurantId || params.restaurantId;
-
-  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
-  
-  // Usar o simulatedPlan se fornecido, caso contrário, usar o plano do restaurante
-  const currentPlan = simulatedPlan || restaurant?.plan;
-
-  const { toggleFollow, isToggling } = useRestaurantFollow(
-    restaurant?.id || '', 
-    restaurant?.is_favorite || false
-  );
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-background-light">
-        <div className="text-center">
-          <p className="text-lg font-semibold text-primary">Carregando perfil...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !restaurant) {
-    console.error("Error loading restaurant:", error);
-    console.error("Restaurant ID being used:", id);
-    
-    let errorMessage = "Restaurante não encontrado ou erro ao carregar.";
-    if (error) {
-      if (error instanceof Error) {
-        errorMessage = `Erro ao carregar restaurante: ${error.message}`;
-      } else {
-        // Fallback caso o erro não seja uma instância de Error, mas ainda seja um valor
-        errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
+  useEffect(() => {
+    const fetchRestaurant = async () => {
+      if (!id) {
+        setError('ID do restaurante não fornecido.');
+        setLoading(false);
+        return;
       }
-    } else if (!restaurant) {
-      errorMessage = `Restaurante com ID "${id}" não encontrado.`;
+
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) {
+        setError(error.message);
+        toast.error(`Erro ao carregar restaurante: ${error.message}`);
+      } else {
+        setRestaurant(data);
+      }
+      setLoading(false);
+    };
+
+    fetchRestaurant();
+  }, [id]);
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      if (user && restaurant) {
+        const { data, error } = await supabase
+          .from('user_favorites')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('restaurant_id', restaurant.id)
+          .single();
+
+        if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
+          console.error('Error checking favorite:', error);
+        }
+        setIsFavorite(!!data);
+      }
+    };
+    checkFavorite();
+  }, [user, restaurant]);
+
+  const toggleFollow = async () => {
+    if (!user) {
+      toast.info('Você precisa estar logado para favoritar um restaurante.');
+      // Redirecionar para login ou mostrar modal de login
+      return;
     }
 
-    return (
-      <div className="flex items-center justify-center h-screen bg-background-light">
-        <div className="text-center">
-          <p className="text-lg font-semibold text-destructive">{errorMessage}</p>
-          <Button onClick={() => navigate("/")} className="mt-4">
-            Voltar para a Home
-          </Button>
-        </div>
-      </div>
-    );
+    if (!restaurant) return;
+
+    if (isFavorite) {
+      const { error } = await supabase
+        .from('user_favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('restaurant_id', restaurant.id);
+
+      if (error) {
+        toast.error('Erro ao remover dos favoritos.');
+        console.error('Error unfavoriting:', error);
+      } else {
+        setIsFavorite(false);
+        toast.success('Restaurante removido dos favoritos!');
+      }
+    } else {
+      const { error } = await supabase
+        .from('user_favorites')
+        .insert({ user_id: user.id, restaurant_id: restaurant.id });
+
+      if (error) {
+        toast.error('Erro ao adicionar aos favoritos.');
+        console.error('Error favoriting:', error);
+      } else {
+        setIsFavorite(true);
+        toast.success('Restaurante adicionado aos favoritos!');
+      }
+    }
+  };
+
+  const handleShare = () => {
+    if (navigator.share && restaurant) {
+      navigator.share({
+        title: restaurant.name || 'Restaurante',
+        text: `Confira este restaurante: ${restaurant.name}`,
+        url: window.location.href,
+      }).catch((error) => console.error('Error sharing:', error));
+    } else {
+      // Fallback para navegadores que não suportam a API Web Share
+      navigator.clipboard.writeText(window.location.href);
+      toast.info('Link copiado para a área de transferência!');
+    }
+  };
+
+  const handleBack = () => {
+    window.history.back();
+  };
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen">Carregando...</div>;
   }
 
-  // Renderiza o layout apropriado com base no plano
-  if (currentPlan === 'premium') {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <PremiumProfileLayout 
-          restaurant={restaurant as PublicRestaurantData} 
-          toggleFavorite={toggleFollow} 
-          isFavoriteMutating={isToggling}
-          isCompact={isCompact}
-        />
-      </motion.div>
-    );
-  } else {
-    // Default para FreeProfileLayout se não for premium ou se o plano for 'free'
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <FreeProfileLayout 
-          restaurant={restaurant as PublicRestaurantData} 
-          toggleFavorite={toggleFollow} 
-          isFavoriteMutating={isToggling}
-          isCompact={isCompact}
-        />
-      </motion.div>
-    );
+  if (error) {
+    return <div className="flex justify-center items-center h-screen text-red-500">Erro: {error}</div>;
   }
+
+  if (!restaurant) {
+    return <div className="flex justify-center items-center h-screen">Restaurante não encontrado.</div>;
+  }
+
+  // Transformar o objeto restaurant para PublicRestaurantData
+  const publicRestaurantData: PublicRestaurantData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    description: restaurant.description,
+    logoUrl: restaurant.image_url,
+    coverImageUrl: restaurant.cover_image_url,
+    plan: restaurant.plan,
+    category: restaurant.category,
+    address: restaurant.address,
+    city: restaurant.city,
+    state: restaurant.state,
+    latitude: restaurant.latitude,
+    longitude: restaurant.longitude,
+    opening_hours: restaurant.opening_hours,
+    whatsapp_url: restaurant.whatsapp_url,
+    ifood_url: restaurant.ifood_url,
+    other_url: restaurant.other_url,
+    other_url_label: restaurant.other_url_label,
+    payment_methods: restaurant.payment_methods,
+    social_networks: restaurant.social_networks,
+    addressSummary: `${restaurant.address || ''}${restaurant.number ? `, ${restaurant.number}` : ''}${restaurant.neighborhood ? ` - ${restaurant.neighborhood}` : ''}${restaurant.city ? `, ${restaurant.city}` : ''}${restaurant.state ? `/${restaurant.state}` : ''}`,
+    followers_count: restaurant.followers_override || 0, // Usar followers_override ou 0
+    menu_categories: [], // Placeholder, pode ser carregado separadamente
+    isPremium: restaurant.plan === 'premium',
+  };
+
+  return (
+    <>
+      {publicRestaurantData.isPremium ? (
+        <PremiumProfileLayout
+          restaurant={publicRestaurantData}
+          onBack={handleBack}
+          onToggleFavorite={toggleFollow}
+          onShare={handleShare}
+          isFavorite={isFavorite}
+        />
+      ) : (
+        <FreeProfileLayout
+          restaurant={publicRestaurantData}
+          onBack={handleBack}
+          onToggleFavorite={toggleFollow}
+          onShare={handleShare}
+          isFavorite={isFavorite}
+        />
+      )}
+    </>
+  );
 };
 
 export default RestaurantProfilePublic;

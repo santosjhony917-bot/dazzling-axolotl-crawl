@@ -1,73 +1,44 @@
-import React from 'react';
-import { Heart, Loader2, Share2, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Heart, Share2 } from "lucide-react";
 
 interface RestaurantActionsBarProps {
-  isFavorite: boolean;
-  onFavoriteToggle: () => void;
-  isFavoriteMutating: boolean;
-  onShare: () => void;
   onBack: () => void;
-  paddingClass?: string; // Nova prop para a classe de padding
+  onToggleFavorite: () => void;
+  onShare: () => void;
+  isFavorite: boolean;
 }
 
-const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
-  isFavorite,
-  onFavoriteToggle,
-  isFavoriteMutating,
-  onShare,
+export function RestaurantActionsBar({
   onBack,
-  paddingClass, // Desestrutura a nova prop
-}) => {
-  const handleFollowToggle = onFavoriteToggle;
-
+  onToggleFavorite,
+  onShare,
+  isFavorite,
+}: RestaurantActionsBarProps) {
   return (
-    <div className={cn("flex items-center justify-between w-full", paddingClass)}>
-      {/* Botão Voltar (Movido para cá) */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={onBack}
-        className="text-white"
-      >
-        <ArrowLeft className="h-5 w-5 text-primary" />
-      </Button>
-      
-      {/* Ações de Compartilhar/Favoritar */}
-      <div className="flex space-x-2">
-        {/* Botão de Favoritar/Seguir */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleFollowToggle}
-          disabled={isFavoriteMutating} 
-          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
-        >
-          {isFavoriteMutating ? (
-            <Loader2 className="w-5 h-5 animate-spin text-red-500" />
-          ) : (
-            <Heart 
-              className={cn(
-                "w-5 h-5 transition-colors",
-                isFavorite ? "text-red-500 fill-red-500" : "text-primary hover:text-red-500"
-              )}
-            />
-          )}
-        </Button>
-        
-        {/* Botão de Compartilhar */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
-          onClick={onShare}
-        >
-          <Share2 className="w-5 h-5 text-primary" />
-        </Button>
+    <div className="w-full bg-white shadow-sm z-10"> {/* Contêiner externo, largura total */}
+      <div className="relative max-w-md mx-auto flex items-center justify-between px-4 py-2"> {/* Contêiner interno para limitar e centralizar o conteúdo */}
+        {/* Botão Voltar */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2"> {/* Posicionado absolutamente à esquerda */}
+          <Button variant="ghost" size="icon" onClick={onBack}>
+            <ArrowLeft className="h-6 w-6" />
+          </Button>
+        </div>
+
+        {/* Espaçador para empurrar os botões de ação para a direita */}
+        <div className="flex-grow"></div>
+
+        {/* Botões de Ação */}
+        <div className="flex items-center space-x-2 absolute right-4 top-1/2 -translate-y-1/2"> {/* Posicionados absolutamente à direita */}
+          <Button variant="ghost" size="icon" onClick={onToggleFavorite}>
+            {isFavorite ? <Heart fill="red" className="h-6 w-6 text-red-500" /> : <Heart className="h-6 w-6" />}
+          </Button>
+          <Button variant="ghost" size="icon" onClick={onShare}>
+            <Share2 className="h-6 w-6" />
+          </Button>
+        </div>
       </div>
     </div>
   );
-};
-
-export default RestaurantActionsBar;
+}
