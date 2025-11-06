@@ -29,8 +29,7 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
   const remainingCount = gallery.length - 3;
 
   return (
-    <div className="mt-4">
-      <h2 className="text-lg font-bold text-primary mb-4">Galeria de Fotos</h2>
+    <div className="mt-0">
       <div className="grid grid-cols-3 gap-2 h-[320px]">
         {/* Imagem Principal */}
         {largeItem && (

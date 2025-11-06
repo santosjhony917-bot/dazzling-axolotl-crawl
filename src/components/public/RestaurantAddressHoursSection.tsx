@@ -67,7 +67,6 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
             <div className="flex items-start">
               <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Horário de Funcionamento</p>
                 <OpeningHoursDisplay openingHours={opening_hours} />
               </div>
             </div>
