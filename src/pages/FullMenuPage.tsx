@@ -76,8 +76,8 @@ const FullMenuPage: React.FC = () => {
               image_url,
               order_index,
               is_active,
-              created_at, // Adicionado
-              category_id // Adicionado
+              created_at,
+              category_id
             )
           )
         `)
