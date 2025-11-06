@@ -98,16 +98,18 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const containerPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do container principal
 
   return (
-    <div className="min-h-screen bg-background-light">
+    <div className="min-h-screen bg-background-light relative">
       
       {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <RestaurantActionsBar
-        isFavorite={restaurant.is_favorite}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        onShare={handleShare}
-        onBack={() => navigate(-1)}
-      />
+      <div className={cn("absolute inset-x-0 top-0 z-30 max-w-md mx-auto p-4", containerPxClass)}>
+        <RestaurantActionsBar
+          isFavorite={restaurant.is_favorite}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isFavoriteMutating}
+          onShare={handleShare}
+          onBack={() => navigate(-1)}
+        />
+      </div>
 
       {/* 2. Cabeçalho Principal (Capa) */}
       <RestaurantProfileHeader
