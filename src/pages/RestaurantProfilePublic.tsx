@@ -33,6 +33,8 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
   const params = useParams();
   const navigate = useNavigate();
   const id = initialRestaurantId || params.id;
+  console.log("[RestaurantProfilePublic] Restaurant ID from params:", params.id);
+  console.log("[RestaurantProfilePublic] Final ID used:", id);
   const { user } = useAuth();
   const { restaurant, isLoading, error } = usePublicRestaurant(id);
   const { isFavorite, toggleFavorite, isLoading: isToggling } = useRestaurantFavorite(id);
