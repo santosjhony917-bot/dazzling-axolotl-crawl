@@ -27,9 +27,9 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
         variant="ghost"
         size="icon"
         onClick={onBack}
-        className="text-white"
+        className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
       >
-        <ArrowLeft className="h-5 w-5" />
+        <ArrowLeft className="h-5 w-5 text-primary" />
       </Button>
       
       {/* Ações de Compartilhar/Favoritar */}

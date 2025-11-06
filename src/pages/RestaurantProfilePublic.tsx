@@ -20,13 +20,11 @@ interface RestaurantProfilePublicProps {
 }
 
 const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
-  const params = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const id = initialRestaurantId || params.restaurantId;
-
-  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id || initialRestaurantId);
   
   // Usar o simulatedPlan se fornecido, caso contrário, usar o plano do restaurante
   const currentPlan = simulatedPlan || restaurant?.plan;
@@ -35,6 +33,10 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     restaurant?.id || '', 
     restaurant?.is_favorite || false
   );
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   if (isLoading) {
     return (
