@@ -12,7 +12,6 @@ import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import FreeProfileLayout from "@/components/public/FreeProfileLayout";
 import { PublicRestaurantData } from "@/types/restaurant";
-// Removido: import RestaurantActionsBar from "@/components/public/RestaurantActionsBar";
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string;
@@ -21,11 +20,13 @@ interface RestaurantProfilePublicProps {
 }
 
 const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const params = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(restaurantId || initialRestaurantId);
+  const id = initialRestaurantId || params.restaurantId;
+
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
   
   // Usar o simulatedPlan se fornecido, caso contrário, usar o plano do restaurante
   const currentPlan = simulatedPlan || restaurant?.plan;
@@ -34,19 +35,6 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     restaurant?.id || '', 
     restaurant?.is_favorite || false
   );
-
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  const handleShare = () => {
-    if (restaurant) {
-      navigator.share({
-        title: restaurant.name,
-        url: window.location.href,
-      });
-    }
-  };
 
   if (isLoading) {
     return (
@@ -60,7 +48,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   if (error || !restaurant) {
     console.error("Error loading restaurant:", error);
-    console.error("Restaurant ID being used:", restaurantId);
+    console.error("Restaurant ID being used:", id);
     
     let errorMessage = "Restaurante não encontrado ou erro ao carregar.";
     if (error) {
@@ -71,7 +59,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
       }
     } else if (!restaurant) {
-      errorMessage = `Restaurante com ID "${restaurantId}" não encontrado.`;
+      errorMessage = `Restaurante com ID "${id}" não encontrado.`;
     }
 
     return (
@@ -94,15 +82,11 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Actions Bar agora é renderizado dentro do PremiumProfileLayout */}
         <PremiumProfileLayout 
           restaurant={restaurant as PublicRestaurantData} 
           toggleFavorite={toggleFollow} 
           isFavoriteMutating={isToggling}
           isCompact={isCompact}
-          onBack={handleBack}
-          onShare={handleShare}
-          isFavorite={restaurant.is_favorite}
         />
       </motion.div>
     );
@@ -114,15 +98,11 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Actions Bar agora é renderizado dentro do FreeProfileLayout */}
         <FreeProfileLayout 
           restaurant={restaurant as PublicRestaurantData} 
           toggleFavorite={toggleFollow} 
           isFavoriteMutating={isToggling}
           isCompact={isCompact}
-          onBack={handleBack}
-          onShare={handleShare}
-          isFavorite={restaurant.is_favorite}
         />
       </motion.div>
     );

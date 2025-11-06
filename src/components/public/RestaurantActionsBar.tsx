@@ -9,6 +9,7 @@ interface RestaurantActionsBarProps {
   isFavoriteMutating: boolean;
   onShare: () => void;
   onBack: () => void;
+  paddingClass?: string; // Nova prop para a classe de padding
 }
 
 const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
@@ -17,17 +18,18 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
   isFavoriteMutating,
   onShare,
   onBack,
+  paddingClass, // Desestrutura a nova prop
 }) => {
   const handleFollowToggle = onFavoriteToggle;
 
   return (
-    <div className={cn("flex items-center justify-between w-full")}> {/* Removido px-4 daqui */}
+    <div className={cn("flex items-center justify-between w-full", paddingClass)}>
       {/* Botão Voltar (Movido para cá) */}
       <Button
         variant="ghost"
         size="icon"
         onClick={onBack}
-        className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+        className="text-white"
       >
         <ArrowLeft className="h-5 w-5 text-primary" />
       </Button>

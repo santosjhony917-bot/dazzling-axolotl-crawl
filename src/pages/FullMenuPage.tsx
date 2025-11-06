@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
@@ -64,7 +62,6 @@ export default function FullMenuPage() {
         
         {hasMenu ? (
           <RestaurantMenu 
-            restaurantId={restaurant.id} // Adicionado o restaurantId
             menuCategories={restaurant.menu_categories} 
             isFullMenuPage={true} // Nova prop para indicar que é a página completa
           />
