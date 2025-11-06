@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuCategory, MenuItem } from '@/types/restaurant'; // Importando MenuCategory e MenuItem do tipo estendido
+import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando MenuCategory e MenuItem do tipo estendido
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice

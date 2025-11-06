@@ -6,6 +6,7 @@ import { PublicRestaurantData } from '@/types/restaurant';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { WeekSchedule } from '@/types/schedule';
 
 interface RestaurantAddressHoursSectionProps {
   id: string;
@@ -67,7 +68,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
             <div className="flex items-start">
               <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
               <div className="ml-3 min-w-0">
-                <OpeningHoursDisplay openingHours={opening_hours} />
+                <OpeningHoursDisplay openingHours={opening_hours as WeekSchedule} />
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Restaurant, RestaurantWithDistance, MenuCategory, MenuItem, GalleryImag
 import { PublicRestaurantData } from '@/types/restaurant';
 import { showError } from '@/utils/toast';
 import { getRestaurantOpenStatus } from '@/lib/schedule'; // Importando a nova função
+import { WeekSchedule } from '@/types/schedule'; // Adicionado import para WeekSchedule
 
 // Função para buscar restaurantes próximos (usando a função SQL find_nearby_restaurants)
 export async function fetchNearbyRestaurants(
@@ -121,7 +122,25 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     console.log(`[fetchPublicRestaurantById] Fetched ${menuData?.length || 0} menu categories for ${restaurantId}.`);
   }
 
-  // 5. Processar e combinar dados
+  // 5. Verificar se o usuário atual favoritou este restaurante
+  let isFavorite = false;
+  const { data: userData } = await supabase.auth.getUser();
+  if (userData?.user) {
+    const { data: favoriteData, error: favoriteError } = await supabase
+      .from('user_favorites')
+      .select('id')
+      .eq('user_id', userData.user.id)
+      .eq('restaurant_id', restaurantId)
+      .single();
+
+    if (favoriteData && !favoriteError) {
+      isFavorite = true;
+    } else if (favoriteError && favoriteError.code !== 'PGRST116') { // PGRST116 significa que nenhuma linha foi encontrada
+      console.warn(`[fetchPublicRestaurantById] Error checking favorite status for ${restaurantId}:`, favoriteError);
+    }
+  }
+
+  // 6. Processar e combinar dados
   
   // Constrói o resumo do endereço
   const addressParts = [baseData.city, baseData.state].filter(Boolean);
@@ -145,7 +164,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
   // Calcular status de abertura
-  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as PublicRestaurantData['opening_hours']);
+  const openStatus = getRestaurantOpenStatus(baseData.opening_hours as WeekSchedule | null);
   
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
@@ -157,11 +176,12 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
     gallery_images: sortedGalleryImages,
-    payment_methods: paymentMethods, // ADICIONADO
+    payment_methods: paymentMethods,
     // Adicionando status de abertura
     isOpen: openStatus.isOpen,
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,
+    is_favorite: isFavorite, // Adicionado ao resultado final
   } as PublicRestaurantData;
 
   console.log(`[fetchPublicRestaurantById] Returning restaurant data for ${restaurantId}.`);

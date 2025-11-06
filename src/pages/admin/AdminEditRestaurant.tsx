@@ -18,11 +18,12 @@ import { EditHoursDialog } from '@/components/EditHoursDialog';
 import PaymentMethodsDialog from '@/components/restaurant/PaymentMethodsDialog';
 import SocialNetworksDialog from '@/components/restaurant/SocialNetworksDialog';
 import SalesChannelsDialog from '@/components/restaurant/SalesChannelsDialog';
-import { GalleryImage } from '@/types/restaurant';
+import { GalleryImage } from '@/types/supabase';
+import { AdminRestaurant, SocialNetworkLink } from '@/types/restaurant';
 import { createPageUrl } from '@/utils/url';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RestaurantPlan } from '@/types/supabase';
-import { AdminRestaurant, WeekSchedule, SocialNetworkLink } from '@/types/restaurant';
+import { WeekSchedule } from '@/types/schedule';
 import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 
 // Schemas de validação

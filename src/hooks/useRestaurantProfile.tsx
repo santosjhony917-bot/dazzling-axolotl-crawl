@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/restaurant';
+import { Restaurant } from '@/types/supabase';
 import { toast } from 'sonner';
 
 // Definindo um tipo genérico para updates, já que o formulário específico foi removido.
@@ -75,7 +75,7 @@ export const useRestaurantProfile = (restaurantIdFromProps?: string) => {
     } finally {
       setIsLoading(false);
     }
-    
+
     return { error: errorMsg };
   }, [restaurant]);
 

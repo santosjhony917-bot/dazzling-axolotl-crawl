@@ -1,51 +1,34 @@
-import { Database, Json, Restaurant as SupabaseRestaurant, MenuItem as SupabaseMenuItem, MenuCategory as SupabaseMenuCategory, GalleryImage as SupabaseGalleryImage } from './supabase';
-import { WeekSchedule as ScheduleWeekSchedule } from './schedule'; // Import the correct schedule type
+import { Restaurant, MenuCategory, MenuItem, GalleryImage } from './supabase';
+import { WeekSchedule } from './schedule'; // Import WeekSchedule
+import { Json } from './supabase'; // Import Json type for explicit casting if needed
 
-export type Restaurant = SupabaseRestaurant;
-// Use the correct schedule type
-export type WeekSchedule = ScheduleWeekSchedule; 
-
-export type MenuItem = SupabaseMenuItem;
-export type MenuCategory = SupabaseMenuCategory;
-export type GalleryImage = SupabaseGalleryImage;
-
-// Tipo para um link de rede social
+// Define SocialNetworkLink here as it's a custom type not directly from Supabase
 export interface SocialNetworkLink {
-  platform: string; // Ex: 'Instagram', 'Facebook', 'Website'
+  platform: string;
   url: string;
 }
 
-// Type for public restaurant profile data, including menu and gallery
-export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks'> {
-  // CORREÇÃO 1: Sobrescrevendo opening_hours para usar o tipo WeekSchedule
-  opening_hours: WeekSchedule | null; 
-  
-  // NOVO: Formas de pagamento (Assumindo que o JSONB armazena string[])
-  payment_methods: string[] | null; 
-  
-  // NOVO: Redes sociais (Assumindo que o JSONB armazena SocialNetworkLink[])
-  social_networks: SocialNetworkLink[] | null;
-  
-  // Computed fields from the view/query
-  is_favorite: boolean;
-  followers_count: number; 
-  addressSummary: string; 
-  logoUrl: string | null; 
-  
-  // NOVO: Status de abertura
+// PublicRestaurantData extends Restaurant, but overrides specific JSONB fields with refined types
+export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' | 'social_networks' | 'payment_methods' | 'other_url_label'> {
+  addressSummary: string | null;
+  logoUrl: string | null;
+  followers_count: number;
+  menu_categories: (MenuCategory & { menu_items: MenuItem[] })[];
+  gallery_images: GalleryImage[];
+  payment_methods: string[] | null; // Refined type
   isOpen: boolean;
   statusText: string;
   nextOpenTime: string | null;
-
-  // Aggregated relations (CORREÇÃO 2: menu_categories deve incluir menu_items)
-  menu_categories: (MenuCategory & {
-    menu_items: MenuItem[];
-  })[];
-  gallery_images: GalleryImage[];
-  other_url_label: string | null; // Adicionado other_url_label
+  is_favorite: boolean;
+  opening_hours: WeekSchedule | null; // Refined type
+  social_networks: SocialNetworkLink[] | null; // Refined type
+  other_url_label: string | null; // Refined type
 }
 
-// Adicionando um tipo para o restaurante com a galeria incluída, para uso no AdminEditRestaurant
-export interface AdminRestaurant extends Restaurant {
+// AdminRestaurant extends Restaurant, but overrides specific JSONB fields with refined types
+export interface AdminRestaurant extends Omit<Restaurant, 'opening_hours' | 'social_networks' | 'payment_methods'> {
   restaurant_gallery: GalleryImage[];
+  opening_hours: WeekSchedule | null; // Refined type
+  social_networks: SocialNetworkLink[] | null; // Refined type
+  payment_methods: string[] | null; // Refined type
 }

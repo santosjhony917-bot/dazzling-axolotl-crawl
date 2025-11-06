@@ -154,16 +154,16 @@ export default function ProfileSettingsPage() {
   const openStatus = getRestaurantOpenStatus(currentSchedule);
   
   // CORREÇÃO 2: Usando 'as unknown as string[]'
-  const currentPaymentMethods = (restaurant?.payment_methods as unknown as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
+  const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
   
   // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
-  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
+  const currentSocialLinks = (restaurant?.social_networks as SocialNetworkLink[] | null) || [];
 
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
     opening_hours: currentSchedule,
-    payment_methods: (restaurant?.payment_methods as unknown as string[] | null) || null,
-    social_networks: (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || null, // ADICIONADO
+    payment_methods: currentPaymentMethods,
+    social_networks: currentSocialLinks, // ADICIONADO
     is_favorite: false,
     followers_count: 0,
     addressSummary: restaurant?.city || '',
