@@ -69,8 +69,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
             menu_items (
               *
             )
-          ),
-          followers_count:user_favorites!restaurant_id(count)
+          )
         `
         )
         .eq("id", id)
@@ -83,6 +82,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
           description: "Não foi possível carregar os dados do restaurante.",
           variant: "destructive",
         });
+        setRestaurant(null);
       } else {
         // Sort categories and items by order_index
         if (data.menu_categories) {
@@ -221,7 +221,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   const isOpen = isRestaurantOpen(restaurant.opening_hours);
   const followerCount =
-    (restaurant.followers_override ?? 0) + (restaurant.followers_count?.[0]?.count ?? 0);
+    (restaurant.followers_override ?? 0);
 
   const containerClasses = isCompact 
     ? "bg-white relative" 
