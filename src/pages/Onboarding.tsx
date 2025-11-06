@@ -141,13 +141,14 @@ export default function Onboarding() {
           >
             {/* Navigation Footer */}
             <div className="flex w-full justify-between items-center px-4 pb-4 mt-auto">
-              <button
+              <Button
                 onClick={skipOnboarding}
                 disabled={isCompleting}
+                variant="ghost"
                 className="text-gray-600 text-base font-medium hover:text-gray-800 transition-colors disabled:opacity-50"
               >
                 Pular
-              </button>
+              </Button>
 
               {/* Indicators */}
               <div className="flex items-center justify-center gap-3">

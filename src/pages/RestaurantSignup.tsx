@@ -6,7 +6,7 @@ import { ArrowLeft, Store, PlusCircle, Eye, EyeOff, Loader2, MapPin, Phone } fro
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { registerRestaurant } from "@/integrations/supabase/edgeFunctions";
 import { showError, showSuccess } from "@/utils/toast";
@@ -87,7 +87,6 @@ export default function RestaurantSignup() {
       fetchViaCEP();
     }
   }, [location.cep, loading]);
-
 
   const validateStep = (step: number): boolean => {
     if (step === 1) {
@@ -474,8 +473,8 @@ export default function RestaurantSignup() {
         </div>
 
         {/* Progress Indicator */}
-        <Card className="mb-8 shadow-soft-lg border-none rounded-xl p-4">
-          <CardContent className="p-0 flex justify-between items-center">
+        <div className="mb-8 px-4">
+          <div className="p-0 flex justify-between items-center">
             <div className="flex-1 flex flex-col items-center">
               <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm transition-colors duration-300 ${getStepIndicatorClass(1)}`}>
                 1
@@ -502,64 +501,64 @@ export default function RestaurantSignup() {
                 Acesso
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Step Forms Container */}
-        <Card className="shadow-soft-xl border-none rounded-2xl p-6">
-          <CardContent className="p-0">
+        <Card className="shadow-soft-xl border-none rounded-2xl">
+          <CardContent className="p-6">
             <AnimatePresence mode="wait">
               {renderStepContent()}
             </AnimatePresence>
           </CardContent>
+          
+          {/* Navigation Buttons */}
+          <CardFooter className="flex-col items-stretch p-6 pt-4 space-y-4">
+            <div className="flex justify-between gap-4">
+              {currentStep > 1 && (
+                <Button
+                  onClick={handleBack}
+                  variant="outline"
+                  className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
+                >
+                  Voltar
+                </Button>
+              )}
+              {currentStep < totalSteps ? (
+                <Button
+                  onClick={handleNext}
+                  disabled={loading}
+                  variant="highlight"
+                  className={`flex-1 h-12 rounded-xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
+                >
+                  {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  variant="highlight"
+                  className="flex-1 h-12 rounded-xl text-lg font-bold shadow-highlight-glow"
+                >
+                  {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Cadastrar Restaurante"
+                  )}
+                </Button>
+              )}
+            </div>
+            <p className="text-center text-sm text-gray-600">
+              Já possui cadastro?{" "}
+              <Link
+                to={createPageUrl('restaurant-login')}
+                className="font-bold text-highlight hover:underline"
+              >
+                Fazer login
+              </Link>
+            </p>
+          </CardFooter>
         </Card>
-
-        {/* Navigation Buttons */}
-        <div className="pt-8 pb-4 space-y-4">
-          <div className="flex justify-between gap-4">
-            {currentStep > 1 && (
-              <Button
-                onClick={handleBack}
-                variant="outline"
-                className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
-              >
-                Voltar
-              </Button>
-            )}
-            {currentStep < totalSteps ? (
-              <Button
-                onClick={handleNext}
-                disabled={loading}
-                variant="highlight"
-                className={`flex-1 h-12 rounded-xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
-              >
-                {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
-              </Button>
-            ) : (
-              <Button
-                onClick={handleSubmit}
-                disabled={loading}
-                variant="highlight"
-                className="flex-1 h-12 rounded-xl text-lg font-bold shadow-highlight-glow"
-              >
-                {loading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  "Cadastrar Restaurante"
-                )}
-              </Button>
-            )}
-          </div>
-          <p className="text-center text-sm text-gray-600">
-            Já possui cadastro?{" "}
-            <Link
-              to={createPageUrl('restaurant-login')}
-              className="font-bold text-highlight hover:underline"
-            >
-              Fazer login
-            </Link>
-          </p>
-        </div>
       </main>
     </div>
   );

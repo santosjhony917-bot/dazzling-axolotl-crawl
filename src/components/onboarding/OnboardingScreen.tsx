@@ -46,7 +46,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-primary tracking-tight text-4xl font-bold leading-tight"
+            className="text-primary tracking-tight text-3xl font-bold leading-tight"
           >
             {title}
           </motion.h1>

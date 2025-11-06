@@ -38,10 +38,10 @@ export default function RestaurantAreaHub() {
   ];
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
+    <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"
@@ -56,7 +56,7 @@ export default function RestaurantAreaHub() {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-sm pt-20">
+      <main className="flex-1 flex flex-col justify-center w-full max-w-sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ export default function RestaurantAreaHub() {
           className="w-full"
         >
           {/* Icon and Title */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
+          <div className="flex flex-col items-center justify-center pb-8 w-full max-w-sm mx-auto text-center">
             <div className="flex items-center justify-center size-16 bg-highlight/10 rounded-xl mx-auto mb-4">
               <Utensils className="w-8 h-8 text-highlight" />
             </div>
@@ -76,28 +76,32 @@ export default function RestaurantAreaHub() {
             </p>
           </div>
 
-          <Card className="w-full shadow-soft-xl border-none rounded-2xl p-4 space-y-3">
-            {options.map((option, index) => {
-              const Icon = option.icon;
-              return (
-                <Link key={index} to={createPageUrl(option.path)}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center p-4 bg-[#f5f7f8] rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shadow-soft-sm"
-                  >
-                    <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center mr-4">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-primary">{option.title}</h3>
-                      <p className="text-sm text-gray-600">{option.description}</p>
-                    </div>
-                    <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180" />
-                  </motion.div>
-                </Link>
-              );
-            })}
+          <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6">
+            <CardContent className="p-0">
+              <div className="space-y-3">
+                {options.map((option, index) => {
+                  const Icon = option.icon;
+                  return (
+                    <Link key={index} to={createPageUrl(option.path)}>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center p-4 bg-background-light rounded-xl hover:bg-gray-200/50 transition-colors cursor-pointer border"
+                      >
+                        <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center mr-4">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-primary">{option.title}</h3>
+                          <p className="text-sm text-gray-600">{option.description}</p>
+                        </div>
+                        <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180" />
+                      </motion.div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </CardContent>
           </Card>
         </motion.div>
       </main>
