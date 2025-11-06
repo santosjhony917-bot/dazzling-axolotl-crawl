@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator'; // Importação do Separator
 import { Phone, Mail, ExternalLink } from 'lucide-react';
 import { PublicRestaurantData } from '@/types/restaurant';
 
