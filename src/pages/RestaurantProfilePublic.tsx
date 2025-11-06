@@ -117,7 +117,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
 
         {/* Main Content Area */}
         <main className="relative z-10 mt-[-80px] px-4 pb-20">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-md mx-auto">
             {/* Main Info Card */}
             <Card className="relative rounded-2xl shadow-soft-xl p-4 sm:p-6 mb-6 text-center border-none">
               <div className="absolute -top-12 left-1/2 -translate-x-1/2">
