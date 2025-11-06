@@ -28,11 +28,7 @@ export async function fetchNearbyRestaurants(
 }
 
 // Define a string de seleção para os dados básicos do perfil público
-const PUBLIC_RESTAURANT_BASE_SELECT = `
-    *,
-    followers_count:user_favorites(count),
-    gallery_images:restaurant_gallery(id, image_url, caption, order_index)
-`;
+const PUBLIC_RESTAURANT_BASE_SELECT = `*`; // Simplificado para buscar apenas as colunas do restaurante
 
 /**
  * Busca os dados públicos de um restaurante pelo ID.
@@ -40,7 +36,7 @@ const PUBLIC_RESTAURANT_BASE_SELECT = `
  * @returns Os dados públicos do restaurante, incluindo menu e galeria.
  */
 export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
-  // 1. Buscar dados básicos, seguidores e galeria (sem menu aninhado)
+  // 1. Buscar dados básicos do restaurante
   const { data: baseData, error: baseError } = await supabase
     .from('restaurants')
     .select(PUBLIC_RESTAURANT_BASE_SELECT)
@@ -55,8 +51,38 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   if (!baseData) {
     return null;
   }
+
+  // 2. Buscar contagem de seguidores separadamente
+  const { data: followersData, error: followersError } = await supabase
+    .from('user_favorites')
+    .select('count')
+    .eq('restaurant_id', restaurantId)
+    .returns<{ count: number }[]>(); // Definir explicitamente o tipo de retorno para count
+
+  let followersCount = (baseData.followers_override || 0);
+  if (followersError) {
+    console.warn('Error fetching followers count:', followersError);
+    // Continuar sem lançar erro, followersCount permanecerá baseData.followers_override
+  } else {
+    followersCount += (followersData?.[0]?.count || 0);
+  }
+
+  // 3. Buscar imagens da galeria separadamente
+  const { data: galleryData, error: galleryError } = await supabase
+    .from('restaurant_gallery')
+    .select('id, image_url, caption, order_index')
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  let galleryImages: GalleryImage[] = [];
+  if (galleryError) {
+    console.warn('Error fetching gallery images:', galleryError);
+    // Continuar sem lançar erro, galleryImages permanecerá vazio
+  } else {
+    galleryImages = (galleryData || []) as GalleryImage[];
+  }
   
-  // 2. Buscar categorias e itens de menu separadamente
+  // 4. Buscar categorias e itens de menu separadamente
   const { data: menuData, error: menuError } = await supabase
     .from('menu_categories')
     .select(`
@@ -82,11 +108,8 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
   }
 
-  // 3. Processar e combinar dados
+  // 5. Processar e combinar dados
   
-  // Processar contagem de seguidores (incluindo override)
-  const followersCount = (baseData.followers_count?.[0]?.count || 0) + (baseData.followers_override || 0);
-
   // Constrói o resumo do endereço
   const addressParts = [baseData.city, baseData.state].filter(Boolean);
   const addressSummary = addressParts.length > 0 ? addressParts.join(', ') : null;
@@ -105,8 +128,6 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       }));
       
   // Ordenar galeria
-  const galleryImages = (baseData.gallery_images || []) as unknown as GalleryImage[];
-  
   const sortedGalleryImages = galleryImages
       .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
