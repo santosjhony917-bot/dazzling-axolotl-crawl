@@ -4,12 +4,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { formatPrice } from '@/lib/utils';
 import { Utensils } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface PublicMenuSectionProps {
   categories: (MenuCategory & { items: MenuItem[] })[];
+  restaurantId: string;
 }
 
-const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories }) => {
+const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, restaurantId }) => {
+  const navigate = useNavigate();
+
   if (categories.length === 0) {
     return (
       <div className="text-center p-6 bg-white rounded-xl shadow-sm">
@@ -21,7 +26,6 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories }) => 
 
   return (
     <div className="space-y-8">
-      <h2 className="text-xl font-bold text-[#022D68]">Cardápio</h2>
       {categories.map(category => (
         <section key={category.id} className="space-y-4">
           <h3 className="text-lg font-bold text-gray-800 border-b border-gray-200 pb-2">{category.name}</h3>
@@ -54,6 +58,11 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories }) => 
           </div>
         </section>
       ))}
+      <div className="mt-6 text-center">
+        <Button onClick={() => navigate(`/restaurant/${restaurantId}/menu`)}>
+          Ver Cardápio Completo
+        </Button>
+      </div>
     </div>
   );
 };

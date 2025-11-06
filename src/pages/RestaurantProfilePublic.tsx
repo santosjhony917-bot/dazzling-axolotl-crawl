@@ -149,47 +149,50 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
             {/* Order Channels */}
             <OrderChannelsSection restaurant={restaurant} />
 
-            {/* Content Tabs */}
-            <Tabs defaultValue="menu" className="mt-6">
-              <TabsList className="grid w-full grid-cols-3 bg-gray-200/80 rounded-xl h-12">
-                <TabsTrigger value="menu" className="text-base rounded-lg">Cardápio</TabsTrigger>
-                <TabsTrigger value="gallery" className="text-base rounded-lg">Fotos</TabsTrigger>
-                <TabsTrigger value="info" className="text-base rounded-lg">Informações</TabsTrigger>
-              </TabsList>
-              
-              <Card className="mt-4 rounded-2xl shadow-soft-lg border-none">
-                <TabsContent value="menu" className="p-4 sm:p-6">
-                  <PublicMenuSection
-                    categories={
-                      restaurant.menu_categories?.map((category) => ({
-                        ...category,
-                        items: category.menu_items,
-                      })) || []
-                    }
-                  />
-                </TabsContent>
-                <TabsContent value="gallery" className="p-4 sm:p-6">
-                  <RestaurantGallerySection id="gallery" restaurantId={restaurant.id} plan={restaurant.plan} />
-                </TabsContent>
-                <TabsContent value="info" className="p-4 sm:p-6 space-y-6">
+            {/* Content Sections in a continuous scroll */}
+            <div className="mt-6 space-y-6">
+              {/* Menu Section */}
+              <Card className="rounded-2xl shadow-soft-lg border-none p-4 sm:p-6">
+                <h2 className="text-2xl font-bold text-primary mb-4">Cardápio</h2>
+                <PublicMenuSection
+                  categories={
+                    restaurant.menu_categories?.map((category) => ({
+                      ...category,
+                      items: category.menu_items,
+                    })) || []
+                  }
+                  restaurantId={restaurant.id}
+                />
+              </Card>
+
+              {/* Gallery Section */}
+              <Card className="rounded-2xl shadow-soft-lg border-none p-4 sm:p-6">
+                <h2 className="text-2xl font-bold text-primary mb-4">Galeria de Fotos</h2>
+                <RestaurantGallerySection id="gallery" restaurantId={restaurant.id} plan={restaurant.plan} />
+              </Card>
+
+              {/* Info Section */}
+              <Card className="rounded-2xl shadow-soft-lg border-none p-4 sm:p-6">
+                <h2 className="text-2xl font-bold text-primary mb-6">Informações</h2>
+                <div className="space-y-6">
                   <div>
-                    <h2 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
                       <MapPin className="w-5 h-5 text-highlight" />
                       Endereço
-                    </h2>
+                    </h3>
                     <p className="text-text-secondary">{`${restaurant.address}, ${restaurant.number} - ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}`}</p>
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
                       <Clock className="w-5 h-5 text-highlight" />
                       Horário de Funcionamento
-                    </h2>
+                    </h3>
                     <DetailedHoursDisplay schedule={restaurant.opening_hours} />
                   </div>
                   <AdditionalInfo restaurant={restaurant as any} />
-                </TabsContent>
+                </div>
               </Card>
-            </Tabs>
+            </div>
           </div>
         </main>
       </motion.div>
