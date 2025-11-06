@@ -24,7 +24,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const id = initialRestaurantId || params.id;
+  const id = initialRestaurantId || params.restaurantId;
 
   const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
   
