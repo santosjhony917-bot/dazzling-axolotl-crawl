@@ -28,7 +28,7 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
   
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
+      <h2 className="text-xl font-bold text-primary px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
       
       {/* NOVO: Ver Perfil Público */}
       <NavCardItem 

@@ -38,7 +38,7 @@ const ClientBottomNav: React.FC = () => {
         {navItems.map((item) => {
           const isActive = getActivePath(item.key);
           const Icon = item.icon;
-          const colorClass = isActive ? 'text-[#E47948]' : 'text-gray-500';
+          const colorClass = isActive ? 'text-highlight' : 'text-gray-500';
 
           return (
             <Link

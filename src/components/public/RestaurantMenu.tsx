@@ -79,7 +79,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
         return (
           <div key={category.id} className="space-y-4">
             {/* Título da Categoria */}
-            <h3 className="text-xl font-extrabold text-gray-800 pb-2">{category.name}</h3>
+            <h3 className="text-xl font-extrabold text-primary pb-2">{category.name}</h3>
             
             <div className="grid gap-y-3"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado */}
               {itemsToDisplay.map((item) => (
@@ -98,7 +98,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                   <div className="flex-grow">
                     <div className="flex justify-between items-start">
                       <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
-                      <p className="font-bold text-lg text-primary ml-4">
+                      <p className="font-bold text-lg text-highlight ml-4">
                         {formatPrice(item.price)}
                       </p>
                     </div>
@@ -115,7 +115,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                 <Button 
                   variant="link" 
                   onClick={handleViewFullMenu}
-                  className="text-primary p-0 h-auto text-sm font-semibold justify-start"
+                  className="text-highlight p-0 h-auto text-sm font-semibold justify-start"
                 >
                   Ver mais {remainingItemsCount} itens em {category.name}
                 </Button>

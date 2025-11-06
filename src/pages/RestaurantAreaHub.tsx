@@ -46,12 +46,12 @@ export default function RestaurantAreaHub() {
           variant="ghost"
           size="icon"
           onClick={() => navigate(createPageUrl('welcome'))}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">Área do Restaurante</h2>
+          <h2 className="text-primary text-xl font-bold">Área do Restaurante</h2>
         </div>
         <div className="w-10"></div>
       </header>
@@ -65,10 +65,10 @@ export default function RestaurantAreaHub() {
         >
           {/* Icon and Title */}
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-[#E47948]/10 rounded-xl mx-auto mb-4">
-              <Utensils className="w-8 h-8 text-[#E47948]" />
+            <div className="flex items-center justify-center size-16 bg-highlight/10 rounded-xl mx-auto mb-4">
+              <Utensils className="w-8 h-8 text-highlight" />
             </div>
-            <h1 className="text-[#022D68] tracking-tight text-3xl font-bold leading-tight">
+            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
               Gerencie seu Negócio
             </h1>
             <p className="text-gray-600 text-base mt-1">
@@ -86,11 +86,11 @@ export default function RestaurantAreaHub() {
                     whileTap={{ scale: 0.98 }}
                     className="flex items-center p-4 bg-[#f5f7f8] rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shadow-soft-sm"
                   >
-                    <div className="size-10 rounded-xl bg-[#022D68]/10 flex items-center justify-center mr-4">
-                      <Icon className="w-5 h-5 text-[#022D68]" />
+                    <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center mr-4">
+                      <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-[#022D68]">{option.title}</h3>
+                      <h3 className="font-bold text-primary">{option.title}</h3>
                       <p className="text-sm text-gray-600">{option.description}</p>
                     </div>
                     <ArrowLeft className="w-5 h-5 text-gray-500 rotate-180" />

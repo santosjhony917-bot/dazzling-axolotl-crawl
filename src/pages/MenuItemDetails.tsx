@@ -76,11 +76,11 @@ const MenuItemDetails: React.FC = () => {
           variant="ghost"
           size="icon"
           onClick={handleBack}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <h2 className="text-[#022D68] text-xl font-bold">Detalhes do Prato</h2>
+        <h2 className="text-primary text-xl font-bold">Detalhes do Prato</h2>
         <div className="w-10"></div>
       </header>
 

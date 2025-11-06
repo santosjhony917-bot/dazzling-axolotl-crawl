@@ -102,15 +102,15 @@ const RestaurantDashboard = () => {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setIsLocationModalOpen(true)}
           >
-            <MapPin className="h-6 w-6 text-[#022D68]" />
+            <MapPin className="h-6 w-6 text-primary" />
             <div>
               <p className="text-xs text-gray-500">Localização do Restaurante</p>
               {isProfileLoading ? (
-                <div className="flex items-center text-sm font-bold text-[#022D68]">
+                <div className="flex items-center text-sm font-bold text-primary">
                   <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
                 </div>
               ) : (
-                <p className="text-base font-bold text-[#022D68] truncate max-w-[200px]">
+                <p className="text-base font-bold text-primary truncate max-w-[200px]">
                   {restaurant?.name || "Definir Local"}
                 </p>
               )}
@@ -119,7 +119,7 @@ const RestaurantDashboard = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="text-[#022D68] hover:bg-[#022D68]/5 bg-gray-100 rounded-xl"
+            className="text-primary hover:bg-primary/5 bg-gray-100 rounded-xl"
             onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}
           >
             <Store className="h-6 w-6" />
@@ -149,7 +149,7 @@ const RestaurantDashboard = () => {
         {/* Destaques do Dia */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Destaques Próximos</h2>
+            <h2 className="text-xl font-bold text-primary">Destaques Próximos</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
@@ -182,7 +182,7 @@ const RestaurantDashboard = () => {
         {/* Restaurantes Próximos (Concorrentes) */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-[#022D68]">Concorrentes Próximos</h2>
+            <h2 className="text-xl font-bold text-primary">Concorrentes Próximos</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"

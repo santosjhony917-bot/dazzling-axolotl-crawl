@@ -20,13 +20,13 @@ const RestaurantAreaHeader: React.FC<RestaurantAreaHeaderProps> = ({ title, icon
         variant="ghost"
         size="icon"
         onClick={() => navigate(createPageUrl(backPath))}
-        className="text-[#022D68] hover:bg-[#022D68]/5 rounded-lg"
+        className="text-primary hover:bg-primary/5 rounded-lg"
       >
         <ArrowLeft className="h-6 w-6" />
       </Button>
       <div className="flex items-center gap-2">
-        <Icon className="h-6 w-6 text-[#022D68]" />
-        <h2 className="text-[#022D68] text-xl font-bold">{title}</h2>
+        <Icon className="h-6 w-6 text-primary" />
+        <h2 className="text-primary text-xl font-bold">{title}</h2>
       </div>
       <div className="w-10"></div>
     </header>

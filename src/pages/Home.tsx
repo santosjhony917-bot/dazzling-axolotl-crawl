@@ -106,15 +106,15 @@ const Home: React.FC = () => {
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setIsLocationModalOpen(true)}
         >
-          <MapPin className="h-6 w-6 text-[#E47948]" />
+          <MapPin className="h-6 w-6 text-highlight" />
           <div>
             <p className="text-xs text-gray-500">Localização de Busca</p>
             {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-[#022D68]">
+              <div className="flex items-center text-sm font-bold text-primary">
                 <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
               </div>
             ) : (
-              <p className="text-base font-extrabold text-[#022D68] tracking-tight truncate max-w-[250px]">
+              <p className="text-base font-extrabold text-primary tracking-tight truncate max-w-[250px]">
                 {location.address.split(',')[0] || "Definir Local"}
               </p>
             )}
@@ -167,7 +167,7 @@ const Home: React.FC = () => {
         {/* Pratos Populares */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Pratos Populares</h2>
+            <h2 className="text-xl font-extrabold text-primary tracking-tight">Pratos Populares</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"
@@ -233,7 +233,7 @@ const Home: React.FC = () => {
         {/* Restaurantes Próximos */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-extrabold text-[#022D68] tracking-tight">Restaurantes Próximos</h2>
+            <h2 className="text-xl font-extrabold text-primary tracking-tight">Restaurantes Próximos</h2>
             <Button 
               variant="link" 
               className="text-highlight p-0 h-auto text-sm font-semibold"

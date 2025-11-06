@@ -67,7 +67,7 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Cores customizadas do novo design
-        "highlight": "#CC6640", // Novo tom de laranja terroso
+        "highlight": "#E47948", // ATUALIZADO: Tom de laranja/marrom avermelhado para CTAs
         "background-light": "#F9FAFB", // Ajustado para um cinza mais claro
         "background-dark": "#111821", // Mantido, mas não usado no modo light
         "text-primary": "#022D68", // Novo alias para a cor primária de texto
