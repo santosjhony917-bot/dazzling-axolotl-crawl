@@ -29,6 +29,7 @@ const FreeProfileLayout = ({
   const h1SizeClass = "text-3xl";
 
   const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
+  const hasCoverImage = !!restaurant.cover_image_url; // Nova variável para verificar a existência da imagem de capa
 
   // Construir fullAddress para RestaurantAddressHoursSection
   const fullAddress = [
@@ -42,8 +43,8 @@ const FreeProfileLayout = ({
 
   return (
     <div className="relative">
-      {/* Capa do Restaurante (apenas para premium) */}
-      {isPremium && restaurant.cover_image_url && (
+      {/* Capa do Restaurante (agora para todos os planos se houver imagem) */}
+      {hasCoverImage && ( // Removida a condição isPremium
         <div
           className="relative w-full h-48 bg-cover bg-center"
           style={{ backgroundImage: `url(${restaurant.cover_image_url})` }}
@@ -53,10 +54,10 @@ const FreeProfileLayout = ({
         </div>
       )}
 
-      {/* Conteúdo principal, ajustado para sobrepor a capa se for premium */}
+      {/* Conteúdo principal, ajustado para sobrepor a capa se houver */}
       <div className={cn(
         "relative z-10",
-        !isPremium && "pt-4" // Aplica padding superior apenas se não for premium
+        hasCoverImage ? "mt-[-60px]" : "pt-4" // Aplica margin-top negativo se houver capa, ou padding-top se não houver
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
         <div className="flex flex-col items-center text-center px-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
