@@ -7,7 +7,6 @@ import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { formatAddressSummary } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -37,13 +36,11 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {
-    return formatAddressSummary(
-      restaurant.address,
-      restaurant.number,
-      restaurant.neighborhood,
-      restaurant.city,
-      restaurant.state
-    );
+    const { address, number, neighborhood, city, state } = restaurant;
+    const addressLine = [address, number].filter(Boolean).join(', ');
+    const cityLine = [neighborhood, city, state].filter(Boolean).join(', ');
+    const result = [addressLine, cityLine].filter(Boolean).join(' - ');
+    return result === '' ? null : result;
   }, [restaurant]);
 
   const handleShare = () => {
