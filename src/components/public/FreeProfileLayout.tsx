@@ -4,40 +4,40 @@ import { cn } from "@/lib/utils";
 import { MapPin, Heart } from "lucide-react";
 import React from "react";
 import RestaurantLogo from './RestaurantLogo';
-
-// Define a basic interface for PublicRestaurantData based on its usage
-interface PublicRestaurantData {
-  id: string;
-  name: string;
-  city: string;
-  state: string;
-  followers_override: number;
-  plan: 'free' | 'basic' | 'premium' | 'premium_gift'; // Adicionado 'premium_gift'
-  cover_image_url?: string;
-  image_url?: string;
-  // Adicione outras propriedades conforme necessário para o uso neste componente
-}
+import OrderChannelsSection from './OrderChannelsSection';
+import RestaurantGallerySection from './RestaurantGallerySection';
+import PublicMenuSection from './PublicMenuSection';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
+import InfoSection from './InfoSection';
+import { PublicRestaurantData } from "@/types/restaurant";
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  children?: React.ReactNode; // Tornando 'children' opcional
   toggleFavorite: () => void;
   isFavoriteMutating: boolean;
-  isCompact: boolean;
+  isCompact?: boolean; // Tornando isCompact opcional, pois não é usado diretamente aqui
 }
 
 const FreeProfileLayout = ({
   restaurant,
-  children,
   toggleFavorite,
   isFavoriteMutating,
-  isCompact,
 }: FreeProfileLayoutProps) => {
   const containerPtClass = "pt-4";
   const headerPaddingClass = "p-4";
   const h1SizeClass = "text-3xl";
 
-  const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift'; // Considerar premium_gift como premium
+  const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
+
+  // Construir fullAddress para RestaurantAddressHoursSection
+  const fullAddress = [
+    restaurant.address,
+    restaurant.number,
+    restaurant.neighborhood,
+    restaurant.city,
+    restaurant.state,
+    restaurant.cep,
+  ].filter(Boolean).join(', ');
 
   return (
     <div className="relative min-h-screen bg-gray-100">
@@ -71,14 +71,13 @@ const FreeProfileLayout = ({
             isPremium ? "pt-20 pl-40" : ""
           )}>
             <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
-            {/* Conteúdo existente para localização, seguidores, etc. */}
             <div className="flex items-center text-gray-600 text-sm mb-2">
               <MapPin className="h-4 w-4 mr-1" />
               <span>{restaurant.city}, {restaurant.state}</span>
             </div>
             <div className="flex items-center text-gray-600 text-sm mb-4">
               <Heart className="h-4 w-4 mr-1" />
-              <span>{restaurant.followers_override || 0} Seguidores</span>
+              <span>{restaurant.followers_count || 0} Seguidores</span>
               <button
                 onClick={toggleFavorite}
                 disabled={isFavoriteMutating}
@@ -95,8 +94,14 @@ const FreeProfileLayout = ({
           </div>
         </div>
 
-        {/* Renderiza o restante do conteúdo da página */}
-        {children}
+        {/* Conteúdo da página restaurado e adicionado aqui */}
+        <div className="p-4 space-y-6">
+          <OrderChannelsSection restaurant={restaurant} />
+          <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />
+          <PublicMenuSection restaurantId={restaurant.id} categories={restaurant.menu_categories} />
+          <RestaurantAddressHoursSection id="address-hours-section" restaurant={restaurant} fullAddress={fullAddress} paymentMethods={restaurant.payment_methods} />
+          <InfoSection restaurant={restaurant} />
+        </div>
       </div>
     </div>
   );

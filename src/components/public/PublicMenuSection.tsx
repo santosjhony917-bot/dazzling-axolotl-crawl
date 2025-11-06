@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 interface PublicMenuSectionProps {
-  categories: (MenuCategory & { items: MenuItem[] })[];
+  categories: (MenuCategory & { menu_items: MenuItem[] })[];
   restaurantId: string;
 }
 
@@ -31,10 +31,10 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
           <h3 className="text-lg font-bold text-gray-800 border-b border-gray-200 pb-2">{category.name}</h3>
           
           <div className="space-y-3">
-            {category.items.length === 0 ? (
+            {category.menu_items.length === 0 ? (
               <p className="text-gray-500 italic text-sm">Nenhum item ativo nesta categoria.</p>
             ) : (
-              category.items.map(item => (
+              category.menu_items.map(item => (
                 <Card key={item.id} className="shadow-sm border-none rounded-xl">
                   <CardContent className="p-3 flex items-center gap-4">
                     <div 
