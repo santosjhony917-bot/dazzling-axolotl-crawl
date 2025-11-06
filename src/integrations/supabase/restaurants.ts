@@ -36,6 +36,8 @@ const PUBLIC_RESTAURANT_BASE_SELECT = `*`; // Simplificado para buscar apenas as
  * @returns Os dados públicos do restaurante, incluindo menu e galeria.
  */
 export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
+  console.log(`[fetchPublicRestaurantById] Attempting to fetch restaurant with ID: ${restaurantId}`);
+
   // 1. Buscar dados básicos do restaurante
   const { data: baseData, error: baseError } = await supabase
     .from('restaurants')
@@ -43,14 +45,21 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     .eq('id', restaurantId)
     .single();
 
-  if (baseError && baseError.code !== 'PGRST116') {
-    console.error('Error fetching public restaurant base data:', baseError);
+  if (baseError) {
+    console.error(`[fetchPublicRestaurantById] Error fetching base data for ${restaurantId}:`, baseError);
+    if (baseError.code === 'PGRST116') {
+      console.log(`[fetchPublicRestaurantById] No restaurant found with ID: ${restaurantId} (PGRST116 error).`);
+      return null;
+    }
     throw new Error(`Erro ao carregar dados básicos: ${baseError.message}`);
   }
 
   if (!baseData) {
+    console.log(`[fetchPublicRestaurantById] No base data returned for ID: ${restaurantId}.`);
     return null;
   }
+
+  console.log(`[fetchPublicRestaurantById] Successfully fetched base data for ${restaurantId}.`);
 
   // 2. Buscar contagem de seguidores separadamente
   const { data: followersData, error: followersError } = await supabase
@@ -61,10 +70,11 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
 
   let followersCount = (baseData.followers_override || 0);
   if (followersError) {
-    console.warn('Error fetching followers count:', followersError);
+    console.warn(`[fetchPublicRestaurantById] Error fetching followers count for ${restaurantId}:`, followersError);
     // Continuar sem lançar erro, followersCount permanecerá baseData.followers_override
   } else {
     followersCount += (followersData?.[0]?.count || 0);
+    console.log(`[fetchPublicRestaurantById] Followers count for ${restaurantId}: ${followersCount}`);
   }
 
   // 3. Buscar imagens da galeria separadamente
@@ -76,10 +86,11 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
 
   let galleryImages: GalleryImage[] = [];
   if (galleryError) {
-    console.warn('Error fetching gallery images:', galleryError);
+    console.warn(`[fetchPublicRestaurantById] Error fetching gallery images for ${restaurantId}:`, galleryError);
     // Continuar sem lançar erro, galleryImages permanecerá vazio
   } else {
     galleryImages = (galleryData || []) as GalleryImage[];
+    console.log(`[fetchPublicRestaurantById] Fetched ${galleryImages.length} gallery images for ${restaurantId}.`);
   }
   
   // 4. Buscar categorias e itens de menu separadamente
@@ -104,8 +115,10 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     .order('order_index', { ascending: true });
 
   if (menuError) {
-    console.error('Error fetching menu data:', menuError);
+    console.error(`[fetchPublicRestaurantById] Error fetching menu data for ${restaurantId}:`, menuError);
     // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
+  } else {
+    console.log(`[fetchPublicRestaurantById] Fetched ${menuData?.length || 0} menu categories for ${restaurantId}.`);
   }
 
   // 5. Processar e combinar dados
@@ -137,7 +150,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   // Processar formas de pagamento (assumindo que é um array de strings)
   const paymentMethods = (baseData.payment_methods as string[] | null) || null;
 
-  return {
+  const result = {
     ...baseData,
     addressSummary,
     logoUrl: baseData.image_url,
@@ -150,4 +163,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     statusText: openStatus.statusText,
     nextOpenTime: openStatus.nextOpenTime,
   } as PublicRestaurantData;
+
+  console.log(`[fetchPublicRestaurantById] Returning restaurant data for ${restaurantId}.`);
+  return result;
 }
