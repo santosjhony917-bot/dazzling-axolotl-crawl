@@ -89,7 +89,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
       >
         {/* Cover Image and Actions */}
         <div className="relative w-full">
-          <RestaurantCoverImage imageUrl={restaurant.cover_image_url} />
+          <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
             <Button
@@ -121,7 +121,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
               <div className="absolute -top-12 left-1/2 -translate-x-1/2">
                 <RestaurantLogo
                   imageUrl={restaurant.image_url}
-                  size="xl"
+                  size="lg"
                   className="border-4 border-white"
                 />
               </div>
@@ -157,10 +157,10 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
               
               <Card className="mt-4 rounded-2xl shadow-soft-lg border-none">
                 <TabsContent value="menu" className="p-4 sm:p-6">
-                  <PublicMenuSection restaurantId={restaurant.id} />
+                  <PublicMenuSection categories={restaurant.menu_categories || []} />
                 </TabsContent>
                 <TabsContent value="gallery" className="p-4 sm:p-6">
-                  <RestaurantGallerySection restaurantId={restaurant.id} />
+                  <RestaurantGallerySection id="gallery" restaurantId={restaurant.id} plan={restaurant.plan} />
                 </TabsContent>
                 <TabsContent value="info" className="p-4 sm:p-6 space-y-6">
                   <div>
@@ -177,7 +177,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
                     </h2>
                     <DetailedHoursDisplay schedule={restaurant.opening_hours} />
                   </div>
-                  <AdditionalInfo restaurant={restaurant} />
+                  <AdditionalInfo restaurant={restaurant as any} />
                 </TabsContent>
               </Card>
             </Tabs>
