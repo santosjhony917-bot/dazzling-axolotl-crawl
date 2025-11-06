@@ -84,40 +84,40 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
 
   return (
     <div className="bg-background-light min-h-screen">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Cover Image and Actions */}
-        <div className="relative w-full">
-          <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate(-1)}
-              className="bg-black/30 text-white hover:bg-black/50 rounded-full"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-2">
+      <div className="max-w-md mx-auto relative bg-white shadow-lg min-h-screen">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Cover Image and Actions */}
+          <div className="relative w-full">
+            <RestaurantCoverImage coverImageUrl={restaurant.cover_image_url} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={handleShare}
+                onClick={() => navigate(-1)}
                 className="bg-black/30 text-white hover:bg-black/50 rounded-full"
               >
-                <Share2 className="h-5 w-5" />
+                <ArrowLeft className="h-5 w-5" />
               </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleShare}
+                  className="bg-black/30 text-white hover:bg-black/50 rounded-full"
+                >
+                  <Share2 className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Main Content Area */}
-        <main className="relative z-10 mt-[-80px] px-4 pb-20">
-          <div className="max-w-md mx-auto">
+          {/* Main Content Area */}
+          <main className="relative z-10 mt-[-80px] px-4 pb-20">
             {/* Main Info Card */}
             <Card className="relative rounded-2xl shadow-soft-xl p-4 sm:p-6 mb-6 text-center border-none">
               <div className="absolute -top-12 left-1/2 -translate-x-1/2">
@@ -167,7 +167,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
 
               {/* Gallery Section */}
               <Card className="rounded-2xl shadow-soft-lg border-none p-4 sm:p-6">
-                <h2 className="text-2xl font-bold text-primary mb-4">Galeria de Fotos</h2>
+                <h2 className="text-2xl font-bold text-primary mb-4">Galeria</h2>
                 <RestaurantGallerySection id="gallery" restaurantId={restaurant.id} plan={restaurant.plan} />
               </Card>
 
@@ -185,7 +185,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
                   <div>
                     <h3 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
                       <Clock className="w-5 h-5 text-highlight" />
-                      Horário de Funcionamento
+                      Horários
                     </h3>
                     <DetailedHoursDisplay schedule={restaurant.opening_hours} />
                   </div>
@@ -193,22 +193,22 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
                 </div>
               </Card>
             </div>
-          </div>
-        </main>
-      </motion.div>
-      <div className="fixed bottom-4 right-4 z-50">
-        <Button
-          size="lg"
-          className="rounded-full shadow-lg"
-          onClick={toggleFavorite}
-          disabled={isToggling}
-        >
-          <Heart
-            className={`w-6 h-6 transition-all duration-300 ${
-              isFavorite ? "fill-white" : "fill-transparent"
-            }`}
-          />
-        </Button>
+          </main>
+        </motion.div>
+        <div className="fixed bottom-4 right-4 z-50">
+          <Button
+            size="lg"
+            className="rounded-full shadow-lg"
+            onClick={toggleFavorite}
+            disabled={isToggling}
+          >
+            <Heart
+              className={`w-6 h-6 transition-all duration-300 ${
+                isFavorite ? "fill-white" : "fill-transparent"
+              }`}
+            />
+          </Button>
+        </div>
       </div>
     </div>
   );
