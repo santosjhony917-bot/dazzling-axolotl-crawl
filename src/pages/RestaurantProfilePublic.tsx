@@ -12,6 +12,7 @@ import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import FreeProfileLayout from "@/components/public/FreeProfileLayout";
 import { PublicRestaurantData } from "@/types/restaurant";
+import RestaurantActionsBar from "@/components/public/RestaurantActionsBar"; // Importar RestaurantActionsBar
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string;
@@ -84,6 +85,21 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Actions Bar */}
+        <div className="absolute top-0 left-0 right-0 z-10">
+          <RestaurantActionsBar
+            isFavorite={restaurant.is_favorite}
+            onFavoriteToggle={toggleFollow}
+            isFavoriteMutating={isToggling}
+            onShare={() => {
+              navigator.share({
+                title: restaurant.name,
+                url: window.location.href,
+              });
+            }}
+            onBack={handleBack}
+          />
+        </div>
         <PremiumProfileLayout 
           restaurant={restaurant as PublicRestaurantData} 
           toggleFavorite={toggleFollow} 
@@ -100,6 +116,21 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Actions Bar */}
+        <div className="absolute top-0 left-0 right-0 z-10">
+          <RestaurantActionsBar
+            isFavorite={restaurant.is_favorite}
+            onFavoriteToggle={toggleFollow}
+            isFavoriteMutating={isToggling}
+            onShare={() => {
+              navigator.share({
+                title: restaurant.name,
+                url: window.location.href,
+              });
+            }}
+            onBack={handleBack}
+          />
+        </div>
         <FreeProfileLayout 
           restaurant={restaurant as PublicRestaurantData} 
           toggleFavorite={toggleFollow} 
