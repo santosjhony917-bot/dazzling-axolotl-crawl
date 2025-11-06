@@ -10,6 +10,7 @@ import PublicMenuSection from './PublicMenuSection';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
 import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from "@/types/restaurant";
+import { Button } from "@/components/ui/button";
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -55,28 +56,17 @@ const FreeProfileLayout = ({
       {/* Conteúdo principal, ajustado para sobrepor a capa se for premium */}
       <div className={cn(
         "relative z-10",
-        isPremium ? "-mt-24" : containerPtClass
+        !isPremium && "pt-4" // Aplica padding superior apenas se não for premium
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
-        <div className={cn(
-          "flex flex-col items-center text-center", // Centraliza o conteúdo horizontalmente
-          headerPaddingClass, // Aplica padding
-          isPremium ? "pt-20" : "" // Ajusta padding se for premium (logo é posicionada absolutamente)
-        )}>
+        <div className="flex flex-col items-center text-center px-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
           {/* Logo do Restaurante - Sempre visível, centralizada acima do nome */}
-          {/* Para perfis Free, a logo não é posicionada absolutamente, então é renderizada aqui. */}
-          {/* Para perfis Premium, a logo é tratada pelo PremiumProfileLayout. */}
-          {!isPremium && (
-            <div className="mb-4 -mt-12"> {/* Ajusta margin-top para a logo "flutuar" */}
+          <div className="mb-4 mt-4"> {/* Ajusta margin-top e bottom para a logo */}
               <RestaurantLogo logoUrl={restaurant.image_url || null} size="lg" />
             </div>
-          )}
 
           {/* Conteúdo do cabeçalho */}
-          <div className={cn(
-            "flex flex-col items-center", // Centraliza o texto
-            isPremium ? "pt-20 pl-40" : "" // Mantém ajuste para premium se necessário, embora o layout geral seja para free
-          )}>
+          <div className="flex flex-col items-center"> {/* Centraliza o texto */}
             <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
             <div className="flex items-center text-gray-600 text-sm mb-2">
               <MapPin className="h-4 w-4 mr-1" />
@@ -85,19 +75,18 @@ const FreeProfileLayout = ({
             <div className="flex items-center text-gray-600 text-sm mb-4">
               <Heart className="h-4 w-4 mr-1" />
               <span>{restaurant.followers_count || 0} Seguidores</span>
-              <button
+              <Button
+                variant="secondary" // Usando o componente Button do shadcn/ui
+                size="sm" // Tamanho menor para o botão
                 onClick={toggleFavorite}
                 disabled={isFavoriteMutating}
-                className={cn(
-                  "ml-4 px-3 py-1 rounded-full text-xs",
-                  isFavoriteMutating ? "bg-gray-400 cursor-not-allowed" : "bg-orange-500 text-white"
-                )}
+                className="ml-4"
               >
-                {isFavoriteMutating ? "Carregando..." : "Seguindo"}
-              </button>
+                {isFavoriteMutating ? "Carregando..." : (restaurant.is_favorite ? "Seguindo" : "Seguir")}
+              </Button>
             </div>
             {/* Exemplo de status de abertura, ajuste conforme sua implementação */}
-            <p className="text-green-600 text-sm font-medium">Aberto agora até 18:00</p>
+            <p className="text-green-600 text-sm font-medium mb-4">Aberto agora até 18:00</p> {/* Adicionado mb-4 para espaçamento */}
           </div>
         </div>
 
