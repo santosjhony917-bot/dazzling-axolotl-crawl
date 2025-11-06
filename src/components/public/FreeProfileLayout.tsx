@@ -4,19 +4,16 @@ import RestaurantProfileHeader from './RestaurantProfileHeader';
 import RestaurantLogo from './RestaurantLogo';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
+import { PublicRestaurantData } from '@/types/restaurant';
+import PublicMenuSection from './PublicMenuSection';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
+import OrderChannelsSection from './OrderChannelsSection';
+import RestaurantInfo from './RestaurantInfo';
 
 type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
 
 interface FreeProfileLayoutProps {
-  restaurant: {
-    id: string;
-    name: string;
-    category: string;
-    plan: RestaurantPlan;
-    cover_image_url: string;
-    image_url: string;
-  };
-  children: React.ReactNode;
+  restaurant: PublicRestaurantData;
   isCompact?: boolean;
   toggleFavorite: () => void;
   isFavoriteMutating: boolean;
@@ -25,7 +22,6 @@ interface FreeProfileLayoutProps {
 
 const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ 
   restaurant, 
-  children, 
   isCompact = false,
   toggleFavorite,
   isFavoriteMutating,
@@ -38,7 +34,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({
   const h1SizeClass = isCompact ? 'text-2xl' : 'text-3xl';
 
   return (
-    <main className="bg-gray-50 min-h-screen">
+    <main className="bg-gray-50 min-h-screen pb-20">
       {/* Header Section */}
       <div className="relative">
         <RestaurantProfileHeader 
@@ -57,7 +53,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({
             <RestaurantLogo 
               src={restaurant.image_url}
               alt={restaurant.name}
-              plan={restaurant.plan}
+              plan={restaurant.plan as RestaurantPlan}
               sizeClass={logoSizeClass}
             />
           </div>
@@ -86,8 +82,22 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({
           </div>
         </div>
 
-        <div className="mt-6">
-          {children}
+        <div className="mt-6 space-y-8">
+          <RestaurantInfo id={restaurant.id} restaurant={restaurant} />
+          <OrderChannelsSection restaurant={restaurant} />
+          <RestaurantAddressHoursSection
+            id={restaurant.id}
+            restaurant={restaurant}
+            fullAddress={restaurant.addressSummary || ''}
+            paymentMethods={restaurant.payment_methods}
+          />
+          <PublicMenuSection
+            restaurantId={restaurant.id}
+            categories={restaurant.menu_categories.map((category) => ({
+              ...category,
+              items: category.menu_items,
+            }))}
+          />
         </div>
       </div>
     </main>
