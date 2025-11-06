@@ -6,11 +6,23 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, PublicRestaurantData } from '@/types'; // Importando os tipos
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
-import { useAuth } from '@/lib/auth'; // Assumindo que você tem um hook de autenticação
+import { useAuth } from '@/hooks/useAuth'; // CORRIGIDO: Caminho de importação
 import { toast } from 'sonner'; // Para notificações
 
-const RestaurantProfilePublic: React.FC = () => {
+interface RestaurantProfilePublicProps {
+  initialRestaurantId?: string; // Adicionado para uso em preview/simulação
+  simulatedPlan?: 'free' | 'basic' | 'premium'; // Adicionado para uso em preview/simulação
+  isCompact?: boolean; // Adicionado para uso em preview/simulação
+}
+
+const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
+  initialRestaurantId,
+  simulatedPlan,
+  isCompact,
+}) => {
   const { id } = useParams<{ id: string }>();
+  const restaurantIdToFetch = initialRestaurantId || id; // Usar initialRestaurantId se fornecido
+
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +31,7 @@ const RestaurantProfilePublic: React.FC = () => {
 
   useEffect(() => {
     const fetchRestaurant = async () => {
-      if (!id) {
+      if (!restaurantIdToFetch) {
         setError('ID do restaurante não fornecido.');
         setLoading(false);
         return;
@@ -28,7 +40,7 @@ const RestaurantProfilePublic: React.FC = () => {
       const { data, error } = await supabase
         .from('restaurants')
         .select('*')
-        .eq('id', id)
+        .eq('id', restaurantIdToFetch)
         .single();
 
       if (error) {
@@ -41,7 +53,7 @@ const RestaurantProfilePublic: React.FC = () => {
     };
 
     fetchRestaurant();
-  }, [id]);
+  }, [restaurantIdToFetch]);
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -123,7 +135,7 @@ const RestaurantProfilePublic: React.FC = () => {
   }
 
   if (error) {
-    return <div className="flex justify-center items-center h-screen text-red-500">Erro: {error}</div>;
+    return <div className="flex justify-center items-center h-screen">Erro: {error}</div>;
   }
 
   if (!restaurant) {
@@ -137,7 +149,7 @@ const RestaurantProfilePublic: React.FC = () => {
     description: restaurant.description,
     logoUrl: restaurant.image_url,
     coverImageUrl: restaurant.cover_image_url,
-    plan: restaurant.plan,
+    plan: simulatedPlan || restaurant.plan, // Usar simulatedPlan se fornecido
     category: restaurant.category,
     address: restaurant.address,
     city: restaurant.city,
@@ -152,9 +164,10 @@ const RestaurantProfilePublic: React.FC = () => {
     payment_methods: restaurant.payment_methods,
     social_networks: restaurant.social_networks,
     addressSummary: `${restaurant.address || ''}${restaurant.number ? `, ${restaurant.number}` : ''}${restaurant.neighborhood ? ` - ${restaurant.neighborhood}` : ''}${restaurant.city ? `, ${restaurant.city}` : ''}${restaurant.state ? `/${restaurant.state}` : ''}`,
-    followers_count: restaurant.followers_override || 0, // Usar followers_override ou 0
-    menu_categories: [], // Placeholder, pode ser carregado separadamente
-    isPremium: restaurant.plan === 'premium',
+    followers_count: restaurant.followers_override || 0,
+    menu_categories: [],
+    isPremium: (simulatedPlan || restaurant.plan) === 'premium', // Usar simulatedPlan se fornecido
+    isCompact: isCompact, // Passar isCompact
   };
 
   return (
@@ -166,6 +179,7 @@ const RestaurantProfilePublic: React.FC = () => {
           onToggleFavorite={toggleFollow}
           onShare={handleShare}
           isFavorite={isFavorite}
+          isCompact={isCompact} // Passar isCompact
         />
       ) : (
         <FreeProfileLayout
@@ -174,6 +188,7 @@ const RestaurantProfilePublic: React.FC = () => {
           onToggleFavorite={toggleFollow}
           onShare={handleShare}
           isFavorite={isFavorite}
+          isCompact={isCompact} // Passar isCompact
         />
       )}
     </>
