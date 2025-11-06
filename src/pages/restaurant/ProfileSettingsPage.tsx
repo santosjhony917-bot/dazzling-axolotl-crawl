@@ -157,7 +157,7 @@ export default function ProfileSettingsPage() {
   const currentPaymentMethods = (restaurant?.payment_methods as string[] | null) || ['PIX', 'Crédito', 'Débito', 'Dinheiro'];
   
   // CORREÇÃO 3: Usando 'as unknown as SocialNetworkLink[]'
-  const currentSocialLinks = (restaurant?.social_networks as SocialNetworkLink[] | null) || [];
+  const currentSocialLinks = (restaurant?.social_networks as unknown as SocialNetworkLink[] | null) || [];
 
   const publicRestaurantData: PublicRestaurantData = {
     ...(restaurant as Restaurant),
