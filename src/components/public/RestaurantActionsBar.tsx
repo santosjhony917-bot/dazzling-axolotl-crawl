@@ -29,7 +29,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
         onClick={onBack}
         className="text-white"
       >
-        <ArrowLeft className="h-5 w-5 text-primary" />
+        <ArrowLeft className="h-5 w-5" />
       </Button>
       
       {/* Ações de Compartilhar/Favoritar */}
