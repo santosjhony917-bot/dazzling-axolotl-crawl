@@ -100,8 +100,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   return (
     <div className="min-h-screen bg-background-light relative">
       
-      {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <div className={cn("absolute inset-x-0 top-0 z-30 max-w-md mx-auto")}>
+      {/* 1. Cabeçalho Principal (Capa) - Fica fora para manter a largura total */}
+      <RestaurantProfileHeader
+        restaurant={headerData}
+      />
+      
+      {/* 2. Container principal que centraliza e define a largura do conteúdo */}
+      <div className="relative max-w-md mx-auto">
+        {/* Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}
         <RestaurantActionsBar
           isFavorite={restaurant.is_favorite}
           onFavoriteToggle={toggleFavorite}
@@ -110,129 +116,124 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           onBack={() => navigate(-1)}
           paddingClass={containerPxClass} // Passa a classe de padding para o componente
         />
-      </div>
 
-      {/* 2. Cabeçalho Principal (Capa) */}
-      <RestaurantProfileHeader
-        restaurant={headerData}
-      />
-      
-      {/* 3. Novo Card de Informações Principais (com logo sobreposta) */}
-      <RestaurantMainInfoCard
-        restaurant={mainInfoCardData}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        isCompact={isCompact} // PASSA A PROP isCompact
-      />
+        {/* Card de Informações Principais (com logo sobreposta) */}
+        <RestaurantMainInfoCard
+          restaurant={mainInfoCardData}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isFavoriteMutating}
+          isCompact={isCompact} // PASSA A PROP isCompact
+        />
 
-      <div className={cn("max-w-md mx-auto pb-8", containerPxClass)}>
-        {/* Conteúdo Principal */}
-        <div className="mt-6 space-y-6">
-          
-          {/* Description */}
-          {restaurant.description && (
-            <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
-              <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
-              <p className="text-gray-600">{restaurant.description}</p>
-            </Card>
-          )}
-          
-          {/* Canais de Pedido */}
-          <OrderChannelsSection restaurant={restaurant} />
+        <div className={cn("pb-8", containerPxClass)}> {/* Remove max-w e mx-auto daqui */}
+          {/* Conteúdo Principal */}
+          <div className="mt-6 space-y-6">
+            
+            {/* Description */}
+            {restaurant.description && (
+              <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+                <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
+                <p className="text-gray-600">{restaurant.description}</p>
+              </Card>
+            )}
+            
+            {/* Canais de Pedido */}
+            <OrderChannelsSection restaurant={restaurant} />
 
-          {/* Navegação por Abas (Sticky) */}
-          {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
-              <ScrollArea className="w-full whitespace-nowrap">
-                <div className="flex space-x-4">
-                  {hasGallery && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('gallery-section', 'gallery')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Image className="w-4 h-4 mr-2" /> Fotos
-                    </Button>
-                  )}
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
-                  {hasInfo && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('info-section', 'info')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Info className="w-4 h-4 mr-2" /> Informações
-                    </Button>
-                  )}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
+            {/* Navegação por Abas (Sticky) */}
+            {(hasMenu || hasGallery || hasInfo) && (
+              <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
+                <ScrollArea className="w-full whitespace-nowrap">
+                  <div className="flex space-x-4">
+                    {hasGallery && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('gallery-section', 'gallery')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Image className="w-4 h-4 mr-2" /> Fotos
+                      </Button>
+                    )}
+                    {hasMenu && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('menu-section', 'menu')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                      </Button>
+                    )}
+                    {hasInfo && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('info-section', 'info')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Info className="w-4 h-4 mr-2" /> Informações
+                      </Button>
+                    )}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
 
-          {/* 2. Galeria Section */}
-          {hasGallery && (
-            <div id="gallery-section">
-              <RestaurantGallery gallery={restaurant.gallery_images} />
-            </div>
-          )}
+            {/* Galeria Section */}
+            {hasGallery && (
+              <div id="gallery-section">
+                <RestaurantGallery gallery={restaurant.gallery_images} />
+              </div>
+            )}
 
-          {/* 3. Menu Section */}
-          {hasMenu && (
-            <div id="menu-section">
-              <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
-              <RestaurantMenu 
-                menuCategories={restaurant.menu_categories} 
-                isFullMenuPage={false}
-                restaurantId={restaurant.id}
-                forceShowFullMenuButton={isCompact} // NOVO: Força a exibição do botão no modo compacto
-              />
-            </div>
-          )}
-          
-          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
-          {hasInfo && (
-            <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-              
-              {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
-              {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
-                <RestaurantAddressHoursSection
-                  id="address-hours-section"
-                  restaurant={restaurant}
-                  fullAddress={fullAddress}
-                  paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
+            {/* Menu Section */}
+            {hasMenu && (
+              <div id="menu-section">
+                <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
+                <RestaurantMenu 
+                  menuCategories={restaurant.menu_categories} 
+                  isFullMenuPage={false}
+                  restaurantId={restaurant.id}
+                  forceShowFullMenuButton={isCompact} // NOVO: Força a exibição do botão no modo compacto
                 />
-              )}
-              
-              {/* Contato e Links (Componente Refatorado) */}
-              {hasContactLinks && (
-                <RestaurantInfo 
-                  id="contact-links-section"
-                  restaurant={restaurant}
-                />
-              )}
-              
-              {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
-              {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
-            </div>
-          )}
+              </div>
+            )}
+            
+            {/* Informações Detalhadas (Endereço, Horário, Contato) */}
+            {hasInfo && (
+              <div id="info-section" className="space-y-6">
+                <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
+                
+                {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
+                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
+                  <RestaurantAddressHoursSection
+                    id="address-hours-section"
+                    restaurant={restaurant}
+                    fullAddress={fullAddress}
+                    paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
+                  />
+                )}
+                
+                {/* Contato e Links (Componente Refatorado) */}
+                {hasContactLinks && (
+                  <RestaurantInfo 
+                    id="contact-links-section"
+                    restaurant={restaurant}
+                  />
+                )}
+                
+                {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
+                {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

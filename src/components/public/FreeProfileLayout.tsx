@@ -79,168 +79,171 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
   return (
     <div className="min-h-screen bg-background-light">
       
-      {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <RestaurantActionsBar
-        isFavorite={restaurant.is_favorite}
-        onFavoriteToggle={toggleFavorite}
-        isFavoriteMutating={isFavoriteMutating}
-        onShare={handleShare}
-        onBack={() => navigate(-1)}
-      />
-
-      {/* NOVO: Informações do Restaurante Renderizadas Diretamente */}
+      {/* Container principal que define a largura máxima e centraliza o conteúdo */}
       <div className={cn(
+        "relative mx-auto", // Adicionado 'relative' para o contexto de posicionamento
         {
-          "max-w-sm mx-auto": isCompact, // Aplica max-w-sm e mx-auto para o modo compacto
-          "max-w-md mx-auto": !isCompact // Usa max-w-md para o modo não compacto, centralizando o conteúdo
-        },
-        containerPtClass
-      )}> {/* Mantém o padding superior */}
-        <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
-          <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
-          
-          {restaurant.addressSummary && (
-            <p className={cn("flex items-center text-gray-600 mb-2", pSizeClass)}>
-              <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
-            </p>
-          )}
+          "max-w-sm": isCompact, // Aplica max-w-sm para o modo compacto
+          "max-w-md": !isCompact // Usa max-w-md para o modo não compacto
+        }
+      )}>
+        {/* 1. Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}
+        <RestaurantActionsBar
+          isFavorite={restaurant.is_favorite}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isFavoriteMutating}
+          onShare={handleShare}
+          onBack={() => navigate(-1)}
+        />
 
-          <div className="flex items-center gap-2 mb-4">
-            <span className="flex items-center text-sm text-gray-500">
-              <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
-            </span>
-            <Button
-              variant="highlight" // Usando variant="highlight" para um visual mais consistente com CTAs
-              size="sm"
-              onClick={toggleFavorite}
-              disabled={isFavoriteMutating}
-              className="px-4 py-2 text-sm"
-            >
-              {isFavoriteMutating ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                restaurant.is_favorite ? 'Seguindo' : 'Seguir'
+        {/* Conteúdo do Perfil */}
+        <div className={cn(containerPtClass)}> {/* Mantém o padding superior, remove max-w e mx-auto */}
+          <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
+            <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
+            
+            {restaurant.addressSummary && (
+              <p className={cn("flex items-center text-gray-600 mb-2", pSizeClass)}>
+                <MapPin className="w-4 h-4 mr-1 text-gray-500" /> {restaurant.addressSummary}
+              </p>
+            )}
+
+            <div className="flex items-center gap-2 mb-4">
+              <span className="flex items-center text-sm text-gray-500">
+                <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
+              </span>
+              <Button
+                variant="highlight" // Usando variant="highlight" para um visual mais consistente com CTAs
+                size="sm"
+                onClick={toggleFavorite}
+                disabled={isFavoriteMutating}
+                className="px-4 py-2 text-sm"
+              >
+                {isFavoriteMutating ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  restaurant.is_favorite ? 'Seguindo' : 'Seguir'
+                )}
+              </Button>
+            </div>
+
+            {/* Status de Abertura */}
+            <span
+              className={cn(
+                "px-3 py-1 rounded-full text-xs font-semibold mb-4",
+                restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
               )}
-            </Button>
+            >
+              {restaurant.statusText}
+            </span>
           </div>
 
-          {/* Status de Abertura */}
-          <span
-            className={cn(
-              "px-3 py-1 rounded-full text-xs font-semibold mb-4",
-              restaurant.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+          {/* Conteúdo Principal */}
+          <div className={cn("mt-6 space-y-6", contentPxClass)}> {/* Adiciona px-4 para alinhamento */}
+            
+            {/* Description */}
+            {restaurant.description && (
+              <Card className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
+                <h2 className="text-2xl font-bold text-primary mb-3">Sobre</h2>
+                <p className="text-gray-600">{restaurant.description}</p>
+              </Card>
             )}
-          >
-            {restaurant.statusText}
-          </span>
-        </div>
-
-        {/* Conteúdo Principal */}
-        <div className={cn("mt-6 space-y-6", contentPxClass)}> {/* Adiciona px-4 para alinhamento */}
-          
-          {/* Description */}
-          {restaurant.description && (
-            <Card className="p-4 shadow-soft-md rounded-xl bg-white border border-gray-300">
-              <h2 className="text-2xl font-bold text-primary mb-3">Sobre</h2>
-              <p className="text-gray-600">{restaurant.description}</p>
-            </Card>
-          )}
-          
-          {/* Canais de Pedido */}
-          {restaurant.plan !== 'free' && <OrderChannelsSection restaurant={restaurant} />}
-          
-          {/* Navegação por Abas (Sticky) - Adicionado para FreeLayout também */}
-          {(hasMenu || hasGallery || hasInfo) && (
-            <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6"> {/* Adicionado mt-6 para aumentar o gutter */}
-              <ScrollArea className="w-full whitespace-nowrap">
-                <div className="flex space-x-4">
-                  {hasGallery && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('gallery-section', 'gallery')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'gallery' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Image className="w-4 h-4 mr-2" /> Fotos
-                    </Button>
-                  )}
-                  {hasMenu && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('menu-section', 'menu')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'menu' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                    </Button>
-                  )}
-                  {hasInfo && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => scrollToSection('info-section', 'info')}
-                      className={cn(
-                        "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                        activeTab === 'info' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
-                      )}
-                    >
-                      <Info className="w-4 h-4 mr-2" /> Informações
-                    </Button>
-                  )}
-                </div>
-              </ScrollArea>
-            </div>
-          )}
-          
-          {/* 2. Galeria Section */}
-          {hasGallery && restaurant.plan !== 'free' && (
-            <div id="gallery-section">
-              <RestaurantGallery gallery={restaurant.gallery_images} />
-            </div>
-          )}
-          
-          {/* 3. Menu Section */}
-          {hasMenu && (
-            <div id="menu-section">
-              <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
-              <RestaurantMenu 
-                menuCategories={restaurant.menu_categories} 
-                isFullMenuPage={false}
-                restaurantId={restaurant.id}
-              />
-            </div>
-          )}
-          
-          {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
-          {hasInfo && (
-            <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-              
-              {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
-              {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
-                <RestaurantAddressHoursSection
-                  id="address-hours-section"
-                  restaurant={restaurant}
-                  fullAddress={fullAddress}
-                  paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
+            
+            {/* Canais de Pedido */}
+            {restaurant.plan !== 'free' && <OrderChannelsSection restaurant={restaurant} />}
+            
+            {/* Navegação por Abas (Sticky) - Adicionado para FreeLayout também */}
+            {(hasMenu || hasGallery || hasInfo) && (
+              <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6"> {/* Adicionado mt-6 para aumentar o gutter */}
+                <ScrollArea className="w-full whitespace-nowrap">
+                  <div className="flex space-x-4">
+                    {hasGallery && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('gallery-section', 'gallery')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'gallery' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Image className="w-4 h-4 mr-2" /> Fotos
+                      </Button>
+                    )}
+                    {hasMenu && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('menu-section', 'menu')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'menu' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                      </Button>
+                    )}
+                    {hasInfo && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('info-section', 'info')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'info' ? "bg-primary text-white hover:bg-primary/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Info className="w-4 h-4 mr-2" /> Informações
+                      </Button>
+                    )}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+            
+            {/* 2. Galeria Section */}
+            {hasGallery && restaurant.plan !== 'free' && (
+              <div id="gallery-section">
+                <RestaurantGallery gallery={restaurant.gallery_images} />
+              </div>
+            )}
+            
+            {/* 3. Menu Section */}
+            {hasMenu && (
+              <div id="menu-section">
+                <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
+                <RestaurantMenu 
+                  menuCategories={restaurant.menu_categories} 
+                  isFullMenuPage={false}
+                  restaurantId={restaurant.id}
                 />
-              )}
-              
-              {/* Contato e Links (Componente Refatorado) */}
-              {hasContactLinks && restaurant.plan !== 'free' && (
-                <RestaurantInfo 
-                  id="contact-links-section"
-                  restaurant={restaurant}
-                />
-              )}
-              
-              {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
-              {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
-            </div>
-          )}
+              </div>
+            )}
+            
+            {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
+            {hasInfo && (
+              <div id="info-section" className="space-y-6">
+                <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
+                
+                {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
+                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
+                  <RestaurantAddressHoursSection
+                    id="address-hours-section"
+                    restaurant={restaurant}
+                    fullAddress={fullAddress}
+                    paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
+                  />
+                )}
+                
+                {/* Contato e Links (Componente Refatorado) */}
+                {hasContactLinks && restaurant.plan !== 'free' && (
+                  <RestaurantInfo 
+                    id="contact-links-section"
+                    restaurant={restaurant}
+                  />
+                )}
+                
+                {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
+                {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
