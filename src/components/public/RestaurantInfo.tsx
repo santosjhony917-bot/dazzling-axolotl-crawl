@@ -21,14 +21,14 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   const { phone, email, whatsapp_url, ifood_url, other_url, other_url_label, external_url } = restaurant;
 
   const contactItems: ContactLinkItem[] = [
-    { icon: <Phone className="w-5 h-5 text-gray-500 flex-shrink-0" />, label: 'Telefone', value: phone, link: phone ? `tel:${phone}` : undefined, isExternal: false },
-    { icon: <Mail className="w-5 h-5 text-gray-500 flex-shrink-0" />, label: 'Email', value: email, link: email ? `mailto:${email}` : undefined, isExternal: false },
+    { icon: <Phone className="w-5 h-5 text-primary flex-shrink-0" />, label: 'Telefone', value: phone, link: phone ? `tel:${phone}` : undefined, isExternal: false },
+    { icon: <Mail className="w-5 h-5 text-primary flex-shrink-0" />, label: 'Email', value: email, link: email ? `mailto:${email}` : undefined, isExternal: false },
   ].filter(item => item.value);
 
   const linkItems: ContactLinkItem[] = [
-    { icon: <WhatsappIcon className="w-5 h-5 text-gray-500 flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url, link: whatsapp_url, isExternal: true },
+    { icon: <WhatsappIcon className="w-5 h-5 text-primary flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url, link: whatsapp_url, isExternal: true },
     { icon: <img src="https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png" alt="iFood" className="w-5 h-5 flex-shrink-0" />, label: 'iFood', value: ifood_url, link: ifood_url, isExternal: true },
-    { icon: <Globe className="w-5 h-5 text-gray-500 flex-shrink-0" />, label: other_url_label || 'Website', value: other_url || external_url, link: other_url || external_url, isExternal: true },
+    { icon: <Globe className="w-5 h-5 text-primary flex-shrink-0" />, label: other_url_label || 'Website', value: other_url || external_url, link: other_url || external_url, isExternal: true },
   ].filter(item => item.value);
 
   if (contactItems.length === 0 && linkItems.length === 0) {

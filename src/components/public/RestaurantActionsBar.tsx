@@ -49,7 +49,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
             <Heart 
               className={cn(
                 "w-5 h-5 transition-colors",
-                isFollowing ? "text-red-500 fill-red-500" : "text-gray-500 hover:text-red-500"
+                isFollowing ? "text-red-500 fill-red-500" : "text-primary hover:text-red-500"
               )}
             />
           )}
@@ -62,7 +62,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
           className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
           onClick={onShare}
         >
-          <Share2 className="w-5 h-5 text-gray-500" />
+          <Share2 className="w-5 h-5 text-primary" />
         </Button>
       </div>
     </div>

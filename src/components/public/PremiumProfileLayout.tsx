@@ -193,6 +193,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           {/* 3. Menu Section */}
           {hasMenu && (
             <div id="menu-section">
+              <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
               <RestaurantMenu 
                 menuCategories={restaurant.menu_categories} 
                 isFullMenuPage={false}

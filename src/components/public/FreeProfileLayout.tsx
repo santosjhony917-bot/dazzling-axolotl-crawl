@@ -97,7 +97,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
         containerPtClass
       )}> {/* Mantém o padding superior */}
         <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass)}> {/* Nova seção com fundo, padding e sombra */}
-          <h1 className={cn("font-extrabold leading-tight text-primary mb-2", h1SizeClass)}>{restaurant.name}</h1>
+          <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
           
           {restaurant.addressSummary && (
             <p className={cn("flex items-center text-gray-600 mb-2", pSizeClass)}>
@@ -110,7 +110,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
               <Heart className="w-4 h-4 mr-1 fill-gray-400 text-gray-400" /> {restaurant.followers_count} Seguidores
             </span>
             <Button
-              variant="default" // Usando variant="default" para um visual mais simples
+              variant="highlight" // Usando variant="highlight" para um visual mais consistente com CTAs
               size="sm"
               onClick={toggleFavorite}
               disabled={isFavoriteMutating}
@@ -205,7 +205,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           {/* 3. Menu Section */}
           {hasMenu && (
             <div id="menu-section">
-              <h2 className="text-2xl font-bold text-primary mb-4">Cardápio</h2>
+              <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
               <RestaurantMenu 
                 menuCategories={restaurant.menu_categories} 
                 isFullMenuPage={false}
@@ -217,7 +217,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
           {/* 4. Informações Detalhadas (Endereço, Horário, Contato) */}
           {hasInfo && (
             <div id="info-section" className="space-y-6">
-              <h2 className="text-2xl font-bold text-primary">Informações</h2>
+              <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
               
               {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
               {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento

@@ -82,7 +82,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
                 "flex items-center text-gray-600",
                 isCompact ? "text-xs" : "text-sm md:text-base" // Ajusta o tamanho do texto do endereço
               )}>
-                <MapPin className={cn("mr-1 text-gray-500", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {addressSummary}
+                <MapPin className={cn("mr-1 text-primary", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {addressSummary}
               </p>
             )}
             {/* Status de Abertura */}
@@ -102,7 +102,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
               "flex items-center text-gray-500",
               isCompact ? "text-xs" : "text-sm" // Ajusta o tamanho do texto de seguidores
             )}>
-              <Heart className={cn("mr-1 fill-gray-400 text-gray-400", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {followersCount} Seguidores
+              <Heart className={cn("mr-1 fill-gray-700 text-gray-700", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {followersCount} Seguidores
             </span>
             <Button
               variant="highlight"
