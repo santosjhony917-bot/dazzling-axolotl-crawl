@@ -40,7 +40,7 @@ const FreeProfileLayout = ({
   ].filter(Boolean).join(', ');
 
   return (
-    <div className="relative min-h-screen bg-gray-100">
+    <div className="relative">
       {/* Capa do Restaurante (apenas para premium) */}
       {isPremium && restaurant.cover_image_url && (
         <div

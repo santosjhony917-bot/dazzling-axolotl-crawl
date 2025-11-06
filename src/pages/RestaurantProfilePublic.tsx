@@ -74,39 +74,48 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     );
   }
 
-  // Renderiza o layout apropriado com base no plano
-  if (currentPlan === 'premium') {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+  return (
+    <div className="relative min-h-screen bg-background-light">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 z-50 bg-white/80 backdrop-blur-sm rounded-full shadow-md"
       >
-        <PremiumProfileLayout 
-          restaurant={restaurant as PublicRestaurantData} 
-          toggleFavorite={toggleFollow} 
-          isFavoriteMutating={isToggling}
-          isCompact={isCompact}
-        />
-      </motion.div>
-    );
-  } else {
-    // Default para FreeProfileLayout se não for premium ou se o plano for 'free'
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <FreeProfileLayout 
-          restaurant={restaurant as PublicRestaurantData} 
-          toggleFavorite={toggleFollow} 
-          isFavoriteMutating={isToggling}
-          isCompact={isCompact}
-        />
-      </motion.div>
-    );
-  }
+        <ArrowLeft className="h-5 w-5" />
+      </Button>
+
+      <div className="max-w-md mx-auto">
+        {currentPlan === 'premium' ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <PremiumProfileLayout 
+              restaurant={restaurant as PublicRestaurantData} 
+              toggleFavorite={toggleFollow} 
+              isFavoriteMutating={isToggling}
+              isCompact={isCompact}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <FreeProfileLayout 
+              restaurant={restaurant as PublicRestaurantData} 
+              toggleFavorite={toggleFollow} 
+              isFavoriteMutating={isToggling}
+              isCompact={isCompact}
+            />
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default RestaurantProfilePublic;

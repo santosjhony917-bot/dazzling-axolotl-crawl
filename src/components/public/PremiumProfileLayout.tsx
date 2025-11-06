@@ -98,7 +98,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const containerPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do container principal
 
   return (
-    <div className="min-h-screen bg-background-light relative">
+    <div className="relative">
       
       {/* 1. Cabeçalho Principal (Capa) - Fica fora para manter a largura total */}
       <RestaurantProfileHeader
