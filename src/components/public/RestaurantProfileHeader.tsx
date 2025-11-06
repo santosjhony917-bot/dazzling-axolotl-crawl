@@ -27,14 +27,15 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
 
   return (
     <div className={cn("relative w-full bg-gray-200 overflow-hidden", coverHeightClasses)}>
-      {/* Imagem de Capa - Apenas para Premium */}
-      {isPremium && coverImageUrl ? (
+      {/* Imagem de Capa - Exibe se coverImageUrl existir, independentemente do plano */}
+      {coverImageUrl ? (
         <img
           src={coverImageUrl}
           alt={`Capa de ${name}`}
           className="w-full h-full object-cover object-center"
         />
       ) : (
+        // Placeholder se não houver imagem de capa
         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
           <Utensils className="w-24 h-24 text-gray-300" />
         </div>

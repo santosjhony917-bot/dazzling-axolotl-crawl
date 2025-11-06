@@ -11,6 +11,7 @@ import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
 import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from "@/types/restaurant";
 import { Button } from "@/components/ui/button";
+import RestaurantProfileHeader from './RestaurantProfileHeader';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -29,7 +30,6 @@ const FreeProfileLayout = ({
   const h1SizeClass = "text-3xl";
 
   const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
-  const hasCoverImage = !!restaurant.cover_image_url; // Nova variável para verificar a existência da imagem de capa
 
   // Construir fullAddress para RestaurantAddressHoursSection
   const fullAddress = [
@@ -41,23 +41,23 @@ const FreeProfileLayout = ({
     restaurant.cep,
   ].filter(Boolean).join(', ');
 
+  // Dados para o RestaurantProfileHeader
+  const headerData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    coverImageUrl: restaurant.cover_image_url || '',
+    isPremium: isPremium, // Passa o status premium real para o header
+    isCompact: false, // FreeProfileLayout não usa modo compacto no header
+  };
+
   return (
     <div className="relative">
-      {/* Capa do Restaurante (agora para todos os planos se houver imagem) */}
-      {hasCoverImage && ( // Removida a condição isPremium
-        <div
-          className="relative w-full h-48 bg-cover bg-center"
-          style={{ backgroundImage: `url(${restaurant.cover_image_url})` }}
-        >
-          {/* Overlay opcional para melhorar a legibilidade do texto sobre a imagem */}
-          <div className="absolute inset-0 bg-black opacity-30"></div>
-        </div>
-      )}
+      {/* Capa do Restaurante usando o componente RestaurantProfileHeader */}
+      <RestaurantProfileHeader restaurant={headerData} />
 
-      {/* Conteúdo principal, ajustado para sobrepor a capa se houver */}
+      {/* Conteúdo principal, ajustado para sobrepor a capa */}
       <div className={cn(
-        "relative z-10",
-        hasCoverImage ? "mt-[-60px]" : "pt-4" // Aplica margin-top negativo se houver capa, ou padding-top se não houver
+        "relative z-10 mt-[-60px]" // Aplica margin-top negativo para sobrepor a capa
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
         <div className="flex flex-col items-center text-center px-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
