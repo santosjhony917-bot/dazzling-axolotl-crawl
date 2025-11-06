@@ -188,9 +188,9 @@ const UpgradePageContent: React.FC = () => {
                 </Alert>
               ) : (
                 previewPlan === 'free' ? (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isCompact />
+                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isCompact={true} />
                 ) : (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isCompact />
+                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isCompact={true} />
                 )
               )}
             </motion.div>
