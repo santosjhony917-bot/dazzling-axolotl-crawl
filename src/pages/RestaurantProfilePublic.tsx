@@ -103,7 +103,6 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
           toggleFavorite={toggleFollow} 
           isFavoriteMutating={isToggling}
           isCompact={isCompact}
-          isFavorite={restaurant.is_favorite}
         />
       </motion.div>
     );

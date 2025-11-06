@@ -1,37 +1,31 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
-import { Building2 } from 'lucide-react';
-
-type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
+import { Utensils } from 'lucide-react';
 
 interface RestaurantLogoProps {
-  src: string | null;
-  alt: string;
-  sizeClass?: string;
-  plan: RestaurantPlan;
+  logoUrl: string | null;
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
-const RestaurantLogo: React.FC<RestaurantLogoProps> = ({
-  src,
-  alt,
-  sizeClass = 'w-24 h-24',
-  plan,
-}) => {
-  const showLogo = (plan === 'premium' || plan === 'premium_gift') && src;
+const sizeClasses = {
+  sm: 'w-12 h-12',
+  md: 'w-20 h-20',
+  lg: 'w-32 h-32',
+};
+
+const RestaurantLogo: React.FC<RestaurantLogoProps> = ({ logoUrl, size = 'md' }) => {
+  const classes = sizeClasses[size];
 
   return (
-    <div
-      className={cn(
-        'rounded-full bg-white shadow-lg flex items-center justify-center overflow-hidden border-4 border-white',
-        sizeClass
-      )}
-    >
-      {showLogo ? (
-        <img src={src!} alt={alt} className="w-full h-full object-cover" />
+    <div className={`${classes} rounded-full border-4 border-white dark:border-gray-900 bg-gray-100 dark:bg-gray-700 flex items-center justify-center shadow-lg overflow-hidden`}>
+      {logoUrl ? (
+        <img 
+          src={logoUrl} 
+          alt="Logo do Restaurante" 
+          className="w-full h-full object-cover"
+        />
       ) : (
-        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-          <Building2 className="w-1/2 h-1/2 text-gray-400" />
-        </div>
+        <Utensils className={`${size === 'lg' ? 'w-16 h-16' : 'w-8 h-8'} text-gray-500 dark:text-gray-400`} />
       )}
     </div>
   );
