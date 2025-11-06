@@ -8,7 +8,7 @@ import OrderChannelsSection from './OrderChannelsSection';
 import RestaurantGallerySection from './RestaurantGallerySection';
 import PublicMenuSection from './PublicMenuSection';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
-import InfoSection from './InfoSection';
+import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from "@/types/restaurant";
 
 interface FreeProfileLayoutProps {
@@ -100,7 +100,7 @@ const FreeProfileLayout = ({
           <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />
           <PublicMenuSection restaurantId={restaurant.id} categories={restaurant.menu_categories} />
           <RestaurantAddressHoursSection id="address-hours-section" restaurant={restaurant} fullAddress={fullAddress} paymentMethods={restaurant.payment_methods} />
-          <InfoSection restaurant={restaurant} />
+          <AdditionalInfo restaurant={restaurant} />
         </div>
       </div>
     </div>

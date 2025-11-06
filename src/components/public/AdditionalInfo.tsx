@@ -2,22 +2,10 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { MapPin, Phone, Mail, Clock, Link, ExternalLink } from 'lucide-react';
 import { OpeningHoursDisplay } from './OpeningHoursDisplay';
+import { PublicRestaurantData } from '@/types/restaurant';
 
 interface AdditionalInfoProps {
-  restaurant: {
-    address: string | null;
-    number: string | null;
-    neighborhood: string | null;
-    city: string | null;
-    state: string | null;
-    cep: string | null;
-    phone: string | null;
-    email: string | null;
-    whatsappUrl: string | null;
-    ifoodUrl: string | null;
-    otherUrl: string | null;
-    openingHours: any; // Assuming this is the JSONB structure
-  };
+  restaurant: PublicRestaurantData;
 }
 
 const AdditionalInfo: React.FC<AdditionalInfoProps> = ({ restaurant }) => {
@@ -30,10 +18,10 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = ({ restaurant }) => {
     cep,
     phone,
     email,
-    whatsappUrl,
-    ifoodUrl,
-    otherUrl,
-    openingHours,
+    whatsapp_url: whatsappUrl,
+    ifood_url: ifoodUrl,
+    other_url: otherUrl,
+    opening_hours: openingHours,
   } = restaurant;
 
   const fullAddress = [address, number, neighborhood, city, state, cep]
