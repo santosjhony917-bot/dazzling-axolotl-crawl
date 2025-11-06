@@ -127,7 +127,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
         <div className={cn("pb-8", containerPxClass)}> {/* Remove max-w e mx-auto daqui */}
           {/* Conteúdo Principal */}
-          <div className="mt-6 space-y-6">
+          <div className="mt-4 space-y-6">
             
             {/* Description */}
             {restaurant.description && (
@@ -188,14 +188,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
             {/* Galeria Section */}
             {hasGallery && (
-              <div id="gallery-section">
+              <div id="gallery-section" className="pb-6">
                 <RestaurantGallery gallery={restaurant.gallery_images} />
               </div>
             )}
 
             {/* Menu Section */}
             {hasMenu && (
-              <div id="menu-section">
+              <div id="menu-section" className="pt-6">
                 <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
                 <RestaurantMenu 
                   menuCategories={restaurant.menu_categories} 
@@ -208,7 +208,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             
             {/* Informações Detalhadas (Endereço, Horário, Contato) */}
             {hasInfo && (
-              <div id="info-section" className="space-y-6">
+              <div id="info-section" className="space-y-6 pt-6">
                 <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
                 
                 {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
