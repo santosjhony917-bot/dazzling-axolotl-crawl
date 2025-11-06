@@ -2,11 +2,13 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Building2 } from 'lucide-react';
 
+type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
+
 interface RestaurantLogoProps {
   src: string | null;
   alt: string;
   sizeClass?: string;
-  plan: 'free' | 'basic' | 'premium';
+  plan: RestaurantPlan;
 }
 
 const RestaurantLogo: React.FC<RestaurantLogoProps> = ({
@@ -15,7 +17,7 @@ const RestaurantLogo: React.FC<RestaurantLogoProps> = ({
   sizeClass = 'w-24 h-24',
   plan,
 }) => {
-  const showLogo = plan === 'premium' && src;
+  const showLogo = (plan === 'premium' || plan === 'premium_gift') && src;
 
   return (
     <div
