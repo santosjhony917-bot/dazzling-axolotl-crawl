@@ -4,6 +4,7 @@ import { Utensils } from 'lucide-react';
 interface RestaurantLogoProps {
   logoUrl: string | null;
   size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
 const sizeClasses = {

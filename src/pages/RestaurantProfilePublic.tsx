@@ -11,7 +11,7 @@ import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion } from "framer-motion";
 import DetailedHoursDisplay from "@/components/public/DetailedHoursDisplay";
-import { getOpeningHoursStatus } from "@/utils/schedule";
+import { getRestaurantOpenStatus } from "@/lib/schedule";
 import RestaurantCoverImage from '@/components/public/RestaurantCoverImage';
 import RestaurantLogo from '@/components/public/RestaurantLogo';
 import PublicMenuSection from '@/components/public/PublicMenuSection';
@@ -74,7 +74,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
     );
   }
 
-  const { isOpen, nextChange, currentDaySchedule } = getOpeningHoursStatus(
+  const { isOpen, statusText, nextOpenTime } = getRestaurantOpenStatus(
     restaurant.opening_hours
   );
   const followerCount =
@@ -120,7 +120,7 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
             <Card className="relative rounded-2xl shadow-soft-xl p-4 sm:p-6 mb-6 text-center border-none">
               <div className="absolute -top-12 left-1/2 -translate-x-1/2">
                 <RestaurantLogo
-                  imageUrl={restaurant.image_url}
+                  logoUrl={restaurant.image_url}
                   size="lg"
                   className="border-4 border-white"
                 />
@@ -157,7 +157,14 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
               
               <Card className="mt-4 rounded-2xl shadow-soft-lg border-none">
                 <TabsContent value="menu" className="p-4 sm:p-6">
-                  <PublicMenuSection categories={restaurant.menu_categories || []} />
+                  <PublicMenuSection
+                    categories={
+                      restaurant.menu_categories?.map((category) => ({
+                        ...category,
+                        items: category.menu_items,
+                      })) || []
+                    }
+                  />
                 </TabsContent>
                 <TabsContent value="gallery" className="p-4 sm:p-6">
                   <RestaurantGallerySection id="gallery" restaurantId={restaurant.id} plan={restaurant.plan} />
