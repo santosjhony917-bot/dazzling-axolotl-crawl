@@ -34,7 +34,7 @@ export default function FullMenuPage() {
         <div className="pt-20">
           <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
           <h1 className="text-xl font-semibold text-gray-700">Cardápio Não Encontrado</h1>
-          <p className="text-gray-500 mt-2">{error || "O restaurante ou cardápio solicitado não existe."}</p>
+          <p className="text-gray-500 mt-2">{error instanceof Error ? error.message : "O restaurante ou cardápio solicitado não existe."}</p>
           <Button onClick={handleBack} className="mt-6">
             Voltar
           </Button>
