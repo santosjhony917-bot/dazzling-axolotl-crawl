@@ -24,14 +24,14 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
 
   return (
     <div className={cn("flex items-center justify-between w-full", paddingClass)}>
-      {/* Botão Voltar (Movido para cá) */}
+      {/* Botão Voltar */}
       <Button
         variant="ghost"
         size="icon"
         onClick={onBack}
         className="text-white"
       >
-        <ArrowLeft className="h-5 w-5 text-primary" />
+        <ArrowLeft className="h-6 w-6 text-white drop-shadow-md" />
       </Button>
       
       {/* Ações de Compartilhar/Favoritar */}
@@ -42,15 +42,15 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
           size="icon"
           onClick={handleFollowToggle}
           disabled={isFavoriteMutating} 
-          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+          className="rounded-full h-10 w-10"
         >
           {isFavoriteMutating ? (
-            <Loader2 className="w-5 h-5 animate-spin text-red-500" />
+            <Loader2 className="w-5 h-5 animate-spin text-white" />
           ) : (
             <Heart 
               className={cn(
-                "w-5 h-5 transition-colors",
-                isFavorite ? "text-red-500 fill-red-500" : "text-primary hover:text-red-500"
+                "w-5 h-5 transition-colors drop-shadow-md",
+                isFavorite ? "text-red-500 fill-red-500" : "text-white hover:text-red-400"
               )}
             />
           )}
@@ -60,10 +60,10 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+          className="rounded-full h-10 w-10"
           onClick={onShare}
         >
-          <Share2 className="w-5 h-5 text-primary" />
+          <Share2 className="w-5 h-5 text-white drop-shadow-md" />
         </Button>
       </div>
     </div>

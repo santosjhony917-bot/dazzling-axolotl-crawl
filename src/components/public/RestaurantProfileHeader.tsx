@@ -23,7 +23,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({
   } = restaurant;
 
   // Classes condicionais para altura da capa
-  const coverHeightClasses = isCompact ? "h-44 md:h-52" : "h-52 md:h-64"; // Reduzido em ~20%
+  const coverHeightClasses = isCompact ? "h-44" : "h-52"; // Altura ajustada
 
   return (
     <div className={cn("relative w-full bg-gray-200 overflow-hidden", coverHeightClasses)}>
