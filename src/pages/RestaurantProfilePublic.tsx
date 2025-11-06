@@ -86,7 +86,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         transition={{ duration: 0.5 }}
       >
         {/* Actions Bar */}
-        <div className="absolute top-0 left-0 right-0 z-10 px-4"> {/* Adicionado px-4 aqui */}
+        <div className="absolute top-0 left-0 right-0 z-10 max-w-md mx-auto px-4"> {/* Adicionado max-w-md mx-auto e px-4 aqui */}
           <RestaurantActionsBar
             isFavorite={restaurant.is_favorite}
             onFavoriteToggle={toggleFollow}
@@ -117,7 +117,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         transition={{ duration: 0.5 }}
       >
         {/* Actions Bar */}
-        <div className="absolute top-0 left-0 right-0 z-10 px-4"> {/* Adicionado px-4 aqui */}
+        <div className="absolute top-0 left-0 right-0 z-10 max-w-md mx-auto px-4"> {/* Adicionado max-w-md mx-auto e px-4 aqui */}
           <RestaurantActionsBar
             isFavorite={restaurant.is_favorite}
             onFavoriteToggle={toggleFollow}
