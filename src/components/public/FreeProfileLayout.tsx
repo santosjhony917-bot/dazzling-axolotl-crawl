@@ -57,18 +57,25 @@ const FreeProfileLayout = ({
         "relative z-10",
         isPremium ? "-mt-24" : containerPtClass
       )}>
-        <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass, "relative")}>
-          {/* Logo do Restaurante (apenas para premium) */}
-          {isPremium && (
-            <div className="absolute -top-16 left-4">
+        {/* Refatorado: Removido o card branco, conteúdo centralizado */}
+        <div className={cn(
+          "flex flex-col items-center text-center", // Centraliza o conteúdo horizontalmente
+          headerPaddingClass, // Aplica padding
+          isPremium ? "pt-20" : "" // Ajusta padding se for premium (logo é posicionada absolutamente)
+        )}>
+          {/* Logo do Restaurante - Sempre visível, centralizada acima do nome */}
+          {/* Para perfis Free, a logo não é posicionada absolutamente, então é renderizada aqui. */}
+          {/* Para perfis Premium, a logo é tratada pelo PremiumProfileLayout. */}
+          {!isPremium && (
+            <div className="mb-4 -mt-12"> {/* Ajusta margin-top para a logo "flutuar" */}
               <RestaurantLogo logoUrl={restaurant.image_url || null} size="lg" />
             </div>
           )}
 
-          {/* Conteúdo do cabeçalho, ajustado para dar espaço à logo se for premium */}
+          {/* Conteúdo do cabeçalho */}
           <div className={cn(
-            "flex flex-col",
-            isPremium ? "pt-20 pl-40" : ""
+            "flex flex-col items-center", // Centraliza o texto
+            isPremium ? "pt-20 pl-40" : "" // Mantém ajuste para premium se necessário, embora o layout geral seja para free
           )}>
             <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
             <div className="flex items-center text-gray-600 text-sm mb-2">
