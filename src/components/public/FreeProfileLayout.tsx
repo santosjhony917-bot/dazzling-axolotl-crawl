@@ -16,6 +16,7 @@ import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importa
 import { ScrollArea } from '@/components/ui/scroll-area'; // Importando ScrollArea
 import { useNavigate } from 'react-router-dom'; // Importando useNavigate
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // Importando RestaurantAddressHoursSection
+import { isRestaurantOpen } from "@/lib/utils";
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;

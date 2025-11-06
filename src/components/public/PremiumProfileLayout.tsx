@@ -21,6 +21,8 @@ import { useNavigate } from 'react-router-dom';
 import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
 import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
 import RestaurantMainInfoCard from './RestaurantMainInfoCard'; // NOVO IMPORT
+import AdditionalInfo from './AdditionalInfo';
+import { isRestaurantOpen } from "@/lib/utils";
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
