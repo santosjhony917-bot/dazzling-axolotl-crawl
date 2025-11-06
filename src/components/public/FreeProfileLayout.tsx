@@ -92,7 +92,7 @@ const FreeProfileLayout: React.FC<FreeProfileLayoutProps> = ({ restaurant, toggl
       <div className={cn(
         {
           "max-w-sm mx-auto": isCompact, // Aplica max-w-sm e mx-auto para o modo compacto
-          "container mx-auto": !isCompact // Usa container para o modo não compacto
+          "max-w-3xl mx-auto": !isCompact // Usa max-w-3xl para o modo não compacto, centralizando o conteúdo
         },
         containerPtClass
       )}> {/* Mantém o padding superior */}

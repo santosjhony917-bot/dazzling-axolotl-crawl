@@ -122,7 +122,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         isCompact={isCompact} // PASSA A PROP isCompact
       />
 
-      <div className={cn("container mx-auto pb-8", containerPxClass)}>
+      <div className={cn("max-w-3xl mx-auto pb-8", containerPxClass)}>
         {/* Conteúdo Principal */}
         <div className="mt-6 space-y-6">
           
