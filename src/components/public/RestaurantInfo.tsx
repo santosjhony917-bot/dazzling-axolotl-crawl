@@ -36,9 +36,20 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ restaurant }) => {
             <Clock className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
             <div>
               <p className="font-semibold">Horário de Funcionamento:</p>
-              {/* Exemplo básico, você pode formatar melhor */}
-              {Object.entries(restaurant.opening_hours).map(([day, hours]) => (
-                <p key={day} className="capitalize">{day}: {hours as string}</p>
+              {Object.entries(restaurant.opening_hours).map(([day, dailySchedule]) => (
+                <p key={day} className="capitalize">
+                  {day}:{' '}
+                  {dailySchedule.isOpen ? (
+                    dailySchedule.slots.map((slot, index) => (
+                      <span key={index}>
+                        {slot.open} - {slot.close}
+                        {index < dailySchedule.slots.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  ) : (
+                    'Fechado'
+                  )}
+                </p>
               ))}
             </div>
           </div>
