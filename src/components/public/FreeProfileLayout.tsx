@@ -73,15 +73,16 @@ const FreeProfileLayout = ({
               <MapPin className="h-4 w-4 mr-1" />
               <span>{restaurant.city}, {restaurant.state}</span>
             </div>
-            <div className="flex items-center text-gray-600 text-sm mb-2">
-              <Heart className="h-4 w-4 mr-1" />
-              <span>{restaurant.followers_count || 0} Seguidores</span>
+            <div className="flex items-center justify-center gap-2 mb-2"> {/* Usando gap para espaçamento e centralizando */}
+              <Heart className="h-5 w-5 text-red-500" /> {/* Ícone maior e vermelho */}
+              <span className="text-lg font-bold text-gray-800">{restaurant.followers_count || 0}</span> {/* Contagem maior e mais forte */}
+              <span className="text-gray-600">Seguidores</span>
               <Button
-                variant="secondary" // Usando o componente Button do shadcn/ui
-                size="sm" // Tamanho menor para o botão
+                variant={restaurant.is_favorite ? "outline" : "default"} // 'default' para seguir, 'outline' para seguindo
+                size="sm"
                 onClick={toggleFavorite}
                 disabled={isFavoriteMutating}
-                className="ml-4"
+                className="ml-2 px-4 py-2 rounded-full text-sm font-semibold" // Botão mais arredondado e com padding
               >
                 {isFavoriteMutating ? "Carregando..." : (restaurant.is_favorite ? "Seguindo" : "Seguir")}
               </Button>
