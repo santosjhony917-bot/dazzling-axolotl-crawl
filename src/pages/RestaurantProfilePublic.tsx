@@ -20,11 +20,11 @@ interface RestaurantProfilePublicProps {
 }
 
 const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
-  const { id } = useParams<{ id: string }>();
+  const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id || initialRestaurantId);
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(restaurantId || initialRestaurantId);
   
   // Usar o simulatedPlan se fornecido, caso contrário, usar o plano do restaurante
   const currentPlan = simulatedPlan || restaurant?.plan;
@@ -50,7 +50,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   if (error || !restaurant) {
     console.error("Error loading restaurant:", error);
-    console.error("Restaurant ID being used:", id);
+    console.error("Restaurant ID being used:", restaurantId);
     
     let errorMessage = "Restaurante não encontrado ou erro ao carregar.";
     if (error) {
@@ -61,7 +61,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
       }
     } else if (!restaurant) {
-      errorMessage = `Restaurante com ID "${id}" não encontrado.`;
+      errorMessage = `Restaurante com ID "${restaurantId}" não encontrado.`;
     }
 
     return (
