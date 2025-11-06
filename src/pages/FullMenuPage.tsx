@@ -1,171 +1,77 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../integrations/supabase/client';
-import RestaurantMenu from '../components/public/RestaurantMenu';
-import RestaurantMainInfoCard from '../components/public/RestaurantMainInfoCard';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { createPageUrl } from '@/utils/url';
+import Header from '@/components/Header';
+import { Card, CardContent } from '@/components/ui/card';
+import RestaurantMenu from '@/components/public/RestaurantMenu'; // Reutiliza o componente de menu
 
-interface Restaurant {
-  id: string;
-  name: string;
-  image_url: string | null;
-  cover_image_url: string | null;
-  description: string | null;
-  menu_categories: {
-    id: string;
-    name: string;
-    order_index: number;
-    is_active: boolean;
-    menu_items: {
-      id: string;
-      name: string;
-      description: string | null;
-      price: number;
-      image_url: string | null;
-      order_index: number;
-      is_active: boolean;
-      created_at: string | null; // Adicionado
-      category_id: string; // Adicionado
-    }[];
-    created_at: string | null; // Adicionado
-    restaurant_id: string; // Adicionado
-    is_popular: boolean | null; // Adicionado
-  }[];
-  is_favorite: boolean;
-  followers_count: number;
-  city: string;
-  state: string;
-  plan: 'free' | 'basic' | 'premium';
-}
-
-const FullMenuPage: React.FC = () => {
+export default function FullMenuPage() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchRestaurantAndMenu = async () => {
-      if (!restaurantId) {
-        setError("ID do restaurante não fornecido.");
-        setLoading(false);
-        return;
-      }
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select(`
-          *,
-          menu_categories (
-            id,
-            name,
-            order_index,
-            is_active,
-            created_at,
-            restaurant_id,
-            is_popular,
-            menu_items (
-              id,
-              name,
-              description,
-              price,
-              image_url,
-              order_index,
-              is_active,
-              created_at,
-              category_id
-            )
-          )
-        `)
-        .eq('id', restaurantId)
-        .single();
+  const handleBack = () => navigate(-1);
 
-      if (error) {
-        console.error("Erro ao buscar restaurante e menu:", error);
-        setError("Não foi possível carregar o cardápio. Tente novamente mais tarde.");
-      } else if (data) {
-        setRestaurant(data as Restaurant);
-      } else {
-        setError("Restaurante não encontrado.");
-      }
-      setLoading(false);
-    };
-
-    fetchRestaurantAndMenu();
-  }, [restaurantId]);
-
-  if (loading) {
+  if (isLoading) {
     return (
-      <div className="container mx-auto p-4">
-        <Skeleton className="h-48 w-full mb-4" />
-        <Skeleton className="h-10 w-3/4 mb-4" />
-        <Skeleton className="h-64 w-full" />
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (error) {
+  if (error || !restaurant) {
     return (
-      <div className="container mx-auto p-4 text-center text-red-600">
-        <p>{error}</p>
-        <Button onClick={() => navigate(-1)} className="mt-4">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
-        </Button>
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <Header 
+          title="Cardápio"
+          leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+        />
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Cardápio Não Encontrado</h1>
+          <p className="text-gray-500 mt-2">{error instanceof Error ? error.message : "O restaurante ou cardápio solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
       </div>
     );
   }
-
-  if (!restaurant) {
-    return (
-      <div className="container mx-auto p-4 text-center">
-        <p>Restaurante não encontrado.</p>
-        <Button onClick={() => navigate(-1)} className="mt-4">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
-        </Button>
-      </div>
-    );
-  }
-
-  const mainInfoCardData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    logoUrl: restaurant.image_url,
-    addressSummary: `${restaurant.city}, ${restaurant.state}`,
-    followersCount: restaurant.followers_count || 0,
-    isFavorite: restaurant.is_favorite || false,
-    isOpen: true,
-    statusText: "Aberto",
-    plan: restaurant.plan,
-  };
+  
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="relative">
-        <RestaurantMainInfoCard
-          restaurant={mainInfoCardData}
-          onFavoriteToggle={() => { /* Lógica de toggle de favorito pode ser adicionada aqui */ }}
-          isFavoriteMutating={false} // Ajustar conforme a implementação real de favoritos
-          isCompact={false}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 py-6">
-        <Button onClick={() => navigate(-1)} variant="ghost" className="mb-4">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar ao Perfil
-        </Button>
-        <h1 className="text-3xl font-extrabold text-primary mb-6">Cardápio Completo de {restaurant.name}</h1>
-        <RestaurantMenu
-          menuCategories={restaurant.menu_categories}
-          isFullMenuPage={true}
-          restaurantId={restaurant.id}
-        />
-      </div>
+    <div className="min-h-screen bg-background-light max-w-md mx-auto">
+      <Header 
+        title={`Cardápio: ${restaurant.name}`}
+        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+      />
+      
+      <main className="p-4 space-y-6">
+        <Card className="shadow-soft-md border-none rounded-xl p-4">
+          <CardContent className="p-0 flex items-center gap-3">
+            <Utensils className="w-6 h-6 text-primary" />
+            <h1 className="text-xl font-bold text-primary">Cardápio Completo</h1>
+          </CardContent>
+        </Card>
+        
+        {hasMenu ? (
+          <RestaurantMenu 
+            menuCategories={restaurant.menu_categories} 
+            isFullMenuPage={true} // Nova prop para indicar que é a página completa
+          />
+        ) : (
+          <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
+            <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
+          </Card>
+        )}
+      </main>
     </div>
   );
-};
-
-export default FullMenuPage;
+}
