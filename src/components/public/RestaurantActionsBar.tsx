@@ -9,26 +9,27 @@ interface RestaurantActionsBarProps {
   isFavoriteMutating: boolean;
   onShare: () => void;
   onBack: () => void;
+  paddingClass?: string; // Nova prop para a classe de padding
 }
 
-const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({ 
-  isFavorite, 
-  onFavoriteToggle, 
+const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
+  isFavorite,
+  onFavoriteToggle,
   isFavoriteMutating,
   onShare,
   onBack,
+  paddingClass, // Desestrutura a nova prop
 }) => {
-  const isFollowing = isFavorite; 
   const handleFollowToggle = onFavoriteToggle;
 
   return (
-    <div className="flex items-center justify-between w-full">
+    <div className={cn("flex items-center justify-between w-full", paddingClass)}>
       {/* Botão Voltar (Movido para cá) */}
       <Button
         variant="ghost"
         size="icon"
         onClick={onBack}
-        className="rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+        className="text-white"
       >
         <ArrowLeft className="h-5 w-5 text-primary" />
       </Button>
@@ -49,7 +50,7 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
             <Heart 
               className={cn(
                 "w-5 h-5 transition-colors",
-                isFollowing ? "text-red-500 fill-red-500" : "text-primary hover:text-red-500"
+                isFavorite ? "text-red-500 fill-red-500" : "text-primary hover:text-red-500"
               )}
             />
           )}

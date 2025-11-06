@@ -101,13 +101,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     <div className="min-h-screen bg-background-light relative">
       
       {/* 1. Barra de Ações Flutuante (Sticky) */}
-      <div className={cn("absolute inset-x-0 top-0 z-30 max-w-md mx-auto p-4", containerPxClass)}>
+      <div className={cn("absolute inset-x-0 top-0 z-30 max-w-md mx-auto")}>
         <RestaurantActionsBar
           isFavorite={restaurant.is_favorite}
           onFavoriteToggle={toggleFavorite}
           isFavoriteMutating={isFavoriteMutating}
           onShare={handleShare}
           onBack={() => navigate(-1)}
+          paddingClass={containerPxClass} // Passa a classe de padding para o componente
         />
       </div>
 
