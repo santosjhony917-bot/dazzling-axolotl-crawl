@@ -30,10 +30,10 @@ const RestaurantProfilePublic: React.FC<RestaurantProfilePublicProps> = ({
   simulatedPlan,
   isCompact = false,
 }) => {
-  const params = useParams();
+  const params = useParams<{ restaurantId: string }>();
   const navigate = useNavigate();
-  const id = initialRestaurantId || params.id;
-  console.log("[RestaurantProfilePublic] Restaurant ID from params:", params.id);
+  const id = initialRestaurantId || params.restaurantId;
+  console.log("[RestaurantProfilePublic] Restaurant ID from params:", params.restaurantId);
   console.log("[RestaurantProfilePublic] Final ID used:", id);
   const { user } = useAuth();
   const { restaurant, isLoading, error } = usePublicRestaurant(id);
