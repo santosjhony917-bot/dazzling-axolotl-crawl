@@ -26,7 +26,12 @@ interface Restaurant {
       image_url: string | null;
       order_index: number;
       is_active: boolean;
+      created_at: string | null; // Adicionado
+      category_id: string; // Adicionado
     }[];
+    created_at: string | null; // Adicionado
+    restaurant_id: string; // Adicionado
+    is_popular: boolean | null; // Adicionado
   }[];
   is_favorite: boolean;
   followers_count: number;
@@ -60,6 +65,9 @@ const FullMenuPage: React.FC = () => {
             name,
             order_index,
             is_active,
+            created_at,
+            restaurant_id,
+            is_popular,
             menu_items (
               id,
               name,
@@ -67,7 +75,9 @@ const FullMenuPage: React.FC = () => {
               price,
               image_url,
               order_index,
-              is_active
+              is_active,
+              created_at, // Adicionado
+              category_id // Adicionado
             )
           )
         `)
@@ -123,12 +133,12 @@ const FullMenuPage: React.FC = () => {
   const mainInfoCardData = {
     id: restaurant.id,
     name: restaurant.name,
-    image_url: restaurant.image_url,
-    cover_image_url: restaurant.cover_image_url,
-    is_favorite: restaurant.is_favorite,
-    followers_count: restaurant.followers_count,
-    city: restaurant.city,
-    state: restaurant.state,
+    logoUrl: restaurant.image_url,
+    addressSummary: `${restaurant.city}, ${restaurant.state}`,
+    followersCount: restaurant.followers_count || 0,
+    isFavorite: restaurant.is_favorite || false,
+    isOpen: true,
+    statusText: "Aberto",
     plan: restaurant.plan,
   };
 
