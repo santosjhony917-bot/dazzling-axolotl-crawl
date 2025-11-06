@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { MapPin, Heart } from "lucide-react";
 import React from "react";
+import RestaurantLogo from './RestaurantLogo';
 
 // Define a basic interface for PublicRestaurantData based on its usage
 interface PublicRestaurantData {
@@ -19,7 +20,7 @@ interface PublicRestaurantData {
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  children: React.ReactNode;
+  children?: React.ReactNode; // Tornando 'children' opcional
   toggleFavorite: () => void;
   isFavoriteMutating: boolean;
   isCompact: boolean;
@@ -58,9 +59,9 @@ const FreeProfileLayout = ({
       )}>
         <div className={cn("bg-gray-50 rounded-b-lg shadow-sm", headerPaddingClass, "relative")}>
           {/* Logo do Restaurante (apenas para premium) */}
-          {isPremium && restaurant.image_url && (
-            <div className="absolute -top-16 left-4 w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200 flex items-center justify-center">
-              <img src={restaurant.image_url} alt={`${restaurant.name} logo`} className="w-full h-full object-cover" />
+          {isPremium && (
+            <div className="absolute -top-16 left-4">
+              <RestaurantLogo logoUrl={restaurant.image_url || null} size="lg" />
             </div>
           )}
 
