@@ -48,6 +48,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   if (error || !restaurant) {
     console.error("Error loading restaurant:", error);
+    console.error("Restaurant ID being used:", id);
     return (
       <div className="flex items-center justify-center h-screen bg-background-light">
         <div className="text-center">
