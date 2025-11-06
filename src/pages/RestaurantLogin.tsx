@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../integrations/supabase/client';
-import { Location, Mail, Lock, ArrowRight, Chrome, Apple } from 'lucide-react';
+import { MapPin, Mail, Lock, ArrowRight, Chrome, Apple } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -66,7 +66,7 @@ function RestaurantLogin() {
       >
         <div className="flex flex-col items-center">
           <div className="inline-block rounded-full bg-white p-3 shadow-sm mb-4">
-            <Location className="h-8 w-8 text-indigo-600" />
+            <MapPin className="h-8 w-8 text-indigo-600" />
           </div>
           <h1 className="text-center text-3xl font-bold text-gray-800">Acesse sua conta</h1>
           <p className="mt-2 text-center text-sm text-gray-600">Gerencie seu restaurante!</p>
