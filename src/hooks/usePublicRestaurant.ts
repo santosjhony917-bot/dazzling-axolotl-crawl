@@ -17,7 +17,7 @@ export const usePublicRestaurant = (restaurantId: string | undefined) => {
   return {
     restaurant: data,
     isLoading,
-    error: error ? error.message : null,
+    error: error, // Retorna o objeto Error completo, não apenas a mensagem
     refetch, // Expondo a função refetch
   };
 };

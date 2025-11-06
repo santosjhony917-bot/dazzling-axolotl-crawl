@@ -49,10 +49,23 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   if (error || !restaurant) {
     console.error("Error loading restaurant:", error);
     console.error("Restaurant ID being used:", id);
+    
+    let errorMessage = "Restaurante não encontrado ou erro ao carregar.";
+    if (error) {
+      if (error instanceof Error) {
+        errorMessage = `Erro ao carregar restaurante: ${error.message}`;
+      } else {
+        // Fallback caso o erro não seja uma instância de Error, mas ainda seja um valor
+        errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
+      }
+    } else if (!restaurant) {
+      errorMessage = `Restaurante com ID "${id}" não encontrado.`;
+    }
+
     return (
       <div className="flex items-center justify-center h-screen bg-background-light">
         <div className="text-center">
-          <p className="text-lg font-semibold text-destructive">Restaurante não encontrado ou erro ao carregar.</p>
+          <p className="text-lg font-semibold text-destructive">{errorMessage}</p>
           <Button onClick={() => navigate("/")} className="mt-4">
             Voltar para a Home
           </Button>
