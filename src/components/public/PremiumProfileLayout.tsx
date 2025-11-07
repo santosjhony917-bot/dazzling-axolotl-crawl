@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { PublicRestaurantData } from '@/types/restaurant';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
+import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info, ArrowLeft } from 'lucide-react';
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
@@ -100,17 +100,30 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   return (
     <div className="relative">
       
+      {/* 1. Capa do Restaurante (RestaurantProfileHeader) */}
+      <RestaurantProfileHeader restaurant={headerData} /> {/* Re-adicionado aqui */}
+      
       {/* 2. Container principal que centraliza e define a largura do conteúdo */}
       <div className="relative max-w-md mx-auto">
-        {/* Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}
-        <RestaurantActionsBar
-          isFavorite={restaurant.is_favorite}
-          onFavoriteToggle={toggleFavorite}
-          isFavoriteMutating={isFavoriteMutating}
-          onShare={handleShare}
-          onBack={() => navigate(-1)}
-          paddingClass={containerPxClass} // Passa a classe de padding para o componente
-        />
+        {/* Barra de Ações Flutuante (Absolute) - Posicionada sobre a capa */}
+        <div className="absolute top-4 left-0 right-0 z-10 flex justify-between px-4"> {/* Posicionamento absoluto */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(-1)}
+            className="bg-white/50 backdrop-blur-sm rounded-full"
+          >
+            <ArrowLeft className="h-5 w-5 text-gray-800" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleShare}
+            className="bg-white/50 backdrop-blur-sm rounded-full"
+          >
+            <Share2 className="h-5 w-5 text-gray-800" />
+          </Button>
+        </div>
 
         {/* Card de Informações Principais (com logo sobreposta) */}
         <RestaurantMainInfoCard
