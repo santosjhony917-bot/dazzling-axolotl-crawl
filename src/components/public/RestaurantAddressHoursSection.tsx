@@ -63,16 +63,14 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
         {fullAddress && opening_hours && <Separator className="my-4 bg-gray-100" />}
 
         {/* Horário de Funcionamento */}
-        {opening_hours && (
-          <div className="pt-4">
-            <div className="flex items-start">
-              <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
-              <div className="ml-3 min-w-0">
-                <OpeningHoursDisplay openingHours={opening_hours as WeekSchedule} />
-              </div>
+        <div className="pt-4">
+          <div className="flex items-start">
+            <Clock className="w-5 h-5 text-gray-500 mt-1 flex-shrink-0" />
+            <div className="ml-3 min-w-0">
+              <OpeningHoursDisplay openingHours={opening_hours as WeekSchedule} />
             </div>
           </div>
-        )}
+        </div>
 
         {/* Separador e Formas de Pagamento */}
         {paymentMethods && paymentMethods.length > 0 && (
