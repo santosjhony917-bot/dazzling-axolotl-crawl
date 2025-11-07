@@ -100,7 +100,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   return (
     <div className="relative">
       
-      {/* REMOVIDO: 1. Capa do Restaurante (RestaurantProfileHeader) - Agora é renderizado pelo componente pai */}
+      {/* 1. Capa do Restaurante (RestaurantProfileHeader) */}
+      <RestaurantProfileHeader restaurant={headerData} /> {/* Re-adicionado aqui */}
       
       {/* 2. Container principal que centraliza e define a largura do conteúdo */}
       <div className="relative max-w-md mx-auto">

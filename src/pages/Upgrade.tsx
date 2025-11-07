@@ -11,8 +11,6 @@ import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPage
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
 import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
 import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
-import FreeProfilePreview from '@/components/upgrade/FreeProfilePreview'; // Importar o componente de pré-visualização Free
-import PremiumProfilePreview from '@/components/upgrade/PremiumProfilePreview'; // Importar o componente de pré-visualização Premium
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -180,11 +178,20 @@ const UpgradePageContent: React.FC = () => {
               exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Substituindo a lógica de carregamento dinâmico por componentes estáticos */}
-              {previewPlan === 'free' ? (
-                <FreeProfilePreview />
+              {!isRestaurantIdAvailable ? (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>Restaurante Não Encontrado</AlertTitle>
+                  <AlertDescription>
+                    Não foi possível carregar a prévia. Certifique-se de que seu restaurante está cadastrado e associado à sua conta.
+                  </AlertDescription>
+                </Alert>
               ) : (
-                <PremiumProfilePreview />
+                previewPlan === 'free' ? (
+                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isCompact={true} />
+                ) : (
+                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isCompact={true} />
+                )
               )}
             </motion.div>
           </div>
