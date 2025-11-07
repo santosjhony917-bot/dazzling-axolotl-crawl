@@ -45,9 +45,9 @@ const FreeProfileLayout = ({
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    coverImageUrl: restaurant.cover_image_url || '',
-    isPremium: isPremium, // Passa o status premium real para o header
-    isCompact: false, // FreeProfileLayout não usa modo compacto no header
+    coverImageUrl: isPremium ? restaurant.cover_image_url : null, // Oculta a capa para planos free
+    isPremium: isPremium,
+    isCompact: false,
   };
 
   return (
@@ -63,7 +63,7 @@ const FreeProfileLayout = ({
         <div className="flex flex-col items-center text-center px-4 pb-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
           {/* Logo do Restaurante - Sempre visível, centralizada acima do nome */}
           <div className="mb-4"> {/* Ajusta margin-top e bottom para a logo */}
-              <RestaurantLogo logoUrl={restaurant.image_url || null} size="lg" />
+              <RestaurantLogo logoUrl={isPremium ? restaurant.image_url : null} size="lg" /> {/* Oculta o logo para planos free */}
             </div>
 
           {/* Conteúdo do cabeçalho */}
@@ -94,11 +94,11 @@ const FreeProfileLayout = ({
 
         {/* Conteúdo da página restaurado e adicionado aqui */}
         <div className="p-4 space-y-8">
-          <OrderChannelsSection restaurant={restaurant} />
-          <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />
+          {isPremium && <OrderChannelsSection restaurant={restaurant} />}
+          {isPremium && <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />}
           <PublicMenuSection restaurantId={restaurant.id} categories={restaurant.menu_categories} />
           <RestaurantAddressHoursSection id="address-hours-section" restaurant={restaurant} fullAddress={fullAddress} paymentMethods={restaurant.payment_methods} />
-          <AdditionalInfo restaurant={restaurant} />
+          {isPremium && <AdditionalInfo restaurant={restaurant} />}
         </div>
       </div>
     </div>
