@@ -79,7 +79,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
       {/* Novo cabeçalho fixo no topo */}
       <RestaurantPageHeader />
 
-      <div className="max-w-md mx-auto pt-16">
+      <div className="max-w-md mx-auto pt-24">
         {/* Componente de capa (agora apenas para premium e não fixo) */}
         <RestaurantProfileHeader 
           restaurant={{ 
