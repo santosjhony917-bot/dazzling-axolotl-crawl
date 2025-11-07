@@ -105,8 +105,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       
       {/* 2. Container principal que centraliza e define a largura do conteúdo */}
       <div className="relative max-w-md mx-auto">
-        {/* Barra de Ações Flutuante (Absolute) - Posicionada sobre a capa */}
-        <div className="absolute top-4 left-0 right-0 z-10 flex justify-between px-4"> {/* Posicionamento absoluto */}
+        {/* REMOVIDO: Barra de Ações Flutuante (Absolute) - Botões de Voltar e Compartilhar são agora gerenciados por RestaurantPageHeader */}
+        {/* <div className="absolute top-4 left-0 right-0 z-10 flex justify-between px-4">
           <Button
             variant="ghost"
             size="icon"
@@ -123,7 +123,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           >
             <Share2 className="h-5 w-5 text-gray-800" />
           </Button>
-        </div>
+        </div> */}
 
         {/* Card de Informações Principais (com logo sobreposta) */}
         <RestaurantMainInfoCard
