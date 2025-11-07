@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { cn } from '@/lib/utils';
 
 import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
 import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
@@ -91,7 +92,11 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         />
       )}
 
-      <div className="max-w-md mx-auto">
+      {/* Main content container */}
+      <div className={cn("max-w-md mx-auto", {
+        "pt-24": currentPlan !== 'premium', // Adiciona padding-top apenas para perfis não-premium
+        "pt-0": currentPlan === 'premium' // Sem padding-top para premium, pois a imagem de capa já está acima
+      })}>
         {/* O RestaurantProfileHeader foi movido para fora deste div */}
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' ? (
