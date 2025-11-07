@@ -76,16 +76,9 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   return (
     <div className="relative min-h-screen bg-background-light">
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 z-50 bg-white/80 backdrop-blur-sm rounded-full shadow-md"
-      >
-        <ArrowLeft className="h-5 w-5" />
-      </Button>
+      {/* REMOVIDO: Botão de voltar duplicado */}
 
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto pt-24"> {/* Adicionado pt-24 para dar espaço ao cabeçalho */}
         {currentPlan === 'premium' ? (
           <motion.div
             initial={{ opacity: 0 }}
