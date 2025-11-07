@@ -61,10 +61,12 @@ const FreeProfileLayout = ({
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
         <div className="flex flex-col items-center text-center px-4 pb-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
-          {/* Logo do Restaurante - Sempre visível, centralizada acima do nome */}
-          <div className="mb-4"> {/* Ajusta margin-top e bottom para a logo */}
-              <RestaurantLogo logoUrl={isPremium ? restaurant.image_url : null} size="lg" /> {/* Oculta o logo para planos free */}
-            </div>
+          {/* Logo do Restaurante - Condicionalmente visível apenas para premium */}
+          {isPremium && (
+            <div className="mb-4"> {/* Ajusta margin-top e bottom para a logo */}
+                <RestaurantLogo logoUrl={restaurant.image_url} size="lg" />
+              </div>
+          )}
 
           {/* Conteúdo do cabeçalho */}
           <div className="flex flex-col items-center"> {/* Centraliza o texto */}
