@@ -12,8 +12,8 @@ import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
 import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import FreeProfileLayout from "@/components/public/FreeProfileLayout";
-import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // Importar o novo cabeçalho
-import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
+import RestaurantPageHeader from "@/components/restaurant/RestaurantPageHeader"; // Usando o cabeçalho do restaurante
+import RestaurantProfileHeader from "@/components/restaurant/RestaurantProfileHeader"; // O componente de capa modificado
 import { PublicRestaurantData } from "@/types/restaurant";
 
 interface RestaurantProfilePublicProps {
@@ -84,16 +84,34 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     isCompact: isCompact,
   };
 
+  // Adicionando um console.log para verificar a URL da capa
+  console.log("Restaurant cover image URL:", profileHeaderData.coverImageUrl);
+
+  // Altura da capa (h-48 = 192px, h-24 = 96px)
+  const coverHeight = isCompact ? 96 : 192;
+  // Altura do RestaurantPageHeader (h-16 = 64px)
+  const pageHeaderHeight = 64;
+  
+  // O conteúdo principal precisa ser empurrado para baixo pela altura da capa.
+  // O RestaurantMainInfoCard tem um -mt-16 (64px) que o faz subir,
+  // então o espaçador deve considerar a altura da capa.
+  const mainContentTopPadding = coverHeight; 
+
   return (
     <div className="relative min-h-screen bg-background-light">
+      {/* Capa do Restaurante (RestaurantProfileHeader) - FIXED e abaixo do PageHeader */}
+      {/* z-index 10 para ficar abaixo do RestaurantPageHeader (z-index 20) */}
+      <RestaurantProfileHeader restaurant={profileHeaderData} className="fixed top-0 left-0 right-0 z-10" />
+
       {/* Cabeçalho fixo da aplicação (seta de voltar, compartilhar) */}
+      {/* z-index 20 para ficar acima da capa */}
       {!isCompact && <RestaurantPageHeader />}
 
-      {/* Capa do Restaurante (RestaurantProfileHeader) - Fora do container de largura limitada */}
-      <RestaurantProfileHeader restaurant={profileHeaderData} />
+      {/* Espaçador para empurrar o conteúdo principal para baixo */}
+      <div style={{ height: `${mainContentTopPadding}px` }} className="w-full" />
 
-      {/* Main content container - Agora com padding superior ajustado para o RestaurantPageHeader */}
-      <div className={cn("max-w-md mx-auto", { "pt-16": !isCompact })}>
+      {/* Main content container */}
+      <div className={cn("max-w-md mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' ? (
           <motion.div

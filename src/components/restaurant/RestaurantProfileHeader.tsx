@@ -9,7 +9,7 @@ interface RestaurantProfileHeaderProps {
     isPremium: boolean;
     isCompact?: boolean;
   };
-  className?: string; // Adicionando a propriedade className
+  className?: string; // Esta linha é crucial para resolver o erro
 }
 
 const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant, className }) => {
@@ -17,7 +17,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
   const headerHeightClass = restaurant.isCompact ? "h-24" : "h-48 md:h-64";
 
   return (
-    <div className={cn("w-full overflow-hidden", headerHeightClass, className)}> {/* Aplicando className aqui */}
+    <div className={cn("w-full overflow-hidden", headerHeightClass, className)}>
       {restaurant.coverImageUrl ? (
         <img
           src={restaurant.coverImageUrl}
