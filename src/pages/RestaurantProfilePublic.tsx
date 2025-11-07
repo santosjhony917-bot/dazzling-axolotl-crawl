@@ -11,6 +11,8 @@ import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
 import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import FreeProfileLayout from "@/components/public/FreeProfileLayout";
+import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // Importar o novo cabeçalho
+import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
 import { PublicRestaurantData } from "@/types/restaurant";
 
 interface RestaurantProfilePublicProps {
@@ -28,7 +30,6 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
   
-  // Usar o simulatedPlan se fornecido, caso contrário, usar o plano do restaurante
   const currentPlan = simulatedPlan || restaurant?.plan;
 
   const { toggleFollow, isToggling } = useRestaurantFollow(
@@ -55,7 +56,6 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
       if (error instanceof Error) {
         errorMessage = `Erro ao carregar restaurante: ${error.message}`;
       } else {
-        // Fallback caso o erro não seja uma instância de Error, mas ainda seja um valor
         errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
       }
     } else if (!restaurant) {
@@ -76,9 +76,20 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   return (
     <div className="relative min-h-screen bg-background-light">
-      {/* REMOVIDO: Botão de voltar duplicado */}
+      {/* Novo cabeçalho fixo no topo */}
+      <RestaurantPageHeader />
 
-      <div className="max-w-md mx-auto pt-24"> {/* Adicionado pt-24 para dar espaço ao cabeçalho */}
+      <div className="max-w-md mx-auto"> {/* Removido pt-24, pois o cabeçalho fixo já empurra o conteúdo */}
+        {/* Componente de capa (agora apenas para premium e não fixo) */}
+        <RestaurantProfileHeader 
+          restaurant={{ 
+            id: restaurant.id, 
+            name: restaurant.name, 
+            coverImageUrl: restaurant.cover_image_url, 
+            isPremium: currentPlan === 'premium' 
+          }} 
+        />
+
         {currentPlan === 'premium' ? (
           <motion.div
             initial={{ opacity: 0 }}
