@@ -89,7 +89,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
             coverImageUrl: restaurant.cover_image_url, 
             isPremium: true // Sempre true aqui, pois só renderiza para premium
           }} 
-          className="-mt-35" // Margem superior negativa ajustada para -mt-35
+          className="-mt-90" // Margem superior negativa ajustada para -mt-90
         />
       )}
 
