@@ -9,14 +9,15 @@ interface RestaurantProfileHeaderProps {
     isPremium: boolean;
     isCompact?: boolean;
   };
+  className?: string; // Adicionando a propriedade className
 }
 
-const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant }) => {
+const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant, className }) => {
   // Ajusta a altura do cabeçalho com base na propriedade isCompact
   const headerHeightClass = restaurant.isCompact ? "h-24" : "h-48 md:h-64";
 
   return (
-    <div className={cn("relative w-full overflow-hidden", headerHeightClass)}>
+    <div className={cn("w-full overflow-hidden", headerHeightClass, className)}> {/* Aplicando className aqui */}
       {restaurant.coverImageUrl ? (
         <img
           src={restaurant.coverImageUrl}
