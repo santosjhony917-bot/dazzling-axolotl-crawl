@@ -11,9 +11,10 @@ interface RestaurantProfileHeaderProps {
     coverImageUrl?: string | null;
     isPremium: boolean;
   };
+  className?: string; // Adicionando a prop className
 }
 
-const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant }) => {
+const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant, className }) => {
   const { coverImageUrl, isPremium, name } = restaurant;
 
   // Este componente agora é responsável APENAS pela imagem de capa (se premium)
@@ -23,7 +24,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
   }
 
   return (
-    <div className={cn("relative w-full h-48")}>
+    <div className={cn("relative w-full h-48", className)}> {/* Aplicando a prop className aqui */}
       {coverImageUrl ? (
         <img
           src={coverImageUrl}
