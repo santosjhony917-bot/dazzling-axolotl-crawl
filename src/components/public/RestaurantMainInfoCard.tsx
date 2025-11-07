@@ -1,115 +1,128 @@
-"use client";
-
 import React from 'react';
-import { Heart, MapPin } from 'lucide-react';
+import { Heart, MapPin, Loader2, Utensils } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import RestaurantLogo from './RestaurantLogo';
 import { cn } from '@/lib/utils';
-import { PublicRestaurantData, RestaurantPlan } from '@/types'; // Importar PublicRestaurantData e RestaurantPlan
+import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
 
 interface RestaurantMainInfoCardProps {
   restaurant: {
     id: string;
-    image_url: string | null; // logoUrl
     name: string;
-    city: string | null;
-    state: string | null;
-    followers_count: number;
-    is_favorite: boolean;
-    plan: RestaurantPlan;
-    category: string | null;
-    description: string | null;
-    whatsapp_url: string | null;
-    ifood_url: string | null;
-    other_url: string | null;
-    other_url_label: string | null;
-    opening_hours: PublicRestaurantData['opening_hours']; // Usar o tipo de PublicRestaurantData
+    logoUrl: string | null;
+    addressSummary: string;
+    followersCount: number;
+    isFavorite: boolean;
+    isOpen: boolean;
+    statusText: string;
+    plan: string;
   };
   onFavoriteToggle: () => void;
   isFavoriteMutating: boolean;
-  isCompact: boolean;
+  isCompact?: boolean; // NOVO: Prop para modo compacto
 }
 
 const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   restaurant,
   onFavoriteToggle,
   isFavoriteMutating,
-  isCompact,
+  isCompact = false, // Valor padrão
 }) => {
-  const isPremium = restaurant.plan === 'premium';
-  const h1SizeClass = isCompact ? "text-2xl" : "text-3xl";
+  const {
+    name,
+    logoUrl,
+    addressSummary,
+    followersCount,
+    isFavorite,
+    isOpen,
+    statusText,
+    plan,
+  } = restaurant;
 
-  // Lógica para determinar se o restaurante está aberto e o texto de status
-  const getOpeningStatus = () => {
-    if (!restaurant.opening_hours || restaurant.opening_hours.length === 0) {
-      return { isOpen: false, statusText: 'Horário não disponível' };
-    }
-
-    const now = new Date();
-    const currentDay = now.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // Minutos desde a meia-noite
-
-    const todayHours = restaurant.opening_hours.find(
-      (oh) => oh.day.toLowerCase() === currentDay
-    );
-
-    if (!todayHours || todayHours.is_closed) {
-      return { isOpen: false, statusText: 'Fechado hoje' };
-    }
-
-    const [openHour, openMinute] = todayHours.open_time.split(':').map(Number);
-    const [closeHour, closeMinute] = todayHours.close_time.split(':').map(Number);
-
-    const openTimeInMinutes = openHour * 60 + openMinute;
-    const closeTimeInMinutes = closeHour * 60 + closeMinute;
-
-    if (currentTime >= openTimeInMinutes && currentTime <= closeTimeInMinutes) {
-      return { isOpen: true, statusText: `Aberto agora até ${todayHours.close_time}` };
-    } else {
-      return { isOpen: false, statusText: `Fechado. Abre às ${todayHours.open_time}` };
-    }
-  };
-
-  const { isOpen, statusText } = getOpeningStatus();
+  // Classes condicionais para tamanho e posição da logo
+  const logoSizeClasses = isCompact ? "w-16 h-16 -top-8" : "w-24 h-24 md:w-28 md:h-28 -top-12";
+  const utensilsSizeClasses = isCompact ? "w-8 h-8" : "w-12 h-12"; // Ajusta o ícone Utensils
 
   return (
-    <div className="relative z-10 bg-white rounded-t-3xl shadow-lg -mt-24 pt-4 pb-6 px-4">
-      <div className="flex flex-col items-center text-center">
-        {/* Logo do Restaurante */}
-        <div className="mb-4 -mt-16"> {/* Ajusta margin-top para a logo */}
-          <RestaurantLogo logoUrl={restaurant.image_url} size="lg" />
+    <div className="relative -mt-24 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
+      {/* Logo do Restaurante - Condicionalmente exibido para planos não-free */}
+      {restaurant.plan !== 'free' && logoUrl ? (
+        <img
+          src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
+          alt={`Logo de ${name}`}
+          className={cn(
+            "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white shadow-lg object-cover z-30",
+            logoSizeClasses
+          )}
+        />
+      ) : (
+        // Placeholder ou nada para planos free sem logo
+        <div className={cn(
+          "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30",
+          logoSizeClasses
+        )}>
+          <Utensils className={cn("text-gray-400", utensilsSizeClasses)} />
         </div>
+      )}
 
-        {/* Nome do Restaurante */}
-        <h1 className={cn("font-extrabold leading-tight text-primary", h1SizeClass, "mb-2")}>{restaurant.name}</h1>
+      <Card className={cn(
+        "pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border border-gray-300 text-left",
+        isCompact ? "pt-12" : "pt-16" // Ajusta o padding superior do card
+      )}>
+        <CardContent className="p-0 space-y-2">
+          <h1 className={cn(
+            "font-extrabold leading-tight text-primary",
+            isCompact ? "text-xl" : "text-3xl md:text-4xl" // Ajusta o tamanho do título
+          )}>{name}</h1>
+          
+          {/* Endereço e Status de Abertura alinhados */}
+          <div className="flex items-center gap-2">
+            {addressSummary && (
+              <p className={cn(
+                "flex items-center text-gray-600",
+                isCompact ? "text-xs" : "text-sm md:text-base" // Ajusta o tamanho do texto do endereço
+              )}>
+                <MapPin className={cn("mr-1 text-primary", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {addressSummary}
+              </p>
+            )}
+            {/* Status de Abertura */}
+            <span
+              className={cn(
+                "px-2 py-0.5 rounded-full text-xs font-semibold", // Ajusta padding para ser mais compacto
+                isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              )}
+            >
+              {statusText}
+            </span>
+          </div>
 
-        {/* Localização */}
-        <div className="flex items-center text-gray-600 text-sm mb-2">
-          <MapPin className="h-4 w-4 mr-1" />
-          <span>{restaurant.city}, {restaurant.state}</span>
-        </div>
-
-        {/* Seguidores e Botão Seguir */}
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Heart className="h-5 w-5 text-red-500" />
-          <span className="text-lg font-bold text-gray-800">{restaurant.followers_count || 0}</span>
-          <span className="text-gray-600">Seguidores</span>
-          <Button
-            variant={restaurant.is_favorite ? "outline" : "default"}
-            size="sm"
-            onClick={onFavoriteToggle}
-            disabled={isFavoriteMutating}
-            className="ml-2 px-4 py-2 rounded-full text-sm font-semibold"
-          >
-            {isFavoriteMutating ? "Carregando..." : (restaurant.is_favorite ? "Seguindo" : "Seguir")}
-          </Button>
-        </div>
-
-        {/* Status de Abertura */}
-        <p className={cn("text-sm font-medium mb-2", isOpen ? "text-green-600" : "text-red-600")}>
-          {statusText}
-        </p>
-      </div>
+          {/* Grupo de Seguidores e Botão Seguir */}
+          <div className="flex items-center justify-between pt-4">
+            <span className={cn(
+              "flex items-center text-gray-500",
+              isCompact ? "text-xs" : "text-sm" // Ajusta o tamanho do texto de seguidores
+            )}>
+              <Heart className={cn("mr-1 fill-gray-700 text-gray-700", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {followersCount} Seguidores
+            </span>
+            <Button
+              variant="highlight"
+              size="sm"
+              onClick={onFavoriteToggle}
+              disabled={isFavoriteMutating}
+              className={cn(
+                "px-3 py-1", // Ajusta padding do botão
+                isCompact ? "h-7 text-xs" : "h-9 text-sm" // Ajusta altura e tamanho da fonte do botão
+              )}
+            >
+              {isFavoriteMutating ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                isFavorite ? 'Seguindo' : 'Seguir'
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
