@@ -75,12 +75,24 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     );
   }
 
+  // Dados para o RestaurantProfileHeader (capa e logo)
+  const profileHeaderData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    coverImageUrl: restaurant.cover_image_url || '',
+    isPremium: restaurant.plan === 'premium',
+    isCompact: isCompact,
+  };
+
   return (
     <div className="relative min-h-screen bg-background-light">
-      {/* Novo cabeçalho fixo no topo - Renderiza apenas se NÃO for compacto */}
+      {/* Cabeçalho fixo da aplicação (seta de voltar, compartilhar) */}
       {!isCompact && <RestaurantPageHeader />}
 
-      {/* Main content container */}
+      {/* Capa do Restaurante (RestaurantProfileHeader) - Fora do container de largura limitada */}
+      <RestaurantProfileHeader restaurant={profileHeaderData} />
+
+      {/* Main content container - Agora com padding superior ajustado para o RestaurantPageHeader */}
       <div className={cn("max-w-md mx-auto", { "pt-16": !isCompact })}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' ? (
