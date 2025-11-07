@@ -100,11 +100,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   return (
     <div className="relative">
       
-      {/* 1. Cabeçalho Principal (Capa) - Fica fora para manter a largura total */}
-      <RestaurantProfileHeader
-        restaurant={headerData}
-      />
-      
       {/* 2. Container principal que centraliza e define a largura do conteúdo */}
       <div className="relative max-w-md mx-auto">
         {/* Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}

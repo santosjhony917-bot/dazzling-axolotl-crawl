@@ -44,7 +44,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   const utensilsSizeClasses = isCompact ? "w-8 h-8" : "w-12 h-12"; // Ajusta o ícone Utensils
 
   return (
-    <div className="relative -mt-16 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
+    <div className="relative -mt-24 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
       {/* Logo do Restaurante - Condicionalmente exibido para planos não-free */}
       {restaurant.plan !== 'free' && logoUrl ? (
         <img
