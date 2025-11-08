@@ -125,7 +125,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
         {/* Card de Informações Principais (com logo sobreposta) */}
         {/* Ajustado o -mt para puxar o card mais para cima e sobrepor a capa */}
-        <div className="relative -mt-32 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-32 para maior sobreposição */}
+        <div className="relative mt-0 z-20 px-4"> {/* Alterado de -mt-32 para mt-0 */}
           <RestaurantMainInfoCard
             restaurant={mainInfoCardData}
             onFavoriteToggle={toggleFavorite}
