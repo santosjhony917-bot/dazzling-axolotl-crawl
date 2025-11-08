@@ -1,26 +1,11 @@
 import React from 'react';
 
-const Logo = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    width="200"
-    height="50"
-    viewBox="0 0 200 50"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <text
-      x="50%"
-      y="50%"
-      dominantBaseline="middle"
-      textAnchor="middle"
-      fontFamily="Arial, sans-serif"
-      fontSize="24"
-      fontWeight="bold"
-      fill="#E47948"
-    >
-      Achei
-    </text>
-  </svg>
-);
+const Logo = () => {
+  return (
+    <div className="flex items-center justify-center h-12 w-12 bg-orange-100 rounded-lg text-orange-500 font-bold text-xl">
+      FF
+    </div>
+  );
+};
 
 export default Logo;
