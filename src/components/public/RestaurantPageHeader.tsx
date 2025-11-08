@@ -23,7 +23,6 @@ const RestaurantPageHeader: React.FC<RestaurantPageHeaderProps> = ({ restaurantN
       >
         <ArrowLeft className="h-5 w-5 text-gray-800" />
       </Button>
-      {restaurantName && <h2 className="text-lg font-semibold">{restaurantName}</h2>} {/* Opcional: exibir nome do restaurante */}
       <Button
         variant="ghost"
         size="icon"

@@ -53,7 +53,7 @@ const FreeProfileLayout = ({
     <div className="relative">
       {/* Conteúdo principal, ajustado para sobrepor a capa */}
       <div className={cn(
-        "relative z-10 mt-20" // Aplica margin-top para afastar o conteúdo do cabeçalho
+        "relative z-10"
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
         <div className="flex flex-col items-center text-center px-4 pb-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
@@ -86,7 +86,12 @@ const FreeProfileLayout = ({
               </Button>
             </div>
             {/* Exemplo de status de abertura, ajuste conforme sua implementação */}
-            <p className="text-green-600 text-sm font-medium mb-2">Aberto agora até 18:00</p> {/* Adicionado mb-4 para espaçamento */}
+            <p className={cn("text-sm font-medium mb-2", {
+              "text-green-600": restaurant.isOpen,
+              "text-red-600": !restaurant.isOpen,
+            })}>
+              {restaurant.statusText} {restaurant.nextOpenTime && `até ${restaurant.nextOpenTime}`}
+            </p>
           </div>
         </div>
 

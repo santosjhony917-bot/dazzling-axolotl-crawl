@@ -75,35 +75,26 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     );
   }
 
-  return (
-    <div className="relative min-h-screen bg-background-light">
-      {/* Novo cabeçalho fixo no topo */}
-      <RestaurantPageHeader />
+  const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
 
-      <div className={cn("max-w-md mx-auto")}>
-        {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
-        {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <PremiumProfileLayout
-              restaurant={restaurant as PublicRestaurantData}
-              toggleFavorite={toggleFollow}
-              isFavoriteMutating={isToggling}
-              isCompact={isCompact}
-            />
-          </motion.div>
+  return (
+    <div className="relative min-h-screen bg-gray-50">
+      <RestaurantPageHeader />
+      <div className="pt-16">
+        {isPremium ? (
+          <PremiumProfileLayout
+            restaurant={restaurant as PublicRestaurantData}
+            toggleFavorite={toggleFollow}
+            isFavoriteMutating={isToggling}
+            isCompact={isCompact}
+          />
         ) : (
-          <motion.div>
-            <FreeProfileLayout
-              restaurant={restaurant as PublicRestaurantData}
-              toggleFavorite={toggleFollow}
-              isFavoriteMutating={isToggling}
-              isCompact={isCompact}
-            />
-          </motion.div>
+          <FreeProfileLayout
+            restaurant={restaurant as PublicRestaurantData}
+            toggleFavorite={toggleFollow}
+            isFavoriteMutating={isToggling}
+            isCompact={isCompact}
+          />
         )}
       </div>
     </div>
