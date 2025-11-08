@@ -25,7 +25,7 @@ const RestaurantProfilePublic = ({
   simulatedPlan,
   isCompact: propIsCompact, // Renomear para evitar conflito com o estado interno
 }: RestaurantProfilePublicProps) => {
-  const { id: paramRestaurantId } = useParams<{ id: string }>();
+  const { restaurantId: paramRestaurantId } = useParams<{ restaurantId: string }>();
   // Usar initialRestaurantId se fornecido, caso contrário, usar o ID da URL
   const currentRestaurantId = initialRestaurantId || paramRestaurantId;
 
