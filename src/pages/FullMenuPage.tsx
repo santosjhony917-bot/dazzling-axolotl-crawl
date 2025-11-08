@@ -1,77 +1,63 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useParams } from 'react-router-dom';
+import { useMenuCategories } from '@/hooks/useMenuCategories';
+import RestaurantMenu from '@/components/public/RestaurantMenu';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Utensils } from 'lucide-react';
 import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
-import { createPageUrl } from '@/utils/url';
-import Header from '@/components/Header';
-import { Card, CardContent } from '@/components/ui/card';
-import RestaurantMenu from '@/components/public/RestaurantMenu'; // Reutiliza o componente de menu
+import RestaurantPageHeader from '@/components/public/RestaurantPageHeader';
 
-export default function FullMenuPage() {
+const FullMenuPage: React.FC = () => {
   const { restaurantId } = useParams<{ restaurantId: string }>();
-  const navigate = useNavigate();
-
-  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
-
-  const handleBack = () => navigate(-1);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-background-light">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+  
+  if (!restaurantId) {
+    return <div>Restaurante não encontrado.</div>;
   }
 
-  if (error || !restaurant) {
+  const { restaurant, isLoading: isLoadingRestaurant } = usePublicRestaurant(restaurantId);
+  const { data: menuCategories, isLoading: isLoadingMenu } = useMenuCategories(restaurantId);
+
+  if (isLoadingRestaurant || isLoadingMenu) {
     return (
-      <div className="p-8 text-center min-h-screen bg-background-light">
-        <Header 
-          title="Cardápio"
-          leftAction={{ icon: ArrowLeft, onClick: handleBack }}
-        />
-        <div className="pt-20">
-          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
-          <h1 className="text-xl font-semibold text-gray-700">Cardápio Não Encontrado</h1>
-          <p className="text-gray-500 mt-2">{error instanceof Error ? error.message : "O restaurante ou cardápio solicitado não existe."}</p>
-          <Button onClick={handleBack} className="mt-6">
-            Voltar
-          </Button>
+      <div className="p-4 space-y-6">
+        <Skeleton className="h-8 w-1/2" />
+        <div className="space-y-4">
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
         </div>
       </div>
     );
   }
-  
-  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
+
+  if (!restaurant) {
+    return <div>Restaurante não encontrado.</div>;
+  }
+
+  if (!menuCategories || menuCategories.length === 0) {
+    return (
+      <div className="p-4">
+        <RestaurantPageHeader restaurantName={restaurant.name} />
+        <div className="text-center p-6 mt-4 bg-white rounded-xl shadow-sm">
+          <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+          <p className="text-gray-600">O cardápio deste restaurante está vazio no momento.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-background-light max-w-md mx-auto">
-      <Header 
-        title={`Cardápio: ${restaurant.name}`}
-        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
-      />
-      
-      <main className="p-4 space-y-6">
-        <Card className="shadow-soft-md border-none rounded-xl p-4">
-          <CardContent className="p-0 flex items-center gap-3">
-            <Utensils className="w-6 h-6 text-primary" />
-            <h1 className="text-xl font-bold text-primary">Cardápio Completo</h1>
-          </CardContent>
-        </Card>
-        
-        {hasMenu ? (
-          <RestaurantMenu 
-            menuCategories={restaurant.menu_categories} 
-            isFullMenuPage={true} // Nova prop para indicar que é a página completa
-          />
-        ) : (
-          <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
-            <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
-          </Card>
-        )}
-      </main>
+    <div className="p-4">
+      <RestaurantPageHeader restaurantName={restaurant.name} />
+      <div className="mt-4">
+        <RestaurantMenu 
+          menuCategories={menuCategories} 
+          isFullMenuPage={true} 
+          restaurantId={restaurantId}
+        />
+      </div>
     </div>
   );
-}
+};
+
+export default FullMenuPage;
