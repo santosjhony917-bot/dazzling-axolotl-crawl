@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Utensils, Edit, Loader2, Notebook, Copy } from 'lucide-react';
+import { Utensils, Edit, Loader2, Notebook, Copy, Trash2 } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import { Restaurant, RestaurantPlan, VisitStatus } from '@/types/supabase';
 import VisitNotesDialog from '@/components/admin/VisitNotesDialog';
 import { showSuccess } from '@/utils/toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import ConfirmationDialog from '@/components/ConfirmationDialog';
 
 const visitStatusOptions: VisitStatus[] = [
   'Pendente',
@@ -47,6 +48,8 @@ export default function AdminRestaurants() {
   const [filters, setFilters] = useState({ city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
+  const [restaurantToDelete, setRestaurantToDelete] = useState<Restaurant | null>(null);
+  const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] = useState(false);
 
   const {
     restaurants,
@@ -56,6 +59,8 @@ export default function AdminRestaurants() {
     isUpdatingStatus,
     updateNotes,
     isUpdatingNotes,
+    deleteRestaurant,
+    isDeletingRestaurant,
   } = useAdminRestaurants(filters);
 
   const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
@@ -81,6 +86,25 @@ export default function AdminRestaurants() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     showSuccess('Código copiado para a área de transferência!');
+  };
+
+  const handleOpenDeleteConfirm = (restaurant: Restaurant) => {
+    setRestaurantToDelete(restaurant);
+    setIsConfirmDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteConfirm = () => {
+    setRestaurantToDelete(null);
+    setIsConfirmDeleteDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!restaurantToDelete) return;
+    deleteRestaurant(restaurantToDelete.id, {
+      onSuccess: () => {
+        handleCloseDeleteConfirm();
+      },
+    });
   };
 
   const uniqueStates = useMemo(() => {
@@ -251,6 +275,15 @@ export default function AdminRestaurants() {
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => handleOpenDeleteConfirm(restaurant)}
+                          disabled={isDeletingRestaurant}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))
@@ -269,6 +302,19 @@ export default function AdminRestaurants() {
           initialNotes={selectedRestaurant.visit_notes}
           onSave={handleSaveNotes}
           isSaving={isUpdatingNotes}
+        />
+      )}
+
+      {restaurantToDelete && (
+        <ConfirmationDialog
+          isOpen={isConfirmDeleteDialogOpen}
+          onClose={handleCloseDeleteConfirm}
+          onConfirm={handleConfirmDelete}
+          title={`Remover ${restaurantToDelete.name}?`}
+          description="Esta ação é irreversível. Todos os dados do restaurante, incluindo cardápios e galerias, serão permanentemente removidos. Tem certeza que deseja continuar?"
+          confirmText="Sim, remover"
+          cancelText="Cancelar"
+          isLoading={isDeletingRestaurant}
         />
       )}
     </div>

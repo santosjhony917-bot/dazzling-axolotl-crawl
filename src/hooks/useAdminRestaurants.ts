@@ -98,6 +98,15 @@ const updateRestaurantVisitNotes = async ({ restaurantId, newNotes }: UpdateNote
   if (error) throw new Error(error.message);
 };
 
+const deleteRestaurant = async (restaurantId: string): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .delete()
+    .eq('id', restaurantId);
+
+  if (error) throw new Error(error.message);
+};
+
 export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   const queryClient = useQueryClient();
 
@@ -151,6 +160,17 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     },
   });
 
+  const deleteRestaurantMutation = useMutation({
+    mutationFn: deleteRestaurant,
+    onSuccess: () => {
+      showSuccess('Restaurante removido com sucesso!');
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+    },
+    onError: (error) => {
+      showError(`Falha ao remover restaurante: ${error.message}`);
+    },
+  });
+
   return {
     restaurants: restaurantsQuery.data || [],
     isLoading: restaurantsQuery.isLoading,
@@ -163,6 +183,8 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     isUpdatingStatus: updateStatusMutation.isPending,
     updateNotes: updateNotesMutation.mutate,
     isUpdatingNotes: updateNotesMutation.isPending,
+    deleteRestaurant: deleteRestaurantMutation.mutate,
+    isDeletingRestaurant: deleteRestaurantMutation.isPending,
     refetch: restaurantsQuery.refetch,
   };
 }
