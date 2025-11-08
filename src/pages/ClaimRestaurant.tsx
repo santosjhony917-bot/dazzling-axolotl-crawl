@@ -168,18 +168,18 @@ const ClaimRestaurant = () => {
                   variables: {
                     default: {
                       colors: {
-                        brand: 'hsl(var(--highlight))',
-                        brandAccent: 'hsl(var(--highlight))',
+                        brand: '#E47948',
+                        brandAccent: '#E47948',
                         brandButtonText: 'white',
                         defaultButtonBackground: 'white',
                         defaultButtonBackgroundHover: '#f2f2f2',
                         defaultButtonBorder: '#e5e7eb',
                         defaultButtonText: '#1f2937',
                         inputBorder: '#e5e7eb',
-                        inputBorderHover: 'hsl(var(--highlight))',
-                        inputBorderFocus: 'hsl(var(--highlight))',
-                        anchorTextColor: 'hsl(var(--primary))',
-                        anchorTextHoverColor: 'hsl(var(--highlight))',
+                        inputBorderHover: '#E47948',
+                        inputBorderFocus: '#E47948',
+                        anchorTextColor: '#022D68',
+                        anchorTextHoverColor: '#E47948',
                       },
                       radii: {
                         borderRadiusButton: '12px',
