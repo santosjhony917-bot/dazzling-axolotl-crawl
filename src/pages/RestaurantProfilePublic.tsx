@@ -52,12 +52,16 @@ interface PublicRestaurantData {
 
 const RestaurantProfilePublic = () => {
   const { id } = useParams<{ id: string }>();
+  const { restaurantId } = useParams<{ restaurantId: string }>();
   const queryClient = useQueryClient();
   const [isFavorite, setIsFavorite] = useState(false); // Placeholder for favorite state
 
   const { data: restaurant, isLoading, error } = useQuery<PublicRestaurantData>({
-    queryKey: ["restaurantPublic", id],
+    queryKey: ["restaurantPublic", restaurantId],
     queryFn: async () => {
+      if (!restaurantId) {
+        throw new Error("ID do restaurante é obrigatório.");
+      }
       const { data, error } = await supabase
         .from("restaurants")
         .select(
@@ -70,11 +74,12 @@ const RestaurantProfilePublic = () => {
           restaurant_gallery (*)
         `
         )
-        .eq("id", id)
+        .eq("id", restaurantId)
         .single();
       if (error) throw error;
       return data;
     },
+    enabled: !!restaurantId,
   });
 
   // Placeholder for favorite mutation
@@ -86,7 +91,7 @@ const RestaurantProfilePublic = () => {
     onSuccess: () => {
       setIsFavorite((prev) => !prev);
       toast.success(isFavorite ? "Removido dos favoritos!" : "Adicionado aos favoritos!");
-      queryClient.invalidateQueries({ queryKey: ["restaurantPublic", id] });
+      queryClient.invalidateQueries({ queryKey: ["restaurantPublic", restaurantId] });
     },
     onError: () => {
       toast.error("Erro ao atualizar favoritos.");
