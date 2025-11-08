@@ -163,7 +163,7 @@ const UpgradePageContent: React.FC = () => {
             setPreviewPlan={setPreviewPlan} 
           />
 
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-x-hidden">
             <motion.div
               key={previewPlan}
               initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
