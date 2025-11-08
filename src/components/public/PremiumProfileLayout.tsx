@@ -120,9 +120,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           isCompact={isCompact} // PASSA A PROP isCompact
         />
 
-        <div className={cn("pb-8", containerPxClass)}> {/* Remove max-w e mx-auto daqui */}
+        <div className={cn("pb-8", containerPxClass, "pt-[96px]")}> {/* Adiciona padding superior para empurrar o conteúdo para baixo */}
           {/* Conteúdo Principal */}
-          <div className="mt-4 space-y-6">
+          <div className="space-y-6"> {/* Remove o mt-4, pois o padding superior já lida com o espaçamento */}
             
             {/* Description */}
             {restaurant.description && (

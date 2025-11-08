@@ -14,6 +14,7 @@ import FreeProfileLayout from "@/components/public/FreeProfileLayout";
 import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // Importar o novo cabeçalho
 import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
 import { PublicRestaurantData } from "@/types/restaurant";
+import { cn } from "@/lib/utils";
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string;
@@ -91,7 +92,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         />
       )}
 
-      <div className="max-w-md mx-auto">
+      <div className={cn("max-w-md mx-auto", currentPlan === 'premium' && "mt-[-96px]")}>
         {/* O RestaurantProfileHeader foi movido para fora deste div */}
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' ? (
