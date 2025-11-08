@@ -25,7 +25,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["vite/client"]
+    "types": ["vite/client", "@types/hello-pangea-dnd"] // Adicionado explicitamente aqui
   },
   "include": ["src"],
   "exclude": ["node_modules", "supabase"]
