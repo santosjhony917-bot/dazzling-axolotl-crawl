@@ -184,6 +184,7 @@ export default function AdminRestaurants() {
                   <TableHead>Local</TableHead>
                   <TableHead>Código</TableHead>
                   <TableHead>Plano</TableHead>
+                  <TableHead>Reivindicado</TableHead>
                   <TableHead>Status Visita</TableHead>
                   <TableHead>Anotações</TableHead>
                   <TableHead>Ações</TableHead>
@@ -192,14 +193,14 @@ export default function AdminRestaurants() {
               <TableBody>
                 {isLoading && (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center py-4">
+                    <TableCell colSpan={8} className="text-center py-4">
                       <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                     </TableCell>
                   </TableRow>
                 )}
                 {!isLoading && restaurants.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center py-4 text-muted-foreground">
+                    <TableCell colSpan={8} className="text-center py-4 text-muted-foreground">
                       Nenhum restaurante encontrado com os filtros aplicados.
                     </TableCell>
                   </TableRow>
@@ -226,6 +227,18 @@ export default function AdminRestaurants() {
                           }
                         >
                           {planLabels[restaurant.plan]}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant="outline"
+                          className={
+                            restaurant.user_id
+                              ? 'border-green-500 text-green-700 bg-green-50'
+                              : 'border-gray-400 text-gray-600 bg-white'
+                          }
+                        >
+                          {restaurant.user_id ? 'Sim' : 'Não'}
                         </Badge>
                       </TableCell>
                       <TableCell>
