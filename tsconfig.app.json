@@ -25,7 +25,6 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-    // Removendo a propriedade 'types' para permitir a descoberta automática de tipos
   },
   "include": ["src"],
   "exclude": ["node_modules", "supabase"]
