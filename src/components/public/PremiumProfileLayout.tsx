@@ -134,7 +134,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           />
         </div>
 
-        <div className={cn("pb-8", containerPxClass, "pt-[96px]")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
+        <div className={cn("pb-8", containerPxClass, "pt-16")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
           {/* Conteúdo Principal */}
           <div className="space-y-6">
             
