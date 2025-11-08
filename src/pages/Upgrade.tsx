@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
 import { useAuthData } from '@/context/AuthContext';
@@ -163,39 +163,41 @@ const UpgradePageContent: React.FC = () => {
             setPreviewPlan={setPreviewPlan} 
           />
 
-          <div className="relative overflow-x-hidden">
-            <motion.div
-              key={previewPlan}
-              initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
-              transition={{ duration: 0.3 }}
-            >
-              {!isRestaurantIdAvailable ? (
-                <Alert variant="destructive" className="mb-4">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertTitle>Restaurante Não Encontrado</AlertTitle>
-                  <AlertDescription>
-                    Não foi possível carregar a prévia. Certifique-se de que seu restaurante está cadastrado e associado à sua conta.
-                  </AlertDescription>
-                </Alert>
-              ) : (
-                previewPlan === 'free' ? (
-                  <FreeProfileLayout
-                    restaurant={mockFreeRestaurant as PublicRestaurantData}
-                    toggleFavorite={() => { /* no-op for mock */ }}
-                    isFavoriteMutating={false}
-                    isCompact={true}
-                  />
+          <div className="relative overflow-x-hidden min-h-[200px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={previewPlan}
+                initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                {!isRestaurantIdAvailable ? (
+                  <Alert variant="destructive" className="mb-4">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertTitle>Restaurante Não Encontrado</AlertTitle>
+                    <AlertDescription>
+                      Não foi possível carregar a prévia. Certifique-se de que seu restaurante está cadastrado e associado à sua conta.
+                    </AlertDescription>
+                  </Alert>
                 ) : (
-                  <img 
-                    src={premiumProfilePreviewUrl} 
-                    alt="Prévia do Perfil Premium" 
-                    className="w-full h-auto rounded-lg shadow-md border" 
-                  />
-                )
-              )}
-            </motion.div>
+                  previewPlan === 'free' ? (
+                    <FreeProfileLayout
+                      restaurant={mockFreeRestaurant as PublicRestaurantData}
+                      toggleFavorite={() => { /* no-op for mock */ }}
+                      isFavoriteMutating={false}
+                      isCompact={true}
+                    />
+                  ) : (
+                    <img 
+                      src={premiumProfilePreviewUrl} 
+                      alt="Prévia do Perfil Premium" 
+                      className="w-full h-auto rounded-lg shadow-md border" 
+                    />
+                  )
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-6">
