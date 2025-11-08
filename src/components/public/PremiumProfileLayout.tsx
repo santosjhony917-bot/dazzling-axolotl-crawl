@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import RestaurantLogo from './RestaurantLogo';
+import RestaurantLogo, { RestaurantLogoProps } from './RestaurantLogo';
 import { cn } from '@/lib/utils';
 
 // Interface minimalista para as props do restaurante que o layout realmente utiliza
