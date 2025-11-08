@@ -1,43 +1,30 @@
-import { WeekSchedule } from '@/types/schedule';
+import { WeekSchedule, DaySchedule } from '@/types/schedule';
 
-/**
- * Formats the WeekSchedule object into an array of strings suitable for display.
- * @param schedule The WeekSchedule object.
- * @returns An array of strings, one for each day/schedule line.
- */
-export function formatScheduleForDisplay(schedule: WeekSchedule | null | undefined): string[] {
-  if (!schedule) {
-    return ["Horário não disponível."];
-  }
-
-  const daysOrder: (keyof WeekSchedule)[] = [
-    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-  ];
-
-  const dayNames: Record<keyof WeekSchedule, string> = {
-    monday: 'Segunda',
-    tuesday: 'Terça',
-    wednesday: 'Quarta',
-    thursday: 'Quinta',
-    friday: 'Sexta',
-    saturday: 'Sábado',
-    sunday: 'Domingo',
-  };
-
-  const displayLines: string[] = [];
-
-  for (const dayKey of daysOrder) {
-    const daySchedule = schedule[dayKey];
-    const dayName = dayNames[dayKey];
-
-    if (daySchedule.isOpen) {
-      // Usando slot.start e slot.end
-      const timeSlots = daySchedule.slots.map(slot => `${slot.start} - ${slot.end}`).join(', ');
-      displayLines.push(`${dayName}: ${timeSlots}`);
-    } else {
-      displayLines.push(`${dayName}: Fechado`);
-    }
-  }
-
-  return displayLines;
+interface RawDaySchedule {
+  day: string;
+  open: string | null;
+  close: string | null;
+  is_open: boolean;
 }
+
+export const convertRawScheduleToWeekSchedule = (rawSchedule: RawDaySchedule[]): WeekSchedule => {
+  const weekSchedule: Partial<WeekSchedule> = {};
+
+  rawSchedule.forEach(dayData => {
+    const dayKey = dayData.day.toLowerCase() as keyof WeekSchedule;
+    weekSchedule[dayKey] = {
+      isOpen: dayData.is_open,
+      slots: dayData.is_open && dayData.open && dayData.close ? [{ start: dayData.open, end: dayData.close }] : [],
+    };
+  });
+
+  // Ensure all days are present, even if empty
+  const daysOfWeek: (keyof WeekSchedule)[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+  daysOfWeek.forEach(day => {
+    if (!weekSchedule[day]) {
+      weekSchedule[day] = { isOpen: false, slots: [] };
+    }
+  });
+
+  return weekSchedule as WeekSchedule;
+};

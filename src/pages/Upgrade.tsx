@@ -11,6 +11,10 @@ import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPage
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
 import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
 import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
+import FreeProfileLayout from '@/components/public/FreeProfileLayout'; // Importar FreeProfileLayout
+import PremiumProfileLayout from '@/components/public/PremiumProfileLayout'; // Importar PremiumProfileLayout
+import { mockFreeRestaurant, mockPremiumRestaurant } from '@/data/mockRestaurants'; // Importar dados mockados
+import { PublicRestaurantData } from '@/types/restaurant'; // Importar tipo para os dados mockados
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -100,7 +104,7 @@ const UpgradePageContent: React.FC = () => {
   };
 
   // Verifica se o ID do restaurante do usuário logado está disponível
-  const isRestaurantIdAvailable = !!restaurant?.id;
+  const isRestaurantIdAvailable = !!restaurant?.id; // Manter para o alerta, mas não para a lógica da prévia
 
   return (
     <div className="min-h-screen bg-white dark:bg-background-dark">
@@ -188,9 +192,19 @@ const UpgradePageContent: React.FC = () => {
                 </Alert>
               ) : (
                 previewPlan === 'free' ? (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="free" isCompact={true} />
+                  <FreeProfileLayout
+                    restaurant={mockFreeRestaurant as PublicRestaurantData}
+                    toggleFavorite={() => { /* no-op for mock */ }}
+                    isFavoriteMutating={false}
+                    isCompact={true}
+                  />
                 ) : (
-                  <RestaurantProfilePublic initialRestaurantId={restaurant.id} simulatedPlan="premium" isCompact={true} />
+                  <PremiumProfileLayout
+                    restaurant={mockPremiumRestaurant as PublicRestaurantData}
+                    toggleFavorite={() => { /* no-op for mock */ }}
+                    isFavoriteMutating={false}
+                    isCompact={true}
+                  />
                 )
               )}
             </motion.div>
