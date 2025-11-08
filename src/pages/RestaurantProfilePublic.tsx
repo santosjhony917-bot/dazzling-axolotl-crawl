@@ -58,46 +58,51 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
     const fetchRestaurantData = async () => {
       setLoading(true);
-      const { data: restaurantData, error: restaurantError } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('id', restaurantIdToFetch)
-        .single();
+      try {
+        const { data: restaurantData, error: restaurantError } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('id', restaurantIdToFetch)
+          .single();
 
-      if (restaurantError) {
-        setError(restaurantError.message);
+        if (restaurantError) {
+          setError(restaurantError.message);
+          return;
+        }
+        setRestaurant(restaurantData);
+
+        const { data: categoriesData, error: categoriesError } = await supabase
+          .from('menu_categories')
+          .select('*, menu_items(*)')
+          .eq('restaurant_id', restaurantIdToFetch)
+          .order('order_index', { ascending: true })
+          .order('order_index', { foreignTable: 'menu_items', ascending: true });
+
+        if (categoriesError) {
+          setError(categoriesError.message);
+          return;
+        }
+        setMenuCategories(categoriesData);
+
+        const { data: galleryData, error: galleryError } = await supabase
+          .from('restaurant_gallery')
+          .select('*')
+          .eq('restaurant_id', restaurantIdToFetch)
+          .order('order_index', { ascending: true });
+
+        if (galleryError) {
+          console.error("Error fetching gallery:", galleryError);
+          // Don't set global error for gallery, just log it.
+          // The app can still render without gallery.
+        } else {
+          setGallery(galleryData);
+        }
+      } catch (e) {
+        console.error("Unhandled error during data fetching:", e);
+        setError("Ocorreu um erro inesperado ao carregar os dados.");
+      } finally {
         setLoading(false);
-        return;
       }
-      setRestaurant(restaurantData);
-
-      const { data: categoriesData, error: categoriesError } = await supabase
-        .from('menu_categories')
-        .select('*, menu_items(*)')
-        .eq('restaurant_id', restaurantIdToFetch)
-        .order('order_index', { ascending: true })
-        .order('order_index', { foreignTable: 'menu_items', ascending: true });
-
-      if (categoriesError) {
-        setError(categoriesError.message);
-        setLoading(false);
-        return;
-      }
-      setMenuCategories(categoriesData);
-
-      const { data: galleryData, error: galleryError } = await supabase
-        .from('restaurant_gallery')
-        .select('*')
-        .eq('restaurant_id', restaurantIdToFetch)
-        .order('order_index', { ascending: true });
-
-      if (galleryError) {
-        console.error("Error fetching gallery:", galleryError);
-      } else {
-        setGallery(galleryData);
-      }
-
-      setLoading(false);
     };
 
     fetchRestaurantData();
