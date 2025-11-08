@@ -102,7 +102,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
           >
             <PremiumProfileLayout 
               restaurant={restaurant as PublicRestaurantData} 
-              toggleFavorite={toggleFollow} 
+              onFavoriteToggle={toggleFollow} 
               isFavoriteMutating={isToggling}
               isCompact={isCompact}
             />
@@ -115,7 +115,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
           >
             <FreeProfileLayout 
               restaurant={restaurant as PublicRestaurantData} 
-              toggleFavorite={toggleFollow} 
+              onFavoriteToggle={toggleFollow} 
               isFavoriteMutating={isToggling}
               isCompact={isCompact}
             />
