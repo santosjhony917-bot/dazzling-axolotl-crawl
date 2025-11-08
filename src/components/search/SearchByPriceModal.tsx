@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { DollarSign } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
+import { Slider } from '@/components/ui/slider';
 
 interface SearchByPriceModalProps {
   isOpen: boolean;
@@ -13,17 +14,17 @@ interface SearchByPriceModalProps {
 }
 
 const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose, onApplyFilter }) => {
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(100);
+  const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
 
   useEffect(() => {
     if (isOpen) {
-      // Resetar valores ao abrir, se necessário, ou manter o último estado
+      // Opcional: resetar para valores padrão ou manter o último estado
+      // setPriceRange([0, 200]); 
     }
   }, [isOpen]);
 
   const handleApply = () => {
-    onApplyFilter(minPrice, maxPrice);
+    onApplyFilter(priceRange[0], priceRange[1]);
     onClose();
   };
 
@@ -37,27 +38,22 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
           </DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="minPrice" className="text-primary font-medium">Preço Mínimo ({formatPrice(minPrice)})</Label>
-            <Input
-              id="minPrice"
-              type="number"
-              value={minPrice}
-              onChange={(e) => setMinPrice(Math.max(0, parseFloat(e.target.value) || 0))}
-              min="0"
-              className="h-10 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+          <div className="space-y-4">
+            <Label htmlFor="priceRange" className="text-primary font-medium">
+              Faixa de Preço: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
+            </Label>
+            <Slider
+              id="priceRange"
+              min={0}
+              max={200}
+              step={1}
+              value={priceRange}
+              onValueChange={setPriceRange}
+              className="w-full"
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="maxPrice" className="text-primary font-medium">Preço Máximo ({formatPrice(maxPrice)})</Label>
-            <Input
-              id="maxPrice"
-              type="number"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Math.max(minPrice, parseFloat(e.target.value) || minPrice))}
-              min={minPrice}
-              className="h-10 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-sm"
-            />
+            <p className="text-sm text-gray-500 mt-2">
+              A busca será limitada a pratos com preço entre {formatPrice(priceRange[0])} e {formatPrice(priceRange[1])}.
+            </p>
           </div>
         </div>
         <DialogFooter>
