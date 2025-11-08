@@ -24,8 +24,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "types": ["vite/client", "@types/hello-pangea-dnd"] // Adicionado explicitamente aqui
+    }
+    // Removendo a propriedade 'types' para permitir a descoberta automática de tipos
   },
   "include": ["src"],
   "exclude": ["node_modules", "supabase"]
