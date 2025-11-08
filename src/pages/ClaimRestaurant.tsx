@@ -133,38 +133,38 @@ const ClaimRestaurant = () => {
       },
       // Custom styles for specific elements to match shadcn/ui components
       variables: { // Accessing nested variables for styling
-        ...ThemeSupa.variables,
+        ...ThemeSupa.default.variables,
         button: {
-          ...ThemeSupa.variables.button,
+          ...ThemeSupa.default.variables.button,
           fontWeight: '700', // font-bold
           fontSize: '1rem', // text-base
           padding: '0.75rem 1.5rem', // Adjust padding to get closer to h-12 (48px)
           boxShadow: '0 8px 20px rgba(204, 102, 64, 0.4)', // shadow-highlight-glow (approximate)
         },
         input: {
-          ...ThemeSupa.variables.input,
+          ...ThemeSupa.default.variables.input,
           fontSize: '1rem', // text-base
           padding: '1rem 1rem', // Adjust padding to get closer to h-14 (56px)
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)', // shadow-soft-sm (approximate)
         },
         anchor: {
-          ...ThemeSupa.variables.anchor,
+          ...ThemeSupa.default.variables.anchor,
           fontWeight: '500', // font-medium
           fontSize: '0.875rem', // text-sm
         },
         label: {
-          ...ThemeSupa.variables.label,
+          ...ThemeSupa.default.variables.label,
           fontWeight: '500', // font-medium
           fontSize: '0.875rem', // text-sm
           color: 'hsl(var(--primary))', // text-primary
         },
         message: { // For error messages
-          ...ThemeSupa.variables.message,
+          ...ThemeSupa.default.variables.message,
           color: '#EF4444', // text-red-500
           fontSize: '0.875rem', // text-sm
         },
         divider: { // For the 'or' separator
-          ...ThemeSupa.variables.divider,
+          ...ThemeSupa.default.variables.divider,
           color: 'hsl(var(--border))', // border-gray-200
           background: 'hsl(var(--background))', // bg-white
           fontSize: '0.75rem', // text-xs
