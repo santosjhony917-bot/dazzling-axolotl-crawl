@@ -82,7 +82,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
       <div className={cn("max-w-md mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
-        {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
+        {currentPlan === 'premium' ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

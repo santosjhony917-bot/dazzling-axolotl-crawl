@@ -1,27 +1,52 @@
-"use client";
-
-import React from "react";
-import { PublicRestaurantData } from "@/types/restaurant";
-import { GalleryImage } from "@/types/supabase";
+import React from 'react';
+import { Loader2, AlertTriangle } from 'lucide-react';
+import { usePublicGallery } from '@/hooks/usePublicGallery';
+import PhotoGalleryDisplay from '@/components/PhotoGalleryDisplay';
+import { RestaurantPlan } from '@/types/supabase';
 
 interface RestaurantGallerySectionProps {
+  id: string;
   restaurantId: string;
-  gallery_images: GalleryImage[];
+  plan: RestaurantPlan;
 }
 
-const RestaurantGallerySection: React.FC<RestaurantGallerySectionProps> = ({ restaurantId, gallery_images }) => {
-  if (!gallery_images || gallery_images.length === 0) {
+const RestaurantGallerySection: React.FC<RestaurantGallerySectionProps> = ({ id, restaurantId, plan }) => {
+  const { gallery, isLoading, error } = usePublicGallery(restaurantId);
+  
+  const isPremium = plan === 'premium' || plan === 'premium_gift';
+  
+  if (!isPremium) {
+    return null;
+  }
+
+  if (isLoading) {
+    return (
+      <div id={id} className="flex justify-center items-center p-4">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div id={id} className="text-center p-4 bg-red-50 border-red-300 rounded-lg">
+        <AlertTriangle className="h-6 w-6 text-red-500 mx-auto" />
+        <p className="text-sm text-red-700 mt-2">Falha ao carregar a galeria.</p>
+      </div>
+    );
+  }
+  
+  if (gallery.length === 0) {
     return null;
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Galeria</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {gallery_images.map((item) => (
-          <img key={item.id} src={item.image_url} alt={item.caption || "Imagem da galeria"} className="w-full h-32 object-cover rounded-lg" />
-        ))}
-      </div>
+    <div id={id}>
+      <PhotoGalleryDisplay 
+        gallery={gallery} 
+        restaurantName={gallery?.[0]?.caption || "Restaurante"} 
+        isLoading={isLoading}
+      />
     </div>
   );
 };
