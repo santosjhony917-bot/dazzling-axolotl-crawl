@@ -45,7 +45,7 @@ const planLabels: Record<RestaurantPlan | 'all', string> = {
 
 export default function AdminRestaurants() {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState({ city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
+  const [filters, setFilters] = useState({ name: '', city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
   const [restaurantToDelete, setRestaurantToDelete] = useState<Restaurant | null>(null);
@@ -133,7 +133,12 @@ export default function AdminRestaurants() {
 
       <Card className="shadow-soft-lg border-none rounded-xl bg-white">
         <CardContent className="p-6 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <Input
+              placeholder="Filtrar por nome..."
+              value={filters.name}
+              onChange={(e) => handleFilterChange('name', e.target.value)}
+            />
             <Input
               placeholder="Filtrar por cidade..."
               value={filters.city}

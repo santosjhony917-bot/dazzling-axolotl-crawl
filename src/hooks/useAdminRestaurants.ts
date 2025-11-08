@@ -26,6 +26,7 @@ interface UpdateNotesPayload {
 }
 
 interface FetchRestaurantsFilters {
+  name?: string;
   city?: string;
   state?: string;
   plan?: string;
@@ -39,6 +40,9 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
     .select('*')
     .order('created_at', { ascending: false });
 
+  if (filters.name) {
+    query = query.ilike('name', `%${filters.name}%`);
+  }
   if (filters.city) {
     query = query.ilike('city', `%${filters.city}%`);
   }
