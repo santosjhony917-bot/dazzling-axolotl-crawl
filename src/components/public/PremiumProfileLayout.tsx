@@ -112,13 +112,27 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           paddingClass={containerPxClass} // Passa a classe de padding para o componente
         />
 
-        {/* Card de Informações Principais (com logo sobreposta) */}
-        <RestaurantMainInfoCard
-          restaurant={mainInfoCardData}
-          onFavoriteToggle={toggleFavorite}
-          isFavoriteMutating={isFavoriteMutating}
-          isCompact={isCompact} // PASSA A PROP isCompact
+        {/* NOVO: Componente de capa (agora renderizado aqui) */}
+        <RestaurantProfileHeader 
+          restaurant={{ 
+            id: restaurant.id, 
+            name: restaurant.name, 
+            coverImageUrl: restaurant.cover_image_url, 
+            isPremium: true,
+            isCompact: isCompact,
+          }} 
         />
+
+        {/* Card de Informações Principais (com logo sobreposta) */}
+        {/* Ajustar o -mt para puxar o card mais para cima e sobrepor a capa */}
+        <div className="relative -mt-16 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-16 para maior sobreposição */}
+          <RestaurantMainInfoCard
+            restaurant={mainInfoCardData}
+            onFavoriteToggle={toggleFavorite}
+            isFavoriteMutating={isFavoriteMutating}
+            isCompact={isCompact} // PASSA A PROP isCompact
+          />
+        </div>
 
         <div className={cn("pb-8", containerPxClass, "pt-[96px]")}> {/* Adiciona padding superior para empurrar o conteúdo para baixo */}
           {/* Conteúdo Principal */}

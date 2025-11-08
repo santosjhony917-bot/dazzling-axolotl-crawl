@@ -80,20 +80,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
       {/* Novo cabeçalho fixo no topo */}
       <RestaurantPageHeader />
 
-      {/* Componente de capa (agora renderizado diretamente aqui, fora do container de conteúdo) */}
-      {currentPlan === 'premium' && (
-        <RestaurantProfileHeader 
-          restaurant={{ 
-            id: restaurant.id, 
-            name: restaurant.name, 
-            coverImageUrl: restaurant.cover_image_url, 
-            isPremium: true // Sempre true aqui, pois só renderiza para premium
-          }} 
-        />
-      )}
-
-      <div className={cn("max-w-md mx-auto", currentPlan === 'premium' && "mt-[-96px]")}>
-        {/* O RestaurantProfileHeader foi movido para fora deste div */}
+      <div className={cn("max-w-md mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' ? (
           <motion.div

@@ -10,6 +10,7 @@ interface RestaurantProfileHeaderProps {
     name: string;
     coverImageUrl?: string | null;
     isPremium: boolean;
+    isCompact?: boolean; // Adicionado
   };
 }
 
