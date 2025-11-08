@@ -12,22 +12,22 @@ import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import OrderChannelsSection from './OrderChannelsSection';
 import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantActionsBar from './RestaurantActionsBar'; // CORRIGIDO: Importando o componente renomeado
-import RestaurantProfileHeader from './RestaurantProfileHeader'; // NOVO: Componente principal
+import RestaurantActionsBar from './RestaurantActionsBar';
+import RestaurantProfileHeader from './RestaurantProfileHeader';
 import { motion } from 'framer-motion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection'; // NOVO IMPORT
-import RestaurantInfo from './RestaurantInfo'; // Componente refatorado para Contato/Links
-import RestaurantMainInfoCard from './RestaurantMainInfoCard'; // NOVO IMPORT
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantMainInfoCard from './RestaurantMainInfoCard';
 import AdditionalInfo from './AdditionalInfo';
 import { isRestaurantOpen } from "@/lib/utils";
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
-  toggleFavorite: () => void; // NOVO
-  isFavoriteMutating: boolean; // NOVO
-  isCompact?: boolean; // NOVO: Prop para modo compacto
+  toggleFavorite: () => void;
+  isFavoriteMutating: boolean;
+  isCompact?: boolean;
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
@@ -66,9 +66,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const headerData = {
     id: restaurant.id,
     name: restaurant.name,
-    coverImageUrl: restaurant.cover_image_url || '', // Adicionado coverImageUrl
-    isPremium: true, // CORREÇÃO: Adicionado isPremium
-    isCompact: isCompact, // NOVO: Passa a prop isCompact
+    coverImageUrl: restaurant.cover_image_url || '',
+    isPremium: true,
+    isCompact: isCompact,
   };
   
   // Dados para o novo RestaurantMainInfoCard
@@ -81,7 +81,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     isFavorite: restaurant.is_favorite,
     isOpen: restaurant.isOpen,
     statusText: restaurant.statusText,
-    plan: restaurant.plan, // Adicionado 'plan'
+    plan: restaurant.plan,
   };
 
   // Verifica se há conteúdo para as abas
@@ -93,9 +93,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
   
   // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0); // Lógica atualizada para hasInfo
+  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0);
 
-  const containerPxClass = isCompact ? "px-3" : "px-4"; // Reduz o padding horizontal do container principal
+  const containerPxClass = isCompact ? "px-3" : "px-4";
 
   return (
     <div className="relative">
@@ -109,7 +109,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           isFavoriteMutating={isFavoriteMutating}
           onShare={handleShare}
           onBack={() => navigate(-1)}
-          paddingClass={containerPxClass} // Passa a classe de padding para o componente
+          paddingClass={containerPxClass}
         />
 
         {/* NOVO: Componente de capa (agora renderizado aqui) */}
@@ -124,19 +124,19 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         />
 
         {/* Card de Informações Principais (com logo sobreposta) */}
-        {/* Ajustar o -mt para puxar o card mais para cima e sobrepor a capa */}
-        <div className="relative -mt-16 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-16 para maior sobreposição */}
+        {/* Ajustado o -mt para puxar o card mais para cima e sobrepor a capa */}
+        <div className="relative -mt-24 z-20 px-4"> {/* Ajustado de -mt-16 para -mt-24 para maior sobreposição */}
           <RestaurantMainInfoCard
             restaurant={mainInfoCardData}
             onFavoriteToggle={toggleFavorite}
             isFavoriteMutating={isFavoriteMutating}
-            isCompact={isCompact} // PASSA A PROP isCompact
+            isCompact={isCompact}
           />
         </div>
 
-        <div className={cn("pb-8", containerPxClass, "pt-[96px]")}> {/* Adiciona padding superior para empurrar o conteúdo para baixo */}
+        <div className={cn("pb-8", containerPxClass, "pt-[96px]")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
           {/* Conteúdo Principal */}
-          <div className="space-y-6"> {/* Remove o mt-4, pois o padding superior já lida com o espaçamento */}
+          <div className="space-y-6">
             
             {/* Description */}
             {restaurant.description && (
@@ -210,7 +210,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                   menuCategories={restaurant.menu_categories} 
                   isFullMenuPage={false}
                   restaurantId={restaurant.id}
-                  forceShowFullMenuButton={isCompact} // NOVO: Força a exibição do botão no modo compacto
+                  forceShowFullMenuButton={isCompact}
                 />
               </div>
             )}
@@ -221,12 +221,12 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                 <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
                 
                 {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
-                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && ( // Verifica se há endereço/horário OU formas de pagamento
+                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && (
                   <RestaurantAddressHoursSection
                     id="address-hours-section"
                     restaurant={restaurant}
                     fullAddress={fullAddress}
-                    paymentMethods={restaurant.payment_methods} // Passa as formas de pagamento
+                    paymentMethods={restaurant.payment_methods}
                   />
                 )}
                 
@@ -237,9 +237,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                     restaurant={restaurant}
                   />
                 )}
-                
-                {/* REMOVIDO: Formas de Pagamento (Componente Antigo) */}
-                {/* <RestaurantPaymentSection id="payment-section" restaurant={restaurant} /> */}
               </div>
             )}
           </div>
