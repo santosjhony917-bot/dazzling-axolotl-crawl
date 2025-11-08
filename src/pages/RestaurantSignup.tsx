@@ -13,8 +13,8 @@ import { showError, showSuccess } from "@/utils/toast";
 import { formatCEP } from "@/services/geocoding";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
-import GoogleIcon from "@/components/icons/GoogleIcon";
-import AppleIcon from "@/components/icons/AppleIcon";
+import { GoogleIcon } from "@/components/icons/GoogleIcon";
+import { AppleIcon } from "@/components/icons/AppleIcon";
 import { registerRestaurantForExistingUser } from "@/integrations/supabase/edgeFunctions";
 
 // Tipagem para a localização única
@@ -37,7 +37,7 @@ export default function RestaurantSignup() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
-  const { refetchProfile, refetchRestaurant, user } = useAuth();
+  const { refetchProfile, refetchRestaurant, user, restaurant } = useAuth();
 
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
