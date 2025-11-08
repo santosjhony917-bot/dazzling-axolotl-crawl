@@ -13,6 +13,9 @@ import { showError, showSuccess } from "@/utils/toast";
 import { formatCEP } from "@/services/geocoding";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
+import GoogleIcon from "@/components/icons/GoogleIcon";
+import AppleIcon from "@/components/icons/AppleIcon";
+import { registerRestaurantForExistingUser } from "@/integrations/supabase/edgeFunctions";
 
 // Tipagem para a localização única
 interface Location {
@@ -34,7 +37,7 @@ export default function RestaurantSignup() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
-  const { refetchProfile, refetchRestaurant } = useAuth();
+  const { refetchProfile, refetchRestaurant, user } = useAuth();
 
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
@@ -88,6 +91,40 @@ export default function RestaurantSignup() {
     }
   }, [location.cep, loading]);
 
+  // Efeito para registrar restaurante após login social
+  React.useEffect(() => {
+    if (user && !restaurant && currentStep === totalSteps && !loading) {
+      // User is logged in (possibly via social login), but no restaurant is linked yet.
+      // And we are on the final step of the form.
+      // This is the point to register the restaurant for this user.
+      const registerRestaurantAfterSocialLogin = async () => {
+        setLoading(true);
+        try {
+          const payload = {
+            restaurantName: restaurantName,
+            location: location,
+          };
+          await registerRestaurantForExistingUser(payload);
+          await refetchRestaurant(); // Fetch the newly created restaurant
+          showSuccess(`Restaurante cadastrado com sucesso! Redirecionando para o painel.`);
+          navigate(createPageUrl('restaurant-area/home'));
+        } catch (error) {
+          console.error("Error registering restaurant after social login:", error);
+          showError("Ocorreu um erro ao registrar o restaurante. Tente novamente.");
+          // Optionally, sign out the user if restaurant registration fails
+          supabase.auth.signOut();
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      // Only proceed if the form data is valid for restaurant registration
+      if (restaurantName.trim() && location.street.trim() && location.number.trim()) {
+        registerRestaurantAfterSocialLogin();
+      }
+    }
+  }, [user, restaurant, currentStep, totalSteps, loading, restaurantName, location, refetchRestaurant, navigate]);
+
   const validateStep = (step: number): boolean => {
     if (step === 1) {
       if (!restaurantName.trim()) {
@@ -138,6 +175,25 @@ export default function RestaurantSignup() {
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleSocialLogin = async (provider: 'google' | 'apple') => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin + createPageUrl('restaurant-signup'), // Redirect back to this page
+        },
+      });
+      if (error) throw error;
+      // The useEffect will handle the restaurant registration after successful login
+    } catch (error) {
+      const msg = (error as Error).message || "Ocorreu um erro ao fazer login com o provedor social.";
+      showError(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -356,6 +412,39 @@ export default function RestaurantSignup() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
+            {/* Social Login Buttons */}
+            <Button
+              type="button"
+              onClick={() => handleSocialLogin('google')}
+              variant="channel"
+              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+              disabled={loading}
+            >
+              <GoogleIcon className="h-5 w-5" />
+              <span className="truncate">Continuar com Google</span>
+            </Button>
+            <Button
+              type="button"
+              onClick={() => handleSocialLogin('apple')}
+              variant="channel"
+              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+              disabled={loading}
+            >
+              <AppleIcon className="h-5 w-5" />
+              <span className="truncate">Continuar com Apple</span>
+            </Button>
+
+            <div className="relative flex items-center justify-center py-4">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-gray-500">
+                  ou
+                </span>
+              </div>
+            </div>
+
             <label className="flex flex-col">
               <p className="text-primary text-base font-medium mb-2">Email de Acesso</p>
               <Input

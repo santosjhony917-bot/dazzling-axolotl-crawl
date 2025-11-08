@@ -86,3 +86,11 @@ export const registerRestaurant = async (payload: RegisterRestaurantPayload): Pr
 
   return data;
 };
+
+export const registerRestaurantForExistingUser = async (payload: { restaurantName: string; location: any; }) => {
+  const { data, error } = await supabase.functions.invoke('register-restaurant-for-existing-user', {
+    body: payload,
+  });
+  if (error) throw error;
+  return data;
+};
