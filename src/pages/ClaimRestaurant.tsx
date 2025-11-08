@@ -201,6 +201,8 @@ const ClaimRestaurant = () => {
                     sign_up: {
                       email_label: 'Seu e-mail',
                       password_label: 'Crie uma senha',
+                      email_input_placeholder: 'seu@email.com',
+                      password_input_placeholder: 'Crie uma senha segura',
                       button_label: 'Criar conta',
                       social_provider_text: 'Entrar com {{provider}}',
                       link_text: 'Já tem uma conta? Faça login',
@@ -208,9 +210,17 @@ const ClaimRestaurant = () => {
                     sign_in: {
                         email_label: 'Seu e-mail',
                         password_label: 'Sua senha',
+                        email_input_placeholder: 'seu@email.com',
+                        password_input_placeholder: 'Digite sua senha',
                         button_label: 'Entrar',
                         social_provider_text: 'Entrar com {{provider}}',
                         link_text: 'Não tem uma conta? Crie uma',
+                    },
+                    forgotten_password: {
+                      link_text: 'Esqueceu sua senha?',
+                      email_label: 'Seu e-mail',
+                      email_input_placeholder: 'seu@email.com',
+                      button_label: 'Enviar instruções de recuperação',
                     }
                   },
                 }}
