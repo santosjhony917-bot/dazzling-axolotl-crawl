@@ -80,6 +80,16 @@ type PathParams<K extends PathKey> =
 type QueryParams<K extends PathKey> = 
   K extends 'auth' 
     ? { mode: 'login' | 'signup' } 
+  : K extends 'search-unified' | 'restaurant-area/search' // Extend for search pages
+    ? { 
+        searchQuery?: string;
+        minPrice?: string;
+        maxPrice?: string;
+        maxDistance?: string;
+        excludedCategoryIds?: string; // Comma-separated string
+        includedCategories?: string; // Comma-separated string
+        searchType?: 'dish' | 'restaurant';
+      }
     : Record<string, string> | undefined;
 
 /**

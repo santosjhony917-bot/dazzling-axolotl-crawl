@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Search, Filter, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
+import { MapPin, Search, Loader2, Utensils, DollarSign, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
@@ -63,8 +63,11 @@ const Home: React.FC = () => {
       showError("Aguarde enquanto obtemos sua localização.");
       return;
     }
-    // Redireciona para a página de resultados com a query
-    navigate(`/restaurant-results?lat=${userLat}&lng=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
+    // Redireciona para a página de busca unificada com a query e tipo de busca
+    navigate(createPageUrl('search-unified', undefined, { 
+      searchQuery: searchQuery, 
+      searchType: 'dish' 
+    }));
   };
 
   const handleSearchByPrice = () => {
@@ -77,9 +80,15 @@ const Home: React.FC = () => {
   };
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('search-unified', undefined, { 
+      minPrice: minPrice.toString(), 
+      maxPrice: maxPrice.toString(), 
+      searchQuery: searchQuery, // Manter a query de busca atual
+      searchType: 'dish' 
+    }));
+    setIsPriceModalOpen(false); // Fechar o modal após aplicar
   };
 
   const handleSearchNearby = () => {
@@ -92,9 +101,14 @@ const Home: React.FC = () => {
   };
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados (mock)
+    // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('search-unified', undefined, { 
+      maxDistance: maxDistanceKm.toString(), 
+      searchQuery: searchQuery, // Manter a query de busca atual
+      searchType: 'restaurant' 
+    }));
+    setIsDistanceModalOpen(false); // Fechar o modal após aplicar
   };
 
   return (

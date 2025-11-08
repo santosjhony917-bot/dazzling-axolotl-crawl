@@ -46,7 +46,7 @@ const RestaurantDashboard = () => {
   
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      showError("Defina sua localização primeiro para usar o filtro de preço.");
       setIsLocationModalOpen(true);
       return;
     }
@@ -55,7 +55,12 @@ const RestaurantDashboard = () => {
 
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('restaurant-area/search', undefined, { 
+      minPrice: minPrice.toString(), 
+      maxPrice: maxPrice.toString(), 
+      searchType: 'dish' 
+    }));
+    setIsPriceModalOpen(false); // Fechar o modal após aplicar
   };
 
   const handleSearchNearby = () => {
@@ -69,7 +74,11 @@ const RestaurantDashboard = () => {
   
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified'));
+    navigate(createPageUrl('restaurant-area/search', undefined, { 
+      maxDistance: maxDistanceKm.toString(), 
+      searchType: 'restaurant' 
+    }));
+    setIsDistanceModalOpen(false); // Fechar o modal após aplicar
   };
   
   const handleViewCompetitor = (id: string) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -39,6 +39,7 @@ interface SearchItem {
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user, restaurant } = useAuthData();
   const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
@@ -59,6 +60,25 @@ export default function SearchUnifiedPage() {
 
   const userLat = location.latitude;
   const userLon = location.longitude;
+
+  // Efeito para ler os parâmetros da URL e inicializar os estados
+  useEffect(() => {
+    const urlSearchQuery = searchParams.get('searchQuery') || '';
+    const urlMinPrice = searchParams.get('minPrice');
+    const urlMaxPrice = searchParams.get('maxPrice');
+    const urlMaxDistance = searchParams.get('maxDistance');
+    const urlExcludedCategoryIds = searchParams.get('excludedCategoryIds');
+    const urlIncludedCategories = searchParams.get('includedCategories');
+    const urlSearchType = (searchParams.get('searchType') as SearchType) || 'dish';
+
+    setSearchQuery(urlSearchQuery);
+    setActiveSearchType(urlSearchType);
+    setMinPriceFilter(urlMinPrice ? parseFloat(urlMinPrice) : null);
+    setMaxPriceFilter(urlMaxPrice ? parseFloat(urlMaxPrice) : null);
+    setMaxDistanceFilter(urlMaxDistance ? parseFloat(urlMaxDistance) : null);
+    setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
+    setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
+  }, [searchParams]);
 
   const {
     items: dishSearchResults,
@@ -179,7 +199,7 @@ export default function SearchUnifiedPage() {
     setMaxPriceFilter(max);
     showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
-    refetchDishes();
+    // refetchDishes(); // A atualização do estado já vai acionar a refetch via useQuery
   };
 
   const handleSearchNearby = () => {
@@ -194,19 +214,19 @@ export default function SearchUnifiedPage() {
     setMaxDistanceFilter(distance);
     showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
-    refetchRestaurants();
+    // refetchRestaurants(); // A atualização do estado já vai acionar a refetch via useQuery
   };
 
   const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    refetchDishes();
+    // refetchDishes(); // A atualização do estado já vai acionar a refetch via useQuery
   };
 
   const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => { // Alterado para categorias INCLUÍDAS
     setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    refetchRestaurants();
+    // refetchRestaurants(); // A atualização do estado já vai acionar a refetch via useQuery
   };
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
