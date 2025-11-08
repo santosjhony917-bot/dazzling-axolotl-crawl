@@ -103,27 +103,73 @@ const ClaimRestaurant = () => {
     }
   };
 
-  // Custom theme for Supabase Auth component to match app's highlight color
+  // Custom theme for Supabase Auth component to match app's highlight color and styles
   const customAuthTheme = {
     ...ThemeSupa,
     default: {
       ...ThemeSupa.default,
       colors: {
         ...ThemeSupa.default.colors,
-        brand: '#E47948', // Hardcoded highlight color (orange/reddish-brown)
-        brandAccent: '#FFFFFF', // White text for highlight button
-        textLink: '#E47948', // Highlight color for links
-        inputBackground: 'hsl(var(--input))',
-        inputBorder: 'hsl(var(--input))',
-        inputBorderHover: '#E47948', // Highlight color on hover
-        inputBorderFocus: '#E47948', // Highlight color on focus
-        inputPlaceholder: 'hsl(var(--muted-foreground))',
+        brand: '#E47948', // Primary button background (highlight)
+        brandAccent: '#FFFFFF', // Primary button text (white)
+        textLink: '#E47948', // Links (highlight)
+        inputBackground: 'hsl(var(--background))', // White background for inputs
+        inputBorder: 'hsl(var(--border))', // Border color for inputs (gray-200 equivalent)
+        inputBorderHover: '#E47948', // Highlight on input hover
+        inputBorderFocus: '#E47948', // Highlight on input focus
+        inputPlaceholder: 'hsl(var(--muted-foreground))', // Placeholder text color
+        
+        // Social button styling to match variant="channel"
+        socialButtonBackground: '#FFFFFF', // White background
+        socialButtonText: 'hsl(var(--primary))', // text-primary
+        socialButtonBorder: 'hsl(var(--border))', // border-gray-200
+        socialButtonBorderHover: 'hsl(var(--border))', // border-gray-200 on hover
+        socialButtonBackgroundHover: 'hsl(var(--secondary))', // bg-gray-50 equivalent
       },
       radii: {
         ...ThemeSupa.default.radii,
-        borderRadiusButton: '0.75rem', // rounded-xl
-        borderRadiusInput: '0.75rem', // rounded-xl
+        borderRadiusButton: '1.25rem', // rounded-xl (20px)
+        borderRadiusInput: '1.25rem', // rounded-xl (20px)
       },
+      // Custom styles for specific elements to match shadcn/ui components
+      button: {
+        ...ThemeSupa.default.button,
+        fontWeight: '700', // font-bold
+        fontSize: '1rem', // text-base
+        padding: '0.75rem 1.5rem', // Adjust padding to get closer to h-12 (48px)
+        boxShadow: '0 8px 20px rgba(204, 102, 64, 0.4)', // shadow-highlight-glow (approximate)
+      },
+      input: {
+        ...ThemeSupa.default.input,
+        fontSize: '1rem', // text-base
+        padding: '1rem 1rem', // Adjust padding to get closer to h-14 (56px)
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)', // shadow-soft-sm (approximate)
+      },
+      anchor: {
+        ...ThemeSupa.default.anchor,
+        fontWeight: '500', // font-medium
+        fontSize: '0.875rem', // text-sm
+      },
+      label: {
+        ...ThemeSupa.default.label,
+        fontWeight: '500', // font-medium
+        fontSize: '0.875rem', // text-sm
+        color: 'hsl(var(--primary))', // text-primary
+      },
+      message: { // For error messages
+        ...ThemeSupa.default.message,
+        color: '#EF4444', // text-red-500
+        fontSize: '0.875rem', // text-sm
+      },
+      divider: { // For the 'or' separator
+        ...ThemeSupa.default.divider,
+        color: 'hsl(var(--border))', // border-gray-200
+        background: 'hsl(var(--background))', // bg-white
+        fontSize: '0.75rem', // text-xs
+        textTransform: 'uppercase',
+        fontWeight: 'normal',
+        padding: '0 0.5rem', // px-2
+      }
     },
   };
 
@@ -199,6 +245,7 @@ const ClaimRestaurant = () => {
                     appearance={{ theme: customAuthTheme }} // Using the custom theme
                     providers={['google', 'apple']}
                     theme="light"
+                    socialLayout="full" // Ensure social buttons take full width
                     localization={{
                       variables: {
                         sign_up: {
