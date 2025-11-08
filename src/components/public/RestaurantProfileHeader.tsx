@@ -24,7 +24,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
   }
 
   return (
-    <div className={cn("relative w-full h-48")}>
+    <div className={cn("relative w-full h-64")}> {/* Aumentado de h-48 para h-64 */}
       {coverImageUrl ? (
         <img
           src={coverImageUrl}
