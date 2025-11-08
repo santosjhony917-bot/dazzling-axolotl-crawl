@@ -23,9 +23,9 @@ interface RestaurantProfilePublicProps {
 }
 
 const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact = false }: RestaurantProfilePublicProps) => {
-  const { id: paramId } = useParams();
+  const { restaurantId: paramRestaurantId } = useParams(); // Corrigido para 'restaurantId'
   const navigate = useNavigate();
-  const restaurantId = initialRestaurantId || paramId;
+  const restaurantId = initialRestaurantId || paramRestaurantId; // Usa o ID da prop ou da URL
 
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,6 +59,11 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
   const fetchRestaurant = async () => {
     setLoading(true);
+    if (!restaurantId) { // Adiciona verificação para garantir que o ID existe
+      setError("ID do restaurante não fornecido.");
+      setLoading(false);
+      return;
+    }
     const { data, error } = await supabase
       .from('restaurants')
       .select(`
