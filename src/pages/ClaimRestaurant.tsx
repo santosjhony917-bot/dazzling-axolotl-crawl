@@ -163,7 +163,37 @@ const ClaimRestaurant = () => {
               </p>
               <Auth
                 supabaseClient={supabase}
-                appearance={{ theme: ThemeSupa }}
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: 'hsl(var(--highlight))',
+                        brandAccent: 'hsl(var(--highlight))',
+                        brandButtonText: 'white',
+                        defaultButtonBackground: 'white',
+                        defaultButtonBackgroundHover: '#f2f2f2',
+                        defaultButtonBorder: '#e5e7eb',
+                        defaultButtonText: '#1f2937',
+                        inputBorder: '#e5e7eb',
+                        inputBorderHover: 'hsl(var(--highlight))',
+                        inputBorderFocus: 'hsl(var(--highlight))',
+                        anchorTextColor: 'hsl(var(--primary))',
+                        anchorTextHoverColor: 'hsl(var(--highlight))',
+                      },
+                      radii: {
+                        borderRadiusButton: '12px',
+                        inputBorderRadius: '12px',
+                      },
+                    },
+                  },
+                  className: {
+                    button: 'h-12 text-base shadow-soft-sm',
+                    input: 'h-14 text-base shadow-soft-sm',
+                    label: 'font-semibold text-primary text-left !mb-2',
+                    divider: '!bg-gray-200',
+                  },
+                }}
                 providers={['google', 'apple']}
                 theme="light"
                 localization={{
