@@ -69,11 +69,7 @@ export async function geocodeAddress(address: string): Promise<{ lat: number; lo
   try {
     // Adicionando User-Agent e countrycodes=br
     const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(address)}&limit=1&countrycodes=br`;
-    const response = await axios.get(url, {
-      headers: {
-        'User-Agent': 'FilterFood Restaurant App',
-      }
-    });
+    const response = await axios.get(url);
     const data = response.data;
 
     if (data.length > 0) {
@@ -114,11 +110,7 @@ export async function fetchAddressSuggestions(query: string): Promise<AddressSug
   try {
     // Adicionando countrycodes=br para priorizar resultados no Brasil
     const url = `${NOMINATIM_SEARCH_URL}?format=json&q=${encodeURIComponent(cleanedQuery)}&limit=5&addressdetails=1&countrycodes=br`;
-    const response = await axios.get(url, {
-      headers: {
-        'User-Agent': 'FilterFood Restaurant App',
-      }
-    });
+    const response = await axios.get(url);
     
     response.data.forEach((item: any) => {
       const address = item.address || {};
