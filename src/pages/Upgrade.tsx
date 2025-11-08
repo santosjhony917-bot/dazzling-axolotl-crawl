@@ -14,7 +14,7 @@ import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import { mockFreeRestaurant } from '@/data/mockRestaurants';
 import { PublicRestaurantData } from '@/types/restaurant';
 
-const premiumProfilePreviewUrl = 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+const premiumProfilePreviewUrl = 'https://ystffcohclbtykangfnt.supabase.co/storage/v1/object/public/public-assets/premium-profile-preview.jpeg';
 
 // --- Mock Data ---
 const freeFeatures = [
