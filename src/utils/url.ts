@@ -21,7 +21,7 @@ export const PATH_MAP = {
   home: '/home',
   favorites: '/favorites',
   clientProfile: '/profile',
-  'search-unified': '/search-unified',
+  'search-unified': '/search',
   
   // Rotas de Proprietário de Restaurante (Autenticadas)
   'restaurant-area-hub': '/restaurant-area-hub',
