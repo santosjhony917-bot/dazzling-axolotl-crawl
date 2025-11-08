@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/auth/AuthContext";
+import { useAuthData as useAuth } from "@/context/AuthContext";
 import { Restaurant } from "@/types";
 import { toast } from "sonner";
 import { Loader2, MapPin, Edit } from "lucide-react";
