@@ -2,7 +2,7 @@ import React from 'react';
 import { Heart, MapPin, Loader2, Utensils } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { PublicRestaurantData } from '@/types/restaurant';
@@ -32,7 +32,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   isFavoriteMutating,
   isCompact = false,
 }) => {
-  const { user } = useAuth();
+  const { user } = useAuthData();
   const navigate = useNavigate();
 
   const cardPaddingTopClasses = isCompact ? "pt-16" : "pt-20"; // Ajuste o padding superior para acomodar o logo

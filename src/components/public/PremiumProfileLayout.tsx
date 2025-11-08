@@ -6,7 +6,7 @@ import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from
 import RestaurantMenu from './RestaurantMenu';
 import RestaurantGallery from './RestaurantGallery';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -32,7 +32,7 @@ interface PremiumProfileLayoutProps {
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
   const navigate = useNavigate();
-  const { user } = useAuth(); 
+  const { user } = useAuthData(); 
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
   const fullAddress = useMemo(() => {

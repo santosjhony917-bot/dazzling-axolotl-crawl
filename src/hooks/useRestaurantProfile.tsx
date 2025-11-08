@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
 import { toast } from 'sonner';
@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 type RestaurantUpdatePayload = Partial<Restaurant>;
 
 export const useRestaurantProfile = (restaurantIdFromProps?: string) => {
-  const { user } = useAuth();
+  const { user } = useAuthData();
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

@@ -28,7 +28,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, element }
   let isAuthorized = false;
   
   if (requiredRole === 'authenticated') {
-    isAuthorized = true; // Already checked by isAuthenticated
+    // Apenas usuários autenticados que NÃO são donos de restaurante
+    isAuthorized = !restaurant;
   } else if (requiredRole === 'admin') {
     isAuthorized = isAdmin;
   } else if (requiredRole === 'restaurant_owner') {

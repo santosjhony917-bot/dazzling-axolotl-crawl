@@ -44,15 +44,44 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   });
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
+    const handleAuthChange = async (event: string, session: any) => {
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+
+      if (currentUser) {
+        // Lógica de reivindicação global
+        const claimCode = localStorage.getItem('claimCode');
+        if (claimCode && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')) {
+          console.log('Código de reivindicação encontrado, tentando reivindicar restaurante...');
+          try {
+            const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
+              body: { claimCode },
+            });
+            if (functionError) throw functionError;
+            
+            console.log('Restaurante reivindicado com sucesso. Recarregando dados...');
+            // Força a recarga dos dados do restaurante após a reivindicação
+            await refetchRestaurant();
+
+          } catch (e: any) {
+            console.error('Erro ao reivindicar restaurante:', e.message);
+          } finally {
+            // Remove o código para evitar novas tentativas
+            localStorage.removeItem('claimCode');
+          }
+        }
+      }
       setIsLoading(false);
+    };
+    
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      handleAuthChange(event, session);
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, []);
+  }, [refetchRestaurant]);
 
   const signOut = async () => {
     await supabase.auth.signOut();

@@ -7,12 +7,12 @@ import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyR
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { createPageUrl } from '@/utils/url';
-import { useAuth } from '@/hooks/useAuth'; // Importar useAuth
+import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData
 
 const RestaurantResults: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth(); // Usar useAuth para verificar autenticação
+  const { isAuthenticated } = useAuthData(); // Usar useAuthData para verificar autenticação
 
   const queryParams = new URLSearchParams(location.search);
   const initialLat = parseFloat(queryParams.get('lat') || '0');

@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, KeyRound } from 'lucide-react';
 import CustomAuth from '@/components/CustomAuth';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthData } from '@/context/AuthContext';
 
 const ClaimRestaurant = () => {
   const [claimCode, setClaimCode] = useState('');
@@ -21,7 +21,7 @@ const ClaimRestaurant = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { restaurant, isAuthenticated } = useAuth();
+  const { restaurant, isAuthenticated } = useAuthData();
 
   useEffect(() => {
     // Redirect if user is authenticated and has a restaurant

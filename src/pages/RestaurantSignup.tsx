@@ -12,7 +12,7 @@ import { registerRestaurant } from "@/integrations/supabase/edgeFunctions";
 import { showError, showSuccess } from "@/utils/toast";
 import { formatCEP } from "@/services/geocoding";
 import axios from "axios";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuthData } from "@/context/AuthContext";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { AppleIcon } from "@/components/icons/AppleIcon";
 import { registerRestaurantForExistingUser } from "@/integrations/supabase/edgeFunctions";
@@ -37,7 +37,7 @@ export default function RestaurantSignup() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
-  const { refetchProfile, refetchRestaurant, user, restaurant } = useAuth();
+  const { refetchProfile, refetchRestaurant, user, restaurant } = useAuthData();
 
   // Dados do formulário
   const [restaurantName, setRestaurantName] = useState("");
