@@ -13,7 +13,8 @@ import { useAuthData } from '@/context/AuthContext';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import { mockFreeRestaurant } from '@/data/mockRestaurants';
 import { PublicRestaurantData } from '@/types/restaurant';
-import PremiumProfilePreviewImage from '/assets/premium-profile-preview.jpeg';
+
+const premiumProfilePreviewUrl = 'https://ystffcohclbtykangfnt.supabase.co/storage/v1/object/public/public-assets/premium-profile-preview.jpeg';
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -188,7 +189,7 @@ const UpgradePageContent: React.FC = () => {
                   />
                 ) : (
                   <img 
-                    src={PremiumProfilePreviewImage} 
+                    src={premiumProfilePreviewUrl} 
                     alt="Prévia do Perfil Premium" 
                     className="w-full h-auto rounded-lg shadow-md border" 
                   />
