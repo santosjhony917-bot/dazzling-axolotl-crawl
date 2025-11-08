@@ -192,9 +192,10 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   };
 
   const getCurrentOpeningHours = () => {
-    if (!restaurant?.opening_hours) return null;
+    if (!restaurant?.opening_hours || typeof restaurant.opening_hours !== 'object') return null;
     const today = getDayOfWeek(new Date());
-    return restaurant.opening_hours.find(oh => oh.day === today);
+    // Acessa a propriedade diretamente usando o dia da semana como chave
+    return restaurant.opening_hours[today];
   };
 
   const formatTime = (time) => {
