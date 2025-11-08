@@ -115,7 +115,7 @@ const Home: React.FC = () => {
     <div className="bg-[#f5f7f8]"> {/* Removido min-h-screen, pb-20, max-w-md, mx-auto */}
       
       {/* Header com Localização */}
-      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-40">
+      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
         <div 
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setIsLocationModalOpen(true)}

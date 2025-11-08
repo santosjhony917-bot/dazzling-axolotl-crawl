@@ -78,12 +78,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   return (
     <div className="relative min-h-screen bg-background-light">
       {/* Novo cabeçalho fixo no topo */}
-      <RestaurantPageHeader
-        restaurantName={restaurant.name}
-        isFavorited={restaurant.is_favorite}
-        onFavoriteToggle={toggleFollow}
-        isFavoriteLoading={isToggling}
-      />
+      <RestaurantPageHeader />
 
       <div className={cn("max-w-md mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}

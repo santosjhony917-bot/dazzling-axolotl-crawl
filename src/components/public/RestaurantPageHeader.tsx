@@ -1,73 +1,36 @@
+"use client";
+
 import React from 'react';
+import { ArrowLeft, Share2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Share2, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface RestaurantPageHeaderProps {
-  restaurantName: string;
-  isFavorited: boolean;
-  onFavoriteToggle: () => void;
-  isFavoriteLoading: boolean;
+  restaurantName?: string; // Opcional, caso queira exibir o nome no cabeçalho fixo
 }
 
-const RestaurantPageHeader: React.FC<RestaurantPageHeaderProps> = ({
-  restaurantName,
-  isFavorited,
-  onFavoriteToggle,
-  isFavoriteLoading,
-}) => {
+const RestaurantPageHeader: React.FC<RestaurantPageHeaderProps> = ({ restaurantName }) => {
   const navigate = useNavigate();
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: restaurantName,
-          text: `Confira o cardápio de ${restaurantName}!`,
-          url: window.location.href,
-        });
-      } catch (error) {
-        console.error('Erro ao compartilhar:', error);
-      }
-    } else {
-      // Fallback para copiar para a área de transferência
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
-    }
-  };
-
   return (
-    <header className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-40">
+    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
       <Button
         variant="ghost"
         size="icon"
         onClick={() => navigate(-1)}
-        className="bg-black/30 text-white hover:bg-black/50 rounded-full"
+        className="bg-white/50 backdrop-blur-sm rounded-full"
       >
-        <ArrowLeft className="h-6 w-6" />
+        <ArrowLeft className="h-5 w-5 text-gray-800" />
       </Button>
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onFavoriteToggle}
-          disabled={isFavoriteLoading}
-          className="bg-black/30 text-white hover:bg-black/50 rounded-full"
-        >
-          <Heart
-            className={cn('h-6 w-6 transition-colors', isFavorited ? 'fill-red-500 text-red-500' : 'text-white')}
-          />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleShare}
-          className="bg-black/30 text-white hover:bg-black/50 rounded-full"
-        >
-          <Share2 className="h-6 w-6" />
-        </Button>
-      </div>
+      {restaurantName && <h2 className="text-lg font-semibold">{restaurantName}</h2>} {/* Opcional: exibir nome do restaurante */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="bg-white/50 backdrop-blur-sm rounded-full"
+      >
+        <Share2 className="h-5 w-5 text-gray-800" />
+      </Button>
     </header>
   );
 };
