@@ -1,141 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Loader2, MapPin, Check } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { supabase } from '@/integrations/supabase/client';
-import { geocodeAddress, formatCEP } from '@/services/geocoding';
-import { showError, showSuccess } from '@/utils/toast';
-import axios from 'axios';
+"use client";
 
-interface AddressData {
-  address: string;
-  city: string;
-  state: string;
-  cep: string;
-  neighborhood: string;
-  latitude: number | null;
-  longitude: number | null;
-}
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { MapPin, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
-interface EditAddressDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  restaurantId: string;
-  currentAddress: AddressData;
-  onSave: () => void;
-}
-
-const addressSchema = z.object({
-  cep: z.string().regex(/^\d{5}-\d{3}$/, "CEP inválido"),
-  address: z.string().min(3, "Rua/Avenida é obrigatória"),
-  neighborhood: z.string().min(3, "Bairro é obrigatório"),
-  city: z.string().min(3, "Cidade é obrigatória"),
-  state: z.string().length(2, "Estado (UF) inválido"),
-});
-
-export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAddress, onSave }: EditAddressDialogProps) {
+export function EditAddressDialog({
+  open,
+  onOpenChange,
+  restaurant,
+  onAddressUpdate,
+}) {
+  const [address, setAddress] = useState("");
+  const [number, setNumber] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [cep, setCep] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isGeocoding, setIsGeocoding] = useState(false);
-  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<z.infer<typeof addressSchema>>({
-    resolver: zodResolver(addressSchema),
-    defaultValues: {
-      cep: formatCEP(currentAddress.cep),
-      address: currentAddress.address,
-      neighborhood: currentAddress.neighborhood,
-      city: currentAddress.city,
-      state: currentAddress.state,
-    },
-  });
+  const [cepLoading, setCepLoading] = useState(false);
 
-  const cepValue = watch('cep');
-
-  // Effect to handle CEP lookup
   useEffect(() => {
-    const cleanedCep = cepValue.replace(/\D/g, '');
-    if (cleanedCep.length === 8 && !loading) {
-      const lookupCep = async () => {
-        setIsGeocoding(true);
-        try {
-          const response = await axios.get(`https://viacep.com.br/ws/${cleanedCep}/json/`);
-          const data = response.data;
-
-          if (!data.erro) {
-            setValue('address', data.logradouro || '');
-            setValue('neighborhood', data.bairro || '');
-            setValue('city', data.localidade || '');
-            setValue('state', data.uf || '');
-            showSuccess("Endereço preenchido via CEP!");
-          } else {
-            showError("CEP não encontrado.");
-          }
-        } catch (error) {
-          showError("Erro ao buscar CEP.");
-        } finally {
-          setIsGeocoding(false);
-        }
-      };
-      lookupCep();
+    if (restaurant) {
+      setAddress(restaurant.address || "");
+      setNumber(restaurant.number || "");
+      setNeighborhood(restaurant.neighborhood || "");
+      setCity(restaurant.city || "");
+      setState(restaurant.state || "");
+      setCep(restaurant.cep || "");
     }
-  }, [cepValue, loading, setValue]);
+  }, [restaurant]);
 
-  const onSubmit = async (data: z.infer<typeof addressSchema>) => {
-    setLoading(true);
-    setIsGeocoding(true);
-    
-    const fullAddress = `${data.address}, ${data.neighborhood}, ${data.city}, ${data.state}, ${data.cep}`;
-    let lat = currentAddress.latitude;
-    let lon = currentAddress.longitude;
-
+  const handleCepSearch = async () => {
+    if (cep.replace(/\D/g, "").length !== 8) {
+      toast.error("CEP inválido. Deve conter 8 dígitos.");
+      return;
+    }
+    setCepLoading(true);
     try {
-      // 1. Geocode the address
-      const geocoded = await geocodeAddress(fullAddress);
-      if (geocoded) {
-        lat = geocoded.lat;
-        lon = geocoded.lon;
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+      if (data.erro) {
+        toast.error("CEP não encontrado.");
       } else {
-        showError("Não foi possível encontrar as coordenadas do endereço. Verifique o endereço.");
-        setLoading(false);
-        setIsGeocoding(false);
-        return;
+        setAddress(data.logradouro);
+        setNeighborhood(data.bairro);
+        setCity(data.localidade);
+        setState(data.uf);
       }
-
-      // 2. Update Supabase
-      const { error } = await supabase
-        .from('restaurants')
-        .update({
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          cep: data.cep,
-          neighborhood: data.neighborhood,
-          latitude: lat,
-          longitude: lon,
-        })
-        .eq('id', restaurantId);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      showSuccess("Endereço e localização atualizados com sucesso!");
-      onSave();
-      onOpenChange(false);
-
-    } catch (e) {
-      showError((e as Error).message || "Falha ao salvar o endereço.");
+    } catch (error) {
+      toast.error("Erro ao buscar o CEP.");
+      console.error(error);
     } finally {
-      setLoading(false);
-      setIsGeocoding(false);
+      setCepLoading(false);
     }
   };
 
-  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    setValue('cep', formatCEP(rawValue), { shouldValidate: true });
+  const handleSave = async () => {
+    if (!cep || !address || !number || !neighborhood || !city || !state) {
+      toast.error("Por favor, preencha todos os campos do endereço.");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const fullAddress = `${address}, ${number}, ${neighborhood}, ${city}, ${state}, Brasil`;
+      
+      const { data: coords, error: geocodeError } = await supabase.functions.invoke('geocode-address', {
+        body: { address: fullAddress },
+      });
+
+      if (geocodeError || !coords) {
+        console.error('Geocode Error:', geocodeError);
+        toast.error('Não foi possível obter as coordenadas do endereço. Verifique se o endereço está correto e tente novamente.');
+        setLoading(false);
+        return;
+      }
+
+      const { error: updateError } = await supabase
+        .from('restaurants')
+        .update({
+          address,
+          number,
+          neighborhood,
+          city,
+          state,
+          cep,
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+        })
+        .eq('id', restaurant.id);
+
+      if (updateError) {
+        throw updateError;
+      }
+
+      toast.success('Endereço atualizado com sucesso!');
+      if (onAddressUpdate) {
+        onAddressUpdate();
+      }
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Erro ao salvar endereço:", error);
+      toast.error(error.message || 'Ocorreu um erro ao salvar o endereço. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -144,69 +123,110 @@ export function EditAddressDialog({ open, onOpenChange, restaurantId, currentAdd
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-6 w-6 text-primary" />
-            <DialogTitle className="text-xl font-bold text-primary">Editar Endereço</DialogTitle>
+            <h2 className="text-xl font-bold text-gray-800">
+              Editar Endereço
+            </h2>
           </div>
-          <DialogDescription>
-            Preencha o endereço completo para garantir a localização correta no mapa.
-          </DialogDescription>
+          <p className="text-sm text-gray-500">
+            Preencha o endereço completo para garantir a localização correta no
+            mapa.
+          </p>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input
-            {...register('cep')}
-            placeholder="CEP (Ex: 58039-000)"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
-            onChange={handleCepChange}
-            maxLength={9}
-            disabled={loading || isGeocoding}
-          />
-          {errors.cep && <p className="text-sm text-destructive">{errors.cep.message}</p>}
-
-          <Input
-            {...register('address')}
-            placeholder="Rua / Avenida"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
-            disabled={loading || isGeocoding}
-          />
-          {errors.address && <p className="text-sm text-destructive">{errors.address.message}</p>}
-
-          <Input
-            {...register('neighborhood')}
-            placeholder="Bairro"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
-            disabled={loading || isGeocoding}
-          />
-          {errors.neighborhood && <p className="text-sm text-destructive">{errors.neighborhood.message}</p>}
-
-          <div className="flex gap-2">
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="cep" className="col-span-4">
+              CEP
+            </Label>
+            <div className="col-span-4 flex gap-2">
+              <Input
+                id="cep"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+                className="col-span-3"
+                placeholder="00000-000"
+              />
+              <Button onClick={handleCepSearch} disabled={cepLoading}>
+                {cepLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Buscar"
+                )}
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="address" className="col-span-4">
+              Endereço
+            </Label>
             <Input
-              {...register('city')}
-              placeholder="Cidade"
-              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
-              disabled={loading || isGeocoding}
-            />
-            <Input
-              {...register('state')}
-              placeholder="UF"
-              className="h-12 rounded-xl text-base w-20 focus:border-highlight focus:ring-highlight"
-              maxLength={2}
-              disabled={loading || isGeocoding}
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="col-span-4"
             />
           </div>
-          {(errors.city || errors.state) && <p className="text-sm text-destructive">Cidade e Estado são obrigatórios.</p>}
-
-          <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading || isGeocoding}>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="number" className="col-span-4">
+              Número
+            </Label>
+            <Input
+              id="number"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              className="col-span-4"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="neighborhood" className="col-span-4">
+              Bairro
+            </Label>
+            <Input
+              id="neighborhood"
+              value={neighborhood}
+              onChange={(e) => setNeighborhood(e.target.value)}
+              className="col-span-4"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="city">Cidade</Label>
+              <Input
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="state">Estado</Label>
+              <Input
+                id="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <div className="w-full flex flex-col gap-2">
+            <Button
+              onClick={handleSave}
+              disabled={loading}
+              className="w-full"
+            >
+              {loading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
+              Salvar Alterações
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => onOpenChange(false)}
+              className="w-full"
+            >
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading || isGeocoding} variant="highlight">
-              {loading || isGeocoding ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                "Salvar Endereço"
-              )}
-            </Button>
-          </DialogFooter>
-        </form>
+          </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
