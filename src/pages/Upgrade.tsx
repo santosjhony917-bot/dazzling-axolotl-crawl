@@ -15,7 +15,7 @@ import { mockFreeRestaurant } from '@/data/mockRestaurants';
 import { PublicRestaurantData } from '@/types/restaurant';
 
 const premiumProfilePreviewUrl = 'https://ystffcohclbtykangfnt.supabase.co/storage/v1/object/public/public-assets/premium-profile-preview.jpeg';
-const freeProfilePreviewUrl = 'https://ystffcohclbtykangfnt.supabase.co/storage/v1/object/public/public-assets/free-profile-preview.jpeg';
+const freeProfilePreviewUrl = `https://ystffcohclbtykangfnt.supabase.co/storage/v1/object/public/public-assets/free-profile-preview.jpeg?v=${new Date().getTime()}`;
 
 // --- Mock Data ---
 const freeFeatures = [
