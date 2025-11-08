@@ -7,48 +7,45 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Crown, Star, Zap } from 'lucide-react';
 import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
 import { mockRestaurants } from '@/data/mockRestaurants';
+import { PublicRestaurantData } from '@/types/restaurant';
 
-interface PublicRestaurantData {
-  id: string;
-  name: string;
-  description?: string;
-  image_url?: string;
-  cover_image_url?: string;
-  category?: string;
-  phone?: string;
-  email?: string;
-  address?: string;
-  number?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
-  cep?: string;
-  latitude?: number;
-  longitude?: number;
-  opening_hours?: Record<string, string>;
-  whatsapp_url?: string;
-  ifood_url?: string;
-  other_url?: string;
-  menu_categories?: Array<{
-    id: string;
-    name: string;
-    menu_items: Array<{
-      id: string;
-      name: string;
-      description?: string;
-      price: number;
-      image_url?: string;
-    }>;
-  }>;
-  restaurant_gallery?: Array<{
-    id: string;
-    image_url: string;
-    caption?: string;
-    order_index?: number;
-  }>;
-}
+const mockPremiumRestaurant = mockRestaurants.find(r => r.plan === 'premium');
 
-const mockPremiumRestaurant = mockRestaurants.find(r => r.plan === 'premium') as PublicRestaurantData;
+// Helper to convert mock opening_hours to WeekSchedule
+const convertMockHoursToWeekSchedule = (hours: Record<string, string> | undefined) => {
+  if (!hours) return null;
+  const schedule: any = {};
+  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+  days.forEach(day => {
+    const hourString = hours[day] || 'Fechado';
+    if (hourString.toLowerCase() === 'fechado') {
+      schedule[day] = { isOpen: false, slots: [] };
+    } else {
+      const [start, end] = hourString.split(' - ');
+      schedule[day] = { isOpen: true, slots: [{ start, end }] };
+    }
+  });
+  return schedule;
+};
+
+const adaptedMockRestaurant = mockPremiumRestaurant ? {
+  ...mockPremiumRestaurant,
+  user_id: 'mock-user-id', // Add missing required property
+  opening_hours: convertMockHoursToWeekSchedule(mockPremiumRestaurant.opening_hours),
+  // Ensure other properties from PublicRestaurantData are present, even if null/empty
+  addressSummary: `${mockPremiumRestaurant.address}, ${mockPremiumRestaurant.city}`,
+  logoUrl: mockPremiumRestaurant.image_url,
+  followers_count: 1234, // mock data
+  gallery_images: mockPremiumRestaurant.restaurant_gallery || [],
+  payment_methods: ['Cartão de Crédito', 'Dinheiro'], // mock data
+  isOpen: true, // mock data
+  statusText: 'Aberto agora', // mock data
+  nextOpenTime: null, // mock data
+  is_favorite: false, // mock data
+  social_networks: [], // mock data
+  other_url_label: 'Website', // mock data
+} as unknown as PublicRestaurantData : null;
+
 
 const Upgrade = () => {
   return (
@@ -208,7 +205,7 @@ const Upgrade = () => {
       </div>
 
       {/* Live Preview Section */}
-      {mockPremiumRestaurant && (
+      {adaptedMockRestaurant && (
         <div className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
@@ -216,7 +213,7 @@ const Upgrade = () => {
             </h2>
             <div className="border rounded-lg overflow-hidden shadow-xl">
               <PremiumProfileLayout
-                restaurant={mockPremiumRestaurant}
+                restaurant={adaptedMockRestaurant}
                 toggleFavorite={() => { /* no-op for mock */ }}
                 isFavoriteMutating={false}
                 isCompact={false}

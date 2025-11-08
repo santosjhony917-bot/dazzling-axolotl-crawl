@@ -1,77 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Phone, Globe, Instagram, Facebook, Twitter, Clock, Utensils, Star, Heart, Share2 } from "lucide-react";
+import { MapPin, Phone, Globe, Star, Heart, Share2, Utensils } from "lucide-react";
 import { cn } from "@/lib/utils";
 import RestaurantMenu from "./RestaurantMenu";
 import RestaurantGallery from "./RestaurantGallery";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
+import { PublicRestaurantData } from "@/types/restaurant";
+import DetailedHoursDisplay from "./DetailedHoursDisplay";
 
 // Helper to determine container padding based on screen size
 const containerPxClass = "px-4 sm:px-6 lg:px-8";
-
-interface MenuItem {
-  id: string;
-  name: string;
-  description?: string;
-  price: number;
-  image_url?: string;
-}
-
-interface MenuCategory {
-  id: string;
-  name: string;
-  items: MenuItem[];
-}
-
-interface PublicRestaurantData {
-  id: string;
-  name: string;
-  description?: string;
-  image_url?: string;
-  cover_image_url?: string;
-  category?: string;
-  phone?: string;
-  email?: string;
-  address?: string;
-  number?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
-  cep?: string;
-  latitude?: number;
-  longitude?: number;
-  opening_hours?: Record<string, string>;
-  whatsapp_url?: string;
-  ifood_url?: string;
-  other_url?: string;
-  menu_categories?: Array<{
-    id: string;
-    name: string;
-    menu_items: Array<{
-      id: string;
-      name: string;
-      description?: string;
-      price: number;
-      image_url?: string;
-    }>;
-  }>;
-  restaurant_gallery?: Array<{
-    id: string;
-    image_url: string;
-    caption?: string;
-    order_index?: number;
-  }>;
-}
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -134,9 +80,6 @@ const RestaurantPageHeader = () => {
 };
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact }) => {
-  // The useQuery hook is already defined in the parent component (RestaurantProfilePublic or Upgrade)
-  // and passes the 'restaurant' prop down. So, we don't need to fetch it again here.
-
   if (!restaurant) {
     return (
       <div className="min-h-screen bg-background-light pt-[96px] flex items-center justify-center">
@@ -156,25 +99,33 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     restaurant.state ||
     restaurant.cep;
 
-  // Mapear menu_categories para o formato esperado por RestaurantMenu
   const formattedMenu = restaurant.menu_categories?.map(category => ({
     id: category.id,
     name: category.name,
+    is_active: category.is_active,
+    is_popular: category.is_popular,
+    order_index: category.order_index,
+    restaurant_id: category.restaurant_id,
+    created_at: category.created_at,
     items: category.menu_items.map(item => ({
       id: item.id,
       name: item.name,
       description: item.description,
       price: item.price,
       image_url: item.image_url,
+      category_id: item.category_id,
+      is_active: item.is_active,
+      order_index: item.order_index,
+      created_at: item.created_at,
     })),
   })) || [];
 
+  const galleryImages = (restaurant as any).restaurant_gallery || restaurant.gallery_images || [];
+
   return (
     <div className="relative min-h-screen bg-background-light">
-      {/* Novo cabeçalho fixo no topo */}
       <RestaurantPageHeader />
 
-      {/* Cover Image */}
       <div className="relative h-48 w-full bg-gray-200">
         {restaurant.cover_image_url && (
           <img
@@ -186,7 +137,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
       </div>
 
-      {/* Restaurant Logo and Basic Info */}
       <div className={cn("relative -mt-16 mb-4", containerPxClass)}>
         <Avatar className="h-32 w-32 rounded-full border-4 border-white shadow-md">
           <AvatarImage src={restaurant.image_url || "/placeholder.svg"} />
@@ -203,15 +153,13 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           )}
           <div className="flex items-center mt-2 text-gray-600">
             <Star className="h-4 w-4 text-yellow-500 mr-1" fill="currentColor" />
-            <span>4.5 (120 avaliações)</span> {/* Placeholder for ratings */}
+            <span>4.5 (120 avaliações)</span>
           </div>
         </div>
       </div>
 
       <div className="pb-8 pt-16 px-4 sm:px-6 lg:px-8">
-        {/* Conteúdo Principal */}
         <div className="space-y-6">
-          {/* Description */}
           {restaurant.description && (
             <Card className="shadow-sm">
               <CardContent className="p-4">
@@ -220,7 +168,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             </Card>
           )}
 
-          {/* Make an Order Card */}
           <Card className="shadow-sm bg-orange-500 text-white">
             <CardContent className="p-4 flex items-center justify-between">
               <div>
@@ -237,7 +184,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             </CardContent>
           </Card>
 
-          {/* Menu Section */}
           {formattedMenu.length > 0 && (
             <RestaurantMenu
               restaurantId={restaurant.id}
@@ -245,12 +191,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             />
           )}
 
-          {/* Gallery Section */}
-          {restaurant.restaurant_gallery && restaurant.restaurant_gallery.length > 0 && (
-            <RestaurantGallery images={restaurant.restaurant_gallery} />
+          {galleryImages.length > 0 && (
+            <RestaurantGallery images={galleryImages} />
           )}
 
-          {/* Contact Info */}
           {hasContactInfo && (
             <Card className="shadow-sm">
               <CardHeader>
@@ -273,7 +217,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             </Card>
           )}
 
-          {/* Address */}
           {hasAddress && (
             <Card className="shadow-sm">
               <CardHeader>
@@ -301,24 +244,17 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             </Card>
           )}
 
-          {/* Opening Hours */}
           {restaurant.opening_hours && (
             <Card className="shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg">Horário de Funcionamento</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
-                {Object.entries(restaurant.opening_hours).map(([day, hours]) => (
-                  <div key={day} className="flex justify-between text-gray-700">
-                    <span className="font-medium">{day}</span>
-                    <span>{hours as string}</span>
-                  </div>
-                ))}
+              <CardContent>
+                <DetailedHoursDisplay schedule={restaurant.opening_hours} />
               </CardContent>
             </Card>
           )}
 
-          {/* Social Networks */}
           {hasSocials && (
             <Card className="shadow-sm">
               <CardHeader>
@@ -358,7 +294,6 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                     </Button>
                   </a>
                 )}
-                {/* Add more social icons as needed */}
               </CardContent>
             </Card>
           )}

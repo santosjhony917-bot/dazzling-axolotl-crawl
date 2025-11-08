@@ -9,49 +9,9 @@ import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface PublicRestaurantData {
-  id: string;
-  name: string;
-  description?: string;
-  image_url?: string;
-  cover_image_url?: string;
-  category?: string;
-  phone?: string;
-  email?: string;
-  address?: string;
-  number?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
-  cep?: string;
-  latitude?: number;
-  longitude?: number;
-  opening_hours?: Record<string, string>;
-  whatsapp_url?: string;
-  ifood_url?: string;
-  other_url?: string;
-  menu_categories?: Array<{
-    id: string;
-    name: string;
-    menu_items: Array<{
-      id: string;
-      name: string;
-      description?: string;
-      price: number;
-      image_url?: string;
-    }>;
-  }>;
-  restaurant_gallery?: Array<{
-    id: string;
-    image_url: string;
-    caption?: string;
-    order_index?: number;
-  }>;
-}
+import { PublicRestaurantData } from "@/types/restaurant";
 
 const RestaurantProfilePublic = () => {
-  const { id } = useParams<{ id: string }>();
   const { restaurantId } = useParams<{ restaurantId: string }>();
   const queryClient = useQueryClient();
   const [isFavorite, setIsFavorite] = useState(false); // Placeholder for favorite state
@@ -77,7 +37,9 @@ const RestaurantProfilePublic = () => {
         .eq("id", restaurantId)
         .single();
       if (error) throw error;
-      return data;
+      // The fetched data might not match the full PublicRestaurantData type from types/restaurant.ts
+      // We should cast it carefully or adjust the type/query. For now, we cast it.
+      return data as unknown as PublicRestaurantData;
     },
     enabled: !!restaurantId,
   });

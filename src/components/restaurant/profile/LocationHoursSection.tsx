@@ -14,14 +14,17 @@ interface LocationHoursSectionProps {
 
 // Helper para formatar o resumo dos horários
 const formatScheduleSummary = (schedule: WeekSchedule): string | null => {
+  if (!schedule) return "Horário não definido";
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as (keyof WeekSchedule)[];
   
-  const openDays = days.filter(day => schedule[day]?.isOpen);
+  const openDays = days.filter(day => schedule[day]?.isOpen && schedule[day].slots.length > 0);
   
-  if (openDays.length === 0) return null;
+  if (openDays.length === 0) return "Fechado todos os dias";
   
-  // Simplificação: se todos os dias abertos tiverem o mesmo slot, mostra o resumo.
-  const firstSlot = schedule[openDays[0]].slots[0];
+  const firstDayWithSlots = openDays.find(day => schedule[day].slots.length > 0);
+  if (!firstDayWithSlots) return "Horários definidos, mas sem slots";
+
+  const firstSlot = schedule[firstDayWithSlots].slots[0];
   if (!firstSlot) return "Horários definidos";
 
   const summary = `${openDays.length} dias abertos. Ex: ${firstSlot.start} - ${firstSlot.end}`;
