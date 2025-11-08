@@ -1,20 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2, AlertTriangle } from 'lucide-react';
+import { Check, X, ArrowRight, Crown, Zap, Lock, Star, Shield, Smartphone, CreditCard, Loader2, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
-import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
-import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
-import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
-import FreeProfileLayout from '@/components/public/FreeProfileLayout'; // Importar FreeProfileLayout
-import PremiumProfileLayout from '@/components/public/PremiumProfileLayout'; // Importar PremiumProfileLayout
-import { mockFreeRestaurant, mockPremiumRestaurant } from '@/data/mockRestaurants'; // Importar dados mockados
-import { PublicRestaurantData } from '@/types/restaurant'; // Importar tipo para os dados mockados
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
+import { useAuthData } from '@/context/AuthContext';
+import FreeProfileLayout from '@/components/public/FreeProfileLayout';
+import { mockFreeRestaurant } from '@/data/mockRestaurants';
+import { PublicRestaurantData } from '@/types/restaurant';
+import PremiumProfilePreviewImage from '/assets/premium-profile-preview.jpeg';
 
 // --- Mock Data ---
 const freeFeatures = [
@@ -86,12 +85,11 @@ const FreeCard: React.FC = () => (
 const UpgradePageContent: React.FC = () => {
   const navigate = useNavigate();
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free'); // Estado para controlar a prévia
-  const { restaurant } = useAuthData(); // Obter dados do restaurante logado
+  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free');
+  const { restaurant } = useAuthData();
 
   const handleSubscribe = () => {
     setIsSubscribing(true);
-    // Simulação de navegação para checkout/assinatura
     setTimeout(() => {
       alert("Iniciando processo de assinatura Premium!");
       setIsSubscribing(false);
@@ -99,24 +97,20 @@ const UpgradePageContent: React.FC = () => {
   };
   
   const handleViewPremiumRestaurants = () => {
-    // CORRIGIDO: Usando a chave de rota correta
     navigate(createPageUrl('restaurantResults'));
   };
 
-  // Verifica se o ID do restaurante do usuário logado está disponível
-  const isRestaurantIdAvailable = !!restaurant?.id; // Manter para o alerta, mas não para a lógica da prévia
+  const isRestaurantIdAvailable = !!restaurant?.id;
 
   return (
     <div className="min-h-screen bg-white dark:bg-background-dark">
       
-      {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
       <motion.header
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative bg-[#022D68] text-white pt-16 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
       >
-        {/* Gradiente Diagonal Suave */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#022D68] to-[#022D68]/80 opacity-90"></div>
         
         <div className="relative z-10 max-w-md mx-auto px-4 text-center">
@@ -132,7 +126,6 @@ const UpgradePageContent: React.FC = () => {
             Mais de 70% dos restaurantes da cidade já são Premium. O próximo destaque pode ser o seu.
           </p>
           
-          {/* Imagem Ilustrativa (Mock) */}
           <div className="flex justify-center mb-6">
             <motion.div
               initial={{ scale: 0.8, rotate: -5 }}
@@ -142,12 +135,10 @@ const UpgradePageContent: React.FC = () => {
             >
               <Smartphone className="w-16 h-16 text-white/80" />
               <div className="absolute inset-0 bg-white/5 opacity-5 blur-sm" />
-              {/* Brilho sutil */}
               <div className="absolute top-0 left-0 w-full h-full bg-white opacity-10 blur-sm" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
             </motion.div>
           </div>
           
-          {/* Botão Pequeno */}
           <Button 
             variant="link" 
             onClick={handleViewPremiumRestaurants}
@@ -160,23 +151,20 @@ const UpgradePageContent: React.FC = () => {
 
       <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
         
-        {/* 2. Comparativo Free vs Premium */}
         <Card className="p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-lg font-bold text-primary text-center mb-6">
             Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
           </h2>
           
-          {/* Toggle para alternar entre as prévias */}
           <PlanPreviewToggle 
-            currentPlan={restaurant?.plan || 'free'} // Passa o plano real do restaurante
+            currentPlan={restaurant?.plan || 'free'}
             previewPlan={previewPlan} 
             setPreviewPlan={setPreviewPlan} 
           />
 
-          {/* Área de prévia */}
           <div className="relative overflow-hidden">
             <motion.div
-              key={previewPlan} // Key para forçar a re-renderização e animação
+              key={previewPlan}
               initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
@@ -199,24 +187,22 @@ const UpgradePageContent: React.FC = () => {
                     isCompact={true}
                   />
                 ) : (
-                  <PremiumProfileLayout
-                    restaurant={mockPremiumRestaurant as PublicRestaurantData}
-                    toggleFavorite={() => { /* no-op for mock */ }}
-                    isFavoriteMutating={false}
-                    isCompact={true}
+                  <img 
+                    src={PremiumProfilePreviewImage} 
+                    alt="Prévia do Perfil Premium" 
+                    className="w-full h-auto rounded-lg shadow-md border" 
                   />
                 )
               )}
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mt-6"> {/* Adicionado mt-6 para espaçamento */}
+          <div className="grid grid-cols-2 gap-4 mt-6">
             <FreeCard />
             <PremiumCard />
           </div>
         </Card>
         
-        {/* 3. Bloco emocional com fundo azul e texto branco */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -224,7 +210,6 @@ const UpgradePageContent: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="mt-12 bg-[#022D68] text-white p-8 rounded-xl shadow-xl relative overflow-hidden"
         >
-          {/* Efeito Brilho Diagonal Suave */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent animate-pulse-slow" />
           
           <h2 className="relative z-10 text-center text-2xl font-extrabold leading-snug">
@@ -234,7 +219,6 @@ const UpgradePageContent: React.FC = () => {
           </h2>
         </motion.div>
 
-        {/* 4. Bloco de planos e botão de ação */}
         <Card className="mt-12 p-6 shadow-soft-xl border-none rounded-2xl bg-white">
           <h2 className="text-xl font-bold text-primary text-center mb-4">
             Assine o Premium e seja encontrado todos os dias.
@@ -271,7 +255,6 @@ const UpgradePageContent: React.FC = () => {
             </Button>
           </motion.div>
           
-          {/* Ícones de Segurança */}
           <div className="flex justify-center items-center gap-4 mt-4 text-gray-500 text-xs">
             <div className="flex items-center gap-1">
               <Lock className="w-3 h-3" />
@@ -285,7 +268,6 @@ const UpgradePageContent: React.FC = () => {
         </Card>
       </main>
       
-      {/* 5. Rodapé de Autoridade */}
       <footer className="mt-12 bg-[#022D68] text-white p-8 rounded-t-3xl">
         <div className="max-w-md mx-auto text-center">
           <p className="text-lg font-bold mb-2">
