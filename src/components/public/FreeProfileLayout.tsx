@@ -11,7 +11,6 @@ import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
 import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from "@/types/restaurant";
 import { Button } from "@/components/ui/button";
-import RestaurantProfileHeader from './RestaurantProfileHeader';
 
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -52,9 +51,6 @@ const FreeProfileLayout = ({
 
   return (
     <div className="relative">
-      {/* Capa do Restaurante usando o componente RestaurantProfileHeader */}
-      <RestaurantProfileHeader restaurant={headerData} />
-
       {/* Conteúdo principal, ajustado para sobrepor a capa */}
       <div className={cn(
         "relative z-10 mt-20" // Aplica margin-top para afastar o conteúdo do cabeçalho
