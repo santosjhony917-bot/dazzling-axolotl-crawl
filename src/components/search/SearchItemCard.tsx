@@ -1,51 +1,69 @@
 import React from 'react';
-import { formatCurrency } from '@/lib/utils';
+import { formatPrice } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { Link } from 'react-router-dom';
+import { Utensils, MapPin } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
-interface SearchItemCardProps {
-  item_id: string;
-  item_name: string;
-  item_description: string;
-  item_price: number;
-  item_image_url?: string;
-  restaurant_id: string;
-  restaurant_name: string;
-  restaurant_category: string;
-  onClick: (itemId: string, type: 'dish' | 'restaurant') => void; // Adicionado a prop onClick
+interface SearchItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price?: number; // Apenas para pratos
+  imageUrl: string | null;
+  type: 'dish' | 'restaurant';
+  // Campos adicionais para restaurante
+  category?: string | null;
+  city?: string | null;
+  restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
 }
 
-const SearchItemCard: React.FC<SearchItemCardProps> = ({
-  item_id,
-  item_name,
-  item_description,
-  item_price,
-  item_image_url,
-  restaurant_id,
-  restaurant_name,
-  restaurant_category,
-  onClick, // Desestruturado a prop onClick
-}) => {
+interface SearchItemCardProps {
+  item: SearchItem;
+  onClick: (itemId: string, type: 'dish' | 'restaurant') => void;
+}
+
+const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
+  const isDish = item.type === 'dish';
+  const formattedPrice = item.price ? formatPrice(item.price) : null;
+  // Se for um prato, exibe o nome do restaurante; caso contrário, exibe a categoria do restaurante
+  const displayDescription = isDish ? item.restaurantName : item.category;
+
   return (
-    <div onClick={() => onClick(item_id, 'dish')} className="block cursor-pointer"> {/* Usando div e onClick */}
-      <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-        <img
-          src={item_image_url || PLACEHOLDER_IMAGE_URL}
-          alt={item_name}
-          className="w-20 h-20 object-cover rounded-md flex-shrink-0"
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      onClick={() => onClick(item.id, item.type)}
+    >
+      <div 
+        className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-4 shadow-soft-lg cursor-pointer hover:shadow-soft-xl transition-shadow border border-gray-100"
+      >
+        <div 
+          className="bg-center bg-no-repeat aspect-square bg-cover rounded-xl size-20 flex-shrink-0 shadow-soft-sm" 
+          style={{ backgroundImage: `url("${item.imageUrl || PLACEHOLDER_IMAGE_URL}")` }}
+          data-alt={item.name}
         />
-        <div className="flex-grow">
-          <h3 className="font-semibold text-lg text-gray-900">{item_name}</h3>
-          <p className="text-sm text-gray-600 line-clamp-2">{item_description}</p>
-          <p className="text-xs text-gray-500 mt-1">
-            {restaurant_name} ({restaurant_category})
-          </p>
+        <div className="flex-1 min-w-0">
+          <p className="text-primary dark:text-white text-lg font-bold leading-normal truncate">{item.name}</p>
+          
+          {isDish && formattedPrice && (
+            <p className="text-highlight text-xl font-extrabold leading-tight mt-1">{formattedPrice}</p>
+          )}
+          
+          {displayDescription && (
+            <p className="text-gray-600 dark:text-gray-400 text-sm font-normal leading-snug line-clamp-2 mt-0.5">
+              {displayDescription}
+            </p>
+          )}
+          
+          {!isDish && item.city && (
+            <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+              <MapPin className="w-3 h-3 text-highlight" /> {item.city}
+            </p>
+          )}
         </div>
-        <p className="font-bold text-orange-600 text-lg flex-shrink-0">
-          {formatCurrency(item_price)}
-        </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

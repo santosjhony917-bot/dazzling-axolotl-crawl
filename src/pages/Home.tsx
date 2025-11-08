@@ -325,17 +325,14 @@ const Home: React.FC = () => {
       
       {/* Modais de Filtro */}
       <SearchByPriceModal
-        open={isPriceModalOpen}
-        onOpenChange={setIsPriceModalOpen}
-        onApply={handleApplyPriceFilter}
-        currentMin={0} // Adicionado valor padrão
-        currentMax={1000} // Adicionado valor padrão
+        isOpen={isPriceModalOpen}
+        onClose={() => setIsPriceModalOpen(false)}
+        onApplyFilter={handleApplyPriceFilter}
       />
       <SearchByDistanceModal
-        open={isDistanceModalOpen}
-        onOpenChange={setIsDistanceModalOpen}
-        onApply={handleApplyDistanceFilter}
-        currentDistance={distance[0]} // Adicionado valor padrão
+        isOpen={isDistanceModalOpen}
+        onClose={() => setIsDistanceModalOpen(false)}
+        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );

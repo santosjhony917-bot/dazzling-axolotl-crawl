@@ -1,150 +1,151 @@
-"use client";
-
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Pizza, Heart, Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Heart, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites';
 import { useAuthData } from '@/context/AuthContext';
-import { cn, formatCurrency } from '@/lib/utils';
+import { cn, formatPrice } from '@/lib/utils';
 import { showError } from '@/utils/toast';
-import { toast } from 'sonner';
+import { createPageUrl } from '@/utils/url';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMenuItemById } from '@/integrations/supabase/restaurant';
+import { MenuItem, Restaurant } from '@/types/supabase';
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-const MenuItemDetails = () => {
-  const { restaurantId, itemId } = useParams<{ restaurantId: string; itemId: string }>();
-  const { user } = useAuthData(); // Corrigido: usando 'user' diretamente
-  const queryClient = useQueryClient();
+// Tipo de dado esperado após o fetch
+type DetailedMenuItem = (MenuItem & { restaurant: Restaurant | null });
 
-  const { data: menuItem, isLoading, error } = useQuery({
-    queryKey: ['menuItem', itemId],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('menu_items')
-        .select(`
-          *,
-          menu_categories (
-            restaurant_id
-          )
-        `)
-        .eq('id', itemId)
-        .single();
-      if (error) throw error;
-      return data;
-    },
+const MenuItemDetails: React.FC = () => {
+  const { itemId } = useParams<{ itemId: string }>();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthData();
+  
+  if (!itemId) {
+    // Se o ID estiver faltando na URL, redireciona imediatamente
+    useEffect(() => {
+      showError("ID do item não encontrado.");
+      navigate(-1);
+    }, [navigate]);
+    return null;
+  }
+
+  // Query para buscar os detalhes do item
+  const { data: itemData, isLoading, error } = useQuery<DetailedMenuItem | null, Error>({
+    queryKey: ['menuItemDetails', itemId],
+    queryFn: () => fetchMenuItemById(itemId),
+    enabled: !!itemId,
+    staleTime: 1000 * 60 * 5,
   });
-
-  const { data: isFavorite, isLoading: isLoadingFavorite } = useQuery({
-    queryKey: ['menuItemFavorite', itemId, user?.id], // Corrigido: usando 'user?.id'
-    queryFn: async () => {
-      if (!user?.id) return false; // Corrigido: usando 'user?.id'
-      const { data, error } = await supabase
-        .from('menu_item_favorites')
-        .select('id')
-        .eq('user_id', user.id) // Corrigido: usando 'user.id'
-        .eq('menu_item_id', itemId)
-        .single();
-      if (error && error.code !== 'PGRST116') throw error; // PGRST116 means no rows found
-      return !!data;
-    },
-    enabled: !!user?.id, // Corrigido: usando 'user?.id'
-  });
-
-  const { mutate: toggleFavorite, isPending: isFavoriteMutating } = useMutation({
-    mutationFn: async () => {
-      if (!user?.id) { // Corrigido: usando 'user?.id'
-        showError('Você precisa estar logado para favoritar itens.');
-        return;
-      }
-      if (isFavorite) {
-        const { error } = await supabase
-          .from('menu_item_favorites')
-          .delete()
-          .eq('user_id', user.id) // Corrigido: usando 'user.id'
-          .eq('menu_item_id', itemId);
-        if (error) throw error;
-      } else {
-        const { error } = await supabase
-          .from('menu_item_favorites')
-          .insert({ user_id: user.id, menu_item_id: itemId }); // Corrigido: usando 'user.id'
-        if (error) throw error;
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuItemFavorite', itemId, user?.id] }); // Corrigido: usando 'user?.id'
-      toast.success(isFavorite ? 'Item removido dos favoritos!' : 'Item adicionado aos favoritos!');
-    },
-    onError: (err) => {
-      showError(`Erro ao atualizar favoritos: ${err.message}`);
-    },
-  });
+  
+  // Usando o hook de favoritos
+  const { isFavorite, toggleFavorite, isLoading: isFavoriteMutating } = useMenuItemFavorites(itemId);
+  
+  const handleBack = () => navigate(-1);
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background-light p-4">
-        <Skeleton className="h-64 w-full rounded-lg mb-4" />
-        <Skeleton className="h-8 w-3/4 mb-2" />
-        <Skeleton className="h-6 w-1/2 mb-4" />
-        <Skeleton className="h-4 w-full mb-2" />
-        <Skeleton className="h-4 w-full mb-2" />
-        <Skeleton className="h-4 w-1/3" />
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
-
-  if (error || !menuItem) {
+  
+  if (error || !itemData) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background-light">
-        <p className="text-red-500">Erro ao carregar os detalhes do item do menu.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-background-light pb-16">
-      <div className="relative h-64 w-full bg-gray-200">
-        {menuItem.image_url && (
-          <img
-            src={menuItem.image_url}
-            alt={menuItem.name}
-            className="h-full w-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        <Link to={`/restaurants/${restaurantId}/menu`} className="absolute top-4 left-4 text-white bg-black/50 rounded-full p-2">
-          <ArrowLeft className="h-6 w-6" />
-        </Link>
-        {user?.id && ( // Corrigido: usando 'user?.id'
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2"
-            onClick={() => toggleFavorite()}
-            disabled={isFavoriteMutating || isLoadingFavorite}
-          >
-            <Heart className={cn("h-6 w-6", isFavorite && "fill-red-500 text-red-500")} />
-          </Button>
-        )}
-      </div>
-
-      <Card className="relative -mt-12 mx-4 shadow-lg rounded-lg">
-        <CardContent className="p-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{menuItem.name}</h1>
-          <p className="text-2xl font-semibold text-orange-600 mb-4">{formatCurrency(menuItem.price)}</p>
-          {menuItem.description && (
-            <p className="text-gray-700 leading-relaxed">{menuItem.description}</p>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Add to cart or other actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg">
-        <Button className="w-full bg-primary text-white text-lg py-6">
-          Adicionar ao Pedido
+      <div className="p-6 text-center">
+        <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <h2 className="text-xl font-bold text-gray-800 mb-2">Prato Não Encontrado</h2>
+        <p className="text-gray-600 mb-6">O item de menu solicitado não existe ou foi removido.</p>
+        <Button onClick={handleBack}>
+          Voltar
         </Button>
       </div>
+    );
+  }
+  
+  const restaurantName = itemData.restaurant?.name || 'Restaurante Desconhecido';
+  const restaurantId = itemData.restaurant?.id;
+
+  return (
+    <div className="min-h-screen bg-background-light max-w-md mx-auto">
+      
+      {/* Header Fixo */}
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleBack}
+          className="text-primary hover:bg-primary/5"
+        >
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+        <h2 className="text-primary text-xl font-bold">Detalhes do Prato</h2>
+        <div className="w-10"></div>
+      </header>
+
+      <main className="p-4 space-y-6">
+        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-0 overflow-hidden">
+          
+          {/* Imagem do Prato */}
+          <div className="h-64 w-full bg-gray-200 relative">
+            <img 
+              src={itemData.image_url || PLACEHOLDER_IMAGE_URL} 
+              alt={itemData.name} 
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Botão de Favoritar */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleFavorite}
+              disabled={!isAuthenticated || isFavoriteMutating}
+              className="absolute top-4 right-4 rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+            >
+              {isFavoriteMutating ? (
+                <Loader2 className="w-5 h-5 animate-spin text-red-500" />
+              ) : (
+                <Heart 
+                  className={cn(
+                    "w-5 h-5 transition-colors",
+                    isFavorite ? "text-red-500 fill-red-500" : "text-gray-500 hover:text-red-500"
+                  )}
+                />
+              )}
+            </Button>
+          </div>
+
+          <CardContent className="p-6 space-y-4">
+            <h1 className="text-3xl font-extrabold text-primary">{itemData.name}</h1>
+            
+            <p className="text-4xl font-extrabold text-highlight">
+              {formatPrice(itemData.price)}
+            </p>
+            
+            {itemData.description && (
+              <p className="text-gray-700 text-base leading-relaxed">
+                {itemData.description}
+              </p>
+            )}
+            
+            <div className="flex items-center gap-2 text-gray-600">
+              <Utensils className="w-5 h-5 text-primary" />
+              <p className="font-semibold">Servido por: {restaurantName}</p>
+            </div>
+            
+            {restaurantId && (
+              <Button 
+                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
+                variant="outline"
+                className="w-full h-12 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5"
+              >
+                Ver Restaurante
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      </main>
     </div>
   );
 };

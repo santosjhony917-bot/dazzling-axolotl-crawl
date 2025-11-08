@@ -1,90 +1,77 @@
-"use client";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
+import { createPageUrl } from '@/utils/url';
+import Header from '@/components/Header';
+import { Card, CardContent } from '@/components/ui/card';
+import RestaurantMenu from '@/components/public/RestaurantMenu'; // Reutiliza o componente de menu
 
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import RestaurantMenu from "@/components/public/RestaurantMenu";
-import { cn } from "@/lib/utils";
+export default function FullMenuPage() {
+  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const navigate = useNavigate();
 
-const containerPxClass = "px-4 sm:px-6 lg:px-8";
+  const { restaurant, isLoading, error } = usePublicRestaurant(restaurantId);
 
-const FullMenuPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data: restaurant, isLoading, error } = useQuery({
-    queryKey: ["restaurantFullMenu", id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("restaurants")
-        .select(
-          `
-          id,
-          name,
-          menu_categories (
-            *,
-            menu_items (*)
-          )
-        `
-        )
-        .eq("id", id)
-        .single();
-      if (error) throw error;
-      return data;
-    },
-  });
+  const handleBack = () => navigate(-1);
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background-light pt-[96px]">
-        <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10 p-4 flex items-center justify-between">
-          <Skeleton className="h-8 w-32" />
-          <Skeleton className="h-8 w-48" />
-          <div className="flex space-x-2">
-            <Skeleton className="h-8 w-8 rounded-full" />
-            <Skeleton className="h-8 w-8 rounded-full" />
-          </div>
-        </div>
-        <div className={cn("space-y-6 mt-8", containerPxClass)}>
-          <Skeleton className="h-8 w-3/4" />
-          <Skeleton className="h-48 w-full" />
-          <Skeleton className="h-48 w-full" />
-        </div>
+      <div className="flex justify-center items-center h-screen bg-background-light">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   if (error || !restaurant) {
     return (
-      <div className="min-h-screen bg-background-light pt-[96px] flex items-center justify-center">
-        <p className="text-red-500">Erro ao carregar o cardápio completo.</p>
+      <div className="p-8 text-center min-h-screen bg-background-light">
+        <Header 
+          title="Cardápio"
+          leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+        />
+        <div className="pt-20">
+          <AlertTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+          <h1 className="text-xl font-semibold text-gray-700">Cardápio Não Encontrado</h1>
+          <p className="text-gray-500 mt-2">{error instanceof Error ? error.message : "O restaurante ou cardápio solicitado não existe."}</p>
+          <Button onClick={handleBack} className="mt-6">
+            Voltar
+          </Button>
+        </div>
       </div>
     );
   }
+  
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
 
   return (
-    <div className="relative min-h-screen bg-background-light">
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10 p-4 flex items-center justify-between">
-        <Link to={`/restaurants/${id}`} className="text-lg font-bold text-primary">
-          &lt; Voltar
-        </Link>
-        <h1 className="text-xl font-semibold">{restaurant.name} - Cardápio</h1>
-        <div className="w-16"></div> {/* Placeholder for alignment */}
-      </div>
-
-      <div className={cn("pb-8 pt-[96px]", containerPxClass)}>
-        {restaurant.menu_categories && restaurant.menu_categories.length > 0 ? (
-          <RestaurantMenu
-            restaurantId={restaurant.id}
-            menu={restaurant.menu_categories}
+    <div className="min-h-screen bg-background-light max-w-md mx-auto">
+      <Header 
+        title={`Cardápio: ${restaurant.name}`}
+        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+      />
+      
+      <main className="p-4 space-y-6">
+        <Card className="shadow-soft-md border-none rounded-xl p-4">
+          <CardContent className="p-0 flex items-center gap-3">
+            <Utensils className="w-6 h-6 text-primary" />
+            <h1 className="text-xl font-bold text-primary">Cardápio Completo</h1>
+          </CardContent>
+        </Card>
+        
+        {hasMenu ? (
+          <RestaurantMenu 
+            menuCategories={restaurant.menu_categories} 
+            isFullMenuPage={true} // Nova prop para indicar que é a página completa
           />
         ) : (
-          <p className="text-center text-gray-600 mt-8">Nenhum item no cardápio.</p>
+          <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
+            <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
+          </Card>
         )}
-      </div>
+      </main>
     </div>
   );
-};
-
-export default FullMenuPage;
+}

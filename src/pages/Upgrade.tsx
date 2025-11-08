@@ -1,257 +1,309 @@
-"use client";
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Crown, Star, Zap } from 'lucide-react';
-import PremiumProfileLayout from '@/components/public/PremiumProfileLayout';
-import { mockRestaurants } from '@/data/mockRestaurants';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { Check, X, ArrowRight, Crown, Zap, Gem, Trophy, BarChart3, Bell, Pencil, Info, Lock, Star, Shield, Smartphone, CreditCard, Loader2, AlertTriangle } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'framer-motion';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout'; // Importando o novo layout
+import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle'; // Importar o toggle
+import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData para pegar o plano do restaurante
+import RestaurantProfilePublic from './RestaurantProfilePublic'; // Importar o componente RestaurantProfilePublic
+import FreeProfileLayout from '@/components/public/FreeProfileLayout'; // Importar FreeProfileLayout
+import PremiumProfileLayout from '@/components/public/PremiumProfileLayout'; // Importar PremiumProfileLayout
+import { mockFreeRestaurant, mockPremiumRestaurant } from '@/data/mockRestaurants'; // Importar dados mockados
+import { PublicRestaurantData } from '@/types/restaurant'; // Importar tipo para os dados mockados
 
-const mockPremiumRestaurant = mockRestaurants.find(r => r.plan === 'premium');
+// --- Mock Data ---
+const freeFeatures = [
+  { text: 'Visual limitado', icon: X, color: 'text-red-500' },
+  { text: 'Sem destaque na busca', icon: X, color: 'text-red-500' },
+  { text: 'Sem galeria de fotos', icon: X, color: 'text-red-500' },
+  { text: 'Sem estatísticas', icon: X, color: 'text-red-500' },
+];
 
-// Helper to convert mock opening_hours to WeekSchedule
-const convertMockHoursToWeekSchedule = (hours: Record<string, string> | undefined) => {
-  if (!hours) return null;
-  const schedule: any = {};
-  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-  days.forEach(day => {
-    const hourString = hours[day] || 'Fechado';
-    if (hourString.toLowerCase() === 'fechado') {
-      schedule[day] = { isOpen: false, slots: [] };
-    } else {
-      const [start, end] = hourString.split(' - ');
-      schedule[day] = { isOpen: true, slots: [{ start, end }] };
-    }
-  });
-  return schedule;
-};
+const premiumFeatures = [
+  { text: 'Design atrativo e profissional', icon: Check, color: 'text-green-500' },
+  { text: 'Destaque nos resultados', icon: Star, color: 'text-amber-500' },
+  { text: 'Fotos, cardápio completo e links', icon: Check, color: 'text-green-500' },
+  { text: 'Envio de promoções e cupons', icon: Zap, color: 'text-amber-500' },
+  { text: 'Painel com estatísticas de visualizações', icon: Shield, color: 'text-green-500' },
+];
 
-const adaptedMockRestaurant = mockPremiumRestaurant ? {
-  ...mockPremiumRestaurant,
-  user_id: 'mock-user-id', // Add missing required property
-  opening_hours: convertMockHoursToWeekSchedule(mockPremiumRestaurant.opening_hours),
-  // Ensure other properties from PublicRestaurantData are present, even if null/empty
-  addressSummary: `${mockPremiumRestaurant.address}, ${mockPremiumRestaurant.city}`,
-  logoUrl: mockPremiumRestaurant.image_url,
-  followers_count: 1234, // mock data
-  gallery_images: mockPremiumRestaurant.restaurant_gallery || [],
-  payment_methods: ['Cartão de Crédito', 'Dinheiro'], // mock data
-  isOpen: true, // mock data
-  statusText: 'Aberto agora', // mock data
-  nextOpenTime: null, // mock data
-  is_favorite: false, // mock data
-  social_networks: [], // mock data
-  other_url_label: 'Website', // mock data
-} as unknown as PublicRestaurantData : null;
+// --- Componentes Auxiliares ---
 
+const PremiumCard: React.FC = () => (
+  <motion.div
+    initial={{ scale: 0.95, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
+    whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(228, 121, 72, 0.3), 0 10px 10px -5px rgba(228, 121, 72, 0.1)' }}
+    className="relative flex flex-col h-full p-6 bg-white rounded-xl shadow-2xl border-2 border-highlight"
+  >
+    <div className="absolute top-0 right-0 bg-highlight text-white text-xs font-bold px-3 py-1 rounded-bl-lg flex items-center">
+      MAIS ESCOLHIDO
+    </div>
+    <div className="flex items-center justify-center size-12 rounded-full bg-highlight/10 mb-4">
+      <Crown className="w-6 h-6 text-highlight fill-highlight/50" />
+    </div>
+    <h3 className="text-xl font-bold text-highlight mb-4">Premium</h3>
+    <ul className="space-y-3 flex-1">
+      {premiumFeatures.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <li key={index} className="flex items-start gap-3 text-sm text-gray-800">
+            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
+            <span className="font-medium">{feature.text}</span>
+          </li>
+        );
+      })}
+    </ul>
+  </motion.div>
+);
 
-const Upgrade = () => {
+const FreeCard: React.FC = () => (
+  <Card className="flex flex-col h-full p-6 bg-gray-50 border-2 border-gray-200 shadow-soft-md rounded-xl">
+    <div className="flex items-center justify-center size-12 rounded-full bg-gray-200 mb-4">
+      <Lock className="w-6 h-6 text-gray-500" />
+    </div>
+    <h3 className="text-xl font-bold text-primary mb-4">Free (Atual)</h3>
+    <ul className="space-y-3 flex-1">
+      {freeFeatures.map((feature, index) => {
+        const Icon = feature.icon;
+        return (
+          <li key={index} className="flex items-start gap-3 text-sm text-gray-600">
+            <Icon className={cn("w-4 h-4 mt-1 shrink-0", feature.color)} />
+            <span className="font-medium">{feature.text}</span>
+          </li>
+        );
+      })}
+    </ul>
+  </Card>
+);
+
+const UpgradePageContent: React.FC = () => {
+  const navigate = useNavigate();
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [previewPlan, setPreviewPlan] = useState<'free' | 'premium'>('free'); // Estado para controlar a prévia
+  const { restaurant } = useAuthData(); // Obter dados do restaurante logado
+
+  const handleSubscribe = () => {
+    setIsSubscribing(true);
+    // Simulação de navegação para checkout/assinatura
+    setTimeout(() => {
+      alert("Iniciando processo de assinatura Premium!");
+      setIsSubscribing(false);
+    }, 1500);
+  };
+  
+  const handleViewPremiumRestaurants = () => {
+    // CORRIGIDO: Usando a chave de rota correta
+    navigate(createPageUrl('restaurantResults'));
+  };
+
+  // Verifica se o ID do restaurante do usuário logado está disponível
+  const isRestaurantIdAvailable = !!restaurant?.id; // Manter para o alerta, mas não para a lógica da prévia
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-orange-500 to-orange-600 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Leve seu Restaurante para o Próximo Nível
-          </h1>
-          <p className="mt-4 text-xl text-orange-100">
-            Desbloqueie recursos exclusivos e atraia mais clientes com nossos planos premium.
+    <div className="min-h-screen bg-white dark:bg-background-dark">
+      
+      {/* 1. Cabeçalho Hero (Fundo Azul Escuro) */}
+      <motion.header
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative bg-[#022D68] text-white pt-16 pb-24 overflow-hidden rounded-b-3xl shadow-2xl"
+      >
+        {/* Gradiente Diagonal Suave */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#022D68] to-[#022D68]/80 opacity-90"></div>
+        
+        <div className="relative z-10 max-w-md mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-3xl font-extrabold leading-tight mb-3"
+          >
+            Transforme seu perfil em um ímã de clientes 🍽️
+          </motion.h1>
+          <p className="text-base font-medium text-gray-200 mb-6">
+            Mais de 70% dos restaurantes da cidade já são Premium. O próximo destaque pode ser o seu.
           </p>
-          <div className="mt-8 flex justify-center">
-            <Button asChild className="bg-white text-orange-600 hover:bg-orange-50 text-lg px-8 py-3 rounded-full shadow-lg">
-              <Link to="#plans">Ver Planos</Link>
+          
+          {/* Imagem Ilustrativa (Mock) */}
+          <div className="flex justify-center mb-6">
+            <motion.div
+              initial={{ scale: 0.8, rotate: -5 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
+              className="relative w-40 h-40 bg-white/10 rounded-xl shadow-2xl border border-white/20 flex items-center justify-center"
+            >
+              <Smartphone className="w-16 h-16 text-white/80" />
+              <div className="absolute inset-0 bg-white/5 opacity-5 blur-sm" />
+              {/* Brilho sutil */}
+              <div className="absolute top-0 left-0 w-full h-full bg-white opacity-10 blur-sm" style={{ clipPath: 'polygon(0 0, 100% 0, 0 100%)' }} />
+            </motion.div>
+          </div>
+          
+          {/* Botão Pequeno */}
+          <Button 
+            variant="link" 
+            onClick={handleViewPremiumRestaurants}
+            className="text-white/80 hover:text-white text-sm font-semibold p-0 h-auto flex items-center mx-auto"
+          >
+            Ver restaurantes Premium <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
+        </div>
+      </motion.header>
+
+      <main className="relative -mt-16 px-4 max-w-md mx-auto z-20">
+        
+        {/* 2. Comparativo Free vs Premium */}
+        <Card className="p-6 shadow-soft-xl border-none rounded-2xl bg-white">
+          <h2 className="text-lg font-bold text-primary text-center mb-6">
+            Veja como seu restaurante aparece hoje (Free) e como pode brilhar (Premium)
+          </h2>
+          
+          {/* Toggle para alternar entre as prévias */}
+          <PlanPreviewToggle 
+            currentPlan={restaurant?.plan || 'free'} // Passa o plano real do restaurante
+            previewPlan={previewPlan} 
+            setPreviewPlan={setPreviewPlan} 
+          />
+
+          {/* Área de prévia */}
+          <div className="relative overflow-hidden">
+            <motion.div
+              key={previewPlan} // Key para forçar a re-renderização e animação
+              initial={{ opacity: 0, x: previewPlan === 'free' ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: previewPlan === 'free' ? 50 : -50 }}
+              transition={{ duration: 0.3 }}
+            >
+              {!isRestaurantIdAvailable ? (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>Restaurante Não Encontrado</AlertTitle>
+                  <AlertDescription>
+                    Não foi possível carregar a prévia. Certifique-se de que seu restaurante está cadastrado e associado à sua conta.
+                  </AlertDescription>
+                </Alert>
+              ) : (
+                previewPlan === 'free' ? (
+                  <FreeProfileLayout
+                    restaurant={mockFreeRestaurant as PublicRestaurantData}
+                    toggleFavorite={() => { /* no-op for mock */ }}
+                    isFavoriteMutating={false}
+                    isCompact={true}
+                  />
+                ) : (
+                  <PremiumProfileLayout
+                    restaurant={mockPremiumRestaurant as PublicRestaurantData}
+                    toggleFavorite={() => { /* no-op for mock */ }}
+                    isFavoriteMutating={false}
+                    isCompact={true}
+                  />
+                )
+              )}
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-6"> {/* Adicionado mt-6 para espaçamento */}
+            <FreeCard />
+            <PremiumCard />
+          </div>
+        </Card>
+        
+        {/* 3. Bloco emocional com fundo azul e texto branco */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 bg-[#022D68] text-white p-8 rounded-xl shadow-xl relative overflow-hidden"
+        >
+          {/* Efeito Brilho Diagonal Suave */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent animate-pulse-slow" />
+          
+          <h2 className="relative z-10 text-center text-2xl font-extrabold leading-snug">
+            Os clientes confiam em quem aparece primeiro.
+            <br />
+            <span className="text-highlight">Deixe seu restaurante impossível de ignorar.</span>
+          </h2>
+        </motion.div>
+
+        {/* 4. Bloco de planos e botão de ação */}
+        <Card className="mt-12 p-6 shadow-soft-xl border-none rounded-2xl bg-white">
+          <h2 className="text-xl font-bold text-primary text-center mb-4">
+            Assine o Premium e seja encontrado todos os dias.
+          </h2>
+          
+          <div className="text-center my-6">
+            <p className="text-5xl font-extrabold text-highlight">
+              R$ 37
+              <span className="text-xl font-normal text-gray-500"> / mês</span>
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              Sem fidelidade. Cancele quando quiser.
+            </p>
+          </div>
+
+          <motion.div
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Button
+              onClick={handleSubscribe}
+              disabled={isSubscribing}
+              variant="highlight"
+              className="w-full h-14 rounded-xl text-lg font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
+            >
+              {isSubscribing ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <>
+                  <Crown className="w-5 h-5 mr-2 fill-white" />
+                  Ativar Premium Agora
+                </>
+              )}
             </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Features Section */}
-      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
-            Por que fazer um Upgrade?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-              <Zap className="h-12 w-12 text-orange-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Mais Visibilidade</h3>
-              <p className="text-gray-600">
-                Destaque seu restaurante para milhares de novos clientes em potencial.
-              </p>
+          </motion.div>
+          
+          {/* Ícones de Segurança */}
+          <div className="flex justify-center items-center gap-4 mt-4 text-gray-500 text-xs">
+            <div className="flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              Pagamento Seguro
             </div>
-            <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-              <Star className="h-12 w-12 text-orange-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Recursos Avançados</h3>
-              <p className="text-gray-600">
-                Gerencie seu cardápio, promoções e galeria de fotos com facilidade.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-              <Crown className="h-12 w-12 text-orange-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Suporte Prioritário</h3>
-              <p className="text-gray-600">
-                Tenha acesso a uma equipe de suporte dedicada para todas as suas necessidades.
-              </p>
+            <div className="flex items-center gap-1">
+              <CreditCard className="w-3 h-3" />
+              Via App Store/Play Store
             </div>
           </div>
+        </Card>
+      </main>
+      
+      {/* 5. Rodapé de Autoridade */}
+      <footer className="mt-12 bg-[#022D68] text-white p-8 rounded-t-3xl">
+        <div className="max-w-md mx-auto text-center">
+          <p className="text-lg font-bold mb-2">
+            Filter Food é o mapa gastronômico oficial da cidade.
+          </p>
+          <p className="text-sm text-gray-300">
+            Restaurantes Premium são vistos, lembrados e escolhidos primeiro.
+          </p>
         </div>
-      </div>
-
-      {/* Pricing Plans Section */}
-      <div id="plans" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
-            Escolha o Plano Ideal para Você
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Free Plan */}
-            <Card className="flex flex-col justify-between border-2 border-gray-200 shadow-lg rounded-lg">
-              <CardHeader className="text-center pb-0">
-                <h3 className="text-2xl font-bold text-gray-900">Grátis</h3>
-                <p className="mt-2 text-gray-600">Comece sem custo</p>
-                <p className="mt-4 text-4xl font-extrabold text-gray-900">R$0<span className="text-xl font-medium text-gray-500">/mês</span></p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Perfil Básico do Restaurante
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Listagem na Busca
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Informações de Contato
-                  </li>
-                </ul>
-                <Button className="mt-8 w-full bg-gray-200 text-gray-800 hover:bg-gray-300">
-                  Plano Atual
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Basic Plan */}
-            <Card className="flex flex-col justify-between border-2 border-orange-500 shadow-lg rounded-lg relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                MAIS POPULAR
-              </div>
-              <CardHeader className="text-center pb-0">
-                <h3 className="text-2xl font-bold text-orange-600">Básico</h3>
-                <p className="mt-2 text-gray-600">Para restaurantes em crescimento</p>
-                <p className="mt-4 text-4xl font-extrabold text-orange-600">R$49<span className="text-xl font-medium text-gray-500">/mês</span></p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Tudo do Plano Grátis
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Cardápio Digital Completo
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Galeria de Fotos
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Integração com Redes Sociais
-                  </li>
-                </ul>
-                <Button className="mt-8 w-full bg-orange-500 text-white hover:bg-orange-600">
-                  Assinar Plano Básico
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Premium Plan */}
-            <Card className="flex flex-col justify-between border-2 border-gray-200 shadow-lg rounded-lg">
-              <CardHeader className="text-center pb-0">
-                <h3 className="text-2xl font-bold text-gray-900">Premium</h3>
-                <p className="mt-2 text-gray-600">Para o máximo destaque</p>
-                <p className="mt-4 text-4xl font-extrabold text-gray-900">R$99<span className="text-xl font-medium text-gray-500">/mês</span></p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Tudo do Plano Básico
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Destaque na Busca
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Análises de Desempenho
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    Suporte Prioritário 24/7
-                  </li>
-                </ul>
-                <Button className="mt-8 w-full bg-primary text-white hover:bg-primary/90">
-                  Assinar Plano Premium
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* Live Preview Section */}
-      {adaptedMockRestaurant && (
-        <div className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
-              Veja como seu perfil pode ficar
-            </h2>
-            <div className="border rounded-lg overflow-hidden shadow-xl">
-              <PremiumProfileLayout
-                restaurant={adaptedMockRestaurant}
-                toggleFavorite={() => { /* no-op for mock */ }}
-                isFavoriteMutating={false}
-                isCompact={false}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* FAQ Section */}
-      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
-            Perguntas Frequentes
-          </h2>
-          <div className="space-y-6">
-            {/* Add FAQ items here */}
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Posso cancelar a qualquer momento?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                Sim, você pode cancelar sua assinatura a qualquer momento. Não há contratos de longo prazo.
-              </CardContent>
-            </Card>
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Como faço para fazer o upgrade?</CardTitle>
-              </CardHeader>
-              <CardContent>
-                Após escolher seu plano, você será guiado por um processo simples de pagamento e configuração.
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 };
 
-export default Upgrade;
+export default function UpgradePage() {
+    return (
+        <RestaurantAreaPageLayout title="Upgrade Premium" icon={Crown} backPath="restaurant-area/profile-menu">
+            <UpgradePageContent />
+        </RestaurantAreaPageLayout>
+    );
+}

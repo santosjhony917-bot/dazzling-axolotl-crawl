@@ -1,79 +1,148 @@
-"use client";
+import React from 'react';
+import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando MenuCategory e MenuItem do tipo estendido
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
+import { ChevronRight, Utensils } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
+import { Button } from '@/components/ui/button'; // Importando Button
+import { cn } from '@/lib/utils';
 
-import React from "react";
-import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/lib/utils";
-
-interface MenuItem {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image_url?: string;
-}
-
-interface MenuCategory {
-  id: string;
-  name: string;
-  items: MenuItem[];
+// Definindo o tipo de categoria esperado (com itens aninhados)
+interface MenuCategoryWithItems extends MenuCategory {
+  menu_items: MenuItem[];
 }
 
 interface RestaurantMenuProps {
-  restaurantId: string;
-  menu: MenuCategory[];
+  menuCategories: MenuCategoryWithItems[];
+  isFullMenuPage?: boolean; // Nova prop para controlar a exibição completa
+  restaurantId?: string; // Necessário para o link do cardápio completo
+  forceShowFullMenuButton?: boolean; // NOVO: Prop para forçar a exibição do botão de menu completo
+  isCompact?: boolean; // NOVO: Prop para indicar modo compacto
 }
 
-const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId, menu }) => {
-  if (!menu || menu.length === 0) {
-    return null;
-  }
+// NOVOS LIMITES
+const MAX_CATEGORIES_PREVIEW = 2;
+const MAX_ITEMS_PER_CATEGORY_PREVIEW = 5;
+
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton, isCompact }) => {
+  const navigate = useNavigate();
+  
+  if (menuCategories.length === 0) return null;
+
+  const handleItemClick = (itemId: string) => {
+    navigate(createPageUrl('menuItemDetails', { itemId }));
+  };
+  
+  const handleViewFullMenu = () => {
+    if (restaurantId) {
+      navigate(createPageUrl('fullMenuPage', { restaurantId }));
+    }
+  };
+
+  // Lógica de filtragem e limitação
+  const activeCategories = menuCategories
+    .filter(category => category.is_active)
+    .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+    
+  const categoriesToDisplay = isFullMenuPage 
+    ? activeCategories 
+    : activeCategories.slice(0, MAX_CATEGORIES_PREVIEW);
+    
+  const shouldShowFullMenuButton = forceShowFullMenuButton || (!isFullMenuPage && (
+    activeCategories.length > MAX_CATEGORIES_PREVIEW || 
+    activeCategories.some(cat => cat.menu_items.filter(item => item.is_active).length > MAX_ITEMS_PER_CATEGORY_PREVIEW)
+  ));
 
   return (
-    <Card className="w-full shadow-sm">
-      <CardContent className="p-4">
-        <h2 className="text-xl font-semibold mb-4">Cardápio</h2>
-        {menu.map((category, index) => (
-          <div key={category.id}>
-            <h3 className="text-lg font-medium mb-3">{category.name}</h3>
-            <div className="space-y-4">
-              {category.items.map((item) => (
-                <Link to={`/restaurants/${restaurantId}/menu/${item.id}`} key={item.id}>
-                  <div className="flex items-center space-x-4">
-                    {item.image_url && (
-                      <img
-                        src={item.image_url}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover flex-shrink-0 rounded-md"
-                      />
-                    )}
-                    <div className="flex-grow">
-                      <p className="font-medium text-base">{item.name}</p>
-                      {item.description && (
-                        <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
-                      )}
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <p className="font-semibold text-orange-600 text-base">
-                        {formatCurrency(item.price)}
+    <div 
+      id="menu" 
+      className={cn(
+        "space-y-6",
+        shouldShowFullMenuButton && "mb-8" // Adiciona margem inferior extra se o botão de menu completo estiver visível
+      )}
+    >
+      {/* Título da seção: Removido para evitar redundância com a aba ativa */}
+
+      {categoriesToDisplay.map((category, index) => {
+        const activeItems = category.menu_items
+          .filter(item => item.is_active)
+          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+          
+        const itemsToDisplay = isFullMenuPage 
+          ? activeItems 
+          : activeItems.slice(0, MAX_ITEMS_PER_CATEGORY_PREVIEW);
+          
+        const remainingItemsCount = activeItems.length - itemsToDisplay.length;
+
+        return (
+          <div key={category.id} className="space-y-4">
+            {/* Título da Categoria */}
+            <h3 className="text-xl font-extrabold text-primary pb-2">{category.name}</h3>
+            
+            <div className="grid gap-y-3"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado */}
+              {itemsToDisplay.map((item) => (
+                <Card 
+                  key={item.id} 
+                  className="p-3 flex items-start space-x-3"
+                  onClick={() => handleItemClick(item.id)}
+                >
+                  {item.image_url && (
+                    <img 
+                      src={item.image_url} 
+                      alt={item.name} 
+                      className="w-12 h-12 object-cover flex-shrink-0"
+                    />
+                  )}
+                  <div className="flex-grow">
+                    <div className="flex justify-between items-start">
+                      <h4 className="font-semibold text-lg text-primary">{item.name}</h4>
+                      <p className="font-bold text-lg text-highlight ml-4">
+                        {formatPrice(item.price)}
                       </p>
-                      <ChevronRight className="h-5 w-5 text-gray-400" />
                     </div>
+                    {item.description && (
+                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
+                    )}
                   </div>
-                </Link>
+                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
+                </Card>
               ))}
+              
+              {/* Botão para ver mais itens na categoria (apenas na prévia) */}
+              {!isFullMenuPage && remainingItemsCount > 0 && (
+                <Button 
+                  variant="link" 
+                  onClick={handleViewFullMenu}
+                  className="text-highlight p-0 h-auto text-sm font-semibold justify-start"
+                >
+                  Ver mais {remainingItemsCount} itens em {category.name}
+                </Button>
+              )}
             </div>
-            {index < menu.length - 1 && <Separator className="my-6" />}
+            {/* Separador entre categorias, exceto a última e apenas na prévia */}
+            {!isFullMenuPage && index < categoriesToDisplay.length - 1 && (
+              <Separator className="my-6 bg-gray-200" />
+            )}
           </div>
-        ))}
-        <Button asChild className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white">
-          <Link to={`/restaurants/${restaurantId}/menu`}>Ver Cardápio Completo</Link>
+        );
+      })}
+      
+      {/* Botão Ver Cardápio Completo (apenas na prévia) */}
+      {shouldShowFullMenuButton && restaurantId && (
+        <Button 
+          onClick={handleViewFullMenu}
+          variant="default"
+          className={cn("w-full font-bold mt-6", {
+            "h-12 text-lg rounded-xl": !isCompact, // Tamanho padrão
+            "h-2 text-xs rounded-lg": isCompact // Altura ainda mais reduzida para modo compacto
+          })}
+        >
+          Ver Cardápio Completo
         </Button>
-      </CardContent>
-    </Card>
+      )}
+    </div>
   );
 };
 

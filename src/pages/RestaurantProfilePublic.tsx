@@ -1,103 +1,112 @@
 "use client";
 
-import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
-import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+
+import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
+import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
+import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
+import FreeProfileLayout from "@/components/public/FreeProfileLayout";
+import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // Importar o novo cabeçalho
+import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
 import { PublicRestaurantData } from "@/types/restaurant";
+import { cn } from "@/lib/utils";
 
-const RestaurantProfilePublic = () => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
-  const queryClient = useQueryClient();
-  const [isFavorite, setIsFavorite] = useState(false); // Placeholder for favorite state
+interface RestaurantProfilePublicProps {
+  initialRestaurantId?: string;
+  simulatedPlan?: 'free' | 'premium';
+  isCompact?: boolean;
+}
 
-  const { data: restaurant, isLoading, error } = useQuery<PublicRestaurantData>({
-    queryKey: ["restaurantPublic", restaurantId],
-    queryFn: async () => {
-      if (!restaurantId) {
-        throw new Error("ID do restaurante é obrigatório.");
-      }
-      const { data, error } = await supabase
-        .from("restaurants")
-        .select(
-          `
-          *,
-          menu_categories (
-            *,
-            menu_items (*)
-          ),
-          restaurant_gallery (*)
-        `
-        )
-        .eq("id", restaurantId)
-        .single();
-      if (error) throw error;
-      // The fetched data might not match the full PublicRestaurantData type from types/restaurant.ts
-      // We should cast it carefully or adjust the type/query. For now, we cast it.
-      return data as unknown as PublicRestaurantData;
-    },
-    enabled: !!restaurantId,
-  });
+const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  const id = initialRestaurantId || params.restaurantId;
 
-  // Placeholder for favorite mutation
-  const { mutate: toggleFollow, isPending: isFavoriteMutating } = useMutation({
-    mutationFn: async () => {
-      // Simulate API call
-      return new Promise((resolve) => setTimeout(() => resolve(null), 500));
-    },
-    onSuccess: () => {
-      setIsFavorite((prev) => !prev);
-      toast.success(isFavorite ? "Removido dos favoritos!" : "Adicionado aos favoritos!");
-      queryClient.invalidateQueries({ queryKey: ["restaurantPublic", restaurantId] });
-    },
-    onError: () => {
-      toast.error("Erro ao atualizar favoritos.");
-    },
-  });
+  const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
+  
+  const currentPlan = simulatedPlan || restaurant?.plan;
+
+  const { toggleFollow, isToggling } = useRestaurantFollow(
+    restaurant?.id || '', 
+    restaurant?.is_favorite || false
+  );
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background-light pt-[96px]">
-        <div className="relative h-48 w-full bg-gray-200">
-          <Skeleton className="h-full w-full" />
-        </div>
-        <div className="relative -mt-16 mb-4 px-4 sm:px-6 lg:px-8">
-          <Skeleton className="h-32 w-32 rounded-full bg-gray-300 border-4 border-white shadow-md" />
-        </div>
-        <div className="space-y-6 px-4 sm:px-6 lg:px-8">
-          <Skeleton className="h-8 w-3/4" />
-          <Skeleton className="h-6 w-1/2" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-48 w-full" />
-          <Skeleton className="h-48 w-full" />
+      <div className="flex items-center justify-center h-screen bg-background-light">
+        <div className="text-center">
+          <p className="text-lg font-semibold text-primary">Carregando perfil...</p>
         </div>
       </div>
     );
   }
 
   if (error || !restaurant) {
+    console.error("Error loading restaurant:", error);
+    console.error("Restaurant ID being used:", id);
+    
+    let errorMessage = "Restaurante não encontrado ou erro ao carregar.";
+    if (error) {
+      if (error instanceof Error) {
+        errorMessage = `Erro ao carregar restaurante: ${error.message}`;
+      } else {
+        errorMessage = `Erro ao carregar restaurante: ${String(error)}`;
+      }
+    } else if (!restaurant) {
+      errorMessage = `Restaurante com ID "${id}" não encontrado.`;
+    }
+
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background-light">
-        <p className="text-red-500">Erro ao carregar o perfil do restaurante.</p>
+      <div className="flex items-center justify-center h-screen bg-background-light">
+        <div className="text-center">
+          <p className="text-lg font-semibold text-destructive">{errorMessage}</p>
+          <Button onClick={() => navigate("/")} className="mt-4">
+            Voltar para a Home
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <PremiumProfileLayout
-      restaurant={restaurant}
-      toggleFavorite={toggleFollow}
-      isFavoriteMutating={isFavoriteMutating}
-      isCompact={false}
-    />
+    <div className="relative min-h-screen bg-background-light">
+      {/* Novo cabeçalho fixo no topo */}
+      <RestaurantPageHeader />
+
+      <div className={cn("max-w-md mx-auto")}>
+        {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
+        {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <PremiumProfileLayout
+              restaurant={restaurant as PublicRestaurantData}
+              toggleFavorite={toggleFollow}
+              isFavoriteMutating={isToggling}
+              isCompact={isCompact}
+            />
+          </motion.div>
+        ) : (
+          <motion.div>
+            <FreeProfileLayout
+              restaurant={restaurant as PublicRestaurantData}
+              toggleFavorite={toggleFollow}
+              isFavoriteMutating={isToggling}
+              isCompact={isCompact}
+            />
+          </motion.div>
+        )}
+      </div>
+    </div>
   );
 };
 

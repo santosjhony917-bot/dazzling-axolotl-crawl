@@ -1,243 +1,245 @@
-"use client";
-
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin, Phone, Globe, Star, Heart, Share2, Utensils, ChevronLeft } from "lucide-react";
-import { cn } from "@/lib/utils";
-import RestaurantMenu from "./RestaurantMenu";
-import RestaurantGallery from "./RestaurantGallery";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { PublicRestaurantData } from "@/types/restaurant";
-import DetailedHoursDisplay from "./DetailedHoursDisplay";
-
-// Helper to determine container padding based on screen size
-const containerPxClass = "px-4 sm:px-6 lg:px-8";
+import React, { useMemo, useState } from 'react';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
+import RestaurantMenu from './RestaurantMenu';
+import RestaurantGallery from './RestaurantGallery';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
+import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import OrderChannelsSection from './OrderChannelsSection';
+import DetailedHoursDisplay from './DetailedHoursDisplay';
+import RestaurantActionsBar from './RestaurantActionsBar';
+import RestaurantProfileHeader from './RestaurantProfileHeader';
+import { motion } from 'framer-motion';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useNavigate } from 'react-router-dom';
+import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
+import RestaurantInfo from './RestaurantInfo';
+import RestaurantMainInfoCard from './RestaurantMainInfoCard';
+import AdditionalInfo from './AdditionalInfo';
+import { isRestaurantOpen } from "@/lib/utils";
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
   toggleFavorite: () => void;
   isFavoriteMutating: boolean;
-  isCompact: boolean;
+  isCompact?: boolean;
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating }) => {
-  if (!restaurant) {
-    return (
-      <div className="min-h-screen bg-background-light flex items-center justify-center">
-        <p className="text-red-500">Erro ao carregar os dados do restaurante.</p>
-      </div>
-    );
-  }
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
+  const navigate = useNavigate();
+  const { user } = useAuth(); 
+  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
 
-  const hasSocials =
-    restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url;
-  const hasContactInfo = restaurant.phone || restaurant.email;
-  const hasAddress =
-    restaurant.address ||
-    restaurant.number ||
-    restaurant.neighborhood ||
-    restaurant.city ||
-    restaurant.state ||
-    restaurant.cep;
-
-  const formattedMenu = restaurant.menu_categories?.map(category => ({
-    ...category,
-    items: category.menu_items || [],
-  })) || [];
-
-  const galleryImages = (restaurant as any).restaurant_gallery || restaurant.gallery_images || [];
+  const fullAddress = useMemo(() => {
+    const { address, number, neighborhood, city, state } = restaurant;
+    const addressLine = [address, number].filter(Boolean).join(', ');
+    const cityLine = [neighborhood, city, state].filter(Boolean).join(', ');
+    const result = [addressLine, cityLine].filter(Boolean).join(' - ');
+    return result === '' ? null : result;
+  }, [restaurant]);
 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
         title: restaurant.name,
-        text: `Confira o cardápio do ${restaurant.name}!`,
+        text: `Confira o perfil de ${restaurant.name}!`,
         url: window.location.href,
       }).catch(console.error);
     } else {
-      // Fallback for browsers that don't support navigator.share
       navigator.clipboard.writeText(window.location.href);
-      alert("Link copiado para a área de transferência!");
+      alert('Link copiado para a área de transferência!');
     }
   };
+  
+  // Função para rolar para a seção
+  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
+    setActiveTab(tab);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  
+  // Dados do Header (agora apenas para a capa)
+  const headerData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    coverImageUrl: restaurant.cover_image_url || '',
+    isPremium: true,
+    isCompact: isCompact,
+  };
+  
+  // Dados para o novo RestaurantMainInfoCard
+  const mainInfoCardData = {
+    id: restaurant.id,
+    name: restaurant.name,
+    logoUrl: restaurant.image_url || null,
+    addressSummary: restaurant.addressSummary,
+    followersCount: restaurant.followers_count,
+    isFavorite: restaurant.is_favorite,
+    isOpen: restaurant.isOpen,
+    statusText: restaurant.statusText,
+    plan: restaurant.plan,
+  };
+
+  // Verifica se há conteúdo para as abas
+  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
+  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
+  
+  // Verifica se há informações de endereço/horário ou contato/links
+  const hasAddressHours = fullAddress || restaurant.opening_hours;
+  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
+  
+  // A aba 'info' agora é exibida se houver qualquer uma das subseções
+  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0);
+
+  const containerPxClass = isCompact ? "px-3" : "px-4";
 
   return (
-    <div className="relative min-h-screen bg-background-light pb-20">
-      {/* Cover Image and Header Actions */}
-      <div className="relative h-48 md:h-64 w-full bg-gray-200">
-        {restaurant.cover_image_url ? (
-          <img
-            src={restaurant.cover_image_url}
-            alt={`${restaurant.name} cover`}
-            className="h-full w-full object-cover"
+    <div className="relative">
+      
+      {/* 2. Container principal que centraliza e define a largura do conteúdo */}
+      <div className="relative max-w-md mx-auto">
+        {/* Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}
+        <RestaurantActionsBar
+          isFavorite={restaurant.is_favorite}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isFavoriteMutating}
+          onShare={handleShare}
+          onBack={() => navigate(-1)}
+          paddingClass={containerPxClass}
+        />
+
+        {/* NOVO: Componente de capa (agora renderizado aqui) */}
+        <RestaurantProfileHeader 
+          restaurant={{ 
+            id: restaurant.id, 
+            name: restaurant.name, 
+            coverImageUrl: restaurant.cover_image_url, 
+            isPremium: true,
+            isCompact: isCompact,
+          }} 
+        />
+
+        {/* Card de Informações Principais (com logo sobreposta) */}
+        {/* Ajustado o -mt para puxar o card mais para cima e sobrepor a capa */}
+        <div className="relative -mt-32 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-32 para maior sobreposição */}
+          <RestaurantMainInfoCard
+            restaurant={mainInfoCardData}
+            onFavoriteToggle={toggleFavorite}
+            isFavoriteMutating={isFavoriteMutating}
+            isCompact={isCompact}
           />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-r from-gray-400 to-gray-500"></div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-
-        {/* Header actions */}
-        <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
-          <Button asChild variant="ghost" className="bg-black/30 hover:bg-black/50 text-white rounded-full p-0 h-10 w-10">
-            <Link to="/">
-              <ChevronLeft className="h-6 w-6" />
-            </Link>
-          </Button>
-          <div className="flex space-x-2">
-            <Button variant="ghost" size="icon" className="bg-black/30 hover:bg-black/50 text-white rounded-full h-10 w-10" onClick={toggleFavorite} disabled={isFavoriteMutating}>
-              <Heart className={cn("h-5 w-5 transition-colors", restaurant.is_favorite ? "fill-red-500 text-red-500" : "text-white")} />
-            </Button>
-            <Button variant="ghost" size="icon" className="bg-black/30 hover:bg-black/50 text-white rounded-full h-10 w-10" onClick={handleShare}>
-              <Share2 className="h-5 w-5" />
-            </Button>
-          </div>
         </div>
 
-        {/* Restaurant name on cover */}
-        <div className="absolute bottom-4 left-4 right-4 text-white z-10">
-           <h1 className="text-4xl md:text-5xl font-extrabold tracking-wider uppercase shadow-xl">{restaurant.name}</h1>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className={cn("relative -mt-16 mb-4", containerPxClass)}>
-        <Avatar className="h-32 w-32 rounded-full border-4 border-white shadow-md">
-          <AvatarImage src={restaurant.image_url || "/placeholder.svg"} alt={`${restaurant.name} logo`} />
-          <AvatarFallback className="text-3xl">{restaurant.name?.charAt(0)}</AvatarFallback>
-        </Avatar>
-      </div>
-
-      <div className={cn("space-y-6 pb-8", containerPxClass)}>
-        <div>
-            <h2 className="text-3xl font-bold text-gray-900 -mt-2">
-                {restaurant.name}
-            </h2>
-            {restaurant.category && (
-                <Badge variant="secondary" className="mt-2 text-base py-1 px-3">
-                <Utensils className="h-4 w-4 mr-2" /> {restaurant.category}
-                </Badge>
+        <div className={cn("pb-8", containerPxClass, "pt-16")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
+          {/* Conteúdo Principal */}
+          <div className="space-y-6">
+            
+            {/* Description */}
+            {restaurant.description && (
+              <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
+                <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
+                <p className="text-gray-600">{restaurant.description}</p>
+              </Card>
             )}
-            <div className="flex items-center mt-2 text-gray-600">
-                <Star className="h-5 w-5 text-yellow-500 mr-1" fill="currentColor" />
-                <span className="font-semibold">4.5</span>
-                <span className="ml-1">(120 avaliações)</span>
-            </div>
-        </div>
+            
+            {/* Canais de Pedido */}
+            <OrderChannelsSection restaurant={restaurant} />
 
-        <div className="space-y-6">
-          {restaurant.description && (
-            <Card className="shadow-soft-sm border-none">
-              <CardContent className="p-4">
-                <p className="text-gray-700 leading-relaxed">{restaurant.description}</p>
-              </CardContent>
-            </Card>
-          )}
-
-          <Card className="shadow-soft-md border-none bg-highlight text-white">
-            <CardContent className="p-4 flex items-center justify-between">
-              <div>
-                <CardTitle className="text-xl font-bold">
-                  Faça seu Pedido
-                </CardTitle>
-                <p className="text-sm opacity-90">
-                  Peça agora e receba no conforto da sua casa!
-                </p>
+            {/* Navegação por Abas (Sticky) */}
+            {(hasMenu || hasGallery || hasInfo) && (
+              <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
+                <ScrollArea className="w-full whitespace-nowrap">
+                  <div className="flex space-x-4">
+                    {hasGallery && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('gallery-section', 'gallery')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Image className="w-4 h-4 mr-2" /> Fotos
+                      </Button>
+                    )}
+                    {hasMenu && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('menu-section', 'menu')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Utensils className="w-4 h-4 mr-2" /> Cardápio
+                      </Button>
+                    )}
+                    {hasInfo && (
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection('info-section', 'info')}
+                        className={cn(
+                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
+                          activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
+                        )}
+                      >
+                        <Info className="w-4 h-4 mr-2" /> Informações
+                      </Button>
+                    )}
+                  </div>
+                </ScrollArea>
               </div>
-              <Button asChild className="bg-white text-highlight hover:bg-gray-100 font-bold">
-                <Link to={`/restaurants/${restaurant.id}/order`}>Pedir</Link>
-              </Button>
-            </CardContent>
-          </Card>
+            )}
 
-          {formattedMenu.length > 0 && (
-            <RestaurantMenu
-              restaurantId={restaurant.id}
-              menu={formattedMenu}
-            />
-          )}
+            {/* Galeria Section */}
+            {hasGallery && (
+              <div id="gallery-section" className="pb-6">
+                <RestaurantGallery gallery={restaurant.gallery_images} />
+              </div>
+            )}
 
-          {galleryImages.length > 0 && (
-            <RestaurantGallery images={galleryImages} />
-          )}
-
-          {(hasContactInfo || hasAddress || restaurant.opening_hours) && (
-            <Card className="shadow-soft-sm border-none">
-                <CardContent className="p-4 space-y-4 divide-y">
-                    {hasContactInfo && (
-                        <div className="space-y-2 pt-2 first:pt-0">
-                            <h3 className="font-bold text-lg">Contato</h3>
-                            {restaurant.phone && (
-                            <div className="flex items-center text-gray-700">
-                                <Phone className="h-5 w-5 mr-3 text-primary" />
-                                <span>{restaurant.phone}</span>
-                            </div>
-                            )}
-                            {restaurant.email && (
-                            <div className="flex items-center text-gray-700">
-                                <Globe className="h-5 w-5 mr-3 text-primary" />
-                                <span>{restaurant.email}</span>
-                            </div>
-                            )}
-                        </div>
-                    )}
-                    {hasAddress && (
-                        <div className="space-y-2 pt-4 first:pt-0">
-                            <h3 className="font-bold text-lg">Endereço</h3>
-                            <div className="flex items-start text-gray-700">
-                                <MapPin className="h-5 w-5 mr-3 text-primary flex-shrink-0 mt-1" />
-                                <div>
-                                    <p>{restaurant.address}, {restaurant.number} - {restaurant.neighborhood}</p>
-                                    <p>{restaurant.city}, {restaurant.state} - {restaurant.cep}</p>
-                                </div>
-                            </div>
-                            {restaurant.latitude && restaurant.longitude && (
-                                <Button variant="outline" className="w-full mt-4">Ver no Mapa</Button>
-                            )}
-                        </div>
-                    )}
-                    {restaurant.opening_hours && (
-                        <div className="space-y-2 pt-4 first:pt-0">
-                            <h3 className="font-bold text-lg">Horário de Funcionamento</h3>
-                            <DetailedHoursDisplay schedule={restaurant.opening_hours} />
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
-          )}
-
-          {hasSocials && (
-            <Card className="shadow-soft-sm border-none">
-              <CardHeader>
-                <CardTitle className="text-lg">Redes Sociais e Links</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {restaurant.whatsapp_url && (
-                  <Button asChild variant="outline">
-                    <a href={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer">
-                      <Phone className="h-4 w-4 mr-2" /> WhatsApp
-                    </a>
-                  </Button>
+            {/* Menu Section */}
+            {hasMenu && (
+              <div id="menu-section" className="pt-6">
+                <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
+                <RestaurantMenu 
+                  menuCategories={restaurant.menu_categories} 
+                  isFullMenuPage={false}
+                  restaurantId={restaurant.id}
+                  forceShowFullMenuButton={isCompact}
+                />
+              </div>
+            )}
+            
+            {/* Informações Detalhadas (Endereço, Horário, Contato) */}
+            {hasInfo && (
+              <div id="info-section" className="space-y-6 pt-6">
+                <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
+                
+                {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
+                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && (
+                  <RestaurantAddressHoursSection
+                    id="address-hours-section"
+                    restaurant={restaurant}
+                    fullAddress={fullAddress}
+                    paymentMethods={restaurant.payment_methods}
+                  />
                 )}
-                {restaurant.ifood_url && (
-                  <Button asChild variant="outline">
-                    <a href={restaurant.ifood_url} target="_blank" rel="noopener noreferrer">
-                      <Utensils className="h-4 w-4 mr-2" /> iFood
-                    </a>
-                  </Button>
+                
+                {/* Contato e Links (Componente Refatorado) */}
+                {hasContactLinks && (
+                  <RestaurantInfo 
+                    id="contact-links-section"
+                    restaurant={restaurant}
+                  />
                 )}
-                {restaurant.other_url && (
-                  <Button asChild variant="outline">
-                    <a href={restaurant.other_url} target="_blank" rel="noopener noreferrer">
-                      <Globe className="h-4 w-4 mr-2" /> {restaurant.other_url_label || 'Website'}
-                    </a>
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
