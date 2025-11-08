@@ -60,7 +60,7 @@ const FreeProfileLayout = ({
         "relative z-10 mt-[-70px]" // Aplica margin-top negativo para sobrepor a capa
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
-        <div className="flex flex-col items-center text-center px-4 pb-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
+        <div className="flex flex-col items-center text-center px-4 pb-4 pt-40"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
           {/* Logo do Restaurante - Condicionalmente visível apenas para premium */}
           {isPremium && (
             <div className="mb-4"> {/* Ajusta margin-top e bottom para a logo */}
