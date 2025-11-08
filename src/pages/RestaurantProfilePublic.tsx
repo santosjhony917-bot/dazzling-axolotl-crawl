@@ -82,28 +82,24 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
 
       <div className={cn("max-w-md mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
-        {currentPlan === 'premium' ? (
+        {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <PremiumProfileLayout 
-              restaurant={restaurant as PublicRestaurantData} 
-              toggleFavorite={toggleFollow} 
+            <PremiumProfileLayout
+              restaurant={restaurant as PublicRestaurantData}
+              toggleFavorite={toggleFollow}
               isFavoriteMutating={isToggling}
               isCompact={isCompact}
             />
           </motion.div>
         ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <FreeProfileLayout 
-              restaurant={restaurant as PublicRestaurantData} 
-              toggleFavorite={toggleFollow} 
+          <motion.div>
+            <FreeProfileLayout
+              restaurant={restaurant as PublicRestaurantData}
+              toggleFavorite={toggleFollow}
               isFavoriteMutating={isToggling}
               isCompact={isCompact}
             />
