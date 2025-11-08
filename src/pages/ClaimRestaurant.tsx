@@ -188,8 +188,8 @@ const ClaimRestaurant = () => {
                     },
                   },
                   className: {
-                    button: 'h-12 text-base shadow-soft-sm',
-                    input: 'h-14 text-base shadow-soft-sm',
+                    button: 'h-12 text-base shadow-soft-sm !rounded-xl',
+                    input: 'h-14 text-base shadow-soft-sm !rounded-xl',
                     label: 'font-semibold text-primary text-left !mb-2',
                     divider: '!bg-gray-200',
                   },
