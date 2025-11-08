@@ -52,12 +52,20 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   }, []);
 
   useEffect(() => {
-    // Use initialRestaurantId if provided, otherwise fall back to useParams id
     const restaurantIdToFetch = initialRestaurantId || id;
-    if (!restaurantIdToFetch) return;
+
+    setLoading(true); // Sempre inicia o carregamento
+    setError(null); // Limpa erros anteriores
+
+    if (!restaurantIdToFetch) {
+      // Se não há ID, não há o que buscar. Finaliza o carregamento e define um erro.
+      setLoading(false);
+      setError("Nenhum ID de restaurante fornecido para carregar.");
+      setRestaurant(null); // Garante que o restaurante seja nulo
+      return;
+    }
 
     const fetchRestaurantData = async () => {
-      setLoading(true);
       try {
         const { data: restaurantData, error: restaurantError } = await supabase
           .from('restaurants')
@@ -101,7 +109,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
         console.error("Unhandled error during data fetching:", e);
         setError("Ocorreu um erro inesperado ao carregar os dados.");
       } finally {
-        setLoading(false);
+        setLoading(false); // Sempre finaliza o carregamento
       }
     };
 
