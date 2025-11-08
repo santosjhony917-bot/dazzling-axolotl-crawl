@@ -24,16 +24,6 @@ const RestaurantActionsBar: React.FC<RestaurantActionsBarProps> = ({
 
   return (
     <div className={cn("flex items-center justify-between w-full", paddingClass)}>
-      {/* Botão Voltar (Movido para cá) */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={onBack}
-        className="text-white"
-      >
-        <ArrowLeft className="h-5 w-5 text-primary" />
-      </Button>
-      
       {/* Ações de Compartilhar/Favoritar */}
       <div className="flex space-x-2">
         {/* Botão de Favoritar/Seguir */}
