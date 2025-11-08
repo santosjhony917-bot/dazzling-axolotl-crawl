@@ -132,43 +132,46 @@ const ClaimRestaurant = () => {
         borderRadiusInput: '1.25rem', // rounded-xl (20px)
       },
       // Custom styles for specific elements to match shadcn/ui components
-      button: {
-        ...ThemeSupa.default.button,
-        fontWeight: '700', // font-bold
-        fontSize: '1rem', // text-base
-        padding: '0.75rem 1.5rem', // Adjust padding to get closer to h-12 (48px)
-        boxShadow: '0 8px 20px rgba(204, 102, 64, 0.4)', // shadow-highlight-glow (approximate)
-      },
-      input: {
-        ...ThemeSupa.default.input,
-        fontSize: '1rem', // text-base
-        padding: '1rem 1rem', // Adjust padding to get closer to h-14 (56px)
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)', // shadow-soft-sm (approximate)
-      },
-      anchor: {
-        ...ThemeSupa.default.anchor,
-        fontWeight: '500', // font-medium
-        fontSize: '0.875rem', // text-sm
-      },
-      label: {
-        ...ThemeSupa.default.label,
-        fontWeight: '500', // font-medium
-        fontSize: '0.875rem', // text-sm
-        color: 'hsl(var(--primary))', // text-primary
-      },
-      message: { // For error messages
-        ...ThemeSupa.default.message,
-        color: '#EF4444', // text-red-500
-        fontSize: '0.875rem', // text-sm
-      },
-      divider: { // For the 'or' separator
-        ...ThemeSupa.default.divider,
-        color: 'hsl(var(--border))', // border-gray-200
-        background: 'hsl(var(--background))', // bg-white
-        fontSize: '0.75rem', // text-xs
-        textTransform: 'uppercase',
-        fontWeight: 'normal',
-        padding: '0 0.5rem', // px-2
+      variables: { // Accessing nested variables for styling
+        ...ThemeSupa.variables,
+        button: {
+          ...ThemeSupa.variables.button,
+          fontWeight: '700', // font-bold
+          fontSize: '1rem', // text-base
+          padding: '0.75rem 1.5rem', // Adjust padding to get closer to h-12 (48px)
+          boxShadow: '0 8px 20px rgba(204, 102, 64, 0.4)', // shadow-highlight-glow (approximate)
+        },
+        input: {
+          ...ThemeSupa.variables.input,
+          fontSize: '1rem', // text-base
+          padding: '1rem 1rem', // Adjust padding to get closer to h-14 (56px)
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)', // shadow-soft-sm (approximate)
+        },
+        anchor: {
+          ...ThemeSupa.variables.anchor,
+          fontWeight: '500', // font-medium
+          fontSize: '0.875rem', // text-sm
+        },
+        label: {
+          ...ThemeSupa.variables.label,
+          fontWeight: '500', // font-medium
+          fontSize: '0.875rem', // text-sm
+          color: 'hsl(var(--primary))', // text-primary
+        },
+        message: { // For error messages
+          ...ThemeSupa.variables.message,
+          color: '#EF4444', // text-red-500
+          fontSize: '0.875rem', // text-sm
+        },
+        divider: { // For the 'or' separator
+          ...ThemeSupa.variables.divider,
+          color: 'hsl(var(--border))', // border-gray-200
+          background: 'hsl(var(--background))', // bg-white
+          fontSize: '0.75rem', // text-xs
+          textTransform: 'uppercase',
+          fontWeight: 'normal',
+          padding: '0 0.5rem', // px-2
+        }
       }
     },
   };
@@ -245,7 +248,7 @@ const ClaimRestaurant = () => {
                     appearance={{ theme: customAuthTheme }} // Using the custom theme
                     providers={['google', 'apple']}
                     theme="light"
-                    socialLayout="full" // Ensure social buttons take full width
+                    socialLayout="vertical" // Ensure social buttons take full width
                     localization={{
                       variables: {
                         sign_up: {
