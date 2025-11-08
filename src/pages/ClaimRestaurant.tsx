@@ -12,6 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, KeyRound } from 'lucide-react';
 import CustomAuth from '@/components/CustomAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 const ClaimRestaurant = () => {
   const [claimCode, setClaimCode] = useState('');
@@ -20,49 +21,18 @@ const ClaimRestaurant = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { restaurant, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const handleAuthChange = async (event: string, session: any) => {
-      if (event === 'SIGNED_IN') {
-        const storedClaimCode = localStorage.getItem('claimCode');
-        if (storedClaimCode && session?.user) {
-          setIsLoading(true);
-          try {
-            const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
-              body: { claimCode: storedClaimCode },
-            });
-
-            if (functionError) {
-              throw functionError;
-            }
-
-            toast({
-              title: 'Restaurante reivindicado com sucesso!',
-              description: 'Você agora gerencia este perfil.',
-            });
-            localStorage.removeItem('claimCode');
-            navigate('/restaurant-area/dashboard');
-          } catch (e: any) {
-            toast({
-              variant: 'destructive',
-              title: 'Erro ao reivindicar restaurante',
-              description: e.message || 'Por favor, tente novamente.',
-            });
-          } finally {
-            setIsLoading(false);
-          }
-        }
-      }
-    };
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      handleAuthChange(event, session);
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [navigate, toast]);
+    // Redirect if user is authenticated and has a restaurant
+    if (isAuthenticated && restaurant) {
+      toast({
+        title: 'Restaurante reivindicado com sucesso!',
+        description: 'Você agora gerencia este perfil.',
+      });
+      navigate('/restaurant-area/dashboard');
+    }
+  }, [isAuthenticated, restaurant, navigate, toast]);
 
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();

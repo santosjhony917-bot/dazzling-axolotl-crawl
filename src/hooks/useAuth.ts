@@ -100,15 +100,39 @@ export const useAuth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
-      setIsLoading(false);
 
       if (currentUser) {
+        // Handle restaurant claim process globally
+        const claimCode = localStorage.getItem('claimCode');
+        if (claimCode && event === 'SIGNED_IN') {
+          console.log('Claim code found, attempting to claim restaurant...');
+          try {
+            const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
+              body: { claimCode },
+            });
+
+            if (functionError) {
+              throw functionError;
+            }
+            
+            console.log('Restaurant claimed successfully.');
+            
+          } catch (e: any) {
+            console.error('Error claiming restaurant:', e.message);
+          } finally {
+            // Always remove the code to prevent re-attempts on subsequent logins.
+            localStorage.removeItem('claimCode');
+          }
+        }
+
         await fetchProfile(currentUser.id);
         await fetchRestaurant(currentUser.id);
       } else {
         setProfile(null);
         setRestaurant(null);
       }
+      
+      setIsLoading(false);
     });
 
     // Fetch initial session state and data
