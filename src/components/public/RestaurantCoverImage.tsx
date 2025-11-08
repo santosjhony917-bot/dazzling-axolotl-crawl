@@ -2,7 +2,6 @@ import React from 'react';
 
 interface RestaurantCoverImageProps {
   coverImageUrl: string | null;
-  altText?: string;
 }
 
 const RestaurantCoverImage: React.FC<RestaurantCoverImageProps> = ({ coverImageUrl }) => {
