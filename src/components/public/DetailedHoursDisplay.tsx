@@ -6,7 +6,7 @@ interface DetailedHoursDisplayProps {
   schedule: WeekSchedule;
 }
 
-const dayLabels: Record<keyof WeekSchedule, string> = {
+const dayLabels: Record<string, string> = {
   monday: 'Segunda-feira',
   tuesday: 'Terça-feira',
   wednesday: 'Quarta-feira',
@@ -31,7 +31,7 @@ const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ schedule })
           <div key={day} className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-2 last:border-b-0">
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</span>
             
-            {daySchedule?.isOpen ? (
+            {daySchedule && daySchedule.isOpen && daySchedule.slots.length > 0 ? (
               <div className="flex flex-col items-end">
                 {daySchedule.slots.map((slot, index) => (
                   <span key={index} className="text-sm font-bold text-green-600 dark:text-green-400">
