@@ -1,9 +1,13 @@
 import React from 'react';
 import { Heart, MapPin, Loader2, Utensils } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { DEFAULT_RESTAURANT_LOGO_URL } from '@/constants/assets';
+import { PublicRestaurantData } from '@/types/restaurant';
+import { Button } from '@/components/ui/button';
+import RestaurantLogo from '@/components/public/RestaurantLogo';
 
 interface RestaurantMainInfoCardProps {
   restaurant: {
@@ -28,104 +32,77 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   isFavoriteMutating,
   isCompact = false,
 }) => {
-  const {
-    name,
-    logoUrl,
-    addressSummary,
-    followersCount,
-    isFavorite,
-    isOpen,
-    statusText,
-    plan,
-  } = restaurant;
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  // Classes condicionais para tamanho e posição da logo
-  // Ajustado para que a logo sobreponha a capa
-  const logoSizeClasses = isCompact ? "w-16 h-16 top-12" : "w-24 h-24 md:w-28 md:h-28 top-6";
-  const utensilsSizeClasses = isCompact ? "w-8 h-8" : "w-12 h-12";
-
-  // Ajusta o padding superior do card para acomodar a logo sobreposta
-  const cardPaddingTopClasses = isCompact ? "pt-[112px]" : "pt-[130px]";
+  const cardPaddingTopClasses = isCompact ? "pt-16" : "pt-20"; // Ajuste o padding superior para acomodar o logo
 
   return (
-    <div className="relative -mt-24 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
-      {/* Logo do Restaurante - Condicionalmente exibido para planos não-free */}
-      {restaurant.plan !== 'free' && logoUrl ? (
-        <img
-          src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL}
-          alt={`Logo de ${name}`}
-          className={cn(
-            "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white shadow-lg object-cover z-30",
-            logoSizeClasses
-          )}
+    <div className="relative">
+      {/* Logo do Restaurante */}
+      <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-30"> {/* Ajustado -top-12 para subir mais */}
+        <RestaurantLogo
+          logoUrl={restaurant.logoUrl}
+          size={isCompact ? "md" : "lg"}
         />
-      ) : (
-        // Placeholder ou nada para planos free sem logo
-        <div className={cn(
-          "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30",
-          logoSizeClasses
-        )}>
-          <Utensils className={cn("text-gray-400", utensilsSizeClasses)} />
-        </div>
-      )}
+      </div>
 
       <Card className={cn(
-        "pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border border-gray-300 text-left",
+        "pb-4 px-4 shadow-soft-xl rounded-2xl bg-white border border-gray-300 text-center", // Alterado de text-left para text-center
         cardPaddingTopClasses // Usa a classe de padding ajustada
       )}>
-        <CardContent className="p-0 space-y-2">
-          <h1 className={cn(
-            "font-extrabold leading-tight text-primary",
-            isCompact ? "text-xl" : "text-3xl md:text-4xl"
-          )}>{name}</h1>
-          
-          {/* Endereço e Status de Abertura alinhados */}
-          <div className="flex items-center gap-2">
-            {addressSummary && (
-              <p className={cn(
-                "flex items-center text-gray-600",
-                isCompact ? "text-xs" : "text-sm md:text-base"
-              )}>
-                <MapPin className={cn("mr-1 text-primary", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {addressSummary}
-              </p>
-            )}
-            {/* Status de Abertura */}
-            <span
-              className={cn(
-                "px-2 py-0.5 rounded-full text-xs font-semibold",
-                isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-              )}
-            >
-              {statusText}
+        <div className="flex flex-col items-center pt-4"> {/* Adicionado pt-4 para espaçamento interno */}
+          <h1 className="text-2xl font-extrabold text-primary mt-2">{restaurant.name}</h1>
+          {restaurant.addressSummary && (
+            <p className="text-sm text-gray-600 mt-1 flex items-center">
+              <MapPin className="w-3 h-3 mr-1 text-gray-500" />
+              {restaurant.addressSummary}
+            </p>
+          )}
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-sm font-semibold text-gray-700">{restaurant.followersCount} Seguidores</span>
+            <Separator orientation="vertical" className="h-4" />
+            <span className={cn(
+              "text-sm font-semibold",
+              restaurant.isOpen ? "text-green-600" : "text-red-600"
+            )}>
+              {restaurant.statusText}
             </span>
           </div>
+        </div>
 
-          {/* Grupo de Seguidores e Botão Seguir */}
-          <div className="flex items-center justify-between pt-4">
-            <span className={cn(
-              "flex items-center text-gray-500",
-              isCompact ? "text-xs" : "text-sm"
-            )}>
-              <Heart className={cn("mr-1 fill-gray-700 text-gray-700", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {followersCount} Seguidores
-            </span>
+        {/* Botões de Ação */}
+        <div className="flex justify-center gap-3 mt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onFavoriteToggle}
+            disabled={isFavoriteMutating || !user}
+            className={cn(
+              "rounded-full px-4 py-2 text-sm font-semibold",
+              restaurant.isFavorite ? "bg-red-50 text-red-600 border-red-300 hover:bg-red-100" : "text-gray-700 border-gray-300 hover:bg-gray-50"
+            )}
+          >
+            {isFavoriteMutating ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : restaurant.isFavorite ? (
+              <Heart className="w-4 h-4 mr-2 fill-red-600" />
+            ) : (
+              <Heart className="w-4 h-4 mr-2" />
+            )}
+            {restaurant.isFavorite ? "Seguindo" : "Seguir"}
+          </Button>
+          {restaurant.plan === 'premium' && (
             <Button
               variant="highlight"
               size="sm"
-              onClick={onFavoriteToggle}
-              disabled={isFavoriteMutating}
-              className={cn(
-                "px-3 py-1",
-                isCompact ? "h-7 text-xs" : "h-9 text-sm"
-              )}
+              onClick={() => navigate(`/restaurant/${restaurant.id}/menu`)}
+              className="rounded-full px-4 py-2 text-sm font-semibold shadow-highlight-glow"
             >
-              {isFavoriteMutating ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                isFavorite ? 'Seguindo' : 'Seguir'
-              )}
+              Ver Cardápio
             </Button>
-          </div>
-        </CardContent>
+          )}
+        </div>
       </Card>
     </div>
   );
