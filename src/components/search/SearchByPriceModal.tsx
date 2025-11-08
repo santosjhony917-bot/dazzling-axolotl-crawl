@@ -1,64 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React from 'react';
 import { DollarSign } from 'lucide-react';
-import { formatPrice } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
 import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 
 interface SearchByPriceModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApplyFilter: (minPrice: number, maxPrice: number) => void;
+  minPrice: number;
+  maxPrice: number;
+  currentMin: number;
+  currentMax: number;
+  onApply: (min: number, max: number) => void;
 }
 
-const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose, onApplyFilter }) => {
-  const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
+const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({
+  minPrice,
+  maxPrice,
+  currentMin,
+  currentMax,
+  onApply,
+}) => {
+  const [range, setRange] = React.useState<[number, number]>([currentMin, currentMax]);
 
-  useEffect(() => {
-    if (isOpen) {
-      // Opcional: resetar para valores padrão ou manter o último estado
-      // setPriceRange([0, 200]); 
-    }
-  }, [isOpen]);
+  React.useEffect(() => {
+    setRange([currentMin, currentMax]);
+  }, [currentMin, currentMax]);
+
+  const handleValueChange = (value: number[]) => {
+    setRange([value[0], value[1]]);
+  };
 
   const handleApply = () => {
-    onApplyFilter(priceRange[0], priceRange[1]);
-    onClose();
+    onApply(range[0], range[1]);
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+          <DollarSign className="h-4 w-4" />
+          Preço
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-primary font-bold">
-            <DollarSign className="w-5 h-5 text-highlight" />
-            Filtrar por Preço
-          </DialogTitle>
+          <DialogTitle>Filtrar por Preço</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="space-y-4">
-            <Label htmlFor="priceRange" className="text-primary font-medium">
-              Faixa de Preço: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
-            </Label>
-            <Slider
-              id="priceRange"
-              min={0}
-              max={200}
-              step={1}
-              value={priceRange}
-              onValueChange={setPriceRange}
-              className="w-full"
-            />
-            <p className="text-sm text-gray-500 mt-2">
-              A busca será limitada a pratos com preço entre {formatPrice(priceRange[0])} e {formatPrice(priceRange[1])}.
-            </p>
+        <div className="py-4">
+          <Slider
+            min={minPrice}
+            max={maxPrice}
+            step={1}
+            value={range}
+            onValueChange={handleValueChange}
+            range
+          />
+          <div className="flex justify-between mt-4 text-sm font-medium">
+            <span>{formatCurrency(range[0])}</span>
+            <span>{formatCurrency(range[1])}</span>
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose} className="rounded-xl">Cancelar</Button>
-          <Button onClick={handleApply} variant="highlight" className="rounded-xl">Aplicar Filtro</Button>
+          <Button onClick={handleApply}>Aplicar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

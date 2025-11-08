@@ -1,245 +1,340 @@
-import React, { useMemo, useState } from 'react';
-import { PublicRestaurantData } from '@/types/restaurant';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
-import RestaurantMenu from './RestaurantMenu';
-import RestaurantGallery from './RestaurantGallery';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import OrderChannelsSection from './OrderChannelsSection';
-import DetailedHoursDisplay from './DetailedHoursDisplay';
-import RestaurantActionsBar from './RestaurantActionsBar';
-import RestaurantProfileHeader from './RestaurantProfileHeader';
-import { motion } from 'framer-motion';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useNavigate } from 'react-router-dom';
-import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
-import RestaurantInfo from './RestaurantInfo';
-import RestaurantMainInfoCard from './RestaurantMainInfoCard';
-import AdditionalInfo from './AdditionalInfo';
-import { isRestaurantOpen } from "@/lib/utils";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapPin, Phone, Globe, Instagram, Facebook, Twitter, Clock, Utensils, Star, Heart, Share2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import RestaurantMenu from "./RestaurantMenu";
+import RestaurantGallery from "./RestaurantGallery";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
+
+// Helper to determine container padding based on screen size
+const containerPxClass = "px-4 sm:px-6 lg:px-8";
+
+interface PublicRestaurantData {
+  id: string;
+  name: string;
+  description?: string;
+  image_url?: string;
+  cover_image_url?: string;
+  category?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  number?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  cep?: string;
+  latitude?: number;
+  longitude?: number;
+  opening_hours?: Record<string, string>;
+  whatsapp_url?: string;
+  ifood_url?: string;
+  other_url?: string;
+  menu_categories?: Array<{
+    id: string;
+    name: string;
+    menu_items: Array<{
+      id: string;
+      name: string;
+      description?: string;
+      price: number;
+      image_url?: string;
+    }>;
+  }>;
+  restaurant_gallery?: Array<{
+    id: string;
+    image_url: string;
+    caption?: string;
+    order_index?: number;
+  }>;
+}
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
   toggleFavorite: () => void;
   isFavoriteMutating: boolean;
-  isCompact?: boolean;
+  isCompact: boolean;
 }
 
-const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
-  const navigate = useNavigate();
-  const { user } = useAuth(); 
-  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');
+const RestaurantPageHeader = () => {
+  const { id } = useParams<{ id: string }>();
+  const { data: restaurant, isLoading, error } = useQuery({
+    queryKey: ["restaurant", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("restaurants")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error) throw error;
+      return data;
+    },
+  });
 
-  const fullAddress = useMemo(() => {
-    const { address, number, neighborhood, city, state } = restaurant;
-    const addressLine = [address, number].filter(Boolean).join(', ');
-    const cityLine = [neighborhood, city, state].filter(Boolean).join(', ');
-    const result = [addressLine, cityLine].filter(Boolean).join(' - ');
-    return result === '' ? null : result;
-  }, [restaurant]);
+  if (isLoading) {
+    return (
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10 p-4 flex items-center justify-between">
+        <Skeleton className="h-8 w-32" />
+        <div className="flex space-x-2">
+          <Skeleton className="h-8 w-8 rounded-full" />
+          <Skeleton className="h-8 w-8 rounded-full" />
+        </div>
+      </div>
+    );
+  }
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: restaurant.name,
-        text: `Confira o perfil de ${restaurant.name}!`,
-        url: window.location.href,
-      }).catch(console.error);
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
-    }
-  };
-  
-  // Função para rolar para a seção
-  const scrollToSection = (id: string, tab: 'menu' | 'gallery' | 'info') => {
-    setActiveTab(tab);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-  
-  // Dados do Header (agora apenas para a capa)
-  const headerData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    coverImageUrl: restaurant.cover_image_url || '',
-    isPremium: true,
-    isCompact: isCompact,
-  };
-  
-  // Dados para o novo RestaurantMainInfoCard
-  const mainInfoCardData = {
-    id: restaurant.id,
-    name: restaurant.name,
-    logoUrl: restaurant.image_url || null,
-    addressSummary: restaurant.addressSummary,
-    followersCount: restaurant.followers_count,
-    isFavorite: restaurant.is_favorite,
-    isOpen: restaurant.isOpen,
-    statusText: restaurant.statusText,
-    plan: restaurant.plan,
-  };
-
-  // Verifica se há conteúdo para as abas
-  const hasMenu = restaurant.menu_categories && restaurant.menu_categories.length > 0;
-  const hasGallery = restaurant.gallery_images && restaurant.gallery_images.length > 0;
-  
-  // Verifica se há informações de endereço/horário ou contato/links
-  const hasAddressHours = fullAddress || restaurant.opening_hours;
-  const hasContactLinks = restaurant.phone || restaurant.email || restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url || restaurant.external_url;
-  
-  // A aba 'info' agora é exibida se houver qualquer uma das subseções
-  const hasInfo = hasAddressHours || hasContactLinks || (restaurant.payment_methods && restaurant.payment_methods.length > 0);
-
-  const containerPxClass = isCompact ? "px-3" : "px-4";
+  if (error || !restaurant) {
+    return (
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10 p-4 text-center text-red-500">
+        Erro ao carregar restaurante.
+      </div>
+    );
+  }
 
   return (
-    <div className="relative">
-      
-      {/* 2. Container principal que centraliza e define a largura do conteúdo */}
-      <div className="relative max-w-md mx-auto">
-        {/* Barra de Ações Flutuante (Sticky) - AGORA DENTRO DO CONTAINER */}
-        <RestaurantActionsBar
-          isFavorite={restaurant.is_favorite}
-          onFavoriteToggle={toggleFavorite}
-          isFavoriteMutating={isFavoriteMutating}
-          onShare={handleShare}
-          onBack={() => navigate(-1)}
-          paddingClass={containerPxClass}
-        />
+    <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10 p-4 flex items-center justify-between">
+      <Link to="/" className="text-lg font-bold text-primary">
+        &lt; Voltar
+      </Link>
+      <h1 className="text-xl font-semibold">{restaurant.name}</h1>
+      <div className="flex space-x-2">
+        <Button variant="ghost" size="icon">
+          <Heart className="h-5 w-5" />
+        </Button>
+        <Button variant="ghost" size="icon">
+          <Share2 className="h-5 w-5" />
+        </Button>
+      </div>
+    </div>
+  );
+};
 
-        {/* NOVO: Componente de capa (agora renderizado aqui) */}
-        <RestaurantProfileHeader 
-          restaurant={{ 
-            id: restaurant.id, 
-            name: restaurant.name, 
-            coverImageUrl: restaurant.cover_image_url, 
-            isPremium: true,
-            isCompact: isCompact,
-          }} 
-        />
+const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact }) => {
+  // The useQuery hook is already defined in the parent component (RestaurantProfilePublic or Upgrade)
+  // and passes the 'restaurant' prop down. So, we don't need to fetch it again here.
 
-        {/* Card de Informações Principais (com logo sobreposta) */}
-        {/* Ajustado o -mt para puxar o card mais para cima e sobrepor a capa */}
-        <div className="relative -mt-32 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-32 para maior sobreposição */}
-          <RestaurantMainInfoCard
-            restaurant={mainInfoCardData}
-            onFavoriteToggle={toggleFavorite}
-            isFavoriteMutating={isFavoriteMutating}
-            isCompact={isCompact}
+  if (!restaurant) {
+    return (
+      <div className="min-h-screen bg-background-light pt-[96px] flex items-center justify-center">
+        <p className="text-red-500">Erro ao carregar os dados do restaurante.</p>
+      </div>
+    );
+  }
+
+  const hasSocials =
+    restaurant.whatsapp_url || restaurant.ifood_url || restaurant.other_url;
+  const hasContactInfo = restaurant.phone || restaurant.email;
+  const hasAddress =
+    restaurant.address ||
+    restaurant.number ||
+    restaurant.neighborhood ||
+    restaurant.city ||
+    restaurant.state ||
+    restaurant.cep;
+
+  return (
+    <div className="relative min-h-screen bg-background-light">
+      {/* Novo cabeçalho fixo no topo */}
+      <RestaurantPageHeader />
+
+      {/* Cover Image */}
+      <div className="relative h-48 w-full bg-gray-200">
+        {restaurant.cover_image_url && (
+          <img
+            src={restaurant.cover_image_url}
+            alt={`${restaurant.name} cover`}
+            className="h-full w-full object-cover"
           />
-        </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+      </div>
 
-        <div className={cn("pb-8", containerPxClass, "pt-16")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
-          {/* Conteúdo Principal */}
-          <div className="space-y-6">
-            
-            {/* Description */}
-            {restaurant.description && (
-              <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
-                <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
-                <p className="text-gray-600">{restaurant.description}</p>
-              </Card>
-            )}
-            
-            {/* Canais de Pedido */}
-            <OrderChannelsSection restaurant={restaurant} />
-
-            {/* Navegação por Abas (Sticky) */}
-            {(hasMenu || hasGallery || hasInfo) && (
-              <div className="sticky top-0 z-10 bg-background-light pt-4 pb-2 border-b border-gray-200 shadow-sm -mx-4 px-4 mt-6">
-                <ScrollArea className="w-full whitespace-nowrap">
-                  <div className="flex space-x-4">
-                    {hasGallery && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => scrollToSection('gallery-section', 'gallery')}
-                        className={cn(
-                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                          activeTab === 'gallery' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                        )}
-                      >
-                        <Image className="w-4 h-4 mr-2" /> Fotos
-                      </Button>
-                    )}
-                    {hasMenu && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => scrollToSection('menu-section', 'menu')}
-                        className={cn(
-                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                          activeTab === 'menu' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                        )}
-                      >
-                        <Utensils className="w-4 h-4 mr-2" /> Cardápio
-                      </Button>
-                    )}
-                    {hasInfo && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => scrollToSection('info-section', 'info')}
-                        className={cn(
-                          "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
-                          activeTab === 'info' ? "bg-highlight text-white hover:bg-highlight/90" : "text-primary hover:bg-gray-200"
-                        )}
-                      >
-                        <Info className="w-4 h-4 mr-2" /> Informações
-                      </Button>
-                    )}
-                  </div>
-                </ScrollArea>
-              </div>
-            )}
-
-            {/* Galeria Section */}
-            {hasGallery && (
-              <div id="gallery-section" className="pb-6">
-                <RestaurantGallery gallery={restaurant.gallery_images} />
-              </div>
-            )}
-
-            {/* Menu Section */}
-            {hasMenu && (
-              <div id="menu-section" className="pt-6">
-                <h2 className="text-2xl font-extrabold text-primary mb-4">Cardápio</h2>
-                <RestaurantMenu 
-                  menuCategories={restaurant.menu_categories} 
-                  isFullMenuPage={false}
-                  restaurantId={restaurant.id}
-                  forceShowFullMenuButton={isCompact}
-                />
-              </div>
-            )}
-            
-            {/* Informações Detalhadas (Endereço, Horário, Contato) */}
-            {hasInfo && (
-              <div id="info-section" className="space-y-6 pt-6">
-                <h2 className="text-2xl font-extrabold text-primary">Informações</h2>
-                
-                {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
-                {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && (
-                  <RestaurantAddressHoursSection
-                    id="address-hours-section"
-                    restaurant={restaurant}
-                    fullAddress={fullAddress}
-                    paymentMethods={restaurant.payment_methods}
-                  />
-                )}
-                
-                {/* Contato e Links (Componente Refatorado) */}
-                {hasContactLinks && (
-                  <RestaurantInfo 
-                    id="contact-links-section"
-                    restaurant={restaurant}
-                  />
-                )}
-              </div>
-            )}
+      {/* Restaurant Logo and Basic Info */}
+      <div className={cn("relative -mt-16 mb-4", containerPxClass)}>
+        <Avatar className="h-32 w-32 rounded-full border-4 border-white shadow-md">
+          <AvatarImage src={restaurant.image_url || "/placeholder.svg"} />
+          <AvatarFallback>{restaurant.name?.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div className="mt-4">
+          <h1 className="text-3xl font-bold text-gray-900">
+            {restaurant.name}
+          </h1>
+          {restaurant.category && (
+            <Badge variant="secondary" className="mt-2">
+              <Utensils className="h-4 w-4 mr-1" /> {restaurant.category}
+            </Badge>
+          )}
+          <div className="flex items-center mt-2 text-gray-600">
+            <Star className="h-4 w-4 text-yellow-500 mr-1" fill="currentColor" />
+            <span>4.5 (120 avaliações)</span> {/* Placeholder for ratings */}
           </div>
+        </div>
+      </div>
+
+      <div className={cn("pb-8 pt-16", containerPxClass)}>
+        {/* Conteúdo Principal */}
+        <div className="space-y-6">
+          {/* Description */}
+          {restaurant.description && (
+            <Card className="shadow-sm">
+              <CardContent className="p-4">
+                <p className="text-gray-700">{restaurant.description}</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Make an Order Card */}
+          <Card className="shadow-sm bg-orange-500 text-white">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div>
+                <CardTitle className="text-xl font-bold">
+                  Faça seu Pedido
+                </CardTitle>
+                <p className="text-sm">
+                  Peça agora e receba no conforto da sua casa!
+                </p>
+              </div>
+              <Button asChild className="bg-white text-orange-500 hover:bg-gray-100">
+                <Link to={`/restaurants/${restaurant.id}/order`}>Pedir</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Menu Section */}
+          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
+            <RestaurantMenu
+              restaurantId={restaurant.id}
+              menu={restaurant.menu_categories}
+            />
+          )}
+
+          {/* Gallery Section */}
+          {restaurant.restaurant_gallery && restaurant.restaurant_gallery.length > 0 && (
+            <RestaurantGallery images={restaurant.restaurant_gallery} />
+          )}
+
+          {/* Contact Info */}
+          {hasContactInfo && (
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">Contato</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {restaurant.phone && (
+                  <div className="flex items-center text-gray-700">
+                    <Phone className="h-5 w-5 mr-2 text-primary" />
+                    <span>{restaurant.phone}</span>
+                  </div>
+                )}
+                {restaurant.email && (
+                  <div className="flex items-center text-gray-700">
+                    <Globe className="h-5 w-5 mr-2 text-primary" />
+                    <span>{restaurant.email}</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Address */}
+          {hasAddress && (
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">Endereço</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex items-start text-gray-700">
+                  <MapPin className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p>
+                      {restaurant.address}, {restaurant.number} -{" "}
+                      {restaurant.neighborhood}
+                    </p>
+                    <p>
+                      {restaurant.city}, {restaurant.state} - {restaurant.cep}
+                    </p>
+                  </div>
+                </div>
+                {restaurant.latitude && restaurant.longitude && (
+                  <Button variant="outline" className="w-full mt-4">
+                    Ver no Mapa
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Opening Hours */}
+          {restaurant.opening_hours && (
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">Horário de Funcionamento</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {Object.entries(restaurant.opening_hours).map(([day, hours]) => (
+                  <div key={day} className="flex justify-between text-gray-700">
+                    <span className="font-medium">{day}</span>
+                    <span>{hours as string}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Social Networks */}
+          {hasSocials && (
+            <Card className="shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-lg">Redes Sociais</CardTitle>
+              </CardHeader>
+              <CardContent className="flex space-x-4">
+                {restaurant.whatsapp_url && (
+                  <a
+                    href={restaurant.whatsapp_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <Phone className="h-5 w-5" />
+                    </Button>
+                  </a>
+                )}
+                {restaurant.ifood_url && (
+                  <a
+                    href={restaurant.ifood_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <Utensils className="h-5 w-5" />
+                    </Button>
+                  </a>
+                )}
+                {restaurant.other_url && (
+                  <a
+                    href={restaurant.other_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <Globe className="h-5 w-5" />
+                    </Button>
+                  </a>
+                )}
+                {/* Add more social icons as needed */}
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>

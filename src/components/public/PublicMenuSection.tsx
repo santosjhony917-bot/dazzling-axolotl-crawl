@@ -1,69 +1,75 @@
 import React from 'react';
-import { MenuCategory, MenuItem } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
-import { formatPrice } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
 import { Utensils } from 'lucide-react';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
 
-interface PublicMenuSectionProps {
-  categories: (MenuCategory & { menu_items: MenuItem[] })[];
-  restaurantId: string;
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url?: string;
 }
 
-const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, restaurantId }) => {
-  const navigate = useNavigate();
+interface MenuCategory {
+  id: string;
+  name: string;
+  items: MenuItem[];
+}
 
-  if (categories.length === 0) {
-    return (
-      <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-        <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-        <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
-      </div>
-    );
+interface PublicMenuSectionProps {
+  restaurantId: string;
+  menu: MenuCategory[];
+}
+
+const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ restaurantId, menu }) => {
+  if (!menu || menu.length === 0) {
+    return null;
   }
 
   return (
-    <div className="space-y-8">
-      {categories.map(category => (
-        <section key={category.id} className="space-y-4">
-          <h3 className="text-lg font-bold text-gray-800 border-b border-gray-200 pb-2">{category.name}</h3>
-          
-          <div className="space-y-3">
-            {category.menu_items.length === 0 ? (
-              <p className="text-gray-500 italic text-sm">Nenhum item ativo nesta categoria.</p>
-            ) : (
-              category.menu_items.map(item => (
-                <Card key={item.id} className="shadow-sm border-none rounded-xl">
-                  <CardContent className="p-3 flex items-center gap-4">
-                    <div 
-                      className="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex-shrink-0" 
-                      style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
-                      data-alt={item.name}
-                    />
-                    <div className="flex-1 pr-4">
-                      <h4 className="text-base font-semibold text-gray-900">{item.name}</h4>
+    <Card className="w-full shadow-sm">
+      <CardContent className="p-4">
+        <h2 className="text-xl font-semibold mb-4">Cardápio</h2>
+        {menu.map((category) => (
+          <div key={category.id} className="mb-6">
+            <h3 className="text-lg font-medium mb-3">{category.name}</h3>
+            <div className="space-y-4">
+              {category.items.map((item) => (
+                <Link to={`/restaurants/${restaurantId}/menu/${item.id}`} key={item.id}>
+                  <div className="flex items-center space-x-4">
+                    {item.image_url && (
+                      <img
+                        src={item.image_url}
+                        alt={item.name}
+                        className="w-16 h-16 object-cover flex-shrink-0 rounded-md"
+                      />
+                    )}
+                    <div className="flex-grow">
+                      <p className="font-medium text-base">{item.name}</p>
                       {item.description && (
-                        <p className="text-xs text-gray-600 mt-0.5 line-clamp-2">{item.description}</p>
+                        <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
                       )}
-                      <p className="text-base font-bold text-[#E47948] mt-1">
-                        {formatPrice(item.price)}
-                      </p>
                     </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
+                    <div className="flex items-center space-x-2">
+                      <p className="font-semibold text-orange-600 text-base">
+                        {formatCurrency(item.price)}
+                      </p>
+                      <Utensils className="h-5 w-5 text-gray-400" /> {/* Changed to Utensils for consistency, assuming it's an icon for menu item */}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </section>
-      ))}
-      <div className="mt-6 text-center">
-        <Button onClick={() => navigate(`/restaurant/${restaurantId}/menu`)}>
-          Ver Cardápio Completo
+        ))}
+        <Button asChild className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white">
+          <Link to={`/restaurants/${restaurantId}/menu`}>Ver Cardápio Completo</Link>
         </Button>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

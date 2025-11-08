@@ -1,81 +1,79 @@
 import React from 'react';
-import { MenuItem } from '@/types/supabase';
-import { Card, CardContent } from '@/components/ui/card';
+import { DraggableProvided } from '@hello-pangea/dnd';
+import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
+import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
+import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
-import { formatPrice } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface MenuItemListItemProps {
-  item: MenuItem;
-  onEdit: (item: MenuItem) => void;
+  item: {
+    id: string;
+    name: string;
+    description?: string;
+    price: number;
+    image_url?: string;
+    is_active: boolean;
+  };
+  provided: DraggableProvided;
+  onEdit: (item: any) => void;
   onDelete: (itemId: string) => void;
-  restaurantId?: string;
 }
 
-export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, restaurantId }) => {
-  // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const updateItemMutation = useUpdateMenuItem(restaurantId);
-  const isUpdating = updateItemMutation.isPending;
+const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, provided, onEdit, onDelete }) => {
+  const { mutate: updateMenuItem } = useUpdateMenuItem();
 
   const handleToggleActive = (checked: boolean) => {
-    updateItemMutation.mutate({
-      id: item.id,
-      updates: {
-        name: item.name,
-        description: item.description || '',
-        price: item.price,
-        image_url: item.image_url,
-        is_active: checked,
-      }
-    });
+    updateMenuItem({ id: item.id, is_active: checked });
   };
 
   return (
-    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4 flex-grow">
-          <img 
-            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
-            alt={item.name} 
-            className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
+    <div
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      className="flex items-center bg-white p-4 rounded-lg shadow-sm mb-3"
+    >
+      <img
+        src={item.image_url || PLACEHOLDER_IMAGE_URL}
+        alt={item.name}
+        className="w-16 h-16 object-cover rounded-md mr-4"
+      />
+      <div className="flex-grow">
+        <h3 className="font-semibold text-lg">{item.name}</h3>
+        <p className="text-sm text-gray-600 line-clamp-2">{item.description}</p>
+        <p className="text-md font-bold text-orange-600 mt-1">{formatCurrency(item.price)}</p>
+      </div>
+      <div className="flex items-center space-x-2 ml-4">
+        <div className="flex items-center space-x-2">
+          <Switch
+            id={`item-active-${item.id}`}
+            checked={item.is_active}
+            onCheckedChange={handleToggleActive}
           />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-primary truncate">{item.name}</h3>
-            <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
-            <div className="flex items-center text-primary font-medium mt-1">
-              <DollarSign className="w-4 h-4 mr-1 text-highlight" />
-              <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
-            </div>
-          </div>
+          <Label htmlFor={`item-active-${item.id}`}>Ativo</Label>
         </div>
-
-        <div className="flex space-x-4 items-center flex-shrink-0">
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`item-active-switch-${item.id}`}
-              checked={item.is_active}
-              onCheckedChange={handleToggleActive}
-              disabled={isUpdating}
-              className="data-[state=checked]:bg-highlight"
-            />
-            <Label htmlFor={`item-active-switch-${item.id}`} className="text-sm text-gray-500">
-              {item.is_active ? 'Ativo' : 'Inativo'}
-            </Label>
-            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-          </div>
-
-          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item" className="h-8 w-8 bg-red-600 hover:bg-red-700">
-            <Trash2 className="w-4 h-4" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <MoreVertical className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => onEdit(item)}>
+              <Pencil className="h-4 w-4 mr-2" /> Editar
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onDelete(item.id)} className="text-red-600">
+              <Trash2 className="h-4 w-4 mr-2" /> Excluir
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
   );
 };
+
+export default MenuItemListItem;
