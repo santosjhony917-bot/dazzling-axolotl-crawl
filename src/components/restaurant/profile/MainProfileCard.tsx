@@ -48,7 +48,7 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
         </div>
         
         {/* Status e Nome */}
-        <div className="flex-1 pt-2">
+        <div className="flex-1 pt-2 min-w-0">
           <h3 className="font-bold text-2xl text-[#022D68] leading-tight truncate">{restaurantName}</h3>
           <div className="flex items-center gap-2 mt-1">
             <Badge 
