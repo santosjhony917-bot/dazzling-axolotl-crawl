@@ -103,6 +103,30 @@ const ClaimRestaurant = () => {
     }
   };
 
+  // Custom theme for Supabase Auth component
+  const customAuthTheme = {
+    ...ThemeSupa, // Spread existing ThemeSupa properties (including default and dark)
+    default: { // Override the 'default' property
+      ...ThemeSupa.default, // Spread the original default variables
+      colors: {
+        ...ThemeSupa.default.colors, // Spread original default colors
+        brand: 'hsl(var(--highlight))', // Primary button background (orange/reddish-brown)
+        brandAccent: 'hsl(var(--highlight-foreground))', // Primary button text color
+        textLink: 'hsl(var(--highlight))', // Secondary link color (orange/red)
+        inputBackground: 'hsl(var(--input))',
+        inputBorder: 'hsl(var(--input))',
+        inputBorderHover: 'hsl(var(--highlight))',
+        inputBorderFocus: 'hsl(var(--highlight))',
+        inputPlaceholder: 'hsl(var(--muted-foreground))',
+      },
+      radii: {
+        ...ThemeSupa.default.radii, // Spread original default radii
+        borderRadiusButton: '0.75rem', // rounded-xl
+        borderRadiusInput: '0.75rem', // rounded-xl
+      },
+    },
+  };
+
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-background-light p-4 font-sans antialiased">
       <header className="flex items-center bg-white p-4 pb-2 justify-start sticky top-0 z-20 shadow-soft-md w-full max-w-md absolute top-0">
@@ -172,7 +196,7 @@ const ClaimRestaurant = () => {
                   </p>
                   <Auth
                     supabaseClient={supabase}
-                    appearance={{ theme: ThemeSupa }}
+                    appearance={{ theme: customAuthTheme }} // Using the custom theme
                     providers={['google', 'apple']}
                     theme="light"
                     localization={{
