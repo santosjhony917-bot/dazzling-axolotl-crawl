@@ -9,13 +9,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Heart, ArrowLeft } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
-import { cn, formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
+import { cn, formatCurrency } from '@/lib/utils';
 import { showError } from '@/utils/toast';
 import { toast } from 'sonner';
 
 const MenuItemDetails = () => {
   const { restaurantId, itemId } = useParams<{ restaurantId: string; itemId: string }>();
-  const { session } = useAuthData();
+  const { user } = useAuthData(); // Corrigido: usando 'user' diretamente
   const queryClient = useQueryClient();
 
   const { data: menuItem, isLoading, error } = useQuery({
@@ -37,24 +37,24 @@ const MenuItemDetails = () => {
   });
 
   const { data: isFavorite, isLoading: isLoadingFavorite } = useQuery({
-    queryKey: ['menuItemFavorite', itemId, session?.user?.id],
+    queryKey: ['menuItemFavorite', itemId, user?.id], // Corrigido: usando 'user?.id'
     queryFn: async () => {
-      if (!session?.user?.id) return false;
+      if (!user?.id) return false; // Corrigido: usando 'user?.id'
       const { data, error } = await supabase
         .from('menu_item_favorites')
         .select('id')
-        .eq('user_id', session.user.id)
+        .eq('user_id', user.id) // Corrigido: usando 'user.id'
         .eq('menu_item_id', itemId)
         .single();
       if (error && error.code !== 'PGRST116') throw error; // PGRST116 means no rows found
       return !!data;
     },
-    enabled: !!session?.user?.id,
+    enabled: !!user?.id, // Corrigido: usando 'user?.id'
   });
 
   const { mutate: toggleFavorite, isPending: isFavoriteMutating } = useMutation({
     mutationFn: async () => {
-      if (!session?.user?.id) {
+      if (!user?.id) { // Corrigido: usando 'user?.id'
         showError('Você precisa estar logado para favoritar itens.');
         return;
       }
@@ -62,18 +62,18 @@ const MenuItemDetails = () => {
         const { error } = await supabase
           .from('menu_item_favorites')
           .delete()
-          .eq('user_id', session.user.id)
+          .eq('user_id', user.id) // Corrigido: usando 'user.id'
           .eq('menu_item_id', itemId);
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from('menu_item_favorites')
-          .insert({ user_id: session.user.id, menu_item_id: itemId });
+          .insert({ user_id: user.id, menu_item_id: itemId }); // Corrigido: usando 'user.id'
         if (error) throw error;
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuItemFavorite', itemId, session?.user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['menuItemFavorite', itemId, user?.id] }); // Corrigido: usando 'user?.id'
       toast.success(isFavorite ? 'Item removido dos favoritos!' : 'Item adicionado aos favoritos!');
     },
     onError: (err) => {
@@ -116,7 +116,7 @@ const MenuItemDetails = () => {
         <Link to={`/restaurants/${restaurantId}/menu`} className="absolute top-4 left-4 text-white bg-black/50 rounded-full p-2">
           <ArrowLeft className="h-6 w-6" />
         </Link>
-        {session?.user?.id && (
+        {user?.id && ( // Corrigido: usando 'user?.id'
           <Button
             variant="ghost"
             size="icon"

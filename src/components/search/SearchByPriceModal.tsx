@@ -1,24 +1,28 @@
 import React from 'react';
 import { DollarSign } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
+import { formatCurrency } from '@/lib/utils';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 
 interface SearchByPriceModalProps {
-  minPrice: number;
-  maxPrice: number;
+  minPrice?: number; // Tornando opcional, pois pode não haver um valor inicial
+  maxPrice?: number; // Tornando opcional
   currentMin: number;
   currentMax: number;
   onApply: (min: number, max: number) => void;
+  open: boolean; // Adicionado para controlar o estado do modal
+  onOpenChange: (open: boolean) => void; // Adicionado para controlar o estado do modal
 }
 
 const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({
-  minPrice,
-  maxPrice,
+  minPrice = 0, // Valor padrão
+  maxPrice = 1000, // Valor padrão
   currentMin,
   currentMax,
   onApply,
+  open,
+  onOpenChange,
 }) => {
   const [range, setRange] = React.useState<[number, number]>([currentMin, currentMax]);
 
@@ -32,16 +36,11 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({
 
   const handleApply = () => {
     onApply(range[0], range[1]);
+    onOpenChange(false); // Fechar o modal após aplicar
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
-          <DollarSign className="h-4 w-4" />
-          Preço
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Filtrar por Preço</DialogTitle>
@@ -53,7 +52,6 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({
             step={1}
             value={range}
             onValueChange={handleValueChange}
-            range
           />
           <div className="flex justify-between mt-4 text-sm font-medium">
             <span>{formatCurrency(range[0])}</span>

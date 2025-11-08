@@ -247,14 +247,17 @@ const RestaurantDashboard = () => {
       
       {/* Modais de Filtro */}
       <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
+        open={isPriceModalOpen}
+        onOpenChange={setIsPriceModalOpen}
+        onApply={handleApplyPriceFilter}
+        currentMin={0} // Adicionado valor padrão
+        currentMax={1000} // Adicionado valor padrão
       />
       <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
+        open={isDistanceModalOpen}
+        onOpenChange={setIsDistanceModalOpen}
+        onApply={handleApplyDistanceFilter}
+        currentDistance={10} // Adicionado valor padrão
       />
     </div>
   );

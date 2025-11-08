@@ -12,6 +12,20 @@ import AdditionalInfo from './AdditionalInfo';
 import { PublicRestaurantData } from "@/types/restaurant";
 import { Button } from "@/components/ui/button";
 
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url?: string;
+}
+
+interface MenuCategory {
+  id: string;
+  name: string;
+  items: MenuItem[];
+}
+
 interface FreeProfileLayoutProps {
   restaurant: PublicRestaurantData;
   toggleFavorite: () => void;
@@ -48,6 +62,19 @@ const FreeProfileLayout = ({
     isPremium: isPremium,
     isCompact: false,
   };
+
+  // Mapear menu_categories para o formato esperado por PublicMenuSection
+  const formattedMenu: MenuCategory[] = restaurant.menu_categories?.map(category => ({
+    id: category.id,
+    name: category.name,
+    items: category.menu_items.map(item => ({
+      id: item.id,
+      name: item.name,
+      description: item.description || '',
+      price: item.price,
+      image_url: item.image_url,
+    })),
+  })) || [];
 
   return (
     <div className="relative">
@@ -94,7 +121,9 @@ const FreeProfileLayout = ({
         <div className="p-4 space-y-8">
           {isPremium && <OrderChannelsSection restaurant={restaurant} />}
           {isPremium && <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />}
-          <PublicMenuSection restaurantId={restaurant.id} categories={restaurant.menu_categories} />
+          {formattedMenu.length > 0 && (
+            <PublicMenuSection restaurantId={restaurant.id} menu={formattedMenu} />
+          )}
           <RestaurantAddressHoursSection id="address-hours-section" restaurant={restaurant} fullAddress={fullAddress} paymentMethods={restaurant.payment_methods} />
           {isPremium && <AdditionalInfo restaurant={restaurant} />}
         </div>

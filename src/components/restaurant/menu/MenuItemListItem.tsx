@@ -3,8 +3,8 @@ import { DraggableProvided } from '@hello-pangea/dnd';
 import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
-import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
+import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement';
+import { formatCurrency } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -18,23 +18,24 @@ interface MenuItemListItemProps {
     image_url?: string;
     is_active: boolean;
   };
-  provided: DraggableProvided;
+  provided?: DraggableProvided; // Tornando a prop 'provided' opcional
   onEdit: (item: any) => void;
   onDelete: (itemId: string) => void;
+  restaurantId?: string;
 }
 
-const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, provided, onEdit, onDelete }) => {
+const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, provided, onEdit, onDelete, restaurantId }) => {
   const { mutate: updateMenuItem } = useUpdateMenuItem();
 
   const handleToggleActive = (checked: boolean) => {
-    updateMenuItem({ id: item.id, is_active: checked });
+    updateMenuItem({ id: item.id, updates: { is_active: checked } });
   };
 
   return (
     <div
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
+      ref={provided?.innerRef} // Usando optional chaining para 'provided'
+      {...provided?.draggableProps} // Usando optional chaining para 'provided'
+      {...provided?.dragHandleProps} // Usando optional chaining para 'provided'
       className="flex items-center bg-white p-4 rounded-lg shadow-sm mb-3"
     >
       <img

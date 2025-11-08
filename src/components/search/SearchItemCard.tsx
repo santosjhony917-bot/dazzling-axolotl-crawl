@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatCurrency } from '@/lib/utils'; // Alterado de formatPrice para formatCurrency
+import { formatCurrency } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Link } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ interface SearchItemCardProps {
   restaurant_id: string;
   restaurant_name: string;
   restaurant_category: string;
+  onClick: (itemId: string, type: 'dish' | 'restaurant') => void; // Adicionado a prop onClick
 }
 
 const SearchItemCard: React.FC<SearchItemCardProps> = ({
@@ -23,9 +24,10 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({
   restaurant_id,
   restaurant_name,
   restaurant_category,
+  onClick, // Desestruturado a prop onClick
 }) => {
   return (
-    <Link to={`/restaurants/${restaurant_id}/menu/${item_id}`} className="block">
+    <div onClick={() => onClick(item_id, 'dish')} className="block cursor-pointer"> {/* Usando div e onClick */}
       <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
         <img
           src={item_image_url || PLACEHOLDER_IMAGE_URL}
@@ -43,7 +45,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({
           {formatCurrency(item_price)}
         </p>
       </div>
-    </Link>
+    </div>
   );
 };
 

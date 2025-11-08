@@ -19,6 +19,20 @@ import { toast } from "sonner";
 // Helper to determine container padding based on screen size
 const containerPxClass = "px-4 sm:px-6 lg:px-8";
 
+interface MenuItem {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  image_url?: string;
+}
+
+interface MenuCategory {
+  id: string;
+  name: string;
+  items: MenuItem[];
+}
+
 interface PublicRestaurantData {
   id: string;
   name: string;
@@ -142,6 +156,19 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     restaurant.state ||
     restaurant.cep;
 
+  // Mapear menu_categories para o formato esperado por RestaurantMenu
+  const formattedMenu = restaurant.menu_categories?.map(category => ({
+    id: category.id,
+    name: category.name,
+    items: category.menu_items.map(item => ({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      image_url: item.image_url,
+    })),
+  })) || [];
+
   return (
     <div className="relative min-h-screen bg-background-light">
       {/* Novo cabeçalho fixo no topo */}
@@ -181,7 +208,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         </div>
       </div>
 
-      <div className={cn("pb-8 pt-16", containerPxClass)}>
+      <div className="pb-8 pt-16 px-4 sm:px-6 lg:px-8">
         {/* Conteúdo Principal */}
         <div className="space-y-6">
           {/* Description */}
@@ -211,10 +238,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           </Card>
 
           {/* Menu Section */}
-          {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
+          {formattedMenu.length > 0 && (
             <RestaurantMenu
               restaurantId={restaurant.id}
-              menu={restaurant.menu_categories}
+              menu={formattedMenu}
             />
           )}
 

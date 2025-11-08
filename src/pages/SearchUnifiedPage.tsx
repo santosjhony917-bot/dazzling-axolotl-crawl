@@ -165,7 +165,7 @@ export default function SearchUnifiedPage() {
     maxPriceFilter,
     maxDistanceFilter,
     excludedDishCategoryIds,
-    includedRestaurantCategories, // Adicionado includedRestaurantCategories
+    includedRestaurantCategories,
   ]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -339,7 +339,14 @@ export default function SearchUnifiedPage() {
             displayedResults.map((item) => (
               <SearchItemCard 
                 key={item.id} 
-                item={item} 
+                item_id={item.id}
+                item_name={item.name}
+                item_description={item.description || ''}
+                item_price={item.price || 0}
+                item_image_url={item.imageUrl || undefined}
+                restaurant_id={item.restaurantName || ''} // Assuming restaurantName is the ID for now, adjust if needed
+                restaurant_name={item.restaurantName || ''}
+                restaurant_category={item.category || ''}
                 onClick={handleItemClick}
               />
             ))
@@ -353,14 +360,17 @@ export default function SearchUnifiedPage() {
       </motion.div>
       
       <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
+        open={isPriceModalOpen}
+        onOpenChange={setIsPriceModalOpen}
+        onApply={handleApplyPriceFilter}
+        currentMin={minPriceFilter || 0}
+        currentMax={maxPriceFilter || 1000}
       />
       <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
+        open={isDistanceModalOpen}
+        onOpenChange={setIsDistanceModalOpen}
+        onApply={handleApplyDistanceFilter}
+        currentDistance={maxDistanceFilter || 10} // Default to 10km if no filter set
       />
     </div>
   );

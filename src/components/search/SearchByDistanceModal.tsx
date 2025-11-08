@@ -6,27 +6,26 @@ import { Slider } from '@/components/ui/slider';
 import { Compass } from 'lucide-react';
 
 interface SearchByDistanceModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApplyFilter: (maxDistanceKm: number) => void;
+  open: boolean; // Alterado de isOpen para open
+  onOpenChange: (open: boolean) => void; // Alterado de onClose para onOpenChange
+  onApply: (maxDistanceKm: number) => void; // Alterado de onApplyFilter para onApply
+  currentDistance: number; // Adicionado para inicializar o slider
 }
 
-const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({ isOpen, onClose, onApplyFilter }) => {
-  const [maxDistance, setMaxDistance] = useState<number[]>([10]); // Valor padrão de 10 km
+const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({ open, onOpenChange, onApply, currentDistance }) => {
+  const [maxDistance, setMaxDistance] = useState<number[]>([currentDistance]);
 
   useEffect(() => {
-    if (isOpen) {
-      // Resetar ou manter o último estado
-    }
-  }, [isOpen]);
+    setMaxDistance([currentDistance]);
+  }, [currentDistance]);
 
   const handleApply = () => {
-    onApplyFilter(maxDistance[0]);
-    onClose();
+    onApply(maxDistance[0]);
+    onOpenChange(false);
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-primary font-bold">
@@ -52,7 +51,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({ isOpen, o
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose} className="rounded-xl">Cancelar</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="rounded-xl">Cancelar</Button>
           <Button onClick={handleApply} variant="highlight" className="rounded-xl">Aplicar Filtro</Button>
         </DialogFooter>
       </DialogContent>

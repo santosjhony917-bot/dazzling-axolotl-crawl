@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem } from '@/types';
-import { MenuItemListItem } from './MenuItemListItem';
+import MenuItemListItem from './MenuItemListItem'; // Corrigido: importação padrão
 import { Utensils } from 'lucide-react';
 
 interface MenuItemListProps {
