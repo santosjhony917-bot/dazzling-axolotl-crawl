@@ -41,7 +41,7 @@ export default function RestaurantAreaHub() {
     <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col items-center p-4">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-40 shadow-soft-md w-full max-w-md mx-auto">
         <Button
           variant="ghost"
           size="icon"
