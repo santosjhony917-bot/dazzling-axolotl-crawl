@@ -52,7 +52,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
         cardPaddingTopClasses // Usa a classe de padding ajustada
       )}>
         <div className="flex flex-col items-center pt-4"> {/* Adicionado pt-4 para espaçamento interno */}
-          <h1 className="text-2xl font-extrabold text-primary mt-2">{restaurant.name}</h1>
+          <h1 className="text-3xl font-extrabold text-primary mt-2">{restaurant.name}</h1>
           {restaurant.addressSummary && (
             <p className="text-sm text-gray-600 mt-1 flex items-center">
               <MapPin className="w-3 h-3 mr-1 text-gray-500" />
