@@ -45,7 +45,7 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
   const utensilsSizeClasses = isCompact ? "w-8 h-8" : "w-12 h-12";
 
   // Ajusta o padding superior do card para acomodar a logo sobreposta
-  const cardPaddingTopClasses = isCompact ? "pt-[92px]" : "pt-[110px]";
+  const cardPaddingTopClasses = isCompact ? "pt-[112px]" : "pt-[130px]";
 
   return (
     <div className="relative -mt-24 z-20 px-4"> {/* Ajusta a posição para sobrepor a capa */}
@@ -56,14 +56,14 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
           alt={`Logo de ${name}`}
           className={cn(
             "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white shadow-lg object-cover z-30",
-            isCompact ? "w-16 h-16 top-16" : "w-24 h-24 md:w-28 md:h-28 top-10"
+            logoSizeClasses
           )}
         />
       ) : (
         // Placeholder ou nada para planos free sem logo
         <div className={cn(
           "absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center z-30",
-          isCompact ? "w-16 h-16 top-16" : "w-24 h-24 md:w-28 md:h-28 top-10"
+          logoSizeClasses
         )}>
           <Utensils className={cn("text-gray-400", utensilsSizeClasses)} />
         </div>
@@ -76,14 +76,14 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
         <CardContent className="p-0 space-y-2">
           <h1 className={cn(
             "font-extrabold leading-tight text-primary",
-            isCompact ? "text-xl" : "text-2xl md:text-3xl"
+            isCompact ? "text-xl" : "text-3xl md:text-4xl"
           )}>{name}</h1>
           
           {/* Endereço e Status de Abertura alinhados */}
           <div className="flex items-center gap-2">
             {addressSummary && (
               <p className={cn(
-                "flex items-center text-gray-500",
+                "flex items-center text-gray-600",
                 isCompact ? "text-xs" : "text-sm md:text-base"
               )}>
                 <MapPin className={cn("mr-1 text-primary", isCompact ? "w-3 h-3" : "w-4 h-4")} /> {addressSummary}
