@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
@@ -78,14 +78,6 @@ export default function Welcome() {
           >
             <span className="truncate">Sou restaurante</span>
           </Button>
-          
-          {/* NOVO: Link de Login de Administrador */}
-          <Link
-            to={createPageUrl('adminLogin')}
-            className="text-center text-sm font-medium text-gray-500 hover:text-primary hover:underline pt-2"
-          >
-            Acesso Administrativo
-          </Link>
         </motion.div>
       </div>
 
