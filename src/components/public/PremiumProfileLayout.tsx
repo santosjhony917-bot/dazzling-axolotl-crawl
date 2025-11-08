@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PublicRestaurantData } from "@/types"; // Agora importado corretamente
+import { PublicRestaurantData } from "@/types/restaurant"; // Agora importado corretamente
 import RestaurantProfileHeader from "./RestaurantProfileHeader";
 import RestaurantActionsBar from "./RestaurantActionsBar";
 import RestaurantInfoSection from "./RestaurantInfoSection"; // Agora importado corretamente
@@ -68,10 +68,10 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({
         <RestaurantOrderSection restaurant={restaurant} />
         <Separator className="my-4" />
         <RestaurantMenuSection restaurant={restaurant} />
-        {restaurant.gallery && restaurant.gallery.length > 0 && (
+        {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
           <>
             <Separator className="my-4" />
-            <RestaurantGallerySection restaurantId={restaurant.id} gallery={restaurant.gallery} /> {/* Passando restaurantId e gallery */}
+            <RestaurantGallerySection restaurantId={restaurant.id} gallery_images={restaurant.gallery_images} /> {/* Passando gallery_images */}
           </>
         )}
         {restaurant.social_networks && restaurant.social_networks.length > 0 && (

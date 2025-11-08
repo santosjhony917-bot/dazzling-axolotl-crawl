@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuCategory, MenuItem } from '@/types';
+import { MenuCategory, MenuItem } from '@/types/supabase';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatPrice } from '@/lib/utils';
 import { Utensils } from 'lucide-react';

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PublicRestaurantData } from "@/types";
+import { PublicRestaurantData } from "@/types/restaurant";
 
 interface RestaurantOrderSectionProps {
   restaurant: PublicRestaurantData;

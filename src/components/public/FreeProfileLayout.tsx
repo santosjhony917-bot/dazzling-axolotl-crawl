@@ -93,7 +93,7 @@ const FreeProfileLayout = ({
         {/* Conteúdo da página restaurado e adicionado aqui */}
         <div className="p-4 space-y-8">
           {isPremium && <OrderChannelsSection restaurant={restaurant} />}
-          {isPremium && <RestaurantGallerySection id="gallery-section" restaurantId={restaurant.id} plan={restaurant.plan} />}
+          {isPremium && <RestaurantGallerySection restaurantId={restaurant.id} gallery_images={restaurant.gallery_images} />}
           <PublicMenuSection restaurantId={restaurant.id} categories={restaurant.menu_categories} />
           <RestaurantAddressHoursSection id="address-hours-section" restaurant={restaurant} fullAddress={fullAddress} paymentMethods={restaurant.payment_methods} />
           {isPremium && <AdditionalInfo restaurant={restaurant} />}
