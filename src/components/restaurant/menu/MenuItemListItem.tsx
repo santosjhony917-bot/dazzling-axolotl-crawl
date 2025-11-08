@@ -1,4 +1,5 @@
 import React from 'react';
+import type { DraggableProvided } from '@hello-pangea/dnd';
 import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -7,13 +8,6 @@ import { formatCurrency } from '@/lib/utils';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-
-// Local type definition to resolve persistent module resolution issue
-interface DraggableProvided {
-  innerRef: (element: HTMLElement | null) => void;
-  draggableProps: React.HTMLAttributes<HTMLDivElement>;
-  dragHandleProps: React.HTMLAttributes<HTMLDivElement> | null;
-}
 
 interface MenuItemListItemProps {
   item: {
