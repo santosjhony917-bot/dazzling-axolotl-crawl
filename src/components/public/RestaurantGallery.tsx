@@ -23,7 +23,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
       <h2 className="text-2xl font-extrabold text-primary">Fotos</h2>
       
       {/* Grid principal 3 colunas, altura fixa para 2 linhas de 156px + gap (320px total) */}
-      <div className="grid grid-cols-3 gap-2 h-[320px]"> 
+      <div className="grid grid-cols-3 gap-3 h-[320px]"> 
         {slots.map((slotIndex) => {
           const image = topImages[slotIndex];
           
