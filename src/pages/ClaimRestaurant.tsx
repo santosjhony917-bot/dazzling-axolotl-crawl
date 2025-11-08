@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, KeyRound } from 'lucide-react';
+import CustomAuth from '@/components/CustomAuth';
 
 const ClaimRestaurant = () => {
   const [claimCode, setClaimCode] = useState('');
@@ -161,70 +162,7 @@ const ClaimRestaurant = () => {
               <p className="text-text-secondary mb-6">
                 Código verificado! Agora, crie sua conta ou faça login para continuar.
               </p>
-              <Auth
-                supabaseClient={supabase}
-                appearance={{
-                  theme: ThemeSupa,
-                  variables: {
-                    default: {
-                      colors: {
-                        brand: '#E47948',
-                        brandAccent: '#E47948',
-                        brandButtonText: 'white',
-                        defaultButtonBackground: 'white',
-                        defaultButtonBackgroundHover: '#f2f2f2',
-                        defaultButtonBorder: '#e5e7eb',
-                        defaultButtonText: '#1f2937',
-                        inputBorder: '#e5e7eb',
-                        inputBorderHover: '#E47948',
-                        inputBorderFocus: '#E47948',
-                        anchorTextColor: '#022D68',
-                        anchorTextHoverColor: '#E47948',
-                      },
-                      radii: {
-                        borderRadiusButton: '12px',
-                        inputBorderRadius: '12px',
-                      },
-                    },
-                  },
-                  className: {
-                    button: 'h-12 text-base shadow-soft-sm !rounded-xl',
-                    input: 'h-14 text-base shadow-soft-sm !rounded-xl',
-                    label: 'font-semibold text-primary text-left !mb-2',
-                    divider: '!bg-gray-200',
-                  },
-                }}
-                providers={['google', 'apple']}
-                theme="light"
-                localization={{
-                  variables: {
-                    sign_up: {
-                      email_label: 'Seu e-mail',
-                      password_label: 'Crie uma senha',
-                      email_input_placeholder: 'seu@email.com',
-                      password_input_placeholder: 'Crie uma senha segura',
-                      button_label: 'Criar conta',
-                      social_provider_text: 'Entrar com {{provider}}',
-                      link_text: 'Já tem uma conta? Faça login',
-                    },
-                    sign_in: {
-                        email_label: 'Seu e-mail',
-                        password_label: 'Sua senha',
-                        email_input_placeholder: 'seu@email.com',
-                        password_input_placeholder: 'Digite sua senha',
-                        button_label: 'Entrar',
-                        social_provider_text: 'Entrar com {{provider}}',
-                        link_text: 'Não tem uma conta? Crie uma',
-                    },
-                    forgotten_password: {
-                      link_text: 'Esqueceu sua senha?',
-                      email_label: 'Seu e-mail',
-                      email_input_placeholder: 'seu@email.com',
-                      button_label: 'Enviar instruções de recuperação',
-                    }
-                  },
-                }}
-              />
+              <CustomAuth />
             </div>
           )}
         </motion.div>
