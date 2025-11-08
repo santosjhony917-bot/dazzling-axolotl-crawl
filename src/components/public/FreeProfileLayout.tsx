@@ -57,7 +57,7 @@ const FreeProfileLayout = ({
 
       {/* Conteúdo principal, ajustado para sobrepor a capa */}
       <div className={cn(
-        "relative z-10 mt-[-70px]" // Aplica margin-top negativo para sobrepor a capa
+        "relative z-10 mt-20" // Aplica margin-top para afastar o conteúdo do cabeçalho
       )}>
         {/* Refatorado: Removido o card branco, conteúdo centralizado */}
         <div className="flex flex-col items-center text-center px-4 pb-4"> {/* Centraliza o conteúdo horizontalmente e adiciona padding horizontal */}
