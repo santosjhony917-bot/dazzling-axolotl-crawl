@@ -80,7 +80,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ClientProfilePage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/search-unified" element={<SearchUnifiedPage />} />
+          <Route path="/search" element={<SearchUnifiedPage />} />
         </Route>
 
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}

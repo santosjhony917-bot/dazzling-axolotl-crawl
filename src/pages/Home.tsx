@@ -64,7 +64,7 @@ const Home: React.FC = () => {
       return;
     }
     // Redireciona para a página de busca unificada com a query e tipo de busca
-    navigate(createPageUrl('search-unified', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       searchQuery: searchQuery, 
       searchType: 'dish' 
     }));
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       minPrice: minPrice.toString(), 
       maxPrice: maxPrice.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    navigate(createPageUrl('search-unified', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       maxDistance: maxDistanceKm.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
       searchType: 'restaurant' 

@@ -52,7 +52,7 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Início', path: createPageUrl('restaurant-area/home') },
-    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search-unified') },
+    { id: 'search', icon: Search, label: 'Busca', path: createPageUrl('search') },
     centralItem, // Item central dinâmico
     { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
   ];

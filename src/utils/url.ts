@@ -21,7 +21,7 @@ export const PATH_MAP = {
   home: '/home',
   favorites: '/favorites',
   clientProfile: '/profile',
-  'search-unified': '/search',
+  search: '/search',
   
   // Rotas de Proprietário de Restaurante (Autenticadas)
   'restaurant-area-hub': '/restaurant-area-hub',
@@ -80,7 +80,7 @@ type PathParams<K extends PathKey> =
 type QueryParams<K extends PathKey> = 
   K extends 'auth' 
     ? { mode: 'login' | 'signup' } 
-  : K extends 'search-unified' | 'restaurant-area/search' // Extend for search pages
+  : K extends 'search' | 'restaurant-area/search' // Extend for search pages
     ? { 
         searchQuery?: string;
         minPrice?: string;
