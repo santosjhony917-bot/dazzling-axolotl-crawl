@@ -14,6 +14,7 @@ import { Loader2 } from 'lucide-react';
 const categorySchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório'),
   is_active: z.boolean().default(true),
+  is_popular: z.boolean().default(false), // Adicionado is_popular
   order_index: z.number().optional(),
 });
 
@@ -34,6 +35,7 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
     defaultValues: {
       name: initialData?.name || '',
       is_active: initialData?.is_active ?? true,
+      is_popular: initialData?.is_popular ?? false, // Definindo valor padrão para is_popular
       order_index: initialData?.order_index ?? 0,
     },
   });
@@ -43,6 +45,7 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
       form.reset({
         name: initialData?.name || '',
         is_active: initialData?.is_active ?? true,
+        is_popular: initialData?.is_popular ?? false, // Resetando is_popular
         order_index: initialData?.order_index ?? 0,
       });
     }
@@ -50,7 +53,7 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
 
   const onSubmit = async (data: CategoryFormValues) => {
     await onSave(data);
-    onClose();
+    // onClose(); // onClose é chamado pelo componente pai após o save
   };
 
   const isSubmitting = isLoading; 
@@ -79,6 +82,17 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
               id="is_active"
               checked={form.watch('is_active')}
               onCheckedChange={(checked) => form.setValue('is_active', checked)}
+              disabled={isSubmitting}
+              className="data-[state=checked]:bg-highlight"
+            />
+          </div>
+
+          <div className="flex items-center justify-between space-x-2 rounded-lg border p-3">
+            <Label htmlFor="is_popular">Popular (Destacar no menu)</Label>
+            <Switch
+              id="is_popular"
+              checked={form.watch('is_popular')}
+              onCheckedChange={(checked) => form.setValue('is_popular', checked)}
               disabled={isSubmitting}
               className="data-[state=checked]:bg-highlight"
             />

@@ -2,19 +2,19 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, ArrowLeft, Loader2 } from 'lucide-react';
+import { Plus, Edit, Trash2, ArrowLeft, Loader2, Utensils } from 'lucide-react'; // Adicionado Utensils para o ícone
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { useAuth } from '@/context/AuthContext';
-import { useRestaurant } from '@/context/RestaurantContext';
+import { useAuthData } from '@/context/AuthContext'; // Corrigido: useAuth para useAuthData
+import { useRestaurantContext } from '@/context/RestaurantContext'; // Corrigido: useRestaurant para useRestaurantContext
 import { showError, showSuccess } from '@/utils/toast';
 import { MenuItem, MenuCategory } from '@/types/supabase';
 import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
-import MenuItemList from '@/components/restaurant/menu/MenuItemList'; // Corrigido para importação padrão
+import MenuItemList from '@/components/restaurant/menu/MenuItemList';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,7 +25,7 @@ import { supabase } from '@/integrations/supabase/client';
 const categorySchema = z.object({
   name: z.string().min(1, "O nome da categoria é obrigatório."),
   is_active: z.boolean(),
-  is_popular: z.boolean(),
+  is_popular: z.boolean(), // Adicionado is_popular ao schema
 });
 
 type CategoryFormValues = z.infer<typeof categorySchema>;
@@ -33,8 +33,8 @@ type CategoryFormValues = z.infer<typeof categorySchema>;
 const CategoryDetails: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { restaurant, fetchRestaurantData, isOwner } = useRestaurant();
+  const { user } = useAuthData(); // Corrigido: useAuth para useAuthData
+  const { restaurant, refetch: fetchRestaurantData, isLoading: isRestaurantLoading } = useRestaurantContext(); // Corrigido: useRestaurant para useRestaurantContext e renomeado refetch
 
   const [category, setCategory] = useState<MenuCategory | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -43,6 +43,7 @@ const CategoryDetails: React.FC = () => {
   const [isItemFormDialogOpen, setIsItemFormDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [isDeletingCategory, setIsDeletingCategory] = useState(false);
+  const [isSavingCategory, setIsSavingCategory] = useState(false); // Novo estado para o loading do formulário de categoria
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
@@ -96,6 +97,7 @@ const CategoryDetails: React.FC = () => {
   const handleSaveCategory = async (values: CategoryFormValues) => {
     if (!category || !user || !restaurant) return;
 
+    setIsSavingCategory(true); // Inicia o loading
     const { error } = await supabase
       .from('menu_categories')
       .update({
@@ -112,8 +114,9 @@ const CategoryDetails: React.FC = () => {
       showSuccess('Categoria atualizada com sucesso!');
       setIsCategoryEditDialogOpen(false);
       fetchCategoryAndItems();
-      fetchRestaurantData(restaurant.id); // Refresh restaurant data to update category list
+      fetchRestaurantData(); // Refresh restaurant data to update category list
     }
+    setIsSavingCategory(false); // Finaliza o loading
   };
 
   const handleDeleteCategory = async () => {
@@ -131,7 +134,7 @@ const CategoryDetails: React.FC = () => {
     } else {
       showSuccess('Categoria deletada com sucesso!');
       navigate(`/restaurant/${restaurant.id}/menu`);
-      fetchRestaurantData(restaurant.id); // Refresh restaurant data to update category list
+      fetchRestaurantData(); // Refresh restaurant data to update category list
     }
     setIsDeletingCategory(false);
   };
@@ -204,9 +207,9 @@ const CategoryDetails: React.FC = () => {
     }
   };
 
-  if (loading) {
+  if (loading || isRestaurantLoading) {
     return (
-      <RestaurantAreaPageLayout>
+      <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2} backPath={`/restaurant/${restaurant?.id}/menu`}>
         <div className="flex justify-center items-center h-full">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -216,7 +219,7 @@ const CategoryDetails: React.FC = () => {
 
   if (!category) {
     return (
-      <RestaurantAreaPageLayout>
+      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
           <p className="text-lg">Categoria não encontrada.</p>
           <Button onClick={() => navigate(-1)} className="mt-4">
@@ -228,13 +231,13 @@ const CategoryDetails: React.FC = () => {
   }
 
   return (
-    <RestaurantAreaPageLayout>
+    <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
       <div className="flex items-center justify-between mb-6">
         <Button variant="outline" onClick={() => navigate(-1)}>
           <ArrowLeft className="h-4 w-4 mr-2" /> Voltar ao Menu
         </Button>
         <h1 className="text-3xl font-bold text-[#022D68]">{category.name}</h1>
-        {isOwner && (
+        {user && restaurant && user.id === restaurant.user_id && ( // Usando isOwner diretamente não é ideal aqui, pois o contexto pode não ter carregado ainda
           <div className="flex space-x-2">
             <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline">
               <Edit className="h-4 w-4 mr-2" /> Editar Categoria
@@ -251,7 +254,7 @@ const CategoryDetails: React.FC = () => {
           items={menuItems}
           onEditItem={handleEditItem}
           onDeleteItem={handleDeleteItem}
-          isOwner={isOwner}
+          isOwner={user && restaurant ? user.id === restaurant.user_id : false}
         />
       </div>
 
@@ -270,7 +273,7 @@ const CategoryDetails: React.FC = () => {
                   <FormItem>
                     <FormLabel>Nome da Categoria</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={isSavingCategory} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -291,6 +294,7 @@ const CategoryDetails: React.FC = () => {
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        disabled={isSavingCategory}
                       />
                     </FormControl>
                   </FormItem>
@@ -311,6 +315,7 @@ const CategoryDetails: React.FC = () => {
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        disabled={isSavingCategory}
                       />
                     </FormControl>
                   </FormItem>
@@ -321,13 +326,13 @@ const CategoryDetails: React.FC = () => {
                   type="button"
                   variant="destructive"
                   onClick={handleDeleteCategory}
-                  disabled={isDeletingCategory}
+                  disabled={isDeletingCategory || isSavingCategory}
                 >
                   {isDeletingCategory ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Trash2 className="h-4 w-4 mr-2" />}
                   Deletar Categoria
                 </Button>
-                <Button type="submit" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                <Button type="submit" disabled={isSavingCategory}>
+                  {isSavingCategory && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                   Salvar Alterações
                 </Button>
               </DialogFooter>
@@ -337,12 +342,16 @@ const CategoryDetails: React.FC = () => {
       </Dialog>
 
       {/* Item Form Dialog */}
-      <ItemFormDialog
-        isOpen={isItemFormDialogOpen}
-        onClose={() => setIsItemFormDialogOpen(false)}
-        onSave={handleSaveItem}
-        initialData={editingItem}
-      />
+      {category && ( // Renderiza ItemFormDialog apenas se category não for null
+        <ItemFormDialog
+          isOpen={isItemFormDialogOpen}
+          onClose={() => setIsItemFormDialogOpen(false)}
+          onSave={handleSaveItem}
+          itemToEdit={editingItem}
+          category={category}
+          isLoading={false}
+        />
+      )}
     </RestaurantAreaPageLayout>
   );
 };
