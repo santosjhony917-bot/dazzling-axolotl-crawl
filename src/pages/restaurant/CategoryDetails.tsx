@@ -1,216 +1,310 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, ArrowLeft, Loader2, Utensils } from 'lucide-react'; // Adicionado Utensils para o ícone
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Utensils, Plus, Edit, Trash2, Loader2, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { useAuthData } from '@/context/AuthContext'; // Corrigido: useAuth para useAuthData
-import { useRestaurantContext } from '@/context/RestaurantContext'; // Corrigido: useRestaurant para useRestaurantContext
-import { showError, showSuccess } from '@/utils/toast';
-import { MenuItem, MenuCategory } from '@/types/supabase';
-import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
-import MenuItemList from '@/components/restaurant/menu/MenuItemList';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'; // Importar Card components
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 
-const categorySchema = z.object({
-  name: z.string().min(1, "O nome da categoria é obrigatório."),
-  is_active: z.boolean(),
-  is_popular: z.boolean(), // Adicionado is_popular ao schema
-});
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string | null;
+  is_active: boolean;
+  order_index: number;
+}
 
-type CategoryFormValues = z.infer<typeof categorySchema>;
+interface MenuCategory {
+  id: string;
+  name: string;
+  is_active: boolean;
+  is_popular: boolean;
+  order_index: number;
+  menu_items: MenuItem[];
+  restaurant_id: string;
+}
+
+interface Restaurant {
+  id: string;
+  name: string;
+}
 
 const CategoryDetails: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
-  const navigate = useNavigate();
-  const { user } = useAuthData(); // Corrigido: useAuth para useAuthData
-  const { restaurant, refetch: fetchRestaurantData, isLoading: isRestaurantLoading } = useRestaurantContext(); // Corrigido: useRestaurant para useRestaurantContext e renomeado refetch
-
   const [category, setCategory] = useState<MenuCategory | null>(null);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [loading, setLoading] = useState(true);
   const [isCategoryEditDialogOpen, setIsCategoryEditDialogOpen] = useState(false);
-  const [isItemFormDialogOpen, setIsItemFormDialogOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [isDeletingCategory, setIsDeletingCategory] = useState(false);
-  const [isSavingCategory, setIsSavingCategory] = useState(false); // Novo estado para o loading do formulário de categoria
+  const [isMenuItemDialogOpen, setIsMenuItemDialogOpen] = useState(false);
+  const [currentMenuItem, setCurrentMenuItem] = useState<MenuItem | null>(null);
+  const [categoryName, setCategoryName] = useState('');
+  const [categoryIsActive, setCategoryIsActive] = useState(true);
+  const [categoryIsPopular, setCategoryIsPopular] = useState(false);
+  const [menuItemName, setMenuItemName] = useState('');
+  const [menuItemDescription, setMenuItemDescription] = useState('');
+  const [menuItemPrice, setMenuItemPrice] = useState<number | string>('');
+  const [menuItemImageUrl, setMenuItemImageUrl] = useState('');
+  const [menuItemIsActive, setMenuItemIsActive] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
-  const form = useForm<CategoryFormValues>({
-    resolver: zodResolver(categorySchema),
-    defaultValues: {
-      name: '',
-      is_active: true,
-      is_popular: false,
-    },
-  });
+  useEffect(() => {
+    fetchCategoryAndRestaurantData();
+  }, [categoryId]);
 
-  const fetchCategoryAndItems = useCallback(async () => {
-    if (!categoryId) return;
+  const fetchCategoryAndRestaurantData = async () => {
+    if (!categoryId) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     const { data: categoryData, error: categoryError } = await supabase
       .from('menu_categories')
-      .select('*')
+      .select(`
+        *,
+        menu_items (
+          id,
+          name,
+          description,
+          price,
+          image_url,
+          is_active,
+          order_index
+        )
+      `)
       .eq('id', categoryId)
+      .order('order_index', { foreignTable: 'menu_items', ascending: true })
       .single();
 
     if (categoryError) {
-      showError(`Erro ao carregar categoria: ${categoryError.message}`);
+      console.error('Error fetching category data:', categoryError.message);
+      toast.error('Erro ao carregar detalhes da categoria.');
       setLoading(false);
       return;
     }
-    setCategory(categoryData);
-    form.reset({
-      name: categoryData.name,
-      is_active: categoryData.is_active,
-      is_popular: categoryData.popular,
-    });
 
-    const { data: itemsData, error: itemsError } = await supabase
-      .from('menu_items')
-      .select('*')
-      .eq('category_id', categoryId)
-      .order('order_index', { ascending: true });
+    if (categoryData) {
+      setCategory(categoryData as MenuCategory);
+      setCategoryName(categoryData.name);
+      setCategoryIsActive(categoryData.is_active);
+      setCategoryIsPopular(categoryData.is_popular);
 
-    if (itemsError) {
-      showError(`Erro ao carregar itens do menu: ${itemsError.message}`);
-      setLoading(false);
-      return;
+      const { data: restaurantData, error: restaurantError } = await supabase
+        .from('restaurants')
+        .select('id, name')
+        .eq('id', categoryData.restaurant_id)
+        .single();
+
+      if (restaurantError) {
+        console.error('Error fetching restaurant data:', restaurantError.message);
+        toast.error('Erro ao carregar dados do restaurante.');
+      } else if (restaurantData) {
+        setRestaurant(restaurantData);
+      }
     }
-    setMenuItems(itemsData);
     setLoading(false);
-  }, [categoryId, form]);
+  };
 
-  useEffect(() => {
-    fetchCategoryAndItems();
-  }, [fetchCategoryAndItems]);
+  const handleSaveCategory = async () => {
+    if (!category || !categoryName.trim()) {
+      toast.error('O nome da categoria não pode ser vazio.');
+      return;
+    }
 
-  const handleSaveCategory = async (values: CategoryFormValues) => {
-    if (!category || !user || !restaurant) return;
-
-    setIsSavingCategory(true); // Inicia o loading
+    setIsSaving(true);
     const { error } = await supabase
       .from('menu_categories')
-      .update({
-        name: values.name,
-        is_active: values.is_active,
-        is_popular: values.is_popular,
-      })
-      .eq('id', category.id)
-      .eq('restaurant_id', restaurant.id);
+      .update({ name: categoryName, is_active: categoryIsActive, is_popular: categoryIsPopular })
+      .eq('id', category.id);
 
     if (error) {
-      showError(`Erro ao atualizar categoria: ${error.message}`);
+      console.error('Error updating category:', error.message);
+      toast.error('Erro ao atualizar categoria.');
     } else {
-      showSuccess('Categoria atualizada com sucesso!');
+      toast.success('Categoria atualizada com sucesso!');
       setIsCategoryEditDialogOpen(false);
-      fetchCategoryAndItems();
-      fetchRestaurantData(); // Refresh restaurant data to update category list
+      fetchCategoryAndRestaurantData();
     }
-    setIsSavingCategory(false); // Finaliza o loading
+    setIsSaving(false);
   };
 
   const handleDeleteCategory = async () => {
-    if (!category || !user || !restaurant) return;
+    if (!category) return;
+    if (!confirm('Tem certeza que deseja excluir esta categoria e todos os seus itens?')) return;
 
-    setIsDeletingCategory(true);
     const { error } = await supabase
       .from('menu_categories')
       .delete()
-      .eq('id', category.id)
-      .eq('restaurant_id', restaurant.id);
+      .eq('id', category.id);
 
     if (error) {
-      showError(`Erro ao deletar categoria: ${error.message}`);
+      console.error('Error deleting category:', error.message);
+      toast.error('Erro ao excluir categoria.');
     } else {
-      showSuccess('Categoria deletada com sucesso!');
-      navigate(`/restaurant/${restaurant.id}/menu`);
-      fetchRestaurantData(); // Refresh restaurant data to update category list
+      toast.success('Categoria excluída com sucesso!');
+      // Redirect to menu management page or restaurant home
+      // navigate(`/restaurant-area/menu-management/${category.restaurant_id}`);
     }
-    setIsDeletingCategory(false);
   };
 
   const handleAddItem = () => {
-    setEditingItem(null);
-    setIsItemFormDialogOpen(true);
+    if (!category) return;
+    setCurrentMenuItem(null);
+    setMenuItemName('');
+    setMenuItemDescription('');
+    setMenuItemPrice('');
+    setMenuItemImageUrl('');
+    setMenuItemIsActive(true);
+    setIsMenuItemDialogOpen(true);
   };
 
-  const handleEditItem = (item: MenuItem) => {
-    setEditingItem(item);
-    setIsItemFormDialogOpen(true);
+  const handleEditMenuItem = (item: MenuItem) => {
+    setCurrentMenuItem(item);
+    setMenuItemName(item.name);
+    setMenuItemDescription(item.description);
+    setMenuItemPrice(item.price);
+    setMenuItemImageUrl(item.image_url || '');
+    setMenuItemIsActive(item.is_active);
+    setIsMenuItemDialogOpen(true);
   };
 
-  const handleSaveItem = async (values: MenuItemFormValues) => {
-    if (!category || !user || !restaurant) return;
+  const handleSaveMenuItem = async () => {
+    if (!category || !menuItemName.trim() || menuItemPrice === '') {
+      toast.error('Nome e preço do item não podem ser vazios.');
+      return;
+    }
 
-    const itemData = {
-      category_id: category.id,
-      name: values.name,
-      description: values.description,
-      price: values.price,
-      image_url: values.image_url,
-      is_active: values.is_active,
-    };
+    setIsSaving(true);
+    const priceValue = typeof menuItemPrice === 'string' ? parseFloat(menuItemPrice.replace(',', '.')) : menuItemPrice;
 
-    if (editingItem) {
+    if (isNaN(priceValue) || priceValue < 0) {
+      toast.error('Preço inválido.');
+      setIsSaving(false);
+      return;
+    }
+
+    if (currentMenuItem) {
+      // Update menu item
       const { error } = await supabase
         .from('menu_items')
-        .update(itemData)
-        .eq('id', editingItem.id);
+        .update({
+          name: menuItemName,
+          description: menuItemDescription,
+          price: priceValue,
+          image_url: menuItemImageUrl || null,
+          is_active: menuItemIsActive,
+        })
+        .eq('id', currentMenuItem.id);
 
       if (error) {
-        showError(`Erro ao atualizar item: ${error.message}`);
+        console.error('Error updating menu item:', error.message);
+        toast.error('Erro ao atualizar item do cardápio.');
       } else {
-        showSuccess('Item atualizado com sucesso!');
-        setIsItemFormDialogOpen(false);
-        fetchCategoryAndItems();
+        toast.success('Item do cardápio atualizado com sucesso!');
+        setIsMenuItemDialogOpen(false);
+        fetchCategoryAndRestaurantData();
       }
     } else {
-      const { data, error } = await supabase
+      // Add new menu item
+      const { data: existingItems } = await supabase
         .from('menu_items')
-        .insert(itemData)
-        .select()
-        .single();
+        .select('order_index')
+        .eq('category_id', category.id)
+        .order('order_index', { ascending: false })
+        .limit(1);
+
+      const newOrderIndex = existingItems && existingItems.length > 0
+        ? existingItems[0].order_index + 1
+        : 0;
+
+      const { error } = await supabase
+        .from('menu_items')
+        .insert({
+          category_id: category.id,
+          name: menuItemName,
+          description: menuItemDescription,
+          price: priceValue,
+          image_url: menuItemImageUrl || null,
+          is_active: menuItemIsActive,
+          order_index: newOrderIndex,
+        });
 
       if (error) {
-        showError(`Erro ao adicionar item: ${error.message}`);
+        console.error('Error adding menu item:', error.message);
+        toast.error('Erro ao adicionar item do cardápio.');
       } else {
-        showSuccess('Item adicionado com sucesso!');
-        setIsItemFormDialogOpen(false);
-        fetchCategoryAndItems();
+        toast.success('Item do cardápio adicionado com sucesso!');
+        setIsMenuItemDialogOpen(false);
+        fetchCategoryAndRestaurantData();
       }
     }
+    setIsSaving(false);
   };
 
-  const handleDeleteItem = async (item: MenuItem) => {
-    if (!user) return;
+  const handleDeleteMenuItem = async (itemId: string) => {
+    if (!confirm('Tem certeza que deseja excluir este item do cardápio?')) return;
 
     const { error } = await supabase
       .from('menu_items')
       .delete()
-      .eq('id', item.id);
+      .eq('id', itemId);
 
     if (error) {
-      showError(`Erro ao deletar item: ${error.message}`);
+      console.error('Error deleting menu item:', error.message);
+      toast.error('Erro ao excluir item do cardápio.');
     } else {
-      showSuccess('Item deletado com sucesso!');
-      fetchCategoryAndItems();
+      toast.success('Item do cardápio excluído com sucesso!');
+      fetchCategoryAndRestaurantData();
     }
   };
 
-  if (loading || isRestaurantLoading) {
+  const moveMenuItem = async (itemId: string, direction: 'up' | 'down') => {
+    if (!category) return;
+
+    const itemIndex = category.menu_items.findIndex(item => item.id === itemId);
+    if (itemIndex === -1) return;
+
+    const newItems = [...category.menu_items];
+    const itemToMove = newItems[itemIndex];
+
+    let targetIndex = direction === 'up' ? itemIndex - 1 : itemIndex + 1;
+
+    if (targetIndex < 0 || targetIndex >= newItems.length) return;
+
+    const itemToSwap = newItems[targetIndex];
+
+    // Swap order_index values
+    const { error } = await supabase
+      .from('menu_items')
+      .update({ order_index: itemToSwap.order_index })
+      .eq('id', itemToMove.id);
+
+    const { error: error2 } = await supabase
+      .from('menu_items')
+      .update({ order_index: itemToMove.order_index })
+      .eq('id', itemToSwap.id);
+
+    if (error || error2) {
+      console.error('Error swapping menu item order:', error?.message || error2?.message);
+      toast.error('Erro ao reordenar itens do cardápio.');
+    } else {
+      toast.success('Itens do cardápio reordenados com sucesso!');
+      fetchCategoryAndRestaurantData(); // Re-fetch to ensure consistent state
+    }
+  };
+
+  if (loading) {
     return (
-      <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
+      <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2}>
         <div className="flex justify-center items-center h-full">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -220,140 +314,190 @@ const CategoryDetails: React.FC = () => {
 
   if (!category) {
     return (
-      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
+      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils}>
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
-          <p className="text-lg">Categoria não encontrada.</p>
-          <Button onClick={() => navigate(-1)} className="mt-4">
-            <ArrowLeft className="h-4 w-4 mr-2" /> Voltar
-          </Button>
+          <Utensils className="h-16 w-16 mb-4" />
+          <p className="text-xl">A categoria que você procura não existe ou foi removida.</p>
         </div>
       </RestaurantAreaPageLayout>
     );
   }
 
   return (
-    <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
+    <RestaurantAreaPageLayout title={category.name} icon={Utensils}>
       <div className="p-4 space-y-6">
-        {user && restaurant && user.id === restaurant.user_id && (
-          <Card className="mb-4">
-            <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <CardTitle>Gerenciar Categoria</CardTitle>
-              <div className="flex flex-wrap justify-end gap-2 w-full">
-                <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
-                  <Edit className="h-4 w-4 mr-2" /> Editar Categoria
-                </Button>
-                <Button onClick={handleAddItem} className="w-full sm:w-auto">
-                  <Plus className="h-4 w-4 mr-2" /> Adicionar Item
-                </Button>
-              </div>
-            </CardHeader>
-          </Card>
-        )}
+        <Card className="mb-4">
+          <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <CardTitle>Gerenciar Categoria</CardTitle>
+            <div className="flex flex-wrap justify-end gap-2 w-full">
+              <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
+                <Edit className="h-4 w-4 mr-2" /> Editar Categoria
+              </Button>
+              <Button onClick={handleAddItem} className="w-full sm:w-auto">
+                <Plus className="h-4 w-4 mr-2" /> Adicionar Item
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-700">Status: {category.is_active ? 'Ativa' : 'Inativa'}</p>
+            <p className="text-gray-700">Popular: {category.is_popular ? 'Sim' : 'Não'}</p>
+            {restaurant && (
+              <p className="text-gray-700">Restaurante: {restaurant.name}</p>
+            )}
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-4 rounded-xl shadow-soft-md">
-          <MenuItemList
-            items={menuItems}
-            onEditItem={handleEditItem}
-            onDeleteItem={handleDeleteItem}
-            isOwner={user && restaurant ? user.id === restaurant.user_id : false}
-          />
-        </div>
+        <h2 className="text-2xl font-bold mb-4">Itens do Cardápio</h2>
+        {category.menu_items.length === 0 ? (
+          <p className="text-center text-gray-500">Nenhum item nesta categoria. Adicione um!</p>
+        ) : (
+          <div className="space-y-4">
+            {category.menu_items.map((item, index) => (
+              <Card key={item.id}>
+                <CardContent className="flex items-center justify-between p-4">
+                  <div className="flex items-center space-x-4">
+                    {item.image_url && (
+                      <img src={item.image_url} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
+                    )}
+                    <div>
+                      <p className="font-semibold text-lg">{item.name}</p>
+                      <p className="text-gray-600 text-sm">{item.description}</p>
+                      <p className="font-bold text-primary">R$ {item.price.toFixed(2)}</p>
+                      {!item.is_active && (
+                        <span className="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">Inativo</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button variant="ghost" size="icon" onClick={() => moveMenuItem(item.id, 'up')} disabled={index === 0}>
+                      <ChevronUp className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => moveMenuItem(item.id, 'down')} disabled={index === category.menu_items.length - 1}>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => handleEditMenuItem(item)}>
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button variant="destructive" size="sm" onClick={() => handleDeleteMenuItem(item.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Edit Category Dialog */}
+      {/* Category Edit Dialog */}
       <Dialog open={isCategoryEditDialogOpen} onOpenChange={setIsCategoryEditDialogOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Editar Categoria</DialogTitle>
           </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSaveCategory)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nome da Categoria</FormLabel>
-                    <FormControl>
-                      <Input {...field} disabled={isSavingCategory} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+          <div className="space-y-4 py-4">
+            <div>
+              <Label htmlFor="editCategoryName">Nome da Categoria</Label>
+              <Input
+                id="editCategoryName"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
+                placeholder="Ex: Pizzas, Bebidas, Sobremesas"
               />
-              <FormField
-                control={form.control}
-                name="is_active"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <FormLabel className="text-base">Categoria Ativa</FormLabel>
-                      <FormDescription>
-                        Se desativado, esta categoria e seus itens não aparecerão no menu público.
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isSavingCategory}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="editCategoryIsActive"
+                checked={categoryIsActive}
+                onCheckedChange={setCategoryIsActive}
               />
-              <FormField
-                control={form.control}
-                name="is_popular"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <FormLabel className="text-base">Categoria Popular</FormLabel>
-                      <FormDescription>
-                        Marque para destacar esta categoria como popular no menu.
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isSavingCategory}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+              <Label htmlFor="editCategoryIsActive">Ativa</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="editCategoryIsPopular"
+                checked={categoryIsPopular}
+                onCheckedChange={setCategoryIsPopular}
               />
-              <DialogFooter className="flex justify-between items-center mt-6">
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onClick={handleDeleteCategory}
-                  disabled={isDeletingCategory || isSavingCategory}
-                >
-                  {isDeletingCategory ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Trash2 className="h-4 w-4 mr-2" />}
-                  Deletar Categoria
-                </Button>
-                <Button type="submit" disabled={isSavingCategory}>
-                  {isSavingCategory && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-                  Salvar Alterações
-                </Button>
-              </DialogFooter>
-            </form>
-          </Form>
+              <Label htmlFor="editCategoryIsPopular">Popular</Label>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsCategoryEditDialogOpen(false)}>Cancelar</Button>
+            <Button variant="destructive" onClick={handleDeleteCategory} disabled={isSaving}>
+              Excluir Categoria
+            </Button>
+            <Button onClick={handleSaveCategory} disabled={isSaving}>
+              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              Salvar Alterações
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* Item Form Dialog */}
-      {category && ( // Renderiza ItemFormDialog apenas se category não for null
-        <ItemFormDialog
-          isOpen={isItemFormDialogOpen}
-          onClose={() => setIsItemFormDialogOpen(false)}
-          onSave={handleSaveItem}
-          itemToEdit={editingItem}
-          category={category}
-          isLoading={false}
-        />
-      )}
+      {/* Menu Item Dialog */}
+      <Dialog open={isMenuItemDialogOpen} onOpenChange={setIsMenuItemDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{currentMenuItem ? 'Editar Item do Cardápio' : 'Adicionar Novo Item'}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div>
+              <Label htmlFor="menuItemName">Nome do Item</Label>
+              <Input
+                id="menuItemName"
+                value={menuItemName}
+                onChange={(e) => setMenuItemName(e.target.value)}
+                placeholder="Ex: Pizza Calabresa, Coca-Cola"
+              />
+            </div>
+            <div>
+              <Label htmlFor="menuItemDescription">Descrição</Label>
+              <Textarea
+                id="menuItemDescription"
+                value={menuItemDescription}
+                onChange={(e) => setMenuItemDescription(e.target.value)}
+                placeholder="Uma breve descrição do item"
+              />
+            </div>
+            <div>
+              <Label htmlFor="menuItemPrice">Preço</Label>
+              <Input
+                id="menuItemPrice"
+                type="number"
+                step="0.01"
+                value={menuItemPrice}
+                onChange={(e) => setMenuItemPrice(e.target.value)}
+                placeholder="Ex: 29.90"
+              />
+            </div>
+            <div>
+              <Label htmlFor="menuItemImageUrl">URL da Imagem</Label>
+              <Input
+                id="menuItemImageUrl"
+                value={menuItemImageUrl}
+                onChange={(e) => setMenuItemImageUrl(e.target.value)}
+                placeholder="https://exemplo.com/imagem.jpg"
+              />
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="menuItemIsActive"
+                checked={menuItemIsActive}
+                onCheckedChange={setMenuItemIsActive}
+              />
+              <Label htmlFor="menuItemIsActive">Ativo</Label>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsMenuItemDialogOpen(false)}>Cancelar</Button>
+            <Button onClick={handleSaveMenuItem} disabled={isSaving}>
+              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+              Salvar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </RestaurantAreaPageLayout>
   );
 };
