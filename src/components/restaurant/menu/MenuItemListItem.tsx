@@ -1,81 +1,196 @@
-import React from 'react';
-import { MenuItem } from '@/types/supabase';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
-import { formatPrice } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+"use client";
 
-interface MenuItemListItemProps {
-  item: MenuItem;
-  onEdit: (item: MenuItem) => void;
-  onDelete: (itemId: string) => void;
-  restaurantId?: string;
-}
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { DollarSign, Edit, Trash } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
-export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, restaurantId }) => {
-  // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const updateItemMutation = useUpdateMenuItem(restaurantId);
-  const isUpdating = updateItemMutation.isPending;
+export function MenuItemListItem({ item, onUpdate, onDelete }) {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [editedItem, setEditedItem] = useState(item);
+  const { toast } = useToast();
 
-  const handleToggleActive = (checked: boolean) => {
-    updateItemMutation.mutate({
-      id: item.id,
-      updates: {
-        name: item.name,
-        description: item.description || '',
-        price: item.price,
-        image_url: item.image_url,
-        is_active: checked,
-      }
-    });
+  const handleSave = async () => {
+    const { data, error } = await supabase
+      .from("menu_items")
+      .update(editedItem)
+      .eq("id", editedItem.id)
+      .select();
+
+    if (error) {
+      toast({
+        title: "Erro ao atualizar item",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Item atualizado com sucesso!",
+        description: `${editedItem.name} foi atualizado.`,
+      });
+      onUpdate(data[0]);
+      setIsEditDialogOpen(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    const { error } = await supabase
+      .from("menu_items")
+      .delete()
+      .eq("id", item.id);
+
+    if (error) {
+      toast({
+        title: "Erro ao deletar item",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Item deletado com sucesso!",
+        description: `${item.name} foi removido.`,
+      });
+      onDelete(item.id);
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   return (
-    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4 flex-grow">
-          <img 
-            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
-            alt={item.name} 
-            className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
-          />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-primary truncate">{item.name}</h3>
-            <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
-            <div className="flex items-center text-primary font-medium mt-1">
-              <DollarSign className="w-4 h-4 mr-1 text-highlight" />
-              <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
+    <div className="flex items-center justify-between p-4 border-b last:border-b-0">
+      <div className="flex-1">
+        <h3 className="font-semibold text-lg">{item.name}</h3>
+        <p className="text-sm text-muted-foreground">{item.description}</p>
+        <div className="flex items-center text-primary font-medium mt-1">
+          <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
+        </div>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Button variant="ghost" size="icon" onClick={() => setIsEditDialogOpen(true)}>
+          <Edit className="h-4 w-4" />
+        </Button>
+        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Trash className="h-4 w-4 text-red-500" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Esta ação não pode ser desfeita. Isso removerá permanentemente o item "{item.name}" do seu menu.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete} className="bg-red-500 hover:bg-red-600 text-white">
+                Deletar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Editar Item do Menu</DialogTitle>
+            <DialogDescription>
+              Faça alterações no seu item de menu aqui. Clique em salvar quando terminar.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Nome
+              </Label>
+              <Input
+                id="name"
+                value={editedItem.name}
+                onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="description" className="text-right">
+                Descrição
+              </Label>
+              <Textarea
+                id="description"
+                value={editedItem.description || ""}
+                onChange={(e) => setEditedItem({ ...editedItem, description: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="price" className="text-right">
+                Preço
+              </Label>
+              <Input
+                id="price"
+                type="number"
+                step="0.01"
+                value={editedItem.price}
+                onChange={(e) => setEditedItem({ ...editedItem, price: parseFloat(e.target.value) })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="image_url" className="text-right">
+                URL da Imagem
+              </Label>
+              <Input
+                id="image_url"
+                value={editedItem.image_url || ""}
+                onChange={(e) => setEditedItem({ ...editedItem, image_url: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="is_active" className="text-right">
+                Ativo
+              </Label>
+              <Switch
+                id="is_active"
+                checked={editedItem.is_active}
+                onCheckedChange={(checked) => setEditedItem({ ...editedItem, is_active: checked })}
+                className="col-span-3"
+              />
             </div>
           </div>
-        </div>
-
-        <div className="flex space-x-4 items-center flex-shrink-0">
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`item-active-switch-${item.id}`}
-              checked={item.is_active}
-              onCheckedChange={handleToggleActive}
-              disabled={isUpdating}
-              className="data-[state=checked]:bg-highlight"
-            />
-            <Label htmlFor={`item-active-switch-${item.id}`} className="text-sm text-gray-500">
-              {item.is_active ? 'Ativo' : 'Inativo'}
-            </Label>
-            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-          </div>
-
-          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item" className="h-8 w-8 bg-red-600 hover:bg-red-700">
-            <Trash2 className="w-4 h-4" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          <DialogFooter>
+            <Button type="submit" onClick={handleSave}>
+              Salvar alterações
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
-};
+}
