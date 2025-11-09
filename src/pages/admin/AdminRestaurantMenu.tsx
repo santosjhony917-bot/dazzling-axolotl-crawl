@@ -1,245 +1,237 @@
-"use client";
+import { useState, useEffect, useCallback } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { supabase } from '@/integrations/supabase/client'
+import { useToast } from '@/components/ui/use-toast'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft, PlusCircle, Utensils, GripVertical } from 'lucide-react'
+import { MenuItemList } from '@/components/restaurant/menu/MenuItemList'
+import { MenuItemDialog } from '@/components/restaurant/menu/MenuItemDialog'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { MenuCategory, MenuItem } from '@/types'
+import { CategoryDialog } from '@/components/restaurant/menu/CategoryDialog'
 
-import React, { useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import AdminAreaHeader from '@/components/admin/AdminAreaHeader';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { PlusCircle, Loader2, ArrowLeft } from 'lucide-react';
-import { useMenuManagement, useCategoryMutations } from '@/hooks/useMenuManagement';
-import { useMenuItemManagement } from '@/hooks/useMenuItemManagement';
-import CategoryList from '@/components/restaurant/menu/CategoryList';
-import CategoryFormDialog, { CategoryFormValues } from '@/components/restaurant/menu/CategoryFormDialog';
-import { MenuItemList } from '@/components/restaurant/menu/MenuItemList';
-import ItemFormDialog, { MenuItemFormValues } from '@/components/restaurant/menu/ItemFormDialog';
-import { MenuCategory, MenuItem } from '@/types/supabase';
-import ConfirmationDialog from '@/components/ConfirmationDialog';
+type MenuDataItem = MenuCategory & { items: MenuItem[] }
 
-type CategoryWithItems = MenuCategory & { menu_items: MenuItem[] };
+export function AdminRestaurantMenuPage() {
+  const { restaurantId } = useParams<{ restaurantId: string }>()
+  const { toast } = useToast()
 
-const AdminRestaurantMenu: React.FC = () => {
-  const { restaurantId } = useParams<{ restaurantId: string }>();
+  const [restaurantName, setRestaurantName] = useState('')
+  const [menuData, setMenuData] = useState<MenuDataItem[]>([])
+  const [loading, setLoading] = useState(true)
   
-  // State for categories
-  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<MenuCategory | null>(null);
-  const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] = useState(false);
-  const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
-  const [viewingCategory, setViewingCategory] = useState<CategoryWithItems | null>(null);
+  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false)
+  const [editingItem, setEditingItem] = useState<MenuItem | undefined>(undefined)
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
 
-  // State for menu items
-  const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
-  const [isConfirmDeleteItemDialogOpen, setIsConfirmDeleteItemDialogOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+  const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false)
+  const [editingCategory, setEditingCategory] = useState<MenuCategory | undefined>(undefined)
 
-  if (!restaurantId) {
-    return (
-      <div className="space-y-6">
-        <AdminAreaHeader title="Erro" description="ID do restaurante não fornecido." />
-      </div>
-    );
+  const fetchMenuData = useCallback(async () => {
+    if (!restaurantId) return
+    setLoading(true)
+
+    const { data: restaurantData, error: restaurantError } = await supabase
+      .from('restaurants')
+      .select('name')
+      .eq('id', restaurantId)
+      .single()
+
+    if (restaurantError || !restaurantData) {
+      toast({ title: 'Erro', description: 'Restaurante não encontrado.', variant: 'destructive' })
+      setLoading(false)
+      return
+    }
+    setRestaurantName(restaurantData.name)
+
+    const { data: categories, error: categoriesError } = await supabase
+      .from('menu_categories')
+      .select(`*, menu_items ( * )`)
+      .eq('restaurant_id', restaurantId)
+      .order('order_index', { ascending: true })
+      .order('order_index', { foreignTable: 'menu_items', ascending: true })
+
+    if (categoriesError) {
+      toast({ title: 'Erro ao carregar menu', description: categoriesError.message, variant: 'destructive' })
+    } else {
+      setMenuData(categories as MenuDataItem[])
+    }
+
+    setLoading(false)
+  }, [restaurantId, toast])
+
+  useEffect(() => {
+    fetchMenuData()
+  }, [fetchMenuData])
+
+  const handleItemDialogClose = (refresh: boolean) => {
+    setIsItemDialogOpen(false)
+    setEditingItem(undefined)
+    setSelectedCategoryId(null)
+    if (refresh) fetchMenuData()
   }
 
-  const { categoriesQuery } = useMenuManagement(restaurantId);
-  const { createCategoryMutation, updateCategoryMutation, deleteCategoryMutation } = useCategoryMutations(restaurantId);
-  const { createItemMutation, updateItemMutation, deleteItemMutation } = useMenuItemManagement(restaurantId);
-
-  // --- Category Handlers ---
-  const handleAddCategory = () => {
-    setSelectedCategory(null);
-    setIsCategoryDialogOpen(true);
-  };
-
-  const handleEditCategory = (category: MenuCategory) => {
-    setSelectedCategory(category);
-    setIsCategoryDialogOpen(true);
-  };
-
-  const handleSaveCategory = async (data: CategoryFormValues) => {
-    if (selectedCategory) {
-      await updateCategoryMutation.mutateAsync({ id: selectedCategory.id, updates: data });
-    } else {
-      await createCategoryMutation.mutateAsync({ ...data, restaurant_id: restaurantId });
-    }
-    setIsCategoryDialogOpen(false);
-  };
-
-  const handleDeleteCategory = (categoryId: string) => {
-    setCategoryToDelete(categoryId);
-    setIsConfirmDeleteDialogOpen(true);
-  };
-
-  const confirmDeleteCategory = async () => {
-    if (categoryToDelete) {
-      await deleteCategoryMutation.mutateAsync(categoryToDelete);
-      setCategoryToDelete(null);
-      setIsConfirmDeleteDialogOpen(false);
-    }
-  };
-
-  const handleViewCategory = (category: MenuCategory) => {
-    const categoryWithItems = categoriesQuery.data?.find(c => c.id === category.id);
-    if (categoryWithItems) {
-      setViewingCategory(categoryWithItems);
-    }
-  };
-
-  // --- Menu Item Handlers ---
-  const handleAddItem = () => {
-    setSelectedItem(null);
-    setIsItemDialogOpen(true);
-  };
+  const handleNewItem = (categoryId: string) => {
+    setEditingItem(undefined)
+    setSelectedCategoryId(categoryId)
+    setIsItemDialogOpen(true)
+  }
 
   const handleEditItem = (item: MenuItem) => {
-    setSelectedItem(item);
-    setIsItemDialogOpen(true);
-  };
+    setEditingItem(item)
+    setSelectedCategoryId(item.category_id)
+    setIsItemDialogOpen(true)
+  }
 
-  const handleSaveItem = async (data: MenuItemFormValues) => {
-    if (!viewingCategory) return;
-    if (selectedItem) {
-      await updateItemMutation.mutateAsync({ id: selectedItem.id, updates: data });
+  const handleDeleteItem = async (itemId: string) => {
+    const { error } = await supabase.from('menu_items').delete().eq('id', itemId)
+    if (error) {
+      toast({ title: 'Erro ao deletar item', description: error.message, variant: 'destructive' })
     } else {
-      // Explicitly construct the object to satisfy the type requirements
-      await createItemMutation.mutateAsync({
-        name: data.name,
-        price: data.price,
-        description: data.description,
-        image_url: data.image_url,
-        is_active: data.is_active,
-        category_id: viewingCategory.id
-      });
+      toast({ title: 'Item deletado com sucesso!' })
+      fetchMenuData()
     }
-    setIsItemDialogOpen(false);
-  };
+  }
 
-  const handleDeleteItem = (itemId: string) => {
-    setItemToDelete(itemId);
-    setIsConfirmDeleteItemDialogOpen(true);
-  };
+  const handleCategoryDialogClose = (refresh: boolean) => {
+    setIsCategoryDialogOpen(false)
+    setEditingCategory(undefined)
+    if (refresh) fetchMenuData()
+  }
 
-  const confirmDeleteItem = async () => {
-    if (itemToDelete) {
-      await deleteItemMutation.mutateAsync(itemToDelete);
-      setItemToDelete(null);
-      setIsConfirmDeleteItemDialogOpen(false);
+  const handleNewCategory = () => {
+    setEditingCategory(undefined)
+    setIsCategoryDialogOpen(true)
+  }
+
+  const handleEditCategory = (category: MenuCategory) => {
+    setEditingCategory(category)
+    setIsCategoryDialogOpen(true)
+  }
+
+  const handleDeleteCategory = async (category: MenuCategory) => {
+    if (category.items && (category.items as unknown as any[]).length > 0) {
+      toast({ title: 'Ação não permitida', description: 'Delete todos os itens da categoria antes de removê-la.', variant: 'destructive' })
+      return
     }
-  };
+    const { error } = await supabase.from('menu_categories').delete().eq('id', category.id)
+    if (error) {
+      toast({ title: 'Erro ao deletar categoria', description: error.message, variant: 'destructive' })
+    } else {
+      toast({ title: 'Categoria deletada com sucesso!' })
+      fetchMenuData()
+    }
+  }
 
-  const isCategoryMutating = createCategoryMutation.isPending || updateCategoryMutation.isPending || deleteCategoryMutation.isPending;
-  const isItemMutating = createItemMutation.isPending || updateItemMutation.isPending || deleteItemMutation.isPending;
-  const isMutating = isCategoryMutating || isItemMutating;
+  const handleStatusChange = async (item: MenuItem, isActive: boolean) => {
+    setMenuData(currentData =>
+      currentData.map(category => ({
+        ...category,
+        items: category.items.map(i =>
+          i.id === item.id ? { ...i, is_active: isActive } : i
+        ),
+      }))
+    )
 
-  const currentMenuItems = useMemo(() => {
-    if (!viewingCategory) return [];
-    const updatedCategory = categoriesQuery.data?.find(c => c.id === viewingCategory.id);
-    return updatedCategory?.menu_items || [];
-  }, [viewingCategory, categoriesQuery.data]);
+    const { error } = await supabase
+      .from('menu_items')
+      .update({ is_active: isActive })
+      .eq('id', item.id)
 
-  // --- Render Logic ---
-
-  if (viewingCategory) {
-    return (
-      <div className="space-y-6">
-        <AdminAreaHeader
-          title={`Gerenciar Itens: ${viewingCategory.name}`}
-          description="Adicione, edite ou remova os itens desta categoria."
-        />
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <Button onClick={() => setViewingCategory(null)} variant="outline" size="sm">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Categorias
-            </Button>
-            <Button onClick={handleAddItem} disabled={isMutating}>
-              <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Item
-            </Button>
-          </CardHeader>
-          <CardContent>
-            <MenuItemList
-              items={currentMenuItems}
-              onEdit={handleEditItem}
-              onDelete={handleDeleteItem}
-              restaurantId={restaurantId}
-            />
-          </CardContent>
-        </Card>
-
-        <ItemFormDialog
-          isOpen={isItemDialogOpen}
-          onClose={() => setIsItemDialogOpen(false)}
-          onSave={handleSaveItem}
-          itemToEdit={selectedItem}
-          isLoading={isItemMutating}
-          category={viewingCategory}
-        />
-
-        <ConfirmationDialog
-          isOpen={isConfirmDeleteItemDialogOpen}
-          onClose={() => setIsConfirmDeleteItemDialogOpen(false)}
-          onConfirm={confirmDeleteItem}
-          title="Confirmar Exclusão do Item"
-          description="Tem certeza de que deseja excluir este item do cardápio?"
-          isLoading={isItemMutating}
-        />
-      </div>
-    );
+    if (error) {
+      setMenuData(currentData =>
+        currentData.map(category => ({
+          ...category,
+          items: category.items.map(i =>
+            i.id === item.id ? { ...i, is_active: !isActive } : i
+          ),
+        }))
+      )
+      toast({
+        title: "Erro ao atualizar status",
+        description: error.message,
+        variant: "destructive",
+      })
+    } else {
+      toast({
+        title: "Status atualizado",
+        description: `O item "${item.name}" foi ${isActive ? 'ativado' : 'desativado'}.`,
+      })
+    }
   }
 
   return (
-    <div className="space-y-6">
-      <AdminAreaHeader
-        title={`Gerenciar Cardápio do Restaurante`}
-        description="Aqui você poderá gerenciar as categorias e itens do cardápio deste restaurante."
-      />
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0">
-          <CardTitle>Categorias do Cardápio</CardTitle>
-          <Button onClick={handleAddCategory} disabled={isMutating}>
-            <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Categoria
-          </Button>
-        </CardHeader>
-        <CardContent>
-          {categoriesQuery.isLoading ? (
-            <div className="flex items-center justify-center p-8">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-          ) : categoriesQuery.isError ? (
-            <div className="text-center text-red-500 p-8">
-              Erro ao carregar categorias: {categoriesQuery.error?.message}
-            </div>
-          ) : (
-            <CategoryList
-              categories={categoriesQuery.data || []}
-              restaurantId={restaurantId}
-              onEdit={handleEditCategory}
-              onDelete={handleDeleteCategory}
-              disableNavigation={true}
-              onView={handleViewCategory}
-            />
-          )}
-        </CardContent>
-      </Card>
+    <div className="p-4 max-w-6xl mx-auto">
+      <Button variant="ghost" asChild className="mb-4">
+        <Link to="/admin/restaurants">
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Voltar para Restaurantes
+        </Link>
+      </Button>
 
-      <CategoryFormDialog
-        isOpen={isCategoryDialogOpen}
-        onClose={() => setIsCategoryDialogOpen(false)}
-        restaurantId={restaurantId}
-        initialData={selectedCategory}
-        onSave={handleSaveCategory}
-        isLoading={isCategoryMutating}
-      />
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold flex items-center">
+          <Utensils className="w-6 h-6 mr-3 text-primary" />
+          Menu de {restaurantName}
+        </h1>
+        <Button onClick={handleNewCategory}>
+          <PlusCircle className="w-4 h-4 mr-2" />
+          Nova Categoria
+        </Button>
+      </div>
 
-      <ConfirmationDialog
-        isOpen={isConfirmDeleteDialogOpen}
-        onClose={() => setIsConfirmDeleteDialogOpen(false)}
-        onConfirm={confirmDeleteCategory}
-        title="Confirmar Exclusão"
-        description="Tem certeza de que deseja excluir esta categoria? Todos os itens de menu associados a ela também serão excluídos."
-        isLoading={isCategoryMutating}
-      />
+      {loading ? (
+        <div className="flex justify-center items-center h-64"><LoadingSpinner /></div>
+      ) : menuData.length === 0 ? (
+        <Alert>
+          <AlertTitle>Nenhuma categoria encontrada</AlertTitle>
+          <AlertDescription>Comece adicionando uma categoria para poder cadastrar os itens do seu menu.</AlertDescription>
+        </Alert>
+      ) : (
+        <div className="space-y-6">
+          {menuData.map((category) => (
+            <div key={category.id} className="bg-gray-50 p-4 rounded-lg">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center">
+                  <GripVertical className="w-5 h-5 text-gray-400 cursor-grab mr-2" />
+                  <h2 className="text-xl font-semibold">{category.name}</h2>
+                </div>
+                <div className="space-x-2">
+                  <Button variant="outline" size="sm" onClick={() => handleEditCategory(category)}>Editar Categoria</Button>
+                  <Button variant="destructive" size="sm" onClick={() => handleDeleteCategory(category)}>Excluir Categoria</Button>
+                  <Button size="sm" onClick={() => handleNewItem(category.id)}>Adicionar Item</Button>
+                </div>
+              </div>
+              <MenuItemList
+                items={category.items}
+                onEdit={handleEditItem}
+                onDelete={handleDeleteItem}
+                onStatusChange={handleStatusChange}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {isItemDialogOpen && selectedCategoryId && restaurantId && (
+        <MenuItemDialog
+          isOpen={isItemDialogOpen}
+          onClose={handleItemDialogClose}
+          item={editingItem}
+          categoryId={selectedCategoryId}
+          restaurantId={restaurantId}
+        />
+      )}
+
+      {isCategoryDialogOpen && restaurantId && (
+        <CategoryDialog
+          isOpen={isCategoryDialogOpen}
+          onClose={handleCategoryDialogClose}
+          category={editingCategory}
+          restaurantId={restaurantId}
+        />
+      )}
     </div>
-  );
-};
-
-export default AdminRestaurantMenu;
+  )
+}
