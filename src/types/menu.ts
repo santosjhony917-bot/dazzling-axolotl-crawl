@@ -1,49 +1,21 @@
-import { MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem } from '@/types/supabase';
+import { Database, Tables } from './database';
 
-// Type for menu categories with associated restaurant name for admin view
-export type MenuCategoryWithRestaurant = SupabaseMenuCategory & {
-  restaurants: {
-    name: string;
-  };
-};
+export type MenuItem = Tables<'menu_items'>;
+export type MenuCategory = Tables<'menu_categories'>;
 
-// Base type for category creation/update
-interface CategoryBase {
-  name: string;
-  is_active: boolean;
-  order_index?: number;
-  is_popular?: boolean;
-}
+export type CreateCategoryPayload = Pick<MenuCategory, 'restaurant_id' | 'name'>;
 
-export type CreateCategoryPayload = CategoryBase & {
-  restaurant_id: string;
-};
+export type UpdateCategoryPayload = Partial<Pick<MenuCategory, 'name' | 'is_active'>> & { id: string };
 
-export type UpdateCategoryPayload = {
-  id: string;
-  updates: Partial<CategoryBase>;
-};
-
-// Base type for menu item creation/update
-interface MenuItemBase {
-  name: string;
-  description?: string;
-  price: number;
-  image_url?: string;
-  is_active: boolean;
-  order_index?: number;
-}
-
-export type CreateItemPayload = MenuItemBase & {
-  category_id: string;
-};
-
-export type UpdateItemPayload = {
-  id: string;
-  updates: Partial<MenuItemBase>;
-};
-
-// Type for public menu items (might include favorite status)
-export type PublicMenuItem = SupabaseMenuItem & {
-  is_favorite?: boolean;
+export type PublicMenuItem = {
+    item_id: string;
+    item_name: string;
+    item_description: string | null;
+    item_price: number;
+    item_image_url: string | null;
+    restaurant_id: string;
+    restaurant_name: string;
+    restaurant_category: string | null;
+    item_category_id: string;
+    item_category_name: string;
 };

@@ -1,81 +1,65 @@
-import React from 'react';
-import { MenuItem } from '@/types/supabase';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
-import { formatPrice } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { GripVertical, Pencil, Trash2 } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { MenuItem } from "@/types/menu";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface MenuItemListItemProps {
   item: MenuItem;
   onEdit: (item: MenuItem) => void;
   onDelete: (itemId: string) => void;
-  restaurantId?: string;
+  onToggleActive: (item: MenuItem, isActive: boolean) => void;
 }
 
-export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, restaurantId }) => {
-  // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const updateItemMutation = useUpdateMenuItem(restaurantId);
-  const isUpdating = updateItemMutation.isPending;
+export function MenuItemListItem({ item, onEdit, onDelete, onToggleActive }: MenuItemListItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: item.id });
 
-  const handleToggleActive = (checked: boolean) => {
-    updateItemMutation.mutate({
-      id: item.id,
-      updates: {
-        name: item.name,
-        description: item.description || '',
-        price: item.price,
-        image_url: item.image_url,
-        is_active: checked,
-      }
-    });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
   };
 
   return (
-    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4 flex-grow">
-          <img 
-            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
-            alt={item.name} 
-            className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
-          />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-primary truncate">{item.name}</h3>
-            <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
-            <div className="flex items-center text-primary font-medium mt-1">
-              <DollarSign className="w-4 h-4 mr-1 text-highlight" />
-              <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
-            </div>
-          </div>
+    <div ref={setNodeRef} style={style} className="flex items-center bg-card p-3 rounded-lg shadow-sm mb-3">
+      <button {...attributes} {...listeners} className="cursor-grab touch-none mr-3 text-muted-foreground">
+        <GripVertical className="w-5 h-5" />
+      </button>
+      <img
+        src={item.image_url || '/placeholder.svg'}
+        alt={item.name}
+        className="w-16 h-16 rounded-md object-cover mr-4"
+      />
+      <div className="flex-grow">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg">{item.name}</h3>
+          {!item.is_active && <Badge variant="outline">Pausado</Badge>}
         </div>
-
-        <div className="flex space-x-4 items-center flex-shrink-0">
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`item-active-switch-${item.id}`}
-              checked={item.is_active}
-              onCheckedChange={handleToggleActive}
-              disabled={isUpdating}
-              className="data-[state=checked]:bg-highlight"
-            />
-            <Label htmlFor={`item-active-switch-${item.id}`} className="text-sm text-gray-500">
-              {item.is_active ? 'Ativo' : 'Inativo'}
-            </Label>
-            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-          </div>
-
-          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item" className="h-8 w-8 bg-red-600 hover:bg-red-700">
-            <Trash2 className="w-4 h-4" />
-          </Button>
+        <p className="text-sm text-muted-foreground truncate max-w-xs">{item.description}</p>
+        <div className="flex items-center text-primary font-medium mt-1">
+          <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex items-center ml-4 space-x-2">
+        <Switch
+          checked={item.is_active}
+          onCheckedChange={(checked) => onToggleActive(item, checked)}
+          aria-label="Ativar/desativar item"
+        />
+        <button onClick={() => onEdit(item)} className="p-2 hover:bg-muted rounded-full">
+          <Pencil className="w-4 h-4" />
+        </button>
+        <button onClick={() => onDelete(item.id)} className="p-2 hover:bg-muted rounded-full text-destructive">
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
   );
-};
+}
