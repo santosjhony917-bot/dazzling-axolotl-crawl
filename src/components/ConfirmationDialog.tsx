@@ -1,58 +1,49 @@
 "use client";
 
-import React, { ReactNode } from 'react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import React from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 
 interface ConfirmationDialogProps {
-  children: ReactNode; // The trigger element
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
   title: string;
   description: string;
-  onConfirm: () => void | Promise<void>;
-  confirmButtonText?: string;
-  cancelButtonText?: string;
-  confirmButtonVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  confirmText?: string;
+  cancelText?: string;
+  isLoading?: boolean;
 }
 
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
-  children,
+  isOpen,
+  onClose,
+  onConfirm,
   title,
   description,
-  onConfirm,
-  confirmButtonText = 'Confirmar',
-  cancelButtonText = 'Cancelar',
-  confirmButtonVariant = 'destructive',
+  confirmText = "Confirmar",
+  cancelText = "Cancelar",
+  isLoading = false,
 }) => {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel asChild>
-            <Button variant="outline">{cancelButtonText}</Button>
-          </AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button variant={confirmButtonVariant} onClick={onConfirm}>
-              {confirmButtonText}
-            </Button>
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose} disabled={isLoading}>
+            {cancelText}
+          </Button>
+          <Button variant="destructive" onClick={onConfirm} disabled={isLoading}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {confirmText}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -1,146 +1,113 @@
-"use client";
-
-import React, { useState } from 'react';
-import { Camera, Loader2 } from 'lucide-react';
+import React, { useState, useCallback, memo } from 'react';
+import { Restaurant } from '@/types/supabase'; // CORRIGIDO: Importando Restaurant de supabase.ts
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-import { useAuthData } from '@/context/AuthContext';
+import { Pencil, Upload, Loader2, Eye, Camera } from 'lucide-react';
+import { ImageUploadButton } from '@/components/ImageUploadButton';
+import { uploadFile, RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
+import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets";
+import { cn } from '@/lib/utils';
+
+// Definindo o tipo de retorno esperado para onUpdate
+type UpdateFunction = (updates: Partial<Restaurant>) => Promise<{ error: string | null }>;
 
 interface ProfileHeaderManagementProps {
-  restaurant: {
-    id: string;
-    cover_image_url?: string | null;
-    image_url?: string | null;
-    name: string;
-  };
+  restaurant: Restaurant;
+  onUpdate: UpdateFunction;
+  // Adicionando prop para controlar o estado de upload
+  uploadingLogo: boolean;
+  setUploadingLogo: (state: boolean) => void;
+  uploadingCover: boolean;
+  setUploadingCover: (state: boolean) => void;
 }
 
-const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = ({ restaurant }) => {
-  const { session, user, refetchRestaurant } = useAuthData();
-  const [isUploadingCover, setIsUploadingCover] = useState(false);
-  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({ 
+  restaurant, 
+  onUpdate, 
+  uploadingLogo, 
+  setUploadingLogo, 
+  uploadingCover, 
+  setUploadingCover 
+}) => {
+  const navigate = useNavigate();
 
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-    type: 'cover' | 'logo'
-  ) => {
-    if (!event.target.files || event.target.files.length === 0) {
-      return;
-    }
-
-    const file = event.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random()}.${fileExt}`;
-    const filePath = `${user?.id}/${restaurant.id}/${type}/${fileName}`;
-
-    if (type === 'cover') setIsUploadingCover(true);
-    else setIsUploadingLogo(true);
-
-    const { error: uploadError } = await supabase.storage
-      .from('restaurant_images')
-      .upload(filePath, file);
-
-    if (uploadError) {
-      console.error('Error uploading image:', uploadError);
-      toast.error('Erro ao fazer upload da imagem.');
-      if (type === 'cover') setIsUploadingCover(false);
-      else setIsUploadingLogo(false);
-      return;
-    }
-
-    const { data: publicUrlData } = supabase.storage
-      .from('restaurant_images')
-      .getPublicUrl(filePath);
-
-    if (!publicUrlData?.publicUrl) {
-      toast.error('Erro ao obter URL pública da imagem.');
-      if (type === 'cover') setIsUploadingCover(false);
-      else setIsUploadingLogo(false);
-      return;
-    }
-
-    const updateField = type === 'cover' ? 'cover_image_url' : 'image_url';
-    const { error: updateError } = await supabase
-      .from('restaurants')
-      .update({ [updateField]: publicUrlData.publicUrl })
-      .eq('id', restaurant.id);
-
-    if (updateError) {
-      console.error('Error updating restaurant image URL:', updateError);
-      toast.error('Erro ao atualizar a URL da imagem.');
+  // Função auxiliar para salvar a URL no DB após o upload
+  const handleUrlUpdate = useCallback(async (url: string, type: 'logo' | 'cover') => {
+    const isLogo = type === 'logo';
+    const updateKey = isLogo ? 'image_url' : 'cover_image_url';
+    
+    // Adiciona um timestamp para garantir que o React/Browser recarregue a imagem (cache busting)
+    const cacheBustedUrl = `${url}?t=${Date.now()}`;
+    
+    const { error } = await onUpdate({ [updateKey]: cacheBustedUrl });
+    
+    if (error) {
+      toast.error(`Imagem enviada, mas falha ao salvar URL no DB: ${error}`);
     } else {
-      toast.success('Imagem atualizada com sucesso!');
-      refetchRestaurant(); // Refresh restaurant data in context
+      toast.success("Imagem atualizada com sucesso!");
     }
+    
+    isLogo ? setUploadingLogo(false) : setUploadingCover(false);
+  }, [onUpdate, setUploadingLogo, setUploadingCover]);
 
-    if (type === 'cover') setIsUploadingCover(false);
-    else setIsUploadingLogo(false);
-  };
+
+  const logoUrl = restaurant.image_url;
+  const coverImageUrl = restaurant.cover_image_url;
 
   return (
-    <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden">
-      {restaurant.cover_image_url ? (
-        <img
-          src={restaurant.cover_image_url}
-          alt="Capa do Restaurante"
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
-          Sem imagem de capa
-        </div>
-      )}
-      <label
-        htmlFor="cover-upload"
-        className="absolute top-2 right-2 bg-white dark:bg-gray-800 p-2 rounded-full shadow-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-      >
-        {isUploadingCover ? (
-          <Loader2 className="h-5 w-5 animate-spin text-primary" />
-        ) : (
-          <Camera className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-        )}
-        <input
-          id="cover-upload"
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => handleImageUpload(e, 'cover')}
-          disabled={isUploadingCover}
-        />
-      </label>
-
-      <div className="absolute -bottom-12 left-4 w-24 h-24 bg-gray-300 dark:bg-gray-600 rounded-full border-4 border-white dark:border-gray-900 flex items-center justify-center overflow-hidden shadow-lg">
-        {restaurant.image_url ? (
+    <div className="relative flex-shrink-0">
+      {/* Cover Image Area (Hidden in this design, but kept for upload functionality) */}
+      <div className="h-48 bg-gray-200 relative hidden">
+        {coverImageUrl && (
           <img
-            src={restaurant.image_url}
-            alt="Logo do Restaurante"
+            src={coverImageUrl}
+            alt="Capa do Restaurante"
             className="w-full h-full object-cover"
           />
-        ) : (
-          <Utensils className="h-12 w-12 text-gray-500 dark:text-gray-400" />
         )}
-        <label
-          htmlFor="logo-upload"
-          className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 p-1 rounded-full shadow-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-        >
-          {isUploadingLogo ? (
-            <Loader2 className="h-4 w-4 animate-spin text-primary" />
-          ) : (
-            <Camera className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-          )}
-          <input
-            id="logo-upload"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={(e) => handleImageUpload(e, 'logo')}
-            disabled={isUploadingLogo}
+        {/* Botão de upload de capa (será movido para o topo do menu) */}
+        <ImageUploadButton
+          imageUrl={coverImageUrl || undefined}
+          onUploadComplete={(url) => handleUrlUpdate(url, 'cover')}
+          bucketName={RESTAURANT_IMAGES_BUCKET}
+          folderPath={restaurant.id || 'temp'}
+          className="absolute top-4 right-4 h-8 w-8 p-0 bg-black/50 text-white hover:bg-black/70"
+          icon={<Upload className="h-4 w-4" />}
+        />
+      </div>
+
+      {/* Logo Upload Container */}
+      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md overflow-visible"> {/* Alterado overflow-hidden para overflow-visible */}
+        {/* Imagem de Preview (Renderizada Apenas Uma Vez) */}
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt="Logo do Restaurante"
+            className="w-full h-full object-cover rounded-full"
           />
-        </label>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-600 rounded-full">
+            <Pencil className="h-6 w-6" />
+          </div>
+        )}
+        
+        {/* Botão de Upload (Flutuante no canto) */}
+        <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4"> {/* Adicionado translate para mover para fora */}
+          <ImageUploadButton
+            imageUrl={logoUrl || undefined}
+            onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
+            bucketName={RESTAURANT_IMAGES_BUCKET}
+            folderPath={restaurant.id || 'temp'}
+            className="h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full"
+            icon={<Camera className="h-3 w-3" />}
+          />
+        </div>
       </div>
     </div>
   );
-};
+});
 
 export default ProfileHeaderManagement;

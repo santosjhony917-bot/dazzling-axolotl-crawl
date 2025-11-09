@@ -1,108 +1,74 @@
-"use client";
-
-import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { Restaurant } from '@/types/supabase'; // Assumindo que Restaurant está em types/supabase
 import { supabase } from '@/integrations/supabase/client';
-import { useAuthData } from '@/context/AuthContext';
-import { toast } from 'sonner';
-
-interface Restaurant {
-  id: string;
-  user_id: string;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  cover_image_url: string | null;
-  plan: 'free' | 'basic' | 'premium';
-  phone: string | null;
-  email: string | null;
-  cnpj: string | null;
-  category: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  address: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  opening_hours: any | null; // Consider defining a more specific type for opening_hours
-  created_at: string;
-  external_url: string | null;
-  followers_override: number;
-  payment_methods: any | null; // Consider defining a more specific type
-  social_networks: any | null; // Consider defining a more specific type
-  other_url_label: string | null;
-  claim_code: string | null;
-  visit_status: string | null; // Consider defining a more specific enum type
-  visit_notes: string | null;
-}
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
 interface RestaurantContextType {
   restaurant: Restaurant | null;
   isLoading: boolean;
-  refreshRestaurantData: () => void;
+  error: Error | null;
+  refetch: () => void;
 }
 
 const RestaurantContext = createContext<RestaurantContextType | undefined>(undefined);
 
-export const RestaurantProvider = ({ children }: { children: ReactNode }) => {
-  const { user, session } = useAuthData();
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+const fetchRestaurant = async (userId: string): Promise<Restaurant | null> => {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
 
-  const fetchRestaurant = useCallback(async () => {
-    if (!user) {
-      setRestaurant(null);
-      setIsLoading(false);
-      return;
-    }
+  if (error && error.code !== 'PGRST116') { // PGRST116 = No rows found
+    throw new Error(error.message);
+  }
 
-    setIsLoading(true);
-    const { data, error } = await supabase
-      .from('restaurants')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
+  return data;
+};
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found
-      console.error('Error fetching restaurant:', error);
-      toast.error('Erro ao carregar dados do restaurante.');
-      setRestaurant(null);
-    } else if (data) {
-      setRestaurant(data);
-    } else {
-      setRestaurant(null);
-    }
-    setIsLoading(false);
-  }, [user]);
+export const RestaurantProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (session) {
-      fetchRestaurant();
-    } else {
-      setRestaurant(null);
-      setIsLoading(false);
-    }
-  }, [session, fetchRestaurant]);
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUserId(session?.user?.id ?? null);
+    });
 
-  const refreshRestaurantData = () => {
-    fetchRestaurant();
+    // Fetch initial session user ID
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user?.id ?? null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const { data: restaurant, isLoading, error, refetch } = useQuery<Restaurant | null, Error>({
+    queryKey: ['userRestaurant', userId],
+    queryFn: () => fetchRestaurant(userId!),
+    enabled: !!userId,
+  });
+
+  const contextValue: RestaurantContextType = {
+    restaurant: restaurant || null,
+    isLoading,
+    error: error || null,
+    refetch,
   };
 
   return (
-    <RestaurantContext.Provider value={{ restaurant, isLoading, refreshRestaurantData }}>
+    <RestaurantContext.Provider value={contextValue}>
       {children}
     </RestaurantContext.Provider>
   );
 };
 
-export const useRestaurantData = () => {
+export const useRestaurantContext = () => {
   const context = useContext(RestaurantContext);
   if (context === undefined) {
-    throw new Error('useRestaurantData must be used within a RestaurantProvider');
+    throw new Error('useRestaurantContext must be used within a RestaurantProvider');
   }
   return context;
 };

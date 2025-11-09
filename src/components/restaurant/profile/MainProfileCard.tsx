@@ -1,122 +1,70 @@
-"use client";
-
 import React from 'react';
-import { MapPin, Phone, Mail, Link as LinkIcon, Utensils, Clock, CalendarDays } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import ProfileHeaderManagement from '@/components/restaurant/profile/ProfileHeaderManagement'; // Import as default
-
-interface Restaurant {
-  id: string;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  cover_image_url: string | null;
-  category: string | null;
-  phone: string | null;
-  email: string | null;
-  whatsapp_url: string | null;
-  ifood_url: string | null;
-  other_url: string | null;
-  other_url_label: string | null;
-  address: string | null;
-  number: string | null;
-  neighborhood: string | null;
-  city: string | null;
-  state: string | null;
-  cep: string | null;
-  opening_hours: any | null; // TODO: Define a more specific type
-}
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ImageUploadButton } from '@/components/ImageUploadButton';
+import { Store, Camera, Check } from 'lucide-react';
+import { DEFAULT_RESTAURANT_LOGO_URL } from "@/constants/assets";
+import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
+import { cn } from '@/lib/utils';
 
 interface MainProfileCardProps {
-  restaurant: Restaurant;
+  restaurantName: string;
+  logoUrl: string | null | undefined;
+  isPremium: boolean;
+  uploading: boolean;
+  onLogoUploadComplete: (url: string) => void;
+  restaurantId: string;
 }
 
-const MainProfileCard: React.FC<MainProfileCardProps> = ({ restaurant }) => {
-  const formatAddress = () => {
-    const parts = [];
-    if (restaurant.address) parts.push(restaurant.address);
-    if (restaurant.number) parts.push(`, ${restaurant.number}`);
-    if (restaurant.neighborhood) parts.push(` - ${restaurant.neighborhood}`);
-    if (restaurant.city) parts.push(`, ${restaurant.city}`);
-    if (restaurant.state) parts.push(`/${restaurant.state}`);
-    if (restaurant.cep) parts.push(` - ${restaurant.cep}`);
-    return parts.join('');
-  };
-
-  const formatOpeningHours = () => {
-    if (!restaurant.opening_hours || Object.keys(restaurant.opening_hours).length === 0) {
-      return 'Horário não definido';
-    }
-    // This is a simplified example. A real implementation would parse and display
-    // opening hours more robustly, potentially for each day.
-    const days = Object.keys(restaurant.opening_hours);
-    if (days.length === 7 && days.every(day => restaurant.opening_hours[day].length > 0)) {
-      return '7 dias abertos. Ex: 09:00 - 18:00'; // Placeholder
-    }
-    return 'Horários específicos definidos';
-  };
-
+const MainProfileCard: React.FC<MainProfileCardProps> = ({
+  restaurantName,
+  logoUrl,
+  isPremium,
+  uploading,
+  onLogoUploadComplete,
+  restaurantId,
+}) => {
   return (
-    <Card className="relative mt-16">
-      <ProfileHeaderManagement restaurant={restaurant} />
-      <CardHeader className="pt-20 pb-4 px-6">
-        <CardTitle className="text-3xl font-bold">{restaurant.name}</CardTitle>
-        {restaurant.description && (
-          <p className="text-gray-600 dark:text-gray-400 mt-2">{restaurant.description}</p>
-        )}
-      </CardHeader>
-      <CardContent className="px-6 pb-6 space-y-4">
-        <div className="flex items-center text-gray-700 dark:text-gray-300">
-          <Utensils className="h-5 w-5 mr-3 text-primary" />
-          <span>{restaurant.category || 'Categoria não definida'}</span>
-        </div>
-
-        <div className="flex items-start text-gray-700 dark:text-gray-300">
-          <MapPin className="h-5 w-5 mr-3 text-primary flex-shrink-0 mt-1" />
-          <span>{formatAddress() || 'Endereço não definido'}</span>
-        </div>
-
-        {restaurant.phone && (
-          <div className="flex items-center text-gray-700 dark:text-gray-300">
-            <Phone className="h-5 w-5 mr-3 text-primary" />
-            <span>{restaurant.phone}</span>
+    <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
+      <div className="flex items-start gap-4">
+        {/* 1. Logo Circular - Usando overflow-visible para o botão flutuante */}
+        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible">
+          <img 
+            src={logoUrl || DEFAULT_RESTAURANT_LOGO_URL} 
+            alt="Logo do Restaurante" 
+            className="w-full h-full object-cover rounded-full"
+          />
+          {/* 2. Botão de Upload (Flutuante no canto) - z-50 para garantir que esteja na frente */}
+          <div className="absolute bottom-0 right-0 z-50 translate-x-1/4 translate-y-1/4">
+            <ImageUploadButton
+              onUploadComplete={onLogoUploadComplete}
+              bucketName={RESTAURANT_IMAGES_BUCKET}
+              folderPath={restaurantId || 'temp'}
+              className="h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
+              icon={<Camera className="h-3 w-3" />}
+              disabled={uploading}
+            />
           </div>
-        )}
-
-        {restaurant.email && (
-          <div className="flex items-center text-gray-700 dark:text-gray-300">
-            <Mail className="h-5 w-5 mr-3 text-primary" />
-            <span>{restaurant.email}</span>
+        </div>
+        
+        {/* Status e Nome */}
+        <div className="flex-1 pt-2 min-w-0">
+          <h3 className="font-bold text-2xl text-[#022D68] leading-tight truncate">{restaurantName}</h3>
+          <div className="flex items-center gap-2 mt-1">
+            <Badge 
+              variant="outline" 
+              className={cn(
+                "text-xs font-semibold border-gray-400 text-gray-600 bg-white",
+                isPremium && "border-amber-500 text-amber-700 bg-amber-50"
+              )}
+            >
+              <Store className="w-3 h-3 mr-1" />
+              {isPremium ? "Premium" : "Free"}
+            </Badge>
           </div>
-        )}
-
-        <div className="flex items-center text-gray-700 dark:text-gray-300">
-          <Clock className="h-5 w-5 mr-3 text-primary" />
-          <span>{formatOpeningHours()}</span>
+          <p className="text-sm text-gray-500 mt-2">Clique no ícone para alterar o logo.</p>
         </div>
-
-        <Separator />
-
-        <h3 className="text-lg font-semibold mb-2">Links Úteis</h3>
-        <div className="space-y-2">
-          {restaurant.whatsapp_url && (
-            <a href={restaurant.whatsapp_url} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-600 hover:underline dark:text-blue-400">
-              <LinkIcon className="h-4 w-4 mr-2" /> WhatsApp
-            </a>
-          )}
-          {restaurant.ifood_url && (
-            <a href={restaurant.ifood_url} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-600 hover:underline dark:text-blue-400">
-              <LinkIcon className="h-4 w-4 mr-2" /> iFood
-            </a>
-          )}
-          {restaurant.other_url && (
-            <a href={restaurant.other_url} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-600 hover:underline dark:text-blue-400">
-              <LinkIcon className="h-4 w-4 mr-2" /> {restaurant.other_url_label || 'Outro Link'}
-            </a>
-          )}
-        </div>
-      </CardContent>
+      </div>
     </Card>
   );
 };
