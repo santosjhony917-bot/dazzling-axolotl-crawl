@@ -1,81 +1,50 @@
+"use client";
+
 import React from 'react';
+import { DollarSign, Edit, Trash2 } from 'lucide-react';
 import { MenuItem } from '@/types/supabase';
-import { Card, CardContent } from '@/components/ui/card';
+import { formatPrice } from '@/utils/formatters';
 import { Button } from '@/components/ui/button';
-import { Edit, Trash2, DollarSign, Loader2 } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { useUpdateMenuItem } from '@/hooks/useMenuItemManagement'; // Corrected import
-import { formatPrice } from '@/lib/utils';
-import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import { cn } from '@/lib/utils';
 
 interface MenuItemListItemProps {
   item: MenuItem;
   onEdit: (item: MenuItem) => void;
-  onDelete: (itemId: string) => void;
-  restaurantId?: string;
+  onDelete: (item: MenuItem) => void;
+  isOwner: boolean;
 }
 
-export const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, restaurantId }) => {
-  // CORREÇÃO: Importando useUpdateMenuItem do novo arquivo
-  const updateItemMutation = useUpdateMenuItem(restaurantId);
-  const isUpdating = updateItemMutation.isPending;
-
-  const handleToggleActive = (checked: boolean) => {
-    updateItemMutation.mutate({
-      id: item.id,
-      updates: {
-        name: item.name,
-        description: item.description || '',
-        price: item.price,
-        image_url: item.image_url,
-        is_active: checked,
-      }
-    });
-  };
-
+const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDelete, isOwner }) => {
   return (
-    <Card className="shadow-soft-md hover:shadow-soft-lg transition-shadow border-none rounded-xl">
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4 flex-grow">
-          <img 
-            src={item.image_url || PLACEHOLDER_IMAGE_URL} 
-            alt={item.name} 
-            className="w-16 h-16 object-cover rounded-lg flex-shrink-0 shadow-soft-sm"
-          />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-primary truncate">{item.name}</h3>
-            <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
-            <div className="flex items-center text-primary font-medium mt-1">
-              <DollarSign className="w-4 h-4 mr-1 text-highlight" />
-              <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
-            </div>
+    <div className={cn(
+      "flex items-center justify-between p-4 border-b last:border-b-0",
+      !item.is_active && "opacity-50"
+    )}>
+      <div className="flex items-center space-x-4">
+        {item.image_url && (
+          <img src={item.image_url} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
+        )}
+        <div>
+          <h3 className="text-lg font-semibold text-[#022D68]">{item.name}</h3>
+          {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
+          <div className="flex items-center text-primary font-medium mt-1">
+            <DollarSign className="w-4 h-4 mr-1 text-highlight opacity-0" /> {/* Alterado aqui */}
+            <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
           </div>
         </div>
-
-        <div className="flex space-x-4 items-center flex-shrink-0">
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`item-active-switch-${item.id}`}
-              checked={item.is_active}
-              onCheckedChange={handleToggleActive}
-              disabled={isUpdating}
-              className="data-[state=checked]:bg-highlight"
-            />
-            <Label htmlFor={`item-active-switch-${item.id}`} className="text-sm text-gray-500">
-              {item.is_active ? 'Ativo' : 'Inativo'}
-            </Label>
-            {isUpdating && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
-          </div>
-
-          <Button variant="outline" size="icon" onClick={() => onEdit(item)} title="Editar Item" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-            <Edit className="w-4 h-4" />
+      </div>
+      {isOwner && (
+        <div className="flex space-x-2">
+          <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
+            <Edit className="h-4 w-4 text-gray-500" />
           </Button>
-          <Button variant="destructive" size="icon" onClick={() => onDelete(item.id)} title="Deletar Item" className="h-8 w-8 bg-red-600 hover:bg-red-700">
-            <Trash2 className="w-4 h-4" />
+          <Button variant="ghost" size="icon" onClick={() => onDelete(item)}>
+            <Trash2 className="h-4 w-4 text-red-500" />
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      )}
+    </div>
   );
 };
+
+export default MenuItemListItem;
