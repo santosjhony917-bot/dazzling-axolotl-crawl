@@ -20,6 +20,7 @@ import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
+import SearchRestaurants from '@/pages/SearchRestaurants'; // ADICIONADO
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -87,6 +88,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
           {/* O Home do Restaurante Free é a página Home do Cliente */}
           <Route path="/restaurant-area/home" element={<Home />} /> 
+          <Route path="/restaurant-area/search" element={<SearchRestaurants />} /> {/* ROTA RESTAURADA */}
           <Route path="/restaurant-area/profile-menu" element={<ProfileSettingsPage />} />
           <Route path="/restaurant-area/menu" element={<MenuManagement />} />
           <Route path="/restaurant-area/menu/:categoryId" element={<CategoryDetails />} />

@@ -36,7 +36,7 @@ export const PATH_MAP = {
   'restaurant-area/category-details': '/restaurant-area/menu/:categoryId',
   'restaurant-area/gallery': '/restaurant-area/gallery',
   'restaurant-area/metrics': '/restaurant-area/metrics', // Adicionado
-  'restaurant-area/search': '/restaurant-area/search', // NOVA ROTA
+  'restaurant-area/search': '/restaurant-area/search', // ROTA RESTAURADA
   'restaurant-area/favorites': '/restaurant-area/favorites', // NOVA ROTA
   
   // Rotas Admin
