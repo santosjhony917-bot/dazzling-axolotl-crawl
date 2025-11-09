@@ -1,30 +1,21 @@
 import { supabase } from './client';
 
-export const RESTAURANT_IMAGES_BUCKET = "restaurant_images";
-export const USER_AVATAR_BUCKET = "user_avatars";
+export const PROFILES_BUCKET = 'profiles';
+export const RESTAURANT_IMAGES_BUCKET = 'restaurant-images';
+export const USER_AVATAR_BUCKET = 'profiles';
 
-export const uploadFile = async (
-  file: File,
-  bucketName: string,
-  folderPath: string,
-  fileName: string
-) => {
-  const filePath = `${folderPath}/${fileName}`;
+export const uploadFile = async (bucketName: string, filePath: string, file: File) => {
   const { data, error } = await supabase.storage
     .from(bucketName)
     .upload(filePath, file, {
       cacheControl: '3600',
-      upsert: false,
+      upsert: true,
     });
 
   if (error) {
-    return { url: null, error: error.message };
+    throw error;
   }
 
-  // Get public URL
-  const { data: publicUrlData } = supabase.storage
-    .from(bucketName)
-    .getPublicUrl(filePath);
-
-  return { url: publicUrlData.publicUrl, error: null };
+  const { data: { publicUrl } } = supabase.storage.from(bucketName).getPublicUrl(data.path);
+  return publicUrl;
 };
