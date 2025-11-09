@@ -38,7 +38,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
   let query = supabase
     .from('restaurants')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(5000);
 
   if (filters.name) {
     query = query.ilike('name', `%${filters.name}%`);
