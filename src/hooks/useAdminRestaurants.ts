@@ -91,12 +91,20 @@ const updateRestaurantPlan = async ({ restaurantId, newPlan }: { restaurantId: s
 };
 
 const updateMultipleRestaurantPlans = async ({ restaurantIds, newPlan }: UpdateMultiplePlansPayload): Promise<void> => {
-  const { error } = await supabase
-    .from('restaurants')
-    .update({ plan: newPlan })
-    .in('id', restaurantIds);
+  const CHUNK_SIZE = 500; // Process in chunks to avoid Supabase limits
 
-  if (error) throw new Error(error.message);
+  for (let i = 0; i < restaurantIds.length; i += CHUNK_SIZE) {
+    const chunk = restaurantIds.slice(i, i + CHUNK_SIZE);
+    const { error } = await supabase
+      .from('restaurants')
+      .update({ plan: newPlan })
+      .in('id', chunk);
+
+    if (error) {
+      console.error('Error updating restaurant plans chunk:', error);
+      throw new Error(`Falha ao atualizar um lote de restaurantes: ${error.message}`);
+    }
+  }
 };
 
 const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateStatusPayload): Promise<void> => {
