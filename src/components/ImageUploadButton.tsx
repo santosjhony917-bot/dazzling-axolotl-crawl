@@ -1,64 +1,63 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Button } from './ui/button';
-import { Camera, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { uploadFile } from '@/integrations/supabase/storage';
-import { showError } from '@/utils/toast';
+import { CameraIcon } from 'lucide-react';
+import { cn } from '../lib/utils';
+import { supabase } from '../integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface ImageUploadButtonProps {
-  imageUrl?: string;
   onUploadComplete: (url: string) => void;
+  imageUrl?: string;
   bucketName: string;
   folderPath: string;
   className?: string;
   icon?: React.ReactNode;
-  disabled?: boolean; // Adicionado para resolver o erro #16
+  disabled?: boolean;
 }
 
 export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   onUploadComplete,
+  imageUrl,
   bucketName,
   folderPath,
   className,
-  icon = <Camera className="h-4 w-4" />,
-  disabled = false, // Adicionado para resolver o erro #16
+  icon = <CameraIcon className="h-5 w-5" />,
+  disabled = false,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const filePath = `${folderPath}/${Date.now()}-${file.name}`;
 
-    setIsUploading(true);
+      try {
+        const { data, error } = await supabase.storage
+          .from(bucketName)
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false,
+          });
 
-    try {
-      const fileName = `${Date.now()}-${file.name}`;
-      
-      const { url: publicUrl, error: uploadError } = await uploadFile(
-        file,
-        bucketName,
-        folderPath,
-        fileName
-      );
+        if (error) {
+          throw error;
+        }
 
-      if (uploadError) {
-        showError(`Erro ao enviar imagem: ${uploadError}`);
-      } else if (publicUrl) {
-        onUploadComplete(publicUrl);
-      } else {
-        showError("Erro desconhecido ao obter a URL da imagem.");
-      }
-    } catch (e) {
-      showError("Falha no processo de upload.");
-      console.error(e);
-    } finally {
-      setIsUploading(false);
-      // Limpar o input para permitir o upload do mesmo arquivo novamente
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        const { data: publicUrlData } = supabase.storage
+          .from(bucketName)
+          .getPublicUrl(filePath);
+
+        if (publicUrlData.publicUrl) {
+          onUploadComplete(publicUrlData.publicUrl);
+          toast.success('Imagem enviada com sucesso!');
+        } else {
+          throw new Error('Não foi possível obter a URL pública da imagem.');
+        }
+      } catch (error: any) {
+        console.error('Erro ao enviar imagem:', error.message);
+        toast.error(`Erro ao enviar imagem: ${error.message}`);
       }
     }
   };
@@ -69,24 +68,22 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept="image/*"
         className="hidden"
-        disabled={isUploading || disabled} // Usar a prop disabled também
+        accept="image/*"
+        disabled={disabled}
       />
       <Button
         type="button"
         onClick={() => fileInputRef.current?.click()}
         className={cn(
-          "p-2 rounded-full",
+          "absolute bottom-0 right-0 w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-md",
+          "hover:bg-orange-600 transition-colors",
           className
         )}
-        disabled={isUploading || disabled} // Usar a prop disabled também
+        aria-label="Upload new photo"
+        disabled={disabled}
       >
-        {isUploading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          icon
-        )}
+        {icon}
       </Button>
     </>
   );
