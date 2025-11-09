@@ -37,6 +37,7 @@ import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
+import SearchRestaurants from '@/pages/SearchRestaurants';
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -93,6 +94,8 @@ function App() {
           <Route path="/restaurant-area/gallery" element={<GalleryManagement />} />
           <Route path="/restaurant-area/upgrade" element={<UpgradePage />} />
           <Route path="/restaurant-area/metrics" element={<MetricsPage />} />
+          <Route path="/restaurant-area/search" element={<SearchRestaurants />} />
+          <Route path="/restaurant-area/favorites" element={<FavoritesPage />} />
         </Route>
 
         {/* Rotas Admin */}
