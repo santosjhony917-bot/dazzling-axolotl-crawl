@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Search, MapPin, LocateFixed } from 'lucide-react';
+import { Search, MapPin, LocateFixed } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import { showError, showSuccess } from '@/utils/toast';
-import { getCurrentLocationAddress, GeocodedAddress, saveLastSearchLocation } from '@/services/geolocation';
+import { getCurrentLocationAddress } from '@/services/geolocation';
+import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 
-const MOCK_LOCATION_COORDS = { lat: -7.1195, lon: -34.8450 };
 const MOCK_ADDRESS = "Localização Padrão (João Pessoa)";
 
 export default function SearchRestaurants() {
@@ -30,9 +30,7 @@ export default function SearchRestaurants() {
   const userLon = location.longitude;
   const currentAddress = location.address;
 
-  // Efeito para garantir que a localização inicial seja carregada ou o modal seja aberto
   useEffect(() => {
-    // Se a localização for a padrão (mock) e não estivermos carregando, abrimos o modal para forçar a definição.
     if (!isLocationLoading && location.address === MOCK_ADDRESS) {
       setShowLocationModal(true);
     }
@@ -40,23 +38,19 @@ export default function SearchRestaurants() {
 
   const handleLocationUpdate = useCallback(async (useGPS: boolean) => {
     if (!useGPS) {
-      // Se não for para usar GPS, abrimos o modal para entrada manual
       setShowLocationModal(true);
       return;
     }
 
-    // Tenta obter a localização real via GPS
     try {
       const addressData = await getCurrentLocationAddress();
-      
-      // Salva a localização obtida via GPS
       const { error } = await saveLocation(addressData);
       
       if (!error) {
         showSuccess("Localização atualizada via GPS!");
         refetchLocation();
       } else {
-        throw new Error(error);
+        throw new Error(error as string);
       }
     } catch (error) {
       console.error("Failed to fetch location via GPS:", error);
@@ -82,18 +76,8 @@ export default function SearchRestaurants() {
   };
 
   return (
-    <div className="min-h-screen bg-background-light flex flex-col">
-      <header className="sticky top-0 z-10 bg-white shadow-sm">
-        <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
-          <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-primary hover:bg-primary/5">
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-          <h2 className="text-primary text-xl font-bold leading-tight tracking-[-0.015em]">Ajustar Busca</h2>
-          <div className="size-10 shrink-0"></div>
-        </div>
-      </header>
-
-      <main className="flex-grow p-4 w-full max-w-md mx-auto">
+    <RestaurantAreaPageLayout title="Ajustar Busca" icon={Search}>
+      <div className="p-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -173,15 +157,14 @@ export default function SearchRestaurants() {
             </Button>
           </form>
         </motion.div>
-      </main>
+      </div>
       
-      {/* User Location Modal (para entrada manual) */}
       <UserLocationModal
         isOpen={showLocationModal}
         onClose={() => setShowLocationModal(false)}
         currentAddress={currentAddress}
         onLocationSaved={handleLocationSaved}
       />
-    </div>
+    </RestaurantAreaPageLayout>
   );
 }
