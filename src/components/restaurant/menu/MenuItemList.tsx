@@ -1,45 +1,36 @@
-import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { MenuItemListItem } from "./MenuItemListItem";
-import { MenuItem } from "@/types/menu";
+import React from 'react';
+import { MenuItem } from '@/types';
+import { MenuItemListItem } from './MenuItemListItem';
+import { Utensils } from 'lucide-react';
 
 interface MenuItemListProps {
   items: MenuItem[];
   onEdit: (item: MenuItem) => void;
   onDelete: (itemId: string) => void;
-  onToggleActive: (item: MenuItem, isActive: boolean) => void;
-  onOrderChange: (items: MenuItem[]) => void;
+  restaurantId?: string;
 }
 
-export function MenuItemList({ items, onEdit, onDelete, onToggleActive, onOrderChange }: MenuItemListProps) {
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (over && active.id !== over.id) {
-      const oldIndex = items.findIndex((item) => item.id === active.id);
-      const newIndex = items.findIndex((item) => item.id === over.id);
-      
-      const newItems = Array.from(items);
-      const [movedItem] = newItems.splice(oldIndex, 1);
-      newItems.splice(newIndex, 0, movedItem);
-
-      onOrderChange(newItems);
-    }
-  };
+export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDelete, restaurantId }) => {
+  if (items.length === 0) {
+    return (
+      <div className="text-center text-gray-500 mt-8 p-6 bg-white rounded-xl shadow-soft-md">
+        <Utensils className="w-8 h-8 mx-auto mb-3 text-gray-400" />
+        <p>Nenhum item de menu encontrado nesta categoria.</p>
+      </div>
+    );
+  }
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>
-        {items.map((item) => (
-          <MenuItemListItem
-            key={item.id}
-            item={item}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onToggleActive={onToggleActive}
-          />
-        ))}
-      </SortableContext>
-    </DndContext>
+    <div className="space-y-4">
+      {items.map((item) => (
+        <MenuItemListItem
+          key={item.id}
+          item={item}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          restaurantId={restaurantId}
+        />
+      ))}
+    </div>
   );
-}
+};
