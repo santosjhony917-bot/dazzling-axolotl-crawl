@@ -22,24 +22,23 @@ const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDel
     )}>
       <div className="flex items-center space-x-4">
         {item.image_url && (
-          <img src={item.image_url} alt={item.name} className="w-16 h-16 object-cover rounded-md" />
+          <img src={item.image_url} alt={item.name} className="w-20 h-20 object-cover rounded-md flex-shrink-0" />
         )}
-        <div>
-          <h3 className="text-lg font-semibold text-[#022D68]">{item.name}</h3>
-          {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
-          <div className="flex items-center text-primary font-medium mt-1">
-            <DollarSign className="w-4 h-4 mr-1 text-highlight opacity-0" /> {/* Alterado aqui */}
-            <span className="font-bold text-highlight">{formatPrice(item.price)}</span>
+        <div className="flex-grow">
+          <h3 className="text-lg font-semibold text-text-primary">{item.name}</h3>
+          {item.description && <p className="text-sm text-text-secondary mt-1 line-clamp-2">{item.description}</p>}
+          <div className="flex items-center text-primary font-medium mt-2">
+            <span className="font-bold text-highlight text-lg">{formatPrice(item.price)}</span>
           </div>
         </div>
       </div>
       {isOwner && (
-        <div className="flex space-x-2">
-          <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
-            <Edit className="h-4 w-4 text-gray-500" />
+        <div className="flex flex-col space-y-2 ml-4">
+          <Button variant="ghost" size="icon" onClick={() => onEdit(item)} className="hover:bg-gray-100">
+            <Edit className="h-5 w-5 text-gray-600" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => onDelete(item)}>
-            <Trash2 className="h-4 w-4 text-red-500" />
+          <Button variant="ghost" size="icon" onClick={() => onDelete(item)} className="hover:bg-red-50">
+            <Trash2 className="h-5 w-5 text-red-600" />
           </Button>
         </div>
       )}

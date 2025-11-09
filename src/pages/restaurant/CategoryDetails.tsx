@@ -234,13 +234,16 @@ const CategoryDetails: React.FC = () => {
     <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
       <div className="p-4 space-y-6">
         {user && restaurant && user.id === restaurant.user_id && (
-          <div className="flex justify-end items-center gap-2 mb-4">
-            <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="flex-grow sm:flex-grow-0">
-              <Edit className="h-4 w-4 mr-2" /> Editar Categoria
-            </Button>
-            <Button onClick={handleAddItem} className="flex-grow sm:flex-grow-0">
-              <Plus className="h-4 w-4 mr-2" /> Adicionar Item
-            </Button>
+          <div className="bg-white p-4 rounded-xl shadow-soft-md flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
+            <h2 className="text-xl font-semibold text-text-primary">Gerenciar Categoria</h2>
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
+                <Edit className="h-4 w-4 mr-2" /> Editar Categoria
+              </Button>
+              <Button onClick={handleAddItem} className="w-full sm:w-auto">
+                <Plus className="h-4 w-4 mr-2" /> Adicionar Item
+              </Button>
+            </div>
           </div>
         )}
 
