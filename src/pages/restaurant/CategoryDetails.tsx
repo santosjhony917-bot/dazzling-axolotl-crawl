@@ -238,7 +238,7 @@ const CategoryDetails: React.FC = () => {
           <Card className="mb-4">
             <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <CardTitle>Gerenciar Categoria</CardTitle>
-              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <div className="flex flex-wrap justify-end gap-2 w-full">
                 <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
                   <Edit className="h-4 w-4 mr-2" /> Editar Categoria
                 </Button>
