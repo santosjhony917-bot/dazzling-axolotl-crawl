@@ -232,30 +232,26 @@ const CategoryDetails: React.FC = () => {
 
   return (
     <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="outline" onClick={() => navigate(-1)}>
-          <ArrowLeft className="h-4 w-4 mr-2" /> Voltar ao Menu
-        </Button>
-        <h1 className="text-3xl font-bold text-[#022D68]">{category.name}</h1>
-        {user && restaurant && user.id === restaurant.user_id && ( // Usando isOwner diretamente não é ideal aqui, pois o contexto pode não ter carregado ainda
-          <div className="flex space-x-2">
-            <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline">
+      <div className="p-4 space-y-6">
+        {user && restaurant && user.id === restaurant.user_id && (
+          <div className="flex justify-end items-center gap-2 mb-4">
+            <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="flex-grow sm:flex-grow-0">
               <Edit className="h-4 w-4 mr-2" /> Editar Categoria
             </Button>
-            <Button onClick={handleAddItem}>
+            <Button onClick={handleAddItem} className="flex-grow sm:flex-grow-0">
               <Plus className="h-4 w-4 mr-2" /> Adicionar Item
             </Button>
           </div>
         )}
-      </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <MenuItemList
-          items={menuItems}
-          onEditItem={handleEditItem}
-          onDeleteItem={handleDeleteItem}
-          isOwner={user && restaurant ? user.id === restaurant.user_id : false}
-        />
+        <div className="bg-white p-4 rounded-xl shadow-soft-md">
+          <MenuItemList
+            items={menuItems}
+            onEditItem={handleEditItem}
+            onDeleteItem={handleDeleteItem}
+            isOwner={user && restaurant ? user.id === restaurant.user_id : false}
+          />
+        </div>
       </div>
 
       {/* Edit Category Dialog */}
