@@ -23,11 +23,7 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    if (backPath) {
-      navigate(backPath);
-    } else {
-      navigate(-1);
-    }
+    navigate(-1);
   };
 
   return (
