@@ -1,58 +1,36 @@
-"use client";
+import React from 'react';
+import { MenuItem } from '@/types';
+import { MenuItemListItem } from './MenuItemListItem';
+import { Utensils } from 'lucide-react';
 
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { MenuItemListItem } from "./MenuItemListItem";
-import { useToast } from "@/components/ui/use-toast";
+interface MenuItemListProps {
+  items: MenuItem[];
+  onEdit: (item: MenuItem) => void;
+  onDelete: (itemId: string) => void;
+  restaurantId?: string;
+}
 
-export function MenuItemList({ categoryId, restaurantId }) {
-  const [menuItems, setMenuItems] = useState([]);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchMenuItems = async () => {
-      const { data, error } = await supabase
-        .from("menu_items")
-        .select("*")
-        .eq("category_id", categoryId)
-        .order("order_index", { ascending: true });
-
-      if (error) {
-        toast({
-          title: "Erro ao carregar itens do menu",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
-        setMenuItems(data);
-      }
-    };
-
-    fetchMenuItems();
-  }, [categoryId, toast]);
-
-  const handleUpdateMenuItem = (updatedItem) => {
-    setMenuItems((prevItems) =>
-      prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+export const MenuItemList: React.FC<MenuItemListProps> = ({ items, onEdit, onDelete, restaurantId }) => {
+  if (items.length === 0) {
+    return (
+      <div className="text-center text-gray-500 mt-8 p-6 bg-white rounded-xl shadow-soft-md">
+        <Utensils className="w-8 h-8 mx-auto mb-3 text-gray-400" />
+        <p>Nenhum item de menu encontrado nesta categoria.</p>
+      </div>
     );
-  };
-
-  const handleDeleteMenuItem = (deletedItemId) => {
-    setMenuItems((prevItems) =>
-      prevItems.filter((item) => item.id !== deletedItemId)
-    );
-  };
+  }
 
   return (
     <div className="space-y-4">
-      {menuItems.map((item) => (
+      {items.map((item) => (
         <MenuItemListItem
           key={item.id}
           item={item}
-          onUpdate={handleUpdateMenuItem}
-          onDelete={handleDeleteMenuItem}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          restaurantId={restaurantId}
         />
       ))}
     </div>
   );
-}
+};
