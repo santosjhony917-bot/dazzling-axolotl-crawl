@@ -12,8 +12,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, PlusCircle, Edit, Trash2, Image as ImageIcon, Link as LinkIcon, Palette, Type, CheckCircle2, XCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import ImageUpload from '@/components/ImageUpload';
+import { ImageUpload } from '@/components/ImageUpload';
 import BannerPreview from '@/components/admin/BannerPreview';
 import { getSelectablePagePaths, createPageUrl, PathKey } from '@/utils/url';
 
@@ -304,14 +305,14 @@ const AdminBanners: React.FC = () => {
               <Textarea id="subtitle" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="col-span-3" />
             </div>
             
-            <ImageUpload
-              value={imageUrl}
-              onChange={setImageUrl}
-              bucketName="restaurant_images"
-              folderPath="banners"
-              label="Imagem do Banner"
-              aspectRatio="16/9"
-            />
+            <div className="space-y-2">
+              <Label>Imagem do Banner</Label>
+              <ImageUpload
+                bucketName="banners"
+                folderPath="public"
+                onUploadComplete={setImageUrl}
+              />
+            </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="linkUrl" className="text-right">URL do Link Externo</Label>
