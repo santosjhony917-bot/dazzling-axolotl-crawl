@@ -85,7 +85,7 @@ const ProfileSettings = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="relative w-32 h-32 mx-auto mb-6">
+            <div className="relative z-0 w-32 h-32 mx-auto mb-6">
               <img
                 src={form.watch('avatar_url') || 'https://via.placeholder.com/150'}
                 alt="Avatar"
