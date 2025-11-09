@@ -25,12 +25,12 @@ export default function ClientProfilePage() {
   const { updateProfile } = useProfile(user);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editConfig, setEditConfig] = useState<{ key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
+  const [editConfig, setEditConfig] = useState<{ key: keyof Profile, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   const isLoading = authLoading || !user;
 
-  const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
+  const handleEditField = useCallback((key: keyof Profile, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
     setEditConfig({
       key,
       title,
@@ -118,12 +118,13 @@ export default function ClientProfilePage() {
       <Separator />
 
       {/* 2. Informações Pessoais */}
-      <ClientInfoSection
-        profile={currentProfile}
-        handleEditField={handleEditField}
-        phoneMask={phoneMask}
-        nameSchema={nameSchema}
+      <ClientInfoSection 
+        profile={currentProfile} 
+        handleEditField={handleEditField} 
+        phoneMask={phoneMask} 
+        nameSchema={nameSchema} 
         phoneSchema={phoneSchema}
+        email={user?.email}
       />
       
       <Separator />
@@ -154,7 +155,7 @@ export default function ClientProfilePage() {
           onClose={() => setIsEditDialogOpen(false)}
           title={editConfig.title}
           fieldName={editConfig.fieldName}
-          currentValue={currentProfile?.[editConfig.key as keyof Profile] as string || ''}
+          currentValue={currentProfile?.[editConfig.key] as string || ''}
           icon={editConfig.icon}
           onSave={handleSaveField}
           placeholder={editConfig.placeholder}

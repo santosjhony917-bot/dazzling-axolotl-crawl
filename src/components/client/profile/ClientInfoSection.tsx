@@ -2,13 +2,15 @@ import React from 'react';
 import InfoCardItem from '@/components/InfoCardItem';
 import { Mail, Phone, User, Lock } from 'lucide-react';
 import { z } from 'zod';
+import { Profile } from '@/types/supabase';
 
 interface ClientInfoSectionProps {
-  profile: any; // Simplificado para 'any'
+  profile: Profile | null;
   handleEditField: (key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => void;
   phoneMask: (value: string) => string;
   nameSchema: z.ZodType<string>;
   phoneSchema: z.ZodType<string>;
+  email: string | undefined | null;
 }
 
 const ClientInfoSection: React.FC<ClientInfoSectionProps> = ({
@@ -17,6 +19,7 @@ const ClientInfoSection: React.FC<ClientInfoSectionProps> = ({
   phoneMask,
   nameSchema,
   phoneSchema,
+  email,
 }) => {
   return (
     <div className="w-full space-y-3">
@@ -38,7 +41,7 @@ const ClientInfoSection: React.FC<ClientInfoSectionProps> = ({
       
       <InfoCardItem 
         label="E-mail" 
-        value={profile?.email || "Não definido"} 
+        value={email || "Não definido"} 
         icon={Mail}
         onClick={() => { /* E-mail não editável diretamente */ }}
         extraContent={<p className="text-xs text-gray-500 mt-1 flex items-center gap-1 font-normal"><Lock className="h-3 w-3" /> Não editável</p>}
