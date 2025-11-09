@@ -22,13 +22,13 @@ const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDel
     )}>
       <div className="flex items-center space-x-4">
         {item.image_url && (
-          <img src={item.image_url} alt={item.name} className="w-20 h-20 object-cover rounded-md flex-shrink-0" />
+          <img src={item.image_url} alt={item.name} className="w-28 h-28 object-cover rounded-md flex-shrink-0" />
         )}
         <div className="flex-grow">
-          <h3 className="text-lg font-semibold text-text-primary">{item.name}</h3>
+          <h3 className="text-xl font-semibold text-text-primary">{item.name}</h3>
           {item.description && <p className="text-sm text-text-secondary mt-1 line-clamp-2">{item.description}</p>}
           <div className="flex items-center text-primary font-medium mt-2">
-            <span className="font-bold text-highlight text-lg">{formatPrice(item.price)}</span>
+            <span className="font-bold text-highlight text-xl">{formatPrice(item.price)}</span>
           </div>
         </div>
       </div>
