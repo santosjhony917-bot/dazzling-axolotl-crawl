@@ -93,7 +93,6 @@ const ProfileSettings = () => {
               />
               <ImageUploadButton
                 onUploadComplete={(url) => form.setValue('avatar_url', url)}
-                currentImageUrl={form.watch('avatar_url') || undefined}
                 bucketName={USER_AVATAR_BUCKET}
                 folderPath="avatars"
               />

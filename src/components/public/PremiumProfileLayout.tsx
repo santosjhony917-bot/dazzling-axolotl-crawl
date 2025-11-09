@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { PublicRestaurantData } from '@/types/restaurant';
+import { PublicRestaurantData, GalleryImage } from '@/types/restaurant';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Utensils, MapPin, Clock, Heart, Share2, Phone, Mail, Image, Info } from 'lucide-react';
@@ -21,7 +21,7 @@ import RestaurantAddressHoursSection from './RestaurantAddressHoursSection';
 import RestaurantInfo from './RestaurantInfo';
 import RestaurantMainInfoCard from './RestaurantMainInfoCard';
 import AdditionalInfo from './AdditionalInfo';
-import { isRestaurantOpen } from "@/lib/utils";
+import { PublicMenuItem } from '@/types/menu';
 
 interface PremiumProfileLayoutProps {
   restaurant: PublicRestaurantData;
@@ -71,6 +71,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     isCompact: isCompact,
   };
   
+  const openStatus = getRestaurantOpenStatus(restaurant.opening_hours);
+
   // Dados para o novo RestaurantMainInfoCard
   const mainInfoCardData = {
     id: restaurant.id,
@@ -79,13 +81,14 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     addressSummary: restaurant.addressSummary,
     followersCount: restaurant.followers_count,
     isFavorite: restaurant.is_favorite,
-    isOpen: getRestaurantOpenStatus(premiumOpeningHours).isOpen,
-    statusText: getRestaurantOpenStatus(premiumOpeningHours).statusText,
-    nextOpenTime: getRestaurantOpenStatus(premiumOpeningHours).nextOpenTime,
+    isOpen: openStatus.isOpen,
+    statusText: openStatus.statusText,
+    nextOpenTime: openStatus.nextOpenTime,
+    plan: restaurant.plan,
     menu_categories: [
       {
         id: "mock-premium-category-1",
-        restaurant_id: premiumRestaurantId,
+        restaurant_id: restaurant.id,
         name: "Entradas",
         order_index: 0,
         is_active: true,
@@ -120,7 +123,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       },
       {
         id: "mock-premium-category-2",
-        restaurant_id: premiumRestaurantId,
+        restaurant_id: restaurant.id,
         name: "Pratos Principais",
         order_index: 1,
         is_active: true,
@@ -155,9 +158,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       },
     ],
     gallery_images: [
-      { id: "mock-gallery-1", image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Ambiente+1", caption: "Ambiente Acolhedor", order_index: 0, ...commonGalleryProps(premiumRestaurantId) },
-      { id: "mock-gallery-2", image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Prato+Destaque", caption: "Prato Destaque", order_index: 1, ...commonGalleryProps(premiumRestaurantId) },
-      { id: "mock-gallery-3", image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Fachada", caption: "Nossa Fachada", order_index: 2, ...commonGalleryProps(premiumRestaurantId) },
+      { id: "mock-gallery-1", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Ambiente+1", caption: "Ambiente Acolhedor", order_index: 0 },
+      { id: "mock-gallery-2", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Prato+Destaque", caption: "Prato Destaque", order_index: 1 },
+      { id: "mock-gallery-3", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Fachada", caption: "Nossa Fachada", order_index: 2 },
     ] as GalleryImage[],
   };
 

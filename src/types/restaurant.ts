@@ -2,6 +2,9 @@ import { Restaurant, MenuCategory, MenuItem, GalleryImage } from './supabase';
 import { WeekSchedule } from './schedule'; // Import WeekSchedule
 import { Json } from './supabase'; // Import Json type for explicit casting if needed
 
+// Re-export GalleryImage so it can be imported by other modules
+export type { GalleryImage };
+
 // Define SocialNetworkLink here as it's a custom type not directly from Supabase
 export interface SocialNetworkLink {
   platform: string;
