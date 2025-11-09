@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/utils/formatters';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
 interface MenuItem {

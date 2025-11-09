@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando MenuCategory e MenuItem do tipo estendido
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatPrice } from '@/lib/utils'; // Adicionando formatPrice
+import { formatPrice } from '@/utils/formatters'; // Ajustado para o módulo correto
 import { ChevronRight, Utensils } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';

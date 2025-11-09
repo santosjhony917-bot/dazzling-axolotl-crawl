@@ -1,6 +1,7 @@
 import React from 'react';
 import { PublicMenuItem } from '@/types/menu';
-import { cn, formatPrice } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { formatPrice } from '@/utils/formatters';
 import { Heart } from 'lucide-react';
 
 interface MenuItemCardProps {

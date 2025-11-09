@@ -12,7 +12,8 @@ import { Label } from '../components/ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../components/ui/form';
 import { toast } from 'sonner';
 import { supabase } from '../integrations/supabase/client';
-import { ImageUploadButton } from '../components/ImageUploadButton'; // Corrigido para importação nomeada
+import { ImageUploadButton } from '../components/ImageUploadButton';
+import { USER_AVATAR_BUCKET } from '@/integrations/supabase/storage';
 
 const profileSchema = z.object({
   first_name: z.string().min(1, 'Nome é obrigatório'),
@@ -91,8 +92,10 @@ const ProfileSettings = () => {
                 className="w-full h-full rounded-full object-cover"
               />
               <ImageUploadButton
-                onUploadSuccess={(url) => form.setValue('avatar_url', url)}
-                currentImageUrl={form.watch('avatar_url')}
+                onUploadComplete={(url) => form.setValue('avatar_url', url)}
+                currentImageUrl={form.watch('avatar_url') || undefined}
+                bucketName={USER_AVATAR_BUCKET}
+                folderPath="avatars"
               />
             </div>
 

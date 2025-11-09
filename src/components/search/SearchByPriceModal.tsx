@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { DollarSign } from 'lucide-react';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/utils/formatters';
 import { Slider } from '@/components/ui/slider';
 
 interface SearchByPriceModalProps {

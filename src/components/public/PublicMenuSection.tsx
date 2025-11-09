@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuCategory, MenuItem } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice } from '@/utils/formatters';
 import { Utensils } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Button } from '@/components/ui/button';
