@@ -31,43 +31,57 @@ interface FetchRestaurantsFilters {
   state?: string;
   plan?: string;
   neighborhood?: string;
-  visit_status?: string;
 }
 
 const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
-  let query = supabase
-    .from('restaurants')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(5000);
+  const PAGE_SIZE = 999; // Fetch in chunks to avoid Supabase limit
+  let allRestaurants: Restaurant[] = [];
+  let page = 0;
+  let hasMore = true;
 
-  if (filters.name) {
-    query = query.ilike('name', `%${filters.name}%`);
-  }
-  if (filters.city) {
-    query = query.ilike('city', `%${filters.city}%`);
-  }
-  if (filters.neighborhood) {
-    query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
-  }
-  if (filters.state) {
-    query = query.eq('state', filters.state);
-  }
-  if (filters.plan && filters.plan !== 'all') {
-    query = query.eq('plan', filters.plan);
+  while (hasMore) {
+    const from = page * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+
+    let query = supabase
+      .from('restaurants')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .range(from, to);
+
+    if (filters.name) {
+      query = query.ilike('name', `%${filters.name}%`);
+    }
+    if (filters.city) {
+      query = query.ilike('city', `%${filters.city}%`);
+    }
+    if (filters.neighborhood) {
+      query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Error fetching restaurants page:', error);
+      throw new Error(error.message);
+    }
+
+    if (data && data.length > 0) {
+      allRestaurants.push(...data);
+      page++;
+    } else {
+      hasMore = false;
+    }
+    
+    if (!data || data.length < PAGE_SIZE) {
+      hasMore = false;
+    }
   }
 
-  if (filters.visit_status && filters.visit_status !== 'all') {
-    query = query.eq('visit_status', filters.visit_status);
-  }
-
-  const { data, error } = await query;
-
-  if (error) throw new Error(error.message);
-  return data as Restaurant[];
+  return allRestaurants;
 };
 
-const updateRestaurantPlan = async ({ restaurantId, newPlan }: UpdatePlanPayload): Promise<void> => {
+const updateRestaurantPlan = async ({ restaurantId, newPlan }: { restaurantId: string; newPlan: RestaurantPlan }) => {
   const { error } = await supabase
     .from('restaurants')
     .update({ plan: newPlan })
