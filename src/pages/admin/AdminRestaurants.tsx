@@ -28,6 +28,8 @@ const allVisitStatusOptions: (VisitStatus | 'all')[] = ['all', ...visitStatusOpt
 const visitStatusLabels: Record<VisitStatus | 'all', string> = {
   all: 'Todos os Status',
   Pendente: 'Pendente',
+  Visitado: 'Visitado',
+  Agendado: 'Agendado',
   Contatado: 'Contatado',
   Interessado: 'Interessado',
   'Não Interessado': 'Não Interessado',

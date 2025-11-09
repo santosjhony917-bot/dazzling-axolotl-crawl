@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type RestaurantPlan = 'free' | 'basic' | 'premium' | 'premium_gift';
-export type VisitStatus = 'Pendente' | 'Visitado' | 'Agendado';
+export type VisitStatus = 'Pendente' | 'Visitado' | 'Agendado' | 'Contatado' | 'Interessado' | 'Não Interessado' | 'Não Localizado';
 
 export interface Profile {
   id: string;
@@ -80,7 +80,7 @@ export interface GalleryImage {
   restaurant_id: string;
   image_url: string;
   caption?: string | null;
-  order_index?: number | null;
+  order_index: number | null;
   created_at?: string;
 }
 
