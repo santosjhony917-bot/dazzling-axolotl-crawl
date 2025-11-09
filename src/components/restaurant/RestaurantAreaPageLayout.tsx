@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, LucideProps } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 interface RestaurantAreaPageLayoutProps {
   title: string;
   icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
-  backPath: string;
+  backPath?: string;
   children: React.ReactNode;
-  actions?: React.ReactNode; // Adicionado actions prop
+  actions?: React.ReactNode;
 }
 
 const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
@@ -19,6 +20,16 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
   children,
   actions,
 }) => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    if (backPath) {
+      navigate(backPath);
+    } else {
+      navigate(-1);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
@@ -26,9 +37,9 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Link to={`/${backPath}`} className="text-gray-500 hover:text-primary transition-colors">
+              <button onClick={handleBackClick} className="text-gray-500 hover:text-primary transition-colors">
                 <ArrowLeft className="w-6 h-6" />
-              </Link>
+              </button>
               <div className="flex items-center space-x-3">
                 <Icon className="w-6 h-6 text-primary" />
                 <h1 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h1>

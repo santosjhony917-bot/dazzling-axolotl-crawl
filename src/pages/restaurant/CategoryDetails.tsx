@@ -73,7 +73,7 @@ const CategoryDetails: React.FC = () => {
     form.reset({
       name: categoryData.name,
       is_active: categoryData.is_active,
-      is_popular: categoryData.is_popular,
+      is_popular: categoryData.popular,
     });
 
     const { data: itemsData, error: itemsError } = await supabase
@@ -210,7 +210,7 @@ const CategoryDetails: React.FC = () => {
 
   if (loading || isRestaurantLoading) {
     return (
-      <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2} backPath={`/restaurant/${restaurant?.id}/menu`}>
+      <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
         <div className="flex justify-center items-center h-full">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -220,7 +220,7 @@ const CategoryDetails: React.FC = () => {
 
   if (!category) {
     return (
-      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
+      <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
         <div className="flex flex-col items-center justify-center h-full text-gray-500">
           <p className="text-lg">Categoria não encontrada.</p>
           <Button onClick={() => navigate(-1)} className="mt-4">
@@ -232,17 +232,17 @@ const CategoryDetails: React.FC = () => {
   }
 
   return (
-    <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={`/restaurant/${restaurant?.id}/menu`}>
+    <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
       <div className="p-4 space-y-6">
         {user && restaurant && user.id === restaurant.user_id && (
           <Card className="mb-4">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <CardTitle>Gerenciar Categoria</CardTitle>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
                   <Edit className="h-4 w-4 mr-2" /> Editar Categoria
                 </Button>
-                <Button onClick={handleAddItem}>
+                <Button onClick={handleAddItem} className="w-full sm:w-auto">
                   <Plus className="h-4 w-4 mr-2" /> Adicionar Item
                 </Button>
               </div>
