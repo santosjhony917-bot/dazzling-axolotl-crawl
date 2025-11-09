@@ -377,7 +377,7 @@ const AdminRestaurantMenu: React.FC = () => {
           onClose={() => setIsItemFormDialogOpen(false)}
           onSave={handleSaveItem}
           itemToEdit={editingItem}
-          category={categories.find(cat => cat.id === selectedCategoryId) || { id: selectedCategoryId, name: '', restaurant_id: restaurant.id, is_active: true, is_popular: false, created_at: new Date().toISOString() }}
+          category={categories.find(cat => cat.id === selectedCategoryId) || { id: selectedCategoryId, name: '', restaurant_id: restaurant.id, is_active: true, is_popular: false, created_at: new Date().toISOString(), order_index: 0 }}
           isLoading={isSavingItem}
         />
       )}
