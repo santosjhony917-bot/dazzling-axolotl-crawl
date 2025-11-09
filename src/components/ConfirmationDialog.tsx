@@ -1,49 +1,58 @@
 "use client";
 
-import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import React, { ReactNode } from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
 
 interface ConfirmationDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
+  children: ReactNode; // The trigger element
   title: string;
   description: string;
-  confirmText?: string;
-  cancelText?: string;
-  isLoading?: boolean;
+  onConfirm: () => void | Promise<void>;
+  confirmButtonText?: string;
+  cancelButtonText?: string;
+  confirmButtonVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
 }
 
 const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
-  isOpen,
-  onClose,
-  onConfirm,
+  children,
   title,
   description,
-  confirmText = "Confirmar",
-  cancelText = "Cancelar",
-  isLoading = false,
+  onConfirm,
+  confirmButtonText = 'Confirmar',
+  cancelButtonText = 'Cancelar',
+  confirmButtonVariant = 'destructive',
 }) => {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={isLoading}>
-            {cancelText}
-          </Button>
-          <Button variant="destructive" onClick={onConfirm} disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {confirmText}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel asChild>
+            <Button variant="outline">{cancelButtonText}</Button>
+          </AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button variant={confirmButtonVariant} onClick={onConfirm}>
+              {confirmButtonText}
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

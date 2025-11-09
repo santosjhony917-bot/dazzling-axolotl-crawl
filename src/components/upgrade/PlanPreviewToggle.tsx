@@ -1,44 +1,25 @@
+"use client";
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { RestaurantPlan } from '@/types/supabase';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 interface PlanPreviewToggleProps {
-  currentPlan: RestaurantPlan;
-  previewPlan: 'free' | 'premium';
-  setPreviewPlan: (plan: 'free' | 'premium') => void;
+  showPremiumPreview: boolean;
+  onToggle: () => void;
 }
 
-const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, previewPlan, setPreviewPlan }) => {
-  const isFree = currentPlan === 'free';
-  const isPremium = currentPlan === 'premium';
-
+const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ showPremiumPreview, onToggle }) => {
   return (
-    <div className="flex w-full p-1 bg-gray-100 rounded-xl mb-6 shadow-inner">
-      <Button
-        onClick={() => setPreviewPlan('free')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'free'
-            ? "bg-white text-primary shadow-soft-md hover:bg-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
-        variant="ghost"
-      >
-        {isFree ? 'Seu Plano (Free)' : 'Visualização Free'}
-      </Button>
-      <Button
-        onClick={() => setPreviewPlan('premium')}
-        className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
-          previewPlan === 'premium'
-            ? "bg-highlight text-white shadow-highlight-glow hover:bg-highlight/90"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
-        )}
-        variant="ghost"
-      >
-        {isPremium ? 'Seu Plano (Premium)' : 'Visualização Premium'}
-      </Button>
+    <div className="flex items-center justify-center space-x-2 mt-8">
+      <Label htmlFor="plan-preview-toggle" className="text-lg text-gray-700 dark:text-gray-300">
+        Visualizar Planos Premium
+      </Label>
+      <Switch
+        id="plan-preview-toggle"
+        checked={showPremiumPreview}
+        onCheckedChange={onToggle}
+      />
     </div>
   );
 };

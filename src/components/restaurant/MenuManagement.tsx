@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { PlusCircle, Loader2, AlertTriangle, GripVertical, Save, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,7 +9,6 @@ import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
-import { RestaurantAreaPageLayout } from '@/components/restaurant/RestaurantAreaPageLayout';
 import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { useRestaurantData } from '@/context/RestaurantContext';
 import {
