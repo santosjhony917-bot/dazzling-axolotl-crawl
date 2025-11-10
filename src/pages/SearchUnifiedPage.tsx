@@ -154,6 +154,7 @@ export default function SearchUnifiedPage() {
           category: restaurant.category,
           city: restaurant.city,
           distance_km: restaurant.distance_km,
+          neighborhood: restaurant.neighborhood, // Mapeando o bairro aqui
         }));
     }
     setDisplayedResults(processedResults);

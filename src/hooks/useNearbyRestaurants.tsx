@@ -16,6 +16,7 @@ export interface RestaurantWithDistance {
   city: string | null;
   state: string | null;
   distance_km: number;
+  neighborhood?: string | null;
 }
 
 interface UseNearbyRestaurantsOptions {

@@ -90,6 +90,7 @@ export interface MenuCategoryWithItems extends MenuCategory {
 
 export interface RestaurantWithDistance extends Restaurant {
     distance_km: number;
+    neighborhood?: string | null;
 }
 
 export interface FavoriteRestaurant {
