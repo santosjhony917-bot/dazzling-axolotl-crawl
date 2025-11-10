@@ -322,6 +322,7 @@ export default function SearchUnifiedPage() {
   }, [accumulatedRestaurantResults]); // Depend on accumulated results
 
   const handleLoadMore = () => {
+    console.log('Loading more items for page:', page + 1);
     setPage(prevPage => prevPage + 1);
   };
 
