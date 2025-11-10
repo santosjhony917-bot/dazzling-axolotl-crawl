@@ -1,21 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { SearchItemResult } from '@/lib/types';
 
-export interface SearchItemResult {
-  item_id: string;
-  item_name: string;
-  item_description: string | null;
-  item_price: number;
-  item_image_url: string | null;
-  restaurant_id: string;
-  restaurant_name: string;
-  restaurant_category: string | null;
-  item_category_id: string;
-  item_category_name: string;
-}
-
-interface UseSearchItemsParams {
+interface UseSearchItemsProps {
   searchQuery: string;
   enabled: boolean;
   limit: number;
@@ -29,40 +16,45 @@ export function useSearchItems({
   limit,
   offset,
   excludedCategoryIds,
-}: UseSearchItemsParams) {
-  const fetchSearchItems = useCallback(async () => {
-    // Se searchQuery for uma string vazia, passamos null para a RPC para obter itens padrão
-    const queryParam = searchQuery === '' ? null : searchQuery;
+}: UseSearchItemsProps) {
+  const [items, setItems] = useState<SearchItemResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [hasMore, setHasMore] = useState(true); // Inicializa como true para permitir a primeira carga
 
-    const { data, error } = await supabase.rpc('search_menu_items', {
-      search_query: queryParam,
-      p_limit: limit,
-      p_offset: offset,
-      excluded_category_ids: excludedCategoryIds,
-    });
-
-    if (error) {
-      throw new Error(error.message);
+  const fetchData = useCallback(async () => {
+    if (!enabled) {
+      setItems([]);
+      setHasMore(false);
+      return;
     }
-    
-    return data as SearchItemResult[];
-  }, [searchQuery, limit, offset, excludedCategoryIds]);
+    setLoading(true);
+    setError(null);
+    try {
+      const { data, error } = await supabase.rpc('search_menu_items', {
+        search_query: searchQuery,
+        p_limit: limit,
+        p_offset: offset,
+        excluded_category_ids: excludedCategoryIds,
+      });
 
-  const { data, isLoading, error, refetch } = useQuery<SearchItemResult[], Error>({
-    queryKey: ['searchItems', searchQuery, limit, offset, excludedCategoryIds],
-    queryFn: fetchSearchItems,
-    enabled: enabled,
-    staleTime: 60000,
-  });
+      if (error) throw error;
 
-  // Determine if there might be more items based on the fetched data length
-  const hasMore = (data?.length || 0) === limit;
+      setItems(data || []);
+      // AQUI ESTÁ A MUDANÇA: hasMore é true se o número de resultados for igual ao limite
+      setHasMore((data?.length || 0) === limit);
+    } catch (err: any) {
+      console.error("Error fetching search items:", err);
+      setError(err);
+      setHasMore(false); // Em caso de erro, assume que não há mais
+    } finally {
+      setLoading(false);
+    }
+  }, [searchQuery, enabled, limit, offset, excludedCategoryIds]);
 
-  return {
-    items: data || [],
-    loading: isLoading,
-    error: error ? error.message : null,
-    refetch,
-    hasMore,
-  };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { items, loading, error, refetch: fetchData, hasMore };
 }

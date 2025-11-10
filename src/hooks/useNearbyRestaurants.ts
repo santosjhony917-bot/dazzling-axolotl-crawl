@@ -1,67 +1,47 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { RestaurantWithDistance } from '@/lib/types';
 
-export type RestaurantWithDistance = {
-  id: string;
-  user_id: string | null;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  cover_image_url: string | null;
-  plan: 'free' | 'basic' | 'premium' | 'premium_gift';
-  created_at: string;
-  latitude: number | null;
-  longitude: number | null;
-  category: string | null;
-  city: string | null;
-  state: string | null;
-  distance_km: number;
-  neighborhood?: string | null;
-};
-
-interface UseNearbyRestaurantsOptions {
+interface UseNearbyRestaurantsProps {
   userLat: number | null;
   userLon: number | null;
-  enabled?: boolean;
+  enabled: boolean;
   searchQuery?: string;
-  maxDistanceKm?: number;
   includedCategories?: string[];
   limit: number;
   offset: number;
 }
 
-export const useNearbyRestaurants = ({
+export function useNearbyRestaurants({
   userLat,
   userLon,
-  enabled = true,
+  enabled,
   searchQuery,
-  maxDistanceKm = 10,
-  includedCategories = [],
+  includedCategories,
   limit,
   offset,
-}: UseNearbyRestaurantsOptions) => {
-  return useQuery<RestaurantWithDistance[], Error>({
-    queryKey: [
-      'nearbyRestaurants',
-      userLat,
-      userLon,
-      maxDistanceKm,
-      searchQuery,
-      includedCategories,
-      limit,
-      offset,
-    ],
-    queryFn: async () => {
-      if (userLat === null || userLon === null) {
-        throw new Error('User location is not available.');
-      }
+}: UseNearbyRestaurantsProps) {
+  const [data, setData] = useState<RestaurantWithDistance[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [hasMore, setHasMore] = useState(true); // Inicializa como true para permitir a primeira carga
 
-      const { data, error } = await supabase.rpc('find_nearby_restaurants', {
+  const fetchData = useCallback(async () => {
+    if (!enabled || userLat === null || userLon === null) {
+      setData([]);
+      setHasMore(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { data: restaurants, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: userLat,
         user_lng: userLon,
-        max_distance_km: maxDistanceKm,
-        search_query: searchQuery || null,
-        included_categories: includedCategories.length > 0 ? includedCategories : null,
+        search_query: searchQuery,
+        included_categories: includedCategories,
         p_limit: limit,
         p_offset: offset,
       });
@@ -70,14 +50,21 @@ export const useNearbyRestaurants = ({
         throw error;
       }
 
-      return data ?? [];
-    },
-    enabled: enabled && userLat !== null && userLon !== null,
-    staleTime: 1000 * 60 * 5,
-  });
+      setData(restaurants || []);
+      // AQUI ESTÁ A MUDANÇA: hasMore é true se o número de resultados for igual ao limite
+      setHasMore((restaurants?.length || 0) === limit);
+    } catch (err: any) {
+      console.error("Error fetching nearby restaurants:", err);
+      setError(err);
+      setHasMore(false); // Em caso de erro, assume que não há mais
+    } finally {
+      setIsLoading(false);
+    }
+  }, [userLat, userLon, enabled, searchQuery, includedCategories, limit, offset]);
 
-  // Determine if there might be more items based on the fetched data length
-  const hasMore = (data?.length || 0) === limit;
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-  return { data, isLoading, error, refetch, hasMore };
-};
+  return { data, isLoading, error, refetch: fetchData, hasMore };
+}
