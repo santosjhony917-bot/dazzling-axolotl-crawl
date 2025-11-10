@@ -30,7 +30,7 @@ export const claimRestaurant = async (payload: ClaimRestaurantPayload): Promise<
   return data;
 };
 
-export const bulkCreateRestaurants = async (csvData: string): Promise<{ successCount: number; message: string }> => {
+export const bulkCreateRestaurants = async (csvData: string): Promise<{ successCount: number; message: string; errors?: string[] }> => {
   const { data, error } = await supabase.functions.invoke('bulk-create-restaurants', {
     body: { csvData },
   });

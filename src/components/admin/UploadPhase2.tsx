@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { saveUploadRecord } from '@/utils/uploadHistory';
 import { showSuccess } from '@/utils/toast';
 import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
+import { bulkCreateRestaurants } from '@/integrations/supabase/edgeFunctions';
 
 // Colunas obrigatórias para a Fase 2: Endereços e Localização
 const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
@@ -10,24 +11,27 @@ const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'ne
 const UploadPhase2: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleProcessCsv = (csvData: string) => {
+  const handleProcessCsv = async (csvData: string) => {
     setIsProcessing(true);
     
-    // Simulação de processamento de dados
-    const lines = csvData.trim().split('\n');
-    const dataRows = lines.slice(1);
-    const successCount = dataRows.length;
-
-    setTimeout(() => {
-      // Simulação de sucesso no upload
+    try {
+      const result = await bulkCreateRestaurants(csvData);
       saveUploadRecord({
         phase: 2,
-        successCount: successCount,
-        details: `Upload de ${successCount} endereços processado.`,
+        successCount: result.successCount,
+        details: `Upload de ${result.successCount} endereços processado. ${result.errors && result.errors.length > 0 ? `${result.errors.length} erros.` : ''}`,
       });
-      showSuccess(`Fase 2 concluída! ${successCount} registros processados.`);
+      showSuccess(`Fase 2 concluída! ${result.successCount} registros processados. ${result.errors && result.errors.length > 0 ? `Verifique os ${result.errors.length} erros no console.` : ''}`);
+      if (result.errors && result.errors.length > 0) {
+        console.error("Erros durante o processamento da Fase 2:", result.errors);
+      }
+    } catch (error) {
+      console.error("Erro ao processar CSV da Fase 2:", error);
+      // Optionally show an error toast
+      // showError(`Falha na Fase 2: ${error.message}`);
+    } finally {
       setIsProcessing(false);
-    }, 1500);
+    }
   };
 
   return (
