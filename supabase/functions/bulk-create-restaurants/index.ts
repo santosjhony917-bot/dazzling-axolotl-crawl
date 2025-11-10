@@ -99,16 +99,14 @@ serve(async (req) => {
     for (const [index, record] of records.entries()) {
       const externalUrl = record.external_url;
       if (!externalUrl) {
-        errors.push(`Skipping record at line ${index + 2} (CSV line number) due to missing or empty external_url: ${JSON.stringify(record)}`);
+        errors.push(`Linha ${index + 2}: external_url ausente ou vazia. Registro ignorado.`);
         continue;
       }
 
       // Build the data object dynamically to only include fields present in the CSV
       const restaurantData: { [key: string]: any } = {};
       for (const header of headers) {
-        // Normalize header name for internal use if it's 'external url'
         const normalizedHeader = header === 'external url' ? 'external_url' : header;
-        // Only add the field if it's not null/undefined in the record
         if (record[normalizedHeader] !== null && record[normalizedHeader] !== undefined) {
           restaurantData[normalizedHeader] = record[normalizedHeader];
         }
@@ -131,46 +129,64 @@ serve(async (req) => {
         restaurantData.longitude = initialLongitude;
       }
 
+      // Check if restaurant already exists
+      const { data: existingRestaurant, error: selectError } = await supabase
+        .from('restaurants')
+        .select('id')
+        .eq('external_url', externalUrl)
+        .maybeSingle(); // Use maybeSingle to get null if no rows found, instead of error
+
+      if (selectError && selectError.code !== 'PGRST116') { // PGRST116 means "no rows found"
+        console.error(`Erro ao verificar restaurante existente com external_url ${externalUrl}:`, selectError);
+        errors.push(`Linha ${index + 2} (${externalUrl}): Falha ao verificar existência: ${selectError.message}`);
+        continue;
+      }
+
+      let operationData = { ...restaurantData };
+
+      if (!existingRestaurant) {
+        // If restaurant does not exist, we are inserting.
+        // For an insert, 'name', 'category', 'image_url' are required (from Phase 1).
+        if (!operationData.name || !operationData.category || !operationData.image_url) {
+          errors.push(`Linha ${index + 2} (${externalUrl}): Não foi possível criar novo restaurante. Campos obrigatórios (name, category, image_url) ausentes para criação inicial.`);
+          continue;
+        }
+      }
+
       // If lat/lon are still not valid (either not in CSV or invalid in CSV), try to geocode
-      if (isNaN(restaurantData.latitude) || isNaN(restaurantData.longitude)) {
-        const fullAddress = [restaurantData.address, restaurantData.number, restaurantData.neighborhood, restaurantData.city, restaurantData.state, restaurantData.cep]
+      if (isNaN(operationData.latitude) || isNaN(operationData.longitude)) {
+        const fullAddress = [operationData.address, operationData.number, operationData.neighborhood, operationData.city, operationData.state, operationData.cep]
           .filter(Boolean)
           .join(', ');
         
         if (fullAddress.length > 10) { // Only geocode if address is substantial
-          console.log(`Attempting to geocode: ${fullAddress}`);
           const coords = await geocodeAddress(fullAddress);
           if (coords) {
-            restaurantData.latitude = coords.lat;
-            restaurantData.longitude = coords.lon;
-            console.log(`Geocoded ${fullAddress} to lat: ${coords.lat}, lon: ${coords.lon}`);
+            operationData.latitude = coords.lat;
+            operationData.longitude = coords.lon;
           } else {
-            // Geocoding failed, explicitly set to null to indicate failure for this record
-            restaurantData.latitude = null;
-            restaurantData.longitude = null;
-            console.warn(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
-            errors.push(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
+            operationData.latitude = null;
+            operationData.longitude = null;
+            errors.push(`Linha ${index + 2} (${externalUrl}): Não foi possível geocodificar o endereço: ${fullAddress}`);
           }
         } else {
-          // Address insufficient for geocoding, explicitly set to null
-          restaurantData.latitude = null;
-          restaurantData.longitude = null;
-          console.warn(`Address insufficient for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
-          errors.push(`Address insufficient for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
+          operationData.latitude = null;
+          operationData.longitude = null;
+          errors.push(`Linha ${index + 2} (${externalUrl}): Endereço insuficiente para geocodificação: ${fullAddress}`);
         }
       }
 
       // Ensure external_url is always present for the upsert operation
-      restaurantData.external_url = externalUrl;
+      operationData.external_url = externalUrl;
 
       const { data, error } = await supabase
         .from('restaurants')
-        .upsert(restaurantData, { onConflict: 'external_url' })
+        .upsert(operationData, { onConflict: 'external_url' })
         .select();
 
       if (error) {
-        console.error(`Error upserting restaurant with external_url ${externalUrl}:`, error);
-        errors.push(`Failed to upsert ${externalUrl}: ${error.message}`);
+        console.error(`Erro ao fazer upsert do restaurante com external_url ${externalUrl}:`, error);
+        errors.push(`Linha ${index + 2} (${externalUrl}): Falha no upsert: ${error.message}`);
       } else {
         successCount++;
       }
@@ -184,7 +200,7 @@ serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Error processing bulk-create-restaurants:', error);
+    console.error('Erro ao processar bulk-create-restaurants:', error);
     return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,

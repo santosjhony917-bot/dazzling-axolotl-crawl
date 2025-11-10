@@ -8,20 +8,27 @@ import { bulkCreateRestaurants } from '@/integrations/supabase/edgeFunctions';
 // Colunas obrigatórias para a Fase 1: Criação Base
 const REQUIRED_COLUMNS_PHASE1 = ['external_url', 'name', 'category', 'image_url'];
 
-const UploadPhase1: React.FC = () => {
+interface UploadPhase1Props {
+  onNext: () => void;
+}
+
+const UploadPhase1: React.FC<UploadPhase1Props> = ({ onNext }) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleProcessCsv = async (csvData: string) => {
     setIsProcessing(true);
     try {
-      const { successCount, message } = await bulkCreateRestaurants(csvData);
+      const { successCount, message, errors } = await bulkCreateRestaurants(csvData);
 
       saveUploadRecord({
         phase: 1,
         successCount: successCount,
         details: message,
+        error: errors && errors.length > 0,
+        errors: errors,
       });
       showSuccess(`Fase 1 concluída! ${successCount} registros processados.`);
+      onNext(); // Avança para a próxima fase após o sucesso
 
     } catch (error: any) {
       console.error("Erro ao processar o upload da Fase 1:", error);
@@ -32,6 +39,7 @@ const UploadPhase1: React.FC = () => {
         successCount: 0,
         details: `Falha no upload: ${errorMessage}`,
         error: true,
+        errors: [errorMessage],
       });
     } finally {
       setIsProcessing(false);
