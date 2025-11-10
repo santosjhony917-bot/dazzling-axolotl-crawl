@@ -170,7 +170,6 @@ export default function SearchUnifiedPage() {
           const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
           return matchesMinPrice && matchesMaxPrice;
         })
-        .sort((a, b) => a.item_price - b.item_price)
         .map(item => ({
           id: item.item_id,
           name: item.item_name,
@@ -190,7 +189,6 @@ export default function SearchUnifiedPage() {
           const distance = restaurant.distance_km;
           return maxDistanceFilter === null || distance <= maxDistanceFilter;
         })
-        .sort((a, b) => b.distance_km - a.distance_km)
         .map(restaurant => ({
           id: restaurant.id,
           name: restaurant.name,
