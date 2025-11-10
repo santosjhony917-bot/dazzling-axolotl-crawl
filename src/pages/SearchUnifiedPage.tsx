@@ -322,7 +322,7 @@ export default function SearchUnifiedPage() {
   }, [accumulatedRestaurantResults]); // Depend on accumulated results
 
   const handleLoadMore = () => {
-    console.log('Loading more items for page:', page + 1);
+    console.log('handleLoadMore called. Current page:', page, 'Next page:', page + 1);
     setPage(prevPage => prevPage + 1);
   };
 
@@ -421,9 +421,15 @@ export default function SearchUnifiedPage() {
                   onClick={handleLoadMore}
                   variant="outline"
                   className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all mt-4"
-                  disabled={resultsLoading}
+                  disabled={
+                    (activeSearchType === 'dish' && dishesLoading) ||
+                    (activeSearchType === 'restaurant' && restaurantsLoading)
+                  }
                 >
-                  {resultsLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  {((activeSearchType === 'dish' && dishesLoading) ||
+                   (activeSearchType === 'restaurant' && restaurantsLoading)) ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
                   Ver Mais
                 </Button>
               )}
