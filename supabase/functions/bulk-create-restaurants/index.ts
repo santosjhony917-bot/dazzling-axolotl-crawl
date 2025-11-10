@@ -54,12 +54,28 @@ serve(async (req) => {
     }
 
     const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+
+    // Check if 'external_url' (or 'external url') header is present
+    const hasExternalUrlHeader = headers.includes('external_url') || headers.includes('external url');
+    if (!hasExternalUrlHeader) {
+      return new Response(JSON.stringify({ error: 'CSV headers must include "external_url" or "external url".' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      });
+    }
+
     const records = lines.slice(1).map(line => {
       const values = line.split(',');
-      return headers.reduce((obj, header, index) => {
-        obj[header] = values[index] ? values[index].trim() : null;
-        return obj;
-      }, {});
+      const record: { [key: string]: any } = {};
+      headers.forEach((header, index) => {
+        // Normalize header names for internal consistency
+        let key = header;
+        if (header === 'external url') {
+          key = 'external_url';
+        }
+        record[key] = values[index] ? values[index].trim() : null;
+      });
+      return record;
     });
 
     // @ts-ignore
@@ -80,19 +96,21 @@ serve(async (req) => {
     let successCount = 0;
     const errors: string[] = [];
 
-    for (const record of records) {
+    for (const [index, record] of records.entries()) {
       const externalUrl = record.external_url;
       if (!externalUrl) {
-        errors.push(`Skipping record due to missing external_url: ${JSON.stringify(record)}`);
+        errors.push(`Skipping record at line ${index + 2} (CSV line number) due to missing or empty external_url: ${JSON.stringify(record)}`);
         continue;
       }
 
       // Build the data object dynamically to only include fields present in the CSV
       const restaurantData: { [key: string]: any } = {};
       for (const header of headers) {
+        // Normalize header name for internal use if it's 'external url'
+        const normalizedHeader = header === 'external url' ? 'external_url' : header;
         // Only add the field if it's not null/undefined in the record
-        if (record[header] !== null && record[header] !== undefined) {
-          restaurantData[header] = record[header];
+        if (record[normalizedHeader] !== null && record[normalizedHeader] !== undefined) {
+          restaurantData[normalizedHeader] = record[normalizedHeader];
         }
       }
 
