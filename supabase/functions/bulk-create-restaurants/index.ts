@@ -101,11 +101,20 @@ serve(async (req) => {
         restaurantData.plan = 'free';
       }
 
-      let latitude = restaurantData.latitude ? parseFloat(restaurantData.latitude) : NaN;
-      let longitude = restaurantData.longitude ? parseFloat(restaurantData.longitude) : NaN;
+      // Initialize latitude and longitude from record, if present and valid
+      let initialLatitude = restaurantData.latitude ? parseFloat(restaurantData.latitude) : NaN;
+      let initialLongitude = restaurantData.longitude ? parseFloat(restaurantData.longitude) : NaN;
 
-      // If lat/lon are not provided or invalid, try to geocode the address
-      if (isNaN(latitude) || isNaN(longitude)) {
+      // Add latitude and longitude to restaurantData if they were explicitly in the CSV and valid
+      if (!isNaN(initialLatitude)) {
+        restaurantData.latitude = initialLatitude;
+      }
+      if (!isNaN(initialLongitude)) {
+        restaurantData.longitude = initialLongitude;
+      }
+
+      // If lat/lon are still not valid (either not in CSV or invalid in CSV), try to geocode
+      if (isNaN(restaurantData.latitude) || isNaN(restaurantData.longitude)) {
         const fullAddress = [restaurantData.address, restaurantData.number, restaurantData.neighborhood, restaurantData.city, restaurantData.state, restaurantData.cep]
           .filter(Boolean)
           .join(', ');
@@ -118,16 +127,18 @@ serve(async (req) => {
             restaurantData.longitude = coords.lon;
             console.log(`Geocoded ${fullAddress} to lat: ${coords.lat}, lon: ${coords.lon}`);
           } else {
-            // If geocoding fails, don't nullify existing coordinates.
-            delete restaurantData.latitude;
-            delete restaurantData.longitude;
+            // Geocoding failed, explicitly set to null to indicate failure for this record
+            restaurantData.latitude = null;
+            restaurantData.longitude = null;
             console.warn(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
             errors.push(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
           }
         } else {
-          // If address is insufficient, don't nullify existing coordinates.
-          delete restaurantData.latitude;
-          delete restaurantData.longitude;
+          // Address insufficient for geocoding, explicitly set to null
+          restaurantData.latitude = null;
+          restaurantData.longitude = null;
+          console.warn(`Address insufficient for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
+          errors.push(`Address insufficient for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
         }
       }
 
