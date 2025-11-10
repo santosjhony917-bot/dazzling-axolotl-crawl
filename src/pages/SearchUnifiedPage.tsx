@@ -128,31 +128,35 @@ export default function SearchUnifiedPage() {
     setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || categoriesLoading);
   }, [isLocationLoading, dishesLoading, restaurantsLoading, categoriesLoading]);
 
-  // Effect to accumulate and process results
+  // Effect to accumulate dish results
   useEffect(() => {
     if (activeSearchType === 'dish' && !dishesLoading && dishSearchResults) {
       setAccumulatedDishResults(prev => {
-        // If it's the first page, replace, otherwise append
-        return page === 1 ? dishSearchResults : [...prev, ...dishSearchResults];
+        if (page === 1) {
+          return dishSearchResults;
+        }
+        // Filter out items that are already in the accumulated list to prevent duplicates
+        const newItems = dishSearchResults.filter(newItem => !prev.some(existingItem => existingItem.item_id === newItem.item_id));
+        return [...prev, ...newItems];
       });
       setHasMore(dishesHasMore);
-    } else if (activeSearchType === 'restaurant' && !restaurantsLoading && restaurantSearchResults) {
+    }
+  }, [activeSearchType, dishSearchResults, dishesLoading, page, dishesHasMore]);
+
+  // Effect to accumulate restaurant results
+  useEffect(() => {
+    if (activeSearchType === 'restaurant' && !restaurantsLoading && restaurantSearchResults) {
       setAccumulatedRestaurantResults(prev => {
-        // If it's the first page, replace, otherwise append
-        return page === 1 ? restaurantSearchResults : [...prev, ...restaurantSearchResults];
+        if (page === 1) {
+          return restaurantSearchResults;
+        }
+        // Filter out restaurants that are already in the accumulated list to prevent duplicates
+        const newRestaurants = restaurantSearchResults.filter(newRest => !prev.some(existingRest => existingRest.id === newRest.id));
+        return [...prev, ...newRestaurants];
       });
       setHasMore(restaurantsHasMore);
     }
-  }, [
-    activeSearchType,
-    dishSearchResults,
-    dishesLoading,
-    restaurantSearchResults,
-    restaurantsLoading,
-    page,
-    dishesHasMore,
-    restaurantsHasMore,
-  ]);
+  }, [activeSearchType, restaurantSearchResults, restaurantsLoading, page, restaurantsHasMore]);
 
   // Effect to apply filters to accumulated results and set displayedResults
   useEffect(() => {
