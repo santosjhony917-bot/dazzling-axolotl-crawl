@@ -26,6 +26,8 @@ interface UseNearbyRestaurantsOptions {
   searchQuery?: string;
   maxDistanceKm?: number;
   includedCategories?: string[];
+  limit?: number;
+  offset?: number;
 }
 
 export const useNearbyRestaurants = ({
@@ -35,6 +37,8 @@ export const useNearbyRestaurants = ({
   searchQuery,
   maxDistanceKm = 10,
   includedCategories = [],
+  limit = 50,
+  offset = 0,
 }: UseNearbyRestaurantsOptions) => {
   return useQuery<RestaurantWithDistance[], Error>({
     queryKey: [
@@ -44,6 +48,8 @@ export const useNearbyRestaurants = ({
       maxDistanceKm,
       searchQuery,
       includedCategories,
+      limit,
+      offset,
     ],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
@@ -56,6 +62,8 @@ export const useNearbyRestaurants = ({
         max_distance_km: maxDistanceKm,
         search_query: searchQuery || null,
         included_categories: includedCategories.length > 0 ? includedCategories : null,
+        p_limit: limit,
+        p_offset: offset,
       });
 
       if (error) {

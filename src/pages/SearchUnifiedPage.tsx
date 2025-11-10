@@ -61,6 +61,9 @@ export default function SearchUnifiedPage() {
   const userLat = location.latitude;
   const userLon = location.longitude;
 
+  const [page, setPage] = useState(1); // Estado para a página atual
+  const pageSize = 10; // Número de itens por página
+
   // Efeito para ler os parâmetros da URL e inicializar os estados
   useEffect(() => {
     const urlSearchQuery = searchParams.get('searchQuery') || '';
@@ -78,6 +81,7 @@ export default function SearchUnifiedPage() {
     setMaxDistanceFilter(urlMaxDistance ? parseFloat(urlMaxDistance) : null);
     setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
     setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
+    setPage(1); // Resetar a página ao carregar da URL
   }, [searchParams]);
 
   const {
@@ -88,7 +92,8 @@ export default function SearchUnifiedPage() {
   } = useSearchItems({
     searchQuery,
     enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
-    limit: 50,
+    limit: pageSize * page, // Limite total de itens carregados
+    offset: 0, // Sempre começa do offset 0 para acumular
     excludedCategoryIds: excludedDishCategoryIds,
   });
 
@@ -102,11 +107,14 @@ export default function SearchUnifiedPage() {
     userLon,
     enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
     searchQuery,
-    includedCategories: includedRestaurantCategories, // Passa as categorias de restaurante a serem INCLUÍDAS
+    includedCategories: includedRestaurantCategories,
+    limit: pageSize * page, // Limite total de itens carregados
+    offset: 0, // Sempre começa do offset 0 para acumular
   });
 
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
   const [resultsLoading, setResultsLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true); // Estado para controlar se há mais itens
 
   useEffect(() => {
     setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || categoriesLoading);
@@ -114,6 +122,7 @@ export default function SearchUnifiedPage() {
 
   useEffect(() => {
     let processedResults: SearchItem[] = [];
+    let currentTotalResults = 0;
 
     if (activeSearchType === 'dish') {
       processedResults = dishSearchResults
@@ -137,6 +146,7 @@ export default function SearchUnifiedPage() {
           itemCategoryName: item.item_category_name,
           itemCategoryId: item.item_category_id,
         }));
+      currentTotalResults = dishSearchResults.length;
     } else { // activeSearchType === 'restaurant'
       processedResults = (restaurantSearchResults || [])
         .filter(restaurant => {
@@ -154,10 +164,12 @@ export default function SearchUnifiedPage() {
           category: restaurant.category,
           city: restaurant.city,
           distance_km: restaurant.distance_km,
-          neighborhood: restaurant.neighborhood, // Mapeando o bairro aqui
+          neighborhood: restaurant.neighborhood,
         }));
+      currentTotalResults = (restaurantSearchResults || []).length;
     }
     setDisplayedResults(processedResults);
+    setHasMore(currentTotalResults === pageSize * page); // Verifica se há mais itens para carregar
   }, [
     activeSearchType,
     dishSearchResults,
@@ -166,7 +178,8 @@ export default function SearchUnifiedPage() {
     maxPriceFilter,
     maxDistanceFilter,
     excludedDishCategoryIds,
-    includedRestaurantCategories, // Adicionado includedRestaurantCategories
+    includedRestaurantCategories,
+    page, // Adicionado page às dependências
   ]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -175,6 +188,7 @@ export default function SearchUnifiedPage() {
       showError("Aguarde enquanto sua localização é definida para realizar a busca.");
       return;
     }
+    setPage(1); // Resetar a página para 1 ao fazer uma nova busca
     refetchDishes();
     refetchRestaurants();
   };
@@ -200,7 +214,7 @@ export default function SearchUnifiedPage() {
     setMaxPriceFilter(max);
     showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
-    // refetchDishes(); // A atualização do estado já vai acionar a refetch via useQuery
+    setPage(1); // Resetar a página ao aplicar filtro
   };
 
   const handleSearchNearby = () => {
@@ -215,30 +229,31 @@ export default function SearchUnifiedPage() {
     setMaxDistanceFilter(distance);
     showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
-    // refetchRestaurants(); // A atualização do estado já vai acionar a refetch via useQuery
+    setPage(1); // Resetar a página ao aplicar filtro
   };
 
   const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    // refetchDishes(); // A atualização do estado já vai acionar a refetch via useQuery
+    setPage(1); // Resetar a página ao aplicar filtro
   };
 
-  const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => { // Alterado para categorias INCLUÍDAS
+  const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => {
     setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    // refetchRestaurants(); // A atualização do estado já vai acionar a refetch via useQuery
+    setPage(1); // Resetar a página ao aplicar filtro
   };
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-    // Resetar filtros de preço/distância/categorias ao trocar de aba
+    // Resetar filtros e página ao trocar de aba
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
     setExcludedDishCategoryIds([]);
-    setIncludedRestaurantCategories([]); // Limpa filtro de restaurantes (agora inclusivo)
+    setIncludedRestaurantCategories([]);
+    setPage(1);
   };
   
   const handleBack = () => {
@@ -247,6 +262,7 @@ export default function SearchUnifiedPage() {
 
   const allRestaurantCategories = useMemo(() => {
     const categories = new Set<string>();
+    // Usar todos os resultados carregados para popular as categorias
     restaurantSearchResults?.forEach(r => {
       if (r.category) {
         categories.add(r.category);
@@ -254,6 +270,10 @@ export default function SearchUnifiedPage() {
     });
     return Array.from(categories).map(cat => ({ id: cat, name: cat }));
   }, [restaurantSearchResults]);
+
+  const handleLoadMore = () => {
+    setPage(prevPage => prevPage + 1);
+  };
 
   const pageContent = (
     <div className="p-4 space-y-6">
@@ -311,15 +331,15 @@ export default function SearchUnifiedPage() {
             selectedCategoryIds={excludedDishCategoryIds}
             onApply={handleApplyDishCategoryFilter}
             allCategories={allMenuCategories}
-            filterMode="exclude" // Explicitamente 'exclude' para pratos
+            filterMode="exclude"
           />
         )}
         {activeSearchType === 'restaurant' && (
           <CategoryFilterDrawer
-            selectedCategoryIds={includedRestaurantCategories} // Passa as categorias a serem INCLUÍDAS
+            selectedCategoryIds={includedRestaurantCategories}
             onApply={handleApplyRestaurantCategoryFilter}
             allCategories={allRestaurantCategories}
-            filterMode="include" // Explicitamente 'include' para restaurantes
+            filterMode="include"
           />
         )}
       </div>
@@ -332,18 +352,31 @@ export default function SearchUnifiedPage() {
         className="space-y-4"
       >
         <div className="space-y-3">
-          {resultsLoading ? (
+          {resultsLoading && displayedResults.length === 0 ? ( // Mostrar skeleton apenas se não houver resultados ainda
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} className="h-24 w-full rounded-xl" />
             ))
           ) : displayedResults.length > 0 ? (
-            displayedResults.map((item) => (
-              <SearchItemCard 
-                key={item.id} 
-                item={item} 
-                onClick={handleItemClick}
-              />
-            ))
+            <>
+              {displayedResults.map((item) => (
+                <SearchItemCard 
+                  key={item.id} 
+                  item={item} 
+                  onClick={handleItemClick}
+                />
+              ))}
+              {hasMore && ( // Mostrar botão "Ver Mais" se houver mais resultados
+                <Button
+                  onClick={handleLoadMore}
+                  variant="outline"
+                  className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all mt-4"
+                  disabled={resultsLoading}
+                >
+                  {resultsLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Ver Mais
+                </Button>
+              )}
+            </>
           ) : (
             <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
               <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />

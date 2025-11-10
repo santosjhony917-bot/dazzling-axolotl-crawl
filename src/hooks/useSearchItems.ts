@@ -19,6 +19,7 @@ interface UseSearchItemsParams {
   searchQuery: string;
   enabled: boolean;
   limit?: number;
+  offset?: number;
   excludedCategoryIds?: string[];
 }
 
@@ -26,6 +27,7 @@ export function useSearchItems({
   searchQuery,
   enabled,
   limit = 50,
+  offset = 0,
   excludedCategoryIds,
 }: UseSearchItemsParams) {
   const fetchSearchItems = useCallback(async () => {
@@ -35,6 +37,7 @@ export function useSearchItems({
     const { data, error } = await supabase.rpc('search_menu_items', {
       search_query: queryParam,
       p_limit: limit,
+      p_offset: offset,
       excluded_category_ids: excludedCategoryIds,
     });
 
@@ -43,12 +46,12 @@ export function useSearchItems({
     }
     
     return data as SearchItemResult[];
-  }, [searchQuery, limit, excludedCategoryIds]);
+  }, [searchQuery, limit, offset, excludedCategoryIds]);
 
   const { data, isLoading, error, refetch } = useQuery<SearchItemResult[], Error>({
-    queryKey: ['searchItems', searchQuery, limit, excludedCategoryIds],
+    queryKey: ['searchItems', searchQuery, limit, offset, excludedCategoryIds],
     queryFn: fetchSearchItems,
-    enabled: enabled, // Permite que a query seja executada mesmo com searchQuery vazia
+    enabled: enabled,
     staleTime: 60000,
   });
 
