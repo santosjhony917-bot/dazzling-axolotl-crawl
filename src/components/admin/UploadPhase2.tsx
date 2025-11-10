@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { saveUploadRecord } from '@/utils/uploadHistory';
-import { showSuccess } from '@/utils/toast';
+import { showSuccess, showError } from '@/utils/toast';
 import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 import { bulkCreateRestaurants } from '@/integrations/supabase/edgeFunctions';
 
@@ -25,10 +25,9 @@ const UploadPhase2: React.FC = () => {
       if (result.errors && result.errors.length > 0) {
         console.error("Erros durante o processamento da Fase 2:", result.errors);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao processar CSV da Fase 2:", error);
-      // Optionally show an error toast
-      // showError(`Falha na Fase 2: ${error.message}`);
+      showError(`Falha na Fase 2: ${error.message || "Ocorreu um erro desconhecido."}`);
     } finally {
       setIsProcessing(false);
     }
