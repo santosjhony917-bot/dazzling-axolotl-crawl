@@ -10,6 +10,7 @@ interface ColumnarCsvInputProps {
   isLoading: boolean;
   buttonText: string;
   requiredColumns: string[];
+  primaryKeyColumn?: string;
 }
 
 const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
@@ -17,6 +18,7 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
   isLoading,
   buttonText,
   requiredColumns,
+  primaryKeyColumn,
 }) => {
   const [columnInputs, setColumnInputs] = useState<Record<string, string>>(
     requiredColumns.reduce((acc, col) => ({ ...acc, [col]: '' }), {})
@@ -53,6 +55,14 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
       });
       
       if (rowData.some(cell => cell !== '')) {
+        // Client-side validation for primaryKeyColumn
+        if (primaryKeyColumn) {
+          const primaryKeyIndex = requiredColumns.indexOf(primaryKeyColumn);
+          if (primaryKeyIndex !== -1 && rowData[primaryKeyIndex].trim() === '') {
+            showError(`A coluna "${primaryKeyColumn.replace(/_/g, ' ')}" não pode estar vazia na linha ${i + 1}.`);
+            return; // Stop processing and show error
+          }
+        }
         rows.push(rowData.join(','));
       }
     }

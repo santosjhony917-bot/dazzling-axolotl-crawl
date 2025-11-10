@@ -10,47 +10,54 @@ const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'ne
 
 const UploadPhase2: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadHistory, setUploadHistory] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const requiredColumns = ['external_url', 'address', 'number', 'neighborhood', 'city', 'state', 'cep'];
 
   const handleProcessCsv = async (csvData: string) => {
-    setIsProcessing(true);
-    
+    setIsLoading(true);
     try {
-      const result = await bulkCreateRestaurants(csvData);
-      saveUploadRecord({
-        phase: 2,
-        successCount: result.successCount,
-        details: `Upload de ${result.successCount} endereços processado. ${result.errors && result.errors.length > 0 ? `${result.errors.length} erros.` : ''}`,
+      const { data, error } = await supabase.functions.invoke('bulk-create-restaurants', {
+        body: { csvData },
       });
-      showSuccess(`Fase 2 concluída! ${result.successCount} registros processados. ${result.errors && result.errors.length > 0 ? `Verifique os ${result.errors.length} erros no console.` : ''}`);
-      if (result.errors && result.errors.length > 0) {
-        console.error("Erros durante o processamento da Fase 2:", result.errors);
+
+      if (error) {
+        showError(`Erro ao processar CSV: ${error.message}`);
+        console.error('Edge Function Error:', error);
+        setUploadHistory(prev => [...prev, { status: 'failed', message: `Erro ao processar CSV: ${error.message}` }]);
+      } else {
+        showSuccess(`Fase 2 concluída! ${data.successCount} registros processados. ${data.errors.length > 0 ? `${data.errors.length} erros.` : ''}`);
+        if (data.errors.length > 0) {
+          console.error('Erros no processamento da Edge Function:', data.errors);
+        }
+        setUploadHistory(prev => [...prev, { status: 'success', message: `Fase 2 concluída! ${data.successCount} registros processados.` }]);
+        onNext();
       }
-    } catch (error: any) {
-      console.error("Erro ao processar CSV da Fase 2:", error);
-      showError(`Falha na Fase 2: ${error.message || "Ocorreu um erro desconhecido."}`);
+    } catch (error) {
+      showError(`Erro inesperado: ${error.message}`);
+      console.error('Unexpected error:', error);
+      setUploadHistory(prev => [...prev, { status: 'failed', message: `Erro inesperado: ${error.message}` }]);
     } finally {
-      setIsProcessing(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
-      <CardHeader>
-        <CardTitle className="text-xl text-primary">Fase 2: Endereços e Localização</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-gray-600 mb-4">
-          Cole os dados de endereço, uma coluna de cada vez. Use o <code>external_url</code> como chave de referência. O sistema tentará geocodificar as coordenadas.
-        </p>
-        
-        <ColumnarCsvInput
-          onProcess={handleProcessCsv}
-          isLoading={isProcessing}
-          buttonText="Processar e Salvar Endereços"
-          requiredColumns={REQUIRED_COLUMNS_PHASE2}
-        />
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-800">Fase 2: Endereços e Localização</h2>
+      <p className="text-gray-600">
+        Cole os dados de endereço dos restaurantes nas colunas correspondentes. A coluna "External URL" é obrigatória para cada registro.
+      </p>
+      <ColumnarCsvInput
+        onProcess={handleProcessCsv}
+        isLoading={isLoading}
+        buttonText="Processar e Salvar Endereços"
+        requiredColumns={requiredColumns}
+        primaryKeyColumn="external_url" // Especificando external_url como coluna chave
+      />
+      <UploadHistory history={uploadHistory} />
+    </div>
   );
 };
 
