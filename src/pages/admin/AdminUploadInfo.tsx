@@ -13,6 +13,18 @@ import { cn } from "@/lib/utils";
 export default function AdminUploadInfo() {
   const [activeTab, setActiveTab] = useState("phase1");
 
+  const handleNextPhase = () => {
+    if (activeTab === "phase1") {
+      setActiveTab("phase2");
+    } else if (activeTab === "phase2") {
+      setActiveTab("phase3");
+    } else if (activeTab === "phase3") {
+      setActiveTab("phase4");
+    } else if (activeTab === "phase4") {
+      setActiveTab("history"); // Ou para onde você quiser ir após a última fase
+    }
+  };
+
   return (
     <div className="container mx-auto p-0 space-y-6">
       <Card className="shadow-soft-lg border-none rounded-2xl">
@@ -74,16 +86,16 @@ export default function AdminUploadInfo() {
         <div className="mt-4">
           <Card className="p-0 shadow-none border-none bg-transparent">
             <TabsContent value="phase1">
-              <UploadPhase1 />
+              <UploadPhase1 onNext={handleNextPhase} />
             </TabsContent>
             <TabsContent value="phase2">
-              <UploadPhase2 />
+              <UploadPhase2 onNext={handleNextPhase} />
             </TabsContent>
             <TabsContent value="phase3">
-              <UploadPhase3 />
+              <UploadPhase3 onNext={handleNextPhase} />
             </TabsContent>
             <TabsContent value="phase4">
-              <UploadPhase4 />
+              <UploadPhase4 onNext={handleNextPhase} />
             </TabsContent>
             <TabsContent value="history">
               <UploadHistory />
