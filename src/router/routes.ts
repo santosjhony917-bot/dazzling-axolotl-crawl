@@ -9,4 +9,5 @@ export const Routes = {
   GALLERY: '/restaurant-area/gallery',
   ADMIN_DASHBOARD: '/admin',
   ADMIN_LOGIN: '/admin/login',
+  FULL_MENU_PAGE: '/restaurant/:restaurantId/menu/full', // Nova rota para o cardápio completo
 };
