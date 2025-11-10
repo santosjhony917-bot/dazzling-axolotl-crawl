@@ -87,12 +87,26 @@ serve(async (req) => {
         continue;
       }
 
-      let latitude = parseFloat(record.latitude);
-      let longitude = parseFloat(record.longitude);
+      // Build the data object dynamically to only include fields present in the CSV
+      const restaurantData: { [key: string]: any } = {};
+      for (const header of headers) {
+        // Only add the field if it's not null/undefined in the record
+        if (record[header] !== null && record[header] !== undefined) {
+          restaurantData[header] = record[header];
+        }
+      }
 
-      // If lat/lon are not provided, try to geocode the address
+      // If 'plan' column exists and is empty, default to 'free'
+      if (headers.includes('plan') && !restaurantData.plan) {
+        restaurantData.plan = 'free';
+      }
+
+      let latitude = restaurantData.latitude ? parseFloat(restaurantData.latitude) : NaN;
+      let longitude = restaurantData.longitude ? parseFloat(restaurantData.longitude) : NaN;
+
+      // If lat/lon are not provided or invalid, try to geocode the address
       if (isNaN(latitude) || isNaN(longitude)) {
-        const fullAddress = [record.address, record.number, record.neighborhood, record.city, record.state, record.cep]
+        const fullAddress = [restaurantData.address, restaurantData.number, restaurantData.neighborhood, restaurantData.city, restaurantData.state, restaurantData.cep]
           .filter(Boolean)
           .join(', ');
         
@@ -100,35 +114,25 @@ serve(async (req) => {
           console.log(`Attempting to geocode: ${fullAddress}`);
           const coords = await geocodeAddress(fullAddress);
           if (coords) {
-            latitude = coords.lat;
-            longitude = coords.lon;
-            console.log(`Geocoded ${fullAddress} to lat: ${latitude}, lon: ${longitude}`);
+            restaurantData.latitude = coords.lat;
+            restaurantData.longitude = coords.lon;
+            console.log(`Geocoded ${fullAddress} to lat: ${coords.lat}, lon: ${coords.lon}`);
           } else {
+            // If geocoding fails, don't nullify existing coordinates.
+            delete restaurantData.latitude;
+            delete restaurantData.longitude;
             console.warn(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
             errors.push(`Could not geocode address for external_url: ${externalUrl}. Address: ${fullAddress}`);
           }
         } else {
-          console.warn(`Insufficient address details for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
-          errors.push(`Insufficient address details for geocoding for external_url: ${externalUrl}. Address: ${fullAddress}`);
+          // If address is insufficient, don't nullify existing coordinates.
+          delete restaurantData.latitude;
+          delete restaurantData.longitude;
         }
       }
 
-      const restaurantData = {
-        external_url: externalUrl,
-        name: record.name,
-        category: record.category,
-        image_url: record.image_url,
-        plan: record.plan || 'free', // Default to 'free' if not provided
-        // Address and location fields
-        cep: record.cep,
-        address: record.address,
-        number: record.number,
-        neighborhood: record.neighborhood,
-        city: record.city,
-        state: record.state,
-        latitude: isNaN(latitude) ? null : latitude,
-        longitude: isNaN(longitude) ? null : longitude,
-      };
+      // Ensure external_url is always present for the upsert operation
+      restaurantData.external_url = externalUrl;
 
       const { data, error } = await supabase
         .from('restaurants')
