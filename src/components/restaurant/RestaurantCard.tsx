@@ -29,7 +29,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) 
             <Utensils className="h-4 w-4 mr-1 text-highlight" /> {restaurant.category || 'Geral'}
           </p>
           <p className="text-sm text-gray-600 flex items-center mt-1">
-            <MapPin className="h-4 w-4 mr-1 text-highlight" /> {restaurant.city || 'Cidade Desconhecida'}
+            <MapPin className="h-4 w-4 mr-1 text-highlight" /> {restaurant.neighborhood || 'Bairro Desconhecido'}
           </p>
         </div>
       </div>
