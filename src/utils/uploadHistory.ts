@@ -7,6 +7,7 @@ export interface UploadRecord {
   successCount: number;
   details: string;
   error?: boolean;
+  errors?: string[]; // Adicionado para armazenar mensagens de erro detalhadas
 }
 
 const HISTORY_KEY = 'admin_upload_history';

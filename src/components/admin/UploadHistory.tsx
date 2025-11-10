@@ -84,32 +84,43 @@ const UploadHistory: React.FC = () => {
         ) : (
           <div className="space-y-3">
             {history.map((record) => (
-              <div key={record.id} className="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-soft-sm">
-                <div className="flex-1 min-w-0">
-                  <p className="text-base font-bold text-primary truncate">
-                    Fase {record.phase}: {record.successCount} itens processados
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
-                    {record.details}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                    <Clock className="h-3 w-3" /> {formatTimestamp(record.timestamp)}
-                  </p>
+              <div key={record.id} className="flex flex-col p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-soft-sm">
+                <div className="flex justify-between items-center">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base font-bold text-primary truncate">
+                      Fase {record.phase}: {record.successCount} itens processados
+                      {record.error && <span className="text-red-500 ml-2">(Com Erros)</span>}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
+                      {record.details}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                      <Clock className="h-3 w-3" /> {formatTimestamp(record.timestamp)}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2 shrink-0">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleDeleteClick(record)}
+                      className="h-8 w-8 text-red-500 hover:bg-red-50"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex space-x-2 shrink-0">
-                  {/* A edição de um upload em massa é complexa, então a removemos por enquanto. */}
-                  {/* <Button variant="ghost" size="icon" className="h-8 w-8 text-blue-500 hover:bg-blue-50">
-                    <Edit className="h-4 w-4" />
-                  </Button> */}
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    onClick={() => handleDeleteClick(record)}
-                    className="h-8 w-8 text-red-500 hover:bg-red-50"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
+                {record.errors && record.errors.length > 0 && (
+                  <div className="mt-3 p-2 bg-red-100 dark:bg-red-900 rounded-md text-red-700 dark:text-red-200 text-sm">
+                    <p className="font-semibold mb-1 flex items-center gap-1">
+                      <AlertTriangle className="h-4 w-4" /> Detalhes dos Erros:
+                    </p>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {record.errors.map((err, index) => (
+                        <li key={index}>{err}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -31,18 +31,43 @@ const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext }) => {
       if (error) {
         showError(`Erro ao processar CSV: ${error.message}`);
         console.error('Edge Function Error:', error);
+        // Salva o registro de erro no histórico
+        saveUploadRecord({
+          phase: 2,
+          successCount: 0,
+          details: `Erro ao processar CSV: ${error.message}`,
+          error: true,
+          errors: [error.message], // Adiciona a mensagem de erro detalhada
+        });
         setUploadHistory(prev => [...prev, { status: 'failed', message: `Erro ao processar CSV: ${error.message}` }]);
       } else {
-        showSuccess(`Fase 2 concluída! ${data.successCount} registros processados. ${data.errors.length > 0 ? `${data.errors.length} erros.` : ''}`);
+        const details = `Fase 2 concluída! ${data.successCount} registros processados. ${data.errors.length > 0 ? `${data.errors.length} erros.` : ''}`;
+        showSuccess(details);
         if (data.errors.length > 0) {
           console.error('Erros no processamento da Edge Function:', data.errors);
         }
-        setUploadHistory(prev => [...prev, { status: 'success', message: `Fase 2 concluída! ${data.successCount} registros processados.` }]);
+        // Salva o registro de sucesso (ou sucesso parcial com erros) no histórico
+        saveUploadRecord({
+          phase: 2,
+          successCount: data.successCount,
+          details: details,
+          error: data.errors.length > 0,
+          errors: data.errors.length > 0 ? data.errors.map((err: any) => JSON.stringify(err)) : undefined, // Converte erros para string
+        });
+        setUploadHistory(prev => [...prev, { status: 'success', message: details }]);
         onNext();
       }
-    } catch (error) {
+    } catch (error: any) {
       showError(`Erro inesperado: ${error.message}`);
       console.error('Unexpected error:', error);
+      // Salva o registro de erro inesperado no histórico
+      saveUploadRecord({
+        phase: 2,
+        successCount: 0,
+        details: `Erro inesperado: ${error.message}`,
+        error: true,
+        errors: [error.message], // Adiciona a mensagem de erro detalhada
+      });
       setUploadHistory(prev => [...prev, { status: 'failed', message: `Erro inesperado: ${error.message}` }]);
     } finally {
       setIsLoading(false);
@@ -62,7 +87,7 @@ const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext }) => {
         requiredColumns={requiredColumns}
         primaryKeyColumn="external_url"
       />
-      <UploadHistory history={uploadHistory} />
+      <UploadHistory />
     </div>
   );
 };
