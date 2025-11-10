@@ -134,7 +134,7 @@ serve(async (req) => {
         .from('restaurants')
         .select('id')
         .eq('external_url', externalUrl)
-        .maybeSingle(); // Use maybeSingle to get null if no rows found, instead of error
+        .maybeSingle();
 
       if (selectError && selectError.code !== 'PGRST116') { // PGRST116 means "no rows found"
         console.error(`Erro ao verificar restaurante existente com external_url ${externalUrl}:`, selectError);
@@ -145,11 +145,36 @@ serve(async (req) => {
       let operationData = { ...restaurantData };
 
       if (!existingRestaurant) {
-        // If restaurant does not exist, we are inserting.
+        // If restaurant does not exist, it's an INSERT.
         // For an insert, 'name', 'category', 'image_url' are required (from Phase 1).
+        // If these are missing, we cannot create the restaurant.
         if (!operationData.name || !operationData.category || !operationData.image_url) {
           errors.push(`Linha ${index + 2} (${externalUrl}): Não foi possível criar novo restaurante. Campos obrigatórios (name, category, image_url) ausentes para criação inicial.`);
-          continue;
+          continue; // Skip upsert for this record
+        }
+      } else {
+        // If restaurant exists, it's an UPDATE.
+        // We only want to update the fields provided in the CSV.
+        // Supabase upsert with `onConflict` will handle this by only updating provided columns.
+        // If a column is not in `operationData` (because it wasn't in the CSV), it won't be updated.
+        // If a column is in `operationData` but its value is `null` or `""`, it will attempt to set it.
+        // The current error is `null value`, so we need to ensure `name` is not null if it's being updated.
+        // However, for Phase 2, we expect address data, not necessarily name/category/image_url.
+        // The `onConflict` clause should prevent `name` from being set to `null` if it's not explicitly provided.
+        // Let's ensure `name` is not explicitly set to `null` if it's not in the CSV.
+        // This is already handled by `restaurantData` construction, where `undefined` fields are not added.
+        // The issue might be if `name` is present in CSV but empty.
+        if (operationData.name === null || operationData.name === '') {
+          // If name is explicitly provided as null or empty in CSV for an existing restaurant,
+          // we should probably not update it to null/empty if it's a required field.
+          // For now, let's remove it from operationData if it's null/empty to preserve existing value.
+          delete operationData.name;
+        }
+        if (operationData.category === null || operationData.category === '') {
+          delete operationData.category;
+        }
+        if (operationData.image_url === null || operationData.image_url === '') {
+          delete operationData.image_url;
         }
       }
 
