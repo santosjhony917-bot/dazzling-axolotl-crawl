@@ -15,6 +15,7 @@ interface SearchItem {
   // Campos adicionais para restaurante
   category?: string | null;
   city?: string | null;
+  neighborhood?: string | null; // Adicionado para exibir o nome do bairro
   restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
 }
 
@@ -56,9 +57,9 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
             </p>
           )}
           
-          {!isDish && item.city && (
+          {!isDish && item.neighborhood && (
             <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-              <MapPin className="w-3 h-3 text-highlight" /> {item.city}
+              <MapPin className="w-3 h-3 text-highlight" /> {item.neighborhood}
             </p>
           )}
         </div>
