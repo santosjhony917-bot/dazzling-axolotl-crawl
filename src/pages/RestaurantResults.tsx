@@ -35,6 +35,8 @@ const RestaurantResults: React.FC = () => {
     userLon,
     enabled: userLat !== null && userLon !== null,
     searchQuery: searchQuery,
+    limit: 10, // Limitar a 10 para a página de resultados
+    offset: 0,
   });
 
   useEffect(() => {

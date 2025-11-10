@@ -43,6 +43,8 @@ const Home: React.FC = () => {
     userLon,
     enabled: userLat !== null && userLon !== null,
     searchQuery: searchQuery, // Passa a query de busca
+    limit: 5, // Limitar a 5 para a seção de prévia na Home
+    offset: 0,
   });
 
   // Novo hook para pratos populares

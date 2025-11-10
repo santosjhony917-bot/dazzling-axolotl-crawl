@@ -26,8 +26,8 @@ interface UseNearbyRestaurantsOptions {
   searchQuery?: string;
   enabled?: boolean;
   includedCategories?: string[];
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 export const useNearbyRestaurants = ({
@@ -37,8 +37,8 @@ export const useNearbyRestaurants = ({
   searchQuery,
   enabled = true,
   includedCategories = [],
-  limit,
-  offset,
+  limit = 50,
+  offset = 0,
 }: UseNearbyRestaurantsOptions) => {
   const {
     data,
