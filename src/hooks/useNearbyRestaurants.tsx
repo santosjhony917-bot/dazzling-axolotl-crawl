@@ -26,8 +26,8 @@ interface UseNearbyRestaurantsOptions {
   searchQuery?: string;
   enabled?: boolean;
   includedCategories?: string[];
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
 }
 
 export const useNearbyRestaurants = ({
@@ -37,8 +37,8 @@ export const useNearbyRestaurants = ({
   searchQuery,
   enabled = true,
   includedCategories = [],
-  limit = 50,
-  offset = 0,
+  limit,
+  offset,
 }: UseNearbyRestaurantsOptions) => {
   const {
     data,
@@ -73,5 +73,8 @@ export const useNearbyRestaurants = ({
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  return { data, isLoading, error, refetch };
+  // Determine if there might be more items based on the fetched data length
+  const hasMore = (data?.length || 0) === limit;
+
+  return { data, isLoading, error, refetch, hasMore };
 };

@@ -18,16 +18,16 @@ export interface SearchItemResult {
 interface UseSearchItemsParams {
   searchQuery: string;
   enabled: boolean;
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
   excludedCategoryIds?: string[];
 }
 
 export function useSearchItems({
   searchQuery,
   enabled,
-  limit = 50,
-  offset = 0,
+  limit,
+  offset,
   excludedCategoryIds,
 }: UseSearchItemsParams) {
   const fetchSearchItems = useCallback(async () => {
@@ -55,10 +55,14 @@ export function useSearchItems({
     staleTime: 60000,
   });
 
+  // Determine if there might be more items based on the fetched data length
+  const hasMore = (data?.length || 0) === limit;
+
   return {
     items: data || [],
     loading: isLoading,
     error: error ? error.message : null,
     refetch,
+    hasMore,
   };
 }
