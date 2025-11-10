@@ -4,11 +4,17 @@ import { saveUploadRecord } from '@/utils/uploadHistory';
 import { showSuccess, showError } from '@/utils/toast';
 import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 import { bulkCreateRestaurants } from '@/integrations/supabase/edgeFunctions';
+import { supabase } from '@/integrations/supabase/client';
+import UploadHistory from '@/components/admin/UploadHistory';
 
 // Colunas obrigatórias para a Fase 2: Endereços e Localização
 const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
 
-const UploadPhase2: React.FC = () => {
+interface UploadPhase2Props {
+  onNext: () => void;
+}
+
+const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadHistory, setUploadHistory] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +60,7 @@ const UploadPhase2: React.FC = () => {
         isLoading={isLoading}
         buttonText="Processar e Salvar Endereços"
         requiredColumns={requiredColumns}
-        primaryKeyColumn="external_url" // Especificando external_url como coluna chave
+        primaryKeyColumn="external_url"
       />
       <UploadHistory history={uploadHistory} />
     </div>
