@@ -64,6 +64,10 @@ export default function SearchUnifiedPage() {
   const [page, setPage] = useState(1); // Estado para a página atual
   const pageSize = 10; // Número de itens por página
 
+  // New states for accumulated results
+  const [accumulatedDishResults, setAccumulatedDishResults] = useState<SearchItemResult[]>([]);
+  const [accumulatedRestaurantResults, setAccumulatedRestaurantResults] = useState<RestaurantWithDistance[]>([]);
+
   // Efeito para ler os parâmetros da URL e inicializar os estados
   useEffect(() => {
     const urlSearchQuery = searchParams.get('searchQuery') || '';
@@ -82,6 +86,8 @@ export default function SearchUnifiedPage() {
     setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
     setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
     setPage(1); // Resetar a página ao carregar da URL
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
   }, [searchParams]);
 
   const {
@@ -89,11 +95,12 @@ export default function SearchUnifiedPage() {
     loading: dishesLoading,
     error: dishesError,
     refetch: refetchDishes,
+    hasMore: dishesHasMore, // Get hasMore from hook
   } = useSearchItems({
     searchQuery,
     enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
-    limit: pageSize * page, // Limite total de itens carregados
-    offset: 0, // Sempre começa do offset 0 para acumular
+    limit: pageSize, // Fetch only one page at a time
+    offset: (page - 1) * pageSize, // Calculate offset based on current page
     excludedCategoryIds: excludedDishCategoryIds,
   });
 
@@ -102,30 +109,57 @@ export default function SearchUnifiedPage() {
     isLoading: restaurantsLoading,
     error: restaurantsError,
     refetch: refetchRestaurants,
+    hasMore: restaurantsHasMore, // Get hasMore from hook
   } = useNearbyRestaurants({
     userLat,
     userLon,
     enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
     searchQuery,
     includedCategories: includedRestaurantCategories,
-    limit: pageSize * page, // Limite total de itens carregados
-    offset: 0, // Sempre começa do offset 0 para acumular
+    limit: pageSize, // Fetch only one page at a time
+    offset: (page - 1) * pageSize, // Calculate offset based on current page
   });
 
   const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
   const [resultsLoading, setResultsLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true); // Estado para controlar se há mais itens
+  const [hasMore, setHasMore] = useState(true); // State to control if there are more items
 
   useEffect(() => {
     setResultsLoading(isLocationLoading || dishesLoading || restaurantsLoading || categoriesLoading);
   }, [isLocationLoading, dishesLoading, restaurantsLoading, categoriesLoading]);
 
+  // Effect to accumulate and process results
+  useEffect(() => {
+    if (activeSearchType === 'dish' && !dishesLoading && dishSearchResults) {
+      setAccumulatedDishResults(prev => {
+        // If it's the first page, replace, otherwise append
+        return page === 1 ? dishSearchResults : [...prev, ...dishSearchResults];
+      });
+      setHasMore(dishesHasMore);
+    } else if (activeSearchType === 'restaurant' && !restaurantsLoading && restaurantSearchResults) {
+      setAccumulatedRestaurantResults(prev => {
+        // If it's the first page, replace, otherwise append
+        return page === 1 ? restaurantSearchResults : [...prev, ...restaurantSearchResults];
+      });
+      setHasMore(restaurantsHasMore);
+    }
+  }, [
+    activeSearchType,
+    dishSearchResults,
+    dishesLoading,
+    restaurantSearchResults,
+    restaurantsLoading,
+    page,
+    dishesHasMore,
+    restaurantsHasMore,
+  ]);
+
+  // Effect to apply filters to accumulated results and set displayedResults
   useEffect(() => {
     let processedResults: SearchItem[] = [];
-    let currentTotalResults = 0;
-
+    
     if (activeSearchType === 'dish') {
-      processedResults = dishSearchResults
+      processedResults = accumulatedDishResults
         .filter(item => {
           const price = item.item_price;
           const matchesMinPrice = minPriceFilter === null || price >= minPriceFilter;
@@ -146,9 +180,8 @@ export default function SearchUnifiedPage() {
           itemCategoryName: item.item_category_name,
           itemCategoryId: item.item_category_id,
         }));
-      currentTotalResults = dishSearchResults.length;
     } else { // activeSearchType === 'restaurant'
-      processedResults = (restaurantSearchResults || [])
+      processedResults = (accumulatedRestaurantResults || [])
         .filter(restaurant => {
           const distance = restaurant.distance_km;
           return maxDistanceFilter === null || distance <= maxDistanceFilter;
@@ -166,20 +199,17 @@ export default function SearchUnifiedPage() {
           distance_km: restaurant.distance_km,
           neighborhood: restaurant.neighborhood,
         }));
-      currentTotalResults = (restaurantSearchResults || []).length;
     }
     setDisplayedResults(processedResults);
-    setHasMore(currentTotalResults === pageSize * page); // Verifica se há mais itens para carregar
   }, [
     activeSearchType,
-    dishSearchResults,
-    restaurantSearchResults,
+    accumulatedDishResults,
+    accumulatedRestaurantResults,
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
-    excludedDishCategoryIds,
-    includedRestaurantCategories,
-    page, // Adicionado page às dependências
+    excludedDishCategoryIds, // This filter is applied in the hook now
+    includedRestaurantCategories, // This filter is applied in the hook now
   ]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -189,8 +219,10 @@ export default function SearchUnifiedPage() {
       return;
     }
     setPage(1); // Resetar a página para 1 ao fazer uma nova busca
-    refetchDishes();
-    refetchRestaurants();
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchDishes(); // This will trigger a fetch for page 1
+    refetchRestaurants(); // This will trigger a fetch for page 1
   };
   
   const handleItemClick = (itemId: string, type: SearchType) => {
@@ -215,6 +247,9 @@ export default function SearchUnifiedPage() {
     showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
     setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchDishes(); // Refetch with new price filter
   };
 
   const handleSearchNearby = () => {
@@ -230,18 +265,27 @@ export default function SearchUnifiedPage() {
     showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
     setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchRestaurants(); // Refetch with new distance filter
   };
 
   const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
     setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchDishes(); // Refetch with new category filter
   };
 
   const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => {
     setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
     setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchRestaurants(); // Refetch with new category filter
   };
 
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
@@ -254,6 +298,8 @@ export default function SearchUnifiedPage() {
     setExcludedDishCategoryIds([]);
     setIncludedRestaurantCategories([]);
     setPage(1);
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
   };
   
   const handleBack = () => {
@@ -263,13 +309,13 @@ export default function SearchUnifiedPage() {
   const allRestaurantCategories = useMemo(() => {
     const categories = new Set<string>();
     // Usar todos os resultados carregados para popular as categorias
-    restaurantSearchResults?.forEach(r => {
+    accumulatedRestaurantResults?.forEach(r => { // Use accumulated results
       if (r.category) {
         categories.add(r.category);
       }
     });
     return Array.from(categories).map(cat => ({ id: cat, name: cat }));
-  }, [restaurantSearchResults]);
+  }, [accumulatedRestaurantResults]); // Depend on accumulated results
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
