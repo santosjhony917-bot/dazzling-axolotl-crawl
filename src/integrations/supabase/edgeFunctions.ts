@@ -47,6 +47,23 @@ export const bulkCreateRestaurants = async (csvData: string): Promise<{ successC
   return data;
 };
 
+export const bulkUpdateRestaurantAddress = async (csvData: string): Promise<{ successCount: number; message: string; errors?: string[] }> => {
+  const { data, error } = await supabase.functions.invoke('bulk-update-restaurant-address', {
+    body: { csvData },
+  });
+
+  if (error) {
+    console.error('Error invoking bulk-update-restaurant-address edge function:', error);
+    throw new Error(error.message || 'Falha ao processar a atualização de endereços em massa.');
+  }
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+};
+
 interface RegisterRestaurantPayload {
   name: string;
   email: string;
