@@ -52,7 +52,6 @@ import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
 import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
 import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
-import FullMenuPage from '@/pages/FullMenuPage'; // Importar FullMenuPage
 
 function App() {
   return (
@@ -67,7 +66,6 @@ function App() {
         <Route path="/legal" element={<Legal />} />
         <Route path="/help-center" element={<HelpCenter />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
-        <Route path="/restaurant/:restaurantId/menu/full" element={<FullMenuPage />} /> {/* Rota para o cardápio completo */}
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

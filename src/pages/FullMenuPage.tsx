@@ -6,7 +6,7 @@ import { usePublicRestaurant } from '@/hooks/usePublicRestaurant';
 import { createPageUrl } from '@/utils/url';
 import Header from '@/components/Header';
 import { Card, CardContent } from '@/components/ui/card';
-import FullMenuDisplay from '@/components/FullMenuDisplay'; // Usando FullMenuDisplay
+import RestaurantMenu from '@/components/public/RestaurantMenu'; // Reutiliza o componente de menu
 
 export default function FullMenuPage() {
   const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -61,8 +61,9 @@ export default function FullMenuPage() {
         </Card>
         
         {hasMenu ? (
-          <FullMenuDisplay 
+          <RestaurantMenu 
             menuCategories={restaurant.menu_categories} 
+            isFullMenuPage={true} // Nova prop para indicar que é a página completa
           />
         ) : (
           <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">

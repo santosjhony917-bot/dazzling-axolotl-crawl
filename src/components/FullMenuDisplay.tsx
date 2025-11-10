@@ -4,4 +4,4 @@ import { Card } from '@/components/ui/card';
 import { Utensils, DollarSign } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 
-export default FullMenuDisplay;
+// ... (restante do arquivo)
