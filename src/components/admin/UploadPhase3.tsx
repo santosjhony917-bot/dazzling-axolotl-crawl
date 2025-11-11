@@ -6,18 +6,21 @@ import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 import Papa from 'papaparse';
 import { getRestaurantIdByExternalUrl, findOrCreateMenuCategory, insertMenuItem } from '@/integrations/supabase/adminMenu';
 import { MenuItem } from '@/types/supabase';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 // Colunas obrigatórias para a Fase 3: Cardápios e Itens
 const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
 
 const UploadPhase3: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [detailedErrors, setDetailedErrors] = useState<string[]>([]);
 
   const handleProcessCsv = async (csvData: string) => {
     setIsProcessing(true);
     let successCount = 0;
     let errorCount = 0;
     const errors: string[] = [];
+    setDetailedErrors([]);
 
     try {
       const { data, errors: parseErrors } = Papa.parse(csvData, {
@@ -29,6 +32,7 @@ const UploadPhase3: React.FC = () => {
         parseErrors.forEach(err => errors.push(`Erro de parseamento: ${err.message}`));
         showError('Erros ao parsear o CSV. Verifique o console para detalhes.');
         console.error('CSV Parse Errors:', parseErrors);
+        setDetailedErrors(errors);
         setIsProcessing(false);
         return;
       }
@@ -51,7 +55,7 @@ const UploadPhase3: React.FC = () => {
 
         const categoryId = await findOrCreateMenuCategory(restaurantId, category_name);
         if (!categoryId) {
-          errors.push(`Falha ao encontrar ou criar categoria '${category_name}' para o restaurante ${restaurantId}`);
+          errors.push(`Falha ao encontrar ou criar categoria '${category_name}' para o restaurante ${external_url}`);
           errorCount++;
           continue;
         }
@@ -70,7 +74,7 @@ const UploadPhase3: React.FC = () => {
         if (insertedItem) {
           successCount++;
         } else {
-          errors.push(`Falha ao inserir item '${item_name}' para a categoria ${category_name}`);
+          errors.push(`Falha ao inserir item '${item_name}' para a categoria ${category_name} do restaurante ${external_url}`);
           errorCount++;
         }
       }
@@ -79,7 +83,7 @@ const UploadPhase3: React.FC = () => {
         showSuccess(`Fase 3 concluída! ${successCount} itens de menu processados com sucesso.`);
       }
       if (errorCount > 0) {
-        showError(`Fase 3 concluída com ${errorCount} erros. Verifique o console para detalhes.`);
+        showError(`Fase 3 concluída com ${errorCount} erros. Verifique o log abaixo para detalhes.`);
         console.error('Fase 3 - Erros detalhados:', errors);
       }
       
@@ -95,6 +99,7 @@ const UploadPhase3: React.FC = () => {
       errors.push(`Erro inesperado: ${(error as Error).message}`);
       errorCount++;
     } finally {
+      setDetailedErrors(errors);
       setIsProcessing(false);
     }
   };
@@ -116,6 +121,19 @@ const UploadPhase3: React.FC = () => {
           buttonText="Processar e Salvar Cardápios"
           requiredColumns={REQUIRED_COLUMNS_PHASE3}
         />
+
+        {detailedErrors.length > 0 && (
+          <div className="mt-6 p-4 border border-red-300 bg-red-50 rounded-md">
+            <h3 className="text-lg font-semibold text-red-700 mb-2">Detalhes dos Erros:</h3>
+            <ScrollArea className="h-48 w-full rounded-md border p-4 bg-white">
+              <ul className="list-disc list-inside text-sm text-red-600">
+                {detailedErrors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </ScrollArea>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
