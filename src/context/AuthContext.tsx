@@ -7,14 +7,14 @@ import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profi
 
 interface AuthContextType {
   user: User | null;
-  isLoading: boolean;
+  isLoading: boolean; // Este isLoading agora representará o carregamento total
   signOut: () => Promise<void>;
   isAuthenticated: boolean;
   // Dados do perfil e restaurante
   profile: Profile | null;
   restaurant: Restaurant | null;
   isProfileLoading: boolean;
-  isRestaurantLoading: boolean; // Adicionado: Estado de carregamento do restaurante
+  isRestaurantLoading: boolean;
   isAdmin: boolean;
   isPremium: boolean;
   // Adicionando refetchProfile para forçar atualização após login/signup
@@ -26,7 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [initialAuthLoading, setInitialAuthLoading] = useState(true); // Novo estado para o carregamento inicial da autenticação
   const isAuthenticated = !!user;
 
   // Query para buscar Profile
@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           }
         }
       }
-      setIsLoading(false);
+      setInitialAuthLoading(false); // Define como falso após a primeira mudança de estado de autenticação
     };
     
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
@@ -82,6 +82,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       authListener.subscription.unsubscribe();
     };
   }, [refetchRestaurant]);
+
+  // O estado de carregamento geral agora considera o carregamento inicial da autenticação
+  // e o carregamento dos dados de perfil/restaurante (se o usuário estiver autenticado)
+  const isLoading = initialAuthLoading || (isAuthenticated && (isProfileLoading || isRestaurantLoading));
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -110,7 +114,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         refetchRestaurant, // Adicionado
       }}
     >
-      {children}
+      {/* Renderiza os filhos apenas quando não estiver carregando */}
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };
