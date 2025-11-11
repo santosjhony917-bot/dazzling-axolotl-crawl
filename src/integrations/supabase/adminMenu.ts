@@ -23,12 +23,24 @@ export async function processMenuItemUpload(itemData: {
 
     if (error) {
       console.error('Error invoking admin-menu-operations Edge Function:', error);
-      // Tenta extrair uma mensagem de erro mais detalhada
       let errorMessage = error.message;
-      if (error.context && error.context.errors && error.context.errors.length > 0) {
-        errorMessage = error.context.errors.map((e: any) => e.message || e.detail || JSON.stringify(e)).join('; ');
-      } else if (error.context && error.context.body && typeof error.context.body === 'object' && error.context.body.error) {
-        errorMessage = error.context.body.error;
+      // Tenta extrair uma mensagem de erro mais detalhada do corpo da resposta da Edge Function
+      if (error.context && error.context.body) {
+        console.log('Raw Edge Function error body:', error.context.body); // Loga o corpo bruto para depuração
+        try {
+          const errorBody = typeof error.context.body === 'string' ? JSON.parse(error.context.body) : error.context.body;
+          if (errorBody && errorBody.error) {
+            errorMessage = errorBody.error;
+          } else {
+            // Se o corpo do erro for um objeto mas não tiver a propriedade 'error', stringify-o.
+            // Se for uma string simples, use-a diretamente.
+            errorMessage = typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody);
+          }
+        } catch (parseError) {
+          console.warn('Não foi possível analisar o corpo do erro da Edge Function como JSON:', parseError);
+          // Se a análise falhar, use o corpo bruto como mensagem de erro
+          errorMessage = String(error.context.body);
+        }
       }
       return { success: false, error: `Falha na Edge Function: ${errorMessage}` };
     }
