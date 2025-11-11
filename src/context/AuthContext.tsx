@@ -34,6 +34,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     queryKey: ['profile', user?.id],
     queryFn: () => (user ? getProfile(user.id) : null),
     enabled: isAuthenticated,
+    onSuccess: (data) => console.log('AuthContext: Profile query success:', data),
+    onError: (error) => console.error('AuthContext: Profile query error:', error),
   });
 
   // Query para buscar Restaurant
@@ -41,6 +43,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     queryKey: ['restaurant', user?.id],
     queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
     enabled: isAuthenticated,
+    onSuccess: (data) => console.log('AuthContext: Restaurant query success:', data),
+    onError: (error) => console.error('AuthContext: Restaurant query error:', error),
   });
 
   useEffect(() => {
@@ -52,19 +56,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // Lógica de reivindicação global
         const claimCode = localStorage.getItem('claimCode');
         if (claimCode && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')) {
-          console.log('Código de reivindicação encontrado, tentando reivindicar restaurante...');
+          console.log('AuthContext: Código de reivindicação encontrado, tentando reivindicar restaurante...');
           try {
             const { error: functionError } = await supabase.functions.invoke('claim-restaurant', {
               body: { claimCode },
             });
             if (functionError) throw functionError;
             
-            console.log('Restaurante reivindicado com sucesso. Recarregando dados...');
+            console.log('AuthContext: Restaurante reivindicado com sucesso. Recarregando dados...');
             // Força a recarga dos dados do restaurante após a reivindicação
             await refetchRestaurant();
 
           } catch (e: any) {
-            console.error('Erro ao reivindicar restaurante:', e.message);
+            console.error('AuthContext: Erro ao reivindicar restaurante:', e.message);
           } finally {
             // Remove o código para evitar novas tentativas
             localStorage.removeItem('claimCode');
@@ -86,6 +90,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // O estado de carregamento geral agora considera o carregamento inicial da autenticação
   // e o carregamento dos dados de perfil/restaurante (se o usuário estiver autenticado)
   const isLoading = initialAuthLoading || (isAuthenticated && (isProfileLoading || isRestaurantLoading));
+
+  useEffect(() => {
+    console.log('AuthContext: Overall loading state:', {
+      initialAuthLoading,
+      isAuthenticated,
+      isProfileLoading,
+      isRestaurantLoading,
+      overallIsLoading: isLoading,
+      user: user ? 'present' : 'null',
+      profile: profile ? 'present' : 'null',
+      restaurant: restaurant ? 'present' : 'null'
+    });
+  }, [initialAuthLoading, isAuthenticated, isProfileLoading, isRestaurantLoading, isLoading, user, profile, restaurant]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
