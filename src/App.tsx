@@ -25,6 +25,7 @@ import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPasswor
 import ClientProfilePage from '@/pages/ClientProfilePage';
 import FavoritesPage from '@/pages/Favorites';
 import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
+import FullMenuPage from '@/pages/FullMenuPage'; // Importar o componente FullMenuPage
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
@@ -69,6 +70,7 @@ function App() {
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} /> {/* Rota para o cardápio completo */}
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
