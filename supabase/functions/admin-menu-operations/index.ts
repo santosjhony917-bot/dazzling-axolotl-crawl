@@ -57,7 +57,7 @@ serve(async (req) => {
     console.log('User is admin:', isAdminData);
 
     const { external_url, category_name, item_name, price, description, image_url } = await req.json();
-    console.log('Received payload:', { external_url, category_name, item_name, price });
+    console.log('Received payload:', { external_url, category_name, item_name, price, image_url_length: image_url?.length });
 
     const trimmedCategoryName = category_name?.trim();
     const trimmedItemName = item_name?.trim();
@@ -90,6 +90,7 @@ serve(async (req) => {
     console.log('Supabase admin client created.');
 
     // Find restaurant ID
+    console.log('Attempting to find restaurant with external_url:', external_url);
     const { data: restaurantData, error: restaurantError } = await supabaseAdmin
       .from('restaurants')
       .select('id')
@@ -108,6 +109,7 @@ serve(async (req) => {
 
     // Find or create menu category
     let categoryId: string | null = null;
+    console.log('Attempting to find category:', trimmedCategoryName, 'for restaurant ID:', restaurantId);
     const { data: existingCategory, error: findCategoryError } = await supabaseAdmin
       .from('menu_categories')
       .select('id')
@@ -171,7 +173,11 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Unhandled Edge Function error:', error);
-    return new Response(JSON.stringify({ error: `An unexpected error occurred in the Edge Function: ${(error as Error).message}` }), {
+    console.error('Type of unhandled error:', typeof error);
+    // Stringify all properties of the error object for maximum detail
+    const errorDetails = JSON.stringify(error, Object.getOwnPropertyNames(error));
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return new Response(JSON.stringify({ error: `An unexpected error occurred in the Edge Function: ${errorMessage}. Full details: ${errorDetails}` }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     });
