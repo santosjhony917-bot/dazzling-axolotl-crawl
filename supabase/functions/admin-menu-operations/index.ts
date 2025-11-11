@@ -26,7 +26,7 @@ serve(async (req) => {
     // Verify user is authenticated
     const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
     if (userError || !user) {
-      return new Response(JSON.stringify({ error: 'Unauthorized: User not found or token invalid.' }), {
+      return new Response(JSON.stringify({ error: `Unauthorized: User not found or token invalid. Details: ${userError?.message || 'Unknown error'}` }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 401,
       });
@@ -36,7 +36,7 @@ serve(async (req) => {
     const { data: isAdminData, error: adminError } = await supabaseClient.rpc('is_admin');
     if (adminError || !isAdminData) {
       console.error('Error checking admin status:', adminError);
-      return new Response(JSON.stringify({ error: 'Forbidden: User is not an admin.' }), {
+      return new Response(JSON.stringify({ error: `Forbidden: User is not an admin. Details: ${adminError?.message || 'Unknown error'}` }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 403,
       });
@@ -44,8 +44,20 @@ serve(async (req) => {
 
     const { external_url, category_name, item_name, price, description, image_url } = await req.json();
 
-    if (!external_url || !category_name || !item_name || !price) {
-      return new Response(JSON.stringify({ error: 'Missing required fields: external_url, category_name, item_name, price.' }), {
+    const trimmedCategoryName = category_name?.trim();
+    const trimmedItemName = item_name?.trim();
+
+    if (!external_url || !trimmedCategoryName || !trimmedItemName || !price) {
+      return new Response(JSON.stringify({ error: 'Missing or empty required fields: external_url, category_name, item_name, price.' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      });
+    }
+
+    // Parse price, handling comma as decimal separator
+    let parsedPrice = parseFloat(String(price).replace(',', '.'));
+    if (isNaN(parsedPrice)) {
+      return new Response(JSON.stringify({ error: `Invalid price format for item '${trimmedItemName}': '${price}'. Price must be a number.` }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
       });
@@ -67,7 +79,7 @@ serve(async (req) => {
 
     if (restaurantError || !restaurantData) {
       console.error('Error finding restaurant:', restaurantError);
-      return new Response(JSON.stringify({ error: `Restaurant not found for external_url: ${external_url}` }), {
+      return new Response(JSON.stringify({ error: `Restaurant not found for external_url: ${external_url}. Details: ${restaurantError?.message || 'Unknown error'}` }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 404,
       });
@@ -80,7 +92,7 @@ serve(async (req) => {
       .from('menu_categories')
       .select('id')
       .eq('restaurant_id', restaurantId)
-      .eq('name', category_name)
+      .eq('name', trimmedCategoryName)
       .single();
 
     if (existingCategory) {
@@ -88,13 +100,13 @@ serve(async (req) => {
     } else {
       const { data: newCategory, error: insertCategoryError } = await supabaseAdmin
         .from('menu_categories')
-        .insert({ restaurant_id: restaurantId, name: category_name })
+        .insert({ restaurant_id: restaurantId, name: trimmedCategoryName })
         .select('id')
         .single();
 
       if (insertCategoryError || !newCategory) {
         console.error('Error creating menu category:', insertCategoryError);
-        return new Response(JSON.stringify({ error: `Failed to find or create category '${category_name}' for restaurant ${external_url}` }), {
+        return new Response(JSON.stringify({ error: `Failed to find or create category '${trimmedCategoryName}' for restaurant ${external_url}. Details: ${insertCategoryError?.message || 'Unknown error'}` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           status: 500,
         });
@@ -105,8 +117,8 @@ serve(async (req) => {
     // Insert menu item
     const menuItem = {
       category_id: categoryId,
-      name: item_name,
-      price: parseFloat(price),
+      name: trimmedItemName,
+      price: parsedPrice,
       description: description || null,
       image_url: image_url || null,
       order_index: 0,
@@ -121,7 +133,7 @@ serve(async (req) => {
 
     if (insertItemError || !insertedItem) {
       console.error('Error inserting menu item:', insertItemError);
-      return new Response(JSON.stringify({ error: `Failed to insert item '${item_name}' for category ${category_name} of restaurant ${external_url}` }), {
+      return new Response(JSON.stringify({ error: `Failed to insert item '${trimmedItemName}' for category ${trimmedCategoryName} of restaurant ${external_url}. Details: ${insertItemError?.message || 'Unknown error'}` }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500,
       });

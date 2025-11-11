@@ -46,19 +46,19 @@ const UploadPhase3: React.FC = () => {
         }
 
         // Invoca a Edge Function para processar o item de menu
-        const success = await processMenuItemUpload({
+        const result = await processMenuItemUpload({
           external_url,
           category_name,
           item_name,
-          price: parseFloat(price),
+          price: parseFloat(String(price).replace(',', '.')),
           description: description || null,
           image_url: image_url || null,
         });
 
-        if (success) {
+        if (result.success) {
           successCount++;
         } else {
-          errors.push(`Falha ao processar item '${item_name}' para a categoria '${category_name}' do restaurante ${external_url}. Verifique o console para mais detalhes.`);
+          errors.push(`Falha ao processar item '${item_name}' para a categoria '${category_name}' do restaurante ${external_url}. Detalhes: ${result.error || 'Erro desconhecido da Edge Function.'}`);
           errorCount++;
         }
       }
