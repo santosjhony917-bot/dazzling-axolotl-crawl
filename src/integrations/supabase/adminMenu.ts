@@ -29,7 +29,7 @@ export async function processMenuItemUpload(itemData: {
       let errorMessage = error.message;
       // Tenta extrair uma mensagem de erro mais detalhada do corpo da resposta da Edge Function
       if (error.context && error.context.body) {
-        console.log('Raw Edge Function error body:', error.context.body); // Loga o corpo bruto para depuração
+        console.log('Raw Edge Function error body (before parsing):', error.context.body); // Added this log
         try {
           const errorBody = typeof error.context.body === 'string' ? JSON.parse(error.context.body) : error.context.body;
           if (errorBody && typeof errorBody === 'object' && errorBody.error) {
