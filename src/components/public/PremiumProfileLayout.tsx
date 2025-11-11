@@ -31,6 +31,7 @@ interface PremiumProfileLayoutProps {
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
+  console.log("PremiumProfileLayout: Renderizando com restaurante:", restaurant.name); // Adicionado para depuração
   const navigate = useNavigate();
   const { user } = useAuthData(); 
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'info'>('menu');

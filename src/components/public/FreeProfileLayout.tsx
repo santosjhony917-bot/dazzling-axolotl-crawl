@@ -24,6 +24,7 @@ const FreeProfileLayout = ({
   toggleFavorite,
   isFavoriteMutating,
 }: FreeProfileLayoutProps) => {
+  console.log("FreeProfileLayout: Renderizando com restaurante:", restaurant.name); // Adicionado para depuração
   const containerPtClass = "pt-4";
   const headerPaddingClass = "p-4";
   const h1SizeClass = "text-3xl";
