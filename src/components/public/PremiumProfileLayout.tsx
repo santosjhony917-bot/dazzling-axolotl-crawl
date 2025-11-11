@@ -33,12 +33,120 @@ interface PremiumProfileLayoutProps {
 }
 
 const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant, toggleFavorite, isFavoriteMutating, isCompact = false }) => {
-  console.log("PremiumProfileLayout: Renderizando com restaurante:", restaurant.name); // Adicionado para depuração
-  
+  console.log("PremiumProfileLayout: Renderizando com restaurante:", restaurant.name);
+
+  // Determine restaurant status
+  const { isOpen, statusText, nextOpenTime } = useMemo(() => {
+    if (!restaurant.opening_hours) {
+      return { isOpen: false, statusText: 'Horário não disponível', nextOpenTime: null };
+    }
+    return getRestaurantOpenStatus(restaurant.opening_hours);
+  }, [restaurant.opening_hours]);
+
+  const addressSummary = useMemo(() => {
+    if (!restaurant.address && !restaurant.city) return null;
+    const parts = [];
+    if (restaurant.address) parts.push(restaurant.address);
+    if (restaurant.number) parts.push(`, ${restaurant.number}`);
+    if (restaurant.neighborhood) parts.push(` - ${restaurant.neighborhood}`);
+    if (restaurant.city) parts.push(`, ${restaurant.city}`);
+    if (restaurant.state) parts.push(`/${restaurant.state}`);
+    return parts.join('');
+  }, [restaurant.address, restaurant.number, restaurant.neighborhood, restaurant.city, restaurant.state]);
+
   return (
-    <div className="relative min-h-screen bg-yellow-100 p-4">
-      <h1 className="text-2xl font-bold text-red-500">Conteúdo de Teste do PremiumProfileLayout</h1>
-      <p className="text-gray-700">Se você está vendo isso, o componente está renderizando!</p>
+    <div className="relative min-h-screen bg-background-light pb-20"> {/* Added pb-20 for bottom spacing */}
+      {/* Cover Image and Actions */}
+      <RestaurantProfileHeader
+        coverImageUrl={restaurant.cover_image_url}
+        restaurantId={restaurant.id}
+        restaurantName={restaurant.name}
+      />
+
+      <div className="relative z-10 -mt-16 px-4"> {/* Adjust margin-top to overlap cover image */}
+        {/* Main Info Card (Logo, Name, Address, Status, Follow Button) */}
+        <RestaurantMainInfoCard
+          restaurant={{
+            id: restaurant.id,
+            name: restaurant.name,
+            logoUrl: restaurant.image_url, // Assuming image_url is the logo
+            addressSummary: addressSummary || '',
+            followersCount: restaurant.followers_count,
+            isFavorite: restaurant.is_favorite,
+            isOpen: isOpen,
+            statusText: statusText,
+            plan: restaurant.plan,
+          }}
+          onFavoriteToggle={toggleFavorite}
+          isFavoriteMutating={isFavoriteMutating}
+          isCompact={isCompact}
+        />
+
+        {/* Action Bar (Share, Contact, etc.) */}
+        <RestaurantActionsBar
+          restaurantId={restaurant.id}
+          whatsappUrl={restaurant.whatsapp_url}
+          phone={restaurant.phone}
+          email={restaurant.email}
+          externalUrl={restaurant.external_url}
+          otherUrl={restaurant.other_url}
+          otherUrlLabel={restaurant.other_url_label}
+        />
+
+        {/* Order Channels */}
+        {restaurant.ifood_url || restaurant.whatsapp_url || restaurant.other_url ? (
+          <section className="mt-6">
+            <OrderChannelsSection
+              whatsappUrl={restaurant.whatsapp_url}
+              ifoodUrl={restaurant.ifood_url}
+              otherUrl={restaurant.other_url}
+              otherUrlLabel={restaurant.other_url_label}
+            />
+          </section>
+        ) : null}
+
+        {/* Menu Section */}
+        {restaurant.menu_categories && restaurant.menu_categories.length > 0 && (
+          <section className="mt-6">
+            <RestaurantMenu
+              menuCategories={restaurant.menu_categories}
+              restaurantId={restaurant.id}
+              forceShowFullMenuButton={true} // Always show full menu button on premium profile
+              isCompact={isCompact}
+            />
+          </section>
+        )}
+
+        {/* Gallery Section */}
+        {restaurant.gallery_images && restaurant.gallery_images.length > 0 && (
+          <section className="mt-6">
+            <RestaurantGallery
+              images={restaurant.gallery_images}
+              restaurantName={restaurant.name}
+            />
+          </section>
+        )}
+
+        {/* Address and Hours Section */}
+        <section className="mt-6">
+          <RestaurantAddressHoursSection
+            address={addressSummary || ''}
+            openingHours={restaurant.opening_hours}
+            isOpen={isOpen}
+            statusText={statusText}
+            nextOpenTime={nextOpenTime}
+          />
+        </section>
+
+        {/* Additional Info (Description, Payment Methods, Social Networks) */}
+        <section className="mt-6">
+          <AdditionalInfo
+            description={restaurant.description}
+            paymentMethods={restaurant.payment_methods}
+            socialNetworks={restaurant.social_networks}
+          />
+        </section>
+      </div>
     </div>
   );
 };

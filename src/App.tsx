@@ -38,6 +38,7 @@ import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/restaurant/CategoryDetails';
 import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
 import SearchRestaurants from '@/pages/SearchRestaurants';
+import FullMenuPage from '@/pages/FullMenuPage'; // Importar FullMenuPage
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -67,6 +68,7 @@ function App() {
         <Route path="/help-center" element={<HelpCenter />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantProfilePublic />} />
         <Route path="/menu-item/:itemId" element={<MenuItemDetails />} />
+        <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} /> {/* NOVA ROTA */}
         <Route path="/restaurant-results" element={<RestaurantResultsPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
