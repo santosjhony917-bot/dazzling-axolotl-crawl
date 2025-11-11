@@ -4,8 +4,7 @@ import { saveUploadRecord } from '@/utils/uploadHistory';
 import { showSuccess, showError } from '@/utils/toast';
 import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 import Papa from 'papaparse';
-import { getRestaurantIdByExternalUrl, findOrCreateMenuCategory, insertMenuItem } from '@/integrations/supabase/adminMenu';
-import { MenuItem } from '@/types/supabase';
+import { processMenuItemUpload } from '@/integrations/supabase/adminMenu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 // Colunas obrigatórias para a Fase 3: Cardápios e Itens
@@ -30,7 +29,7 @@ const UploadPhase3: React.FC = () => {
 
       if (parseErrors.length > 0) {
         parseErrors.forEach(err => errors.push(`Erro de parseamento: ${err.message}`));
-        showError('Erros ao parsear o CSV. Verifique o console para detalhes.');
+        showError('Erros ao parsear o CSV. Verifique o log abaixo para detalhes.');
         console.error('CSV Parse Errors:', parseErrors);
         setDetailedErrors(errors);
         setIsProcessing(false);
@@ -46,35 +45,20 @@ const UploadPhase3: React.FC = () => {
           continue;
         }
 
-        const restaurantId = await getRestaurantIdByExternalUrl(external_url);
-        if (!restaurantId) {
-          errors.push(`Restaurante não encontrado para external_url: ${external_url}`);
-          errorCount++;
-          continue;
-        }
-
-        const categoryId = await findOrCreateMenuCategory(restaurantId, category_name);
-        if (!categoryId) {
-          errors.push(`Falha ao encontrar ou criar categoria '${category_name}' para o restaurante ${external_url}`);
-          errorCount++;
-          continue;
-        }
-
-        const menuItem: Omit<MenuItem, 'id' | 'created_at'> = {
-          category_id: categoryId,
-          name: item_name,
+        // Invoca a Edge Function para processar o item de menu
+        const success = await processMenuItemUpload({
+          external_url,
+          category_name,
+          item_name,
           price: parseFloat(price),
           description: description || null,
           image_url: image_url || null,
-          order_index: 0, // Pode ser ajustado se houver uma coluna para isso
-          is_active: true,
-        };
+        });
 
-        const insertedItem = await insertMenuItem(menuItem);
-        if (insertedItem) {
+        if (success) {
           successCount++;
         } else {
-          errors.push(`Falha ao inserir item '${item_name}' para a categoria ${category_name} do restaurante ${external_url}`);
+          errors.push(`Falha ao processar item '${item_name}' para a categoria '${category_name}' do restaurante ${external_url}. Verifique o console para mais detalhes.`);
           errorCount++;
         }
       }
