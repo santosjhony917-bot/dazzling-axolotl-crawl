@@ -88,7 +88,14 @@ export default function SearchUnifiedPage() {
     setPage(1); // Resetar a página ao carregar da URL
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
-  }, [searchParams]);
+
+    // Explicitly refetch when search parameters change
+    if (urlSearchType === 'dish') {
+      refetchDishes();
+    } else {
+      refetchRestaurants();
+    }
+  }, [searchParams, refetchDishes, refetchRestaurants]);
 
   const {
     items: dishSearchResults,
