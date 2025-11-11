@@ -23,7 +23,14 @@ export async function processMenuItemUpload(itemData: {
 
     if (error) {
       console.error('Error invoking admin-menu-operations Edge Function:', error);
-      return { success: false, error: error.message };
+      // Tenta extrair uma mensagem de erro mais detalhada
+      let errorMessage = error.message;
+      if (error.context && error.context.errors && error.context.errors.length > 0) {
+        errorMessage = error.context.errors.map((e: any) => e.message || e.detail || JSON.stringify(e)).join('; ');
+      } else if (error.context && error.context.body && typeof error.context.body === 'object' && error.context.body.error) {
+        errorMessage = error.context.body.error;
+      }
+      return { success: false, error: `Falha na Edge Function: ${errorMessage}` };
     }
 
     // A Edge Function pode retornar um objeto com 'error' se algo falhar internamente
@@ -38,3 +45,6 @@ export async function processMenuItemUpload(itemData: {
     return { success: false, error: (error as Error).message };
   }
 }
+
+// As funções getRestaurantIdByExternalUrl, findOrCreateMenuCategory e insertMenuItem
+// foram movidas para a Edge Function e não são mais necessárias aqui.
