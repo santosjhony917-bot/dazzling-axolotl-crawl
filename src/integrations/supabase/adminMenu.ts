@@ -23,27 +23,46 @@ export async function processMenuItemUpload(itemData: {
 
     if (error) {
       console.error('Error invoking admin-menu-operations Edge Function:', error);
-      // Loga o objeto de erro completo para depuração
       console.error('Full error object from Supabase client:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
 
       let errorMessage = error.message;
-      // Tenta extrair uma mensagem de erro mais detalhada do corpo da resposta da Edge Function
+      
+      // Adiciona logs mais detalhados para depuração
+      console.log('Error context:', error.context);
+      console.log('Type of error.context.body:', typeof error.context.body);
+
       if (error.context && error.context.body) {
-        console.log('Raw Edge Function error body (before parsing):', error.context.body); // Added this log
-        try {
-          const errorBody = typeof error.context.body === 'string' ? JSON.parse(error.context.body) : error.context.body;
-          if (errorBody && typeof errorBody === 'object' && errorBody.error) {
-            errorMessage = errorBody.error;
-          } else if (typeof errorBody === 'string' && errorBody.trim() !== '') {
-            errorMessage = errorBody;
-          } else if (typeof errorBody === 'object' && Object.keys(errorBody).length === 0) {
-            errorMessage = 'Edge Function retornou um objeto de erro vazio. Verifique os logs do Supabase para detalhes.';
-          } else {
-            errorMessage = `Edge Function retornou um corpo de erro não analisável: ${JSON.stringify(errorBody)}`;
+        let rawBodyString = '';
+        // Tenta converter o corpo para string, se necessário
+        if (typeof error.context.body === 'string') {
+          rawBodyString = error.context.body;
+        } else if (error.context.body instanceof Uint8Array) {
+          rawBodyString = new TextDecoder().decode(error.context.body);
+        } else {
+          try {
+            rawBodyString = JSON.stringify(error.context.body);
+          } catch (e) {
+            rawBodyString = String(error.context.body);
           }
-        } catch (parseError) {
-          console.warn('Não foi possível analisar o corpo do erro da Edge Function como JSON:', parseError);
-          errorMessage = `O corpo do erro da Edge Function não pôde ser analisado: ${String(error.context.body)}`;
+        }
+        
+        console.log('Raw Edge Function error body (after string conversion):', rawBodyString);
+
+        if (rawBodyString.trim() !== '') {
+          try {
+            const errorBody = JSON.parse(rawBodyString);
+            if (errorBody && typeof errorBody === 'object' && errorBody.error) {
+              errorMessage = errorBody.error;
+            } else {
+              // Se o JSON foi analisado mas não tem a propriedade 'error', ou é um objeto vazio
+              errorMessage = `Edge Function retornou um corpo de erro inesperado: ${rawBodyString}`;
+            }
+          } catch (parseError) {
+            console.warn('Não foi possível analisar o corpo do erro da Edge Function como JSON:', parseError);
+            errorMessage = `O corpo do erro da Edge Function não pôde ser analisado: ${rawBodyString}`;
+          }
+        } else {
+          errorMessage = 'Edge Function retornou um corpo de erro vazio.';
         }
       } else {
         errorMessage = `A invocação da Edge Function falhou com a mensagem: ${error.message}. Nenhum corpo de erro detalhado foi fornecido.`;
