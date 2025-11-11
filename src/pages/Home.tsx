@@ -66,12 +66,10 @@ const Home: React.FC = () => {
       return;
     }
     // Redireciona para a página de busca unificada com a query e tipo de busca
-    const url = createPageUrl('search', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       searchQuery: searchQuery, 
       searchType: 'dish' 
-    });
-    console.log("[Home] Navigating to:", url); // Adicionado para depuração
-    navigate(url);
+    }));
   };
 
   const handleSearchByPrice = () => {
@@ -86,15 +84,13 @@ const Home: React.FC = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
-    setIsPriceModalOpen(false); // Fechar o modal antes de navegar
-    const url = createPageUrl('search', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       minPrice: minPrice.toString(), 
       maxPrice: maxPrice.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
       searchType: 'dish' 
-    });
-    console.log("[Home] Navigating to (price filter):", url); // Adicionado para depuração
-    navigate(url);
+    }));
+    setIsPriceModalOpen(false); // Fechar o modal após aplicar
   };
 
   const handleSearchNearby = () => {
@@ -109,14 +105,12 @@ const Home: React.FC = () => {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
-    setIsDistanceModalOpen(false); // Fechar o modal antes de navegar
-    const url = createPageUrl('search', undefined, { 
+    navigate(createPageUrl('search', undefined, { 
       maxDistance: maxDistanceKm.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
       searchType: 'restaurant' 
-    });
-    console.log("[Home] Navigating to (distance filter):", url); // Adicionado para depuração
-    navigate(url);
+    }));
+    setIsDistanceModalOpen(false); // Fechar o modal após aplicar
   };
 
   return (

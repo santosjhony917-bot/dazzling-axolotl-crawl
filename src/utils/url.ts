@@ -165,6 +165,5 @@ export function createPageUrl<K extends PathKey>(
     path += `?${searchParams.toString()}`;
   }
 
-  console.log(`[createPageUrl] Generated URL for key '${key}': ${path}`); // Adicionado para depuração
   return path;
 }
