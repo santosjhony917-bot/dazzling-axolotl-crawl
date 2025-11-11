@@ -84,13 +84,13 @@ const Home: React.FC = () => {
   const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
+    setIsPriceModalOpen(false); // Fechar o modal antes de navegar
     navigate(createPageUrl('search', undefined, { 
       minPrice: minPrice.toString(), 
       maxPrice: maxPrice.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
       searchType: 'dish' 
     }));
-    setIsPriceModalOpen(false); // Fechar o modal após aplicar
   };
 
   const handleSearchNearby = () => {
@@ -105,12 +105,12 @@ const Home: React.FC = () => {
   const handleApplyDistanceFilter = (maxDistanceKm: number) => {
     // Redireciona para a tela de busca unificada com os filtros aplicados
     showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
+    setIsDistanceModalOpen(false); // Fechar o modal antes de navegar
     navigate(createPageUrl('search', undefined, { 
       maxDistance: maxDistanceKm.toString(), 
       searchQuery: searchQuery, // Manter a query de busca atual
       searchType: 'restaurant' 
     }));
-    setIsDistanceModalOpen(false); // Fechar o modal após aplicar
   };
 
   return (
