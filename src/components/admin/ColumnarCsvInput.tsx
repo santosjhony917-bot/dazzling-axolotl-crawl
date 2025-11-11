@@ -28,6 +28,14 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
     setColumnInputs(prev => ({ ...prev, [column]: value }));
   };
 
+  // Helper function to escape CSV values
+  const escapeCsvValue = (value: string): string => {
+    if (value.includes(',') || value.includes('\n') || value.includes('"')) {
+      return `"${value.replace(/"/g, '""')}"`;
+    }
+    return value;
+  };
+
   const handleProcess = () => {
     const linesByColumn: Record<string, string[]> = {};
     let maxLines = 0;
@@ -45,20 +53,22 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
         return;
     }
 
-    const header = requiredColumns.join(',');
+    const header = requiredColumns.map(escapeCsvValue).join(',');
     const rows: string[] = [];
 
     for (let i = 0; i < maxLines; i++) {
       const rowData = requiredColumns.map(col => {
         const colLines = linesByColumn[col] || [];
-        return colLines[i] || '';
+        return escapeCsvValue(colLines[i] || '');
       });
       
-      if (rowData.some(cell => cell !== '')) {
+      if (rowData.some(cell => cell !== '""' && cell !== '')) { // Check for actual content, considering escaped empty strings
         // Client-side validation for primaryKeyColumn
         if (primaryKeyColumn) {
           const primaryKeyIndex = requiredColumns.indexOf(primaryKeyColumn);
-          if (primaryKeyIndex !== -1 && rowData[primaryKeyIndex].trim() === '') {
+          // Remove quotes for validation if present
+          const primaryKeyValue = rowData[primaryKeyIndex].replace(/^"|"$/g, '').replace(/""/g, '"');
+          if (primaryKeyIndex !== -1 && primaryKeyValue.trim() === '') {
             showError(`A coluna "${primaryKeyColumn.replace(/_/g, ' ')}" não pode estar vazia na linha ${i + 1}.`);
             return; // Stop processing and show error
           }
