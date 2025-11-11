@@ -23,24 +23,30 @@ export async function processMenuItemUpload(itemData: {
 
     if (error) {
       console.error('Error invoking admin-menu-operations Edge Function:', error);
+      // Loga o objeto de erro completo para depuração
+      console.error('Full error object from Supabase client:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+
       let errorMessage = error.message;
       // Tenta extrair uma mensagem de erro mais detalhada do corpo da resposta da Edge Function
       if (error.context && error.context.body) {
         console.log('Raw Edge Function error body:', error.context.body); // Loga o corpo bruto para depuração
         try {
           const errorBody = typeof error.context.body === 'string' ? JSON.parse(error.context.body) : error.context.body;
-          if (errorBody && errorBody.error) {
+          if (errorBody && typeof errorBody === 'object' && errorBody.error) {
             errorMessage = errorBody.error;
+          } else if (typeof errorBody === 'string' && errorBody.trim() !== '') {
+            errorMessage = errorBody;
+          } else if (typeof errorBody === 'object' && Object.keys(errorBody).length === 0) {
+            errorMessage = 'Edge Function retornou um objeto de erro vazio. Verifique os logs do Supabase para detalhes.';
           } else {
-            // Se o corpo do erro for um objeto mas não tiver a propriedade 'error', stringify-o.
-            // Se for uma string simples, use-a diretamente.
-            errorMessage = typeof errorBody === 'string' ? errorBody : JSON.stringify(errorBody);
+            errorMessage = `Edge Function retornou um corpo de erro não analisável: ${JSON.stringify(errorBody)}`;
           }
         } catch (parseError) {
           console.warn('Não foi possível analisar o corpo do erro da Edge Function como JSON:', parseError);
-          // Se a análise falhar, use o corpo bruto como mensagem de erro
-          errorMessage = String(error.context.body);
+          errorMessage = `O corpo do erro da Edge Function não pôde ser analisado: ${String(error.context.body)}`;
         }
+      } else {
+        errorMessage = `A invocação da Edge Function falhou com a mensagem: ${error.message}. Nenhum corpo de erro detalhado foi fornecido.`;
       }
       return { success: false, error: `Falha na Edge Function: ${errorMessage}` };
     }
