@@ -6,6 +6,22 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Utility to safely stringify objects, handling circular references
+function safeJsonStringify(obj: any): string {
+  const cache = new Set();
+  return JSON.stringify(obj, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (cache.has(value)) {
+        // Circular reference found, discard key
+        return;
+      }
+      // Store value in our collection
+      cache.add(value);
+    }
+    return value;
+  });
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -173,11 +189,17 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Unhandled Edge Function error:', error);
-    console.error('Type of unhandled error:', typeof error);
-    // Stringify all properties of the error object for maximum detail
-    const errorDetails = JSON.stringify(error, Object.getOwnPropertyNames(error));
+    let errorDetailsString: string;
+    try {
+      errorDetailsString = safeJsonStringify(error);
+    } catch (e) {
+      errorDetailsString = `Failed to stringify error object: ${String(e)}. Original error: ${String(error)}`;
+    }
+    console.error('Detailed error string (from safeJsonStringify):', errorDetailsString);
+
     const errorMessage = error instanceof Error ? error.message : String(error);
-    return new Response(JSON.stringify({ error: `An unexpected error occurred in the Edge Function: ${errorMessage}. Full details: ${errorDetails}` }), {
+
+    return new Response(JSON.stringify({ error: `An unexpected error occurred in the Edge Function: ${errorMessage}`, details: errorDetailsString }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     });
