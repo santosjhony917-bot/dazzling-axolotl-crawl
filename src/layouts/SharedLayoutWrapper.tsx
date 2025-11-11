@@ -32,7 +32,7 @@ const SharedLayoutWrapper: React.FC = () => {
           (showClientNav || isRestaurantOwnerRoute) ? 'pb-20' : 'pb-0'
         )}
       >
-        <Outlet key={location.pathname} />
+        <Outlet />
       </main>
       
       {/* Bottom Navigation Bar for Client Routes */}
