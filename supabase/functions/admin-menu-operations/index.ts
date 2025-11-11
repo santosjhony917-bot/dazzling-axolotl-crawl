@@ -188,18 +188,40 @@ serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Unhandled Edge Function error:', error);
-    let errorDetailsString: string;
-    try {
-      errorDetailsString = safeJsonStringify(error);
-    } catch (e) {
-      errorDetailsString = `Failed to stringify error object: ${String(e)}. Original error: ${String(error)}`;
+    console.error('Unhandled Edge Function error:', error); // Log the raw error object
+    
+    let errorDetails: any = {};
+    let errorMessage = 'An unexpected error occurred in the Edge Function.';
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+      errorDetails = {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      };
+    } else if (typeof error === 'object' && error !== null) {
+      // Try to get properties from a non-Error object
+      errorMessage = (error as any).message || (error as any).error || String(error);
+      errorDetails = error; // Use the object directly
+    } else {
+      errorMessage = String(error);
+      errorDetails = { rawError: String(error) };
     }
+
+    const errorDetailsString = safeJsonStringify(errorDetails);
+    
+    // Ensure errorMessage is not empty
+    if (!errorMessage || errorMessage.trim() === '') {
+      errorMessage = 'An unexpected error occurred in the Edge Function (no specific message provided).';
+    }
+
     console.error('Detailed error string (from safeJsonStringify):', errorDetailsString);
 
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return new Response(JSON.stringify({ error: `An unexpected error occurred in the Edge Function: ${errorMessage}`, details: errorDetailsString }), {
+    return new Response(JSON.stringify({ 
+      error: `Edge Function Error: ${errorMessage}`, 
+      details: errorDetailsString 
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     });
