@@ -23,6 +23,7 @@ interface RestaurantProfilePublicProps {
 }
 
 const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact }: RestaurantProfilePublicProps) => {
+  console.log("RestaurantProfilePublic: Componente montado/renderizado.");
   const params = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -39,6 +40,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   );
 
   if (isLoading) {
+    console.log("RestaurantProfilePublic: Retornando estado de carregamento.");
     return (
       <div className="flex items-center justify-center h-screen bg-background-light">
         <div className="text-center">
@@ -49,6 +51,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   }
 
   if (error || !restaurant) {
+    console.log("RestaurantProfilePublic: Retornando estado de erro/não encontrado.", { error, restaurant });
     console.error("Error loading restaurant:", error);
     console.error("Restaurant ID being used:", id);
     
@@ -75,6 +78,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     );
   }
 
+  console.log("RestaurantProfilePublic: Retornando layout principal do perfil.", { restaurant });
   return (
     <div className="relative min-h-screen bg-background-light">
       {/* Novo cabeçalho fixo no topo */}
