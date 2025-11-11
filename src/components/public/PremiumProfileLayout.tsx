@@ -97,10 +97,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
         {restaurant.ifood_url || restaurant.whatsapp_url || restaurant.other_url ? (
           <section className="mt-6">
             <OrderChannelsSection
-              whatsappUrl={restaurant.whatsapp_url}
-              ifoodUrl={restaurant.ifood_url}
-              otherUrl={restaurant.other_url}
-              otherUrlLabel={restaurant.other_url_label}
+              restaurant={restaurant}
             />
           </section>
         ) : null}
