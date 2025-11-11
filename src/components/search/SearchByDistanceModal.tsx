@@ -27,7 +27,8 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
   initialSearchQuery = '',
 }) => {
   const [distance, setDistance] = useState<number[]>([initialDistance]);
-  const [category, setCategory] = useState<string>(initialCategory);
+  // Mapeia initialCategory '' para 'all' para consistência com SelectItem
+  const [category, setCategory] = useState<string>(initialCategory === '' ? 'all' : initialCategory);
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
   const [categories, setCategories] = useState<string[]>([]);
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
 
   useEffect(() => {
     setDistance([initialDistance]);
-    setCategory(initialCategory);
+    // Mapeia initialCategory '' para 'all' para consistência com SelectItem
+    setCategory(initialCategory === '' ? 'all' : initialCategory);
     setSearchQuery(initialSearchQuery);
   }, [initialDistance, initialCategory, initialSearchQuery]);
 
@@ -65,7 +67,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
   const handleApply = () => {
     const params = new URLSearchParams();
     params.append('distance', distance[0].toString());
-    if (category) {
+    if (category && category !== 'all') { // Apenas adiciona a categoria se não for 'all'
       params.append('category', category);
     }
     if (searchQuery) {
@@ -105,7 +107,7 @@ const SearchByDistanceModal: React.FC<SearchByDistanceModalProps> = ({
                 <SelectValue placeholder="Selecione uma categoria" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todas as Categorias</SelectItem>
+                <SelectItem value="all">Todas as Categorias</SelectItem> {/* Valor alterado para "all" */}
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
                     {cat}
