@@ -1,0 +1,303 @@
+## Referência de Design para a Dyad
+
+**Instrução:** Utilizar as telas abaixo como referência de design (paleta de cores, tipografia, espaçamento e estilo de botões) para todo o novo aplicativo.
+
+### 1. Welcome.tsx
+
+```tsx
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { MapPin } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+
+const Welcome = () => {
+  const navigate = useNavigate();
+  const { user, userType, loading } = useAuth();
+
+  useEffect(() => {
+    // Se o usuário está logado, redirecionar para a tela apropriada
+    if (!loading && user) {
+      if (userType === 'restaurant') {
+        navigate("/restaurant-dashboard");
+      } else if (userType === 'customer') {
+        navigate("/home");
+      }
+    }
+  }, [user, userType, loading, navigate]);
+
+  return (
+    <div className="relative flex min-h-screen w-full flex-col bg-white">
+      {/* Main Content */}
+      <div className="flex flex-col items-center justify-center flex-grow p-4">
+        {/* Logo Section */}
+        <div className="flex flex-col items-center mb-8">
+          <MapPin className="text-[#E47948] w-16 h-16 mb-2" strokeWidth={2} fill="#E47948" />
+          <h1 className="text-[#022D68] text-3xl font-bold tracking-tight">FilterFood</h1>
+        </div>
+
+        {/* Welcome Text */}
+        <div className="w-full max-w-md text-center">
+          <h1 className="text-[#111418] tracking-tight text-[32px] font-bold leading-tight pb-3 pt-6">
+            Bem-vindo!
+          </h1>
+          <p className="text-[#111418] text-base font-normal leading-normal pb-3 pt-1">
+            Escolha como deseja usar o FilterFood
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-col gap-4 w-full max-w-md px-4 py-3 mt-8">
+          <Button
+            onClick={() => navigate("/login")}
+            className="h-12 px-5 bg-[#E47948] hover:bg-[#E47948]/90 text-white text-base font-bold rounded-full"
+          >
+            Quero encontrar restaurantes e pratos
+          </Button>
+          
+          <Button
+            onClick={() => navigate("/restaurant-access")}
+            variant="outline"
+            className="h-12 px-5 bg-transparent border-2 border-[#E47948] text-[#E47948] hover:bg-[#E47948]/10 text-base font-bold rounded-full"
+          >
+            Sou restaurante
+          </Button>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="w-full py-6">
+        <p className="text-[#5f728c] text-sm font-normal leading-normal text-center">
+          © 2025 FilterFood - Todos os direitos reservados
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default Welcome;
+```
+
+### 2. Onboarding.tsx
+
+```tsx
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, DollarSign, MapPin, Utensils } from "lucide-react";
+import grilledFood from "@/assets/restaurant-interior.jpg";
+import dishImage from "@/assets/signature-dish.jpg";
+
+const Onboarding = () => {
+  const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Encontre",
+      description: "Descubra os melhores sabores da cidade. Encontre restaurantes, pratos e experiências gastronômicas em João Pessoa.",
+      image: grilledFood,
+      darkOverlay: true,
+    },
+    {
+      title: "Compare",
+      description: "Encontre a opção perfeita para você. Compare preços, veja onde os restaurantes estão e filtre pelo seu tipo de comida favorito.",
+      image: dishImage,
+      overlayCard: true,
+      icons: [
+        { Icon: DollarSign, label: "Preço" },
+        { Icon: MapPin, label: "Localização" },
+        { Icon: Utensils, label: "Tipo de comida" },
+      ],
+    },
+    {
+      title: "Economize",
+      description: "Encontre as melhores ofertas e restaurantes que cabem no seu bolso. Filtre por promoções e descubra pratos deliciosos com o melhor custo-benefício da cidade.",
+      lightBackground: true,
+    },
+  ];
+
+  const handleNext = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    } else {
+      navigate("/welcome");
+    }
+  };
+
+  const handleSkip = () => {
+    navigate("/welcome");
+  };
+
+  const currentSlideData = slides[currentSlide];
+
+  return (
+    <div className="min-h-screen flex flex-col font-display">
+      {currentSlideData.overlayCard ? (
+        <>
+          {/* Image Background */}
+          <div className="relative flex-1">
+            <img
+              src={currentSlideData.image}
+              alt={currentSlideData.title}
+              className="absolute inset-0 object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f5f7f8] via-[#f5f7f8]/80 to-transparent" />
+          </div>
+
+          {/* Content Card Overlay */}
+          <div className="relative z-10 flex flex-col justify-end p-8 text-center bg-[#f5f7f8] rounded-t-3xl -mt-16">
+            <div className="flex flex-col items-center flex-grow pt-8 pb-12">
+              <h1 className="text-4xl font-bold text-[#032d63]">
+                {currentSlideData.title}
+              </h1>
+              <p className="mt-4 text-base text-gray-600 max-w-sm mx-auto">
+                {currentSlideData.description}
+              </p>
+
+              {/* Icons */}
+              <div className="flex justify-center space-x-6 mt-10">
+                {currentSlideData.icons?.map((item, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <div className="flex items-center justify-center w-16 h-16 bg-[#E47948]/20 rounded-full">
+                      <item.Icon className="w-8 h-8 text-[#E47948]" strokeWidth={2} />
+                    </div>
+                    <span className="mt-2 text-sm font-medium text-[#032d63]">
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex items-center justify-between">
+              <button
+                onClick={handleSkip}
+                className="text-sm font-medium text-gray-500"
+              >
+                Pular
+              </button>
+              <div className="flex items-center space-x-2">
+                {slides.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 rounded-full ${
+                      index === currentSlide
+                        ? 'w-4 bg-[#032d63]'
+                        : 'w-2 bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={handleNext}
+                className="px-6 py-3 text-sm font-bold text-white bg-[#032d63] rounded-full shadow-lg hover:bg-[#032d63]/90"
+              >
+                Próximo
+              </button>
+            </div>
+          </div>
+        </>
+      ) : currentSlideData.lightBackground ? (
+        <>
+          {/* Light Background Layout */}
+          <div className="flex-1 bg-gradient-to-b from-gray-100 to-gray-200" />
+          
+          <div className="relative z-10 flex flex-col justify-end p-8 text-center bg-[#f5f7f8] rounded-t-3xl -mt-16">
+            <div className="flex flex-col items-center flex-grow pt-8 pb-12">
+              <h1 className="text-4xl font-bold text-[#032d63]">
+                {currentSlideData.title}
+              </h1>
+              <p className="mt-4 text-base text-gray-600 max-w-sm mx-auto">
+                {currentSlideData.description}
+              </p>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex items-center justify-between">
+              <button
+                onClick={handleSkip}
+                className="text-sm font-medium text-gray-500"
+              >
+                Pular
+              </button>
+              <div className="flex items-center space-x-2">
+                {slides.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 rounded-full ${
+                      index === currentSlide
+                        ? 'w-4 bg-[#032d63]'
+                        : 'w-2 bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={handleNext}
+                className="px-6 py-3 text-sm font-bold text-white bg-[#032d63] rounded-full shadow-lg hover:bg-[#032d63]/90"
+              >
+                {currentSlide < slides.length - 1 ? "Próximo" : "Vamos Lá!"}
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Dark Image Background Layout */}
+          <div className="relative flex-1">
+            <img
+              src={currentSlideData.image}
+              alt={currentSlideData.title}
+              className="absolute inset-0 object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+
+          <div className="relative z-10 flex flex-col p-8">
+            <div className="flex-grow flex flex-col justify-end items-center text-center pb-8">
+              <h1 className="text-white tracking-tight text-4xl font-bold leading-tight">
+                {currentSlideData.title}
+              </h1>
+              <p className="text-white/90 text-lg font-normal leading-normal max-w-md mt-4">
+                {currentSlideData.description}
+              </p>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex items-center justify-between pt-8">
+              <button
+                onClick={handleSkip}
+                className="text-sm font-medium text-white/70"
+              >
+                Pular
+              </button>
+              <div className="flex items-center space-x-2">
+                {slides.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-2 rounded-full ${
+                      index === currentSlide
+                        ? 'w-4 bg-[#E47948]'
+                        : 'w-2 bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={handleNext}
+                className="px-6 py-3 text-sm font-bold text-[#032d63] bg-[#E47948] rounded-full shadow-lg hover:bg-[#E47948]/90"
+              >
+                Próximo
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Onboarding;
+```
