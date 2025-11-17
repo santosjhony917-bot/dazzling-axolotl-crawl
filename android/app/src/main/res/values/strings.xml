@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">dazzling-axolotl-crawl</string>
+    <string name="title_activity_main">dazzling-axolotl-crawl</string>
+    <string name="package_name">com.example.dazzlingaxolotlcrawl</string>
+    <string name="custom_url_scheme">com.example.dazzlingaxolotlcrawl</string>
+</resources>
