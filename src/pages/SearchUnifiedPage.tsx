@@ -180,8 +180,8 @@ export default function SearchUnifiedPage() {
           category: null,
           city: null,
           restaurantName: item.restaurant_name,
-          itemCategoryName: item.item_category_name,
-          itemCategoryId: item.item_category_id,
+          itemCategoryName: item.category_name,
+          itemCategoryId: item.category_id,
         }));
     } else { // activeSearchType === 'restaurant'
       processedResults = (accumulatedRestaurantResults || [])

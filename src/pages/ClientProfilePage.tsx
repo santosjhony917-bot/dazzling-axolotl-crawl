@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
-import { Loader2, User, LogOut, Settings } from 'lucide-react';
+import { Loader2, User, LogOut, Settings, Trash2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { showError, showSuccess } from '@/utils/toast';
@@ -14,6 +14,16 @@ import ClientInfoSection from '@/components/client/profile/ClientInfoSection';
 import { supabase } from '@/integrations/supabase/client';
 import { Profile } from '@/types/supabase';
 import InfoCardItem from '@/components/InfoCardItem';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -27,6 +37,8 @@ export default function ClientProfilePage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editConfig, setEditConfig] = useState<{ key: keyof Profile, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string } | null>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const isLoading = authLoading || !user;
 
@@ -80,6 +92,30 @@ export default function ClientProfilePage() {
     } else {
       showSuccess("Você saiu da sua conta.");
       navigate('/login');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true);
+    try {
+      // Call Supabase function to delete user account
+      const { data, error } = await supabase.rpc('delete_user_account');
+      
+      if (error) {
+        console.error('Error deleting account:', error);
+        showError("Erro ao excluir conta: " + error.message);
+        setIsDeleting(false);
+        return;
+      }
+
+      showSuccess("Conta excluída com sucesso.");
+      // Sign out after deletion
+      await supabase.auth.signOut();
+      navigate('/login');
+    } catch (error) {
+      console.error('Unexpected error deleting account:', error);
+      showError("Erro inesperado ao excluir conta.");
+      setIsDeleting(false);
     }
   };
 
@@ -146,6 +182,13 @@ export default function ClientProfilePage() {
           icon={LogOut}
           onClick={handleLogout}
         />
+
+        <InfoCardItem 
+          label="Excluir Conta" 
+          value="Remover permanentemente sua conta" 
+          icon={Trash2}
+          onClick={() => setIsDeleteDialogOpen(true)}
+        />
       </div>
       
       {/* Dialogs */}
@@ -164,6 +207,29 @@ export default function ClientProfilePage() {
           mask={editConfig.mask}
         />
       )}
+
+      {/* Delete Account Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Tem certeza que deseja excluir sua conta?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação é permanente e não pode ser desfeita. Todos os seus dados, incluindo favoritos e informações pessoais, serão removidos permanentemente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteAccount} 
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              {isDeleting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Excluir Conta
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion, AnimatePresence } from 'framer-motion';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import PlanPreviewToggle from '@/components/upgrade/PlanPreviewToggle';
+import CountdownTimer from '@/components/upgrade/CountdownTimer';
 import { useAuthData } from '@/context/AuthContext';
 import FreeProfileLayout from '@/components/public/FreeProfileLayout';
 import { mockFreeRestaurant } from '@/data/mockRestaurants';
@@ -227,12 +228,23 @@ const UpgradePageContent: React.FC = () => {
             Assine o Premium e seja encontrado todos os dias.
           </h2>
           
+          {/* Countdown Timer */}
+          <CountdownTimer className="mb-6" />
+          
           <div className="text-center my-6">
-            <p className="text-5xl font-extrabold text-highlight">
-              R$ 37
-              <span className="text-xl font-normal text-gray-500"> / mês</span>
+            <div className="flex items-center justify-center gap-3">
+              <p className="text-5xl font-extrabold text-highlight">
+                R$ 37
+              </p>
+              <div className="text-left">
+                <p className="text-xl font-normal text-gray-500 line-through">R$ 49</p>
+                <p className="text-xs text-green-600 font-semibold">24% OFF</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mt-2 font-medium">
+              por apenas <span className="text-highlight font-bold">R$ 1,23 por dia</span>
             </p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-1">
               Sem fidelidade. Cancele quando quiser.
             </p>
           </div>

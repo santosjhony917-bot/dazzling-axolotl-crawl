@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { SearchItemResult } from '@/lib/types';
+import { SearchItemResult } from '@/types/supabase';
+
+export type { SearchItemResult };
 
 interface UseSearchItemsProps {
   searchQuery: string;

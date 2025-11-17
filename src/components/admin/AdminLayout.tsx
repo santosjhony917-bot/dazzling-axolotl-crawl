@@ -49,7 +49,7 @@ const AdminLayout: React.FC = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
-        
+
         <nav className="flex-grow space-y-2">
           {navItems.map((item) => {
             const itemUrl = createPageUrl(item.pathKey); // Gera a URL completa para comparação
@@ -69,15 +69,15 @@ const AdminLayout: React.FC = () => {
             );
           })}
         </nav>
-        
+
         <Separator className="my-4" />
-        
+
         <div className="space-y-2">
           <div className="text-sm text-gray-600 truncate p-2">
             Logado como: <span className="font-medium">{user.email}</span>
           </div>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg"
             onClick={signOut}
           >

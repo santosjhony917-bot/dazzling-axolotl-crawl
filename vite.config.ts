@@ -3,7 +3,14 @@ import dyadComponentTagger from "@dyad-sh/react-vite-component-tagger";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-export default defineConfig(() => ({
+const terserOptions = {
+  compress: {
+    drop_console: true,
+    drop_debugger: true,
+  },
+};
+
+export default defineConfig({
   server: {
     host: "::",
     port: 8080,
@@ -15,6 +22,7 @@ export default defineConfig(() => ({
     },
   },
   build: {
+    minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -27,11 +35,6 @@ export default defineConfig(() => ({
       }
     },
     // Otimizações para reduzir o tamanho do bundle
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs em produção
-        drop_debugger: true, // Remove debuggers em produção
-      }
-    }
+    terserOptions: terserOptions as any
   }
-}));
+});

@@ -93,6 +93,21 @@ export interface RestaurantWithDistance extends Restaurant {
     neighborhood?: string | null;
 }
 
+export interface SearchItemResult {
+    item_id: string;
+    item_name: string;
+    item_description?: string | null;
+    item_price: number;
+    item_image_url?: string | null;
+    category_id: string;
+    category_name: string;
+    restaurant_id: string;
+    restaurant_name: string;
+    restaurant_image_url?: string | null;
+    restaurant_category?: string | null;
+    distance_km?: number | null;
+}
+
 export interface FavoriteRestaurant {
     id: string;
     user_id: string;

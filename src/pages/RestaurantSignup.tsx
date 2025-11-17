@@ -430,7 +430,7 @@ export default function RestaurantSignup() {
               className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
               disabled={loading}
             >
-              <AppleIcon className="h-5 w-5" />
+              <AppleIcon className="h-7 w-7" />
               <span className="truncate">Continuar com Apple</span>
             </Button>
 
