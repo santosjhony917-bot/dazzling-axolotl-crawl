@@ -55,7 +55,7 @@ const UploadPhase1: React.FC<UploadPhase1Props> = ({ onNext }) => {
         <p className="text-gray-600 mb-4">
           Cole os dados mínimos para criar o registro do restaurante, uma coluna de cada vez. O <code>external_url</code> será usado como chave de referência nas próximas fases.
         </p>
-        
+
         <ColumnarCsvInput
           onProcess={handleProcessCsv}
           isLoading={isProcessing}

@@ -5,16 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Crown } from "lucide-react"; // Added Crown
+import { Card } from "@/components/ui/card"; // Added Card
 
 import { usePublicRestaurant } from "@/hooks/usePublicRestaurant";
 import { useRestaurantFollow } from "@/hooks/useRestaurantFollow";
 import PremiumProfileLayout from "@/components/public/PremiumProfileLayout";
 import FreeProfileLayout from "@/components/public/FreeProfileLayout";
-import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // Importar o novo cabeçalho
-import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
+import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; 
+import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; 
 import { PublicRestaurantData } from "@/types/restaurant";
 import { cn } from "@/lib/utils";
+import { useAuthData } from "@/context/AuthContext"; // Added useAuthData
+import { createPageUrl } from "@/utils/url"; // Added createPageUrl
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string;
@@ -26,6 +29,7 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   const params = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { restaurant: loggedInRestaurant } = useAuthData(); // Get logged in restaurant
   
   const id = initialRestaurantId || params.restaurantId;
 
@@ -37,6 +41,9 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
     restaurant?.id || '', 
     restaurant?.is_favorite || false
   );
+
+  const isOwner = loggedInRestaurant?.id === restaurant?.id;
+  const showFreeWarning = isOwner && currentPlan === 'free';
 
   if (isLoading) {
     return (
@@ -80,7 +87,29 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
       {/* Novo cabeçalho fixo no topo */}
       <RestaurantPageHeader />
 
-      <div className={cn("max-w-md mx-auto")}>
+      {/* Aviso para dono de restaurante Free */}
+      {showFreeWarning && (
+        <div className="max-w-md mx-auto p-4 pb-0 pt-20"> {/* Added pt-20 to account for fixed header */}
+          <Card className="bg-amber-50 border-amber-200 p-4 flex flex-col gap-3">
+            <div className="flex items-start gap-3">
+              <Crown className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
+              <div>
+                <h3 className="font-semibold text-amber-800">Seu perfil ainda aparece limitado para os clientes.</h3>
+                <p className="text-sm text-amber-700 mt-1">Libere o visual Premium para se destacar.</p>
+              </div>
+            </div>
+            <Button 
+              size="sm" 
+              className="w-full bg-amber-600 hover:bg-amber-700 text-white"
+              onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
+            >
+              Visualizar Premium
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      <div className={cn("max-w-md mx-auto", showFreeWarning ? "pt-4" : "pt-0")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
           <motion.div

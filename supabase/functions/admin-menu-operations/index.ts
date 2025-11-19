@@ -22,7 +22,7 @@ function safeJsonStringify(obj: any): string {
   });
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -155,13 +155,58 @@ serve(async (req) => {
       console.log('New category created with ID:', categoryId);
     }
 
+    // Process image if URL is provided (download from iFood and upload to Supabase)
+    let processedImageUrl = image_url || null;
+    if (image_url && (image_url.includes('ifood') || image_url.includes('static-images'))) {
+      console.log('External image URL detected, downloading and uploading to Supabase storage...');
+      try {
+        const imageResponse = await fetch(image_url);
+        if (imageResponse.ok) {
+          const contentType = imageResponse.headers.get("content-type") || "image/jpeg";
+          const imageBuffer = await imageResponse.arrayBuffer();
+          
+          // Generate unique filename
+          const fileExt = contentType.split('/').pop() || 'jpg';
+          const uniqueFileName = `${restaurantId}-${trimmedItemName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}-${Date.now()}`;
+          const storagePath = `${restaurantId}/menu/${uniqueFileName}.${fileExt}`;
+          
+          // Upload to Supabase storage
+          const { error: uploadError } = await supabaseAdmin.storage
+            .from('restaurant-images')
+            .upload(storagePath, imageBuffer, {
+              contentType: contentType,
+              cacheControl: '3600',
+              upsert: true,
+            });
+          
+          if (!uploadError) {
+            // Get public URL
+            const { data: publicUrlData } = supabaseAdmin.storage
+              .from('restaurant-images')
+              .getPublicUrl(storagePath);
+            
+            processedImageUrl = publicUrlData.publicUrl;
+            console.log('Image uploaded successfully to:', processedImageUrl);
+          } else {
+            console.error('Error uploading image:', uploadError);
+            // Continue with original URL if upload fails
+          }
+        } else {
+          console.warn('Failed to download image from:', image_url);
+        }
+      } catch (imageError) {
+        console.error('Error processing image:', imageError);
+        // Continue with original URL if processing fails
+      }
+    }
+
     // Insert menu item
     const menuItem = {
       category_id: categoryId,
       name: trimmedItemName,
       price: parsedPrice,
       description: description || null,
-      image_url: image_url || null,
+      image_url: processedImageUrl,
       order_index: 0,
       is_active: true,
     };
@@ -189,7 +234,7 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Unhandled Edge Function error:', error); // Log the raw error object
-    
+
     let errorMessage = 'An unexpected error occurred in the Edge Function.';
     let errorDetailsString = '';
 
@@ -220,9 +265,9 @@ serve(async (req) => {
 
     console.error('Detailed error string (from catch block):', errorDetailsString);
 
-    return new Response(JSON.stringify({ 
-      error: `Edge Function Error: ${errorMessage}`, 
-      details: errorDetailsString 
+    return new Response(JSON.stringify({
+      error: `Edge Function Error: ${errorMessage}`,
+      details: errorDetailsString
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,

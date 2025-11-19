@@ -49,8 +49,8 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
     }
 
     if (maxLines === 0 || (maxLines === 1 && Object.values(columnInputs).every(v => v.trim() === ''))) {
-        showError("Por favor, cole os dados em pelo menos uma coluna.");
-        return;
+      showError("Por favor, cole os dados em pelo menos uma coluna.");
+      return;
     }
 
     const header = requiredColumns.map(escapeCsvValue).join(',');
@@ -61,7 +61,7 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
         const colLines = linesByColumn[col] || [];
         return escapeCsvValue(colLines[i] || '');
       });
-      
+
       if (rowData.some(cell => cell !== '""' && cell !== '')) { // Check for actual content, considering escaped empty strings
         // Client-side validation for primaryKeyColumn
         if (primaryKeyColumn) {
@@ -76,10 +76,10 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
         rows.push(rowData.join(','));
       }
     }
-    
+
     if (rows.length === 0) {
-        showError("Nenhum dado válido para processar.");
-        return;
+      showError("Nenhum dado válido para processar.");
+      return;
     }
 
     const finalCsv = [header, ...rows].join('\n');
@@ -106,8 +106,8 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
             </div>
           ))}
         </div>
-        <Button 
-          onClick={handleProcess} 
+        <Button
+          onClick={handleProcess}
           disabled={isLoading}
           className="bg-highlight hover:bg-highlight/90 w-full mt-4"
         >

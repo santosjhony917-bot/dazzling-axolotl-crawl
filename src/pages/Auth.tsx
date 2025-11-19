@@ -164,7 +164,7 @@ export default function Auth() {
                   className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
                   disabled={loading}
                 >
-                  <div className="h-5 w-5 flex items-center justify-center">
+                  <div className="h-7 w-7 flex items-center justify-center">
                     <svg viewBox="0 0 225 225">
                       {/* top leaf */}
                       <path fill="#000" d="m108,35

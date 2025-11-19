@@ -30,15 +30,6 @@ const ContentManagementSection: React.FC<ContentManagementSectionProps> = ({ nav
     <div className="w-full space-y-3">
       <h2 className="text-xl font-bold text-primary px-1 mb-4">Gestão de Conteúdo</h2> {/* Título da Seção */}
       
-      {/* NOVO: Ver Perfil Público */}
-      <NavCardItem 
-        title="Ver Perfil Público" 
-        description={`Veja como ${restaurantName} aparece para os clientes.`}
-        icon={Eye} 
-        onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
-        isPremium={isPremium}
-      />
-      
       <NavCardItem 
         title="Cardápio e Categorias" 
         description="Adicione, edite e organize pratos e categorias."

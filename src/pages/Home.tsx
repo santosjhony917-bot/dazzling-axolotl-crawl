@@ -118,23 +118,33 @@ const Home: React.FC = () => {
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
-        <div 
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)}
-        >
-          <MapPin className="h-6 w-6 text-highlight" />
-          <div>
-            <p className="text-xs text-gray-500">Localização de Busca</p>
-            {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-primary">
-                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-              </div>
-            ) : (
-              <p className="text-base font-extrabold text-primary tracking-tight truncate max-w-[250px]">
-                {location.address.split(',')[0] || "Definir Local"}
-              </p>
-            )}
+        <div className="flex items-start justify-between gap-2">
+          <div 
+            className="flex items-center gap-2 cursor-pointer flex-1"
+            onClick={() => setIsLocationModalOpen(true)}
+          >
+            <MapPin className="h-6 w-6 text-highlight flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-gray-500">Localização de Busca</p>
+              {isLocationLoading ? (
+                <div className="flex items-center text-sm font-bold text-primary">
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
+                </div>
+              ) : (
+                <p className="text-base font-extrabold text-primary tracking-tight truncate">
+                  {location.address.split(',')[0] || "Definir Local"}
+                </p>
+              )}
+            </div>
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsLocationModalOpen(true)}
+            className="text-xs text-highlight hover:text-highlight/90 hover:bg-highlight/10 px-2 h-auto py-1 rounded-lg flex-shrink-0"
+          >
+            Atualizar
+          </Button>
         </div>
         
         {/* Barra de Busca Principal */}

@@ -28,7 +28,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, toggleCollapse
   const location = useLocation();
 
   return (
-    <div 
+    <div
       className={cn(
         "flex flex-col h-full bg-sidebar-background border-r border-sidebar-border transition-all duration-300",
         isCollapsed ? "w-20" : "w-64"
@@ -40,9 +40,9 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, toggleCollapse
           <Shield className="w-6 h-6 text-sidebar-primary" />
           <span className="text-lg font-bold text-sidebar-primary">Admin Panel</span>
         </div>
-        <Button 
-          variant="ghost" 
-          size="icon" 
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={toggleCollapse}
           className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-lg"
         >
@@ -55,7 +55,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, toggleCollapse
         {navItems.map((item) => {
           const isActive = location.pathname.startsWith(item.href);
           const Icon = item.icon;
-          
+
           return (
             <Link
               key={item.href}
