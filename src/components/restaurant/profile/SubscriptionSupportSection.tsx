@@ -1,11 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HelpCircle, MessageSquare, Crown, LogOut, Trash2 } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
+import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
 import { useAuthData } from '@/context/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
-import { showError, showSuccess } from '@/utils/toast';
+import { showSuccess } from '@/utils/toast';
 
 interface SubscriptionSupportSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -24,29 +23,6 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
     showSuccess("Você saiu da sua conta.");
     // Redireciona para a tela de boas-vindas após o logout
     navigate(createPageUrl('welcome'), { replace: true });
-  };
-
-  const handleDeleteAccount = async () => {
-    if (window.confirm("Tem certeza que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita.")) {
-      try {
-        // Call Supabase function to delete user account
-        const { error } = await supabase.rpc('delete_user_account');
-        
-        if (error) {
-          console.error('Error deleting account:', error);
-          showError("Erro ao excluir conta: " + error.message);
-          return;
-        }
-
-        showSuccess("Conta excluída com sucesso.");
-        // Sign out after deletion
-        await supabase.auth.signOut();
-        navigate(createPageUrl('welcome'));
-      } catch (error) {
-        console.error('Unexpected error deleting account:', error);
-        showError("Erro inesperado ao excluir conta.");
-      }
-    }
   };
   
   return (
@@ -80,13 +56,6 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         title="Sair da Conta"
         description="Desconectar-se do painel do restaurante."
         onClick={handleSignOut} // Usando o novo handler
-      />
-
-      <NavCardItem 
-        icon={Trash2}
-        title="Excluir Conta"
-        description="Remover permanentemente sua conta e dados."
-        onClick={handleDeleteAccount}
       />
     </div>
   );

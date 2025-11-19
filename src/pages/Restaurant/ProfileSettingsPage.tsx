@@ -2,11 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { Loader2, Settings, Utensils, Crown } from 'lucide-react';
+import { Loader2, Settings, Utensils, Crown, Eye } from 'lucide-react';
 import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
 import MainProfileCard from '@/components/restaurant/profile/MainProfileCard';
 import BasicInfoSection from '@/components/restaurant/profile/BasicInfoSection';
-import LocationHoursSection from '@/components/restaurant/profile/LocationHoursSection';
 import SalesChannelsSection from '@/components/restaurant/profile/SalesChannelsSection';
 import SubscriptionSupportSection from '@/components/restaurant/profile/SubscriptionSupportSection';
 import ContentManagementSection from '@/components/restaurant/profile/ContentManagementSection';
@@ -25,6 +24,8 @@ import { DEFAULT_SCHEDULE } from '@/constants/schedule';
 import { Restaurant } from '@/types/supabase';
 import { PublicRestaurantData, SocialNetworkLink } from '@/types/restaurant';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
+import NavCardItem from '@/components/NavCardItem';
+import { createPageUrl } from '@/utils/url';
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -192,6 +193,17 @@ export default function ProfileSettingsPage() {
         
         <Separator />
 
+        {/* NOVO: Ver Perfil Público */}
+        <NavCardItem 
+          title="Ver Perfil Público" 
+          description={`Veja como ${restaurant?.name || 'seu restaurante'} aparece para os clientes.`}
+          icon={Eye} 
+          onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant?.id || '' }))}
+          isPremium={isPremium}
+        />
+
+        <Separator />
+
         {/* 2. Informações Básicas */}
         <BasicInfoSection
           restaurant={restaurant}
@@ -203,14 +215,6 @@ export default function ProfileSettingsPage() {
           emailSchema={emailSchema}
           phoneSchema={phoneSchema}
           cnpjSchema={cnpjSchema}
-        />
-        
-        <Separator />
-
-        {/* 3. Localização e Horários */}
-        <LocationHoursSection
-          restaurant={restaurant}
-          isPremium={isPremium}
           currentSchedule={currentSchedule}
           setIsAddressDialogOpen={setIsAddressDialogOpen}
           setIsHoursDialogOpen={setIsHoursDialogOpen}

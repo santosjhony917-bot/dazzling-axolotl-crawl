@@ -54,6 +54,7 @@ import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminPlans from '@/pages/admin/AdminPlans';
 import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
 import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
+import AdminBanners from '@/pages/admin/AdminBanners'; // Importar AdminBanners
 
 // Animated page wrapper component
 const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -130,6 +131,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/admin/files" element={<PageTransition><Files /></PageTransition>} />
           <Route path="/admin/import" element={<PageTransition><ImportMenu /></PageTransition>} />
           <Route path="/admin/settings" element={<PageTransition><AdminSettings /></PageTransition>} />
+          <Route path="/admin/banners" element={<PageTransition><AdminBanners /></PageTransition>} />
         </Route>
       </Routes>
     </AnimatePresence>
