@@ -241,7 +241,13 @@ function RestaurantLogin() {
               <p className="pt-6 text-center text-base text-gray-600">
                 {mode === 'sign_in' ? "Não tem uma conta?" : "Já tem uma conta?"}
                 <button
-                  onClick={() => setMode(mode === 'sign_in' ? 'sign_up' : 'sign_in')}
+                  onClick={() => {
+                    if (mode === 'sign_in') {
+                      navigate(createPageUrl('restaurant-signup'));
+                    } else {
+                      setMode('sign_in');
+                    }
+                  }}
                   className="font-bold text-highlight hover:underline ml-1"
                   disabled={loading}
                 >

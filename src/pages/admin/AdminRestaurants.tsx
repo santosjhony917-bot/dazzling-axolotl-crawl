@@ -15,6 +15,7 @@ import VisitNotesDialog from '@/components/admin/VisitNotesDialog';
 import { showSuccess } from '@/utils/toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const visitStatusOptions: VisitStatus[] = [
   'Pendente',
@@ -52,6 +53,10 @@ export default function AdminRestaurants() {
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
   const [restaurantToDelete, setRestaurantToDelete] = useState<Restaurant | null>(null);
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] = useState(false);
+  
+  // Bulk Actions State
+  const [selectedRestaurants, setSelectedRestaurants] = useState<Set<string>>(new Set());
+  const [isConfirmBulkDeleteDialogOpen, setIsConfirmBulkDeleteDialogOpen] = useState(false);
 
   const {
     restaurants,
@@ -63,6 +68,8 @@ export default function AdminRestaurants() {
     isUpdatingNotes,
     deleteRestaurant,
     isDeletingRestaurant,
+    deleteMultipleRestaurants,
+    isDeletingMultipleRestaurants,
   } = useAdminRestaurants(filters);
 
   const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
@@ -106,6 +113,38 @@ export default function AdminRestaurants() {
       onSuccess: () => {
         handleCloseDeleteConfirm();
       },
+    });
+  };
+
+  // Bulk Actions Handlers
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedRestaurants(new Set(restaurants.map(r => r.id)));
+    } else {
+      setSelectedRestaurants(new Set());
+    }
+  };
+
+  const handleSelectOne = (id: string, checked: boolean) => {
+    const newSelected = new Set(selectedRestaurants);
+    if (checked) {
+      newSelected.add(id);
+    } else {
+      newSelected.delete(id);
+    }
+    setSelectedRestaurants(newSelected);
+  };
+
+  const handleBulkDelete = () => {
+    setIsConfirmBulkDeleteDialogOpen(true);
+  };
+
+  const confirmBulkDelete = () => {
+    deleteMultipleRestaurants(Array.from(selectedRestaurants), {
+      onSuccess: () => {
+        setSelectedRestaurants(new Set());
+        setIsConfirmBulkDeleteDialogOpen(false);
+      }
     });
   };
 
@@ -183,10 +222,29 @@ export default function AdminRestaurants() {
             </Select>
           </div>
 
+          {selectedRestaurants.size > 0 && (
+            <div className="flex justify-end">
+              <Button 
+                variant="destructive" 
+                onClick={handleBulkDelete}
+                disabled={isDeletingMultipleRestaurants}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Excluir {selectedRestaurants.size} Selecionados
+              </Button>
+            </div>
+          )}
+
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[50px]">
+                    <Checkbox 
+                      checked={restaurants.length > 0 && selectedRestaurants.size === restaurants.length}
+                      onCheckedChange={(checked) => handleSelectAll(checked as boolean)}
+                    />
+                  </TableHead>
                   <TableHead>Nome</TableHead>
                   <TableHead>Local</TableHead>
                   <TableHead>Código</TableHead>
@@ -200,20 +258,26 @@ export default function AdminRestaurants() {
               <TableBody>
                 {isLoading && (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4">
+                    <TableCell colSpan={9} className="text-center py-4">
                       <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                     </TableCell>
                   </TableRow>
                 )}
                 {!isLoading && restaurants.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4 text-muted-foreground">
+                    <TableCell colSpan={9} className="text-center py-4 text-muted-foreground">
                       Nenhum restaurante encontrado com os filtros aplicados.
                     </TableCell>
                   </TableRow>
                 ) : (
                   restaurants.map((restaurant) => (
                     <TableRow key={restaurant.id}>
+                      <TableCell>
+                        <Checkbox 
+                          checked={selectedRestaurants.has(restaurant.id)}
+                          onCheckedChange={(checked) => handleSelectOne(restaurant.id, checked as boolean)}
+                        />
+                      </TableCell>
                       <TableCell className="font-medium">{restaurant.name}</TableCell>
                       <TableCell>{[restaurant.neighborhood, restaurant.city, restaurant.state].filter(Boolean).join(', ') || 'N/A'}</TableCell>
                       <TableCell>
@@ -337,6 +401,17 @@ export default function AdminRestaurants() {
           isLoading={isDeletingRestaurant}
         />
       )}
+
+      <ConfirmationDialog
+        isOpen={isConfirmBulkDeleteDialogOpen}
+        onClose={() => setIsConfirmBulkDeleteDialogOpen(false)}
+        onConfirm={confirmBulkDelete}
+        title={`Remover ${selectedRestaurants.size} restaurantes?`}
+        description="Esta ação é irreversível. Todos os dados dos restaurantes selecionados serão permanentemente removidos. Tem certeza que deseja continuar?"
+        confirmText="Sim, remover todos"
+        cancelText="Cancelar"
+        isLoading={isDeletingMultipleRestaurants}
+      />
     </div>
   );
 }

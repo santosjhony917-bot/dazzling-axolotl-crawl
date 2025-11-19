@@ -134,6 +134,15 @@ const deleteRestaurant = async (restaurantId: string): Promise<void> => {
   if (error) throw new Error(error.message);
 };
 
+const deleteMultipleRestaurants = async (restaurantIds: string[]): Promise<void> => {
+  const { error } = await supabase
+    .from('restaurants')
+    .delete()
+    .in('id', restaurantIds);
+
+  if (error) throw new Error(error.message);
+};
+
 export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   const queryClient = useQueryClient();
 
@@ -198,6 +207,17 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     },
   });
 
+  const deleteMultipleRestaurantsMutation = useMutation({
+    mutationFn: deleteMultipleRestaurants,
+    onSuccess: (_, variables) => {
+      showSuccess(`${variables.length} restaurantes removidos com sucesso!`);
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+    },
+    onError: (error) => {
+      showError(`Falha ao remover restaurantes: ${error.message}`);
+    },
+  });
+
   return {
     restaurants: restaurantsQuery.data || [],
     isLoading: restaurantsQuery.isLoading,
@@ -212,6 +232,8 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     isUpdatingNotes: updateNotesMutation.isPending,
     deleteRestaurant: deleteRestaurantMutation.mutate,
     isDeletingRestaurant: deleteRestaurantMutation.isPending,
+    deleteMultipleRestaurants: deleteMultipleRestaurantsMutation.mutate,
+    isDeletingMultipleRestaurants: deleteMultipleRestaurantsMutation.isPending,
     refetch: restaurantsQuery.refetch,
   };
 }
