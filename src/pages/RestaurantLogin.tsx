@@ -50,11 +50,24 @@ function RestaurantLogin() {
         if (authCheckError) throw authCheckError;
 
         // Verifica se existe um restaurante associado a este user_id
-        const { data: restaurantData, error: restaurantError } = await supabase
+        let { data: restaurantData, error: restaurantError } = await supabase
           .from('restaurants')
           .select('id')
           .eq('user_id', authData.user.id)
           .maybeSingle();
+
+        // Fallback: Se não encontrar pelo ID, tenta pelo email
+        if (!restaurantData && !restaurantError) {
+          const { data: restaurantByEmail } = await supabase
+            .from('restaurants')
+            .select('id')
+            .eq('email', email) // Usa o email do formulário que foi usado no login
+            .maybeSingle();
+            
+          if (restaurantByEmail) {
+            restaurantData = restaurantByEmail;
+          }
+        }
 
         if (!restaurantData) {
           // Não há restaurante associado - faz logout e mostra erro

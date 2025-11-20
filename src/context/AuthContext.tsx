@@ -39,8 +39,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Query para buscar Restaurant
   const { data: restaurant, isLoading: isRestaurantLoading, refetch: refetchRestaurant } = useQuery({
-    queryKey: ['restaurant', user?.id],
-    queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
+    queryKey: ['restaurant', user?.id, user?.email],
+    queryFn: () => (user ? getRestaurantByUserId(user.id, user.email) : null),
     enabled: isAuthenticated,
   });
 
