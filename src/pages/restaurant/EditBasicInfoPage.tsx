@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from '@/components/PageHelmet';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRestaurant } from '@/hooks/useRestaurant';
 import { useForm, Controller } from 'react-hook-form';
@@ -86,9 +86,7 @@ const EditBasicInfoPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Editar Informações Básicas - {restaurant?.name}</title>
-      </Helmet>
+      <PageHelmet title={`Editar Informações Básicas - ${restaurant?.name || 'Restaurante'}`} />
       <PageHeader title="Nome e Categoria" backLink={`/restaurant/${id}/settings`} />
       <div className="container mx-auto px-4 py-8">
         <Form {...form}>

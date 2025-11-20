@@ -318,7 +318,7 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
             </SortableContext>
           </DndContext>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col items-start gap-3">
           <Input
             id="gallery-image-upload"
             type="file"

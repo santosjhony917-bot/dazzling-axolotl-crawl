@@ -70,7 +70,7 @@ export default function EditClientFieldDialog({
     if (mask) {
       rawValue = mask(rawValue);
     }
-    setValue('value', rawValue, { shouldValidate: true });
+    setValue('value', rawValue, { shouldValidate: false });
   };
 
   return (

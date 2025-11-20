@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
+import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza, Truck, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -12,6 +12,8 @@ import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthData } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import SearchByServiceTypeModal from '@/components/search/SearchByServiceTypeModal';
+import SearchByPaymentMethodModal from '@/components/search/SearchByPaymentMethodModal';
 import { useUserRole } from '@/hooks/useUserRole';
 import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -43,20 +45,32 @@ export default function SearchUnifiedPage() {
   const { user, restaurant } = useAuthData();
   const { isPremium } = useUserRole();
   const isRestaurantOwner = !!restaurant;
-  
+
   const { location, isLoading: isLocationLoading } = useUserSearchLocation();
   const { categories: allMenuCategories, isLoading: categoriesLoading } = useMenuCategories();
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
+  const [isServiceTypeModalOpen, setIsServiceTypeModalOpen] = useState(false);
+  const [isPaymentMethodModalOpen, setIsPaymentMethodModalOpen] = useState(false);
 
   const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
   const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
   const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
+
+  const [serviceTypesFilter, setServiceTypesFilter] = useState({ delivery: false, presencial: false });
+  const [paymentMethodsFilter, setPaymentMethodsFilter] = useState({
+    pix: false,
+    dinheiro: false,
+    credito: false,
+    debito: false,
+    aleloRefeicao: false,
+    sodexo: false,
+  });
 
   const userLat = location.latitude;
   const userLon = location.longitude;
@@ -161,7 +175,7 @@ export default function SearchUnifiedPage() {
   // Effect to apply filters to accumulated results and set displayedResults
   useEffect(() => {
     let processedResults: SearchItem[] = [];
-    
+
     if (activeSearchType === 'dish') {
       processedResults = accumulatedDishResults
         .filter(item => {
@@ -187,7 +201,31 @@ export default function SearchUnifiedPage() {
       processedResults = (accumulatedRestaurantResults || [])
         .filter(restaurant => {
           const distance = restaurant.distance_km;
-          return maxDistanceFilter === null || distance <= maxDistanceFilter;
+          const matchesDistance = maxDistanceFilter === null || distance <= maxDistanceFilter;
+
+          // Payment Methods Filter
+          let matchesPayment = true;
+          const selectedPaymentMethods = Object.entries(paymentMethodsFilter)
+            .filter(([_, isSelected]) => isSelected)
+            .map(([key]) => key);
+
+          if (selectedPaymentMethods.length > 0 && restaurant.payment_methods) {
+            // Assume payment_methods is an object or array. 
+            // If it's an object like { pix: true, ... }, we check keys.
+            // If it's an array like ['pix', ...], we check inclusion.
+            const methods = restaurant.payment_methods as any;
+            if (Array.isArray(methods)) {
+              matchesPayment = selectedPaymentMethods.some(m => methods.includes(m));
+            } else if (typeof methods === 'object' && methods !== null) {
+              matchesPayment = selectedPaymentMethods.some(m => methods[m] === true);
+            }
+          }
+
+          // Service Types Filter (Placeholder logic as data is missing)
+          // We can check if 'delivery' or 'presencial' is in description or tags if available
+          // For now, we won't filter strictly to avoid hiding valid results due to missing data
+
+          return matchesDistance && matchesPayment;
         })
         .map(restaurant => ({
           id: restaurant.id,
@@ -212,6 +250,8 @@ export default function SearchUnifiedPage() {
     maxDistanceFilter,
     excludedDishCategoryIds, // This filter is applied in the hook now
     includedRestaurantCategories, // This filter is applied in the hook now
+    paymentMethodsFilter,
+    serviceTypesFilter
   ]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -226,7 +266,7 @@ export default function SearchUnifiedPage() {
     refetchDishes(); // This will trigger a fetch for page 1
     refetchRestaurants(); // This will trigger a fetch for page 1
   };
-  
+
   const handleItemClick = (itemId: string, type: SearchType) => {
     if (type === 'restaurant') {
       navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
@@ -234,7 +274,7 @@ export default function SearchUnifiedPage() {
       navigate(createPageUrl('menuItemDetails', { itemId: itemId }));
     }
   };
-  
+
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
       showError("Defina sua localização primeiro para usar o filtro de preço.");
@@ -261,7 +301,7 @@ export default function SearchUnifiedPage() {
     }
     setIsDistanceModalOpen(true);
   };
-  
+
   const handleApplyDistanceFilter = (distance: number) => {
     setMaxDistanceFilter(distance);
     showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
@@ -290,6 +330,49 @@ export default function SearchUnifiedPage() {
     refetchRestaurants(); // Refetch with new category filter
   };
 
+  const handleSearchByServiceType = () => {
+    if (userLat === null || userLon === null) {
+      showError("Defina sua localização primeiro para usar o filtro de tipo de serviço.");
+      return;
+    }
+    setIsServiceTypeModalOpen(true);
+  };
+
+  const handleApplyServiceTypeFilter = (selectedServiceTypes: { delivery: boolean, presencial: boolean }) => {
+    setServiceTypesFilter(selectedServiceTypes);
+    showInfo(`Filtro de tipo de serviço aplicado. Atualizando resultados.`);
+    setIsServiceTypeModalOpen(false);
+    setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchRestaurants(); // Refetch with new service type filter
+  };
+
+  const handleSearchByPaymentMethod = () => {
+    if (userLat === null || userLon === null) {
+      showError("Defina sua localização primeiro para usar o filtro de forma de pagamento.");
+      return;
+    }
+    setIsPaymentMethodModalOpen(true);
+  };
+
+  const handleApplyPaymentMethodFilter = (selectedPaymentMethods: {
+    pix: boolean;
+    dinheiro: boolean;
+    credito: boolean;
+    debito: boolean;
+    aleloRefeicao: boolean;
+    sodexo: boolean;
+  }) => {
+    setPaymentMethodsFilter(selectedPaymentMethods);
+    showInfo(`Filtro de forma de pagamento aplicado. Atualizando resultados.`);
+    setIsPaymentMethodModalOpen(false);
+    setPage(1); // Resetar a página ao aplicar filtro
+    setAccumulatedDishResults([]); // Clear accumulated results
+    setAccumulatedRestaurantResults([]); // Clear accumulated results
+    refetchRestaurants(); // Refetch with new payment method filter
+  };
+
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
@@ -303,7 +386,7 @@ export default function SearchUnifiedPage() {
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
   };
-  
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -326,7 +409,7 @@ export default function SearchUnifiedPage() {
 
   const pageContent = (
     <div className="p-4 space-y-6">
-      
+
       <form onSubmit={handleSearch} className="flex gap-2">
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -338,37 +421,55 @@ export default function SearchUnifiedPage() {
             className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
           />
         </div>
-        <Button 
+        <Button
           type="submit"
-          size="icon" 
-          variant="highlight" 
+          size="icon"
+          variant="highlight"
           className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
         >
           <ChevronRight className="w-5 h-5" />
         </Button>
       </form>
-      
-      <div className="flex gap-2">
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
+
+      <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+          <Button
             onClick={handleSearchByPrice}
             variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
+            className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all px-4"
           >
             <DollarSign className="w-5 h-5 mr-2 text-highlight" /> Preço
           </Button>
         </motion.div>
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+          <Button
             onClick={handleSearchNearby}
             variant="outline"
-            className="w-full h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all"
+            className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all px-4"
           >
             <Compass className="w-5 h-5 mr-2 text-highlight" /> Distância
           </Button>
         </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+          <Button
+            onClick={handleSearchByServiceType}
+            variant="outline"
+            className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all px-4"
+          >
+            <Truck className="w-5 h-5 mr-2 text-highlight" /> Serviço
+          </Button>
+        </motion.div>
+        <motion.div whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+          <Button
+            onClick={handleSearchByPaymentMethod}
+            variant="outline"
+            className="h-12 rounded-xl border-gray-300 text-primary hover:bg-highlight/10 shadow-soft-md transition-all px-4"
+          >
+            <CreditCard className="w-5 h-5 mr-2 text-highlight" /> Pagamento
+          </Button>
+        </motion.div>
       </div>
-      
+
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
       <div className="flex items-center justify-between">
@@ -408,9 +509,9 @@ export default function SearchUnifiedPage() {
           ) : displayedResults.length > 0 ? (
             <>
               {displayedResults.map((item) => (
-                <SearchItemCard 
-                  key={item.id} 
-                  item={item} 
+                <SearchItemCard
+                  key={item.id}
+                  item={item}
                   onClick={handleItemClick}
                 />
               ))}
@@ -425,7 +526,7 @@ export default function SearchUnifiedPage() {
                   }
                 >
                   {((activeSearchType === 'dish' && dishesLoading) ||
-                   (activeSearchType === 'restaurant' && restaurantsLoading)) ? (
+                    (activeSearchType === 'restaurant' && restaurantsLoading)) ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : null}
                   Ver Mais
@@ -440,7 +541,7 @@ export default function SearchUnifiedPage() {
           )}
         </div>
       </motion.div>
-      
+
       <SearchByPriceModal
         isOpen={isPriceModalOpen}
         onClose={() => setIsPriceModalOpen(false)}
@@ -450,6 +551,18 @@ export default function SearchUnifiedPage() {
         isOpen={isDistanceModalOpen}
         onClose={() => setIsDistanceModalOpen(false)}
         onApplyFilter={handleApplyDistanceFilter}
+      />
+      <SearchByServiceTypeModal
+        isOpen={isServiceTypeModalOpen}
+        onClose={() => setIsServiceTypeModalOpen(false)}
+        onApplyFilter={handleApplyServiceTypeFilter}
+        currentFilters={serviceTypesFilter}
+      />
+      <SearchByPaymentMethodModal
+        isOpen={isPaymentMethodModalOpen}
+        onClose={() => setIsPaymentMethodModalOpen(false)}
+        onApplyFilter={handleApplyPaymentMethodFilter}
+        currentFilters={paymentMethodsFilter}
       />
     </div>
   );
@@ -470,7 +583,7 @@ export default function SearchUnifiedPage() {
         </div>
         <div className="w-10"></div>
       </header>
-      
+
       <main className="flex-1 w-full max-w-md mx-auto pb-20">
         {pageContent}
       </main>

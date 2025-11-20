@@ -7,19 +7,45 @@ import Papa from 'papaparse';
 import { processMenuItemUpload } from '@/integrations/supabase/adminMenu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-// Colunas obrigatórias para a Fase 3: Cardápios e Itens
-const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
-
-interface UploadPhase3Props {
-  onNext?: () => void;
-}
+// Helper para parsear preços em diferentes formatos (PT-BR, US, com R$, etc)
+const parsePrice = (value: any): number => {
+  if (typeof value === 'number') return value;
+  if (!value) return NaN;
+  
+  let str = String(value).trim();
+  
+  // Remove R$ e espaços extras
+  str = str.replace(/^R\$\s?/, '').trim();
+  
+  // Se tiver apenas vírgula, assume que é decimal (formato BR simples: 10,50)
+  if (str.includes(',') && !str.includes('.')) {
+    str = str.replace(',', '.');
+  } 
+  // Se tiver ponto e vírgula (ex: 1.000,00 ou 1,000.00)
+  else if (str.includes(',') && str.includes('.')) {
+    const lastComma = str.lastIndexOf(',');
+    const lastDot = str.lastIndexOf('.');
+    
+    if (lastComma > lastDot) {
+      // Formato BR: 1.000,00 -> Remove pontos, substitui vírgula por ponto
+      str = str.replace(/\./g, '').replace(',', '.');
+    } else {
+      // Formato US: 1,000.00 -> Remove vírgulas
+      str = str.replace(/,/g, '');
+    }
+  }
+  
+  return parseFloat(str);
+};
 
 const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [detailedErrors, setDetailedErrors] = useState<string[]>([]);
+  const [progress, setProgress] = useState<{ current: number; total: number } | null>(null);
 
   const handleProcessCsv = async (csvData: string) => {
     setIsProcessing(true);
+    setProgress(null);
     let successCount = 0;
     let errorCount = 0;
     const errors: string[] = [];
@@ -40,11 +66,26 @@ const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
         return;
       }
 
-      for (const row of data as any[]) {
+      const rows = data as any[];
+      const totalRows = rows.length;
+      setProgress({ current: 0, total: totalRows });
+
+      for (let i = 0; i < totalRows; i++) {
+        const row = rows[i];
         const { external_url, category_name, item_name, price, description, image_url } = row;
 
+        // Atualiza progresso
+        setProgress({ current: i + 1, total: totalRows });
+
         if (!external_url || !category_name || !item_name || !price) {
-          errors.push(`Linha ignorada por dados incompletos: ${JSON.stringify(row)}`);
+          errors.push(`Linha ${i + 1} ignorada por dados incompletos: ${JSON.stringify(row)}`);
+          errorCount++;
+          continue;
+        }
+
+        const parsedPrice = parsePrice(price);
+        if (isNaN(parsedPrice)) {
+          errors.push(`Linha ${i + 1}: Preço inválido '${price}' para o item '${item_name}'.`);
           errorCount++;
           continue;
         }
@@ -54,7 +95,7 @@ const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
           external_url,
           category_name,
           item_name,
-          price: parseFloat(String(price).replace(',', '.')),
+          price: parsedPrice,
           description: description || null,
           image_url: image_url || null,
         });
@@ -62,7 +103,7 @@ const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
         if (result.success) {
           successCount++;
         } else {
-          errors.push(`Falha ao processar item '${item_name}' para a categoria '${category_name}' do restaurante ${external_url}. Detalhes: ${result.error || 'Erro desconhecido da Edge Function.'}`);
+          errors.push(`Falha ao processar item '${item_name}' (Linha ${i + 1}): ${result.error || 'Erro desconhecido.'}`);
           errorCount++;
         }
       }
@@ -89,6 +130,7 @@ const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
     } finally {
       setDetailedErrors(errors);
       setIsProcessing(false);
+      setProgress(null);
     }
   };
 
@@ -106,7 +148,7 @@ const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
         <ColumnarCsvInput
           onProcess={handleProcessCsv}
           isLoading={isProcessing}
-          buttonText="Processar e Salvar Cardápios"
+          buttonText={progress ? `Processando ${progress.current}/${progress.total}...` : "Processar e Salvar Cardápios"}
           requiredColumns={REQUIRED_COLUMNS_PHASE3}
         />
 

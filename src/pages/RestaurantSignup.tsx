@@ -549,7 +549,7 @@ export default function RestaurantSignup() {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 px-4 py-6 w-full max-w-xl mx-auto">
+      <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
           <div className="flex items-center justify-center size-20 bg-primary/10 rounded-xl mx-auto mb-4">
             <Store className="w-10 h-10 text-primary" />

@@ -40,6 +40,7 @@ import ClaimRestaurant from '@/pages/ClaimRestaurant';
 import CategoryDetails from '@/pages/Restaurant/CategoryDetails';
 import MetricsPage from '@/pages/Restaurant/MetricsPage'; // Adicionado MetricsPage
 import SearchRestaurants from '@/pages/SearchRestaurants';
+import RestaurantDashboard from '@/pages/RestaurantDashboard';
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';
@@ -107,7 +108,7 @@ const AnimatedRoutes: React.FC = () => {
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
         <Route element={<ProtectedRoute requiredRole="restaurant_owner" element={<SharedLayoutWrapper />} />}>
           {/* O Home do Restaurante Free é a página Home do Cliente */}
-          <Route path="/restaurant-area/home" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/restaurant-area/home" element={<PageTransition><RestaurantDashboard /></PageTransition>} />
           <Route path="/restaurant-area/profile-menu" element={<PageTransition><ProfileSettingsPage /></PageTransition>} />
           <Route path="/restaurant-area/menu" element={<PageTransition><MenuManagement /></PageTransition>} />
           <Route path="/restaurant-area/menu/:categoryId" element={<PageTransition><CategoryDetails /></PageTransition>} />

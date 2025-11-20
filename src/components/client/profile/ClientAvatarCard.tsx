@@ -33,7 +33,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
             <img 
               src={avatarUrl} 
               alt="Avatar do Usuário" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-full"
             />
           ) : (
             <User className="w-12 h-12 text-gray-500" />

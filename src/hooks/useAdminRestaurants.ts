@@ -31,54 +31,51 @@ interface FetchRestaurantsFilters {
   state?: string;
   plan?: string;
   neighborhood?: string;
+  visit_status?: string;
 }
 
-const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
-  const PAGE_SIZE = 999; // Fetch in chunks to avoid Supabase limit
-  let allRestaurants: Restaurant[] = [];
-  let page = 0;
-  let hasMore = true;
+interface FetchRestaurantsResult {
+  data: Restaurant[];
+  count: number;
+}
 
-  while (hasMore) {
-    const from = page * PAGE_SIZE;
-    const to = from + PAGE_SIZE - 1;
+const fetchRestaurants = async (filters: FetchRestaurantsFilters, page: number, pageSize: number): Promise<FetchRestaurantsResult> => {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
 
-    let query = supabase
-      .from('restaurants')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .range(from, to);
+  let query = supabase
+    .from('restaurants')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
 
-    if (filters.name) {
-      query = query.ilike('name', `%${filters.name}%`);
-    }
-    if (filters.city) {
-      query = query.ilike('city', `%${filters.city}%`);
-    }
-    if (filters.neighborhood) {
-      query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-      console.error('Error fetching restaurants page:', error);
-      throw new Error(error.message);
-    }
-
-    if (data && data.length > 0) {
-      allRestaurants.push(...data);
-      page++;
-    } else {
-      hasMore = false;
-    }
-    
-    if (!data || data.length < PAGE_SIZE) {
-      hasMore = false;
-    }
+  if (filters.name) {
+    query = query.ilike('name', `%${filters.name}%`);
+  }
+  if (filters.city) {
+    query = query.ilike('city', `%${filters.city}%`);
+  }
+  if (filters.neighborhood) {
+    query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
+  }
+  if (filters.state && filters.state !== 'all') {
+    query = query.eq('state', filters.state);
+  }
+  if (filters.plan && filters.plan !== 'all') {
+    query = query.eq('plan', filters.plan);
+  }
+  if (filters.visit_status && filters.visit_status !== 'all') {
+    query = query.eq('visit_status', filters.visit_status);
   }
 
-  return allRestaurants;
+  const { data, error, count } = await query;
+
+  if (error) {
+    console.error('Error fetching restaurants page:', error);
+    throw new Error(error.message);
+  }
+
+  return { data: data || [], count: count || 0 };
 };
 
 const updateRestaurantPlan = async ({ restaurantId, newPlan }: { restaurantId: string; newPlan: RestaurantPlan }) => {
@@ -135,28 +132,37 @@ const deleteRestaurant = async (restaurantId: string): Promise<void> => {
 };
 
 const deleteMultipleRestaurants = async (restaurantIds: string[]): Promise<void> => {
-  const { error } = await supabase
-    .from('restaurants')
-    .delete()
-    .in('id', restaurantIds);
+  const CHUNK_SIZE = 500; // Process in chunks to avoid Supabase limits
 
-  if (error) throw new Error(error.message);
+  for (let i = 0; i < restaurantIds.length; i += CHUNK_SIZE) {
+    const chunk = restaurantIds.slice(i, i + CHUNK_SIZE);
+    const { error } = await supabase
+      .from('restaurants')
+      .delete()
+      .in('id', chunk);
+
+    if (error) {
+      console.error('Error deleting restaurants chunk:', error);
+      throw new Error(`Falha ao remover um lote de restaurantes: ${error.message}`);
+    }
+  }
 };
 
-export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
+export function useAdminRestaurants(filters: FetchRestaurantsFilters, page: number = 1, pageSize: number = 50) {
   const queryClient = useQueryClient();
 
-  const restaurantsQuery = useQuery<Restaurant[], Error>({
-    queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters],
-    queryFn: () => fetchAllRestaurants(filters),
+  const restaurantsQuery = useQuery<FetchRestaurantsResult, Error>({
+    queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters, page, pageSize],
+    queryFn: () => fetchRestaurants(filters, page, pageSize),
     staleTime: 60000,
+    placeholderData: (previousData) => previousData,
   });
 
   const updatePlanMutation = useMutation({
     mutationFn: updateRestaurantPlan,
     onSuccess: (_, variables) => {
       showSuccess(`Plano do restaurante atualizado para ${variables.newPlan}!`);
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao atualizar plano: ${error.message}`);
@@ -167,7 +173,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     mutationFn: updateMultipleRestaurantPlans,
     onSuccess: (_, variables) => {
       showSuccess(`${variables.restaurantIds.length} restaurante(s) atualizado(s) para o plano ${variables.newPlan}!`);
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao atualizar planos: ${error.message}`);
@@ -178,7 +184,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     mutationFn: updateRestaurantVisitStatus,
     onSuccess: (_, variables) => {
       showSuccess(`Status do restaurante atualizado para ${variables.newStatus}!`);
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao atualizar status: ${error.message}`);
@@ -189,7 +195,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     mutationFn: updateRestaurantVisitNotes,
     onSuccess: () => {
       showSuccess(`Anotações do restaurante atualizadas!`);
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao atualizar anotações: ${error.message}`);
@@ -200,7 +206,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     mutationFn: deleteRestaurant,
     onSuccess: () => {
       showSuccess('Restaurante removido com sucesso!');
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao remover restaurante: ${error.message}`);
@@ -211,7 +217,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     mutationFn: deleteMultipleRestaurants,
     onSuccess: (_, variables) => {
       showSuccess(`${variables.length} restaurantes removidos com sucesso!`);
-      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters] });
+      queryClient.invalidateQueries({ queryKey: [ADMIN_RESTAURANTS_QUERY_KEY] });
     },
     onError: (error) => {
       showError(`Falha ao remover restaurantes: ${error.message}`);
@@ -219,7 +225,8 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   });
 
   return {
-    restaurants: restaurantsQuery.data || [],
+    restaurants: restaurantsQuery.data?.data || [],
+    totalCount: restaurantsQuery.data?.count || 0,
     isLoading: restaurantsQuery.isLoading,
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,

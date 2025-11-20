@@ -1,170 +1,166 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Search, MapPin, LocateFixed } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Input } from '@/components/ui/input';
-import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import { showError, showSuccess } from '@/utils/toast';
-import { getCurrentLocationAddress } from '@/services/geolocation';
-import RestaurantAreaPageLayout from '@/components/restaurant/RestaurantAreaPageLayout';
+import { useState, useEffect } from "react";
+import { MapPin, User, Search, ArrowLeft } from "lucide-react";
+import CustomerBottomNav from "@/components/ClientBottomNav";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { LocationPermissionModal } from "@/components/LocationPermissionModal";
+// import appLogo from "@/assets/filter-food-logo-new.png";
+const appLogo = "/assets/filterfood-logo.png";
 
-const MOCK_ADDRESS = "Localização Padrão (João Pessoa)";
-
-export default function SearchRestaurants() {
+const SearchRestaurants = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  
-  const initialDistance = searchParams.get('distance') ? parseInt(searchParams.get('distance')!) : 10;
-  const initialSearch = searchParams.get('search') || '';
-
-  const [distance, setDistance] = useState<number[]>([initialDistance]);
-  const [searchQuery, setSearchQuery] = useState(initialSearch);
-  
-  const { location, isLoading: isLocationLoading, refetch: refetchLocation, saveLocation } = useUserSearchLocation();
+  const { toast } = useToast();
+  const [distance, setDistance] = useState([20]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentLocation, setCurrentLocation] = useState("Obtendo localização...");
+  const [userCoords, setUserCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [showLocationModal, setShowLocationModal] = useState(false);
-
-  const userLat = location.latitude;
-  const userLon = location.longitude;
-  const currentAddress = location.address;
-
+  
+  // Check if user has saved location preference - same as CustomerHome
   useEffect(() => {
-    if (!isLocationLoading && location.address === MOCK_ADDRESS) {
+    const hasLocationPermission = localStorage.getItem('locationPermissionGranted');
+    if (!hasLocationPermission) {
+      // First time - show location modal
       setShowLocationModal(true);
+    } else {
+      // Try to get user location
+      requestUserLocation();
     }
-  }, [isLocationLoading, location.address]);
+  }, []);
 
-  const handleLocationUpdate = useCallback(async (useGPS: boolean) => {
-    if (!useGPS) {
-      setShowLocationModal(true);
+  const requestUserLocation = async () => {
+    if (!navigator.geolocation) {
+      toast({
+        title: "Geolocalização indisponível",
+        description: "Seu navegador não suporta geolocalização",
+        variant: "destructive",
+      });
+      // Use default location
+      setUserCoords({ lat: -7.1195, lon: -34.8450 });
+      setCurrentLocation("João Pessoa, PB");
       return;
     }
 
-    try {
-      const addressData = await getCurrentLocationAddress();
-      const { error } = await saveLocation(addressData);
-      
-      if (!error) {
-        showSuccess("Localização atualizada via GPS!");
-        refetchLocation();
-      } else {
-        throw new Error(error as string);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserCoords({ lat: latitude, lon: longitude });
+        setCurrentLocation("Localização obtida");
+        
+        // Save permission
+        localStorage.setItem('locationPermissionGranted', 'true');
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+        
+        // Use default location
+        setUserCoords({ lat: -7.1195, lon: -34.8450 });
+        setCurrentLocation("João Pessoa, PB");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // Cache for 5 minutes
       }
-    } catch (error) {
-      console.error("Failed to fetch location via GPS:", error);
-      showError("Não foi possível obter sua localização via GPS. Por favor, digite o endereço.");
-      setShowLocationModal(true);
-    }
-  }, [saveLocation, refetchLocation]);
+    );
+  };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (userLat === null || userLon === null || currentAddress === MOCK_ADDRESS) {
-      showError("Por favor, defina sua localização de busca primeiro.");
-      setShowLocationModal(true);
-      return;
-    }
+  const handleEnableLocation = () => {
+    setShowLocationModal(false);
+    requestUserLocation();
+  };
+
+  const handleUseMockLocation = () => {
+    setShowLocationModal(false);
+    setUserCoords({ lat: -7.1195, lon: -34.8450 });
+    setCurrentLocation("João Pessoa, PB");
     
-    navigate(`/restaurant-results?lat=${userLat}&lon=${userLon}&distance=${distance[0]}&search=${searchQuery}`);
+    localStorage.setItem('useMockLocation', 'true');
+    
+    toast({
+      title: "Localização configurada",
+      description: "Usando: João Pessoa, PB",
+    });
   };
   
-  const handleLocationSaved = () => {
-    refetchLocation();
-    setShowLocationModal(false);
-  };
+  const applyFilters = () => {
+    if (!userCoords) {
+      toast({
+        title: "Aguardando localização",
+        description: "Por favor, aguarde enquanto obtemos sua localização",
+        variant: "destructive",
+      });
+      return;
+    }
 
-  return (
-    <RestaurantAreaPageLayout title="Ajustar Busca" icon={Search}>
-      <div className="p-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
-          {/* Localização Atual */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h3 className="text-lg font-semibold text-primary mb-3 flex items-center">
-              <MapPin className="w-5 h-5 mr-2 text-highlight" />
-              Localização de Busca
-            </h3>
-            <div className="flex items-center justify-between">
-              <p className={`text-base ${isLocationLoading ? 'text-gray-500 italic' : 'text-gray-800'}`}>
-                {isLocationLoading ? "Obtendo endereço..." : currentAddress}
-              </p>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => handleLocationUpdate(true)}
-                disabled={isLocationLoading}
-                className="text-highlight border-highlight hover:bg-highlight/5 rounded-xl"
-              >
-                <LocateFixed className="w-4 h-4 mr-1" />
-                {isLocationLoading ? "Aguarde" : "Atualizar GPS"}
-              </Button>
-            </div>
-            <Button 
-                variant="link" 
-                size="sm" 
-                onClick={() => setShowLocationModal(true)}
-                className="text-primary p-0 h-auto mt-2"
-            >
-                Digitar Endereço
+    navigate(`/restaurant-results?distance=${distance[0]}&lat=${userCoords.lat}&lon=${userCoords.lon}&search=${encodeURIComponent(searchQuery)}`);
+  };
+  return <div className="min-h-screen bg-background pb-20">
+      {/* Header - Flat Design */}
+      <div className="bg-gradient-to-r from-[#002E6D] to-[#014D9F] px-4 pt-3 pb-4">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/home")} className="text-white hover:bg-white/10">
+              <ArrowLeft className="h-5 w-5" />
             </Button>
+            <img src={appLogo} alt="FilterFood" className="h-7 w-auto" />
+          </div>
+          <Link to="/profile">
+            <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+              <User className="h-4 w-4 text-white" />
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="px-4 pb-24 mt-4">
+        <div className="bg-white border border-border/30 rounded-2xl p-4 shadow-sm">
+          {/* Search */}
+          <div className="relative mb-3">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input type="text" placeholder="Buscar restaurantes ou pratos..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-9 pr-3 h-10 bg-muted/40 border-border/30 rounded-2xl text-sm focus:bg-background transition-colors" />
           </div>
 
-          {/* Filtro de Distância */}
-          <div className="bg-white p-4 rounded-xl shadow-md">
-            <h3 className="text-lg font-semibold text-primary mb-4">
-              Distância Máxima: <span className="text-highlight">{distance[0]} km</span>
-            </h3>
-            <Slider
-              value={distance}
-              max={50}
-              min={1}
-              step={1}
-              onValueChange={setDistance}
-              className="w-full"
-            />
-            <div className="flex justify-between text-sm text-gray-500 mt-2">
+          {/* Distance Display */}
+          <div className="mb-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-foreground">Distância máxima</span>
+              <div className="bg-muted px-2 py-0.5 rounded-2xl">
+                <span className="text-xs font-medium text-foreground">
+                  {distance[0]} km
+                </span>
+              </div>
+            </div>
+            <Slider value={distance} onValueChange={setDistance} min={1} max={50} step={1} className="mb-3" />
+            <div className="flex justify-between text-xs text-muted-foreground">
               <span>1 km</span>
               <span>50 km</span>
             </div>
           </div>
 
-          {/* Campo de Busca */}
-          <form onSubmit={handleSearch} className="space-y-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <Input
-                type="text"
-                placeholder="Buscar por nome ou tipo de comida..."
-                className="w-full pl-10 h-12 text-base rounded-xl"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isLocationLoading || userLat === null || userLon === null}
-              className="w-full bg-primary text-white font-bold h-12 text-lg hover:bg-primary/90 rounded-xl shadow-lg transition-all"
-            >
-              <Search className="w-5 h-5 mr-2" />
-              {isLocationLoading ? "Aguardando Localização..." : "Buscar Restaurantes"}
-            </Button>
-          </form>
-        </motion.div>
+          {/* Apply Filters Button */}
+          <Button onClick={applyFilters} className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-2xl">
+            Buscar
+          </Button>
+        </div>
       </div>
-      
-      <UserLocationModal
-        isOpen={showLocationModal}
-        onClose={() => setShowLocationModal(false)}
-        currentAddress={currentAddress}
-        onLocationSaved={handleLocationSaved}
+
+      {/* Bottom Navigation */}
+      <CustomerBottomNav selectedTab="buscar" />
+
+      {/* Location Permission Modal */}
+      <LocationPermissionModal
+        open={showLocationModal}
+        onOpenChange={setShowLocationModal}
+        onEnableLocation={handleEnableLocation}
+        onUseMockLocation={handleUseMockLocation}
       />
-    </RestaurantAreaPageLayout>
-  );
-}
+    </div>;
+};
+export default SearchRestaurants;

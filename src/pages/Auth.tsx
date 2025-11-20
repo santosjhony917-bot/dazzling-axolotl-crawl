@@ -54,10 +54,41 @@ export default function Auth() {
 
     try {
       if (mode === 'sign_in') {
+        // Primeiro, verifica se o e-mail está cadastrado como restaurante
+        const { data: restaurantData, error: restaurantError } = await supabase
+          .from('restaurants')
+          .select('id, email')
+          .eq('email', email)
+          .maybeSingle();
+
+        if (restaurantData) {
+          // E-mail está cadastrado como restaurante
+          const errorMsg = 'Este e-mail está cadastrado como restaurante. Faça login em "Sou Restaurante"';
+          setLastError(errorMsg);
+          showError(errorMsg);
+          setLoading(false);
+          return;
+        }
+
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         showSuccess("Login realizado com sucesso!");
       } else { // sign_up
+        // Na criação de conta, também verifica se o e-mail já está como restaurante
+        const { data: restaurantData, error: restaurantError } = await supabase
+          .from('restaurants')
+          .select('id, email')
+          .eq('email', email)
+          .maybeSingle();
+
+        if (restaurantData) {
+          const errorMsg = 'Este e-mail já está cadastrado como restaurante. Use a área de restaurantes.';
+          setLastError(errorMsg);
+          showError(errorMsg);
+          setLoading(false);
+          return;
+        }
+
         const { error } = await supabase.auth.signUp({ email, password });
         if (error) throw error;
         showSuccess("Conta criada! Verifique seu e-mail para confirmar e tente o login novamente.");

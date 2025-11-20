@@ -51,6 +51,8 @@ export interface Restaurant {
   claim_code?: string | null;
   visit_status?: VisitStatus | null;
   visit_notes?: string | null;
+  visitors?: number | null;
+  followers?: number | null;
 }
 
 export interface MenuCategory {

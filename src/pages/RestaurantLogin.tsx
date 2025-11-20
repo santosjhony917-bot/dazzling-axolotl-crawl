@@ -41,8 +41,31 @@ function RestaurantLogin() {
 
     try {
       if (mode === 'sign_in') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        // Primeiro, busca o user_id associado ao email através do auth
+        const { data: authData, error: authCheckError } = await supabase.auth.signInWithPassword({ 
+          email, 
+          password 
+        });
+        
+        if (authCheckError) throw authCheckError;
+
+        // Verifica se existe um restaurante associado a este user_id
+        const { data: restaurantData, error: restaurantError } = await supabase
+          .from('restaurants')
+          .select('id')
+          .eq('user_id', authData.user.id)
+          .maybeSingle();
+
+        if (!restaurantData) {
+          // Não há restaurante associado - faz logout e mostra erro
+          await supabase.auth.signOut();
+          const errorMsg = 'Este e-mail não está cadastrado como restaurante. Faça login na área de usuários ou cadastre seu restaurante.';
+          setLastError(errorMsg);
+          toast.error(errorMsg);
+          setLoading(false);
+          return;
+        }
+
         toast.success('Login realizado com sucesso!');
       } else {
         navigate(createPageUrl('restaurant-signup'));
