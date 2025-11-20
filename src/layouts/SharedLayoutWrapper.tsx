@@ -29,7 +29,7 @@ const SharedLayoutWrapper: React.FC = () => {
           "flex-grow mx-auto w-full",
           !isPublicRestaurantProfile && "max-w-md", // Aplicar max-w-md a todas as rotas do wrapper, exceto perfis públicos
           // Adicionar padding inferior apenas se um dos menus de navegação estiver visível
-          (showClientNav || isRestaurantOwnerRoute) ? 'pb-20' : 'pb-0'
+          (showClientNav || isRestaurantOwnerRoute) ? 'pb-32' : 'pb-0'
         )}
       >
         <Outlet />

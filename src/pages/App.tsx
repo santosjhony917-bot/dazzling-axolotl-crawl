@@ -29,15 +29,15 @@ import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
 
 // Restaurant Area Pages
 import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-import ProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
-import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
-import GalleryManagement from '@/pages/restaurant/GalleryManagement';
+import ProfileSettingsPage from '@/pages/Restaurant/ProfileSettingsPage';
+import MenuManagement from '@/pages/Restaurant/MenuManagement'; // ADICIONADO
+import GalleryManagement from '@/pages/Restaurant/GalleryManagement';
 import UpgradePage from '@/pages/Upgrade';
 import RestaurantLogin from '@/pages/RestaurantLogin';
 import RestaurantSignup from '@/pages/RestaurantSignup';
 import ClaimRestaurant from '@/pages/ClaimRestaurant';
-import CategoryDetails from '@/pages/restaurant/CategoryDetails';
-import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
+import CategoryDetails from '@/pages/Restaurant/CategoryDetails';
+import MetricsPage from '@/pages/Restaurant/MetricsPage'; // Adicionado MetricsPage
 
 // Admin Pages
 import AdminLayout from '@/pages/admin/AdminLayout';

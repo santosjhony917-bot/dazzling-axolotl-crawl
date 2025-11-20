@@ -3,22 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import { base44 } from '@/api/base44Client'; // Importando o mock de API
-import { showError } from '@/utils/toast';
 
 export default function Welcome() {
   const navigate = useNavigate();
 
-  const handleNavigation = async (role: 'customer' | 'restaurant', path: string) => {
-    try {
-      // Simula a definição do papel do usuário
-      await base44.auth.updateMe({ user_role: role });
-      console.log(`User role set to: ${role}`);
-      navigate(path);
-    } catch (error) {
-      console.error("Error setting user role:", error);
-      showError("Falha ao definir o papel do usuário. Tente novamente.");
-    }
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -64,7 +54,7 @@ export default function Welcome() {
           className="flex flex-col gap-4 w-full max-w-md px-4 py-3 mt-6"
         >
           <Button
-            onClick={() => handleNavigation('customer', createPageUrl('auth'))}
+            onClick={() => handleNavigation(createPageUrl('auth'))}
             variant="highlight"
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-highlight-glow hover:shadow-soft-xl"
           >
@@ -72,7 +62,7 @@ export default function Welcome() {
           </Button>
 
           <Button
-            onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
+            onClick={() => handleNavigation(createPageUrl('restaurant-area-hub'))}
             variant="outline"
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-soft-md"
           >

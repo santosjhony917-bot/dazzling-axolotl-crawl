@@ -1,11 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, HelpCircle } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
+import { useAuthData } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { showError, showSuccess } from '@/utils/toast';
 
 export default function HelpCenter() {
   const navigate = useNavigate();
+  const { signOut } = useAuthData();
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Tem certeza que deseja excluir sua conta? Esta ação é permanente e não pode ser desfeita.")) {
+      try {
+        // Call Supabase function to delete user account
+        const { error } = await supabase.rpc('delete_user_account');
+        
+        if (error) {
+          console.error('Error deleting account:', error);
+          showError("Erro ao excluir conta: " + error.message);
+          return;
+        }
+
+        showSuccess("Conta excluída com sucesso.");
+        // Sign out after deletion
+        await supabase.auth.signOut();
+        navigate(createPageUrl('welcome'));
+      } catch (error) {
+        console.error('Unexpected error deleting account:', error);
+        showError("Erro inesperado ao excluir conta.");
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f7f8] max-w-md mx-auto">
@@ -35,6 +62,21 @@ export default function HelpCenter() {
           <Button onClick={() => navigate(createPageUrl('restaurant-area/profile-menu'))}>
             Voltar ao Perfil
           </Button>
+        </div>
+
+        <div className="mt-8 border-t pt-8">
+          <h3 className="text-lg font-bold text-red-600 mb-4">Zona de Perigo</h3>
+          <Button 
+            variant="destructive" 
+            className="w-full flex items-center gap-2 justify-center"
+            onClick={handleDeleteAccount}
+          >
+            <Trash2 className="h-4 w-4" />
+            Excluir Minha Conta
+          </Button>
+          <p className="text-xs text-gray-500 mt-2">
+            Esta ação é irreversível. Todos os seus dados serão apagados.
+          </p>
         </div>
       </main>
     </div>

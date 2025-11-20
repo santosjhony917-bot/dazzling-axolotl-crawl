@@ -41,8 +41,31 @@ function RestaurantLogin() {
 
     try {
       if (mode === 'sign_in') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        // Primeiro, busca o user_id associado ao email através do auth
+        const { data: authData, error: authCheckError } = await supabase.auth.signInWithPassword({ 
+          email, 
+          password 
+        });
+        
+        if (authCheckError) throw authCheckError;
+
+        // Verifica se existe um restaurante associado a este user_id
+        const { data: restaurantData, error: restaurantError } = await supabase
+          .from('restaurants')
+          .select('id')
+          .eq('user_id', authData.user.id)
+          .maybeSingle();
+
+        if (!restaurantData) {
+          // Não há restaurante associado - faz logout e mostra erro
+          await supabase.auth.signOut();
+          const errorMsg = 'Este e-mail não está cadastrado como restaurante. Faça login na área de usuários ou cadastre seu restaurante.';
+          setLastError(errorMsg);
+          toast.error(errorMsg);
+          setLoading(false);
+          return;
+        }
+
         toast.success('Login realizado com sucesso!');
       } else {
         navigate(createPageUrl('restaurant-signup'));
@@ -138,7 +161,7 @@ function RestaurantLogin() {
                   className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
                   disabled={loading}
                 >
-                  <div className="h-5 w-5 flex items-center justify-center">
+                  <div className="h-7 w-7 flex items-center justify-center">
                     <svg height="225" width="225" viewBox="0 0 225 225">
                       {/* top leaf */}
                       <path fill="#000" d="m108,35
@@ -241,7 +264,13 @@ function RestaurantLogin() {
               <p className="pt-6 text-center text-base text-gray-600">
                 {mode === 'sign_in' ? "Não tem uma conta?" : "Já tem uma conta?"}
                 <button
-                  onClick={() => setMode(mode === 'sign_in' ? 'sign_up' : 'sign_in')}
+                  onClick={() => {
+                    if (mode === 'sign_in') {
+                      navigate(createPageUrl('restaurant-signup'));
+                    } else {
+                      setMode('sign_in');
+                    }
+                  }}
                   className="font-bold text-highlight hover:underline ml-1"
                   disabled={loading}
                 >

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, Profile } from '@/types/supabase';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
 
 interface AuthContextType {
@@ -28,6 +28,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const isAuthenticated = !!user;
+  const queryClient = useQueryClient();
 
   // Query para buscar Profile
   const { data: profile, isLoading: isProfileLoading, refetch: refetchProfile } = useQuery({
@@ -86,6 +87,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const signOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    queryClient.removeQueries();
+    queryClient.clear();
   };
 
   // Lógica de Admin e Premium (simplificada)

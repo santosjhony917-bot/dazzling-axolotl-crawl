@@ -1,8 +1,12 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -15,6 +19,11 @@
       "vite/client"
     ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "supabase/functions"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "supabase/functions"
+  ]
 }
