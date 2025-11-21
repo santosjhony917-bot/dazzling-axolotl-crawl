@@ -22,7 +22,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
   onAvatarUploadComplete,
   userId,
 }) => {
-  const fullName = `${firstName || 'Usuário'} ${lastName || 'Anônimo'}`;
+  const fullName = [firstName, lastName].filter(Boolean).join(' ') || 'Usuário Anônimo';
   
   return (
     <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
