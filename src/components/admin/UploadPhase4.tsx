@@ -7,7 +7,11 @@ import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 // Colunas obrigatórias para a Fase 4: Horários
 const REQUIRED_COLUMNS_PHASE4 = ['external_url', 'day', 'open_time', 'close_time'];
 
-const UploadPhase4: React.FC = () => {
+interface UploadPhase4Props {
+  onNext?: () => void;
+}
+
+const UploadPhase4: React.FC<UploadPhase4Props> = ({ onNext }) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleProcessCsv = (csvData: string) => {

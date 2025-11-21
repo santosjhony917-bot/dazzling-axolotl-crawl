@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { saveUploadRecord } from '@/utils/uploadHistory';
 import { showSuccess, showError } from '@/utils/toast';
 import ColumnarCsvInput from '@/components/admin/ColumnarCsvInput';
 import { bulkUpdateRestaurantAddress } from '@/integrations/supabase/edgeFunctions';
-import { supabase } from '@/integrations/supabase/client';
 import UploadHistory from '@/components/admin/UploadHistory';
 
 // Colunas obrigatórias para a Fase 2: Endereços e Localização
-const REQUIRED_COLUMNS_PHASE2 = ['external_url', 'cep', 'address', 'number', 'neighborhood', 'city', 'state'];
 
 interface UploadPhase2Props {
   onNext: () => void;
@@ -62,7 +59,7 @@ const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext }) => {
       for (let i = 0; i < chunks.length; i++) {
         setCurrentBatch(i + 1);
         const chunk = chunks[i];
-        
+
         // Converte o lote de volta para uma string CSV
         const chunkCsv = [
           headers.join(','),
@@ -70,7 +67,7 @@ const UploadPhase2: React.FC<UploadPhase2Props> = ({ onNext }) => {
         ].join('\n');
 
         try {
-          const { successCount, message, errors } = await bulkUpdateRestaurantAddress(chunkCsv);
+          const { successCount, errors } = await bulkUpdateRestaurantAddress(chunkCsv);
           currentSuccess += successCount;
           if (errors) {
             currentErrors = currentErrors.concat(errors);

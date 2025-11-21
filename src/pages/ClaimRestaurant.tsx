@@ -132,7 +132,7 @@ const ClaimRestaurant = () => {
               <p className="text-text-secondary mb-6">
                 Código verificado! Agora, crie sua conta ou faça login para continuar.
               </p>
-              <CustomAuth />
+              <CustomAuth defaultTab="signup" hideLogin={true} />
             </div>
           )}
         </motion.div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, DollarSign, Zap, Clock, BarChart, Crown } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import AdminUploadInfo from './AdminUploadInfo';
 import ManagePlans from './ManagePlans';
 import InstantMetrics from './InstantMetrics';
@@ -12,6 +13,7 @@ const ImportCSVTab = () => <CardContent>Implementar Importação de CSV.</CardCo
 const ScheduledMetricsTab = () => <CardContent>Implementar Agendamento de Métricas.</CardContent>;
 
 export default function AdminDashboard() {
+  const { toast } = useToast();
   console.log("AdminDashboard is rendering.");
   return (
     <div className="space-y-6">
@@ -24,7 +26,10 @@ export default function AdminDashboard() {
 
       <Tabs defaultValue="upload-master" className="w-full">
         <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white shadow-soft-lg rounded-xl">
-          <TabsTrigger value="upload-master" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-[#022D68] data-[state=active]:text-white">
+          <TabsTrigger 
+            value="upload-master" 
+            className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-[#022D68] data-[state=active]:text-white"
+          >
             <Upload className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Upload Master</span>
           </TabsTrigger>

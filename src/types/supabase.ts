@@ -51,6 +51,8 @@ export interface Restaurant {
   claim_code?: string | null;
   visit_status?: VisitStatus | null;
   visit_notes?: string | null;
+  visitors?: number | null;
+  followers?: number | null;
 }
 
 export interface MenuCategory {
@@ -91,6 +93,21 @@ export interface MenuCategoryWithItems extends MenuCategory {
 export interface RestaurantWithDistance extends Restaurant {
     distance_km: number;
     neighborhood?: string | null;
+}
+
+export interface SearchItemResult {
+    item_id: string;
+    item_name: string;
+    item_description?: string | null;
+    item_price: number;
+    item_image_url?: string | null;
+    category_id: string;
+    category_name: string;
+    restaurant_id: string;
+    restaurant_name: string;
+    restaurant_image_url?: string | null;
+    restaurant_category?: string | null;
+    distance_km?: number | null;
 }
 
 export interface FavoriteRestaurant {

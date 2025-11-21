@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Utensils, Edit, Loader2, Notebook, Copy, Trash2 } from 'lucide-react';
+import { Utensils, Edit, Loader2, Notebook, Copy, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,7 @@ import VisitNotesDialog from '@/components/admin/VisitNotesDialog';
 import { showSuccess } from '@/utils/toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const visitStatusOptions: VisitStatus[] = [
   'Pendente',
@@ -48,13 +49,21 @@ const planLabels: Record<RestaurantPlan | 'all', string> = {
 export default function AdminRestaurants() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({ name: '', city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
+  const [page, setPage] = useState(1);
+  const pageSize = 50;
+  
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
   const [restaurantToDelete, setRestaurantToDelete] = useState<Restaurant | null>(null);
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] = useState(false);
+  
+  // Bulk Actions State
+  const [selectedRestaurants, setSelectedRestaurants] = useState<Set<string>>(new Set());
+  const [isConfirmBulkDeleteDialogOpen, setIsConfirmBulkDeleteDialogOpen] = useState(false);
 
   const {
     restaurants,
+    totalCount,
     isLoading,
     error,
     updateStatus,
@@ -63,10 +72,21 @@ export default function AdminRestaurants() {
     isUpdatingNotes,
     deleteRestaurant,
     isDeletingRestaurant,
-  } = useAdminRestaurants(filters);
+    deleteMultipleRestaurants,
+    isDeletingMultipleRestaurants,
+  } = useAdminRestaurants(filters, page, pageSize);
+
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
 
   const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
     setFilters(prev => ({ ...prev, [filterName]: value === 'all' ? '' : value }));
+    setPage(1); // Reset page when filters change
   };
 
   const handleOpenNotes = (restaurant: Restaurant) => {
@@ -106,6 +126,38 @@ export default function AdminRestaurants() {
       onSuccess: () => {
         handleCloseDeleteConfirm();
       },
+    });
+  };
+
+  // Bulk Actions Handlers
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedRestaurants(new Set(restaurants.map(r => r.id)));
+    } else {
+      setSelectedRestaurants(new Set());
+    }
+  };
+
+  const handleSelectOne = (id: string, checked: boolean) => {
+    const newSelected = new Set(selectedRestaurants);
+    if (checked) {
+      newSelected.add(id);
+    } else {
+      newSelected.delete(id);
+    }
+    setSelectedRestaurants(newSelected);
+  };
+
+  const handleBulkDelete = () => {
+    setIsConfirmBulkDeleteDialogOpen(true);
+  };
+
+  const confirmBulkDelete = () => {
+    deleteMultipleRestaurants(Array.from(selectedRestaurants), {
+      onSuccess: () => {
+        setSelectedRestaurants(new Set());
+        setIsConfirmBulkDeleteDialogOpen(false);
+      }
     });
   };
 
@@ -183,10 +235,54 @@ export default function AdminRestaurants() {
             </Select>
           </div>
 
+          {selectedRestaurants.size > 0 && (
+            <div className="flex justify-end">
+              <Button 
+                variant="destructive" 
+                onClick={handleBulkDelete}
+                disabled={isDeletingMultipleRestaurants}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Excluir {selectedRestaurants.size} Selecionados
+              </Button>
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          <div className="flex items-center justify-end space-x-2 pb-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1 || isLoading}
+            >
+              <ChevronLeft className="h-4 w-4 mr-2" />
+              Anterior
+            </Button>
+            <div className="text-sm font-medium">
+              Página {page} de {totalPages || 1}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages || isLoading}
+            >
+              Próxima
+              <ChevronRight className="h-4 w-4 ml-2" />
+            </Button>
+          </div>
+
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[50px]">
+                    <Checkbox 
+                      checked={restaurants.length > 0 && selectedRestaurants.size === restaurants.length}
+                      onCheckedChange={(checked) => handleSelectAll(checked as boolean)}
+                    />
+                  </TableHead>
                   <TableHead>Nome</TableHead>
                   <TableHead>Local</TableHead>
                   <TableHead>Código</TableHead>
@@ -198,22 +294,27 @@ export default function AdminRestaurants() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {isLoading && (
+                {isLoading ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4">
+                    <TableCell colSpan={9} className="text-center py-4">
                       <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                     </TableCell>
                   </TableRow>
-                )}
-                {!isLoading && restaurants.length === 0 ? (
+                ) : restaurants.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={8} className="text-center py-4 text-muted-foreground">
+                    <TableCell colSpan={9} className="text-center py-4 text-muted-foreground">
                       Nenhum restaurante encontrado com os filtros aplicados.
                     </TableCell>
                   </TableRow>
                 ) : (
                   restaurants.map((restaurant) => (
                     <TableRow key={restaurant.id}>
+                      <TableCell>
+                        <Checkbox 
+                          checked={selectedRestaurants.has(restaurant.id)}
+                          onCheckedChange={(checked) => handleSelectOne(restaurant.id, checked as boolean)}
+                        />
+                      </TableCell>
                       <TableCell className="font-medium">{restaurant.name}</TableCell>
                       <TableCell>{[restaurant.neighborhood, restaurant.city, restaurant.state].filter(Boolean).join(', ') || 'N/A'}</TableCell>
                       <TableCell>
@@ -311,6 +412,8 @@ export default function AdminRestaurants() {
               </TableBody>
             </Table>
           </div>
+
+
         </CardContent>
       </Card>
 
@@ -337,6 +440,17 @@ export default function AdminRestaurants() {
           isLoading={isDeletingRestaurant}
         />
       )}
+
+      <ConfirmationDialog
+        isOpen={isConfirmBulkDeleteDialogOpen}
+        onClose={() => setIsConfirmBulkDeleteDialogOpen(false)}
+        onConfirm={confirmBulkDelete}
+        title={`Remover ${selectedRestaurants.size} restaurantes?`}
+        description="Esta ação é irreversível. Todos os dados dos restaurantes selecionados serão permanentemente removidos. Tem certeza que deseja continuar?"
+        confirmText="Sim, remover todos"
+        cancelText="Cancelar"
+        isLoading={isDeletingMultipleRestaurants}
+      />
     </div>
   );
 }

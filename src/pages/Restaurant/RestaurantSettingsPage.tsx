@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from '@/components/PageHelmet';
 import { useParams, Link } from 'react-router-dom';
 import { useRestaurant } from '@/hooks/useRestaurant';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -68,9 +68,7 @@ const RestaurantSettingsPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Configurações do Restaurante - {restaurant.name}</title>
-      </Helmet>
+      <PageHelmet title={`Configurações do Restaurante - ${restaurant.name}`} />
       <div className="bg-gray-50 min-h-screen">
         <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b">
             <div className="container mx-auto px-4">

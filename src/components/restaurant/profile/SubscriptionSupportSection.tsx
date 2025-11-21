@@ -4,6 +4,7 @@ import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORR
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
 import { useAuthData } from '@/context/AuthContext';
+import { showSuccess } from '@/utils/toast';
 
 interface SubscriptionSupportSectionProps {
   navigate: ReturnType<typeof useNavigate>;
@@ -19,6 +20,7 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
   
   const handleSignOut = async () => {
     await signOut();
+    showSuccess("Você saiu da sua conta.");
     // Redireciona para a tela de boas-vindas após o logout
     navigate(createPageUrl('welcome'), { replace: true });
   };

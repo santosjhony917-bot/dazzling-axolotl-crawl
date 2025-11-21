@@ -14,7 +14,7 @@ const RestaurantPageHeader: React.FC<RestaurantPageHeaderProps> = ({ restaurantN
   const navigate = useNavigate();
 
   return (
-    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
+    <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-50 shadow-soft-md w-full max-w-md mx-auto">
       <Button
         variant="ghost"
         size="icon"
