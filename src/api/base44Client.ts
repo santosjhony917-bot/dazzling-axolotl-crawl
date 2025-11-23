@@ -15,15 +15,15 @@ const mockUpdateMe = async (data: { onboarding_completed?: boolean, user_role?: 
 };
 
 const mockMe = async () => {
-    console.log("Mock API: Fetching user");
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    if (mockUser) {
-        // If the user object exists, return it, even if fields are undefined
-        return mockUser;
-    }
-    // Simulate user not being logged in or not having a role
-    throw new Error("User not found or role not set.");
+  console.log("Mock API: Fetching user");
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  if (mockUser) {
+    // If the user object exists, return it, even if fields are undefined
+    return mockUser;
+  }
+  // Simulate user not being logged in or not having a role
+  throw new Error("User not found or role not set.");
 }
 
 const mockSendEmail = async (data: { to: string; subject: string; body: string }) => {

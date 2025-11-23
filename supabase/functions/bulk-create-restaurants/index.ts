@@ -30,7 +30,7 @@ async function geocodeAddress(address: string): Promise<{ lat: number; lon: numb
   }
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -45,7 +45,7 @@ serve(async (req) => {
       });
     }
 
-    const lines = csvData.split('\n').filter(line => line.trim() !== '');
+    const lines = csvData.split('\n').filter((line: string) => line.trim() !== '');
     if (lines.length === 0) {
       return new Response(JSON.stringify({ error: 'CSV data is empty.' }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -53,7 +53,7 @@ serve(async (req) => {
       });
     }
 
-    const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+    const headers = lines[0].split(',').map((h: string) => h.trim().toLowerCase());
 
     // Check if 'external_url' (or 'external url') header is present
     const hasExternalUrlHeader = headers.includes('external_url') || headers.includes('external url');
@@ -64,10 +64,10 @@ serve(async (req) => {
       });
     }
 
-    const records = lines.slice(1).map(line => {
+    const records = lines.slice(1).map((line: string) => {
       const values = line.split(',');
       const record: { [key: string]: any } = {};
-      headers.forEach((header, index) => {
+      headers.forEach((header: string, index: number) => {
         // Normalize header names for internal consistency
         let key = header;
         if (header === 'external url') {
@@ -183,7 +183,7 @@ serve(async (req) => {
         const fullAddress = [operationData.address, operationData.number, operationData.neighborhood, operationData.city, operationData.state, operationData.cep]
           .filter(Boolean)
           .join(', ');
-        
+
         if (fullAddress.length > 10) { // Only geocode if address is substantial
           const coords = await geocodeAddress(fullAddress);
           if (coords) {
@@ -226,7 +226,8 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Erro ao processar bulk-create-restaurants:', error);
-    return new Response(JSON.stringify({ error: error.message || 'Internal Server Error' }), {
+    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    return new Response(JSON.stringify({ error: message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     });

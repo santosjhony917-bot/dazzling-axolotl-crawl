@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader2, PlusCircle, Edit, Trash2, Image as ImageIcon, Link as LinkIcon, Palette, Type, CheckCircle2, XCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import AdminAreaHeader from '@/components/admin/AdminAreaHeader';
 import { ImageUpload } from '@/components/ImageUpload';
 import BannerPreview from '@/components/admin/BannerPreview';
 import { getSelectablePagePaths, createPageUrl, PathKey } from '@/utils/url';
@@ -236,10 +236,12 @@ const AdminBanners: React.FC = () => {
   };
 
   return (
-    <AdminPageLayout
-      title="Gerenciar Banners"
-      description="Crie e edite banners para diferentes públicos (usuário final, restaurante free, restaurante premium)."
-    >
+    <div className="space-y-6">
+      <AdminAreaHeader
+        title="Gerenciar Banners"
+        description="Crie e edite banners para diferentes públicos (usuário final, restaurante free, restaurante premium)."
+      />
+      
       <div className="flex justify-end mb-4">
         <Button onClick={openCreateModal}>
           <PlusCircle className="mr-2 h-4 w-4" /> Adicionar Novo Banner
@@ -440,7 +442,7 @@ const AdminBanners: React.FC = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AdminPageLayout>
+    </div>
   );
 };
 

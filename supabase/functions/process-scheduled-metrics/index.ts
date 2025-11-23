@@ -95,7 +95,7 @@ async function processMetrics(supabaseAdmin: any) {
   }
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }

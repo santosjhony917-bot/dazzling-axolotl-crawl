@@ -138,7 +138,7 @@ function RestaurantLogin() {
                   className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
                   disabled={loading}
                 >
-                  <div className="h-5 w-5 flex items-center justify-center">
+                  <div className="h-7 w-7 flex items-center justify-center">
                     <svg height="225" width="225" viewBox="0 0 225 225">
                       {/* top leaf */}
                       <path fill="#000" d="m108,35
@@ -241,7 +241,13 @@ function RestaurantLogin() {
               <p className="pt-6 text-center text-base text-gray-600">
                 {mode === 'sign_in' ? "Não tem uma conta?" : "Já tem uma conta?"}
                 <button
-                  onClick={() => setMode(mode === 'sign_in' ? 'sign_up' : 'sign_in')}
+                  onClick={() => {
+                    if (mode === 'sign_in') {
+                      navigate(createPageUrl('restaurant-signup'));
+                    } else {
+                      setMode('sign_in');
+                    }
+                  }}
                   className="font-bold text-highlight hover:underline ml-1"
                   disabled={loading}
                 >

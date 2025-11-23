@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useUserLocation } from '@/hooks/useUserLocation';
-import { RestaurantCard } from '@/components/RestaurantCard';
+import NearbyRestaurantCard from '@/components/restaurant/NearbyRestaurantCard';
 import { Restaurant } from '@/types';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/components/ui/use-toast';
@@ -21,11 +21,11 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(0);
-  const { location, isLoading: isLocationLoading, error: locationError } = useUserLocation();
+  const { latitude, longitude, loading: isLocationLoading, error: locationError } = useUserLocation();
   const { toast } = useToast();
 
-  const userLat = location?.latitude;
-  const userLng = location?.longitude;
+  const userLat = latitude;
+  const userLng = longitude;
 
   const fetchRestaurants = useCallback(async (currentOffset: number, isNewSearch: boolean) => {
     if (isLoading || isLocationLoading || !userLat || !userLng) return;
@@ -129,9 +129,24 @@ export default function SearchPage() {
     return (
       <>
         <div className="space-y-4">
-          {searchResults.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-          ))}
+          {searchResults.map((restaurant) => {
+            // Adapt Restaurant to NearbyRestaurantItem format
+            const item = {
+              id: restaurant.id,
+              name: restaurant.name,
+              cuisine: restaurant.category || 'Restaurante',
+              distance: 0, // SearchPage doesn't have distance info
+              rating: 4.5, // Default rating
+              imageUrl: restaurant.image_url || '/placeholder.svg'
+            };
+            return (
+              <NearbyRestaurantCard 
+                key={restaurant.id} 
+                item={item}
+                onClick={(id) => {/* navigate to restaurant */}}
+              />
+            );
+          })}
         </div>
 
         {hasMore && (

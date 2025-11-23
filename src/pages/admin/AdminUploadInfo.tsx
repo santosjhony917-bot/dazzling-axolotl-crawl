@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Upload, MapPin, UtensilsCrossed, Clock, History } from "lucide-react";
@@ -11,7 +11,18 @@ import IncompleteRestaurantAlerts from "@/components/admin/IncompleteRestaurantA
 import { cn } from "@/lib/utils";
 
 export default function AdminUploadInfo() {
-  const [activeTab, setActiveTab] = useState("phase1");
+  // Inicializa o estado lendo do localStorage ou usa "phase1" como padrão
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("adminUploadActiveTab") || "phase1";
+    }
+    return "phase1";
+  });
+
+  // Salva no localStorage sempre que a aba mudar
+  useEffect(() => {
+    localStorage.setItem("adminUploadActiveTab", activeTab);
+  }, [activeTab]);
 
   const handleNextPhase = () => {
     if (activeTab === "phase1") {
