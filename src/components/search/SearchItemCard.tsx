@@ -17,6 +17,7 @@ interface SearchItem {
   city?: string | null;
   neighborhood?: string | null; // Adicionado para exibir o nome do bairro
   restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
+  distance_km?: number; // Adicionado para exibir a distância do restaurante
 }
 
 interface SearchItemCardProps {
@@ -57,10 +58,19 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
             </p>
           )}
           
-          {!isDish && item.neighborhood && (
-            <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-              <MapPin className="w-3 h-3 text-highlight" /> {item.neighborhood}
-            </p>
+          {!isDish && (
+            <div className="flex items-center gap-3 mt-1">
+              {item.neighborhood && (
+                <p className="text-xs text-gray-500 flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-highlight" /> {item.neighborhood}
+                </p>
+              )}
+              {item.distance_km !== undefined && (
+                <p className="text-xs text-gray-600 font-medium flex items-center gap-1">
+                  <span className="text-highlight">📍</span> {item.distance_km.toFixed(1)} km
+                </p>
+              )}
+            </div>
           )}
         </div>
       </div>

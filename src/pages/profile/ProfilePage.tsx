@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from '@/components/PageHelmet';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -97,9 +97,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Meu Perfil</title>
-      </Helmet>
+      <PageHelmet title="Meu Perfil" />
       <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">

@@ -16,15 +16,15 @@ interface NearbyCompetitor {
  */
 export const useNearbyCompetitors = (
   currentRestaurantId: string | undefined,
-  latitude: number | undefined,
-  longitude: number | undefined
+  latitude: number | undefined | null,
+  longitude: number | undefined | null
 ) => {
   const [competitors, setCompetitors] = useState<NearbyCompetitor[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!currentRestaurantId || latitude === undefined || longitude === undefined) {
+    if (!currentRestaurantId || latitude === undefined || latitude === null || longitude === undefined || longitude === null) {
       setIsLoading(false);
       return;
     }
@@ -38,8 +38,11 @@ export const useNearbyCompetitors = (
         const { data, error } = await supabase.rpc('find_nearby_restaurants', {
           user_lat: latitude,
           user_lng: longitude,
-          max_distance_km: 10, // Default search radius of 10km
+          max_distance_km: 50, // Increased search radius to 50km
           search_query: null,
+          included_categories: [],
+          p_limit: 10,
+          p_offset: 0
         });
 
         if (error) {
@@ -51,7 +54,10 @@ export const useNearbyCompetitors = (
 
         // Filter out the current restaurant and map to the required structure
         const filteredCompetitors: NearbyCompetitor[] = nearbyRestaurants
-          .filter((r) => r.id !== currentRestaurantId)
+          .filter((r) => {
+            // Ensure we are comparing strings and ignoring case if necessary, though UUIDs are usually lowercase
+            return String(r.id) !== String(currentRestaurantId);
+          })
           .map((r) => ({
             id: r.id,
             name: r.name,

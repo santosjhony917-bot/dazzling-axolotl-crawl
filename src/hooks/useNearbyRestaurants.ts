@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { RestaurantWithDistance } from '@/lib/types';
+import { RestaurantWithDistance } from '@/types/supabase';
+
+export type { RestaurantWithDistance };
 
 interface UseNearbyRestaurantsProps {
   userLat: number | null;

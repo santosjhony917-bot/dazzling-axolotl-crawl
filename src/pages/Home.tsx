@@ -15,8 +15,6 @@ import PremiumBanner from '@/components/restaurant/dashboard/PremiumBanner';
 import HighlightCard from '@/components/restaurant/dashboard/HighlightCard';
 import NearbyCompetitorCard from '@/components/restaurant/dashboard/NearbyCompetitorCard';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { usePopularMenuItems } from '@/hooks/usePopularMenuItems';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,8 +22,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [isLocationModalOpen, setIsLocationModalOpen] = React.useState(false);
-  const [isPriceModalOpen, setIsPriceModalOpen] = React.useState(false);
-  const [isDistanceModalOpen, setIsDistanceModalOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [distance, setDistance] = React.useState<number[]>([10]); // Inicializando distance
 
@@ -78,19 +74,12 @@ const Home: React.FC = () => {
       setIsLocationModalOpen(true);
       return;
     }
-    setIsPriceModalOpen(true);
-  };
-
-  const handleApplyPriceFilter = (minPrice: number, maxPrice: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados
-    showSuccess(`Filtro de preço aplicado: R$${minPrice.toFixed(2)} a R$${maxPrice.toFixed(2)}. Redirecionando para Busca.`);
+    
+    // Redireciona diretamente para a busca de pratos
     navigate(createPageUrl('search', undefined, { 
-      minPrice: minPrice.toString(), 
-      maxPrice: maxPrice.toString(), 
-      searchQuery: searchQuery, // Manter a query de busca atual
+      searchQuery: searchQuery, 
       searchType: 'dish' 
     }));
-    setIsPriceModalOpen(false); // Fechar o modal após aplicar
   };
 
   const handleSearchNearby = () => {
@@ -99,18 +88,13 @@ const Home: React.FC = () => {
       setIsLocationModalOpen(true);
       return;
     }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (maxDistanceKm: number) => {
-    // Redireciona para a tela de busca unificada com os filtros aplicados
-    showSuccess(`Filtro de distância aplicado: até ${maxDistanceKm} km. Redirecionando para Busca.`);
+    
+    // Redireciona diretamente para a busca de restaurantes com filtro de 10km
     navigate(createPageUrl('search', undefined, { 
-      maxDistance: maxDistanceKm.toString(), 
-      searchQuery: searchQuery, // Manter a query de busca atual
+      maxDistance: '10', 
+      searchQuery: searchQuery, 
       searchType: 'restaurant' 
     }));
-    setIsDistanceModalOpen(false); // Fechar o modal após aplicar
   };
 
   return (
@@ -118,23 +102,33 @@ const Home: React.FC = () => {
       
       {/* Header com Localização */}
       <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
-        <div 
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setIsLocationModalOpen(true)}
-        >
-          <MapPin className="h-6 w-6 text-highlight" />
-          <div>
-            <p className="text-xs text-gray-500">Localização de Busca</p>
-            {isLocationLoading ? (
-              <div className="flex items-center text-sm font-bold text-primary">
-                <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
-              </div>
-            ) : (
-              <p className="text-base font-extrabold text-primary tracking-tight truncate max-w-[250px]">
-                {location.address.split(',')[0] || "Definir Local"}
-              </p>
-            )}
+        <div className="flex items-start justify-between gap-2">
+          <div 
+            className="flex items-center gap-2 cursor-pointer flex-1"
+            onClick={() => setIsLocationModalOpen(true)}
+          >
+            <MapPin className="h-6 w-6 text-highlight flex-shrink-0" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-gray-500">Localização de Busca</p>
+              {isLocationLoading ? (
+                <div className="flex items-center text-sm font-bold text-primary">
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin" /> Carregando...
+                </div>
+              ) : (
+                <p className="text-base font-extrabold text-primary tracking-tight truncate">
+                  {location.address.split(',')[0] || "Definir Local"}
+                </p>
+              )}
+            </div>
           </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsLocationModalOpen(true)}
+            className="text-xs text-highlight hover:text-highlight/90 hover:bg-highlight/10 px-2 h-auto py-1 rounded-lg flex-shrink-0"
+          >
+            Atualizar
+          </Button>
         </div>
         
         {/* Barra de Busca Principal */}
@@ -323,18 +317,6 @@ const Home: React.FC = () => {
         onClose={() => setIsLocationModalOpen(false)}
         currentAddress={location.address}
         onLocationSaved={handleLocationSaved}
-      />
-      
-      {/* Modais de Filtro */}
-      <SearchByPriceModal
-        isOpen={isPriceModalOpen}
-        onClose={() => setIsPriceModalOpen(false)}
-        onApplyFilter={handleApplyPriceFilter}
-      />
-      <SearchByDistanceModal
-        isOpen={isDistanceModalOpen}
-        onClose={() => setIsDistanceModalOpen(false)}
-        onApplyFilter={handleApplyDistanceFilter}
       />
     </div>
   );

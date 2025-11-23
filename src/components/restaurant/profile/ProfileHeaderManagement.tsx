@@ -95,7 +95,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
         )}
         
         {/* Botão de Upload (Flutuante no canto) */}
-        <div className="absolute bottom-0 right-0 z-10 translate-x-1/4 translate-y-1/4"> {/* Adicionado translate para mover para fora */}
+        <div className="absolute bottom-0 right-0 z-[5] translate-x-1/4 translate-y-1/4"> {/* Alterado z-10 para z-[5] para ficar abaixo do header (z-20) */}
           <ImageUploadButton
             imageUrl={logoUrl || undefined}
             onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}

@@ -53,4 +53,5 @@ const useUserLocation = (): LocationState => {
   return location;
 };
 
+export { useUserLocation };
 export default useUserLocation;

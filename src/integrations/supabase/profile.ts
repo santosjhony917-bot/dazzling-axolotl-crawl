@@ -21,7 +21,8 @@ export async function getRestaurantByUserId(userId: string): Promise<Restaurant 
     .from('restaurants')
     .select('*')
     .eq('user_id', userId)
-    .single();
+    .limit(1)
+    .maybeSingle();
 
   if (error && error.code !== 'PGRST116') {
     console.error('Error fetching restaurant by user ID:', error);

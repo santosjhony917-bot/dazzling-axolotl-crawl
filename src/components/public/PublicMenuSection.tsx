@@ -6,6 +6,7 @@ import { Utensils } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils/url';
 
 interface PublicMenuSectionProps {
   categories: (MenuCategory & { menu_items: MenuItem[] })[];
@@ -59,7 +60,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
         </section>
       ))}
       <div className="mt-6 text-center">
-        <Button onClick={() => navigate(`/restaurant/${restaurantId}/menu`)}>
+        <Button onClick={() => navigate(createPageUrl('fullMenuPage', { restaurantId }))}>
           Ver Cardápio Completo
         </Button>
       </div>

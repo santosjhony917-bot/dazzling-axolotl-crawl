@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { AppleIcon } from '@/components/icons/AppleIcon';
 
 const CustomSignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +20,28 @@ const CustomSignUpForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const handleSocialLogin = async (provider: 'google' | 'apple') => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin + '/restaurant-area/dashboard',
+        },
+      });
+      if (error) throw error;
+    } catch (error) {
+      const msg = (error as Error).message || "Ocorreu um erro ao fazer login com o provedor social.";
+      toast({
+        variant: 'destructive',
+        title: 'Erro',
+        description: msg,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,61 +79,103 @@ const CustomSignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSignUp} className="space-y-4 text-left pt-4">
-      <div>
-        <Label htmlFor="email-signup" className="font-semibold text-primary text-left !mb-2">Seu e-mail</Label>
-        <Input
-          id="email-signup"
-          type="email"
-          placeholder="seu@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+    <div className="space-y-4 pt-4">
+      <div className="grid grid-cols-2 gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => handleSocialLogin('google')}
+          className="w-full h-12 rounded-xl border-gray-200 shadow-soft-sm hover:bg-gray-50"
           disabled={isLoading}
-          className="h-14 text-base shadow-soft-sm !rounded-xl"
-        />
-      </div>
-      <div>
-        <Label htmlFor="password-signup" className="font-semibold text-primary text-left !mb-2">Crie uma senha</Label>
-        <Input
-          id="password-signup"
-          type="password"
-          placeholder="Crie uma senha segura"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
+        >
+          <GoogleIcon className="h-5 w-5 mr-2" />
+          Google
+        </Button>
+        <Button
+          type="button"
+          onClick={() => handleSocialLogin('apple')}
+          className="w-full h-12 rounded-xl shadow-soft-sm bg-black text-white hover:bg-black/90"
           disabled={isLoading}
-          className="h-14 text-base shadow-soft-sm !rounded-xl"
-        />
+        >
+          <AppleIcon className="h-5 w-5 mr-2 fill-current" />
+          Apple
+        </Button>
       </div>
-      <div>
-        <Label htmlFor="confirm-password-signup" className="font-semibold text-primary text-left !mb-2">Confirme sua senha</Label>
-        <Input
-          id="confirm-password-signup"
-          type="password"
-          placeholder="Digite sua senha novamente"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-          disabled={isLoading}
-          className="h-14 text-base shadow-soft-sm !rounded-xl"
-        />
+
+      <div className="relative flex items-center justify-center py-2">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-gray-200" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white px-2 text-gray-500">
+            ou continue com email
+          </span>
+        </div>
       </div>
-      {error && <p className="text-sm text-red-500 text-center pt-2">{error}</p>}
-      <Button type="submit" variant="highlight" className="w-full h-12 text-base" disabled={isLoading}>
-        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Criar conta'}
-      </Button>
-    </form>
+
+      <form onSubmit={handleSignUp} className="space-y-4 text-left">
+        <div>
+          <Label htmlFor="email-signup" className="font-semibold text-primary text-left !mb-2">Seu e-mail</Label>
+          <Input
+            id="email-signup"
+            type="email"
+            placeholder="seu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isLoading}
+            className="h-14 text-base shadow-soft-sm !rounded-xl"
+          />
+        </div>
+        <div>
+          <Label htmlFor="password-signup" className="font-semibold text-primary text-left !mb-2">Crie uma senha</Label>
+          <Input
+            id="password-signup"
+            type="password"
+            placeholder="Crie uma senha segura"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            disabled={isLoading}
+            className="h-14 text-base shadow-soft-sm !rounded-xl"
+          />
+        </div>
+        <div>
+          <Label htmlFor="confirm-password-signup" className="font-semibold text-primary text-left !mb-2">Confirme sua senha</Label>
+          <Input
+            id="confirm-password-signup"
+            type="password"
+            placeholder="Digite sua senha novamente"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            disabled={isLoading}
+            className="h-14 text-base shadow-soft-sm !rounded-xl"
+          />
+        </div>
+        {error && <p className="text-sm text-red-500 text-center pt-2">{error}</p>}
+        <Button type="submit" variant="highlight" className="w-full h-12 text-base" disabled={isLoading}>
+          {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Criar conta'}
+        </Button>
+      </form>
+    </div>
   );
 };
 
-const CustomAuth = () => {
+interface CustomAuthProps {
+  defaultTab?: string;
+  hideLogin?: boolean;
+}
+
+const CustomAuth = ({ defaultTab = "signup", hideLogin = false }: CustomAuthProps) => {
   return (
-    <Tabs defaultValue="signup" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="signup">Criar Conta</TabsTrigger>
-        <TabsTrigger value="signin">Entrar</TabsTrigger>
-      </TabsList>
+    <Tabs defaultValue={defaultTab} className="w-full">
+      {!hideLogin && (
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="signup">Criar Conta</TabsTrigger>
+          <TabsTrigger value="signin">Entrar</TabsTrigger>
+        </TabsList>
+      )}
       <TabsContent value="signup">
         <CustomSignUpForm />
       </TabsContent>

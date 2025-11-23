@@ -205,20 +205,21 @@ export default function RestaurantSignup() {
     try {
       // 1. Envia todos os dados para a Edge Function para criação segura do usuário e registro do restaurante.
       const payload = {
-        name: restaurantName, // Corrigido: usando 'name' em vez de 'restaurantName'
+        restaurantName: restaurantName,
+        location: {
+          street: location.street,
+          number: location.number,
+          neighborhood: location.neighborhood,
+          city: location.city,
+          state: location.state,
+          cep: location.cep,
+          phone: location.phone
+        },
         email,
         password,
-        phone: location.phone,
-        address: location.street,
-        number: location.number,
-        neighborhood: location.neighborhood,
-        city: location.city,
-        state: location.state,
-        cep: location.cep,
-        // latitude e longitude não estão no tipo Location atual, então não serão passados.
       };
       
-      const registrationResult = await registerRestaurant(payload);
+      const registrationResult = await registerRestaurant(payload as any);
       
       // 2. A Edge Function retornou sucesso. Agora fazemos o login no cliente.
       const { error: signInError } = await supabase.auth.signInWithPassword({ 
@@ -426,11 +427,10 @@ export default function RestaurantSignup() {
             <Button
               type="button"
               onClick={() => handleSocialLogin('apple')}
-              variant="channel"
-              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm bg-black text-white hover:bg-black/90"
               disabled={loading}
             >
-              <AppleIcon className="h-5 w-5" />
+              <AppleIcon className="h-5 w-5 fill-current" />
               <span className="truncate">Continuar com Apple</span>
             </Button>
 
@@ -525,9 +525,9 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-background-light flex flex-col">
+    <div className="min-h-screen bg-background-light flex flex-col items-center">
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-sm">
         <Button
           variant="ghost"
           size="icon"
@@ -548,10 +548,10 @@ export default function RestaurantSignup() {
         <div className="w-10"></div>
       </header>
 
-      <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
+      <main className="flex-1 px-4 py-6 w-full max-w-sm mx-auto flex flex-col justify-center">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
-            <Store className="w-8 h-8 text-primary" />
+          <div className="flex items-center justify-center size-20 bg-primary/10 rounded-xl mx-auto mb-4">
+            <Store className="w-10 h-10 text-primary" />
           </div>
           <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
             Cadastrar Restaurante

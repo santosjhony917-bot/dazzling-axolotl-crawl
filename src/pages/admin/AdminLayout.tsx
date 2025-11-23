@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
+import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -27,6 +27,17 @@ const navItems: NavItem[] = [
 const AdminLayout: React.FC = () => {
   const navigate = useNavigate();
   const { user, isLoading, isAdmin, signOut } = useAuthData();
+  
+  // Inicializa o estado com base no localStorage
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    const saved = localStorage.getItem('adminSidebarCollapsed');
+    return saved === 'true';
+  });
+
+  // Atualiza o localStorage sempre que o estado mudar
+  useEffect(() => {
+    localStorage.setItem('adminSidebarCollapsed', String(isCollapsed));
+  }, [isCollapsed]);
 
   if (isLoading) {
     return (
@@ -47,8 +58,23 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
-        <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
+      <aside 
+        className={cn(
+          "bg-white shadow-soft-lg p-4 flex flex-col transition-all duration-300 ease-in-out",
+          isCollapsed ? "w-20" : "w-64"
+        )}
+      >
+        <div className="flex items-center justify-between mb-6">
+          {!isCollapsed && <h1 className="text-2xl font-bold text-primary whitespace-nowrap overflow-hidden">Admin Panel</h1>}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={cn("ml-auto", isCollapsed && "mx-auto")}
+          >
+            {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+          </Button>
+        </div>
         
         <nav className="flex-grow space-y-2">
           {navItems.map((item) => { // Usando a lista 'navItems' correta
@@ -58,13 +84,15 @@ const AdminLayout: React.FC = () => {
                 key={item.pathKey} // Usando pathKey como chave
                 variant="ghost"
                 className={cn(
-                  "w-full justify-start gap-3 rounded-lg",
-                  currentFullPath === itemUrl && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
+                  "w-full justify-start gap-3 rounded-lg transition-all duration-200",
+                  currentFullPath === itemUrl && "bg-primary/10 text-primary font-semibold shadow-soft-sm",
+                  isCollapsed && "justify-center px-2"
                 )}
                 onClick={() => navigate(itemUrl)} // Navega para a URL completa
+                title={isCollapsed ? item.name : undefined}
               >
-                <item.icon className="w-5 h-5" />
-                {item.name}
+                <item.icon className="w-5 h-5 min-w-[1.25rem]" />
+                {!isCollapsed && <span className="truncate">{item.name}</span>}
               </Button>
             );
           })}
@@ -73,16 +101,22 @@ const AdminLayout: React.FC = () => {
         <Separator className="my-4" />
         
         <div className="space-y-2">
-          <div className="text-sm text-gray-600 truncate p-2">
-            Logado como: <span className="font-medium">{user.email}</span>
-          </div>
+          {!isCollapsed && (
+            <div className="text-sm text-gray-600 truncate p-2">
+              Logado como: <span className="font-medium">{user.email}</span>
+            </div>
+          )}
           <Button 
             variant="outline" 
-            className="w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg"
+            className={cn(
+              "w-full justify-start gap-3 text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 rounded-lg",
+              isCollapsed && "justify-center px-2"
+            )}
             onClick={signOut}
+            title={isCollapsed ? "Sair" : undefined}
           >
-            <LogOut className="w-5 h-5" />
-            Sair
+            <LogOut className="w-5 h-5 min-w-[1.25rem]" />
+            {!isCollapsed && "Sair"}
           </Button>
         </div>
       </aside>

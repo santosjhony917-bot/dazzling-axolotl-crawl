@@ -47,7 +47,7 @@ const UploadHistory: React.FC = () => {
       setRecordToDelete(null);
     }
   };
-  
+
   const formatTimestamp = (timestamp: number) => {
     return format(new Date(timestamp), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR });
   };
@@ -71,7 +71,7 @@ const UploadHistory: React.FC = () => {
           Registros de uploads em massa realizados nas Fases 1 a 4.
         </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="p-0">
         {history.length === 0 ? (
           <Alert className="border-dashed text-center">
@@ -99,9 +99,9 @@ const UploadHistory: React.FC = () => {
                     </p>
                   </div>
                   <div className="flex space-x-2 shrink-0">
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       onClick={() => handleDeleteClick(record)}
                       className="h-8 w-8 text-red-500 hover:bg-red-50"
                     >
@@ -126,7 +126,7 @@ const UploadHistory: React.FC = () => {
           </div>
         )}
       </CardContent>
-      
+
       {/* Delete Alert Dialog */}
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
         <AlertDialogContent>
@@ -135,7 +135,7 @@ const UploadHistory: React.FC = () => {
               <AlertTriangle className="h-5 w-5 mr-2" /> Confirmar Exclusão
             </AlertDialogTitle>
             <AlertDialogDescription>
-              Você está prestes a excluir o registro de upload da Fase {recordToDelete?.phase} ({recordToDelete?.successCount} itens). 
+              Você está prestes a excluir o registro de upload da Fase {recordToDelete?.phase} ({recordToDelete?.successCount} itens).
               **Atenção:** Esta ação apenas remove o registro do histórico, **não desfaz as alterações no banco de dados.**
             </AlertDialogDescription>
           </AlertDialogHeader>

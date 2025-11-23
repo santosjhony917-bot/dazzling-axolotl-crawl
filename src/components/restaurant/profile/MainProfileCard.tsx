@@ -34,8 +34,8 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
             alt="Logo do Restaurante" 
             className="w-full h-full object-cover rounded-full"
           />
-          {/* 2. Botão de Upload (Flutuante no canto) - z-50 para garantir que esteja na frente */}
-          <div className="absolute bottom-0 right-0 z-50 translate-x-1/4 translate-y-1/4">
+          {/* 2. Botão de Upload (Flutuante no canto) - z-[5] para ficar abaixo dos headers */}
+          <div className="absolute bottom-0 right-0 z-[5] translate-x-1/4 translate-y-1/4">
             <ImageUploadButton
               onUploadComplete={onLogoUploadComplete}
               bucketName={RESTAURANT_IMAGES_BUCKET}

@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthData } from "@/context/AuthContext";
 import { showError, showSuccess } from "@/utils/toast";
-import { Restaurant } from "@/types/supabase"; // Corrigido o import
+import { Restaurant } from "@/types/supabase";
 
 // --- Tipos de Retorno ---
 interface Favorite {
@@ -41,7 +41,7 @@ const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
   if (error) throw new Error(error.message);
   
   // Filtra para garantir que apenas objetos Favorite válidos sejam retornados
-  return data.filter(item => item.restaurants) as Favorite[];
+  return data.filter((item: any) => item.restaurants) as Favorite[];
 };
 
 // --- Main Hook ---

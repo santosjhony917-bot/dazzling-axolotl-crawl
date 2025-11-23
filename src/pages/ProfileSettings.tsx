@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import PageHelmet from '@/components/PageHelmet';
 import { useUser } from '../hooks/useUser';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -75,9 +75,7 @@ const ProfileSettings = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Configurações do Perfil - Restaurantes</title>
-      </Helmet>
+      <PageHelmet title="Configurações do Perfil - Restaurantes" />
       <div className="container mx-auto px-4 py-8">
         <div className="sticky top-0 z-[100] bg-white pb-4">
           <h1 className="text-3xl font-bold">Configurações do Perfil</h1>
