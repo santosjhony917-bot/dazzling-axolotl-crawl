@@ -18,7 +18,7 @@ interface AuthContextType {
   isAdmin: boolean;
   isPremium: boolean;
   // Adicionando refetchProfile para forçar atualização após login/signup
-  refetchProfile: () => void; 
+  refetchProfile: () => void;
   refetchRestaurant: () => void; // Adicionado: Função para recarregar dados do restaurante
 }
 
@@ -31,18 +31,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const queryClient = useQueryClient();
 
   // Query para buscar Profile
-  const { data: profile, isLoading: isProfileLoading, refetch: refetchProfile } = useQuery({
+  const { data: profile, isPending: isProfileQueryPending, refetch: refetchProfile } = useQuery({
     queryKey: ['profile', user?.id],
     queryFn: () => (user ? getProfile(user.id) : null),
     enabled: isAuthenticated,
   });
 
   // Query para buscar Restaurant
-  const { data: restaurant, isLoading: isRestaurantLoading, refetch: refetchRestaurant } = useQuery({
+  const { data: restaurant, isPending: isRestaurantQueryPending, refetch: refetchRestaurant } = useQuery({
     queryKey: ['restaurant', user?.id],
     queryFn: () => (user ? getRestaurantByUserId(user.id) : null),
     enabled: isAuthenticated,
   });
+
+  // Derivando estados de loading reais
+  // Se está autenticado, o loading é verdadeiro enquanto a query estiver pendente
+  // Se NÃO está autenticado, o loading do perfil/restaurante é falso (pois não vai buscar nada)
+  const isProfileLoading = isAuthenticated ? isProfileQueryPending : false;
+  const isRestaurantLoading = isAuthenticated ? isRestaurantQueryPending : false;
 
   useEffect(() => {
     const handleAuthChange = async (event: string, session: any) => {
@@ -59,7 +65,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
               body: { claimCode },
             });
             if (functionError) throw functionError;
-            
+
             console.log('Restaurante reivindicado com sucesso. Recarregando dados...');
             // Força a recarga dos dados do restaurante após a reivindicação
             await refetchRestaurant();
@@ -74,7 +80,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setIsLoading(false);
     };
-    
+
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       handleAuthChange(event, session);
     });
