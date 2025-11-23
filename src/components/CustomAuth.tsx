@@ -93,12 +93,11 @@ const CustomSignUpForm = () => {
         </Button>
         <Button
           type="button"
-          variant="outline"
           onClick={() => handleSocialLogin('apple')}
-          className="w-full h-12 rounded-xl border-gray-200 shadow-soft-sm hover:bg-gray-50"
+          className="w-full h-12 rounded-xl shadow-soft-sm bg-black text-white hover:bg-black/90"
           disabled={isLoading}
         >
-          <AppleIcon className="h-5 w-5 mr-2 text-black" />
+          <AppleIcon className="h-5 w-5 mr-2 fill-current" />
           Apple
         </Button>
       </div>
