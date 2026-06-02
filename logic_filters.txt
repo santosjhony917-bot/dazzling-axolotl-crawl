@@ -1,0 +1,468 @@
+## Lógica de Filtros e Busca para a Dyad
+
+**Instrução:** Replicar a lógica de estado, manipulação de filtros (preço, distância, tipo de comida, serviço e pagamento) e o fluxo de busca/navegação.
+
+### 1. Filters.tsx
+
+```tsx
+import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+
+const Filters = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [distance, setDistance] = useState([2]);
+  const [selectedFoodTypes, setSelectedFoodTypes] = useState<string[]>([]);
+  const [serviceTypes, setServiceTypes] = useState({
+    delivery: false,
+    presencial: false,
+  });
+  const [paymentMethods, setPaymentMethods] = useState({
+    pix: false,
+    dinheiro: false,
+    credito: false,
+    debito: false,
+    aleloRefeicao: false,
+    sodexo: false,
+  });
+
+  const foodTypes = [
+    { id: "pizza", label: "Pizza" },
+    { id: "japonesa", label: "Japonesa" },
+    { id: "brasileira", label: "Brasileira" },
+    { id: "fit", label: "Fit" },
+    { id: "sobremesas", label: "Sobremesas" },
+    { id: "churrasco", label: "Churrasco" },
+    { id: "lanches", label: "Lanches" },
+    { id: "italiano", label: "Italiano" },
+  ];
+
+  const toggleFoodType = (id: string) => {
+    setSelectedFoodTypes((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleClearFilters = () => {
+    setPriceRange([0, 100]);
+    setDistance([2]);
+    setSelectedFoodTypes([]);
+    setServiceTypes({ delivery: false, presencial: false });
+    setPaymentMethods({
+      pix: false,
+      dinheiro: false,
+      credito: false,
+      debito: false,
+      aleloRefeicao: false,
+      sodexo: false,
+    });
+    toast({
+      title: "Filtros limpos",
+      description: "Todos os filtros foram resetados",
+    });
+  };
+
+  const handleSearch = () => {
+    toast({
+      title: "Buscando pratos",
+      description: `Filtros aplicados: R$ ${priceRange[0]}–${priceRange[1]}, até ${distance[0]} km`,
+    });
+    navigate("/home");
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="sticky top-0 z-50 bg-card border-b border-border">
+        <div className="flex items-center justify-between px-4 py-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-muted transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5 text-foreground" />
+          </button>
+          <div className="text-center flex-1">
+            <h1 className="text-lg font-bold text-foreground">Filtros de Busca</h1>
+            <p className="text-xs text-muted-foreground">Configure suas preferências</p>
+          </div>
+          <div className="w-10" /> {/* Spacer for alignment */}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="px-4 py-6 space-y-6 pb-32">
+        {/* Preço */}
+        <Card className="p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Preço</h3>
+          <div className="flex items-center justify-between mb-3">
+            <div className="text-center">
+              <p className="text-xs text-muted-foreground mb-1">Mín.</p>
+              <p className="text-sm font-bold text-foreground">R$ {priceRange[0]}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs text-muted-foreground mb-1">Máx.</p>
+              <p className="text-sm font-bold text-foreground">R$ {priceRange[1]}</p>
+            </div>
+          </div>
+          <Slider
+            value={priceRange}
+            onValueChange={setPriceRange}
+            min={0}
+            max={500}
+            step={10}
+            className="mb-2"
+          />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>R$ 0</span>
+            <span>R$ 500</span>
+          </div>
+        </Card>
+
+        {/* Distância */}
+        <Card className="p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Distância</h3>
+          <div className="bg-muted/30 rounded-lg p-3 mb-3 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Até</p>
+            <p className="text-2xl font-bold text-foreground">
+              {distance[0] >= 50 ? "50+" : distance[0]} km
+            </p>
+          </div>
+          <Slider
+            value={distance}
+            onValueChange={setDistance}
+            min={1}
+            max={50}
+            step={1}
+            className="mb-2"
+          />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>1 km</span>
+            <span>50+ km</span>
+          </div>
+        </Card>
+
+        {/* Tipo de Serviço */}
+        <Card className="p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Tipo de Serviço</h3>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="delivery"
+                checked={serviceTypes.delivery}
+                onCheckedChange={(checked) =>
+                  setServiceTypes((prev) => ({ ...prev, delivery: !!checked }))
+                }
+              />
+              <label
+                htmlFor="delivery"
+                className="text-sm text-foreground cursor-pointer flex items-center gap-2"
+              >
+                <span>🚚</span>
+                Delivery
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="presencial"
+                checked={serviceTypes.presencial}
+                onCheckedChange={(checked) =>
+                  setServiceTypes((prev) => ({ ...prev, presencial: !!checked }))
+                }
+              />
+              <label
+                htmlFor="presencial"
+                className="text-sm text-foreground cursor-pointer flex items-center gap-2"
+              >
+                <span>🏠</span>
+                Presencial
+              </label>
+            </div>
+          </div>
+        </Card>
+
+        {/* Formas de Pagamento */}
+        <Card className="p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Formas de Pagamento</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="pix"
+                checked={paymentMethods.pix}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, pix: !!checked }))
+                }
+              />
+              <label htmlFor="pix" className="text-sm text-foreground cursor-pointer">
+                PIX
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="dinheiro"
+                checked={paymentMethods.dinheiro}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, dinheiro: !!checked }))
+                }
+              />
+              <label htmlFor="dinheiro" className="text-sm text-foreground cursor-pointer">
+                Dinheiro
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="credito"
+                checked={paymentMethods.credito}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, credito: !!checked }))
+                }
+              />
+              <label htmlFor="credito" className="text-sm text-foreground cursor-pointer">
+                Crédito
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="debito"
+                checked={paymentMethods.debito}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, debito: !!checked }))
+                }
+              />
+              <label htmlFor="debito" className="text-sm text-foreground cursor-pointer">
+                Débito
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="aleloRefeicao"
+                checked={paymentMethods.aleloRefeicao}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, aleloRefeicao: !!checked }))
+                }
+              />
+              <label htmlFor="aleloRefeicao" className="text-sm text-foreground cursor-pointer">
+                Alelo Refeição
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="sodexo"
+                checked={paymentMethods.sodexo}
+                onCheckedChange={(checked) =>
+                  setPaymentMethods((prev) => ({ ...prev, sodexo: !!checked }))
+                }
+              />
+              <label htmlFor="sodexo" className="text-sm text-foreground cursor-pointer">
+                Sodexo
+              </label>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Fixed Bottom Actions */}
+      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border p-4 space-y-3">
+        <Button
+          onClick={handleSearch}
+          className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl"
+        >
+          Buscar Pratos
+        </Button>
+        <Button
+          onClick={handleClearFilters}
+          variant="outline"
+          className="w-full h-12 border-[#E47948] text-[#E47948] hover:bg-[#E47948]/10 rounded-xl"
+        >
+          Limpar Filtros
+        </Button>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="ghost"
+          className="w-full h-12 bg-muted/30 text-foreground hover:bg-muted/50 rounded-xl"
+        >
+          Voltar
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Filters;
+```
+
+### 2. SearchRestaurants.tsx
+
+```tsx
+import { useState, useEffect } from "react";
+import { MapPin, User, Search, ArrowLeft } from "lucide-react";
+import CustomerBottomNav from "@/components/CustomerBottomNav";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { LocationPermissionModal } from "@/components/LocationPermissionModal";
+import appLogo from "@/assets/filter-food-logo-new.png";
+const SearchRestaurants = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [distance, setDistance] = useState([20]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentLocation, setCurrentLocation] = useState("Obtendo localização...");
+  const [userCoords, setUserCoords] = useState<{ lat: number; lon: number } | null>(null);
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  
+  // Check if user has saved location preference - same as CustomerHome
+  useEffect(() => {
+    const hasLocationPermission = localStorage.getItem('locationPermissionGranted');
+    if (!hasLocationPermission) {
+      // First time - show location modal
+      setShowLocationModal(true);
+    } else {
+      // Try to get user location
+      requestUserLocation();
+    }
+  }, []);
+
+  const requestUserLocation = async () => {
+    if (!navigator.geolocation) {
+      toast({
+        title: "Geolocalização indisponível",
+        description: "Seu navegador não suporta geolocalização",
+        variant: "destructive",
+      });
+      // Use default location
+      setUserCoords({ lat: -7.1195, lon: -34.8450 });
+      setCurrentLocation("João Pessoa, PB");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserCoords({ lat: latitude, lon: longitude });
+        setCurrentLocation("Localização obtida");
+        
+        // Save permission
+        localStorage.setItem('locationPermissionGranted', 'true');
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+        
+        // Use default location
+        setUserCoords({ lat: -7.1195, lon: -34.8450 });
+        setCurrentLocation("João Pessoa, PB");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // Cache for 5 minutes
+      }
+    );
+  };
+
+  const handleEnableLocation = () => {
+    setShowLocationModal(false);
+    requestUserLocation();
+  };
+
+  const handleUseMockLocation = () => {
+    setShowLocationModal(false);
+    setUserCoords({ lat: -7.1195, lon: -34.8450 });
+    setCurrentLocation("João Pessoa, PB");
+    
+    localStorage.setItem('useMockLocation', 'true');
+    
+    toast({
+      title: "Localização configurada",
+      description: "Usando: João Pessoa, PB",
+    });
+  };
+  
+  const applyFilters = () => {
+    if (!userCoords) {
+      toast({
+        title: "Aguardando localização",
+        description: "Por favor, aguarde enquanto obtemos sua localização",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    navigate(`/restaurant-results?distance=${distance[0]}&lat=${userCoords.lat}&lon=${userCoords.lon}&search=${encodeURIComponent(searchQuery)}`);
+  };
+  return <div className="min-h-screen bg-background pb-20">
+      {/* Header - Flat Design */}
+      <div className="bg-gradient-to-r from-[#002E6D] to-[#014D9F] px-4 pt-3 pb-4">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/home")} className="text-white hover:bg-white/10">
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <img src={appLogo} alt="FilterFood" className="h-7 w-auto" />
+          </div>
+          <Link to="/profile">
+            <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+              <User className="h-4 w-4 text-white" />
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="px-4 pb-24 mt-4">
+        <div className="bg-white border border-border/30 rounded-2xl p-4 shadow-sm">
+          {/* Search */}
+          <div className="relative mb-3">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input type="text" placeholder="Buscar restaurantes ou pratos..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-9 pr-3 h-10 bg-muted/40 border-border/30 rounded-2xl text-sm focus:bg-background transition-colors" />
+          </div>
+
+          {/* Distance Display */}
+          <div className="mb-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-foreground">Distância máxima</span>
+              <div className="bg-muted px-2 py-0.5 rounded-2xl">
+                <span className="text-xs font-medium text-foreground">
+                  {distance[0]} km
+                </span>
+              </div>
+            </div>
+            <Slider value={distance} onValueChange={setDistance} min={1} max={50} step={1} className="mb-3" />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>1 km</span>
+              <span>50 km</span>
+            </div>
+          </div>
+
+          {/* Apply Filters Button */}
+          <Button onClick={applyFilters} className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-2xl">
+            Buscar
+          </Button>
+        </div>
+      </div>
+
+      {/* Bottom Navigation */}
+      <CustomerBottomNav selectedTab="buscar" />
+
+      {/* Location Permission Modal */}
+      <LocationPermissionModal
+        open={showLocationModal}
+        onOpenChange={setShowLocationModal}
+        onEnableLocation={handleEnableLocation}
+        onUseMockLocation={handleUseMockLocation}
+      />
+    </div>;
+};
+export default SearchRestaurants;
+```

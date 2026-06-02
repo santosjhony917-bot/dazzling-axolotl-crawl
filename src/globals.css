@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cores Base (Modo Claro) */
+    --background: 0 0% 100%; /* Branco puro para cards e elementos internos */
+    --foreground: 222.2 84% 4.9%; /* Quase preto */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --primary: 222 80% 15%; /* #022D68 - Ligeiramente ajustado para ser mais vibrante */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 1.25rem; /* Novo padrão de arredondamento (20px) */
+
+    /* Sidebar mais suave */
+    --sidebar-background: 210 40% 98%; /* Cinza muito claro */
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 222.2 47.4% 11.2%; /* Azul primário */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Desabilitando o modo dark, mantendo apenas o modo light */
+  .dark {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 222 80% 15%;
+    --highlight: 15 70% 50%; /* Atualizado para o novo tom de laranja terroso */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    /* Fundo com degradê sutil para dar profundidade */
+    background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
+    @apply text-foreground;
+    /* CORREÇÃO: Força a barra de rolagem vertical a estar sempre presente */
+    overflow-y: scroll; 
+    overflow-x: hidden; /* Adicionado para evitar rolagem horizontal */
+  }
+}
+
+/* Utility classes to hide scrollbar */
+.hide-scrollbar {
+  /* For Webkit browsers (Chrome, Safari) */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Animação de Brilho Lento para o Bloco Emocional */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.05;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s infinite ease-in-out;
+}
+
+/* Animação de Brilho para Botões (Shine Effect) */
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+}
+}
+
+.animate-shine {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shine 3s infinite;
+}
+
+/* Efeito Frosted Glass (Glassmorphism) */
+.frosted-glass {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.7); /* Fundo branco semi-transparente */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.find_nearby_restaurants(numeric, numeric, numeric, text, text[]);
