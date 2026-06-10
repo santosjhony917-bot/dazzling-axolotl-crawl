@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Clock, Instagram as InstagramIcon } from 'lucide-react';
+import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Clock, Instagram as InstagramIcon, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { RestaurantDetailsDialog } from '@/components/admin/RestaurantDetailsDialog';
 import { showSuccess, showError } from '@/utils/toast';
 import { WeekSchedule } from '@/types/schedule';
 import { supabase } from '@/integrations/supabase/client';
@@ -470,53 +471,122 @@ export default function GoogleMapsCollector() {
   } | null>(null);
   const [hasSavedScan, setHasSavedScan] = useState(false);
   const [editingRestaurant, setEditingRestaurant] = useState<ScrapedRestaurant | null>(null);
+  const [loadingRebusca, setLoadingRebusca] = useState<Record<string, boolean>>({});
 
-  const handleSaveEditedRestaurant = async (updated: ScrapedRestaurant) => {
-    try {
-      const updatedResults = results.map(r => r.id === updated.id ? updated : r);
-      setResults(updatedResults);
-      
-      const uuidId = updated.id;
-      
-      let visitNotes = updated.visit_notes || '';
-      if (updated.googleMapsUrl) {
-        if (visitNotes.includes('Google Maps:')) {
-          visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${updated.googleMapsUrl}`);
-        } else {
-          visitNotes = `${visitNotes}\nGoogle Maps: ${updated.googleMapsUrl}`.trim();
-        }
+  const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || '');
+  const [isExtensionActive, setIsExtensionActive] = useState(false);
+
+  useEffect(() => {
+    const checkConnection = async () => {
+      if (!extensionId) {
+        setIsExtensionActive(false);
+        return;
       }
+      const chromeObj = (window as any).chrome;
+      if (!chromeObj || !chromeObj.runtime || !chromeObj.runtime.sendMessage) {
+        setIsExtensionActive(false);
+        return;
+      }
+      try {
+        chromeObj.runtime.sendMessage(extensionId, { action: "ping" }, (response: any) => {
+          if (chromeObj.runtime.lastError) {
+            setIsExtensionActive(false);
+          } else {
+            setIsExtensionActive(!!(response && response.success));
+          }
+        });
+      } catch (e) {
+        setIsExtensionActive(false);
+      }
+    };
+    checkConnection();
+  }, [extensionId]);
 
-      const { error } = await supabase
-        .from('restaurants')
-        .update({
-          name: updated.name,
-          phone: cleanPhone(updated.phone || ''),
-          category: updated.category || 'Restaurante',
-          address: cleanAddress(updated.address || ''),
-          other_url: updated.menuSourceUrl || null,
-          external_url: updated.menuSourceUrl || null,
-          visit_notes: visitNotes,
-          social_networks: [
-            { platform: 'instagram', url: updated.instagram || '' },
-            { platform: 'facebook', url: updated.facebook || '' }
-          ].filter(s => s.url)
-        })
-        .eq('id', uuidId);
-
-      if (error) throw error;
-
-      showSuccess('Restaurante atualizado com sucesso no Supabase!');
-      setEditingRestaurant(null);
-      
-      // Notifica as abas
-      window.dispatchEvent(new Event('local-sync-restaurants'));
-      loadScrapedFromSupabase();
-    } catch (err: any) {
-      console.error(err);
-      showError(`Erro ao salvar edições no Supabase: ${err.message}`);
+  const testExtensionConnection = async () => {
+    if (!extensionId) {
+      showError("Por favor, configure o ID da extensão primeiro.");
+      return;
+    }
+    const chromeObj = (window as any).chrome;
+    if (!chromeObj || !chromeObj.runtime || !chromeObj.runtime.sendMessage) {
+      showError("Este navegador não suporta a extensão do Chrome ou a API de mensageria.");
+      return;
+    }
+    try {
+      chromeObj.runtime.sendMessage(extensionId, { action: "ping" }, (response: any) => {
+        const lastError = chromeObj.runtime.lastError;
+        if (lastError) {
+          setIsExtensionActive(false);
+          showError("Extensão não encontrada ou inativa. Verifique o ID e se ela está ativada.");
+        } else if (response && response.success) {
+          setIsExtensionActive(true);
+          showSuccess("Conexão com a extensão estabelecida com sucesso!");
+        } else {
+          setIsExtensionActive(false);
+          showError("A extensão respondeu com erro.");
+        }
+      });
+    } catch (e: any) {
+      setIsExtensionActive(false);
+      showError("Erro de conexão: " + e.message);
     }
   };
+
+  const handleSaveExtensionId = () => {
+    localStorage.setItem('chrome_extension_id', extensionId.trim());
+    showSuccess("ID da extensão salvo neste navegador!");
+    testExtensionConnection();
+  };
+
+  const handleDownloadExtension = () => {
+    const link = document.createElement('a');
+    link.href = '/chrome-extension.zip';
+    link.download = 'chrome-extension.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showSuccess("Download da extensão iniciado!");
+  };
+
+  const handleRebusca = async (restaurantId: string, field: 'instagram' | 'menu' | 'hours' | 'scrape-menu' | 'scrape-logo') => {
+    const key = `${restaurantId}-${field}`;
+    if (loadingRebusca[key]) return;
+    
+    setLoadingRebusca(prev => ({ ...prev, [key]: true }));
+    const fieldLabel = field === 'instagram' ? 'Instagram' : field === 'menu' ? 'Cardápio' : field === 'scrape-menu' ? 'Coleta de Cardápio' : field === 'scrape-logo' ? 'Coleta de Logo' : 'Horários';
+    showSuccess(`Iniciando rebusca de ${fieldLabel} no servidor...`);
+    
+    try {
+      let endpoint = '';
+      if (field === 'instagram') endpoint = '/api/local-collector/re-search-social';
+      else if (field === 'menu') endpoint = '/api/local-collector/re-search-menu';
+      else if (field === 'scrape-menu') endpoint = '/api/local-collector/re-scrape-menu';
+      else if (field === 'scrape-logo') endpoint = '/api/local-collector/re-scrape-logo';
+      else endpoint = '/api/local-collector/re-search-hours';
+      
+      const res = await fetch(`${endpoint}?restaurantId=${restaurantId}`, { method: 'POST' });
+      
+      if (res.ok) {
+        const result = await res.json();
+        if (result.success) {
+          showSuccess(`Rebusca concluída! ${fieldLabel} atualizado(s).`);
+          loadScrapedFromSupabase();
+          window.dispatchEvent(new Event('local-sync-restaurants'));
+        } else {
+          showError(result.error || `Não foi possível encontrar ${fieldLabel} para este restaurante.`);
+        }
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao executar rebusca no servidor.');
+      }
+    } catch (err) {
+      showError('Servidor local offline ou erro de rede.');
+    } finally {
+      setLoadingRebusca(prev => ({ ...prev, [key]: false }));
+    }
+  };
+
+
 
   const extractPhoneFromWhatsapp = (url: string) => {
     if (!url) return null;
@@ -777,7 +847,14 @@ export default function GoogleMapsCollector() {
     try {
       const { data, error } = await supabase
         .from('restaurants')
-        .select('*')
+        .select(`
+          *,
+          menu_categories (
+            *,
+            menu_items (*)
+          ),
+          restaurant_gallery (*)
+        `)
         .eq('visit_status', 'Pendente')
         .or('is_deleted.eq.false,is_deleted.is.null')
         .order('name');
@@ -803,6 +880,20 @@ export default function GoogleMapsCollector() {
             googleMapsUrl = gmapsMatch[1];
           }
 
+          const menuCategories = (item.menu_categories || []).map((cat: any) => ({
+            id: cat.id,
+            name: cat.name,
+            items: (cat.menu_items || []).map((menuItem: any) => ({
+              id: menuItem.id,
+              name: menuItem.name,
+              description: menuItem.description || '',
+              price: menuItem.price,
+              image_url: menuItem.image_url || ''
+            }))
+          }));
+
+          const galleryImages = (item.restaurant_gallery || []).map((img: any) => img.image_url);
+
           return {
             id: item.id,
             name: item.name,
@@ -815,12 +906,15 @@ export default function GoogleMapsCollector() {
             state: item.state || 'PB',
             instagram,
             facebook,
+            logo: item.image_url || '',
             coverImage: item.cover_image_url || '',
-            galleryImages: [],
+            followers_override: item.followers_override || null,
+            galleryImages,
             openingHours: item.opening_hours || {},
             website: item.other_url || item.external_url || '',
             googleMapsUrl,
             menuSourceUrl: item.other_url || item.external_url || '',
+            menu_categories: menuCategories,
             isClosed: false
           };
         });
@@ -977,12 +1071,12 @@ export default function GoogleMapsCollector() {
             state: restaurant.state || '',
             description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
             category: restaurant.category || 'Outros',
-            image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
-            cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
+            image_url: restaurant.logo || null,
+            cover_image_url: restaurant.coverImage || null,
             menu_categories: restaurant.menu_categories || [],
             gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
               ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
-              : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
+              : [],
             social_networks: [
               { platform: 'instagram', url: restaurant.instagram },
               { platform: 'facebook', url: restaurant.facebook }
@@ -1139,6 +1233,20 @@ export default function GoogleMapsCollector() {
       const res = await fetch('/api/local-collector/run-menu', { method: 'POST' });
       if (res.ok) {
         showSuccess('Coleta de Cardápios (Fase 3) iniciada!');
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao iniciar.');
+      }
+    } catch (err) {
+      showError('Servidor local offline.');
+    }
+  };
+
+  const startFase4 = async () => {
+    try {
+      const res = await fetch('/api/local-collector/run-logos', { method: 'POST' });
+      if (res.ok) {
+        showSuccess('Coleta de Logos (Fase 4) iniciada!');
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao iniciar.');
@@ -1998,6 +2106,13 @@ export default function GoogleMapsCollector() {
                     >
                       Iniciar Fase 3 (Cardápios)
                     </Button>
+                    <Button 
+                      onClick={startFase4} 
+                      disabled={runnerRunning}
+                      className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white font-bold transition-all shadow-md hover:shadow-orange-500/20"
+                    >
+                      Iniciar Fase 4 (Logos)
+                    </Button>
                     {runnerRunning && (
                       <Button 
                         onClick={stopCollector} 
@@ -2072,6 +2187,102 @@ export default function GoogleMapsCollector() {
               </div>
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* Painel da Extensão Auxiliar */}
+      <Card className="border border-white/20 shadow-xl bg-white/40 backdrop-blur-md dark:bg-zinc-900/40 mb-8 overflow-hidden rounded-2xl">
+        <CardHeader className="bg-gradient-to-r from-rose-500/10 via-pink-500/10 to-purple-500/10 border-b border-white/10 p-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <CardTitle className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-rose-500" />
+                  Extensão Auxiliar do Navegador (Chrome Extension)
+                </CardTitle>
+                <Badge variant="secondary" className="bg-rose-50 text-rose-700 border border-rose-200/50">
+                  Fase 7 - Ativo
+                </Badge>
+              </div>
+              <CardDescription className="text-slate-500 dark:text-slate-400 mt-1">
+                Colete logos e seguidores do Instagram diretamente no seu navegador, sem precisar do script local rodando.
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Como instalar a extensão no Chrome:</h4>
+              <ol className="list-decimal list-inside text-xs text-slate-600 dark:text-slate-400 space-y-2">
+                <li>Clique no botão abaixo para baixar os arquivos da extensão compactados.</li>
+                <li>Extraia o arquivo ZIP no seu computador em uma pasta fácil de lembrar.</li>
+                <li>No Google Chrome, acesse o link: <code className="bg-slate-100 dark:bg-zinc-800 px-1 py-0.5 rounded font-mono text-[11px]">chrome://extensions/</code>.</li>
+                <li>No canto superior direito, ative a opção <strong>Modo do desenvolvedor</strong>.</li>
+                <li>No canto superior esquerdo, clique em <strong>Carregar sem compactação</strong>.</li>
+                <li>Selecione a pasta onde você extraiu os arquivos da extensão (a pasta que contém o arquivo <code className="font-mono text-[11px]">manifest.json</code>).</li>
+                <li>Após carregar, copie o <strong>ID</strong> gerado para a extensão (ex: <code className="font-mono text-[11px]">aobgd...</code>).</li>
+              </ol>
+              <div className="pt-2">
+                <Button 
+                  onClick={handleDownloadExtension}
+                  className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md"
+                >
+                  Download dos Arquivos da Extensão (.ZIP)
+                </Button>
+              </div>
+            </div>
+            
+            <div className="space-y-4 bg-slate-50/50 dark:bg-zinc-850/20 p-4 rounded-xl border border-slate-100 dark:border-zinc-800">
+              <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                Configurar Extensão neste Navegador
+              </h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Cole o ID da extensão instalada abaixo para que este painel possa se comunicar com ela no seu computador.
+              </p>
+              
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-600 dark:text-slate-400 block">ID da Extensão (Chrome Extension ID)</label>
+                <div className="flex gap-2">
+                  <Input
+                    value={extensionId}
+                    onChange={(e) => setExtensionId(e.target.value)}
+                    placeholder="Cole o ID da extensão aqui"
+                    className="bg-white border-gray-300 text-xs h-9 flex-1"
+                  />
+                  <Button 
+                    onClick={handleSaveExtensionId}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs h-9 px-4"
+                  >
+                    Salvar ID
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="pt-2 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs">
+                <span className="text-slate-500">Status de Conectão da Extensão:</span>
+                {isExtensionActive ? (
+                  <span className="text-emerald-600 font-bold flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5" /> Conectada
+                  </span>
+                ) : (
+                  <span className="text-rose-600 font-bold flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5" /> Desconectada / Não configurada
+                  </span>
+                )}
+              </div>
+              <div className="flex justify-end pt-1">
+                <Button 
+                  onClick={testExtensionConnection}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs font-semibold h-7 border-slate-200"
+                >
+                  Testar Conexão
+                </Button>
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
@@ -2339,6 +2550,7 @@ export default function GoogleMapsCollector() {
                         <TableHead className="font-bold">Categoria</TableHead>
                         <TableHead className="font-bold text-center">Nota (Avaliações)</TableHead>
                         <TableHead className="font-bold">Instagram</TableHead>
+                        <TableHead className="font-bold text-center">Logo Insta</TableHead>
                         <TableHead className="font-bold">Cardápio</TableHead>
                         <TableHead className="font-bold">Horário</TableHead>
                         <TableHead className="font-bold">Endereço</TableHead>
@@ -2386,44 +2598,170 @@ export default function GoogleMapsCollector() {
                             {/* Instagram */}
                             <TableCell>
                               {r.instagram && !r.instagram.includes('facebook.com') && r.instagram.trim() !== '' ? (
-                                <a 
-                                  href={r.instagram} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="text-xs font-semibold text-pink-600 hover:text-pink-700 hover:underline flex items-center gap-1.5"
-                                >
-                                  <InstagramIcon className="w-3.5 h-3.5" />
-                                  <span>@{r.instagram.split('instagram.com/')[1]?.replace(/\//g,'').split('?')[0] || 'Link'}</span>
-                                </a>
+                                <div className="flex items-center gap-1.5">
+                                  <a 
+                                    href={r.instagram} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="text-xs font-semibold text-pink-600 hover:text-pink-700 hover:underline flex items-center gap-1.5"
+                                  >
+                                    <InstagramIcon className="w-3.5 h-3.5" />
+                                    <span>@{r.instagram.split('instagram.com/')[1]?.replace(/\//g,'').split('?')[0] || 'Link'}</span>
+                                  </a>
+                                  
+                                  <button
+                                    onClick={() => handleRebusca(r.id, 'scrape-logo')}
+                                    disabled={!!loadingRebusca[`${r.id}-scrape-logo`]}
+                                    className={`flex items-center justify-center p-1 rounded-md border transition-all ${
+                                      loadingRebusca[`${r.id}-scrape-logo`]
+                                        ? "bg-rose-50 text-rose-600 border-rose-200 cursor-not-allowed animate-pulse"
+                                        : "bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-200 cursor-pointer"
+                                    }`}
+                                    title="Clique para extrair a foto de perfil (Fase 4) do Instagram e salvar como logo"
+                                  >
+                                    {loadingRebusca[`${r.id}-scrape-logo`] ? (
+                                      <Loader2 className="w-3 h-3 animate-spin" />
+                                    ) : (
+                                      <Sparkles className="w-3 h-3" />
+                                    )}
+                                  </button>
+                                </div>
                               ) : (
-                                <span className="bg-red-50 text-red-600 dark:bg-red-950/20 dark:text-red-400 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border border-red-100/40">
-                                  Ausente
-                                </span>
+                                <button
+                                  onClick={() => handleRebusca(r.id, 'instagram')}
+                                  disabled={!!loadingRebusca[`${r.id}-instagram`]}
+                                  className={`flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border transition-all ${
+                                    loadingRebusca[`${r.id}-instagram`]
+                                      ? "bg-pink-50 text-pink-600 border-pink-200 cursor-not-allowed animate-pulse"
+                                      : "bg-red-50 text-red-600 border-red-100 hover:bg-red-100 hover:text-red-700 hover:border-red-200 cursor-pointer"
+                                  }`}
+                                  title="Clique para rebuscar esta informação no Google"
+                                >
+                                  {loadingRebusca[`${r.id}-instagram`] ? (
+                                    <>
+                                      <Loader2 className="w-3 h-3 animate-spin" />
+                                      <span>Buscando...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span>Ausente</span>
+                                      <Search className="w-2.5 h-2.5 opacity-70" />
+                                    </>
+                                  )}
+                                </button>
+                              )}
+                            </TableCell>
+
+                            {/* Logo Insta */}
+                            <TableCell className="text-center">
+                              {r.logo && r.logo.includes('/logos/') ? (
+                                <div className="flex items-center justify-center gap-1.5">
+                                  <div className="w-8 h-8 rounded-full overflow-hidden border border-slate-200 shadow-sm bg-white shrink-0">
+                                    <img 
+                                      src={r.logo} 
+                                      alt="Logo" 
+                                      className="w-full h-full object-cover"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=50';
+                                      }}
+                                    />
+                                  </div>
+                                  <Badge className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-250 py-0.5 px-1.5 text-[9px] font-bold rounded-full">
+                                    OK
+                                  </Badge>
+                                </div>
+                              ) : (
+                                <Badge className="bg-slate-50 text-slate-400 border-slate-200 py-0.5 px-1.5 text-[9px] font-semibold rounded-full">
+                                  Pendente
+                                </Badge>
                               )}
                             </TableCell>
  
                             {/* Cardápio */}
                             <TableCell>
                               {r.menuSourceUrl && r.menuSourceUrl.trim() !== '' ? (
-                                <a 
-                                  href={r.menuSourceUrl} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline flex items-center gap-1.5 max-w-[120px] truncate"
-                                >
-                                  <Globe className="w-3.5 h-3.5" />
-                                  <span>{new URL(r.menuSourceUrl).hostname.replace('www.','')}</span>
-                                </a>
+                                <div className="flex items-center gap-1.5">
+                                  <a 
+                                    href={r.menuSourceUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline flex items-center gap-1 max-w-[100px] truncate"
+                                  >
+                                    <Globe className="w-3 h-3 shrink-0" />
+                                    <span>{new URL(r.menuSourceUrl).hostname.replace('www.','')}</span>
+                                  </a>
+                                  
+                                  <button
+                                    onClick={() => handleRebusca(r.id, 'scrape-menu')}
+                                    disabled={!!loadingRebusca[`${r.id}-scrape-menu`]}
+                                    className={`flex items-center justify-center p-1 rounded-md border transition-all ${
+                                      loadingRebusca[`${r.id}-scrape-menu`]
+                                        ? "bg-rose-50 text-rose-600 border-rose-200 cursor-not-allowed animate-pulse"
+                                        : "bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-200 cursor-pointer"
+                                    }`}
+                                    title="Clique para extrair os itens de cardápio (Fase 3) deste link específico"
+                                  >
+                                    {loadingRebusca[`${r.id}-scrape-menu`] ? (
+                                      <Loader2 className="w-3 h-3 animate-spin" />
+                                    ) : (
+                                      <Sparkles className="w-3 h-3" />
+                                    )}
+                                  </button>
+                                </div>
                               ) : (
-                                <span className="bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border border-amber-100/40">
-                                  Ausente
-                                </span>
+                                <button
+                                  onClick={() => handleRebusca(r.id, 'menu')}
+                                  disabled={!!loadingRebusca[`${r.id}-menu`]}
+                                  className={`flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border transition-all ${
+                                    loadingRebusca[`${r.id}-menu`]
+                                      ? "bg-amber-50 text-amber-600 border-amber-200 cursor-not-allowed animate-pulse"
+                                      : "bg-amber-50 text-amber-600 border-amber-100 hover:bg-amber-100 hover:text-amber-700 hover:border-amber-200 cursor-pointer"
+                                  }`}
+                                  title="Clique para rebuscar esta informação no Google/Instagram"
+                                >
+                                  {loadingRebusca[`${r.id}-menu`] ? (
+                                    <>
+                                      <Loader2 className="w-3 h-3 animate-spin" />
+                                      <span>Buscando...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span>Ausente</span>
+                                      <Search className="w-2.5 h-2.5 opacity-70" />
+                                    </>
+                                  )}
+                                </button>
                               )}
                             </TableCell>
  
                             {/* Horário */}
                             <TableCell>
-                              {renderTableOpeningHours(r.openingHours)}
+                              {!r.openingHours || Object.keys(r.openingHours).length === 0 ? (
+                                <button
+                                  onClick={() => handleRebusca(r.id, 'hours')}
+                                  disabled={!!loadingRebusca[`${r.id}-hours`]}
+                                  className={`flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border transition-all ${
+                                    loadingRebusca[`${r.id}-hours`]
+                                      ? "bg-slate-50 text-slate-500 border-slate-200 cursor-not-allowed animate-pulse"
+                                      : "bg-slate-50 text-slate-500 border-slate-100 hover:bg-slate-100 hover:text-slate-700 hover:border-slate-200 cursor-pointer"
+                                  }`}
+                                  title="Clique para rebuscar esta informação no Google Maps"
+                                >
+                                  {loadingRebusca[`${r.id}-hours`] ? (
+                                    <>
+                                      <Loader2 className="w-3 h-3 animate-spin" />
+                                      <span>Buscando...</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span>Ausente</span>
+                                      <Search className="w-2.5 h-2.5 opacity-70" />
+                                    </>
+                                  )}
+                                </button>
+                              ) : (
+                                renderTableOpeningHours(r.openingHours)
+                              )}
                             </TableCell>
  
                             <TableCell className="max-w-[150px] truncate text-gray-600">{r.address}</TableCell>
@@ -2534,99 +2872,13 @@ export default function GoogleMapsCollector() {
         </div>
       )}
 
-      {/* Modal de Edição de Restaurante */}
-      {editingRestaurant && (
-        <Dialog open={editingRestaurant !== null} onOpenChange={(open) => { if (!open) setEditingRestaurant(null); }}>
-          <DialogContent className="sm:max-w-[500px] bg-white rounded-2xl p-6 border border-slate-100 shadow-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-bold text-primary flex items-center gap-2">
-                <Pencil className="w-5 h-5 text-indigo-500" />
-                Editar Detalhes da Coleta
-              </DialogTitle>
-              <DialogDescription className="text-slate-500 text-xs">
-                Corrija ou insira informações para o estabelecimento <strong>{editingRestaurant.name}</strong> antes ou depois da importação.
-              </DialogDescription>
-            </DialogHeader>
-            
-            <div className="space-y-4 py-4">
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 block">Nome do Estabelecimento</label>
-                <Input 
-                  value={editingRestaurant.name} 
-                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, name: e.target.value })}
-                  placeholder="Nome do restaurante"
-                />
-              </div>
-              
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 block">Categoria</label>
-                <Input 
-                  value={editingRestaurant.category} 
-                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, category: e.target.value })}
-                  placeholder="Ex: Lanches, Pizzaria, Hamburgueria"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 block">Telefone</label>
-                  <Input 
-                    value={editingRestaurant.phone || ''} 
-                    onChange={(e) => setEditingRestaurant({ ...editingRestaurant, phone: e.target.value })}
-                    placeholder="Ex: (83) 99822-1010"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 block">Cidade / UF</label>
-                  <Input 
-                    value={`${editingRestaurant.city} - ${editingRestaurant.state}`} 
-                    disabled
-                    className="bg-slate-50 text-slate-400"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 block flex items-center gap-1">
-                  <InstagramIcon className="w-3.5 h-3.5 text-pink-500" /> Link do Instagram Oficial
-                </label>
-                <Input 
-                  value={editingRestaurant.instagram || ''} 
-                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, instagram: e.target.value })}
-                  placeholder="https://instagram.com/usuario"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-500 block flex items-center gap-1">
-                  <Globe className="w-3.5 h-3.5 text-indigo-500" /> Link do Cardápio (Menu/Delivery)
-                </label>
-                <Input 
-                  value={editingRestaurant.menuSourceUrl || ''} 
-                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, menuSourceUrl: e.target.value })}
-                  placeholder="Ex: https://linktr.ee/usuario ou https://goomer.app/usuario"
-                />
-              </div>
-            </div>
-
-            <DialogFooter className="gap-2 sm:gap-0 border-t border-slate-100 pt-4">
-              <Button 
-                variant="outline" 
-                onClick={() => setEditingRestaurant(null)}
-                className="border-slate-300 text-slate-700 bg-white hover:bg-slate-50 font-bold"
-              >
-                Cancelar
-              </Button>
-              <Button 
-                onClick={() => handleSaveEditedRestaurant(editingRestaurant)}
-                className="bg-primary hover:bg-primary/90 text-white font-bold"
-              >
-                Salvar Alterações
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      )}
+      {/* Modal de Detalhes / Edicao / IA Compartilhado */}
+      <RestaurantDetailsDialog
+        restaurant={editingRestaurant}
+        isOpen={editingRestaurant !== null}
+        onClose={() => setEditingRestaurant(null)}
+        onSyncSuccess={loadScrapedFromSupabase}
+      />
     </div>
   );
 }

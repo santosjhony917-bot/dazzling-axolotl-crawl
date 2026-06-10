@@ -1420,6 +1420,15 @@ async function run() {
   console.log(`📋 MENU SCRAPER: EXTRAÇÃO DE CARDÁPIOS`);
   console.log(`=============================================================\n`);
 
+  // Parse command line arguments
+  let targetId = null;
+  const singleIdx = process.argv.indexOf('--single');
+  const idIdx = process.argv.indexOf('--id');
+  if (singleIdx !== -1 && idIdx !== -1 && idIdx + 1 < process.argv.length) {
+    targetId = process.argv[idIdx + 1];
+    console.log(`🎯 Modo Single ativado para o restaurante ID: ${targetId}`);
+  }
+
   console.log('📡 Buscando estabelecimentos no Supabase...');
   const { data, error: fetchError } = await supabase
     .from('restaurants')
@@ -1433,7 +1442,7 @@ async function run() {
   console.log(`📂 Carregados ${data.length} estabelecimentos do Supabase.`);
 
   // Filtra restaurantes que têm link de cardápio (other_url ou external_url)
-  const withMenu = data.filter(r => {
+  let withMenu = data.filter(r => {
     const menuUrl = r.other_url || r.external_url;
     return menuUrl && menuUrl.startsWith('http');
   }).map(r => ({
@@ -1444,6 +1453,15 @@ async function run() {
     city: r.city || 'João Pessoa',
     address: r.address || ''
   }));
+
+  if (targetId) {
+    withMenu = withMenu.filter(r => r.id === targetId);
+    if (withMenu.length === 0) {
+      console.log(`❌ O restaurante com ID "${targetId}" não possui link de cardápio válido cadastrado.`);
+      console.log(`RESULT:{"success":false,"error":"O restaurante não possui link de cardápio cadastrado no Supabase."}`);
+      return;
+    }
+  }
 
   console.log(`🔗 ${withMenu.length} estabelecimentos possuem link de cardápio no Supabase.`);
 
@@ -1465,7 +1483,7 @@ async function run() {
 
   // Carrega estado para resumo
   let startIndex = 0;
-  if (fs.existsSync(STATE_FILE)) {
+  if (!targetId && fs.existsSync(STATE_FILE)) {
     try {
       const state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'));
       startIndex = state.lastProcessedIndex + 1;
@@ -1477,9 +1495,12 @@ async function run() {
   const processedIds = new Set(results.map(r => r.restaurantId));
 
   // Filtra apenas os não processados ainda
-  const pending = withMenu.filter(r => !processedIds.has(r.id)).slice(startIndex);
+  let pending = withMenu;
+  if (!targetId) {
+    pending = withMenu.filter(r => !processedIds.has(r.id)).slice(startIndex);
+  }
 
-  if (pending.length === 0 && processedIds.size > 0) {
+  if (!targetId && pending.length === 0 && processedIds.size > 0) {
     console.log(`✨ Todos os cardápios já foram processados!`);
     return;
   }
@@ -1630,19 +1651,34 @@ async function run() {
     }
 
     // Salva estado
-    const state = { lastProcessedIndex: startIndex + idx };
-    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf-8');
+    if (!targetId) {
+      const state = { lastProcessedIndex: startIndex + idx };
+      fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf-8');
+    }
 
     // Aguarda para evitar bloqueio
-    const waitTime = 1500 + Math.random() * 2000;
-    console.log(`   ⏱️ Aguardando ${Math.round(waitTime)}ms...`);
-    await delay(waitTime);
+    if (!targetId && idx < pending.length - 1) {
+      const waitTime = 1500 + Math.random() * 2000;
+      console.log(`   ⏱️ Aguardando ${Math.round(waitTime)}ms...`);
+      await delay(waitTime);
+    }
+  }
+
+  let singleResultObj = { success: false, error: "Nenhum prato/categoria estruturado foi identificado na página." };
+  if (targetId && updatedCount > 0) {
+    singleResultObj = { success: true };
+  } else if (targetId && failedCount > 0) {
+    singleResultObj = { success: false, error: "O robô encontrou um erro de navegação ou extração." };
+  }
+
+  if (targetId) {
+    console.log(`RESULT:${JSON.stringify(singleResultObj)}`);
   }
 
   await browser.close();
 
   // Remove estado se tudo concluído
-  if (fs.existsSync(STATE_FILE)) {
+  if (!targetId && fs.existsSync(STATE_FILE)) {
     const remaining = withMenu.length - results.length;
     if (remaining <= 0) {
       fs.unlinkSync(STATE_FILE);

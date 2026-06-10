@@ -1,0 +1,25 @@
+{
+  "name": "Coletor Auxiliar - Dazzling Axolotl",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "Extensão auxiliar para realizar download de logos e quantidade de seguidores diretamente do Instagram sem problemas de CORS ou bloqueios.",
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.instagram.com/*",
+    "*://*.cdninstagram.com/*",
+    "*://*.fbcdn.net/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "http://localhost/*",
+      "http://127.0.0.1/*",
+      "https://*.vercel.app/*"
+    ]
+  }
+}

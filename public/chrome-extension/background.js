@@ -1,0 +1,259 @@
+// Service worker for the Chrome Extension
+
+chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+  console.log("Recebida mensagem externa:", message, sender);
+  
+  if (message.action === "ping") {
+    sendResponse({ success: true, version: "1.0.0" });
+    return true;
+  }
+  
+  if (message.action === "scrapeInstagram") {
+    const { instagramUrl } = message;
+    
+    handleInstagramScrape(instagramUrl)
+      .then(result => {
+        sendResponse(result);
+      })
+      .catch(err => {
+        sendResponse({ success: false, error: err.message });
+      });
+      
+    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+  }
+});
+
+async function handleInstagramScrape(instagramUrl) {
+  console.log("Iniciando raspagem para:", instagramUrl);
+  // 1. Cria a aba (inicialmente oculta/inativa)
+  const tab = await chrome.tabs.create({ url: instagramUrl, active: false });
+  const tabId = tab.id;
+  
+  try {
+    // 2. Aguarda o carregamento completo da aba
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba do Instagram foi fechada."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 60) { // 30 segundos de timeout
+              reject(new Error("Tempo limite esgotado esperando o perfil do Instagram carregar."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    // Aguarda mais 2.5 segundos para garantir a renderização do JS do Instagram
+    await new Promise(r => setTimeout(r, 2500));
+    
+    // 3. Executa a lógica de raspagem na página
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: scrapePageLogic
+    });
+    
+    if (!results || !results[0] || !results[0].result) {
+      throw new Error("Não foi possível ler os dados da aba do Instagram.");
+    }
+    
+    const scrapeData = results[0].result;
+    
+    if (scrapeData.isLoginRequired) {
+      // Abre a aba em foco para o usuário fazer login
+      await chrome.tabs.update(tabId, { active: true });
+      return {
+        success: false,
+        isLoginRequired: true,
+        error: "Login do Instagram necessário. A aba foi aberta para você fazer login manualmente."
+      };
+    }
+    
+    if (!scrapeData.success) {
+      throw new Error(scrapeData.error || "Erro desconhecido ao raspar o Instagram.");
+    }
+    
+    // 4. Faz download da imagem e converte para base64
+    let base64 = null;
+    let contentType = 'image/jpeg';
+    if (scrapeData.profilePicUrl) {
+      try {
+        console.log("Fazendo download da imagem:", scrapeData.profilePicUrl);
+        const fetchRes = await fetch(scrapeData.profilePicUrl);
+        if (fetchRes.ok) {
+          const blob = await fetchRes.blob();
+          contentType = blob.type || 'image/jpeg';
+          base64 = await blobToBase64(blob);
+          console.log("Download e conversão base64 bem-sucedidos!");
+        } else {
+          console.warn("Falha no download da imagem. Status HTTP:", fetchRes.status);
+        }
+      } catch (err) {
+        console.error("Falha ao baixar imagem no service worker:", err);
+      }
+    }
+    
+    // 5. Fecha a aba temporária (pois a raspagem deu certo)
+    await chrome.tabs.remove(tabId);
+    
+    return {
+      success: true,
+      followers: scrapeData.followers,
+      logoDataUrl: base64 ? `data:${contentType};base64,${base64}` : null,
+      rawLogoUrl: scrapeData.profilePicUrl
+    };
+    
+  } catch (err) {
+    console.error("Erro no fluxo do scraper:", err);
+    // Tenta limpar a aba em caso de erro
+    try {
+      chrome.tabs.get(tabId, (currentTab) => {
+        if (!chrome.runtime.lastError && currentTab) {
+          chrome.tabs.remove(tabId);
+        }
+      });
+    } catch (_) {}
+    
+    return {
+      success: false,
+      error: err.message
+    };
+  }
+}
+
+// Converte Blob para Base64 em ambiente de Service Worker (onde não existe FileReader)
+async function blobToBase64(blob) {
+  const buffer = await blob.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+// Esta função roda diretamente no contexto da página do Instagram
+function scrapePageLogic() {
+  const isLogin = window.location.href.includes('accounts/login') || !!document.querySelector('input[name="username"]');
+  if (isLogin) {
+    return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
+  }
+  
+  // 1. Localiza a URL da imagem de perfil
+  let profilePicUrl = null;
+  const imgSelectors = [
+    'header img[src*="cdninstagram"]',
+    'header img[src*="fbcdn"]',
+    'header img',
+    'img[alt*="Foto do perfil"]',
+    'img[alt*="profile picture"]',
+    'img[src*="cdninstagram"]',
+    'img[src*="fbcdn"]'
+  ];
+  
+  for (const sel of imgSelectors) {
+    const el = document.querySelector(sel);
+    if (el && el.src && el.src.startsWith('http')) {
+      profilePicUrl = el.src;
+      break;
+    }
+  }
+  
+  // 2. Extrai seguidores
+  let followersCount = null;
+  
+  // Função auxiliar para interpretar os valores (ex: 10k -> 10000, 1,2mil -> 1200)
+  function parseFollowersValue(numberStr, multiplierStr) {
+    let clean = numberStr.trim();
+    if (multiplierStr) {
+      clean = clean.replace(',', '.');
+      let val = parseFloat(clean);
+      if (isNaN(val)) return null;
+      
+      const mult = multiplierStr.toLowerCase().trim();
+      if (mult === 'k' || mult === 'mil') {
+        val = val * 1000;
+      } else if (mult === 'm' || mult === 'mi' || mult === 'milões' || mult === 'milões' || mult === 'mili') {
+        val = val * 1000000;
+      }
+      return Math.round(val);
+    } else {
+      if (clean.includes('.') && clean.includes(',')) {
+        clean = clean.replace(/\./g, '').replace(',', '.');
+      } else if (clean.includes('.')) {
+        const parts = clean.split('.');
+        if (parts[parts.length - 1].length === 3) {
+          clean = clean.replace(/\./g, '');
+        } else {
+          clean = clean.replace(/\./g, '.');
+        }
+      } else if (clean.includes(',')) {
+        const parts = clean.split(',');
+        if (parts[parts.length - 1].length === 3) {
+          clean = clean.replace(/,/g, '');
+        } else {
+          clean = clean.replace(/,/g, '.');
+        }
+      }
+      let val = parseFloat(clean);
+      return isNaN(val) ? null : Math.round(val);
+    }
+  }
+  
+  // A. Tenta ler pela tag meta description
+  const meta = document.querySelector('meta[name="description"]') || document.querySelector('meta[property="og:description"]');
+  const metaContent = meta ? meta.getAttribute('content') : null;
+  
+  if (metaContent) {
+    const regexPt = /([\d\.,]+)\s*(mil|mi|milões|m|k)?\s*seguidores/i;
+    const regexEn = /([\d\.,]+)\s*(mil|mi|m|k)?\s*followers/i;
+    const match = metaContent.match(regexPt) || metaContent.match(regexEn);
+    if (match) {
+      followersCount = parseFollowersValue(match[1], match[3] || match[2]);
+    }
+  }
+  
+  // B. Fallback: Tenta ler direto pelo texto do DOM
+  if (followersCount === null) {
+    const domSelectors = [
+      'a[href*="/followers/"] span',
+      'a[href*="/followers/"]',
+      'a[href*="/followers"] span',
+      'a[href*="/followers"]',
+      'header li:nth-child(2) span',
+      'header li:nth-child(2)'
+    ];
+    
+    for (const sel of domSelectors) {
+      const el = document.querySelector(sel);
+      if (el) {
+        const text = el.textContent || el.innerText;
+        if (text && (text.toLowerCase().includes('seguidor') || text.toLowerCase().includes('follower') || /\d/.test(text))) {
+          const cleanText = text.replace(/seguidores|seguidor|followers|follower/gi, '').trim();
+          const match = cleanText.match(/([\d\.,]+)\s*(mil|mi|m|k)?/i);
+          if (match) {
+            followersCount = parseFollowersValue(match[1], match[2]);
+            if (followersCount !== null) break;
+          }
+        }
+      }
+    }
+  }
+  
+  return {
+    success: true,
+    profilePicUrl: profilePicUrl,
+    followers: followersCount
+  };
+}

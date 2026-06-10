@@ -31,3 +31,9 @@ src-backup-*
 .env.*
 .env.local
 .vercel
+
+# Puppeteer user profiles & debug screenshots
+scratch/puppeteer_user_data/
+scratch/puppeteer_user_data_single/
+scratch/puppeteer_chrome_profile/
+scratch/*.png

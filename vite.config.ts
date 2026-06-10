@@ -13,7 +13,7 @@ export default defineConfig(() => ({
     host: "::",
     port: 8080,
     watch: {
-      ignored: ["**/scratch/puppeteer_user_data/**", "**/scratch/puppeteer_user_data_*/**"]
+      ignored: ["**/scratch/**"]
     },
     proxy: {
       "/google-places": {
@@ -177,7 +177,287 @@ export default defineConfig(() => ({
               res.end(JSON.stringify({ message: "Coleta de Cardápios iniciada." }));
               return;
             }
+
+            if (urlPath === "/api/local-collector/run-logos" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              logBuffer = "🚀 Iniciando Coleta de Logos (Fase 4)...\n";
+              const proc = spawn("node", ["scratch/logo_scraper.cjs"], { shell: true });
+              activeProcess = proc;
+              
+              proc.stdout.on("data", (data) => {
+                logBuffer += data.toString("utf-8");
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Coleta de Logos concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+              });
+              
+              res.writeHead(200);
+              res.end(JSON.stringify({ message: "Coleta de Logos iniciada." }));
+              return;
+            }
             
+            if (urlPath === "/api/local-collector/re-search-social" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              logBuffer = `🚀 Iniciando rebusca de Instagram para o restaurante ID ${restaurantId}...\n`;
+              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "instagram"], { shell: true });
+              activeProcess = proc;
+              
+              let resultJsonStr = "";
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                logBuffer += text;
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+                
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/re-search-menu" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              logBuffer = `🚀 Iniciando rebusca de Cardápio para o restaurante ID ${restaurantId}...\n`;
+              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "menu"], { shell: true });
+              activeProcess = proc;
+              
+              let resultJsonStr = "";
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                logBuffer += text;
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+                
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/re-scrape-menu" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              logBuffer = `🚀 Iniciando extração de Cardápio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
+              const proc = spawn("node", ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId], { shell: true });
+              activeProcess = proc;
+              
+              let resultJsonStr = "";
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                logBuffer += text;
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Coleta de Cardápio concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+                
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/re-scrape-logo" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              logBuffer = `🚀 Iniciando extração de Logo (Fase 4) para o restaurante ID ${restaurantId}...\n`;
+              const proc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId], { shell: true });
+              activeProcess = proc;
+              
+              let resultJsonStr = "";
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                logBuffer += text;
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Coleta de Logo concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+                
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/re-search-hours" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              logBuffer = `🚀 Iniciando rebusca de Horários para o restaurante ID ${restaurantId}...\n`;
+              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "hours"], { shell: true });
+              activeProcess = proc;
+              
+              let resultJsonStr = "";
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                logBuffer += text;
+                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.stderr.on("data", (data) => {
+                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+              });
+              
+              proc.on("close", (code) => {
+                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                activeProcess = null;
+                
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
             if (urlPath === "/api/local-collector/stop" && req.method === "POST") {
               if (!activeProcess) {
                 res.writeHead(400);
@@ -241,6 +521,39 @@ export default defineConfig(() => ({
                 res.writeHead(500);
                 res.end(JSON.stringify({ error: err.message }));
               }
+            }
+
+            if (urlPath === "/api/local-collector/download-and-upload" && req.method === "POST") {
+              const url = urlParams.get("url");
+              const storagePath = urlParams.get("path");
+              
+              if (!url || !storagePath) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "URL ou path não fornecido." }));
+                return;
+              }
+              
+              const proc = spawn("node", ["scratch/download_upload_helper.cjs", url, storagePath], { shell: true });
+              let resultJsonStr = "";
+              
+              proc.stdout.on("data", (data) => {
+                const text = data.toString("utf-8");
+                const match = text.match(/RESULT:(.+)/);
+                if (match) {
+                  resultJsonStr = match[1].trim();
+                }
+              });
+              
+              proc.on("close", (code) => {
+                try {
+                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false, error: "Sem output" };
+                  res.writeHead(200);
+                  res.end(JSON.stringify(result));
+                } catch (err) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: "Falha ao processar helper." }));
+                }
+              });
               return;
             }
 

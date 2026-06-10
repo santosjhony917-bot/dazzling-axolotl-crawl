@@ -37,6 +37,169 @@ const JSON_PATH = path.join(__dirname, '../scraped_restaurants_google.json');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+async function navigateWithRetry(page, url, maxRetries = 2) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 });
+      await delay(1500);
+      return true;
+    } catch (err) {
+      console.log(`   ⚠️ Tentativa ${attempt}/${maxRetries} falhou: ${err.message}`);
+      if (attempt >= maxRetries) return false;
+    }
+  }
+  return false;
+}
+
+async function extractOpeningHoursFromPage(page, dayMap) {
+  return await page.evaluate((dayMapping) => {
+    const isAlreadyExpanded = (() => {
+      const tbl = document.querySelector('table.e25n6b') || document.querySelector('table[class*="hours"]');
+      if (!tbl) return false;
+      return tbl.querySelectorAll('tr').length > 2;
+    })();
+
+    if (!isAlreadyExpanded) {
+      const candidates = Array.from(document.querySelectorAll('div, button, span'));
+      for (const el of candidates) {
+        const text = el.textContent.trim().toLowerCase();
+        if ((text.includes('aberto') || text.includes('fechado') || text.includes('fecha às') || text.includes('horários') || text.includes('expediente') || text.includes('schedule')) &&
+            (el.querySelector('img[src*="clock"]') || el.className?.includes('hours') || el.closest('[data-item-id="oh"]'))) {
+          const clickable = el.closest('button') || el.closest('div[role="button"]') || el.querySelector('button') || el;
+          clickable.click();
+          break;
+        }
+      }
+    }
+
+    const tempHours = {};
+    Object.values(dayMapping).forEach(day => {
+      tempHours[day] = { isOpen: false, slots: [] };
+    });
+
+    let foundAny = false;
+    const hoursTable = (() => {
+      const tables = Array.from(document.querySelectorAll('table'));
+      for (const tbl of tables) {
+        const text = tbl.textContent.toLowerCase();
+        const hasDay = Object.keys(dayMapping).some(day => text.includes(day));
+        if (hasDay) return tbl;
+      }
+      return null;
+    })();
+
+    if (hoursTable) {
+      const rows = Array.from(hoursTable.querySelectorAll('tr'));
+      rows.forEach(tr => {
+        const cells = Array.from(tr.querySelectorAll('td'));
+        let dayCell = null;
+        let timeCell = null;
+
+        cells.forEach(td => {
+          const text = td.textContent.trim().toLowerCase();
+          let isDay = false;
+          for (const key of Object.keys(dayMapping)) {
+            if (text.startsWith(key)) { isDay = true; break; }
+          }
+          if (isDay) {
+            dayCell = td;
+          } else if (text.match(/\d/) || text.includes('fechado') || text.includes('closed') || text.includes('24')) {
+            timeCell = td;
+          }
+        });
+
+        if (dayCell && timeCell) {
+          const dayRaw = dayCell.textContent.toLowerCase().trim();
+          const timeRaw = timeCell.textContent.trim();
+
+          let targetDay = null;
+          for (const [key, val] of Object.entries(dayMapping)) {
+            if (dayRaw.startsWith(key)) { targetDay = val; break; }
+          }
+
+          if (targetDay) {
+            foundAny = true;
+            if (timeRaw.toLowerCase().includes('fechado') || timeRaw.toLowerCase().includes('closed')) {
+              tempHours[targetDay] = { isOpen: false, slots: [] };
+            } else if (timeRaw.toLowerCase().includes('24 horas') || timeRaw.toLowerCase().includes('24h') || timeRaw.toLowerCase().includes('24 hours')) {
+              tempHours[targetDay] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
+            } else {
+              const slots = timeRaw.split(/[,;]/).map(s => {
+                const times = s.match(/\d{1,2}:\d{2}\s*(?:AM|PM)?/gi);
+                if (times && times.length === 2) {
+                  const formatTime = (t) => {
+                    let cleanT = t.trim().toUpperCase();
+                    const isPM = cleanT.includes('PM');
+                    const isAM = cleanT.includes('AM');
+                    cleanT = cleanT.replace('AM', '').replace('PM', '').trim();
+                    const parts = cleanT.split(':');
+                    let hours = parseInt(parts[0], 10);
+                    let minutes = parseInt(parts[1], 10);
+                    if (isPM && hours < 12) hours += 12;
+                    if (isAM && hours === 12) hours = 0;
+                    const pad = (num) => String(num).padStart(2, '0');
+                    return `${pad(hours)}:${pad(minutes)}`;
+                  };
+                  return { start: formatTime(times[0]), end: formatTime(times[1]) };
+                }
+                return null;
+              }).filter(Boolean);
+              tempHours[targetDay] = { isOpen: slots.length > 0, slots };
+            }
+          }
+        }
+      });
+    }
+
+    if (!foundAny) {
+      const allElements = Array.from(document.querySelectorAll('div, span, p, tr, li'));
+      for (const el of allElements) {
+        const text = el.textContent.trim();
+        if (!text || text.length > 150) continue;
+        const lowerText = text.toLowerCase();
+        for (const [key, val] of Object.entries(dayMapping)) {
+          if (lowerText.startsWith(key) && (lowerText.includes(':') || lowerText.includes('–') || lowerText.includes('-') || lowerText.includes('fechado') || lowerText.includes('closed'))) {
+            let timePart = text.substring(key.length).replace(/^[:\s\-–—]+/, '').trim();
+            if (timePart && timePart.length > 2) {
+              foundAny = true;
+              if (timePart.toLowerCase().includes('fechado') || timePart.toLowerCase().includes('closed')) {
+                tempHours[val] = { isOpen: false, slots: [] };
+              } else if (timePart.toLowerCase().includes('24 horas') || timePart.toLowerCase().includes('24h') || timePart.toLowerCase().includes('24 hours')) {
+                tempHours[val] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
+              } else {
+                const slots = timePart.split(/[,;]/).map(s => {
+                  const times = s.match(/\d{1,2}:\d{2}\s*(?:AM|PM)?/gi);
+                  if (times && times.length === 2) {
+                    const formatTime = (t) => {
+                      let cleanT = t.trim().toUpperCase();
+                      const isPM = cleanT.includes('PM');
+                      const isAM = cleanT.includes('AM');
+                      cleanT = cleanT.replace('AM', '').replace('PM', '').trim();
+                      const parts = cleanT.split(':');
+                      let hours = parseInt(parts[0], 10);
+                      let minutes = parseInt(parts[1], 10);
+                      if (isPM && hours < 12) hours += 12;
+                      if (isAM && hours === 12) hours = 0;
+                      const pad = (num) => String(num).padStart(2, '0');
+                      return `${pad(hours)}:${pad(minutes)}`;
+                    };
+                    return { start: formatTime(times[0]), end: formatTime(times[1]) };
+                  }
+                  return null;
+                }).filter(Boolean);
+                tempHours[val] = { isOpen: slots.length > 0, slots };
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return foundAny ? { openingHours: tempHours } : null;
+  }, dayMap);
+}
+
+
 function extractPhoneFromWhatsapp(url) {
   if (!url) return null;
   let phoneDigits = '';
@@ -96,9 +259,33 @@ async function checkAndHandleCaptcha(page) {
   }
 }
 
+function cleanRestaurantNameForSearch(name) {
+  if (!name) return '';
+  let clean = name.replace(/\*/g, '');
+  
+  const neighborhoods = [
+    'tambaú', 'tambau', 'bancários', 'bancarios', 'manaíra', 'manaira', 
+    'cabo branco', 'altiplano', 'bessa', 'miramar', 'torre', 'centro', 
+    'jaguaribe', 'castelo branco', 'geisel', 'mangabeira', 'valentina', 
+    'portal do sol', 'aeroclube', 'intermares', 'expedicionários', 'expedicionarios',
+    'bairro dos estados', 'estados', 'jose americo', 'josé américo', 'cristo redentor',
+    'cristo', 'cruz das armas', 'funcionarios', 'funcionários'
+  ];
+  
+  const neighborhoodPattern = new RegExp(`\\s*(?:-|\\|)\\s*(?:${neighborhoods.join('|')})(?![a-z0-9])`, 'i');
+  clean = clean.replace(neighborhoodPattern, '');
+  
+  const trailingNeighborhoodPattern = new RegExp(`\\s+(?:${neighborhoods.join('|')})(?![a-z0-9])\\s*$`, 'i');
+  clean = clean.replace(trailingNeighborhoodPattern, '');
+
+  clean = clean.replace(/\s*(?:-|\|)\s*$/, '');
+
+  return clean.trim();
+}
+
 async function searchGoogleForSocials(page, restaurant) {
-  // Query format: "[Nome] [Cidade] instagram"
-  const query = `${restaurant.name} ${restaurant.city || ''} instagram`.replace(/\s+/g, ' ').trim();
+  const cleanedName = cleanRestaurantNameForSearch(restaurant.name);
+  const query = `${cleanedName} ${restaurant.city || ''} instagram`.replace(/\s+/g, ' ').trim();
   const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   
   console.log(`🔍 Buscando Instagram para "${restaurant.name}" com a query: "${query}"...`);
@@ -126,9 +313,18 @@ async function searchGoogleForSocials(page, restaurant) {
     const otherCities = [
       'sao paulo', 'saopaulo', 'rio de janeiro', 'riodejaneiro', 'belo horizonte', 'belohorizonte', 
       'curitiba', 'porto alegre', 'portoalegre', 'salvador', 'recife', 'fortaleza', 'brasilia', 
-      'goiania', 'manaus', 'belem', 'campinas', 'santos', 'niteroi', 'florianopolis', 'vitoria', 
+      'goiania', 'manaus', 'belem', 'campinas', 'niteroi', 'florianopolis', 'vitoria', 
       'aracaju', 'maceio', 'natal', 'campina grande', 'campinagrande', 'caruaru', 'petrolina'
     ];
+
+    const stateNames = {
+      'sp': 'sao paulo', 'rj': 'rio de janeiro', 'mg': 'minas gerais', 'rs': 'rio grande do sul',
+      'pr': 'parana', 'sc': 'santa catarina', 'go': 'goias', 'df': 'distrito federal',
+      'am': 'amazonas', 'pa': 'para', 'ba': 'bahia', 'pe': 'pernambuco', 'ce': 'ceara',
+      'rn': 'rio grande do norte', 'al': 'alagoas', 'se': 'sergipe', 'ma': 'maranhao',
+      'pi': 'piaui', 'to': 'tocantins', 'ro': 'rondonia', 'ac': 'acre', 'rr': 'roraima',
+      'ap': 'amapa', 'ms': 'mato grosso do sul', 'mt': 'mato grosso', 'pb': 'paraiba'
+    };
 
     const tState = targetState.toLowerCase().trim();
     const tCity = targetCity.toLowerCase().trim();
@@ -165,12 +361,10 @@ async function searchGoogleForSocials(page, restaurant) {
           !lowerUrl.includes('google.com') &&
           !lowerUrl.includes('google.co')
         ) {
-          // Get handle
           const pathSegments = url.replace('https://', '').replace('http://', '').replace('www.', '').split('/');
           const handle = (pathSegments[1] || '').trim().toLowerCase();
           if (handle.length === 0) continue;
 
-          // Get context and title
           const container = a.closest('.g, .MjjYud, [data-ved], li, tr, td');
           const context = container ? (container.innerText || '') : '';
           const h3 = container ? container.querySelector('h3') : null;
@@ -180,14 +374,11 @@ async function searchGoogleForSocials(page, restaurant) {
           const normContext = normalizeText(context);
 
           let score = 100;
-
-          // Mismatch checks
           let hasMismatch = false;
 
-          // Check handle suffix/contains mismatch
           for (const st of filteredStates) {
             if (handle.endsWith(st)) {
-              score -= 150; // strong penalty/reject
+              score -= 150;
               hasMismatch = true;
             }
           }
@@ -199,13 +390,13 @@ async function searchGoogleForSocials(page, restaurant) {
             }
           }
 
-          // Check context/title word mismatch
           for (const st of filteredStates) {
-            if (containsWord(normTitle, st) || containsWord(normContext, st)) {
+            const fullName = stateNames[st];
+            if (fullName && (normTitle.includes(fullName) || normContext.includes(fullName))) {
               if (containsWord(normTitle, tState) || containsWord(normContext, tState) || containsWord(normTitle, normTargetCity) || containsWord(normContext, normTargetCity)) {
-                score -= 40; // mild penalty if both mentioned
+                score -= 40;
               } else {
-                score -= 120; // strong penalty
+                score -= 120;
                 hasMismatch = true;
               }
             }
@@ -221,13 +412,10 @@ async function searchGoogleForSocials(page, restaurant) {
             }
           }
 
-          // Positives / Matches
-          // Target state or city matching in handle
           if (handle.endsWith(tState) || handle.endsWith('jp') || handle.includes(normTargetCity)) {
             score += 50;
           }
 
-          // Target city/state mentioned in title/context
           if (containsWord(normTitle, tState) || containsWord(normContext, tState)) {
             score += 30;
           }
@@ -235,7 +423,6 @@ async function searchGoogleForSocials(page, restaurant) {
             score += 40;
           }
 
-          // Restaurant name matching keywords in title or handle
           let nameMatches = 0;
           for (const word of nameWords) {
             if (normTitle.includes(word) || handle.includes(word)) {
@@ -249,17 +436,17 @@ async function searchGoogleForSocials(page, restaurant) {
       }
     }
 
-    // Filter and sort
     const valid = candidates.filter(c => c.score >= 50);
     valid.sort((x, y) => y.score - x.score);
     return valid.length > 0 ? valid[0].url : null;
-  }, restaurant.city || '', restaurant.state || '', restaurant.name);
+  }, restaurant.city || '', restaurant.state || '', cleanedName);
   
   return extracted;
 }
 
 async function searchGoogleForMenu(page, restaurant) {
-  const query = `${restaurant.name} ${restaurant.city || ''} cardapio menu`.replace(/\s+/g, ' ').trim();
+  const cleanedName = cleanRestaurantNameForSearch(restaurant.name);
+  const query = `${cleanedName} ${restaurant.city || ''} cardapio menu`.replace(/\s+/g, ' ').trim();
   const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   
   console.log(`📋 Buscando Cardápio para "${restaurant.name}" com a query: "${query}"...`);
@@ -287,9 +474,18 @@ async function searchGoogleForMenu(page, restaurant) {
     const otherCities = [
       'sao paulo', 'saopaulo', 'rio de janeiro', 'riodejaneiro', 'belo horizonte', 'belohorizonte', 
       'curitiba', 'porto alegre', 'portoalegre', 'salvador', 'recife', 'fortaleza', 'brasilia', 
-      'goiania', 'manaus', 'belem', 'campinas', 'santos', 'niteroi', 'florianopolis', 'vitoria', 
+      'goiania', 'manaus', 'belem', 'campinas', 'niteroi', 'florianopolis', 'vitoria', 
       'aracaju', 'maceio', 'natal', 'campina grande', 'campinagrande', 'caruaru', 'petrolina'
     ];
+
+    const stateNames = {
+      'sp': 'sao paulo', 'rj': 'rio de janeiro', 'mg': 'minas gerais', 'rs': 'rio grande do sul',
+      'pr': 'parana', 'sc': 'santa catarina', 'go': 'goias', 'df': 'distrito federal',
+      'am': 'amazonas', 'pa': 'para', 'ba': 'bahia', 'pe': 'pernambuco', 'ce': 'ceara',
+      'rn': 'rio grande do norte', 'al': 'alagoas', 'se': 'sergipe', 'ma': 'maranhao',
+      'pi': 'piaui', 'to': 'tocantins', 'ro': 'rondonia', 'ac': 'acre', 'rr': 'roraima',
+      'ap': 'amapa', 'ms': 'mato grosso do sul', 'mt': 'mato grosso', 'pb': 'paraiba'
+    };
 
     const tState = targetState.toLowerCase().trim();
     const tCity = targetCity.toLowerCase().trim();
@@ -302,7 +498,6 @@ async function searchGoogleForMenu(page, restaurant) {
 
     const links = Array.from(document.querySelectorAll('a'));
     
-    // Procura primeiro se existe link ou botão de "Menu" do próprio Google local
     let googleMenuLink = null;
     for (const a of links) {
       const href = a.getAttribute('href') || '';
@@ -359,12 +554,10 @@ async function searchGoogleForMenu(page, restaurant) {
       href = targetUrl;
       const lowerHref = href.toLowerCase();
 
-      // Extract handle or path suffix for city/state checking
       const urlParts = lowerHref.replace('https://', '').replace('http://', '').replace('www.', '').split('/');
       const lastSegment = urlParts[urlParts.length - 1] || '';
       const handle = lastSegment.split('?')[0].split('#')[0];
 
-      // Get context and title
       const container = a.closest('.g, .MjjYud, [data-ved], li, tr, td');
       const context = container ? (container.innerText || '') : '';
       const h3 = container ? container.querySelector('h3') : null;
@@ -374,8 +567,6 @@ async function searchGoogleForMenu(page, restaurant) {
       const normContext = normalizeText(context);
 
       let score = 100;
-
-      // Check handle/URL segments for other states/cities
       let hasMismatch = false;
 
       for (const st of filteredStates) {
@@ -392,9 +583,9 @@ async function searchGoogleForMenu(page, restaurant) {
         }
       }
 
-      // Check context/title word mismatch
       for (const st of filteredStates) {
-        if (containsWord(normTitle, st) || containsWord(normContext, st)) {
+        const fullName = stateNames[st];
+        if (fullName && (normTitle.includes(fullName) || normContext.includes(fullName))) {
           if (containsWord(normTitle, tState) || containsWord(normContext, tState) || containsWord(normTitle, normTargetCity) || containsWord(normContext, normTargetCity)) {
             score -= 40;
           } else {
@@ -414,7 +605,6 @@ async function searchGoogleForMenu(page, restaurant) {
         }
       }
 
-      // Positive match triggers
       let keywordMatch = false;
       for (const keyword of menuKeywords) {
         if (lowerHref.includes(keyword) && !lowerHref.includes('instagram.com') && !lowerHref.includes('facebook.com')) {
@@ -432,7 +622,6 @@ async function searchGoogleForMenu(page, restaurant) {
         score += 30;
       }
 
-      // Target state/city matching in handle or context
       if (handle.endsWith(tState) || handle.endsWith('jp') || handle.includes(normTargetCity)) {
         score += 40;
       }
@@ -443,7 +632,6 @@ async function searchGoogleForMenu(page, restaurant) {
         score += 30;
       }
 
-      // Restaurant name matching keywords
       let nameMatches = 0;
       for (const word of nameWords) {
         if (normTitle.includes(word) || handle.includes(word)) {
@@ -458,7 +646,7 @@ async function searchGoogleForMenu(page, restaurant) {
     const valid = candidates.filter(c => c.score >= 50);
     valid.sort((x, y) => y.score - x.score);
     return valid.length > 0 ? valid[0].url : googleMenuLink;
-  }, restaurant.city || '', restaurant.state || '', restaurant.name);
+  }, restaurant.city || '', restaurant.state || '', cleanedName);
   
   return extracted;
 }
@@ -938,4 +1126,240 @@ async function run() {
   console.log(`=============================================================`);
 }
 
-run();
+async function runSingle(restaurantId, field) {
+  console.log(`\n[SINGLE-REBUSCA] 🚀 Iniciando rebusca para o restaurante ID "${restaurantId}", campo "${field}"...`);
+  
+  const { data: dbItem, error: fetchError } = await supabase
+    .from('restaurants')
+    .select('*')
+    .eq('id', restaurantId)
+    .single();
+    
+  if (fetchError || !dbItem) {
+    console.error(`❌ Erro ao buscar restaurante no Supabase:`, fetchError?.message || 'Não encontrado.');
+    console.log(`RESULT:{"success":false,"error":"Restaurante não encontrado"}`);
+    process.exit(1);
+  }
+  
+  const socialNetworks = dbItem.social_networks || [];
+  const instagram = socialNetworks.find(sn => sn && sn.platform === 'instagram')?.url || '';
+  const facebook = socialNetworks.find(sn => sn && sn.platform === 'facebook')?.url || '';
+  
+  let googleMapsUrl = '';
+  const visitNotes = dbItem.visit_notes || '';
+  const gmapsMatch = visitNotes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
+  if (gmapsMatch) {
+    googleMapsUrl = gmapsMatch[1];
+  }
+
+  const item = {
+    id: dbItem.id,
+    name: dbItem.name,
+    city: dbItem.city || 'João Pessoa',
+    state: dbItem.state || 'PB',
+    address: dbItem.address || '',
+    phone: dbItem.phone || '',
+    instagram: instagram,
+    facebook: facebook,
+    menuSourceUrl: dbItem.other_url || dbItem.external_url || '',
+    website: dbItem.other_url || dbItem.external_url || '',
+    social_networks: socialNetworks,
+    googleMapsUrl
+  };
+
+  console.log(`🤖 Estabelecimento carregado: "${item.name}" (${item.city} - ${item.state})`);
+  
+  console.log(`🚀 Inicializando o navegador Chrome...`);
+  const userDataDir = path.join(__dirname, 'puppeteer_user_data_single');
+  const browser = await puppeteer.launch({
+    headless: false,
+    defaultViewport: null,
+    userDataDir,
+    args: ['--start-maximized', '--lang=pt-BR']
+  });
+
+  const page = await browser.newPage();
+  await page.setExtraHTTPHeaders({
+    'Accept-Language': 'pt-BR,pt;q=0.9'
+  });
+
+  let success = false;
+  let foundUrl = null;
+
+  try {
+    if (field === 'instagram') {
+      const foundInsta = await searchGoogleForSocials(page, item);
+      if (foundInsta) {
+        console.log(`✅ Instagram ENCONTRADO: ${foundInsta}`);
+        
+        const updatedSocials = socialNetworks.filter(s => s.platform !== 'instagram');
+        updatedSocials.push({ platform: 'instagram', url: foundInsta });
+        
+        const updatePayload = {
+          social_networks: updatedSocials
+        };
+        if (!item.website || item.website.includes('facebook.com') || item.website.trim() === '') {
+          updatePayload.other_url = foundInsta;
+          updatePayload.external_url = foundInsta;
+        }
+
+        console.log(`📡 [Supabase] Atualizando Instagram no Supabase...`);
+        const { error: updateError } = await supabase
+          .from('restaurants')
+          .update(updatePayload)
+          .eq('id', item.id);
+          
+        if (updateError) {
+          console.error(`⚠️ Erro ao atualizar no Supabase:`, updateError.message);
+        } else {
+          console.log(`✅ [Supabase] Instagram atualizado com sucesso!`);
+          success = true;
+          foundUrl = foundInsta;
+        }
+      } else {
+        console.log(`❌ Instagram não encontrado no Google.`);
+      }
+    } else if (field === 'menu') {
+      const hasValidInstagram = item.instagram && 
+                                !item.instagram.includes('facebook.com') && 
+                                !item.instagram.includes('instagram.com/p/') && 
+                                item.instagram.trim() !== '';
+
+      if (hasValidInstagram) {
+        console.log(`📸 Tentando extrair cardápio do Instagram oficial: "${item.instagram}"...`);
+        foundUrl = await extractBioLinkFromInstagram(page, item.instagram, item.city || '', item.address || '');
+        if (foundUrl) {
+          console.log(`✅ Cardápio ENCONTRADO na Bio do Instagram: ${foundUrl}`);
+        } else {
+          console.log(`⚠️ Não foi possível extrair o link da bio do Instagram. Tentando fallback no Google...`);
+        }
+      }
+
+      if (!foundUrl) {
+        foundUrl = await searchGoogleForMenu(page, item);
+        if (foundUrl) {
+          console.log(`✅ Cardápio ENCONTRADO no Google: ${foundUrl}`);
+        } else {
+          console.log(`❌ Cardápio não encontrado no Google.`);
+        }
+      }
+
+      if (foundUrl) {
+        console.log(`📡 [Supabase] Atualizando cardápio no Supabase...`);
+        const updatePayload = {
+          other_url: foundUrl,
+          external_url: foundUrl
+        };
+        
+        if (foundUrl.includes('wa.me/') || foundUrl.includes('whatsapp.com/send')) {
+          if (!item.phone || item.phone.toLowerCase().includes('sem telefone') || item.phone.trim() === '') {
+            const extractedPhone = extractPhoneFromWhatsapp(foundUrl);
+            if (extractedPhone) {
+              console.log(`📞 Telefone extraído do link do WhatsApp: ${extractedPhone}`);
+              updatePayload.phone = extractedPhone.replace(/[^\d+]/g, '');
+            }
+          }
+        }
+        
+        const { error: updateError } = await supabase
+          .from('restaurants')
+          .update(updatePayload)
+          .eq('id', item.id);
+          
+        if (updateError) {
+          console.error(`⚠️ Erro ao atualizar no Supabase:`, updateError.message);
+        } else {
+          console.log(`✅ [Supabase] Cardápio atualizado com sucesso!`);
+          success = true;
+        }
+      }
+    } else if (field === 'hours' || field === 'openingHours') {
+      const searchName = cleanRestaurantNameForSearch(item.name);
+      const url = `https://www.google.com/maps/search/${encodeURIComponent(searchName + ' ' + (item.city || ''))}`;
+      
+      console.log(`🧭 Acessando busca do Google Maps: "${url}"...`);
+      const navSuccess = await navigateWithRetry(page, url);
+      if (!navSuccess) {
+        throw new Error("Não foi possível carregar a página de busca do Google Maps.");
+      }
+      
+      const dayMapping = {
+        'segunda': 'monday', 'terça': 'tuesday', 'quarta': 'wednesday', 'quinta': 'thursday',
+        'sexta': 'friday', 'sábado': 'saturday', 'sabado': 'saturday', 'domingo': 'sunday',
+        'monday': 'monday', 'tuesday': 'tuesday', 'wednesday': 'wednesday', 'thursday': 'thursday',
+        'friday': 'friday', 'saturday': 'saturday', 'sunday': 'sunday'
+      };
+      
+      await delay(2000);
+
+      const clicked = await page.evaluate(() => {
+        const btn = document.querySelector('button[data-item-id="oh"]') || document.querySelector('button.CsEnBe');
+        if (btn) {
+          btn.click();
+          return true;
+        }
+        const candidates = Array.from(document.querySelectorAll('button'));
+        const ohBtn = candidates.find(b => b.getAttribute('data-item-id') === 'oh' || b.className.includes('CsEnBe') || b.textContent.includes('horários') || b.textContent.includes('fechado') || b.textContent.includes('aberto'));
+        if (ohBtn) {
+          ohBtn.click();
+          return true;
+        }
+        return false;
+      });
+
+      if (clicked) {
+        console.log('👉 Botão de horários clicado, aguardando 2s para expansão...');
+        await delay(2000);
+      }
+      
+      const details = await extractOpeningHoursFromPage(page, dayMapping);
+      
+      if (details && details.openingHours) {
+        console.log(`✅ Horários encontrados! Salvando no Supabase...`);
+        const { error: updateError } = await supabase
+          .from('restaurants')
+          .update({ opening_hours: details.openingHours })
+          .eq('id', item.id);
+          
+        if (updateError) {
+          console.error(`⚠️ Erro ao atualizar no Supabase:`, updateError.message);
+        } else {
+          console.log(`✅ [Supabase] Horários atualizados com sucesso!`);
+          success = true;
+          foundUrl = "hours_updated";
+        }
+      } else {
+        console.log(`❌ Horários de funcionamento não encontrados.`);
+      }
+    }
+  } catch (err) {
+    console.error(`❌ Erro durante a rebusca:`, err.message);
+  } finally {
+    await browser.close();
+    console.log(`RESULT:{"success":${success},"url":${foundUrl ? JSON.stringify(foundUrl) : 'null'}}`);
+  }
+}
+
+const args = process.argv.slice(2);
+const isSingle = args.includes('--single');
+if (isSingle) {
+  const idIndex = args.indexOf('--id');
+  const fieldIndex = args.indexOf('--field');
+  const restaurantId = idIndex !== -1 ? args[idIndex + 1] : null;
+  const field = fieldIndex !== -1 ? args[fieldIndex + 1] : null;
+  
+  if (!restaurantId || !field) {
+    console.error('❌ Argumentos inválidos para modo single. Uso: --single --id <id> --field <instagram|menu>');
+    process.exit(1);
+  }
+  
+  runSingle(restaurantId, field).catch(err => {
+    console.error('❌ Erro fatal no modo single:', err);
+    process.exit(1);
+  });
+} else {
+  run().catch(err => {
+    console.error('\n❌ Erro fatal:', err);
+    process.exit(1);
+  });
+}
