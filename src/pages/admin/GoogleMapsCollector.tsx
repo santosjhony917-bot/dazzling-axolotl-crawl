@@ -790,8 +790,9 @@ export default function GoogleMapsCollector() {
           
           // Detectar a conclusão de uma tarefa de coleta em segundo plano
           if (prevRunningRef.current === true && data.running === false) {
-            if (data.logs.includes('concluída com código de saída: 0')) {
-              showSuccess('Coleta em segundo plano finalizada com sucesso!');
+            const hasFinishedSuccessfully = data.logs.includes('concluída com código de saída: 0') || data.logs.includes('concluído com código de saída: 0');
+            if (hasFinishedSuccessfully) {
+              showSuccess('Tarefa em segundo plano finalizada com sucesso!');
               loadScrapedFromSupabase();
               // Despacha evento para notificar abas
               window.dispatchEvent(new Event('local-sync-restaurants'));
