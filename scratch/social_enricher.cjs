@@ -782,7 +782,7 @@ async function run() {
 
   if (pending.length === 0) {
     console.log(`✨ Todos os ${mappedData.length} estabelecimentos já possuem Instagram e Cardápio válidos!`);
-    process.exit(0);
+    return;
   }
 
   console.log(`🔄 Encontrados ${pending.length} estabelecimentos que precisam de enriquecimento de dados.\n`);

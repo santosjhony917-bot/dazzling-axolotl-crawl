@@ -11,6 +11,7 @@ const filesToReset = [
 
 const filesToDelete = [
   path.join(SCRATCH_DIR, 'google_maps_scraper_state.json'),
+  path.join(SCRATCH_DIR, 'menu_scraper_state.json'),
   path.join(SCRATCH_DIR, 'menu_analysis_results.json'),
 ];
 

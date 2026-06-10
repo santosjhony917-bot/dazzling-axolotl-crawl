@@ -1449,7 +1449,7 @@ async function run() {
 
   if (withMenu.length === 0) {
     console.log(`❌ Nenhum restaurante com link de cardápio disponível.`);
-    process.exit(0);
+    return;
   }
 
   // Carrega resultados existentes localmente (como backup/status)
@@ -1481,7 +1481,7 @@ async function run() {
 
   if (pending.length === 0 && processedIds.size > 0) {
     console.log(`✨ Todos os cardápios já foram processados!`);
-    process.exit(0);
+    return;
   }
 
   console.log(`🔄 ${pending.length} cardápios pendentes para processar.\n`);
