@@ -315,7 +315,7 @@ function saveState(state) {
 function saveProgress(state) {
   try {
     saveState(state);
-    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(state.scrapedData, null, 2), 'utf-8');
+    // fs.writeFileSync(OUTPUT_FILE, JSON.stringify(state.scrapedData, null, 2), 'utf-8');
   } catch (err) {
     console.error('[ERRO] Falha ao salvar progresso:', err.message);
   }
@@ -1241,7 +1241,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
       await Promise.all(pages.map((p, idx) => runWorker(p, idx + 1)));
 
       // Finalizado com sucesso! Escreve o arquivo definitivo e remove o arquivo de estado
-      fs.writeFileSync(OUTPUT_FILE, JSON.stringify(state.scrapedData, null, 2), 'utf-8');
+      // fs.writeFileSync(OUTPUT_FILE, JSON.stringify(state.scrapedData, null, 2), 'utf-8');
       
       if (fs.existsSync(STATE_FILE)) {
         fs.unlinkSync(STATE_FILE);
@@ -1250,7 +1250,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
       console.log(`\n=============================================================`);
       console.log(`🎉 VARREDURA GEOGRÁFICA COMPLETA CONCLUÍDA!`);
       console.log(`💾 Foram salvos ${state.scrapedData.length} restaurantes únicos.`);
-      console.log(`📂 Arquivo salvo em: ${OUTPUT_FILE}`);
+      console.log(`📡 Todos os dados salvos exclusivamente no banco remoto Supabase!`);
       console.log(`=============================================================\n`);
     }
 

@@ -1,1 +1,1866 @@
-[]
+[
+  {
+    "id": "scraped-google-local-1781104015676-2",
+    "name": "Dom Pizzeria Originale - Tambaú",
+    "category": "Restaurante italiano",
+    "rating": 4.6,
+    "reviewsCount": 229,
+    "address": "Zap ( 19 - 92009.0186 - Tambaú, João Pessoa - PB, 58039-170",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "website": "https://api.whatsapp.com/send?phone=81981162766",
+    "googleMapsUrl": "https://www.google.com/maps/place/Dom+Pizzeria+Originale/data=!4m7!3m6!1s0x7acdd8a78fb9ec5:0xf16030963e4aa029!8m2!3d-7.1162515!4d-34.8278442!16s%2Fg%2F11spsnp9qj!19sChIJxZ77eIrdrAcRKaBKPpYwYPE",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104020972-0",
+    "name": "Pizza Nostra - Tambaú",
+    "category": "Pizzaria",
+    "rating": 3.7,
+    "reviewsCount": 2861,
+    "address": "Av. Antônio Lira, 680 - Tambaú, João Pessoa - PB, 58039-050",
+    "phone": "(83) 3247-0040",
+    "city": "João Pessoa",
+    "state": "PB",
+    "facebook": "https://www.facebook.com/Pizza-Nostra-tambau-212035472148972/?fref=ts",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://www.facebook.com/Pizza-Nostra-tambau-212035472148972/?fref=ts",
+    "googleMapsUrl": "https://www.google.com/maps/place/Pizza+Nostra/data=!4m7!3m6!1s0x7acdd28b376f1b7:0x5d098e750bc04ff3!8m2!3d-7.1185666!4d-34.824789!16s%2Fg%2F11b6dw3nly!19sChIJt_F2syjdrAcR80_AC3WOCV0",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104023768-1",
+    "name": "Famiglia Muccini - Tambaú",
+    "category": "Restaurante italiano",
+    "rating": 4.6,
+    "reviewsCount": 3059,
+    "address": "R. Nossa Sra. dos Navegantes, 140 - Tambaú, João Pessoa - PB, 58039-110",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://famigliamuccini.github.io/web/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Famiglia+Muccini/data=!4m7!3m6!1s0x7acdd23ebbd8e6b:0x79e1bbbb0feb4cec!8m2!3d-7.1137952!4d-34.8247494!16s%2Fg%2F1v4pt66_!19sChIJa4696yPdrAcR7EzrD7u74Xk",
+    "menuSourceUrl": "http://menudigital.info/famigliamuccini/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104029515-5",
+    "name": "Porto 04 Pizzaria & Restaurante - Tambaú",
+    "category": "Pizzaria",
+    "rating": 4,
+    "reviewsCount": 10,
+    "address": "Tambaú, João Pessoa - PB",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/place/Porto+04+Pizzaria+%26+Restaurante/data=!4m7!3m6!1s0x7acddd3e14d9e0b:0x15d04b282c57e1da!8m2!3d-7.1155564!4d-34.8239528!16s%2Fg%2F11jyky15mw!19sChIJC55N4dPdrAcR2uFXLChL0BU",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104036421-4",
+    "name": "Mister Pizza Tambaú",
+    "category": "Pizzaria",
+    "rating": 4.3,
+    "reviewsCount": 251,
+    "address": "Anexo do Tambaú Flat, Av. Pres. Epitácio Pessoa, 5000 - Tambaú, João Pessoa - PB, 58045-050",
+    "phone": "(83) 3247-2882",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "16:30",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Mister+Pizza+Tamba%C3%BA/data=!4m7!3m6!1s0x7acdd2f1b825de5:0x851aa088f4c0ce20!8m2!3d-7.1196136!4d-34.8261479!16s%2Fg%2F1tf582pv!19sChIJ5V2CGy_drAcRIM7A9IigGoU",
+    "menuSourceUrl": "http://misterpizza.com.br/cardapio/cardapio-de-pizzas/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104037017-3",
+    "name": "Maria Bonita Restaurante e Pizzaria - Praia do Cabo Branco - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.3,
+    "reviewsCount": 267,
+    "address": "Av. Antônio Lira, 756 - Tambaú, João Pessoa - PB, 58045-030",
+    "phone": "(83) 99311-2727",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/mariabonitarestaurantepraia?igsh=MXdhZTdhbmV0cjF0YQ==",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://www.instagram.com/mariabonitarestaurantepraia?igsh=MXdhZTdhbmV0cjF0YQ==",
+    "googleMapsUrl": "https://www.google.com/maps/place/Maria+Bonita+Restaurante+e+Pizzaria+-+Praia+do+Cabo+Branco/data=!4m7!3m6!1s0x7acdd000605cb6f:0x2e61f5b4360e6582!8m2!3d-7.1197663!4d-34.8249713!16s%2Fg%2F11wq8zhglp!19sChIJb8sFBgDdrAcRgmUONrT1YS4",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104041440-7",
+    "name": "Appetito Trattoria - Tambaú",
+    "category": "Pizzaria",
+    "rating": 4,
+    "reviewsCount": 10,
+    "address": "Tambaú, João Pessoa - PB",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/place/Appetito+Trattoria/data=!4m7!3m6!1s0x7acdd20c0f344c5:0x3e9e3289e21a451e!8m2!3d-7.1119491!4d-34.824172!16s%2Fg%2F1tlbtyb3!19sChIJxUTzwCDdrAcRHkUa4okynj4",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104041667-8",
+    "name": "Buongustaio Ristorante - Tambaú",
+    "category": "Pizzaria",
+    "rating": 4,
+    "reviewsCount": 10,
+    "address": "Tambaú, João Pessoa - PB",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/place/Buongustaio+Ristorante/data=!4m7!3m6!1s0x7acdd2183ae8a89:0x9abafd5872d8382c!8m2!3d-7.1137757!4d-34.8226026!16s%2Fg%2F1tm8kt23!19sChIJiYqugyHdrAcRLDjYclj9upo",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104047495-6",
+    "name": "Sapore D'Itália - Tambaú",
+    "category": "Restaurante italiano",
+    "rating": 4.4,
+    "reviewsCount": 2811,
+    "address": "Av. Cabo Branco, 1584 - Cabo Branco, João Pessoa - PB, 58045-010",
+    "phone": "(83) 3247-3322",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:15",
+            "end": "00:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Sapore+D%27It%C3%A1lia/data=!4m7!3m6!1s0x7acdd2c9d7c931d:0xe300cfd299d5c5a5!8m2!3d-7.1228758!4d-34.8241054!16s%2Fg%2F1tlz_d58!19sChIJHZN8nSzdrAcRpcXVmdLPAOM",
+    "menuSourceUrl": "http://menudigital.info/sapore/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104049013-9",
+    "name": "Forneria de Origem - Tambaú",
+    "category": "Restaurante italiano",
+    "rating": 4.6,
+    "reviewsCount": 1114,
+    "address": "Av. Pombal, 255 - Manaíra, João Pessoa - PB, 58038-241",
+    "phone": "(83) 3206-0255",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Forneria+de+Origem/data=!4m7!3m6!1s0x7acdd263a7f44cf:0x7dd706c63818f5a5!8m2!3d-7.1100458!4d-34.8290831!16s%2Fg%2F11r_nc0dw9!19sChIJz0R_OibdrAcRpfUYOMYG130",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104050635-10",
+    "name": "Giramundo Tambaú",
+    "category": "Bar",
+    "rating": 4.6,
+    "reviewsCount": 1898,
+    "address": "Av. Alm. Tamandaré, 564 - Tambaú, João Pessoa - PB, 58039-010",
+    "city": "João Pessoa",
+    "state": "PB",
+    "facebook": "https://www.facebook.com/giramundojp/",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://www.facebook.com/giramundojp/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Giramundo+Tamba%C3%BA/data=!4m7!3m6!1s0x7acdd26618cf7db:0xd8be6501d1fc177f!8m2!3d-7.1156217!4d-34.8227199!16s%2Fg%2F11b67g9mfz!19sChIJ2_eMYSbdrAcRfxf80QFlvtg",
+    "menuSourceUrl": "http://guia.guiasaborbrasil.com.br/index.php/pt/show/results/plainkey=drinks",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104057338-12",
+    "name": "Pizza Mestre Cabo Branco - Tambaú",
+    "category": "Pizzaria",
+    "rating": 4.5,
+    "reviewsCount": 615,
+    "address": "R. Maria Loureiro Franca, 45 - Cabo Branco, João Pessoa - PB, 58045-060 - Cabo Branco, João Pessoa - PB, 58045-080",
+    "phone": "(83) 3022-5929",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "https://loja.neemo.com.br/pizzamestretamba",
+    "googleMapsUrl": "https://www.google.com/maps/place/Pizza+Mestre+Cabo+Branco/data=!4m7!3m6!1s0x7acdda93ad4fb69:0xf60ed607ba899664!8m2!3d-7.1216676!4d-34.8264187!16s%2Fg%2F11j4s784g_!19sChIJafvUOqndrAcRZJaJugfWDvY",
+    "menuSourceUrl": "https://loja.neemo.com.br/pizzamestretamba",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104057670-11",
+    "name": "Pizza Original Forno a Lenha - Manaíra João Pessoa",
+    "category": "Delivery de Pizza",
+    "rating": 4.3,
+    "reviewsCount": 1543,
+    "address": "Av. João Câncio da Silva, 490 - Manaíra, João Pessoa - PB, 58038-340",
+    "phone": "(83) 3512-5738",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://originalfornoalenha.com.br/original_forno_a_lenha",
+    "googleMapsUrl": "https://www.google.com/maps/place/Pizza+Original+Forno+a+Lenha+-+Mana%C3%ADra+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdd3d06dc414b:0x664704202871eb61!8m2!3d-7.1097534!4d-34.8316953!16s%2Fg%2F1th7n2_j!19sChIJS0HcBj3drAcRYetxKCAER2Y",
+    "menuSourceUrl": "https://originalfornoalenha.com.br/original_forno_a_lenha",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104062832-13",
+    "name": "Casa Nonna João Pessoa",
+    "category": "Restaurante italiano",
+    "rating": 4.5,
+    "reviewsCount": 203,
+    "address": "Praça Santo Antônio, 56 - Tambaú, João Pessoa - PB, 58039-030",
+    "phone": "(83) 99351-8456",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://casanonnajp.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Casa+Nonna+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdd1783656c95:0x566b371e28aae0b3!8m2!3d-7.111161!4d-34.8237628!16s%2Fg%2F11v_2sl7z_!19sChIJlWxlgxfdrAcRs-CqKB43a1Y",
+    "menuSourceUrl": "https://casanonnajp.com.br/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104069645-15",
+    "name": "All Garden Restaurante - Tambaú",
+    "category": "Restaurante italiano",
+    "rating": 4.7,
+    "reviewsCount": 501,
+    "address": "Av. Infante Dom Henrique, 531 - Tambaú, João Pessoa - PB, 58039-151",
+    "phone": "(83) 99146-6800",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "12:00",
+            "end": "15:00"
+          }
+        ]
+      }
+    },
+    "website": "https://meulink.com.vc/all-garden-restaurante/",
+    "googleMapsUrl": "https://www.google.com/maps/place/All+Garden+Restaurante+-+Tamba%C3%BA/data=!4m7!3m6!1s0x7acdd14a92a79ad:0x522ec96bf9a64766!8m2!3d-7.1163702!4d-34.8267265!16s%2Fg%2F11h_xn5l_4!19sChIJrXkqqRTdrAcRZkem-WvJLlI",
+    "menuSourceUrl": "https://loja.neemo.com.br/all-garden",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104071636-14",
+    "name": "Pizza do Jim - Tambaú",
+    "category": "Delivery de Pizza",
+    "rating": 4.7,
+    "reviewsCount": 10,
+    "address": "R. Miguel Bastos Lisboa, 13 - sala B - Miramar, João Pessoa - PB, 58043-280",
+    "phone": "(83) 99411-3572",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:15",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Pizza+do+Jim/data=!4m7!3m6!1s0x7acdde2fd06faf7:0xc9f7b2d2189cc397!8m2!3d-7.1242518!4d-34.8364188!16s%2Fg%2F11vx8p2611!19sChIJ9_oG_eLdrAcRl8OcGNKy98k",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104074012-16",
+    "name": "Villa Tambaú Choperia & Café",
+    "category": "Restaurante",
+    "rating": 4.6,
+    "reviewsCount": 254,
+    "address": "Av. Alm. Tamandaré, 199 - Tambaú, João Pessoa - PB, 58039-010",
+    "phone": "(83) 99606-6029",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Villa+Tamba%C3%BA+Choperia+%26+Caf%C3%A9/data=!4m7!3m6!1s0x7acdd2164e501ab:0xd0c081a1b476063d!8m2!3d-7.1116941!4d-34.8234462!16s%2Fg%2F11g9w5n24g!19sChIJqwHlZCHdrAcRPQZ2tKGBwNA",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104080248-18",
+    "name": "Peixada e Restaurante da Rainha - Tambaú",
+    "category": "Restaurante",
+    "rating": 3.7,
+    "reviewsCount": 343,
+    "address": "Av. Olinda, 88 - Tambaú, João Pessoa - PB, 58039-120",
+    "phone": "(83) 3113-0203",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Peixada+e+Restaurante+da+Rainha/data=!4m7!3m6!1s0x7acdd628959ee8f:0x456efe6c8293c79b!8m2!3d-7.1121812!4d-34.8240828!16s%2Fg%2F11nx27gwz7!19sChIJj-5ZiWLdrAcRm8eTgmz-bkU",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104082875-19",
+    "name": "Cantinho Regional Tambaú",
+    "category": "Restaurante",
+    "rating": 4.6,
+    "reviewsCount": 155,
+    "address": "R. Targino Marques, 174 - Tambaú, João Pessoa - PB, 58039-140",
+    "phone": "(83) 98683-0459",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/cantinhoregionaljp/",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "14:30"
+          }
+        ]
+      }
+    },
+    "website": "https://www.instagram.com/cantinhoregionaljp/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Cantinho+Regional+Tamba%C3%BA/data=!4m7!3m6!1s0x7acddad9d6ae787:0x5e2bc1f6cc2e9b22!8m2!3d-7.1119328!4d-34.8252028!16s%2Fg%2F11rhwjpqz_!19sChIJh-dqna3drAcRIpsuzPbBK14",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104083068-17",
+    "name": "Palace Gourmet Restaurante Self Service - Tambaú",
+    "category": "Restaurante self-service",
+    "rating": 4.1,
+    "reviewsCount": 798,
+    "address": "Av. Alm. Tamandaré, 310 - Tambaú, João Pessoa - PB, 58039-010",
+    "phone": "(83) 3576-0628",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "http://palacegourmet.com.br/nosso-cardapio",
+    "googleMapsUrl": "https://www.google.com/maps/place/Palace+Gourmet+Restaurante+Self+Service/data=!4m7!3m6!1s0x7acdd21441e1a41:0xc8018ced28dd2542!8m2!3d-7.1127251!4d-34.8228405!16s%2Fg%2F1tgpbh4m!19sChIJQRoeRCHdrAcRQiXdKO2MAcg",
+    "menuSourceUrl": "http://palacegourmet.com.br/nosso-cardapio",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104091171-20",
+    "name": "Restaurante DanadoDBom | Comida Nordestina em Tambaú",
+    "category": "Restaurante",
+    "rating": 4.9,
+    "reviewsCount": 982,
+    "address": "Av. Nego, 255 - Tambaú, João Pessoa - PB, 58039-101",
+    "phone": "(83) 99957-9643",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "16:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Restaurante+DanadoDBom+%7C+Comida+Nordestina+em+Tamba%C3%BA/data=!4m7!3m6!1s0x7acddbdc08a8bbf:0xc78273a26ae0dea!8m2!3d-7.1143191!4d-34.8249452!16s%2Fg%2F11td34ggz5!19sChIJv4uKwL3drAcR6g2uJjoneAw",
+    "menuSourceUrl": "https://drive.google.com/file/d/1gD27qCAYCHvR_XpY_qMYNtcjzW5loKwf/view?usp=sharing",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104094382-21",
+    "name": "Fava Praia Bar & Restaurante - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.6,
+    "reviewsCount": 3075,
+    "address": "Av. Pres. Epitácio Pessoa, 5065 - Tambaú, João Pessoa - PB, 58039-000",
+    "phone": "(83) 98842-2092",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "17:00"
+          }
+        ]
+      }
+    },
+    "website": "https://favapraia.goomer.app/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Fava+Praia+Bar+%26+Restaurante/data=!4m7!3m6!1s0x7acdd2f181dd997:0x2383b282b97a030c!8m2!3d-7.1192609!4d-34.8252285!16s%2Fg%2F11b69w1nph!19sChIJl9kdGC_drAcRDAN6uYKygyM",
+    "menuSourceUrl": "https://favapraia.goomer.app/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104098101-22",
+    "name": "Restaurante Família Picuí Tambaú",
+    "category": "Restaurante self-service",
+    "rating": 4.4,
+    "reviewsCount": 1142,
+    "address": "Av. Izidro Gomes, 390 - Tambaú, João Pessoa - PB, 58039-160",
+    "phone": "(83) 98892-0495",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "15:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Restaurante+Fam%C3%ADlia+Picu%C3%AD+Tamba%C3%BA/data=!4m7!3m6!1s0x7acdd2366827ddb:0x84e0da2a407fddbd!8m2!3d-7.1123812!4d-34.8276353!16s%2Fg%2F11b61s6mml!19sChIJ232CZiPdrAcRvd1_QCra4IQ",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104110992-25",
+    "name": "Gulliver Restaurante - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.5,
+    "reviewsCount": 655,
+    "address": "Av. Olinda, 590 - Tambaú, João Pessoa - PB, 58039-121",
+    "phone": "(83) 98173-1155",
+    "city": "João Pessoa",
+    "state": "PB",
+    "facebook": "http://facebook.com/pg/RestauranteGulliver/menu",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "12:00",
+            "end": "16:00"
+          }
+        ]
+      }
+    },
+    "website": "http://www.restaurantegulliver.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Gulliver+Restaurante/data=!4m7!3m6!1s0x7acdd24bc4961f7:0x19682887d1245863!8m2!3d-7.1132819!4d-34.8277984!16s%2Fg%2F1tlz_d57!19sChIJ92FJvCTdrAcRY1gk0YcoaBk",
+    "menuSourceUrl": "http://facebook.com/pg/RestauranteGulliver/menu",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104112484-23",
+    "name": "Tábua de Carne - João Pessoa",
+    "category": "Churrascaria",
+    "rating": 4.5,
+    "reviewsCount": 3613,
+    "address": "Av. Profa. Maria Sales, 261 - Tambaú, João Pessoa - PB, 58039-130",
+    "phone": "(83) 98802-5419",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:30",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "http://www.tabuadecarne.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/T%C3%A1bua+de+Carne+-+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdd235383ae0d:0xe37eb14e69eec71a!8m2!3d-7.1128735!4d-34.8254223!16s%2Fg%2F1tdmkpsm!19sChIJDa6DUyPdrAcRGsfuaU6xfuM",
+    "menuSourceUrl": "https://tabuadecarne.com.br/arquivos/Cardapio-Jampa.pdf",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104112770-24",
+    "name": "Palace Grill Restaurante - Tambaú",
+    "category": "Restaurante self-service",
+    "rating": 4.6,
+    "reviewsCount": 469,
+    "address": "Littoral Tambaú Flat - Av. Pres. Epitácio Pessoa, 5000 - Cabo Branco, João Pessoa - PB, 58045-050",
+    "phone": "(83) 99152-7247",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Palace+Grill+Restaurante/data=!4m7!3m6!1s0x7acdd2f1b825de5:0x1dd21baeb47f03ad!8m2!3d-7.1195967!4d-34.8258921!16s%2Fg%2F1tlmnjsr!19sChIJ5V2CGy_drAcRrQN_tK4b0h0",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104126137-28",
+    "name": "Johnny Rockets João Pessoa",
+    "category": "Hamburgueria",
+    "rating": 4.5,
+    "reviewsCount": 1426,
+    "address": "Holanda's Prime, Shopping Residence - Av. Antônio Lira, 536 - Loja 19 e 20 - Tambaú, João Pessoa - PB, 58039-050",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "website": "https://locations.johnnyrockets.com/ll/BR/pb/Joao-Pessoa/Av_-Antonio-Lira*-536",
+    "googleMapsUrl": "https://www.google.com/maps/place/Johnny+Rockets+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdd25f7a4a707:0xdce816caa78b33a9!8m2!3d-7.1173609!4d-34.8245263!16s%2Fg%2F11f04dyf63!19sChIJB6ek9yXdrAcRqTOLp8oW6Nw",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104127767-27",
+    "name": "Matuto Teimoso - Culinária Regional - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.5,
+    "reviewsCount": 955,
+    "address": "Av. Pres. Epitácio Pessoa, 108 - Cabo Branco, João Pessoa - PB, 58040-000",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/matutoteimosojp?igsh=YnVpYXk0NzVwMTY=",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "01:00"
+          }
+        ]
+      }
+    },
+    "website": "https://www.instagram.com/matutoteimosojp?igsh=YnVpYXk0NzVwMTY=",
+    "googleMapsUrl": "https://www.google.com/maps/place/Matuto+Teimoso+-+Culin%C3%A1ria+Regional/data=!4m7!3m6!1s0x7acdd00226afd07:0x89dd643a1c06993c!8m2!3d-7.1196464!4d-34.8239096!16s%2Fg%2F11wwzjvgmt!19sChIJB_1qIgDdrAcRPJkGHDpk3Yk",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104129981-26",
+    "name": "Boibumbar Restaurante - Tambaú",
+    "category": "Restaurante self-service",
+    "rating": 4.4,
+    "reviewsCount": 647,
+    "address": "Av. Izidro Gomes, 246 - Tambaú, João Pessoa - PB, 58039-160",
+    "phone": "(83) 98760-2465",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/boibumbar/",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://www.instagram.com/boibumbar/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Boibumbar+Restaurante/data=!4m7!3m6!1s0x7acdd239fc11c71:0xdbf130cf6e515ee!8m2!3d-7.1118751!4d-34.8264667!16s%2Fg%2F1tr7jlk3!19sChIJcRzBnyPdrAcR7hXl9gwTvw0",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781104133712-29",
+    "name": "The Outset Burger - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.8,
+    "reviewsCount": 128,
+    "address": "R. José Augusto Trindade, 391c - Tambaú, João Pessoa - PB, 58039-020",
+    "phone": "(83) 2177-8104",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/The+Outset+Burger/data=!4m7!3m6!1s0x7acdd32987f2a17:0x63f0f3baf2ed8ad5!8m2!3d-7.1181624!4d-34.8271442!16s%2Fg%2F11fs2g7njw!19sChIJFyp_mDLdrAcR1Yrt8rrz8GM",
+    "isClosed": false
+  }
+]

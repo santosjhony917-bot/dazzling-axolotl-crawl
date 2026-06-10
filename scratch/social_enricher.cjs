@@ -767,26 +767,6 @@ async function run() {
             .eq('id', item.id);
           if (phoneError) {
             console.error(`⚠️ Erro ao salvar telefone no Supabase para "${item.name}":`, phoneError.message);
-          } else {
-            // Atualiza também o arquivo JSON local
-            if (fs.existsSync(JSON_PATH)) {
-              try {
-                const localData = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
-                let localUpdated = false;
-                for (const localItem of localData) {
-                  if (localItem.name.trim().toLowerCase() === item.name.trim().toLowerCase()) {
-                    localItem.phone = extracted;
-                    localUpdated = true;
-                  }
-                }
-                if (localUpdated) {
-                  fs.writeFileSync(JSON_PATH, JSON.stringify(localData, null, 2), 'utf8');
-                  console.log(`✅ [LOCAL] Telefone de "${item.name}" atualizado no arquivo JSON local!`);
-                }
-              } catch (err) {
-                console.error(`⚠️ Erro ao atualizar JSON local:`, err.message);
-              }
-            }
           }
         }
       }
@@ -866,33 +846,6 @@ async function run() {
             item.social_networks = updatedSocials;
             enrichedInstaCount++;
 
-            // Atualiza também o arquivo JSON local
-            if (fs.existsSync(JSON_PATH)) {
-              try {
-                const localData = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
-                let localUpdated = false;
-                for (const localItem of localData) {
-                  if (localItem.name.trim().toLowerCase() === item.name.trim().toLowerCase()) {
-                    localItem.instagram = foundInsta;
-                    if (!localItem.website || localItem.website.trim() === '') {
-                      localItem.website = foundInsta;
-                    }
-                    if (localItem.midias_sociais) {
-                      localItem.midias_sociais.instagram = foundInsta;
-                    } else {
-                      localItem.midias_sociais = { instagram: foundInsta };
-                    }
-                    localUpdated = true;
-                  }
-                }
-                if (localUpdated) {
-                  fs.writeFileSync(JSON_PATH, JSON.stringify(localData, null, 2), 'utf8');
-                  console.log(`✅ [LOCAL] Instagram de "${item.name}" atualizado no arquivo JSON local!`);
-                }
-              } catch (err) {
-                console.error(`⚠️ Erro ao atualizar JSON local:`, err.message);
-              }
-            }
           }
         } else {
           console.log(`❌ Instagram não encontrado no Google.`);
@@ -965,29 +918,6 @@ async function run() {
             console.log(`✅ [Supabase] Cardápio de "${item.name}" atualizado com sucesso!`);
             item.menuSourceUrl = foundMenu;
             enrichedMenuCount++;
-
-            // Atualiza também o arquivo JSON local
-            if (fs.existsSync(JSON_PATH)) {
-              try {
-                const localData = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
-                let localUpdated = false;
-                for (const localItem of localData) {
-                  if (localItem.name.trim().toLowerCase() === item.name.trim().toLowerCase()) {
-                    localItem.menuSourceUrl = foundMenu;
-                    if (updatePayload.phone) {
-                      localItem.phone = item.phone;
-                    }
-                    localUpdated = true;
-                  }
-                }
-                if (localUpdated) {
-                  fs.writeFileSync(JSON_PATH, JSON.stringify(localData, null, 2), 'utf8');
-                  console.log(`✅ [LOCAL] Cardápio de "${item.name}" atualizado no arquivo JSON local!`);
-                }
-              } catch (err) {
-                console.error(`⚠️ Erro ao atualizar JSON local:`, err.message);
-              }
-            }
           }
         }
       } catch (err) {

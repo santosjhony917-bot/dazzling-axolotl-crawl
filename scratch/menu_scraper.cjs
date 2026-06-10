@@ -1601,7 +1601,7 @@ async function run() {
           };
           results.push(menuResult);
           updatedCount++;
-          fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2), 'utf-8');
+          // fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2), 'utf-8');
           
           // Salva no Supabase
           await saveMenuToSupabase(restaurant.id, retryNormalized);
@@ -1623,7 +1623,7 @@ async function run() {
       };
       results.push(menuResult);
       updatedCount++;
-      fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2), 'utf-8');
+      // fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2), 'utf-8');
       
       // Salva no Supabase
       await saveMenuToSupabase(restaurant.id, normalized);
