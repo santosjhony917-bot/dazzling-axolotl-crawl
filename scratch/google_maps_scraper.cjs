@@ -791,25 +791,38 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
                      });
 
                      if (!isAlreadyExpanded) {
-                       const hoursBtn = await workerPage.evaluateHandle(() => {
-                         // Busca o botão de expansão de horários de forma flexível (aria-label ou chevron)
-                         return Array.from(document.querySelectorAll('*')).find(el => {
-                           const label = el.getAttribute('aria-label') || '';
-                           return label.toLowerCase().includes('horário de funcionamento da semana') ||
-                                  label.toLowerCase().includes('mostrar horário') ||
-                                  (el.textContent.trim() === '' && el.className.includes('OazX1c'));
-                         }) || null;
-                       });
+                        const hoursBtn = await workerPage.evaluateHandle(() => {
+                          // 1. Tenta buscar diretamente pelo item de ID 'oh' (Opening Hours) do Google Maps
+                          const ohElement = document.querySelector('*[data-item-id="oh"]') || 
+                                            document.querySelector('*[data-item-id^="oh"]');
+                          if (ohElement) return ohElement;
 
-                       if (hoursBtn && hoursBtn.asElement()) {
-                         const element = hoursBtn.asElement();
-                         const box = await element.boundingBox();
-                         if (box) {
-                           await workerPage.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
-                           await new Promise(r => setTimeout(r, 1200));
-                         }
-                       }
-                     }
+                          // 2. Busca o botão de expansão de horários de forma flexível (aria-label ou chevron)
+                          return Array.from(document.querySelectorAll('*')).find(el => {
+                            const label = el.getAttribute('aria-label') || '';
+                            return label.toLowerCase().includes('horário de funcionamento da semana') ||
+                                   label.toLowerCase().includes('mostrar horário') ||
+                                   label.toLowerCase().includes('ocultar horário') ||
+                                   (el.textContent.trim() === '' && el.className.includes('OazX1c'));
+                          }) || null;
+                        });
+
+                        if (hoursBtn && hoursBtn.asElement()) {
+                          const element = hoursBtn.asElement();
+                          try {
+                            // Tenta clicar usando Puppeteer diretamente
+                            await element.click();
+                          } catch (clickErr) {
+                            // Fallback de clique via JS evaluate caso esteja obscurecido ou fora de viewport
+                            await workerPage.evaluate((el) => {
+                              if (el && typeof el.click === 'function') {
+                                el.click();
+                              }
+                            }, element);
+                          }
+                          await new Promise(r => setTimeout(r, 1200));
+                        }
+                      }
                    } catch (hoursClickErr) {}
 
                   // Executa a extração no DOM
