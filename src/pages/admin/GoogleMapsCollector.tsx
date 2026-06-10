@@ -5,11 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Instagram as InstagramIcon } from 'lucide-react';
+import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Clock, Instagram as InstagramIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { showSuccess, showError } from '@/utils/toast';
 import { WeekSchedule } from '@/types/schedule';
 import { supabase } from '@/integrations/supabase/client';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface ScrapedRestaurant {
   id: string;
@@ -365,6 +366,64 @@ function generateMockRestaurants(city: string, state: string, neighborhood: stri
 
   return restaurants;
 }
+
+const renderTableOpeningHours = (hours: any) => {
+  if (!hours || Object.keys(hours).length === 0) {
+    return (
+      <span className="bg-slate-50 text-slate-400 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border border-slate-100/40">
+        Ausente
+      </span>
+    );
+  }
+
+  const daysTranslation: Record<string, string> = {
+    monday: 'Seg',
+    tuesday: 'Ter',
+    wednesday: 'Qua',
+    thursday: 'Qui',
+    friday: 'Sex',
+    saturday: 'Sáb',
+    sunday: 'Dom'
+  };
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="h-7 px-2 text-[10px] font-bold gap-1 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+        >
+          <Clock className="w-3 h-3 text-indigo-500" />
+          <span>Ver Horários</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-56 p-3 bg-white rounded-xl shadow-xl border border-slate-100">
+        <h5 className="font-bold text-xs text-primary mb-2 flex items-center gap-1 border-b border-slate-50 pb-1.5">
+          <Clock className="w-3.5 h-3.5 text-indigo-500" />
+          Funcionamento
+        </h5>
+        <div className="space-y-1">
+          {Object.entries(daysTranslation).map(([dayKey, label]) => {
+            const info = hours[dayKey];
+            const isOpen = info?.isOpen;
+            const slots = info?.slots || [];
+            return (
+              <div key={dayKey} className="flex justify-between text-[11px] py-0.5 border-b border-slate-50/50 last:border-0">
+                <span className="font-semibold text-slate-500">{label}</span>
+                <span className={isOpen ? "text-emerald-600 font-bold" : "text-slate-400 font-medium"}>
+                  {isOpen 
+                    ? slots.map((s: any) => `${s.start}-${s.end}`).join(', ') 
+                    : 'Fechado'}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 // Helper to get a stable unique key for a restaurant to detect imports across searches
 export const getRestaurantUniqueKey = (name: string, address: string) => {
@@ -2223,6 +2282,7 @@ export default function GoogleMapsCollector() {
                         <TableHead className="font-bold text-center">Nota (Avaliações)</TableHead>
                         <TableHead className="font-bold">Instagram</TableHead>
                         <TableHead className="font-bold">Cardápio</TableHead>
+                        <TableHead className="font-bold">Horário</TableHead>
                         <TableHead className="font-bold">Endereço</TableHead>
                         <TableHead className="font-bold text-right">Ação</TableHead>
                       </TableRow>
@@ -2283,7 +2343,7 @@ export default function GoogleMapsCollector() {
                                 </span>
                               )}
                             </TableCell>
-
+ 
                             {/* Cardápio */}
                             <TableCell>
                               {r.menuSourceUrl && r.menuSourceUrl.trim() !== '' ? (
@@ -2302,7 +2362,12 @@ export default function GoogleMapsCollector() {
                                 </span>
                               )}
                             </TableCell>
-
+ 
+                            {/* Horário */}
+                            <TableCell>
+                              {renderTableOpeningHours(r.openingHours)}
+                            </TableCell>
+ 
                             <TableCell className="max-w-[150px] truncate text-gray-600">{r.address}</TableCell>
                             <TableCell className="text-right">
                               <div className="flex justify-end items-center gap-1.5">
