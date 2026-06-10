@@ -33,13 +33,18 @@ export default defineConfig(() => ({
           if (req.url && req.url.startsWith("/api/local-collector")) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
             
-            const urlPath = req.url.split("?")[0];
+            const urlParts = req.url.split("?");
+            const urlPath = urlParts[0];
+            const urlParams = new URLSearchParams(urlParts[1] || "");
             
+            const stateFilePath = path.join(__dirname, "scratch", "google_maps_scraper_state.json");
+
             if (urlPath === "/api/local-collector/status") {
               res.writeHead(200);
               res.end(JSON.stringify({
                 running: activeProcess !== null,
-                logs: logBuffer
+                logs: logBuffer,
+                hasSavedState: fs.existsSync(stateFilePath)
               }));
               return;
             }
@@ -50,8 +55,22 @@ export default defineConfig(() => ({
                 res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
                 return;
               }
+
+              const fresh = urlParams.get("fresh") === "true";
+              let freshLog = "";
+              if (fresh) {
+                if (fs.existsSync(stateFilePath)) {
+                  try {
+                    fs.unlinkSync(stateFilePath);
+                    freshLog = "🧹 Estado anterior descartado pelo usuário.\n";
+                  } catch (unlinkErr: any) {
+                    console.error("Erro ao limpar arquivo de estado do robô:", unlinkErr);
+                    freshLog = `⚠️ [Aviso] Não foi possível limpar o estado anterior: ${unlinkErr.message}\n`;
+                  }
+                }
+              }
               
-              logBuffer = "🚀 Iniciando Coleta do Google Maps (Fase 1)...\n";
+              logBuffer = freshLog + "🚀 Iniciando Coleta do Google Maps (Fase 1)...\n";
               const proc = spawn("node", ["scratch/google_maps_scraper.cjs"], { shell: true });
               activeProcess = proc;
               

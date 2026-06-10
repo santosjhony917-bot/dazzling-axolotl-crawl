@@ -438,6 +438,7 @@ export default function GoogleMapsCollector() {
   const [runnerRunning, setRunnerRunning] = useState(false);
   const [runnerLogs, setRunnerLogs] = useState('');
   const [autoImport, setAutoImport] = useState(true);
+  const [serverHasSavedState, setServerHasSavedState] = useState(false);
   const terminalLogsRef = useRef<HTMLDivElement>(null);
   const prevRunningRef = useRef(false);
   const [state, setState] = useState('PB');
@@ -855,6 +856,7 @@ export default function GoogleMapsCollector() {
           setRunnerConnected(true);
           setRunnerRunning(data.running);
           setRunnerLogs(data.logs);
+          setServerHasSavedState(!!data.hasSavedState);
           
           // Detectar a conclusão de uma tarefa de coleta em segundo plano
           if (prevRunningRef.current === true && data.running === false) {
@@ -1094,7 +1096,19 @@ export default function GoogleMapsCollector() {
 
   const startFase1 = async () => {
     try {
-      const res = await fetch('/api/local-collector/run-maps', { method: 'POST' });
+      let url = '/api/local-collector/run-maps';
+      if (serverHasSavedState) {
+        const discard = window.confirm(
+          "Detectamos uma coleta anterior incompleta no servidor.\n\n" +
+          "Clique em [OK] para DESCARTAR o progresso antigo e começar uma NOVA busca do zero.\n" +
+          "Clique em [Cancelar] para RETOMAR a coleta anterior de onde parou."
+        );
+        if (discard) {
+          url += '?fresh=true';
+        }
+      }
+
+      const res = await fetch(url, { method: 'POST' });
       if (res.ok) {
         showSuccess('Coleta do Google Maps (Fase 1) iniciada!');
       } else {
