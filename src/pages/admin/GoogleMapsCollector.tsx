@@ -1959,8 +1959,11 @@ export default function GoogleMapsCollector() {
               </div>
               <h4 className="font-semibold text-slate-800 dark:text-slate-200">Runner Local Desconectado</h4>
               <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mt-1">
-                Para rodar a coleta automática, certifique-se de que o servidor local está rodando em segundo plano.
+                Para executar a coleta automática, certifique-se de que o servidor local esteja rodando no seu computador.
               </p>
+              <div className="mt-4 p-3 bg-indigo-50 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 rounded-lg text-xs font-semibold max-w-md border border-indigo-100/30">
+                🌐 Se você está acessando a versão online no Vercel, clique na aba <strong>Restaurantes Importados</strong> acima para visualizar e gerenciar todos os dados sincronizados em tempo real no Supabase.
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

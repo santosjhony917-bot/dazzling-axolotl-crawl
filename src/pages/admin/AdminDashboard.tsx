@@ -9,7 +9,11 @@ import ExportedRestaurants from './ExportedRestaurants';
 export default function AdminDashboard() {
   console.log("AdminDashboard is rendering.");
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentTab = searchParams.get('tab') || 'google-maps';
+  
+  // Se não estiver rodando no localhost, o padrão é mostrar a aba de restaurantes importados (do Supabase)
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const defaultTab = isLocalhost ? 'google-maps' : 'exported-restaurants';
+  const currentTab = searchParams.get('tab') || defaultTab;
 
   const handleTabChange = (val: string) => {
     setSearchParams({ tab: val });
