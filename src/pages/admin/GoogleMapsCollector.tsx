@@ -9,6 +9,7 @@ import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, Chevr
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { showSuccess, showError } from '@/utils/toast';
 import { WeekSchedule } from '@/types/schedule';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ScrapedRestaurant {
   id: string;
