@@ -56,16 +56,41 @@ export default defineConfig(() => ({
                 return;
               }
 
-              const fresh = urlParams.get("fresh") === "true";
+              const hasState = fs.existsSync(stateFilePath);
+              const fresh = urlParams.get("fresh") === "true" || !hasState;
               let freshLog = "";
               if (fresh) {
+                // Deleta arquivo de estado
                 if (fs.existsSync(stateFilePath)) {
                   try {
                     fs.unlinkSync(stateFilePath);
-                    freshLog = "🧹 Estado anterior descartado pelo usuário.\n";
+                    freshLog += "🧹 Estado anterior do robô descartado.\n";
                   } catch (unlinkErr: any) {
                     console.error("Erro ao limpar arquivo de estado do robô:", unlinkErr);
-                    freshLog = `⚠️ [Aviso] Não foi possível limpar o estado anterior: ${unlinkErr.message}\n`;
+                    freshLog += `⚠️ [Aviso] Não foi possível limpar o estado anterior: ${unlinkErr.message}\n`;
+                  }
+                }
+
+                // Deleta arquivo de resultados anteriores do maps
+                const outputFilePath = path.join(__dirname, "scraped_restaurants_google.json");
+                if (fs.existsSync(outputFilePath)) {
+                  try {
+                    fs.unlinkSync(outputFilePath);
+                    freshLog += "🗑️ Arquivo de resultados anteriores (scraped_restaurants_google.json) removido.\n";
+                  } catch (outputErr: any) {
+                    console.error("Erro ao limpar arquivo de resultados do robô:", outputErr);
+                    freshLog += `⚠️ [Aviso] Não foi possível limpar os resultados anteriores: ${outputErr.message}\n`;
+                  }
+                }
+
+                // Deleta arquivo de cardápios anteriores
+                const menusFilePath = path.join(__dirname, "scraped_menus.json");
+                if (fs.existsSync(menusFilePath)) {
+                  try {
+                    fs.unlinkSync(menusFilePath);
+                    freshLog += "🗑️ Arquivo de cardápios anteriores (scraped_menus.json) removido.\n";
+                  } catch (menusErr: any) {
+                    console.error("Erro ao limpar arquivo de cardápios do robô:", menusErr);
                   }
                 }
               }
