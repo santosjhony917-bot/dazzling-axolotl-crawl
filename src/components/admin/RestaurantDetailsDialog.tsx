@@ -222,6 +222,40 @@ const base64ToBlob = (base64DataUrl: string): Blob => {
   return new Blob([u8arr], { type: mime });
 };
 
+const downloadExternalImage = async (url: string): Promise<string> => {
+  let useExtension = false;
+  const extId = localStorage.getItem('chrome_extension_id')?.trim();
+  if (extId) {
+    const isInstalled = await checkExtensionInstalled(extId);
+    if (isInstalled) {
+      useExtension = true;
+    }
+  }
+
+  if (useExtension && extId) {
+    console.log("Baixando imagem via extensão:", url);
+    const chromeObj = (window as any).chrome;
+    return new Promise((resolve, reject) => {
+      chromeObj.runtime.sendMessage(
+        extId,
+        { action: "downloadImage", url },
+        (response: any) => {
+          const lastError = chromeObj.runtime.lastError;
+          if (lastError) {
+            reject(new Error("Erro na extensão: " + lastError.message));
+          } else if (response && response.success && response.logoDataUrl) {
+            resolve(response.logoDataUrl);
+          } else {
+            reject(new Error(response?.error || "Erro ao baixar imagem via extensão."));
+          }
+        }
+      );
+    });
+  }
+
+  throw new Error("extension_not_available");
+};
+
 interface RestaurantDetailsDialogProps {
   restaurant: any | null;
   isOpen: boolean;
@@ -757,11 +791,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     }
 
     const apiKey = aiModel === 'gemini' 
-      ? import.meta.env.VITE_GEMINI_API_KEY 
-      : import.meta.env.VITE_OPENAI_API_KEY;
+      ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
+      : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
     if (!apiKey) {
-      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada no ambiente.`);
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
       return;
     }
 
@@ -1091,30 +1125,60 @@ ${aiPastedContent}
       const ext = getExtension(url);
       const storagePath = `logos/${uuidId}_logo.${ext}`;
 
-      const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
-        method: 'POST'
-      });
-
-      if (res.ok) {
-        const uploadResult = await res.json();
-        if (uploadResult.success && uploadResult.url) {
-          setEditedData((prev: any) => ({
-            ...prev,
-            logo: uploadResult.url,
-            image_url: uploadResult.url
-          }));
-          showSuccess('Logo baixada e hospedada no Supabase!');
-        } else {
-          setEditedData((prev: any) => ({ ...prev, logo: url, image_url: url }));
-          setLogoError(true);
+      let blob: Blob | null = null;
+      
+      try {
+        const base64Data = await downloadExternalImage(url);
+        blob = base64ToBlob(base64Data);
+      } catch (err: any) {
+        if (err.message !== "extension_not_available") {
+          console.warn("Erro ao baixar via extensão:", err);
         }
-      } else {
-        setEditedData((prev: any) => ({ ...prev, logo: url, image_url: url }));
-        setLogoError(true);
+        
+        const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          const uploadResult = await res.json();
+          if (uploadResult.success && uploadResult.url) {
+            setEditedData((prev: any) => ({
+              ...prev,
+              logo: uploadResult.url,
+              image_url: uploadResult.url
+            }));
+            showSuccess('Logo baixada e hospedada no Supabase!');
+            return;
+          }
+        }
+        throw new Error("Falha no download da logo.");
       }
-    } catch (e) {
+
+      if (blob) {
+        const { error: uploadError } = await supabase.storage
+          .from('restaurant-images')
+          .upload(storagePath, blob, {
+            contentType: blob.type,
+            upsert: true
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl: newUrl } } = supabase.storage
+          .from('restaurant-images')
+          .getPublicUrl(storagePath);
+
+        setEditedData((prev: any) => ({
+          ...prev,
+          logo: newUrl,
+          image_url: newUrl
+        }));
+        showSuccess('Logo baixada e hospedada no Supabase via Extensão!');
+      }
+    } catch (e: any) {
+      console.error(e);
       setEditedData((prev: any) => ({ ...prev, logo: url, image_url: url }));
       setLogoError(true);
+      showError("Erro ao processar imagem da logo: " + e.message);
     } finally {
       setIsScrapingLogo(false);
     }
@@ -1138,30 +1202,59 @@ ${aiPastedContent}
       const ext = getExtension(url);
       const storagePath = `covers/${uuidId}_cover.${ext}`;
 
-      const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
-        method: 'POST'
-      });
-
-      if (res.ok) {
-        const uploadResult = await res.json();
-        if (uploadResult.success && uploadResult.url) {
-          setEditedData((prev: any) => ({
-            ...prev,
-            coverImage: uploadResult.url,
-            cover_image_url: uploadResult.url
-          }));
-          showSuccess('Imagem de capa baixada e hospedada no Supabase!');
-        } else {
-          setEditedData((prev: any) => ({ ...prev, coverImage: url, cover_image_url: url }));
-          setCoverError(true);
+      let blob: Blob | null = null;
+      
+      try {
+        const base64Data = await downloadExternalImage(url);
+        blob = base64ToBlob(base64Data);
+      } catch (err: any) {
+        if (err.message !== "extension_not_available") {
+          console.warn("Erro ao baixar via extensão:", err);
         }
-      } else {
-        setEditedData((prev: any) => ({ ...prev, coverImage: url, cover_image_url: url }));
-        setCoverError(true);
+        const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          const uploadResult = await res.json();
+          if (uploadResult.success && uploadResult.url) {
+            setEditedData((prev: any) => ({
+              ...prev,
+              coverImage: uploadResult.url,
+              cover_image_url: uploadResult.url
+            }));
+            showSuccess('Imagem de capa baixada e hospedada no Supabase!');
+            return;
+          }
+        }
+        throw new Error("Falha no download da capa.");
       }
-    } catch (e) {
+
+      if (blob) {
+        const { error: uploadError } = await supabase.storage
+          .from('restaurant-images')
+          .upload(storagePath, blob, {
+            contentType: blob.type,
+            upsert: true
+          });
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl: newUrl } } = supabase.storage
+          .from('restaurant-images')
+          .getPublicUrl(storagePath);
+
+        setEditedData((prev: any) => ({
+          ...prev,
+          coverImage: newUrl,
+          cover_image_url: newUrl
+        }));
+        showSuccess('Imagem de capa baixada e hospedada no Supabase via Extensão!');
+      }
+    } catch (e: any) {
+      console.error(e);
       setEditedData((prev: any) => ({ ...prev, coverImage: url, cover_image_url: url }));
       setCoverError(true);
+      showError("Erro ao processar imagem de capa: " + e.message);
     } finally {
       setIsUploadingCover(false);
     }
@@ -1214,7 +1307,6 @@ ${aiPastedContent}
       const urlToProcess = newGalleryUrl.trim();
       const uuidId = getDeterministicUUID(editedData.id);
 
-      // Determina a extensão do arquivo
       const getExtension = (url: string) => {
         const match = url.split(/[?#]/)[0].match(/\.(jpg|jpeg|png|gif|webp|svg)$/i);
         return match ? match[1].toLowerCase() : 'jpg';
@@ -1223,51 +1315,77 @@ ${aiPastedContent}
       const uniqueId = Date.now();
       const storagePath = `gallery/${uuidId}/${uniqueId}_photo.${ext}`;
 
-      // Executa download e upload no bucket do Supabase usando helper local
-      const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(urlToProcess)}&path=${encodeURIComponent(storagePath)}`, {
-        method: 'POST'
-      });
+      let finalImageUrl = '';
+      let blob: Blob | null = null;
 
-      if (res.ok) {
-        const uploadResult = await res.json();
-        if (uploadResult.success && uploadResult.url) {
-          const finalImageUrl = uploadResult.url;
-
-          // Inserir registro diretamente na tabela restaurant_gallery
-          const currentGallery = editedData.gallery_images || editedData.galleryImages || [];
-          const nextIndex = currentGallery.length;
-
-          const { error: insertError } = await supabase
-            .from('restaurant_gallery')
-            .insert({
-              restaurant_id: uuidId,
-              image_url: finalImageUrl,
-              caption: 'Foto do Local',
-              order_index: nextIndex
-            });
-
-          if (insertError) {
-            console.warn("Aviso ao salvar foto na tabela restaurant_gallery:", insertError.message);
+      try {
+        const base64Data = await downloadExternalImage(urlToProcess);
+        blob = base64ToBlob(base64Data);
+      } catch (err: any) {
+        if (err.message !== "extension_not_available") {
+          console.warn("Erro ao baixar via extensão:", err);
+        }
+        const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(urlToProcess)}&path=${encodeURIComponent(storagePath)}`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          const uploadResult = await res.json();
+          if (uploadResult.success && uploadResult.url) {
+            finalImageUrl = uploadResult.url;
           }
+        }
+      }
 
-          // Atualizar o estado local de forma reativa
-          setEditedData((prev: any) => {
-            const gallery = prev.gallery_images || prev.galleryImages || [];
-            const newGallery = [...gallery, finalImageUrl];
-            return {
-              ...prev,
-              galleryImages: newGallery,
-              gallery_images: newGallery
-            };
+      if (blob) {
+        const { error: uploadError } = await supabase.storage
+          .from('restaurant-images')
+          .upload(storagePath, blob, {
+            contentType: blob.type,
+            upsert: true
           });
 
-          setNewGalleryUrl('');
-          showSuccess('Foto baixada e adicionada à galeria!');
-        } else {
-          showError(uploadResult.error || 'Falha ao processar download/upload da imagem.');
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl: newUrl } } = supabase.storage
+          .from('restaurant-images')
+          .getPublicUrl(storagePath);
+
+        finalImageUrl = newUrl;
+      }
+
+      if (finalImageUrl) {
+        // Inserir registro diretamente na tabela restaurant_gallery
+        const currentGallery = editedData.gallery_images || editedData.galleryImages || [];
+        const nextIndex = currentGallery.length;
+
+        const { error: insertError } = await supabase
+          .from('restaurant_gallery')
+          .insert({
+            restaurant_id: uuidId,
+            image_url: finalImageUrl,
+            caption: 'Foto do Local',
+            order_index: nextIndex
+          });
+
+        if (insertError) {
+          console.warn("Aviso ao salvar foto na tabela restaurant_gallery:", insertError.message);
         }
+
+        // Atualizar o estado local de forma reativa
+        setEditedData((prev: any) => {
+          const gallery = prev.gallery_images || prev.galleryImages || [];
+          const newGallery = [...gallery, finalImageUrl];
+          return {
+            ...prev,
+            galleryImages: newGallery,
+            gallery_images: newGallery
+          };
+        });
+
+        setNewGalleryUrl('');
+        showSuccess('Foto baixada e adicionada à galeria!');
       } else {
-        showError('Erro ao comunicar com o servidor de download local.');
+        showError('Não foi possível fazer download e upload desta foto. Certifique-se de que a extensão do Chrome está ativa.');
       }
     } catch (err: any) {
       showError('Erro ao adicionar foto: ' + err.message);

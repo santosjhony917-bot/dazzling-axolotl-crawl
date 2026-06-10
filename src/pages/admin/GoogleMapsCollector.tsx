@@ -475,6 +475,8 @@ export default function GoogleMapsCollector() {
 
   const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || '');
   const [isExtensionActive, setIsExtensionActive] = useState(false);
+  const [userGeminiKey, setUserGeminiKey] = useState(() => localStorage.getItem('user_gemini_key') || '');
+  const [userOpenaiKey, setUserOpenaiKey] = useState(() => localStorage.getItem('user_openai_key') || '');
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -536,6 +538,12 @@ export default function GoogleMapsCollector() {
     localStorage.setItem('chrome_extension_id', extensionId.trim());
     showSuccess("ID da extensão salvo neste navegador!");
     testExtensionConnection();
+  };
+
+  const handleSaveApiKeys = () => {
+    localStorage.setItem('user_gemini_key', userGeminiKey.trim());
+    localStorage.setItem('user_openai_key', userOpenaiKey.trim());
+    showSuccess("Chaves de API salvas localmente neste navegador!");
   };
 
   const handleDownloadExtension = () => {
@@ -2062,131 +2070,131 @@ export default function GoogleMapsCollector() {
         </CardHeader>
         
         <CardContent className="p-6">
-          {!runnerConnected ? (
-            <div className="flex flex-col items-center justify-center py-8 text-center bg-slate-50/50 dark:bg-zinc-800/30 rounded-xl border border-dashed border-slate-200 dark:border-zinc-800">
-              <div className="bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 p-3 rounded-full mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-slate-800 dark:text-slate-200">Runner Local Desconectado</h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mt-1">
-                Para executar a coleta automática, certifique-se de que o servidor local esteja rodando no seu computador.
-              </p>
-              <div className="mt-4 p-3 bg-indigo-50 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-400 rounded-lg text-xs font-semibold max-w-md border border-indigo-100/30">
-                🌐 Se você está acessando a versão online no Vercel, clique na aba <strong>Restaurantes Importados</strong> acima para visualizar e gerenciar todos os dados sincronizados em tempo real no Supabase.
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Controles do Runner */}
-              <div className="flex flex-col gap-4 lg:col-span-1">
-                <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
-                  <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Controles de Execução</h4>
-                  
-                  <div className="flex flex-col gap-2">
-                    <Button 
-                      onClick={startFase1} 
-                      disabled={runnerRunning}
-                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold transition-all shadow-md hover:shadow-indigo-500/20"
-                    >
-                      Iniciar Fase 1 (Google Maps)
-                    </Button>
-                    <Button 
-                      onClick={startFase2} 
-                      disabled={runnerRunning}
-                      className="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 text-white font-bold transition-all shadow-md hover:shadow-purple-500/20"
-                    >
-                      Iniciar Fase 2 (Redes Sociais)
-                    </Button>
-                    <Button 
-                      onClick={startFase3} 
-                      disabled={runnerRunning}
-                      className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold transition-all shadow-md hover:shadow-pink-500/20"
-                    >
-                      Iniciar Fase 3 (Cardápios)
-                    </Button>
-                    <Button 
-                      onClick={startFase4} 
-                      disabled={runnerRunning}
-                      className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white font-bold transition-all shadow-md hover:shadow-orange-500/20"
-                    >
-                      Iniciar Fase 4 (Logos)
-                    </Button>
-                    {runnerRunning && (
-                      <Button 
-                        onClick={stopCollector} 
-                        variant="destructive"
-                        className="w-full font-bold transition-all shadow-md hover:shadow-red-500/20"
-                      >
-                        Interromper Coleta
-                      </Button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
-                  <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Ações Manuais de Importação</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button
-                      onClick={importGoogleMapsData}
-                      variant="outline"
-                      className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900/50 dark:text-indigo-400 font-bold"
-                    >
-                      Importar Maps
-                    </Button>
-                    <Button
-                      onClick={importMenusData}
-                      variant="outline"
-                      className="border-pink-200 text-pink-700 hover:bg-pink-50 dark:border-pink-900/50 dark:text-pink-400 font-bold"
-                    >
-                      Importar Cardápios
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Logs do Terminal */}
-              <div className="flex flex-col gap-2 lg:col-span-2">
-                <div className="flex justify-between items-center px-1">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
-                    Terminal de Saída do Runner
-                  </span>
-                  <button 
-                    onClick={async () => {
-                      setRunnerLogs('');
-                      try {
-                        await fetch('/api/local-collector/clear-logs', { method: 'POST' });
-                      } catch (err) {
-                        console.error('Erro ao limpar os logs do servidor:', err);
-                      }
-                    }} 
-                    className="text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
-                  >
-                    Limpar Logs
-                  </button>
-                </div>
-                
-                <div 
-                  ref={terminalLogsRef}
-                  className="bg-black/95 text-emerald-400 font-mono text-xs p-4 rounded-xl h-48 overflow-y-auto border border-white/10 shadow-inner"
-                >
-                  {runnerLogs ? (
-                    runnerLogs.split('\n').map((line, idx) => (
-                      <div key={idx} className="py-0.5 leading-relaxed break-all">
-                        {line}
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-slate-600 italic py-16 text-center select-none">
-                      Nenhum log gerado ainda. Aguardando execução do runner...
-                    </div>
-                  )}
-                </div>
+          {!runnerConnected && (
+            <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-950/20 text-amber-800 dark:text-amber-300 rounded-xl border border-amber-200/50 text-xs flex items-start gap-2.5 font-medium shadow-sm">
+              <AlertCircle className="w-4.5 h-4.5 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <strong className="block mb-0.5 text-[13px]">Script Local Desconectado</strong>
+                As coletas automáticas em lote (Fase 1 a 4) exigem que o robô local esteja rodando no computador do administrador principal. No entanto, as **Ações Manuais de Importação** e a **Extensão do Chrome** (abaixo) funcionam normalmente de qualquer lugar!
               </div>
             </div>
           )}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Controles do Runner */}
+            <div className="flex flex-col gap-4 lg:col-span-1">
+              <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                  <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Controles de Execução</h4>
+                  {!runnerConnected && (
+                    <Badge variant="outline" className="border-amber-200 text-amber-600 text-[10px] px-1.5 py-0">
+                      Offline
+                    </Badge>
+                  )}
+                </div>
+                
+                <div className="flex flex-col gap-2">
+                  <Button 
+                    onClick={startFase1} 
+                    disabled={runnerRunning || !runnerConnected}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold transition-all shadow-md hover:shadow-indigo-500/20 disabled:opacity-50"
+                  >
+                    Iniciar Fase 1 (Google Maps)
+                  </Button>
+                  <Button 
+                    onClick={startFase2} 
+                    disabled={runnerRunning || !runnerConnected}
+                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 text-white font-bold transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50"
+                  >
+                    Iniciar Fase 2 (Redes Sociais)
+                  </Button>
+                  <Button 
+                    onClick={startFase3} 
+                    disabled={runnerRunning || !runnerConnected}
+                    className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold transition-all shadow-md hover:shadow-pink-500/20 disabled:opacity-50"
+                  >
+                    Iniciar Fase 3 (Cardápios)
+                  </Button>
+                  <Button 
+                    onClick={startFase4} 
+                    disabled={runnerRunning || !runnerConnected}
+                    className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white font-bold transition-all shadow-md hover:shadow-orange-500/20 disabled:opacity-50"
+                  >
+                    Iniciar Fase 4 (Logos)
+                  </Button>
+                  {runnerRunning && (
+                    <Button 
+                      onClick={stopCollector} 
+                      variant="destructive"
+                      className="w-full font-bold transition-all shadow-md hover:shadow-red-500/20"
+                    >
+                      Interromper Coleta
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
+                <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Ações Manuais de Importação</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    onClick={importGoogleMapsData}
+                    variant="outline"
+                    className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900/50 dark:text-indigo-400 font-bold"
+                  >
+                    Importar Maps
+                  </Button>
+                  <Button
+                    onClick={importMenusData}
+                    variant="outline"
+                    className="border-pink-200 text-pink-700 hover:bg-pink-50 dark:border-pink-900/50 dark:text-pink-400 font-bold"
+                  >
+                    Importar Cardápios
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Logs do Terminal */}
+            <div className="flex flex-col gap-2 lg:col-span-2">
+              <div className="flex justify-between items-center px-1">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+                  Terminal de Saída do Runner
+                </span>
+                <button 
+                  onClick={async () => {
+                    setRunnerLogs('');
+                    try {
+                      await fetch('/api/local-collector/clear-logs', { method: 'POST' });
+                    } catch (err) {
+                      console.error('Erro ao limpar os logs do servidor:', err);
+                    }
+                  }} 
+                  className="text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  Limpar Logs
+                </button>
+              </div>
+              
+              <div 
+                ref={terminalLogsRef}
+                className="bg-black/95 text-emerald-400 font-mono text-xs p-4 rounded-xl h-48 overflow-y-auto border border-white/10 shadow-inner"
+              >
+                {runnerLogs ? (
+                  runnerLogs.split('\n').map((line, idx) => (
+                    <div key={idx} className="py-0.5 leading-relaxed break-all">
+                      {line}
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-slate-600 italic py-16 text-center select-none">
+                    Nenhum log gerado ainda. Aguardando conexão ou execução do runner...
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
@@ -2280,6 +2288,41 @@ export default function GoogleMapsCollector() {
                 >
                   Testar Conexão
                 </Button>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 space-y-2.5">
+                <h5 className="font-bold text-xs text-slate-700 dark:text-slate-300">Chaves de API para Extração por IA (Opcional)</h5>
+                
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-500 block">Gemini API Key</label>
+                  <Input
+                    type="password"
+                    value={userGeminiKey}
+                    onChange={(e) => setUserGeminiKey(e.target.value)}
+                    placeholder="Cole sua API Key do Gemini"
+                    className="bg-white border-gray-300 text-xs h-8"
+                  />
+                </div>
+                
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-slate-500 block">OpenAI API Key</label>
+                  <Input
+                    type="password"
+                    value={userOpenaiKey}
+                    onChange={(e) => setUserOpenaiKey(e.target.value)}
+                    placeholder="Cole sua API Key da OpenAI"
+                    className="bg-white border-gray-300 text-xs h-8"
+                  />
+                </div>
+                
+                <div className="flex justify-end pt-1">
+                  <Button 
+                    onClick={handleSaveApiKeys}
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs h-8 px-4"
+                  >
+                    Salvar Chaves de API
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

@@ -8,6 +8,25 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
     return true;
   }
   
+  if (message.action === "downloadImage") {
+    const { url } = message;
+    fetch(url)
+      .then(async res => {
+        if (res.ok) {
+          const blob = await res.blob();
+          const contentType = blob.type || 'image/jpeg';
+          const base64 = await blobToBase64(blob);
+          sendResponse({ success: true, logoDataUrl: `data:${contentType};base64,${base64}` });
+        } else {
+          sendResponse({ success: false, error: "HTTP error: " + res.status });
+        }
+      })
+      .catch(err => {
+        sendResponse({ success: false, error: err.message });
+      });
+    return true; // Mantém o canal aberto para resposta assíncrona
+  }
+  
   if (message.action === "scrapeInstagram") {
     const { instagramUrl } = message;
     
