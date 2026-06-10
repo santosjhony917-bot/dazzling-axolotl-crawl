@@ -233,12 +233,13 @@ const downloadExternalImage = async (url: string): Promise<string> => {
   }
 
   if (useExtension && extId) {
-    console.log("Baixando imagem via extensão:", url);
+    const isInstagramPost = /instagram\.com\/(p|reel)\//i.test(url) || /instagr\.am\/(p|reel)\//i.test(url);
+    console.log("Baixando imagem via extensão:", url, "Insta Post?", isInstagramPost);
     const chromeObj = (window as any).chrome;
     return new Promise((resolve, reject) => {
       chromeObj.runtime.sendMessage(
         extId,
-        { action: "downloadImage", url },
+        isInstagramPost ? { action: "scrapeInstagramPost", url } : { action: "downloadImage", url },
         (response: any) => {
           const lastError = chromeObj.runtime.lastError;
           if (lastError) {

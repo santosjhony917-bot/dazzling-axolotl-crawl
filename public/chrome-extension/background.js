@@ -40,6 +40,20 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       
     return true; // Mantém o canal de mensagem aberto para resposta assíncrona
   }
+  
+  if (message.action === "scrapeInstagramPost") {
+    const { url } = message;
+    
+    handleInstagramPostScrape(url)
+      .then(result => {
+        sendResponse(result);
+      })
+      .catch(err => {
+        sendResponse({ success: false, error: err.message });
+      });
+      
+    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+  }
 });
 
 async function handleInstagramScrape(instagramUrl) {
@@ -275,4 +289,181 @@ function scrapePageLogic() {
     profilePicUrl: profilePicUrl,
     followers: followersCount
   };
+}
+
+async function handleInstagramPostScrape(url) {
+  console.log("Iniciando raspagem de post para:", url);
+  // 1. Cria a aba (inicialmente oculta/inativa)
+  const tab = await chrome.tabs.create({ url: url, active: false });
+  const tabId = tab.id;
+  
+  try {
+    // 2. Aguarda o carregamento completo da aba
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba do Instagram foi fechada."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 60) { // 30 segundos de timeout
+              reject(new Error("Tempo limite esgotado esperando o post do Instagram carregar."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    // Aguarda mais 2.5 segundos para garantir a renderização do JS do Instagram
+    await new Promise(r => setTimeout(r, 2500));
+    
+    // 3. Executa a lógica de raspagem na página do post
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: scrapePostPageLogic
+    });
+    
+    if (!results || !results[0] || !results[0].result) {
+      throw new Error("Não foi possível ler os dados da aba do post do Instagram.");
+    }
+    
+    const scrapeData = results[0].result;
+    
+    if (scrapeData.isLoginRequired) {
+      // Abre a aba em foco para o usuário fazer login
+      await chrome.tabs.update(tabId, { active: true });
+      return {
+        success: false,
+        isLoginRequired: true,
+        error: "Login do Instagram necessário. A aba foi aberta para você fazer login manualmente."
+      };
+    }
+    
+    if (!scrapeData.success) {
+      throw new Error(scrapeData.error || "Erro desconhecido ao raspar o post do Instagram.");
+    }
+    
+    // 4. Faz download da imagem e converte para base64
+    let base64 = null;
+    let contentType = 'image/jpeg';
+    if (scrapeData.imageUrl) {
+      try {
+        console.log("Fazendo download da imagem do post:", scrapeData.imageUrl);
+        const fetchRes = await fetch(scrapeData.imageUrl);
+        if (fetchRes.ok) {
+          const blob = await fetchRes.blob();
+          contentType = blob.type || 'image/jpeg';
+          base64 = await blobToBase64(blob);
+          console.log("Download e conversão base64 do post bem-sucedidos!");
+        } else {
+          console.warn("Falha no download da imagem do post. Status HTTP:", fetchRes.status);
+        }
+      } catch (err) {
+        console.error("Falha ao baixar imagem do post no service worker:", err);
+      }
+    }
+    
+    // 5. Fecha a aba temporária (pois a raspagem deu certo)
+    await chrome.tabs.remove(tabId);
+    
+    if (!base64) {
+      throw new Error("Não foi possível fazer download da imagem extraída do post.");
+    }
+    
+    return {
+      success: true,
+      logoDataUrl: `data:${contentType};base64,${base64}`
+    };
+    
+  } catch (err) {
+    console.error("Erro no fluxo do scraper de post:", err);
+    // Tenta limpar a aba em caso de erro
+    try {
+      chrome.tabs.get(tabId, (currentTab) => {
+        if (!chrome.runtime.lastError && currentTab) {
+          chrome.tabs.remove(tabId);
+        }
+      });
+    } catch (_) {}
+    
+    return {
+      success: false,
+      error: err.message
+    };
+  }
+}
+
+function scrapePostPageLogic() {
+  const isLogin = window.location.href.includes('accounts/login') || !!document.querySelector('input[name="username"]');
+  if (isLogin) {
+    return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
+  }
+  
+  // 1. Tenta pelas tags meta (OpenGraph)
+  const ogImage = document.querySelector('meta[property="og:image"]')?.getAttribute('content') ||
+                  document.querySelector('meta[property="twitter:image"]')?.getAttribute('content');
+  if (ogImage && ogImage.startsWith('http')) {
+    return { success: true, imageUrl: ogImage };
+  }
+  
+  // 2. Fallback para as tags img no DOM
+  // Busca imagens que pareçam ser do post
+  const imgs = Array.from(document.querySelectorAll('img'));
+  const candidates = [];
+  
+  for (const img of imgs) {
+    const src = img.src;
+    if (!src || !src.startsWith('http')) continue;
+    
+    // Ignora fotos de perfil ou ícones comuns do Instagram
+    const alt = (img.alt || '').toLowerCase();
+    if (alt.includes('foto do perfil') || alt.includes('profile picture') || alt.includes('avatar')) {
+      continue;
+    }
+    
+    // Deve ser hospedado nos CDNs do Instagram/Facebook
+    if (!src.includes('cdninstagram.com') && !src.includes('fbcdn.net')) {
+      continue;
+    }
+    
+    // Verifica dimensões
+    const rect = img.getBoundingClientRect();
+    const width = rect.width || img.naturalWidth || 0;
+    const height = rect.height || img.naturalHeight || 0;
+    
+    // Se a imagem for muito pequena (ex: ícone de curtir ou foto de comentário), ignora
+    if (width > 0 && width < 150) continue;
+    
+    // Prioriza imagens dentro de tags <article>
+    const isInsideArticle = !!img.closest('article');
+    
+    candidates.push({
+      src,
+      isInsideArticle,
+      area: width * height,
+      width,
+      height
+    });
+  }
+  
+  if (candidates.length > 0) {
+    // Ordena de forma a priorizar imagens dentro de article e depois por área (tamanho)
+    candidates.sort((a, b) => {
+      if (a.isInsideArticle && !b.isInsideArticle) return -1;
+      if (!a.isInsideArticle && b.isInsideArticle) return 1;
+      return b.area - a.area;
+    });
+    
+    return { success: true, imageUrl: candidates[0].src };
+  }
+  
+  return { success: false, error: "Nenhuma imagem do post encontrada no DOM." };
 }
