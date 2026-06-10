@@ -1,0 +1,82 @@
+Created At: 2026-06-09T14:55:04Z
+Completed At: 2026-06-09T14:55:05Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 599
+Total Bytes: 27451
+Showing lines 1 to 599
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+3: import { Button } from '@/components/ui/button';
+4: import { Input } from '@/components/ui/input';
+5: import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+6: import { Badge } from '@/components/ui/badge';
+7: import { 
+8:   Trash2, 
+9:   Search, 
+10:   RefreshCw, 
+11:   AlertTriangle, 
+12:   Eye, 
+13:   Globe, 
+14:   Phone, 
+15:   MapPin, 
+16:   Instagram, 
+17:   Facebook, 
+18:   Link as LinkIcon, 
+19:   Clock,
+20:   ExternalLink
+21: } from 'lucide-react';
+22: import { showSuccess, showError } from '@/utils/toast';
+23: import {
+24:   Dialog,
+25:   DialogContent,
+26:   DialogDescription,
+27:   DialogHeader,
+28:   DialogTitle,
+29: } from "@/components/ui/dialog";
+30: 
+31: const getRestaurantUniqueKey = (name: string, address: string) => {
+32:   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+33:   const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+34:   return `${cleanName}_${cleanAddress}`;
+35: };
+36: 
+37: export default function ExportedRestaurants() {
+38:   const [restaurants, setRestaurants] = useState<any[]>([]);
+39:   const [searchTerm, setSearchTerm] = useState('');
+40:   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
+41:   const [filterTyp
+<truncated 26836 bytes>
+      <div className="space-y-3 pt-4 border-t border-gray-100 bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+569:                   <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Fase 2: Coleta de Cardápio</h3>
+570:                   <div className="flex flex-col gap-2">
+571:                     <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+572:                       O robô identificou o seguinte link de cardápio digital ou arquivo de cardápio para este estabelecimento:
+573:                     </p>
+574:                     {selectedRestaurant.menuSourceUrl ? (
+575:                       <a 
+576:                         href={selectedRestaurant.menuSourceUrl} 
+577:                         target="_blank" 
+578:                         rel="noopener noreferrer" 
+579:                         className="flex items-center justify-between p-3.5 bg-emerald-50 hover:bg-emerald-100/70 border border-emerald-200 rounded-2xl transition-all text-xs font-bold text-emerald-800"
+580:                       >
+581:                         <span className="flex items-center gap-2 truncate max-w-[90%]"><LinkIcon className="w-4 h-4 text-emerald-600 shrink-0" /> {selectedRestaurant.menuSourceUrl}</span>
+582:                         <ExternalLink className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+583:                       </a>
+584:                     ) : (
+585:                       <p className="text-xs text-amber-600 font-bold bg-amber-50 p-3 rounded-xl border border-amber-100 flex items-center gap-2">
+586:                         ⚠️ Nenhum link de cardápio (menuSourceUrl) foi coletado pelo robô para este restaurante.
+587:                       </p>
+588:                     )}
+589:                   </div>
+590:                 </div>
+591:               </div>
+592:             </>
+593:           )}
+594:         </DialogContent>
+595:       </Dialog>
+596:     </div>
+597:   );
+598: }
+599: 
+The above content shows the entire, complete file contents of the requested file.

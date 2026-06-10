@@ -18,19 +18,19 @@ interface MenuSectionProps {
 }
 
 const MenuItemCard: React.FC<{ item: MenuItem }> = memo(({ item }) => (
-  <div className="flex items-center gap-4 rounded-xl bg-white p-3 shadow-sm">
+  <div className="flex items-center gap-4 rounded-2xl bg-white p-3 shadow-none">
     <img className="size-20 rounded-lg object-cover" alt={item.name} src={item.imageUrl} />
     <div className="flex-1">
       <div className="flex justify-between items-start">
-        <h3 className="font-bold text-[#022D68]">{item.name}</h3>
+        <h3 className="font-bold text-primary">{item.name}</h3>
         {item.isFavorite && (
-          <Star className="w-4 h-4 text-[#E47948] fill-[#E47948]" />
+          <Star className="w-4 h-4 text-highlight fill-highlight" />
         )}
       </div>
       <p className="text-sm text-gray-700 mt-1 line-clamp-2">{item.description}</p>
       <div className="flex justify-between items-center mt-2">
-        <p className="font-bold text-[#022D68]">R$ {item.price.toFixed(2).replace('.', ',')}</p>
-        <Button variant="outline" className="rounded-full px-4 py-1 h-7 text-xs font-semibold border-[#E47948] text-[#E47948] hover:bg-[#E47948]/5">Detalhes</Button>
+        <p className="font-bold text-primary">R$ {item.price.toFixed(2).replace('.', ',')}</p>
+        <Button variant="outline" className="rounded-full px-4 py-1 h-7 text-xs font-semibold border-highlight text-highlight hover:bg-highlight/5">Detalhes</Button>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@ const MenuSection: React.FC<MenuSectionProps> = memo(({ categories, menuItems })
   return (
     <div className="mt-8">
       {/* Premium Banner */}
-      <div className="flex items-center gap-3 rounded-lg bg-gradient-to-r from-yellow-400 to-amber-500 p-4 shadow-lg">
+      <div className="flex items-center gap-3 rounded-xl bg-[#EF2A39] p-4 shadow-none">
         <Crown className="w-7 h-7 text-white fill-white" />
         <p className="font-bold text-white">Cardápio Premium</p>
       </div>
@@ -60,8 +60,8 @@ const MenuSection: React.FC<MenuSectionProps> = memo(({ categories, menuItems })
             className={cn(
               "rounded-full px-4 py-2 h-9 text-sm font-semibold shrink-0",
               activeCategory === category 
-                ? "bg-[#022D68] text-white hover:bg-[#022D68]/90" 
-                : "bg-transparent text-[#022D68] border-[#022D68] hover:bg-[#022D68]/5"
+                ? "bg-primary text-white hover:bg-primary/90" 
+                : "bg-transparent text-primary border-primary hover:bg-primary/5"
             )}
           >
             {category}
@@ -76,7 +76,7 @@ const MenuSection: React.FC<MenuSectionProps> = memo(({ categories, menuItems })
         ))}
       </div>
       
-      <a className="mt-4 block text-center text-sm font-bold text-[#E47948] hover:underline" href="#">Ver cardápio completo</a>
+      <a className="mt-4 block text-center text-sm font-bold text-highlight hover:underline" href="#">Ver cardápio completo</a>
     </div>
   );
 });

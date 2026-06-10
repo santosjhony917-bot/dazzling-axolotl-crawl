@@ -22,7 +22,7 @@ const daysOfWeek: (keyof WeekSchedule)[] = [
 
 const DetailedHoursDisplay: React.FC<DetailedHoursDisplayProps> = ({ schedule }) => {
   return (
-    <div className="space-y-2 rounded-xl border border-gray-100 p-4 bg-background-light">
+    <div className="space-y-2 rounded-2xl border border-gray-100 p-4 bg-background-light">
       {daysOfWeek.map(day => {
         const daySchedule = schedule[day];
         const label = dayLabels[day];

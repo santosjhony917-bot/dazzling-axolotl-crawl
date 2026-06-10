@@ -1,0 +1,1 @@
+I will check if there is an `admin` folder in the backup directory and if `ExportedRestaurants.tsx` is present there.

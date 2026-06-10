@@ -1,0 +1,1 @@
+I will view the top 80 lines of the reverted `ExportedRestaurants.tsx` to ensure it is clean.

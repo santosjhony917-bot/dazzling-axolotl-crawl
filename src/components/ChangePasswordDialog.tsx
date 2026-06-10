@@ -65,7 +65,7 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({ isOpen, onC
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-none">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <Lock className="h-6 w-6 text-primary" />
@@ -83,7 +83,7 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({ isOpen, onC
               {...form.register('password')}
               type={passwordVisible ? "text" : "password"}
               placeholder="Nova Senha"
-              className="h-12 rounded-xl text-base pr-12 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+              className="h-12 rounded-2xl text-base pr-12 focus:border-highlight focus:ring-highlight shadow-none"
               disabled={loading}
             />
             <button
@@ -102,7 +102,7 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({ isOpen, onC
               {...form.register('confirmPassword')}
               type={passwordVisible ? "text" : "password"}
               placeholder="Confirmar Nova Senha"
-              className="h-12 rounded-xl text-base pr-12 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+              className="h-12 rounded-2xl text-base pr-12 focus:border-highlight focus:ring-highlight shadow-none"
               disabled={loading}
             />
             <button
@@ -116,10 +116,10 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({ isOpen, onC
           {form.formState.errors.confirmPassword && <p className="text-sm text-destructive">{form.formState.errors.confirmPassword.message}</p>}
 
           <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="rounded-xl">
+            <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="rounded-2xl">
               Cancelar
             </Button>
-            <Button type="submit" disabled={loading} variant="highlight" className="rounded-xl">
+            <Button type="submit" disabled={loading} variant="highlight" className="rounded-2xl">
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

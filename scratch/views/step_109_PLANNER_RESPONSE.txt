@@ -1,0 +1,1 @@
+I will edit `src/pages/admin/ExportedRestaurants.tsx` to insert a section displaying the structured menu (categories, dishes, prices, descriptions, and pictures) directly inside the details modal. This allows users to inspect the registered/scraped menus for each restaurant right from the list. I will make this change using the `replace_file_content` tool.

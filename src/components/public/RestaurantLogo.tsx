@@ -17,7 +17,7 @@ const RestaurantLogo: React.FC<RestaurantLogoProps> = ({ logoUrl, size = 'md' })
   const classes = sizeClasses[size];
 
   return (
-    <div className={`${classes} rounded-full border-4 border-white dark:border-gray-900 bg-gray-100 dark:bg-gray-700 flex items-center justify-center shadow-lg overflow-hidden`}>
+    <div className={`${classes} rounded-full border-4 border-white dark:border-gray-900 bg-gray-100 dark:bg-gray-700 flex items-center justify-center shadow-none overflow-hidden`}>
       {logoUrl ? (
         <img 
           src={logoUrl} 

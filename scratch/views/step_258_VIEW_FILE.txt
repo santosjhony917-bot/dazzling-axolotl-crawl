@@ -1,0 +1,43 @@
+Created At: 2026-06-09T15:28:34Z
+Completed At: 2026-06-09T15:28:34Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 674
+Total Bytes: 32630
+Showing lines 1 to 35
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+3: import { Button } from '@/components/ui/button';
+4: import { Input } from '@/components/ui/input';
+5: import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+6: import { Badge } from '@/components/ui/badge';
+7: import { 
+8:   Trash2, 
+9:   Search, 
+10:   RefreshCw, 
+11:   AlertTriangle, 
+12:   Eye, 
+13:   Globe, 
+14:   Phone, 
+15:   MapPin, 
+16:   Instagram, 
+17:   Facebook, 
+18:   Link as LinkIcon, 
+19:   Clock,
+20:   ExternalLink
+21: } from 'lucide-react';
+22: import { showSuccess, showError } from '@/utils/toast';
+23: import {
+24:   Dialog,
+25:   DialogContent,
+26:   DialogDescription,
+27:   DialogHeader,
+28:   DialogTitle,
+29: } from "@/components/ui/dialog";
+30: 
+31: const getRestaurantUniqueKey = (name: string, address: string) => {
+32:   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+33:   const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+34:   return `${cleanName}_${cleanAddress}`;
+35: };
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

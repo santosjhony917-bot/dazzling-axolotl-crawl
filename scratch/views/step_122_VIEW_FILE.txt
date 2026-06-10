@@ -1,0 +1,45 @@
+Created At: 2026-06-09T14:59:40Z
+Completed At: 2026-06-09T14:59:41Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 669
+Total Bytes: 32202
+Showing lines 304 to 340
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+304:             className="rounded-xl font-semibold text-xs h-8"
+305:           >
+306:             Todos ({restaurants.length})
+307:           </Button>
+308:           <Button 
+309:             variant={filterType === 'completed' ? 'default' : 'outline'} 
+310:             size="sm" 
+311:             onClick={() => setFilterType('completed')}
+312:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-emerald-700 hover:bg-emerald-50"
+313:           >
+314:             Dados Completos ({restaurants.filter(r => !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r)).length})
+315:           </Button>
+316:           <Button 
+317:             variant={filterType === 'missing_any' ? 'default' : 'outline'} 
+318:             size="sm" 
+319:             onClick={() => setFilterType('missing_any')}
+320:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-amber-700 hover:bg-amber-50"
+321:           >
+322:             Qualquer Pendência ({restaurants.filter(r => hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoHours(r)).length})
+323:           </Button>
+324:           <Button 
+325:             variant={filterType === 'missing_instagram' ? 'default' : 'outline'} 
+326:             size="sm" 
+327:             onClick={() => setFilterType('missing_instagram')}
+328:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-rose-700 hover:bg-rose-50"
+329:           >
+330:             Sem Instagram ({restaurants.filter(hasNoInstagram).length})
+331:           </Button>
+332:           <Button 
+333:             variant={filterType === 'missing_menu' ? 'default' : 'outline'} 
+334:             size="sm" 
+335:             onClick={() => setFilterType('missing_menu')}
+336:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-orange-700 hover:bg-orange-50"
+337:           >
+338:             Sem Cardápio ({restaurants.filter(hasNoMenu).length})
+339:           </Button>
+340:           <Button 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

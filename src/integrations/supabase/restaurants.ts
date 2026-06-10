@@ -117,7 +117,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       statusText: openStatus.statusText,
       nextOpenTime: openStatus.nextOpenTime,
       is_favorite: false,
-      email: savedMockRestaurant?.email || (isPremium ? 'teste@filterfood.com' : 'lancheira@free.com'),
+      email: savedMockRestaurant?.email || (isPremium ? 'teste@grubgo.com' : 'lancheira@free.com'),
       description: savedMockRestaurant?.description || (isPremium 
         ? 'Experiência gastronômica única com ingredientes selecionados e ambiente sofisticado.' 
         : 'Lanches rápidos e saborosos com aquele tempero caseiro que você adora.'),

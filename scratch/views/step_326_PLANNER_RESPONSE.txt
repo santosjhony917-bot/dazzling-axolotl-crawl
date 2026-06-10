@@ -1,0 +1,1 @@
+I will search the `transcript.jsonl` file using `grep_search` to find entries referring to `ExportedRestaurants.tsx` which contain the previous 674-line implementation.

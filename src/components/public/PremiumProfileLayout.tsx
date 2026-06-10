@@ -63,6 +63,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   // Função para mudar de aba e rolar para o container
   const handleTabChange = (tab: 'menu' | 'gallery' | 'info') => {
     setActiveTab(tab);
+    if (isCompact) return; // Não rola a página se estiver no simulador do painel
+    
     isSwitchingRef.current = true;
     setTimeout(() => {
       isSwitchingRef.current = false;
@@ -112,7 +114,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             name: "Bruschetta de Tomate e Manjericão",
             description: "Pão italiano tostado com tomate fresco, manjericão e azeite extra virgem.",
             price: 28.00,
-            image_url: "https://via.placeholder.com/150/E47948/FFFFFF?text=Bruschetta",
+            image_url: "https://via.placeholder.com/150/EF2A39/FFFFFF?text=Bruschetta",
             order_index: 0,
             is_active: true,
             is_favorite: false,
@@ -124,7 +126,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             name: "Carpaccio de Salmão",
             description: "Finas fatias de salmão fresco com molho de alcaparras e dill.",
             price: 45.00,
-            image_url: "https://via.placeholder.com/150/E47948/FFFFFF?text=Salmão",
+            image_url: "https://via.placeholder.com/150/EF2A39/FFFFFF?text=Salmão",
             order_index: 1,
             is_active: true,
             is_favorite: false,
@@ -147,7 +149,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             name: "Risoto de Funghi Porcini",
             description: "Arroz arbóreo cremoso com cogumelos funghi porcini e parmesão.",
             price: 72.00,
-            image_url: "https://via.placeholder.com/150/E47948/FFFFFF?text=Risoto",
+            image_url: "https://via.placeholder.com/150/EF2A39/FFFFFF?text=Risoto",
             order_index: 0,
             is_active: true,
             is_favorite: false,
@@ -159,7 +161,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
             name: "Filé Mignon ao Molho Poivre",
             description: "Medalhões de filé mignon grelhados com molho de pimenta verde e batatas rústicas.",
             price: 98.00,
-            image_url: "https://via.placeholder.com/150/E47948/FFFFFF?text=Filé",
+            image_url: "https://via.placeholder.com/150/EF2A39/FFFFFF?text=Filé",
             order_index: 1,
             is_active: true,
             is_favorite: false,
@@ -169,9 +171,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       },
     ],
     gallery_images: [
-      { id: "mock-gallery-1", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Ambiente+1", caption: "Ambiente Acolhedor", order_index: 0 },
-      { id: "mock-gallery-2", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Prato+Destaque", caption: "Prato Destaque", order_index: 1 },
-      { id: "mock-gallery-3", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/E47948/FFFFFF?text=Fachada", caption: "Nossa Fachada", order_index: 2 },
+      { id: "mock-gallery-1", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/EF2A39/FFFFFF?text=Ambiente+1", caption: "Ambiente Acolhedor", order_index: 0 },
+      { id: "mock-gallery-2", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/EF2A39/FFFFFF?text=Prato+Destaque", caption: "Prato Destaque", order_index: 1 },
+      { id: "mock-gallery-3", restaurant_id: restaurant.id, created_at: new Date().toISOString(), image_url: "https://via.placeholder.com/300/EF2A39/FFFFFF?text=Fachada", caption: "Nossa Fachada", order_index: 2 },
     ] as GalleryImage[],
   };
 
@@ -197,6 +199,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
   // Efeito de escuta de scroll para avanço automático de aba ao chegar no fim da página
   useEffect(() => {
+    if (isCompact) return; // Não adiciona scroll listener se for a pré-visualização espremida/compacta
+
     lastScrollYRef.current = window.scrollY;
 
     const handleScroll = () => {
@@ -222,7 +226,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeTab, tabsOrder]);
+  }, [activeTab, tabsOrder, isCompact]);
 
   const containerPxClass = isCompact ? "px-3" : "px-4";
 
@@ -254,7 +258,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
         {/* Card de Informações Principais (com logo sobreposta) */}
         {/* Ajustado o -mt para puxar o card mais para cima e sobrepor a capa */}
-        <div className="relative -mt-32 z-20 px-4"> {/* Ajustado de -mt-24 para -mt-32 para maior sobreposição */}
+        <div className={cn("relative z-20 px-4", isCompact ? "-mt-14" : "-mt-24")}>
           <RestaurantMainInfoCard
             restaurant={mainInfoCardData}
             onFavoriteToggle={toggleFavorite}
@@ -264,79 +268,67 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
           />
         </div>
 
-        <div className={cn("pb-8", containerPxClass, "pt-16")}> {/* Mantém o padding superior para empurrar o conteúdo para baixo */}
+        <div className={cn("pb-8", containerPxClass, "pt-8")}> {/* Reduzido de pt-16 para pt-8 */}
           {/* Conteúdo Principal */}
           <div className="space-y-6 px-4">
-            
-            {/* Description */}
-            {restaurant.description && (
-              <Card className="p-4 shadow-soft-md rounded-xl bg-white border-none">
-                <h2 className="text-2xl font-extrabold text-primary mb-3">Sobre</h2>
-                <p className="text-gray-600">{restaurant.description}</p>
-              </Card>
-            )}
-            
-
-
-            {/* Navegação por Abas (Segmented Control com Slide Animado) */}
+            {/* Navegação por Abas — Pill Style */}
             {(hasMenu || hasGallery || hasInfo) && (
-              <div id="profile-tabs-container" className="sticky top-0 z-30 bg-background-light/95 backdrop-blur-md pt-4 pb-2 border-b border-gray-100 -mx-4 px-4 mt-6">
-                <div className="bg-gray-100/90 p-1 rounded-full flex w-full relative">
+              <div id="profile-tabs-container" className="sticky top-0 z-30 bg-white/95 backdrop-blur-md pt-3 pb-3 -mx-4 px-4 mt-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+                <div className="relative flex w-full bg-[#F1F3F5] rounded-[18px] p-1 h-[48px]">
+                  {/* Pill deslizante */}
+                  <motion.div
+                    className="absolute top-1 bottom-1 bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.10)]"
+                    animate={{
+                      left: activeTab === 'gallery'
+                        ? '4px'
+                        : activeTab === 'menu'
+                          ? (hasGallery ? 'calc(33.33% + 2px)' : '4px')
+                          : (hasGallery && hasMenu ? 'calc(66.66% + 0px)' : hasGallery || hasMenu ? 'calc(50% + 0px)' : '4px'),
+                      width: hasGallery && hasMenu && hasInfo
+                        ? 'calc(33.33% - 4px)'
+                        : hasGallery && hasMenu || hasGallery && hasInfo || hasMenu && hasInfo
+                          ? 'calc(50% - 4px)'
+                          : 'calc(100% - 8px)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+                  />
                   {hasGallery && (
                     <button
                       onClick={() => handleTabChange('gallery')}
                       className={cn(
-                        "relative flex-1 rounded-full py-2.5 text-sm font-extrabold transition-colors duration-200 z-10 flex items-center justify-center gap-2",
-                        activeTab === 'gallery' ? "text-white" : "text-primary hover:text-primary/80"
+                        'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
+                        isCompact && 'text-[10px] normal-case tracking-normal gap-1',
+                        activeTab === 'gallery' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
                       )}
                     >
-                      <Image className="w-4 h-4" />
+                      <Image className="w-3.5 h-3.5" />
                       <span>Fotos</span>
-                      {activeTab === 'gallery' && (
-                        <motion.div
-                          layoutId="activeTabPill"
-                          className="absolute inset-0 bg-highlight rounded-full -z-10 shadow-sm"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
                     </button>
                   )}
                   {hasMenu && (
                     <button
                       onClick={() => handleTabChange('menu')}
                       className={cn(
-                        "relative flex-1 rounded-full py-2.5 text-sm font-extrabold transition-colors duration-200 z-10 flex items-center justify-center gap-2",
-                        activeTab === 'menu' ? "text-white" : "text-primary hover:text-primary/80"
+                        'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
+                        isCompact && 'text-[10px] normal-case tracking-normal gap-1',
+                        activeTab === 'menu' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
                       )}
                     >
-                      <Utensils className="w-4 h-4" />
+                      <Utensils className="w-3.5 h-3.5" />
                       <span>Cardápio</span>
-                      {activeTab === 'menu' && (
-                        <motion.div
-                          layoutId="activeTabPill"
-                          className="absolute inset-0 bg-highlight rounded-full -z-10 shadow-sm"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
                     </button>
                   )}
                   {hasInfo && (
                     <button
                       onClick={() => handleTabChange('info')}
                       className={cn(
-                        "relative flex-1 rounded-full py-2.5 text-sm font-extrabold transition-colors duration-200 z-10 flex items-center justify-center gap-2",
-                        activeTab === 'info' ? "text-white" : "text-primary hover:text-primary/80"
+                        'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
+                        isCompact && 'text-[10px] normal-case tracking-normal gap-1',
+                        activeTab === 'info' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
                       )}
                     >
-                      <Info className="w-4 h-4" />
+                      <Info className="w-3.5 h-3.5" />
                       <span>Informações</span>
-                      {activeTab === 'info' && (
-                        <motion.div
-                          layoutId="activeTabPill"
-                          className="absolute inset-0 bg-highlight rounded-full -z-10 shadow-sm"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
                     </button>
                   )}
                 </div>
@@ -360,19 +352,33 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
 
               {/* Menu Section */}
               {activeTab === 'menu' && hasMenu && (
-                <div id="menu-section" className="pt-6">
+                <div id="menu-section" className="pt-2">
                   <RestaurantMenu 
                     menuCategories={restaurant.menu_categories} 
                     isFullMenuPage={false}
                     restaurantId={restaurant.id}
                     forceShowFullMenuButton={isCompact}
+                    isCompact={isCompact}
                   />
                 </div>
               )}
               
               {/* Informações Detalhadas (Endereço, Horário, Contato) */}
               {activeTab === 'info' && hasInfo && (
-                <div id="info-section" className="space-y-6 pt-6">
+                <div id="info-section" className="space-y-6 pt-2">
+                  {/* Sobre integrado e chique na aba de informações */}
+                  {restaurant.description && (
+                    <Card className="p-5 shadow-[0_4px_20px_rgba(0,0,0,0.07)] rounded-[20px] bg-white border border-slate-100/60">
+                      <h2 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 rounded-xl bg-[#EF2A39]/10 flex items-center justify-center">
+                          <span className="w-1.5 h-3.5 bg-[#EF2A39] rounded-full"></span>
+                        </span>
+                        Nossa História
+                      </h2>
+                      <p className="text-sm text-slate-500 leading-relaxed font-medium">{restaurant.description}</p>
+                    </Card>
+                  )}
+
                   {/* Endereço, Horário e Formas de Pagamento (Componente Unificado) */}
                   {(hasAddressHours || (restaurant.payment_methods && restaurant.payment_methods.length > 0)) && (
                     <RestaurantAddressHoursSection

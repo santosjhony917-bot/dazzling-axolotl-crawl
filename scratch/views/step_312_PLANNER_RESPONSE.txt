@@ -1,0 +1,1 @@
+I will search for any backup directories or copies of `ExportedRestaurants.tsx` in the workspace to restore the 674-line version.

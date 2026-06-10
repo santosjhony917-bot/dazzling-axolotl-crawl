@@ -107,37 +107,42 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
 
       {categoriesToDisplay.map((category, index) => {
         return (
-          <div key={category.id} className="space-y-4">
+          <div key={category.id} className="space-y-3">
             {/* Título da Categoria */}
-            <h3 className="text-xl font-extrabold text-primary pb-2">{category.name}</h3>
+            <div className="flex items-center gap-2">
+              {index === 0 && (
+                <span className="text-lg leading-none">🔥</span>
+              )}
+              <h3 className="text-xl font-extrabold text-primary">{category.name}</h3>
+            </div>
             
             <div className="grid grid-cols-1 gap-y-3 w-full"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado e adicionado grid-cols-1 w-full para evitar largura excedente */}
               {category.items.map((item) => (
-                <Card 
-                  key={item.id} 
-                  className="w-full min-w-0 p-3 flex items-start gap-4 hover:shadow-soft-lg transition-all duration-200 cursor-pointer border border-gray-100 rounded-2xl shadow-soft-md bg-white"
+                <div
+                  key={item.id}
+                  className="w-full min-w-0 p-3 flex items-start gap-3 hover:shadow-[0_6px_20px_rgba(0,0,0,0.10)] transition-all duration-200 cursor-pointer border border-slate-100/60 rounded-[20px] shadow-[0_3px_12px_rgba(0,0,0,0.07)] bg-white active:scale-[0.98]"
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.image_url && (
-                    <img 
-                      src={item.image_url} 
-                      alt={item.name} 
-                      className="w-20 h-20 object-cover rounded-xl flex-shrink-0 shadow-sm border border-gray-100"
+                    <img
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-[72px] h-[72px] object-cover rounded-[16px] flex-shrink-0 border border-slate-100/60"
                     />
                   )}
                   <div className="flex-grow min-w-0">
-                    <div className="flex justify-between items-start">
-                      <h4 className="font-semibold text-lg text-primary truncate pr-2">{item.name}</h4>
-                      <p className="font-bold text-lg text-highlight shrink-0">
+                    <div className="flex justify-between items-start gap-2">
+                      <h4 className="font-semibold text-[15px] text-[#3C2F2F] truncate flex-1 min-w-0 pr-1">{item.name}</h4>
+                      <span className="shrink-0 text-[13px] font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-2 py-0.5 rounded-lg">
                         {formatPrice(item.price)}
-                      </p>
+                      </span>
                     </div>
                     {item.description && (
-                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>
+                      <p className="text-[12px] text-[#9CA3AF] mt-1 line-clamp-2 leading-relaxed">{item.description}</p>
                     )}
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-2" />
-                </Card>
+                  <ChevronRight className="w-4 h-4 text-[#D1D5DB] flex-shrink-0 mt-1" />
+                </div>
               ))}
             </div>
             {/* Separador entre categorias, exceto a última e apenas na prévia */}
@@ -150,16 +155,17 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
       
       {/* Botão Ver Cardápio Completo (apenas na prévia) */}
       {shouldShowFullMenuButton && (
-        <Button 
+        <button
           onClick={handleViewFullMenu}
-          variant="default"
-          className={cn("w-full font-bold mt-6", {
-            "h-12 text-lg rounded-xl": !isCompact, // Tamanho padrão
-            "h-10 text-sm rounded-lg": isCompact // Altura ajustada para ser legível no modo compacto
-          })}
+          className={cn(
+            "w-full bg-[#EF2A39] text-white font-bold transition-all duration-200 mt-6",
+            isCompact 
+              ? "h-9 rounded-xl text-xs shadow-[0_4px_12px_rgba(239,42,57,0.25)]" 
+              : "h-[52px] rounded-[20px] text-[16px] shadow-[0_8px_24px_rgba(239,42,57,0.35)] hover:shadow-[0_12px_32px_rgba(239,42,57,0.45)] active:scale-[0.98]"
+          )}
         >
           Cardápio Completo
-        </Button>
+        </button>
       )}
     </div>
   );

@@ -1,0 +1,1 @@
+I will list all files in `src/pages/admin/` to check their names and sizes.

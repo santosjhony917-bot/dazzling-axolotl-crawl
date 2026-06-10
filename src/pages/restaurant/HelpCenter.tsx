@@ -37,7 +37,7 @@ const faqData = [
   {
     id: 5,
     question: "Posso ter mais de uma filial cadastrada?",
-    answer: "Sim, o FilterFood suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
+    answer: "Sim, o GrubGo suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
     tags: ["filial", "localização", "cadastro"],
   },
 ];
@@ -88,7 +88,7 @@ export default function HelpCenter() {
   );
 
   return (
-    <div className="relative bg-[#f5f7f8] font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
+    <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col items-center overflow-x-hidden">
       
       {/* Header */}
       <RestaurantAreaHeader title="Central de Ajuda" icon={Utensils} backPath="restaurant-area/profile-menu" />
@@ -104,13 +104,13 @@ export default function HelpCenter() {
               placeholder="Pesquisar por palavra-chave (ex: cardápio, premium)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-soft-md"
+              className="w-full h-14 pl-12 pr-4 rounded-2xl border-gray-300 focus:border-highlight focus:ring-highlight text-base shadow-none"
             />
           </div>
         </div>
 
         {/* FAQ List */}
-        <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-soft-xl p-4">
+        <Card className="bg-white dark:bg-gray-800 rounded-2xl shadow-none p-4">
           <CardContent className="p-0">
             <h2 className="text-xl font-bold text-primary dark:text-white mb-4">Perguntas Frequentes</h2>
             

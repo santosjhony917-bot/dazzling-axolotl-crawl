@@ -1,0 +1,1 @@
+I will view lines 300 to 430 of `src/pages/admin/ExportedRestaurants.tsx` to target the filter buttons and table cell badges.

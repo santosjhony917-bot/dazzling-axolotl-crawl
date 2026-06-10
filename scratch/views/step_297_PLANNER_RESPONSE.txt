@@ -1,0 +1,1 @@
+I will run a command to restore the `ExportedRestaurants.tsx` file from git to undo the corrupted replacement.

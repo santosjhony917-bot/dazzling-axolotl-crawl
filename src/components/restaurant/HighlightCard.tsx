@@ -15,7 +15,7 @@ interface HighlightCardProps {
 
 const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
   return (
-    <div className="flex h-full flex-1 flex-col gap-2 rounded-xl min-w-[280px] shadow-md bg-white dark:bg-zinc-800 overflow-hidden">
+    <div className="flex h-full flex-1 flex-col gap-2 rounded-2xl min-w-[280px] shadow-none bg-white dark:bg-zinc-800 overflow-hidden">
       <div 
         className="w-full bg-center bg-no-repeat aspect-[1.7/1] bg-cover flex flex-col" 
         data-alt={item.name} 

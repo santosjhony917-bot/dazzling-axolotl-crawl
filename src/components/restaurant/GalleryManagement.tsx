@@ -64,7 +64,7 @@ const SortableImage: React.FC<{ image: GalleryImage; onDelete: (id: string, url:
       style={style}
       {...attributes}
       {...listeners}
-      className="relative group aspect-video w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+      className="relative group aspect-video w-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700"
     >
       <img src={image.image_url} alt={image.caption || 'Imagem da galeria'} className="object-cover w-full h-full" />
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -244,14 +244,14 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
   return (
     <div className="space-y-8 p-4">
       {/* Cover Image Section */}
-      <section className="border p-4 rounded-lg shadow-sm bg-white dark:bg-gray-800">
+      <section className="border p-4 rounded-xl shadow-none bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-4">Capa do Restaurante</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Esta é a imagem principal que representa seu restaurante.
         </p>
         <div className="flex flex-col items-center space-y-4">
           {coverImageUrl ? (
-            <div className="relative w-full max-w-md h-48 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div className="relative w-full max-w-md h-48 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
               <img
                 src={coverImageUrl}
                 alt="Capa do Restaurante"
@@ -260,7 +260,7 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
               {/* No direct delete for cover, just replace */}
             </div>
           ) : (
-            <div className="w-full max-w-md h-48 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
+            <div className="w-full max-w-md h-48 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
               Nenhuma capa selecionada
             </div>
           )}
@@ -294,7 +294,7 @@ const GalleryManagement: React.FC<GalleryManagementProps> = ({
       </section>
 
       {/* Gallery Images Section */}
-      <section className="border p-4 rounded-lg shadow-sm bg-white dark:bg-gray-800">
+      <section className="border p-4 rounded-xl shadow-none bg-white dark:bg-gray-800">
         <h2 className="text-xl font-semibold mb-4">Galeria de Imagens</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Adicione e organize as imagens que aparecerão na galeria do seu restaurante.

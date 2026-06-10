@@ -1,0 +1,5 @@
+Created At: 2026-06-09T15:07:21Z
+Completed At: 2026-06-09T15:07:22Z
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\AdminViewMenus.tsx","LineNumber":207,"LineContent":"              : 'Importe o scraped_menus.json'}"}
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\AdminViewMenus.tsx","LineNumber":267,"LineContent":"            \u003cp className=\"text-sm\"\u003eExecute o menu_scraper.cjs e importe o scraped_menus.json\u003c/p\u003e"}
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\ExportedRestaurants.tsx","LineNumber":662,"LineContent":"                      \u003cp className=\"text-[10px] text-gray-400 mt-1\"\u003eExecute a coleta de cardápios (Fase 3) ou faça a importação do arquivo scraped_menus.json.\u003c/p\u003e"}

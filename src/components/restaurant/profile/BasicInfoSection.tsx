@@ -35,6 +35,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         icon={FileText} // Ícone de documento/arquivo
         isPremium={isPremium}
         onClick={() => handleEditField('name', 'Editar Nome', 'Nome do Restaurante', <FileText className="h-6 w-6 text-primary" />, nameSchema)}
+        flat={true}
       />
       <InfoCardItem 
         label="Categoria Principal" 
@@ -42,6 +43,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         icon={UtensilsCrossed} // Ícone de talheres cruzados
         isPremium={isPremium}
         onClick={() => handleEditField('category', 'Editar Categoria', 'Categoria Principal', <UtensilsCrossed className="h-6 w-6 text-primary" />, nameSchema, "text", undefined, "Ex: Pizzaria, Hamburgueria")}
+        flat={true}
       />
       <InfoCardItem 
         label="CNPJ" 
@@ -49,13 +51,15 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         icon={FileText} // Ícone de documento/arquivo
         isPremium={isPremium}
         onClick={() => handleEditField('cnpj', 'Editar CNPJ', 'CNPJ', <FileText className="h-6 w-6 text-primary" />, cnpjSchema, "text", cnpjMask, "XX.XXX.XXX/XXXX-XX")}
+        flat={true}
       />
       <InfoCardItem 
         label="E-mail de Contato" 
-        value={restaurant?.email || "teste@filterfood.com"} 
+        value={restaurant?.email || "teste@grubgo.com"} 
         icon={Mail} 
         isPremium={isPremium}
         onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}
+        flat={true}
       />
       <InfoCardItem 
         label="Telefone de Contato" 
@@ -63,6 +67,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         icon={Phone} 
         isPremium={isPremium}
         onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone de Contato', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
+        flat={true}
       />
     </div>
   );

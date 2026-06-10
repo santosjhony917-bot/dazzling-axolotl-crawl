@@ -1,0 +1,7 @@
+Pronto! Modifiquei o arquivo do modal de detalhes ([ExportedRestaurants.tsx](file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx)) para renderizar o cardápio estruturado diretamente na tela de detalhes do restaurante.
+
+### O que mudou na tela:
+* **Seção de Cardápio Estruturado:** Agora, no final do modal de detalhes, aparece um bloco chamado **Cardápio Estruturado** com o total de itens coletados.
+* **Agrupamento por Categorias:** Os pratos são listados dentro de caixas agrupadas por suas categorias originais (ex: Entradas, Pizzas, Bebidas).
+* **Detalhes dos Pratos:** Cada prato exibe o nome, a descrição/ingredientes, o preço formatado em reais (`R$ XX,XX` ou "Sob consulta" se estiver zerado) e a foto correspondente (se capturada pelo robô).
+* **Feedback amigável:** Caso o restaurante ainda não tenha passado pela coleta de cardápios (Fase 3) ou esteja vazio, um aviso explicativo é exibido indicando como popular os dados.

@@ -1,0 +1,1 @@
+I will view the current state of lines 720 to 760 in `ExportedRestaurants.tsx` to verify if the file was corrupted or what is the current text.

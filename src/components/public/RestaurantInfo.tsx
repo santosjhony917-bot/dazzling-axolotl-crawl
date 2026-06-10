@@ -25,30 +25,32 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
     { icon: <Mail className="w-5 h-5 text-primary flex-shrink-0" />, label: 'Email', value: email, link: email ? `mailto:${email}` : undefined, isExternal: false },
   ].filter(item => item.value);
 
-  const socialItems: ContactLinkItem[] = (restaurant.social_networks || []).map(link => {
-    const platformLower = link.platform.toLowerCase();
-    const isInstagram = platformLower.includes('instagram');
-    const isFacebook = platformLower.includes('facebook');
-    const isWebsite = platformLower.includes('website') || platformLower.includes('site');
-    
-    let Icon = <LinkIcon className="w-5 h-5 text-primary flex-shrink-0" />;
-    if (isInstagram) Icon = <Instagram className="w-5 h-5 text-primary flex-shrink-0" />;
-    else if (isFacebook) Icon = <Facebook className="w-5 h-5 text-primary flex-shrink-0" />;
-    else if (isWebsite) Icon = <Globe className="w-5 h-5 text-primary flex-shrink-0" />;
-    
-    return {
-      icon: Icon,
-      label: link.platform,
-      value: link.url.replace(/^https?:\/\/(www\.)?/, ''),
-      link: link.url,
-      isExternal: true
-    };
-  });
+  const socialItems: ContactLinkItem[] = (restaurant.social_networks || [])
+    .filter(link => link && link.platform && link.url)
+    .map(link => {
+      const platformLower = link.platform.toLowerCase();
+      const isInstagram = platformLower.includes('instagram');
+      const isFacebook = platformLower.includes('facebook');
+      const isWebsite = platformLower.includes('website') || platformLower.includes('site');
+      
+      let Icon = <LinkIcon className="w-5 h-5 text-primary flex-shrink-0" />;
+      if (isInstagram) Icon = <Instagram className="w-5 h-5 text-primary flex-shrink-0" />;
+      else if (isFacebook) Icon = <Facebook className="w-5 h-5 text-primary flex-shrink-0" />;
+      else if (isWebsite) Icon = <Globe className="w-5 h-5 text-primary flex-shrink-0" />;
+      
+      return {
+        icon: Icon,
+        label: link.platform,
+        value: link.url ? link.url.replace(/^https?:\/\/(www\.)?/, '') : '',
+        link: link.url,
+        isExternal: true
+      };
+    });
 
   const linkItems: ContactLinkItem[] = [
-    { icon: <WhatsappIcon className="w-5 h-5 text-primary flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url, link: whatsapp_url, isExternal: true },
-    { icon: <img src="https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png" alt="iFood" className="w-5 h-5 flex-shrink-0" />, label: 'iFood', value: ifood_url, link: ifood_url, isExternal: true },
-    { icon: <Globe className="w-5 h-5 text-primary flex-shrink-0" />, label: other_url_label || 'Website', value: other_url || external_url, link: other_url || external_url, isExternal: true },
+    { icon: <WhatsappIcon className="w-5 h-5 text-[#EF2A39] flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url ? 'Enviar Mensagem' : undefined, link: whatsapp_url, isExternal: true },
+    { icon: <img src="https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png" alt="iFood" className="w-5 h-5 flex-shrink-0 object-contain" />, label: 'iFood', value: ifood_url ? 'Pedir no iFood' : undefined, link: ifood_url, isExternal: true },
+    { icon: <Globe className="w-5 h-5 text-primary flex-shrink-0" />, label: other_url_label || 'Website', value: (other_url || external_url) ? (other_url || external_url)?.replace(/^https?:\/\/(www\.)?/, '') : undefined, link: other_url || external_url, isExternal: true },
     ...socialItems
   ].filter(item => item.value);
 
@@ -57,7 +59,7 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
   }
 
   return (
-    <Card id={id} className="shadow-soft-md border-none rounded-xl p-0">
+    <Card id={id} className="shadow-none border-none rounded-2xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         <CardTitle className="text-2xl font-extrabold text-primary">Contato e Links</CardTitle>
       </CardHeader>

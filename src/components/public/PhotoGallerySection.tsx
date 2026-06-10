@@ -11,7 +11,7 @@ interface PhotoGallerySectionProps {
 const PhotoGallerySection: React.FC<PhotoGallerySectionProps> = ({ images, restaurantName }) => {
   if (images.length === 0) {
     return (
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-none p-6 text-center">
+      <Card className="bg-white dark:bg-gray-800 rounded-2xl shadow-none border-none p-6 text-center">
         <Camera className="w-8 h-8 text-gray-400 mx-auto mb-3" />
         <p className="text-gray-600">Nenhuma foto na galeria.</p>
       </Card>
@@ -24,10 +24,10 @@ const PhotoGallerySection: React.FC<PhotoGallerySectionProps> = ({ images, resta
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-bold text-[#022D68]">Galeria de Fotos</h2>
+      <h2 className="text-xl font-bold text-primary">Galeria de Fotos</h2>
       <div className="grid grid-cols-2 gap-2 h-64">
         {/* Imagem Principal */}
-        <div className="col-span-2 row-span-1 relative rounded-xl overflow-hidden">
+        <div className="col-span-2 row-span-1 relative rounded-2xl overflow-hidden">
           <img 
             src={mainImage} 
             alt={`Foto principal de ${restaurantName}`} 

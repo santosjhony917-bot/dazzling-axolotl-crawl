@@ -84,7 +84,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
       </div>
 
       {/* Logo Upload Container */}
-      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-md overflow-visible"> {/* Alterado overflow-hidden para overflow-visible */}
+      <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-300 shadow-none overflow-visible"> {/* Alterado overflow-hidden para overflow-visible */}
         {/* Imagem de Preview (Renderizada Apenas Uma Vez) */}
         {logoUrl ? (
           <img
@@ -105,7 +105,7 @@ const ProfileHeaderManagement: React.FC<ProfileHeaderManagementProps> = memo(({
             onUploadComplete={(url) => handleUrlUpdate(url, 'logo')}
             bucketName={RESTAURANT_IMAGES_BUCKET}
             folderPath={restaurant.id || 'temp'}
-            className="h-6 w-6 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full"
+            className="h-6 w-6 p-0 bg-highlight text-white hover:bg-highlight/90 rounded-full"
             icon={<Camera className="h-3 w-3" />}
           />
         </div>

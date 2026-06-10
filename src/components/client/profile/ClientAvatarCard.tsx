@@ -25,10 +25,10 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
   const fullName = `${firstName || 'Usuário'} ${lastName || 'Anônimo'}`;
   
   return (
-    <Card className="w-full shadow-soft-xl border-none rounded-2xl p-6 bg-white dark:bg-gray-800">
+    <Card className="w-full grubgo-card p-6">
       <div className="flex items-start gap-4">
         {/* Avatar Circular */}
-        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible flex items-center justify-center">
+        <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-none overflow-visible flex items-center justify-center">
           {avatarUrl ? (
             <img 
               src={avatarUrl} 
@@ -46,7 +46,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
               onUploadComplete={onAvatarUploadComplete}
               bucketName={USER_AVATAR_BUCKET}
               folderPath={userId || 'temp'}
-              className="h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
+              className="h-7 w-7 p-0 bg-highlight text-white hover:bg-highlight/90 rounded-full shadow-none"
               icon={<Camera className="h-3 w-3" />}
             />
           </div>
@@ -54,7 +54,7 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
         
         {/* Nome e Instrução */}
         <div className="flex-1 pt-2">
-          <h3 className="font-bold text-2xl text-[#022D68] leading-tight truncate">{fullName}</h3>
+          <h3 className="font-bold text-2xl text-primary leading-tight truncate">{fullName}</h3>
           <p className="text-sm text-gray-500 mt-2">Clique no ícone para alterar sua foto de perfil.</p>
         </div>
       </div>

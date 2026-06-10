@@ -250,7 +250,7 @@ const CategoryDetails: React.FC = () => {
           </Card>
         )}
 
-        <div className="bg-white p-4 rounded-xl shadow-soft-md">
+        <div className="bg-white p-4 rounded-2xl shadow-none">
           <MenuItemList
             items={menuItems}
             onEditItem={handleEditItem}

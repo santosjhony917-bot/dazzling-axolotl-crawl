@@ -140,7 +140,7 @@ export default function AdminRestaurants() {
         description="Filtre, visualize e gerencie todos os restaurantes e o status de prospecção."
       />
 
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-none border-none rounded-2xl bg-white">
         <CardContent className="p-6 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <Input
@@ -244,7 +244,7 @@ export default function AdminRestaurants() {
                                 ? 'border-emerald-200 text-emerald-800 bg-emerald-50 opacity-80 cursor-not-allowed'
                                 : restaurant.plan === 'premium_gift'
                                 ? 'border-amber-200 text-amber-800 bg-amber-50 hover:bg-amber-100/70'
-                                : 'border-gray-300 text-slate-700 bg-white hover:bg-slate-50'
+                                : 'border-gray-300 text-slate-700 bg-white hover:bg-background-light'
                             }`}
                             title={restaurant.plan === 'premium' ? "Assinatura ativa do Premium (Assinante) - não pode ser alterada manualmente" : undefined}
                           >

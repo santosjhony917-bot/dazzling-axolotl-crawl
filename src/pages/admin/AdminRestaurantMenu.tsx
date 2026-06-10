@@ -272,7 +272,7 @@ const AdminRestaurantMenu: React.FC = () => {
         <Button variant="outline" onClick={() => navigate(`/restaurant/${restaurantId}`)}>
           <ArrowLeft className="h-4 w-4 mr-2" /> Voltar ao Restaurante
         </Button>
-        <h1 className="text-3xl font-bold text-[#022D68]">Gerenciar Menu</h1>
+        <h1 className="text-3xl font-bold text-primary">Gerenciar Menu</h1>
         {user && restaurant && user.id === restaurant.user_id && ( // Usando isOwner diretamente não é ideal aqui, pois o contexto pode não ter carregado ainda
           <Button onClick={handleAddCategory}>
             <Plus className="h-4 w-4 mr-2" /> Adicionar Categoria
@@ -294,7 +294,7 @@ const AdminRestaurantMenu: React.FC = () => {
                       className="relative"
                     >
                       <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle className="text-xl text-[#022D68]">{category.name}</CardTitle>
+                        <CardTitle className="text-xl text-primary">{category.name}</CardTitle>
                         {user && restaurant && user.id === restaurant.user_id && (
                           <div className="flex items-center space-x-2">
                             <Label htmlFor={`category-active-${category.id}`}>Ativa</Label>

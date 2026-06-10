@@ -1,0 +1,1 @@
+I will view lines 520 to 650 of `src/pages/admin/ExportedRestaurants.tsx` to understand how the restaurant details modal displays the menu/cardápio.

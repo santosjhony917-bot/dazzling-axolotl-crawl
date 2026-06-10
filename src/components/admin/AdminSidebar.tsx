@@ -64,7 +64,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isCollapsed, toggleCollapse
                 "flex items-center rounded-lg transition-colors duration-200",
                 isCollapsed ? "justify-center p-3" : "p-3 gap-3",
                 isActive
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md"
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-none"
                   : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >

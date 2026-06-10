@@ -1,0 +1,1 @@
+I will check the files inside `src-backup-checkpoint` to locate the backup of `ExportedRestaurants.tsx`.

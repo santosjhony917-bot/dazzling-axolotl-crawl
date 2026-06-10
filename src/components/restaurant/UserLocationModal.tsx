@@ -159,7 +159,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] overflow-y-auto shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl max-h-[90vh] overflow-y-auto shadow-none">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-6 w-6 text-primary" />
@@ -179,7 +179,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
               {...register('cep')}
               id="cep"
               placeholder="CEP (Ex: 58039-000)"
-              className="h-12 rounded-xl text-base pr-10 focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base pr-10 focus:border-highlight focus:ring-highlight"
               onChange={handleCepChange}
               maxLength={9}
               disabled={loading || isSearchingCep}
@@ -197,7 +197,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
               {...register('address')}
               id="address"
               placeholder="Rua / Avenida"
-              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
               disabled={loading || isSearchingCep}
             />
             {errors.address && <p className="text-sm text-destructive mt-1">{errors.address.message}</p>}
@@ -210,7 +210,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
               {...register('number')}
               id="number"
               placeholder="Número"
-              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
               disabled={loading || isSearchingCep}
             />
             {errors.number && <p className="text-sm text-destructive mt-1">{errors.number.message}</p>}
@@ -223,7 +223,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
               {...register('neighborhood')}
               id="neighborhood"
               placeholder="Bairro"
-              className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
               disabled={loading || isSearchingCep}
             />
             {errors.neighborhood && <p className="text-sm text-destructive mt-1">{errors.neighborhood.message}</p>}
@@ -237,7 +237,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
                 {...register('city')}
                 id="city"
                 placeholder="Cidade"
-                className="h-12 rounded-xl text-base flex-1 focus:border-highlight focus:ring-highlight"
+                className="h-12 rounded-2xl text-base flex-1 focus:border-highlight focus:ring-highlight"
                 disabled={loading || isSearchingCep}
               />
             </div>
@@ -247,7 +247,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
                 {...register('state')}
                 id="state"
                 placeholder="UF"
-                className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+                className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
                 maxLength={2}
                 disabled={loading || isSearchingCep}
               />

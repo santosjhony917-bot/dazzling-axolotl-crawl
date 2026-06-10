@@ -1,0 +1,34 @@
+Created At: 2026-06-09T14:59:51Z
+Completed At: 2026-06-09T14:59:51Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -311,7 +311,7 @@
+             onClick={() => setFilterType('completed')}
+             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-emerald-700 hover:bg-emerald-50"
+           >
+-            Dados Completos ({restaurants.filter(r => !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r)).length})
++            Dados Completos ({restaurants.filter(r => !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r)).length})
+           </Button>
+           <Button 
+             variant={filterType === 'missing_any' ? 'default' : 'outline'} 
+@@ -318,7 +318,7 @@
+             onClick={() => setFilterType('missing_any')}
+             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-amber-700 hover:bg-amber-50"
+           >
+-            Qualquer Pendência ({restaurants.filter(r => hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoHours(r)).length})
++            Qualquer Pendência ({restaurants.filter(r => hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoStructuredMenu(r) || hasNoHours(r)).length})
+           </Button>
+           <Button 
+             variant={filterType === 'missing_instagram' ? 'default' : 'outline'} 
+@@ -333,7 +333,7 @@
+             onClick={() => setFilterType('missing_menu')}
+             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-orange-700 hover:bg-orange-50"
+           >
+-            Sem Cardápio ({restaurants.filter(hasNoMenu).length})
++            Sem Cardápio ({restaurants.filter(r => hasNoMenu(r) || hasNoStructuredMenu(r)).length})
+           </Button>
+           <Button 
+             variant={filterType === 'missing_phone' ? 'default' : 'outline'} 
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

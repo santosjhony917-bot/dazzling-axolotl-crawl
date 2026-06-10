@@ -1,0 +1,1 @@
+I will create a script `scratch/scan_messages.cjs` to inspect the JSON files in `.system_generated/messages` for the previous version of `ExportedRestaurants.tsx`.

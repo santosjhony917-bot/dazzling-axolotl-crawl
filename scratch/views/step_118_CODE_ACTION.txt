@@ -1,0 +1,18 @@
+Created At: 2026-06-09T14:59:22Z
+Completed At: 2026-06-09T14:59:23Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -50,6 +50,10 @@
+     return true;
+   };
+   const hasNoMenu = (r: any) => !r.menuSourceUrl || r.menuSourceUrl.trim() === '';
++  const hasNoStructuredMenu = (r: any) => {
++    if (!r.menu_categories || r.menu_categories.length === 0) return true;
++    return !r.menu_categories.some((c: any) => c.items && c.items.length > 0);
++  };
+   const hasNoHours = (r: any) => {
+     if (!r.opening_hours) return true;
+     const days = Object.values(r.opening_hours);
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

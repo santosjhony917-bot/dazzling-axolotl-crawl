@@ -1,0 +1,1 @@
+I will view lines 390 to 435 of `src/pages/admin/ExportedRestaurants.tsx` to target the badges displayed in the "Dados Faltantes" column for each table row.

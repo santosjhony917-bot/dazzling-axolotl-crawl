@@ -1,0 +1,1 @@
+I will apply the layout and table changes to `src/pages/admin/ExportedRestaurants.tsx` with the correct line range (736 to 944).

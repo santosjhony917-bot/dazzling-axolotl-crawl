@@ -1,0 +1,23 @@
+Created At: 2026-06-09T15:33:49Z
+Completed At: 2026-06-09T15:33:50Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/scratch/candidate_2.json`
+Total Lines: 24
+Total Bytes: 7284
+Showing lines 1 to 24
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: {
+2:   "step_index": 263,
+3:   "source": "MODEL",
+4:   "type": "PLANNER_RESPONSE",
+5:   "status": "DONE",
+6:   "created_at": "2026-06-09T15:28:51Z",
+7:   "content": "I will modify the imports and helper functions in `src/pages/admin/ExportedRestaurants.tsx`. I will also mark these tasks as completed/in-progress in `task.md`.",
+8:   "thinking": "**Analyzing Restaurant Imports**\n\nI'm currently focused on `ExportedRestaurants.tsx`, specifically lines 1 to 35. I'm taking stock of the imports, state declarations, and helper functions within. My goal is to determine what aspects require modifications to suit the new approach. I'm prioritizing the replacement of state declarations and related functions for now.\n\n\n**Updating Component Imports**\n\nI've been meticulously updating the import statements within `ExportedRestaurants.tsx`. I'm replacing the existing imports with a more comprehensive and current set. I've successfully added several new `lucide-react` icons and imported UI components like `Label`, `Textarea`, `Checkbox`, `ScrollArea`, and `Tabs` components to expand the UI's capabilities.\n\n\n**Refactoring State Declarations**\n\nI'm currently replacing the state declarations and related functions within `ExportedRestaurants.tsx`. I've added new state variables related to syncing, editing, and AI data extraction, along with cleaning functions for phone numbers and addresses. The goal is to update the state management to support the new features and logic.\n\n\n**Evaluating Data Cleaning Functions**\n\nI'm now diving int
+<truncated 3851 bytes>
+';\\nimport { \\n  Trash2, \\n  Search, \\n  RefreshCw, \\n  AlertTriangle, \\n  Eye, \\n  Globe, \\n  Phone, \\n  MapPin, \\n  Instagram, \\n  Facebook, \\n  Link as LinkIcon, \\n  Clock,\\n  ExternalLink\\n} from 'lucide-react';\\nimport { showSuccess, showError } from '@/utils/toast';\\nimport {\\n  Dialog,\\n  DialogContent,\\n  DialogDescription,\\n  DialogHeader,\\n  DialogTitle,\\n} from \\\"@/components/ui/dialog\\\";\\n\\nconst getRestaurantUniqueKey = (name: string, address: string) => {\\n  const cleanName = name.toLowerCase().normalize(\\\"NFD\\\").replace(/[\\\\u0300-\\\\u036f]/g, \\\"\\\").replace(/[^a-z0-9]/g, '');\\n  const cleanAddress = address.toLowerCase().normalize(\\\"NFD\\\").replace(/[\\\\u0300-\\\\u036f]/g, \\\"\\\").replace(/[^a-z0-9]/g, '');\\n  return `${cleanName}_${cleanAddress}`;\\n};\\n\\nexport default function ExportedRestaurants() {\\n  const [restaurants, setRestaurants] = useState<any[]>([]);\\n  const [searchTerm, setSearchTerm] = useState('');\\n  const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);\\n  const [filterType, setFilterType] = useState<string>('all');\\n\\n  const hasNoPhone = (r: any) => !r.phone || r.phone.trim() === '' || r.phone.toLowerCase().includes('sem telefone');\\n  const hasNoInstagram = (r: any) => {\\n    if (r.instagram) return r.instagram.trim() === '' || r.instagram.includes('facebook.com') || r.instagram.includes('instagram.com/p/');\\n    if (r.social_networks) {\\n      const net = r.social_networks.find((s: any) => s.platform === 'instagram');\\n      return !net || !net.url || net.url.trim() === '';\\n    }\\n    return true;\\n  };\\n  const hasNoMenu = (r: any) => !r.menuSourceUrl || r.menuSourc\n<truncated 1030 bytes>",
+20:         "TargetFile": "\"c:\\\\Users\\\\meuno\\\\Downloads\\\\dazzling-axolotl-crawl-main\\\\dazzling-axolotl-crawl-main\\\\src\\\\pages\\\\admin\\\\ExportedRestaurants.tsx\""
+21:       }
+22:     }
+23:   ]
+24: }
+The above content shows the entire, complete file contents of the requested file.

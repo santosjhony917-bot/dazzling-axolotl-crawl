@@ -40,10 +40,10 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
       whileHover={{ scale: isLocked ? 1 : 1.01 }}
       whileTap={{ scale: isLocked ? 1 : 0.99 }}
       className={cn(
-        "flex items-center p-4 cursor-pointer transition-all duration-200 border border-gray-100 rounded-xl shadow-soft-md",
+        "flex items-center p-4 cursor-pointer transition-all duration-200 border border-slate-100/80 rounded-xl shadow-none",
         isLocked 
           ? "bg-gray-100 opacity-70 cursor-not-allowed" 
-          : "bg-white hover:bg-gray-50",
+          : "bg-white hover:bg-slate-50/50",
         !isPremium && premiumDescription && "opacity-80" // Mantém a opacidade para o banner de upgrade
       )}
       onClick={handleClick}
@@ -56,7 +56,7 @@ const NavCardItem: React.FC<NavCardItemProps> = ({
       </div>
       
       <div className="flex-1 min-w-0">
-        <h3 className="text-base font-semibold text-primary truncate">{title}</h3>
+        <h3 className="text-base font-semibold text-slate-800 truncate">{title}</h3>
         <p className="text-sm text-text-secondary mt-0.5">
           {isLocked ? "Exclusivo Premium" : description}
         </p>

@@ -1,0 +1,1 @@
+I will replace the code at lines 352 to 362 in the file to add the second `useEffect` hook and the validation and AI extraction functions.

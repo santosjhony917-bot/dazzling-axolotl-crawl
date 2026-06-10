@@ -11,7 +11,7 @@ interface PhotoGalleryProps {
 }
 
 const GalleryImage = memo(({ item, className }: { item: GalleryItem, className?: string }) => (
-  <div className={cn("relative h-full rounded-xl overflow-hidden", className)}>
+  <div className={cn("relative h-full rounded-2xl overflow-hidden", className)}>
     <img className="w-full h-full object-cover" alt={item.caption} src={item.imageUrl} />
     <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
       <p className="text-white text-sm font-semibold">{item.caption}</p>
@@ -27,7 +27,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = memo(({ gallery }) => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-lg font-bold text-[#022D68]">Sinta o ambiente antes de chegar</h2>
+      <h2 className="text-lg font-bold text-primary">Sinta o ambiente antes de chegar</h2>
       <div className="grid grid-cols-3 gap-2 mt-4 h-[320px]">
         {largeItem && (
           <GalleryImage item={largeItem} className="col-span-2 row-span-2" />

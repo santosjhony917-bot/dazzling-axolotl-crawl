@@ -49,7 +49,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
   }
 
   return (
-    <Card className="p-4 shadow-soft-xl rounded-2xl bg-white border-none">
+    <Card className="p-4 shadow-none rounded-2xl bg-white border-none">
       <CardContent className="p-0">
         {/* Título da seção ajustado para 2xl */}
         <h2 className="text-2xl font-extrabold text-primary mb-4">Faça seu Pedido</h2>
@@ -69,7 +69,7 @@ const OrderChannelsSection: React.FC<OrderChannelsSectionProps> = ({ restaurant 
                 // Todos os botões usam o variant 'channel' para fundo branco
                 variant="channel" 
                 className={cn(
-                  "flex flex-col items-center gap-2 rounded-xl p-4 h-auto",
+                  "flex flex-col items-center gap-2 rounded-2xl p-4 h-auto",
                   // Removido o estilo de destaque para WhatsApp
                   "border border-gray-200 hover:bg-gray-50" // Estilo genérico para todos os botões de canal
                 )}

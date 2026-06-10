@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Instagram as InstagramIcon } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { showSuccess, showError } from '@/utils/toast';
 import { WeekSchedule } from '@/types/schedule';
 
@@ -27,8 +28,10 @@ interface ScrapedRestaurant {
   openingHours?: WeekSchedule;
   website?: string;
   googleMapsUrl?: string;
+  menuSourceUrl?: string;
   assignedToId?: string;
   assignedToName?: string;
+  menu_categories?: any[];
 }
 
 const CITY_CENTERS: Record<string, { lat: number; lng: number; neighborhoods: string[] }> = {
@@ -371,6 +374,12 @@ export const getRestaurantUniqueKey = (name: string, address: string) => {
 
 export default function GoogleMapsCollector() {
   const [city, setCity] = useState('João Pessoa');
+  const [runnerConnected, setRunnerConnected] = useState(false);
+  const [runnerRunning, setRunnerRunning] = useState(false);
+  const [runnerLogs, setRunnerLogs] = useState('');
+  const [autoImport, setAutoImport] = useState(true);
+  const terminalLogsRef = useRef<HTMLDivElement>(null);
+  const prevRunningRef = useRef(false);
   const [state, setState] = useState('PB');
   const [minReviews, setMinReviews] = useState('0');
   const [customQuery, setCustomQuery] = useState('');
@@ -382,13 +391,7 @@ export default function GoogleMapsCollector() {
   const [searchTerm, setSearchTerm] = useState('');
   const [importedKeys, setImportedKeys] = useState<Set<string>>(new Set());
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
-  const [freelancersList, setFreelancersList] = useState<{ id: string; name: string; email?: string }[]>([
-    { id: 'f1', name: 'João Silva', email: 'joao@freelancer.com' },
-    { id: 'f2', name: 'Maria Santos', email: 'maria@freelancer.com' },
-    { id: 'f3', name: 'Pedro Souza', email: 'pedro@freelancer.com' }
-  ]);
-  const [selectedFreelancerId, setSelectedFreelancerId] = useState('f1');
-  const [rowFreelancers, setRowFreelancers] = useState<Record<string, string>>({});
+
 
   // Estados para Varredura em Lote e Persistência
   const [activeScan, setActiveScan] = useState<{
@@ -405,6 +408,181 @@ export default function GoogleMapsCollector() {
     isPaused: boolean;
   } | null>(null);
   const [hasSavedScan, setHasSavedScan] = useState(false);
+  const [editingRestaurant, setEditingRestaurant] = useState<ScrapedRestaurant | null>(null);
+
+  const handleSaveEditedRestaurant = async (updated: ScrapedRestaurant) => {
+    try {
+      const updatedResults = results.map(r => r.id === updated.id ? updated : r);
+      setResults(updatedResults);
+      
+      // Salva localmente via API no arquivo scraped_restaurants_google.json
+      const res = await fetch('/api/local-collector/save-scraped-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(updatedResults)
+      });
+      
+      // Se já foi importado, atualiza também nos dados ativos salvos no navegador
+      const key = getRestaurantUniqueKey(updated.name, updated.address);
+      const isImported = importedKeys.has(key);
+      if (isImported) {
+        const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+        if (savedCompleted) {
+          const completedMap = JSON.parse(savedCompleted);
+          const restaurantId = updated.id || `scraped-${key}`;
+          if (completedMap[restaurantId]) {
+            completedMap[restaurantId] = {
+              ...completedMap[restaurantId],
+              name: updated.name,
+              phone: updated.phone || '',
+              address: updated.address || '',
+              category: updated.category || 'Outros',
+              social_networks: [
+                { platform: 'instagram', url: updated.instagram },
+                { platform: 'facebook', url: updated.facebook }
+              ].filter(s => s.url),
+              menuSourceUrl: updated.menuSourceUrl || '',
+              website: updated.website || ''
+            };
+            localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+          }
+        }
+        
+        const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+        if (savedFallback) {
+          const fallbackList = JSON.parse(savedFallback);
+          const updatedFallback = fallbackList.map((r: any) => {
+            if (r.id === updated.id || getRestaurantUniqueKey(r.name, r.address) === key) {
+              return {
+                ...r,
+                name: updated.name,
+                phone: updated.phone || '',
+                category: updated.category || '',
+                address: updated.address || '',
+                menuSourceUrl: updated.menuSourceUrl || '',
+                website: updated.website || ''
+              };
+            }
+            return r;
+          });
+          localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+        }
+
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+      }
+
+      if (res.ok) {
+        showSuccess('Restaurante atualizado com sucesso e salvo localmente!');
+      } else {
+        showSuccess('Restaurante atualizado no painel (mas falhou ao salvar no arquivo).');
+      }
+      setEditingRestaurant(null);
+    } catch (err) {
+      console.error(err);
+      showError('Erro ao salvar edições.');
+    }
+  };
+
+  const extractPhoneFromWhatsapp = (url: string) => {
+    if (!url) return null;
+    let phoneDigits = '';
+    
+    if (url.includes('wa.me/')) {
+      const parts = url.split('wa.me/');
+      if (parts[1]) {
+        phoneDigits = parts[1].split('?')[0].replace(/\D/g, '');
+      }
+    } else if (url.includes('whatsapp.com/send')) {
+      try {
+        const urlObj = new URL(url.replace('/?', '?'));
+        const phoneParam = urlObj.searchParams.get('phone');
+        if (phoneParam) {
+          phoneDigits = phoneParam.replace(/\D/g, '');
+        }
+      } catch (err) {
+        const match = url.match(/[?&]phone=(\d+)/);
+        if (match && match[1]) phoneDigits = match[1];
+      }
+    }
+    
+    if (phoneDigits && phoneDigits.length >= 10) {
+      if (phoneDigits.startsWith('55') && phoneDigits.length > 10) {
+        phoneDigits = phoneDigits.substring(2);
+      }
+      
+      if (phoneDigits.length === 11) {
+        const ddd = phoneDigits.substring(0, 2);
+        const first = phoneDigits.substring(2, 7);
+        const second = phoneDigits.substring(7);
+        return `(${ddd}) ${first}-${second}`;
+      } else if (phoneDigits.length === 10) {
+        const ddd = phoneDigits.substring(0, 2);
+        const first = phoneDigits.substring(2, 6);
+        const second = phoneDigits.substring(6);
+        return `(${ddd}) ${first}-${second}`;
+      }
+      return phoneDigits;
+    }
+    return null;
+  };
+
+  const handleJsonUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const list = JSON.parse(e.target?.result as string);
+        if (Array.isArray(list)) {
+          const formatted = list.map((item: any, idx: number) => {
+            const rawPhone = item.phone || item.telefone || '';
+            const websiteUrl = item.website || item.site || '';
+            const cardapioUrl = item.menuSourceUrl || item.menuUrl || item.cardapio || '';
+            
+            let phone = rawPhone;
+            if (!phone || phone.toLowerCase().includes('sem telefone') || phone.trim() === '') {
+              const waLink = [websiteUrl, cardapioUrl].find(url => url && (url.includes('wa.me/') || url.includes('whatsapp.com/send')));
+              if (waLink) {
+                const extracted = extractPhoneFromWhatsapp(waLink);
+                if (extracted) phone = extracted;
+              }
+            }
+
+            return {
+              id: item.id || `scraped-json-${Date.now()}-${idx}`,
+              name: item.name || item.nome || 'Sem Nome',
+              category: item.category || item.categoria || 'Restaurante',
+              rating: typeof item.rating === 'number' ? item.rating : (typeof item.nota === 'number' ? item.nota : 4.0),
+              reviewsCount: typeof item.reviewsCount === 'number' ? item.reviewsCount : (typeof item.contagem_de_avaliacoes === 'number' ? item.contagem_de_avaliacoes : 10),
+              address: item.address || item.endereco_completo || '',
+              phone,
+              city: item.city || item.cidade || 'João Pessoa',
+              state: item.state || item.estado || 'PB',
+              instagram: item.instagram || item.midias_sociais?.instagram || '',
+              facebook: item.facebook || item.midias_sociais?.facebook || '',
+              coverImage: item.coverImage || item.cover_image_url || '',
+              galleryImages: item.galleryImages || item.gallery_images || [],
+              openingHours: item.openingHours || item.horario_de_funcionamento || {},
+              website: websiteUrl,
+              googleMapsUrl: item.googleMapsUrl || item.link_google_maps || '',
+              menuSourceUrl: cardapioUrl,
+              isClosed: item.isClosed || false
+            };
+          });
+          setResults(formatted);
+          setCurrentPage(1);
+          showSuccess(`${formatted.length} restaurantes carregados do arquivo JSON com sucesso!`);
+        } else {
+          showError('Formato inválido: O JSON deve ser uma lista (array).');
+        }
+      } catch (err) {
+        showError('Erro ao processar o arquivo JSON.');
+      }
+    };
+    reader.readAsText(file);
+  };
 
   // Formata os resultados da busca e garante que o restaurante do colega "Deda Lanches" esteja sempre presente para João Pessoa.
   // IMPORTANTE: NÃO filtra por avaliações aqui — todos os estabelecimentos reais coletados são armazenados.
@@ -479,10 +657,34 @@ export default function GoogleMapsCollector() {
         setCustomQuery(parsed.customQuery);
         setSearchMethod(parsed.searchMethod);
         setGridDensity(parsed.gridDensity);
-        setActiveScan(parsed);
         setScanLogs(parsed.scanLogs || []);
         processAndSetResults(parsed.gatheredResults, parseInt(parsed.minReviews, 10));
         setHasSavedScan(false);
+
+        // Se a varredura foi interrompida no meio do caminho (isPaused: false ou indefinido)
+        if (!parsed.isPaused) {
+          const updatedScan = {
+            ...parsed,
+            isPaused: false
+          };
+          setActiveScan(updatedScan);
+          localStorage.setItem('gmaps_active_scan_v2', JSON.stringify(updatedScan));
+
+          const logs = [...(parsed.scanLogs || [])];
+          logs.push(`[SISTEMA] ▶ RETOMANDO VARREDURA AUTOMATICAMENTE do ponto ${parsed.currentPointIdx + 1}...`);
+          setScanLogs(logs);
+
+          runGridScan(
+            parsed.currentPointIdx,
+            parsed.tracePoints,
+            parsed.gatheredResults,
+            new Set(parsed.seenPlaceIds),
+            logs
+          );
+        } else {
+          // Se estava pausada explicitamente (por limite de lote de 20 pontos), mostra a interface amarela
+          setActiveScan(parsed);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -510,10 +712,11 @@ export default function GoogleMapsCollector() {
   useEffect(() => {
     const loadImportedMissions = () => {
       try {
-        const savedMissions = localStorage.getItem('mock-freelancer-missions');
-        if (savedMissions) {
-          const missions = JSON.parse(savedMissions);
-          const keys = new Set(missions.map((m: any) => getRestaurantUniqueKey(m.name, m.address)));
+        const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+        if (savedCompleted) {
+          const completedMap = JSON.parse(savedCompleted);
+          const restaurants = Object.values(completedMap);
+          const keys = new Set(restaurants.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
           setImportedKeys(keys);
         } else {
           setImportedKeys(new Set());
@@ -526,26 +729,322 @@ export default function GoogleMapsCollector() {
     loadImportedMissions();
 
     window.addEventListener('storage', loadImportedMissions);
+    window.addEventListener('local-sync-restaurants', loadImportedMissions);
     return () => {
       window.removeEventListener('storage', loadImportedMissions);
+      window.removeEventListener('local-sync-restaurants', loadImportedMissions);
     };
   }, []);
 
-  // Carrega a lista de freelancers cadastrados do localStorage para consistência
+  // Efeito para sincronizar status, logs e acionar importações automáticas
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('mock-freelancers');
-      if (saved) {
-        setFreelancersList(JSON.parse(saved));
-      } else {
-        const defaultList: any[] = [];
-        localStorage.setItem('mock-freelancers', JSON.stringify(defaultList));
-        setFreelancersList(defaultList);
+    let intervalId: any;
+    
+    const checkStatus = async () => {
+      try {
+        const res = await fetch('/api/local-collector/status');
+        if (res.ok) {
+          const data = await res.json();
+          setRunnerConnected(true);
+          setRunnerRunning(data.running);
+          setRunnerLogs(data.logs);
+          
+          // Detectar a conclusão de uma tarefa de coleta em segundo plano
+          if (prevRunningRef.current === true && data.running === false) {
+            if (data.logs.includes('concluída com código de saída: 0')) {
+              showSuccess('Coleta em segundo plano finalizada com sucesso!');
+              if (autoImport) {
+                if (data.logs.includes('Coleta do Google Maps') || data.logs.includes('Enriquecimento de Redes Sociais')) {
+                  importGoogleMapsData();
+                } else if (data.logs.includes('Coleta de Cardápios')) {
+                  importMenusData();
+                }
+              }
+            } else if (data.logs.includes('código de saída: 1') || data.logs.includes('código de saída: null')) {
+              if (data.logs.includes('interrompida pelo usuário')) {
+                showSuccess('Coleta interrompida.');
+              } else {
+                showError('Erro na execução da coleta. Veja os logs.');
+              }
+            }
+          }
+          prevRunningRef.current = data.running;
+        } else {
+          setRunnerConnected(false);
+        }
+      } catch (err) {
+        setRunnerConnected(false);
       }
+    };
+
+    checkStatus();
+    intervalId = setInterval(checkStatus, 1500);
+    return () => clearInterval(intervalId);
+  }, [autoImport]);
+
+  // Efeito separado para rolar o terminal sempre que houver novos logs
+  useEffect(() => {
+    if (terminalLogsRef.current) {
+      terminalLogsRef.current.scrollTop = terminalLogsRef.current.scrollHeight;
+    }
+  }, [runnerLogs]);
+
+  const importGoogleMapsData = async () => {
+    try {
+      const res = await fetch('/api/local-collector/scraped-data');
+      if (!res.ok) {
+        showError('Nenhum dado do Google Maps encontrado no servidor local.');
+        return;
+      }
+      const list = await res.json();
+      if (Array.isArray(list)) {
+        const formatted = list.map((item: any, idx: number) => {
+          const rawPhone = item.phone || item.telefone || '';
+          const websiteUrl = item.website || item.site || '';
+          const cardapioUrl = item.menuSourceUrl || item.menuUrl || item.cardapio || '';
+          
+          let phone = rawPhone;
+          if (!phone || phone.toLowerCase().includes('sem telefone') || phone.trim() === '') {
+            const waLink = [websiteUrl, cardapioUrl].find(url => url && (url.includes('wa.me/') || url.includes('whatsapp.com/send')));
+            if (waLink) {
+              const extracted = extractPhoneFromWhatsapp(waLink);
+              if (extracted) phone = extracted;
+            }
+          }
+
+          return {
+            id: item.id || `scraped-json-${Date.now()}-${idx}`,
+            name: item.name || item.nome || 'Sem Nome',
+            category: item.category || item.categoria || 'Restaurante',
+            rating: typeof item.rating === 'number' ? item.rating : (typeof item.nota === 'number' ? item.nota : 4.0),
+            reviewsCount: typeof item.reviewsCount === 'number' ? item.reviewsCount : (typeof item.contagem_de_avaliacoes === 'number' ? item.contagem_de_avaliacoes : 10),
+            address: item.address || item.endereco_completo || '',
+            phone,
+            city: item.city || item.cidade || 'João Pessoa',
+            state: item.state || item.estado || 'PB',
+            instagram: item.instagram || item.midias_sociais?.instagram || '',
+            facebook: item.facebook || item.midias_sociais?.facebook || '',
+            coverImage: item.coverImage || item.cover_image_url || '',
+            galleryImages: item.galleryImages || item.gallery_images || [],
+            openingHours: item.openingHours || item.horario_de_funcionamento || {},
+            website: websiteUrl,
+            googleMapsUrl: item.googleMapsUrl || item.link_google_maps || '',
+            menuSourceUrl: cardapioUrl,
+            menu_categories: item.menu_categories || item.categories || [],
+            isClosed: item.isClosed || false
+          };
+        });
+        setResults(formatted);
+        setCurrentPage(1);
+        autoImportListToActiveDb(formatted);
+      }
+    } catch (err) {
+      console.error(err);
+      showError('Falha ao importar dados do Google Maps automaticamente.');
+    }
+  };
+
+  const autoImportListToActiveDb = (list: ScrapedRestaurant[]) => {
+    try {
+      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
+
+      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
+
+      let importedCount = 0;
+      const newImported = new Set(importedKeys);
+
+      for (const restaurant of list) {
+        if (dismissedIds.has(restaurant.id)) continue;
+        const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
+        if (!newImported.has(key)) {
+          const restaurantId = restaurant.id || `scraped-${key}`;
+
+          completedMap[restaurantId] = {
+            id: restaurantId,
+            name: restaurant.name,
+            plan: 'free',
+            phone: restaurant.phone || '',
+            address: restaurant.address || '',
+            city: restaurant.city || '',
+            state: restaurant.state || '',
+            description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
+            category: restaurant.category || 'Outros',
+            image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
+            cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
+            menu_categories: restaurant.menu_categories || [],
+            gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
+              ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
+              : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
+            social_networks: [
+              { platform: 'instagram', url: restaurant.instagram },
+              { platform: 'facebook', url: restaurant.facebook }
+            ].filter(s => s.url),
+            opening_hours: restaurant.openingHours || null,
+            visit_status: 'Visitado',
+            menuSourceUrl: restaurant.menuSourceUrl || '',
+            googleMapsUrl: restaurant.googleMapsUrl || '',
+            website: restaurant.website || ''
+          };
+
+          const newRestaurant = {
+            id: restaurantId,
+            name: restaurant.name,
+            plan: 'free' as const,
+            phone: restaurant.phone || '',
+            category: restaurant.category || '',
+            address: restaurant.address || '',
+            city: restaurant.city || '',
+            state: restaurant.state || '',
+            claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
+            visit_status: 'Visitado' as const,
+            visit_notes: 'Importado diretamente do coletor Google Maps.',
+            menuSourceUrl: restaurant.menuSourceUrl || '',
+            googleMapsUrl: restaurant.googleMapsUrl || '',
+            website: restaurant.website || ''
+          };
+
+          fallbackList.unshift(newRestaurant);
+          newImported.add(key);
+          importedCount++;
+        }
+      }
+
+      localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+      localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(fallbackList));
+      setImportedKeys(newImported);
+
+      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+
+      showSuccess(`Sincronização concluída! ${importedCount} restaurantes importados automaticamente.`);
     } catch (e) {
       console.error(e);
+      showError('Erro ao salvar os novos restaurantes importados.');
     }
-  }, []);
+  };
+
+  const importMenusData = async () => {
+    try {
+      const res = await fetch('/api/local-collector/scraped-menus');
+      if (!res.ok) {
+        showError('Nenhum dado de cardápio encontrado no servidor local.');
+        return;
+      }
+      const scrapedMenus = await res.json();
+      if (Array.isArray(scrapedMenus)) {
+        const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+        if (!savedCompleted) return;
+        const completedMap = JSON.parse(savedCompleted);
+        
+        let updatedCount = 0;
+        
+        scrapedMenus.forEach((scrapedRest: any) => {
+          let targetId = scrapedRest.id;
+          if (!completedMap[targetId]) {
+            targetId = Object.keys(completedMap).find((id: string) => 
+              completedMap[id].name.toLowerCase().trim() === scrapedRest.restaurantName.toLowerCase().trim()
+            );
+          }
+          
+          if (targetId && completedMap[targetId]) {
+            const formattedCategories = (scrapedRest.categories || []).map((cat: any, cIdx: number) => ({
+              id: `mc-${Date.now()}-${cIdx}`,
+              name: cat.name,
+              items: (cat.items || []).map((item: any, iIdx: number) => {
+                let priceVal = 0.0;
+                if (item.price) {
+                  const clean = item.price.replace(/[^\d,.-]/g, '').replace(',', '.');
+                  priceVal = parseFloat(clean) || 0.0;
+                }
+                return {
+                  id: `mi-${Date.now()}-${cIdx}-${iIdx}`,
+                  name: item.name,
+                  price: priceVal,
+                  description: item.description || '',
+                  image_url: item.image_url || ''
+                };
+              })
+            }));
+            
+            completedMap[targetId].menu_categories = formattedCategories;
+            updatedCount++;
+          }
+        });
+        
+        if (updatedCount > 0) {
+          localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+          window.dispatchEvent(new Event('storage'));
+          window.dispatchEvent(new Event('local-sync-restaurants'));
+          showSuccess(`Sucesso! Cardápios de ${updatedCount} restaurantes importados e sincronizados!`);
+        } else {
+          showError('Nenhum restaurante correspondente foi encontrado para atualizar os cardápios.');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      showError('Falha ao importar dados dos cardápios automaticamente.');
+    }
+  };
+
+  const startFase1 = async () => {
+    try {
+      const res = await fetch('/api/local-collector/run-maps', { method: 'POST' });
+      if (res.ok) {
+        showSuccess('Coleta do Google Maps (Fase 1) iniciada!');
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao iniciar.');
+      }
+    } catch (err) {
+      showError('Servidor local offline.');
+    }
+  };
+
+  const startFase2 = async () => {
+    try {
+      const res = await fetch('/api/local-collector/run-social', { method: 'POST' });
+      if (res.ok) {
+        showSuccess('Enriquecimento de Redes (Fase 2) iniciado!');
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao iniciar.');
+      }
+    } catch (err) {
+      showError('Servidor local offline.');
+    }
+  };
+
+  const startFase3 = async () => {
+    try {
+      const res = await fetch('/api/local-collector/run-menu', { method: 'POST' });
+      if (res.ok) {
+        showSuccess('Coleta de Cardápios (Fase 3) iniciada!');
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao iniciar.');
+      }
+    } catch (err) {
+      showError('Servidor local offline.');
+    }
+  };
+
+  const stopCollector = async () => {
+    try {
+      const res = await fetch('/api/local-collector/stop', { method: 'POST' });
+      if (res.ok) {
+        showSuccess('Parando coleta...');
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao parar.');
+      }
+    } catch (err) {
+      showError('Servidor local offline.');
+    }
+  };
+
+
 
   // Dados Mockados Ampliados para simular varredura real por bairros
   const jampaHotspots: Record<string, Omit<ScrapedRestaurant, 'id'>[]> = {
@@ -629,7 +1128,7 @@ export default function GoogleMapsCollector() {
     initialLogs: string[]
   ) => {
     setIsLoading(true);
-    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyAEb0spXupuP_18RXi3ISJ3unBZ0ud1pWQ';
+    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyCR6msFpwGeRVDXt-z2_LxeYiqULJuFfiA';
     const reviewsLimit = parseInt(minReviews, 10);
     const SCAN_ROUNDS = [
       { label: 'Nearby Types', isNearby: true, query: '' },
@@ -865,11 +1364,21 @@ export default function GoogleMapsCollector() {
             success = true;
           } catch (err: any) {
             const msg = err.name === 'AbortError' ? 'timeout' : err.message;
+            const isRateLimit = err.message === 'RATE_LIMIT_429';
+            const isRetriable = 
+              isRateLimit ||
+              err.message === 'Failed to fetch' ||
+              err.name === 'AbortError' ||
+              err.message === 'Load failed' ||
+              err.message?.toLowerCase().includes('fetch');
 
-            if (err.message === 'RATE_LIMIT_429' && retryCount < MAX_RETRIES) {
+            if (isRetriable && retryCount < MAX_RETRIES) {
               retryCount++;
-              const waitMs = Math.pow(2, retryCount) * 3000;
-              addLog(`  ├─ [${round.label}] ⚠ Limite de requisições (429). Aguardando ${waitMs / 1000}s antes de tentar novamente... (tentativa ${retryCount}/${MAX_RETRIES})`);
+              const waitMs = isRateLimit ? Math.pow(2, retryCount) * 3000 : 3000;
+              const reason = isRateLimit 
+                ? 'Limite de requisições (429)' 
+                : `Falha de rede/timeout: ${msg}`;
+              addLog(`  ├─ [${round.label}] ⚠ ${reason}. Aguardando ${waitMs / 1000}s antes de tentar novamente... (tentativa ${retryCount}/${MAX_RETRIES})`);
               await new Promise(r => setTimeout(r, waitMs));
             } else {
               pointErrors++;
@@ -965,7 +1474,7 @@ export default function GoogleMapsCollector() {
     setSearchTerm('');
     setDismissedIds(new Set());
 
-    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyAEb0spXupuP_18RXi3ISJ3unBZ0ud1pWQ';
+    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyCR6msFpwGeRVDXt-z2_LxeYiqULJuFfiA';
     const reviewsLimit = parseInt(minReviews, 10);
 
     if (searchMethod === 'simple') {
@@ -1145,59 +1654,127 @@ export default function GoogleMapsCollector() {
 
   const handleRemoveFromQueue = (restaurant: ScrapedRestaurant) => {
     try {
-      const savedMissions = localStorage.getItem('mock-freelancer-missions');
-      if (!savedMissions) return;
-
-      const currentMissions = JSON.parse(savedMissions);
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-      const updated = currentMissions.filter((m: any) => getRestaurantUniqueKey(m.name, m.address) !== key);
+      const restaurantId = restaurant.id || `scraped-${key}`;
 
-      localStorage.setItem('mock-freelancer-missions', JSON.stringify(updated));
+      // 1. Remove from mock-completed-restaurants
+      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+      if (savedCompleted) {
+        const completedMap = JSON.parse(savedCompleted);
+        delete completedMap[restaurantId];
+        Object.keys(completedMap).forEach((id: string) => {
+          const r = completedMap[id];
+          if (getRestaurantUniqueKey(r.name, r.address) === key) {
+            delete completedMap[id];
+          }
+        });
+        localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+      }
 
+      // 2. Remove from mock-supabase-fallback-restaurants
+      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+      if (savedFallback) {
+        const fallbackList = JSON.parse(savedFallback);
+        const updatedFallback = fallbackList.filter((r: any) => 
+          r.id !== restaurantId && getRestaurantUniqueKey(r.name, r.address) !== key
+        );
+        localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+      }
+
+      // 3. Update importedKeys state
       const newImported = new Set(importedKeys);
       newImported.delete(key);
       setImportedKeys(newImported);
 
-      showSuccess(`"${restaurant.name}" removido da fila de missões!`);
+      // Trigger sync
+      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+
+      showSuccess(`"${restaurant.name}" removido da plataforma!`);
     } catch (e) {
       console.error(e);
-      showError('Erro ao remover restaurante da fila.');
+      showError('Erro ao remover restaurante.');
     }
   };
 
-  const handleImport = (restaurant: ScrapedRestaurant, targetFreelancerId?: string) => {
+  const handleImport = (restaurant: ScrapedRestaurant) => {
     try {
-      const savedMissions = localStorage.getItem('mock-freelancer-missions');
-      const currentMissions = savedMissions ? JSON.parse(savedMissions) : [];
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-
-      if (currentMissions.some((m: any) => getRestaurantUniqueKey(m.name, m.address) === key)) {
-        showError('Este restaurante já foi adicionado à fila!');
+      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
+      
+      const restaurants = Object.values(completedMap);
+      if (restaurants.some((r: any) => getRestaurantUniqueKey(r.name, r.address) === key)) {
+        showError('Este restaurante já foi importado!');
         return;
       }
 
-      const newMission = {
-        ...restaurant,
-        status: 'Pendente',
-        reward: 1.00,
-        imported_at: new Date().toISOString(),
-        assignedToId: '',
-        assignedToName: ''
+      const restaurantId = restaurant.id || `scraped-${key}`;
+
+      // 1. Save to mock-completed-restaurants
+      completedMap[restaurantId] = {
+        id: restaurantId,
+        name: restaurant.name,
+        plan: 'free',
+        phone: restaurant.phone || '',
+        address: restaurant.address || '',
+        city: restaurant.city || '',
+        state: restaurant.state || '',
+        description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
+        category: restaurant.category || 'Outros',
+        image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
+        cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
+        menu_categories: [], 
+        gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
+          ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
+          : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
+        social_networks: [
+          { platform: 'instagram', url: restaurant.instagram },
+          { platform: 'facebook', url: restaurant.facebook }
+        ].filter(s => s.url),
+        opening_hours: restaurant.openingHours || null,
+        visit_status: 'Visitado',
+        menuSourceUrl: restaurant.menuSourceUrl || '',
+        googleMapsUrl: restaurant.googleMapsUrl || '',
+        website: restaurant.website || ''
       };
+      
+      localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
 
-      const updated = [...currentMissions, newMission];
-      try {
-        localStorage.setItem('mock-freelancer-missions', JSON.stringify(updated));
-        
-        const newImported = new Set(importedKeys);
-        newImported.add(key);
-        setImportedKeys(newImported);
+      // 2. Also save to the mock admin fallback
+      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
+      
+      const newRestaurant = {
+        id: restaurantId,
+        name: restaurant.name,
+        plan: 'free' as const,
+        phone: restaurant.phone || '',
+        category: restaurant.category || '',
+        address: restaurant.address || '',
+        city: restaurant.city || '',
+        state: restaurant.state || '',
+        claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
+        visit_status: 'Visitado' as const,
+        visit_notes: 'Importado diretamente do coletor Google Maps.',
+        menuSourceUrl: restaurant.menuSourceUrl || '',
+        googleMapsUrl: restaurant.googleMapsUrl || '',
+        website: restaurant.website || ''
+      };
+      
+      fallbackList.unshift(newRestaurant);
+      localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(fallbackList));
 
-        showSuccess(`"${restaurant.name}" adicionado à fila global de missões!`);
-      } catch (storageError) {
-        console.error(storageError);
-        showError('Armazenamento cheio! Não foi possível importar. Remova missões antigas no Portal do Freelancer.');
-      }
+      // 3. Update importedKeys state
+      const newImported = new Set(importedKeys);
+      newImported.add(key);
+      setImportedKeys(newImported);
+
+      // Trigger sync
+      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+
+      showSuccess(`"${restaurant.name}" importado com sucesso!`);
     } catch (e) {
       console.error(e);
       showError('Erro ao importar restaurante.');
@@ -1206,40 +1783,69 @@ export default function GoogleMapsCollector() {
 
   const handleImportAll = () => {
     try {
-      const savedMissions = localStorage.getItem('mock-freelancer-missions');
-      const currentMissions = savedMissions ? JSON.parse(savedMissions) : [];
+      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
+
+      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
+
       let importedCount = 0;
       const newImported = new Set(importedKeys);
-      const newMissions = [...currentMissions];
 
       for (const restaurant of results) {
         if (dismissedIds.has(restaurant.id)) continue;
         const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
         if (!newImported.has(key)) {
-          const nextMission = {
-            ...restaurant,
-            status: 'Pendente' as const,
-            reward: 1.00,
-            imported_at: new Date().toISOString(),
-            assignedToId: '',
-            assignedToName: ''
+          const restaurantId = restaurant.id || `scraped-${key}`;
+
+          // Create the restaurant entry
+          completedMap[restaurantId] = {
+            id: restaurantId,
+            name: restaurant.name,
+            plan: 'free',
+            phone: restaurant.phone || '',
+            address: restaurant.address || '',
+            city: restaurant.city || '',
+            state: restaurant.state || '',
+            description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
+            category: restaurant.category || 'Outros',
+            image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
+            cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
+            menu_categories: [],
+            gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
+              ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
+              : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
+            social_networks: [
+              { platform: 'instagram', url: restaurant.instagram },
+              { platform: 'facebook', url: restaurant.facebook }
+            ].filter(s => s.url),
+            opening_hours: restaurant.openingHours || null,
+            visit_status: 'Visitado',
+            menuSourceUrl: restaurant.menuSourceUrl || '',
+            googleMapsUrl: restaurant.googleMapsUrl || '',
+            website: restaurant.website || ''
           };
-          const testMissions = [...newMissions, nextMission];
-          try {
-            localStorage.setItem('mock-freelancer-missions', JSON.stringify(testMissions));
-            newMissions.push(nextMission);
-            newImported.add(key);
-            importedCount++;
-          } catch (storageError) {
-            console.error('Storage quota exceeded during bulk import:', storageError);
-            setImportedKeys(newImported);
-            if (importedCount > 0) {
-              showError(`Limite de espaço atingido! Apenas ${importedCount} novos restaurantes foram adicionados.`);
-            } else {
-              showError('Não foi possível importar. O armazenamento do navegador (Local Storage) está cheio. Libere espaço no Portal do Freelancer.');
-            }
-            return;
-          }
+
+          const newRestaurant = {
+            id: restaurantId,
+            name: restaurant.name,
+            plan: 'free' as const,
+            phone: restaurant.phone || '',
+            category: restaurant.category || '',
+            address: restaurant.address || '',
+            city: restaurant.city || '',
+            state: restaurant.state || '',
+            claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
+            visit_status: 'Visitado' as const,
+            visit_notes: 'Importado diretamente do coletor Google Maps.',
+            menuSourceUrl: restaurant.menuSourceUrl || '',
+            googleMapsUrl: restaurant.googleMapsUrl || '',
+            website: restaurant.website || ''
+          };
+
+          fallbackList.unshift(newRestaurant);
+          newImported.add(key);
+          importedCount++;
         }
       }
 
@@ -1248,10 +1854,19 @@ export default function GoogleMapsCollector() {
         return;
       }
 
-      if (importedCount > 0) {
-        showSuccess(`${importedCount} restaurantes adicionados à fila global de missões!`);
-      } else {
-        showSuccess('Nenhum restaurante novo encontrado para importar.');
+      try {
+        localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+        localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(fallbackList));
+        setImportedKeys(newImported);
+
+        // Sync
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+
+        showSuccess(`${importedCount} restaurantes importados diretamente para a plataforma!`);
+      } catch (storageError) {
+        console.error('Storage quota exceeded during bulk import:', storageError);
+        showError('Não foi possível importar. O armazenamento do navegador (Local Storage) está cheio.');
       }
     } catch (e) {
       console.error(e);
@@ -1264,16 +1879,16 @@ export default function GoogleMapsCollector() {
       {hasSavedScan && (
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm text-blue-900 font-medium">
           <div className="flex gap-3">
-            <Compass className="w-5 h-5 text-[#022D68] shrink-0 mt-0.5 animate-pulse" />
+            <Compass className="w-5 h-5 text-primary shrink-0 mt-0.5 animate-pulse" />
             <div>
-              <span className="font-bold text-[#022D68] block mb-0.5">Varredura anterior interrompida encontrada!</span>
+              <span className="font-bold text-primary block mb-0.5">Varredura anterior interrompida encontrada!</span>
               Detectamos uma varredura que não foi finalizada. Deseja retomar a coleta de onde parou ou começar uma nova?
             </div>
           </div>
           <div className="flex gap-2 w-full sm:w-auto justify-end">
             <Button 
               size="sm" 
-              className="bg-[#022D68] hover:bg-[#022D68]/90 text-white font-bold"
+              className="bg-primary hover:bg-primary/90 text-white font-bold"
               onClick={handleResumeSavedScan}
             >
               Retomar Varredura
@@ -1290,27 +1905,202 @@ export default function GoogleMapsCollector() {
         </div>
       )}
 
+      {/* Painel do Coletor em Segundo Plano */}
+      <Card className="border border-white/20 shadow-xl bg-white/40 backdrop-blur-md dark:bg-zinc-900/40 mb-8 overflow-hidden rounded-2xl">
+        <CardHeader className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-b border-white/10 p-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <CardTitle className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                  <span className="flex h-3 w-3 items-center justify-center relative">
+                    <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${runnerConnected ? (runnerRunning ? 'bg-green-500' : 'bg-blue-500') : 'bg-red-500'}`}></span>
+                    <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${runnerConnected ? (runnerRunning ? 'bg-green-500' : 'bg-blue-500') : 'bg-red-500'}`}></span>
+                  </span>
+                  Coletor em Segundo Plano (Automático)
+                </CardTitle>
+                {runnerConnected ? (
+                  <span className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 text-xs px-2 py-0.5 rounded-full font-medium border border-emerald-200/50">
+                    Conectado ao Script Local
+                  </span>
+                ) : (
+                  <span className="bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400 text-xs px-2 py-0.5 rounded-full font-medium border border-rose-200/50">
+                    Script Desconectado
+                  </span>
+                )}
+              </div>
+              <CardDescription className="text-slate-500 dark:text-slate-400 mt-1">
+                Execute varreduras diretamente no seu computador e sincronize os resultados instantaneamente na base de dados ativa.
+              </CardDescription>
+            </div>
+            
+            {runnerConnected && (
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={autoImport}
+                    onChange={(e) => setAutoImport(e.target.checked)}
+                    className="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4 transition-colors"
+                  />
+                  <span>Importar Automático</span>
+                </label>
+              </div>
+            )}
+          </div>
+        </CardHeader>
+        
+        <CardContent className="p-6">
+          {!runnerConnected ? (
+            <div className="flex flex-col items-center justify-center py-8 text-center bg-slate-50/50 dark:bg-zinc-800/30 rounded-xl border border-dashed border-slate-200 dark:border-zinc-800">
+              <div className="bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 p-3 rounded-full mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+              </div>
+              <h4 className="font-semibold text-slate-800 dark:text-slate-200">Runner Local Desconectado</h4>
+              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mt-1">
+                Para rodar a coleta automática, certifique-se de que o servidor local está rodando em segundo plano.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Controles do Runner */}
+              <div className="flex flex-col gap-4 lg:col-span-1">
+                <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
+                  <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Controles de Execução</h4>
+                  
+                  <div className="flex flex-col gap-2">
+                    <Button 
+                      onClick={startFase1} 
+                      disabled={runnerRunning}
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold transition-all shadow-md hover:shadow-indigo-500/20"
+                    >
+                      Iniciar Fase 1 (Google Maps)
+                    </Button>
+                    <Button 
+                      onClick={startFase2} 
+                      disabled={runnerRunning}
+                      className="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 text-white font-bold transition-all shadow-md hover:shadow-purple-500/20"
+                    >
+                      Iniciar Fase 2 (Redes Sociais)
+                    </Button>
+                    <Button 
+                      onClick={startFase3} 
+                      disabled={runnerRunning}
+                      className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold transition-all shadow-md hover:shadow-pink-500/20"
+                    >
+                      Iniciar Fase 3 (Cardápios)
+                    </Button>
+                    {runnerRunning && (
+                      <Button 
+                        onClick={stopCollector} 
+                        variant="destructive"
+                        className="w-full font-bold transition-all shadow-md hover:shadow-red-500/20"
+                      >
+                        Interromper Coleta
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="bg-slate-50 dark:bg-zinc-800/30 p-4 rounded-xl border border-slate-100 dark:border-zinc-800/80 flex flex-col gap-3">
+                  <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-300">Ações Manuais de Importação</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      onClick={importGoogleMapsData}
+                      variant="outline"
+                      className="border-indigo-200 text-indigo-700 hover:bg-indigo-50 dark:border-indigo-900/50 dark:text-indigo-400 font-bold"
+                    >
+                      Importar Maps
+                    </Button>
+                    <Button
+                      onClick={importMenusData}
+                      variant="outline"
+                      className="border-pink-200 text-pink-700 hover:bg-pink-50 dark:border-pink-900/50 dark:text-pink-400 font-bold"
+                    >
+                      Importar Cardápios
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Logs do Terminal */}
+              <div className="flex flex-col gap-2 lg:col-span-2">
+                <div className="flex justify-between items-center px-1">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+                    Terminal de Saída do Runner
+                  </span>
+                  <button 
+                    onClick={async () => {
+                      setRunnerLogs('');
+                      try {
+                        await fetch('/api/local-collector/clear-logs', { method: 'POST' });
+                      } catch (err) {
+                        console.error('Erro ao limpar os logs do servidor:', err);
+                      }
+                    }} 
+                    className="text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+                  >
+                    Limpar Logs
+                  </button>
+                </div>
+                
+                <div 
+                  ref={terminalLogsRef}
+                  className="bg-black/95 text-emerald-400 font-mono text-xs p-4 rounded-xl h-48 overflow-y-auto border border-white/10 shadow-inner"
+                >
+                  {runnerLogs ? (
+                    runnerLogs.split('\n').map((line, idx) => (
+                      <div key={idx} className="py-0.5 leading-relaxed break-all">
+                        {line}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-slate-600 italic py-16 text-center select-none">
+                      Nenhum log gerado ainda. Aguardando execução do runner...
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       <Card className="border-none shadow-none bg-transparent">
         <CardHeader className="px-0 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <CardTitle className="text-2xl text-primary font-bold">Coleta Oficial via Google Places API</CardTitle>
             <CardDescription>
-              Varra estabelecimentos de qualquer cidade traçando coordenadas e exporte-os na fila de missões dos freelancers.
+              Varra estabelecimentos de qualquer cidade traçando coordenadas e exporte-os diretamente para o catálogo de restaurantes da plataforma.
             </CardDescription>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={() => window.open('/freelancer-portal', '_blank')} 
-            className="gap-1.5 border-[#022D68] text-[#022D68] hover:bg-slate-50 font-bold"
-          >
-            Ir para Portal do Freelancer ↗
-          </Button>
+          <div className="flex gap-2">
+            <div>
+              <input 
+                type="file" 
+                accept=".json" 
+                onChange={handleJsonUpload} 
+                className="hidden" 
+                id="json-file-upload-input" 
+              />
+              <Button 
+                type="button"
+                variant="outline" 
+                size="sm"
+                className="gap-1.5 border-primary text-primary hover:bg-background-light font-bold"
+                onClick={() => document.getElementById('json-file-upload-input')?.click()}
+              >
+                Importar JSON
+              </Button>
+            </div>
+          </div>
         </CardHeader>
       </Card>
 
       {/* Barra de Filtros / Busca */}
-      <div className="space-y-4 p-5 bg-white shadow-soft-md rounded-2xl border border-gray-100">
+      <div className="space-y-4 p-5 bg-white shadow-none rounded-2xl border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <div>
             <label className="text-xs font-bold text-gray-500 block mb-1">Cidade</label>
@@ -1358,7 +2148,7 @@ export default function GoogleMapsCollector() {
           </div>
           <div className="flex items-end">
             <Button 
-              className="w-full h-10 font-bold gap-2 bg-[#022D68] hover:bg-[#022D68]/90 text-white" 
+              className="w-full h-10 font-bold gap-2 bg-primary hover:bg-primary/90 text-white" 
               onClick={handleSearch}
               disabled={isLoading || !city || !state || (activeScan !== null && !activeScan.isPaused)}
             >
@@ -1411,7 +2201,7 @@ export default function GoogleMapsCollector() {
 
       {/* Interface para Varredura Pausada */}
       {activeScan && activeScan.isPaused && (
-        <Card className="border-2 border-amber-300 bg-amber-50/50 shadow-soft-lg rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+        <Card className="border-2 border-amber-300 bg-amber-50/50 shadow-none rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
           <CardHeader className="bg-amber-100/50 border-b border-amber-200 p-4">
             <div className="flex items-center gap-2 text-amber-900">
               <Loader2 className="w-5 h-5 animate-pulse text-amber-700" />
@@ -1424,11 +2214,11 @@ export default function GoogleMapsCollector() {
           <CardContent className="p-4 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
             <div className="text-sm font-semibold text-amber-900 space-y-1">
               <div>📍 Pontos processados: <span className="text-lg font-bold text-amber-700">{activeScan.currentPointIdx}</span> de <span className="font-bold">{activeScan.tracePoints.length}</span></div>
-              <div>🏠 Locais únicos coletados até agora: <span className="text-lg font-bold text-[#022D68]">{activeScan.gatheredResults.length}</span></div>
+              <div>🏠 Locais únicos coletados até agora: <span className="text-lg font-bold text-primary">{activeScan.gatheredResults.length}</span></div>
             </div>
             <div className="flex gap-2 w-full sm:w-auto">
               <Button 
-                className="bg-[#022D68] hover:bg-[#022D68]/90 text-white font-bold w-full sm:w-auto gap-1.5"
+                className="bg-primary hover:bg-primary/90 text-white font-bold w-full sm:w-auto gap-1.5"
                 onClick={handleContinueScan}
               >
                 <Check className="w-4 h-4" /> Continuar Varredura (Próximos 20)
@@ -1447,7 +2237,7 @@ export default function GoogleMapsCollector() {
 
       {/* Terminal de Varredura Geográfica por Coordenadas */}
       {scanLogs.length > 0 && searchMethod === 'grid' && (
-        <Card className="shadow-soft-lg border-none rounded-2xl bg-slate-900 text-green-400 p-5 font-mono text-[11px] space-y-1.5 max-h-60 overflow-y-auto border border-slate-800">
+        <Card className="shadow-none border-none rounded-2xl bg-slate-900 text-green-400 p-5 font-mono text-[11px] space-y-1.5 max-h-60 overflow-y-auto border border-slate-800">
           {scanLogs.map((log, idx) => (
             <div key={idx} className="leading-relaxed whitespace-pre-wrap">{log}</div>
           ))}
@@ -1486,7 +2276,7 @@ export default function GoogleMapsCollector() {
         const pendingImportCount = filteredResults.filter(r => !importedKeys.has(getRestaurantUniqueKey(r.name, r.address))).length;
         
         return (
-          <Card className="shadow-soft-lg border border-gray-100 rounded-2xl bg-white overflow-hidden">
+          <Card className="shadow-none border border-gray-100 rounded-2xl bg-white overflow-hidden">
             <CardHeader className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gray-50 border-b border-gray-100 p-4">
               <div className="space-y-1">
                 <CardTitle className="text-lg text-primary font-bold">Resultados Encontrados ({filteredResults.length})</CardTitle>
@@ -1530,8 +2320,9 @@ export default function GoogleMapsCollector() {
                       <TableRow className="bg-gray-50/50">
                         <TableHead className="font-bold">Nome</TableHead>
                         <TableHead className="font-bold">Categoria</TableHead>
-                        <TableHead className="font-bold text-center">Nota Google</TableHead>
-                        <TableHead className="font-bold text-center">Avaliações</TableHead>
+                        <TableHead className="font-bold text-center">Nota (Avaliações)</TableHead>
+                        <TableHead className="font-bold">Instagram</TableHead>
+                        <TableHead className="font-bold">Cardápio</TableHead>
                         <TableHead className="font-bold">Endereço</TableHead>
                         <TableHead className="font-bold text-right">Ação</TableHead>
                       </TableRow>
@@ -1564,55 +2355,103 @@ export default function GoogleMapsCollector() {
                                 )}
                                 {isImported && (
                                   <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-none py-0 px-1.5 text-[9px] font-bold gap-0.5 rounded-full shrink-0">
-                                    <Check className="w-2.5 h-2.5" /> Fila
+                                    <Check className="w-2.5 h-2.5" /> Importado
                                   </Badge>
                                 )}
                               </div>
                             </TableCell>
                             <TableCell className={isImported ? "text-emerald-900" : ""}>{r.category}</TableCell>
-                            <TableCell className={`text-center font-bold ${isImported ? "text-emerald-900" : "text-amber-600"}`}>⭐ {r.rating.toFixed(1)}</TableCell>
-                            <TableCell className="text-center text-gray-500 font-medium">{r.reviewsCount}</TableCell>
-                            <TableCell className="max-w-[200px] truncate text-gray-600">{r.address}</TableCell>
-                            <TableCell className="text-right">
-                              {isImported ? (
-                                <div className="flex justify-end items-center gap-2">
-                                  <Badge variant="outline" className="border-green-300 text-green-700 bg-green-50 gap-1 font-bold">
-                                    <Check className="w-3.5 h-3.5" /> Na Fila
-                                  </Badge>
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="text-red-500 hover:text-red-600 hover:bg-red-50 font-semibold gap-1"
-                                    onClick={() => handleRemoveFromQueue(r)}
-                                  >
-                                    <Trash2 className="w-4 h-4" /> Remover
-                                  </Button>
-                                </div>
+                            <TableCell className={`text-center font-bold ${isImported ? "text-emerald-900" : "text-amber-600"}`}>
+                              ⭐ {r.rating.toFixed(1)} <span className="text-xs font-normal text-gray-400">({r.reviewsCount})</span>
+                            </TableCell>
+                            
+                            {/* Instagram */}
+                            <TableCell>
+                              {r.instagram && !r.instagram.includes('facebook.com') && r.instagram.trim() !== '' ? (
+                                <a 
+                                  href={r.instagram} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="text-xs font-semibold text-pink-600 hover:text-pink-700 hover:underline flex items-center gap-1.5"
+                                >
+                                  <InstagramIcon className="w-3.5 h-3.5" />
+                                  <span>@{r.instagram.split('instagram.com/')[1]?.replace(/\//g,'').split('?')[0] || 'Link'}</span>
+                                </a>
                               ) : (
-                                <div className="flex justify-end items-center gap-2">
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="text-highlight hover:text-highlight hover:bg-orange-50 font-bold gap-1"
-                                    onClick={() => handleImport(r)}
-                                  >
-                                    <PlusCircle className="w-4 h-4" /> Importar
-                                  </Button>
-                                  <Button 
-                                    size="sm" 
-                                    variant="ghost" 
-                                    className="text-red-500 hover:text-red-600 hover:bg-red-50 font-semibold gap-1"
-                                    onClick={() => {
-                                      const newDismissed = new Set(dismissedIds);
-                                      newDismissed.add(r.id);
-                                      setDismissedIds(newDismissed);
-                                      showSuccess(`"${r.name}" descartado da lista.`);
-                                    }}
-                                  >
-                                    <Trash2 className="w-4 h-4" /> Remover
-                                  </Button>
-                                </div>
+                                <span className="bg-red-50 text-red-600 dark:bg-red-950/20 dark:text-red-400 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border border-red-100/40">
+                                  Ausente
+                                </span>
                               )}
+                            </TableCell>
+
+                            {/* Cardápio */}
+                            <TableCell>
+                              {r.menuSourceUrl && r.menuSourceUrl.trim() !== '' ? (
+                                <a 
+                                  href={r.menuSourceUrl} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline flex items-center gap-1.5 max-w-[120px] truncate"
+                                >
+                                  <Globe className="w-3.5 h-3.5" />
+                                  <span>{new URL(r.menuSourceUrl).hostname.replace('www.','')}</span>
+                                </a>
+                              ) : (
+                                <span className="bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 text-[10px] px-1.5 py-0.5 rounded-md font-semibold border border-amber-100/40">
+                                  Ausente
+                                </span>
+                              )}
+                            </TableCell>
+
+                            <TableCell className="max-w-[150px] truncate text-gray-600">{r.address}</TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex justify-end items-center gap-1.5">
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 font-bold gap-1 h-8 px-2"
+                                  onClick={() => setEditingRestaurant(r)}
+                                >
+                                  <Pencil className="w-3.5 h-3.5" /> Editar
+                                </Button>
+
+                                {isImported ? (
+                                  <>
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost" 
+                                      className="text-red-500 hover:text-red-600 hover:bg-red-50 font-semibold gap-1 h-8 px-2"
+                                      onClick={() => handleRemoveFromQueue(r)}
+                                    >
+                                      <Trash2 className="w-3.5 h-3.5" /> Remover
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost" 
+                                      className="text-highlight hover:text-highlight hover:bg-orange-50 font-bold gap-1 h-8 px-2"
+                                      onClick={() => handleImport(r)}
+                                    >
+                                      <PlusCircle className="w-3.5 h-3.5" /> Importar
+                                    </Button>
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost" 
+                                      className="text-red-500 hover:text-red-600 hover:bg-red-50 font-semibold gap-1 h-8 px-2"
+                                      onClick={() => {
+                                        const newDismissed = new Set(dismissedIds);
+                                        newDismissed.add(r.id);
+                                        setDismissedIds(newDismissed);
+                                        showSuccess(`"${r.name}" descartado da lista.`);
+                                      }}
+                                    >
+                                      <Trash2 className="w-3.5 h-3.5" /> Remover
+                                    </Button>
+                                  </>
+                                )}
+                              </div>
                             </TableCell>
                           </TableRow>
                         );
@@ -1670,6 +2509,100 @@ export default function GoogleMapsCollector() {
             Preencha a Cidade, UF e clique em "Buscar no Google Maps" para iniciar a varredura da API.
           </p>
         </div>
+      )}
+
+      {/* Modal de Edição de Restaurante */}
+      {editingRestaurant && (
+        <Dialog open={editingRestaurant !== null} onOpenChange={(open) => { if (!open) setEditingRestaurant(null); }}>
+          <DialogContent className="sm:max-w-[500px] bg-white rounded-2xl p-6 border border-slate-100 shadow-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-bold text-primary flex items-center gap-2">
+                <Pencil className="w-5 h-5 text-indigo-500" />
+                Editar Detalhes da Coleta
+              </DialogTitle>
+              <DialogDescription className="text-slate-500 text-xs">
+                Corrija ou insira informações para o estabelecimento <strong>{editingRestaurant.name}</strong> antes ou depois da importação.
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-4 py-4">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-500 block">Nome do Estabelecimento</label>
+                <Input 
+                  value={editingRestaurant.name} 
+                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, name: e.target.value })}
+                  placeholder="Nome do restaurante"
+                />
+              </div>
+              
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-500 block">Categoria</label>
+                <Input 
+                  value={editingRestaurant.category} 
+                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, category: e.target.value })}
+                  placeholder="Ex: Lanches, Pizzaria, Hamburgueria"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-500 block">Telefone</label>
+                  <Input 
+                    value={editingRestaurant.phone || ''} 
+                    onChange={(e) => setEditingRestaurant({ ...editingRestaurant, phone: e.target.value })}
+                    placeholder="Ex: (83) 99822-1010"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-500 block">Cidade / UF</label>
+                  <Input 
+                    value={`${editingRestaurant.city} - ${editingRestaurant.state}`} 
+                    disabled
+                    className="bg-slate-50 text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-500 block flex items-center gap-1">
+                  <InstagramIcon className="w-3.5 h-3.5 text-pink-500" /> Link do Instagram Oficial
+                </label>
+                <Input 
+                  value={editingRestaurant.instagram || ''} 
+                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, instagram: e.target.value })}
+                  placeholder="https://instagram.com/usuario"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-500 block flex items-center gap-1">
+                  <Globe className="w-3.5 h-3.5 text-indigo-500" /> Link do Cardápio (Menu/Delivery)
+                </label>
+                <Input 
+                  value={editingRestaurant.menuSourceUrl || ''} 
+                  onChange={(e) => setEditingRestaurant({ ...editingRestaurant, menuSourceUrl: e.target.value })}
+                  placeholder="Ex: https://linktr.ee/usuario ou https://goomer.app/usuario"
+                />
+              </div>
+            </div>
+
+            <DialogFooter className="gap-2 sm:gap-0 border-t border-slate-100 pt-4">
+              <Button 
+                variant="outline" 
+                onClick={() => setEditingRestaurant(null)}
+                className="border-slate-300 text-slate-700 bg-white hover:bg-slate-50 font-bold"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                onClick={() => handleSaveEditedRestaurant(editingRestaurant)}
+                className="bg-primary hover:bg-primary/90 text-white font-bold"
+              >
+                Salvar Alterações
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );

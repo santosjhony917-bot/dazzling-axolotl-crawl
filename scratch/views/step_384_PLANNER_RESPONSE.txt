@@ -1,0 +1,1 @@
+I will write a script `scratch/reconstruct.cjs` to scan `transcript.jsonl` for all lines viewed or modified in `ExportedRestaurants.tsx` so we can gather the 945 lines of the original file.

@@ -93,7 +93,7 @@ const CustomSignUpForm = ({ onSwitch }: FormProps) => {
         type="button"
         onClick={() => handleSocialLogin('google')}
         variant="channel"
-        className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+        className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
         disabled={isLoading}
       >
         <GoogleIcon className="h-5 w-5 shrink-0" />
@@ -103,7 +103,7 @@ const CustomSignUpForm = ({ onSwitch }: FormProps) => {
         type="button"
         onClick={() => handleSocialLogin('apple')}
         variant="channel"
-        className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+        className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
         disabled={isLoading}
       >
         <AppleIcon className="h-6 w-6 text-black dark:text-white shrink-0" />
@@ -129,7 +129,7 @@ const CustomSignUpForm = ({ onSwitch }: FormProps) => {
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={isLoading}
-          className="h-14 text-base shadow-soft-sm !rounded-xl"
+          className="h-14 text-base shadow-none !rounded-2xl"
         />
       </div>
       <div>
@@ -143,7 +143,7 @@ const CustomSignUpForm = ({ onSwitch }: FormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-14 text-base pr-12 shadow-soft-sm !rounded-xl"
+            className="h-14 text-base pr-12 shadow-none !rounded-2xl"
           />
           <button
             onClick={togglePasswordVisibility}
@@ -165,7 +165,7 @@ const CustomSignUpForm = ({ onSwitch }: FormProps) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-14 text-base pr-12 shadow-soft-sm !rounded-xl"
+            className="h-14 text-base pr-12 shadow-none !rounded-2xl"
           />
           <button
             onClick={togglePasswordVisibility}
@@ -280,7 +280,7 @@ const CustomSignInForm = ({ onSwitch }: FormProps) => {
         type="button"
         onClick={() => handleSocialLogin('google')}
         variant="channel"
-        className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+        className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
         disabled={isLoading}
       >
         <GoogleIcon className="h-5 w-5 shrink-0" />
@@ -290,7 +290,7 @@ const CustomSignInForm = ({ onSwitch }: FormProps) => {
         type="button"
         onClick={() => handleSocialLogin('apple')}
         variant="channel"
-        className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+        className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
         disabled={isLoading}
       >
         <AppleIcon className="h-6 w-6 text-black dark:text-white shrink-0" />
@@ -316,7 +316,7 @@ const CustomSignInForm = ({ onSwitch }: FormProps) => {
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={isLoading}
-          className="h-14 text-base shadow-soft-sm !rounded-xl"
+          className="h-14 text-base shadow-none !rounded-2xl"
         />
       </div>
       <div>
@@ -330,7 +330,7 @@ const CustomSignInForm = ({ onSwitch }: FormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-14 text-base pr-12 shadow-soft-sm !rounded-xl"
+            className="h-14 text-base pr-12 shadow-none !rounded-2xl"
           />
           <button
             onClick={togglePasswordVisibility}

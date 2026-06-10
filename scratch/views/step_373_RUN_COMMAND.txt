@@ -1,0 +1,13 @@
+Created At: 2026-06-09T15:35:43Z
+Completed At: 2026-06-09T15:35:51Z
+
+				The command completed successfully.
+				Output:
+				File: 2b11cabb-154a-4440-904d-08dd75f26e75.json, Size: 9649
+File: 2d399bf5-cea8-4faa-a28d-b3de613d3f7a.json, Size: 1969
+  Match found!
+{"id":"2d399bf5-cea8-4faa-a28d-b3de613d3f7a", "recipient":"6186e84d-17fd-47d6-8cb2-9edea52bd9e6", "sender":"6186e84d-17fd-47d6-8cb2-9edea52bd9e6/task-298", "priority":"MESSAGE_PRIORITY_HIGH", "timestamp":"2026-06-09T15:31:09.788423100Z", "renderDetails":{"messageTitle":"Git restore ExportedRestaurants.tsx finished"}, "content":"Task id \"6186e84d-17fd-47d6-8cb2-9edea52bd9e6/task-298\" finished with result:\n\n\t\t\t\tThe command completed successfully.\n\t\t\t\tOutput:\n\t\t\t\tUpdated 1 path from the index\n\n\nLog: file:///C:/Users/meuno/.gemini/antigravity/brain/6186e84d-17fd-47d6-8cb2-9edea52bd9e6/.system_generated/tasks/task-298.log", "sourceMetadata":{"tool":{"conversationId":"6186e84d-17fd-47d6-8cb2-9edea52bd9e6", "stepIndex":298, "toolCall":{"id":"1dhmg5y0", "name":"run_command", "argumentsJson":"{\"CommandLine\":\"git checkout src/pages/admin/ExportedRestaurants.tsx\",\"Cwd\":\"c:\\\\Users\\\\meuno\\\\Downloads\\\\dazzling-axolotl-crawl-main\\\\dazzling-axolotl-crawl-main\",\"
+File: 4df19eec-ce67-4649-b2c5-03199fbab958.json, Size: 1464
+File: 548f227f-f26a-49d1-8366-b1f994492b7f.json, Size: 1460
+File: 8b88c2e9-31f7-4c00-9b3b-d553946b631d.json, Size: 10596
+

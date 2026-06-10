@@ -25,10 +25,11 @@ const FreeProfileLayout = ({
   restaurant,
   toggleFavorite,
   isFavoriteMutating,
+  isCompact = false,
 }: FreeProfileLayoutProps) => {
   const containerPtClass = "pt-4";
   const headerPaddingClass = "p-4";
-  const h1SizeClass = "text-2xl"; // Reduzido ligeiramente de 3xl para 2xl para caber confortavelmente no card
+  const h1SizeClass = "text-xl"; // Reduzido ligeiramente para caber confortavelmente no card
 
   const isPremium = restaurant.plan === 'premium' || restaurant.plan === 'premium_gift';
 
@@ -50,18 +51,19 @@ const FreeProfileLayout = ({
     name: restaurant.name,
     coverImageUrl: isPremium ? restaurant.cover_image_url : null, // Oculta a capa para planos free
     isPremium: isPremium,
-    isCompact: false,
+    isCompact: isCompact,
   };
 
   return (
     <div className="relative">
       {/* Conteúdo principal, ajustado para sobrepor a capa */}
       <div className={cn(
-        "relative z-10 mt-6" // Reduzido margin-top para afastar o conteúdo do cabeçalho de forma equilibrada
+        "relative z-10 transition-all duration-200",
+        isCompact ? "mt-12" : "mt-6"
       )}>
         <div className="px-4 pb-2">
           {/* Card simples para agrupar as informações básicas do restaurante no plano Free */}
-          <Card className="p-5 border border-gray-100 bg-white rounded-2xl shadow-sm text-center flex flex-col items-center w-full">
+          <Card className="p-5 border border-gray-100 bg-white rounded-2xl shadow-none text-center flex flex-col items-center w-full">
             {/* Logo do Restaurante - Condicionalmente visível apenas para premium */}
             {isPremium && (
               <div className="mb-4">
@@ -85,7 +87,10 @@ const FreeProfileLayout = ({
                   size="sm"
                   onClick={toggleFavorite}
                   disabled={isFavoriteMutating}
-                  className="ml-2 px-4 py-2 rounded-full text-sm font-semibold"
+                  className={cn(
+                    "ml-2 rounded-full font-semibold transition-all duration-200",
+                    isCompact ? "px-3 py-1.5 h-8 text-xs" : "px-4 py-2 text-sm"
+                  )}
                 >
                   {isFavoriteMutating ? "Carregando..." : (restaurant.is_favorite ? "Seguindo" : "Seguir")}
                 </Button>

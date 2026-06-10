@@ -17,21 +17,69 @@ import {
   Trophy,
   Users,
   Search,
-  Check
+  Check,
+  Settings,
+  Crown
 } from 'lucide-react';
 import { 
   getHappyHourDetails, 
   sendChatMessage, 
   addRestaurantToPoll, 
   voteForRestaurant,
+  updateHappyHourSettings,
+  addParticipantsToHappyHour,
   HappyHourDetails,
   PollRestaurant
 } from '@/services/happyHourService';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant } from '@/types/supabase';
+import { Restaurant, Profile } from '@/types/supabase';
+import { getFriendships } from '@/services/friendsService';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+
+const renderUserAvatar = (p: { id: string; first_name: string | null; avatar_url: string | null }, sizeClass = "w-8 h-8 text-xs") => {
+  const initial = p.first_name ? p.first_name.charAt(0).toUpperCase() : '?';
+  const colors = [
+    'bg-purple-500 text-white',
+    'bg-blue-500 text-white',
+    'bg-emerald-500 text-white',
+    'bg-orange-500 text-white',
+    'bg-pink-500 text-white',
+    'bg-indigo-500 text-white',
+    'bg-teal-500 text-white',
+    'bg-[#EF2A39] text-white',
+  ];
+  let colorIndex = 0;
+  if (p.id) {
+    let hash = 0;
+    for (let i = 0; i < p.id.length; i++) {
+      hash = p.id.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    colorIndex = Math.abs(hash) % colors.length;
+  }
+  const colorClass = colors[colorIndex];
+
+  return (
+    <div className={cn("rounded-full border-2 border-white flex items-center justify-center font-bold shadow-none overflow-hidden shrink-0", sizeClass, colorClass)}>
+      {p.avatar_url && !p.avatar_url.includes('placeholder') && !p.avatar_url.includes('via.placeholder') ? (
+        <img 
+          src={p.avatar_url} 
+          alt={p.first_name || 'Usuário'} 
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.target as HTMLElement).style.display = 'none';
+          }}
+        />
+      ) : null}
+      {!p.avatar_url || p.avatar_url.includes('placeholder') || p.avatar_url.includes('via.placeholder') ? (
+        <span>{initial}</span>
+      ) : null}
+    </div>
+  );
+};
 
 export default function HappyHourRoom() {
   const { id } = useParams<{ id: string }>();
@@ -54,6 +102,20 @@ export default function HappyHourRoom() {
   const [searchResults, setSearchResults] = useState<Restaurant[]>([]);
   const [searching, setSearching] = useState(false);
   const [addingRestId, setAddingRestId] = useState<string | null>(null);
+
+  // Room Settings States
+  const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
+  const [roomDescription, setRoomDescription] = useState('');
+  const [allowInvites, setAllowInvites] = useState(true);
+  const [allowSuggestions, setAllowSuggestions] = useState(true);
+  const [savingSettings, setSavingSettings] = useState(false);
+
+  // Invite Dialog States
+  const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
+  const [friends, setFriends] = useState<{ friendshipId: string; friendProfile: Profile }[]>([]);
+  const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
+  const [loadingFriends, setLoadingFriends] = useState(false);
+  const [inviting, setInviting] = useState(false);
 
   const loadRoomDetails = async (showSpinner = false) => {
     if (!id || !currentUserId) return;
@@ -246,6 +308,74 @@ export default function HappyHourRoom() {
     }
   };
 
+  const handleOpenInviteDialog = async () => {
+    setIsInviteDialogOpen(true);
+    setLoadingFriends(true);
+    setSelectedFriendIds([]);
+    try {
+      const { friends: friendsList } = await getFriendships(currentUserId);
+      setFriends(friendsList);
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao carregar lista de amigos.');
+    } finally {
+      setLoadingFriends(false);
+    }
+  };
+
+  const handleToggleFriend = (friendId: string) => {
+    setSelectedFriendIds(prev => 
+      prev.includes(friendId) ? prev.filter(id => id !== friendId) : [...prev, friendId]
+    );
+  };
+
+  const handleInviteFriends = async () => {
+    if (selectedFriendIds.length === 0 || !id || !currentUserId) return;
+    setInviting(true);
+    try {
+      const { error } = await addParticipantsToHappyHour(id, selectedFriendIds, currentUserId);
+      if (error) {
+        showError(error);
+      } else {
+        showSuccess('Amigos convidados com sucesso!');
+        setIsInviteDialogOpen(false);
+        loadRoomDetails(false);
+      }
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao enviar convites.');
+    } finally {
+      setInviting(false);
+    }
+  };
+
+  const handleSaveSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!id || !currentUserId) return;
+    setSavingSettings(true);
+    try {
+      const { error } = await updateHappyHourSettings(
+        id,
+        currentUserId,
+        roomDescription,
+        allowInvites,
+        allowSuggestions
+      );
+      if (error) {
+        showError(error);
+      } else {
+        showSuccess('Configurações atualizadas com sucesso!');
+        setIsSettingsDialogOpen(false);
+        loadRoomDetails(false);
+      }
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao salvar configurações.');
+    } finally {
+      setSavingSettings(false);
+    }
+  };
+
   const getWinnerRestaurant = () => {
     if (!details?.pollRestaurants || details.pollRestaurants.length === 0) return null;
     // Encontra o restaurante com maior número de votos
@@ -272,7 +402,7 @@ export default function HappyHourRoom() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-[#f5f7f8]">
+      <div className="flex justify-center items-center h-screen bg-background-light">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -280,84 +410,146 @@ export default function HappyHourRoom() {
 
   if (!details) {
     return (
-      <div className="p-6 text-center bg-[#f5f7f8] min-h-screen">
+      <div className="p-6 text-center bg-background-light min-h-screen">
         <h2 className="text-xl font-bold mb-4">Sala não encontrada</h2>
         <Button onClick={() => navigate('/happy-hours')}>Voltar</Button>
       </div>
     );
   }
 
+  // Parse description JSON if applicable
+  let descriptionText = '';
+  let allowMemberInvites = true;
+  let allowMemberSuggestions = true;
+  if (details.happyHour.description) {
+    try {
+      const parsed = JSON.parse(details.happyHour.description);
+      if (parsed && typeof parsed === 'object') {
+        descriptionText = parsed.text || '';
+        allowMemberInvites = parsed.allow_member_invites !== false;
+        allowMemberSuggestions = parsed.allow_member_suggestions !== false;
+      } else {
+        descriptionText = details.happyHour.description;
+      }
+    } catch (e) {
+      descriptionText = details.happyHour.description;
+    }
+  }
+
+  const isCreator = currentUserId === details.happyHour.created_by;
+
   return (
-    <div className="bg-[#f5f7f8] h-screen flex flex-col w-full overflow-hidden">
+    <div className="bg-background-light h-screen flex flex-col w-full overflow-hidden font-['Poppins']">
       
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 shadow-soft-sm p-3 flex flex-col gap-2 shrink-0">
+      <header className="bg-white/95 backdrop-blur-md border-b border-slate-100 p-3 flex flex-col gap-2 shrink-0 shadow-none">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigate('/happy-hours')}
-              className="text-primary hover:bg-primary/5 shrink-0 h-9 w-9 rounded-full"
+              className="text-slate-700 hover:bg-background-light dark:hover:bg-gray-700 h-9 w-9 rounded-full"
             >
-              <ArrowLeft className="h-5 w-5 text-primary" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="text-base font-extrabold text-[#022D68] leading-tight truncate max-w-[220px]">
-                {details.happyHour.title}
-              </h1>
-              <p className="text-[10px] text-slate-400">
+              <div className="flex items-center gap-1.5">
+                <h1 className="text-base font-extrabold text-slate-800 leading-tight truncate max-w-[220px]" title={details.happyHour.title}>
+                  {details.happyHour.title}
+                </h1>
+                {isCreator && (
+                  <button
+                    onClick={() => {
+                      setRoomDescription(descriptionText);
+                      setAllowInvites(allowMemberInvites);
+                      setAllowSuggestions(allowMemberSuggestions);
+                      setIsSettingsDialogOpen(true);
+                    }}
+                    className="text-slate-400 hover:text-slate-600 transition-colors p-0.5"
+                    title="Configurações do Grupo"
+                  >
+                    <Settings className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <p className="text-[10px] text-slate-400 font-semibold">
                 {new Date(details.happyHour.date_time).toLocaleString('pt-BR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
               </p>
             </div>
           </div>
 
           <div className="flex items-center -space-x-2">
-            {details.participants.slice(0, 3).map((p) => (
-              <img
-                key={p.id}
-                src={p.avatar_url || 'https://via.placeholder.com/80?text=Avatar'}
-                alt={p.first_name || 'Participante'}
-                className="w-8 h-8 rounded-full border-2 border-white object-cover"
-                title={p.first_name || 'Participante'}
-              />
-            ))}
+            {details.participants.slice(0, 3).map((p) => {
+              const isParticipantCreator = p.id === details.happyHour.created_by;
+              return (
+                <div key={p.id} className="relative">
+                  {renderUserAvatar(p, "w-8 h-8 text-[11px]")}
+                  {isParticipantCreator && (
+                    <span className="absolute -top-1 -right-1 bg-yellow-400 text-white rounded-full p-0.5 border border-white z-20" title="Criador do Grupo">
+                      <Crown className="w-2.5 h-2.5 fill-white text-white" />
+                    </span>
+                  )}
+                </div>
+              );
+            })}
             {details.participants.length > 3 && (
-              <span className="w-8 h-8 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center text-[10px] font-bold text-slate-500">
+              <span className="w-8 h-8 rounded-full bg-background-light border-2 border-white flex items-center justify-center text-[10px] font-bold text-slate-500 shadow-none z-10">
                 +{details.participants.length - 3}
               </span>
+            )}
+            {(isCreator || allowMemberInvites) && (
+              <button
+                onClick={handleOpenInviteDialog}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 border-2 border-white flex items-center justify-center text-slate-600 shadow-none transition-colors ml-2 z-10"
+                title="Convidar amigos"
+                style={{ marginLeft: '8px' }}
+              >
+                <Plus className="w-4 h-4" />
+              </button>
             )}
           </div>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex w-full p-0.5 bg-slate-100 rounded-xl shadow-inner mt-1">
-          <Button
+        <div className="relative flex w-full border-b border-slate-200/60 mt-1 pb-0 bg-transparent px-2">
+          {/* Active line indicator sliding */}
+          <motion.div
+            layoutId="active-happyhour-tab-line"
+            className="absolute bottom-0 h-[2.5px] bg-[#EF2A39] rounded-full"
+            style={{
+              left: activeTab === 'chat' ? '15%' : '65%',
+              width: '20%',
+            }}
+            initial={false}
+            transition={{ type: "spring", stiffness: 500, damping: 35 }}
+          />
+
+          <button
             onClick={() => setActiveTab('chat')}
-            variant="ghost"
             className={cn(
-              "flex-1 h-9 text-xs font-bold rounded-lg transition-all gap-1.5",
-              activeTab === 'chat' 
-                ? "bg-white text-[#022D68] shadow-sm" 
-                : "text-slate-500 hover:text-[#022D68]"
+              "flex-grow flex items-center justify-center gap-1.5 h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
+              activeTab === 'chat'
+                ? "text-slate-800 font-black"
+                : "text-slate-400 hover:text-slate-600"
             )}
           >
             <MessageSquare className="w-4 h-4" />
             Conversa
-          </Button>
-          <Button
+          </button>
+
+          <button
             onClick={() => setActiveTab('poll')}
-            variant="ghost"
             className={cn(
-              "flex-1 h-9 text-xs font-bold rounded-lg transition-all gap-1.5",
-              activeTab === 'poll' 
-                ? "bg-white text-[#022D68] shadow-sm" 
-                : "text-slate-500 hover:text-[#022D68]"
+              "flex-grow flex items-center justify-center gap-1.5 h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
+              activeTab === 'poll'
+                ? "text-slate-800 font-black"
+                : "text-slate-400 hover:text-slate-600"
             )}
           >
             <Vote className="w-4 h-4" />
             Votação ({details.pollRestaurants.length})
-          </Button>
+          </button>
         </div>
       </header>
 
@@ -366,7 +558,7 @@ export default function HappyHourRoom() {
         
         {/* CHAT TAB PANEL */}
         {activeTab === 'chat' && (
-          <div className="h-full flex flex-col bg-slate-50">
+          <div className="h-full flex flex-col bg-background-light">
             {/* Scrollable message area */}
             <div className="flex-grow overflow-y-auto p-4 space-y-4">
               {details.messages.length > 0 ? (
@@ -379,35 +571,29 @@ export default function HappyHourRoom() {
                     <div 
                       key={m.id}
                       className={cn(
-                        "flex items-end gap-2 max-w-[85%]",
+                        "flex items-start gap-2 max-w-[75%]",
                         isSelf ? "ml-auto flex-row-reverse" : "mr-auto"
                       )}
                     >
-                      {!isSelf && (
-                        <img 
-                          src={avatar} 
-                          alt={senderName} 
-                          className="w-7 h-7 rounded-full object-cover shrink-0 border border-slate-200" 
-                        />
-                      )}
+                      {!isSelf && renderUserAvatar({ id: m.user_id, first_name: senderName, avatar_url: m.senderProfile?.avatar_url || null }, "w-7 h-7 text-[10px] border border-slate-100 mt-[16px]")}
                       <div>
                         {!isSelf && (
-                          <span className="text-xs font-bold text-slate-400 pl-1 mb-0.5 block">
+                          <span className="text-[10px] font-extrabold text-slate-400 pl-1 mb-0.5 block uppercase tracking-wider">
                             {senderName}
                           </span>
                         )}
                         <div 
                           className={cn(
-                            "p-3 rounded-2xl text-base shadow-soft-sm font-medium",
+                            "p-3 rounded-2xl text-sm shadow-sm font-medium leading-relaxed min-w-[80px]",
                             isSelf 
-                              ? "bg-primary text-white rounded-br-none" 
-                              : "bg-white text-primary rounded-bl-none border border-slate-100"
+                              ? "bg-gradient-to-r from-highlight to-[#FF5A66] text-white rounded-br-none" 
+                              : "bg-white text-slate-800 rounded-bl-none border border-slate-100"
                           )}
                         >
                           {m.message}
                           <span className={cn(
-                            "text-[10px] block text-right mt-1 font-normal",
-                            isSelf ? "text-white/60" : "text-slate-400"
+                            "text-[9px] block text-right mt-1 font-semibold",
+                            isSelf ? "text-white/70" : "text-slate-400"
                           )}>
                             {new Date(m.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
                           </span>
@@ -432,12 +618,12 @@ export default function HappyHourRoom() {
                 placeholder="Escreva uma mensagem..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-grow h-11 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-base"
+                className="flex-grow h-11 rounded-2xl border border-slate-200 bg-background-light focus:bg-white text-base"
               />
               <Button
                 type="submit"
                 disabled={sendingMsg || !newMessage.trim()}
-                className="bg-highlight hover:bg-highlight/90 text-white rounded-xl h-11 w-11 p-0 shrink-0 shadow-highlight-glow"
+                className="bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 w-11 p-0 shrink-0 shadow-none"
               >
                 {sendingMsg ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
               </Button>
@@ -451,16 +637,16 @@ export default function HappyHourRoom() {
             
             {/* Highlight do Vencedor Atual */}
             {winnerData && (
-              <div className="bg-gradient-to-r from-amber-500 to-orange-500 p-4 rounded-2xl text-white shadow-soft-lg flex items-center gap-3">
-                <div className="bg-white/10 p-2.5 rounded-xl backdrop-blur-md">
-                  <Trophy className="w-6 h-6 text-yellow-300 fill-yellow-300" />
+              <div className="bg-gradient-to-r from-[#EF2A39] to-[#FF5A66] p-4 rounded-2xl text-white shadow-soft flex items-center gap-3 border border-red-400/20">
+                <div className="bg-white/15 p-2.5 rounded-2xl backdrop-blur-md">
+                  <Trophy className="w-6 h-6 text-yellow-300 fill-yellow-300 drop-shadow-[0_2px_4px_rgba(234,179,8,0.3)] animate-pulse" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-white/80">Lugar Favorito no Momento</p>
-                  <h4 className="text-sm font-extrabold truncate">
+                  <p className="text-[9px] uppercase font-extrabold tracking-widest text-white/85">Lugar Favorito no Momento</p>
+                  <h4 className="text-base font-black truncate leading-snug">
                     {winnerData.winner.name}
                   </h4>
-                  <p className="text-[10px] text-white/90">
+                  <p className="text-[10px] text-white/95 font-semibold mt-0.5">
                     {winnerData.hasTie ? 'Empatado' : `${winnerData.winner.votesCount} ${winnerData.winner.votesCount === 1 ? 'voto' : 'votos'}`}
                   </p>
                 </div>
@@ -469,16 +655,22 @@ export default function HappyHourRoom() {
 
             {/* Header com botão de Adicionar */}
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-extrabold text-[#022D68]">Opções Indicadas</h3>
-              <Button
-                onClick={() => setIsPollDialogOpen(true)}
-                size="sm"
-                variant="outline"
-                className="h-8 rounded-lg text-xs font-bold border-highlight text-highlight hover:bg-highlight/5 gap-1"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Sugerir Lugar
-              </Button>
+              <h3 className="text-xs font-extrabold text-slate-800">Opções Indicadas</h3>
+              {(isCreator || allowMemberSuggestions) ? (
+                <Button
+                  onClick={() => setIsPollDialogOpen(true)}
+                  size="sm"
+                  variant="outline"
+                  className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-background-light gap-1.5 shadow-none"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Sugerir Lugar
+                </Button>
+              ) : (
+                <span className="text-[10px] text-slate-400 font-semibold italic">
+                  Sugestões fechadas pelo criador
+                </span>
+              )}
             </div>
 
             {/* Lista de Restaurantes Indicados */}
@@ -490,48 +682,46 @@ export default function HappyHourRoom() {
                     <Card 
                       key={pr.restaurant_id} 
                       className={cn(
-                        "border-none shadow-soft-sm bg-white rounded-2xl overflow-hidden transition-all",
-                        hasUserVoted && "ring-2 ring-highlight"
+                        "border bg-white rounded-[20px] overflow-hidden transition-all duration-300",
+                        hasUserVoted 
+                          ? "border-highlight shadow-soft ring-1 ring-highlight/10" 
+                          : "border-slate-100/80 hover:border-slate-200 hover:shadow-soft"
                       )}
                     >
-                      <CardContent className="p-3 flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <CardContent className="p-3.5 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3.5 min-w-0 flex-1">
                           <img
                             src={pr.image_url || 'https://via.placeholder.com/150?text=Restaurante'}
                             alt={pr.name}
-                            className="w-16 h-16 rounded-xl object-cover border border-slate-100 shrink-0"
+                            className="w-[72px] h-[72px] rounded-2xl object-cover border border-slate-100 shrink-0"
                           />
-                          <div className="min-w-0">
-                            <h4 className="text-sm font-extrabold text-primary truncate leading-tight">
+                          <div className="min-w-0 flex-grow">
+                            <h4 className="text-sm font-black text-slate-800 truncate leading-tight">
                               {pr.name}
                             </h4>
-                            <p className="text-[10px] text-slate-400 flex items-center gap-1 mt-0.5">
-                              <Utensils className="w-3 h-3 text-slate-400" />
+                            <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
+                              <Utensils className="w-3 h-3 text-[#EF2A39]" />
                               {pr.category || 'Alimentação'}
                             </p>
                             {pr.address && (
-                              <p className="text-[9px] text-slate-400 truncate flex items-center gap-1">
-                                <MapPin className="w-3 h-3 text-slate-300" />
+                              <p className="text-[10px] text-slate-400 truncate flex items-center gap-1 mt-0.5 font-medium">
+                                <MapPin className="w-3 h-3 text-slate-350" />
                                 {pr.address}
                               </p>
                             )}
 
                             {/* Votantes */}
                             {pr.voters.length > 0 && (
-                              <div className="flex items-center gap-1.5 mt-2">
-                                <div className="flex -space-x-1">
-                                  {pr.voters.slice(0, 3).map((v) => (
-                                    <span 
-                                      key={v.user_id} 
-                                      className="w-4 h-4 rounded-full bg-primary/10 border border-white text-[7px] font-bold flex items-center justify-center text-primary uppercase"
-                                      title={v.first_name}
-                                    >
-                                      {v.first_name.slice(0, 1)}
-                                    </span>
+                              <div className="flex items-center gap-1 mt-2">
+                                <div className="flex -space-x-1.5 overflow-hidden">
+                                  {pr.voters.slice(0, 4).map((v) => (
+                                    <div key={v.user_id} className="relative z-10 hover:z-20 transition-all">
+                                      {renderUserAvatar({ id: v.user_id, first_name: v.first_name, avatar_url: v.avatar_url || null }, "w-5 h-5 text-[8px] border border-white shadow-xs")}
+                                    </div>
                                   ))}
                                 </div>
-                                <span className="text-[8px] text-slate-400 font-semibold">
-                                  {pr.voters.length === 1 ? 'Votou' : 'Votaram'}
+                                <span className="text-[9px] text-slate-400 font-bold ml-1">
+                                  {pr.voters.length === 1 ? 'votou' : 'votaram'}
                                 </span>
                               </div>
                             )}
@@ -541,16 +731,18 @@ export default function HappyHourRoom() {
                         {/* Botão de Voto */}
                         <Button
                           onClick={() => handleVote(pr.restaurant_id)}
-                          variant={hasUserVoted ? "highlight" : "outline"}
                           className={cn(
-                            "h-10 rounded-xl px-4 flex flex-col items-center justify-center shrink-0 min-w-[64px] border-slate-200 transition-all active:scale-95",
+                            "h-11 rounded-[16px] px-3.5 flex flex-col items-center justify-center shrink-0 min-w-[68px] transition-all duration-250 active:scale-95 border",
                             hasUserVoted 
-                              ? "bg-highlight text-white border-none shadow-highlight-glow" 
-                              : "bg-white text-primary hover:bg-slate-50"
+                              ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-soft hover:bg-[#EF2A39]/90" 
+                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900"
                           )}
                         >
-                          <span className="text-sm font-extrabold leading-none">{pr.votesCount}</span>
-                          <span className="text-[8px] uppercase tracking-wider font-extrabold mt-0.5">Votos</span>
+                          <span className="text-base font-black leading-none">{pr.votesCount}</span>
+                          <span className="text-[8px] uppercase tracking-widest font-black mt-0.5 flex items-center gap-0.5">
+                            {hasUserVoted && <Check className="w-2.5 h-2.5 shrink-0 stroke-[3px]" />}
+                            Votos
+                          </span>
                         </Button>
                       </CardContent>
                     </Card>
@@ -560,13 +752,19 @@ export default function HappyHourRoom() {
                 <div className="text-center py-12 text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
                   <Vote className="w-10 h-10 text-slate-200" />
                   Nenhum restaurante sugerido para votação ainda.
-                  <Button
-                    onClick={() => setIsPollDialogOpen(true)}
-                    variant="link"
-                    className="text-highlight text-xs font-bold p-0 mt-1"
-                  >
-                    Sugerir o Primeiro Lugar
-                  </Button>
+                  {(isCreator || allowMemberSuggestions) ? (
+                    <Button
+                      onClick={() => setIsPollDialogOpen(true)}
+                      variant="link"
+                      className="text-highlight text-xs font-bold p-0 mt-1"
+                    >
+                      Sugerir o Primeiro Lugar
+                    </Button>
+                  ) : (
+                    <span className="text-[10px] text-slate-400 font-semibold italic mt-1">
+                      Apenas o criador pode sugerir lugares.
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -595,13 +793,13 @@ export default function HappyHourRoom() {
                   placeholder="Nome do restaurante..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 h-11 text-sm rounded-xl border border-slate-200 bg-white"
+                  className="w-full pl-9 pr-3 h-11 text-sm rounded-2xl border border-slate-200 bg-white"
                 />
               </div>
               <Button 
                 type="submit" 
                 disabled={searching || !searchQuery.trim()}
-                className="bg-[#022D68] hover:bg-[#022D68]/95 text-white h-11 px-5 rounded-xl text-xs font-bold shrink-0"
+                className="bg-primary hover:bg-primary/95 text-white h-11 px-5 rounded-2xl text-xs font-bold shrink-0"
               >
                 {searching ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Pesquisar'}
               </Button>
@@ -618,7 +816,7 @@ export default function HappyHourRoom() {
                   return (
                     <div
                       key={r.id}
-                      className="bg-white rounded-xl p-2 flex items-center justify-between border border-slate-100 shadow-soft-sm"
+                      className="bg-white rounded-2xl p-2 flex items-center justify-between border border-slate-100 shadow-none"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <img
@@ -633,7 +831,7 @@ export default function HappyHourRoom() {
                       </div>
 
                       {alreadyAdded ? (
-                        <div className="text-[10px] font-bold text-slate-400 bg-slate-50 border border-slate-100 rounded-lg px-2 py-1 flex items-center gap-1">
+                        <div className="text-[10px] font-bold text-slate-400 bg-background-light border border-slate-100 rounded-lg px-2 py-1 flex items-center gap-1">
                           <Check className="w-3 h-3" />
                           Adicionado
                         </div>
@@ -665,9 +863,166 @@ export default function HappyHourRoom() {
                 type="button"
                 variant="ghost"
                 onClick={() => setIsPollDialogOpen(false)}
-                className="w-full rounded-xl h-11 text-xs font-bold"
+                className="w-full rounded-2xl h-11 text-xs font-bold"
               >
                 Voltar à Sala
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* DIÁLOGO DE CONVIDAR AMIGOS */}
+      <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
+        <DialogContent className="max-w-md w-[95%] p-5 rounded-2xl font-['Poppins']">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-extrabold text-primary flex items-center gap-2">
+              <Users className="w-5 h-5 text-highlight" />
+              Convidar Amigos
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 pt-2">
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-500">
+                Selecione os amigos que deseja convidar ({selectedFriendIds.length} selecionados)
+              </label>
+              <div className="border border-slate-100 rounded-2xl bg-background-light p-2 max-h-[200px] overflow-y-auto space-y-1 scrollbar-thin">
+                {loadingFriends ? (
+                  <div className="flex justify-center items-center py-6">
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                  </div>
+                ) : (() => {
+                  const existingParticipantIds = details.participants.map(p => p.id);
+                  const inviteableFriends = friends.filter(f => !existingParticipantIds.includes(f.friendProfile.id));
+
+                  if (inviteableFriends.length === 0) {
+                    return (
+                      <p className="text-center text-xs text-slate-400 py-6">
+                        Todos os seus amigos já estão participando deste Happy Hour!
+                      </p>
+                    );
+                  }
+
+                  return inviteableFriends.map(({ friendshipId, friendProfile }) => {
+                    const isSelected = selectedFriendIds.includes(friendProfile.id);
+                    const name = `${friendProfile.first_name || ''} ${friendProfile.last_name || ''}`.trim() || 'Amigo';
+                    return (
+                      <div
+                        key={friendshipId}
+                        onClick={() => handleToggleFriend(friendProfile.id)}
+                        className={cn(
+                          "flex items-center justify-between p-2 rounded-2xl cursor-pointer transition-all",
+                          isSelected ? "bg-highlight/5 border border-highlight/20" : "bg-white border border-transparent hover:bg-slate-100"
+                        )}
+                      >
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={friendProfile.avatar_url || 'https://via.placeholder.com/80?text=Avatar'}
+                            alt={name}
+                            className="w-7 h-7 rounded-full object-cover border border-slate-100"
+                          />
+                          <span className="text-xs font-bold text-primary truncate max-w-[200px]">
+                            {name}
+                          </span>
+                        </div>
+                        <div className={cn(
+                          "w-5 h-5 rounded-full border flex items-center justify-center transition-all",
+                          isSelected ? "bg-highlight border-highlight text-white" : "border-slate-300 bg-white"
+                        )}>
+                          {isSelected && <Check className="w-3.5 h-3.5" />}
+                        </div>
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
+            </div>
+
+            <DialogFooter className="flex gap-2 pt-2">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsInviteDialogOpen(false)}
+                className="flex-1 rounded-2xl h-11 text-xs font-bold"
+              >
+                Voltar
+              </Button>
+              <Button
+                type="button"
+                onClick={handleInviteFriends}
+                disabled={inviting || selectedFriendIds.length === 0}
+                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
+              >
+                {inviting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Convidar'}
+              </Button>
+            </DialogFooter>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* DIÁLOGO DE CONFIGURAÇÕES (APENAS CRIADOR) */}
+      <Dialog open={isSettingsDialogOpen} onOpenChange={setIsSettingsDialogOpen}>
+        <DialogContent className="max-w-md w-[95%] p-5 rounded-2xl font-['Poppins']">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-extrabold text-primary flex items-center gap-2">
+              <Settings className="w-5 h-5 text-highlight" />
+              Configurações do Grupo
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleSaveSettings} className="space-y-4 pt-2">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500">Descrição do Encontro</label>
+              <Textarea
+                placeholder="Detalhes ou recados sobre o encontro..."
+                value={roomDescription}
+                onChange={(e) => setRoomDescription(e.target.value)}
+                className="rounded-2xl border border-slate-200 min-h-[80px] resize-none"
+              />
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5 pr-2">
+                  <span className="text-xs font-extrabold text-slate-800">Membros convidam amigos</span>
+                  <span className="text-[10px] text-slate-400">Outros membros podem adicionar mais pessoas ao grupo.</span>
+                </div>
+                <Switch
+                  checked={allowInvites}
+                  onCheckedChange={setAllowInvites}
+                  className="data-[state=checked]:bg-highlight"
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5 pr-2">
+                  <span className="text-xs font-extrabold text-slate-800">Membros sugerem lugares</span>
+                  <span className="text-[10px] text-slate-400">Outros membros podem sugerir novos restaurantes para votação.</span>
+                </div>
+                <Switch
+                  checked={allowSuggestions}
+                  onCheckedChange={setAllowSuggestions}
+                  className="data-[state=checked]:bg-highlight"
+                />
+              </div>
+            </div>
+
+            <DialogFooter className="flex gap-2 pt-2">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsSettingsDialogOpen(false)}
+                className="flex-1 rounded-2xl h-11 text-xs font-bold"
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                disabled={savingSettings}
+                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
+              >
+                {savingSettings ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Salvar Alterações'}
               </Button>
             </DialogFooter>
           </form>

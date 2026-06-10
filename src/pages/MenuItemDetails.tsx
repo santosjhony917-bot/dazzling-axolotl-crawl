@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchMenuItemById } from '@/integrations/supabase/restaurant';
 import { MenuItem, Restaurant } from '@/types/supabase';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
+import Header from '@/components/Header';
 
 // Tipo de dado esperado após o fetch
 type DetailedMenuItem = (MenuItem & { restaurant: Restaurant | null });
@@ -71,24 +72,14 @@ const MenuItemDetails: React.FC = () => {
   const restaurantId = itemData.restaurant?.id;
 
   return (
-    <div className="min-h-screen bg-background-light max-w-md mx-auto">
-      
-      {/* Header Fixo */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleBack}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h2 className="text-primary text-xl font-bold">Detalhes do Prato</h2>
-        <div className="w-10"></div>
-      </header>
-
-      <main className="p-4 space-y-6">
-        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-0 overflow-hidden">
+    <div className="min-h-screen bg-background-light max-w-md mx-auto flex flex-col">
+      <Header 
+        title="Detalhes do Prato"
+        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+      />
+ 
+      <main className="p-4 space-y-6 flex-grow">
+        <Card className="border border-slate-100 bg-white p-0 overflow-hidden rounded-2xl shadow-none">
           
           {/* Imagem do Prato */}
           <div className="h-64 w-full bg-gray-200 relative">
@@ -104,7 +95,7 @@ const MenuItemDetails: React.FC = () => {
               size="icon"
               onClick={toggleFavorite}
               disabled={!isAuthenticated || isFavoriteMutating}
-              className="absolute top-4 right-4 rounded-full h-10 w-10 shadow-soft-md bg-white/80 backdrop-blur-sm hover:bg-white"
+              className="absolute top-4 right-4 rounded-full h-10 w-10 shadow-none border border-slate-100 bg-white/95 backdrop-blur-sm hover:bg-white flex items-center justify-center"
             >
               {isFavoriteMutating ? (
                 <Loader2 className="w-5 h-5 animate-spin text-red-500" />
@@ -112,36 +103,36 @@ const MenuItemDetails: React.FC = () => {
                 <Heart 
                   className={cn(
                     "w-5 h-5 transition-colors",
-                    isFavorite ? "text-red-500 fill-red-500" : "text-gray-500 hover:text-red-500"
+                    isFavorite ? "text-red-500 fill-red-500" : "text-slate-400 hover:text-red-500"
                   )}
                 />
               )}
             </Button>
           </div>
-
+ 
           <CardContent className="p-6 space-y-4">
-            <h1 className="text-3xl font-extrabold text-primary">{itemData.name}</h1>
+            <h1 className="text-xl font-extrabold text-slate-800">{itemData.name}</h1>
             
-            <p className="text-4xl font-extrabold text-highlight">
+            <p className="text-2xl font-black text-highlight">
               {formatPrice(itemData.price)}
             </p>
             
             {itemData.description && (
-              <p className="text-gray-700 text-base leading-relaxed">
+              <p className="text-slate-655 text-sm leading-relaxed">
                 {itemData.description}
               </p>
             )}
             
-            <div className="flex items-center gap-2 text-gray-600">
-              <Utensils className="w-5 h-5 text-primary" />
-              <p className="font-semibold">Servido por: {restaurantName}</p>
+            <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <Utensils className="w-4 h-4 text-highlight/70" />
+              <p>Servido por: <span className="text-slate-700">{restaurantName}</span></p>
             </div>
             
             {restaurantId && (
               <Button 
                 onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurantId }))}
                 variant="outline"
-                className="w-full h-12 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5"
+                className="w-full h-11 rounded-2xl border border-slate-200 text-slate-700 font-bold hover:bg-slate-50 shadow-none transition-colors"
               >
                 Ver Restaurante
               </Button>

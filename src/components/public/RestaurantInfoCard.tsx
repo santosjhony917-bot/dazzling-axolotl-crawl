@@ -11,7 +11,7 @@ interface RestaurantInfoCardProps {
 
 const RestaurantInfoCard: React.FC<RestaurantInfoCardProps> = ({ id, title, icon: Icon, content }) => {
   return (
-    <Card id={id} className="shadow-md">
+    <Card id={id} className="shadow-none">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b">
         <Icon className="w-6 h-6 text-primary" />
         <CardTitle className="text-xl font-semibold">{title}</CardTitle>

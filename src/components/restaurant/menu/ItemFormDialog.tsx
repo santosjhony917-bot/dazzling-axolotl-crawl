@@ -136,7 +136,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
                         onUploadComplete={handleUploadComplete}
                         bucketName={RESTAURANT_IMAGES_BUCKET}
                         folderPath={`${category.restaurant_id}/menu`}
-                        className="bg-white text-primary hover:bg-gray-100 h-8 w-8 p-0 rounded-full shadow-lg"
+                        className="bg-white text-primary hover:bg-gray-100 h-8 w-8 p-0 rounded-full shadow-none relative"
                         icon={<Camera className="h-4 w-4" />}
                         disabled={isUploading}
                       />

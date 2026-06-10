@@ -26,10 +26,10 @@ const NearbyCompetitorCard: React.FC<NearbyCompetitorCardProps> = ({ item, onCli
       onClick={() => onClick(item.id)}
     >
       <Card 
-        className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl shadow-soft-md cursor-pointer hover:shadow-soft-lg transition-shadow border-none"
+        className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-2xl shadow-none cursor-pointer hover:shadow-none transition-shadow border-none"
       >
         <div 
-          className="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-xl flex-shrink-0 shadow-soft-sm" 
+          className="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-2xl flex-shrink-0 shadow-none" 
           data-alt={item.name} 
           style={{ backgroundImage: `url("${item.imageUrl}")` }}
         />

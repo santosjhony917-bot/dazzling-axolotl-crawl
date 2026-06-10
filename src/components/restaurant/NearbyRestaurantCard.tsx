@@ -19,7 +19,7 @@ interface NearbyRestaurantCardProps {
 const NearbyRestaurantCard: React.FC<NearbyRestaurantCardProps> = ({ item, onClick }) => {
   return (
     <div 
-      className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+      className="flex items-center gap-4 bg-white dark:bg-zinc-800 p-3 rounded-2xl shadow-none cursor-pointer hover:shadow-none transition-shadow"
       onClick={() => onClick(item.id)}
     >
       <div 

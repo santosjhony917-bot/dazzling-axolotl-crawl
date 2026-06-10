@@ -15,6 +15,7 @@ import ClientInfoSection from '@/components/client/profile/ClientInfoSection';
 import { supabase } from '@/integrations/supabase/client';
 import { Profile } from '@/types/supabase';
 import InfoCardItem from '@/components/InfoCardItem';
+import Header from '@/components/Header';
 
 // Schemas de validação
 const nameSchema = z.string().min(2, "O nome deve ter pelo menos 2 caracteres.");
@@ -98,64 +99,60 @@ export default function ClientProfilePage() {
   }
 
   return (
-    <div className="p-4 space-y-8 max-w-md mx-auto">
+    <div className="flex flex-col w-full flex-grow bg-white">
+      <Header title="Meu Perfil" />
       
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <Settings className="w-6 h-6 text-[#022D68]" />
-        <h1 className="text-xl font-extrabold text-[#022D68] tracking-tight">Meu Perfil</h1>
-      </div>
+      <div className="p-4 space-y-6 max-w-md mx-auto w-full relative z-20 mt-4">
+        {/* 1. Card Principal (Avatar e Nome) */}
+        <ClientAvatarCard
+          firstName={currentProfile?.first_name || ''}
+          lastName={currentProfile?.last_name || ''}
+          avatarUrl={currentProfile?.avatar_url}
+          uploading={uploadingAvatar}
+          onAvatarUploadComplete={handleAvatarUploadComplete}
+          userId={user?.id || 'temp'}
+        />
 
-      {/* 1. Card Principal (Avatar e Nome) */}
-      <ClientAvatarCard
-        firstName={currentProfile?.first_name || ''}
-        lastName={currentProfile?.last_name || ''}
-        avatarUrl={currentProfile?.avatar_url}
-        uploading={uploadingAvatar}
-        onAvatarUploadComplete={handleAvatarUploadComplete}
-        userId={user?.id || 'temp'}
-      />
+        {/* Atalhos rápidos em formato de 3 quadrados um ao lado do outro */}
+        <div className="grid grid-cols-3 gap-3 w-full pt-1">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/friends')}
+            className="flex flex-col items-center justify-center p-3 bg-white border border-slate-100/85 rounded-xl transition-all text-center h-24 cursor-pointer focus:outline-none hover:shadow-none shadow-none"
+          >
+            <div className="w-10 h-10 bg-highlight/10 rounded-full flex items-center justify-center mb-2 text-highlight">
+              <Users className="w-5 h-5" />
+            </div>
+            <span className="text-xs font-bold text-slate-800">Amigos</span>
+          </motion.button>
 
-      {/* Atalhos rápidos em formato de 3 quadrados um ao lado do outro */}
-      <div className="grid grid-cols-3 gap-3 w-full pt-1">
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/friends')}
-          className="flex flex-col items-center justify-center p-3 bg-white border border-gray-100 rounded-2xl shadow-soft-md hover:shadow-soft-xl transition-all text-center h-28 cursor-pointer focus:outline-none border-none"
-        >
-          <div className="w-10 h-10 bg-highlight/10 rounded-xl flex items-center justify-center mb-2 text-highlight">
-            <Users className="w-5 h-5" />
-          </div>
-          <span className="text-xs font-bold text-primary">Amigos</span>
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/favorites')}
+            className="flex flex-col items-center justify-center p-3 bg-white border border-slate-100/85 rounded-xl transition-all text-center h-24 cursor-pointer focus:outline-none hover:shadow-none shadow-none"
+          >
+            <div className="w-10 h-10 bg-[#EF2A39]/10 rounded-full flex items-center justify-center mb-2 text-[#EF2A39]">
+              <Heart className="w-5 h-5 fill-[#EF2A39]/10" />
+            </div>
+            <span className="text-xs font-bold text-slate-800">Favoritos</span>
+          </motion.button>
 
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/favorites')}
-          className="flex flex-col items-center justify-center p-3 bg-white border border-gray-100 rounded-2xl shadow-soft-md hover:shadow-soft-xl transition-all text-center h-28 cursor-pointer focus:outline-none border-none"
-        >
-          <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center mb-2 text-red-500">
-            <Heart className="w-5 h-5 fill-red-500/10" />
-          </div>
-          <span className="text-xs font-bold text-primary">Favoritos</span>
-        </motion.button>
-
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/happy-hours')}
-          className="flex flex-col items-center justify-center p-3 bg-white border border-gray-100 rounded-2xl shadow-soft-md hover:shadow-soft-xl transition-all text-center h-28 cursor-pointer focus:outline-none border-none"
-        >
-          <div className="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center mb-2 text-amber-500">
-            <Calendar className="w-5 h-5" />
-          </div>
-          <span className="text-xs font-bold text-primary">Happy Hours</span>
-        </motion.button>
-      </div>
-      
-      <Separator />
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/happy-hours')}
+            className="flex flex-col items-center justify-center p-3 bg-white border border-slate-100/85 rounded-xl transition-all text-center h-24 cursor-pointer focus:outline-none hover:shadow-none shadow-none"
+          >
+            <div className="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center mb-2 text-amber-500">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <span className="text-xs font-bold text-slate-800">Happy Hours</span>
+          </motion.button>
+        </div>
+        
+        <Separator />
 
       {/* 2. Informações Pessoais */}
       <ClientInfoSection 
@@ -197,6 +194,7 @@ export default function ClientProfilePage() {
           mask={editConfig.mask}
         />
       )}
+      </div>
     </div>
   );
 }

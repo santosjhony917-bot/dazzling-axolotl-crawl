@@ -21,7 +21,7 @@ const UserAvatarDisplay: React.FC<UserAvatarDisplayProps> = ({
   onAvatarUploadComplete,
 }) => {
   return (
-    <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-lg overflow-visible">
+    <div className="relative w-24 h-24 rounded-full border-4 border-white bg-gray-200 dark:bg-gray-600 shrink-0 shadow-none overflow-visible">
       <img 
         src={avatarUrl || DEFAULT_AVATAR_URL} 
         alt="Avatar do Usuário" 
@@ -32,7 +32,7 @@ const UserAvatarDisplay: React.FC<UserAvatarDisplayProps> = ({
           onUploadComplete={onAvatarUploadComplete}
           bucketName={USER_AVATAR_BUCKET}
           folderPath={userId || 'temp'}
-          className="h-7 w-7 p-0 bg-[#E47948] text-white hover:bg-[#E47948]/90 rounded-full shadow-md"
+          className="h-7 w-7 p-0 bg-highlight text-white hover:bg-highlight/90 rounded-full shadow-none"
           icon={<Camera className="h-3 w-3" />}
           disabled={uploading}
         />

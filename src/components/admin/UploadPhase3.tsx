@@ -89,7 +89,7 @@ const UploadPhase3: React.FC = () => {
   };
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-2xl bg-white">
       <CardHeader>
         <CardTitle className="text-xl text-primary">Fase 3: Cardápios e Itens</CardTitle>
       </CardHeader>

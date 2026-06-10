@@ -1,3 +1,6 @@
+-- 0. EXTENSIONS
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 -- 1. ENUMS AND TYPES
 CREATE TYPE public.restaurant_plan AS ENUM ('free', 'premium', 'premium_gift');
 CREATE TYPE public.visit_status_enum AS ENUM ('Pendente', 'Visitado', 'Agendado', 'Contatado', 'Interessado', 'Não Interessado', 'Não Localizado');
@@ -45,7 +48,8 @@ CREATE TABLE public.restaurants (
   other_url_label text,
   claim_code text UNIQUE,
   visit_status public.visit_status_enum DEFAULT 'Pendente'::public.visit_status_enum,
-  visit_notes text
+  visit_notes text,
+  geom geography(Point, 4326)
 );
 
 -- Table menu_categories
@@ -168,6 +172,19 @@ BEGIN
 END;
 $$;
 
+-- Function update_restaurant_geom()
+CREATE OR REPLACE FUNCTION public.update_restaurant_geom()
+RETURNS trigger AS $$
+BEGIN
+  IF NEW.latitude IS NOT NULL AND NEW.longitude IS NOT NULL THEN
+    NEW.geom := ST_SetSRID(ST_MakePoint(NEW.longitude, NEW.latitude), 4326)::geography;
+  ELSE
+    NEW.geom := NULL;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Function find_nearby_restaurants()
 CREATE OR REPLACE FUNCTION public.find_nearby_restaurants(
   user_lat numeric, 
@@ -212,14 +229,13 @@ SELECT
     r.city,
     r.state,
     r.neighborhood,
-    public.calculate_distance(user_lat, user_lng, r.latitude, r.longitude) AS distance_km
+    (ST_Distance(r.geom, ST_SetSRID(ST_MakePoint(user_lng, user_lat), 4326)::geography) / 1000.0)::numeric AS distance_km
 FROM
     public.restaurants r
 WHERE
-    r.latitude IS NOT NULL
-    AND r.longitude IS NOT NULL
+    r.geom IS NOT NULL
     AND r.visit_status = 'Visitado'::public.visit_status_enum
-    AND public.calculate_distance(user_lat, user_lng, r.latitude, r.longitude) <= max_distance_km
+    AND ST_DWithin(r.geom, ST_SetSRID(ST_MakePoint(user_lng, user_lat), 4326)::geography, max_distance_km * 1000.0)
     AND (
         search_query IS NULL
         OR r.name ILIKE '%' || search_query || '%'
@@ -352,11 +368,17 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- 4. TRIGGERS
--- Trigger on restaurants
+-- Trigger on restaurants to generate claim code
 CREATE OR REPLACE TRIGGER before_insert_set_claim_code
 BEFORE INSERT ON public.restaurants
 FOR EACH ROW
 EXECUTE FUNCTION public.set_restaurant_claim_code();
+
+-- Trigger on restaurants to update geom geography Point automatically
+CREATE OR REPLACE TRIGGER trg_update_restaurant_geom
+BEFORE INSERT OR UPDATE OF latitude, longitude ON public.restaurants
+FOR EACH ROW
+EXECUTE FUNCTION public.update_restaurant_geom();
 
 -- Trigger on auth.users
 CREATE OR REPLACE TRIGGER on_auth_user_created
@@ -515,3 +537,17 @@ CREATE POLICY "Users can manage their own search locations"
   ON public.user_search_locations FOR ALL TO authenticated
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
+
+-- 6. INDEXES
+-- Spatial Index for geolocated searches
+CREATE INDEX IF NOT EXISTS idx_restaurants_geom ON public.restaurants USING gist(geom);
+
+-- B-Tree Indexes for Foreign Keys and frequent filter fields
+CREATE INDEX IF NOT EXISTS idx_menu_categories_restaurant_id ON public.menu_categories(restaurant_id);
+CREATE INDEX IF NOT EXISTS idx_menu_items_category_id ON public.menu_items(category_id);
+CREATE INDEX IF NOT EXISTS idx_restaurants_visit_status ON public.restaurants(visit_status) WHERE visit_status = 'Visitado';
+CREATE INDEX IF NOT EXISTS idx_restaurants_city ON public.restaurants(city);
+CREATE INDEX IF NOT EXISTS idx_restaurants_category ON public.restaurants(category);
+
+-- GIN Index for Full-Text Search in Portuguese
+CREATE INDEX IF NOT EXISTS idx_restaurants_name_fts ON public.restaurants USING gin(to_tsvector('portuguese', name));

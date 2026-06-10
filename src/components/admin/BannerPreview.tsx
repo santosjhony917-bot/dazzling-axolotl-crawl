@@ -109,7 +109,7 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({
   }
 
   return (
-    <div className="relative w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+    <div className="relative w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-none border border-gray-200 dark:border-gray-700">
       <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 Aspect Ratio */}
         <img
           src={finalImageUrl}

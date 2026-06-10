@@ -1,0 +1,1 @@
+I will run the script to find all copies of `ExportedRestaurants.tsx` in the workspace.

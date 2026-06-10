@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { MapPin, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
-import { base44 } from '@/api/base44Client'; // Importando o mock de API
+import { base44 } from '@/api/base44Client';
 import { showError } from '@/utils/toast';
 
 export default function Welcome() {
@@ -11,82 +12,90 @@ export default function Welcome() {
 
   const handleNavigation = async (role: 'customer' | 'restaurant', path: string) => {
     try {
-      // Simula a definição do papel do usuário
       await base44.auth.updateMe({ user_role: role });
-      console.log(`User role set to: ${role}`);
       navigate(path);
     } catch (error) {
-      console.error("Error setting user role:", error);
       showError("Falha ao definir o papel do usuário. Tente novamente.");
     }
   };
 
   return (
-    <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-white md:max-w-md md:mx-auto">
-      <div className="flex flex-col items-center justify-center flex-grow p-4">
-        {/* Logo and Icon */}
-        <motion.div 
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, type: "spring" }}
-          className="flex flex-col items-center mb-8"
-        >
-          <div className="mb-4">
-            <svg viewBox="125 -5 100 110" className="w-36 h-auto">
-              <g transform="matrix(-1.0220321318817829,0,0,1.0220321318817829,227.93973924314477,-1.79366748310062)" fill="#032d63">
-                <path d="M51.798,25.546c-5.767,0-10.458,4.692-10.458,10.459c0,4.981,3.971,14.129,10.458,14.129  c6.488,0,10.458-9.147,10.458-14.129C62.256,30.239,57.564,25.546,51.798,25.546z M51.798,44.633c-1.992,0-4.956-5.162-4.956-8.627  c0-2.732,2.224-4.957,4.956-4.957s4.957,2.225,4.957,4.957C56.755,39.471,53.79,44.633,51.798,44.633z"></path>
-                <path d="M82.882,50.348c2.082-4.465,3.162-9.322,3.162-14.342c0-18.886-15.363-34.251-34.246-34.251  c-18.882,0-34.245,15.365-34.245,34.251c0,4.167,0.753,8.22,2.198,12.034c0.645,1.572,3.26,7.376,8.777,13.01  c0.22,0.206,0.422,0.43,0.646,0.628l19.662,20.885c0.03,0.033,3.075,3.029,5.928-0.001l3.655-3.883h10.836  c0.903,0.112,2.088,0.546,2.644,2.031c0.003,0.009,0.007,0.012,0.009,0.019l2.966,7.907H74.87c0,0,0.003,0.009,0.003,0.01  l0.219,0.568c0.317,1.13,0.398,3.528-4.688,3.528H31.886c-4.293,0-3.763-2.433-3.555-3.059l3.068-8.18  c0.057-0.113,0.114-0.233,0.173-0.392c0.676-1.76,1.363-2.29,1.834-2.434h2.09c3.04,0,0.711-2.465,0.711-2.465h0.002l-1.082-1.147  c0-0.003-0.002-0.003-0.003-0.004c-1.411-1.496-3.1-1.825-4.066-1.886h-0.963c-0.645,0.116-1.703,0.681-2.563,2.966l-6.275,16.733  c-0.009,0.03-1.386,5.368,7.131,5.368h46.542c0,0,8.987-1.14,6.504-7.775L76.254,76.66c0-0.005-0.004-0.01-0.004-0.015  c-1.331-3.548-5.043-3.469-5.043-3.469h-7.61L74.515,61.58l3.555-3.793C80.358,54.923,81.921,52.239,82.882,50.348z M54.487,74.825  c-0.003,0.003-0.004,0.003-0.007,0.009c-2.351,2.497-4.419,0.939-5.114,0.267l-0.242-0.257c-0.002-0.004-0.009-0.01-0.009-0.01  L33.089,57.81l-0.191-0.186c-1.336-1.168-2.575-2.473-3.68-3.882l-0.271-0.354c-3.854-5.062-5.89-11.07-5.89-17.38  c0-15.852,12.895-28.749,28.742-28.749c15.85,0,28.742,12.896,28.742,28.749c0,6.31-2.035,12.32-5.891,17.38L54.487,74.825z"></path>
-              </g>
-            </svg>
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="relative flex min-h-screen w-full max-w-md mx-auto border-x border-slate-200/60 flex-col bg-[#FAFAFA] font-['Poppins'] overflow-hidden shadow-none">
+        
+        {/* Top Hero Image */}
+        <div className="absolute top-0 inset-x-0 w-full h-[45%]">
+          <img 
+            alt="Welcome Hero" 
+            className="w-full h-full object-cover" 
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/15 to-[#FAFAFA]" />
+        </div>
+
+        {/* Content Card (Bottom) */}
+        <div className="relative flex flex-col h-full justify-end flex-grow z-10">
+          <div className="w-full bg-[#FAFAFA] min-h-[58%] rounded-t-[36px] p-6 pt-8 flex flex-col items-center text-center border-t border-slate-100/50 shadow-[0_-12px_40px_rgba(0,0,0,0.05)]">
+            
+            {/* Logo */}
+            <motion.h1 
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="font-['Lobster'] text-[48px] text-[#EF2A39] leading-tight drop-shadow-[0_2px_5px_rgba(0,0,0,0.04)] mt-2"
+            >
+              FilterFood
+            </motion.h1>
+
+            {/* Welcome Text */}
+            <motion.div 
+              initial={{ y: 15, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="w-full text-center mt-3 mb-6"
+            >
+              <h2 className="text-[#3C2F2F] text-[22px] font-bold leading-tight">
+                Bem-vindo!
+              </h2>
+              <p className="text-[#6A6A6A] text-sm font-medium mt-1">
+                Escolha como deseja usar o aplicativo hoje.
+              </p>
+            </motion.div>
+
+            {/* Action Buttons */}
+            <motion.div 
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex flex-col gap-4 w-full px-2 mb-8 mt-auto"
+            >
+              <Button
+                onClick={() => handleNavigation('customer', createPageUrl('auth'))}
+                className="w-full h-[58px] bg-[#EF2A39] hover:bg-[#D62230] text-white rounded-[20px] text-base font-bold shadow-[0px_8px_20px_rgba(239,42,57,0.22)] transition-all duration-200 active:scale-95 border-none flex items-center justify-center gap-2"
+              >
+                <MapPin className="w-5 h-5 shrink-0" />
+                Encontrar Restaurantes
+              </Button>
+
+              <Button
+                onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
+                variant="outline"
+                className="w-full h-[58px] bg-white border-2 border-[#EF2A39] text-[#EF2A39] hover:bg-[#EF2A39]/5 rounded-[20px] text-base font-bold transition-all duration-200 active:scale-95 shadow-[0_2px_5px_rgba(0,0,0,0.04)] flex items-center justify-center gap-2"
+              >
+                <Store className="w-5 h-5 shrink-0" />
+                Sou Restaurante
+              </Button>
+            </motion.div>
+
+            {/* Footer */}
+            <footer className="w-full pt-4 mt-auto">
+              <p className="text-[#888888] text-[11px] font-medium text-center">
+                © 2026 FilterFood. Todos os direitos reservados.
+              </p>
+            </footer>
           </div>
-        </motion.div>
-
-        {/* Welcome Text */}
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="w-full max-w-md text-center"
-        >
-          <h1 className="text-[#032d63] tracking-light text-[32px] font-bold leading-tight pb-3 pt-6">
-            Bem-vindo!
-          </h1>
-          <p className="text-[#032d63] text-base font-normal leading-normal pb-3 pt-1">
-            Escolha como deseja usar o filterfood
-          </p>
-        </motion.div>
-
-        {/* Action Buttons */}
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex flex-col gap-4 w-full max-w-md px-4 py-3 mt-6"
-        >
-          <Button
-            onClick={() => handleNavigation('customer', createPageUrl('auth'))}
-            variant="highlight"
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-highlight-glow hover:shadow-soft-xl"
-          >
-            <span className="truncate">Encontrar Restaurantes</span>
-          </Button>
-
-          <Button
-            onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
-            variant="outline"
-            className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 border-2 border-[#032d63] text-[#032d63] hover:bg-[#032d63]/10 text-base font-bold leading-normal tracking-[0.015em] w-full transition-all shadow-soft-md"
-          >
-            <span className="truncate">Sou restaurante</span>
-          </Button>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Footer */}
-      <footer className="w-full py-6">
-        <p className="text-[#5f728c] text-sm font-normal leading-normal text-center">
-          © 2025 FilterFood - Todos os direitos reservados
-        </p>
-      </footer>
     </div>
   );
 }

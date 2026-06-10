@@ -1,57 +1,49 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowLeft, LucideProps } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
+import Header from '@/components/Header';
+import { cn } from '@/lib/utils';
 
 interface RestaurantAreaPageLayoutProps {
   title: string;
-  icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
+  icon?: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
   backPath?: string;
   children: React.ReactNode;
   actions?: React.ReactNode;
+  dark?: boolean;
 }
 
 const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
   title,
-  icon: Icon,
   backPath,
   children,
-  actions,
+  dark = false,
 }) => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate(-1);
+    if (backPath) {
+      navigate(backPath.startsWith('/') ? backPath : `/${backPath}`);
+    } else {
+      navigate(-1);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-soft-md border-b dark:border-gray-700 h-16 flex items-center">
-        <div className="max-w-4xl mx-auto px-4 w-full">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <button 
-                onClick={handleBackClick} 
-                className="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors flex items-center justify-center"
-              >
-                <ArrowLeft className="w-5 h-5 text-primary" />
-              </button>
-              <div className="flex items-center space-x-2">
-                <Icon className="w-5 h-5 text-highlight" />
-                <h1 className="text-xl font-extrabold text-primary dark:text-white tracking-tight truncate">{title}</h1>
-              </div>
-            </div>
-            {/* Actions slot */}
-            {actions && <div>{actions}</div>}
-          </div>
-        </div>
-      </header>
-
-      {/* Content */}
-      <main className="max-w-4xl mx-auto">
+    <div className={cn(
+      "flex flex-col w-full flex-grow font-['Poppins'] transition-colors duration-200",
+      dark ? "bg-[#090D1A]" : "bg-white"
+    )}>
+      <Header 
+        title={title} 
+        leftAction={{ icon: ArrowLeft, onClick: handleBackClick }}
+        dark={dark}
+      />
+      
+      <main className={cn(
+        "px-4 pt-2 pb-6 space-y-6 max-w-md mx-auto w-full relative z-20 mt-1 transition-colors duration-200",
+        dark ? "text-white" : "text-slate-800"
+      )}>
         {children}
       </main>
     </div>

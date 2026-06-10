@@ -16,7 +16,7 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
   
   if (gallery.length === 0) {
     return (
-      <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-soft-md border-none p-6 text-center">
+      <Card className="bg-white dark:bg-gray-800 rounded-2xl shadow-none border-none p-6 text-center">
         <Camera className="w-8 h-8 text-gray-400 mx-auto mb-3" />
         <p className="text-gray-600">Nenhuma foto na galeria.</p>
       </Card>
@@ -33,7 +33,7 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
       <div className="grid grid-cols-3 gap-2 h-[320px]">
         {/* Imagem Principal */}
         {largeItem && (
-          <div className="col-span-2 row-span-2 relative rounded-xl overflow-hidden shadow-soft-md">
+          <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden shadow-none">
             <img 
               className="w-full h-full object-cover" 
               alt={largeItem.caption || `Foto de ${restaurantName}`} 
@@ -49,21 +49,21 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
         
         {/* Imagens Pequenas */}
         {smallItems.map((item, index) => (
-          <div key={item.id} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden shadow-soft-md">
+          <div key={item.id} className="col-span-1 h-[156px] relative rounded-2xl overflow-hidden shadow-none">
             <img 
               className="w-full h-full object-cover" 
               alt={item.caption || `Foto ${index + 2}`} 
               src={item.image_url} 
             />
             <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
-              <p className="text-white text-xs font-semibold drop-shadow-md truncate">{item.caption || 'Foto'}</p>
+              <p className="text-white text-xs font-semibold drop-shadow-none truncate">{item.caption || 'Foto'}</p>
             </div>
           </div>
         ))}
         
         {/* Placeholder se houver menos de 3 imagens */}
         {gallery.length < 3 && Array.from({ length: 3 - gallery.length }).map((_, index) => (
-          <div key={`placeholder-${index}`} className="col-span-1 h-[156px] relative rounded-xl overflow-hidden shadow-soft-md bg-gray-200 flex items-center justify-center">
+          <div key={`placeholder-${index}`} className="col-span-1 h-[156px] relative rounded-2xl overflow-hidden shadow-none bg-gray-200 flex items-center justify-center">
             <Camera className="w-8 h-8 text-gray-500" />
           </div>
         ))}

@@ -1,0 +1,39 @@
+Created At: 2026-06-09T14:59:05Z
+Completed At: 2026-06-09T14:59:05Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 665
+Total Bytes: 31920
+Showing lines 215 to 245
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+215:     const matchesSearch = 
+216:       r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+217:       r.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+218:       r.category.toLowerCase().includes(searchTerm.toLowerCase());
+219:       
+220:     if (!matchesSearch) return false;
+221:     
+222:     if (filterType === 'missing_any') {
+223:       return hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoHours(r);
+224:     }
+225:     if (filterType === 'missing_phone') {
+226:       return hasNoPhone(r);
+227:     }
+228:     if (filterType === 'missing_instagram') {
+229:       return hasNoInstagram(r);
+230:     }
+231:     if (filterType === 'missing_menu') {
+232:       return hasNoMenu(r);
+233:     }
+234:     if (filterType === 'missing_hours') {
+235:       return hasNoHours(r);
+236:     }
+237:     if (filterType === 'completed') {
+238:       return !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r);
+239:     }
+240:     
+241:     return true;
+242:   });
+243: 
+244:   const instagramUrl = selectedRestaurant ? getSocialUrl(selectedRestaurant, 'instagram') : '';
+245:   const facebookUrl = selectedRestaurant ? getSocialUrl(selectedRestaurant, 'facebook') : '';
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

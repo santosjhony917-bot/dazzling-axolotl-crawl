@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, LucideIcon } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -12,37 +12,50 @@ interface HeaderProps {
   title: string;
   leftAction?: Action;
   rightAction?: Action;
+  dark?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, leftAction, rightAction }) => {
+const Header: React.FC<HeaderProps> = ({ title, leftAction, rightAction, dark = false }) => {
   return (
-    <header className="sticky top-0 z-10 bg-white dark:bg-background-dark border-b border-gray-100 dark:border-gray-800 shadow-soft-md p-4 flex items-center justify-between h-16">
-      <div className="w-10">
+    <header className={cn(
+      "flex flex-row items-center justify-between w-full px-5 pt-8 pb-4 transition-all duration-200",
+      dark ? "bg-[#090D1A] border-b border-white/5" : "bg-white"
+    )}>
+      <div className="w-12 flex justify-start">
         {leftAction && (
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={leftAction.onClick}
-            className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg"
+            className={cn(
+              "rounded-full h-12 w-12 transition-colors",
+              dark ? "text-slate-300 hover:bg-white/5 hover:text-white" : "text-[#3C2F2F] hover:bg-gray-100"
+            )}
           >
-            <leftAction.icon className="h-5 w-5" />
+            <leftAction.icon className="h-6 w-6 stroke-[2]" />
           </Button>
         )}
       </div>
       
-      <h1 className="text-xl font-extrabold text-primary dark:text-white tracking-tight truncate max-w-[60%]">
+      <h1 className={cn(
+        "text-xl font-semibold tracking-tight truncate flex-1 text-center font-['Poppins'] transition-colors",
+        dark ? "text-white" : "text-[#3C2F2F]"
+      )}>
         {title}
       </h1>
       
-      <div className="w-10 flex justify-end">
+      <div className="w-12 flex justify-end">
         {rightAction && (
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={rightAction.onClick}
-            className="text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-gray-700 rounded-lg"
+            className={cn(
+              "rounded-full h-12 w-12 transition-colors",
+              dark ? "text-slate-300 hover:bg-white/5 hover:text-white" : "text-[#3C2F2F] hover:bg-gray-100"
+            )}
           >
-            <rightAction.icon className="h-5 w-5" />
+            <rightAction.icon className="h-6 w-6 stroke-[2]" />
           </Button>
         )}
       </div>

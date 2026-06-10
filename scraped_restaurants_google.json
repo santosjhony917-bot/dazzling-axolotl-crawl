@@ -1,0 +1,2213 @@
+[
+  {
+    "id": "scraped-google-local-1781100790916-2",
+    "name": "Hambúrguer Insano Tambaú",
+    "category": "Hamburgueria",
+    "rating": 3.2,
+    "reviewsCount": 17,
+    "address": "Av. Antônio Lira, 441 - Tambaú, João Pessoa - PB, 58039-050",
+    "phone": "(83) 3576-9412",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/hamburguerinsano?igsh=aDl4MmZkY2p4bGZj",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://www.instagram.com/hamburguerinsano?igsh=aDl4MmZkY2p4bGZj",
+    "googleMapsUrl": "https://www.google.com/maps/place/Hamb%C3%BArguer+Insano+Tamba%C3%BA/data=!4m7!3m6!1s0x7acdd000abb1699:0xa3c4722471a1319a!8m2!3d-7.1165302!4d-34.8240658!16s%2Fg%2F11mrfgpw9p!19sChIJmRa7CgDdrAcRmjGhcSRyxKM",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100801040-3",
+    "name": "Burger In Pack - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.5,
+    "reviewsCount": 42,
+    "address": "Rua Severino Massa Spinelli, 451 - sala 03 - Tambaú, João Pessoa - PB, 58039-210",
+    "phone": "(83) 99115-2236",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://instagram.com/burgerinpack?utm_medium=copy_link",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://instagram.com/burgerinpack?utm_medium=copy_link",
+    "googleMapsUrl": "https://www.google.com/maps/place/Burger+In+Pack/data=!4m7!3m6!1s0x7acdd021b095c0f:0xe9239544c29dce84!8m2!3d-7.1169723!4d-34.8296243!16s%2Fg%2F11rjj1x4w_!19sChIJD1wJGwLdrAcRhM6dwkSVI-k",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100806775-4",
+    "name": "Hamburgueria scooby - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.9,
+    "reviewsCount": 25,
+    "address": "R. José Augusto Trindade, 76 - Tambaú, João Pessoa - PB, 58039-021",
+    "phone": "(83) 98182-8796",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "00:00",
+            "end": "23:59"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "00:00",
+            "end": "23:59"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Hamburgueria+scooby/data=!4m7!3m6!1s0x7acddd3deb5db1d:0xae1c53fb57c7774a!8m2!3d-7.118251!4d-34.8241923!16s%2Fg%2F11sr7h66t3!19sChIJHdu13tPdrAcRSnfHV_tTHK4",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100812497-5",
+    "name": "Hope Burger - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.6,
+    "reviewsCount": 1135,
+    "address": "Av. João Maurício, 675 - Tambaú, João Pessoa - PB, 58038-000",
+    "phone": "(83) 2177-5047",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://www.hopeburger.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Hope+Burger/data=!4m7!3m6!1s0x7acdd1cabc7e981:0xa385b148dc8cdc18!8m2!3d-7.1060272!4d-34.8283997!16s%2Fg%2F11jb1dym8y!19sChIJgenHqxzdrAcRGNyM3EixhaM",
+    "menuSourceUrl": "https://www.hopeburger.com.br/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100817636-6",
+    "name": "Tartaruga Burguer - Tambaú",
+    "category": "Lanchonete",
+    "rating": 2.6,
+    "reviewsCount": 141,
+    "address": "Av. Alm. Tamandaré, 558 - Tambaú, João Pessoa - PB, 58039-010",
+    "phone": "(83) 3021-0913",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "01:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Tartaruga+Burguer/data=!4m7!3m6!1s0x7acddeaf54d89dd:0x9465c8767082be24!8m2!3d-7.114806!4d-34.8227525!16s%2Fg%2F11y3hpgmml!19sChIJ3YlN9erdrAcRJL6CcHbIZZQ",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100824874-7",
+    "name": "Master Burger - Tambaú",
+    "category": "Banca de jornais",
+    "rating": 4.8,
+    "reviewsCount": 24,
+    "address": "Av. Alm. Tamandaré, 100 - Tambaú, João Pessoa - PB, 58039-010",
+    "phone": "(83) 98824-0836",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:30",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Master+Burger/data=!4m7!3m6!1s0x7acdd2181007fd7:0x44ba8fd1ee6c198a!8m2!3d-7.1105187!4d-34.8238643!16s%2Fg%2F11b61qx8b9!19sChIJ138AgSHdrAcRihls7tGPukQ",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100830028-1",
+    "name": "The Outset Burger - Tambaú",
+    "category": "Restaurante",
+    "rating": 4.8,
+    "reviewsCount": 128,
+    "address": "R. José Augusto Trindade, 391c - Tambaú, João Pessoa - PB, 58039-020",
+    "phone": "(83) 2177-8104",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:15"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:45"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/The+Outset+Burger/data=!4m7!3m6!1s0x7acdd32987f2a17:0x63f0f3baf2ed8ad5!8m2!3d-7.1181624!4d-34.8271442!16s%2Fg%2F11fs2g7njw!19sChIJFyp_mDLdrAcR1Yrt8rrz8GM",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100830417-8",
+    "name": "Desativado - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.1,
+    "reviewsCount": 1979,
+    "address": "Av. Antônio Lira, 441 - Tambaú, João Pessoa - PB, 58039-050",
+    "phone": "(83) 3578-6393",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Desativado/data=!4m7!3m6!1s0x7acdd98aa679ae9:0x11a09b7e5411cc6c!8m2!3d-7.1167187!4d-34.8240213!16s%2Fg%2F11bzs3vrgb!19sChIJ6ZpnqpjdrAcRbMwRVH6boBE",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100837788-10",
+    "name": "Home Burger PB - Hamburgueria Artesanal - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.9,
+    "reviewsCount": 2182,
+    "address": "Av. Esperança, 1341 - Manaíra, João Pessoa - PB, 58038-281",
+    "phone": "(83) 98117-4508",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "https://homeburgerpb.com.br/homeburger2/homeburgerpb?dd=menu",
+    "googleMapsUrl": "https://www.google.com/maps/place/Home+Burger+PB+-+Hamburgueria+Artesanal/data=!4m7!3m6!1s0x7acddb1be29fb8d:0x514342ab00f832ca!8m2!3d-7.1043423!4d-34.8348281!16s%2Fg%2F11s0k0z186!19sChIJjfspvrHdrAcRyjL4AKtCQ1E",
+    "menuSourceUrl": "https://homeburgerpb.com.br/homeburger2/homeburgerpb?dd=menu",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100846766-11",
+    "name": "Marvel Burguer *PRIME* - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.4,
+    "reviewsCount": 8,
+    "address": "Av. Nego, 751 - Sala 4 - Tambaú, João Pessoa - PB, 58039-100",
+    "phone": "(83) 99346-8405",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Marvel+Burguer+*PRIME*/data=!4m7!3m6!1s0x7acdd5122443c61:0xfebca3936ba12bd9!8m2!3d-7.1138913!4d-34.8294398!16s%2Fg%2F11y471dy30!19sChIJYTxEIlHdrAcR2Suha5OjvP4",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100858054-12",
+    "name": "The Blend Hamburgueria - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.1,
+    "reviewsCount": 43,
+    "address": "Praça de Alimentação do Shopping Patío Altiplano - R. Poe. Targino Teixeira, 251 - Loja 16 - Altiplano Cabo Branco, João Pessoa - PB, 58046-090",
+    "phone": "(83) 99891-1119",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "12:00",
+            "end": "20:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/The+Blend+Hamburgueria/data=!4m7!3m6!1s0x7acc3e171d9b2ed:0xb93bb8e0042e8bb5!8m2!3d-7.1302895!4d-34.8257843!16s%2Fg%2F11srqn7kj3!19sChIJ7bLZceHDrAcRtYsuBOC4O7k",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100864583-13",
+    "name": "Quest Food - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.9,
+    "reviewsCount": 21,
+    "address": "R. Bacharel Manoel Pereira Diniz, N° 246 - loja 03 - Jardim Cidade Universitária, João Pessoa - PB, 58052-520",
+    "phone": "(83) 99310-2086",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "11:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "https://questfood.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Quest+Food/data=!4m7!3m6!1s0x7acc31ff7e4a07b:0x2a8506894ca244ba!8m2!3d-7.1590406!4d-34.8360077!16s%2Fg%2F11ldwgtwh6!19sChIJe6Dk9x_DrAcRukSiTIkGhSo",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100870051-14",
+    "name": "Hamburgueria Philipéia - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.8,
+    "reviewsCount": 181,
+    "address": "R. Nevinha Cavalcante, 28 - Miramar, João Pessoa - PB, 58043-000",
+    "phone": "(83) 99315-7053",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "friday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "saturday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "website": "http://philipeia.com/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Hamburgueria+Philip%C3%A9ia/data=!4m7!3m6!1s0x7acc3f09e1a268d:0xaa6012f4db7bf3d6!8m2!3d-7.1211396!4d-34.8386334!16s%2Fg%2F11kv9lrdxq!19sChIJjSYanvDDrAcR1vN72_QSYKo",
+    "menuSourceUrl": "http://philipeia.com/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100876722-15",
+    "name": "LG Cafeteria e Hamburgueria - Tambaú",
+    "category": "Cafeteria",
+    "rating": 4,
+    "reviewsCount": 10,
+    "address": "Av. Nego, 200 - Tambaú, João Pessoa - PB, 58039-100",
+    "phone": "(83) 99311-9598",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "07:00",
+            "end": "20:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/LG+Cafeteria+e+Hamburgueria/data=!4m7!3m6!1s0x7acdd8dcf308eb7:0x9ba562bd85ed1565!8m2!3d-7.1139735!4d-34.8248361!16s%2Fg%2F11z9qktycm!19sChIJt44wz43drAcRZRXthb1ipZs",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100882715-16",
+    "name": "Lapada Burger - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.7,
+    "reviewsCount": 493,
+    "address": "R. Juíz Amaro Bezerra, 309 - Cabo Branco, João Pessoa - PB, 58045-070",
+    "phone": "(83) 99903-7244",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://instagram.com/lapadaburgerr?igshid=MXh4NmR3cHh5ZmFrYg==",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://instagram.com/lapadaburgerr?igshid=MXh4NmR3cHh5ZmFrYg==",
+    "googleMapsUrl": "https://www.google.com/maps/place/Lapada+Burger/data=!4m7!3m6!1s0x7acddff1bf029ef:0x95ac8989132ede8c!8m2!3d-7.1224504!4d-34.826722!16s%2Fg%2F11y1tb3cq3!19sChIJ7ynwG__drAcRjN4uE4mJrJU",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100888502-17",
+    "name": "Food park Firezone - Tambaú",
+    "category": "Praça de alimentação",
+    "rating": 4.7,
+    "reviewsCount": 45,
+    "address": "R. José Augusto Trindade, 76 - Tambaú, João Pessoa - PB, 58039-021",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://instagram.com/arenafirezoneairsoft?igshid=ZTV6ZWltaHg4ZnIw&utm_source=qr",
+    "coverImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://instagram.com/arenafirezoneairsoft?igshid=ZTV6ZWltaHg4ZnIw&utm_source=qr",
+    "googleMapsUrl": "https://www.google.com/maps/place/Food+park+Firezone/data=!4m7!3m6!1s0x7acdd21bd6b44eb:0xf068495db58bc95c!8m2!3d-7.1183934!4d-34.8241918!16s%2Fg%2F11vj1lzdwx!19sChIJ60RrvSHdrAcRXMmLtV1JaPA",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100897503-0",
+    "name": "Johnny Rockets João Pessoa",
+    "category": "Hamburgueria",
+    "rating": 4.5,
+    "reviewsCount": 1426,
+    "address": "Holanda's Prime, Shopping Residence - Av. Antônio Lira, 536 - Loja 19 e 20 - Tambaú, João Pessoa - PB, 58039-050",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "website": "https://locations.johnnyrockets.com/ll/BR/pb/Joao-Pessoa/Av_-Antonio-Lira*-536",
+    "googleMapsUrl": "https://www.google.com/maps/place/Johnny+Rockets+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdd25f7a4a707:0xdce816caa78b33a9!8m2!3d-7.1173609!4d-34.8245263!16s%2Fg%2F11f04dyf63!19sChIJB6ek9yXdrAcRqTOLp8oW6Nw",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100901285-18",
+    "name": "Burguerlandia - Hambúrguer Self-Service - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 3.9,
+    "reviewsCount": 73,
+    "address": "Av. Cairu, 61 - Cabo Branco, João Pessoa - PB, 58045-100",
+    "phone": "(83) 99830-5053",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/burguerlandiajp?igsh=NDVib2NhancyajJq",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:30"
+          }
+        ]
+      }
+    },
+    "website": "https://www.instagram.com/burguerlandiajp?igsh=NDVib2NhancyajJq",
+    "googleMapsUrl": "https://www.google.com/maps/place/Burguerlandia+-+Hamb%C3%BArguer+Self-Service/data=!4m7!3m6!1s0x7acdd004d579d0f:0xb800f49599db8654!8m2!3d-7.1232392!4d-34.8243918!16s%2Fg%2F11ys9qg3kw!19sChIJD51XTQDdrAcRVIbbmZX0ALg",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100908728-20",
+    "name": "Mentawaii Surf Burger João Pessoa",
+    "category": "Hamburgueria",
+    "rating": 5,
+    "reviewsCount": 1,
+    "address": "R. Farmacêutico Antônio Leopoldo Batista, 284 - Jardim Sao Paulo, João Pessoa - PB, 58053-047",
+    "phone": "(83) 99699-1526",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://delivery.yooga.app/mentawaii-bancarios/tabs/home",
+    "googleMapsUrl": "https://www.google.com/maps/place/Mentawaii+Surf+Burger+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acc3bc825f092f:0xa617a38e4639c922!8m2!3d-7.1493766!4d-34.8466608!16s%2Fg%2F11st8b1pyx!19sChIJLwlfgrzDrAcRIsk5Ro6jF6Y",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100913431-21",
+    "name": "Gaúcho Burger Original - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.8,
+    "reviewsCount": 29,
+    "address": "R. Bacharel Wilson Flávio Moreira Coutinho, 850 - Jardim Cidade Universitária, João Pessoa - PB, 58052-510",
+    "phone": "(83) 99120-6446",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps/place/Ga%C3%BAcho+Burger+Original/data=!4m7!3m6!1s0x7acc30038096959:0x737f94d3512f9b8e!8m2!3d-7.1584895!4d-34.8303626!16s%2Fg%2F11wj8tm52q!19sChIJWWkJOADDrAcRjpsvUdOUf3M",
+    "menuSourceUrl": "https://app.anota.ai/m/WYhE5D_yw",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100918840-22",
+    "name": "Geisel Burger - Bancários - Hamburgueria antesanal delivery - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.9,
+    "reviewsCount": 175,
+    "address": "R. Bancário Waldemar de Mesquita Accioly, 487 - Bancários, João Pessoa - PB, 58051-420",
+    "phone": "(83) 99136-7912",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://www.instagram.com/geiselburger/",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:15"
+          }
+        ]
+      }
+    },
+    "website": "https://app.cardapioweb.com/geiselburger__bancarios",
+    "googleMapsUrl": "https://www.google.com/maps/place/Geisel+Burger+-+Banc%C3%A1rios+-+Hamburgueria+antesanal+delivery/data=!4m7!3m6!1s0x7acc30077702147:0xf06556c8f6147bd9!8m2!3d-7.144494!4d-34.840459!16s%2Fg%2F11xgh2vslj!19sChIJRyFwdwDDrAcR2XsU9shWZfA",
+    "menuSourceUrl": "https://www.instagram.com/geiselburger/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100921528-9",
+    "name": "Beco Mágico João Pessoa",
+    "category": "Hamburgueria",
+    "rating": 4.6,
+    "reviewsCount": 1466,
+    "address": "R. Manoel Gualberto, 73 - Miramar, João Pessoa - PB, 58043-150",
+    "phone": "(83) 99355-3063",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:30"
+          }
+        ]
+      }
+    },
+    "website": "https://dguests.com/becomagicojoaopessoa",
+    "googleMapsUrl": "https://www.google.com/maps/place/Beco+M%C3%A1gico+Jo%C3%A3o+Pessoa/data=!4m7!3m6!1s0x7acdda7c34d72c5:0x32020fabe2e5c8ef!8m2!3d-7.120132!4d-34.8354909!16s%2Fg%2F11y3rq3ctc!19sChIJxXJNw6fdrAcR78jl4qsPAjI",
+    "menuSourceUrl": "https://www.vucafood.com.br/becomagico/becomagico/cardapio-digital",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100926445-23",
+    "name": "Special Touch Burger - Hamburgueria Artesanal - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 5,
+    "reviewsCount": 47,
+    "address": "R. Valdomiro Figueiredo de Souza, 165 - Cidade dos Colibris, João Pessoa - PB, 58073-178",
+    "phone": "(83) 98887-1541",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      }
+    },
+    "website": "https://specialtouchburger.com.br/specialtouchburger?s=google",
+    "googleMapsUrl": "https://www.google.com/maps/place/Special+Touch+Burger+-+Hamburgueria+Artesanal/data=!4m7!3m6!1s0x7acc3d624609ec9:0x6b41656d9b37bcd!8m2!3d-7.1634858!4d-34.8510804!16s%2Fg%2F11rshbhztl!19sChIJyZ5gJNbDrAcRzXuz2VYWtAY",
+    "menuSourceUrl": "https://specialtouchburger.com.br/specialtouchburger?s=google",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100933432-25",
+    "name": "West Burguer - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.7,
+    "reviewsCount": 272,
+    "address": "Av. Acre, 191 - Estados, João Pessoa - PB, 58030-230",
+    "phone": "(83) 98918-5254",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "website": "https://westburgerbrasil.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/West+Burguer/data=!4m7!3m6!1s0x7acdd891ea0b135:0x3924e1b20c42e82f!8m2!3d-7.1103757!4d-34.8541269!16s%2Fg%2F11k3d6ll45!19sChIJNbGgHondrAcRL-hCDLLhJDk",
+    "menuSourceUrl": "https://westburgerbrasil.com.br/",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100940429-26",
+    "name": "Brutus American Food - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 5,
+    "reviewsCount": 2,
+    "address": "Bancários, João Pessoa - PB, 58051-420",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "19:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Brutus+American+Food/data=!4m7!3m6!1s0x7acc300347cc6f7:0xd965aea0f72fe158!8m2!3d-7.145215!4d-34.8388821!16s%2Fg%2F11zbnpftlj!19sChIJ98Z8NADDrAcRWOEv96CuZdk",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100947745-27",
+    "name": "Heros Burguer - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.6,
+    "reviewsCount": 39,
+    "address": "Rua Luiz Gonzaga de Andrade, 64 - Bancários, João Pessoa - PB, 58051-390",
+    "phone": "(83) 99106-9414",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "00:00"
+          }
+        ]
+      }
+    },
+    "website": "https://linktr.ee/herosburguer83",
+    "googleMapsUrl": "https://www.google.com/maps/place/Heros+Burguer/data=!4m7!3m6!1s0x7acc30d8e416de5:0xd2e7d02268458434!8m2!3d-7.1457879!4d-34.8357372!16s%2Fg%2F11y9d1r7nr!19sChIJ5W1Bjg3DrAcRNIRFaCLQ59I",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100962404-28",
+    "name": "EXTRA BURGER - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.7,
+    "reviewsCount": 31,
+    "address": "R. Marcos Joane da Costa, 52 - Jardim Cidade Universitária, João Pessoa - PB, 58052-560",
+    "phone": "(83) 98729-6804",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:30",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "https://extra-burger.goomer.app/menu",
+    "googleMapsUrl": "https://www.google.com/maps/place/EXTRA+BURGER/data=!4m7!3m6!1s0x7acc30c8d734e39:0x3b8a25a2d750a39a!8m2!3d-7.1593948!4d-34.8424025!16s%2Fg%2F11fkmhc8pl!19sChIJOU5zjQzDrAcRmqNQ16Ilijs",
+    "menuSourceUrl": "https://extra-burger.goomer.app/menu",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100967891-29",
+    "name": "Mister Grill Hamburgueria e petisco - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 5,
+    "reviewsCount": 2,
+    "address": "R. José Targino de Castro - Cidade dos Colibris, João Pessoa - PB, 58073-187",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "17:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    "googleMapsUrl": "https://www.google.com/maps/place/Mister+Grill+Hamburgueria+e+petisco/data=!4m7!3m6!1s0x7acc3000ae2ca99:0xa259d979f20281b4!8m2!3d-7.1599961!4d-34.8483475!16s%2Fg%2F11njy4tlrf!19sChIJmcriCgDDrAcRtIEC8nnZWaI",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781100989569-24",
+    "name": "Douglas Burger - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.2,
+    "reviewsCount": 27,
+    "address": "Av. Hilton Souto Maior - Mangabeira, João Pessoa - PB, 58055-018",
+    "phone": "(83) 3565-8234",
+    "city": "João Pessoa",
+    "state": "PB",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:00",
+            "end": "22:30"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "12:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "http://www.mangabeirashopping.com.br/",
+    "googleMapsUrl": "https://www.google.com/maps/place/Douglas+Burger/data=!4m7!3m6!1s0x7acc278a1519747:0xea10f187f8f2e259!8m2!3d-7.1631156!4d-34.8315545!16s%2Fg%2F11c455zdvh!19sChIJR5dRoXjCrAcRWeLy-IfxEOo",
+    "isClosed": false
+  },
+  {
+    "id": "scraped-google-local-1781101011315-19",
+    "name": "Milles’s Food - Tambaú",
+    "category": "Hamburgueria",
+    "rating": 4.3,
+    "reviewsCount": 6,
+    "address": "Av. Infante Dom Henrique, 47 - Tambaú, João Pessoa - PB, 58039-151",
+    "phone": "(83) 98115-7704",
+    "city": "João Pessoa",
+    "state": "PB",
+    "instagram": "https://instagram.com/millessfood?igshid=MjEwN2IyYWYwYw==",
+    "coverImage": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800"
+    ],
+    "openingHours": {
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "15:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "10:30",
+            "end": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "18:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    "website": "https://instagram.com/millessfood?igshid=MjEwN2IyYWYwYw==",
+    "googleMapsUrl": "https://www.google.com/maps/place/Milles%E2%80%99s+Food/data=!4m7!3m6!1s0x7acddc931d53899:0x48fb9bf3ab4629ce!8m2!3d-7.1119199!4d-34.8268245!16s%2Fg%2F11sszd650y!19sChIJmTjVMcndrAcRzilGq_Ob-0g",
+    "isClosed": false
+  }
+]

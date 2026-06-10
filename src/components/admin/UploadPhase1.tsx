@@ -47,7 +47,7 @@ const UploadPhase1: React.FC<UploadPhase1Props> = ({ onNext }) => {
   };
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-2xl bg-white">
       <CardHeader>
         <CardTitle className="text-xl text-primary">Fase 1: Criação Base (ID, Nome, Categoria, Logo)</CardTitle>
       </CardHeader>

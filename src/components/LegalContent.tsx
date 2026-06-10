@@ -14,7 +14,7 @@ interface SectionProps {
 
 const LegalSection: React.FC<SectionProps> = ({ number, title, content }) => (
   <div className="mb-6">
-    <h3 className="text-lg font-bold text-[#022D68] mb-1">
+    <h3 className="text-lg font-bold text-primary mb-1">
       {number}. {title}
     </h3>
     <p className="text-gray-700 text-base leading-relaxed">{content}</p>
@@ -28,12 +28,12 @@ const TermsOfUseContent = () => (
     <LegalSection
       number={1}
       title="Aceitação dos Termos"
-      content="Ao acessar ou usar o FilterFood, você concorda em cumprir estes Termos de Uso."
+      content="Ao acessar ou usar o GrubGo, você concorda em cumprir estes Termos de Uso."
     />
     <LegalSection
       number={2}
       title="Descrição do Serviço"
-      content="O FilterFood é uma plataforma que permite aos usuários encontrar e visualizar cardápios de restaurantes, enquanto os restaurantes podem gerenciar suas informações e promoções."
+      content="O GrubGo é uma plataforma que permite aos usuários encontrar e visualizar cardápios de restaurantes, enquanto os restaurantes podem gerenciar suas informações e promoções."
     />
     <LegalSection
       number={3}
@@ -53,7 +53,7 @@ const TermsOfUseContent = () => (
     <LegalSection
       number={6}
       title="Propriedade Intelectual"
-      content="Todo o conteúdo do FilterFood, incluindo logotipos, textos e gráficos, é de nossa propriedade ou de nossos licenciadores e é protegido por leis de direitos autorais."
+      content="Todo o conteúdo do GrubGo, incluindo logotipos, textos e gráficos, é de nossa propriedade ou de nossos licenciadores e é protegido por leis de direitos autorais."
     />
     <LegalSection
       number={7}
@@ -113,23 +113,23 @@ const LegalContent: React.FC = () => {
     <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full flex-col items-center max-w-md mx-auto">
       
       {/* Header */}
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full">
+      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-none w-full">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => navigate(-1)}
-          className="text-[#022D68] hover:bg-[#022D68]/5"
+          className="text-primary hover:bg-primary/5"
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-[#022D68] text-xl font-bold">FilterFood</h2>
+          <h2 className="text-primary text-xl font-bold font-logo text-highlight">GrubGo</h2>
         </div>
         <div className="w-10"></div>
       </header>
 
       <main className="flex-1 w-full p-4 pt-0">
-        <Card className="shadow-soft-xl border-none rounded-2xl bg-white p-0">
+        <Card className="shadow-none border-none rounded-2xl bg-white p-0">
           <CardContent className="p-6">
             <Tabs defaultValue="termos" className="w-full">
               <TabsList className="grid w-full grid-cols-2 h-auto p-0 bg-white shadow-none border-b border-gray-200 dark:border-gray-700 rounded-none">
@@ -149,11 +149,11 @@ const LegalContent: React.FC = () => {
 
               <div className="mt-6">
                 <TabsContent value="termos">
-                  <h1 className="text-3xl font-bold text-[#022D68] mb-4">Termos de Uso</h1>
+                  <h1 className="text-3xl font-bold text-primary mb-4">Termos de Uso</h1>
                   <TermsOfUseContent />
                 </TabsContent>
                 <TabsContent value="privacidade">
-                  <h1 className="text-3xl font-bold text-[#022D68] mb-4">Política de Privacidade</h1>
+                  <h1 className="text-3xl font-bold text-primary mb-4">Política de Privacidade</h1>
                   <PrivacyPolicyContent />
                 </TabsContent>
               </div>

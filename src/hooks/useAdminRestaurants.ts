@@ -6,7 +6,7 @@ import { showError, showSuccess } from '@/utils/toast';
 
 const ADMIN_RESTAURANTS_QUERY_KEY = 'adminRestaurants';
 
-const getDeterministicUUID = (str: string): string => {
+export const getDeterministicUUID = (str: string): string => {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   if (uuidRegex.test(str)) return str;
 
@@ -101,38 +101,13 @@ const getLocalFallbackRestaurants = (): Restaurant[] => {
       });
     }
 
-    // If list is still empty, initialize with mock missions and default list
+    // If list is still empty, initialize with default list
     if (list.length === 0) {
-      const mockMissions = localStorage.getItem('mock-freelancer-missions');
-      if (mockMissions) {
-        const parsed = JSON.parse(mockMissions);
-        parsed.forEach((m: any) => {
-          if (!list.some(r => r.id === m.id)) {
-            list.push({
-              id: m.id,
-              name: m.name,
-              plan: m.plan || 'free',
-              phone: m.phone || '',
-              category: m.category || '',
-              address: m.address || '',
-              neighborhood: m.neighborhood || m.address?.split('-')?.[1]?.trim() || '',
-              city: m.city || '',
-              state: m.state || '',
-              claim_code: 'CLAIM-' + m.id.substring(0, 5).toUpperCase(),
-              visit_status: 'Pendente',
-              visit_notes: ''
-            });
-          }
-        });
-      }
-      
-      if (list.length === 0) {
-        list.push(
-          { id: 'scraped-joao-pessoa-1', name: 'Mangai Cabo Branco', plan: 'premium', city: 'João Pessoa', state: 'PB', neighborhood: 'Cabo Branco', claim_code: 'CLAIM-MANGAI', visit_status: 'Interessado', visit_notes: 'Ficou de confirmar por e-mail.' },
-          { id: 'scraped-joao-pessoa-2', name: 'Tábua de Carne', plan: 'premium_gift', city: 'João Pessoa', state: 'PB', neighborhood: 'Tambaú', claim_code: 'CLAIM-TABUA', visit_status: 'Contatado', visit_notes: '' },
-          { id: 'scraped-joao-pessoa-3', name: 'Appétit Burger', plan: 'free', city: 'João Pessoa', state: 'PB', neighborhood: 'Manaíra', claim_code: 'CLAIM-APPETIT', visit_status: 'Pendente', visit_notes: '' }
-        );
-      }
+      list.push(
+        { id: 'scraped-joao-pessoa-1', name: 'Mangai Cabo Branco', plan: 'premium', city: 'João Pessoa', state: 'PB', neighborhood: 'Cabo Branco', claim_code: 'CLAIM-MANGAI', visit_status: 'Interessado', visit_notes: 'Ficou de confirmar por e-mail.' },
+        { id: 'scraped-joao-pessoa-2', name: 'Tábua de Carne', plan: 'premium_gift', city: 'João Pessoa', state: 'PB', neighborhood: 'Tambaú', claim_code: 'CLAIM-TABUA', visit_status: 'Contatado', visit_notes: '' },
+        { id: 'scraped-joao-pessoa-3', name: 'Appétit Burger', plan: 'free', city: 'João Pessoa', state: 'PB', neighborhood: 'Manaíra', claim_code: 'CLAIM-APPETIT', visit_status: 'Pendente', visit_notes: '' }
+      );
     }
     
     localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(list));
@@ -203,7 +178,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
       try {
         const parsed = JSON.parse(mockCompleted);
         Object.values(parsed).forEach((r: any) => {
-          if (!allRestaurants.some(item => item.id === r.id)) {
+          if (!allRestaurants.some(item => item.id === r.id || item.id === getDeterministicUUID(r.id))) {
             allRestaurants.unshift({
               id: r.id,
               name: r.name,

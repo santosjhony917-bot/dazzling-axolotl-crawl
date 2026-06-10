@@ -189,7 +189,7 @@ export default function GalleryManagement() {
       <div className="p-4 space-y-8 max-w-4xl mx-auto">
         
         {/* 1. Uploader de Imagem de Capa */}
-        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+        <Card className="shadow-none border-none rounded-2xl bg-white">
           <CardHeader>
             <CardTitle className="text-xl text-primary">Imagem de Capa</CardTitle>
           </CardHeader>
@@ -206,7 +206,7 @@ export default function GalleryManagement() {
         </Card>
         
         {/* 2. Gerenciamento da Galeria */}
-        <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+        <Card className="shadow-none border-none rounded-2xl bg-white">
           <CardHeader>
             <CardTitle className="text-xl text-primary">Galeria de Fotos</CardTitle>
           </CardHeader>
@@ -215,17 +215,17 @@ export default function GalleryManagement() {
               Arraste e solte as imagens para reordenar. A primeira imagem será usada como destaque.
             </p>
             
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
+              <div className="flex items-center gap-3">
                 <ImageUploadButton
                   onUploadComplete={handleGalleryImageUploadComplete}
                   bucketName={RESTAURANT_IMAGES_BUCKET}
                   folderPath={`${restaurantId}/gallery`}
-                  className="bg-primary text-white hover:bg-primary/90 h-10 w-10 p-0 rounded-lg shadow-md"
+                  className="bg-primary text-white hover:bg-primary/95 h-10 w-10 p-0 rounded-xl shadow-none shrink-0 relative"
                   icon={<Plus className="h-5 w-5" />}
                   disabled={isMutating}
                 />
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-bold text-slate-700">
                   {isMutating ? "Processando..." : "Adicionar Imagem"}
                 </span>
               </div>
@@ -233,9 +233,9 @@ export default function GalleryManagement() {
               <Button 
                 onClick={handleSaveOrder}
                 disabled={isMutating || localGallery.length === 0}
-                className="bg-highlight hover:bg-highlight/90"
+                className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-xl font-bold shadow-none h-10 w-full sm:w-auto flex items-center justify-center gap-2"
               >
-                {isMutating ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+                {isMutating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                 Salvar Ordem
               </Button>
             </div>
@@ -250,7 +250,7 @@ export default function GalleryManagement() {
                 items={localGallery.map(item => item.id)}
                 strategy={verticalListSortingStrategy}
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {localGallery.map((image) => (
                     <SortableItemWrapper 
                       key={image.id} 

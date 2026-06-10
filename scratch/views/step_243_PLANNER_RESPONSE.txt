@@ -1,0 +1,1 @@
+I will search for API key configurations in the frontend to see how the Gemini or OpenAI keys are stored or managed by the client application.

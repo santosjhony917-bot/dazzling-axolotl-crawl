@@ -1,0 +1,82 @@
+Created At: 2026-06-09T15:31:50Z
+Completed At: 2026-06-09T15:31:51Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 266
+Total Bytes: 11860
+Showing lines 1 to 266
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+3: import { Button } from '@/components/ui/button';
+4: import { Input } from '@/components/ui/input';
+5: import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+6: import { Badge } from '@/components/ui/badge';
+7: import { Trash2, Search, RefreshCw, AlertTriangle, Calendar, Clock } from 'lucide-react';
+8: import { showSuccess, showError } from '@/utils/toast';
+9: import { WeekSchedule } from '@/types/schedule';
+10: 
+11: interface ScrapedRestaurant {
+12:   id: string;
+13:   name: string;
+14:   category: string;
+15:   rating: number;
+16:   reviewsCount: number;
+17:   address: string;
+18:   phone: string;
+19:   city: string;
+20:   state: string;
+21:   status: 'Pendente' | 'Concluída';
+22:   reward: number;
+23:   imported_at: string;
+24:   googleMapsUrl?: string;
+25:   website?: string;
+26:   logo?: string;
+27:   coverImage?: string;
+28:   galleryImages?: string[];
+29:   openingHours?: WeekSchedule;
+30:   assignedToId?: string;
+31:   assignedToName?: string;
+32: }
+33: 
+34: const getRestaurantUniqueKey = (name: string, address: string) => {
+35:   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+36:   const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+3
+<truncated 9580 bytes>
+e={
+232:                         m.status === 'Concluída' 
+233:                           ? 'bg-emerald-100 text-emerald-800 border-none font-bold' 
+234:                           : 'bg-amber-100 text-amber-800 border-none font-bold'
+235:                       }>
+236:                         {m.status === 'Concluída' ? 'Concluída' : 'Pendente'}
+237:                       </Badge>
+238:                     </TableCell>
+239:                     <TableCell className="text-center font-bold text-green-700">R$ {m.reward.toFixed(2)}</TableCell>
+240:                     <TableCell className="text-gray-500 font-medium text-xs">
+241:                       <div className="flex flex-col">
+242:                         <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {new Date(m.imported_at || Date.now()).toLocaleDateString('pt-BR')}</span>
+243:                         <span className="flex items-center gap-1 text-[10px] text-gray-400"><Clock className="w-3 h-3" /> {new Date(m.imported_at || Date.now()).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+244:                       </div>
+245:                     </TableCell>
+246:                     <TableCell className="text-right">
+247:                       <Button 
+248:                         size="sm" 
+249:                         variant="ghost" 
+250:                         className="text-red-500 hover:text-red-700 hover:bg-red-50 font-bold gap-1"
+251:                         onClick={() => handleRemove(m)}
+252:                       >
+253:                         <Trash2 className="w-4 h-4" /> Remover da Fila
+254:                       </Button>
+255:                     </TableCell>
+256:                   </TableRow>
+257:                 ))}
+258:               </TableBody>
+259:             </Table>
+260:           )}
+261:         </CardContent>
+262:       </Card>
+263:     </div>
+264:   );
+265: }
+266: 
+The above content shows the entire, complete file contents of the requested file.

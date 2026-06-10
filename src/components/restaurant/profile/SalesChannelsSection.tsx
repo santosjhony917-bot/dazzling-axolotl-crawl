@@ -79,7 +79,7 @@ const SalesChannelsSection: React.FC<SalesChannelsSectionProps> = ({ restaurant 
 
   return (
     <div className="w-full space-y-3">
-      <h2 className="text-xl font-bold text-[#022D68] px-1 mb-4">Canais de Venda e Links</h2>
+      <h2 className="text-xl font-bold text-slate-800 px-1 mb-4">Canais de Venda e Links</h2>
       
       <InfoCardItem 
         label="Link do WhatsApp" 

@@ -1,0 +1,1 @@
+I will add the `useEffect` trigger and the AI manual extraction/save handlers to `src/pages/admin/ExportedRestaurants.tsx`.

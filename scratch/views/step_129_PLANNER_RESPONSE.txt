@@ -1,0 +1,15 @@
+Isso aconteceu por conta de uma diferença em como o sistema antigo classificava os dados:
+
+### O que ocorria antes:
+O sistema considerava o cardápio como "Completo" se o restaurante simplesmente possuísse um **link de cardápio** (`menuSourceUrl` preenchido, como `https://latratoria.ola.click/`). Ou seja, ele validava apenas a presença do link, mesmo que os pratos e categorias ainda não tivessem sido raspados e estruturados pela IA (o array `menu_categories` estava vazio, mostrando `0 ITENS`).
+
+---
+
+### Como corrigimos isso agora:
+Atualizei as regras de status na tela ([ExportedRestaurants.tsx](file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx)) para fazer uma validação mais inteligente:
+
+1. **Nova Badge - "Não Estruturado":** Se o restaurante possui o link do cardápio mas os pratos ainda não foram coletados/estruturados, ele agora exibirá a badge amarela **"Não Estruturado"** na listagem (em vez de aparecer como "Completo").
+2. **Dados Completos Rigorosos:** O status **"Completo ✨"** só será concedido se todas as informações básicas existirem **E** o cardápio já tiver sido coletado e estruturado com sucesso (tiver pelo menos 1 prato cadastrado).
+3. **Filtro Atualizado:** O filtro de busca de cardápios agora agrupa de forma correta restaurantes sem link e restaurantes que têm link mas ainda não foram estruturados.
+
+Para estruturar o cardápio da *La Tratoria Jampa* e de outros que estão como "Não Estruturado", basta executar a **Fase 3: Coleta de Cardápios** no painel do coletor de leads. O robô vai navegar até o link da Ola Click, copiar o código fonte, extrair os itens com a IA e salvá-los diretamente no restaurante!

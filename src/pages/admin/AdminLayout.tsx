@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
+import { Home, Utensils, BookOpen, Users, LogOut, Settings, Crown, Loader2, Megaphone } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -18,7 +18,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
   { name: 'Gerenciar Restaurantes', icon: Utensils, pathKey: 'adminRestaurants' },
-  { name: 'Gerenciar Freelancers', icon: Users, pathKey: 'adminDashboard', queryParams: { tab: 'freelancer-monitor' } },
+  { name: 'Cardápios Coletados', icon: BookOpen, pathKey: 'adminMenus' },
 ];
 
 const AdminLayout: React.FC = () => {
@@ -44,7 +44,7 @@ const AdminLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-soft-lg p-4 flex flex-col">
+      <aside className="w-64 bg-white shadow-none p-4 flex flex-col">
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
@@ -60,7 +60,7 @@ const AdminLayout: React.FC = () => {
                 variant="ghost"
                 className={cn(
                   "w-full justify-start gap-3 rounded-lg",
-                  isActive && "bg-primary/10 text-primary font-semibold shadow-soft-sm"
+                  isActive && "bg-primary/10 text-primary font-semibold shadow-none"
                 )}
                 onClick={() => navigate(itemUrl)} // Navega para a URL completa
               >

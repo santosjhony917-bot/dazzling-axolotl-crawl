@@ -240,9 +240,9 @@ const AdminEditRestaurant: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Coluna Principal (Informações Básicas, Logo, Plano) */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white p-6">
+          <Card className="shadow-none border-none rounded-2xl bg-white p-6">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-xl text-[#022D68]">Informações Essenciais</CardTitle>
+              <CardTitle className="text-xl text-primary">Informações Essenciais</CardTitle>
             </CardHeader>
             <CardContent className="p-0 space-y-4">
               <MainProfileCard
@@ -254,7 +254,7 @@ const AdminEditRestaurant: React.FC = () => {
                 restaurantId={restaurant.id}
               />
               <div className="space-y-2">
-                <h3 className="font-semibold text-lg text-[#022D68]">Plano do Restaurante</h3>
+                <h3 className="font-semibold text-lg text-primary">Plano do Restaurante</h3>
                 <Select 
                   value={restaurant.plan} 
                   onValueChange={handlePlanChange} 
@@ -376,9 +376,9 @@ const AdminEditRestaurant: React.FC = () => {
 
         {/* Coluna do Meio (Endereço, Horários, Canais de Venda) */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white p-6">
+          <Card className="shadow-none border-none rounded-2xl bg-white p-6">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-xl text-[#022D68]">Localização e Contato</CardTitle>
+              <CardTitle className="text-xl text-primary">Localização e Contato</CardTitle>
             </CardHeader>
             <CardContent className="p-0 space-y-4">
               <Button
@@ -479,9 +479,9 @@ const AdminEditRestaurant: React.FC = () => {
 
         {/* Coluna da Direita (Galeria e Cardápio) */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="shadow-soft-lg border-none rounded-xl bg-white p-6">
+          <Card className="shadow-none border-none rounded-2xl bg-white p-6">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-xl text-[#022D68]">Conteúdo</CardTitle>
+              <CardTitle className="text-xl text-primary">Conteúdo</CardTitle>
             </CardHeader>
             <CardContent className="p-0 space-y-4">
               <Button

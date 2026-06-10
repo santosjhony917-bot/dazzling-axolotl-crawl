@@ -47,7 +47,7 @@ const CategoryListItem: React.FC<CategoryListItemProps> = ({
 
   return (
     <Card 
-      className={`p-4 flex items-center justify-between transition-shadow hover:shadow-md ${onView || !disableNavigation ? 'cursor-pointer' : 'cursor-default'}`}
+      className={`p-4 flex items-center justify-between transition-shadow hover:shadow-none ${onView || !disableNavigation ? 'cursor-pointer' : 'cursor-default'}`}
       onClick={handleClick}
     >
       <div className="flex items-center space-x-4 min-w-0 flex-1">

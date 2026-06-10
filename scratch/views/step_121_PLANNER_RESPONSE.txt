@@ -1,0 +1,1 @@
+I will view lines 304 to 340 of `src/pages/admin/ExportedRestaurants.tsx` to target the button labels.

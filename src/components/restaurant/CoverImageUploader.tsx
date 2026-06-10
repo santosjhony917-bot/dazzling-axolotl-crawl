@@ -29,7 +29,7 @@ const CoverImageUploader: React.FC<CoverImageUploaderProps> = ({
   const displayUrl = coverImageUrl || PLACEHOLDER_COVER_URL;
 
   return (
-    <Card className="w-full aspect-[3/1] overflow-hidden relative rounded-xl shadow-lg">
+    <Card className="w-full aspect-[3/1] overflow-hidden relative rounded-2xl shadow-none">
       {/* Imagem de Capa */}
       <img
         src={displayUrl}
@@ -47,7 +47,7 @@ const CoverImageUploader: React.FC<CoverImageUploaderProps> = ({
               onUploadComplete={handleUploadComplete}
               bucketName={RESTAURANT_IMAGES_BUCKET}
               folderPath={`${restaurantId}/cover`}
-              className="bg-white text-primary hover:bg-gray-100 h-10 w-10 p-0 rounded-full shadow-lg"
+              className="bg-white text-primary hover:bg-gray-100 h-10 w-10 p-0 rounded-full shadow-none relative"
               icon={<Camera className="h-5 w-5" />}
             />
             <span className="text-white font-semibold text-sm">Alterar Capa</span>

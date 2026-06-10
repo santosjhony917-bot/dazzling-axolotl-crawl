@@ -17,9 +17,9 @@ export default function PopularCategories() {
 
   if (error) {
     return (
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-none border-none rounded-2xl bg-white">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+          <CardTitle className="flex items-center gap-2 text-2xl text-primary">
             <Settings className="w-6 h-6" /> Categorias Populares
           </CardTitle>
           <CardDescription>Gerencie quais categorias de pratos aparecem em destaque para os clientes.</CardDescription>
@@ -32,9 +32,9 @@ export default function PopularCategories() {
   }
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-2xl bg-white">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-2xl text-primary">
           <Settings className="w-6 h-6" /> Categorias Populares
         </CardTitle>
         <CardDescription>Gerencie quais categorias de pratos podem aparecer na seção de "Pratos Populares" para os clientes. A popularidade é definida por nome de categoria e afeta todos os restaurantes que a possuem.</CardDescription>

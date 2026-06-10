@@ -18,7 +18,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
 
   if (activeCategories.length === 0) {
     return (
-      <div className="text-center p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="text-center p-6 bg-white rounded-2xl shadow-none border border-gray-100">
         <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
         <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
       </div>
@@ -35,7 +35,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
           </h3>
           
           {/* Lista simples de itens sem imagens ou cards */}
-          <div className="divide-y divide-gray-100 bg-white px-3 rounded-xl border border-gray-100 shadow-sm">
+          <div className="divide-y divide-gray-100 bg-white px-3 rounded-2xl border border-gray-100 shadow-none">
             {category.menu_items.map(item => (
               <div key={item.id} className="py-3 flex justify-between items-start gap-4">
                 <div className="flex-grow min-w-0">

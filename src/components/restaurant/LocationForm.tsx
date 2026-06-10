@@ -98,7 +98,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
             <FormItem>
               <FormLabel>Endereço (Rua/Avenida)</FormLabel>
               <FormControl>
-                <Input {...field} className="rounded-xl" />
+                <Input {...field} className="rounded-2xl" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,7 +112,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
               <FormItem>
                 <FormLabel>Número</FormLabel>
                 <FormControl>
-                  <Input {...field} className="rounded-xl" />
+                  <Input {...field} className="rounded-2xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -125,7 +125,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
               <FormItem>
                 <FormLabel>CEP</FormLabel>
                 <FormControl>
-                  <Input {...field} className="rounded-xl" />
+                  <Input {...field} className="rounded-2xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,7 +139,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
             <FormItem>
               <FormLabel>Bairro</FormLabel>
               <FormControl>
-                <Input {...field} className="rounded-xl" />
+                <Input {...field} className="rounded-2xl" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -153,7 +153,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
               <FormItem>
                 <FormLabel>Cidade</FormLabel>
                 <FormControl>
-                  <Input {...field} className="rounded-xl" />
+                  <Input {...field} className="rounded-2xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -166,7 +166,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
               <FormItem>
                 <FormLabel>Estado</FormLabel>
                 <FormControl>
-                  <Input {...field} className="rounded-xl" />
+                  <Input {...field} className="rounded-2xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -188,7 +188,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
                     step="any"
                     onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
                     value={field.value === null ? '' : field.value}
-                    className="rounded-xl" 
+                    className="rounded-2xl" 
                   />
                 </FormControl>
                 <FormMessage />
@@ -208,7 +208,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
                     step="any"
                     onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : null)}
                     value={field.value === null ? '' : field.value}
-                    className="rounded-xl" 
+                    className="rounded-2xl" 
                   />
                 </FormControl>
                 <FormMessage />
@@ -217,7 +217,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ restaurant, refetch }) => {
           />
         </div>
 
-        <Button type="submit" disabled={isSaving} className="w-full bg-highlight hover:bg-highlight/90 rounded-xl">
+        <Button type="submit" disabled={isSaving} className="w-full bg-highlight hover:bg-highlight/90 rounded-2xl">
           {isSaving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
           Salvar Localização
         </Button>

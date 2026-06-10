@@ -35,8 +35,9 @@ export default function Splash() {
       }
     } else {
       // Usuário não autenticado
+      // Redireciona sempre para onboarding para manter a consistência de desenvolvimento/teste
       targetPath = createPageUrl("onboarding");
-      delay = 2000; // Atraso da tela de splash para usuários não autenticados
+      delay = 2000;
     }
     
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
@@ -50,28 +51,30 @@ export default function Splash() {
   }, [navigate, user, isLoading, restaurant, isRestaurantLoading]); // Adicionando restaurant e isRestaurantLoading às dependências
 
   return (
-    <div className="h-screen w-full relative flex flex-col items-center justify-center bg-highlight md:max-w-md md:mx-auto">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }} 
-        className="text-center px-8"
-      >
-        <div className="mx-auto max-w-[520px]">
-          <img 
-            src={LOGO_URL} 
-            alt="Filter Food Logo" 
-            className="w-64 h-auto mx-auto drop-shadow-xl" 
-          />
-        </div>
-      </motion.div>
-      
-      {/* Indicador de carregamento enquanto isLoading ou isRestaurantLoading é true */}
-      {(isLoading || isRestaurantLoading) && (
-        <div className="absolute bottom-10">
-          <Loader2 className="w-8 h-8 animate-spin text-white" />
-        </div>
-      )}
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="relative flex min-h-screen w-full max-w-md mx-auto border-x border-slate-200/60 flex-col bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] font-['Poppins'] overflow-hidden shadow-none items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }} 
+          className="text-center px-8"
+        >
+          <div className="mx-auto max-w-[520px]">
+            <img 
+              src={LOGO_URL} 
+              alt="FilterFood Logo" 
+              className="w-64 h-auto mx-auto drop-shadow-none" 
+            />
+          </div>
+        </motion.div>
+        
+        {/* Indicador de carregamento enquanto isLoading ou isRestaurantLoading é true */}
+        {(isLoading || isRestaurantLoading) && (
+          <div className="absolute bottom-10">
+            <Loader2 className="w-8 h-8 animate-spin text-white" />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

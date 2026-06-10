@@ -1,0 +1,1 @@
+I will view lines 550 to 670 of `ExportedRestaurants.tsx` to locate the exact positions for the table header, status columns, list buttons, and details modal rendering.

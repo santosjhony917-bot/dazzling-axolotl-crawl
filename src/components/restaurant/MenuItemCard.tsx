@@ -14,7 +14,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ name, price, imageUrl }) =>
   }).format(price);
 
   return (
-    <div className="flex items-center p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+    <div className="flex items-center p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-none hover:shadow-none transition-shadow cursor-pointer">
       <div className="w-16 h-16 flex-shrink-0 mr-4">
         <img 
           src={imageUrl || 'https://via.placeholder.com/150/f0f0f0?text=Item'} 

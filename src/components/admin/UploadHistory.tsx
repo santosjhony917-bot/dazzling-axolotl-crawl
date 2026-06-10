@@ -54,7 +54,7 @@ const UploadHistory: React.FC = () => {
 
   if (loading) {
     return (
-      <Card className="p-6 shadow-soft-lg border-none rounded-xl bg-white dark:bg-gray-800 text-center">
+      <Card className="p-6 shadow-none border-none rounded-2xl bg-white dark:bg-gray-800 text-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
         <p className="text-primary">Carregando histórico...</p>
       </Card>
@@ -62,7 +62,7 @@ const UploadHistory: React.FC = () => {
   }
 
   return (
-    <Card className="p-6 shadow-soft-lg border-none rounded-xl bg-white dark:bg-gray-800">
+    <Card className="p-6 shadow-none border-none rounded-2xl bg-white dark:bg-gray-800">
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-2xl font-bold text-primary flex items-center gap-2">
           <History className="h-6 w-6" /> Histórico de Uploads
@@ -84,7 +84,7 @@ const UploadHistory: React.FC = () => {
         ) : (
           <div className="space-y-3">
             {history.map((record) => (
-              <div key={record.id} className="flex flex-col p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-soft-sm">
+              <div key={record.id} className="flex flex-col p-4 bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-none">
                 <div className="flex justify-between items-center">
                   <div className="flex-1 min-w-0">
                     <p className="text-base font-bold text-primary truncate">

@@ -1,0 +1,1 @@
+I will write a script `scratch/scan_transcript.cjs` to analyze the `transcript.jsonl` file and locate any large text blocks representing the 674-line version of `ExportedRestaurants.tsx`.

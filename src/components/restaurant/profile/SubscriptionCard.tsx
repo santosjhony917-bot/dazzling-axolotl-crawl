@@ -49,9 +49,9 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ restaurant }) => {
   const details = getPlanDetails();
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-xl bg-white">
       <CardHeader>
-        <CardTitle className="text-xl text-[#022D68] flex items-center gap-2">
+        <CardTitle className="text-xl text-slate-800 flex items-center gap-2">
           <Crown className="w-5 h-5 text-yellow-500" /> Assinatura
         </CardTitle>
         <CardDescription>Gerencie seu plano de assinatura e benefícios.</CardDescription>

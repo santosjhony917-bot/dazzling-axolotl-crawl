@@ -15,7 +15,7 @@ const IncompleteRestaurantAlerts: React.FC = () => {
   if (incompleteCount === 0) return null;
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-2xl bg-white">
       <CardContent className="p-4">
         <Alert className="bg-red-50 border-red-400 text-red-700">
           <AlertTriangle className="h-4 w-4" />

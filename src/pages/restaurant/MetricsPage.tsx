@@ -22,7 +22,7 @@ const MetricsPage: React.FC = () => {
   const content = isPremium ? (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4 text-primary">Métricas de Desempenho</h2>
-      <Card className="shadow-soft-md border-none rounded-xl p-6">
+      <Card className="shadow-none border-none rounded-2xl p-6">
         <CardContent className="p-0 text-gray-600">
           <p>Gráficos e dados de visualizações, cliques no cardápio e taxa de conversão serão exibidos aqui.</p>
           <p className="mt-4 font-bold text-green-600">Recurso Premium Ativo!</p>
@@ -31,7 +31,7 @@ const MetricsPage: React.FC = () => {
     </div>
   ) : (
     <div className="p-4">
-      <Card className="shadow-soft-md border-none rounded-xl p-6 bg-yellow-50 border-yellow-300">
+      <Card className="shadow-none border-none rounded-2xl p-6 bg-yellow-50 border-yellow-300">
         <h2 className="text-xl font-semibold mb-4 text-yellow-800">Recurso Premium</h2>
         <p className="text-gray-700 mb-6">
           As métricas de desempenho e o acompanhamento de seguidores são exclusivos do plano Premium.

@@ -24,7 +24,7 @@ const HighlightCard: React.FC<HighlightCardProps> = ({ item, className }) => {
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "flex h-full flex-col gap-0 rounded-xl min-w-[200px] shadow-soft-lg bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300",
+        "flex h-full flex-col gap-0 rounded-2xl min-w-[200px] shadow-none bg-white dark:bg-zinc-800 overflow-hidden border-none transition-transform duration-300",
         className
       )}
     >

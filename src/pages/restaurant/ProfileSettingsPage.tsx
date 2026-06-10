@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { Loader2, Settings, Utensils, Crown, MapPin, Clock, Link2, Users, Calendar } from 'lucide-react';
+import { Loader2, Settings, Utensils, Crown, MapPin, Clock, Link2, Users, Calendar, LogOut } from 'lucide-react';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -40,7 +40,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isRestaurantLoading, isPremium, refetchProfile, refetchRestaurant } = useAuthData();
+  const { restaurant, isLoading: authLoading, isRestaurantLoading, isPremium, refetchProfile, refetchRestaurant, signOut } = useAuthData();
   const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -68,7 +68,7 @@ export default function ProfileSettingsPage() {
     return (
       <RestaurantAreaPageLayout title="Configurações" icon={Settings} backPath="home">
         <div className="p-6 text-center max-w-md mx-auto space-y-6 mt-10">
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto">
             <Settings className="w-8 h-8 text-primary" />
           </div>
           <h2 className="text-2xl font-bold text-primary">Restaurante não vinculado</h2>
@@ -87,6 +87,16 @@ export default function ProfileSettingsPage() {
       </RestaurantAreaPageLayout>
     );
   }
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      showSuccess("Você saiu da sua conta.");
+      navigate('/welcome', { replace: true });
+    } catch (error: any) {
+      showError("Erro ao sair: " + error.message);
+    }
+  };
 
   const handleEditField = useCallback((key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => {
     if (!isPremium && (key === 'whatsapp_url' || key === 'ifood_url' || key === 'other_url')) {
@@ -207,9 +217,9 @@ export default function ProfileSettingsPage() {
 
   return (
     <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="home">
-      <div className="p-4 space-y-6 max-w-md mx-auto">
-        
-        {/* 1. Card Principal (Logo e Nome) - Fixado acima das sanfonas */}
+      <div className="space-y-5">
+
+        {/* Banner do restaurante */}
         <MainProfileCard
           restaurantName={restaurant?.name || "Meu Restaurante"}
           logoUrl={restaurant?.image_url}
@@ -219,122 +229,138 @@ export default function ProfileSettingsPage() {
           restaurantId={restaurant?.id || 'temp'}
         />
 
-        <Accordion type="single" collapsible defaultValue="general" className="w-full space-y-4">
-          
-          {/* 1. Informações Básicas (Geral) */}
-          <AccordionItem value="general" className="bg-white border border-gray-200 rounded-2xl shadow-soft-md px-4 overflow-hidden border-none">
-            <AccordionTrigger className="hover:no-underline font-extrabold text-lg text-primary py-4 [&[data-state=open]]:pb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-highlight/10 rounded-lg flex items-center justify-center">
-                  <Utensils className="w-4 h-4 text-highlight" />
-                </div>
-                <span>Dados do Restaurante</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-5">
-              {/* 2. Informações Básicas */}
-              <BasicInfoSection
-                restaurant={restaurant}
-                isPremium={isPremium}
-                handleEditField={handleEditField}
-                cnpjMask={cnpjMask}
-                phoneMask={phoneMask}
-                nameSchema={nameSchema}
-                emailSchema={emailSchema}
-                phoneSchema={phoneSchema}
-                cnpjSchema={cnpjSchema}
-              />
-            </AccordionContent>
-          </AccordionItem>
+        {/* Seção: Configurações */}
+        <div>
+          <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Configurações</p>
+          <Accordion type="single" collapsible defaultValue="general" className="w-full space-y-3">
 
-          {/* 2. Localização e Horários */}
-          <AccordionItem value="location" className="bg-white border border-gray-200 rounded-2xl shadow-soft-md px-4 overflow-hidden border-none">
-            <AccordionTrigger className="hover:no-underline font-extrabold text-lg text-primary py-4 [&[data-state=open]]:pb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-highlight/10 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-highlight" />
+            {/* 1. Dados do Restaurante */}
+            <AccordionItem value="general" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <Utensils className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Dados do Restaurante</span>
                 </div>
-                <span>Localização e Horários</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-5">
-              <LocationHoursSection
-                restaurant={restaurant}
-                isPremium={isPremium}
-                currentSchedule={currentSchedule}
-                setIsAddressDialogOpen={setIsAddressDialogOpen}
-                setIsHoursDialogOpen={setIsHoursDialogOpen}
-              />
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5">
+                <BasicInfoSection
+                  restaurant={restaurant}
+                  isPremium={isPremium}
+                  handleEditField={handleEditField}
+                  cnpjMask={cnpjMask}
+                  phoneMask={phoneMask}
+                  nameSchema={nameSchema}
+                  emailSchema={emailSchema}
+                  phoneSchema={phoneSchema}
+                  cnpjSchema={cnpjSchema}
+                />
+              </AccordionContent>
+            </AccordionItem>
 
-          {/* 3. Gestão de Conteúdo e Links */}
-          <AccordionItem value="content" className="bg-white border border-gray-200 rounded-2xl shadow-soft-md px-4 overflow-hidden border-none">
-            <AccordionTrigger className="hover:no-underline font-extrabold text-lg text-primary py-4 [&[data-state=open]]:pb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-highlight/10 rounded-lg flex items-center justify-center">
-                  <Link2 className="w-4 h-4 text-highlight" />
+            {/* 2. Localização e Horários */}
+            <AccordionItem value="location" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <MapPin className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Localização e Horários</span>
                 </div>
-                <span>Conteúdo e Links</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-5">
-              <ContentManagementSection
-                navigate={navigate}
-                isPremium={isPremium}
-                restaurantId={restaurant?.id || ''}
-                restaurantName={restaurant?.name || 'Meu Restaurante'}
-                setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
-                setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
-                setIsSalesChannelsDialogOpen={setIsSalesChannelsDialogOpen}
-              />
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5">
+                <LocationHoursSection
+                  restaurant={restaurant}
+                  isPremium={isPremium}
+                  currentSchedule={currentSchedule}
+                  setIsAddressDialogOpen={setIsAddressDialogOpen}
+                  setIsHoursDialogOpen={setIsHoursDialogOpen}
+                />
+              </AccordionContent>
+            </AccordionItem>
 
-          {/* 4. Plano e Suporte */}
-          <AccordionItem value="subscription" className="bg-white border border-gray-200 rounded-2xl shadow-soft-md px-4 overflow-hidden border-none">
-            <AccordionTrigger className="hover:no-underline font-extrabold text-lg text-primary py-4 [&[data-state=open]]:pb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-highlight/10 rounded-lg flex items-center justify-center">
-                  <Crown className="w-4 h-4 text-highlight" />
+            {/* 3. Conteúdo e Links */}
+            <AccordionItem value="content" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <Link2 className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Conteúdo e Links</span>
                 </div>
-                <span>Plano e Suporte</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-5">
-              <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5">
+                <ContentManagementSection
+                  navigate={navigate}
+                  isPremium={isPremium}
+                  restaurantId={restaurant?.id || ''}
+                  restaurantName={restaurant?.name || 'Meu Restaurante'}
+                  setIsPaymentMethodsDialogOpen={setIsPaymentMethodsDialogOpen}
+                  setIsSocialNetworksDialogOpen={setIsSocialNetworksDialogOpen}
+                  setIsSalesChannelsDialogOpen={setIsSalesChannelsDialogOpen}
+                />
+              </AccordionContent>
+            </AccordionItem>
 
-          {/* 5. Social e Happy Hour */}
-          <AccordionItem value="social" className="bg-white border border-gray-200 rounded-2xl shadow-soft-md px-4 overflow-hidden border-none">
-            <AccordionTrigger className="hover:no-underline font-extrabold text-lg text-primary py-4 [&[data-state=open]]:pb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-highlight/10 rounded-lg flex items-center justify-center">
-                  <Users className="w-4 h-4 text-highlight" />
+            {/* 4. Plano e Suporte */}
+            <AccordionItem value="subscription" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <Crown className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Plano e Suporte</span>
                 </div>
-                <span>Social e Happy Hour</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-2 pb-5 space-y-3">
-              <NavCardItem 
-                title="Meus Amigos" 
-                description="Adicione amigos e gerencie sua lista de contatos."
-                icon={Users} 
-                onClick={() => navigate('/friends')}
-                isPremium={isPremium}
-              />
-              <NavCardItem 
-                title="Happy Hours" 
-                description="Crie ou participe de happy hours e votações."
-                icon={Calendar} 
-                onClick={() => navigate('/happy-hours')}
-                isPremium={isPremium}
-              />
-            </AccordionContent>
-          </AccordionItem>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5">
+                <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
+              </AccordionContent>
+            </AccordionItem>
 
-        </Accordion>
+            {/* 5. Social e Happy Hour */}
+            <AccordionItem value="social" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <Users className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Social e Happy Hour</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5 space-y-3">
+                <NavCardItem
+                  title="Meus Amigos"
+                  description="Adicione amigos e gerencie sua lista de contatos."
+                  icon={Users}
+                  onClick={() => navigate('/friends')}
+                  isPremium={isPremium}
+                />
+                <NavCardItem
+                  title="Happy Hours"
+                  description="Crie ou participe de happy hours e votações."
+                  icon={Calendar}
+                  onClick={() => navigate('/happy-hours')}
+                  isPremium={isPremium}
+                />
+              </AccordionContent>
+            </AccordionItem>
+
+          </Accordion>
+        </div>
+
+        {/* Botão Sair — separado e com área de respiro */}
+        <div className="pt-2 pb-6">
+          <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Conta</p>
+          <button
+            onClick={handleLogout}
+            className="w-full h-[50px] rounded-[18px] flex items-center justify-center gap-2 border-2 border-[#EF2A39]/30 text-[#EF2A39] font-semibold text-[15px] bg-[#FFF5F5] hover:bg-[#FEE2E2] active:scale-[0.98] transition-all duration-200"
+          >
+            <LogOut className="w-4 h-4" />
+            Sair da Conta
+          </button>
+        </div>
+
       </div>
       
       {/* Dialogs */}

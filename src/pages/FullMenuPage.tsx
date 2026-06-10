@@ -53,10 +53,10 @@ export default function FullMenuPage() {
       />
       
       <main className="p-4 space-y-6">
-        <Card className="shadow-soft-md border-none rounded-xl p-4">
+        <Card className="border border-slate-100 bg-white rounded-2xl shadow-none p-4">
           <CardContent className="p-0 flex items-center gap-3">
-            <Utensils className="w-6 h-6 text-primary" />
-            <h1 className="text-xl font-bold text-primary">Cardápio Completo</h1>
+            <Utensils className="w-5 h-5 text-highlight/80" />
+            <h1 className="text-base font-extrabold text-slate-800">Cardápio Completo</h1>
           </CardContent>
         </Card>
         
@@ -66,9 +66,9 @@ export default function FullMenuPage() {
             isFullMenuPage={true} // Nova prop para indicar que é a página completa
           />
         ) : (
-          <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
-            <Utensils className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-600">Nenhum item ativo no cardápio.</p>
+          <Card className="p-6 text-center border border-slate-100 bg-white rounded-2xl shadow-none">
+            <Utensils className="w-8 h-8 text-slate-400 mx-auto mb-3" />
+            <p className="text-sm font-semibold text-slate-500">Nenhum item ativo no cardápio.</p>
           </Card>
         )}
       </main>

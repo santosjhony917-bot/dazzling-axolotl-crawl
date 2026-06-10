@@ -30,7 +30,7 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl shadow-none">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-primary font-bold">
             <DollarSign className="w-5 h-5 text-highlight" />
@@ -57,8 +57,8 @@ const SearchByPriceModal: React.FC<SearchByPriceModalProps> = ({ isOpen, onClose
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose} className="rounded-xl">Cancelar</Button>
-          <Button onClick={handleApply} variant="highlight" className="rounded-xl">Aplicar Filtro</Button>
+          <Button variant="outline" onClick={onClose} className="rounded-2xl">Cancelar</Button>
+          <Button onClick={handleApply} variant="highlight" className="rounded-2xl">Aplicar Filtro</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

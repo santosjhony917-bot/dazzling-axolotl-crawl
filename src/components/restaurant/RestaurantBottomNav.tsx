@@ -1,116 +1,101 @@
 import React, { memo } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Search, User, Heart, Crown } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Search, User, Heart, Crown, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { createPageUrl, PathKey } from '@/utils/url';
+import { createPageUrl } from '@/utils/url';
 import { motion } from 'framer-motion';
 
-const NavItem = memo(({ icon: Icon, label, path, isSelected }: { icon: React.ElementType, label: string, path: string, isSelected: boolean }) => {
-  // console.log(`NavItem: ${label}, Path: ${path}, isSelected: ${isSelected}`); // Temporarily added for debugging
+const NavItem = memo(({ icon: Icon, path, isSelected }: { icon: React.ElementType, path: string, isSelected: boolean }) => {
   return (
-    <motion.div
-      whileTap={{ scale: 0.95 }}
-      className="flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2"
+    <Link
+      to={path}
+      className="flex flex-col items-center justify-center gap-1 w-10 h-10 relative"
     >
-      <Link
-        to={path}
-        className={cn(
-          "flex flex-col items-center justify-center gap-1 transition-colors duration-200 py-2",
-          isSelected ? "text-highlight dark:text-text-dark" : "text-primary/70 dark:text-text-dark/70 hover:text-highlight",
-        )}
-      >
-        <Icon 
-          className={cn(
-            "w-6 h-6",
-          )} 
+      <Icon className={cn("w-5.5 h-5.5 transition-all", isSelected ? "text-white fill-white" : "text-white/70 stroke-[2.5]")} />
+      {isSelected && (
+        <motion.div 
+          layoutId="nav-indicator"
+          className="w-1 h-1 bg-white rounded-full absolute -bottom-0.5"
         />
-        <span className="text-sm font-medium">
-          {label}
-        </span>
-      </Link>
-    </motion.div>
+      )}
+    </Link>
   );
 });
 
 const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
-  const location = useLocation(); // Usando useLocation para obter a rota atual
+  const location = useLocation();
   
-  // Definindo o item central baseado no plano
   const centralItem = isFree 
-    ? { 
-        id: 'upgrade', 
-        icon: Crown, 
-        label: 'Premium', 
-        path: createPageUrl('restaurant-area/upgrade') as string
-      }
-    : { 
-        id: 'favorites', 
-        icon: Heart, 
-        label: 'Favoritos', 
-        path: '/favorites'
-      };
+    ? { id: 'upgrade', icon: Crown, path: createPageUrl('restaurant-area/upgrade') as string }
+    : { id: 'chat', icon: Sparkles, path: '/combo-finder' };
 
-  const navItems = [
-    { id: 'home', icon: Home, label: 'Início', path: '/home' },
-    { id: 'search', icon: Search, label: 'Busca', path: '/search' },
-    centralItem, // Item central dinâmico
-    { id: 'perfil', icon: User, label: 'Perfil', path: createPageUrl('restaurant-area/profile-menu') },
-  ];
-  
-  // Função para verificar se o item está selecionado com base na rota
   const isPathActive = (itemPath: string) => {
-    // Remove query params e trailing slash para comparação
     const currentPath = location.pathname.replace(/\/$/, '').split('?')[0];
     const normalizedItemPath = itemPath.replace(/\/$/, '').split('?')[0];
-    
-    // Verifica se o caminho atual começa com o caminho do item (útil para rotas aninhadas como /menu)
     return currentPath === normalizedItemPath || 
            (normalizedItemPath === createPageUrl('restaurant-area/profile-menu') && currentPath.startsWith(normalizedItemPath));
   };
 
+  const CenterIcon = centralItem.icon;
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 frosted-glass shadow-soft-lg z-30 max-w-md mx-auto rounded-t-2xl border-t border-gray-200/50">
-      <div className="flex justify-around items-center h-20">
-        {navItems.map((item) => {
-          const isSelected = isPathActive(item.path);
-          const isCentralButton = item.id === centralItem.id;
-          
-          // Se for o botão central E for o botão de Upgrade (isFree = true)
-          if (isCentralButton && isFree) {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="flex flex-col items-center justify-center transition-colors duration-200 -mt-6"
-              >
-                <motion.div // Adicionado motion.div
-                  whileTap={{ scale: 0.95 }}
-                  className={cn(
-                    "flex items-center justify-center rounded-full w-16 h-16 transition-all duration-300 hover:scale-[1.05] shadow-xl",
-                    "bg-highlight text-white"
-                  )}
-                >
-                  <Icon className={cn("h-7 w-7 fill-white")} />
-                </motion.div>
-                <span className="text-sm font-medium text-primary dark:text-text-dark mt-1">
-                  {item.label}
-                </span>
-              </Link>
-            );
-          }
-          
-          // Caso contrário (Premium ou botões laterais), usa o NavItem padrão
-          return (
-            <NavItem
-              key={item.path}
-              icon={item.icon}
-              label={item.label}
-              path={item.path}
-              isSelected={isSelected}
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none pb-0">
+      <div className="w-full max-w-md mx-auto h-[70px] pointer-events-auto bg-transparent relative">
+        
+        {/* SVG Background - Perfectly Symmetric and Clean */}
+        <div className="absolute inset-0 z-0 pointer-events-none translate-y-2">
+          <svg 
+            width="100%" 
+            height="70" 
+            viewBox="0 0 450 70" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg" 
+            preserveAspectRatio="none" 
+            className="w-full h-full object-fill filter drop-shadow-[0px_-4px_8px_rgba(239,42,57,0.12)] overflow-visible"
+          >
+            <path 
+              d="M 0 0 L 170 0 C 177 0, 183 4, 186 10 C 193 25, 207 35, 225 35 C 243 35, 257 25, 264 10 C 267 4, 273 0, 280 0 L 450 0 L 450 70 L 0 70 Z" 
+              fill="#EF2A39"
             />
-          );
-        })}
+          </svg>
+        </div>
+
+        {/* Nav Items Grid - Symmetrically Spaced */}
+        <div className="absolute inset-0 z-10 grid grid-cols-5 h-full translate-y-2">
+          {/* Home */}
+          <div className="flex items-center justify-center">
+            <NavItem icon={Home} path="/home" isSelected={isPathActive('/home')} />
+          </div>
+
+          {/* Search */}
+          <div className="flex items-center justify-center">
+            <NavItem icon={Search} path="/search" isSelected={isPathActive('/search')} />
+          </div>
+
+          {/* Spacer for Center Floating Button */}
+          <div />
+
+          {/* Favorites */}
+          <div className="flex items-center justify-center">
+            <NavItem icon={Heart} path="/favorites" isSelected={isPathActive('/favorites')} />
+          </div>
+
+          {/* Profile */}
+          <div className="flex items-center justify-center">
+            <NavItem icon={User} path={createPageUrl('restaurant-area/profile-menu')} isSelected={isPathActive(createPageUrl('restaurant-area/profile-menu'))} />
+          </div>
+        </div>
+
+        {/* Central Floating Button - Perfectly Centered and Elevated */}
+        <div className="absolute left-1/2 top-[0px] -translate-x-1/2 -translate-y-1/2 z-20">
+          <Link 
+            to={centralItem.path}
+            className="flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-transform"
+          >
+            <CenterIcon className="w-7 h-7 text-white stroke-[3]" />
+          </Link>
+        </div>
+
       </div>
     </div>
   );

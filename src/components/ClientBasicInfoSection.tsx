@@ -74,7 +74,7 @@ const ClientBasicInfoSection: React.FC<ClientBasicInfoSectionProps> = ({ profile
   const displayName = fullName || user?.email?.split('@')[0] || 'Usuário';
 
   return (
-    <Card className="shadow-soft-xl border-none rounded-2xl p-6 bg-white">
+    <Card className="shadow-none border-none rounded-2xl p-6 bg-white">
       <CardHeader className="p-0 mb-4">
         <CardTitle className="text-xl font-bold text-primary">Informações Pessoais</CardTitle>
       </CardHeader>

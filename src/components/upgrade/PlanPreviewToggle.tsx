@@ -14,30 +14,32 @@ const PlanPreviewToggle: React.FC<PlanPreviewToggleProps> = ({ currentPlan, prev
   const isPremium = currentPlan === 'premium' || currentPlan === 'premium_gift';
 
   return (
-    <div className="flex w-full p-1 bg-gray-100 rounded-xl mb-6 shadow-inner">
+    <div className="flex w-full p-1 bg-slate-100 rounded-2xl mb-6 shadow-none">
       <Button
         onClick={() => setPreviewPlan('free')}
+        size="sm"
         className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
+          "flex-1 h-9 rounded-xl font-bold transition-all text-[11px] sm:text-xs px-2 whitespace-nowrap",
           previewPlan === 'free'
-            ? "bg-white text-primary shadow-soft-md hover:bg-white"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
+            ? "bg-white text-primary shadow-none hover:bg-white"
+            : "bg-transparent text-slate-500 hover:bg-gray-200/50"
         )}
         variant="ghost"
       >
-        {isFree ? 'Seu Plano (Free)' : 'Visualização Free'}
+        {isFree ? 'Seu Plano (Free)' : 'Perfil Free'}
       </Button>
       <Button
         onClick={() => setPreviewPlan('premium')}
+        size="sm"
         className={cn(
-          "flex-1 h-10 rounded-lg font-semibold transition-all",
+          "flex-1 h-9 rounded-xl font-bold transition-all text-[11px] sm:text-xs px-2 whitespace-nowrap",
           previewPlan === 'premium'
-            ? "bg-highlight text-white shadow-highlight-glow hover:bg-highlight/90"
-            : "bg-transparent text-gray-600 hover:bg-gray-200/50"
+            ? "bg-highlight text-white shadow-none hover:bg-highlight/90"
+            : "bg-transparent text-slate-500 hover:bg-gray-200/50"
         )}
         variant="ghost"
       >
-        {isPremium ? 'Seu Plano (Premium)' : 'Visualização Premium'}
+        {isPremium ? 'Seu Plano (Premium)' : 'Perfil Premium'}
       </Button>
     </div>
   );

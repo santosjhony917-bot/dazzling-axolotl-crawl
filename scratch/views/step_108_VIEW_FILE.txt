@@ -1,0 +1,28 @@
+Created At: 2026-06-09T14:55:14Z
+Completed At: 2026-06-09T14:55:15Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 599
+Total Bytes: 27451
+Showing lines 580 to 599
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+580:                       >
+581:                         <span className="flex items-center gap-2 truncate max-w-[90%]"><LinkIcon className="w-4 h-4 text-emerald-600 shrink-0" /> {selectedRestaurant.menuSourceUrl}</span>
+582:                         <ExternalLink className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+583:                       </a>
+584:                     ) : (
+585:                       <p className="text-xs text-amber-600 font-bold bg-amber-50 p-3 rounded-xl border border-amber-100 flex items-center gap-2">
+586:                         ⚠️ Nenhum link de cardápio (menuSourceUrl) foi coletado pelo robô para este restaurante.
+587:                       </p>
+588:                     )}
+589:                   </div>
+590:                 </div>
+591:               </div>
+592:             </>
+593:           )}
+594:         </DialogContent>
+595:       </Dialog>
+596:     </div>
+597:   );
+598: }
+599: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

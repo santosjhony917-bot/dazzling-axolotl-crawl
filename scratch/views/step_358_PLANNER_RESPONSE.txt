@@ -1,0 +1,1 @@
+I will run git command to check git status and see if there are any stashes, commits or other files modified recently where the 674-line version might be stored.

@@ -19,15 +19,22 @@ const SharedLayoutWrapper: React.FC = () => {
   const isComboFinder = location.pathname === '/combo-finder';
   const isHappyHourRoom = location.pathname.startsWith('/happy-hour/');
   const hideBottomNav = isComboFinder || isHappyHourRoom;
+  
+  const isUpgradePage = location.pathname === '/restaurant-area/upgrade';
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className={cn(
+      "min-h-screen flex flex-col transition-colors duration-200",
+      isUpgradePage ? "bg-[#090D1A]" : "bg-[#f1f5f9]"
+    )}>
       {/* Main content area */}
       <main
         className={cn(
-          "flex-grow mx-auto w-full",
-          !isPublicRestaurantProfile && "max-w-md", // Aplicar max-w-md a todas as rotas do wrapper, exceto perfis públicos
-          !hideBottomNav && "pb-20" // Não adiciona padding se hideBottomNav for verdadeiro (sem menu inferior)
+          "flex-grow mx-auto w-full min-h-screen flex flex-col shadow-none transition-colors duration-200",
+          isUpgradePage ? "bg-[#090D1A]" : "bg-background-light",
+          !isPublicRestaurantProfile && "max-w-md border-x",
+          !isPublicRestaurantProfile && (isUpgradePage ? "border-white/5" : "border-slate-200/60"),
+          !hideBottomNav && "pb-24" // Não adiciona padding se hideBottomNav for verdadeiro (sem menu inferior)
         )}
       >
         <Outlet />

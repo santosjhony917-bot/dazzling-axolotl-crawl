@@ -13,6 +13,7 @@ import Index from '@/pages/Index'; // Redireciona para Splash
 import Home from '@/pages/Home'; // Home do Cliente
 import Onboarding from '@/pages/Onboarding';
 import Welcome from '@/pages/Welcome';
+import LandingPage from '@/pages/LandingPage';
 import AuthComponent from '@/pages/Auth';
 import RestaurantProfilePublic from '@/pages/RestaurantProfilePublic';
 import MenuItemDetails from '@/pages/MenuItemDetails';
@@ -20,7 +21,6 @@ import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
-import FreelancerPortal from '@/pages/FreelancerPortal';
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -51,6 +51,7 @@ import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminRestaurants from '@/pages/admin/AdminRestaurants';
 import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
 import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
+import AdminViewMenus from '@/pages/admin/AdminViewMenus';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/auth" element={<AuthComponent />} />
         <Route path="/legal" element={<Legal />} />
         <Route path="/help-center" element={<HelpCenter />} />
@@ -70,7 +72,6 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/restaurant/:restaurantId/menu" element={<FullMenuPage />} /> {/* Rota alternativa para o cardápio */}
         <Route path="/restaurant/:restaurantId/menu-full" element={<FullMenuPage />} /> {/* Rota para o cardápio completo */}
-        <Route path="/freelancer-portal" element={<FreelancerPortal />} />
 
         {/* Rotas Públicas da Área do Restaurante (Hub e Login/Cadastro) */}
         <Route path="/restaurant-area-hub" element={<RestaurantAreaHub />} />
@@ -107,6 +108,7 @@ function App() {
           <Route path="/admin/restaurants" element={<AdminRestaurants />} />
           <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
           <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
+          <Route path="/admin/menus" element={<AdminViewMenus />} />
         </Route>
         
         {/* Redirecionamento de Rotas Legadas da Área do Restaurante para as Rotas Unificadas */}

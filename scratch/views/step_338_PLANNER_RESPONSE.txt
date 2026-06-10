@@ -1,0 +1,1 @@
+I will create a script `scratch/search_backups.cjs` to search the workspace for all instances of `ExportedRestaurants.tsx` in backups and verify their line counts.

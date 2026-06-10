@@ -87,7 +87,7 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
   };
 
   return (
-    <Card className="shadow-soft-sm border-gray-200 rounded-xl p-4">
+    <Card className="shadow-none border-gray-200 rounded-2xl p-4">
       <CardContent className="p-0 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {requiredColumns.map(col => (
@@ -100,7 +100,7 @@ const ColumnarCsvInput: React.FC<ColumnarCsvInputProps> = ({
                 onChange={(e) => handleInputChange(col, e.target.value)}
                 placeholder={`Cole a coluna "${col.replace(/_/g, ' ')}" aqui...`}
                 rows={10}
-                className="min-h-[200px] font-mono text-xs border-gray-300 focus:border-highlight focus:ring-highlight shadow-inner"
+                className="min-h-[200px] font-mono text-xs border-gray-300 focus:border-highlight focus:ring-highlight shadow-none"
                 disabled={isLoading}
               />
             </div>

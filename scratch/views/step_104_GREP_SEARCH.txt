@@ -1,0 +1,3 @@
+Created At: 2026-06-09T14:54:57Z
+Completed At: 2026-06-09T14:54:58Z
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\ExportedRestaurants.tsx","LineNumber":569,"LineContent":"                  \u003ch3 className=\"font-bold text-sm text-primary uppercase tracking-wider\"\u003eFase 2: Coleta de Cardápio\u003c/h3\u003e"}

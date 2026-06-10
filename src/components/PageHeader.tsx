@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface PageHeaderProps {
   title: string;
@@ -11,16 +12,26 @@ interface PageHeaderProps {
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, backLink }) => {
   return (
-    <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to={backLink} className="p-2 -ml-2 text-gray-600 hover:text-gray-900">
-            <ArrowLeft />
-          </Link>
-          <h1 className="text-lg font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis">{title}</h1>
-          <div className="w-6"></div> {/* Spacer to help center the title */}
-        </div>
+    <header className="bg-white flex flex-row items-center justify-between w-full px-5 pt-8 pb-4">
+      <div className="w-12 flex justify-start">
+        <Link to={backLink}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-[#3C2F2F] hover:bg-gray-100 rounded-full h-12 w-12"
+          >
+            <ArrowLeft className="h-6 w-6 stroke-[2]" />
+          </Button>
+        </Link>
       </div>
-    </div>
+      
+      <h1 className="text-xl font-semibold text-[#3C2F2F] tracking-tight truncate flex-1 text-center font-['Poppins']">
+        {title}
+      </h1>
+      
+      <div className="w-12 flex justify-end">
+        {/* Spacer */}
+      </div>
+    </header>
   );
 };

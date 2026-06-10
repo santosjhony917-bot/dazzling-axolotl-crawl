@@ -24,6 +24,7 @@ import { Profile } from '@/types/supabase';
 import { showError, showSuccess } from '@/utils/toast';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
 
 export default function HappyHourHub() {
   const navigate = useNavigate();
@@ -125,34 +126,13 @@ export default function HappyHourHub() {
   };
 
   return (
-    <div className="bg-[#f5f7f8] min-h-screen flex flex-col w-full pb-20">
+    <div className="bg-[#F8FAFC] min-h-screen flex flex-col w-full pb-20 font-['Poppins']">
       
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-100 shadow-soft-md p-4 flex items-center justify-between h-16 w-full">
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-            className="text-primary hover:bg-primary/5 shrink-0 h-9 w-9 rounded-full"
-          >
-            <ArrowLeft className="h-5 w-5 text-primary" />
-          </Button>
-          <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-highlight" />
-            <h1 className="text-xl font-extrabold text-[#022D68]">Happy Hours</h1>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleOpenCreateModal}
-          size="sm"
-          className="bg-highlight hover:bg-highlight/90 text-white rounded-xl font-bold h-9 gap-1 shadow-highlight-glow"
-        >
-          <Plus className="w-4 h-4" />
-          Marcar
-        </Button>
-      </header>
+      <Header 
+        title="Happy Hours"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate('/home') }}
+        rightAction={{ icon: Plus, onClick: handleOpenCreateModal }}
+      />
 
       {/* List of Events */}
       <div className="p-4 space-y-4">
@@ -163,66 +143,95 @@ export default function HappyHourHub() {
         ) : happyHours.length > 0 ? (
           happyHours.map((hh) => {
             const isUpcoming = new Date(hh.date_time).getTime() > Date.now();
+            const eventDate = new Date(hh.date_time);
+            const day = eventDate.getDate().toString().padStart(2, '0');
+            const month = eventDate.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase().replace('.', '');
+            const weekday = eventDate.toLocaleDateString('pt-BR', { weekday: 'short' }).split(',')[0];
+
             return (
               <motion.div
                 key={hh.id}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.985 }}
                 onClick={() => navigate(`/happy-hour/${hh.id}`)}
                 className="cursor-pointer"
               >
-                <Card className="border-none shadow-soft-md hover:shadow-soft-lg transition-all bg-white rounded-2xl overflow-hidden">
-                  <CardContent className="p-4 space-y-3">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-base font-extrabold text-[#022D68] leading-tight">
+                <div className="flex items-center gap-3.5 p-4 rounded-[24px] bg-white border border-slate-100/80 shadow-soft hover:shadow-float transition-all duration-300 relative overflow-hidden group">
+                  {/* Ticket de Data */}
+                  <div className="w-[60px] h-[72px] rounded-2xl bg-slate-50 border border-slate-100/80 flex flex-col overflow-hidden shrink-0 shadow-sm relative z-10">
+                    <div className="bg-[#EF2A39] text-white text-[9px] font-extrabold py-1 text-center uppercase tracking-wider">
+                      {month}
+                    </div>
+                    <div className="flex-grow flex flex-col items-center justify-center bg-white px-1 leading-none">
+                      <span className="text-xl font-extrabold text-slate-800">{day}</span>
+                      <span className="text-[9px] font-bold text-slate-400 mt-0.5 capitalize">{weekday}</span>
+                    </div>
+                  </div>
+
+                  {/* Separador tracejado vertical com cutouts de ticket */}
+                  <div className="h-16 border-l border-dashed border-slate-200 relative mx-1 shrink-0">
+                    <div className="absolute -top-[24px] -left-[7px] w-3.5 h-3.5 bg-[#F8FAFC] border border-slate-100 rounded-full z-10 shadow-[inset_0_-1px_1px_rgba(0,0,0,0.02)]" />
+                    <div className="absolute -bottom-[24px] -left-[7px] w-3.5 h-3.5 bg-[#F8FAFC] border border-slate-100 rounded-full z-10 shadow-[inset_0_1px_1px_rgba(0,0,0,0.02)]" />
+                  </div>
+
+                  {/* Conteúdo */}
+                  <div className="flex-grow min-w-0 pr-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-sm font-extrabold text-slate-800 leading-tight truncate">
                         {hh.title}
                       </h3>
                       <span className={cn(
-                        "text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
-                        isUpcoming ? "bg-green-50 text-green-600 border border-green-200" : "bg-slate-100 text-slate-400"
+                        "text-[8px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0",
+                        isUpcoming ? "bg-green-500/10 text-green-600 border border-green-500/20" : "bg-slate-100 text-slate-400"
                       )}>
                         {isUpcoming ? 'Agendado' : 'Encerrado'}
                       </span>
                     </div>
 
                     {hh.description && (
-                      <p className="text-xs text-slate-500 line-clamp-2">
-                        {hh.description}
+                      <p className="text-xs text-slate-500 line-clamp-1 mt-1 font-medium">
+                        {(() => {
+                          try {
+                            const parsed = JSON.parse(hh.description);
+                            if (parsed && typeof parsed === 'object' && 'text' in parsed) {
+                              return parsed.text || "";
+                            }
+                          } catch (e) {}
+                          return hh.description;
+                        })()}
                       </p>
                     )}
 
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 border-t border-slate-100/50 text-slate-400 text-xs">
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4 text-highlight" />
-                        <span className="font-semibold text-slate-600">
-                          {formatEventDate(hh.date_time)} às {formatEventTime(hh.date_time)}
-                        </span>
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100/50">
+                      <div className="flex items-center gap-1 text-[11px] text-slate-400 font-semibold">
+                        <Clock className="w-3.5 h-3.5 text-[#EF2A39]" />
+                        <span>às {formatEventTime(hh.date_time)}</span>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <MessageSquare className="w-4 h-4 text-slate-400" />
-                        <span className="text-[11px] text-slate-400">Entrar na Sala</span>
+
+                      <div className="flex items-center gap-1 text-[11px] text-[#EF2A39] hover:text-[#EF2A39]/80 font-bold transition-colors">
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>Entrar na Sala</span>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </motion.div>
             );
           })
         ) : (
-          <Card className="border-none shadow-soft-md rounded-2xl p-8 text-center bg-white mt-10">
-            <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-primary mb-1">Nenhum Happy Hour marcado</h3>
-            <p className="text-slate-500 text-sm max-w-xs mx-auto">
+          <div className="flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
+            <Calendar className="w-12 h-12 text-slate-300 mb-3" />
+            <h4 className="text-sm font-extrabold text-slate-800 mb-2">Nenhum Happy Hour</h4>
+            <p className="text-slate-400 text-xs font-medium leading-relaxed max-w-[250px] mb-4">
               Que tal agendar um encontro com seus amigos e decidir o local por votação?
             </p>
             <Button 
               onClick={handleOpenCreateModal}
-              variant="highlight" 
-              className="mt-6 h-11 px-6 font-bold rounded-xl shadow-highlight-glow gap-1"
+              className="h-10 px-5 text-xs font-bold rounded-2xl bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-none border-none flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               Marcar Happy Hour
             </Button>
-          </Card>
+          </div>
         )}
       </div>
 
@@ -246,7 +255,7 @@ export default function HappyHourHub() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="h-11 rounded-xl border border-slate-200"
+                className="h-11 rounded-2xl border border-slate-200"
               />
             </div>
 
@@ -257,7 +266,7 @@ export default function HappyHourHub() {
                 value={dateTime}
                 onChange={(e) => setDateTime(e.target.value)}
                 required
-                className="h-11 rounded-xl border border-slate-200"
+                className="h-11 rounded-2xl border border-slate-200"
               />
             </div>
 
@@ -267,7 +276,7 @@ export default function HappyHourHub() {
                 placeholder="Detalhes ou recados sobre o encontro..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="rounded-xl border border-slate-200 min-h-[70px] resize-none"
+                className="rounded-2xl border border-slate-200 min-h-[70px] resize-none"
               />
             </div>
 
@@ -277,7 +286,7 @@ export default function HappyHourHub() {
                 <Users className="w-4 h-4 text-slate-400" />
                 Convidar Amigos ({selectedFriendIds.length} selecionados)
               </label>
-              <div className="border border-slate-100 rounded-2xl bg-slate-50 p-2 max-h-[140px] overflow-y-auto space-y-1 scrollbar-thin">
+              <div className="border border-slate-100 rounded-2xl bg-background-light p-2 max-h-[140px] overflow-y-auto space-y-1 scrollbar-thin">
                 {friends.length > 0 ? (
                   friends.map(({ friendshipId, friendProfile }) => {
                     const isSelected = selectedFriendIds.includes(friendProfile.id);
@@ -287,7 +296,7 @@ export default function HappyHourHub() {
                         key={friendshipId}
                         onClick={() => handleToggleFriend(friendProfile.id)}
                         className={cn(
-                          "flex items-center justify-between p-2 rounded-xl cursor-pointer transition-all",
+                          "flex items-center justify-between p-2 rounded-2xl cursor-pointer transition-all",
                           isSelected ? "bg-highlight/5 border border-highlight/20" : "bg-white border border-transparent hover:bg-slate-100"
                         )}
                       >
@@ -321,14 +330,14 @@ export default function HappyHourHub() {
                 type="button"
                 variant="ghost"
                 onClick={() => setIsOpen(false)}
-                className="flex-1 rounded-xl h-11 text-xs font-bold"
+                className="flex-1 rounded-2xl h-11 text-xs font-bold"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
                 disabled={creating}
-                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-xl h-11 text-xs font-bold shadow-highlight-glow"
+                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
               >
                 {creating ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Criar Encontro'}
               </Button>

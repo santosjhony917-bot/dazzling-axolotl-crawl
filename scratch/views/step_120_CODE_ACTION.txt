@@ -1,0 +1,32 @@
+Created At: 2026-06-09T14:59:31Z
+Completed At: 2026-06-09T14:59:32Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -224,7 +224,7 @@
+     if (!matchesSearch) return false;
+     
+     if (filterType === 'missing_any') {
+-      return hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoHours(r);
++      return hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoStructuredMenu(r) || hasNoHours(r);
+     }
+     if (filterType === 'missing_phone') {
+       return hasNoPhone(r);
+@@ -232,7 +232,7 @@
+       return hasNoInstagram(r);
+     }
+     if (filterType === 'missing_menu') {
+-      return hasNoMenu(r);
++      return hasNoMenu(r) || hasNoStructuredMenu(r);
+     }
+     if (filterType === 'missing_hours') {
+       return hasNoHours(r);
+@@ -239,5 +239,5 @@
+     if (filterType === 'completed') {
+-      return !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r);
++      return !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r);
+     }
+     
+     return true;
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

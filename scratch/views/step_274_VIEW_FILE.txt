@@ -1,0 +1,69 @@
+Created At: 2026-06-09T15:29:37Z
+Completed At: 2026-06-09T15:29:37Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 945
+Total Bytes: 42167
+Showing lines 330 to 390
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+330:             .select('id')
+331:             .in('id', uuids);
+332:             
+333:           if (!error && data) {
+334:             const syncedSet = new Set(data.map(item => item.id));
+335:             setSyncedIds(syncedSet);
+336:           } else if (error) {
+337:             console.error('Erro ao buscar sincronizados:', error);
+338:           }
+339:         } else {
+340:           setSyncedIds(new Set());
+341:         }
+342:       } else {
+343:         setRestaurants([]);
+344:         setSyncedIds(new Set());
+345:       }
+346:     } catch (e) {
+347:       console.error(e);
+348:       showError('Erro ao carregar restaurantes importados.');
+349:     }
+350:   };
+351: 
+352:   useEffect(() => {
+353:     loadRestaurants();
+354: 
+355:     window.addEventListener('storage', loadRestaurants);
+356:     window.addEventListener('local-sync-restaurants', loadRestaurants);
+357: 
+358:     return () => {
+359:       window.removeEventListener('storage', loadRestaurants);
+360:       window.removeEventListener('local-sync-restaurants', loadRestaurants);
+361:     };
+362:   }, []);
+363: 
+364:   const handleRemove = (restaurant: any) => {
+365:     try {
+366:       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
+367:       const restaurantId = restaurant.id;
+368: 
+369:       // 1. Remove from mock-completed-restaurants
+370:       const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+371:       if (savedCompleted) {
+372:         const completedMap = JSON.parse(savedCompleted);
+373:         delete completedMap[restaurantId];
+374:         Object.keys(completedMap).forEach((id: string) => {
+375:           const r = completedMap[id];
+376:           if (getRestaurantUniqueKey(r.name, r.address) === key) {
+377:             delete completedMap[id];
+378:           }
+379:         });
+380:         localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+381:       }
+382: 
+383:       // 2. Remove from mock-supabase-fallback-restaurants
+384:       const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+385:       if (savedFallback) {
+386:         const fallbackList = JSON.parse(savedFallback);
+387:         const updatedFallback = fallbackList.filter((r: any) => 
+388:           r.id !== restaurantId && getRestaurantUniqueKey(r.name, r.address) !== key
+389:         );
+390:         localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

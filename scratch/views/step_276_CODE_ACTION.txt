@@ -1,0 +1,101 @@
+Created At: 2026-06-09T15:29:46Z
+Completed At: 2026-06-09T15:29:47Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -361,6 +361,220 @@
+     };
+   }, []);
+ 
++  useEffect(() => {
++    if (selectedRestaurant) {
++      setEditedData(JSON.parse(JSON.stringify(selectedRestaurant)));
++      setIsEditing(false);
++      setAiPastedContent('');
++      setActiveDialogTab('details');
++    } else {
++      setEditedData(null);
++      setIsEditing(false);
++    }
++  }, [selectedRestaurant]);
++
++  const handleSaveAndValidate = async () => {
++    if (!editedData) return;
++    
++    const updatedRestaurant = {
++      ...editedData,
++      visit_status: 'Visitado'
++    };
++    
++    try {
++      const restaurantId = updatedRestaurant.id;
++      const key = getRestaurantUniqueKey(updatedRestaurant.name, updatedRestaurant.address);
++      
++      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
++      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
++      completedMap[restaurantId] = updatedRestaurant;
++      localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
++      
++      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
++      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
++      const existingIdx = fallbackList.findIndex((r: any) => r.id === restaurantId);
++      
++      const fallbackObj = {
++        id: restaurantId,
++        name: updatedRestaurant.name,
++        plan: updatedRestaurant.plan || 'free',
++        phone: updatedRestaurant.phone || '',
++        category: updatedRestaurant.category || '',
++        address: updatedRestaurant.address || '',
++        city: updatedRestaurant.city || '',
++        state: updatedRestaurant.
+<truncated 5913 bytes>
+   const data = await response.json();
++        const jsonText = data.choices?.[0]?.message?.content;
++        if (jsonText) {
++          categories = JSON.parse(jsonText).categories || [];
++        }
++      }
++      
++      if (categories.length > 0) {
++        const parsePrice = (priceStr: string): number => {
++          if (!priceStr) return 0;
++          const cleaned = priceStr.replace(/[R$\s.]/g, '').replace(',', '.');
++          const num = parseFloat(cleaned);
++          return isNaN(num) ? 0 : num;
++        };
++        
++        const formattedCategories = categories.map((cat: any) => ({
++          id: `cat-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
++          name: cat.name,
++          items: (cat.items || []).map((item: any) => ({
++            id: `item-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
++            name: item.name,
++            price: typeof item.price === 'number' ? item.price : parsePrice(String(item.price)),
++            description: item.description || '',
++            image_url: item.image_url || ''
++          }))
++        }));
++        
++        setEditedData((prev: any) => ({
++          ...prev,
++          menu_categories: formattedCategories
++        }));
++        
++        showSuccess(`Cardápio extraído com sucesso! ${formattedCategories.length} categorias identificadas.`);
++      } else {
++        showError('A IA não conseguiu identificar nenhuma categoria ou prato neste texto.');
++      }
++    } catch (err) {
++      console.error(err);
++      showError(`Erro ao extrair cardápio: ${(err as Error).message}`);
++    } finally {
++      setIsExtractingAI(false);
++    }
++  };
++
+   const handleRemove = (restaurant: any) => {
+     try {
+       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

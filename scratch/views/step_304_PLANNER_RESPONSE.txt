@@ -1,0 +1,1 @@
+I will view the entire `ExportedRestaurants.tsx` file as it stands after git checkout to see what the base code looks like.

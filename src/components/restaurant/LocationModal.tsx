@@ -171,7 +171,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <div className="flex items-center gap-3 mb-2">
             <MapPin className="h-6 w-6 text-primary" />
@@ -188,7 +188,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
             <Input
               {...register('cep')}
               placeholder="CEP (Ex: 58039-000)"
-              className="h-12 rounded-xl text-base pr-10 focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base pr-10 focus:border-highlight focus:ring-highlight"
               onChange={handleCepChange}
               maxLength={9}
               disabled={loading || isSearchingCep}
@@ -203,7 +203,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
           <Input
             {...register('street')}
             placeholder="Rua / Avenida"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
             disabled={loading || isSearchingCep}
           />
           {errors.street && <p className="text-sm text-destructive mt-1">{errors.street.message}</p>}
@@ -212,7 +212,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
           <Input
             {...register('number')}
             placeholder="Número"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
             disabled={loading || isSearchingCep}
           />
           {errors.number && <p className="text-sm text-destructive mt-1">{errors.number.message}</p>}
@@ -221,7 +221,7 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
           <Input
             {...register('neighborhood')}
             placeholder="Bairro"
-            className="h-12 rounded-xl text-base focus:border-highlight focus:ring-highlight"
+            className="h-12 rounded-2xl text-base focus:border-highlight focus:ring-highlight"
             disabled={loading || isSearchingCep}
           />
           {errors.neighborhood && <p className="text-sm text-destructive mt-1">{errors.neighborhood.message}</p>}
@@ -231,13 +231,13 @@ export default function LocationModal({ isOpen, onClose, restaurantId, currentLo
             <Input
               {...register('city')}
               placeholder="Cidade"
-              className="h-12 rounded-xl text-base flex-1 focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base flex-1 focus:border-highlight focus:ring-highlight"
               disabled={loading || isSearchingCep}
             />
             <Input
               {...register('state')}
               placeholder="UF"
-              className="h-12 rounded-xl text-base w-20 focus:border-highlight focus:ring-highlight"
+              className="h-12 rounded-2xl text-base w-20 focus:border-highlight focus:ring-highlight"
               maxLength={2}
               disabled={loading || isSearchingCep}
             />

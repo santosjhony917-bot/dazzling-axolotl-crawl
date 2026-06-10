@@ -1,0 +1,84 @@
+Created At: 2026-06-09T15:28:51Z
+Completed At: 2026-06-09T15:28:51Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 674
+Total Bytes: 32630
+Showing lines 36 to 200
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+36: 
+37: export default function ExportedRestaurants() {
+38:   const [restaurants, setRestaurants] = useState<any[]>([]);
+39:   const [searchTerm, setSearchTerm] = useState('');
+40:   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
+41:   const [filterType, setFilterType] = useState<string>('all');
+42: 
+43:   const hasNoPhone = (r: any) => !r.phone || r.phone.trim() === '' || r.phone.toLowerCase().includes('sem telefone');
+44:   const hasNoInstagram = (r: any) => {
+45:     if (r.instagram) return r.instagram.trim() === '' || r.instagram.includes('facebook.com') || r.instagram.includes('instagram.com/p/');
+46:     if (r.social_networks) {
+47:       const net = r.social_networks.find((s: any) => s.platform === 'instagram');
+48:       return !net || !net.url || net.url.trim() === '';
+49:     }
+50:     return true;
+51:   };
+52:   const hasNoMenu = (r: any) => !r.menuSourceUrl || r.menuSourceUrl.trim() === '';
+53:   const hasNoStructuredMenu = (r: any) => {
+54:     if (!r.menu_categories || r.menu_categories.length === 0) return true;
+55:     return !r.menu_categories.some((c: any) => c.items && c.items.length > 0);
+56:   };
+57:   const hasNoHours = (r: any) => {
+58:     if (!r.opening_hours) return true;
+59:     const days = Object.values(r.opening_hours);
+60:     if (days.length === 0) return true;
+61:     return !days.some((d: any) => d.isOpen === true);
+62:   };
+63: 
+64:   const loadRestaurants = () => {
+65:     try {
+66:       const saved = localStorage.getItem('mock-completed-res
+<truncated 3826 bytes>
+.parse(savedFallback);
+158:         const updatedFallback = fallbackList.filter((r: any) => !r.id.startsWith('scraped-'));
+159:         localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+160:       }
+161: 
+162:       // Sync and notify
+163:       window.dispatchEvent(new Event('storage'));
+164:       window.dispatchEvent(new Event('local-sync-restaurants'));
+165: 
+166:       showSuccess('Todos os restaurantes importados foram removidos da plataforma!');
+167:       setSelectedRestaurant(null);
+168:     } catch (e) {
+169:       console.error(e);
+170:       showError('Erro ao remover os restaurantes.');
+171:     }
+172:   };
+173: 
+174:   const getSocialUrl = (restaurant: any, platform: string) => {
+175:     if (platform === 'instagram' && restaurant.instagram) return restaurant.instagram;
+176:     if (platform === 'facebook' && restaurant.facebook) return restaurant.facebook;
+177:     if (restaurant.social_networks) {
+178:       const net = restaurant.social_networks.find((s: any) => s.platform === platform);
+179:       return net?.url || '';
+180:     }
+181:     return '';
+182:   };
+183: 
+184:   const renderOpeningHours = (hours: any) => {
+185:     if (!hours) return <p className="text-gray-500 text-xs font-semibold">Não informado</p>;
+186:     
+187:     const daysTranslation: Record<string, string> = {
+188:       monday: 'Segunda-feira',
+189:       tuesday: 'Terça-feira',
+190:       wednesday: 'Quarta-feira',
+191:       thursday: 'Quinta-feira',
+192:       friday: 'Sexta-feira',
+193:       saturday: 'Sábado',
+194:       sunday: 'Domingo'
+195:     };
+196: 
+197:     return (
+198:       <div className="grid grid-cols-1 gap-1.5 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+199:         {Object.entries(daysTranslation).map(([dayKey, label]) => {
+200:           const info = hours[dayKey];
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

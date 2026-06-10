@@ -53,6 +53,7 @@ export const PATH_MAP = {
   adminPopularCategories: '/admin/popular-categories', // NOVO: Adicionado para categorias populares
   adminEditRestaurant: '/admin/restaurants/:restaurantId', // NOVO: Rota para editar restaurante
   adminRestaurantMenu: '/admin/restaurants/:restaurantId/menu', // NOVO: Rota para gerenciar cardápio do restaurante
+  adminMenus: '/admin/menus', // Rota para visualizar cardápios coletados
   
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',

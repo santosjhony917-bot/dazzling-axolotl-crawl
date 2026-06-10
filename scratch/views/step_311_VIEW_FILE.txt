@@ -1,0 +1,22 @@
+Created At: 2026-06-09T15:31:42Z
+Completed At: 2026-06-09T15:31:42Z
+File Path: `file:///C:/Users/meuno/.gemini/antigravity/brain/6186e84d-17fd-47d6-8cb2-9edea52bd9e6/task.md`
+Total Lines: 14
+Total Bytes: 1257
+Showing lines 1 to 14
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: # Tarefas: Edição, Validação e Sincronização de Estabelecimentos com Supabase
+2: 
+3: - `[ ]` Exportar `getDeterministicUUID` de `useAdminRestaurants.ts` e corrigir merge para evitar duplicações
+4: - `[ ]` Adicionar estados necessários no `ExportedRestaurants.tsx` (`isEditing`, `editedData`, `aiPastedContent`, `isExtractingAI`, `syncedIds`, `isSyncingAll`, `syncingStatus`)
+5: - `[ ]` Implementar detecção automática de sincronização no `loadRestaurants`
+6: - `[ ]` Implementar funções de limpeza e coordenadas (`cleanPhone`, `cleanAddress`, `extractCoordsFromUrl`)
+7: - `[ ]` Implementar as funções de sincronização (`syncSingleToSupabase` e `handleSyncAll`)
+8: - `[ ]` Implementar a função de extração via IA no navegador (`handleAIExtraction`)
+9: - `[ ]` Atualizar a UI do modal de detalhes para exibir modo de visualização e modo de edição
+10: - `[ ]` Implementar inputs para dados gerais e horários de funcionamento no formulário de edição
+11: - `[ ]` Implementar a edição de categorias e pratos no cardápio estruturado, com botões para adicionar/remover itens e excluir o cardápio
+12: - `[ ]` Adicionar botões de sincronização individuais e globais na listagem e cabeçalho
+13: - `[ ]` Verificar e validar todas as alterações localmente e na nuvem
+14: 
+The above content shows the entire, complete file contents of the requested file.

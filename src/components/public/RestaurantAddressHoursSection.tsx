@@ -29,7 +29,7 @@ const RestaurantAddressHoursSection: React.FC<RestaurantAddressHoursSectionProps
   ];
 
   return (
-    <Card id={id} className="shadow-soft-md border border-gray-300 rounded-xl p-0">
+    <Card id={id} className="shadow-none border border-gray-300 rounded-2xl p-0">
       <CardContent className="p-4 space-y-6">
         
         {/* Endereço */}

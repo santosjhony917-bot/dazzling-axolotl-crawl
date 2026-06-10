@@ -12,7 +12,7 @@ interface UserProfileHeaderProps {
 
 const UserProfileHeader: React.FC<UserProfileHeaderProps> = ({ displayName, email, onBack }) => {
   return (
-    <div className="relative bg-primary text-white p-6 pb-10 shadow-soft-xl rounded-b-2xl">
+    <div className="relative bg-primary text-white p-6 pb-10 shadow-none rounded-b-2xl">
       {/* Botão Voltar */}
       <Button 
         variant="ghost" 

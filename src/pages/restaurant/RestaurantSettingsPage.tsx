@@ -14,7 +14,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Separator } from '@/components/ui/separator';
 
 const SettingsCard = ({ title, description, link, icon: Icon }) => (
-  <Link to={link} className="block p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200">
+  <Link to={link} className="block p-4 bg-white rounded-xl shadow-none hover:shadow-none transition-shadow border border-gray-200">
     <div className="flex items-center">
       <Icon className="w-6 h-6 mr-4 text-primary" />
       <div>
@@ -85,17 +85,18 @@ const RestaurantSettingsPage = () => {
         </div>
 
         <div className="container mx-auto px-4 py-6">
-          <div className="relative z-0 w-full h-48 bg-gray-200 rounded-lg mb-6 group">
+          <div className="relative z-0 w-full h-48 bg-gray-200 rounded-xl mb-6 group">
             <img
               src={restaurant.cover_image_url || 'https://via.placeholder.com/800x300'}
               alt="Imagem de capa do restaurante"
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-cover rounded-xl"
             />
-            <div className="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               <ImageUploadButton
                 onUploadComplete={handleCoverImageUpload}
                 bucketName={RESTAURANT_IMAGES_BUCKET}
                 folderPath={`${id}/cover`}
+                className="relative"
               />
             </div>
           </div>

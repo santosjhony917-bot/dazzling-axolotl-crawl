@@ -11,6 +11,7 @@ import SearchToggle from '@/components/SearchToggle';
 import SearchItemCard from '@/components/search/SearchItemCard';
 import { useAuthData } from '@/context/AuthContext';
 import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import Header from '@/components/Header';
 import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
 import { useUserRole } from '@/hooks/useUserRole';
 import { motion } from 'framer-motion';
@@ -20,7 +21,7 @@ import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyR
 import CategoryFilterDrawer from '@/components/search/CategoryFilterDrawer';
 import { useMenuCategories } from '@/hooks/useMenuCategories';
 import { cn } from '@/lib/utils';
-
+import SoftSearchInput from '@/components/search/SoftSearchInput';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -327,57 +328,69 @@ export default function SearchUnifiedPage() {
     setPage(prevPage => prevPage + 1);
   };
 
+  const handleClearFilters = () => {
+    setMinPriceFilter(null);
+    setMaxPriceFilter(null);
+    setMaxDistanceFilter(null);
+    setExcludedDishCategoryIds([]);
+    setIncludedRestaurantCategories([]);
+    setPage(1);
+    setAccumulatedDishResults([]);
+    setAccumulatedRestaurantResults([]);
+  };
+
+  const hasActiveFilters = minPriceFilter !== null || maxPriceFilter !== null || maxDistanceFilter !== null;
+
   const pageContent = (
-    <div className="p-4 space-y-5">
-      
-      {/* Filtros Rápidos de Preço e Distância */}
-      <div className="flex gap-3">
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchByPrice}
-            variant={minPriceFilter !== null || maxPriceFilter !== null ? "highlight" : "outline"}
-            className={cn(
-              "w-full h-12 rounded-xl transition-all flex items-center justify-center gap-2 px-3 shadow-soft-md text-sm font-bold",
-              minPriceFilter !== null || maxPriceFilter !== null 
-                ? "bg-highlight text-white border-none shadow-highlight-glow" 
-                : "bg-white border-gray-200 text-[#022D68] hover:bg-[#022D68]/5"
-            )}
+    <div className="px-5 pb-5 pt-4 space-y-4">
+
+      {/* Filtros Rápidos — estilo pill compacto */}
+      <div className="flex gap-2 flex-wrap">
+        <motion.button
+          whileTap={{ scale: 0.93 }}
+          onClick={handleSearchByPrice}
+          className={cn(
+            'h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 border',
+            minPriceFilter !== null || maxPriceFilter !== null
+              ? 'bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]'
+              : 'bg-white text-[#6A6A6A] border-[#E5E7EB] shadow-[0_2px_6px_rgba(0,0,0,0.06)] hover:border-[#EF2A39]/40'
+          )}
+        >
+          <DollarSign className="w-3.5 h-3.5" />
+          {minPriceFilter !== null || maxPriceFilter !== null
+            ? `R$${minPriceFilter || 0}–R$${maxPriceFilter || '∞'}`
+            : 'Preço'}
+        </motion.button>
+
+        <motion.button
+          whileTap={{ scale: 0.93 }}
+          onClick={handleSearchNearby}
+          className={cn(
+            'h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 border',
+            maxDistanceFilter !== null
+              ? 'bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]'
+              : 'bg-white text-[#6A6A6A] border-[#E5E7EB] shadow-[0_2px_6px_rgba(0,0,0,0.06)] hover:border-[#EF2A39]/40'
+          )}
+        >
+          <Compass className="w-3.5 h-3.5" />
+          {maxDistanceFilter !== null ? `Até ${maxDistanceFilter} km` : 'Distância'}
+        </motion.button>
+
+        {hasActiveFilters && (
+          <motion.button
+            whileTap={{ scale: 0.93 }}
+            onClick={handleClearFilters}
+            className="h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold bg-[#FEE2E2] text-[#EF2A39] border border-[#FECACA] transition-all duration-200"
           >
-            <DollarSign className={cn("w-4 h-4", minPriceFilter !== null || maxPriceFilter !== null ? "text-white" : "text-highlight")} />
-            <span>
-              {minPriceFilter !== null || maxPriceFilter !== null 
-                ? `R$ ${minPriceFilter || 0} - R$ ${maxPriceFilter || '∞'}` 
-                : "Filtrar por Preço"
-              }
-            </span>
-          </Button>
-        </motion.div>
-        <motion.div whileTap={{ scale: 0.95 }} className="flex-1">
-          <Button 
-            onClick={handleSearchNearby}
-            variant={maxDistanceFilter !== null ? "highlight" : "outline"}
-            className={cn(
-              "w-full h-12 rounded-xl transition-all flex items-center justify-center gap-2 px-3 shadow-soft-md text-sm font-bold",
-              maxDistanceFilter !== null 
-                ? "bg-highlight text-white border-none shadow-highlight-glow" 
-                : "bg-white border-gray-200 text-[#022D68] hover:bg-[#022D68]/5"
-            )}
-          >
-            <Compass className={cn("w-4 h-4", maxDistanceFilter !== null ? "text-white" : "text-highlight")} />
-            <span>
-              {maxDistanceFilter !== null 
-                ? `Até ${maxDistanceFilter} km` 
-                : "Distância Máxima"
-              }
-            </span>
-          </Button>
-        </motion.div>
+            ✕ Limpar
+          </motion.button>
+        )}
       </div>
 
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-extrabold text-primary">
+        <h2 className="text-[20px] font-bold text-[#3C2F2F] tracking-tight">
           Resultados da Busca
         </h2>
         {activeSearchType === 'dish' && (
@@ -408,7 +421,7 @@ export default function SearchUnifiedPage() {
         <div className="space-y-3">
           {resultsLoading && displayedResults.length === 0 ? (
             Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton key={index} className="h-24 w-full rounded-xl" />
+              <Skeleton key={index} className="h-24 w-full rounded-2xl" />
             ))
           ) : displayedResults.length > 0 ? (
             <>
@@ -423,7 +436,7 @@ export default function SearchUnifiedPage() {
                 <Button
                   onClick={handleLoadMore}
                   variant="outline"
-                  className="w-full h-11 rounded-xl border-gray-300 text-slate-700 hover:bg-highlight/10 shadow-soft-sm transition-all mt-4 text-xs font-bold"
+                  className="w-full h-11 rounded-2xl border-gray-300 text-slate-700 hover:bg-highlight/10 shadow-none transition-all mt-4 text-xs font-bold"
                   disabled={
                     (activeSearchType === 'dish' && dishesLoading) ||
                     (activeSearchType === 'restaurant' && restaurantsLoading)
@@ -438,10 +451,29 @@ export default function SearchUnifiedPage() {
               )}
             </>
           ) : (
-            <Card className="p-6 text-center shadow-soft-md border-none rounded-xl">
-              <Pizza className="w-8 h-8 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600 text-sm">Nenhum resultado encontrado. Tente ajustar sua busca ou filtros.</p>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col items-center justify-center py-14 px-6 text-center"
+            >
+              {/* Ilustração emoji grande */}
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#FFF1F1] to-[#FFE4E4] flex items-center justify-center mb-5 shadow-[0_8px_24px_rgba(239,42,57,0.12)]">
+                <span className="text-5xl">🍽️</span>
+              </div>
+              <h2 className="text-[20px] font-bold text-[#3C2F2F] mb-2">Hmm, não achamos nada...</h2>
+              <p className="text-[14px] text-[#9CA3AF] font-medium leading-relaxed mb-6">
+                Tente usar palavras diferentes ou remover os filtros aplicados.
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={handleClearFilters}
+                  className="h-[46px] px-8 rounded-[20px] bg-[#EF2A39] text-white font-semibold text-[15px] shadow-[0_6px_18px_rgba(239,42,57,0.30)] active:scale-95 transition-transform"
+                >
+                  Limpar filtros
+                </button>
+              )}
+            </motion.div>
           )}
         </div>
       </motion.div>
@@ -465,42 +497,32 @@ export default function SearchUnifiedPage() {
   };
 
   return (
-    <div className="flex flex-col w-full pb-6">
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-100 shadow-soft-md p-4 flex flex-col gap-3 w-full">
-        {/* Top Row: Back button and Title */}
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
+    <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins']">
+      {/* Cabeçalho customizado */}
+      <div className="px-5 pt-6 pb-4 bg-white">
+        <div className="flex items-center gap-3 mb-1">
+          <button
             onClick={handleBack}
-            className="text-primary hover:bg-primary/5 shrink-0 h-9 w-9 rounded-full"
+            className="w-9 h-9 rounded-full bg-[#F1F3F5] flex items-center justify-center text-[#3C2F2F] hover:bg-[#E5E7EB] active:scale-90 transition-all"
           >
-            <ArrowLeft className="h-5 w-5 text-primary" />
-          </Button>
-          <h1 className="text-xl font-extrabold text-[#022D68]">Buscar</h1>
+            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+          </button>
+          <div>
+            <h1 className="text-[22px] font-bold text-[#3C2F2F] leading-tight">Buscar</h1>
+            <p className="text-[13px] text-[#9CA3AF] font-medium leading-none mt-0.5">Encontre pratos e restaurantes</p>
+          </div>
         </div>
 
-        {/* Input de Busca */}
-        <form onSubmit={handleSearchSubmit} className="flex gap-2.5">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-            <Input
-              type="text"
-              placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 h-11 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-highlight focus-visible:ring-1 focus-visible:ring-highlight text-primary text-sm font-medium transition-all"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            size="icon" 
-            className="h-11 w-11 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 text-white shadow-highlight-glow transition-transform active:scale-95 border-none"
-          >
-            <ChevronRight className="w-5 h-5 text-white" />
-          </Button>
-        </form>
-      </header>
+        {/* Search input */}
+        <div className="mt-4 relative z-20">
+          <SoftSearchInput
+            placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onSubmitAction={handleSearchSubmit}
+          />
+        </div>
+      </div>
 
       <div className="flex-grow w-full">
         {pageContent}

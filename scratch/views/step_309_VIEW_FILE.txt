@@ -1,0 +1,63 @@
+Created At: 2026-06-09T15:31:40Z
+Completed At: 2026-06-09T15:31:41Z
+File Path: `file:///C:/Users/meuno/.gemini/antigravity/brain/6186e84d-17fd-47d6-8cb2-9edea52bd9e6/implementation_plan.md`
+Total Lines: 69
+Total Bytes: 4346
+Showing lines 1 to 69
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: # Plano de Implementação: Edição, Validação e Sincronização de Estabelecimentos com Supabase
+2: 
+3: Este plano detalha a implementação do recurso para permitir a edição, exclusão de cardápio, extração manual com IA e validação direta de todos os dados de estabelecimentos e cardápios coletados, além de sua sincronização no Supabase.
+4: 
+5: ## User Review Required
+6: 
+7: > [!NOTE]
+8: > O modal de detalhes do restaurante passará a ter dois modos de exibição: **Visualização** e **Edição**.
+9: 
+10: > [!IMPORTANT]
+11: > A ação de **Validar** salvará as alterações no armazenamento local, definirá o status de visita como `Visitado`, e sincronizará automaticamente todos os dados (cadastro, horários, galeria e itens de cardápio) com a nuvem do Supabase, tornando o restaurante ativo no catálogo público.
+12: 
+13: ## Proposed Changes
+14: 
+15: ### Core System / Hooks
+16: 
+17: #### [MODIFY] [useAdminRestaurants.ts](file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/hooks/useAdminRestaurants.ts)
+18: - Exportar a função `getDeterministicUUID` para mapear de forma uniforme IDs locais para IDs de banco de dados.
+19: - Modificar o merge de restaurantes locais para evitar listagens duplicadas quando o estabelecimento já tiver sido sincronizado para o Supabase.
+20: 
+21: ---
+22: 
+23: ### UI Components
+24: 
+25: #### [MODIFY] [ExportedRestaurants.tsx](file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurant
+<truncated 1088 bytes>
+teiras.
+42:      - Botão para adicionar novas categorias.
+43:      - Edição de pratos (Nome, Preço, Descrição, Imagem).
+44:      - Botão para remover pratos individuais.
+45:      - Botão para adicionar pratos em branco.
+46:      - **Botão Excluir Cardápio**: Botão vermelho para apagar todo o cardápio estruturado (categorias e pratos) de uma vez.
+47: 
+48: 3. **Validador Manual com IA (AI Textbox)**:
+49:    - Uma aba ou seção contendo uma área de texto (textarea) para colar o cardápio bruto (texto ou HTML).
+50:    - Botão "Processar com IA". Ele executará a chamada de API (Gemini ou OpenAI) usando as chaves `VITE_GEMINI_API_KEY` ou `VITE_OPENAI_API_KEY` configuradas no cliente.
+51:    - O retorno será injetado diretamente no cardápio estruturado do formulário para posterior validação.
+52: 
+53: 4. **Botão Validar e Salvar**:
+54:    - Um botão destacado de salvar e validar no rodapé do modo edição.
+55:    - Ele salvará as edições feitas, marcará `visit_status = 'Visitado'`, atualizará o cache local e enviará em lote os dados para o Supabase (garantindo persistência em nuvem).
+56: 
+57: ---
+58: 
+59: ## Verification Plan
+60: 
+61: ### Manual Verification
+62: 1. Abrir a aba "Restaurantes Importados".
+63: 2. Clicar em "Detalhes" de um restaurante.
+64: 3. No modal, clicar em "Editar Informações".
+65: 4. Modificar dados gerais (nome, telefone) e itens de cardápio (adicionar categoria, alterar preço).
+66: 5. No bloco de cardápio, testar o botão "Excluir Cardápio" (deve limpar todas as categorias).
+67: 6. Ir na seção "Extrair com IA", colar um texto simples de cardápio (ex: "Pizza Marguerita - R$ 45,00 / Coca Cola - R$ 8,00") e clicar em extrair. Validar se a estrutura de categorias/pratos é montada dinamicamente.
+68: 7. Clicar em "Salvar e Validar". Confirmar se o status muda para "Completo ✨", os dados são persistidos no Supabase e na busca do cliente o restaurante e menu aparecem corretos.
+69: 
+The above content shows the entire, complete file contents of the requested file.

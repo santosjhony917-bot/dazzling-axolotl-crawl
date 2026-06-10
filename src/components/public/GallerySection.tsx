@@ -50,7 +50,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ restaurantId }) => {
 
   return (
     <section id="gallery" className="p-4">
-      <Card className="shadow-lg border-none rounded-xl">
+      <Card className="shadow-none border-none rounded-2xl">
         <CardHeader className="pb-2">
           <CardTitle className="text-2xl font-extrabold text-primary flex items-center gap-2">
             <Camera className="w-6 h-6" /> Galeria

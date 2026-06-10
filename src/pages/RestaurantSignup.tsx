@@ -16,6 +16,7 @@ import { useAuthData } from "@/context/AuthContext";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { AppleIcon } from "@/components/icons/AppleIcon";
 import { registerRestaurantForExistingUser } from "@/integrations/supabase/edgeFunctions";
+import Header from "@/components/Header";
 
 // Tipagem para a localização única
 interface Location {
@@ -300,7 +301,7 @@ export default function RestaurantSignup() {
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 placeholder="Ex: Restaurante Sabor Divino"
-                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                className="h-14 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-none"
                 required
               />
             </label>
@@ -330,7 +331,7 @@ export default function RestaurantSignup() {
                   value={location.cep}
                   onChange={handleCepChange}
                   placeholder="CEP (Ex: 58039-000)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12 shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight pr-12 shadow-none"
                   maxLength={9}
                   disabled={isSearchingCep}
                   required
@@ -347,7 +348,7 @@ export default function RestaurantSignup() {
                   value={location.street}
                   onChange={(e) => updateLocation('street', e.target.value)}
                   placeholder="Rua / Avenida"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   required
                 />
               </div>
@@ -359,7 +360,7 @@ export default function RestaurantSignup() {
                   value={location.number}
                   onChange={(e) => updateLocation('number', e.target.value)}
                   placeholder="Número"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   required
                 />
               </div>
@@ -371,7 +372,7 @@ export default function RestaurantSignup() {
                   value={location.complement}
                   onChange={(e) => updateLocation('complement', e.target.value)}
                   placeholder="Complemento (Ex: Sala 101, Bloco B)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                 />
               </div>
 
@@ -382,7 +383,7 @@ export default function RestaurantSignup() {
                   value={location.neighborhood}
                   onChange={(e) => updateLocation('neighborhood', e.target.value)}
                   placeholder="Bairro"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   required
                 />
               </div>
@@ -393,14 +394,14 @@ export default function RestaurantSignup() {
                   value={location.city}
                   onChange={(e) => updateLocation('city', e.target.value)}
                   placeholder="Cidade"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   required
                 />
                 <Input
                   value={location.state}
                   onChange={(e) => updateLocation('state', e.target.value)}
                   placeholder="Estado (UF)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0 shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight w-20 shrink-0 shadow-none"
                   maxLength={2}
                   required
                 />
@@ -413,7 +414,7 @@ export default function RestaurantSignup() {
                   value={location.phone}
                   onChange={(e) => updateLocation('phone', e.target.value)}
                   placeholder="Telefone de contato (obrigatório)"
-                  className="h-10 rounded-xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-10 rounded-2xl text-sm border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   required
                 />
               </div>
@@ -435,7 +436,7 @@ export default function RestaurantSignup() {
               type="button"
               onClick={() => handleSocialLogin('google')}
               variant="channel"
-              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+              className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
               disabled={loading}
             >
               <GoogleIcon className="h-5 w-5 shrink-0" />
@@ -445,7 +446,7 @@ export default function RestaurantSignup() {
               type="button"
               onClick={() => handleSocialLogin('apple')}
               variant="channel"
-              className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+              className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
               disabled={loading}
             >
               <AppleIcon className="h-6 w-6 text-black dark:text-white shrink-0" />
@@ -470,7 +471,7 @@ export default function RestaurantSignup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Digite seu email"
-                className="h-14 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                className="h-14 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-none"
                 required
               />
             </label>
@@ -482,7 +483,7 @@ export default function RestaurantSignup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Crie uma senha (mínimo 6 caracteres)"
-                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                className="h-14 pr-12 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-none"
                 required
                 minLength={6}
               />
@@ -504,7 +505,7 @@ export default function RestaurantSignup() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirme sua senha"
-                className="h-14 pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-soft-sm"
+                className="h-14 pr-12 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight text-base shadow-none"
                 required
               />
               <button
@@ -543,31 +544,27 @@ export default function RestaurantSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-background-light flex flex-col">
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => {
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="min-h-screen bg-background-light flex flex-col w-full max-w-md mx-auto border-x border-slate-200/60">
+      
+      {/* Unified Header */}
+      <Header 
+        title="Cadastro" 
+        leftAction={{ 
+          icon: ArrowLeft, 
+          onClick: () => {
             if (currentStep > 1) {
               handleBack();
             } else {
               navigate(createPageUrl('restaurant-area-hub'));
             }
-          }}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Button>
-        <div className="flex items-center gap-2">
-          <h1 className="text-primary text-xl font-extrabold tracking-tight">Cadastro</h1>
-        </div>
-        <div className="w-10"></div>
-      </header>
+          } 
+        }}
+      />
 
-      <main className="flex-1 px-4 py-6 w-full max-w-md mx-auto">
+      <main className="flex-grow px-4 py-6 w-full max-w-md mx-auto">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+          <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4">
             <Store className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
@@ -611,7 +608,7 @@ export default function RestaurantSignup() {
         </div>
 
         {/* Step Forms Container */}
-        <Card className="shadow-soft-xl border-none rounded-2xl">
+        <Card className="shadow-soft border border-slate-100/80 rounded-2xl bg-white">
           <CardContent className="p-6">
             <AnimatePresence mode="wait">
               {renderStepContent()}
@@ -625,7 +622,7 @@ export default function RestaurantSignup() {
                 <Button
                   onClick={handleBack}
                   variant="outline"
-                  className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary/5"
+                  className="flex-1 h-12 border-2 border-primary text-primary font-bold rounded-2xl hover:bg-primary/5"
                 >
                   Voltar
                 </Button>
@@ -635,7 +632,7 @@ export default function RestaurantSignup() {
                   onClick={handleNext}
                   disabled={loading}
                   variant="highlight"
-                  className={`flex-1 h-12 rounded-xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
+                  className={`flex-1 h-12 rounded-2xl text-lg font-bold ${currentStep === 1 ? 'w-full' : ''}`}
                 >
                   {currentStep === 2 ? "Salvar e Continuar" : "Próximo"}
                 </Button>
@@ -644,7 +641,7 @@ export default function RestaurantSignup() {
                   onClick={handleSubmit}
                   disabled={loading}
                   variant="highlight"
-                  className="flex-1 h-12 rounded-xl text-lg font-bold shadow-highlight-glow"
+                  className="flex-1 h-12 rounded-2xl text-lg font-bold shadow-none"
                 >
                   {loading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -666,6 +663,7 @@ export default function RestaurantSignup() {
           </CardFooter>
         </Card>
       </main>
+      </div>
     </div>
   );
 }

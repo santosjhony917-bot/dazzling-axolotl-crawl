@@ -1,0 +1,4 @@
+Created At: 2026-06-09T15:31:04Z
+Tool is running as a background task with task id: 6186e84d-17fd-47d6-8cb2-9edea52bd9e6/task-298
+Task Description: git checkout src/pages/admin/ExportedRestaurants.tsx
+Task logs are available at: file:///C:/Users/meuno/.gemini/antigravity/brain/6186e84d-17fd-47d6-8cb2-9edea52bd9e6/.system_generated/tasks/task-298.log

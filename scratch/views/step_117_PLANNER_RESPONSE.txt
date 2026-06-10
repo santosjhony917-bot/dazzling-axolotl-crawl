@@ -1,0 +1,1 @@
+I will add the helper function `hasNoStructuredMenu` to `src/pages/admin/ExportedRestaurants.tsx` so we can differentiate between a restaurant having a menu link and having actual items parsed and structured. I will use the `replace_file_content` tool.

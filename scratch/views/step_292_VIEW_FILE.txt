@@ -1,0 +1,69 @@
+Created At: 2026-06-09T15:30:42Z
+Completed At: 2026-06-09T15:30:43Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 1159
+Total Bytes: 51151
+Showing lines 700 to 760
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+700:     );
+701:   };
+702: 
+703:   const filteredRestaurants = restaurants.filter(r => {
+704:     const matchesSearch = 
+705:       r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+706:       r.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+707:       r.category.toLowerCase().includes(searchTerm.toLowerCase());
+708:       
+709:     if (!matchesSearch) return false;
+710:     
+711:     if (filterType === 'missing_any') {
+712:       return hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoStructuredMenu(r) || hasNoHours(r);
+713:     }
+714:     if (filterType === 'missing_phone') {
+715:       return hasNoPhone(r);
+716:     }
+717:     if (filterType === 'missing_instagram') {
+718:       return hasNoInstagram(r);
+719:     }
+720:     if (filterType === 'missing_menu') {
+721:       return hasNoMenu(r) || hasNoStructuredMenu(r);
+722:     }
+723:     if (filterType === 'missing_hours') {
+724:       return hasNoHours(r);
+725:     }
+726:     if (filterType === 'completed') {
+727:       return !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r);
+728:     }
+729:     
+730:     return true;
+731:   });
+732: 
+733:   const instagramUrl = selectedRestaurant ? getSocialUrl(selectedRestaurant, 'instagram') : '';
+734:   const facebookUrl = selectedRestaurant ? getSocialUrl(selectedRestaurant, 'facebook') : '';
+735: 
+736:   return (
+737:     <div className="space-y-6 p-4">
+738:       <Card className="border-none shadow-none bg-transparent">
+739:         <CardHeader className="px-0 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+740:           <div>
+741:             <CardTitle className="text-2xl text-primary font-bold">Restaurantes Importados do Coletor</CardTitle>
+742:             <CardDescription>
+743:               Visualize, filtre e gerencie todos os restaurantes importados diretamente para o catálogo ativo da plataforma.
+744:             </CardDescription>
+745:           </div>
+746:           <div className="flex gap-2 w-full sm:w-auto">
+747:             <Button variant="outline" size="sm" onClick={loadRestaurants} className="gap-1 border-gray-300 font-semibold bg-white w-full sm:w-auto">
+748:               <RefreshCw className="w-3.5 h-3.5" /> Atualizar
+749:             </Button>
+750:             {restaurants.length > 0 && (
+751:               <Button 
+752:                 variant="destructive" 
+753:                 size="sm" 
+754:                 onClick={handleClearAll} 
+755:                 className="gap-1 font-bold w-full sm:w-auto bg-red-600 hover:bg-red-700"
+756:               >
+757:                 <AlertTriangle className="w-3.5 h-3.5" /> Remover Todos
+758:               </Button>
+759:             )}
+760:           </div>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

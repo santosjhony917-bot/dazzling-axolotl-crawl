@@ -11,7 +11,7 @@ interface NearbyCompetitorCardProps {
 
 const NearbyCompetitorCard: React.FC<NearbyCompetitorCardProps> = ({ name, distance_km, category }) => {
   return (
-    <Card className="shadow-sm hover:shadow-md transition-shadow">
+    <Card className="shadow-none hover:shadow-none transition-shadow">
       <CardHeader className="p-3 flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-sm font-semibold truncate">{name}</CardTitle>
       </CardHeader>

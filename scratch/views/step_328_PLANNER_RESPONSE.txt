@@ -1,0 +1,1 @@
+I will use PowerShell to search the transcript for mentions of `ExportedRestaurants.tsx` to find the version we need.

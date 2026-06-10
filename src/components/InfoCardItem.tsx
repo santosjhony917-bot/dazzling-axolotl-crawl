@@ -13,6 +13,7 @@ interface InfoCardItemProps {
   isPremiumFeature?: boolean;
   isPremium?: boolean;
   extraContent?: React.ReactNode;
+  flat?: boolean;
 }
 
 const InfoCardItem: React.FC<InfoCardItemProps> = ({ 
@@ -22,7 +23,8 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
   onClick, 
   isPremiumFeature = false, 
   isPremium = false,
-  extraContent
+  extraContent,
+  flat = false
 }) => {
   
   const handleEditClick = (e: React.MouseEvent) => {
@@ -35,49 +37,35 @@ const InfoCardItem: React.FC<InfoCardItemProps> = ({
   const isLocked = isPremiumFeature && !isPremium;
 
   return (
-    <motion.div
-      whileHover={{ scale: isLocked ? 1 : 1.01 }}
-      whileTap={{ scale: isLocked ? 1 : 0.99 }}
-      onClick={handleEditClick}
+    <div 
       className={cn(
-        "w-full p-4 flex items-center justify-between transition-all cursor-pointer",
-        // Estilo do Card: Fundo branco, arredondado, sombra sutil
-        "bg-white border border-gray-100 rounded-xl shadow-soft-md hover:shadow-soft-lg",
-        "dark:bg-gray-800 dark:hover:bg-gray-700",
-        isLocked && "opacity-70 cursor-not-allowed hover:shadow-soft-md"
-      )}
+        flat 
+          ? "flex items-center gap-3 py-3 border-b border-slate-100 last:border-b-0 bg-transparent shadow-none rounded-none w-full relative" 
+          : "profile-data-block"
+      )} 
+      onClick={handleEditClick} 
+      style={{ cursor: isLocked ? 'not-allowed' : 'pointer', opacity: isLocked ? 0.7 : 1 }}
     >
-      <div className="flex items-center gap-4 flex-1">
-        {/* Ícone Circular/Quadrado Arredondado (Estilo do Design) */}
-        <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 text-primary dark:bg-gray-700">
-          <Icon className="w-5 h-5" />
-        </div>
-        
-        {/* Texto (Título em negrito + Valor abaixo) */}
-        <div className="flex-1 min-w-0">
-          <p className="text-base font-bold text-primary leading-snug">
-            {label}
-          </p>
-          {(value !== null || !extraContent) && (
-            <p className={cn("text-sm text-text-secondary mt-0.5", !value && "italic text-gray-400 font-normal")}>
-              {isLocked ? "Exclusivo Premium" : (value || "Não definido")}
-            </p>
-          )}
-          {extraContent}
-        </div>
+      <div className={cn(flat ? "text-slate-400 flex-shrink-0" : "profile-data-icon")}>
+        <Icon className="w-5 h-5 stroke-[1.5]" />
       </div>
-      
-      {/* Botão de Ação (Edit/Lock) */}
-      <Button 
-        size="sm" 
-        variant="ghost"
-        className="h-7 w-7 p-0 text-highlight hover:bg-highlight/10 shrink-0 ml-4 rounded-lg" 
+      <div className={cn(flat ? "flex flex-col flex-grow min-w-0" : "profile-data-text")}>
+        <span className={cn(flat ? "text-xs text-slate-400" : "profile-data-label")}>{label}</span>
+        {(value !== null || !extraContent) && (
+          <span className={cn(flat ? "text-sm font-semibold text-slate-800" : "profile-data-value")}>
+            {isLocked ? "Exclusivo Premium" : (value || "Não definido")}
+          </span>
+        )}
+        {extraContent}
+      </div>
+      <div 
+        className={cn(flat ? "text-slate-400 flex-shrink-0" : "profile-data-icon")} 
+        style={{ cursor: isLocked ? 'not-allowed' : 'pointer', color: isLocked ? 'var(--text-muted)' : 'var(--highlight)' }} 
         onClick={handleEditClick}
-        disabled={isLocked}
       >
-        {isLocked ? <Lock className="h-4 w-4 text-gray-400" /> : <Edit className="h-4 w-4 text-highlight" />}
-      </Button>
-    </motion.div>
+        {isLocked ? <Lock className="w-4 h-4 stroke-[1.5]" /> : <Edit className="w-4 h-4 stroke-[1.5]" />}
+      </div>
+    </div>
   );
 };
 

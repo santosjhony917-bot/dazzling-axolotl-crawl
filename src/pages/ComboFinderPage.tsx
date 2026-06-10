@@ -16,7 +16,10 @@ import {
   Utensils, 
   Vote,
   Calendar,
-  AlertCircle
+  AlertCircle,
+  User,
+  Menu,
+  Crown
 } from 'lucide-react';
 import { parseNaturalQuery, buildRestaurantCombos, getItemsForComboSearch, MealCombo } from '@/utils/comboParser';
 import { getHappyHours, addRestaurantToPoll, HappyHour } from '@/services/happyHourService';
@@ -24,6 +27,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
 
 // Interfaces de mensagens do chat
 interface ChatMessage {
@@ -76,7 +80,6 @@ export default function ComboFinderPage() {
   }, [currentUserId]);
 
   const fetchNearbyRestaurantsForCombo = async (lat: number, lng: number, maxDistKm: number) => {
-    // 1. Tenta chamar a RPC find_nearby_restaurants no Supabase
     try {
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: lat,
@@ -89,7 +92,6 @@ export default function ComboFinderPage() {
       }
     } catch(e){}
 
-    // 2. Se falhar ou estiver em mock, retorna mock
     return [
       {
         id: 'mock-premium-restaurant-id',
@@ -117,7 +119,6 @@ export default function ComboFinderPage() {
   const processSearch = async (query: string) => {
     if (!query.trim()) return;
 
-    // Adiciona bolha do usuário
     setMessages(prev => [...prev, {
       id: `user-${Date.now()}`,
       sender: 'user',
@@ -127,7 +128,6 @@ export default function ComboFinderPage() {
     setLoading(true);
     setCombos([]);
 
-    // Simula tempo de digitação da IA
     setMessages(prev => [...prev, {
       id: 'typing',
       sender: 'bot',
@@ -135,14 +135,12 @@ export default function ComboFinderPage() {
     }]);
 
     try {
-      // 1. Parse natural da query
       const parsed = parseNaturalQuery(query);
       setParsedInfo(parsed);
 
-      const lat = location.latitude || -23.55052; // Fallback SP
+      const lat = location.latitude || -23.55052;
       const lng = location.longitude || -46.633308;
 
-      // 2. Busca restaurantes próximos
       const nearbyRests = await fetchNearbyRestaurantsForCombo(lat, lng, parsed.maxDistance);
       
       if (nearbyRests.length === 0) {
@@ -155,29 +153,23 @@ export default function ComboFinderPage() {
         return;
       }
 
-      // 3. Busca itens de menu desses restaurantes
       const restaurantIds = nearbyRests.map(r => r.id);
       const itemsGrouped = await getItemsForComboSearch(restaurantIds);
 
-      // 4. Constrói os combos para cada restaurante
       const allSuggestedCombos: MealCombo[] = [];
       nearbyRests.forEach(r => {
         const items = itemsGrouped[r.id] || [];
         if (items.length > 0) {
           const restaurantCombos = buildRestaurantCombos(r as any, items, parsed);
           if (restaurantCombos.length > 0) {
-            // Adiciona o melhor combo de cada restaurante
             allSuggestedCombos.push(restaurantCombos[0]);
           }
         }
       });
 
-      // Ordena por menor economia/melhor aproveitamento
       allSuggestedCombos.sort((a, b) => b.totalPrice - a.totalPrice);
-
       setCombos(allSuggestedCombos);
 
-      // 5. Atualiza resposta da IA
       let responseText = '';
       if (allSuggestedCombos.length > 0) {
         responseText = `Encontrei ${allSuggestedCombos.length} sugestão(ões) de combos perfeitos de **${parsed.category === 'geral' ? 'comida' : parsed.category}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}** dentro do seu orçamento de **R$ ${parsed.maxBudget.toFixed(2)}**!\n\nVeja as sugestões abaixo do chat e escolha o seu preferido.👇`;
@@ -212,7 +204,6 @@ export default function ComboFinderPage() {
     await processSearch(userQuery);
   };
 
-  // Processa query inicial vinda de parâmetros de URL
   useEffect(() => {
     if (queryParam && !isLocationLoading && !hasProcessedInitialQuery.current) {
       hasProcessedInitialQuery.current = true;
@@ -220,13 +211,11 @@ export default function ComboFinderPage() {
     }
   }, [queryParam, isLocationLoading]);
 
-  // Abre modal para enviar sugestão para Happy Hour
   const handleOpenHHModal = (restaurantId: string) => {
     setSelectedRestaurantId(restaurantId);
     setIsModalOpen(true);
   };
 
-  // Envia restaurante para a sala de Happy Hour
   const handleSuggestToHH = async (happyHourId: string) => {
     if (!selectedRestaurantId || !currentUserId) return;
     setLoadingHH(true);
@@ -246,157 +235,217 @@ export default function ComboFinderPage() {
   };
 
   return (
-    <div className="bg-[#f5f7f8] min-h-screen flex flex-col w-full pb-8">
-      {/* Header */}
-      <header className="sticky top-0 z-20 bg-white border-b border-gray-100 shadow-soft-md p-4 flex items-center justify-between h-16 w-full">
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-            className="text-primary hover:bg-primary/5 shrink-0 h-9 w-9 rounded-full"
-          >
-            <ArrowLeft className="h-5 w-5 text-primary" />
-          </Button>
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-highlight animate-pulse" />
-            <h1 className="text-xl font-extrabold text-[#022D68]">Assistente Gourmet IA</h1>
-          </div>
-        </div>
-      </header>
+    <div className="bg-white h-screen flex flex-col w-full overflow-hidden max-w-md mx-auto border-x border-slate-200/60 relative">
+      <Header 
+        title="Assistente Gourmet IA"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+        rightAction={{ icon: Menu, onClick: () => showSuccess("Menu de suporte ativo!") }}
+      />
 
-      {/* Área de Conversa de Chat */}
-      <div className="flex-grow max-w-md mx-auto w-full p-4 flex flex-col justify-end">
-        <Card className="border-none shadow-soft-xl rounded-2xl bg-white/70 backdrop-blur-md flex-grow flex flex-col h-[320px] overflow-hidden mb-4">
-          <CardContent className="p-4 flex-grow overflow-y-auto space-y-4 flex flex-col hide-scrollbar">
-            {messages.map(m => (
+      {/* Área de Conversa de Chat - Ocupa todo o espaço vertical disponível */}
+      <div className="flex-grow overflow-y-auto px-4 pt-6 pb-32 space-y-6 min-h-0 hide-scrollbar flex flex-col bg-gradient-to-b from-slate-50/60 to-slate-100/40">
+        <AnimatePresence initial={false}>
+          {messages.map(m => (
+            <motion.div 
+              key={m.id} 
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className={cn(
+                "flex gap-3 max-w-[85%] items-end",
+                m.sender === 'user' ? "self-end flex-row-reverse" : "self-start"
+              )}
+            >
+              {/* Avatar */}
+              {m.sender === 'bot' ? (
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] flex items-center justify-center text-white shrink-0 shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-2 border-white ring-2 ring-red-50/50">
+                  <Sparkles className="w-5 h-5 text-white fill-white" />
+                </div>
+              ) : (
+                <img 
+                  src={user?.user_metadata?.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100"} 
+                  alt="User Avatar" 
+                  className="w-8 h-8 rounded-full object-cover border border-slate-200 shrink-0 shadow-[0_2px_5px_rgba(0,0,0,0.04)]" 
+                />
+              )}
+              
+              {/* Balão de Mensagem */}
               <div 
-                key={m.id} 
                 className={cn(
-                  "flex flex-col max-w-[85%] rounded-2xl p-3 text-base leading-relaxed",
+                  "p-4 text-sm leading-relaxed font-sans font-medium",
                   m.sender === 'user' 
-                    ? "bg-[#022D68] text-white self-end rounded-tr-none shadow-soft-sm font-medium" 
-                    : "bg-slate-100 text-slate-700 self-start rounded-tl-none border border-slate-200/50"
+                    ? "bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] text-white rounded-[22px] rounded-br-none shadow-[0_8px_20px_rgba(239,42,57,0.15)]" 
+                    : "bg-white border border-slate-100 text-slate-700 rounded-[22px] rounded-bl-none shadow-[0_8px_20px_rgba(0,0,0,0.03)]"
                 )}
               >
-                {m.id === 'typing' && <Loader2 className="w-4 h-4 animate-spin text-highlight mb-1.5" />}
+                {m.id === 'typing' && <Loader2 className="w-4 h-4 animate-spin text-[#EF2A39] mb-1.5" />}
                 <p className="whitespace-pre-line">{m.text}</p>
               </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </CardContent>
-          
-          {/* Campo de Entrada de Texto do Chat */}
-          <div className="p-3 border-t border-slate-100 bg-white rounded-b-2xl">
-            <form onSubmit={handleSend} className="flex gap-2">
-              <Input
-                type="text"
-                placeholder="Ex: Lanche para 2 até R$ 120"
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                disabled={loading}
-                className="flex-grow h-11 px-4 text-base rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-highlight text-primary transition-all focus-visible:ring-1 focus-visible:ring-highlight"
-              />
-              <Button
-                type="submit"
-                size="icon"
-                disabled={loading || !inputText.trim()}
-                className="h-11 w-11 rounded-xl shrink-0 bg-highlight hover:bg-highlight/95 text-white shadow-highlight-glow active:scale-95 transition-transform"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
-          </div>
-        </Card>
-      </div>
-
-      {/* Resultados de Combos Gerados */}
-      <div className="max-w-md mx-auto w-full px-4 space-y-4">
+            </motion.div>
+          ))}
+        </AnimatePresence>
+        
+        {/* Resultados de Combos Gerados - Renderizados dentro do fluxo do chat */}
         {combos.length > 0 && (
-          <div className="space-y-3">
-            <h2 className="text-lg font-extrabold text-primary px-1">Combos Sugeridos</h2>
+          <div className="space-y-4 pt-2 w-full max-w-[90%] self-end pl-10">
+            <div className="flex items-center gap-1.5 px-1">
+              <Sparkles className="w-4 h-4 text-[#EF2A39]" />
+              <h2 className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Combos Sugeridos</h2>
+            </div>
             
             <AnimatePresence>
-              {combos.map((combo, index) => (
-                <motion.div
-                  key={combo.restaurant.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                  <Card className="border-none shadow-soft-lg rounded-2xl overflow-hidden bg-white">
-                    <CardContent className="p-4 space-y-4">
-                      {/* Topo do Restaurante */}
-                      <div className="flex items-center gap-3">
-                        <img 
-                          src={combo.restaurant.image_url || 'https://via.placeholder.com/100?text=Restaurante'} 
-                          alt={combo.restaurant.name} 
-                          className="w-12 h-12 rounded-xl object-cover border border-slate-100 shadow-sm"
-                        />
-                        <div className="flex-grow">
-                          <h3 className="text-base font-bold text-primary">{combo.restaurant.name}</h3>
-                          <p className="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 text-highlight" /> a {combo.restaurant.distance_km?.toFixed(1) || '1.0'} km ({combo.restaurant.category})
+              {combos.map((combo, index) => {
+                const isPremiumRest = combo.restaurant.plan === 'premium';
+                return (
+                  <motion.div
+                    key={combo.restaurant.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                  >
+                    <Card className={cn(
+                      "border shadow-soft hover:shadow-float transition-all duration-300 bg-white rounded-[20px] overflow-hidden relative",
+                      isPremiumRest
+                        ? "border-amber-200/60 ring-1 ring-amber-150/20 bg-gradient-to-b from-amber-50/10 to-white"
+                        : "border-slate-100/80"
+                    )}>
+                      <CardContent className="p-4 space-y-4">
+                        {/* Topo do Restaurante */}
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <img 
+                              src={combo.restaurant.image_url || 'https://via.placeholder.com/100?text=Restaurante'} 
+                              alt={combo.restaurant.name} 
+                              className="w-11 h-11 rounded-xl object-cover border border-slate-100"
+                            />
+                            {isPremiumRest && (
+                              <div className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-white rounded-full p-0.5 shadow-sm border border-white">
+                                <Crown className="w-2.5 h-2.5 fill-white text-white" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-grow min-w-0">
+                            <h3 className="text-sm font-extrabold text-slate-800 truncate flex items-center gap-1.5">
+                              {combo.restaurant.name}
+                              {isPremiumRest && (
+                                <span className="bg-amber-100 text-amber-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider scale-90 origin-left">
+                                  Premium
+                                </span>
+                              )}
+                            </h3>
+                            <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1 mt-0.5">
+                              <MapPin className="w-3 h-3 text-[#EF2A39]" /> a {combo.restaurant.distance_km?.toFixed(1) || '1.0'} km ({combo.restaurant.category})
+                            </p>
+                          </div>
+                          <div className="bg-emerald-500/10 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 border border-emerald-500/20">
+                            Economia: R$ {combo.economy.toFixed(2)}
+                          </div>
+                        </div>
+
+                        {/* Lista de Itens do Combo */}
+                        <div className="bg-[#F9FAFB] rounded-xl p-3 border border-slate-150 space-y-2">
+                          <p className="text-[9px] uppercase font-extrabold text-slate-400 tracking-wider">Itens do Combo</p>
+                          {combo.items.map((item, itemIdx) => (
+                            <div key={itemIdx} className="flex justify-between items-center text-xs text-slate-700">
+                              <div className="flex items-center gap-2">
+                                <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[9px] font-extrabold h-4.5 w-4.5 rounded-md flex items-center justify-center shrink-0">1x</span>
+                                <span className="font-semibold truncate max-w-[150px]">{item.name}</span>
+                              </div>
+                              <span className="font-bold text-slate-700">R$ {item.price.toFixed(2)}</span>
+                            </div>
+                          ))}
+                          
+                          <div className="border-t border-slate-200 mt-2 pt-2 flex justify-between items-center">
+                            <span className="text-xs font-bold text-slate-650">Total do Combo:</span>
+                            <span className="text-sm font-extrabold text-[#EF2A39]">R$ {combo.totalPrice.toFixed(2)}</span>
+                          </div>
+                        </div>
+
+                        {/* Explicação da IA */}
+                        <div className="bg-amber-500/5 border border-amber-500/10 rounded-xl p-3 flex gap-2 items-start">
+                          <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                          <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                            {combo.explanation}
                           </p>
                         </div>
-                        <div className="bg-emerald-500/10 text-emerald-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase shrink-0 border border-emerald-500/20 shadow-sm">
-                          Economia: R$ {combo.economy.toFixed(2)}
+
+                        {/* Ações Rápidas */}
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={() => navigate(`/restaurant/${combo.restaurant.id}`)}
+                            variant="outline"
+                            className="flex-grow h-9 rounded-xl text-xs font-bold border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 shadow-none"
+                          >
+                            <Utensils className="w-3.5 h-3.5" />
+                            Cardápio
+                          </Button>
+                          <Button
+                            onClick={() => handleOpenHHModal(combo.restaurant.id)}
+                            variant="highlight"
+                            className="flex-grow h-9 rounded-xl text-xs font-bold text-white shadow-none flex items-center justify-center gap-1.5"
+                          >
+                            <Vote className="w-3.5 h-3.5" />
+                            Sugerir HH
+                          </Button>
                         </div>
-                      </div>
-
-                      {/* Lista de Itens do Combo */}
-                      <div className="bg-slate-50 rounded-xl p-3 border border-slate-100/50 space-y-2">
-                        <p className="text-xs uppercase font-extrabold text-slate-400 tracking-wider mb-1">Itens do Combo</p>
-                        {combo.items.map((item, itemIdx) => (
-                          <div key={itemIdx} className="flex justify-between items-center text-xs text-slate-700">
-                            <div className="flex items-center gap-2">
-                              <span className="bg-[#022D68]/10 text-[#022D68] text-[9px] font-extrabold h-4.5 w-4.5 rounded-md flex items-center justify-center shrink-0">1x</span>
-                              <span className="font-bold truncate max-w-[200px]">{item.name}</span>
-                            </div>
-                            <span className="font-bold text-primary">R$ {item.price.toFixed(2)}</span>
-                          </div>
-                        ))}
-                        
-                        <div className="border-t border-slate-200 mt-2 pt-2 flex justify-between items-center">
-                          <span className="text-xs font-extrabold text-slate-600">Total do Combo:</span>
-                          <span className="text-sm font-extrabold text-highlight font-sans">R$ {combo.totalPrice.toFixed(2)}</span>
-                        </div>
-                      </div>
-
-                      {/* Explicação da IA */}
-                      <div className="bg-amber-500/5 border border-amber-500/10 rounded-xl p-3 flex gap-2.5 items-start">
-                        <Sparkles className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                        <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                          {combo.explanation}
-                        </p>
-                      </div>
-
-                      {/* Ações Rápidas */}
-                      <div className="flex gap-2 pt-1.5">
-                        <Button
-                          onClick={() => navigate(`/restaurant/${combo.restaurant.id}`)}
-                          variant="outline"
-                          className="flex-grow h-10 rounded-xl text-xs font-bold border-gray-200 text-primary hover:bg-slate-50 flex items-center justify-center gap-1.5 shadow-soft-sm"
-                        >
-                          <Utensils className="w-3.5 h-3.5" />
-                          Cardápio
-                        </Button>
-                        <Button
-                          onClick={() => handleOpenHHModal(combo.restaurant.id)}
-                          variant="highlight"
-                          className="flex-grow h-10 rounded-xl text-xs font-bold text-white shadow-highlight-glow flex items-center justify-center gap-1.5"
-                        >
-                          <Vote className="w-3.5 h-3.5" />
-                          Sugerir Happy Hour
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </div>
         )}
+
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Sugestões Rápidas de Prompt */}
+      {messages.length === 1 && combos.length === 0 && (
+        <div className="absolute bottom-[92px] left-0 right-0 px-4 z-20 max-w-md mx-auto">
+          <div className="flex gap-2 overflow-x-auto pb-1.5 hide-scrollbar">
+            {[
+              { label: '🍔 Lanches para 2 até R$ 100', text: 'Quero lanche com minha esposa e gastar até R$ 100' },
+              { label: '🍕 Pizza com amigos R$ 150', text: 'Quero pizza para 4 amigos e gastar até R$ 150' },
+              { label: '🥗 Almoço individual R$ 50', text: 'Quero almoço saudável individual até R$ 50' }
+            ].map((sug, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  setInputText(sug.text);
+                  processSearch(sug.text);
+                }}
+                className="shrink-0 bg-white/95 backdrop-blur-sm hover:bg-slate-50 border border-slate-200/60 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-95 transition-all duration-200 cursor-pointer"
+              >
+                {sug.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Campo de Entrada de Texto do Chat - Card Suspenso Flutuante na base */}
+      <div className="p-4 bg-gradient-to-t from-slate-50 via-slate-50/90 to-transparent border-none absolute bottom-0 left-0 right-0 w-full z-30 pt-10">
+        <form onSubmit={handleSend} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100 max-w-md mx-auto w-full group focus-within:border-[#EF2A39]/30 focus-within:shadow-[0_12px_32px_rgba(239,42,57,0.08)] transition-all duration-300">
+          <Sparkles className="w-5 h-5 text-slate-400 group-focus-within:text-[#EF2A39] shrink-0 ml-3 transition-colors duration-200" />
+          <Input
+            type="text"
+            placeholder="Ex: Lanche para 2 até R$ 120"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            disabled={loading}
+            className="flex-grow border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2 text-sm text-[#3C2F2F] placeholder-slate-400 font-medium h-11"
+          />
+          <Button
+            type="submit"
+            size="icon"
+            disabled={loading || !inputText.trim()}
+            className="h-11 w-11 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-none"
+          >
+            <Send className="w-4 h-4 text-white" />
+          </Button>
+        </form>
       </div>
 
       {/* Modal / Diálogo para selecionar o Happy Hour para sugestão */}
@@ -405,7 +454,7 @@ export default function ComboFinderPage() {
           <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="bg-white rounded-3xl p-5 w-full max-w-md shadow-soft-xl max-h-[80vh] flex flex-col border border-slate-100"
+            className="bg-white rounded-[20px] p-5 w-full max-w-md shadow-none max-h-[80vh] flex flex-col border border-slate-100"
           >
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
               <h3 className="text-base font-extrabold text-primary flex items-center gap-2">
@@ -413,7 +462,7 @@ export default function ComboFinderPage() {
               </h3>
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 text-sm font-bold p-1"
+                className="text-slate-400 hover:text-slate-650 text-sm font-bold p-1"
               >
                 Fechar
               </button>
@@ -429,7 +478,7 @@ export default function ComboFinderPage() {
                     onClick={() => handleSuggestToHH(hh.id)}
                     className="w-full justify-start h-14 rounded-2xl border-slate-100 p-3 hover:border-highlight/50 hover:bg-highlight/5 flex items-center gap-3 transition-all"
                   >
-                    <div className="w-9 h-9 bg-highlight/10 rounded-xl flex items-center justify-center text-highlight shrink-0">
+                    <div className="w-9 h-9 bg-highlight/10 rounded-2xl flex items-center justify-center text-highlight shrink-0">
                       <Vote className="w-4.5 h-4.5" />
                     </div>
                     <div className="text-left min-w-0 flex-grow">
@@ -448,7 +497,7 @@ export default function ComboFinderPage() {
                       navigate('/happy-hours');
                     }}
                     variant="highlight"
-                    className="h-10 px-5 text-xs font-bold rounded-xl"
+                    className="h-10 px-5 text-xs font-bold rounded-2xl"
                   >
                     Criar Nova Sala
                   </Button>

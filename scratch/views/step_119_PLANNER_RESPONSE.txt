@@ -1,0 +1,1 @@
+I will modify the filtering logic in `src/pages/admin/ExportedRestaurants.tsx` so that a restaurant is only marked as "completed" if it also has a successfully structured menu (i.e. `!hasNoStructuredMenu(r)`). If the menu is not yet structured, it will fall under the "missing_any" or "missing_menu" filters. I am applying this using the `replace_file_content` tool.

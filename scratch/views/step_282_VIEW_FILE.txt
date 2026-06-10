@@ -1,0 +1,75 @@
+Created At: 2026-06-09T15:30:06Z
+Completed At: 2026-06-09T15:30:06Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 1159
+Total Bytes: 51151
+Showing lines 850 to 950
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+850:               Nenhum restaurante importado encontrado com o filtro atual.
+851:             </div>
+852:           ) : (
+853:             <Table>
+854:               <TableHeader>
+855:                 <TableRow className="bg-gray-50/50">
+856:                   <TableHead className="font-bold">Nome</TableHead>
+857:                   <TableHead className="font-bold">Categoria</TableHead>
+858:                   <TableHead className="font-bold">Telefone</TableHead>
+859:                   <TableHead className="font-bold">Endereço</TableHead>
+860:                   <TableHead className="font-bold text-center">Dados Faltantes</TableHead>
+861:                   <TableHead className="font-bold text-right">Ações</TableHead>
+862:                 </TableRow>
+863:               </TableHeader>
+864:               <TableBody>
+865:                 {filteredRestaurants.map((r) => (
+866:                   <TableRow key={r.id} className="hover:bg-gray-50/50">
+867:                     <TableCell className="font-semibold text-primary">
+868:                       {r.googleMapsUrl ? (
+869:                         <a 
+870:                           href={r.googleMapsUrl} 
+871:                           target="_blank" 
+872:                           rel="noopener noreferrer" 
+873:                           className="hover:underline hover:text-highlight flex items-center gap-1"
+874:                         >
+875:                           {r.name} <span className="text-[10px] text-gray-400 font-normal">↗</span>
+876:           
+<truncated 2369 bytes>
+text-emerald-800 border-none text-[10px] py-0.5 font-bold">
+913:                             Completo ✨
+914:                           </Badge>
+915:                         )}
+916:                       </div>
+917:                     </TableCell>
+918:                     <TableCell className="text-right">
+919:                       <div className="flex justify-end gap-1.5">
+920:                         <Button 
+921:                           size="sm" 
+922:                           variant="ghost" 
+923:                           className="text-primary hover:text-primary-dark hover:bg-gray-50 font-bold gap-1"
+924:                           onClick={() => setSelectedRestaurant(r)}
+925:                         >
+926:                           <Eye className="w-4 h-4" /> Detalhes
+927:                         </Button>
+928:                         <Button 
+929:                           size="sm" 
+930:                           variant="ghost" 
+931:                           className="text-red-500 hover:text-red-700 hover:bg-red-50 font-bold gap-1"
+932:                           onClick={() => handleRemove(r)}
+933:                         >
+934:                           <Trash2 className="w-4 h-4" /> Remover
+935:                         </Button>
+936:                       </div>
+937:                     </TableCell>
+938:                   </TableRow>
+939:                 ))}
+940:               </TableBody>
+941:             </Table>
+942:           )}
+943:         </CardContent>
+944:       </Card>
+945: 
+946:       {/* Modal Dialog de Detalhes do Restaurante */}
+947:       <Dialog open={selectedRestaurant !== null} onOpenChange={(open) => !open && setSelectedRestaurant(null)}>
+948:         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6">
+949:           {selectedRestaurant && (
+950:             <>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

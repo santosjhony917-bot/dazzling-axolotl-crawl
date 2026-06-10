@@ -1,0 +1,59 @@
+Created At: 2026-06-09T15:29:15Z
+Completed At: 2026-06-09T15:29:15Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 945
+Total Bytes: 42167
+Showing lines 310 to 360
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+310:     if (successCount > 0) {
+311:       showSuccess(`${successCount} restaurante(s) sincronizado(s) com sucesso no Supabase!`);
+312:     }
+313:     if (failCount > 0) {
+314:       showError(`${failCount} restaurante(s) falharam na sincronização. Veja o console.`);
+315:     }
+316:   };
+317: 
+318:   const loadRestaurants = async () => {
+319:     try {
+320:       const saved = localStorage.getItem('mock-completed-restaurants');
+321:       if (saved) {
+322:         const parsed = JSON.parse(saved);
+323:         const list = Object.values(parsed).filter((r: any) => r.id && r.id.startsWith('scraped-'));
+324:         setRestaurants(list);
+325:         
+326:         if (list.length > 0) {
+327:           const uuids = list.map((r: any) => getDeterministicUUID(r.id));
+328:           const { data, error } = await supabase
+329:             .from('restaurants')
+330:             .select('id')
+331:             .in('id', uuids);
+332:             
+333:           if (!error && data) {
+334:             const syncedSet = new Set(data.map(item => item.id));
+335:             setSyncedIds(syncedSet);
+336:           } else if (error) {
+337:             console.error('Erro ao buscar sincronizados:', error);
+338:           }
+339:         } else {
+340:           setSyncedIds(new Set());
+341:         }
+342:       } else {
+343:         setRestaurants([]);
+344:         setSyncedIds(new Set());
+345:       }
+346:     } catch (e) {
+347:       console.error(e);
+348:       showError('Erro ao carregar restaurantes importados.');
+349:     }
+350:   };
+351: 
+352:   useEffect(() => {
+353:     loadRestaurants();
+354: 
+355:     window.addEventListener('storage', loadRestaurants);
+356:     window.addEventListener('local-sync-restaurants', loadRestaurants);
+357: 
+358:     return () => {
+359:       window.removeEventListener('storage', loadRestaurants);
+360:       window.removeEventListener('local-sync-restaurants', loadRestaurants);
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

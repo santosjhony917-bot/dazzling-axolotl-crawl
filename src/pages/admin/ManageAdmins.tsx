@@ -120,9 +120,9 @@ export default function ManageAdmins() {
   return (
     <div className="space-y-6">
       {/* Seção Adicionar Administrador */}
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-none border-none rounded-2xl bg-white">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+          <CardTitle className="flex items-center gap-2 text-2xl text-primary">
             <UserPlus className="w-6 h-6" /> Adicionar Administrador
           </CardTitle>
           <CardDescription>Promova um usuário existente para administrador.</CardDescription>
@@ -140,7 +140,7 @@ export default function ManageAdmins() {
                 onChange={(e) => setEmailToAdd(e.target.value)}
                 onKeyDown={handleKeyDown} // Adicionado onKeyDown
                 disabled={addAdminMutation.isPending}
-                className="h-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                className="h-12 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
               />
             </div>
             <Button 
@@ -161,9 +161,9 @@ export default function ManageAdmins() {
       </Card>
 
       {/* Seção Administradores Ativos */}
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+      <Card className="shadow-none border-none rounded-2xl bg-white">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+          <CardTitle className="flex items-center gap-2 text-2xl text-primary">
             <Shield className="w-6 h-6" /> Administradores Ativos
           </CardTitle>
           <CardDescription>Total: {totalAdmins} administrador(es)</CardDescription>

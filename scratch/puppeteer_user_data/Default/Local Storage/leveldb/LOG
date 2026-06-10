@@ -1,0 +1,19 @@
+2026/06/10-10:51:23.601 19ac Reusing MANIFEST C:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\scratch\puppeteer_user_data\Default\Local Storage\leveldb/MANIFEST-000001
+2026/06/10-10:51:24.027 19ac Recovering log #27
+2026/06/10-10:51:24.028 19ac Level-0 table #30: started
+2026/06/10-10:51:24.035 19ac Level-0 table #30: 62287 bytes OK
+2026/06/10-10:51:24.037 19ac Recovering log #29
+2026/06/10-10:51:24.039 19ac Level-0 table #31: started
+2026/06/10-10:51:24.045 19ac Level-0 table #31: 48154 bytes OK
+2026/06/10-10:51:24.078 19ac Delete type=0 #27
+2026/06/10-10:51:24.079 19ac Delete type=0 #29
+2026/06/10-10:51:24.095 5d38 Compacting 5@0 + 1@1 files
+2026/06/10-10:51:24.120 5d38 Generated table #33@0: 45 keys, 56065 bytes
+2026/06/10-10:51:24.121 5d38 Compacted 5@0 + 1@1 files => 56065 bytes
+2026/06/10-10:51:24.152 5d38 compacted to: files[ 0 1 0 0 0 0 0 ]
+2026/06/10-10:51:24.154 5d38 Delete type=2 #22
+2026/06/10-10:51:24.154 5d38 Delete type=2 #24
+2026/06/10-10:51:24.154 5d38 Delete type=2 #26
+2026/06/10-10:51:24.154 5d38 Delete type=2 #28
+2026/06/10-10:51:24.154 5d38 Delete type=2 #30
+2026/06/10-10:51:24.155 5d38 Delete type=2 #31

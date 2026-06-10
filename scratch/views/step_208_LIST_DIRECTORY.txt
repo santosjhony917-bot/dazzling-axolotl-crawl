@@ -1,0 +1,18 @@
+Created At: 2026-06-09T15:08:23Z
+Completed At: 2026-06-09T15:08:23Z
+{"name":"AdminDashboard.tsx", "sizeBytes":"2515"}
+{"name":"AdminEditRestaurant.tsx", "sizeBytes":"22059"}
+{"name":"AdminLayout.tsx", "sizeBytes":"3657"}
+{"name":"AdminLogin.tsx", "sizeBytes":"4219"}
+{"name":"AdminPlans.tsx", "sizeBytes":"140"}
+{"name":"AdminRestaurantMenu.tsx", "sizeBytes":"16430"}
+{"name":"AdminRestaurants.tsx", "sizeBytes":"15704"}
+{"name":"AdminUploadInfo.tsx", "sizeBytes":"4557"}
+{"name":"AdminViewMenus.tsx", "sizeBytes":"16856"}
+{"name":"ExportedRestaurants.tsx", "sizeBytes":"32630"}
+{"name":"GoogleMapsCollector.tsx", "sizeBytes":"115664"}
+{"name":"ManageAdmins.tsx", "sizeBytes":"10677"}
+{"name":"ManagePlans.tsx", "sizeBytes":"9999"}
+{"name":"PopularCategories.tsx", "sizeBytes":"4031"}
+
+Summary: This directory contains 0 subdirectories and 14 files.

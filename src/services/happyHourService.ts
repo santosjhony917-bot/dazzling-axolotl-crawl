@@ -572,3 +572,80 @@ export async function voteForRestaurant(
     return { error: (e as Error).message };
   }
 }
+
+/**
+ * Atualiza as configurações da sala de Happy Hour (salvo de forma segura na descrição como JSON).
+ */
+export async function updateHappyHourSettings(
+  happyHourId: string,
+  currentUserId: string,
+  text: string | null,
+  allowMemberInvites: boolean,
+  allowMemberSuggestions: boolean
+): Promise<{ error: string | null }> {
+  const settingsJson = JSON.stringify({
+    text: text || "",
+    allow_member_invites: allowMemberInvites,
+    allow_member_suggestions: allowMemberSuggestions
+  });
+
+  if (currentUserId.startsWith('mock-')) {
+    const store = loadMockStore(currentUserId);
+    const hh = store.happyHours.find(h => h.id === happyHourId);
+    if (hh) {
+      hh.description = settingsJson;
+      saveMockStore(currentUserId, store);
+    }
+    return { error: null };
+  }
+
+  // Supabase real
+  try {
+    const { error } = await supabase
+      .from('happy_hours')
+      .update({ description: settingsJson })
+      .eq('id', happyHourId);
+
+    if (error) throw error;
+    return { error: null };
+  } catch (e) {
+    console.error('Error updating happy hour settings:', e);
+    return { error: (e as Error).message };
+  }
+}
+
+/**
+ * Adiciona novos participantes a uma sala de Happy Hour.
+ */
+export async function addParticipantsToHappyHour(
+  happyHourId: string,
+  participantIds: string[],
+  currentUserId: string
+): Promise<{ error: string | null }> {
+  if (currentUserId.startsWith('mock-')) {
+    const store = loadMockStore(currentUserId);
+    const parts = store.participants[happyHourId] || [];
+    const updatedParts = Array.from(new Set([...parts, ...participantIds]));
+    store.participants[happyHourId] = updatedParts;
+    saveMockStore(currentUserId, store);
+    return { error: null };
+  }
+
+  // Supabase real
+  try {
+    const participantsToInsert = participantIds.map(uid => ({
+      happy_hour_id: happyHourId,
+      user_id: uid
+    }));
+
+    const { error } = await supabase
+      .from('happy_hour_participants')
+      .insert(participantsToInsert);
+
+    if (error) throw error;
+    return { error: null };
+  } catch (e) {
+    console.error('Error adding participants to happy hour:', e);
+    return { error: (e as Error).message };
+  }
+}

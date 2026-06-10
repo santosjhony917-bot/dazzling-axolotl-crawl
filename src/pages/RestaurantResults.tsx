@@ -61,13 +61,13 @@ const RestaurantResults: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#f5f7f8] min-h-screen">
-      <header className="bg-white p-4 shadow-soft-md sticky top-0 z-10">
+    <div className="bg-background-light min-h-screen">
+      <header className="bg-white p-4 shadow-none sticky top-0 z-10">
         <div className="flex items-center gap-2 mb-4">
           <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-xl font-extrabold text-[#022D68] tracking-tight">Resultados da Busca</h1>
+          <h1 className="text-xl font-extrabold text-primary tracking-tight">Resultados da Busca</h1>
         </div>
 
         <form onSubmit={handleSearchSubmit} className="flex gap-2">
@@ -78,14 +78,14 @@ const RestaurantResults: React.FC = () => {
               placeholder="Buscar por prato ou restaurante..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 h-12 rounded-xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-soft-md"
+              className="w-full pl-10 h-12 rounded-2xl border-gray-300 focus:border-highlight focus:ring-highlight shadow-none"
             />
           </div>
           <Button
             type="submit"
             size="icon"
             variant="highlight"
-            className="h-12 w-12 rounded-xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-highlight-glow"
+            className="h-12 w-12 rounded-2xl shrink-0 bg-highlight hover:bg-highlight/90 shadow-none"
           >
             <Search className="w-5 h-5" />
           </Button>
@@ -95,12 +95,12 @@ const RestaurantResults: React.FC = () => {
       <main className="p-4 space-y-4">
         {isRestaurantsLoading ? (
           <>
-            <Skeleton className="w-full h-28 rounded-xl" />
-            <Skeleton className="w-full h-28 rounded-xl" />
-            <Skeleton className="w-full h-28 rounded-xl" />
+            <Skeleton className="w-full h-28 rounded-2xl" />
+            <Skeleton className="w-full h-28 rounded-2xl" />
+            <Skeleton className="w-full h-28 rounded-2xl" />
           </>
         ) : restaurantsError ? (
-          <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl shadow-soft-md">
+          <div className="text-center p-8 bg-red-100 border border-red-400 text-red-700 rounded-2xl shadow-none">
             <p className="font-semibold">Erro ao carregar restaurantes:</p>
             <p>{restaurantsError.message}</p>
             <Button onClick={() => refetchRestaurants()} className="mt-4">
@@ -119,7 +119,7 @@ const RestaurantResults: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center p-8 text-gray-600 bg-white rounded-xl shadow-soft-md">
+          <div className="text-center p-8 text-gray-600 bg-white rounded-2xl shadow-none">
             <Utensils className="w-12 h-12 mx-auto mb-4 text-gray-400" />
             <p className="text-xl font-semibold">Nenhum restaurante encontrado</p>
             <p className="mt-2">Tente ajustar sua localização ou filtros de busca.</p>

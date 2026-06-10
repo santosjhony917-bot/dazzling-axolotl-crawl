@@ -1,0 +1,112 @@
+<USER_REQUEST>
+continue fazendo esse texto, descrevendo todas as telas: FilterFood - Arquitetura de Telas e Fluxo do Usuário
+
+Este documento mapeia o esqueleto do aplicativo FilterFood, focando na funcionalidade, dados e navegação de cada tela, ignorando o design visual neste momento.
+
+1. Fluxo Inicial (First Open)
+
+TELA 1.0: Splash Screen
+
+Objetivo: Tela de carregamento exibida rapidamente enquanto o aplicativo inicializa o sistema e verifica no banco de dados (Firebase) se o utilizador já possui uma sessão iniciada.
+
+Elementos Visuais Básicos:
+
+Logotipo principal do FilterFood (centralizado).
+
+Cor de fundo sólida (da marca).
+
+Indicador de carregamento (Spinner) opcional.
+
+Lógica de Navegação:
+
+Automática: Dura de 1 a 3 segundos.
+
+Condição A: Se é a primeira vez que o utilizador abre o app -> Vai para Onboarding (TELA 1.1).
+
+Condição B: Se o utilizador já está logado/já conhece o app -> Vai para a sua respetiva Home.
+
+TELA 1.1: Onboarding (Boas-vindas)
+
+Objetivo: Explicar a proposta de valor do aplicativo para um utilizador novato e pedir permissões importantes (como o GPS para mostrar restaurantes próximos) de forma amigável.
+
+Componente Principal: Um carrossel deslizante (Swipe) com 3 passos.
+
+Passo 1 (Descoberta):
+
+Ilustração: Algo relacionado a encontrar comida.
+
+Título: "Encontre o prato ideal"
+
+Subtexto: "Filtre restaurantes por preço, categoria e distância."
+
+Passo 2 (Social):
+
+Ilustração: Grupo de amigos ou votação.
+
+Título: "Reúna a Galera"
+
+Subtexto: "Crie eventos, convide amigos e decidam juntos onde será o Happy Hour."
+
+Passo 3 (Permissão de Localização):
+
+Ilustração: Um pin de mapa.
+
+Título: "Descubra o que está perto"
+
+Subtexto: "Ative a sua localização para encontrar as melhores opções ao seu redor."
+
+Elementos Fixos na Tela:
+
+Botão "Pular" (canto superior direito) -> Direciona para a TELA 1.2 (Welcome).
+
+Indicadores de página (3 pontinhos na base).
+
+Botão de Ação Primária: "Próximo" (telas 1 e 2) e "Começar / Permitir GPS" (tela 3).
+
+TELA 1.2: 
+<truncated 6819 bytes>
+e (Validação em 2 Etapas)
+
+Objetivo: Permitir que o proprietário legitime o controlo sobre um restaurante já listado no app usando um código de acesso (fornecido offline ou por e-mail pela plataforma).
+
+Etapa 1: Inserção do Código
+
+Header: Ícone de seta para voltar (<-) e título "Reivindicar Perfil".
+
+Cabeçalho Principal: Ícone de chave num círculo, título "Reivindicar Restaurante", subtítulo "Use o código de acesso de 8 caracteres para liberar seu perfil.".
+
+Input: "Código de Acesso" (Ex: INSIRA O CÓDIGO) com texto de ajuda "O código de 8 caracteres fornecido a você.".
+
+Ação Primária: Botão "Verificar Código" (Inicialmente com opacidade reduzida/desativado até preenchimento).
+
+Etapa 2: Criação de Credenciais (Pós-Validação)
+
+Objetivo: Uma vez validado o código, o utilizador deve criar a sua conta (ou fazer login se já tiver uma) para assumir a propriedade.
+
+Mudança Visual: O subtítulo altera-se para "Código verificado! Agora, crie sua conta ou faça login para continuar."
+
+Componentes de Registo (Similares à Etapa 3 do Cadastro):
+
+Botões de Social Login (Google/Apple).
+
+Separador "OU".
+
+Inputs de "Seu e-mail", "Crie uma senha" e "Confirme sua senha".
+
+Botão Primário: "Criar conta".
+
+Rodapé: Link "Já possui cadastro? Fazer login" (caso o utilizador já seja parceiro e queira apenas adicionar outro restaurante à sua conta existente).
+
+Lógica de Navegação:
+
+Clique em "Verificar Código" (Sucesso): O código é validado no backend e a tela transita dinamicamente para a Etapa 2.
+
+Clique em "Criar conta" (Sucesso): Associa o utilizador ao restaurante reivindicado no Firebase e direciona para o Painel do Restaurante.
+
+Clique em "Fazer login" (Rodapé Etapa 2): Direciona para a TELA 4.1 (Login do Restaurante), passando o parâmetro do código de reivindicação para associar após o login.
+
+Clique na Seta (Voltar): Retorna para a TELA 4.0 (Área do Restaurante).
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-06T14:32:29-03:00.
+</ADDITIONAL_METADATA>

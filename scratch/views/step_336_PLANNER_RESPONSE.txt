@@ -1,0 +1,1 @@
+I will run the extraction script to find and save any candidates for the restored version of `ExportedRestaurants.tsx`.

@@ -1,0 +1,65 @@
+Created At: 2026-06-09T14:55:22Z
+Completed At: 2026-06-09T14:55:22Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -588,6 +588,72 @@
+                     )}
+                   </div>
+                 </div>
++
++                {/* Cardápio Estruturado */}
++                <div className="space-y-3 pt-4 border-t border-gray-100">
++                  <h3 className="font-bold text-sm text-primary uppercase tracking-wider flex justify-between items-center">
++                    <span>Cardápio Estruturado</span>
++                    <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[10px] font-bold">
++                      {selectedRestaurant.menu_categories?.reduce((acc: number, c: any) => acc + (c.items?.length || 0), 0) || 0} itens
++                    </Badge>
++                  </h3>
++                  
++                  {selectedRestaurant.menu_categories && selectedRestaurant.menu_categories.length > 0 ? (
++                    <div className="space-y-4">
++                      {selectedRestaurant.menu_categories.map((category: any, cIdx: number) => (
++                        <div key={category.id || `cat-${cIdx}`} className="border border-gray-150 rounded-2xl overflow-hidden bg-white shadow-sm">
++                          <div className="bg-gray-50 px-4 py-2.5 border-b border-gray-150 flex justify-between items-center">
++                            <span className="font-bold text-xs text-gray-700">{category.name}</span>
++                            <Badge variant="secondary" className="bg-primary/10 text-primary font-bold border-none text-[10px]">
++                              {category.items?.length || 0} prato(s)
++                            </Badge>
++                          </div>
++                   
+<truncated 1217 bytes>
+t-xs font-bold text-gray-800 truncate">{item.name}</h4>
++                                      <span className="text-xs font-bold text-emerald-600 shrink-0">
++                                        {typeof item.price === 'number' && item.price > 0 
++                                          ? `R$ ${item.price.toFixed(2).replace('.', ',')}` 
++                                          : 'Sob consulta'}
++                                      </span>
++                                    </div>
++                                    {item.description && (
++                                      <p className="text-[11px] text-gray-500 font-medium mt-1 leading-relaxed line-clamp-2">
++                                        {item.description}
++                                      </p>
++                                    )}
++                                  </div>
++                                </div>
++                              ))
++                            ) : (
++                              <p className="text-xs text-gray-400 text-center py-2">Nenhum prato nesta categoria.</p>
++                            )}
++                          </div>
++                        </div>
++                      ))}
++                    </div>
++                  ) : (
++                    <div className="text-center py-8 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
++                      <p className="text-xs text-gray-500 font-bold">Nenhum prato ou categoria cadastrada ainda.</p>
++                      <p className="text-[10px] text-gray-400 mt-1">Execute a coleta de cardápios (Fase 3) ou faça a importação do arquivo scraped_menus.json.</p>
++                    </div>
++                  )}
++                </div>
+               </div>
+             </>
+           )}
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

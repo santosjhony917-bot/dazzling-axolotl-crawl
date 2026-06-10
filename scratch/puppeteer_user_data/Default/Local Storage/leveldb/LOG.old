@@ -1,0 +1,32 @@
+2026/06/10-10:37:06.089 4550 Reusing MANIFEST C:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\scratch\puppeteer_user_data\Default\Local Storage\leveldb/MANIFEST-000001
+2026/06/10-10:37:06.408 4550 Recovering log #15
+2026/06/10-10:37:06.836 4550 Level-0 table #17: started
+2026/06/10-10:37:07.127 4550 Level-0 table #17: 79352 bytes OK
+2026/06/10-10:37:07.131 4550 Recovering log #16
+2026/06/10-10:37:07.166 4550 Level-0 table #18: started
+2026/06/10-10:37:07.192 4550 Level-0 table #18: 76886 bytes OK
+2026/06/10-10:37:07.217 4550 Delete type=0 #15
+2026/06/10-10:37:07.217 4550 Delete type=0 #16
+2026/06/10-10:38:07.428 4550 Level-0 table #21: started
+2026/06/10-10:38:07.468 4550 Level-0 table #21: 42796 bytes OK
+2026/06/10-10:38:07.470 4550 Delete type=0 #19
+2026/06/10-10:38:07.474 4550 Compacting 4@0 + 1@1 files
+2026/06/10-10:38:07.485 4550 Generated table #22@0: 23 keys, 40857 bytes
+2026/06/10-10:38:07.485 4550 Compacted 4@0 + 1@1 files => 40857 bytes
+2026/06/10-10:38:07.487 4550 compacted to: files[ 0 1 0 0 0 0 0 ]
+2026/06/10-10:38:07.489 4550 Delete type=2 #12
+2026/06/10-10:38:07.489 4550 Delete type=2 #14
+2026/06/10-10:38:07.489 4550 Delete type=2 #17
+2026/06/10-10:38:07.489 4550 Delete type=2 #18
+2026/06/10-10:38:07.489 4550 Delete type=2 #21
+2026/06/10-10:39:07.412 35b4 Level-0 table #24: started
+2026/06/10-10:39:07.419 35b4 Level-0 table #24: 47485 bytes OK
+2026/06/10-10:39:07.422 35b4 Delete type=0 #20
+2026/06/10-10:40:07.419 35b4 Level-0 table #26: started
+2026/06/10-10:40:07.433 35b4 Level-0 table #26: 46713 bytes OK
+2026/06/10-10:40:07.438 35b4 Delete type=0 #23
+2026/06/10-10:41:07.432 35b4 Level-0 table #28: started
+2026/06/10-10:41:07.455 35b4 Level-0 table #28: 65583 bytes OK
+2026/06/10-10:41:07.477 35b4 Delete type=0 #25
+2026/06/10-10:42:02.601 7900 Level-0 table #30: started
+2026/06/10-10:42:02.647 7900 Level-0 table #30: 62287 bytes OK

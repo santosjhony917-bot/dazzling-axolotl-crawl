@@ -25,3 +25,9 @@ dist-ssr
 
 # Backups
 src-backup-*
+
+# Environment variables
+.env
+.env.*
+.env.local
+.vercel

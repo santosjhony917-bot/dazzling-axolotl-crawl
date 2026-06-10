@@ -1,0 +1,54 @@
+Created At: 2026-06-09T15:00:01Z
+Completed At: 2026-06-09T15:00:01Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 669
+Total Bytes: 32289
+Showing lines 390 to 435
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+390:                           {r.name} <span className="text-[10px] text-gray-400 font-normal">↗</span>
+391:                         </a>
+392:                       ) : (
+393:                         r.name
+394:                       )}
+395:                     </TableCell>
+396:                     <TableCell>{r.category || 'Outros'}</TableCell>
+397:                     <TableCell className="text-gray-600 font-medium">{r.phone || 'Sem Telefone'}</TableCell>
+398:                     <TableCell className="max-w-[200px] truncate text-gray-500 font-medium">{r.address}</TableCell>
+399:                     <TableCell className="text-center">
+400:                       <div className="flex flex-wrap gap-1 justify-center">
+401:                         {hasNoPhone(r) && (
+402:                           <Badge variant="outline" className="bg-sky-50 text-sky-700 border-sky-200 text-[10px] py-0.5 font-bold">
+403:                             Sem Tel
+404:                           </Badge>
+405:                         )}
+406:                         {hasNoInstagram(r) && (
+407:                           <Badge variant="outline" className="bg-rose-50 text-rose-700 border-rose-200 text-[10px] py-0.5 font-bold">
+408:                             Sem Insta
+409:                           </Badge>
+410:                         )}
+411:                         {hasNoMenu(r) && (
+412:                           <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200 text-[10px] py-0.5 font-bold">
+413:                             Sem Cardápio
+414:                           </Badge>
+415:                         )}
+416:                         {hasNoHours(r) && (
+417:                           <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200 text-[10px] py-0.5 font-bold">
+418:                             Sem Horas
+419:                           </Badge>
+420:                         )}
+421:                         {!hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r) && (
+422:                           <Badge className="bg-emerald-100 text-emerald-800 border-none text-[10px] py-0.5 font-bold">
+423:                             Completo ✨
+424:                           </Badge>
+425:                         )}
+426:                       </div>
+427:                     </TableCell>
+428:                     <TableCell className="text-right">
+429:                       <div className="flex justify-end gap-1.5">
+430:                         <Button 
+431:                           size="sm" 
+432:                           variant="ghost" 
+433:                           className="text-primary hover:text-primary-dark hover:bg-gray-50 font-bold gap-1"
+434:                           onClick={() => setSelectedRestaurant(r)}
+435:                         >
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

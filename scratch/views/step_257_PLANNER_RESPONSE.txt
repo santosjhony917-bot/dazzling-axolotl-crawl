@@ -1,0 +1,1 @@
+I will view lines 1 to 35 of `src/pages/admin/ExportedRestaurants.tsx` to match the exact syntax for adding imports.

@@ -1,0 +1,4 @@
+I will edit the table row badges in `src/pages/admin/ExportedRestaurants.tsx` so that:
+1. If the restaurant has a link but no parsed menu content, it displays the badge "Não Estruturado" instead of showing nothing.
+2. The "Completo ✨" badge is only displayed if all details, including the structured menu items, are fully parsed and populated.
+I am using the `replace_file_content` tool to apply this.

@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, FavoriteRestaurant } from '@/types/supabase'; // CORREÇÃO: FavoriteRestaurant agora é exportado
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, Heart, MapPin, Utensils, Trash2, ArrowLeft } from 'lucide-react';
+import { Loader2, Heart, MapPin, Utensils, ArrowLeft } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
@@ -102,40 +101,41 @@ export default function Favorites() {
 
   if (!favorites || favorites.length === 0) {
     return (
-      <>
+      <div className="flex flex-col w-full flex-grow bg-white font-['Poppins']">
         <Header 
           title="Meus Favoritos"
           leftAction={{ icon: ArrowLeft, onClick: handleBack }}
         />
-        <div className="p-6 text-center">
-          <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-lg font-extrabold text-primary mb-2">Nenhum Favorito Encontrado</h2>
-          <p className="text-gray-600">Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.</p>
+        <div className="flex-grow flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
+          <Heart className="w-12 h-12 text-slate-300 mb-3" />
+          <h2 className="text-lg font-extrabold text-slate-800 mb-2">Nenhum Favorito Encontrado</h2>
+          <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-[250px]">
+            Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.
+          </p>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="flex flex-col w-full flex-grow bg-white font-['Poppins']">
       <Header 
         title="Meus Favoritos"
         leftAction={{ icon: ArrowLeft, onClick: handleBack }}
       />
       <div className="p-4 space-y-4">
-        <h2 className="text-lg font-extrabold text-primary px-1">Restaurantes Salvos ({favorites.length})</h2>
+        <h2 className="text-sm font-extrabold text-slate-800 px-1">Restaurantes Salvos ({favorites.length})</h2>
         
         <div className="space-y-4">
           {favorites.map((item, index) => {
             const restaurant = item.restaurant;
             
-            // Double check if restaurant object is present, although filtered in fetchFavorites
             if (!restaurant) return null; 
             
             return (
-              <Card 
+              <div 
                 key={restaurant.id} 
-                className="flex overflow-hidden cursor-pointer hover:shadow-soft-lg transition-shadow relative border-none shadow-soft-md rounded-xl"
+                className="soft-card flex overflow-hidden cursor-pointer hover:scale-[1.01] transition-transform relative h-24 bg-white"
               >
                 <div 
                   className="flex flex-1"
@@ -144,20 +144,20 @@ export default function Favorites() {
                   <img 
                     src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
                     alt={restaurant.name}
-                    className="w-24 h-28 object-cover flex-shrink-0"
+                    className="w-[28%] h-full object-cover flex-shrink-0"
                   />
-                  <div className="p-3 flex-1 min-w-0">
-                    <CardTitle className="text-lg font-bold truncate text-primary">{restaurant.name}</CardTitle>
+                  <div className="p-3 flex-1 min-w-0 flex flex-col justify-center">
+                    <h3 className="text-base font-extrabold text-[#3C2F2F] truncate pr-6">{restaurant.name}</h3>
                     
                     {restaurant.category && (
-                      <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
-                        <Utensils className="w-4 h-4 text-highlight" /> {restaurant.category}
+                      <p className="text-xs font-semibold text-[#6A6A6A] mt-1 flex items-center gap-1">
+                        <Utensils className="w-3.5 h-3.5 text-[#EF2A39]/70" /> {restaurant.category}
                       </p>
                     )}
 
                     {restaurant.city && (
-                      <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                        <MapPin className="w-4 h-4 text-highlight" /> {restaurant.city}
+                      <p className="text-xs font-semibold text-[#6A6A6A] flex items-center gap-1 mt-0.5">
+                        <MapPin className="w-3.5 h-3.5 text-[#EF2A39]/55" /> {restaurant.city}
                       </p>
                     )}
                   </div>
@@ -166,26 +166,26 @@ export default function Favorites() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute top-2 right-2 text-red-500 hover:bg-red-50"
+                  className="absolute top-1.5 right-1.5 text-[#EF2A39] hover:bg-[#EF2A39]/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
                   disabled={removeFavoriteMutation.isPending}
                   onClick={(e) => {
-                    e.stopPropagation(); // Previne o clique no card
+                    e.stopPropagation(); 
                     if (user) {
                       removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
                     }
                   }}
                 >
                   {removeFavoriteMutation.isPending ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-[#EF2A39]" />
                   ) : (
-                    <Trash2 className="w-5 h-5" />
+                    <Heart className="w-4.5 h-4.5 fill-[#EF2A39] text-[#EF2A39]" />
                   )}
                 </Button>
-              </Card>
+              </div>
             );
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }

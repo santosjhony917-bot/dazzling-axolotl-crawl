@@ -122,7 +122,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                 />
                 {showCaption && image.caption && (
                   <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
-                    <p className="text-white text-sm font-semibold drop-shadow-md truncate">{image.caption}</p>
+                    <p className="text-white text-sm font-semibold drop-shadow-none truncate">{image.caption}</p>
                   </div>
                 )}
               </>
@@ -137,7 +137,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           return (
             <Card 
               key={slotIndex} 
-              className={cn("relative overflow-hidden rounded-xl shadow-soft-md border-none p-0 cursor-pointer", classes)}
+              className={cn("relative overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer", classes)}
               onClick={() => setCurrentIndex(slotIndex)}
             >
               {content}
@@ -152,7 +152,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           {gallery.slice(3).map((image, index) => (
             <Card 
               key={image.id} 
-              className="overflow-hidden rounded-xl shadow-soft-md border-none p-0 aspect-square cursor-pointer"
+              className="overflow-hidden rounded-2xl shadow-none border-none p-0 aspect-square cursor-pointer"
               onClick={() => setCurrentIndex(index + 3)}
             >
               <img
@@ -221,7 +221,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           {/* Área Inferior: Legenda e Dica Swipe */}
           <div className="w-full p-6 text-center bg-gradient-to-t from-black/80 to-transparent">
             {gallery[currentIndex].caption && (
-              <p className="text-white text-base md:text-lg font-medium drop-shadow-md">
+              <p className="text-white text-base md:text-lg font-medium drop-shadow-none">
                 {gallery[currentIndex].caption}
               </p>
             )}

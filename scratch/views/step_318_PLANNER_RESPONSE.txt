@@ -1,0 +1,1 @@
+I will read the current file size and contents of `src/pages/admin/ExportedRestaurants.tsx` to understand what it contains.

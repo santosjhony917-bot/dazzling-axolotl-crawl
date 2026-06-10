@@ -1,0 +1,1 @@
+I will view lines 670 to 850 of `ExportedRestaurants.tsx` to locate the list header and the table body.

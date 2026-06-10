@@ -1,0 +1,1 @@
+I will now create the `task.md` file in our artifacts directory to track our progress during the execution.

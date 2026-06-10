@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart } from 'lucide-react';
+import { ArrowRight, DollarSign, MapPin, Utensils, Search, Star, Heart, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import OnboardingScreen from '../components/onboarding/OnboardingScreen';
@@ -10,7 +10,7 @@ import { showError } from '@/utils/toast';
 
 const onboardingScreens = [
   {
-    title: "Bem-vindo ao Filterfood",
+    title: "Bem-vindo ao FilterFood",
     description: "Descubra os melhores restaurantes perto de você. Compare preços, avalie opções e encontre sua próxima refeição perfeita.",
     backgroundImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
     features: [
@@ -118,8 +118,9 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-background-light md:max-w-md md:mx-auto">
-      <AnimatePresence initial={false} custom={direction} mode="wait">
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="relative w-full h-screen overflow-hidden bg-background-light max-w-md mx-auto border-x border-slate-200/60">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentScreen}
           custom={direction}
@@ -151,39 +152,45 @@ export default function Onboarding() {
               </Button>
 
               {/* Indicators */}
-              <div className="flex items-center justify-center gap-3">
-                {onboardingScreens.map((_, index) => (
-                  <motion.div
-                    key={index}
-                    animate={{
-                      scale: currentScreen === index ? 1.2 : 1,
-                      opacity: currentScreen === index ? 1 : 0.4
-                    }}
-                    className={`h-2.5 w-2.5 rounded-full ${
-                      currentScreen === index ? 'bg-highlight' : 'bg-highlight/40' // Usando highlight
-                    }`}
-                  />
-                ))}
+              <div className="flex items-center justify-center gap-2">
+                {onboardingScreens.map((_, index) => {
+                  const isActive = currentScreen === index;
+                  return (
+                    <motion.div
+                      key={index}
+                      layout
+                      animate={{
+                        width: isActive ? 24 : 8,
+                        opacity: isActive ? 1 : 0.3
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="h-2 rounded-full bg-[#EF2A39]"
+                    />
+                  );
+                })}
               </div>
 
               {/* Next/Finish Button */}
-              <div className="w-32">
+              <div className="shrink-0">
                 <Button
                   onClick={handleNext}
                   disabled={isCompleting}
-                  variant="highlight" // Usando o novo variant highlight
-                  className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 gap-1 text-base font-bold shadow-lg transition-all hover:shadow-xl disabled:opacity-70"
+                  variant="highlight"
+                  className="flex h-12 w-12 items-center justify-center rounded-full shadow-[0_8px_20px_rgba(239,42,57,0.22)] border-none transition-all active:scale-95 disabled:opacity-70 p-0"
+                  title="Próximo"
                 >
-                  <span className="truncate">
-                    {currentScreen === onboardingScreens.length - 1 ? (isCompleting ? 'Aguarde...' : 'Começar') : 'Próximo'}
-                  </span>
-                  <ArrowRight className="w-5 h-5" />
+                  {isCompleting ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                  )}
                 </Button>
               </div>
             </div>
           </OnboardingScreen>
         </motion.div>
       </AnimatePresence>
+      </div>
     </div>
   );
 }

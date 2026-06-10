@@ -1,22 +1,20 @@
 import React from 'react';
 import { formatPrice } from '@/utils/formatters';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import { Utensils, MapPin } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface SearchItem {
   id: string;
   name: string;
   description: string | null;
-  price?: number; // Apenas para pratos
+  price?: number;
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
-  // Campos adicionais para restaurante
   category?: string | null;
   city?: string | null;
-  neighborhood?: string | null; // Adicionado para exibir o nome do bairro
-  restaurantName?: string | null; // Adicionado para exibir o nome do restaurante
+  neighborhood?: string | null;
+  restaurantName?: string | null;
 }
 
 interface SearchItemCardProps {
@@ -27,42 +25,47 @@ interface SearchItemCardProps {
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
-  // Se for um prato, exibe o nome do restaurante; caso contrário, exibe a categoria do restaurante
   const displayDescription = isDish ? item.restaurantName : item.category;
 
   return (
     <motion.div
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onClick={() => onClick(item.id, item.type)}
+      className="w-full"
     >
-      <div 
-        className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-4 shadow-soft-lg cursor-pointer hover:shadow-soft-xl transition-shadow border border-gray-100"
-      >
+      <div className="soft-card flex items-center gap-4 p-4 w-full mb-4 cursor-pointer">
+        
         <div 
-          className="bg-center bg-no-repeat aspect-square bg-cover rounded-xl size-20 flex-shrink-0 shadow-soft-sm" 
+          className="bg-center bg-no-repeat bg-cover rounded-[12px] w-20 h-20 flex-shrink-0 bg-gray-100" 
           style={{ backgroundImage: `url("${item.imageUrl || PLACEHOLDER_IMAGE_URL}")` }}
           data-alt={item.name}
         />
-        <div className="flex-1 min-w-0">
-          <p className="text-primary dark:text-white text-lg font-bold leading-normal truncate">{item.name}</p>
+        
+        <div className="flex-1 min-w-0 flex flex-col justify-center">
+          <p className="text-[#3C2F2F] text-[18px] font-bold leading-tight truncate">
+            {item.name}
+          </p>
           
           {isDish && formattedPrice && (
-            <p className="text-highlight text-xl font-extrabold leading-tight mt-1">{formattedPrice}</p>
+            <p className="text-[#EF2A39] text-[16px] font-bold mt-1">
+              {formattedPrice}
+            </p>
           )}
           
           {displayDescription && (
-            <p className="text-gray-600 dark:text-gray-400 text-sm font-normal leading-snug line-clamp-2 mt-0.5">
+            <p className="text-[#6A6A6A] text-[13px] font-medium truncate mt-0.5">
               {displayDescription}
             </p>
           )}
           
           {!isDish && item.neighborhood && (
-            <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
-              <MapPin className="w-3 h-3 text-highlight" /> {item.neighborhood}
+            <p className="text-[#6A6A6A] text-[12px] flex items-center gap-1 mt-1 font-medium">
+              <MapPin className="w-3.5 h-3.5 text-[#EF2A39]" /> {item.neighborhood}
             </p>
           )}
         </div>
+
       </div>
     </motion.div>
   );

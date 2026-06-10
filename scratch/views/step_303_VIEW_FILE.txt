@@ -1,0 +1,88 @@
+Created At: 2026-06-09T15:31:22Z
+Completed At: 2026-06-09T15:31:23Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 266
+Total Bytes: 11860
+Showing lines 1 to 80
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: import React, { useState, useEffect } from 'react';
+2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+3: import { Button } from '@/components/ui/button';
+4: import { Input } from '@/components/ui/input';
+5: import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+6: import { Badge } from '@/components/ui/badge';
+7: import { Trash2, Search, RefreshCw, AlertTriangle, Calendar, Clock } from 'lucide-react';
+8: import { showSuccess, showError } from '@/utils/toast';
+9: import { WeekSchedule } from '@/types/schedule';
+10: 
+11: interface ScrapedRestaurant {
+12:   id: string;
+13:   name: string;
+14:   category: string;
+15:   rating: number;
+16:   reviewsCount: number;
+17:   address: string;
+18:   phone: string;
+19:   city: string;
+20:   state: string;
+21:   status: 'Pendente' | 'Concluída';
+22:   reward: number;
+23:   imported_at: string;
+24:   googleMapsUrl?: string;
+25:   website?: string;
+26:   logo?: string;
+27:   coverImage?: string;
+28:   galleryImages?: string[];
+29:   openingHours?: WeekSchedule;
+30:   assignedToId?: string;
+31:   assignedToName?: string;
+32: }
+33: 
+34: const getRestaurantUniqueKey = (name: string, address: string) => {
+35:   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+36:   const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+37:   return `${cleanName}_${cleanAddress}`;
+38: };
+39: 
+40: export default function ExportedRestaurants() {
+41:   const [missions, setMissions] = useState<ScrapedRestaurant[]>([]);
+42:   const [searchTerm, setSearchTerm] = useState('');
+43:   const [filterStatus, setFilterStatus] = useState<'all' | 'Pendente' | 'Concluída'>('all');
+44: 
+45:   const loadMissions = () => {
+46:     try {
+47:       const saved = localStorage.getItem('mock-freelancer-missions');
+48:       if (saved) {
+49:         setMissions(JSON.parse(saved));
+50:       } else {
+51:         setMissions([]);
+52:       }
+53:     } catch (e) {
+54:       console.error(e);
+55:       showError('Erro ao carregar restaurantes exportados.');
+56:     }
+57:   };
+58: 
+59:   useEffect(() => {
+60:     loadMissions();
+61:   }, []);
+62: 
+63:   const handleRemove = (restaurant: ScrapedRestaurant) => {
+64:     try {
+65:       const saved = localStorage.getItem('mock-freelancer-missions');
+66:       if (!saved) return;
+67: 
+68:       const currentMissions = JSON.parse(saved);
+69:       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
+70:       const updated = currentMissions.filter((m: any) => getRestaurantUniqueKey(m.name, m.address) !== key);
+71: 
+72:       localStorage.setItem('mock-freelancer-missions', JSON.stringify(updated));
+73:       setMissions(updated);
+74: 
+75:       // Trigger a storage event to sync with other components like GoogleMapsCollector
+76:       window.dispatchEvent(new Event('storage'));
+77: 
+78:       showSuccess(`"${restaurant.name}" removido da fila com sucesso!`);
+79:     } catch (e) {
+80:       console.error(e);
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

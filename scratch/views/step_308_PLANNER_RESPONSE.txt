@@ -1,0 +1,1 @@
+I will read the `implementation_plan.md` and `task.md` artifacts to understand the exact status of the task and locate any backups of `ExportedRestaurants.tsx`.

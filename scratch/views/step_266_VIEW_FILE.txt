@@ -1,0 +1,49 @@
+Created At: 2026-06-09T15:29:09Z
+Completed At: 2026-06-09T15:29:10Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 945
+Total Bytes: 42167
+Showing lines 270 to 310
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+270:         showSuccess(`"${restaurant.name}" sincronizado com sucesso com o Supabase!`);
+271:         const newSynced = new Set(syncedIds);
+272:         newSynced.add(getDeterministicUUID(restaurant.id));
+273:         setSyncedIds(newSynced);
+274:       } else {
+275:         showError(`Falha ao sincronizar "${restaurant.name}". Verifique os logs do console.`);
+276:       }
+277:     } catch (e) {
+278:       console.error(e);
+279:       showError('Erro inesperado na sincronização.');
+280:     }
+281:   };
+282: 
+283:   const handleSyncAll = async () => {
+284:     if (restaurants.length === 0) return;
+285:     
+286:     setIsSyncingAll(true);
+287:     let successCount = 0;
+288:     let failCount = 0;
+289:     
+290:     for (let i = 0; i < restaurants.length; i++) {
+291:       const r = restaurants[i];
+292:       setSyncingStatus(`Sincronizando ${i + 1}/${restaurants.length}: ${r.name}`);
+293:       try {
+294:         const success = await syncSingleToSupabase(r);
+295:         if (success) {
+296:           successCount++;
+297:         } else {
+298:           failCount++;
+299:         }
+300:       } catch (err) {
+301:         console.error(err);
+302:         failCount++;
+303:       }
+304:     }
+305:     
+306:     setIsSyncingAll(false);
+307:     setSyncingStatus(null);
+308:     loadRestaurants();
+309:     
+310:     if (successCount > 0) {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

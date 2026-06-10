@@ -1,0 +1,5 @@
+Created At: 2026-06-09T15:07:05Z
+Completed At: 2026-06-09T15:07:05Z
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\AdminDashboard.tsx","LineNumber":7,"LineContent":"import ExportedRestaurants from './ExportedRestaurants';"}
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\AdminDashboard.tsx","LineNumber":48,"LineContent":"                \u003cExportedRestaurants /\u003e"}
+{"File":"c:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\src\\pages\\admin\\ExportedRestaurants.tsx","LineNumber":37,"LineContent":"export default function ExportedRestaurants() {"}

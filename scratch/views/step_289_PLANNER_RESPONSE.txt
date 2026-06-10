@@ -1,0 +1,1 @@
+I will replace lines 736 to 937 of `ExportedRestaurants.tsx` to integrate the Supabase sync status, single and bulk sync actions, and progress banners.

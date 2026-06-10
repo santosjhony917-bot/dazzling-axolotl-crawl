@@ -1,0 +1,109 @@
+Created At: 2026-06-09T15:29:04Z
+Completed At: 2026-06-09T15:29:04Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -17,7 +17,16 @@
+   Facebook, 
+   Link as LinkIcon, 
+   Clock,
+-  ExternalLink
++  ExternalLink,
++  Database,
++  CloudUpload,
++  Save,
++  Plus,
++  Trash,
++  Sparkles,
++  PlusCircle,
++  XCircle,
++  Edit2
+ } from 'lucide-react';
+ import { showSuccess, showError } from '@/utils/toast';
+ import {
+@@ -26,6 +26,13 @@
+   DialogHeader,
+   DialogTitle,
+ } from "@/components/ui/dialog";
++import { Label } from '@/components/ui/label';
++import { Textarea } from '@/components/ui/textarea';
++import { Checkbox } from '@/components/ui/checkbox';
++import { ScrollArea } from '@/components/ui/scroll-area';
++import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
++import { supabase } from '@/integrations/supabase/client';
++import { getDeterministicUUID } from '@/hooks/useAdminRestaurants';
+ 
+ const getRestaurantUniqueKey = (name: string, address: string) => {
+   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+@@ -38,6 +38,48 @@
+   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
+   const [filterType, setFilterType] = useState<string>('all');
+ 
++  const [syncedIds, setSyncedIds] = useState<Set<string>>(new Set());
++  const [isEditing, setIsEditing] = useState(false);
++  const [editedData, setEditedData] = useState<any | null>(null);
++  const [aiPastedContent, setAiPastedContent] = useState('');
++  const [isExtractingAI, setIsExtractingAI] = useState(false);
++  const [isSyncingAll, setIsSyncingAll] = useState(false);
++  const [syncingStatus, setSyncingStatus] = useState<string | null>(null);
++  const [activeDialogTab, setActiveDialogTab
+<truncated 7946 bytes>
+   setSyncingStatus(`Sincronizando ${i + 1}/${restaurants.length}: ${r.name}`);
++      try {
++        const success = await syncSingleToSupabase(r);
++        if (success) {
++          successCount++;
++        } else {
++          failCount++;
++        }
++      } catch (err) {
++        console.error(err);
++        failCount++;
++      }
++    }
++    
++    setIsSyncingAll(false);
++    setSyncingStatus(null);
++    loadRestaurants();
++    
++    if (successCount > 0) {
++      showSuccess(`${successCount} restaurante(s) sincronizado(s) com sucesso no Supabase!`);
++    }
++    if (failCount > 0) {
++      showError(`${failCount} restaurante(s) falharam na sincronização. Veja o console.`);
++    }
++  };
++
++  const loadRestaurants = async () => {
+     try {
+       const saved = localStorage.getItem('mock-completed-restaurants');
+       if (saved) {
+@@ -65,8 +65,25 @@
+-        // Exibe apenas os restaurantes importados (cujo ID começa com 'scraped-')
+         const list = Object.values(parsed).filter((r: any) => r.id && r.id.startsWith('scraped-'));
+         setRestaurants(list);
++        
++        if (list.length > 0) {
++          const uuids = list.map((r: any) => getDeterministicUUID(r.id));
++          const { data, error } = await supabase
++            .from('restaurants')
++            .select('id')
++            .in('id', uuids);
++            
++          if (!error && data) {
++            const syncedSet = new Set(data.map(item => item.id));
++            setSyncedIds(syncedSet);
++          } else if (error) {
++            console.error('Erro ao buscar sincronizados:', error);
++          }
++        } else {
++          setSyncedIds(new Set());
++        }
+       } else {
+         setRestaurants([]);
++        setSyncedIds(new Set());
+       }
+     } catch (e) {
+       console.error(e);
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

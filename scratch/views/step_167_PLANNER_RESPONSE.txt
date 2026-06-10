@@ -1,0 +1,1 @@
+I will view `src/pages/admin/ExportedRestaurants.tsx` to inspect how restaurant and menu data are managed and rendered.

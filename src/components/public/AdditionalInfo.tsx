@@ -26,7 +26,7 @@ const AdditionalInfo: React.FC<AdditionalInfoProps> = ({ restaurant }) => {
   }
 
   return (
-    <Card id="additional-info-section" className="shadow-soft-md border border-gray-300 rounded-xl p-0">
+    <Card id="additional-info-section" className="shadow-none border border-gray-300 rounded-2xl p-0">
       <CardHeader className="flex flex-row items-center space-x-3 p-4 border-b border-gray-100">
         <CardTitle className="text-2xl font-extrabold text-primary">Informações Adicionais</CardTitle>
       </CardHeader>

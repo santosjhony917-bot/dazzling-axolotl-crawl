@@ -1,0 +1,1 @@
+I will replace the list views, action buttons, table columns, and status banner in `src/pages/admin/ExportedRestaurants.tsx`.

@@ -14,7 +14,7 @@ import { Settings, LogOut, ArrowLeft, Edit, FileText, MapPin, Clock, Utensils, I
 import { Restaurant } from '@/types/supabase';
 
 const SettingsCard = ({ title, description, link, icon: Icon }) => (
-  <Link to={link} className="block p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200">
+  <Link to={link} className="block p-4 bg-white rounded-xl shadow-none hover:shadow-none transition-shadow border border-gray-200">
     <div className="flex items-center">
       <Icon className="w-6 h-6 mr-4 text-primary" />
       <div>
@@ -123,7 +123,7 @@ const ProfilePage = () => {
             <img
               src={profile.avatar_url || `https://ui-avatars.com/api/?name=${profile.first_name}+${profile.last_name}`}
               alt="Avatar"
-              className="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+              className="w-full h-full rounded-full object-cover border-4 border-white shadow-none"
             />
             <ImageUploadButton
               onUploadComplete={handleAvatarUpload}
@@ -149,7 +149,7 @@ const ProfilePage = () => {
             </div>
           </div>
         ) : (
-          <div className="text-center py-10 px-4 bg-white rounded-lg shadow-sm border">
+          <div className="text-center py-10 px-4 bg-white rounded-xl shadow-none border">
             <h3 className="text-lg font-semibold mb-2">Você ainda não tem um restaurante.</h3>
             <p className="text-gray-600 mb-4">Crie a página do seu restaurante e comece a divulgar seu cardápio agora mesmo.</p>
             <Button asChild>

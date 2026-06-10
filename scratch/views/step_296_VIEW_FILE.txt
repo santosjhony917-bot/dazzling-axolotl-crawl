@@ -1,0 +1,49 @@
+Created At: 2026-06-09T15:30:58Z
+Completed At: 2026-06-09T15:30:58Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 953
+Total Bytes: 40507
+Showing lines 720 to 760
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+720:     if (filterType === 'missing_menu') {
+721:       return hasNoMenu(r) || hasNoStructuredMenu(r);
+722:     }
+723:     if (filterType === 'missing_hours') {
+724:       return hasNoHours(r);
+725:     }
+726:     if (filterType === 'completed') {
+727:       return !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r);
+728:     }
+729:     
+730:     return true;
+731:   });
+732: 
+733:   const instagramUrl = selectedRestaurant ? getSocialUrl(selectedRestaurant, 'instagram') : '';
+734:   const facebookUrl = selectedRbleBody>
+735:             </Table>
+736:           )}
+737:         </CardContent>
+738:       </Card>
+739: 
+740:       {/* Modal Dialog de Detalhes do Restaurante */}
+741:       <Dialog open={selectedRestaurant !== null} onOpenChange={(open) => !open && setSelectedRestaurant(null)}>
+742:         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6">
+743:           {selectedRestaurant && (
+744:             <>
+745:               <DialogHeader className="border-b border-gray-100 pb-4 mb-4">
+746:                 <div className="flex items-start gap-4">
+747:                   <img 
+748:                     src={selectedRestaurant.image_url} 
+749:                     alt="Logo" 
+750:                     className="w-16 h-16 rounded-2xl border object-cover bg-gray-50"
+751:                   />
+752:                   <div>
+753:                     <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2">
+754:                       {selectedRestaurant.name}
+755:                     </DialogTitle>
+756:                     <DialogDescription className="text-sm text-gray-500 font-semibold mt-1">
+757:                       Categoria: {selectedRestaurant.category || 'Outros'}
+758:                     </DialogDescription>
+759:                   </div>
+760:                 </div>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

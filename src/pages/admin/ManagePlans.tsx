@@ -96,7 +96,7 @@ const ManagePlans: React.FC = () => {
 
   if (error) {
     return (
-      <Card className="shadow-soft-lg border-none rounded-xl bg-white p-6">
+      <Card className="shadow-none border-none rounded-2xl bg-white p-6">
         <AlertTriangle className="h-6 w-6 text-red-500 mx-auto mb-3" />
         <p className="text-red-600 text-center">Erro ao carregar restaurantes: {error.message}</p>
       </Card>
@@ -104,9 +104,9 @@ const ManagePlans: React.FC = () => {
   }
 
   return (
-    <Card className="shadow-soft-lg border-none rounded-xl bg-white">
+    <Card className="shadow-none border-none rounded-2xl bg-white">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-2xl text-[#022D68]">
+        <CardTitle className="flex items-center gap-2 text-2xl text-primary">
           <Crown className="w-6 h-6" /> Gerenciar Planos
         </CardTitle>
         <CardDescription>Total de {restaurants.length} restaurantes cadastrados. Altere o plano de assinatura abaixo.</CardDescription>

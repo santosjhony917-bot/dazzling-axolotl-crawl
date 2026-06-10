@@ -1,0 +1,10 @@
+Created At: 2026-06-09T15:32:50Z
+Completed At: 2026-06-09T15:33:27Z
+
+				The command completed successfully.
+				Output:
+				Found 3 instances of ExportedRestaurants.tsx:
+Path: src\pages\admin\ExportedRestaurants.tsx, Size: 11839 bytes, Lines: 266
+Path: src-backup-2026-06-02\pages\admin\ExportedRestaurants.tsx, Size: 11574 bytes, Lines: 266
+Path: src-backup-checkpoint\pages\admin\ExportedRestaurants.tsx, Size: 11574 bytes, Lines: 266
+

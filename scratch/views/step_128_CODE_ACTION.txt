@@ -1,0 +1,26 @@
+Created At: 2026-06-09T15:00:11Z
+Completed At: 2026-06-09T15:00:11Z
+The following changes were made by the replace_file_content tool to: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\src\pages\admin\ExportedRestaurants.tsx. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -413,6 +413,11 @@
+                             Sem Cardápio
+                           </Badge>
+                         )}
++                        {!hasNoMenu(r) && hasNoStructuredMenu(r) && (
++                          <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200 text-[10px] py-0.5 font-bold">
++                            Não Estruturado
++                          </Badge>
++                        )}
+                         {hasNoHours(r) && (
+                           <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200 text-[10px] py-0.5 font-bold">
+                             Sem Horas
+@@ -419,5 +419,5 @@
+                         )}
+-                        {!hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r) && (
++                        {!hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r) && (
+                           <Badge className="bg-emerald-100 text-emerald-800 border-none text-[10px] py-0.5 font-bold">
+                             Completo ✨
+                           </Badge>
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

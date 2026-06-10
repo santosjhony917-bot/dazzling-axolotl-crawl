@@ -1,0 +1,1 @@
+I will search for `latitude` in `GoogleMapsCollector.tsx` to see if coordinates are extracted or set.

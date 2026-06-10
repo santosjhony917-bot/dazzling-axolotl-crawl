@@ -1,0 +1,1 @@
+I will search for `.cjs` references in `GoogleMapsCollector.tsx` to see how the local scraper script is executed or called from the UI.

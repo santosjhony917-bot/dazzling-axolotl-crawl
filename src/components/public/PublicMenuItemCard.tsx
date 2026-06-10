@@ -19,7 +19,7 @@ interface PublicMenuItemCardProps {
 const PublicMenuItemCard: React.FC<PublicMenuItemCardProps> = ({ item, onClick }) => {
   return (
     <div 
-      className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-xl p-3 shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+      className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-3 shadow-none cursor-pointer hover:shadow-none transition-shadow"
       onClick={() => onClick(item.id)}
     >
       <div 
@@ -29,7 +29,7 @@ const PublicMenuItemCard: React.FC<PublicMenuItemCardProps> = ({ item, onClick }
       />
       <div className="flex-1 min-w-0">
         <p className="text-[#111418] dark:text-white text-base font-bold leading-normal truncate">{item.name}</p>
-        <p className="text-[#5f728c] dark:text-gray-400 text-sm font-normal leading-snug line-clamp-2">{item.description || item.restaurantName}</p>
+        <p className="text-text-secondary dark:text-gray-400 text-sm font-normal leading-snug line-clamp-2">{item.description || item.restaurantName}</p>
         <p className="text-highlight text-lg font-bold leading-tight mt-1">{formatPrice(item.price)}</p>
       </div>
     </div>

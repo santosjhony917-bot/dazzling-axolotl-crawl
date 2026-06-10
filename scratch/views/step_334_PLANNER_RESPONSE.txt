@@ -1,0 +1,1 @@
+I will create a Node.js script `scratch/extract_code.cjs` to search the `transcript.jsonl` log file, locate the previous 674-line version of `ExportedRestaurants.tsx`, and save it to the `scratch` directory so we can restore it.

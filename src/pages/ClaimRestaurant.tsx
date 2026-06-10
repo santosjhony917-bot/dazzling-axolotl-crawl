@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Loader2, KeyRound } from 'lucide-react';
 import CustomAuth from '@/components/CustomAuth';
 import { useAuthData } from '@/context/AuthContext';
+import Header from '@/components/Header';
 
 const ClaimRestaurant = () => {
   const [claimCode, setClaimCode] = useState('');
@@ -80,29 +81,22 @@ const ClaimRestaurant = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-light flex flex-col">
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(-1)}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h1 className="text-primary text-xl font-bold">Reivindicar Perfil</h1>
-        <div className="w-10"></div>
-      </header>
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full max-w-md mx-auto flex-col overflow-x-hidden border-x border-slate-200/60">
+      <Header 
+        title="Reivindicar Perfil" 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }} 
+      />
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-md mx-auto px-4 py-6">
+      <main className="flex-grow flex flex-col justify-center w-full px-4 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="w-full bg-white p-6 md:p-8 rounded-2xl shadow-soft-xl border-none text-center">
-            <div className="flex items-center justify-center size-16 bg-highlight/10 rounded-xl mx-auto mb-6">
+          <div className="w-full bg-white p-6 md:p-8 rounded-2xl shadow-soft border border-slate-100/80 text-center">
+            <div className="flex items-center justify-center size-16 bg-highlight/10 rounded-2xl mx-auto mb-6">
               <KeyRound className="w-8 h-8 text-highlight" />
             </div>
             <h2 className="text-2xl font-bold text-primary mb-2">
@@ -125,7 +119,7 @@ const ClaimRestaurant = () => {
                       required
                       disabled={isLoading}
                       maxLength={8}
-                      className="uppercase h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm tracking-widest text-center"
+                      className="uppercase h-14 text-base rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none tracking-widest text-center"
                     />
                     <p className="text-xs text-gray-500 mt-1">O código de 8 caracteres fornecido a você.</p>
                   </div>
@@ -146,8 +140,9 @@ const ClaimRestaurant = () => {
           </div>
         </motion.div>
       </main>
+      </div>
     </div>
   );
-};
+}
 
 export default ClaimRestaurant;

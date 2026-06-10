@@ -1,0 +1,1 @@
+I will view lines 36 to 200 of `src/pages/admin/ExportedRestaurants.tsx` to verify the state declarations, load methods, and other helper methods.

@@ -74,10 +74,10 @@ const DayScheduleEditor: React.FC<{ day: keyof WeekSchedule, schedule: DaySchedu
   };
 
   return (
-    <Card className="p-4 shadow-soft-sm rounded-xl border-gray-200">
+    <Card className="p-4 shadow-none rounded-2xl border-gray-200">
       <div className="flex items-center justify-between">
         <h4 className="font-semibold text-sm">{dayLabels[day]}</h4>
-        <Switch checked={schedule.isOpen} onCheckedChange={handleToggleOpen} className="data-[state=checked]:bg-[#E47948]" />
+        <Switch checked={schedule.isOpen} onCheckedChange={handleToggleOpen} className="data-[state=checked]:bg-highlight" />
       </div>
       {schedule.isOpen && (
         <div className="mt-3 space-y-3">
@@ -126,7 +126,7 @@ export function EditHoursDialog({ open, onOpenChange, currentSchedule, onSave }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] rounded-xl max-h-[90vh] grid grid-rows-[auto_1fr_auto] p-0 shadow-soft-xl">
+      <DialogContent className="sm:max-w-[425px] rounded-2xl max-h-[90vh] grid grid-rows-[auto_1fr_auto] p-0 shadow-none">
         <DialogHeader className="p-6 pb-4">
           <DialogTitle className="text-xl font-bold text-primary">Horários de Funcionamento</DialogTitle>
           <DialogDescription>

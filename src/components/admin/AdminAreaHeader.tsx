@@ -9,9 +9,9 @@ interface AdminAreaHeaderProps {
 
 const AdminAreaHeader: React.FC<AdminAreaHeaderProps> = ({ title, description }) => {
   return (
-    <Card className="shadow-lg border-none rounded-xl">
+    <Card className="shadow-none border-none rounded-2xl">
       <CardHeader>
-        <CardTitle className="text-3xl text-[#022D68]">{title}</CardTitle>
+        <CardTitle className="text-3xl text-primary">{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
     </Card>

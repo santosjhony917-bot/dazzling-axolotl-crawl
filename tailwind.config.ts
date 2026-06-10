@@ -19,8 +19,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "sans-serif"],
-        display: ["Plus Jakarta Sans", "Noto Sans", "sans-serif"],
+        sans: ["Poppins", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+        display: ["Poppins", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,7 +29,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#022D68",
+          DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -67,11 +67,12 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Cores customizadas do novo design
-        "highlight": "#E47948", // ATUALIZADO: Tom de laranja/marrom avermelhado para CTAs
-        "background-light": "#F9FAFB", // Ajustado para um cinza mais claro
+        "highlight": "hsl(var(--highlight))", 
+        "magic-feature": "hsl(var(--magic-feature))",
+        "background-light": "hsl(var(--background-light))", 
         "background-dark": "#111821", // Mantido, mas não usado no modo light
-        "text-primary": "#022D68", // Novo alias para a cor primária de texto
-        "text-secondary": "#5f728c", // Novo alias para texto secundário
+        "text-primary": "hsl(var(--primary))", // Novo alias para a cor primária de texto
+        "text-secondary": "hsl(var(--text-secondary))", // Novo alias para texto secundário
         "text-light": "#111417",
         "text-dark": "#ffffff",
         "orange-accent": "24 84.2% 60.2%",
@@ -86,13 +87,21 @@ export default {
         DEFAULT: "1rem",
       },
       boxShadow: {
-        // Sombras suaves e realistas (Soft Shadows)
-        'soft-sm': '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02)',
-        'soft-md': '0 4px 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04)', // Aumentado a intensidade
-        'soft-lg': '0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)', // Aumentado a intensidade
-        'soft-xl': '0 20px 40px rgba(0, 0, 0, 0.2), 0 10px 15px rgba(0, 0, 0, 0.1)', // Aumentado a intensidade
-        // Sombra de destaque para o botão principal
-        'highlight-glow': '0 8px 20px rgba(204, 102, 64, 0.4)', // Ajustado para a nova cor highlight
+        // Sombras desativadas para garantir o padrão plano (Flat & Clean)
+        sm: 'none',
+        DEFAULT: 'none',
+        md: 'none',
+        lg: 'none',
+        xl: 'none',
+        '2xl': 'none',
+        inner: 'none',
+        'soft-sm': 'none',
+        'soft-md': 'none',
+        'soft-lg': 'none',
+        'soft-xl': 'none',
+        'highlight-glow': 'none',
+        soft: 'var(--soft-shadow)',
+        float: 'var(--float-shadow)',
       },
       keyframes: {
         "accordion-down": {

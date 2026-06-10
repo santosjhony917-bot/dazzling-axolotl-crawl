@@ -1,0 +1,81 @@
+Created At: 2026-06-09T15:29:21Z
+Completed At: 2026-06-09T15:29:21Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 945
+Total Bytes: 42167
+Showing lines 360 to 450
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+360:       window.removeEventListener('local-sync-restaurants', loadRestaurants);
+361:     };
+362:   }, []);
+363: 
+364:   const handleRemove = (restaurant: any) => {
+365:     try {
+366:       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
+367:       const restaurantId = restaurant.id;
+368: 
+369:       // 1. Remove from mock-completed-restaurants
+370:       const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+371:       if (savedCompleted) {
+372:         const completedMap = JSON.parse(savedCompleted);
+373:         delete completedMap[restaurantId];
+374:         Object.keys(completedMap).forEach((id: string) => {
+375:           const r = completedMap[id];
+376:           if (getRestaurantUniqueKey(r.name, r.address) === key) {
+377:             delete completedMap[id];
+378:           }
+379:         });
+380:         localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+381:       }
+382: 
+383:       // 2. Remove from mock-supabase-fallback-restaurants
+384:       const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+385:       if (savedFallback) {
+386:         const fallbackList = JSON.parse(savedFallback);
+387:         const updatedFallback = fallbackList.filter((r: any) => 
+388:           r.id !== restaurantId && getRestaurantUniqueKey(r.name, r.address) !== key
+389:         );
+390:         localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+391:       }
+392: 
+393:       
+<truncated 740 bytes>
+completed-restaurants: remove scraped- ones
+414:       const savedCompleted = localStorage.getItem('mock-completed-restaurants');
+415:       if (savedCompleted) {
+416:         const completedMap = JSON.parse(savedCompleted);
+417:         Object.keys(completedMap).forEach((id: string) => {
+418:           if (id.startsWith('scraped-')) {
+419:             delete completedMap[id];
+420:           }
+421:         });
+422:         localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
+423:       }
+424: 
+425:       // 2. mock-supabase-fallback-restaurants: remove scraped- ones
+426:       const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+427:       if (savedFallback) {
+428:         const fallbackList = JSON.parse(savedFallback);
+429:         const updatedFallback = fallbackList.filter((r: any) => !r.id.startsWith('scraped-'));
+430:         localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
+431:       }
+432: 
+433:       // Sync and notify
+434:       window.dispatchEvent(new Event('storage'));
+435:       window.dispatchEvent(new Event('local-sync-restaurants'));
+436: 
+437:       showSuccess('Todos os restaurantes importados foram removidos da plataforma!');
+438:       setSelectedRestaurant(null);
+439:     } catch (e) {
+440:       console.error(e);
+441:       showError('Erro ao remover os restaurantes.');
+442:     }
+443:   };
+444: 
+445:   const getSocialUrl = (restaurant: any, platform: string) => {
+446:     if (platform === 'instagram' && restaurant.instagram) return restaurant.instagram;
+447:     if (platform === 'facebook' && restaurant.facebook) return restaurant.facebook;
+448:     if (restaurant.social_networks) {
+449:       const net = restaurant.social_networks.find((s: any) => s.platform === platform);
+450:       return net?.url || '';
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,1 @@
+I will modify the filter button counts in `src/pages/admin/ExportedRestaurants.tsx` to align with the new `hasNoStructuredMenu` helper, so the quantities shown on the buttons match the actual filtered list. I am applying this using the `replace_file_content` tool.

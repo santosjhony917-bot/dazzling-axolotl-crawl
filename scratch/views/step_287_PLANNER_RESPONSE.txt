@@ -1,0 +1,1 @@
+I will view lines 720 to 930 of `ExportedRestaurants.tsx` to get the line range of the return statement where we should insert the buttons, banner, and table headers.

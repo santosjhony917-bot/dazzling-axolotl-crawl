@@ -15,7 +15,7 @@ interface RestaurantProfileHeaderProps {
 }
 
 const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant }) => {
-  const { coverImageUrl, isPremium, name } = restaurant;
+  const { coverImageUrl, isPremium, name, isCompact = false } = restaurant;
 
   // Este componente agora é responsável APENAS pela imagem de capa (se premium)
   // Os botões de voltar/compartilhar foram movidos para RestaurantPageHeader
@@ -24,7 +24,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
   }
 
   return (
-    <div className={cn("relative w-full h-64")}> {/* Aumentado de h-48 para h-64 */}
+    <div className={cn("relative w-full transition-all duration-200", isCompact ? "h-36" : "h-64")}>
       {coverImageUrl ? (
         <img
           src={coverImageUrl}
@@ -33,7 +33,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
         />
       ) : (
         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-          <Utensils className="w-24 h-24 text-gray-300" />
+          <Utensils className="w-20 h-20 text-gray-300" />
         </div>
       )}
     </div>

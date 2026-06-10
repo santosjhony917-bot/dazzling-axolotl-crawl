@@ -56,7 +56,7 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
     <div 
       ref={setNodeRef} 
       style={style} 
-      className="relative rounded-xl overflow-hidden shadow-soft-md group bg-white"
+      className="relative rounded-2xl overflow-hidden shadow-none group bg-white"
     >
       <img
         src={image.image_url}
@@ -68,7 +68,7 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
       <div 
         {...attributes} 
         {...listeners} 
-        className="absolute top-2 left-2 cursor-grab p-1 bg-white/80 rounded-full shadow-md hover:bg-white transition-colors z-10"
+        className="absolute top-2 left-2 cursor-grab p-1 bg-white/80 rounded-full shadow-none hover:bg-white transition-colors z-10"
       >
         <GripVertical className="h-5 w-5 text-gray-600" />
       </div>
@@ -102,7 +102,7 @@ const GalleryImageCard: React.FC<GalleryImageCardProps> = ({
           ) : (
             <Button 
               size="icon" 
-              className="h-8 w-8 bg-blue-500 hover:bg-blue-600" 
+              className="h-8 w-8 bg-blue-500 hover:bg-primary" 
               onClick={() => setIsEditing(true)}
               disabled={isUpdating}
             >

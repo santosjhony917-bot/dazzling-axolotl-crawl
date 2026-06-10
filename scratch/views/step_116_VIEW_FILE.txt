@@ -1,0 +1,67 @@
+Created At: 2026-06-09T14:59:14Z
+Completed At: 2026-06-09T14:59:14Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 665
+Total Bytes: 31920
+Showing lines 300 to 430
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+300:             className="rounded-xl font-semibold text-xs h-8"
+301:           >
+302:             Todos ({restaurants.length})
+303:           </Button>
+304:           <Button 
+305:             variant={filterType === 'completed' ? 'default' : 'outline'} 
+306:             size="sm" 
+307:             onClick={() => setFilterType('completed')}
+308:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-emerald-700 hover:bg-emerald-50"
+309:           >
+310:             Dados Completos ({restaurants.filter(r => !hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r)).length})
+311:           </Button>
+312:           <Button 
+313:             variant={filterType === 'missing_any' ? 'default' : 'outline'} 
+314:             size="sm" 
+315:             onClick={() => setFilterType('missing_any')}
+316:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-amber-700 hover:bg-amber-50"
+317:           >
+318:             Qualquer Pendência ({restaurants.filter(r => hasNoPhone(r) || hasNoInstagram(r) || hasNoMenu(r) || hasNoHours(r)).length})
+319:           </Button>
+320:           <Button 
+321:             variant={filterType === 'missing_instagram' ? 'default' : 'outline'} 
+322:             size="sm" 
+323:             onClick={() => setFilterType('missing_instagram')}
+324:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-rose-700 hover:bg-rose-50"
+325:           >
+326:             Sem Instagram 
+<truncated 4188 bytes>
+0:                           </Badge>
+401:                         )}
+402:                         {hasNoInstagram(r) && (
+403:                           <Badge variant="outline" className="bg-rose-50 text-rose-700 border-rose-200 text-[10px] py-0.5 font-bold">
+404:                             Sem Insta
+405:                           </Badge>
+406:                         )}
+407:                         {hasNoMenu(r) && (
+408:                           <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200 text-[10px] py-0.5 font-bold">
+409:                             Sem Cardápio
+410:                           </Badge>
+411:                         )}
+412:                         {hasNoHours(r) && (
+413:                           <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200 text-[10px] py-0.5 font-bold">
+414:                             Sem Horas
+415:                           </Badge>
+416:                         )}
+417:                         {!hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoHours(r) && (
+418:                           <Badge className="bg-emerald-100 text-emerald-800 border-none text-[10px] py-0.5 font-bold">
+419:                             Completo ✨
+420:                           </Badge>
+421:                         )}
+422:                       </div>
+423:                     </TableCell>
+424:                     <TableCell className="text-right">
+425:                       <div className="flex justify-end gap-1.5">
+426:                         <Button 
+427:                           size="sm" 
+428:                           variant="ghost" 
+429:                           className="text-primary hover:text-primary-dark hover:bg-gray-50 font-bold gap-1"
+430:                           onClick={() => setSelectedRestaurant(r)}
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -31,7 +31,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
           className="w-full h-full object-cover" 
           src={backgroundImage} // Usa a URL fornecida
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background-light/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/15 to-[#FAFAFA]" />
       </div>
 
       {/* Content Panel */}
@@ -41,7 +41,7 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         className="relative flex flex-col h-full justify-end"
       >
-        <div className="w-full bg-background-light min-h-[65%] rounded-t-xl p-6 pt-10 flex flex-col items-center text-center shadow-2xl">
+        <div className="w-full bg-[#FAFAFA] min-h-[65%] rounded-t-[36px] p-6 pt-10 flex flex-col items-center text-center border-t border-slate-100/50 shadow-[0_-12px_40px_rgba(0,0,0,0.05)]">
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -76,10 +76,10 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.4, type: "spring" }}
                   className="flex flex-col items-center gap-2"
                 >
-                  <div className="w-20 h-20 rounded-xl flex items-center justify-center bg-highlight/10">
-                    <feature.icon className="w-8 h-8 text-highlight" />
+                  <div className="w-[72px] h-[72px] rounded-[24px] flex items-center justify-center bg-gradient-to-br from-[#EF2A39]/10 to-[#EF2A39]/05 shadow-[0_8px_20px_rgba(239,42,57,0.06)] border border-[#EF2A39]/10 transition-transform hover:scale-105">
+                    <feature.icon className="w-7 h-7 text-highlight" />
                   </div>
-                  <span className="text-primary text-sm font-medium">{feature.label}</span>
+                  <span className="text-[#3C2F2F] text-xs font-semibold mt-1">{feature.label}</span>
                 </motion.div>
               ))}
             </motion.div>

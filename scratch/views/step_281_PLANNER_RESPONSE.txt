@@ -1,0 +1,1 @@
+I will view lines 850 to 950 of `ExportedRestaurants.tsx` to inspect the table body rows and action cell buttons.

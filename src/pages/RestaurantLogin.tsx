@@ -13,6 +13,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast'; // Assuming react-hot-toast is installed
 import { createPageUrl } from '@/utils/url';
+import Header from '@/components/Header';
 
 function RestaurantLogin() {
   const { signInWithMock } = useAuthData();
@@ -106,21 +107,16 @@ function RestaurantLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-background-light flex flex-col">
-      <header className="flex items-center bg-white p-4 pb-2 justify-between sticky top-0 z-20 shadow-soft-md w-full max-w-md mx-auto">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(createPageUrl('welcome'))}
-          className="text-primary hover:bg-primary/5"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-        <h2 className="text-primary text-xl font-bold">{mode === 'sign_in' ? 'Login do Restaurante' : 'Cadastro do Restaurante'}</h2>
-        <div className="w-10"></div>
-      </header>
+    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
+      <div className="min-h-screen bg-background-light flex flex-col w-full max-w-md mx-auto border-x border-slate-200/60">
+      
+      {/* Unified Header */}
+      <Header 
+        title={mode === 'sign_in' ? 'Login do Restaurante' : 'Cadastro do Restaurante'} 
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('welcome')) }}
+      />
 
-      <main className="flex-1 flex flex-col justify-center w-full max-w-md mx-auto px-4 py-6">
+      <main className="flex-grow flex flex-col justify-center w-full px-4 py-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,7 +124,7 @@ function RestaurantLogin() {
           className="w-full"
         >
           <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-xl mx-auto mb-4">
+            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4">
               <MapPin className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
@@ -139,14 +135,14 @@ function RestaurantLogin() {
             </p>
           </div>
 
-          <Card className="w-full shadow-soft-xl border-none rounded-2xl">
+          <Card className="w-full shadow-soft border border-slate-100/80 rounded-2xl bg-white">
             <CardContent className="p-6 pt-4">
               <form onSubmit={handleAuth} className="space-y-4">
                 <Button
                   type="button"
                   onClick={() => handleSocialLogin('google')}
                   variant="channel"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
                   disabled={loading}
                 >
                   <GoogleIcon className="h-5 w-5 shrink-0" />
@@ -156,7 +152,7 @@ function RestaurantLogin() {
                   type="button"
                   onClick={() => handleSocialLogin('apple')}
                   variant="channel"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-2 text-base font-bold shadow-soft-sm"
+                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
                   disabled={loading}
                 >
                   <AppleIcon className="h-6 w-6 text-black dark:text-white shrink-0" />
@@ -175,7 +171,7 @@ function RestaurantLogin() {
                 </div>
 
                 <Input
-                  className="h-14 text-base rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                  className="h-14 text-base rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                   placeholder="E-mail"
                   type="email"
                   value={email}
@@ -185,7 +181,7 @@ function RestaurantLogin() {
                 />
                 <div className="relative">
                   <Input
-                    className="h-14 text-base pr-12 rounded-xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-soft-sm"
+                    className="h-14 text-base pr-12 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
                     placeholder={mode === 'sign_in' ? 'Senha' : 'Crie uma senha'}
                     type={passwordVisible ? "text" : "password"}
                     value={password}
@@ -217,7 +213,7 @@ function RestaurantLogin() {
                   type="submit"
                   disabled={loading}
                   variant="highlight"
-                  className="flex w-full items-center justify-center rounded-xl h-12 gap-1 text-base font-bold shadow-highlight-glow transition-all hover:shadow-soft-xl"
+                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-1 text-base font-bold shadow-none transition-all hover:shadow-none"
                 >
                   <span className="truncate">
                     {loading ? <MapPin className="mr-2 h-4 w-4 animate-spin" /> : (mode === 'sign_in' ? "Entrar" : "Cadastrar-se")}
@@ -253,6 +249,7 @@ function RestaurantLogin() {
           <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
         </div>
       </footer>
+      </div>
     </div>
   );
 }

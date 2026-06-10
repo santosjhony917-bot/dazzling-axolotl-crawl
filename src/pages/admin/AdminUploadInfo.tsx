@@ -27,9 +27,9 @@ export default function AdminUploadInfo() {
 
   return (
     <div className="container mx-auto p-0 space-y-6">
-      <Card className="shadow-soft-lg border-none rounded-2xl">
+      <Card className="shadow-none border-none rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-3xl text-[#022D68]">Upload de Informações Master</CardTitle>
+          <CardTitle className="text-3xl text-primary">Upload de Informações Master</CardTitle>
           <CardDescription>
             Sistema modular de upload de dados de restaurantes em 4 fases.
           </CardDescription>
@@ -40,12 +40,12 @@ export default function AdminUploadInfo() {
       <IncompleteRestaurantAlerts />
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-white shadow-soft-lg rounded-xl">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-white shadow-none rounded-2xl">
           <TabsTrigger 
             value="phase1" 
             className={cn(
               "flex flex-col h-auto py-2 px-1 rounded-lg transition-all",
-              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
+              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-none"
             )}
           >
             <Upload className="w-5 h-5 mb-1" />
@@ -55,7 +55,7 @@ export default function AdminUploadInfo() {
             value="phase2" 
             className={cn(
               "flex flex-col h-auto py-2 px-1 rounded-lg transition-all",
-              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
+              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-none"
             )}
           >
             <MapPin className="w-5 h-5 mb-1" />
@@ -65,7 +65,7 @@ export default function AdminUploadInfo() {
             value="phase3" 
             className={cn(
               "flex flex-col h-auto py-2 px-1 rounded-lg transition-all",
-              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
+              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-none"
             )}
           >
             <UtensilsCrossed className="w-5 h-5 mb-1" />
@@ -75,7 +75,7 @@ export default function AdminUploadInfo() {
             value="phase4" 
             className={cn(
               "flex flex-col h-auto py-2 px-1 rounded-lg transition-all",
-              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-soft-md"
+              "data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-none"
             )}
           >
             <Clock className="w-5 h-5 mb-1" />

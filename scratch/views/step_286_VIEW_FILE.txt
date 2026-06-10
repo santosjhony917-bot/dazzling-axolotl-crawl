@@ -1,0 +1,64 @@
+Created At: 2026-06-09T15:30:21Z
+Completed At: 2026-06-09T15:30:21Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 1159
+Total Bytes: 51151
+Showing lines 900 to 1050
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+900:                         )}
+901:                         {!hasNoMenu(r) && hasNoStructuredMenu(r) && (
+902:                           <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200 text-[10px] py-0.5 font-bold">
+903:                             Não Estruturado
+904:                           </Badge>
+905:                         )}
+906:                         {hasNoHours(r) && (
+907:                           <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200 text-[10px] py-0.5 font-bold">
+908:                             Sem Horas
+909:                           </Badge>
+910:                         )}
+911:                         {!hasNoPhone(r) && !hasNoInstagram(r) && !hasNoMenu(r) && !hasNoStructuredMenu(r) && !hasNoHours(r) && (
+912:                           <Badge className="bg-emerald-100 text-emerald-800 border-none text-[10px] py-0.5 font-bold">
+913:                             Completo ✨
+914:                           </Badge>
+915:                         )}
+916:                       </div>
+917:                     </TableCell>
+918:                     <TableCell className="text-right">
+919:                       <div className="flex justify-end gap-1.5">
+920:                         <Button 
+921:                           size="sm" 
+922:                           variant="ghost" 
+923:                           className="text-primary hover:text-primary-dark hover:bg-gray-50 font-bold gap-1"
+924:                           onC
+<truncated 5224 bytes>
+-4 text-pink-500" /> Instagram</span>
+1022:                         <ExternalLink className="w-3.5 h-3.5" />
+1023:                       </a>
+1024:                     )}
+1025:                     {facebookUrl && (
+1026:                       <a 
+1027:                         href={facebookUrl} 
+1028:                         target="_blank" 
+1029:                         rel="noopener noreferrer" 
+1030:                         className="flex items-center justify-between p-3 bg-blue-50/50 hover:bg-blue-50 border border-blue-100 rounded-2xl transition-all text-xs font-bold text-blue-700"
+1031:                       >
+1032:                         <span className="flex items-center gap-2"><Facebook className="w-4 h-4 text-blue-500" /> Facebook</span>
+1033:                         <ExternalLink className="w-3.5 h-3.5" />
+1034:                       </a>
+1035:                     )}
+1036:                     {selectedRestaurant.website && (
+1037:                       <a 
+1038:                         href={selectedRestaurant.website} 
+1039:                         target="_blank" 
+1040:                         rel="noopener noreferrer" 
+1041:                         className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 border border-gray-200 rounded-2xl transition-all text-xs font-bold text-gray-700"
+1042:                       >
+1043:                         <span className="flex items-center gap-2"><Globe className="w-4 h-4 text-gray-500" /> Website Oficial</span>
+1044:                         <ExternalLink className="w-3.5 h-3.5" />
+1045:                       </a>
+1046:                     )}
+1047:                     {selectedRestaurant.googleMapsUrl && (
+1048:                       <a 
+1049:                         href={selectedRestaurant.googleMapsUrl} 
+1050:                         target="_blank" 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -80,6 +80,7 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
             ) : undefined}
           </>
         }
+        flat={true}
       />
 
       {/* Horários */}
@@ -89,6 +90,7 @@ const LocationHoursSection: React.FC<LocationHoursSectionProps> = ({
         icon={Clock}
         isPremium={isPremium}
         onClick={() => setIsHoursDialogOpen(true)}
+        flat={true}
       />
     </div>
   );

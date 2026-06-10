@@ -1,0 +1,79 @@
+Created At: 2026-06-09T15:30:00Z
+Completed At: 2026-06-09T15:30:00Z
+File Path: `file:///c:/Users/meuno/Downloads/dazzling-axolotl-crawl-main/dazzling-axolotl-crawl-main/src/pages/admin/ExportedRestaurants.tsx`
+Total Lines: 1159
+Total Bytes: 51151
+Showing lines 670 to 850
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+670:     if (!hours) return <p className="text-gray-500 text-xs font-semibold">Não informado</p>;
+671:     
+672:     const daysTranslation: Record<string, string> = {
+673:       monday: 'Segunda-feira',
+674:       tuesday: 'Terça-feira',
+675:       wednesday: 'Quarta-feira',
+676:       thursday: 'Quinta-feira',
+677:       friday: 'Sexta-feira',
+678:       saturday: 'Sábado',
+679:       sunday: 'Domingo'
+680:     };
+681: 
+682:     return (
+683:       <div className="grid grid-cols-1 gap-1.5 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+684:         {Object.entries(daysTranslation).map(([dayKey, label]) => {
+685:           const info = hours[dayKey];
+686:           const isOpen = info?.isOpen;
+687:           const slots = info?.slots || [];
+688:           return (
+689:             <div key={dayKey} className="flex justify-between text-xs py-1 border-b border-gray-100 last:border-0 last:pb-0">
+690:               <span className="font-bold text-gray-600">{label}</span>
+691:               <span className={isOpen ? "text-emerald-600 font-bold" : "text-gray-400 font-medium"}>
+692:                 {isOpen 
+693:                   ? slots.map((s: any) => `${s.start} - ${s.end}`).join(', ') 
+694:                   : 'Fechado'}
+695:               </span>
+696:             </div>
+697:           );
+698:         })}
+699:       </div>
+700:     );
+701:   };
+702: 
+703:   const filteredRestaurants = restaurants.filter(r => {
+704:     const matchesSearch = 
+705:       r.name.toLowerCase().includes(searchTerm.toLowerCase(
+<truncated 5703 bytes>
+817:           <Button 
+818:             variant={filterType === 'missing_menu' ? 'default' : 'outline'} 
+819:             size="sm" 
+820:             onClick={() => setFilterType('missing_menu')}
+821:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-orange-700 hover:bg-orange-50"
+822:           >
+823:             Sem Cardápio ({restaurants.filter(r => hasNoMenu(r) || hasNoStructuredMenu(r)).length})
+824:           </Button>
+825:           <Button 
+826:             variant={filterType === 'missing_phone' ? 'default' : 'outline'} 
+827:             size="sm" 
+828:             onClick={() => setFilterType('missing_phone')}
+829:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-sky-700 hover:bg-sky-50"
+830:           >
+831:             Sem Telefone ({restaurants.filter(hasNoPhone).length})
+832:           </Button>
+833:           <Button 
+834:             variant={filterType === 'missing_hours' ? 'default' : 'outline'} 
+835:             size="sm" 
+836:             onClick={() => setFilterType('missing_hours')}
+837:             className="rounded-xl font-semibold text-xs h-8 border-gray-300 bg-white text-purple-700 hover:bg-purple-50"
+838:           >
+839:             Sem Horários ({restaurants.filter(hasNoHours).length})
+840:           </Button>
+841:         </div>
+842:       </div>
+843: 
+844:       {/* Lista de Importados */}
+845:       <Card className="shadow-none border border-gray-100 rounded-2xl bg-white overflow-hidden">
+846:         <CardContent className="p-0">
+847:           {filteredRestaurants.length === 0 ? (
+848:             <div className="text-center py-16 text-gray-500 font-medium">
+849:               <Search className="w-12 h-12 text-gray-200 mx-auto mb-2" />
+850:               Nenhum restaurante importado encontrado com o filtro atual.
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

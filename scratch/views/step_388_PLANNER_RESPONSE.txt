@@ -1,0 +1,1 @@
+I will create a script `scratch/extract_views.cjs` to extract the exact contents of all file views and code modifications of `ExportedRestaurants.tsx` from the log, saving them to a temporary directory so we can rebuild the file.
