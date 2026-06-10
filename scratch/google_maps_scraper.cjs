@@ -1259,7 +1259,11 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
       // fs.writeFileSync(OUTPUT_FILE, JSON.stringify(state.scrapedData, null, 2), 'utf-8');
       
       if (fs.existsSync(STATE_FILE)) {
-        fs.unlinkSync(STATE_FILE);
+        try {
+          fs.unlinkSync(STATE_FILE);
+        } catch (unlinkErr) {
+          console.warn(`⚠️  [Aviso] Não foi possível excluir o arquivo temporário de estado: ${unlinkErr.message}`);
+        }
       }
 
       console.log(`\n=============================================================`);

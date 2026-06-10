@@ -832,6 +832,15 @@ export default function GoogleMapsCollector() {
 
   useEffect(() => {
     loadScrapedFromSupabase();
+
+    const handleSync = () => {
+      loadScrapedFromSupabase();
+    };
+
+    window.addEventListener('local-sync-restaurants', handleSync);
+    return () => {
+      window.removeEventListener('local-sync-restaurants', handleSync);
+    };
   }, [city]);
 
   // Efeito para sincronizar status, logs e acionar importações automáticas
@@ -1772,6 +1781,31 @@ export default function GoogleMapsCollector() {
     }
   };
 
+  const handleClearPending = async () => {
+    if (!window.confirm('Tem certeza que deseja apagar TODOS os estabelecimentos pendentes da fila de coleta no Supabase? Esta ação é irreversível.')) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('restaurants')
+        .delete()
+        .eq('visit_status', 'Pendente');
+
+      if (error) {
+        console.error('Erro ao limpar restaurantes pendentes:', error);
+        showError('Erro ao limpar base de dados.');
+      } else {
+        showSuccess('Todos os restaurantes pendentes foram removidos!');
+        setResults([]);
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+      }
+    } catch (e: any) {
+      console.error(e);
+      showError(`Erro ao limpar base de dados: ${e.message}`);
+    }
+  };
+
   const handleImport = async (restaurant: ScrapedRestaurant) => {
     try {
       const { error } = await supabase
@@ -2265,6 +2299,16 @@ export default function GoogleMapsCollector() {
                 <Button size="sm" variant="outline" className="font-bold gap-1 border-gray-300 bg-white w-full sm:w-auto h-9" onClick={handleImportAll}>
                   <PlusCircle className="w-4 h-4 text-highlight" /> Importar Novos ({pendingImportCount}) para Fila Global
                 </Button>
+                {results.length > 0 && (
+                  <Button 
+                    size="sm" 
+                    variant="destructive" 
+                    className="font-bold gap-1 bg-red-600 hover:bg-red-700 w-full sm:w-auto h-9" 
+                    onClick={handleClearPending}
+                  >
+                    <Trash2 className="w-4 h-4" /> Limpar Coleta
+                  </Button>
+                )}
               </div>
             </CardHeader>
             <CardContent className="p-0">
