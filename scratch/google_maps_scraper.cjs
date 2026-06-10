@@ -102,7 +102,9 @@ async function saveToSupabase(scrapedItem) {
       other_url: scrapedItem.menuSourceUrl || null,
       external_url: scrapedItem.menuSourceUrl || null,
       latitude,
-      longitude
+      longitude,
+      rating: typeof scrapedItem.rating === 'number' ? scrapedItem.rating : null,
+      reviews_count: typeof scrapedItem.reviewsCount === 'number' ? scrapedItem.reviewsCount : null
     };
 
     console.log(`📡 [Supabase] Salvando "${scrapedItem.name}"...`);

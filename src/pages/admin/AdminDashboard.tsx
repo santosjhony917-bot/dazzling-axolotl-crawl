@@ -2,9 +2,10 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, ClipboardList } from 'lucide-react';
+import { MapPin, ClipboardList, Trash2 } from 'lucide-react';
 import GoogleMapsCollector from './GoogleMapsCollector';
 import ExportedRestaurants from './ExportedRestaurants';
+import RemovedRestaurants from './RemovedRestaurants';
 
 export default function AdminDashboard() {
   console.log("AdminDashboard is rendering.");
@@ -29,7 +30,7 @@ export default function AdminDashboard() {
       </Card>
 
       <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-white shadow-none rounded-2xl">
+        <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-white shadow-none rounded-2xl">
           <TabsTrigger value="google-maps" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-primary data-[state=active]:text-white">
             <MapPin className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Coleta Google Maps</span>
@@ -37,6 +38,10 @@ export default function AdminDashboard() {
           <TabsTrigger value="exported-restaurants" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-primary data-[state=active]:text-white">
             <ClipboardList className="w-5 h-5 mb-1" />
             <span className="text-xs font-medium text-center">Restaurantes Importados</span>
+          </TabsTrigger>
+          <TabsTrigger value="removed-restaurants" className="flex flex-col h-auto py-2 px-1 data-[state=active]:bg-primary data-[state=active]:text-white">
+            <Trash2 className="w-5 h-5 mb-1" />
+            <span className="text-xs font-medium text-center">Restaurantes Removidos</span>
           </TabsTrigger>
         </TabsList>
 
@@ -50,6 +55,11 @@ export default function AdminDashboard() {
             <TabsContent value="exported-restaurants">
               <Card className="p-0">
                 <ExportedRestaurants />
+              </Card>
+            </TabsContent>
+            <TabsContent value="removed-restaurants">
+              <Card className="p-0">
+                <RemovedRestaurants />
               </Card>
             </TabsContent>
           </Card>

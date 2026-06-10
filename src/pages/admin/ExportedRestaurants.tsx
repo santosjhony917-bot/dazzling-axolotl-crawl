@@ -217,6 +217,13 @@ export default function ExportedRestaurants() {
       }))
     }));
 
+    let googleMapsUrl = '';
+    const visitNotes = dbItem.visit_notes || '';
+    const gmapsMatch = visitNotes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
+    if (gmapsMatch) {
+      googleMapsUrl = gmapsMatch[1];
+    }
+
     return {
       id: dbItem.id,
       name: dbItem.name,
@@ -245,7 +252,10 @@ export default function ExportedRestaurants() {
       menuUrl: dbItem.other_url || dbItem.external_url || '',
       latitude: dbItem.latitude,
       longitude: dbItem.longitude,
-      menu_categories: menuCategories
+      menu_categories: menuCategories,
+      rating: typeof dbItem.rating === 'number' ? dbItem.rating : 4.0,
+      reviewsCount: typeof dbItem.reviews_count === 'number' ? dbItem.reviews_count : 10,
+      googleMapsUrl
     };
   };
 
@@ -260,6 +270,8 @@ export default function ExportedRestaurants() {
             menu_items (*)
           )
         `)
+        .eq('visit_status', 'Visitado')
+        .or('is_deleted.eq.false,is_deleted.is.null')
         .order('name');
         
       if (error) throw error;
@@ -305,7 +317,7 @@ export default function ExportedRestaurants() {
       const uuid = getDeterministicUUID(restaurant.id);
       const { error: deleteError } = await supabase
         .from('restaurants')
-        .delete()
+        .update({ is_deleted: true })
         .eq('id', uuid);
 
       if (deleteError) {
@@ -315,6 +327,9 @@ export default function ExportedRestaurants() {
         showSuccess(`"${restaurant.name}" removido com sucesso!`);
         setSelectedRestaurant(null);
         loadRestaurants();
+        
+        // Também avisa a aba de coleta para recarregar
+        window.dispatchEvent(new Event('local-sync-restaurants'));
       }
     } catch (e) {
       console.error(e);
@@ -331,19 +346,19 @@ export default function ExportedRestaurants() {
       const { error } = await supabase
         .from('restaurants')
         .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000'); // Deleta todos
+        .neq('id', '00000000-0000-0000-0000-000000000000');
 
       if (error) {
         console.error('Erro ao limpar Supabase:', error);
         showError('Erro ao limpar Supabase.');
       } else {
         showSuccess('Todos os restaurantes foram removidos do Supabase!');
-        setSelectedRestaurant(null);
         loadRestaurants();
+        window.dispatchEvent(new Event('local-sync-restaurants'));
       }
     } catch (e) {
       console.error(e);
-      showError('Erro ao remover os restaurantes.');
+      showError('Erro ao limpar base do Supabase.');
     }
   };
 
@@ -358,6 +373,15 @@ export default function ExportedRestaurants() {
         if (coords) {
           latitude = coords.lat;
           longitude = coords.lng;
+        }
+      }
+
+      let visitNotes = restaurant.visit_notes || `Fonte Cardápio: ${restaurant.menuSourceUrl || 'Não informado'}`;
+      if (restaurant.googleMapsUrl) {
+        if (visitNotes.includes('Google Maps:')) {
+          visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${restaurant.googleMapsUrl}`);
+        } else {
+          visitNotes = `${visitNotes}\nGoogle Maps: ${restaurant.googleMapsUrl}`.trim();
         }
       }
 
@@ -378,13 +402,15 @@ export default function ExportedRestaurants() {
         image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
         cover_image_url: restaurant.coverImage || restaurant.cover_image_url || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
         visit_status: 'Visitado',
-        visit_notes: restaurant.visit_notes || `Fonte Cardápio: ${restaurant.menuSourceUrl || 'Não informado'}`,
+        visit_notes: visitNotes,
         claim_code: restaurant.claim_code || 'CLAIM-' + uuidId.substring(0, 5).toUpperCase(),
         opening_hours: restaurant.openingHours || restaurant.opening_hours || null,
         social_networks: restaurant.social_networks || [
           { platform: 'instagram', url: restaurant.instagram || '' },
           { platform: 'facebook', url: restaurant.facebook || '' }
-        ].filter((s: any) => s.url)
+        ].filter((s: any) => s.url),
+        rating: restaurant.rating || null,
+        reviews_count: restaurant.reviewsCount || null
       };
 
       if (latitude !== null) restaurantData.latitude = latitude;

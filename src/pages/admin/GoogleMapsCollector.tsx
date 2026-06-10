@@ -415,72 +415,45 @@ export default function GoogleMapsCollector() {
       const updatedResults = results.map(r => r.id === updated.id ? updated : r);
       setResults(updatedResults);
       
-      // Salva localmente via API no arquivo scraped_restaurants_google.json
-      const res = await fetch('/api/local-collector/save-scraped-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify(updatedResults)
-      });
+      const uuidId = updated.id;
       
-      // Se já foi importado, atualiza também nos dados ativos salvos no navegador
-      const key = getRestaurantUniqueKey(updated.name, updated.address);
-      const isImported = importedKeys.has(key);
-      if (isImported) {
-        const savedCompleted = localStorage.getItem('mock-completed-restaurants');
-        if (savedCompleted) {
-          const completedMap = JSON.parse(savedCompleted);
-          const restaurantId = updated.id || `scraped-${key}`;
-          if (completedMap[restaurantId]) {
-            completedMap[restaurantId] = {
-              ...completedMap[restaurantId],
-              name: updated.name,
-              phone: updated.phone || '',
-              address: updated.address || '',
-              category: updated.category || 'Outros',
-              social_networks: [
-                { platform: 'instagram', url: updated.instagram },
-                { platform: 'facebook', url: updated.facebook }
-              ].filter(s => s.url),
-              menuSourceUrl: updated.menuSourceUrl || '',
-              website: updated.website || ''
-            };
-            localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
-          }
+      let visitNotes = updated.visit_notes || '';
+      if (updated.googleMapsUrl) {
+        if (visitNotes.includes('Google Maps:')) {
+          visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${updated.googleMapsUrl}`);
+        } else {
+          visitNotes = `${visitNotes}\nGoogle Maps: ${updated.googleMapsUrl}`.trim();
         }
-        
-        const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
-        if (savedFallback) {
-          const fallbackList = JSON.parse(savedFallback);
-          const updatedFallback = fallbackList.map((r: any) => {
-            if (r.id === updated.id || getRestaurantUniqueKey(r.name, r.address) === key) {
-              return {
-                ...r,
-                name: updated.name,
-                phone: updated.phone || '',
-                category: updated.category || '',
-                address: updated.address || '',
-                menuSourceUrl: updated.menuSourceUrl || '',
-                website: updated.website || ''
-              };
-            }
-            return r;
-          });
-          localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
-        }
-
-        window.dispatchEvent(new Event('storage'));
-        window.dispatchEvent(new Event('local-sync-restaurants'));
       }
 
-      if (res.ok) {
-        showSuccess('Restaurante atualizado com sucesso e salvo localmente!');
-      } else {
-        showSuccess('Restaurante atualizado no painel (mas falhou ao salvar no arquivo).');
-      }
+      const { error } = await supabase
+        .from('restaurants')
+        .update({
+          name: updated.name,
+          phone: cleanPhone(updated.phone || ''),
+          category: updated.category || 'Restaurante',
+          address: cleanAddress(updated.address || ''),
+          other_url: updated.menuSourceUrl || null,
+          external_url: updated.menuSourceUrl || null,
+          visit_notes: visitNotes,
+          social_networks: [
+            { platform: 'instagram', url: updated.instagram || '' },
+            { platform: 'facebook', url: updated.facebook || '' }
+          ].filter(s => s.url)
+        })
+        .eq('id', uuidId);
+
+      if (error) throw error;
+
+      showSuccess('Restaurante atualizado com sucesso no Supabase!');
       setEditingRestaurant(null);
-    } catch (err) {
+      
+      // Notifica as abas
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+      loadScrapedFromSupabase();
+    } catch (err: any) {
       console.error(err);
-      showError('Erro ao salvar edições.');
+      showError(`Erro ao salvar edições no Supabase: ${err.message}`);
     }
   };
 
@@ -708,18 +681,21 @@ export default function GoogleMapsCollector() {
     }
   }, [scanLogs]);
 
-  // Carrega as missões já importadas do localStorage para evitar duplicidade
+  // Carrega as missões já importadas do Supabase para evitar duplicidade
   useEffect(() => {
-    const loadImportedMissions = () => {
+    const loadImportedMissions = async () => {
       try {
-        const savedCompleted = localStorage.getItem('mock-completed-restaurants');
-        if (savedCompleted) {
-          const completedMap = JSON.parse(savedCompleted);
-          const restaurants = Object.values(completedMap);
-          const keys = new Set(restaurants.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('name, address')
+          .eq('visit_status', 'Visitado')
+          .or('is_deleted.eq.false,is_deleted.is.null');
+
+        if (error) throw error;
+        
+        if (data) {
+          const keys = new Set(data.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
           setImportedKeys(keys);
-        } else {
-          setImportedKeys(new Set());
         }
       } catch (e) {
         console.error(e);
@@ -735,6 +711,68 @@ export default function GoogleMapsCollector() {
       window.removeEventListener('local-sync-restaurants', loadImportedMissions);
     };
   }, []);
+
+  const loadScrapedFromSupabase = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('visit_status', 'Pendente')
+        .or('is_deleted.eq.false,is_deleted.is.null')
+        .order('name');
+      
+      if (error) throw error;
+      
+      if (data) {
+        const normalizedCity = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        const filtered = data.filter((item: any) => {
+          const itemCity = (item.city || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+          return itemCity.includes(normalizedCity) || normalizedCity.includes(itemCity);
+        });
+
+        const formatted = filtered.map((item: any) => {
+          const socialNetworks = item.social_networks || [];
+          const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
+          const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
+          
+          let googleMapsUrl = '';
+          const visitNotes = item.visit_notes || '';
+          const gmapsMatch = visitNotes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
+          if (gmapsMatch) {
+            googleMapsUrl = gmapsMatch[1];
+          }
+
+          return {
+            id: item.id,
+            name: item.name,
+            category: item.category || 'Restaurante',
+            rating: typeof item.rating === 'number' ? item.rating : 4.0,
+            reviewsCount: typeof item.reviews_count === 'number' ? item.reviews_count : 10,
+            address: item.address || '',
+            phone: item.phone || '',
+            city: item.city || 'João Pessoa',
+            state: item.state || 'PB',
+            instagram,
+            facebook,
+            coverImage: item.cover_image_url || '',
+            galleryImages: [],
+            openingHours: item.opening_hours || {},
+            website: item.other_url || item.external_url || '',
+            googleMapsUrl,
+            menuSourceUrl: item.other_url || item.external_url || '',
+            isClosed: false
+          };
+        });
+        setResults(formatted);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar do Supabase:', err);
+    }
+  };
+
+  useEffect(() => {
+    loadScrapedFromSupabase();
+  }, [city]);
 
   // Efeito para sincronizar status, logs e acionar importações automáticas
   useEffect(() => {
@@ -753,13 +791,9 @@ export default function GoogleMapsCollector() {
           if (prevRunningRef.current === true && data.running === false) {
             if (data.logs.includes('concluída com código de saída: 0')) {
               showSuccess('Coleta em segundo plano finalizada com sucesso!');
-              if (autoImport) {
-                if (data.logs.includes('Coleta do Google Maps') || data.logs.includes('Enriquecimento de Redes Sociais')) {
-                  importGoogleMapsData();
-                } else if (data.logs.includes('Coleta de Cardápios')) {
-                  importMenusData();
-                }
-              }
+              loadScrapedFromSupabase();
+              // Despacha evento para notificar abas
+              window.dispatchEvent(new Event('local-sync-restaurants'));
             } else if (data.logs.includes('código de saída: 1') || data.logs.includes('código de saída: null')) {
               if (data.logs.includes('interrompida pelo usuário')) {
                 showSuccess('Coleta interrompida.');
@@ -780,7 +814,7 @@ export default function GoogleMapsCollector() {
     checkStatus();
     intervalId = setInterval(checkStatus, 1500);
     return () => clearInterval(intervalId);
-  }, [autoImport]);
+  }, []);
 
   // Efeito separado para rolar o terminal sempre que houver novos logs
   useEffect(() => {
@@ -1652,225 +1686,86 @@ export default function GoogleMapsCollector() {
     }
   };
 
-  const handleRemoveFromQueue = (restaurant: ScrapedRestaurant) => {
+  const handleRemoveFromQueue = async (restaurant: ScrapedRestaurant) => {
     try {
+      const { error } = await supabase
+        .from('restaurants')
+        .update({ is_deleted: true })
+        .eq('id', restaurant.id);
+
+      if (error) throw error;
+
+      showSuccess(`"${restaurant.name}" removido com sucesso!`);
+      
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-      const restaurantId = restaurant.id || `scraped-${key}`;
-
-      // 1. Remove from mock-completed-restaurants
-      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
-      if (savedCompleted) {
-        const completedMap = JSON.parse(savedCompleted);
-        delete completedMap[restaurantId];
-        Object.keys(completedMap).forEach((id: string) => {
-          const r = completedMap[id];
-          if (getRestaurantUniqueKey(r.name, r.address) === key) {
-            delete completedMap[id];
-          }
-        });
-        localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
-      }
-
-      // 2. Remove from mock-supabase-fallback-restaurants
-      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
-      if (savedFallback) {
-        const fallbackList = JSON.parse(savedFallback);
-        const updatedFallback = fallbackList.filter((r: any) => 
-          r.id !== restaurantId && getRestaurantUniqueKey(r.name, r.address) !== key
-        );
-        localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updatedFallback));
-      }
-
-      // 3. Update importedKeys state
       const newImported = new Set(importedKeys);
       newImported.delete(key);
       setImportedKeys(newImported);
 
-      // Trigger sync
-      window.dispatchEvent(new Event('storage'));
+      // Notifica as abas
       window.dispatchEvent(new Event('local-sync-restaurants'));
-
-      showSuccess(`"${restaurant.name}" removido da plataforma!`);
-    } catch (e) {
-      console.error(e);
-      showError('Erro ao remover restaurante.');
+      loadScrapedFromSupabase();
+    } catch (err: any) {
+      console.error(err);
+      showError(`Erro ao remover: ${err.message}`);
     }
   };
 
-  const handleImport = (restaurant: ScrapedRestaurant) => {
+  const handleImport = async (restaurant: ScrapedRestaurant) => {
     try {
+      const { error } = await supabase
+        .from('restaurants')
+        .update({ visit_status: 'Visitado' })
+        .eq('id', restaurant.id);
+
+      if (error) throw error;
+
+      showSuccess(`"${restaurant.name}" importado e publicado com sucesso!`);
+      
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
-      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
-      
-      const restaurants = Object.values(completedMap);
-      if (restaurants.some((r: any) => getRestaurantUniqueKey(r.name, r.address) === key)) {
-        showError('Este restaurante já foi importado!');
-        return;
-      }
-
-      const restaurantId = restaurant.id || `scraped-${key}`;
-
-      // 1. Save to mock-completed-restaurants
-      completedMap[restaurantId] = {
-        id: restaurantId,
-        name: restaurant.name,
-        plan: 'free',
-        phone: restaurant.phone || '',
-        address: restaurant.address || '',
-        city: restaurant.city || '',
-        state: restaurant.state || '',
-        description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
-        category: restaurant.category || 'Outros',
-        image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
-        cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
-        menu_categories: [], 
-        gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
-          ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
-          : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
-        social_networks: [
-          { platform: 'instagram', url: restaurant.instagram },
-          { platform: 'facebook', url: restaurant.facebook }
-        ].filter(s => s.url),
-        opening_hours: restaurant.openingHours || null,
-        visit_status: 'Visitado',
-        menuSourceUrl: restaurant.menuSourceUrl || '',
-        googleMapsUrl: restaurant.googleMapsUrl || '',
-        website: restaurant.website || ''
-      };
-      
-      localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
-
-      // 2. Also save to the mock admin fallback
-      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
-      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
-      
-      const newRestaurant = {
-        id: restaurantId,
-        name: restaurant.name,
-        plan: 'free' as const,
-        phone: restaurant.phone || '',
-        category: restaurant.category || '',
-        address: restaurant.address || '',
-        city: restaurant.city || '',
-        state: restaurant.state || '',
-        claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
-        visit_status: 'Visitado' as const,
-        visit_notes: 'Importado diretamente do coletor Google Maps.',
-        menuSourceUrl: restaurant.menuSourceUrl || '',
-        googleMapsUrl: restaurant.googleMapsUrl || '',
-        website: restaurant.website || ''
-      };
-      
-      fallbackList.unshift(newRestaurant);
-      localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(fallbackList));
-
-      // 3. Update importedKeys state
       const newImported = new Set(importedKeys);
       newImported.add(key);
       setImportedKeys(newImported);
 
-      // Trigger sync
-      window.dispatchEvent(new Event('storage'));
+      // Notifica as abas
       window.dispatchEvent(new Event('local-sync-restaurants'));
-
-      showSuccess(`"${restaurant.name}" importado com sucesso!`);
-    } catch (e) {
-      console.error(e);
-      showError('Erro ao importar restaurante.');
+      loadScrapedFromSupabase();
+    } catch (err: any) {
+      console.error(err);
+      showError(`Erro ao importar: ${err.message}`);
     }
   };
 
-  const handleImportAll = () => {
+  const handleImportAll = async () => {
     try {
-      const savedCompleted = localStorage.getItem('mock-completed-restaurants');
-      const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
+      const pendingIds = results
+        .filter(r => !dismissedIds.has(r.id))
+        .map(r => r.id);
 
-      const savedFallback = localStorage.getItem('mock-supabase-fallback-restaurants');
-      const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
-
-      let importedCount = 0;
-      const newImported = new Set(importedKeys);
-
-      for (const restaurant of results) {
-        if (dismissedIds.has(restaurant.id)) continue;
-        const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-        if (!newImported.has(key)) {
-          const restaurantId = restaurant.id || `scraped-${key}`;
-
-          // Create the restaurant entry
-          completedMap[restaurantId] = {
-            id: restaurantId,
-            name: restaurant.name,
-            plan: 'free',
-            phone: restaurant.phone || '',
-            address: restaurant.address || '',
-            city: restaurant.city || '',
-            state: restaurant.state || '',
-            description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
-            category: restaurant.category || 'Outros',
-            image_url: restaurant.logo || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
-            cover_image_url: restaurant.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
-            menu_categories: [],
-            gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
-              ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
-              : [{ id: 'mg-1', image_url: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600', caption: 'Fachada', order_index: 0 }],
-            social_networks: [
-              { platform: 'instagram', url: restaurant.instagram },
-              { platform: 'facebook', url: restaurant.facebook }
-            ].filter(s => s.url),
-            opening_hours: restaurant.openingHours || null,
-            visit_status: 'Visitado',
-            menuSourceUrl: restaurant.menuSourceUrl || '',
-            googleMapsUrl: restaurant.googleMapsUrl || '',
-            website: restaurant.website || ''
-          };
-
-          const newRestaurant = {
-            id: restaurantId,
-            name: restaurant.name,
-            plan: 'free' as const,
-            phone: restaurant.phone || '',
-            category: restaurant.category || '',
-            address: restaurant.address || '',
-            city: restaurant.city || '',
-            state: restaurant.state || '',
-            claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
-            visit_status: 'Visitado' as const,
-            visit_notes: 'Importado diretamente do coletor Google Maps.',
-            menuSourceUrl: restaurant.menuSourceUrl || '',
-            googleMapsUrl: restaurant.googleMapsUrl || '',
-            website: restaurant.website || ''
-          };
-
-          fallbackList.unshift(newRestaurant);
-          newImported.add(key);
-          importedCount++;
-        }
-      }
-
-      if (importedCount === 0) {
-        showError('Todos os resultados já foram importados anteriormente!');
+      if (pendingIds.length === 0) {
+        showError('Nenhum restaurante para importar.');
         return;
       }
 
-      try {
-        localStorage.setItem('mock-completed-restaurants', JSON.stringify(completedMap));
-        localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(fallbackList));
-        setImportedKeys(newImported);
+      const { error } = await supabase
+        .from('restaurants')
+        .update({ visit_status: 'Visitado' })
+        .in('id', pendingIds);
 
-        // Sync
-        window.dispatchEvent(new Event('storage'));
-        window.dispatchEvent(new Event('local-sync-restaurants'));
+      if (error) throw error;
 
-        showSuccess(`${importedCount} restaurantes importados diretamente para a plataforma!`);
-      } catch (storageError) {
-        console.error('Storage quota exceeded during bulk import:', storageError);
-        showError('Não foi possível importar. O armazenamento do navegador (Local Storage) está cheio.');
-      }
-    } catch (e) {
-      console.error(e);
-      showError('Erro ao importar restaurantes.');
+      showSuccess(`Sucesso! ${pendingIds.length} restaurantes importados e publicados!`);
+      
+      const newImported = new Set(importedKeys);
+      results.forEach(r => newImported.add(getRestaurantUniqueKey(r.name, r.address)));
+      setImportedKeys(newImported);
+
+      // Notifica as abas
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+      loadScrapedFromSupabase();
+    } catch (err: any) {
+      console.error(err);
+      showError(`Erro ao importar em lote: ${err.message}`);
     }
   };
 
