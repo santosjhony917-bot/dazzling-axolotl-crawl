@@ -196,8 +196,8 @@ const CATEGORIES = [
 ];
 
 const MAX_RESULTS_PER_SEARCH = 120; // Limite por combinação (bairro + categoria)
-const MAX_TOTAL_DETAILS = 30; // Limite total de detalhes completos para extrair (telefones)
-const LIMIT_LISTING_ITEMS = 30; // Limite de itens na Fase 1 antes de pular para a Fase 2 (null para sem limite)
+const MAX_TOTAL_DETAILS = null; // Limite total de detalhes completos para extrair (telefones) (null para sem limite)
+const LIMIT_LISTING_ITEMS = null; // Limite de itens na Fase 1 antes de pular para a Fase 2 (null para sem limite)
 const CLICK_TO_GET_PHONE = true; 
 const OUTPUT_FILE = path.join(__dirname, '..', 'scraped_restaurants_google.json');
 const STATE_FILE = path.join(__dirname, 'google_maps_scraper_state.json');
@@ -693,7 +693,9 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
       const detailedUrls = new Set(state.scrapedData.map(r => r.googleMapsUrl.split('?')[0]));
       const remainingList = state.allCollectedPlaces.filter(p => !detailedUrls.has(p.href.split('?')[0]));
       
-      const targetList = remainingList.slice(0, Math.max(0, MAX_TOTAL_DETAILS - state.scrapedData.length));
+      const targetList = MAX_TOTAL_DETAILS !== null
+        ? remainingList.slice(0, Math.max(0, MAX_TOTAL_DETAILS - state.scrapedData.length))
+        : remainingList;
       
       console.log(`📈 Faltam coletar detalhes de ${targetList.length} estabelecimentos.`);
       console.log(`🚀 Iniciando coleta paralela com 3 abas simultâneas...\n`);
