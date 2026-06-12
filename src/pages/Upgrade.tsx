@@ -30,7 +30,7 @@ import { PublicRestaurantData } from '@/types/restaurant';
 import { WeekSchedule } from '@/types/schedule';
 
 // --- Mock Schedule local ---
-const mockSchedule: WeekSchedule = {
+const mockSchedule: any = {
   Seg: { open: "18:00", close: "23:00", active: true },
   Ter: { open: "18:00", close: "23:00", active: true },
   Qua: { open: "18:00", close: "23:00", active: true },
@@ -127,7 +127,7 @@ const UpgradePageContent: React.FC = () => {
     cep: restaurant?.cep || '',
     menu_categories: [], // Sem categorias estruturadas no Free
     social_networks: [],
-  }), [restaurant]);
+  }) as unknown as PublicRestaurantData, [restaurant]);
 
   const mockPremiumData: PublicRestaurantData = useMemo(() => ({
     ...mockFreeData,
@@ -182,7 +182,7 @@ const UpgradePageContent: React.FC = () => {
       { id: 'gal-1', restaurant_id: 'mock-id', image_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500', caption: 'Nosso Salão Acolhedor', order_index: 0 },
       { id: 'gal-2', restaurant_id: 'mock-id', image_url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500', caption: 'Ingredientes Frescos', order_index: 1 }
     ] as any
-  }), [mockFreeData, restaurant]);
+  }) as unknown as PublicRestaurantData, [mockFreeData, restaurant]);
 
   return (
     <div className="relative w-full overflow-hidden select-none pb-4">

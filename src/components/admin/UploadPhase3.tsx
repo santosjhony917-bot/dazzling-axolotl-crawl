@@ -10,7 +10,11 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 // Colunas obrigatórias para a Fase 3: Cardápios e Itens
 const REQUIRED_COLUMNS_PHASE3 = ['external_url', 'category_name', 'item_name', 'price', 'description', 'image_url'];
 
-const UploadPhase3: React.FC = () => {
+interface UploadPhase3Props {
+  onNext: () => void;
+}
+
+const UploadPhase3: React.FC<UploadPhase3Props> = ({ onNext }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [detailedErrors, setDetailedErrors] = useState<string[]>([]);
 
@@ -65,6 +69,7 @@ const UploadPhase3: React.FC = () => {
 
       if (successCount > 0) {
         showSuccess(`Fase 3 concluída! ${successCount} itens de menu processados com sucesso.`);
+        onNext();
       }
       if (errorCount > 0) {
         showError(`Fase 3 concluída com ${errorCount} erros. Verifique o log abaixo para detalhes.`);

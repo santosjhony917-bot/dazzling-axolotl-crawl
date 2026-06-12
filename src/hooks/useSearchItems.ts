@@ -1,6 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { SearchItemResult } from '@/lib/types';
+export interface SearchItemResult {
+  item_id: string;
+  item_name: string;
+  item_description: string | null;
+  item_price: number;
+  item_image_url: string | null;
+  restaurant_id: string;
+  restaurant_name: string;
+  restaurant_category: string | null;
+  item_category_id: string;
+  item_category_name: string;
+}
 
 interface UseSearchItemsProps {
   searchQuery: string;

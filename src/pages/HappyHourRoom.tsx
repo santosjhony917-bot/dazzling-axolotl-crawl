@@ -40,7 +40,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-const renderUserAvatar = (p: { id: string; first_name: string | null; avatar_url: string | null }, sizeClass = "w-8 h-8 text-xs") => {
+const renderUserAvatar = (p: { id: string; first_name?: string | null; avatar_url?: string | null }, sizeClass = "w-8 h-8 text-xs") => {
   const initial = p.first_name ? p.first_name.charAt(0).toUpperCase() : '?';
   const colors = [
     'bg-purple-500 text-white',

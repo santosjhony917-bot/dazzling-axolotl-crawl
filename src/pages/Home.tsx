@@ -350,13 +350,13 @@ const Home: React.FC = () => {
             return (
               <div 
                 key={restaurant.id} 
-                onClick={() => navigate(createPageUrl('restaurant', restaurant.id))}
+                onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
                 className="flex items-center gap-4 p-4 rounded-[20px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100/50 cursor-pointer hover:shadow-[0_10px_28px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Imagem do Restaurante */}
                 <div className="w-[84px] h-[84px] rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
                   <img 
-                    src={restaurant.logo_url || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop'} 
+                    src={restaurant.image_url || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop'} 
                     alt={restaurant.name}
                     className="w-full h-full object-cover"
                     onError={(e) => {

@@ -1,4 +1,5 @@
-import { Profile, Restaurant, MenuItem } from '@/types/supabase';
+import { Profile, Restaurant, MenuItem, RestaurantWithDistance } from '@/types/supabase';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface ParsedQuery {
   maxBudget: number;
@@ -16,7 +17,7 @@ export interface ComboItem {
 }
 
 export interface MealCombo {
-  restaurant: Restaurant;
+  restaurant: RestaurantWithDistance;
   items: MenuItem[];
   totalPrice: number;
   numPeople: number;
@@ -153,7 +154,7 @@ export function parseNaturalQuery(query: string): ParsedQuery {
  * Heurística de montagem de combos baseados no menu de um restaurante
  */
 export function buildRestaurantCombos(
-  restaurant: Restaurant,
+  restaurant: RestaurantWithDistance,
   menuItems: MenuItem[],
   parsed: ParsedQuery
 ): MealCombo[] {
