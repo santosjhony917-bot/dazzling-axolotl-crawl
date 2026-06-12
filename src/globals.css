@@ -71,6 +71,10 @@
     @apply border-border;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     background: #f1f5f9;
     color: var(--text-hex);
