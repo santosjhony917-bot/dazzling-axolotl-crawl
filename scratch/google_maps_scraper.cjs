@@ -61,6 +61,22 @@ function uuidFrom(str) {
 
 async function saveToSupabase(scrapedItem) {
   try {
+    // Evita cadastrar duplicados pelo link do Google Maps
+    if (scrapedItem.googleMapsUrl) {
+      const cleanUrl = scrapedItem.googleMapsUrl.split('?')[0].trim();
+      const { data: existing, error: checkError } = await supabase
+        .from('restaurants')
+        .select('id, name')
+        .or(`visit_notes.ilike.%Google Maps: ${cleanUrl}%,visit_notes.eq.Google Maps: ${cleanUrl}`);
+
+      if (checkError) {
+        console.error(`⚠️  [Supabase] Erro ao verificar link duplicado para "${scrapedItem.name}":`, checkError.message);
+      } else if (existing && existing.length > 0) {
+        console.log(`⏭️  [Supabase] Restaurante "${scrapedItem.name}" já está cadastrado no Supabase com o mesmo link (ID=${existing[0].id}). Pulando gravação.`);
+        return;
+      }
+    }
+
     const uuidId = uuidFrom(scrapedItem.id);
     
     let latitude = null;
@@ -366,6 +382,46 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
 }
 
 (async () => {
+  // Carrega os links já existentes no Supabase para evitar recoletá-los
+  console.log('📡 [Supabase] Carregando links do Google Maps já cadastrados para evitar recoleta...');
+  const existingSupabaseUrls = new Set();
+  try {
+    const PAGE_SIZE = 999;
+    let page = 0;
+    let hasMore = true;
+    while (hasMore) {
+      const from = page * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('visit_notes')
+        .range(from, to);
+      
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        data.forEach(r => {
+          const notes = r.visit_notes || '';
+          const match = notes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
+          if (match) {
+            const cleanUrl = match[1].split('?')[0].trim();
+            existingSupabaseUrls.add(cleanUrl);
+          }
+        });
+        page++;
+      } else {
+        hasMore = false;
+      }
+
+      if (!data || data.length < PAGE_SIZE) {
+        hasMore = false;
+      }
+    }
+    console.log(`✅ [Supabase] ${existingSupabaseUrls.size} links do Google Maps carregados!`);
+  } catch (e) {
+    console.error('⚠️  [Supabase] Erro ao carregar links existentes do banco:', e.message);
+  }
+
   // Carrega ou inicializa o estado
   let state = loadState();
   if (!state) {
@@ -510,7 +566,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
           let newCount = 0;
           for (const p of placesFound) {
             const cleanUrl = p.href.split('?')[0];
-            if (!state.seenPlaceUrls.has(cleanUrl)) {
+            if (!state.seenPlaceUrls.has(cleanUrl) && !existingSupabaseUrls.has(cleanUrl)) {
               state.seenPlaceUrls.add(cleanUrl);
               state.allCollectedPlaces.push({
                 name: p.name,
