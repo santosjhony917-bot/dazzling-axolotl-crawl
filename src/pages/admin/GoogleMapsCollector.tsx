@@ -824,18 +824,38 @@ export default function GoogleMapsCollector() {
   useEffect(() => {
     const loadImportedMissions = async () => {
       try {
-        const { data, error } = await supabase
-          .from('restaurants')
-          .select('name, address')
-          .eq('visit_status', 'Visitado')
-          .or('is_deleted.eq.false,is_deleted.is.null');
+        const PAGE_SIZE = 999;
+        const allMissions: any[] = [];
+        let page = 0;
+        let hasMore = true;
 
-        if (error) throw error;
-        
-        if (data) {
-          const keys = new Set(data.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
-          setImportedKeys(keys);
+        while (hasMore) {
+          const from = page * PAGE_SIZE;
+          const to = from + PAGE_SIZE - 1;
+
+          const { data, error } = await supabase
+            .from('restaurants')
+            .select('name, address')
+            .eq('visit_status', 'Visitado')
+            .or('is_deleted.eq.false,is_deleted.is.null')
+            .range(from, to);
+
+          if (error) throw error;
+
+          if (data && data.length > 0) {
+            allMissions.push(...data);
+            page++;
+          } else {
+            hasMore = false;
+          }
+
+          if (!data || data.length < PAGE_SIZE) {
+            hasMore = false;
+          }
         }
+        
+        const keys = new Set(allMissions.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
+        setImportedKeys(keys);
       } catch (e) {
         console.error(e);
       }
@@ -853,81 +873,101 @@ export default function GoogleMapsCollector() {
 
   const loadScrapedFromSupabase = async () => {
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select(`
-          *,
-          menu_categories (
+      const PAGE_SIZE = 999;
+      const allScraped: any[] = [];
+      let page = 0;
+      let hasMore = true;
+
+      while (hasMore) {
+        const from = page * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
+
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select(`
             *,
-            menu_items (*)
-          ),
-          restaurant_gallery (*)
-        `)
-        .eq('visit_status', 'Pendente')
-        .or('is_deleted.eq.false,is_deleted.is.null')
-        .order('name');
-      
-      if (error) throw error;
-      
-      if (data) {
-        const normalizedCity = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-        const filtered = data.filter((item: any) => {
-          const itemCity = (item.city || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-          return itemCity.includes(normalizedCity) || normalizedCity.includes(itemCity);
-        });
+            menu_categories (
+              *,
+              menu_items (*)
+            ),
+            restaurant_gallery (*)
+          `)
+          .eq('visit_status', 'Pendente')
+          .or('is_deleted.eq.false,is_deleted.is.null')
+          .order('name')
+          .range(from, to);
 
-        const formatted = filtered.map((item: any) => {
-          const socialNetworks = item.social_networks || [];
-          const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
-          const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
-          
-          let googleMapsUrl = '';
-          const visitNotes = item.visit_notes || '';
-          const gmapsMatch = visitNotes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
-          if (gmapsMatch) {
-            googleMapsUrl = gmapsMatch[1];
-          }
+        if (error) throw error;
 
-          const menuCategories = (item.menu_categories || []).map((cat: any) => ({
-            id: cat.id,
-            name: cat.name,
-            items: (cat.menu_items || []).map((menuItem: any) => ({
-              id: menuItem.id,
-              name: menuItem.name,
-              description: menuItem.description || '',
-              price: menuItem.price,
-              image_url: menuItem.image_url || ''
-            }))
-          }));
+        if (data && data.length > 0) {
+          allScraped.push(...data);
+          page++;
+        } else {
+          hasMore = false;
+        }
 
-          const galleryImages = (item.restaurant_gallery || []).map((img: any) => img.image_url);
-
-          return {
-            id: item.id,
-            name: item.name,
-            category: item.category || 'Restaurante',
-            rating: typeof item.rating === 'number' ? item.rating : 4.0,
-            reviewsCount: typeof item.reviews_count === 'number' ? item.reviews_count : 10,
-            address: item.address || '',
-            phone: item.phone || '',
-            city: item.city || 'João Pessoa',
-            state: item.state || 'PB',
-            instagram,
-            facebook,
-            logo: item.image_url || '',
-            coverImage: item.cover_image_url || '',
-            followers_override: item.followers_override || null,
-            galleryImages,
-            openingHours: item.opening_hours || {},
-            website: item.other_url || item.external_url || '',
-            googleMapsUrl,
-            menuSourceUrl: item.other_url || item.external_url || '',
-            menu_categories: menuCategories,
-            isClosed: false
-          };
-        });
-        setResults(formatted);
+        if (!data || data.length < PAGE_SIZE) {
+          hasMore = false;
+        }
       }
+      
+      const normalizedCity = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+      const filtered = allScraped.filter((item: any) => {
+        const itemCity = (item.city || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        return itemCity.includes(normalizedCity) || normalizedCity.includes(itemCity);
+      });
+
+      const formatted = filtered.map((item: any) => {
+        const socialNetworks = item.social_networks || [];
+        const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
+        const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
+        
+        let googleMapsUrl = '';
+        const visitNotes = item.visit_notes || '';
+        const gmapsMatch = visitNotes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r]+)/);
+        if (gmapsMatch) {
+          googleMapsUrl = gmapsMatch[1];
+        }
+
+        const menuCategories = (item.menu_categories || []).map((cat: any) => ({
+          id: cat.id,
+          name: cat.name,
+          items: (cat.menu_items || []).map((menuItem: any) => ({
+            id: menuItem.id,
+            name: menuItem.name,
+            description: menuItem.description || '',
+            price: menuItem.price,
+            image_url: menuItem.image_url || ''
+          }))
+        }));
+
+        const galleryImages = (item.restaurant_gallery || []).map((img: any) => img.image_url);
+
+        return {
+          id: item.id,
+          name: item.name,
+          category: item.category || 'Restaurante',
+          rating: typeof item.rating === 'number' ? item.rating : 4.0,
+          reviewsCount: typeof item.reviews_count === 'number' ? item.reviews_count : 10,
+          address: item.address || '',
+          phone: item.phone || '',
+          city: item.city || 'João Pessoa',
+          state: item.state || 'PB',
+          instagram,
+          facebook,
+          logo: item.image_url || '',
+          coverImage: item.cover_image_url || '',
+          followers_override: item.followers_override || null,
+          galleryImages,
+          openingHours: item.opening_hours || {},
+          website: item.other_url || item.external_url || '',
+          googleMapsUrl,
+          menuSourceUrl: item.other_url || item.external_url || '',
+          menu_categories: menuCategories,
+          isClosed: false
+        };
+      });
+      setResults(formatted);
     } catch (err) {
       console.error('Erro ao carregar do Supabase:', err);
     }

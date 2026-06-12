@@ -24,15 +24,37 @@ export default function RemovedRestaurants() {
   const loadRemovedRestaurants = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .eq('is_deleted', true)
-        .order('name');
+      const PAGE_SIZE = 999;
+      const allRemoved: any[] = [];
+      let page = 0;
+      let hasMore = true;
 
-      if (error) throw error;
+      while (hasMore) {
+        const from = page * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
 
-      setRestaurants(data || []);
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('is_deleted', true)
+          .order('name')
+          .range(from, to);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          allRemoved.push(...data);
+          page++;
+        } else {
+          hasMore = false;
+        }
+
+        if (!data || data.length < PAGE_SIZE) {
+          hasMore = false;
+        }
+      }
+
+      setRestaurants(allRemoved);
     } catch (e: any) {
       console.error(e);
       showError('Erro ao carregar restaurantes removidos.');

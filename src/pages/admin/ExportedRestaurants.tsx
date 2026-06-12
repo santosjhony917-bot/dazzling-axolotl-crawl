@@ -253,33 +253,50 @@ export default function ExportedRestaurants() {
 
   const loadRestaurants = async () => {
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select(`
-          *,
-          menu_categories (
-            *,
-            menu_items (*)
-          ),
-          restaurant_gallery (*)
-        `)
-        .eq('visit_status', 'Visitado')
-        .or('is_deleted.eq.false,is_deleted.is.null')
-        .order('name');
-        
-      if (error) throw error;
+      const PAGE_SIZE = 999;
+      const allImported: any[] = [];
+      let page = 0;
+      let hasMore = true;
 
-      if (data) {
-        const mappedList = data.map(mapSupabaseToLocal);
-        setRestaurants(mappedList);
-        
-        // Todos do Supabase são considerados sincronizados
-        const syncedSet = new Set(data.map(item => item.id));
-        setSyncedIds(syncedSet);
-      } else {
-        setRestaurants([]);
-        setSyncedIds(new Set());
+      while (hasMore) {
+        const from = page * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
+
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select(`
+            *,
+            menu_categories (
+              *,
+              menu_items (*)
+            ),
+            restaurant_gallery (*)
+          `)
+          .eq('visit_status', 'Visitado')
+          .or('is_deleted.eq.false,is_deleted.is.null')
+          .order('name')
+          .range(from, to);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          allImported.push(...data);
+          page++;
+        } else {
+          hasMore = false;
+        }
+
+        if (!data || data.length < PAGE_SIZE) {
+          hasMore = false;
+        }
       }
+
+      const mappedList = allImported.map(mapSupabaseToLocal);
+      setRestaurants(mappedList);
+      
+      // Todos do Supabase são considerados sincronizados
+      const syncedSet = new Set(allImported.map(item => item.id));
+      setSyncedIds(syncedSet);
     } catch (e) {
       console.error(e);
       showError('Erro ao carregar os restaurantes do Supabase.');

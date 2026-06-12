@@ -479,10 +479,10 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
       });
 
       console.log(`📈 Faltam realizar ${remainingSearches.length} buscas do total de ${totalSearches}.`);
-      console.log(`🚀 Iniciando buscas paralelas com 3 abas simultâneas...\n`);
+      console.log(`🚀 Iniciando buscas paralelas com 4 abas simultâneas...\n`);
 
-      // Abre abas no navegador (já temos a página "page" padrão, criamos mais 2)
-      const CONCURRENCY = 3;
+      // Abre abas no navegador (já temos a página "page" padrão, criamos mais 3)
+      const CONCURRENCY = 4;
       const pages = [page];
       for (let c = 1; c < CONCURRENCY; c++) {
         const newPage = await browser.newPage();
@@ -698,10 +698,10 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
         : remainingList;
       
       console.log(`📈 Faltam coletar detalhes de ${targetList.length} estabelecimentos.`);
-      console.log(`🚀 Iniciando coleta paralela com 3 abas simultâneas...\n`);
+      console.log(`🚀 Iniciando coleta paralela com 4 abas simultâneas...\n`);
 
-      // Abre mais abas no navegador (já temos a página "page" padrão, criamos mais 2)
-      const CONCURRENCY = 3;
+      // Abre mais abas no navegador (já temos a página "page" padrão, criamos mais 3)
+      const CONCURRENCY = 4;
       const pages = [page];
       for (let c = 1; c < CONCURRENCY; c++) {
         const newPage = await browser.newPage();
