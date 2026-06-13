@@ -29,7 +29,12 @@ const NavItem = memo(({ icon: Icon, path, isSelected }: NavItemProps) => {
   );
 });
 
-const ClientBottomNav: React.FC = () => {
+interface ClientBottomNavProps {
+  isAiOpen?: boolean;
+  onToggleAi?: () => void;
+}
+
+const ClientBottomNav: React.FC<ClientBottomNavProps> = ({ isAiOpen = false, onToggleAi }) => {
   const location = useLocation();
   const getActivePath = (pathKey: string): boolean => {
     const currentPath = location.pathname;
@@ -89,12 +94,16 @@ const ClientBottomNav: React.FC = () => {
 
         {/* Central Floating Button - Perfectly Centered and Elevated */}
         <div className="absolute left-1/2 top-[0px] -translate-x-1/2 -translate-y-1/2 z-20">
-          <Link 
-            to="/combo-finder"
-            className="flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-transform"
+          <button 
+            type="button"
+            onClick={onToggleAi}
+            className={cn(
+              "flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-all duration-300 border-none cursor-pointer outline-none",
+              isAiOpen && "rotate-45 scale-95 bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40]"
+            )}
           >
             <Sparkles className="w-7 h-7 text-white stroke-[3]" />
-          </Link>
+          </button>
         </div>
 
       </div>

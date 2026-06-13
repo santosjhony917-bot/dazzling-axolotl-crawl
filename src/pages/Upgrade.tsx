@@ -43,28 +43,28 @@ const mockSchedule: any = {
 // --- Benefícios de Alto Impacto ---
 const premiumBenefits = [
   {
-    title: "Perfil Atraente com Capa e Fotos",
-    desc: "Clientes compram com os olhos. Adicione uma bela capa e fotos do ambiente.",
-    icon: Sparkles,
-    color: "text-amber-400 bg-amber-500/10 border border-amber-500/20"
+    title: "Venda no WhatsApp Sem Taxas (Adeus 27% do iFood)",
+    desc: "Não entregue seu lucro para apps de entrega. Enviamos o cliente direto para o seu WhatsApp com o pedido selecionado. Margem 100% sua.",
+    icon: Zap,
+    color: "text-blue-400 bg-blue-500/10 border border-blue-500/20"
   },
   {
-    title: "Destaque Total nas Buscas",
-    desc: "Fique no topo da lista na sua região e seja a primeira escolha dos clientes.",
-    icon: TrendingUp,
-    color: "text-rose-400 bg-rose-500/10 border border-rose-500/20"
-  },
-  {
-    title: "Cardápio Completo com Fotos",
-    desc: "Exiba todos os seus pratos com imagens irresistíveis, categorias e preços.",
+    title: "Substitua seu PDF Lento por um Cardápio que Converte",
+    desc: "Chega de PDFs pesados na bio que o cliente precisa dar zoom. Ofereça um cardápio interativo, rápido e com fotos que geram desejo imediato.",
     icon: Crown,
     color: "text-yellow-400 bg-yellow-500/10 border border-yellow-500/20"
   },
   {
-    title: "Links de Contato e Vendas",
-    desc: "Botões rápidos para seu WhatsApp, iFood ou site próprio direto no perfil.",
-    icon: Zap,
-    color: "text-blue-400 bg-blue-500/10 border border-blue-500/20"
+    title: "Domine as Buscas no seu Bairro (Destaque Local)",
+    desc: "Apareça no topo das pesquisas quando clientes buscarem por sua culinária no seu bairro. Não perca vendas para a concorrência.",
+    icon: TrendingUp,
+    color: "text-rose-400 bg-rose-500/10 border border-rose-500/20"
+  },
+  {
+    title: "Gere Desejo Instantâneo com Capa e Fotos do Salão",
+    desc: "Clientes compram com os olhos. Adicione uma bela foto de capa, galeria do seu ambiente e imagens irresistíveis dos seus pratos.",
+    icon: Sparkles,
+    color: "text-amber-400 bg-amber-500/10 border border-amber-500/20"
   }
 ];
 
@@ -398,10 +398,10 @@ const UpgradePageContent: React.FC = () => {
 
           <div className="space-y-1">
             <h2 className="text-sm font-extrabold text-white">
-              Torne-se Premium Hoje e Cancele Quando Quiser
+              Teste Sem Risco: Aumente Suas Vendas ou Cancele em 1 Clique
             </h2>
             <p className="text-[11px] font-semibold text-slate-400 max-w-xs mx-auto leading-normal">
-              Aproveite o preço de lançamento com desconto vitalício enquanto mantiver a assinatura.
+              Aproveite nossa oferta especial de lançamento de <span className="line-through">R$ 59,90</span> por apenas <span className="text-white font-extrabold">R$ 37,00/mês</span> com desconto vitalício. O risco é todo nosso.
             </p>
           </div>
           

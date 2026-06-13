@@ -1,14 +1,26 @@
-import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ClientBottomNav from '@/components/ClientBottomNav';
-import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav'; // Importar RestaurantBottomNav
+import RestaurantBottomNav from '@/components/restaurant/RestaurantBottomNav';
+import AiChatBalloon from '@/components/AiChatBalloon';
 import { useAuthData } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 
 const SharedLayoutWrapper: React.FC = () => {
   const location = useLocation();
-  const { restaurant, isPremium } = useAuthData(); // Obter dados do restaurante e isPremium
+  const navigate = useNavigate();
+  const { restaurant, isPremium } = useAuthData();
+
+  const [isAiOpen, setIsAiOpen] = useState(false);
+
+  // Redirecionamento automático do /combo-finder para a /home abrindo o balão de IA
+  useEffect(() => {
+    if (location.pathname === '/combo-finder') {
+      setIsAiOpen(true);
+      navigate('/home', { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   // Decidir qual barra inferior renderizar com base no perfil do usuário (Dono de Restaurante ou Cliente)
   const isRestaurantOwner = !!restaurant;
@@ -16,7 +28,7 @@ const SharedLayoutWrapper: React.FC = () => {
   // Rotas públicas de perfil de restaurante (ex: /restaurant/id)
   const isPublicRestaurantProfile = location.pathname.startsWith('/restaurant/') && !location.pathname.startsWith('/restaurant-area/');
 
-  // Ocultar barra de navegação inferior na tela do assistente IA (Combo Finder) e na sala de Happy Hour (/happy-hour/:id)
+  // Ocultar barra de navegação inferior na sala de Happy Hour (/happy-hour/:id)
   const isComboFinder = location.pathname === '/combo-finder';
   const isHappyHourRoom = location.pathname.startsWith('/happy-hour/');
   const hideBottomNav = isComboFinder || isHappyHourRoom;
@@ -31,11 +43,11 @@ const SharedLayoutWrapper: React.FC = () => {
       {/* Main content area */}
       <main
         className={cn(
-          "flex-grow mx-auto w-full min-h-screen flex flex-col shadow-none transition-colors duration-200",
+          "flex-grow mx-auto w-full min-h-screen flex flex-col shadow-none transition-colors duration-200 relative",
           isUpgradePage ? "bg-[#090D1A]" : "bg-background-light",
           !isPublicRestaurantProfile && "max-w-md border-x",
           !isPublicRestaurantProfile && (isUpgradePage ? "border-white/5" : "border-slate-200/60"),
-          !hideBottomNav && "pb-24" // Não adiciona padding se hideBottomNav for verdadeiro (sem menu inferior)
+          !hideBottomNav && "pb-24"
         )}
       >
         <motion.div
@@ -47,13 +59,18 @@ const SharedLayoutWrapper: React.FC = () => {
         >
           <Outlet />
         </motion.div>
+
+        {/* Balão do Assistente Gourmet IA */}
+        {(!isRestaurantOwner || isPremium) && (
+          <AiChatBalloon isOpen={isAiOpen} onClose={() => setIsAiOpen(false)} />
+        )}
       </main>
       
       {!hideBottomNav && (
         isRestaurantOwner ? (
-          <RestaurantBottomNav isFree={!isPremium} />
+          <RestaurantBottomNav isFree={!isPremium} isAiOpen={isAiOpen} onToggleAi={() => setIsAiOpen(prev => !prev)} />
         ) : (
-          <ClientBottomNav />
+          <ClientBottomNav isAiOpen={isAiOpen} onToggleAi={() => setIsAiOpen(prev => !prev)} />
         )
       )}
     </div>

@@ -259,6 +259,7 @@ async function checkAndHandleCaptcha(page) {
   }
 }
 
+
 function cleanRestaurantNameForSearch(name) {
   if (!name) return '';
   let clean = name.replace(/\*/g, '');
@@ -277,11 +278,12 @@ function cleanRestaurantNameForSearch(name) {
   
   const trailingNeighborhoodPattern = new RegExp(`\\s+(?:${neighborhoods.join('|')})(?![a-z0-9])\\s*$`, 'i');
   clean = clean.replace(trailingNeighborhoodPattern, '');
-
+ 
   clean = clean.replace(/\s*(?:-|\|)\s*$/, '');
-
+ 
   return clean.trim();
 }
+
 
 async function searchGoogleForSocials(page, restaurant) {
   const cleanedName = cleanRestaurantNameForSearch(restaurant.name);
@@ -904,20 +906,45 @@ async function extractBioLinkFromInstagram(page, instagramUrl, restaurantCity = 
 }
 
 async function run() {
-  console.log('📡 Buscando estabelecimentos no Supabase...');
-  const { data, error: fetchError } = await supabase
-    .from('restaurants')
-    .select('*');
-    
-  if (fetchError) {
-    console.error('❌ Erro ao buscar do Supabase:', fetchError.message);
-    process.exit(1);
+  console.log('📡 Buscando estabelecimentos no Supabase (apenas com status Pendente)...');
+  const PAGE_SIZE = 1000;
+  const allRestaurants = [];
+  let paginationPage = 0;
+  let hasMore = true;
+
+  while (hasMore) {
+    const from = paginationPage * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+
+    const { data, error: fetchError } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('visit_status', 'Pendente')
+      .or('is_deleted.eq.false,is_deleted.is.null')
+      .order('name')
+      .range(from, to);
+
+    if (fetchError) {
+      console.error('❌ Erro ao buscar do Supabase:', fetchError.message);
+      process.exit(1);
+    }
+
+    if (data && data.length > 0) {
+      allRestaurants.push(...data);
+      paginationPage++;
+    } else {
+      hasMore = false;
+    }
+
+    if (!data || data.length < PAGE_SIZE) {
+      hasMore = false;
+    }
   }
 
-  console.log(`📂 Carregados ${data.length} estabelecimentos do Supabase.`);
+  console.log(`📂 Carregados ${allRestaurants.length} estabelecimentos do Supabase.`);
 
   // Mapeia para o formato interno do enriquecedor
-  const mappedData = data.map(dbItem => {
+  const mappedData = allRestaurants.map(dbItem => {
     const socialNetworks = dbItem.social_networks || [];
     const instagram = socialNetworks.find(sn => sn && sn.platform === 'instagram')?.url || '';
     const facebook = socialNetworks.find(sn => sn && sn.platform === 'facebook')?.url || '';
@@ -984,139 +1011,159 @@ async function run() {
     args: ['--start-maximized', '--lang=pt-BR']
   });
 
-  const page = await browser.newPage();
-  await page.setExtraHTTPHeaders({
-    'Accept-Language': 'pt-BR,pt;q=0.9'
-  });
-
   let enrichedInstaCount = 0;
   let enrichedMenuCount = 0;
+  let currentPendingIndex = 0;
 
-  for (let idx = 0; idx < pending.length; idx++) {
-    const item = pending[idx];
-    console.log(`\n-------------------------------------------------------------`);
-    console.log(`[${idx + 1}/${pending.length}] Processando: "${item.name}"...`);
+  async function worker() {
+    while (true) {
+      const idx = currentPendingIndex++;
+      if (idx >= pending.length) break;
 
-    const needsInsta = !item.instagram || item.instagram.includes('facebook.com') || item.instagram.includes('instagram.com/p/') || item.instagram.trim() === '';
-    const needsMenu = !item.menuSourceUrl || item.menuSourceUrl.trim() === '';
-
-    // 1. Enriquecimento de Instagram
-    if (needsInsta) {
+      const item = pending[idx];
+      const page = await browser.newPage();
       try {
-        const foundInsta = await searchGoogleForSocials(page, item);
-        if (foundInsta) {
-          console.log(`✅ Instagram ENCONTRADO: ${foundInsta}`);
-          
-          const currentSocials = item.social_networks || [];
-          const updatedSocials = currentSocials.filter(s => s.platform !== 'instagram');
-          updatedSocials.push({ platform: 'instagram', url: foundInsta });
-          
-          const updatePayload = {
-            social_networks: updatedSocials
-          };
-          if (!item.website || item.website.includes('facebook.com') || item.website.trim() === '') {
-            updatePayload.other_url = foundInsta;
-            updatePayload.external_url = foundInsta;
-            item.website = foundInsta;
-          }
+        await page.setExtraHTTPHeaders({
+          'Accept-Language': 'pt-BR,pt;q=0.9'
+        });
 
-          console.log(`📡 [Supabase] Atualizando Instagram de "${item.name}"...`);
-          const { error: updateError } = await supabase
-            .from('restaurants')
-            .update(updatePayload)
-            .eq('id', item.id);
+        console.log(`\n-------------------------------------------------------------`);
+        console.log(`[${idx + 1}/${pending.length}] Processando: "${item.name}"...`);
+
+        const needsInsta = !item.instagram || item.instagram.includes('facebook.com') || item.instagram.includes('instagram.com/p/') || item.instagram.trim() === '';
+        const needsMenu = !item.menuSourceUrl || item.menuSourceUrl.trim() === '';
+
+        // 1. Enriquecimento de Instagram
+        if (needsInsta) {
+          try {
+            // Busca no Google
+            let foundInsta = await searchGoogleForSocials(page, item);
+            if (foundInsta) {
+              console.log(`✅ Instagram ENCONTRADO: ${foundInsta}`);
+              
+              const currentSocials = item.social_networks || [];
+              const updatedSocials = currentSocials.filter(s => s.platform !== 'instagram');
+              updatedSocials.push({ platform: 'instagram', url: foundInsta });
+              
+              const updatePayload = {
+                social_networks: updatedSocials
+              };
+              if (!item.website || item.website.includes('facebook.com') || item.website.trim() === '') {
+                updatePayload.other_url = foundInsta;
+                updatePayload.external_url = foundInsta;
+                item.website = foundInsta;
+              }
+
+              console.log(`📡 [Supabase] Atualizando Instagram de "${item.name}"...`);
+              const { error: updateError } = await supabase
+                .from('restaurants')
+                .update(updatePayload)
+                .eq('id', item.id);
+                
+              if (updateError) {
+                console.error(`⚠️ Erro ao atualizar no Supabase:`, updateError.message);
+              } else {
+                console.log(`✅ [Supabase] Instagram de "${item.name}" atualizado com sucesso!`);
+                item.instagram = foundInsta;
+                item.social_networks = updatedSocials;
+                enrichedInstaCount++;
+              }
+            } else {
+              console.log(`❌ Instagram não encontrado no Google.`);
+            }
+          } catch (err) {
+            console.error(`⚠️ Erro ao buscar Instagram para "${item.name}":`, err.message);
+          }
+          
+          await delay(1000 + Math.random() * 1000);
+        }
+
+        // 2. Enriquecimento de Cardápio
+        if (needsMenu) {
+          try {
+            let foundMenu = null;
             
-          if (updateError) {
-            console.error(`⚠️ Erro ao atualizar no Supabase:`, updateError.message);
-          } else {
-            console.log(`✅ [Supabase] Instagram de "${item.name}" atualizado com sucesso!`);
-            item.instagram = foundInsta;
-            item.social_networks = updatedSocials;
-            enrichedInstaCount++;
+            // Pega o Instagram atualizado (caso tenha sido encontrado acima, ou já existisse)
+            const currentInstagram = item.instagram;
+            const hasValidInstagram = currentInstagram && 
+                                      !currentInstagram.includes('facebook.com') && 
+                                      !currentInstagram.includes('instagram.com/p/') && 
+                                      currentInstagram.trim() !== '';
 
-          }
-        } else {
-          console.log(`❌ Instagram não encontrado no Google.`);
-        }
-      } catch (err) {
-        console.error(`⚠️ Erro ao buscar Instagram para "${item.name}":`, err.message);
-      }
-      
-      await delay(1000 + Math.random() * 1000);
-    }
-
-    // 2. Enriquecimento de Cardápio
-    if (needsMenu) {
-      try {
-        let foundMenu = null;
-        
-        // Pega o Instagram atualizado (caso tenha sido encontrado acima, ou já existisse)
-        const currentInstagram = item.instagram;
-        const hasValidInstagram = currentInstagram && 
-                                  !currentInstagram.includes('facebook.com') && 
-                                  !currentInstagram.includes('instagram.com/p/') && 
-                                  currentInstagram.trim() !== '';
-
-        if (hasValidInstagram) {
-          console.log(`📸 Tentando extrair cardápio do Instagram oficial de "${item.name}"...`);
-          foundMenu = await extractBioLinkFromInstagram(page, currentInstagram, item.city || '', item.address || '');
-          if (foundMenu) {
-            console.log(`✅ Cardápio ENCONTRADO na Bio do Instagram: ${foundMenu}`);
-          } else {
-            console.log(`⚠️ Não foi possível extrair o link da bio do Instagram. Tentando fallback no Google...`);
-          }
-        }
-
-        // Se não conseguiu pelo Instagram (ou não tinha Instagram válido), tenta buscar no Google
-        if (!foundMenu) {
-          foundMenu = await searchGoogleForMenu(page, item);
-          if (foundMenu) {
-            console.log(`✅ Cardápio ENCONTRADO no Google: ${foundMenu}`);
-          } else {
-            console.log(`❌ Cardápio não encontrado no Google.`);
-          }
-        }
-
-        if (foundMenu) {
-          console.log(`📡 [Supabase] Atualizando cardápio de "${item.name}"...`);
-          const updatePayload = {
-            other_url: foundMenu,
-            external_url: foundMenu
-          };
-          
-          if (foundMenu.includes('wa.me/') || foundMenu.includes('whatsapp.com/send')) {
-            if (!item.phone || item.phone.toLowerCase().includes('sem telefone') || item.phone.trim() === '') {
-              const extractedPhone = extractPhoneFromWhatsapp(foundMenu);
-              if (extractedPhone) {
-                console.log(`📞 Telefone extraído do novo link do WhatsApp do cardápio: ${extractedPhone}`);
-                updatePayload.phone = extractedPhone.replace(/[^\d+]/g, '');
-                item.phone = extractedPhone;
+            if (hasValidInstagram) {
+              console.log(`📸 Tentando extrair cardápio do Instagram oficial de "${item.name}"...`);
+              foundMenu = await extractBioLinkFromInstagram(page, currentInstagram, item.city || '', item.address || '');
+              if (foundMenu) {
+                console.log(`✅ Cardápio ENCONTRADO na Bio do Instagram: ${foundMenu}`);
+              } else {
+                console.log(`⚠️ Não foi possível extrair o link da bio do Instagram. Tentando fallback no Google...`);
               }
             }
-          }
-          
-          const { error: updateError } = await supabase
-            .from('restaurants')
-            .update(updatePayload)
-            .eq('id', item.id);
-            
-          if (updateError) {
-            console.error(`⚠️ Erro ao atualizar cardápio no Supabase:`, updateError.message);
-          } else {
-            console.log(`✅ [Supabase] Cardápio de "${item.name}" atualizado com sucesso!`);
-            item.menuSourceUrl = foundMenu;
-            enrichedMenuCount++;
+
+            // Se não conseguiu pelo Instagram (ou não tinha Instagram válido), tenta buscar no Google
+            if (!foundMenu) {
+              foundMenu = await searchGoogleForMenu(page, item);
+              if (foundMenu) {
+                console.log(`✅ Cardápio ENCONTRADO no Google: ${foundMenu}`);
+              } else {
+                console.log(`❌ Cardápio não encontrado no Google.`);
+              }
+            }
+
+            if (foundMenu) {
+              console.log(`📡 [Supabase] Atualizando cardápio de "${item.name}"...`);
+              const updatePayload = {
+                other_url: foundMenu,
+                external_url: foundMenu
+              };
+              
+              if (foundMenu.includes('wa.me/') || foundMenu.includes('whatsapp.com/send')) {
+                if (!item.phone || item.phone.toLowerCase().includes('sem telefone') || item.phone.trim() === '') {
+                  const extractedPhone = extractPhoneFromWhatsapp(foundMenu);
+                  if (extractedPhone) {
+                    console.log(`📞 Telefone extraído do novo link do WhatsApp do cardápio: ${extractedPhone}`);
+                    updatePayload.phone = extractedPhone.replace(/[^\d+]/g, '');
+                    item.phone = extractedPhone;
+                  }
+                }
+              }
+              
+              const { error: updateError } = await supabase
+                .from('restaurants')
+                .update(updatePayload)
+                .eq('id', item.id);
+                
+              if (updateError) {
+                console.error(`⚠️ Erro ao atualizar cardápio no Supabase:`, updateError.message);
+              } else {
+                console.log(`✅ [Supabase] Cardápio de "${item.name}" atualizado com sucesso!`);
+                item.menuSourceUrl = foundMenu;
+                enrichedMenuCount++;
+              }
+            }
+          } catch (err) {
+            console.error(`⚠️ Erro ao buscar Cardápio para "${item.name}":`, err.message);
           }
         }
+
+        const waitTime = 2000 + Math.random() * 2000;
+        console.log(`⏱️ Aguardando ${Math.round(waitTime)}ms para evitar detecção...`);
+        await delay(waitTime);
       } catch (err) {
-        console.error(`⚠️ Erro ao buscar Cardápio para "${item.name}":`, err.message);
+        console.error(`⚠️ Erro ao processar "${item.name}":`, err.message);
+      } finally {
+        await page.close();
       }
     }
-
-    const waitTime = 2000 + Math.random() * 2000;
-    console.log(`⏱️ Aguardando ${Math.round(waitTime)}ms para evitar detecção...`);
-    await delay(waitTime);
   }
+
+  // Inicia 4 workers em paralelo
+  const CONCURRENCY = 4;
+  const workers = [];
+  for (let i = 0; i < CONCURRENCY; i++) {
+    workers.push(worker());
+  }
+  await Promise.all(workers);
 
   await browser.close();
   console.log(`\n=============================================================`);
@@ -1188,7 +1235,7 @@ async function runSingle(restaurantId, field) {
 
   try {
     if (field === 'instagram') {
-      const foundInsta = await searchGoogleForSocials(page, item);
+      let foundInsta = await searchGoogleForSocials(page, item);
       if (foundInsta) {
         console.log(`✅ Instagram ENCONTRADO: ${foundInsta}`);
         

@@ -126,7 +126,7 @@ export default function HappyHourHub() {
   };
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen flex flex-col w-full pb-20 font-['Poppins']">
+    <div className="bg-background-light min-h-screen flex flex-col w-full pb-20 font-['Poppins']">
       
       <Header 
         title="Happy Hours"
@@ -156,6 +156,10 @@ export default function HappyHourHub() {
                 className="cursor-pointer"
               >
                 <div className="flex items-center gap-3.5 p-4 rounded-[24px] bg-white border border-slate-100/80 shadow-soft hover:shadow-float transition-all duration-300 relative overflow-hidden group">
+                  {/* Top and Bottom Ticket Cutouts */}
+                  <div className="absolute -top-2 left-[82px] w-4 h-4 bg-background-light border border-slate-100 rounded-full z-10" />
+                  <div className="absolute -bottom-2 left-[82px] w-4 h-4 bg-background-light border border-slate-100 rounded-full z-10" />
+
                   {/* Ticket de Data */}
                   <div className="w-[60px] h-[72px] rounded-2xl bg-slate-50 border border-slate-100/80 flex flex-col overflow-hidden shrink-0 shadow-sm relative z-10">
                     <div className="bg-[#EF2A39] text-white text-[9px] font-extrabold py-1 text-center uppercase tracking-wider">
@@ -167,11 +171,8 @@ export default function HappyHourHub() {
                     </div>
                   </div>
 
-                  {/* Separador tracejado vertical com cutouts de ticket */}
-                  <div className="h-16 border-l border-dashed border-slate-200 relative mx-1 shrink-0">
-                    <div className="absolute -top-[24px] -left-[7px] w-3.5 h-3.5 bg-[#F8FAFC] border border-slate-100 rounded-full z-10 shadow-[inset_0_-1px_1px_rgba(0,0,0,0.02)]" />
-                    <div className="absolute -bottom-[24px] -left-[7px] w-3.5 h-3.5 bg-[#F8FAFC] border border-slate-100 rounded-full z-10 shadow-[inset_0_1px_1px_rgba(0,0,0,0.02)]" />
-                  </div>
+                  {/* Separador tracejado vertical */}
+                  <div className="h-16 border-l border-dashed border-slate-200 relative mx-1 shrink-0" />
 
                   {/* Conteúdo */}
                   <div className="flex-grow min-w-0 pr-1">
@@ -202,14 +203,39 @@ export default function HappyHourHub() {
                     )}
 
                     <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100/50">
-                      <div className="flex items-center gap-1 text-[11px] text-slate-400 font-semibold">
-                        <Clock className="w-3.5 h-3.5 text-[#EF2A39]" />
-                        <span>às {formatEventTime(hh.date_time)}</span>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1 text-[11px] text-slate-400 font-semibold">
+                          <Clock className="w-3.5 h-3.5 text-[#EF2A39]" />
+                          <span>às {formatEventTime(hh.date_time)}</span>
+                        </div>
+
+                        {hh.participants && hh.participants.length > 0 && (
+                          <span className="text-slate-200 text-xs">|</span>
+                        )}
+
+                        {hh.participants && hh.participants.length > 0 && (
+                          <div className="flex items-center -space-x-1.5">
+                            {hh.participants.slice(0, 3).map((p, idx) => (
+                              <div key={idx} className="relative z-10 border-2 border-white rounded-full overflow-hidden w-6 h-6 shrink-0 shadow-sm bg-slate-50">
+                                <img
+                                  src={p.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${p.first_name || 'User'}&backgroundColor=fef2f2`}
+                                  alt={p.first_name || 'Participante'}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            ))}
+                            {hh.participants.length > 3 && (
+                              <span className="w-6 h-6 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center text-[7px] font-black text-slate-500 z-10">
+                                +{hh.participants.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex items-center gap-1 text-[11px] text-[#EF2A39] hover:text-[#EF2A39]/80 font-bold transition-colors">
                         <MessageSquare className="w-3.5 h-3.5" />
-                        <span>Entrar na Sala</span>
+                        <span>Entrar</span>
                       </div>
                     </div>
                   </div>

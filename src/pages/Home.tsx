@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown } from 'lucide-react';
+import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown, X, Play, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import { createPageUrl } from '@/utils/url';
@@ -12,6 +12,14 @@ import { Button } from '@/components/ui/button';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useAuthData } from '@/context/AuthContext';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import {
+  ChefPlatterIllustration,
+  ComboIllustration,
+  BurgerIllustration,
+  CupcakeIllustration,
+  PizzaIllustration,
+  SaladIllustration
+} from '@/components/icons/CategoryDrawings';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +30,98 @@ const Home: React.FC = () => {
   const { restaurant } = useAuthData();
   const isRestaurantOwner = !!restaurant;
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+
+  const recommendedPosts = useMemo(() => [
+    {
+      id: 'post-1',
+      restaurantId: '1',
+      restaurantName: 'Sabor Premium',
+      restaurantLogo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop',
+      type: 'video',
+      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-delicious-pizza-slice-lifted-with-cheese-stretch-41585-large.mp4',
+      caption: 'A verdadeira pizza artesanal com borda recheada e muuuito queijo! 🍕🤤',
+      likes: 124
+    },
+    {
+      id: 'post-2',
+      restaurantId: '2',
+      restaurantName: 'Lancheira do Zé',
+      restaurantLogo: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=100&h=100&fit=crop',
+      type: 'video',
+      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-hamburger-on-a-plate-41618-large.mp4',
+      caption: 'Smash Burger duplo artesanal saindo quentinho na chapa! 🍔🔥',
+      likes: 98
+    },
+    {
+      id: 'post-3',
+      restaurantId: '3',
+      restaurantName: 'Doce Sonho Caffé',
+      restaurantLogo: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=100&h=100&fit=crop',
+      type: 'video',
+      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-honey-on-pancakes-41613-large.mp4',
+      caption: 'Melhor forma de começar o dia: panquecas fofinhas e muito mel! 🥞☕',
+      likes: 85
+    },
+    {
+      id: 'post-4',
+      restaurantId: '4',
+      restaurantName: 'Chefs Salad Bar',
+      restaurantLogo: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop',
+      type: 'video',
+      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-preparing-a-fresh-vegetable-salad-41586-large.mp4',
+      caption: 'Ingredientes frescos e selecionados para a sua salada perfeita. 🥗💚',
+      likes: 64
+    }
+  ], []);
+
+  const [activeStoryIndex, setActiveStoryIndex] = useState<number | null>(null);
+  const [storyProgress, setStoryProgress] = useState(0);
+
+  useEffect(() => {
+    if (activeStoryIndex === null) return;
+    
+    setStoryProgress(0);
+    const duration = 6000; // 6 segundos por história
+    const intervalTime = 100;
+    const step = (intervalTime / duration) * 100;
+    
+    const timer = setInterval(() => {
+      setStoryProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          if (activeStoryIndex < recommendedPosts.length - 1) {
+            setActiveStoryIndex(activeStoryIndex + 1);
+          } else {
+            setActiveStoryIndex(null); // Fechar ao terminar tudo
+          }
+          return 0;
+        }
+        return prev + step;
+      });
+    }, intervalTime);
+    
+    return () => clearInterval(timer);
+  }, [activeStoryIndex, recommendedPosts]);
+
+  const handlePrevStory = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeStoryIndex === null) return;
+    if (activeStoryIndex > 0) {
+      setActiveStoryIndex(activeStoryIndex - 1);
+    } else {
+      setStoryProgress(0);
+    }
+  };
+
+  const handleNextStory = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeStoryIndex === null) return;
+    if (activeStoryIndex < recommendedPosts.length - 1) {
+      setActiveStoryIndex(activeStoryIndex + 1);
+    } else {
+      setActiveStoryIndex(null);
+    }
+  };
 
   // Parsear amigavelmente o endereço para exibição compacta (ex: Bairro)
   const locationDisplayName = useMemo(() => {
@@ -59,6 +159,12 @@ const Home: React.FC = () => {
       return;
     }
     navigate(createPageUrl('search', undefined, { searchQuery, searchType: 'dish' }));
+  };
+
+  const getRestaurantRealId = (name: string, fallbackId: string) => {
+    if (!restaurants) return fallbackId;
+    const found = restaurants.find(r => r.name.toLowerCase().includes(name.toLowerCase()));
+    return found ? found.id : fallbackId;
   };
 
   // Filtragem local dos restaurantes baseado na categoria selecionada
@@ -233,62 +339,119 @@ const Home: React.FC = () => {
         )}
       </div>
 
+      {/* Sessão Recomendados (Destaques dos Restaurantes) */}
+      <div className="mb-8 pl-5">
+        <div className="flex justify-between items-center pr-5 mb-4">
+          <h2 className="font-['Poppins'] font-bold text-[18px] text-[#3C2F2F] flex items-center gap-1.5">
+            Recomendados <span className="inline-block w-2 h-2 rounded-full bg-[#EF2A39] animate-pulse" />
+          </h2>
+          <span className="text-[11px] font-bold text-[#EF2A39] bg-[#EF2A39]/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
+            Destaques
+          </span>
+        </div>
+
+        <ScrollArea className="w-full whitespace-nowrap">
+          <div className="flex gap-4 pr-5 pb-2">
+            {recommendedPosts.map((post, idx) => (
+              <div
+                key={post.id}
+                onClick={() => setActiveStoryIndex(idx)}
+                className="inline-block w-[150px] h-[220px] rounded-[24px] overflow-hidden relative shadow-[0_8px_20px_rgba(0,0,0,0.12)] border border-slate-100 cursor-pointer active:scale-[0.97] transition-all duration-200 group"
+              >
+                {/* Media */}
+                {post.type === 'video' ? (
+                  <video
+                    src={post.mediaUrl}
+                    className="w-full h-full object-cover pointer-events-none"
+                    loop
+                    muted
+                    autoPlay
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={post.mediaUrl}
+                    alt={post.caption}
+                    className="w-full h-full object-cover pointer-events-none"
+                  />
+                )}
+
+                {/* Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+
+                {/* Top header with restaurant name & logo */}
+                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center gap-1.5 z-10 max-w-full">
+                  <div className="w-6 h-6 rounded-full border border-white/60 p-[1px] bg-white overflow-hidden shrink-0">
+                    <img
+                      src={post.restaurantLogo}
+                      alt={post.restaurantName}
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  </div>
+                  <span className="text-[10px] font-bold text-white truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                    {post.restaurantName}
+                  </span>
+                </div>
+
+                {/* Bottom caption and likes */}
+                <div className="absolute bottom-3 left-3 right-3 whitespace-normal flex flex-col gap-1 z-10 pointer-events-none">
+                  <p className="text-[10.5px] font-semibold text-white/95 leading-tight line-clamp-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                    {post.caption}
+                  </p>
+                  <div className="flex items-center gap-1 text-[9px] font-bold text-white/80 mt-0.5">
+                    <Heart className="w-3 h-3 fill-[#EF2A39] text-[#EF2A39]" />
+                    <span>{post.likes}</span>
+                  </div>
+                </div>
+
+                {/* Play Button Overlay (Videos) */}
+                {post.type === 'video' && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <div className="p-2 bg-black/40 text-white rounded-full">
+                      <Play className="w-4 h-4 fill-white text-white translate-x-[1px]" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" className="hidden" />
+        </ScrollArea>
+      </div>
+
       {/* Categorias — estilo círculo com foto + label */}
       <div className="mb-10 pl-5">
         <ScrollArea className="w-full whitespace-nowrap">
           <div className="flex gap-5 pr-5 pb-2 pt-1">
             {[
-              {
-                id: 'all',
-                label: 'Tudo',
-                img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=120&h=120&fit=crop&crop=center',
-              },
-              {
-                id: 'combos',
-                label: 'Combos',
-                img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&h=120&fit=crop&crop=center',
-              },
-              {
-                id: 'lanches',
-                label: 'Lanches',
-                img: 'https://images.unsplash.com/photo-1550317138-10000687a72b?w=120&h=120&fit=crop&crop=center',
-              },
-              {
-                id: 'sobremesas',
-                label: 'Sobremesas',
-                img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=120&h=120&fit=crop&crop=center',
-              },
-              {
-                id: 'pizza',
-                label: 'Pizza',
-                img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=120&h=120&fit=crop&crop=center',
-              },
-              {
-                id: 'saudavel',
-                label: 'Saudável',
-                img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=120&h=120&fit=crop&crop=center',
-              },
+              { id: 'all', label: 'Tudo', icon: ChefPlatterIllustration },
+              { id: 'combos', label: 'Combos', icon: ComboIllustration },
+              { id: 'lanches', label: 'Lanches', icon: BurgerIllustration },
+              { id: 'sobremesas', label: 'Sobremesas', icon: CupcakeIllustration },
+              { id: 'pizza', label: 'Pizza', icon: PizzaIllustration },
+              { id: 'saudavel', label: 'Saudável', icon: SaladIllustration },
             ].map((cat) => {
               const isSelected = selectedCategory === cat.id;
+              const IconComponent = cat.icon;
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className="flex flex-col items-center gap-2 active:scale-95 transition-transform duration-150"
                 >
-                  {/* Círculo com foto */}
+                  {/* Círculo com ilustração vetorial */}
                   <div
-                    className={`w-[68px] h-[68px] rounded-full p-[3px] transition-all duration-200 ${
+                    className={`w-[68px] h-[68px] rounded-full p-[2px] transition-all duration-200 ${
                       isSelected
                         ? 'bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shadow-[0_6px_18px_rgba(239,42,57,0.40)]'
-                        : 'bg-[#E8EAED] shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
+                        : 'bg-transparent shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
                     }`}
                   >
-                    <img
-                      src={cat.img}
-                      alt={cat.label}
-                      className="w-full h-full rounded-full object-cover"
-                    />
+                    <div className={`w-full h-full rounded-full flex items-center justify-center transition-colors duration-200 ${
+                      isSelected ? 'bg-white' : 'bg-white border border-slate-100/80'
+                    }`}>
+                      <IconComponent className="w-11 h-11" />
+                    </div>
                   </div>
                   {/* Label */}
                   <span
@@ -414,6 +577,128 @@ const Home: React.FC = () => {
         currentAddress={location.address}
         onLocationSaved={refetchLocation}
       />
+
+      {/* Modal Visualizador de Destaques (Stories) */}
+      {activeStoryIndex !== null && (
+        <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-[60] bg-black/95 flex flex-col justify-between p-4 backdrop-blur-md">
+          {/* Progress Bars */}
+          <div className="flex gap-1.5 w-full mt-2">
+            {recommendedPosts.map((_, idx) => (
+              <div key={idx} className="flex-1 h-[3px] bg-white/20 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-white transition-all duration-100 ease-linear"
+                  style={{
+                    width:
+                      idx < activeStoryIndex
+                        ? '100%'
+                        : idx === activeStoryIndex
+                        ? `${storyProgress}%`
+                        : '0%',
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Header */}
+          <div className="flex justify-between items-center w-full text-white mt-4 px-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full border border-white/40 p-[1px] bg-white overflow-hidden shrink-0">
+                <img
+                  src={recommendedPosts[activeStoryIndex].restaurantLogo}
+                  alt={recommendedPosts[activeStoryIndex].restaurantName}
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-sm leading-none">
+                  {recommendedPosts[activeStoryIndex].restaurantName}
+                </span>
+                <span className="text-[10px] text-white/60 mt-0.5">Destaque recomendado</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setActiveStoryIndex(null)}
+              className="p-1.5 hover:bg-white/10 text-white rounded-full transition-colors border-none cursor-pointer"
+            >
+              <X className="w-5 h-5 stroke-[2.5]" />
+            </button>
+          </div>
+
+          {/* Media Body */}
+          <div className="flex-grow flex items-center justify-center relative my-6">
+            {/* Clickable regions for prev/next navigation */}
+            <div
+              onClick={handlePrevStory}
+              className="absolute left-0 top-0 bottom-0 w-[30%] z-20 cursor-pointer"
+            />
+            <div
+              onClick={handleNextStory}
+              className="absolute right-0 top-0 bottom-0 w-[70%] z-20 cursor-pointer"
+            />
+
+            {/* Content */}
+            {recommendedPosts[activeStoryIndex].type === 'video' ? (
+              <video
+                key={recommendedPosts[activeStoryIndex].id}
+                src={recommendedPosts[activeStoryIndex].mediaUrl}
+                className="max-w-full max-h-[68vh] rounded-2xl object-contain shadow-2xl z-10"
+                loop
+                muted
+                autoPlay
+                playsInline
+              />
+            ) : (
+              <img
+                key={recommendedPosts[activeStoryIndex].id}
+                src={recommendedPosts[activeStoryIndex].mediaUrl}
+                alt={recommendedPosts[activeStoryIndex].caption}
+                className="max-w-full max-h-[68vh] rounded-2xl object-contain shadow-2xl z-10"
+              />
+            )}
+
+            {/* Left & Right arrow indicators (desktop-friendly overlay) */}
+            {activeStoryIndex > 0 && (
+              <button
+                onClick={handlePrevStory}
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-30 transition-all active:scale-90 border-none cursor-pointer hidden sm:flex"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+            )}
+            {activeStoryIndex < recommendedPosts.length - 1 && (
+              <button
+                onClick={handleNextStory}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full z-30 transition-all active:scale-90 border-none cursor-pointer hidden sm:flex"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+
+          {/* Footer details */}
+          <div className="flex flex-col gap-4 pb-6 text-white px-2 z-30">
+            <p className="text-sm font-semibold leading-snug text-white/95">
+              {recommendedPosts[activeStoryIndex].caption}
+            </p>
+            <Button
+              onClick={() => {
+                const targetId = getRestaurantRealId(
+                  recommendedPosts[activeStoryIndex].restaurantName,
+                  recommendedPosts[activeStoryIndex].restaurantId
+                );
+                setActiveStoryIndex(null);
+                navigate(createPageUrl('restaurantProfile', { restaurantId: targetId }));
+              }}
+              className="w-full bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold h-12 rounded-[18px] flex items-center justify-center gap-2 active:scale-98 transition-transform border-none cursor-pointer"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Ver Restaurante e Cardápio
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

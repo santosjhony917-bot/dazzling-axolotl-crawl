@@ -511,45 +511,43 @@ export default function HappyHourRoom() {
           </div>
         </div>
 
-        {/* Tab Buttons */}
-        <div className="relative flex w-full border-b border-slate-200/60 mt-1 pb-0 bg-transparent px-2">
-          {/* Active line indicator sliding */}
-          <motion.div
-            layoutId="active-happyhour-tab-line"
-            className="absolute bottom-0 h-[2.5px] bg-[#EF2A39] rounded-full"
-            style={{
-              left: activeTab === 'chat' ? '15%' : '65%',
-              width: '20%',
-            }}
-            initial={false}
-            transition={{ type: "spring", stiffness: 500, damping: 35 }}
-          />
+        {/* Tab Buttons - Segmented Control style */}
+        <div className="px-4 mb-2 mt-1">
+          <div className="relative flex w-full p-1 bg-slate-100 rounded-full border-none">
+            {/* Active slide pill background */}
+            <motion.div
+              layoutId="active-happyhour-tab-pill"
+              className="absolute top-1 bottom-1 bg-white rounded-full shadow-sm"
+              style={{
+                left: activeTab === 'chat' ? '4px' : '50%',
+                width: 'calc(50% - 4px)',
+              }}
+              initial={false}
+              transition={{ type: "spring", stiffness: 450, damping: 32 }}
+            />
 
-          <button
-            onClick={() => setActiveTab('chat')}
-            className={cn(
-              "flex-grow flex items-center justify-center gap-1.5 h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
-              activeTab === 'chat'
-                ? "text-slate-800 font-black"
-                : "text-slate-400 hover:text-slate-600"
-            )}
-          >
-            <MessageSquare className="w-4 h-4" />
-            Conversa
-          </button>
+            <button
+              onClick={() => setActiveTab('chat')}
+              className={cn(
+                "flex-grow flex items-center justify-center gap-1.5 h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
+                activeTab === 'chat' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
+              )}
+            >
+              <MessageSquare className="w-4 h-4" />
+              Conversa
+            </button>
 
-          <button
-            onClick={() => setActiveTab('poll')}
-            className={cn(
-              "flex-grow flex items-center justify-center gap-1.5 h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
-              activeTab === 'poll'
-                ? "text-slate-800 font-black"
-                : "text-slate-400 hover:text-slate-600"
-            )}
-          >
-            <Vote className="w-4 h-4" />
-            Votação ({details.pollRestaurants.length})
-          </button>
+            <button
+              onClick={() => setActiveTab('poll')}
+              className={cn(
+                "flex-grow flex items-center justify-center gap-1.5 h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
+                activeTab === 'poll' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
+              )}
+            >
+              <Vote className="w-4 h-4" />
+              Votação ({details.pollRestaurants.length})
+            </button>
+          </div>
         </div>
       </header>
 
@@ -611,23 +609,25 @@ export default function HappyHourRoom() {
               <div ref={chatBottomRef} />
             </div>
 
-            {/* Chat message input form */}
-            <form onSubmit={handleSendMessage} className="p-3 bg-white border-t border-slate-100 flex gap-2 shrink-0">
-              <Input
-                type="text"
-                placeholder="Escreva uma mensagem..."
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-grow h-11 rounded-2xl border border-slate-200 bg-background-light focus:bg-white text-base"
-              />
-              <Button
-                type="submit"
-                disabled={sendingMsg || !newMessage.trim()}
-                className="bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 w-11 p-0 shrink-0 shadow-none"
-              >
-                {sendingMsg ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-              </Button>
-            </form>
+            {/* Chat message input form - Floating Card style */}
+            <div className="p-3 bg-gradient-to-t from-slate-50 via-slate-50/95 to-transparent border-none shrink-0 z-35">
+              <form onSubmit={handleSendMessage} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-1.5 pl-3.5 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100/80 max-w-md mx-auto w-full group focus-within:border-[#EF2A39]/30 transition-all duration-300">
+                <Input
+                  type="text"
+                  placeholder="Escreva uma mensagem..."
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  className="flex-grow border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-1 text-sm text-[#3C2F2F] placeholder-slate-400 font-medium h-11"
+                />
+                <Button
+                  type="submit"
+                  disabled={sendingMsg || !newMessage.trim()}
+                  className="h-11 w-11 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-none"
+                >
+                  {sendingMsg ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Send className="w-4.5 h-4.5 text-white" />}
+                </Button>
+              </form>
+            </div>
           </div>
         )}
 
@@ -635,18 +635,22 @@ export default function HappyHourRoom() {
         {activeTab === 'poll' && (
           <div className="p-4 space-y-4 pb-20">
             
-            {/* Highlight do Vencedor Atual */}
+            {/* Highlight do Vencedor Atual (Trophy Card) */}
             {winnerData && (
-              <div className="bg-gradient-to-r from-[#EF2A39] to-[#FF5A66] p-4 rounded-2xl text-white shadow-soft flex items-center gap-3 border border-red-400/20">
-                <div className="bg-white/15 p-2.5 rounded-2xl backdrop-blur-md">
-                  <Trophy className="w-6 h-6 text-yellow-300 fill-yellow-300 drop-shadow-[0_2px_4px_rgba(234,179,8,0.3)] animate-pulse" />
+              <div className="bg-gradient-to-br from-[#EF2A39] via-[#EF2A39] to-[#FF7E40] p-5 rounded-[24px] text-white shadow-[0_12px_28px_rgba(239,42,57,0.25)] border border-white/10 relative overflow-hidden flex items-center gap-4">
+                {/* Background decorative circles */}
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
+                <div className="absolute -top-6 -left-6 w-16 h-16 rounded-full bg-white/5 pointer-events-none" />
+                
+                <div className="bg-white/15 p-3 rounded-2xl backdrop-blur-md relative z-10 shrink-0">
+                  <Trophy className="w-7 h-7 text-yellow-300 fill-yellow-300 drop-shadow-[0_2px_5px_rgba(234,179,8,0.4)] animate-pulse" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[9px] uppercase font-extrabold tracking-widest text-white/85">Lugar Favorito no Momento</p>
-                  <h4 className="text-base font-black truncate leading-snug">
+                <div className="flex-grow min-w-0 relative z-10">
+                  <p className="text-[9px] uppercase font-black tracking-widest text-white/80">Lugar Favorito no Momento</p>
+                  <h4 className="text-lg font-black truncate leading-snug mt-0.5">
                     {winnerData.winner.name}
                   </h4>
-                  <p className="text-[10px] text-white/95 font-semibold mt-0.5">
+                  <p className="text-[10px] text-white/95 font-bold mt-1">
                     {winnerData.hasTie ? 'Empatado' : `${winnerData.winner.votesCount} ${winnerData.winner.votesCount === 1 ? 'voto' : 'votos'}`}
                   </p>
                 </div>
@@ -661,7 +665,7 @@ export default function HappyHourRoom() {
                   onClick={() => setIsPollDialogOpen(true)}
                   size="sm"
                   variant="outline"
-                  className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-background-light gap-1.5 shadow-none"
+                  className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#EF2A39]/10 hover:text-[#EF2A39] hover:border-[#EF2A39]/20 gap-1.5 shadow-none transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Sugerir Lugar
@@ -682,13 +686,13 @@ export default function HappyHourRoom() {
                     <Card 
                       key={pr.restaurant_id} 
                       className={cn(
-                        "border bg-white rounded-[20px] overflow-hidden transition-all duration-300",
+                        "border bg-white rounded-[24px] overflow-hidden transition-all duration-300",
                         hasUserVoted 
-                          ? "border-highlight shadow-soft ring-1 ring-highlight/10" 
+                          ? "border-[#EF2A39] shadow-soft ring-1 ring-[#EF2A39]/10" 
                           : "border-slate-100/80 hover:border-slate-200 hover:shadow-soft"
                       )}
                     >
-                      <CardContent className="p-3.5 flex items-center justify-between gap-3">
+                      <CardContent className="p-4 flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3.5 min-w-0 flex-1">
                           <img
                             src={pr.image_url || 'https://via.placeholder.com/150?text=Restaurante'}
@@ -699,7 +703,7 @@ export default function HappyHourRoom() {
                             <h4 className="text-sm font-black text-slate-800 truncate leading-tight">
                               {pr.name}
                             </h4>
-                            <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
+                            <p className="text-[10px] text-[#EF2A39] font-extrabold flex items-center gap-1 mt-1">
                               <Utensils className="w-3 h-3 text-[#EF2A39]" />
                               {pr.category || 'Alimentação'}
                             </p>
@@ -715,12 +719,12 @@ export default function HappyHourRoom() {
                               <div className="flex items-center gap-1 mt-2">
                                 <div className="flex -space-x-1.5 overflow-hidden">
                                   {pr.voters.slice(0, 4).map((v) => (
-                                    <div key={v.user_id} className="relative z-10 hover:z-20 transition-all">
+                                    <div key={v.user_id} className="relative z-10 hover:z-25 transition-all">
                                       {renderUserAvatar({ id: v.user_id, first_name: v.first_name, avatar_url: v.avatar_url || null }, "w-5 h-5 text-[8px] border border-white shadow-xs")}
                                     </div>
                                   ))}
                                 </div>
-                                <span className="text-[9px] text-slate-400 font-bold ml-1">
+                                <span className="text-[9px] text-slate-450 font-bold ml-1">
                                   {pr.voters.length === 1 ? 'votou' : 'votaram'}
                                 </span>
                               </div>
@@ -732,14 +736,14 @@ export default function HappyHourRoom() {
                         <Button
                           onClick={() => handleVote(pr.restaurant_id)}
                           className={cn(
-                            "h-11 rounded-[16px] px-3.5 flex flex-col items-center justify-center shrink-0 min-w-[68px] transition-all duration-250 active:scale-95 border",
+                            "h-12 rounded-[18px] px-4.5 flex flex-col items-center justify-center shrink-0 min-w-[72px] transition-all duration-200 active:scale-95 border",
                             hasUserVoted 
-                              ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-soft hover:bg-[#EF2A39]/90" 
-                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900"
+                              ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-[0_4px_12px_rgba(239,42,57,0.3)] hover:bg-[#EF2A39]/95" 
+                              : "bg-white text-slate-705 border-slate-202 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900"
                           )}
                         >
                           <span className="text-base font-black leading-none">{pr.votesCount}</span>
-                          <span className="text-[8px] uppercase tracking-widest font-black mt-0.5 flex items-center gap-0.5">
+                          <span className="text-[8px] uppercase tracking-widest font-black mt-1.5 flex items-center gap-0.5">
                             {hasUserVoted && <Check className="w-2.5 h-2.5 shrink-0 stroke-[3px]" />}
                             Votos
                           </span>

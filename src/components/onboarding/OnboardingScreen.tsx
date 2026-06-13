@@ -71,9 +71,20 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
               {features.map((feature, index) => (
                 <motion.div 
                   key={index}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.5 + index * 0.1, duration: 0.4, type: "spring" }}
+                  initial={{ scale: 0, y: 0 }}
+                  animate={{ 
+                    scale: 1,
+                    y: [0, -8, 0]
+                  }}
+                  transition={{ 
+                    scale: { delay: 0.5 + index * 0.1, duration: 0.4, type: "spring" },
+                    y: { 
+                      duration: 3, 
+                      repeat: Infinity, 
+                      ease: "easeInOut",
+                      delay: index * 0.5 
+                    } 
+                  }}
                   className="flex flex-col items-center gap-2"
                 >
                   <div className="w-[72px] h-[72px] rounded-[24px] flex items-center justify-center bg-gradient-to-br from-[#EF2A39]/10 to-[#EF2A39]/05 shadow-[0_8px_20px_rgba(239,42,57,0.06)] border border-[#EF2A39]/10 transition-transform hover:scale-105">

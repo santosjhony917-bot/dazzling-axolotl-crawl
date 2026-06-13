@@ -22,12 +22,8 @@ const NavItem = memo(({ icon: Icon, path, isSelected }: { icon: React.ElementTyp
   );
 });
 
-const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
+const RestaurantBottomNav = memo(({ isFree, isAiOpen, onToggleAi }: { isFree: boolean, isAiOpen?: boolean, onToggleAi?: () => void }) => {
   const location = useLocation();
-  
-  const centralItem = isFree 
-    ? { id: 'upgrade', icon: Crown, path: createPageUrl('restaurant-area/upgrade') as string }
-    : { id: 'chat', icon: Sparkles, path: '/combo-finder' };
 
   const isPathActive = (itemPath: string) => {
     const currentPath = location.pathname.replace(/\/$/, '').split('?')[0];
@@ -35,8 +31,6 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
     return currentPath === normalizedItemPath || 
            (normalizedItemPath === createPageUrl('restaurant-area/profile-menu') && currentPath.startsWith(normalizedItemPath));
   };
-
-  const CenterIcon = centralItem.icon;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none pb-0">
@@ -88,12 +82,25 @@ const RestaurantBottomNav = memo(({ isFree }: { isFree: boolean }) => {
 
         {/* Central Floating Button - Perfectly Centered and Elevated */}
         <div className="absolute left-1/2 top-[0px] -translate-x-1/2 -translate-y-1/2 z-20">
-          <Link 
-            to={centralItem.path}
-            className="flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-transform"
-          >
-            <CenterIcon className="w-7 h-7 text-white stroke-[3]" />
-          </Link>
+          {isFree ? (
+            <Link 
+              to={createPageUrl('restaurant-area/upgrade') as string}
+              className="flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-transform"
+            >
+              <Crown className="w-7 h-7 text-white stroke-[3]" />
+            </Link>
+          ) : (
+            <button 
+              type="button"
+              onClick={onToggleAi}
+              className={cn(
+                "flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-all duration-300 border-none cursor-pointer outline-none",
+                isAiOpen && "rotate-45 scale-95 bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40]"
+              )}
+            >
+              <Sparkles className="w-7 h-7 text-white stroke-[3]" />
+            </button>
+          )}
         </div>
 
       </div>

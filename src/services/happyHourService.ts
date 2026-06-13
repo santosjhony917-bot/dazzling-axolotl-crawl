@@ -8,6 +8,7 @@ export interface HappyHour {
   date_time: string;
   created_by: string;
   created_at: string;
+  participants?: Profile[];
 }
 
 export interface ChatMessage {
@@ -204,9 +205,20 @@ export async function getHappyHours(currentUserId: string): Promise<HappyHour[]>
   if (currentUserId.startsWith('mock-')) {
     const store = loadMockStore(currentUserId);
     // Filtra happy hours onde o usuário está na lista de participantes
-    return store.happyHours.filter(hh => {
+    const filtered = store.happyHours.filter(hh => {
       const parts = store.participants[hh.id] || [];
       return parts.includes(currentUserId);
+    });
+
+    return filtered.map(hh => {
+      const partIds = store.participants[hh.id] || [];
+      const participants: Profile[] = partIds.map(pid => {
+        if (pid === currentUserId) {
+          return { id: pid, first_name: 'Você', last_name: '', avatar_url: null, updated_at: '' };
+        }
+        return MOCK_PROFILES_MAP[pid] || { id: pid, first_name: 'Usuário', last_name: '', avatar_url: null, updated_at: '' };
+      });
+      return { ...hh, participants };
     });
   }
 
@@ -230,9 +242,40 @@ export async function getHappyHours(currentUserId: string): Promise<HappyHour[]>
     return [];
   }
 
-  return (data || [])
+  const hhs = (data || [])
     .map((item: any) => item.happy_hour)
     .filter(Boolean) as HappyHour[];
+
+  const hhIds = hhs.map(h => h.id);
+  if (hhIds.length === 0) return [];
+
+  // Busca todos os participantes para estes Happy Hours
+  const { data: allParts, error: partsErr } = await supabase
+    .from('happy_hour_participants')
+    .select(`
+      happy_hour_id,
+      profile:profiles (
+        id,
+        first_name,
+        last_name,
+        avatar_url,
+        updated_at
+      )
+    `)
+    .in('happy_hour_id', hhIds);
+
+  if (partsErr) {
+    console.error('Error fetching participants for happy hours:', partsErr);
+    return hhs;
+  }
+
+  return hhs.map(hh => {
+    const hhParticipants = (allParts || [])
+      .filter((p: any) => p.happy_hour_id === hh.id)
+      .map((p: any) => p.profile)
+      .filter(Boolean) as Profile[];
+    return { ...hh, participants: hhParticipants };
+  });
 }
 
 export interface HappyHourDetails {

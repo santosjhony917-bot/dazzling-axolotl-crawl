@@ -87,6 +87,13 @@ async function saveToSupabase(scrapedItem) {
       if (matchLat && matchLng) {
         latitude = parseFloat(matchLat[1]);
         longitude = parseFloat(matchLng[1]);
+      } else {
+        // Fallback para formato @latitude,longitude
+        const matchAt = scrapedItem.googleMapsUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (matchAt) {
+          latitude = parseFloat(matchAt[1]);
+          longitude = parseFloat(matchAt[2]);
+        }
       }
     }
 

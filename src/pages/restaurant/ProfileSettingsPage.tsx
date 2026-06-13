@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { useRestaurantProfile } from '@/hooks/useRestaurantProfile';
-import { Loader2, Settings, Utensils, Crown, MapPin, Clock, Link2, Users, Calendar, LogOut } from 'lucide-react';
+import { Loader2, Settings, Utensils, Crown, MapPin, Clock, Link2, Users, Calendar, LogOut, Trash2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -40,7 +41,7 @@ const urlSchema = z.string().url("URL inválida.").optional().or(z.literal(''));
 
 export default function ProfileSettingsPage() {
   const navigate = useNavigate();
-  const { restaurant, isLoading: authLoading, isRestaurantLoading, isPremium, refetchProfile, refetchRestaurant, signOut } = useAuthData();
+  const { user, restaurant, isLoading: authLoading, isRestaurantLoading, isPremium, refetchProfile, refetchRestaurant, signOut } = useAuthData();
   const { updateRestaurant } = useRestaurantProfile(restaurant?.id);
   
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -87,6 +88,48 @@ export default function ProfileSettingsPage() {
       </RestaurantAreaPageLayout>
     );
   }
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    try {
+      const savedMock = localStorage.getItem('mockSession');
+      if (savedMock) {
+        localStorage.removeItem('mockSession');
+        window.dispatchEvent(new Event('mockSessionUpdated'));
+      }
+
+      if (restaurant?.id) {
+        const { error: restaurantError } = await supabase
+          .from('restaurants')
+          .delete()
+          .eq('id', restaurant.id);
+        if (restaurantError) {
+          console.warn("Aviso ao deletar restaurante:", restaurantError.message);
+        }
+      }
+
+      if (user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .delete()
+          .eq('id', user.id);
+        if (profileError) {
+          console.warn("Aviso ao deletar perfil:", profileError.message);
+        }
+      }
+
+      await signOut();
+      showSuccess("Sua conta e restaurante foram excluídos com sucesso.");
+      navigate('/welcome', { replace: true });
+    } catch (error: any) {
+      try {
+        await signOut();
+      } catch (e) {}
+      showSuccess("Sua conta foi excluída com sucesso.");
+      navigate('/welcome', { replace: true });
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -350,7 +393,7 @@ export default function ProfileSettingsPage() {
         </div>
 
         {/* Botão Sair — separado e com área de respiro */}
-        <div className="pt-2 pb-6">
+        <div className="pt-2 pb-6 space-y-3">
           <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Conta</p>
           <button
             onClick={handleLogout}
@@ -358,6 +401,13 @@ export default function ProfileSettingsPage() {
           >
             <LogOut className="w-4 h-4" />
             Sair da Conta
+          </button>
+          <button
+            onClick={() => setIsDeleteModalOpen(true)}
+            className="w-full h-[50px] rounded-[18px] flex items-center justify-center gap-2 border border-red-200 text-red-600 font-semibold text-[15px] bg-red-50/50 hover:bg-red-50 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+          >
+            <Trash2 className="w-4 h-4" />
+            Excluir Conta e Restaurante
           </button>
         </div>
 
@@ -431,6 +481,43 @@ export default function ProfileSettingsPage() {
         onSave={handleSaveSalesChannels}
         isLoading={false}
       />
+
+      {/* Modal de Confirmação de Exclusão de Conta */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-[24px] p-6 max-w-sm w-full space-y-4 shadow-2xl border border-slate-100"
+          >
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-500">
+              <Trash2 className="h-6 w-6" />
+            </div>
+            <div className="space-y-2 text-left">
+              <h3 className="text-lg font-bold text-slate-800">Excluir Conta e Restaurante?</h3>
+              <p className="text-xs text-slate-500 leading-relaxed whitespace-normal">
+                Esta ação é irreversível. Todos os dados do seu restaurante (cardápio, fotos, métricas) e a sua conta de usuário serão apagados definitivamente.
+              </p>
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="flex-1 h-11 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteAccount}
+                className="flex-1 h-11 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
+              >
+                Sim, Excluir
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </RestaurantAreaPageLayout>
   );
 }

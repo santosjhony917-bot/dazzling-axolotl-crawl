@@ -304,9 +304,9 @@ export default function ComboFinderPage() {
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
                     <Card className={cn(
-                      "border shadow-soft hover:shadow-float transition-all duration-300 bg-white rounded-[20px] overflow-hidden relative",
+                      "shadow-soft hover:shadow-float transition-all duration-300 bg-white rounded-[24px] overflow-hidden relative border",
                       isPremiumRest
-                        ? "border-amber-200/60 ring-1 ring-amber-150/20 bg-gradient-to-b from-amber-50/10 to-white"
+                        ? "border-amber-200/60 ring-1 ring-amber-150/20 bg-gradient-to-b from-amber-50/5 to-white"
                         : "border-slate-100/80"
                     )}>
                       <CardContent className="p-4 space-y-4">
@@ -316,7 +316,7 @@ export default function ComboFinderPage() {
                             <img 
                               src={combo.restaurant.image_url || 'https://via.placeholder.com/100?text=Restaurante'} 
                               alt={combo.restaurant.name} 
-                              className="w-11 h-11 rounded-xl object-cover border border-slate-100"
+                              className="w-[48px] h-[48px] rounded-2xl object-cover border border-slate-100 shadow-sm"
                             />
                             {isPremiumRest && (
                               <div className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-amber-400 to-amber-500 text-white rounded-full p-0.5 shadow-sm border border-white">
@@ -337,34 +337,34 @@ export default function ComboFinderPage() {
                               <MapPin className="w-3 h-3 text-[#EF2A39]" /> a {combo.restaurant.distance_km?.toFixed(1) || '1.0'} km ({combo.restaurant.category})
                             </p>
                           </div>
-                          <div className="bg-emerald-500/10 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 border border-emerald-500/20">
+                          <div className="bg-emerald-500/10 text-emerald-600 text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase shrink-0 border border-emerald-500/20">
                             Economia: R$ {combo.economy.toFixed(2)}
                           </div>
                         </div>
 
                         {/* Lista de Itens do Combo */}
-                        <div className="bg-[#F9FAFB] rounded-xl p-3 border border-slate-150 space-y-2">
-                          <p className="text-[9px] uppercase font-extrabold text-slate-400 tracking-wider">Itens do Combo</p>
+                        <div className="bg-[#F9FAFB] rounded-[20px] p-4 border border-slate-150 space-y-2">
+                          <p className="text-[9px] uppercase font-extrabold text-slate-450 tracking-wider">Itens do Combo</p>
                           {combo.items.map((item, itemIdx) => (
                             <div key={itemIdx} className="flex justify-between items-center text-xs text-slate-700">
                               <div className="flex items-center gap-2">
-                                <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[9px] font-extrabold h-4.5 w-4.5 rounded-md flex items-center justify-center shrink-0">1x</span>
-                                <span className="font-semibold truncate max-w-[150px]">{item.name}</span>
+                                <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[9px] font-black h-5 w-5 rounded-md flex items-center justify-center shrink-0">1x</span>
+                                <span className="font-bold truncate max-w-[150px]">{item.name}</span>
                               </div>
-                              <span className="font-bold text-slate-700">R$ {item.price.toFixed(2)}</span>
+                              <span className="font-extrabold text-slate-700">R$ {item.price.toFixed(2)}</span>
                             </div>
                           ))}
                           
-                          <div className="border-t border-slate-200 mt-2 pt-2 flex justify-between items-center">
-                            <span className="text-xs font-bold text-slate-650">Total do Combo:</span>
-                            <span className="text-sm font-extrabold text-[#EF2A39]">R$ {combo.totalPrice.toFixed(2)}</span>
+                          <div className="border-t border-slate-200 mt-2.5 pt-2.5 flex justify-between items-center">
+                            <span className="text-xs font-extrabold text-slate-500">Total do Combo:</span>
+                            <span className="text-sm font-black text-[#EF2A39]">R$ {combo.totalPrice.toFixed(2)}</span>
                           </div>
                         </div>
 
                         {/* Explicação da IA */}
-                        <div className="bg-amber-500/5 border border-amber-500/10 rounded-xl p-3 flex gap-2 items-start">
+                        <div className="bg-amber-550/5 border border-amber-500/10 rounded-[16px] p-3 flex gap-2 items-start bg-amber-50/20">
                           <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                          <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                          <p className="text-xs text-slate-650 leading-relaxed font-semibold">
                             {combo.explanation}
                           </p>
                         </div>
@@ -374,15 +374,14 @@ export default function ComboFinderPage() {
                           <Button
                             onClick={() => navigate(`/restaurant/${combo.restaurant.id}`)}
                             variant="outline"
-                            className="flex-grow h-9 rounded-xl text-xs font-bold border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 shadow-none"
+                            className="flex-grow h-10 rounded-xl text-xs font-bold border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 shadow-none"
                           >
                             <Utensils className="w-3.5 h-3.5" />
                             Cardápio
                           </Button>
                           <Button
                             onClick={() => handleOpenHHModal(combo.restaurant.id)}
-                            variant="highlight"
-                            className="flex-grow h-9 rounded-xl text-xs font-bold text-white shadow-none flex items-center justify-center gap-1.5"
+                            className="flex-grow h-10 rounded-xl text-xs font-bold bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] hover:opacity-95 text-white active:scale-95 transition-all shadow-none border-none flex items-center justify-center gap-1.5"
                           >
                             <Vote className="w-3.5 h-3.5" />
                             Sugerir HH
@@ -416,7 +415,7 @@ export default function ComboFinderPage() {
                   setInputText(sug.text);
                   processSearch(sug.text);
                 }}
-                className="shrink-0 bg-white/95 backdrop-blur-sm hover:bg-slate-50 border border-slate-200/60 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-95 transition-all duration-200 cursor-pointer"
+                className="shrink-0 bg-white hover:bg-slate-50 border border-slate-150 text-slate-750 text-xs font-extrabold px-4.5 py-3 rounded-full shadow-soft hover:shadow-float active:scale-95 transition-all duration-200 cursor-pointer"
               >
                 {sug.label}
               </button>

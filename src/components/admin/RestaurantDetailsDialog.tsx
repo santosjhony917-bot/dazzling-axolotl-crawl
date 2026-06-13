@@ -742,14 +742,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     if (!editedData) return;
 
     const finalData = {
-      ...editedData,
-      visit_status: 'Visitado'
+      ...editedData
     };
 
     const success = await syncSingleToSupabase(finalData);
 
     if (success) {
-      showSuccess('Restaurante validado e publicado no catálogo público!');
+      showSuccess('Alterações salvas com sucesso no Supabase!');
       setIsEditing(false);
       onSyncSuccess();
       onClose();

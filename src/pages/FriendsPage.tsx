@@ -175,34 +175,32 @@ export default function FriendsPage() {
   };
 
   return (
-    <div className="bg-background-light min-h-screen flex flex-col w-full pb-6">
+    <div className="bg-background-light min-h-screen flex flex-col w-full pb-6 font-['Poppins']">
       <Header 
         title="Meus Amigos"
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
       />
 
-      {/* Tabs Selector */}
-      <div className="p-4">
-        <div className="relative flex w-full border-b border-slate-200/60 mb-5 bg-transparent px-2">
-          {/* Active line indicator sliding */}
+      {/* Tabs Selector - Segmented Control style */}
+      <div className="px-4 mb-6">
+        <div className="relative flex w-full p-1 bg-slate-100 rounded-full border-none">
+          {/* Active slide pill background */}
           <motion.div
-            layoutId="active-friends-tab-line"
-            className="absolute bottom-0 h-[2.5px] bg-[#EF2A39] rounded-full"
+            layoutId="active-friends-tab-pill"
+            className="absolute top-1 bottom-1 bg-white rounded-full shadow-sm"
             style={{
-              left: activeTab === 'friends' ? '9.16%' : activeTab === 'pending' ? '42.5%' : '75.83%',
-              width: '15%',
+              left: activeTab === 'friends' ? '4px' : activeTab === 'pending' ? '33.33%' : '66.66%',
+              width: 'calc(33.33% - 4px)',
             }}
             initial={false}
-            transition={{ type: "spring", stiffness: 500, damping: 35 }}
+            transition={{ type: "spring", stiffness: 450, damping: 32 }}
           />
 
           <button
             onClick={() => setActiveTab('friends')}
             className={cn(
-              "flex-grow flex items-center justify-center h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
-              activeTab === 'friends'
-                ? "text-slate-800 font-black"
-                : "text-slate-400 hover:text-slate-600"
+              "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
+              activeTab === 'friends' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Amigos ({friends.length})
@@ -211,15 +209,13 @@ export default function FriendsPage() {
           <button
             onClick={() => setActiveTab('pending')}
             className={cn(
-              "flex-grow flex items-center justify-center h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none gap-1.5",
-              activeTab === 'pending'
-                ? "text-slate-800 font-black"
-                : "text-slate-400 hover:text-slate-600"
+              "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full gap-1",
+              activeTab === 'pending' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Solicitações
             {pending.length > 0 && (
-              <span className="bg-[#EF2A39] text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+              <span className="bg-[#EF2A39] text-white text-[9px] font-black h-4.5 w-4.5 rounded-full flex items-center justify-center border border-white">
                 {pending.length}
               </span>
             )}
@@ -228,16 +224,16 @@ export default function FriendsPage() {
           <button
             onClick={() => setActiveTab('search')}
             className={cn(
-              "flex-grow flex items-center justify-center h-11 text-xs font-bold uppercase tracking-wider transition-colors duration-200 relative z-10 focus:outline-none",
-              activeTab === 'search'
-                ? "text-slate-800 font-black"
-                : "text-slate-400 hover:text-slate-600"
+              "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
+              activeTab === 'search' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Buscar
           </button>
         </div>
+      </div>
 
+      <div className="px-4">
         {/* Tab Contents */}
         <div className="space-y-4">
           
@@ -256,17 +252,22 @@ export default function FriendsPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      className="bg-white rounded-2xl p-3 flex items-center justify-between border border-slate-100/80 shadow-none hover:shadow-none transition-shadow"
+                      whileHover={{ y: -1 }}
+                      className="bg-white rounded-[20px] p-4 flex items-center justify-between border border-slate-100/80 shadow-soft hover:shadow-float transition-all duration-200"
                     >
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={friendProfile.avatar_url || 'https://via.placeholder.com/100?text=Avatar'}
-                          alt={getProfileName(friendProfile)}
-                          className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none"
-                        />
+                      <div className="flex items-center gap-3.5">
+                        <div className="relative">
+                          <img
+                            src={friendProfile.avatar_url || 'https://via.placeholder.com/100?text=Avatar'}
+                            alt={getProfileName(friendProfile)}
+                            className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none bg-slate-50"
+                          />
+                          {/* Active glowing green status dot */}
+                          <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-sm" />
+                        </div>
                         <div>
-                          <h4 className="text-sm font-bold text-slate-800">{getProfileName(friendProfile)}</h4>
-                          <p className="text-[10px] text-slate-400">Amigo desde {new Date(friendProfile.updated_at || Date.now()).toLocaleDateString()}</p>
+                          <h4 className="text-sm font-extrabold text-slate-800 leading-snug">{getProfileName(friendProfile)}</h4>
+                          <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Amigo desde {new Date(friendProfile.updated_at || Date.now()).toLocaleDateString()}</p>
                         </div>
                       </div>
                       <Button
@@ -274,7 +275,7 @@ export default function FriendsPage() {
                         variant="ghost"
                         onClick={() => handleRemoveFriendship(friendshipId, 'Amizade desfeita.')}
                         disabled={actionLoadingId === friendshipId}
-                        className="text-slate-400 hover:text-red-500 hover:bg-[#EF2A39]/10 rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+                        className="text-slate-450 hover:text-[#EF2A39] hover:bg-[#EF2A39]/10 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
                       >
                         {actionLoadingId === friendshipId ? (
                           <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
@@ -287,14 +288,14 @@ export default function FriendsPage() {
                 </AnimatePresence>
               ) : (
                 <div className="flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
-                  <Users className="w-12 h-12 text-slate-300 mb-3" />
+                  <Users className="w-12 h-12 text-slate-350 mb-3" />
                   <h4 className="text-sm font-extrabold text-slate-800 mb-2">Nenhum amigo adicionado</h4>
-                  <p className="text-slate-400 text-xs font-medium leading-relaxed max-w-[250px] mb-4">
+                  <p className="text-slate-400 text-xs font-semibold leading-relaxed max-w-[250px] mb-5">
                     Você ainda não possui amigos na sua lista. Encontre-os pesquisando na aba de buscas.
                   </p>
                   <Button 
                     onClick={() => setActiveTab('search')}
-                    className="h-10 px-5 text-xs font-bold rounded-2xl bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-none border-none"
+                    className="h-11 px-6 text-xs font-bold rounded-2xl bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-soft hover:shadow-float active:scale-[0.98] border-none"
                   >
                     Buscar Pessoas
                   </Button>
@@ -318,24 +319,25 @@ export default function FriendsPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      className="bg-white rounded-2xl p-3 flex items-center justify-between border border-slate-100/80 shadow-none hover:shadow-none transition-shadow"
+                      whileHover={{ y: -1 }}
+                      className="bg-white rounded-[20px] p-4 flex items-center justify-between border border-slate-100/80 shadow-soft hover:shadow-float transition-all duration-200"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3.5">
                         <img
                           src={senderProfile.avatar_url || 'https://via.placeholder.com/100?text=Avatar'}
                           alt={getProfileName(senderProfile)}
-                          className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none"
+                          className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none bg-slate-50"
                         />
                         <div>
-                          <h4 className="text-sm font-bold text-slate-800">{getProfileName(senderProfile)}</h4>
-                          <p className="text-[10px] text-highlight font-semibold">Enviou um convite</p>
+                          <h4 className="text-sm font-extrabold text-slate-800 leading-snug">{getProfileName(senderProfile)}</h4>
+                          <p className="text-[10px] text-[#EF2A39] font-bold mt-0.5 uppercase tracking-wide">Enviou um convite</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-2 shrink-0">
                         <Button
                           onClick={() => handleAcceptRequest(friendshipId)}
                           disabled={actionLoadingId === friendshipId}
-                          className="bg-green-500 hover:bg-green-600 text-white rounded-2xl text-xs h-8 px-3 font-bold shadow-none"
+                          className="bg-green-500 hover:bg-green-600 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft"
                         >
                           {actionLoadingId === friendshipId ? (
                             <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -347,7 +349,7 @@ export default function FriendsPage() {
                           variant="ghost"
                           onClick={() => handleRemoveFriendship(friendshipId, 'Convite recusado.')}
                           disabled={actionLoadingId === friendshipId}
-                          className="text-slate-400 hover:text-red-500 hover:bg-[#EF2A39]/10 rounded-2xl text-xs h-8 px-3 font-bold transition-colors"
+                          className="text-slate-450 hover:text-[#EF2A39] hover:bg-[#EF2A39]/10 rounded-xl text-xs h-9 px-3.5 font-bold transition-colors"
                         >
                           Recusar
                         </Button>
@@ -357,9 +359,9 @@ export default function FriendsPage() {
                 </AnimatePresence>
               ) : (
                 <div className="flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
-                  <Inbox className="w-12 h-12 text-slate-300 mb-3" />
+                  <Inbox className="w-12 h-12 text-slate-350 mb-3" />
                   <h4 className="text-sm font-extrabold text-slate-800 mb-2">Nenhuma solicitação pendente</h4>
-                  <p className="text-slate-400 text-xs font-medium leading-relaxed max-w-[250px]">
+                  <p className="text-slate-400 text-xs font-semibold leading-relaxed max-w-[250px]">
                     Sua caixa de entrada de convites está vazia por enquanto.
                   </p>
                 </div>
@@ -372,19 +374,19 @@ export default function FriendsPage() {
             <div className="space-y-4">
               <form onSubmit={handleSearch} className="flex gap-2">
                 <div className="relative flex-grow">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                   <Input
                     type="text"
-                    placeholder="Buscar amigo por nome ou telefone..."
+                    placeholder="Buscar amigo por nome..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-3 h-11 text-sm rounded-2xl border border-slate-200 bg-white focus:border-highlight text-primary transition-all"
+                    className="w-full pl-10 pr-3.5 h-12 text-sm rounded-[16px] border border-slate-200 bg-white focus:border-[#EF2A39]/30 focus:ring-0 focus-visible:ring-0 text-slate-800 font-medium transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={searching || !searchQuery.trim()}
-                  className="bg-primary hover:bg-primary/95 text-white h-11 px-5 rounded-2xl text-xs font-bold shrink-0"
+                  className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white h-12 px-6 rounded-[16px] text-xs font-bold shrink-0 shadow-soft"
                 >
                   {searching ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Pesquisar'}
                 </Button>
@@ -401,22 +403,22 @@ export default function FriendsPage() {
                     return (
                       <div
                         key={profile.id}
-                        className="bg-white rounded-2xl p-3 flex items-center justify-between border border-slate-100/80 shadow-none hover:shadow-none transition-shadow"
+                        className="bg-white rounded-[20px] p-4 flex items-center justify-between border border-slate-100/80 shadow-soft hover:shadow-float transition-all duration-200"
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3.5">
                           <img
                             src={profile.avatar_url || 'https://via.placeholder.com/100?text=Avatar'}
                             alt={getProfileName(profile)}
-                            className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none"
+                            className="w-12 h-12 rounded-full object-cover border border-slate-100 shadow-none bg-slate-50"
                           />
                           <div>
-                            <h4 className="text-sm font-bold text-slate-800">{getProfileName(profile)}</h4>
+                            <h4 className="text-sm font-extrabold text-slate-800">{getProfileName(profile)}</h4>
                           </div>
                         </div>
 
                         {status === 'friend' && (
                           <div className="flex items-center gap-1 text-green-500 font-bold text-xs px-3">
-                            <UserCheck className="w-4 h-4 mr-1" />
+                            <UserCheck className="w-4 h-4 mr-1 text-green-500" />
                             Amigo
                           </div>
                         )}
@@ -424,7 +426,7 @@ export default function FriendsPage() {
                         {status === 'pending_sent' && (
                           <Button
                             disabled
-                            className="bg-background-light text-slate-400 border border-slate-100 rounded-2xl text-xs h-8 px-3 font-semibold shadow-none"
+                            className="bg-slate-50 text-slate-400 border border-slate-100 rounded-xl text-xs h-9 px-4 font-bold shadow-none"
                           >
                             Pendente
                           </Button>
@@ -433,7 +435,7 @@ export default function FriendsPage() {
                         {status === 'pending_received' && (
                           <Button
                             onClick={() => setActiveTab('pending')}
-                            className="bg-primary hover:bg-primary/90 text-white rounded-2xl text-xs h-8 px-3 font-bold shadow-none"
+                            className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft"
                           >
                             Ver convite
                           </Button>
@@ -443,7 +445,7 @@ export default function FriendsPage() {
                           <Button
                             onClick={() => handleSendRequest(profile.id)}
                             disabled={actionLoadingId === profile.id}
-                            className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-2xl text-xs h-8 px-3 font-bold shadow-none flex items-center gap-1.5"
+                            className="bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] hover:opacity-95 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft flex items-center gap-1.5 active:scale-95 transition-all border-none"
                           >
                             {actionLoadingId === profile.id ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -460,9 +462,9 @@ export default function FriendsPage() {
                   })
                 ) : searchQuery ? (
                   <div className="flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
-                    <AlertCircle className="w-10 h-10 text-slate-300 mb-3" />
+                    <AlertCircle className="w-10 h-10 text-slate-350 mb-3" />
                     <h4 className="text-sm font-extrabold text-slate-800 mb-2">Ninguém encontrado</h4>
-                    <p className="text-slate-400 text-xs font-medium leading-relaxed max-w-[250px]">
+                    <p className="text-slate-400 text-xs font-semibold leading-relaxed max-w-[250px]">
                       Nenhum usuário encontrado para "{searchQuery}".
                     </p>
                   </div>
