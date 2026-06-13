@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
 export interface RestaurantWithDistance {
@@ -41,12 +42,9 @@ export const useNearbyRestaurants = ({
   limit = 50,
   offset = 0,
 }: UseNearbyRestaurantsOptions) => {
-  const {
-    data,
-    isLoading,
-    error,
-    refetch
-  } = useQuery<RestaurantWithDistance[], Error>({
+  const queryClient = useQueryClient();
+
+  const queryInfo = useQuery<RestaurantWithDistance[], Error>({
     queryKey: ['nearbyRestaurants', userLat, userLon, maxDistanceKm, searchQuery, includedCategories, limit, offset],
     queryFn: async () => {
       if (userLat === null || userLon === null) {
@@ -120,7 +118,23 @@ export const useNearbyRestaurants = ({
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
   });
 
-  const hasMore = (data?.length || 0) === limit;
+  useEffect(() => {
+    const handleSync = () => {
+      queryClient.invalidateQueries({ queryKey: ['nearbyRestaurants'] });
+    };
+    window.addEventListener('local-sync-restaurants', handleSync);
+    return () => {
+      window.removeEventListener('local-sync-restaurants', handleSync);
+    };
+  }, [queryClient]);
 
-  return { data, isLoading, error, refetch, hasMore };
+  const hasMore = (queryInfo.data?.length || 0) === limit;
+
+  return {
+    data: queryInfo.data,
+    isLoading: queryInfo.isLoading,
+    error: queryInfo.error,
+    refetch: queryInfo.refetch,
+    hasMore
+  };
 };
