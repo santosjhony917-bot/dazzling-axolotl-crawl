@@ -58,8 +58,8 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
 
 async function handleInstagramScrape(instagramUrl) {
   console.log("Iniciando raspagem para:", instagramUrl);
-  // 1. Cria a aba (inicialmente oculta/inativa)
-  const tab = await chrome.tabs.create({ url: instagramUrl, active: false });
+  // 1. Cria a aba (ativa para evitar o bloqueio de throttling do Chrome)
+  const tab = await chrome.tabs.create({ url: instagramUrl, active: true });
   const tabId = tab.id;
   
   try {
@@ -234,6 +234,20 @@ function scrapePageLogic() {
     }
   }
   
+  // Fallback programático robusto
+  if (!profilePicUrl) {
+    const allImgs = Array.from(document.querySelectorAll('img'));
+    for (const img of allImgs) {
+      const alt = (img.alt || '').toLowerCase();
+      if (alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar')) {
+        if (img.src && img.src.startsWith('http')) {
+          profilePicUrl = img.src;
+          break;
+        }
+      }
+    }
+  }
+  
   // 2. Extrai seguidores
   let followersCount = null;
   
@@ -324,8 +338,8 @@ function scrapePageLogic() {
 
 async function handleInstagramPostScrape(url) {
   console.log("Iniciando raspagem de post para:", url);
-  // 1. Cria a aba (inicialmente oculta/inativa)
-  const tab = await chrome.tabs.create({ url: url, active: false });
+  // 1. Cria a aba (ativa para evitar throttling do Chrome)
+  const tab = await chrome.tabs.create({ url: url, active: true });
   const tabId = tab.id;
   
   try {
