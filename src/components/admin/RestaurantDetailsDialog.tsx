@@ -269,6 +269,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [editedData, setEditedData] = useState<any | null>(null);
   const [aiPastedContent, setAiPastedContent] = useState('');
   const [isExtractingAI, setIsExtractingAI] = useState(false);
+  const [aiHoursPastedContent, setAiHoursPastedContent] = useState('');
+  const [isExtractingHoursAI, setIsExtractingHoursAI] = useState(false);
   const [activeDialogTab, setActiveDialogTab] = useState<string>('preview');
   const [newGalleryUrl, setNewGalleryUrl] = useState('');
   const [aiModel, setAiModel] = useState<'gemini' | 'openai'>('gemini');
@@ -311,6 +313,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       setIsEditing(false);
       setActiveDialogTab('preview');
       setAiPastedContent('');
+      setAiHoursPastedContent('');
       setNewGalleryUrl('');
     } else {
       setEditedData(null);
@@ -922,6 +925,132 @@ ${aiPastedContent}
       showError(`Falha na extração de IA: ${e.message || 'Verifique o formato e as chaves de API.'}`);
     } finally {
       setIsExtractingAI(false);
+    }
+  };
+
+  const handleAIHoursExtraction = async () => {
+    if (!aiHoursPastedContent.trim()) {
+      showError('Cole o texto dos horários de funcionamento antes de processar.');
+      return;
+    }
+
+    const apiKey = aiModel === 'gemini' 
+      ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
+      : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
+
+    if (!apiKey) {
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
+      return;
+    }
+
+    setIsExtractingHoursAI(true);
+    try {
+      const prompt = `Você é um assistente de IA especialista em dados de horários de funcionamento de estabelecimentos.
+Analise o seguinte texto bruto contendo horários de funcionamento de um restaurante e formate-o no JSON correto esperado pelo nosso sistema.
+
+Regras importantes:
+1. Os dias da semana no JSON final devem ser estritamente em inglês como chaves: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
+2. Para cada dia da semana, se o restaurante estiver aberto nesse dia, defina "isOpen": true e inclua o slot de horário no array "slots" com "start" e "end" formatados como HH:MM (24 horas, ex: "11:00" ou "22:30").
+3. Se o dia for explicitamente fechado ou não mencionado em dias de funcionamento normais, defina "isOpen": false e "slots": [].
+4. Se houver mais de um período de funcionamento no mesmo dia (ex: almoço 11:30 às 14:30 e jantar 18:00 às 22:00), adicione os slots correspondentes no array "slots".
+5. Retorne a resposta estritamente no formato JSON, sem qualquer outro texto ou explicações, no seguinte esquema:
+{
+  "monday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
+  "tuesday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
+  "wednesday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
+  "thursday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
+  "friday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "23:00" }] },
+  "saturday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "23:00" }] },
+  "sunday": { "isOpen": false, "slots": [] }
+}
+
+Texto bruto com os horários colados:
+${aiHoursPastedContent}
+`;
+
+      let text = '';
+      if (aiModel === 'openai') {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: prompt }]
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error?.message || `Erro HTTP OpenAI: ${response.status}`);
+        }
+
+        const result = await response.json();
+        text = result.choices?.[0]?.message?.content || '';
+      } else {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: prompt }]
+            }],
+            generationConfig: {
+              responseMimeType: "application/json"
+            }
+          })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error?.message || `Erro HTTP Gemini: ${response.status}`);
+        }
+
+        const result = await response.json();
+        text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      }
+
+      if (text.includes('```json')) {
+        text = text.split('```json')[1].split('```')[0].trim();
+      } else if (text.includes('```')) {
+        text = text.split('```')[1].split('```')[0].trim();
+      }
+
+      const parsed = JSON.parse(text);
+
+      const validDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+      const validatedHours: any = {};
+      validDays.forEach(day => {
+        if (parsed && parsed[day]) {
+          validatedHours[day] = {
+            isOpen: !!parsed[day].isOpen,
+            slots: Array.isArray(parsed[day].slots) ? parsed[day].slots.map((s: any) => ({
+              start: s.start || '11:00',
+              end: s.end || '22:00'
+            })) : []
+          };
+        } else {
+          validatedHours[day] = { isOpen: false, slots: [] };
+        }
+      });
+
+      setEditedData((prev: any) => ({
+        ...prev,
+        opening_hours: validatedHours,
+        openingHours: validatedHours
+      }));
+
+      showSuccess(`Sucesso! Horários de funcionamento extraídos e preenchidos pela IA.`);
+      setAiHoursPastedContent('');
+    } catch (e: any) {
+      console.error(e);
+      showError(`Falha na extração de horários: ${e.message || 'Verifique o formato e as chaves de API.'}`);
+    } finally {
+      setIsExtractingHoursAI(false);
     }
   };
 
@@ -1960,6 +2089,46 @@ ${aiPastedContent}
                   {/* Horários Formulário */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Funcionamento semanal</h4>
+
+                    {/* IA Horários Input */}
+                    <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-3 shadow-sm mb-4">
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="ai-hours-paste" className="text-xs font-black text-slate-700 flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-[#EF2A39]" />
+                          Preencher Horários por IA
+                        </Label>
+                        <span className="text-[10px] text-slate-400 font-semibold">Gemini / GPT</span>
+                      </div>
+                      <Textarea 
+                        id="ai-hours-paste"
+                        placeholder="Cole o texto bruto de horários do restaurante aqui. Ex: 'Segunda a Sexta das 11h às 23h. Sábado das 12h às 00h. Domingo fechado.'"
+                        value={aiHoursPastedContent}
+                        onChange={(e) => setAiHoursPastedContent(e.target.value)}
+                        className="bg-[#F9FAFB] border-gray-300 text-xs min-h-[50px] placeholder:text-gray-400"
+                        disabled={isExtractingHoursAI}
+                      />
+                      <div className="flex justify-end">
+                        <Button 
+                          size="sm"
+                          type="button"
+                          onClick={handleAIHoursExtraction}
+                          disabled={isExtractingHoursAI || !aiHoursPastedContent.trim()}
+                          className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold h-8.5 rounded-lg active:scale-95 transition-all text-xs border-none shadow-none"
+                        >
+                          {isExtractingHoursAI ? (
+                            <>
+                              <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                              Processando Horários...
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="w-3 h-3 mr-1 text-white fill-white" />
+                              Extrair Horários
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
                     
                     <div className="grid grid-cols-1 gap-2.5">
                       {Object.entries(daysTranslation).map(([dayKey, label]) => {
