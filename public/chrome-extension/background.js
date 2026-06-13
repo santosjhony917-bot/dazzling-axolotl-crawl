@@ -87,20 +87,49 @@ async function handleInstagramScrape(instagramUrl) {
       setTimeout(checkStatus, 1000);
     });
 
-    // Aguarda mais 2.5 segundos para garantir a renderização do JS do Instagram
-    await new Promise(r => setTimeout(r, 2500));
+    // Executa a lógica de raspagem na página em um loop com tentativas (máx 6 segundos)
+    // para lidar de forma robusta com computadores lentos ou carregamentos demorados do JS
+    let scrapeData = null;
+    let attempts = 0;
+    const maxAttempts = 12;
     
-    // 3. Executa a lógica de raspagem na página
-    const results = await chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      func: scrapePageLogic
-    });
-    
-    if (!results || !results[0] || !results[0].result) {
-      throw new Error("Não foi possível ler os dados da aba do Instagram.");
+    while (attempts < maxAttempts) {
+      // Pequeno intervalo entre tentativas
+      await new Promise(r => setTimeout(r, 500));
+      attempts++;
+      
+      try {
+        const results = await chrome.scripting.executeScript({
+          target: { tabId: tabId },
+          func: scrapePageLogic
+        });
+        
+        if (results && results[0] && results[0].result) {
+          const res = results[0].result;
+          
+          // Se for login obrigatório, interrompe imediatamente
+          if (res.isLoginRequired) {
+            scrapeData = res;
+            break;
+          }
+          
+          // Se encontrou a URL da foto de perfil, consideramos sucesso e interrompemos
+          if (res.profilePicUrl) {
+            scrapeData = res;
+            break;
+          }
+          
+          // Caso contrário, guarda o último resultado para fallback
+          scrapeData = res;
+        }
+      } catch (err) {
+        console.warn(`Tentativa ${attempts} de execução de script falhou:`, err.message);
+      }
     }
     
-    const scrapeData = results[0].result;
+    if (!scrapeData) {
+      throw new Error("Não foi possível ler os dados da aba do Instagram após várias tentativas.");
+    }
     
     if (scrapeData.isLoginRequired) {
       // Abre a aba em foco para o usuário fazer login
@@ -322,20 +351,49 @@ async function handleInstagramPostScrape(url) {
       setTimeout(checkStatus, 1000);
     });
 
-    // Aguarda mais 2.5 segundos para garantir a renderização do JS do Instagram
-    await new Promise(r => setTimeout(r, 2500));
+    // Executa a lógica de raspagem na página em um loop com tentativas (máx 6 segundos)
+    // para lidar de forma robusta com computadores lentos ou carregamentos demorados do JS
+    let scrapeData = null;
+    let attempts = 0;
+    const maxAttempts = 12;
     
-    // 3. Executa a lógica de raspagem na página do post
-    const results = await chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      func: scrapePostPageLogic
-    });
-    
-    if (!results || !results[0] || !results[0].result) {
-      throw new Error("Não foi possível ler os dados da aba do post do Instagram.");
+    while (attempts < maxAttempts) {
+      // Pequeno intervalo entre tentativas
+      await new Promise(r => setTimeout(r, 500));
+      attempts++;
+      
+      try {
+        const results = await chrome.scripting.executeScript({
+          target: { tabId: tabId },
+          func: scrapePostPageLogic
+        });
+        
+        if (results && results[0] && results[0].result) {
+          const res = results[0].result;
+          
+          // Se for login obrigatório, interrompe imediatamente
+          if (res.isLoginRequired) {
+            scrapeData = res;
+            break;
+          }
+          
+          // Se encontrou a URL da imagem do post, consideramos sucesso e interrompemos
+          if (res.imageUrl) {
+            scrapeData = res;
+            break;
+          }
+          
+          // Caso contrário, guarda o último resultado para fallback
+          scrapeData = res;
+        }
+      } catch (err) {
+        console.warn(`Tentativa ${attempts} de execução de script de post falhou:`, err.message);
+      }
     }
     
-    const scrapeData = results[0].result;
+    if (!scrapeData) {
+      throw new Error("Não foi possível ler os dados da aba do post do Instagram após várias tentativas.");
+    }
     
     if (scrapeData.isLoginRequired) {
       // Abre a aba em foco para o usuário fazer login
