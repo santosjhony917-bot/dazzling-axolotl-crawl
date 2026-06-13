@@ -218,8 +218,10 @@ function scrapePageLogic() {
     'header img[src*="cdninstagram"]',
     'header img[src*="fbcdn"]',
     'header img',
+    'img[alt*="Foto de perfil"]',
     'img[alt*="Foto do perfil"]',
     'img[alt*="profile picture"]',
+    'img[alt*="Foto del perfil"]',
     'img[src*="cdninstagram"]',
     'img[src*="fbcdn"]'
   ];

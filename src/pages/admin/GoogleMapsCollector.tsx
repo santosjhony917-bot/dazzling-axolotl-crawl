@@ -968,8 +968,9 @@ export default function GoogleMapsCollector() {
         };
       });
       setResults(formatted);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Erro ao carregar do Supabase:', err);
+      showError(`Erro ao carregar estabelecimentos do Supabase: ${err.message || err}`);
     }
   };
 
