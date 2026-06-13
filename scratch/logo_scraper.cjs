@@ -395,28 +395,69 @@ async function run() {
       // Verifica e aguarda login se necessário
       await checkAndHandleLogin(page, url);
 
-      // Tenta localizar a foto de perfil usando múltiplos seletores
+      // Tenta localizar a foto de perfil usando múltiplos seletores (inteligente + robusto)
       let profileImgSrc = null;
       let profileImgSelector = null;
 
-      const imgInfo = await page.evaluate(() => {
-        const selectors = [
-          'header img[src*="cdninstagram"]',
-          'header img[src*="fbcdn"]',
-          'header img',
-          'img[alt*="Foto do perfil"]',
-          'img[alt*="profile picture"]',
-          'img[src*="cdninstagram"]',
-          'img[src*="fbcdn"]'
-        ];
-        
-        for (const sel of selectors) {
-          const el = document.querySelector(sel);
-          if (el && el.src) return { src: el.src, selector: sel };
-        }
-        return null;
-      });
+      const getProfileImageFromPage = async () => {
+        return await page.evaluate(() => {
+          const pathParts = window.location.pathname.split('/').filter(Boolean);
+          const username = pathParts[0] ? pathParts[0].toLowerCase() : '';
+          const allImgs = Array.from(document.querySelectorAll('img'));
+          
+          // 1. Busca inteligente com username, filtrando destaques
+          if (username) {
+            for (const img of allImgs) {
+              const alt = (img.alt || '').toLowerCase();
+              const src = img.src || '';
+              const isProfileAlt = alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar');
+              const hasUsername = alt.includes(username);
+              const isInsideHighlight = !!img.closest('a[href*="/stories/highlights/"]');
+              
+              if (isProfileAlt && hasUsername && !isInsideHighlight && src.startsWith('http')) {
+                return { src, selector: `img[alt*="${username}"]` };
+              }
+            }
+          }
+          
+          // 2. Seletores clássicos excluindo links de stories/highlights
+          const imgSelectors = [
+            'header img[src*="cdninstagram"]',
+            'header img[src*="fbcdn"]',
+            'header img',
+            'img[alt*="Foto de perfil"]:not(a[href*="/stories/"] img)',
+            'img[alt*="Foto do perfil"]:not(a[href*="/stories/"] img)',
+            'img[alt*="profile picture"]:not(a[href*="/stories/"] img)',
+            'img[alt*="Foto del perfil"]:not(a[href*="/stories/"] img)',
+            'img[src*="cdninstagram"]:not(a[href*="/stories/"] img)',
+            'img[src*="fbcdn"]:not(a[href*="/stories/"] img)'
+          ];
+          
+          for (const sel of imgSelectors) {
+            const el = document.querySelector(sel);
+            if (el && el.src && el.src.startsWith('http')) {
+              return { src: el.src, selector: sel };
+            }
+          }
+          
+          // 3. Fallback geral excluindo links de stories/highlights
+          for (const img of allImgs) {
+            const alt = (img.alt || '').toLowerCase();
+            const src = img.src || '';
+            const isInsideHighlight = !!img.closest('a[href*="/stories/"]');
+            
+            if ((alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar')) && !isInsideHighlight) {
+              if (src.startsWith('http')) {
+                return { src, selector: 'img' };
+              }
+            }
+          }
+          
+          return null;
+        });
+      };
 
+      const imgInfo = await getProfileImageFromPage();
       if (imgInfo) {
         profileImgSrc = imgInfo.src;
         profileImgSelector = imgInfo.selector;
@@ -427,24 +468,7 @@ async function run() {
         console.log(`   🔍 Foto de perfil não encontrada de imediato. Verificando se fomos bloqueados para login...`);
         const handled = await checkAndHandleLogin(page, url);
         if (handled) {
-          // Se o usuário logou, tenta obter o src da imagem de perfil novamente
-          const imgInfo2 = await page.evaluate(() => {
-            const selectors = [
-              'header img[src*="cdninstagram"]',
-              'header img[src*="fbcdn"]',
-              'header img',
-              'img[alt*="Foto do perfil"]',
-              'img[alt*="profile picture"]',
-              'img[src*="cdninstagram"]',
-              'img[src*="fbcdn"]'
-            ];
-            
-            for (const sel of selectors) {
-              const el = document.querySelector(sel);
-              if (el && el.src) return { src: el.src, selector: sel };
-            }
-            return null;
-          });
+          const imgInfo2 = await getProfileImageFromPage();
           if (imgInfo2) {
             profileImgSrc = imgInfo2.src;
             profileImgSelector = imgInfo2.selector;
