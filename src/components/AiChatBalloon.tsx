@@ -24,6 +24,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
+
 
 interface ChatMessage {
   id: string;
@@ -38,6 +40,7 @@ interface AiChatBalloonProps {
 
 export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
   const navigate = useNavigate();
+  const getBustedUrl = useImageCacheBuster();
   const { user } = useAuthData();
   const currentUserId = user?.id || '';
   const { location, isLoading: isLocationLoading } = useUserSearchLocation();
@@ -336,7 +339,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                             <div className="flex items-center gap-2.5">
                               <div className="relative shrink-0">
                                 <img 
-                                  src={combo.restaurant.image_url || 'https://via.placeholder.com/100?text=Restaurante'} 
+                                  src={getBustedUrl(combo.restaurant.image_url) || 'https://via.placeholder.com/100?text=Restaurante'} 
                                   alt={combo.restaurant.name} 
                                   className="w-[40px] h-[40px] rounded-xl object-cover border border-slate-100 shadow-sm"
                                 />

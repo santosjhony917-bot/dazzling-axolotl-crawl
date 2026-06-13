@@ -3,6 +3,7 @@ import { formatPrice } from '@/utils/formatters';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 
 interface SearchItem {
   id: string;
@@ -26,6 +27,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
   const displayDescription = isDish ? item.restaurantName : item.category;
+  const getBustedUrl = useImageCacheBuster();
 
   return (
     <motion.div
@@ -38,7 +40,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
         
         <div 
           className="bg-center bg-no-repeat bg-cover rounded-[12px] w-20 h-20 flex-shrink-0 bg-gray-100" 
-          style={{ backgroundImage: `url("${item.imageUrl || PLACEHOLDER_IMAGE_URL}")` }}
+          style={{ backgroundImage: `url("${getBustedUrl(item.imageUrl) || PLACEHOLDER_IMAGE_URL}")` }}
           data-alt={item.name}
         />
         

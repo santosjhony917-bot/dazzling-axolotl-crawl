@@ -11,6 +11,7 @@ import SoftSearchInput from '@/components/search/SoftSearchInput';
 import { Button } from '@/components/ui/button';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useAuthData } from '@/context/AuthContext';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import {
   ChefPlatterIllustration,
@@ -23,6 +24,7 @@ import {
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const getBustedUrl = useImageCacheBuster();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -197,6 +199,21 @@ const Home: React.FC = () => {
         r.category?.toLowerCase().includes('sorvete') ||
         r.category?.toLowerCase().includes('açaí') ||
         r.category?.toLowerCase().includes('acai')
+      );
+    }
+    if (selectedCategory === 'pizza') {
+      return restaurants.filter(r =>
+        r.category?.toLowerCase().includes('pizza')
+      );
+    }
+    if (selectedCategory === 'saudavel') {
+      return restaurants.filter(r =>
+        r.category?.toLowerCase().includes('saudável') ||
+        r.category?.toLowerCase().includes('saudavel') ||
+        r.category?.toLowerCase().includes('salada') ||
+        r.category?.toLowerCase().includes('fit') ||
+        r.category?.toLowerCase().includes('vegano') ||
+        r.category?.toLowerCase().includes('vegetariano')
       );
     }
     return restaurants;
@@ -519,7 +536,7 @@ const Home: React.FC = () => {
                 {/* Imagem do Restaurante */}
                 <div className="w-[84px] h-[84px] rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
                   <img 
-                    src={restaurant.image_url || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop'} 
+                    src={getBustedUrl(restaurant.image_url) || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop'} 
                     alt={restaurant.name}
                     className="w-full h-full object-cover"
                     onError={(e) => {

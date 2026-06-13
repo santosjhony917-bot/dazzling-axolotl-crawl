@@ -1,12 +1,14 @@
 export const CATEGORIES = [
   "Pizzaria",
   "Hamburgueria",
+  "Cafeteria",
+  "Churrascaria",
   "Japonesa",
   "Italiana",
-  "Mexicana",
-  "Brasileira",
-  "Vegetariana",
-  "Saudável",
-  "Cafeteria",
-  "Outros",
+  "Bar",
+  "Doceria / Sobremesas",
+  "Açaí / Sorveteria",
+  "Saudável / Fit",
+  "Restaurante",
+  "Outros"
 ];

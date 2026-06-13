@@ -28,6 +28,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 
 // Interfaces de mensagens do chat
 interface ChatMessage {
@@ -38,6 +39,7 @@ interface ChatMessage {
 
 export default function ComboFinderPage() {
   const navigate = useNavigate();
+  const getBustedUrl = useImageCacheBuster();
   const [searchParams] = useSearchParams();
   const queryParam = searchParams.get('q');
   const { user } = useAuthData();
@@ -320,7 +322,7 @@ export default function ComboFinderPage() {
                         <div className="flex items-center gap-3">
                           <div className="relative">
                             <img 
-                              src={combo.restaurant.image_url || 'https://via.placeholder.com/100?text=Restaurante'} 
+                              src={getBustedUrl(combo.restaurant.image_url) || 'https://via.placeholder.com/100?text=Restaurante'} 
                               alt={combo.restaurant.name} 
                               className="w-[48px] h-[48px] rounded-2xl object-cover border border-slate-100 shadow-sm"
                             />

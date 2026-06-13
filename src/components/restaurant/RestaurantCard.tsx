@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Utensils, MapPin } from 'lucide-react';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 
 import { RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
 
@@ -10,11 +11,13 @@ interface RestaurantCardProps {
 }
 
 const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, onClick }) => {
+  const getBustedUrl = useImageCacheBuster();
+
   return (
     <div className="horizontal-restaurant-card" onClick={onClick}>
       <div className="restaurant-card-image-wrapper">
         <img
-          src={restaurant.image_url || 'https://via.placeholder.com/150'}
+          src={getBustedUrl(restaurant.image_url) || 'https://via.placeholder.com/150'}
           alt={restaurant.name}
         />
       </div>

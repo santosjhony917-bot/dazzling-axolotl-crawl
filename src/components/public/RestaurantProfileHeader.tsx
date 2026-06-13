@@ -1,8 +1,7 @@
-"use client";
-
 import React from 'react';
 import { Utensils } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 
 interface RestaurantProfileHeaderProps {
   restaurant: {
@@ -16,6 +15,7 @@ interface RestaurantProfileHeaderProps {
 
 const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ restaurant }) => {
   const { coverImageUrl, isPremium, name, isCompact = false } = restaurant;
+  const getBustedUrl = useImageCacheBuster();
 
   // Este componente agora é responsável APENAS pela imagem de capa (se premium)
   // Os botões de voltar/compartilhar foram movidos para RestaurantPageHeader
@@ -27,7 +27,7 @@ const RestaurantProfileHeader: React.FC<RestaurantProfileHeaderProps> = ({ resta
     <div className={cn("relative w-full transition-all duration-200", isCompact ? "h-36" : "h-64")}>
       {coverImageUrl ? (
         <img
-          src={coverImageUrl}
+          src={getBustedUrl(coverImageUrl)}
           alt={name}
           className="w-full h-full object-cover"
         />

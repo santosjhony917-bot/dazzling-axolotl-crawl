@@ -38,6 +38,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { supabase } from '@/integrations/supabase/client';
+import { CATEGORIES } from '@/constants/categories';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { getDeterministicUUID } from '@/hooks/useAdminRestaurants';
 
 // Utility functions copied from ExportedRestaurants.tsx
@@ -265,6 +273,47 @@ interface RestaurantDetailsDialogProps {
   onSyncSuccess: () => void;
 }
 
+const normalizeCategory = (category: string | null | undefined): string => {
+  if (!category) return 'Outros';
+  const clean = category.toLowerCase().trim();
+  
+  if (clean.includes('hambúrg') || clean.includes('burg') || clean.includes('lanche') || clean.includes('cachorro-quente') || clean.includes('diner')) {
+    return 'Hamburgueria';
+  }
+  if (clean.includes('pizza')) {
+    return 'Pizzaria';
+  }
+  if (clean.includes('café') || clean.includes('cafeteria') || clean.includes('padaria') || clean.includes('casa de chá')) {
+    return 'Cafeteria';
+  }
+  if (clean.includes('doce') || clean.includes('confeitaria') || clean.includes('doceria') || clean.includes('sobremesa') || clean.includes('chocolate') || clean.includes('bolo')) {
+    return 'Doceria / Sobremesas';
+  }
+  if (clean.includes('churrasc') || clean.includes('grill') || clean.includes('carne')) {
+    return 'Churrascaria';
+  }
+  if (clean.includes('sushi') || clean.includes('japones')) {
+    return 'Japonesa';
+  }
+  if (clean.includes('massa') || clean.includes('italiana') || clean.includes('risoto')) {
+    return 'Italiana';
+  }
+  if (clean.includes('bar') || clean.includes('pub') || clean.includes('petiscaria') || clean.includes('cervejaria')) {
+    return 'Bar';
+  }
+  if (clean.includes('açaí') || clean.includes('acai') || clean.includes('sorvete')) {
+    return 'Açaí / Sorveteria';
+  }
+  if (clean.includes('saudável') || clean.includes('saudavel') || clean.includes('salada') || clean.includes('fit') || clean.includes('vegano') || clean.includes('vegetariano')) {
+    return 'Saudável / Fit';
+  }
+  if (clean.includes('restaurante') || clean.includes('comida') || clean.includes('almoço')) {
+    return 'Restaurante';
+  }
+  
+  return 'Outros';
+};
+
 export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuccess }: RestaurantDetailsDialogProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState<any | null>(null);
@@ -307,7 +356,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         neighborhood: parsedAddress.neighborhood,
         city: parsedAddress.city,
         state: parsedAddress.state,
-        cep: parsedAddress.cep
+        cep: parsedAddress.cep,
+        category: normalizeCategory(restaurant.category)
       };
 
       setEditedData(JSON.parse(JSON.stringify(formattedRestaurant)));
@@ -1835,12 +1885,21 @@ ${aiHoursPastedContent}
                       </div>
                       <div className="space-y-1">
                         <Label htmlFor="edit-category" className="text-xs font-bold">Categoria (tipo de cozinha)</Label>
-                        <Input 
-                          id="edit-category"
-                          value={editedData.category}
-                          onChange={(e) => setEditedData({ ...editedData, category: e.target.value })}
-                          className="bg-white border-gray-300 text-xs h-9"
-                        />
+                        <Select 
+                          value={CATEGORIES.includes(editedData.category) ? editedData.category : 'Outros'}
+                          onValueChange={(val) => setEditedData({ ...editedData, category: val })}
+                        >
+                          <SelectTrigger id="edit-category" className="bg-white border-gray-300 text-xs h-9">
+                            <SelectValue placeholder="Selecione uma categoria" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {CATEGORIES.map((cat) => (
+                              <SelectItem key={cat} value={cat} className="text-xs">
+                                {cat}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
 
