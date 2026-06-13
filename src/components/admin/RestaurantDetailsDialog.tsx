@@ -316,6 +316,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       setAiPastedContent('');
       setAiHoursPastedContent('');
       setNewGalleryUrl('');
+      setLogoTimestamp(Date.now());
+      setCoverTimestamp(Date.now());
     } else {
       setEditedData(null);
     }
@@ -327,6 +329,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [coverError, setCoverError] = useState(false);
   const [isUploadingLogoFile, setIsUploadingLogoFile] = useState(false);
+
+  const [logoTimestamp, setLogoTimestamp] = useState<number>(Date.now());
+  const [coverTimestamp, setCoverTimestamp] = useState<number>(Date.now());
+
+  const getLogoSrc = (url: string) => {
+    if (!url) return '';
+    if (url.includes('supabase.co')) {
+      return `${url}${url.includes('?') ? '&' : '?'}t=${logoTimestamp}`;
+    }
+    return url;
+  };
+
+  const getCoverSrc = (url: string) => {
+    if (!url) return '';
+    if (url.includes('supabase.co')) {
+      return `${url}${url.includes('?') ? '&' : '?'}t=${coverTimestamp}`;
+    }
+    return url;
+  };
 
   useEffect(() => {
     setLogoError(false);
@@ -458,6 +479,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                   showError("Erro ao salvar no banco: " + dbUpdateError.message);
                 } else {
                   showSuccess("Coleta de logo e seguidores concluída via Extensão!");
+                  setLogoTimestamp(Date.now());
                   setEditedData((prev: any) => ({
                     ...prev,
                     logo: publicUrl || prev.logo,
@@ -483,7 +505,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           const result = await res.json();
           if (result.success) {
             showSuccess("Coleta de logo e seguidores concluída com sucesso!");
-            
+            setLogoTimestamp(Date.now());
             setEditedData((prev: any) => ({
               ...prev,
               logo: result.url || prev.logo,
@@ -1227,7 +1249,7 @@ ${aiHoursPastedContent}
         logo: publicUrl,
         image_url: publicUrl
       }));
-      
+      setLogoTimestamp(Date.now());
       showSuccess('Imagem da logo enviada com sucesso!');
     } catch (err: any) {
       showError('Erro ao enviar imagem da logo: ' + err.message);
@@ -1276,6 +1298,7 @@ ${aiHoursPastedContent}
               logo: uploadResult.url,
               image_url: uploadResult.url
             }));
+            setLogoTimestamp(Date.now());
             showSuccess('Logo baixada e hospedada no Supabase!');
             return;
           }
@@ -1302,6 +1325,7 @@ ${aiHoursPastedContent}
           logo: newUrl,
           image_url: newUrl
         }));
+        setLogoTimestamp(Date.now());
         showSuccess('Logo baixada e hospedada no Supabase via Extensão!');
       }
     } catch (e: any) {
@@ -1352,6 +1376,7 @@ ${aiHoursPastedContent}
               coverImage: uploadResult.url,
               cover_image_url: uploadResult.url
             }));
+            setCoverTimestamp(Date.now());
             showSuccess('Imagem de capa baixada e hospedada no Supabase!');
             return;
           }
@@ -1378,6 +1403,7 @@ ${aiHoursPastedContent}
           coverImage: newUrl,
           cover_image_url: newUrl
         }));
+        setCoverTimestamp(Date.now());
         showSuccess('Imagem de capa baixada e hospedada no Supabase via Extensão!');
       }
     } catch (e: any) {
@@ -1418,6 +1444,7 @@ ${aiHoursPastedContent}
         coverImage: publicUrl,
         cover_image_url: publicUrl
       }));
+      setCoverTimestamp(Date.now());
       
       showSuccess('Imagem de capa enviada com sucesso!');
     } catch (err: any) {
@@ -1624,7 +1651,8 @@ ${aiHoursPastedContent}
                   <div className="relative h-44 bg-slate-100 rounded-3xl overflow-hidden border border-gray-150">
                     {(restaurant.coverImage || restaurant.cover_image_url) ? (
                       <img 
-                        src={restaurant.coverImage || restaurant.cover_image_url} 
+                        key={`${restaurant.coverImage || restaurant.cover_image_url}_${coverTimestamp}`}
+                        src={getCoverSrc(restaurant.coverImage || restaurant.cover_image_url)} 
                         alt="Capa"
                         className="w-full h-full object-cover"
                       />
@@ -1636,7 +1664,8 @@ ${aiHoursPastedContent}
                     <div className="absolute left-6 bottom-4 w-20 h-20 rounded-2xl overflow-hidden border-2 border-white bg-white shadow-md flex items-center justify-center">
                       {(restaurant.logo || restaurant.image_url) ? (
                         <img 
-                          src={restaurant.logo || restaurant.image_url} 
+                          key={`${restaurant.logo || restaurant.image_url}_${logoTimestamp}`}
+                          src={getLogoSrc(restaurant.logo || restaurant.image_url)} 
                           alt="Logo"
                           className="w-full h-full object-cover"
                         />
@@ -1962,8 +1991,8 @@ ${aiHoursPastedContent}
                               <span className="animate-spin inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full" />
                             ) : editedData.logo && !logoError ? (
                               <img 
-                                key={editedData.logo}
-                                src={editedData.logo} 
+                                key={`${editedData.logo}_${logoTimestamp}`}
+                                src={getLogoSrc(editedData.logo)} 
                                 alt="Logo" 
                                 className="w-full h-full object-cover" 
                                 onError={() => setLogoError(true)}
@@ -2022,8 +2051,8 @@ ${aiHoursPastedContent}
                               <span className="animate-spin inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full" />
                             ) : (editedData.coverImage || editedData.cover_image_url) && !coverError ? (
                               <img 
-                                key={editedData.coverImage || editedData.cover_image_url}
-                                src={editedData.coverImage || editedData.cover_image_url} 
+                                key={`${(editedData.coverImage || editedData.cover_image_url)}_${coverTimestamp}`}
+                                src={getCoverSrc(editedData.coverImage || editedData.cover_image_url)} 
                                 alt="Capa" 
                                 className="w-full h-full object-cover" 
                                 onError={() => setCoverError(true)}
