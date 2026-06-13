@@ -8,6 +8,7 @@
     "scripting"
   ],
   "host_permissions": [
+    "<all_urls>",
     "*://*.instagram.com/*",
     "*://*.cdninstagram.com/*",
     "*://*.fbcdn.net/*"

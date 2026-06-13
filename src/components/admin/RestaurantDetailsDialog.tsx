@@ -1317,11 +1317,13 @@ ${aiPastedContent}
 
       let finalImageUrl = '';
       let blob: Blob | null = null;
+      let extensionError: any = null;
 
       try {
         const base64Data = await downloadExternalImage(urlToProcess);
         blob = base64ToBlob(base64Data);
       } catch (err: any) {
+        extensionError = err;
         if (err.message !== "extension_not_available") {
           console.warn("Erro ao baixar via extensão:", err);
         }
@@ -1385,7 +1387,15 @@ ${aiPastedContent}
         setNewGalleryUrl('');
         showSuccess('Foto baixada e adicionada à galeria!');
       } else {
-        showError('Não foi possível fazer download e upload desta foto. Certifique-se de que a extensão do Chrome está ativa.');
+        if (extensionError) {
+          if (extensionError.message === "extension_not_available") {
+            showError('Extensão auxiliar do Chrome não configurada ou inativa. Configure o ID nas configurações.');
+          } else {
+            showError('Erro ao baixar imagem via extensão: ' + extensionError.message);
+          }
+        } else {
+          showError('Não foi possível fazer download e upload desta foto. Certifique-se de que o link é válido e público.');
+        }
       }
     } catch (err: any) {
       showError('Erro ao adicionar foto: ' + err.message);
