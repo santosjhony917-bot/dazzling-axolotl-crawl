@@ -90,6 +90,7 @@ export default function RemovedRestaurants() {
       
       // Notifica as outras abas para recarregar
       window.dispatchEvent(new Event('local-sync-restaurants'));
+      localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
     } catch (e: any) {
       console.error(e);
       showError(`Erro ao restaurar restaurante: ${e.message}`);
@@ -114,6 +115,7 @@ export default function RemovedRestaurants() {
       
       // Notifica as outras abas
       window.dispatchEvent(new Event('local-sync-restaurants'));
+      localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
     } catch (e: any) {
       console.error(e);
       showError(`Erro ao excluir permanentemente: ${e.message}`);

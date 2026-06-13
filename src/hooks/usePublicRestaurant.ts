@@ -20,9 +20,16 @@ export const usePublicRestaurant = (restaurantId: string | undefined) => {
     const handleSync = () => {
       queryClient.invalidateQueries({ queryKey: ['publicRestaurant', restaurantId] });
     };
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'local-sync-restaurants-trigger') {
+        queryClient.invalidateQueries({ queryKey: ['publicRestaurant', restaurantId] });
+      }
+    };
     window.addEventListener('local-sync-restaurants', handleSync);
+    window.addEventListener('storage', handleStorage);
     return () => {
       window.removeEventListener('local-sync-restaurants', handleSync);
+      window.removeEventListener('storage', handleStorage);
     };
   }, [queryClient, restaurantId]);
 

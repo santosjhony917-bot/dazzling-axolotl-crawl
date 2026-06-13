@@ -45,6 +45,12 @@ export async function fetchNearbyRestaurants(
   maxDistance: number = 10, 
   searchQuery: string | null = null
 ): Promise<RestaurantWithDistance[]> {
+  const { data: deletedRests } = await supabase
+    .from('restaurants')
+    .select('id')
+    .eq('is_deleted', true);
+  const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
+
   const { data, error } = await supabase.rpc('find_nearby_restaurants', {
     user_lat: lat,
     user_lng: lng,
@@ -58,7 +64,8 @@ export async function fetchNearbyRestaurants(
     return [];
   }
 
-  return data || [];
+  const list = data || [];
+  return list.filter((r: any) => !deletedIds.has(r.id));
 }
 
 // Função para buscar um restaurante público por ID

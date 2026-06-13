@@ -91,6 +91,12 @@ export const useNearbyRestaurants = ({
       ];
 
       try {
+        const { data: deletedRests } = await supabase
+          .from('restaurants')
+          .select('id')
+          .eq('is_deleted', true);
+        const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
+
         const { data, error } = await supabase
           .rpc('find_nearby_restaurants', {
             user_lat: userLat,
@@ -104,11 +110,11 @@ export const useNearbyRestaurants = ({
 
         if (error) {
           console.warn("Supabase RPC failed, returning mock restaurants.", error);
-          return mockRestaurants;
+          return mockRestaurants.filter(r => !deletedIds.has(r.id));
         }
 
         const list = data && data.length > 0 ? data : mockRestaurants;
-        return list.filter((r: any) => !r.visit_status || r.visit_status === 'Visitado');
+        return list.filter((r: any) => (!r.visit_status || r.visit_status === 'Visitado') && !deletedIds.has(r.id));
       } catch (err) {
         console.warn("Error calling Supabase, returning mock restaurants.", err);
         return mockRestaurants;
@@ -122,9 +128,16 @@ export const useNearbyRestaurants = ({
     const handleSync = () => {
       queryClient.invalidateQueries({ queryKey: ['nearbyRestaurants'] });
     };
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'local-sync-restaurants-trigger') {
+        queryClient.invalidateQueries({ queryKey: ['nearbyRestaurants'] });
+      }
+    };
     window.addEventListener('local-sync-restaurants', handleSync);
+    window.addEventListener('storage', handleStorage);
     return () => {
       window.removeEventListener('local-sync-restaurants', handleSync);
+      window.removeEventListener('storage', handleStorage);
     };
   }, [queryClient]);
 

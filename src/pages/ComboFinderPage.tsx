@@ -81,6 +81,12 @@ export default function ComboFinderPage() {
 
   const fetchNearbyRestaurantsForCombo = async (lat: number, lng: number, maxDistKm: number) => {
     try {
+      const { data: deletedRests } = await supabase
+        .from('restaurants')
+        .select('id')
+        .eq('is_deleted', true);
+      const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
+
       const { data, error } = await supabase.rpc('find_nearby_restaurants', {
         user_lat: lat,
         user_lng: lng,
@@ -88,7 +94,7 @@ export default function ComboFinderPage() {
         p_offset: 0
       });
       if (!error && data) {
-        return data.filter((r: any) => r.distance_km <= maxDistKm);
+        return data.filter((r: any) => r.distance_km <= maxDistKm && !deletedIds.has(r.id));
       }
     } catch(e){}
 

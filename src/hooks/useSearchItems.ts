@@ -42,6 +42,12 @@ export function useSearchItems({
     setLoading(true);
     setError(null);
     try {
+      const { data: deletedRests } = await supabase
+        .from('restaurants')
+        .select('id')
+        .eq('is_deleted', true);
+      const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
+
       const { data, error } = await supabase.rpc('search_menu_items', {
         search_query: searchQuery,
         p_limit: limit,
@@ -51,7 +57,8 @@ export function useSearchItems({
 
       if (error) throw error;
 
-      setItems(data || []);
+      const filtered = (data || []).filter((item: any) => !deletedIds.has(item.restaurant_id));
+      setItems(filtered);
       // AQUI ESTÁ A MUDANÇA: hasMore é true se o número de resultados for igual ao limite
       setHasMore((data?.length || 0) === limit);
     } catch (err: any) {

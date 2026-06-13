@@ -54,6 +54,16 @@ import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar
 import AdminViewMenus from '@/pages/admin/AdminViewMenus';
 
 function App() {
+  React.useEffect(() => {
+    const syncListener = () => {
+      localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+    };
+    window.addEventListener('local-sync-restaurants', syncListener);
+    return () => {
+      window.removeEventListener('local-sync-restaurants', syncListener);
+    };
+  }, []);
+
   return (
     <Router>
       <ToastProvider />

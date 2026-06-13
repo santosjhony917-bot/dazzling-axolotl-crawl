@@ -480,6 +480,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 } else {
                   showSuccess("Coleta de logo e seguidores concluída via Extensão!");
                   setLogoTimestamp(Date.now());
+                  window.dispatchEvent(new Event('local-sync-restaurants'));
+                  localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
                   setEditedData((prev: any) => ({
                     ...prev,
                     logo: publicUrl || prev.logo,
@@ -506,6 +508,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           if (result.success) {
             showSuccess("Coleta de logo e seguidores concluída com sucesso!");
             setLogoTimestamp(Date.now());
+            window.dispatchEvent(new Event('local-sync-restaurants'));
+            localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
             setEditedData((prev: any) => ({
               ...prev,
               logo: result.url || prev.logo,
@@ -754,6 +758,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       if (success) {
         showSuccess('Alterações salvas no Supabase!');
         setIsEditing(false);
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
         onSyncSuccess();
       } else {
         showError('Erro ao sincronizar com o banco de dados.');
@@ -776,6 +782,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     if (success) {
       showSuccess('Alterações salvas com sucesso no Supabase!');
       setIsEditing(false);
+      window.dispatchEvent(new Event('local-sync-restaurants'));
+      localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
       onSyncSuccess();
       onClose();
     } else {
@@ -801,6 +809,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         showError('Erro ao remover do banco de dados.');
       } else {
         showSuccess(`"${editedData.name}" removido com sucesso!`);
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
         onClose();
         onSyncSuccess();
       }

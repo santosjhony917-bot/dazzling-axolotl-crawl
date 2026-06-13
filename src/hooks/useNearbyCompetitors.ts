@@ -34,6 +34,12 @@ export const useNearbyCompetitors = (
       setError(null);
 
       try {
+        const { data: deletedRests } = await supabase
+          .from('restaurants')
+          .select('id')
+          .eq('is_deleted', true);
+        const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
+
         // Using the existing RPC function to find nearby restaurants
         const { data, error } = await supabase.rpc('find_nearby_restaurants', {
           user_lat: latitude,
@@ -51,7 +57,7 @@ export const useNearbyCompetitors = (
 
         // Filter out the current restaurant and map to the required structure
         const filteredCompetitors: NearbyCompetitor[] = nearbyRestaurants
-          .filter((r) => r.id !== currentRestaurantId)
+          .filter((r) => r.id !== currentRestaurantId && !deletedIds.has(r.id))
           .map((r) => ({
             id: r.id,
             name: r.name,

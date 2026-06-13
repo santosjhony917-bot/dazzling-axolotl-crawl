@@ -340,6 +340,7 @@ export default function ExportedRestaurants() {
         
         // Também avisa a aba de coleta para recarregar
         window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
       }
     } catch (e) {
       console.error(e);
@@ -365,6 +366,7 @@ export default function ExportedRestaurants() {
         showSuccess('Todos os restaurantes foram removidos do Supabase!');
         loadRestaurants();
         window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
       }
     } catch (e) {
       console.error(e);
