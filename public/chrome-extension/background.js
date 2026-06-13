@@ -212,36 +212,62 @@ function scrapePageLogic() {
     return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
   }
   
-  // 1. Localiza a URL da imagem de perfil
+  // 1. Localiza a URL da imagem de perfil de forma robusta e inteligente
   let profilePicUrl = null;
-  const imgSelectors = [
-    'header img[src*="cdninstagram"]',
-    'header img[src*="fbcdn"]',
-    'header img',
-    'img[alt*="Foto de perfil"]',
-    'img[alt*="Foto do perfil"]',
-    'img[alt*="profile picture"]',
-    'img[alt*="Foto del perfil"]',
-    'img[src*="cdninstagram"]',
-    'img[src*="fbcdn"]'
-  ];
-  
-  for (const sel of imgSelectors) {
-    const el = document.querySelector(sel);
-    if (el && el.src && el.src.startsWith('http')) {
-      profilePicUrl = el.src;
-      break;
+  const allImgs = Array.from(document.querySelectorAll('img'));
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  const username = pathParts[0] ? pathParts[0].toLowerCase() : '';
+
+  // Passo A: Tenta localizar a imagem pelo alt contendo o username da conta (evitando destaques)
+  if (username) {
+    for (const img of allImgs) {
+      const alt = (img.alt || '').toLowerCase();
+      const src = img.src || '';
+      
+      const isProfileAlt = alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar');
+      const hasUsername = alt.includes(username);
+      const isInsideHighlight = !!img.closest('a[href*="/stories/highlights/"]');
+      
+      if (isProfileAlt && hasUsername && !isInsideHighlight && src.startsWith('http')) {
+        profilePicUrl = src;
+        break;
+      }
+    }
+  }
+
+  // Passo B: Fallback seletor clássico restringindo a elementos do header
+  if (!profilePicUrl) {
+    const imgSelectors = [
+      'header img[src*="cdninstagram"]',
+      'header img[src*="fbcdn"]',
+      'header img',
+      'img[alt*="Foto de perfil"]:not(a[href*="/stories/"] img)',
+      'img[alt*="Foto do perfil"]:not(a[href*="/stories/"] img)',
+      'img[alt*="profile picture"]:not(a[href*="/stories/"] img)',
+      'img[alt*="Foto del perfil"]:not(a[href*="/stories/"] img)',
+      'img[src*="cdninstagram"]:not(a[href*="/stories/"] img)',
+      'img[src*="fbcdn"]:not(a[href*="/stories/"] img)'
+    ];
+    
+    for (const sel of imgSelectors) {
+      const el = document.querySelector(sel);
+      if (el && el.src && el.src.startsWith('http')) {
+        profilePicUrl = el.src;
+        break;
+      }
     }
   }
   
-  // Fallback programático robusto
+  // Passo C: Fallback programático geral excluindo links de stories/highlights
   if (!profilePicUrl) {
-    const allImgs = Array.from(document.querySelectorAll('img'));
     for (const img of allImgs) {
       const alt = (img.alt || '').toLowerCase();
-      if (alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar')) {
-        if (img.src && img.src.startsWith('http')) {
-          profilePicUrl = img.src;
+      const src = img.src || '';
+      const isInsideHighlight = !!img.closest('a[href*="/stories/"]');
+      
+      if ((alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar')) && !isInsideHighlight) {
+        if (src.startsWith('http')) {
+          profilePicUrl = src;
           break;
         }
       }
