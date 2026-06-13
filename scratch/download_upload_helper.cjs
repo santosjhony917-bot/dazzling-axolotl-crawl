@@ -9,7 +9,12 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 function downloadBuffer(url) {
   return new Promise((resolve, reject) => {
     const client = url.startsWith('https') ? https : http;
-    client.get(url, (res) => {
+    client.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+      }
+    }, (res) => {
       if (res.statusCode !== 200) {
         reject(new Error(`Falha no download da imagem: HTTP ${res.statusCode}`));
         return;
