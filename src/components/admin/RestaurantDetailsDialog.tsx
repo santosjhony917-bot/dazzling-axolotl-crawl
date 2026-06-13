@@ -26,7 +26,8 @@ import {
   Edit2,
   Pencil,
   Image,
-  Upload
+  Upload,
+  Loader2
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import {
