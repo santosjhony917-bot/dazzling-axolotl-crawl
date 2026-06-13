@@ -56,7 +56,8 @@ const ClaimRestaurant = () => {
         .from('restaurants')
         .select('id, user_id')
         .eq('claim_code', claimCode.toUpperCase())
-        .single();
+        .or('is_deleted.eq.false,is_deleted.is.null')
+        .maybeSingle();
 
       if (dbError || !restaurant) {
         throw new Error('Código de acesso inválido ou não encontrado.');

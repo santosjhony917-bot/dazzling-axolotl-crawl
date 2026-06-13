@@ -60,7 +60,8 @@ const fetchRestaurant = async (id: string | undefined): Promise<Restaurant | nul
     .from('restaurants')
     .select('*')
     .eq('id', id)
-    .single();
+    .or('is_deleted.eq.false,is_deleted.is.null')
+    .maybeSingle();
 
   if (error) {
     console.error('Error fetching restaurant:', error.message);

@@ -163,7 +163,8 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     .from('restaurants')
     .select(PUBLIC_RESTAURANT_BASE_SELECT)
     .eq('id', restaurantId)
-    .single();
+    .or('is_deleted.eq.false,is_deleted.is.null')
+    .maybeSingle();
 
   if (baseError) {
     console.error(`[fetchPublicRestaurantById] Error fetching base data for ${restaurantId}:`, baseError);
