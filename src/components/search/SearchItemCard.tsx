@@ -28,7 +28,7 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
   const displayDescription = isDish 
-    ? `${item.restaurantName}${item.itemCategoryName ? ` • ${item.itemCategoryName}` : ''}`
+    ? `${item.restaurantName}${item.itemCategoryName ? ` • ${item.itemCategoryName}` : ''}${item.neighborhood ? ` • ${item.neighborhood}` : ''}`
     : item.category;
   const getBustedUrl = useImageCacheBuster();
 
@@ -42,10 +42,16 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
       <div className="soft-card flex items-center gap-4 p-4 w-full mb-4 cursor-pointer">
         
         <div 
-          className="bg-center bg-no-repeat bg-cover rounded-[12px] w-20 h-20 flex-shrink-0 bg-gray-100" 
+          className="relative bg-center bg-no-repeat bg-cover rounded-[12px] w-20 h-20 flex-shrink-0 bg-gray-100 overflow-hidden" 
           style={{ backgroundImage: `url("${getBustedUrl(item.imageUrl) || PLACEHOLDER_IMAGE_URL}")` }}
           data-alt={item.name}
-        />
+        >
+          {isDish && item.imageUrl && item.imageUrl !== PLACEHOLDER_IMAGE_URL && (
+            <div className="absolute top-1 right-1 text-white text-[8px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.5px_2.5px_rgba(0,0,0,0.85)]">
+              Ilustrativa
+            </div>
+          )}
+        </div>
         
         <div className="flex-1 min-w-0 flex flex-col justify-center">
           <p className="text-[#3C2F2F] text-[18px] font-bold leading-tight truncate">

@@ -11,6 +11,8 @@ export interface SearchItemResult {
   restaurant_category: string | null;
   item_category_id: string;
   item_category_name: string;
+  restaurant_neighborhood: string | null;
+  restaurant_opening_hours: any;
 }
 
 interface UseSearchItemsProps {

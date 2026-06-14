@@ -18,10 +18,12 @@ import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
 import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
-import CategoryFilterDrawer from '@/components/search/CategoryFilterDrawer';
+import AdvancedFilterDrawer from '@/components/search/AdvancedFilterDrawer';
 import { useMenuCategories } from '@/hooks/useMenuCategories';
 import { cn } from '@/lib/utils';
 import SoftSearchInput from '@/components/search/SoftSearchInput';
+import { parseSearchQuery } from '@/utils/searchParser';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -38,6 +40,7 @@ interface SearchItem {
   restaurantName?: string | null;
   itemCategoryName?: string | null;
   itemCategoryId?: string;
+  opening_hours?: any;
 }
 
 export default function SearchUnifiedPage() {
@@ -60,6 +63,8 @@ export default function SearchUnifiedPage() {
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
   const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
   const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
+  const [selectedNeighborhoodFilter, setSelectedNeighborhoodFilter] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
@@ -71,6 +76,16 @@ export default function SearchUnifiedPage() {
   const [accumulatedDishResults, setAccumulatedDishResults] = useState<SearchItemResult[]>([]);
   const [accumulatedRestaurantResults, setAccumulatedRestaurantResults] = useState<RestaurantWithDistance[]>([]);
 
+  // NLP Search query parsing
+  const parsedQuery = useMemo(() => {
+    return parseSearchQuery(searchQuery);
+  }, [searchQuery]);
+
+  const dbSearchQuery = useMemo(() => {
+    if (!searchQuery) return '';
+    return parsedQuery.cleanedQuery || parsedQuery.category || '';
+  }, [searchQuery, parsedQuery]);
+
   // Efeito para ler os parâmetros da URL e inicializar os estados
   useEffect(() => {
     const urlSearchQuery = searchParams.get('searchQuery') || '';
@@ -80,6 +95,7 @@ export default function SearchUnifiedPage() {
     const urlExcludedCategoryIds = searchParams.get('excludedCategoryIds');
     const urlIncludedCategories = searchParams.get('includedCategories');
     const urlSearchType = (searchParams.get('searchType') as SearchType) || 'dish';
+    const urlNeighborhood = searchParams.get('neighborhood');
 
     setSearchQuery(urlSearchQuery);
     setActiveSearchType(urlSearchType);
@@ -88,10 +104,19 @@ export default function SearchUnifiedPage() {
     setMaxDistanceFilter(urlMaxDistance ? parseFloat(urlMaxDistance) : null);
     setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
     setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
+    setSelectedNeighborhoodFilter(urlNeighborhood);
     setPage(1); // Resetar a página ao carregar da URL
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
+    
+    if (urlSearchQuery || urlNeighborhood || urlMinPrice || urlMaxPrice || urlExcludedCategoryIds || urlIncludedCategories) {
+      setIsSubmitted(true);
+    } else {
+      setIsSubmitted(false);
+    }
   }, [searchParams]);
+
+  const isSearchEnabled = isSubmitted && !isLocationLoading && userLat !== null && userLon !== null;
 
   const {
     items: dishSearchResults,
@@ -100,8 +125,8 @@ export default function SearchUnifiedPage() {
     refetch: refetchDishes,
     hasMore: dishesHasMore, // Get hasMore from hook
   } = useSearchItems({
-    searchQuery,
-    enabled: activeSearchType === 'dish' && !isLocationLoading && userLat !== null && userLon !== null,
+    searchQuery: dbSearchQuery,
+    enabled: activeSearchType === 'dish' && isSearchEnabled,
     limit: pageSize, // Fetch only one page at a time
     offset: (page - 1) * pageSize, // Calculate offset based on current page
     excludedCategoryIds: excludedDishCategoryIds,
@@ -116,8 +141,8 @@ export default function SearchUnifiedPage() {
   } = useNearbyRestaurants({
     userLat,
     userLon,
-    enabled: activeSearchType === 'restaurant' && !isLocationLoading && userLat !== null && userLon !== null,
-    searchQuery,
+    enabled: activeSearchType === 'restaurant' && isSearchEnabled,
+    searchQuery: dbSearchQuery,
     includedCategories: includedRestaurantCategories,
     limit: pageSize, // Fetch only one page at a time
     offset: (page - 1) * pageSize, // Calculate offset based on current page
@@ -162,17 +187,78 @@ export default function SearchUnifiedPage() {
     }
   }, [activeSearchType, restaurantSearchResults, restaurantsLoading, page, restaurantsHasMore]);
 
+  // Group João Pessoa neighborhoods by region
+  const REGIONS_NEIGHBORHOODS = useMemo(() => ({
+    orla: ['Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
+    zona_sul: ['Bancários', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'José Américo', 'Cidade Universitária'],
+    centro_norte: ['Centro', 'Torre', 'Tambiá', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 'Miramar', 'Tambauzinho', 'Expedicionários']
+  }), []);
+
   // Effect to apply filters to accumulated results and set displayedResults
   useEffect(() => {
     let processedResults: SearchItem[] = [];
     
+    // Neighborhood filters: either manually selected or parsed via NLP
+    const activeNeighborhood = selectedNeighborhoodFilter || parsedQuery.neighborhood;
+    
+    const matchesNeighborhood = (itemNeigh: string | null | undefined) => {
+      if (!activeNeighborhood) return true;
+      if (!itemNeigh) return false;
+      const normItem = itemNeigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normFilter = activeNeighborhood.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return normItem.includes(normFilter) || normFilter.includes(normItem);
+    };
+
+    const matchesRegion = (itemNeigh: string | null | undefined) => {
+      if (!parsedQuery.regionId) return true;
+      if (!itemNeigh) return false;
+      const neighborhoods = REGIONS_NEIGHBORHOODS[parsedQuery.regionId as keyof typeof REGIONS_NEIGHBORHOODS] || [];
+      const normItem = itemNeigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return neighborhoods.some(neigh => {
+        const normNeigh = neigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return normItem.includes(normNeigh) || normNeigh.includes(normItem);
+      });
+    };
+
+    const matchesCategory = (item: any) => {
+      if (!parsedQuery.category) return true;
+      const normFilter = parsedQuery.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      
+      if (activeSearchType === 'dish') {
+        const catName = (item.item_category_name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const restCat = (item.restaurant_category || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const itemName = (item.item_name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return catName.includes(normFilter) || restCat.includes(normFilter) || itemName.includes(normFilter);
+      } else {
+        const restCat = (item.category || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const restName = (item.name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return restCat.includes(normFilter) || restName.includes(normFilter);
+      }
+    };
+
+    const isRestaurantOpen = (openingHours: any) => {
+      if (openingHours) {
+        try {
+          const status = getRestaurantOpenStatus(openingHours);
+          return status.isOpen;
+        } catch (e) {
+          // Fallback
+        }
+      }
+      const hour = new Date().getHours();
+      return hour >= 11 && hour < 22;
+    };
+
     if (activeSearchType === 'dish') {
       processedResults = accumulatedDishResults
         .filter(item => {
           const price = item.item_price;
           const matchesMinPrice = minPriceFilter === null || price >= minPriceFilter;
           const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
-          return matchesMinPrice && matchesMaxPrice;
+          const neighMatches = matchesNeighborhood(item.restaurant_neighborhood);
+          const regionMatches = matchesRegion(item.restaurant_neighborhood);
+          const categoryMatches = matchesCategory(item);
+          return matchesMinPrice && matchesMaxPrice && neighMatches && regionMatches && categoryMatches;
         })
         .map(item => ({
           id: item.item_id,
@@ -181,17 +267,23 @@ export default function SearchUnifiedPage() {
           price: item.item_price,
           imageUrl: item.item_image_url,
           type: 'dish',
-          category: null,
+          category: item.restaurant_category,
           city: null,
           restaurantName: item.restaurant_name,
           itemCategoryName: item.item_category_name,
           itemCategoryId: item.item_category_id,
+          neighborhood: item.restaurant_neighborhood,
+          opening_hours: item.restaurant_opening_hours,
         }));
     } else { // activeSearchType === 'restaurant'
       processedResults = (accumulatedRestaurantResults || [])
         .filter(restaurant => {
           const distance = restaurant.distance_km;
-          return maxDistanceFilter === null || distance <= maxDistanceFilter;
+          const matchesDistance = maxDistanceFilter === null || distance <= maxDistanceFilter;
+          const neighMatches = matchesNeighborhood(restaurant.neighborhood);
+          const regionMatches = matchesRegion(restaurant.neighborhood);
+          const categoryMatches = matchesCategory(restaurant);
+          return matchesDistance && neighMatches && regionMatches && categoryMatches;
         })
         .map(restaurant => ({
           id: restaurant.id,
@@ -204,8 +296,19 @@ export default function SearchUnifiedPage() {
           city: restaurant.city,
           distance_km: restaurant.distance_km,
           neighborhood: restaurant.neighborhood,
+          opening_hours: restaurant.opening_hours,
         }));
     }
+
+    // Priorizar abertos
+    processedResults.sort((a, b) => {
+      const aOpen = isRestaurantOpen(a.opening_hours);
+      const bOpen = isRestaurantOpen(b.opening_hours);
+      if (aOpen && !bOpen) return -1;
+      if (!aOpen && bOpen) return 1;
+      return 0;
+    });
+
     setDisplayedResults(processedResults);
   }, [
     activeSearchType,
@@ -214,22 +317,166 @@ export default function SearchUnifiedPage() {
     minPriceFilter,
     maxPriceFilter,
     maxDistanceFilter,
-    excludedDishCategoryIds, // This filter is applied in the hook now
-    includedRestaurantCategories, // This filter is applied in the hook now
+    selectedNeighborhoodFilter,
+    parsedQuery,
+    REGIONS_NEIGHBORHOODS
   ]);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (userLat === null || userLon === null) {
       showError("Aguarde enquanto sua localização é definida para realizar a busca.");
       return;
     }
+    setIsSubmitted(true);
     setPage(1); // Resetar a página para 1 ao fazer uma nova busca
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // This will trigger a fetch for page 1
     refetchRestaurants(); // This will trigger a fetch for page 1
   };
+
+  const handleInputChange = (value: string) => {
+    setSearchQuery(value);
+    setIsSubmitted(false);
+  };
+
+  const handleSuggestionClick = (queryText: string) => {
+    setSearchQuery(queryText);
+    setIsSubmitted(true);
+    setPage(1);
+    setAccumulatedDishResults([]);
+    setAccumulatedRestaurantResults([]);
+  };
+
+  // Predefined search suggestion combos mapping João Pessoa neighborhood and categories
+  const SUGGESTED_COMBOS = useMemo(() => [
+    { text: '🍕 Pizzaria em Tambaú', query: 'Pizzaria em Tambaú' },
+    { text: '🍔 Hamburgueria nos Bancários', query: 'Hamburgueria nos Bancários' },
+    { text: '🏖️ Restaurantes na Orla', query: 'Restaurantes na Orla' },
+    { text: '🥩 Churrasco no Centro', query: 'Churrasco no Centro' },
+    { text: '🍦 Sorvete em Cabo Branco', query: 'Sorvete em Cabo Branco' },
+    { text: '🍣 Sushi em Manaíra', query: 'Sushi em Manaíra' },
+    { text: '☕ Café em Tambaú', query: 'Café em Tambaú' },
+    { text: '🍧 Açaí em Mangabeira', query: 'Açaí em Mangabeira' }
+  ], []);
+
+  // Predictive autocompletes based on typed content mapping João Pessoa details local parser
+  const generateAutocompleteSuggestions = useCallback((query: string) => {
+    const normalized = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (!normalized) return [];
+
+    const suggestionsList: { text: string; query: string; type: 'category' | 'neighborhood' | 'combo' | 'general' }[] = [];
+
+    // Mappings from searchParser
+    const NEIGHBORHOODS_LIST = [
+      'Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Bancários', 'Mangabeira', 
+      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'Tambiá', 
+      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 
+      'Miramar', 'Tambauzinho', 'Jardim Oceania', 'Aeroclube', 'Castelo Branco', 
+      'Portal do Sol', 'José Américo', 'Cidade Universitária', 'Expedicionários'
+    ];
+
+    const CATEGORIES_LIST = [
+      { key: 'pizza', label: 'Pizzaria' },
+      { key: 'hamburguer', label: 'Hamburgueria' },
+      { key: 'sushi', label: 'Japonesa' },
+      { key: 'cafe', label: 'Cafeteria' },
+      { key: 'churrasco', label: 'Churrascaria' },
+      { key: 'sorvete', label: 'Açaí / Sorveteria' },
+      { key: 'saudavel', label: 'Saudável / Fit' }
+    ];
+
+    const REGIONS_LIST = [
+      { key: 'orla', label: 'Orla' },
+      { key: 'praia', label: 'Orla' },
+      { key: 'zona sul', label: 'Zona Sul' },
+      { key: 'centro', label: 'Centro / Norte' }
+    ];
+
+    // Find matches
+    const matchedCats = CATEGORIES_LIST.filter(c => c.key.includes(normalized) || c.label.toLowerCase().includes(normalized));
+    const matchedNeighs = NEIGHBORHOODS_LIST.filter(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalized));
+    const matchedRegions = REGIONS_LIST.filter(r => r.key.includes(normalized) || r.label.toLowerCase().includes(normalized));
+
+    if (matchedCats.length > 0) {
+      const categoryName = matchedCats[0].label;
+      suggestionsList.push({
+        text: `🔍 Buscar por ${categoryName}`,
+        query: categoryName,
+        type: 'category'
+      });
+      // Add popular neighborhood combos for category
+      ['Tambaú', 'Cabo Branco', 'Bancários', 'Manaíra'].forEach(neigh => {
+        suggestionsList.push({
+          text: `🔍 ${categoryName} em ${neigh}`,
+          query: `${categoryName} em ${neigh}`,
+          type: 'combo'
+        });
+      });
+    }
+
+    if (matchedNeighs.length > 0) {
+      matchedNeighs.slice(0, 2).forEach(neighName => {
+        suggestionsList.push({
+          text: `📍 Ir para ${neighName}`,
+          query: neighName,
+          type: 'neighborhood'
+        });
+        // Add popular category combos
+        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'Açaí / Sorveteria'].forEach(cat => {
+          suggestionsList.push({
+            text: `🔍 ${cat} em ${neighName}`,
+            query: `${cat} em ${neighName}`,
+            type: 'combo'
+          });
+        });
+      });
+    }
+
+    if (matchedRegions.length > 0) {
+      const regionLabel = matchedRegions[0].label;
+      suggestionsList.push({
+        text: `🏖️ Restaurantes na ${regionLabel}`,
+        query: `Restaurantes na ${regionLabel}`,
+        type: 'combo'
+      });
+      suggestionsList.push({
+        text: `🍔 Hamburgueria na ${regionLabel}`,
+        query: `Hamburgueria na ${regionLabel}`,
+        type: 'combo'
+      });
+    }
+
+    // Parse to see if it's already a combo (NLP)
+    const parsed = parseSearchQuery(query);
+    if (parsed.category && parsed.neighborhood) {
+      suggestionsList.unshift({
+        text: `✨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
+        query: `${parsed.category} em ${parsed.neighborhood}`,
+        type: 'combo'
+      });
+    } else if (parsed.cleanedQuery && parsed.neighborhood) {
+      suggestionsList.unshift({
+        text: `✨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
+        query: `${parsed.cleanedQuery} em ${parsed.neighborhood}`,
+        type: 'combo'
+      });
+    }
+
+    suggestionsList.push({
+      text: `🔍 Buscar por "${query}"`,
+      query: query,
+      type: 'general'
+    });
+
+    const seenText = new Set<string>();
+    return suggestionsList.filter(item => {
+      if (seenText.has(item.text)) return false;
+      seenText.add(item.text);
+      return true;
+    }).slice(0, 6);
+  }, []);
   
   const handleItemClick = (itemId: string, type: SearchType) => {
     if (type === 'restaurant') {
@@ -294,6 +541,21 @@ export default function SearchUnifiedPage() {
     refetchRestaurants(); // Refetch with new category filter
   };
 
+  const handleApplyPrice = (min: number | null, max: number | null) => {
+    setMinPriceFilter(min);
+    setMaxPriceFilter(max);
+    setPage(1);
+    setAccumulatedDishResults([]);
+    setAccumulatedRestaurantResults([]);
+  };
+
+  const handleApplyNeighborhood = (neighborhood: string | null) => {
+    setSelectedNeighborhoodFilter(neighborhood);
+    setPage(1);
+    setAccumulatedDishResults([]);
+    setAccumulatedRestaurantResults([]);
+  };
+
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
@@ -301,6 +563,7 @@ export default function SearchUnifiedPage() {
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
+    setSelectedNeighborhoodFilter(null);
     setExcludedDishCategoryIds([]);
     setIncludedRestaurantCategories([]);
     setPage(1);
@@ -332,6 +595,7 @@ export default function SearchUnifiedPage() {
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
+    setSelectedNeighborhoodFilter(null);
     setExcludedDishCategoryIds([]);
     setIncludedRestaurantCategories([]);
     setPage(1);
@@ -339,7 +603,7 @@ export default function SearchUnifiedPage() {
     setAccumulatedRestaurantResults([]);
   };
 
-  const hasActiveFilters = minPriceFilter !== null || maxPriceFilter !== null || maxDistanceFilter !== null;
+  const hasActiveFilters = minPriceFilter !== null || maxPriceFilter !== null || maxDistanceFilter !== null || selectedNeighborhoodFilter !== null;
 
   const pageContent = (
     <div className="px-5 pb-5 pt-4 space-y-4">
@@ -376,6 +640,13 @@ export default function SearchUnifiedPage() {
           {maxDistanceFilter !== null ? `Até ${maxDistanceFilter} km` : 'Distância'}
         </motion.button>
 
+        {selectedNeighborhoodFilter !== null && (
+          <div className="h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold bg-[#EF2A39] text-white border border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]">
+            <MapPin className="w-3.5 h-3.5" />
+            {selectedNeighborhoodFilter}
+          </div>
+        )}
+
         {hasActiveFilters && (
           <motion.button
             whileTap={{ scale: 0.93 }}
@@ -394,18 +665,28 @@ export default function SearchUnifiedPage() {
           Resultados da Busca
         </h2>
         {activeSearchType === 'dish' && (
-          <CategoryFilterDrawer
+          <AdvancedFilterDrawer
             selectedCategoryIds={excludedDishCategoryIds}
-            onApply={handleApplyDishCategoryFilter}
+            onApplyCategories={handleApplyDishCategoryFilter}
             allCategories={allMenuCategories}
+            selectedNeighborhood={selectedNeighborhoodFilter}
+            onApplyNeighborhood={handleApplyNeighborhood}
+            minPrice={minPriceFilter}
+            maxPrice={maxPriceFilter}
+            onApplyPrice={handleApplyPrice}
             filterMode="exclude"
           />
         )}
         {activeSearchType === 'restaurant' && (
-          <CategoryFilterDrawer
+          <AdvancedFilterDrawer
             selectedCategoryIds={includedRestaurantCategories}
-            onApply={handleApplyRestaurantCategoryFilter}
+            onApplyCategories={handleApplyRestaurantCategoryFilter}
             allCategories={allRestaurantCategories}
+            selectedNeighborhood={selectedNeighborhoodFilter}
+            onApplyNeighborhood={handleApplyNeighborhood}
+            minPrice={minPriceFilter}
+            maxPrice={maxPriceFilter}
+            onApplyPrice={handleApplyPrice}
             filterMode="include"
           />
         )}
@@ -496,6 +777,90 @@ export default function SearchUnifiedPage() {
     handleSearch(e);
   };
 
+  const renderSuggestions = () => {
+    if (searchQuery === '') {
+      return (
+        <div className="px-5 pt-6 space-y-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-[#3C2F2F]">
+              <span className="text-[14px] font-bold tracking-wider uppercase opacity-75">
+                Buscas Recomendadas por IA
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-[#FFF1F1] text-[#EF2A39] font-bold">
+                Novo
+              </span>
+            </div>
+            <p className="text-[12px] text-[#9CA3AF] font-medium leading-tight">
+              Combine pratos, categorias e bairros de João Pessoa em uma única busca natural.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+              {SUGGESTED_COMBOS.map((combo, idx) => (
+                <motion.button
+                  key={idx}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSuggestionClick(combo.query)}
+                  className="flex items-center justify-between p-4 rounded-[20px] bg-white border border-slate-100/80 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(239,42,57,0.08)] hover:border-[#EF2A39]/30 text-left transition-all duration-300"
+                >
+                  <span className="text-[14px] font-bold text-[#3C2F2F]">{combo.text}</span>
+                  <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const autocompleteList = generateAutocompleteSuggestions(searchQuery);
+
+    if (autocompleteList.length === 0) return null;
+
+    return (
+      <div className="px-5 pt-4 space-y-3">
+        <h3 className="text-[12px] font-bold text-[#9CA3AF] tracking-wider uppercase pl-1">
+          Sugestões de busca
+        </h3>
+        <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_12px_30px_rgba(0,0,0,0.05)] overflow-hidden">
+          {autocompleteList.map((item, idx) => (
+            <motion.button
+              key={idx}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => handleSuggestionClick(item.query)}
+              className={cn(
+                "w-full flex items-center justify-between p-4 text-left transition-all duration-150 border-b border-slate-50 last:border-0 hover:bg-slate-50/80",
+                idx === 0 && "bg-[#FFF1F1]/30 hover:bg-[#FFF1F1]/50"
+              )}
+            >
+              <div className="flex items-center gap-3">
+                <div className={cn(
+                  "w-9 h-9 rounded-full flex items-center justify-center",
+                  item.type === 'neighborhood' ? "bg-red-50 text-[#EF2A39]" :
+                  item.type === 'category' ? "bg-amber-50 text-amber-500" :
+                  item.type === 'combo' ? "bg-emerald-50 text-emerald-500" : "bg-slate-50 text-slate-400"
+                )}>
+                  {item.type === 'neighborhood' ? (
+                    <MapPin className="w-4 h-4" />
+                  ) : item.type === 'category' ? (
+                    <Pizza className="w-4 h-4" />
+                  ) : (
+                    <Search className="w-4 h-4" />
+                  )}
+                </div>
+                <div>
+                  <span className="text-[14px] font-semibold text-[#3C2F2F]">
+                    {item.text}
+                  </span>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
+            </motion.button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins'] relative">
       {/* Cabeçalho customizado (Sticky no Topo) */}
@@ -518,14 +883,14 @@ export default function SearchUnifiedPage() {
           <SoftSearchInput
             placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleInputChange(e.target.value)}
             onSubmitAction={handleSearchSubmit}
           />
         </div>
       </div>
 
-      <div className="flex-grow w-full">
-        {pageContent}
+      <div className="flex-grow w-full pb-8">
+        {isSubmitted ? pageContent : renderSuggestions()}
       </div>
     </div>
   );

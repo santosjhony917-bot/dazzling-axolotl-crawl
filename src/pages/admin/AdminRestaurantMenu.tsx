@@ -155,6 +155,22 @@ const AdminRestaurantMenu: React.FC = () => {
   const handleSaveItem = async (values: MenuItemFormValues) => {
     if (!selectedCategoryId || !user) return;
 
+    const toTitleCase = (str: string) => {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    };
+
+    const cleanPrefixes = (name: string) => {
+      if (!name) return '';
+      return name.replace(/^[\d\w\s]+:\s*/i, '').trim();
+    };
+
+    const sanitizedName = toTitleCase(cleanPrefixes(values.name));
+
     setIsSavingItem(true); // Inicia o loading
     const itemData = {
       category_id: selectedCategoryId,
@@ -163,6 +179,8 @@ const AdminRestaurantMenu: React.FC = () => {
       price: values.price,
       image_url: values.image_url,
       is_active: values.is_active,
+      search_display_name: sanitizedName,
+      is_illustrative: values.is_illustrative,
     };
 
     if (editingItem) {

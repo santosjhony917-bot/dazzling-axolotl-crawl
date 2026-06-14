@@ -73,6 +73,7 @@ export interface MenuItem {
   order_index?: number | null;
   is_active?: boolean | null;
   created_at?: string;
+  is_illustrative?: boolean | null;
 }
 
 export interface GalleryImage {

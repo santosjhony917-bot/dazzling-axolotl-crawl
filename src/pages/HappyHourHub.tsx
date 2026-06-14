@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,6 +28,7 @@ import Header from '@/components/Header';
 
 export default function HappyHourHub() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useAuthData();
   const currentUserId = user?.id || '';
 
@@ -66,6 +67,12 @@ export default function HappyHourHub() {
   useEffect(() => {
     loadData();
   }, [currentUserId]);
+
+  useEffect(() => {
+    if (searchParams.get('create') === 'true') {
+      handleOpenCreateModal();
+    }
+  }, [searchParams]);
 
   const handleOpenCreateModal = () => {
     setTitle('');
@@ -133,6 +140,19 @@ export default function HappyHourHub() {
         leftAction={{ icon: ArrowLeft, onClick: () => navigate('/home') }}
         rightAction={{ icon: Plus, onClick: handleOpenCreateModal }}
       />
+
+      {/* Prominent CTA to Create Event */}
+      {!loading && happyHours.length > 0 && (
+        <div className="px-4 pt-4">
+          <Button
+            onClick={handleOpenCreateModal}
+            className="w-full h-12 bg-gradient-to-r from-[#EF2A39] to-[#C41230] hover:from-[#EF2A39]/90 hover:to-[#C41230]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(239,42,57,0.25)] flex items-center justify-center gap-2 border-none active:scale-[0.99] transition-all text-xs uppercase tracking-wider"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            Criar Novo Happy Hour
+          </Button>
+        </div>
+      )}
 
       {/* List of Events */}
       <div className="p-4 space-y-4">
@@ -252,10 +272,10 @@ export default function HappyHourHub() {
             </p>
             <Button 
               onClick={handleOpenCreateModal}
-              className="h-10 px-5 text-xs font-bold rounded-2xl bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-none border-none flex items-center gap-1.5"
+              className="h-12 px-6 bg-gradient-to-r from-[#EF2A39] to-[#C41230] hover:from-[#EF2A39]/90 hover:to-[#C41230]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(239,42,57,0.25)] flex items-center gap-2 border-none active:scale-[0.99] transition-all duration-200 text-xs uppercase tracking-wider"
             >
-              <Plus className="w-4 h-4" />
-              Marcar Happy Hour
+              <Plus className="w-4 h-4 stroke-[3]" />
+              Criar Novo Happy Hour
             </Button>
           </div>
         )}

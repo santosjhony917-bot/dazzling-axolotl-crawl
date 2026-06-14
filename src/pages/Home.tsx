@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown, X, Play, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown, X, Play, ChevronLeft, ChevronRight, ExternalLink, Map, Waves, GraduationCap, Landmark } from 'lucide-react';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
 import { useNearbyRestaurants } from '@/hooks/useNearbyRestaurants';
 import { createPageUrl } from '@/utils/url';
@@ -13,6 +13,8 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { useAuthData } from '@/context/AuthContext';
 import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import { cn } from '@/lib/utils';
+import { getRestaurantOpenStatus } from '@/lib/schedule';
 import {
   ChefPlatterIllustration,
   ComboIllustration,
@@ -22,16 +24,72 @@ import {
   SaladIllustration
 } from '@/components/icons/CategoryDrawings';
 
+const MACRO_REGIONS = [
+  {
+    id: 'all',
+    label: 'Todos Bairros',
+    iconName: 'Map',
+    neighborhoods: []
+  },
+  {
+    id: 'orla',
+    label: 'Orla',
+    iconName: 'Waves',
+    neighborhoods: ['tambaú', 'tambau', 'cabo branco', 'manaíra', 'manaira', 'bessa', 'jardim oceania', 'altiplano', 'aeroclube', 'ponta de campina', 'intermares']
+  },
+  {
+    id: 'zona_sul',
+    label: 'Zona Sul',
+    iconName: 'GraduationCap',
+    neighborhoods: ['bancários', 'bancarios', 'mangabeira', 'geisel', 'ernesto geisel', 'valentina', 'valentina de figueiredo', 'castelo branco', 'portal do sol', 'josé américo', 'jose americo', 'cidade universitária', 'cidade universitaria']
+  },
+  {
+    id: 'centro_norte',
+    label: 'Centro / Norte',
+    iconName: 'Landmark',
+    neighborhoods: ['centro', 'torre', 'tambiá', 'tambia', 'bairro dos estados', 'estados', 'jaguaribe', 'mandacaru', 'roger', 'padre zé', 'padre ze', 'miramar', 'tambauzinho', 'expedicionários', 'expedicionarios']
+  }
+];
+
+const getRegionIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'Map':
+      return <Map className="w-3.5 h-3.5" />;
+    case 'Waves':
+      return <Waves className="w-3.5 h-3.5" />;
+    case 'GraduationCap':
+      return <GraduationCap className="w-3.5 h-3.5" />;
+    case 'Landmark':
+      return <Landmark className="w-3.5 h-3.5" />;
+    default:
+      return null;
+  }
+};
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const getBustedUrl = useImageCacheBuster();
   const { location, isLoading: isLocationLoading, refetch: refetchLocation } = useUserSearchLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedRegion, setSelectedRegion] = useState('all');
   const { isFavorite, toggleFavorite } = useFavorites();
   const { restaurant } = useAuthData();
   const isRestaurantOwner = !!restaurant;
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+
+  const isRestaurantOpen = (r: any) => {
+    if (r.opening_hours) {
+      try {
+        const status = getRestaurantOpenStatus(r.opening_hours);
+        return status.isOpen;
+      } catch (e) {
+        // Fallback
+      }
+    }
+    const hour = new Date().getHours();
+    return hour >= 11 && hour < 22;
+  };
 
   const recommendedPosts = useMemo(() => [
     {
@@ -125,20 +183,33 @@ const Home: React.FC = () => {
     }
   };
 
-  // Parsear amigavelmente o endereço para exibição compacta (ex: Bairro)
+  // Parsear amigavelmente o endereço para exibição compacta (ex: Bairro ou Rua)
   const locationDisplayName = useMemo(() => {
     if (!location.address) return 'Definir endereço';
-    if (location.address === "Av. Cabo Branco, 2000 - Cabo Branco, João Pessoa - PB") {
+    
+    // Endereço de mock padrão
+    if (location.address.includes("Cabo Branco") && location.address.includes("2000")) {
       return "Cabo Branco";
     }
-    const parts = location.address.split('-');
+
+    const parts = location.address.split(',');
     if (parts.length >= 2) {
-      const midPart = parts[1].trim();
-      const subParts = midPart.split(',');
-      if (subParts.length >= 1) {
-        return subParts[0].trim();
+      const streetPart = parts[0].trim();
+      const neighborhoodPart = parts[1].trim();
+
+      // Se a rua for só número, CEP, "unnamed", ou muito curta (ex: "070"), exibe o bairro
+      const isNumberOrShort = /^\d+$/.test(streetPart) || streetPart.length <= 4 || streetPart.toLowerCase().includes('unnamed');
+      if (isNumberOrShort && neighborhoodPart) {
+        return neighborhoodPart;
       }
+
+      // Se for rua válida, formata de forma premium e encurtada (Rua -> R., Avenida -> Av.)
+      let display = streetPart;
+      display = display.replace(/^rua\s+/i, 'R. ');
+      display = display.replace(/^avenida\s+/i, 'Av. ');
+      return display;
     }
+
     return location.address.split(',')[0]?.trim() || location.address;
   }, [location]);
 
@@ -169,45 +240,55 @@ const Home: React.FC = () => {
     return found ? found.id : fallbackId;
   };
 
-  // Filtragem local dos restaurantes baseado na categoria selecionada
+  // Filtragem local dos restaurantes baseado na categoria e macro-região selecionadas
   const filteredRestaurants = useMemo(() => {
     if (!restaurants) return [];
-    if (selectedCategory === 'all') return restaurants;
-    if (selectedCategory === 'nearby') {
-      return [...restaurants].sort((a, b) => (a.distance_km || 0) - (b.distance_km || 0));
+
+    // 1. Filtrar por macro-região
+    let list = restaurants;
+    if (selectedRegion !== 'all') {
+      const regionData = MACRO_REGIONS.find(reg => reg.id === selectedRegion);
+      if (regionData && regionData.neighborhoods.length > 0) {
+        list = restaurants.filter(r => {
+          if (!r.neighborhood) return false;
+          const normNeigh = r.neighborhood.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          return regionData.neighborhoods.some(n => {
+            const normN = n.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            return normNeigh.includes(normN) || normN.includes(normNeigh);
+          });
+        });
+      }
     }
+
+    // 2. Filtrar por categoria
+    let categoryFiltered = list;
     if (selectedCategory === 'favorites') {
-      return restaurants.filter(r => isFavorite(r.id));
-    }
-    if (selectedCategory === 'combos') {
-      return restaurants.filter(r =>
+      categoryFiltered = list.filter(r => isFavorite(r.id));
+    } else if (selectedCategory === 'combos') {
+      categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('combo') ||
         r.name?.toLowerCase().includes('combo')
       );
-    }
-    if (selectedCategory === 'lanches') {
-      return restaurants.filter(r =>
+    } else if (selectedCategory === 'lanches') {
+      categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('lanche') ||
         r.category?.toLowerCase().includes('hambúrg') ||
         r.category?.toLowerCase().includes('burg')
       );
-    }
-    if (selectedCategory === 'sobremesas') {
-      return restaurants.filter(r =>
+    } else if (selectedCategory === 'sobremesas') {
+      categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('sobremesa') ||
         r.category?.toLowerCase().includes('doce') ||
         r.category?.toLowerCase().includes('sorvete') ||
         r.category?.toLowerCase().includes('açaí') ||
         r.category?.toLowerCase().includes('acai')
       );
-    }
-    if (selectedCategory === 'pizza') {
-      return restaurants.filter(r =>
+    } else if (selectedCategory === 'pizza') {
+      categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('pizza')
       );
-    }
-    if (selectedCategory === 'saudavel') {
-      return restaurants.filter(r =>
+    } else if (selectedCategory === 'saudavel') {
+      categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('saudável') ||
         r.category?.toLowerCase().includes('saudavel') ||
         r.category?.toLowerCase().includes('salada') ||
@@ -216,8 +297,21 @@ const Home: React.FC = () => {
         r.category?.toLowerCase().includes('vegetariano')
       );
     }
-    return restaurants;
-  }, [restaurants, selectedCategory, isFavorite]);
+
+    // 3. Ordenar: Abertos primeiro, depois critério específico
+    return [...categoryFiltered].sort((a, b) => {
+      const aOpen = isRestaurantOpen(a);
+      const bOpen = isRestaurantOpen(b);
+      if (aOpen && !bOpen) return -1;
+      if (!aOpen && bOpen) return 1;
+
+      // Se ambos tiverem o mesmo status, ordena por proximidade se for categoria "nearby"
+      if (selectedCategory === 'nearby') {
+        return (a.distance_km || 0) - (b.distance_km || 0);
+      }
+      return 0; // Mantém ordem original (RPC: plan DESC, etc.)
+    });
+  }, [restaurants, selectedCategory, selectedRegion, isFavorite]);
 
   return (
     <div className="bg-white w-full flex-grow pt-8 font-['Poppins']">
@@ -295,25 +389,32 @@ const Home: React.FC = () => {
             <p className="text-xs text-white/90 mt-1">Amigos ativos no momento</p>
           </div>
 
-          <div className="flex items-center mt-auto gap-2">
-            <div className="flex items-center gap-1.5">
-              <div className="flex -space-x-2.5">
-                <img className="w-7 h-7 rounded-full border-2 border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="Friend 1" />
-                <img className="w-7 h-7 rounded-full border-2 border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="Friend 2" />
-                <img className="w-7 h-7 rounded-full border-2 border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie" alt="Friend 3" />
+          <div className="flex items-center mt-auto justify-between w-full gap-2">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/happy-hours');
+              }}
+              className="flex items-center gap-2 bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-200 active:scale-95 border-none text-white cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+            >
+              <div className="flex -space-x-2">
+                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="Friend 1" />
+                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="Friend 2" />
+                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie" alt="Friend 3" />
               </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate('/friends?tab=search');
-                }}
-                className="w-7 h-7 rounded-full border-2 border-[#EF2A39] bg-white flex items-center justify-center text-[#EF2A39] hover:bg-slate-50 transition-transform active:scale-90 z-10 shadow-[0_2px_5px_rgba(0,0,0,0.04)]"
-                title="Adicionar Amigos"
-              >
-                <Plus className="w-3.5 h-3.5 stroke-[3.5]" />
-              </button>
-            </div>
-            <span className="text-xs font-semibold bg-white/25 px-3 py-1 rounded-full backdrop-blur-md ml-auto">Entrar</span>
+              <span className="text-xs font-semibold">Entrar</span>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/happy-hours?create=true');
+              }}
+              className="flex items-center gap-1.5 bg-white text-[#EF2A39] hover:bg-slate-50 px-3 py-1.5 rounded-full transition-all duration-200 active:scale-95 font-semibold text-xs border-none shadow-[0_4px_12px_rgba(239,42,57,0.15)] cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5 stroke-[3.5]" />
+              <span>Novo Rolê</span>
+            </button>
           </div>
         </div>
 
@@ -410,16 +511,7 @@ const Home: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Bottom caption and likes */}
-                <div className="absolute bottom-3 left-3 right-3 whitespace-normal flex flex-col gap-1 z-10 pointer-events-none">
-                  <p className="text-[10.5px] font-semibold text-white/95 leading-tight line-clamp-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-                    {post.caption}
-                  </p>
-                  <div className="flex items-center gap-1 text-[9px] font-bold text-white/80 mt-0.5">
-                    <Heart className="w-3 h-3 fill-[#EF2A39] text-[#EF2A39]" />
-                    <span>{post.likes}</span>
-                  </div>
-                </div>
+
 
                 {/* Play Button Overlay (Videos) */}
                 {post.type === 'video' && (
@@ -437,7 +529,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Categorias — estilo círculo com foto + label */}
-      <div className="mb-10 pl-5">
+      <div className="mb-8 pl-5">
         <ScrollArea className="w-full whitespace-nowrap">
           <div className="flex gap-5 pr-5 pb-2 pt-1">
             {[
@@ -486,8 +578,32 @@ const Home: React.FC = () => {
         </ScrollArea>
       </div>
 
+      {/* Barra de Macro-Regiões */}
+      <div className="px-5 mb-8 overflow-hidden">
+        <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar -mx-5 px-5">
+          {MACRO_REGIONS.map((region) => {
+            const isActive = selectedRegion === region.id;
+            return (
+              <button
+                key={region.id}
+                onClick={() => setSelectedRegion(region.id)}
+                className={cn(
+                  "shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5",
+                  isActive
+                    ? "bg-[#EF2A39] text-white shadow-[0_6px_16px_rgba(239,42,57,0.3)] scale-[1.03]"
+                    : "bg-[#F3F4F6] text-[#374151] border border-slate-200/60 hover:bg-slate-200/70"
+                )}
+              >
+                {getRegionIcon(region.iconName)}
+                <span>{region.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Lista de Restaurantes (Cards Horizontais) */}
-      <div className="px-5 flex flex-col gap-4 pb-8">
+      <div className="px-5 flex flex-col gap-4 pb-32">
         {isRestaurantsLoading ? (
           <>
             {[1, 2, 3, 4].map((i) => (
@@ -526,6 +642,7 @@ const Home: React.FC = () => {
         ) : filteredRestaurants && filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((restaurant) => {
             const mockRating = (4 + (Math.random() * 0.9)).toFixed(1);
+            const isOpen = isRestaurantOpen(restaurant);
 
             return (
               <div 
@@ -547,9 +664,19 @@ const Home: React.FC = () => {
 
                 {/* Conteúdo */}
                 <div className="flex-grow min-w-0 pr-2 flex flex-col justify-center">
-                  <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#EF2A39] mb-0.5">
-                    {restaurant.category || 'Geral'}
-                  </span>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#EF2A39]">
+                      {restaurant.category || 'Geral'}
+                    </span>
+                    <span className={cn(
+                      "text-[9px] px-1.5 py-0.5 rounded-md font-bold uppercase tracking-wide",
+                      isOpen 
+                        ? "bg-emerald-50 text-emerald-600 border border-emerald-100" 
+                        : "bg-rose-50 text-rose-600 border border-rose-100"
+                    )}>
+                      {isOpen ? 'Aberto' : 'Fechado'}
+                    </span>
+                  </div>
                   <h3 className="font-bold text-base text-[#3C2F2F] truncate leading-tight">
                     {restaurant.name}
                   </h3>

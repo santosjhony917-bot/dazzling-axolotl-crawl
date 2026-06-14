@@ -32,6 +32,7 @@ interface MenuItemBase {
   image_url?: string;
   is_active: boolean;
   order_index?: number;
+  is_illustrative?: boolean;
 }
 
 export type CreateItemPayload = MenuItemBase & {

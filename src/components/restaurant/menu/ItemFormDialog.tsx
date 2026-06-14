@@ -30,6 +30,7 @@ const itemSchema = z.object({
   price: z.number().min(0.01, 'O preço deve ser maior que zero.'),
   image_url: z.string().url('URL de imagem inválida.').optional().or(z.literal('')),
   is_active: z.boolean(),
+  is_illustrative: z.boolean().optional(),
 });
 
 export type MenuItemFormValues = z.infer<typeof itemSchema>;
@@ -69,6 +70,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
       price: 0,
       image_url: '',
       is_active: true,
+      is_illustrative: false,
     },
   });
 
@@ -81,6 +83,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
           price: itemToEdit.price,
           image_url: itemToEdit.image_url || '',
           is_active: itemToEdit.is_active,
+          is_illustrative: !!itemToEdit.is_illustrative,
         });
       } else {
         reset({
@@ -89,6 +92,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
           price: 0,
           image_url: '',
           is_active: true,
+          is_illustrative: false,
         });
       }
     }
@@ -214,6 +218,27 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
               render={({ field }) => (
                 <Switch
                   id="is_active"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              )}
+            />
+          </div>
+
+          {/* Imagem Ilustrativa */}
+          <div className="flex items-center justify-between space-x-2 pt-1">
+            <Label htmlFor="is_illustrative" className="flex flex-col space-y-1">
+              <span>Imagem Ilustrativa</span>
+              <span className="font-normal leading-snug text-muted-foreground text-sm">
+                Indica se esta imagem é meramente ilustrativa no cardápio.
+              </span>
+            </Label>
+            <Controller
+              name="is_illustrative"
+              control={control}
+              render={({ field }) => (
+                <Switch
+                  id="is_illustrative"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />

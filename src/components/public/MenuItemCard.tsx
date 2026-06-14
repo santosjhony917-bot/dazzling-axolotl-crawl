@@ -23,12 +23,17 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
       
       {/* Imagem do Item (se existir) */}
       {item.image_url && (
-        <div className="flex-shrink-0 w-20 h-20 rounded-md overflow-hidden shadow-none">
+        <div className="relative flex-shrink-0 w-20 h-20 rounded-md overflow-hidden shadow-none bg-gray-50">
           <img 
             src={item.image_url} 
             alt={item.name} 
             className="w-full h-full object-cover"
           />
+          {item.is_illustrative && (
+            <div className="absolute top-1 right-1 text-white text-[7px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.2px_2px_rgba(0,0,0,0.85)]">
+              Ilustrativa
+            </div>
+          )}
         </div>
       )}
 

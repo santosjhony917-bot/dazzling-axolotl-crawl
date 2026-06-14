@@ -124,11 +124,18 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
                   onClick={() => handleItemClick(item.id)}
                 >
                   {item.image_url && (
-                    <img
-                      src={item.image_url}
-                      alt={item.name}
-                      className="w-[72px] h-[72px] object-cover rounded-[16px] flex-shrink-0 border border-slate-100/60"
-                    />
+                    <div className="relative w-[72px] h-[72px] flex-shrink-0 rounded-[16px] overflow-hidden border border-slate-100/60 bg-gray-50">
+                      <img
+                        src={item.image_url}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {item.is_illustrative && (
+                        <div className="absolute top-1 right-1 text-white text-[7px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.2px_2px_rgba(0,0,0,0.85)]">
+                          Ilustrativa
+                        </div>
+                      )}
+                    </div>
                   )}
                   <div className="flex-grow min-w-0">
                     <div className="flex justify-between items-start gap-2">
