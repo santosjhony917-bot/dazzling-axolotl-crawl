@@ -19,8 +19,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, requiredRole }
 
   const role = getRole();
 
-  if (isLoading || isRestaurantLoading) {
-    return <div>Loading...</div>; // Or a proper loading spinner
+  const isRouteLoading = isLoading || (requiredRole === 'restaurant_owner' && isRestaurantLoading);
+
+  if (isRouteLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-50">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mx-auto"></div>
+          <p className="text-sm text-gray-500 font-medium">Carregando...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!isAuthenticated) {

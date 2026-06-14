@@ -125,7 +125,9 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Re
   let hasMore = true;
 
   try {
-    while (hasMore) {
+    let loopSafety = 0;
+    while (hasMore && loopSafety < 30) {
+      loopSafety++;
       const from = page * PAGE_SIZE;
       const to = from + PAGE_SIZE - 1;
 
@@ -464,14 +466,16 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
     staleTime: 60000,
   });
 
+  const refetch = restaurantsQuery.refetch;
+
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       if (!e.key || e.key === 'mock-supabase-fallback-restaurants' || e.key === 'mock-completed-restaurants') {
-        restaurantsQuery.refetch();
+        refetch();
       }
     };
     const handleLocalSync = () => {
-      restaurantsQuery.refetch();
+      refetch();
     };
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener('local-sync-restaurants', handleLocalSync);
@@ -480,7 +484,7 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('local-sync-restaurants', handleLocalSync);
     };
-  }, [restaurantsQuery]);
+  }, [refetch]);
 
   const updatePlanMutation = useMutation({
     mutationFn: updateRestaurantPlan,

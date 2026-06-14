@@ -453,6 +453,12 @@ export default function GoogleMapsCollector() {
   const [searchTerm, setSearchTerm] = useState('');
   const [importedKeys, setImportedKeys] = useState<Set<string>>(new Set());
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
+  const [isViewingDb, setIsViewingDb] = useState(true);
+  const isViewingDbRef = useRef(isViewingDb);
+
+  useEffect(() => {
+    isViewingDbRef.current = isViewingDb;
+  }, [isViewingDb]);
 
 
   // Estados para Varredura em Lote e Persistência
@@ -741,6 +747,7 @@ export default function GoogleMapsCollector() {
     }
 
     setResults(formatted);
+    setIsViewingDb(false);
   };
   
   // Carrega varredura interrompida ao iniciar
@@ -836,7 +843,6 @@ export default function GoogleMapsCollector() {
           const { data, error } = await supabase
             .from('restaurants')
             .select('name, address')
-            .eq('visit_status', 'Visitado')
             .or('is_deleted.eq.false,is_deleted.is.null')
             .range(from, to);
 
@@ -968,6 +974,7 @@ export default function GoogleMapsCollector() {
         };
       });
       setResults(formatted);
+      setIsViewingDb(true);
     } catch (err: any) {
       console.error('Erro ao carregar do Supabase:', err);
       showError(`Erro ao carregar estabelecimentos do Supabase: ${err.message || err}`);
@@ -978,7 +985,9 @@ export default function GoogleMapsCollector() {
     loadScrapedFromSupabase();
 
     const handleSync = () => {
-      loadScrapedFromSupabase();
+      if (isViewingDbRef.current) {
+        loadScrapedFromSupabase();
+      }
     };
 
     window.addEventListener('local-sync-restaurants', handleSync);
@@ -2961,7 +2970,11 @@ export default function GoogleMapsCollector() {
         restaurant={editingRestaurant}
         isOpen={editingRestaurant !== null}
         onClose={() => setEditingRestaurant(null)}
-        onSyncSuccess={loadScrapedFromSupabase}
+        onSyncSuccess={() => {
+          if (isViewingDbRef.current) {
+            loadScrapedFromSupabase();
+          }
+        }}
       />
     </div>
   );
