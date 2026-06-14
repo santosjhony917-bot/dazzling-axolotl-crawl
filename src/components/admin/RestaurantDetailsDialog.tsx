@@ -1168,8 +1168,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       return;
     }
 
-    const isUrl = /^https?:\/\/[^\s]+$/i.test(content);
+    const isUrl = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/\S*)?$/i.test(content);
     if (isUrl) {
+      const formattedUrl = /^https?:\/\//i.test(content) ? content : `https://${content}`;
       setIsExtractingAI(true);
       try {
         showSuccess('Link detectado! Salvando o link e iniciando o robô extrator local...');
@@ -1178,9 +1179,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const { error: updateError } = await supabase
           .from('restaurants')
           .update({
-            menuSourceUrl: content,
-            other_url: content,
-            external_url: content
+            menuSourceUrl: formattedUrl,
+            other_url: formattedUrl,
+            external_url: formattedUrl
           })
           .eq('id', restaurant.id);
 
