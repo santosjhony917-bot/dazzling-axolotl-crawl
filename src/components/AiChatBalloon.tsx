@@ -277,7 +277,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.25 }}
                   className={cn(
-                    "flex gap-2.5 max-w-[88%] items-end",
+                    "flex gap-2.5 max-w-[88%] items-start",
                     m.sender === 'user' ? "self-end flex-row-reverse" : "self-start"
                   )}
                 >
@@ -297,10 +297,10 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                   {/* Balão de Mensagem */}
                   <div 
                     className={cn(
-                      "p-3.5 text-xs leading-relaxed font-sans font-medium",
+                      "p-3.5 text-sm leading-relaxed font-sans font-medium",
                       m.sender === 'user' 
-                        ? "bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] text-white rounded-[20px] rounded-br-none shadow-[0_6px_15px_rgba(239,42,57,0.12)]" 
-                        : "bg-white border border-slate-100 text-slate-700 rounded-[20px] rounded-bl-none shadow-[0_6px_15px_rgba(0,0,0,0.02)]"
+                        ? "bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] text-white rounded-[20px] rounded-tr-none shadow-[0_6px_15px_rgba(239,42,57,0.12)]" 
+                        : "bg-white border border-slate-100 text-slate-700 rounded-[20px] rounded-tl-none shadow-[0_6px_15px_rgba(0,0,0,0.02)]"
                     )}
                   >
                     {m.id === 'typing' && <Loader2 className="w-3.5 h-3.5 animate-spin text-[#EF2A39] mb-1 mr-1 inline" />}
@@ -444,7 +444,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                         setInputText(sug.text);
                         processSearch(sug.text);
                       }}
-                      className="shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-150 text-slate-750 text-[10px] font-extrabold px-3 py-1.5 rounded-full shadow-soft active:scale-95 transition-all cursor-pointer border-none"
+                      className="shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-150 text-slate-750 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-soft active:scale-95 transition-all cursor-pointer border-none"
                     >
                       {sug.label}
                     </button>
@@ -462,7 +462,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 disabled={loading}
-                className="flex-grow border-none shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2 text-xs text-[#3C2F2F] placeholder-slate-400 font-semibold h-8"
+                className="flex-grow border-none shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2 text-sm text-[#3C2F2F] placeholder-slate-400 font-semibold h-9"
               />
               <Button
                 type="submit"
