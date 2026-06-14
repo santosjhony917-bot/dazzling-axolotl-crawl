@@ -27,7 +27,8 @@ import {
   Pencil,
   Image,
   Upload,
-  Loader2
+  Loader2,
+  Play
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import {
@@ -277,6 +278,20 @@ const getSocialUrl = (restaurant: any, platform: string) => {
     return net?.url || '';
   }
   return '';
+};
+
+const isVideoUrl = (url: string | undefined): boolean => {
+  if (!url) return false;
+  const cleanUrl = url.split(/[?#]/)[0].toLowerCase();
+  return (
+    cleanUrl.endsWith('.mp4') ||
+    cleanUrl.endsWith('.webm') ||
+    cleanUrl.endsWith('.ogg') ||
+    cleanUrl.endsWith('.mov') ||
+    cleanUrl.endsWith('.quicktime') ||
+    url.includes('/video/') ||
+    url.includes('_video')
+  );
 };
 
 const renderOpeningHours = (hours: any) => {
@@ -1801,7 +1816,7 @@ ${aiHoursPastedContent}
       const uuidId = getDeterministicUUID(editedData.id);
 
       const getExtension = (url: string) => {
-        const match = url.split(/[?#]/)[0].match(/\.(jpg|jpeg|png|gif|webp|svg)$/i);
+        const match = url.split(/[?#]/)[0].match(/\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|ogg|mov)$/i);
         return match ? match[1].toLowerCase() : 'jpg';
       };
       const ext = getExtension(urlToProcess);
@@ -2583,22 +2598,37 @@ ${aiHoursPastedContent}
                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                        {((editedData.gallery_images || editedData.galleryImages || []) as string[]).map((url, idx) => (
                          <div key={idx} className="relative group h-20 bg-slate-100 rounded-xl overflow-hidden border border-gray-250">
-                           <img 
-                             key={url}
-                             src={url} 
-                             alt={`Galeria ${idx}`} 
-                             className="w-full h-full object-cover" 
-                             onError={(e) => {
-                               (e.target as HTMLImageElement).style.display = 'none';
-                               const parent = (e.target as HTMLImageElement).parentElement;
-                               if (parent && !parent.querySelector('.img-error-fallback')) {
-                                 const fallback = document.createElement('div');
-                                 fallback.className = 'img-error-fallback flex items-center justify-center w-full h-full bg-red-50 text-red-500';
-                                 fallback.innerHTML = '<span class="text-[8px] font-bold text-center">Erro imagem</span>';
-                                 parent.appendChild(fallback);
-                               }
-                             }}
-                           />
+                            {isVideoUrl(url) ? (
+                              <div className="relative w-full h-full">
+                                <video 
+                                  src={url}
+                                  muted
+                                  playsInline
+                                  preload="metadata"
+                                  className="w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10">
+                                  <Play className="w-5 h-5 text-white fill-white" />
+                                </div>
+                              </div>
+                            ) : (
+                              <img 
+                                key={url}
+                                src={url} 
+                                alt={`Galeria ${idx}`} 
+                                className="w-full h-full object-cover" 
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = 'none';
+                                  const parent = (e.target as HTMLImageElement).parentElement;
+                                  if (parent && !parent.querySelector('.img-error-fallback')) {
+                                    const fallback = document.createElement('div');
+                                    fallback.className = 'img-error-fallback flex items-center justify-center w-full h-full bg-red-50 text-red-500';
+                                    fallback.innerHTML = '<span class="text-[8px] font-bold text-center">Erro imagem</span>';
+                                    parent.appendChild(fallback);
+                                  }
+                                }}
+                              />
+                            )}
                            <Button
                              type="button"
                              onClick={() => handleRemoveGalleryUrl(idx)}

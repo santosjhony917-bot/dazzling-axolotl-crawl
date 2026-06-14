@@ -2,11 +2,25 @@ import React from 'react';
 import { GalleryImage } from '@/types/supabase';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { Image, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Image, X, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 
 interface RestaurantGalleryProps {
   gallery: GalleryImage[];
 }
+
+const isVideoUrl = (url: string | undefined): boolean => {
+  if (!url) return false;
+  const cleanUrl = url.split(/[?#]/)[0].toLowerCase();
+  return (
+    cleanUrl.endsWith('.mp4') ||
+    cleanUrl.endsWith('.webm') ||
+    cleanUrl.endsWith('.ogg') ||
+    cleanUrl.endsWith('.mov') ||
+    cleanUrl.endsWith('.quicktime') ||
+    url.includes('/video/') ||
+    url.includes('_video')
+  );
+};
 
 const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
   if (gallery.length === 0) return null;
@@ -111,17 +125,35 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
             );
             classes = cn(classes, "bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors");
           } else if (image) {
-            // 2. Renderiza a imagem real
+            // 2. Renderiza a imagem/video real
             const showCaption = slotIndex !== 0;
+            const isVideo = isVideoUrl(image.image_url);
             content = (
               <>
-                <img
-                  src={image.image_url}
-                  alt={image.caption || 'Imagem da galeria'}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
+                {isVideo ? (
+                  <div className="relative w-full h-full overflow-hidden">
+                    <video
+                      src={image.image_url}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/25 transition-colors z-10">
+                      <div className="bg-white/90 backdrop-blur-sm p-2.5 rounded-full shadow-lg">
+                        <Play className="w-5 h-5 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={image.image_url}
+                    alt={image.caption || 'Imagem da galeria'}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                )}
                 {showCaption && image.caption && (
-                  <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
+                  <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full z-10">
                     <p className="text-white text-sm font-semibold drop-shadow-none truncate">{image.caption}</p>
                   </div>
                 )}
@@ -149,19 +181,39 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
       {/* Se houver mais de 3 imagens, listamos o restante em um grid simples abaixo */}
       {remainingCount > 0 && (
         <div className="grid grid-cols-3 gap-2 mt-4">
-          {gallery.slice(3).map((image, index) => (
-            <Card 
-              key={image.id} 
-              className="overflow-hidden rounded-2xl shadow-none border-none p-0 aspect-square cursor-pointer"
-              onClick={() => setCurrentIndex(index + 3)}
-            >
-              <img
-                src={image.image_url}
-                alt={image.caption || 'Imagem da galeria'}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-              />
-            </Card>
-          ))}
+          {gallery.slice(3).map((image, index) => {
+            const isVideo = isVideoUrl(image.image_url);
+            return (
+              <Card 
+                key={image.id} 
+                className="overflow-hidden rounded-2xl shadow-none border-none p-0 aspect-square cursor-pointer relative"
+                onClick={() => setCurrentIndex(index + 3)}
+              >
+                {isVideo ? (
+                  <div className="relative w-full h-full overflow-hidden">
+                    <video
+                      src={image.image_url}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 z-10">
+                      <div className="bg-white/80 backdrop-blur-sm p-1.5 rounded-full shadow">
+                        <Play className="w-3.5 h-3.5 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={image.image_url}
+                    alt={image.caption || 'Imagem da galeria'}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                )}
+              </Card>
+            );
+          })}
         </div>
       )}
 
@@ -187,7 +239,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           </div>
 
           {/* Área Central: Imagem e Setas de Navegação */}
-          <div className="relative flex-grow w-full flex items-center justify-center p-4">
+          <div className="relative flex-grow w-full flex items-center justify-center p-4" onClick={handleClose}>
             {/* Seta Esquerda (Desktops/Tablets) */}
             <button 
               onClick={(e) => {
@@ -199,12 +251,23 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
               <ChevronLeft className="w-6 h-6" />
             </button>
 
-            {/* Imagem Ampliada */}
-            <img 
-              src={gallery[currentIndex].image_url} 
-              alt={gallery[currentIndex].caption || 'Imagem ampliada'} 
-              className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain transition-transform duration-300 pointer-events-none"
-            />
+            {/* Imagem/Vídeo Ampliado */}
+            {isVideoUrl(gallery[currentIndex].image_url) ? (
+              <video 
+                src={gallery[currentIndex].image_url}
+                controls
+                autoPlay
+                playsInline
+                className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain z-10"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <img 
+                src={gallery[currentIndex].image_url} 
+                alt={gallery[currentIndex].caption || 'Imagem ampliada'} 
+                className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain transition-transform duration-300 pointer-events-none"
+              />
+            )}
 
             {/* Seta Direita (Desktops/Tablets) */}
             <button 
