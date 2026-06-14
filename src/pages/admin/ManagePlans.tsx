@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Crown, Loader2, AlertTriangle } from 'lucide-react';
+import { Crown, Loader2, AlertTriangle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Restaurant, RestaurantPlan } from '@/types/supabase';
 import { Badge } from '@/components/ui/badge';
@@ -30,22 +30,51 @@ const planLabels: Record<string, string> = {
 
 const ManagePlans: React.FC = () => {
   const [filters, setFilters] = useState({ city: '', neighborhood: '' });
+  const [cityInput, setCityInput] = useState('');
+  const [neighborhoodInput, setNeighborhoodInput] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Debounce text filters
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters({
+        city: cityInput,
+        neighborhood: neighborhoodInput
+      });
+      setCurrentPage(1);
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [cityInput, neighborhoodInput]);
+
   const {
     restaurants,
+    totalCount,
     isLoading,
     error,
     updatePlan,
     isUpdatingPlan,
     updateMultiplePlans,
     isUpdatingMultiplePlans,
-  } = useAdminRestaurants(filters);
+  } = useAdminRestaurants({
+    ...filters,
+    page: currentPage,
+    pageSize: 15
+  });
+
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [bulkPlan, setBulkPlan] = useState<RestaurantPlan | ''>('');
 
-  const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
-    setFilters(prev => ({ ...prev, [filterName]: value }));
-  };
+  // Clear selections on page/filter change
+  useEffect(() => {
+    setSelectedIds([]);
+  }, [currentPage, filters]);
+
+  const itemsPerPage = 15;
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+  const activePage = Math.min(Math.max(1, currentPage), Math.max(1, totalPages));
+  const startIndex = (activePage - 1) * itemsPerPage;
 
   const handlePlanChange = (restaurantId: string, newPlan: string) => {
     setUpdatingId(restaurantId);
@@ -109,21 +138,21 @@ const ManagePlans: React.FC = () => {
         <CardTitle className="flex items-center gap-2 text-2xl text-primary">
           <Crown className="w-6 h-6" /> Gerenciar Planos
         </CardTitle>
-        <CardDescription>Total de {restaurants.length} restaurantes cadastrados. Altere o plano de assinatura abaixo.</CardDescription>
+        <CardDescription>Total de {totalCount} restaurantes cadastrados. Altere o plano de assinatura abaixo.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4 mb-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               placeholder="Filtrar por cidade..."
-              value={filters.city}
-              onChange={(e) => handleFilterChange('city', e.target.value)}
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
               disabled={isLoading}
             />
             <Input
               placeholder="Filtrar por bairro..."
-              value={filters.neighborhood}
-              onChange={(e) => handleFilterChange('neighborhood', e.target.value)}
+              value={neighborhoodInput}
+              onChange={(e) => setNeighborhoodInput(e.target.value)}
               disabled={isLoading}
             />
           </div>
@@ -222,6 +251,41 @@ const ManagePlans: React.FC = () => {
             </tbody>
           </table>
         </div>
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between p-4 border-t border-gray-100 bg-gray-50/50 rounded-b-2xl mt-4">
+            <div className="text-sm text-gray-500 font-medium">
+              Exibindo <span className="font-semibold text-primary">{startIndex + 1}</span> a{' '}
+              <span className="font-semibold text-primary">
+                {Math.min(startIndex + itemsPerPage, totalCount)}
+              </span>{' '}
+              de <span className="font-semibold text-primary">{totalCount}</span> restaurantes
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={activePage === 1}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <div className="text-xs font-bold text-gray-600 px-2">
+                Página {activePage} de {totalPages}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={activePage === totalPages}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

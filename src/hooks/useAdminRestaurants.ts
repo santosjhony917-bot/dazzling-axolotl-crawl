@@ -59,6 +59,8 @@ interface FetchRestaurantsFilters {
   plan?: string;
   neighborhood?: string;
   visit_status?: string;
+  page?: number;
+  pageSize?: number;
 }
 
 // Helper to initialize local fallback database
@@ -118,141 +120,243 @@ const getLocalFallbackRestaurants = (): Restaurant[] => {
   }
 };
 
-const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<Restaurant[]> => {
-  const PAGE_SIZE = 999; // Fetch in chunks to avoid Supabase limit
+const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ restaurants: Restaurant[]; totalCount: number }> => {
+  const { page, pageSize, ...queryFilters } = filters;
+  const usePagination = typeof page === 'number' && typeof pageSize === 'number';
+  const limit = pageSize || 999;
+  const currentPage = page || 1;
+  const from = (currentPage - 1) * limit;
+  const to = from + limit - 1;
+
   const allRestaurants: Restaurant[] = [];
-  let page = 0;
-  let hasMore = true;
+  let totalCount = 0;
 
   try {
-    let loopSafety = 0;
-    while (hasMore && loopSafety < 30) {
-      loopSafety++;
-      const from = page * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-
+    if (usePagination) {
       let query = supabase
         .from('restaurants')
-        .select('*')
+        .select('*', { count: 'exact' })
         .order('created_at', { ascending: false })
         .range(from, to);
 
-      if (filters.name) {
-        query = query.ilike('name', `%${filters.name}%`);
+      if (queryFilters.name) {
+        query = query.ilike('name', `%${queryFilters.name}%`);
       }
-      if (filters.city) {
-        query = query.ilike('city', `%${filters.city}%`);
+      if (queryFilters.city) {
+        query = query.ilike('city', `%${queryFilters.city}%`);
       }
-      if (filters.neighborhood) {
-        query = query.ilike('neighborhood', `%${filters.neighborhood}%`);
+      if (queryFilters.neighborhood) {
+        query = query.ilike('neighborhood', `%${queryFilters.neighborhood}%`);
       }
-      if (filters.state && filters.state !== 'all') {
-        query = query.eq('state', filters.state);
+      if (queryFilters.state && queryFilters.state !== 'all') {
+        query = query.eq('state', queryFilters.state);
       }
-      if (filters.plan && filters.plan !== 'all') {
-        query = query.eq('plan', filters.plan);
+      if (queryFilters.plan && queryFilters.plan !== 'all') {
+        query = query.eq('plan', queryFilters.plan);
       }
-      if (filters.visit_status && filters.visit_status !== 'all') {
-        query = query.eq('visit_status', filters.visit_status);
+      if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
+        query = query.eq('visit_status', queryFilters.visit_status);
       }
 
-      const { data, error } = await query;
+      const { data, count, error } = await query;
 
       if (error) {
         throw new Error(error.message);
       }
 
-      if (data && data.length > 0) {
-        allRestaurants.push(...data);
-        page++;
-      } else {
-        hasMore = false;
-      }
-      
-      if (!data || data.length < PAGE_SIZE) {
-        hasMore = false;
-      }
-    }
-    
-    // Merge mock-completed-restaurants into the live database results
-    const mockCompleted = localStorage.getItem('mock-completed-restaurants');
-    if (mockCompleted) {
-      try {
-        const parsed = JSON.parse(mockCompleted);
-        Object.values(parsed).forEach((r: any) => {
-          if (!allRestaurants.some(item => item.id === r.id || item.id === getDeterministicUUID(r.id))) {
-            allRestaurants.unshift({
-              id: r.id,
-              name: r.name,
-              plan: r.plan || 'free',
-              phone: r.phone || '',
-              category: r.category || '',
-              address: r.address || '',
-              neighborhood: r.neighborhood || '',
-              city: r.city || '',
-              state: r.state || '',
-              claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
-              visit_status: r.visit_status || 'Pendente',
-              visit_notes: r.visit_notes || ''
-            });
-          }
-        });
-      } catch (e) {
-        console.error("Error merging completed restaurants in fetchAllRestaurants:", e);
-      }
-    }
+      const restaurantsData = data || [];
+      totalCount = count || restaurantsData.length;
 
-    // Apply filters to ensure merged items obey filter choices
-    let filteredList = allRestaurants;
-    if (filters.name) {
-      filteredList = filteredList.filter(r => r.name.toLowerCase().includes(filters.name!.toLowerCase()));
+      // Merge mock-completed-restaurants
+      const mergedRestaurants = [...restaurantsData];
+      const mockCompleted = localStorage.getItem('mock-completed-restaurants');
+      if (mockCompleted) {
+        try {
+          const parsed = JSON.parse(mockCompleted);
+          Object.values(parsed).forEach((r: any) => {
+            // Apply current filters to the mock item
+            const matchesName = !queryFilters.name || r.name.toLowerCase().includes(queryFilters.name.toLowerCase());
+            const matchesCity = !queryFilters.city || r.city?.toLowerCase().includes(queryFilters.city.toLowerCase());
+            const matchesNeighborhood = !queryFilters.neighborhood || r.neighborhood?.toLowerCase().includes(queryFilters.neighborhood.toLowerCase());
+            const matchesState = !queryFilters.state || queryFilters.state === 'all' || r.state?.toLowerCase() === queryFilters.state.toLowerCase();
+            const matchesPlan = !queryFilters.plan || queryFilters.plan === 'all' || r.plan === queryFilters.plan;
+            const matchesStatus = !queryFilters.visit_status || queryFilters.visit_status === 'all' || r.visit_status === queryFilters.visit_status;
+
+            if (matchesName && matchesCity && matchesNeighborhood && matchesState && matchesPlan && matchesStatus) {
+              const uuidId = getDeterministicUUID(r.id);
+              if (!mergedRestaurants.some(item => item.id === r.id || item.id === uuidId)) {
+                if (currentPage === 1) {
+                  mergedRestaurants.unshift({
+                    id: r.id,
+                    name: r.name,
+                    plan: r.plan || 'free',
+                    phone: r.phone || '',
+                    category: r.category || '',
+                    address: r.address || '',
+                    neighborhood: r.neighborhood || '',
+                    city: r.city || '',
+                    state: r.state || '',
+                    claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
+                    visit_status: r.visit_status || 'Pendente',
+                    visit_notes: r.visit_notes || ''
+                  });
+                  totalCount++;
+                }
+              }
+            }
+          });
+        } catch (e) {
+          console.error("Error merging completed restaurants in fetchAllRestaurants (paginated):", e);
+        }
+      }
+
+      return {
+        restaurants: mergedRestaurants.slice(0, limit),
+        totalCount: totalCount
+      };
+    } else {
+      const PAGE_SIZE = 999;
+      let pageNum = 0;
+      let hasMore = true;
+      let loopSafety = 0;
+
+      while (hasMore && loopSafety < 30) {
+        loopSafety++;
+        const fromVal = pageNum * PAGE_SIZE;
+        const toVal = fromVal + PAGE_SIZE - 1;
+
+        let query = supabase
+          .from('restaurants')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .range(fromVal, toVal);
+
+        if (queryFilters.name) {
+          query = query.ilike('name', `%${queryFilters.name}%`);
+        }
+        if (queryFilters.city) {
+          query = query.ilike('city', `%${queryFilters.city}%`);
+        }
+        if (queryFilters.neighborhood) {
+          query = query.ilike('neighborhood', `%${queryFilters.neighborhood}%`);
+        }
+        if (queryFilters.state && queryFilters.state !== 'all') {
+          query = query.eq('state', queryFilters.state);
+        }
+        if (queryFilters.plan && queryFilters.plan !== 'all') {
+          query = query.eq('plan', queryFilters.plan);
+        }
+        if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
+          query = query.eq('visit_status', queryFilters.visit_status);
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data && data.length > 0) {
+          allRestaurants.push(...data);
+          pageNum++;
+        } else {
+          hasMore = false;
+        }
+
+        if (!data || data.length < PAGE_SIZE) {
+          hasMore = false;
+        }
+      }
+
+      const mockCompleted = localStorage.getItem('mock-completed-restaurants');
+      if (mockCompleted) {
+        try {
+          const parsed = JSON.parse(mockCompleted);
+          Object.values(parsed).forEach((r: any) => {
+            if (!allRestaurants.some(item => item.id === r.id || item.id === getDeterministicUUID(r.id))) {
+              allRestaurants.unshift({
+                id: r.id,
+                name: r.name,
+                plan: r.plan || 'free',
+                phone: r.phone || '',
+                category: r.category || '',
+                address: r.address || '',
+                neighborhood: r.neighborhood || '',
+                city: r.city || '',
+                state: r.state || '',
+                claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
+                visit_status: r.visit_status || 'Pendente',
+                visit_notes: r.visit_notes || ''
+              });
+            }
+          });
+        } catch (e) {
+          console.error("Error merging completed restaurants in fetchAllRestaurants:", e);
+        }
+      }
+
+      let filteredList = allRestaurants;
+      if (queryFilters.name) {
+        filteredList = filteredList.filter(r => r.name.toLowerCase().includes(queryFilters.name!.toLowerCase()));
+      }
+      if (queryFilters.city) {
+        filteredList = filteredList.filter(r => r.city?.toLowerCase().includes(queryFilters.city!.toLowerCase()));
+      }
+      if (queryFilters.neighborhood) {
+        filteredList = filteredList.filter(r => r.neighborhood?.toLowerCase().includes(queryFilters.neighborhood!.toLowerCase()));
+      }
+      if (queryFilters.state && queryFilters.state !== 'all') {
+        filteredList = filteredList.filter(r => r.state?.toLowerCase().includes(queryFilters.state!.toLowerCase()));
+      }
+      if (queryFilters.plan && queryFilters.plan !== 'all') {
+        filteredList = filteredList.filter(r => r.plan === queryFilters.plan);
+      }
+      if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
+        filteredList = filteredList.filter(r => r.visit_status === queryFilters.visit_status);
+      }
+
+      localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(filteredList));
+      return {
+        restaurants: filteredList,
+        totalCount: filteredList.length
+      };
     }
-    if (filters.city) {
-      filteredList = filteredList.filter(r => r.city?.toLowerCase().includes(filters.city!.toLowerCase()));
-    }
-    if (filters.neighborhood) {
-      filteredList = filteredList.filter(r => r.neighborhood?.toLowerCase().includes(filters.neighborhood!.toLowerCase()));
-    }
-    if (filters.state && filters.state !== 'all') {
-      filteredList = filteredList.filter(r => r.state?.toLowerCase().includes(filters.state!.toLowerCase()));
-    }
-    if (filters.plan && filters.plan !== 'all') {
-      filteredList = filteredList.filter(r => r.plan === filters.plan);
-    }
-    if (filters.visit_status && filters.visit_status !== 'all') {
-      filteredList = filteredList.filter(r => r.visit_status === filters.visit_status);
-    }
-    
-    // Sync fallback database with live database
-    localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(filteredList));
-    return filteredList;
   } catch (err) {
     console.warn("Supabase fetch failed, falling back to mock database:", err);
     let list = getLocalFallbackRestaurants();
-    
-    // Filter list locally
-    if (filters.name) {
-      list = list.filter(r => r.name.toLowerCase().includes(filters.name!.toLowerCase()));
+
+    if (queryFilters.name) {
+      list = list.filter(r => r.name.toLowerCase().includes(queryFilters.name!.toLowerCase()));
     }
-    if (filters.city) {
-      list = list.filter(r => r.city?.toLowerCase().includes(filters.city!.toLowerCase()));
+    if (queryFilters.city) {
+      list = list.filter(r => r.city?.toLowerCase().includes(queryFilters.city!.toLowerCase()));
     }
-    if (filters.neighborhood) {
-      list = list.filter(r => r.neighborhood?.toLowerCase().includes(filters.neighborhood!.toLowerCase()));
+    if (queryFilters.neighborhood) {
+      list = list.filter(r => r.neighborhood?.toLowerCase().includes(queryFilters.neighborhood!.toLowerCase()));
     }
-    if (filters.state && filters.state !== 'all') {
-      list = list.filter(r => r.state?.toLowerCase().includes(filters.state!.toLowerCase()));
+    if (queryFilters.state && queryFilters.state !== 'all') {
+      list = list.filter(r => r.state?.toLowerCase().includes(queryFilters.state!.toLowerCase()));
     }
-    if (filters.plan && filters.plan !== 'all') {
-      list = list.filter(r => r.plan === filters.plan);
+    if (queryFilters.plan && queryFilters.plan !== 'all') {
+      list = list.filter(r => r.plan === queryFilters.plan);
     }
-    if (filters.visit_status && filters.visit_status !== 'all') {
-      list = list.filter(r => r.visit_status === filters.visit_status);
+    if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
+      list = list.filter(r => r.visit_status === queryFilters.visit_status);
     }
-    
-    return list;
+
+    if (usePagination) {
+      return {
+        restaurants: list.slice(from, from + limit),
+        totalCount: list.length
+      };
+    }
+
+    return {
+      restaurants: list,
+      totalCount: list.length
+    };
   }
-};
+}
 
 const updateRestaurantPlan = async ({ restaurantId, newPlan }: { restaurantId: string; newPlan: RestaurantPlan }) => {
   // Always update locally first (fallback database)
@@ -460,7 +564,7 @@ const deleteRestaurant = async (restaurantId: string): Promise<void> => {
 export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   const queryClient = useQueryClient();
 
-  const restaurantsQuery = useQuery<Restaurant[], Error>({
+  const restaurantsQuery = useQuery<{ restaurants: Restaurant[]; totalCount: number }, Error>({
     queryKey: [ADMIN_RESTAURANTS_QUERY_KEY, filters],
     queryFn: () => fetchAllRestaurants(filters),
     staleTime: 60000,
@@ -542,7 +646,8 @@ export function useAdminRestaurants(filters: FetchRestaurantsFilters) {
   });
 
   return {
-    restaurants: restaurantsQuery.data || [],
+    restaurants: restaurantsQuery.data?.restaurants || [],
+    totalCount: restaurantsQuery.data?.totalCount || 0,
     isLoading: restaurantsQuery.isLoading,
     error: restaurantsQuery.error,
     updatePlan: updatePlanMutation.mutate,

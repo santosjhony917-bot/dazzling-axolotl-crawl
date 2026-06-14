@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent } from '@/components/ui/card';
-import { Utensils, Edit, Loader2, Notebook, Copy, Trash2 } from 'lucide-react';
+import { Utensils, Edit, Loader2, Notebook, Copy, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAdminRestaurants } from '@/hooks/useAdminRestaurants';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -49,13 +50,64 @@ const planLabels: Record<string, string> = {
 export default function AdminRestaurants() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({ name: '', city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
+  const [nameInput, setNameInput] = useState('');
+  const [cityInput, setCityInput] = useState('');
+  const [neighborhoodInput, setNeighborhoodInput] = useState('');
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [isNotesDialogOpen, setIsNotesDialogOpen] = useState(false);
   const [restaurantToDelete, setRestaurantToDelete] = useState<Restaurant | null>(null);
   const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [uniqueStates, setUniqueStates] = useState<string[]>(['all']);
+
+  // Debounce text filters to prevent massive load on every keystroke
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters(prev => ({
+        ...prev,
+        name: nameInput,
+        city: cityInput,
+        neighborhood: neighborhoodInput
+      }));
+      setCurrentPage(1);
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [nameInput, cityInput, neighborhoodInput]);
+
+  // Load unique states once
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select('state');
+        if (error) throw error;
+        if (data) {
+          const states = new Set<string>(data.map(r => r.state).filter(Boolean) as string[]);
+          setUniqueStates(['all', ...Array.from(states).sort()]);
+        }
+      } catch (err) {
+        console.warn("Failed to fetch unique states from Supabase:", err);
+        try {
+          const fallback = localStorage.getItem('mock-supabase-fallback-restaurants');
+          if (fallback) {
+            const parsed = JSON.parse(fallback);
+            const states = new Set<string>(parsed.map((r: any) => r.state).filter(Boolean) as string[]);
+            setUniqueStates(['all', ...Array.from(states).sort()]);
+          }
+        } catch (e) {
+          console.error("Local fallback states error:", e);
+        }
+      }
+    };
+    fetchStates();
+  }, []);
+
   const {
     restaurants,
+    totalCount,
     isLoading,
     error,
     updatePlan,
@@ -66,10 +118,22 @@ export default function AdminRestaurants() {
     isUpdatingNotes,
     deleteRestaurant,
     isDeletingRestaurant,
-  } = useAdminRestaurants(filters);
+  } = useAdminRestaurants({
+    ...filters,
+    page: currentPage,
+    pageSize: 15
+  });
+
+  const itemsPerPage = 15;
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+  const activePage = Math.min(Math.max(1, currentPage), Math.max(1, totalPages));
+  const startIndex = (activePage - 1) * itemsPerPage;
+
+  const paginatedRestaurants = restaurants;
 
   const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
     setFilters(prev => ({ ...prev, [filterName]: value === 'all' ? '' : value }));
+    setCurrentPage(1);
   };
 
   const handleOpenNotes = (restaurant: Restaurant) => {
@@ -116,10 +180,7 @@ export default function AdminRestaurants() {
     });
   };
 
-  const uniqueStates = useMemo(() => {
-    const states = new Set(restaurants.map(r => r.state).filter(Boolean));
-    return ['all', ...Array.from(states).sort()];
-  }, [restaurants]);
+  // uniqueStates is loaded via useEffect once to support server-side pagination
 
   if (isLoading && !restaurants.length) {
     return (
@@ -145,18 +206,18 @@ export default function AdminRestaurants() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <Input
               placeholder="Filtrar por nome..."
-              value={filters.name}
-              onChange={(e) => handleFilterChange('name', e.target.value)}
+              value={nameInput}
+              onChange={(e) => setNameInput(e.target.value)}
             />
             <Input
               placeholder="Filtrar por cidade..."
-              value={filters.city}
-              onChange={(e) => handleFilterChange('city', e.target.value)}
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
             />
             <Input
               placeholder="Filtrar por bairro..."
-              value={filters.neighborhood}
-              onChange={(e) => handleFilterChange('neighborhood', e.target.value)}
+              value={neighborhoodInput}
+              onChange={(e) => setNeighborhoodInput(e.target.value)}
             />
             <Select value={filters.state} onValueChange={(value) => handleFilterChange('state', value)}>
               <SelectTrigger>
@@ -220,7 +281,7 @@ export default function AdminRestaurants() {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  restaurants.map((restaurant) => (
+                  paginatedRestaurants.map((restaurant) => (
                     <TableRow key={restaurant.id}>
                       <TableCell className="font-medium">{restaurant.name}</TableCell>
                       <TableCell>{[restaurant.neighborhood, restaurant.city, restaurant.state].filter(Boolean).join(', ') || 'N/A'}</TableCell>
@@ -337,6 +398,41 @@ export default function AdminRestaurants() {
               </TableBody>
             </Table>
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between p-4 border-t border-gray-100 bg-gray-50/50 rounded-b-2xl">
+              <div className="text-sm text-gray-500 font-medium">
+                Exibindo <span className="font-semibold text-primary">{startIndex + 1}</span> a{' '}
+                <span className="font-semibold text-primary">
+                  {Math.min(startIndex + itemsPerPage, totalCount)}
+                </span>{' '}
+                de <span className="font-semibold text-primary">{totalCount}</span> restaurantes
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={activePage === 1}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <div className="text-xs font-bold text-gray-600 px-2">
+                  Página {activePage} de {totalPages}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={activePage === totalPages}
+                  className="h-8 w-8 p-0"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
