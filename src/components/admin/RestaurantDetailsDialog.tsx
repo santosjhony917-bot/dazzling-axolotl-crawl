@@ -1179,7 +1179,6 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const { error: updateError } = await supabase
           .from('restaurants')
           .update({
-            menuSourceUrl: formattedUrl,
             other_url: formattedUrl,
             external_url: formattedUrl
           })
