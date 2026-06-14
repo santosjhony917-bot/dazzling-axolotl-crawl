@@ -47,6 +47,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { getDeterministicUUID } from '@/hooks/useAdminRestaurants';
+import { geocodeAddress } from '@/services/geocoding';
+
 
 // Utility functions copied from ExportedRestaurants.tsx
 const cleanPhone = (phone: string) => {
@@ -731,9 +733,46 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         return match ? match[1].toLowerCase() : 'jpg';
       };
 
-      let latitude = null;
-      let longitude = null;
-      if (updatedRest.googleMapsUrl) {
+      let latitude = updatedRest.latitude !== undefined && updatedRest.latitude !== null ? updatedRest.latitude : null;
+      let longitude = updatedRest.longitude !== undefined && updatedRest.longitude !== null ? updatedRest.longitude : null;
+
+      // Se as coordenadas não estão definidas ou são zero, tentamos geocodificar o endereço completo
+      if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
+        const addrParts = [];
+        if (updatedRest.address) {
+          if (updatedRest.number) {
+            addrParts.push(`${updatedRest.address}, ${updatedRest.number}`);
+          } else {
+            addrParts.push(updatedRest.address);
+          }
+        }
+        if (updatedRest.neighborhood) addrParts.push(updatedRest.neighborhood);
+        if (updatedRest.city) {
+          if (updatedRest.state) {
+            addrParts.push(`${updatedRest.city} - ${updatedRest.state}`);
+          } else {
+            addrParts.push(updatedRest.city);
+          }
+        }
+        if (updatedRest.cep) addrParts.push(updatedRest.cep);
+        
+        const fullAddress = addrParts.join(', ');
+        if (fullAddress.trim()) {
+          try {
+            console.log(`[syncSingleToSupabase] Tentando geocodificar endereço completo: "${fullAddress}"`);
+            const coords = await geocodeAddress(fullAddress);
+            if (coords) {
+              latitude = coords.lat;
+              longitude = coords.lon;
+            }
+          } catch (e) {
+            console.warn('Erro ao geocodificar no sync:', e);
+          }
+        }
+      }
+
+      // Se ainda não temos coordenadas, tentamos extrair do googleMapsUrl
+      if ((latitude === null || longitude === null || latitude === 0 || longitude === 0) && updatedRest.googleMapsUrl) {
         const coords = extractCoordsFromUrl(updatedRest.googleMapsUrl);
         if (coords) {
           latitude = coords.lat;
@@ -932,11 +971,112 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     }
   };
 
+  const getDetailsValidationError = (r: any): string | null => {
+    const phone = r.phone || '';
+    const cleanPhoneStr = phone.replace(/\D/g, '');
+    if (!phone.trim() || phone.toLowerCase().includes('sem telefone') || phone.toLowerCase().includes('nao informado') || cleanPhoneStr.length < 8) {
+      return 'Número de telefone inválido ou ausente.';
+    }
+    
+    const cep = r.cep || '';
+    const cleanCep = cep.replace(/\D/g, '');
+    if (!cep.trim() || cleanCep.length !== 8) {
+      return 'CEP inválido ou ausente (deve conter 8 dígitos).';
+    }
+
+    const address = r.address || '';
+    const neighborhood = r.neighborhood || '';
+    if (!address.trim()) {
+      return 'O endereço (rua) é obrigatório.';
+    }
+    if (address.toLowerCase() === 's/n' || address.toLowerCase() === 'sem numero') {
+      return 'O nome da rua é inválido.';
+    }
+    if (neighborhood.trim() && address.trim().toLowerCase() === neighborhood.trim().toLowerCase()) {
+      return 'O endereço não pode ser idêntico ao bairro.';
+    }
+
+    return null;
+  };
+
+  const runGeocodingAndValidate = async (data: any) => {
+    // 1. Validar campos básicos
+    const basicError = getDetailsValidationError(data);
+    if (basicError) {
+      showError(basicError);
+      return null;
+    }
+
+    // 2. Resolver coordenadas
+    let latitude = data.latitude !== undefined && data.latitude !== null ? data.latitude : null;
+    let longitude = data.longitude !== undefined && data.longitude !== null ? data.longitude : null;
+
+    // Se coordenadas forem nulas ou zero, tentamos extrair do googleMapsUrl
+    if ((latitude === null || longitude === null || latitude === 0 || longitude === 0) && data.googleMapsUrl) {
+      const coords = extractCoordsFromUrl(data.googleMapsUrl);
+      if (coords) {
+        latitude = coords.lat;
+        longitude = coords.lng;
+      }
+    }
+
+    // Se ainda não temos coordenadas, tentamos geocodificar o endereço completo
+    if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
+      const addrParts = [];
+      if (data.address) {
+        if (data.number) {
+          addrParts.push(`${data.address}, ${data.number}`);
+        } else {
+          addrParts.push(data.address);
+        }
+      }
+      if (data.neighborhood) addrParts.push(data.neighborhood);
+      if (data.city) {
+        if (data.state) {
+          addrParts.push(`${data.city} - ${data.state}`);
+        } else {
+          addrParts.push(data.city);
+        }
+      }
+      if (data.cep) addrParts.push(data.cep);
+      
+      const fullAddress = addrParts.join(', ');
+      if (fullAddress.trim()) {
+        try {
+          console.log(`[Validation] Tentando geocodificar: "${fullAddress}"`);
+          const coords = await geocodeAddress(fullAddress);
+          if (coords) {
+            latitude = coords.lat;
+            longitude = coords.lon;
+            console.log(`[Validation] Geocodificação bem-sucedida: lat=${latitude}, lon=${longitude}`);
+          }
+        } catch (e) {
+          console.warn('Erro ao geocodificar no validador:', e);
+        }
+      }
+    }
+
+    // 3. Validar coordenadas
+    if (!latitude || !longitude || latitude === 0 || longitude === 0) {
+      showError('Não foi possível obter as coordenadas exatas para o endereço informado. Verifique o CEP/endereço.');
+      return null;
+    }
+
+    return {
+      ...data,
+      latitude,
+      longitude
+    };
+  };
+
   const handleSaveLocal = async () => {
     if (!editedData) return;
 
     try {
-      const success = await syncSingleToSupabase(editedData);
+      const validatedData = await runGeocodingAndValidate(editedData);
+      if (!validatedData) return;
+
+      const success = await syncSingleToSupabase(validatedData);
       if (success) {
         showSuccess('Alterações salvas no Supabase!');
         setIsEditing(false);
@@ -955,21 +1095,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const handleValidateAndSave = async () => {
     if (!editedData) return;
 
-    const finalData = {
-      ...editedData
-    };
+    try {
+      const validatedData = await runGeocodingAndValidate(editedData);
+      if (!validatedData) return;
 
-    const success = await syncSingleToSupabase(finalData);
+      const success = await syncSingleToSupabase(validatedData);
 
-    if (success) {
-      showSuccess('Alterações salvas com sucesso no Supabase!');
-      setIsEditing(false);
-      window.dispatchEvent(new Event('local-sync-restaurants'));
-      localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
-      onSyncSuccess();
-      onClose();
-    } else {
-      showError('Erro ao sincronizar com o banco de dados.');
+      if (success) {
+        showSuccess('Alterações salvas com sucesso no Supabase!');
+        setIsEditing(false);
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+        onSyncSuccess();
+        onClose();
+      } else {
+        showError('Erro ao sincronizar com o banco de dados.');
+      }
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao salvar no Supabase.');
     }
   };
 

@@ -136,6 +136,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
       let query = supabase
         .from('restaurants')
         .select('*', { count: 'exact' })
+        .neq('visit_status', 'Pendente')
         .order('created_at', { ascending: false })
         .range(from, to);
 
@@ -167,51 +168,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
       const restaurantsData = data || [];
       totalCount = count || restaurantsData.length;
 
-      // Merge mock-completed-restaurants
-      const mergedRestaurants = [...restaurantsData];
-      const mockCompleted = localStorage.getItem('mock-completed-restaurants');
-      if (mockCompleted) {
-        try {
-          const parsed = JSON.parse(mockCompleted);
-          Object.values(parsed).forEach((r: any) => {
-            // Apply current filters to the mock item
-            const matchesName = !queryFilters.name || r.name.toLowerCase().includes(queryFilters.name.toLowerCase());
-            const matchesCity = !queryFilters.city || r.city?.toLowerCase().includes(queryFilters.city.toLowerCase());
-            const matchesNeighborhood = !queryFilters.neighborhood || r.neighborhood?.toLowerCase().includes(queryFilters.neighborhood.toLowerCase());
-            const matchesState = !queryFilters.state || queryFilters.state === 'all' || r.state?.toLowerCase() === queryFilters.state.toLowerCase();
-            const matchesPlan = !queryFilters.plan || queryFilters.plan === 'all' || r.plan === queryFilters.plan;
-            const matchesStatus = !queryFilters.visit_status || queryFilters.visit_status === 'all' || r.visit_status === queryFilters.visit_status;
-
-            if (matchesName && matchesCity && matchesNeighborhood && matchesState && matchesPlan && matchesStatus) {
-              const uuidId = getDeterministicUUID(r.id);
-              if (!mergedRestaurants.some(item => item.id === r.id || item.id === uuidId)) {
-                if (currentPage === 1) {
-                  mergedRestaurants.unshift({
-                    id: r.id,
-                    name: r.name,
-                    plan: r.plan || 'free',
-                    phone: r.phone || '',
-                    category: r.category || '',
-                    address: r.address || '',
-                    neighborhood: r.neighborhood || '',
-                    city: r.city || '',
-                    state: r.state || '',
-                    claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
-                    visit_status: r.visit_status || 'Pendente',
-                    visit_notes: r.visit_notes || ''
-                  });
-                  totalCount++;
-                }
-              }
-            }
-          });
-        } catch (e) {
-          console.error("Error merging completed restaurants in fetchAllRestaurants (paginated):", e);
-        }
-      }
-
       return {
-        restaurants: mergedRestaurants.slice(0, limit),
+        restaurants: restaurantsData,
         totalCount: totalCount
       };
     } else {
@@ -228,6 +186,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
         let query = supabase
           .from('restaurants')
           .select('*')
+          .neq('visit_status', 'Pendente')
           .order('created_at', { ascending: false })
           .range(fromVal, toVal);
 
@@ -268,33 +227,6 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
         }
       }
 
-      const mockCompleted = localStorage.getItem('mock-completed-restaurants');
-      if (mockCompleted) {
-        try {
-          const parsed = JSON.parse(mockCompleted);
-          Object.values(parsed).forEach((r: any) => {
-            if (!allRestaurants.some(item => item.id === r.id || item.id === getDeterministicUUID(r.id))) {
-              allRestaurants.unshift({
-                id: r.id,
-                name: r.name,
-                plan: r.plan || 'free',
-                phone: r.phone || '',
-                category: r.category || '',
-                address: r.address || '',
-                neighborhood: r.neighborhood || '',
-                city: r.city || '',
-                state: r.state || '',
-                claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
-                visit_status: r.visit_status || 'Pendente',
-                visit_notes: r.visit_notes || ''
-              });
-            }
-          });
-        } catch (e) {
-          console.error("Error merging completed restaurants in fetchAllRestaurants:", e);
-        }
-      }
-
       let filteredList = allRestaurants;
       if (queryFilters.name) {
         filteredList = filteredList.filter(r => r.name.toLowerCase().includes(queryFilters.name!.toLowerCase()));
@@ -323,7 +255,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
     }
   } catch (err) {
     console.warn("Supabase fetch failed, falling back to mock database:", err);
-    let list = getLocalFallbackRestaurants();
+    let list = getLocalFallbackRestaurants().filter(r => r.visit_status !== 'Pendente');
 
     if (queryFilters.name) {
       list = list.filter(r => r.name.toLowerCase().includes(queryFilters.name!.toLowerCase()));

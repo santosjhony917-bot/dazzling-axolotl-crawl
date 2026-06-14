@@ -40,9 +40,9 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
   const lastScrollYRef = useRef(0);
 
   const fullAddress = useMemo(() => {
-    const { address, number, neighborhood, city, state } = restaurant;
+    const { address, number, neighborhood, city, state, cep } = restaurant;
     const addressLine = [address, number].filter(Boolean).join(', ');
-    const cityLine = [neighborhood, city, state].filter(Boolean).join(', ');
+    const cityLine = [neighborhood, city, state, cep].filter(Boolean).join(', ');
     const result = [addressLine, cityLine].filter(Boolean).join(' - ');
     return result === '' ? null : result;
   }, [restaurant]);

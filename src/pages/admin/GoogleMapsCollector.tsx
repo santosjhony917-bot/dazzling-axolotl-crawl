@@ -12,6 +12,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import { WeekSchedule } from '@/types/schedule';
 import { supabase } from '@/integrations/supabase/client';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { geocodeAddress } from '@/services/geocoding';
 
 interface ScrapedRestaurant {
   id: string;
@@ -35,6 +36,11 @@ interface ScrapedRestaurant {
   assignedToId?: string;
   assignedToName?: string;
   menu_categories?: any[];
+  cep?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  number?: string;
+  neighborhood?: string;
 }
 
 const CITY_CENTERS: Record<string, { lat: number; lng: number; neighborhoods: string[] }> = {
@@ -431,6 +437,65 @@ export const getRestaurantUniqueKey = (name: string, address: string) => {
   const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
   const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
   return `${cleanName}_${cleanAddress}`;
+};
+
+const extractCoordsFromUrl = (url: string) => {
+  if (!url) return null;
+  const match1 = url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
+  if (match1) {
+    return { lat: parseFloat(match1[1]), lng: parseFloat(match1[2]) };
+  }
+  const match2 = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (match2) {
+    return { lat: parseFloat(match2[1]), lng: parseFloat(match2[2]) };
+  }
+  const match3 = url.match(/query=(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (match3) {
+    return { lat: parseFloat(match3[1]), lng: parseFloat(match3[2]) };
+  }
+  return null;
+};
+
+const getImportValidationError = (r: ScrapedRestaurant): string | null => {
+  const phone = r.phone || '';
+  const cleanPhone = phone.replace(/\D/g, '');
+  if (!phone.trim() || phone.toLowerCase().includes('sem telefone') || phone.toLowerCase().includes('nao informado') || cleanPhone.length < 8) {
+    return 'Número de telefone inválido ou ausente.';
+  }
+  
+  const cep = r.cep || '';
+  const cleanCep = cep.replace(/\D/g, '');
+  if (!cep.trim() || cleanCep.length !== 8) {
+    return 'CEP inválido ou ausente (deve conter 8 dígitos).';
+  }
+
+  const address = r.address || '';
+  const neighborhood = r.neighborhood || '';
+  if (!address.trim()) {
+    return 'O endereço (rua) é obrigatório.';
+  }
+  if (address.toLowerCase() === 's/n' || address.toLowerCase() === 'sem numero') {
+    return 'O nome da rua é inválido.';
+  }
+  if (neighborhood.trim() && address.trim().toLowerCase() === neighborhood.trim().toLowerCase()) {
+    return 'O endereço não pode ser idêntico ao bairro.';
+  }
+
+  let lat = r.latitude;
+  let lng = r.longitude;
+  if ((lat === null || lat === undefined || lat === 0) && r.googleMapsUrl) {
+    const coords = extractCoordsFromUrl(r.googleMapsUrl);
+    if (coords) {
+      lat = coords.lat;
+      lng = coords.lng;
+    }
+  }
+
+  if (!lat || !lng || lat === 0 || lng === 0) {
+    return 'Coordenadas geográficas inválidas ou não encontradas.';
+  }
+
+  return null;
 };
 
 export default function GoogleMapsCollector() {
@@ -979,7 +1044,12 @@ export default function GoogleMapsCollector() {
           googleMapsUrl,
           menuSourceUrl: item.other_url || item.external_url || '',
           menu_categories: menuCategories,
-          isClosed: false
+          isClosed: false,
+          cep: item.cep || '',
+          latitude: item.latitude || null,
+          longitude: item.longitude || null,
+          number: item.number || '',
+          neighborhood: item.neighborhood || ''
         };
       });
       setResults(formatted);
@@ -1997,6 +2067,12 @@ export default function GoogleMapsCollector() {
   };
 
   const handleImport = async (restaurant: ScrapedRestaurant) => {
+    const validationError = getImportValidationError(restaurant);
+    if (validationError) {
+      showError(`Não é possível importar "${restaurant.name}": ${validationError} Clique em "Editar" para preencher o telefone, CEP e endereço completo antes de importar.`);
+      return;
+    }
+
     try {
       const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
       const { error } = await supabase
@@ -2027,19 +2103,26 @@ export default function GoogleMapsCollector() {
 
   const handleImportAll = async () => {
     try {
-      const pendingIds = results
-        .filter(r => {
-          if (dismissedIds.has(r.id)) return false;
-          const status = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
-          return status !== 'Visitado';
-        })
-        .map(r => r.id);
+      const pendingResults = results.filter(r => {
+        if (dismissedIds.has(r.id)) return false;
+        const status = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
+        return status !== 'Visitado';
+      });
 
-      if (pendingIds.length === 0) {
+      if (pendingResults.length === 0) {
         showError('Nenhum restaurante para importar.');
         return;
       }
 
+      const validPending = pendingResults.filter(r => !getImportValidationError(r));
+      const invalidCount = pendingResults.length - validPending.length;
+
+      if (validPending.length === 0) {
+        showError('Nenhum restaurante válido para importar. Todos os estabelecimentos pendentes possuem dados de endereço ou telefone incompletos.');
+        return;
+      }
+
+      const pendingIds = validPending.map(r => r.id);
       const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
       const { error } = await supabase
         .from('restaurants')
@@ -2051,10 +2134,14 @@ export default function GoogleMapsCollector() {
 
       if (error) throw error;
 
-      showSuccess(`Sucesso! ${pendingIds.length} restaurantes importados e publicados!`);
+      if (invalidCount > 0) {
+        showSuccess(`Sucesso! ${validPending.length} restaurantes importados e publicados! ${invalidCount} restaurante(s) foram ignorados por estarem com endereço, CEP ou telefone incompleto. Edite-os para importar.`);
+      } else {
+        showSuccess(`Sucesso! ${pendingIds.length} restaurantes importados e publicados!`);
+      }
       
       const newImported = new Map(importedKeys);
-      results.forEach(r => newImported.set(getRestaurantUniqueKey(r.name, r.address), 'Visitado'));
+      validPending.forEach(r => newImported.set(getRestaurantUniqueKey(r.name, r.address), 'Visitado'));
       setImportedKeys(newImported);
 
       // Notifica as abas
@@ -2680,6 +2767,7 @@ export default function GoogleMapsCollector() {
                         const dbStatus = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
                         const isImported = dbStatus === 'Visitado';
                         const isColetado = dbStatus === 'Pendente';
+                        const validationError = getImportValidationError(r);
                         return (
                           <TableRow 
                             key={r.id} 
@@ -2692,13 +2780,13 @@ export default function GoogleMapsCollector() {
                             }`}
                           >
                             <TableCell className="font-semibold text-primary">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2 flex-wrap">
                                 {r.googleMapsUrl ? (
                                   <a 
                                     href={r.googleMapsUrl} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="hover:underline hover:text-highlight flex items-center gap-1"
+                                    className="hover:underline hover:text-highlight flex items-center gap-1 animate-none"
                                   >
                                     {r.name} <span className="text-[10px] text-gray-400 font-normal">↗</span>
                                   </a>
@@ -2713,6 +2801,14 @@ export default function GoogleMapsCollector() {
                                 {isColetado && (
                                   <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-none py-0 px-1.5 text-[9px] font-bold gap-0.5 rounded-full shrink-0">
                                     Coletado
+                                  </Badge>
+                                )}
+                                {!isImported && validationError && (
+                                  <Badge 
+                                    className="bg-red-500 hover:bg-red-600 text-white border-none py-0 px-1.5 text-[9px] font-bold gap-0.5 rounded-full shrink-0 flex items-center"
+                                    title={validationError}
+                                  >
+                                    <AlertCircle className="w-2.5 h-2.5" /> Incompleto
                                   </Badge>
                                 )}
                               </div>

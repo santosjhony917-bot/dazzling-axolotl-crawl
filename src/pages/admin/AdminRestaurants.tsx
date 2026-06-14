@@ -18,7 +18,6 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 
 const visitStatusOptions: VisitStatus[] = [
-  'Pendente',
   'Visitado',
   'Agendado',
   'Contatado',

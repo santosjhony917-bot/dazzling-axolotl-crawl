@@ -1,8 +1,22 @@
-const fs = require('fs');
-const content = fs.readFileSync('src/pages/admin/ExportedRestaurants.tsx', 'utf8');
-const lines = content.split('\n');
-console.log(`Active file has ${lines.length} lines.`);
-console.log(`First 20 lines:`);
-console.log(lines.slice(0, 20).join('\n'));
-console.log(`Last 20 lines:`);
-console.log(lines.slice(-20).join('\n'));
+const { createClient } = require('@supabase/supabase-js');
+
+const SUPABASE_URL = 'https://gaawiewmlhorzbaixoqo.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_1cZaKyo-HHldXBWLKtpKhw_nN7fMfQ3';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function test() {
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('id, name, visit_status, claim_code')
+    .eq('visit_status', 'Visitado')
+    .limit(20);
+    
+  if (error) {
+    console.error('Error:', error);
+  } else {
+    console.log(`Found ${data.length} restaurants with visit_status = 'Visitado' in database:`);
+    data.forEach(r => console.log(`- ${r.name} (${r.visit_status}) [claim_code: ${r.claim_code}]`));
+  }
+}
+
+test();

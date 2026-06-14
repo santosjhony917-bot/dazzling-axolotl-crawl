@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MenuCategory, MenuItem } from '@/types/supabase'; // Importando MenuCategory e MenuItem do tipo estendido
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { formatPrice } from '@/utils/formatters'; // Ajustado para o módulo correto
-import { ChevronRight, Utensils } from 'lucide-react';
+import { ChevronRight, Utensils, ChevronDown, ChevronUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils/url';
 import { Button } from '@/components/ui/button'; // Importando Button
@@ -25,11 +25,17 @@ interface RestaurantMenuProps {
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullMenuPage = false, restaurantId, forceShowFullMenuButton, isCompact }) => {
   const navigate = useNavigate();
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
   
   if (menuCategories.length === 0) return null;
 
   const handleItemClick = (itemId: string) => {
     navigate(createPageUrl('menuItemDetails', { itemId }));
+  };
+
+  const toggleExpand = (itemId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedItems(prev => ({ ...prev, [itemId]: !prev[itemId] }));
   };
   
   const handleViewFullMenu = () => {
@@ -117,40 +123,102 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, isFullM
             </div>
             
             <div className="grid grid-cols-1 gap-y-3 w-full"> {/* Alterado de gap-4 para gap-y-3 para espaçamento vertical mais ajustado e adicionado grid-cols-1 w-full para evitar largura excedente */}
-              {category.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="w-full min-w-0 p-3 flex items-start gap-3 hover:shadow-[0_6px_20px_rgba(0,0,0,0.10)] transition-all duration-200 cursor-pointer border border-slate-100/60 rounded-[20px] shadow-[0_3px_12px_rgba(0,0,0,0.07)] bg-white active:scale-[0.98]"
-                  onClick={() => handleItemClick(item.id)}
-                >
-                  {item.image_url && (
-                    <div className="relative w-[72px] h-[72px] flex-shrink-0 rounded-[16px] overflow-hidden border border-slate-100/60 bg-gray-50">
-                      <img
-                        src={item.image_url}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                      />
-                      {item.is_illustrative && (
-                        <div className="absolute top-1 right-1 text-white text-[7px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.2px_2px_rgba(0,0,0,0.85)]">
-                          Ilustrativa
+              {category.items.map((item) => {
+                let descText = item.description || '';
+                let options: any[] = [];
+                
+                try {
+                  if (item.description && item.description.startsWith('{')) {
+                    const parsed = JSON.parse(item.description);
+                    descText = parsed.description || '';
+                    options = parsed.options || [];
+                  }
+                } catch (e) {
+                  // ignore
+                }
+                
+                const isExpanded = !!expandedItems[item.id];
+                
+                return (
+                  <div key={item.id} className="w-full flex flex-col">
+                    <div
+                      className="w-full min-w-0 p-3 flex items-start gap-3 hover:shadow-[0_6px_20px_rgba(0,0,0,0.10)] transition-all duration-200 cursor-pointer border border-slate-100/60 rounded-[20px] shadow-[0_3px_12px_rgba(0,0,0,0.07)] bg-white active:scale-[0.98]"
+                      onClick={() => handleItemClick(item.id)}
+                    >
+                      {item.image_url && (
+                        <div className="relative w-[72px] h-[72px] flex-shrink-0 rounded-[16px] overflow-hidden border border-slate-100/60 bg-gray-50">
+                          <img
+                            src={item.image_url}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                          {item.is_illustrative && (
+                            <div className="absolute top-1 right-1 text-white text-[7px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.2px_2px_rgba(0,0,0,0.85)]">
+                              Ilustrativa
+                            </div>
+                          )}
                         </div>
                       )}
+                      <div className="flex-grow min-w-0">
+                        <div className="flex justify-between items-start gap-2">
+                          <h4 className="font-semibold text-[15px] text-[#3C2F2F] truncate flex-1 min-w-0 pr-1">{item.name}</h4>
+                          <span className="shrink-0 text-[13px] font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-2 py-0.5 rounded-lg">
+                            {formatPrice(item.price)}
+                          </span>
+                        </div>
+                        {descText && (
+                          <p className="text-[12px] text-[#9CA3AF] mt-1 line-clamp-2 leading-relaxed">{descText}</p>
+                        )}
+                      </div>
+                      
+                      {options.length > 0 ? (
+                        <button
+                          onClick={(e) => toggleExpand(item.id, e)}
+                          className="p-1.5 rounded-full hover:bg-slate-100 flex-shrink-0 mt-0.5 transition-colors"
+                        >
+                          {isExpanded ? (
+                            <ChevronUp className="w-5 h-5 text-slate-500" />
+                          ) : (
+                            <ChevronDown className="w-5 h-5 text-slate-500" />
+                          )}
+                        </button>
+                      ) : (
+                        <ChevronRight className="w-4 h-4 text-[#D1D5DB] flex-shrink-0 mt-1" />
+                      )}
                     </div>
-                  )}
-                  <div className="flex-grow min-w-0">
-                    <div className="flex justify-between items-start gap-2">
-                      <h4 className="font-semibold text-[15px] text-[#3C2F2F] truncate flex-1 min-w-0 pr-1">{item.name}</h4>
-                      <span className="shrink-0 text-[13px] font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-2 py-0.5 rounded-lg">
-                        {formatPrice(item.price)}
-                      </span>
-                    </div>
-                    {item.description && (
-                      <p className="text-[12px] text-[#9CA3AF] mt-1 line-clamp-2 leading-relaxed">{item.description}</p>
+                    
+                    {/* Collapsible Accordion for options */}
+                    {options.length > 0 && isExpanded && (
+                      <div 
+                        className="mt-2 ml-1 ml-[84px] mr-1 p-3.5 bg-slate-50/50 border border-slate-100 rounded-[20px] space-y-4 animate-in fade-in slide-in-from-top-1 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {options.map((optGroup, gIdx) => (
+                          <div key={gIdx} className="space-y-2">
+                            <p className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">{optGroup.title}</p>
+                            <div className="grid grid-cols-1 gap-1.5 text-xs">
+                              {optGroup.itens.map((opt: any, oIdx: number) => (
+                                <div key={oIdx} className="flex justify-between items-center bg-white px-3 py-2 rounded-xl border border-slate-100/60 shadow-sm">
+                                  <span className="font-semibold text-slate-700">{opt.name}</span>
+                                  {opt.price > 0 ? (
+                                    <span className="text-[11px] font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-1.5 py-0.5 rounded-md">
+                                      +{formatPrice(opt.price)}
+                                    </span>
+                                  ) : (
+                                    <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">
+                                      Incluso
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
-                  <ChevronRight className="w-4 h-4 text-[#D1D5DB] flex-shrink-0 mt-1" />
-                </div>
-              ))}
+                );
+              })}
             </div>
             {/* Separador entre categorias, exceto a última e apenas na prévia */}
             {!isFullMenuPage && index < categoriesToDisplay.length - 1 && (

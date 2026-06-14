@@ -104,7 +104,19 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
 
 function parsePrice(text) {
   if (!text) return null;
-  const cleaned = text.replace(/\./g, '').replace(',', '.');
+  // Remove símbolos monetários e espaços
+  let cleaned = text.replace(/[R$\s]/g, '').trim();
+  
+  // Se contiver tanto ponto quanto vírgula (ex: 1.250,90), remove os pontos de milhar e substitui vírgula por ponto
+  if (cleaned.includes(',') && cleaned.includes('.')) {
+    cleaned = cleaned.replace(/\./g, '').replace(',', '.');
+  } 
+  // Se contiver apenas vírgula (ex: 136,89)
+  else if (cleaned.includes(',')) {
+    cleaned = cleaned.replace(',', '.');
+  }
+  // Se contiver apenas ponto (ex: 136.89), é um float padrão, não mexe
+  
   const match = cleaned.match(/(\d+(?:\.\d{1,2})?)/);
   if (match) {
     const val = parseFloat(match[1]);
@@ -725,14 +737,21 @@ Diretrizes CRÍTICAS de Precisão:
 1. Extraia APENAS itens de comida ou bebida comercializados pelo restaurante.
 2. NUNCA extraia informações de contato, endereços, telefones, depoimentos/reviews de clientes, estrelas de avaliação, ou nomes de pessoas como se fossem pratos ou preços do cardápio.
 3. Se um item no JSON não for um prato ou bebida vendida pelo restaurante, ignore-o completamente.
-4. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
+4. ACHATAMENTO DE VARIAÇÕES E SABORES (CRÍTICO):
+   Se o produto principal contiver variações de tamanho (ex: Broto, Média, Grande, Família) ou variação de preço para sabores/opções dentro do JSON, gere um item independente no cardápio para cada combinação válida de Sabor + Tamanho com seu preço final calculado exato.
+   Por exemplo: Em vez de criar apenas "Pizza de Calabresa", se houver tamanhos no JSON, crie itens separados como "Pizza de Calabresa (Média)" - R$ 45,00 e "Pizza de Calabresa (Grande)" - R$ 55,00. 
+   Isso garante que cada variação de tamanho e sabor do cardápio tenha seu preço específico correto no banco e seja localizável na busca.
+5. EXTRAÇÃO DE ADICIONAIS E BORDAS:
+   Se houver adicionais gerais de modificação aplicáveis a múltiplos produtos (como tipos de borda de pizza: Borda de Catupiry, Borda de Chocolate; ou coberturas adicionais, extras), crie uma categoria separada no final do cardápio chamada "Adicionais / Bordas".
+   Insira cada opção de borda ou adicional como um item de cardápio separado dentro dessa categoria, com seu respectivo valor (ex: "Adicional: Borda de Chocolate" - R$ 12,00, "Adicional: Borda de Catupiry" - R$ 10,00).
+   Nas descrições dos pratos principais que aceitam esses adicionais, inclua uma nota indicando os adicionais aceitos e seus valores correspondentes (ex: "Disponível borda de Catupiry por +R$10 ou Chocolate por +R$12").
 
 Regras de Extração de Dados:
 1. Agrupe os itens pelas categorias reais exibidas no JSON.
 2. Para cada item, extraia:
-   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
+   - "name": Nome completo estruturado do prato (incluindo o sufixo de variação de tamanho ou sabor em parênteses, ex: "Pizza de Calabresa (Grande)").
    - "price": Preço formatado (ex: "R$ 29,90" ou "R$ 15,00").
-   - "description": Ingredientes ou descrição (se houver).
+   - "description": Descrição/ingredientes do prato, incluindo informações sobre opcionais/bordas disponíveis e seus custos (ex: "Muçarela, calabresa e cebola. Disponível borda de Catupiry por +R$10 ou Chocolate por +R$12").
    - "image_url": A URL absoluta da imagem/foto do prato (se houver).
 3. Retorne a resposta estritamente no seguinte formato JSON:
 {
@@ -826,17 +845,23 @@ Sua tarefa é analisar o HTML simplificado do site do restaurante "${restaurantN
 Diretrizes CRÍTICAS de Precisão:
 1. Extraia APENAS itens reais de comida ou bebida comercializados pelo restaurante (ex: pratos, lanches, pizzas, combos, sobremesas, bebidas).
 2. NUNCA extraia informações de contato do restaurante, endereços físicos, bairros, cidades, CEPs, links do Google Maps ou números de telefone como se fossem pratos ou preços do cardápio!
-3. NUNCA extraia avaliações/depoimentos de clientes (reviews), pontuação de estrelas (ex: "★", "*****"), nomes de clientes que avaliaram (ex: "Rosimere", "Eduardo", "Daniel"), ou datas das avaliações como pratos.
+3. NUNCA extraia avaliações/depoimentos de clientes (reviews), pontuação de estrelas (ex: "★", "*****"), nomes de clientes que avaliaram, ou datas das avaliações como pratos.
 4. NUNCA extraia artigos de blog, posts, notícias ou páginas de ajuda.
 5. Se um elemento de texto não for um prato/bebida real do cardápio, ignore-o completamente.
-6. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
+6. ACHATAMENTO DE VARIAÇÕES E SABORES (CRÍTICO):
+   Se encontrar múltiplas opções de tamanho/preço para o mesmo item (ex: "Pizza Calabresa Média R$ 40,00 / Grande R$ 50,00" ou listados em subelementos/tabelas associadas), crie pratos independentes na lista de retorno (ex: "Pizza de Calabresa (Média)" com preço "R$ 40,00" e "Pizza de Calabresa (Grande)" com preço "R$ 50,00"). 
+   Isso garante que cada variação de tamanho do prato tenha seu preço específico e seja buscável de forma independente.
+7. EXTRAÇÃO DE ADICIONAIS E BORDAS:
+   Se o HTML listar adicionais gerais (como tipos de borda de pizza: Borda de Catupiry, Borda de Chocolate; ou adicionais/extras), crie uma categoria separada no final chamada "Adicionais / Bordas".
+   Insira cada opção de borda ou adicional como um item de cardápio separado dentro dessa categoria, com seu respectivo valor (ex: "Adicional: Borda de Chocolate" - R$ 12,00, "Adicional: Borda de Catupiry" - R$ 10,00).
+   Nas descrições dos pratos principais que aceitam esses adicionais, inclua uma nota indicando os adicionais aceitos e seus valores correspondentes (ex: "Disponível borda de Catupiry por +R$10 ou Chocolate por +R$12").
 
 Regras de Extração de Dados:
 1. Agrupe os itens pelas categorias reais exibidas no site (ex: "Entradas", "Pratos Principais", "Sobremesas", "Bebidas").
 2. Para cada item, extraia:
-   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
+   - "name": Nome completo estruturado do prato (incluindo o sufixo de variação de tamanho ou sabor em parênteses, ex: "Pizza de Calabresa (Grande)").
    - "price": Preço exato formatado (ex: "R$ 29,90" ou "R$ 15,00"). Se não houver preço visível, deixe em branco.
-   - "description": Descrição ou ingredientes do prato (se houver).
+   - "description": Descrição ou ingredientes do prato, incluindo informações sobre adicionais/bordas disponíveis e seus custos (ex: "Muçarela, calabresa e cebola. Disponível borda de Catupiry por +R$10 ou Chocolate por +R$12").
    - "image_url": O valor absoluto do atributo "src" da tag <img> correspondente a este prato (se houver uma imagem associada ao prato no HTML).
 3. Ignore links de redes sociais, rodapés, termos de uso ou propagandas.
 4. Retorne a resposta estritamente no seguinte formato JSON:
@@ -1075,13 +1100,17 @@ async function extractMenuWithAIVision(images, restaurantName) {
 Sua tarefa é analisar a(s) imagem(ns) do cardápio do restaurante "${restaurantName}" e extrair todos os pratos, bebidas, categorias, preços e descrições.
 Diretrizes:
 1. Agrupe os itens pelas categorias exibidas visualmente na imagem (ex: "Entradas", "Pratos Principais", "Sobremesas", "Bebidas").
-2. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
-3. Para cada item, extraia:
-   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
+2. ACHATAMENTO DE VARIAÇÕES E SABORES (CRÍTICO):
+   Se encontrar múltiplas opções de tamanho/preço para o mesmo item na imagem (ex: "Calabresa - Brotinho R$ 30,00 / Média R$ 40,00 / Grande R$ 50,00"), crie pratos independentes na lista de retorno (ex: "Pizza de Calabresa (Brotinho)" com preço "R$ 30,00", "Pizza de Calabresa (Média)" com preço "R$ 40,00" e "Pizza de Calabresa (Grande)" com preço "R$ 50,00").
+3. EXTRAÇÃO DE ADICIONAIS E BORDAS:
+   Se a imagem listar opcionais ou adicionais com preço (ex: "Borda recheada por +R$10,00"), crie uma categoria dedicada no final chamada "Adicionais / Bordas" e insira esses adicionais como itens de cardápio separados nessa categoria com seu respectivo valor (ex: "Adicional: Borda de Catupiry" - R$ 10,00). 
+   Na descrição dos pratos principais que aceitam os adicionais, inclua uma nota sobre as opções e seus valores (ex: "Disponível borda de Catupiry por +R$10").
+4. Para cada item, extraia:
+   - "name": Nome completo estruturado do prato (incluindo o sufixo de variação de tamanho ou sabor em parênteses, ex: "Pizza de Calabresa (Grande)").
    - "price": Preço exato formatado (ex: "R$ 29,90" ou "R$ 15,00").
-   - "description": Descrição ou ingredientes do prato (se houver escrito).
+   - "description": Descrição/ingredientes do prato, incluindo informações sobre adicionais/bordas disponíveis (ex: "Muçarela, calabresa e cebola. Disponível borda de Catupiry por +R$10").
    - "image_url": Deixe sempre em branco ("").
-3. Retorne a resposta estritamente no seguinte formato JSON:
+5. Retorne a resposta estritamente no seguinte formato JSON:
 {
   "categories": [
     {
@@ -1174,11 +1203,155 @@ Diretrizes:
   return null;
 }
 
+function parseAnotaAiMenu(json) {
+  let menu = json;
+  if (json.data && json.data.menu) {
+    menu = json.data.menu;
+  }
+  
+  if (!menu || (!menu.menu && !menu.menu_aux)) {
+    return null;
+  }
+
+  const categories = [];
+  const menuAuxMap = new Map();
+  
+  if (Array.isArray(menu.menu_aux)) {
+    menu.menu_aux.forEach(cat => {
+      if (cat.category_id) {
+        menuAuxMap.set(cat.category_id, cat);
+      }
+    });
+  }
+  
+  const borderItemsMap = new Map();
+  
+  if (Array.isArray(menu.menu)) {
+    menu.menu.forEach(cat => {
+      const catName = cat.title || 'Geral';
+      const items = [];
+      
+      if (Array.isArray(cat.itens)) {
+        cat.itens.forEach(item => {
+          const itemName = item.title || '';
+          const itemPrice = item.price || item.minimal_price || 0;
+          const itemDesc = item.description || '';
+          const itemImage = item.image || '';
+          
+          let flavorCategory = null;
+          let borderCategories = [];
+          
+          if (Array.isArray(item.next_steps)) {
+            item.next_steps.forEach(step => {
+              const auxCat = menuAuxMap.get(step.category);
+              if (auxCat) {
+                const auxTitle = (auxCat.title || '').toLowerCase();
+                if (auxTitle.includes('sabor') || auxTitle.includes('sabores')) {
+                  flavorCategory = auxCat;
+                } else if (auxTitle.includes('borda') || auxTitle.includes('massa') || auxTitle.includes('adicional')) {
+                  borderCategories.push(auxCat);
+                }
+              }
+            });
+          }
+          
+          // Agrupa todas as opções estruturadas em um array
+          const optionsList = [];
+          
+          if (flavorCategory && Array.isArray(flavorCategory.itens) && flavorCategory.itens.length > 0) {
+            optionsList.push({
+              title: flavorCategory.title || "Escolha o Sabor",
+              itens: flavorCategory.itens.map(fi => ({
+                name: fi.title || '',
+                price: fi.price || 0
+              }))
+            });
+          }
+          
+          borderCategories.forEach(bc => {
+            if (Array.isArray(bc.itens) && bc.itens.length > 0) {
+              optionsList.push({
+                title: bc.title || "Opcionais",
+                itens: bc.itens.map(bi => ({
+                  name: bi.title || '',
+                  price: bi.price || 0
+                }))
+              });
+            }
+          });
+          
+          let finalDesc = itemDesc;
+          if (optionsList.length > 0) {
+            finalDesc = JSON.stringify({
+              description: itemDesc,
+              options: optionsList
+            });
+          }
+          
+          items.push({
+            name: itemName,
+            price: `R$ ${itemPrice.toFixed(2)}`,
+            description: finalDesc,
+            image_url: itemImage
+          });
+          
+          // Coleciona adicionais globais com valor > 0 para a categoria de Adicionais
+          borderCategories.forEach(bc => {
+            if (Array.isArray(bc.itens)) {
+              bc.itens.forEach(bi => {
+                if (bi.price > 0) {
+                  const key = `${bi.title}-${bi.price}`;
+                  borderItemsMap.set(key, {
+                    name: `Adicional: ${bi.title}`,
+                    price: `R$ ${bi.price.toFixed(2)}`,
+                    description: bi.description || '',
+                    image_url: bi.image || ''
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
+      
+      if (items.length > 0) {
+        categories.push({
+          name: catName,
+          items: items
+        });
+      }
+    });
+  }
+  
+  if (borderItemsMap.size > 0) {
+    categories.push({
+      name: "Adicionais / Bordas",
+      items: Array.from(borderItemsMap.values())
+    });
+  }
+  
+  return categories;
+}
+
 async function extractMenuItems(page, url, restaurant) {
   const urlLower = url.toLowerCase();
   
   // 1. Rola a página e clica em botões de expandir/ver mais para exibir todos os itens
   await expandAndLoadAllContent(page);
+  
+  const isAnotaAi = urlLower.includes('anota.ai');
+  if (isAnotaAi && interceptedMenuData) {
+    try {
+      console.log(`   🌐 [ANOTA.AI] Usando extrator especializado JavaScript para Anota.ai...`);
+      const parsed = parseAnotaAiMenu(interceptedMenuData);
+      if (parsed && parsed.length > 0 && parsed.some(c => c.items.length > 0)) {
+        console.log(`   ✨ Sucesso! Extrator nativo JavaScript mapeou o cardápio com perfeição.`);
+        return parsed;
+      }
+    } catch (e) {
+      console.log(`   ⚠️ Falha ao processar via extrator especializado Anota.ai: ${e.message}. Tentando fallback...`);
+    }
+  }
   
   const hasAIKey = process.env.VITE_GEMINI_API_KEY || process.env.VITE_OPENAI_API_KEY;
   let categories = null;
@@ -1347,6 +1520,13 @@ function normalizeCategories(categories) {
 
 async function saveMenuToSupabase(restaurantId, categories) {
   try {
+    if (restaurantId === '00000000-0000-0000-0000-000000000000') {
+      console.log('📡 [Supabase] Ignorando salvamento no Supabase para ID de Teste.');
+      fs.writeFileSync(path.join(__dirname, 'test_scraped_menu.json'), JSON.stringify(categories, null, 2), 'utf-8');
+      console.log('💾 Resultados de teste salvos localmente em scratch/test_scraped_menu.json');
+      return;
+    }
+
     console.log(`📡 [Supabase] Salvando cardápio no Supabase para o restaurante ${restaurantId}...`);
     
     // 1. Deleta categorias antigas (o cascade delete limpa pratos antigos)
@@ -1425,45 +1605,94 @@ async function run() {
 
   // Parse command line arguments
   let targetId = null;
+  let targetUrl = null;
+  let targetName = "Restaurante Teste";
+  
   const singleIdx = process.argv.indexOf('--single');
   const idIdx = process.argv.indexOf('--id');
+  const urlIdx = process.argv.indexOf('--url');
+  const nameIdx = process.argv.indexOf('--name');
+  
   if (singleIdx !== -1 && idIdx !== -1 && idIdx + 1 < process.argv.length) {
     targetId = process.argv[idIdx + 1];
     console.log(`🎯 Modo Single ativado para o restaurante ID: ${targetId}`);
+  } else if (urlIdx !== -1 && urlIdx + 1 < process.argv.length) {
+    targetUrl = process.argv[urlIdx + 1];
+    if (nameIdx !== -1 && nameIdx + 1 < process.argv.length) {
+      targetName = process.argv[nameIdx + 1];
+    }
+    console.log(`🎯 Modo URL Direta ativado: ${targetUrl} (Nome: ${targetName})`);
   }
 
-  console.log('📡 Buscando estabelecimentos no Supabase...');
-  const { data, error: fetchError } = await supabase
-    .from('restaurants')
-    .select('*');
+  let withMenu = [];
 
-  if (fetchError) {
-    console.error('❌ Erro ao buscar do Supabase:', fetchError.message);
-    process.exit(1);
-  }
+  if (targetUrl) {
+    withMenu = [{
+      id: '00000000-0000-0000-0000-000000000000',
+      name: targetName,
+      category: 'Teste',
+      menuSourceUrl: targetUrl,
+      city: 'João Pessoa',
+      address: ''
+    }];
+  } else if (targetId) {
+    console.log(`📡 Buscando restaurante específico ID ${targetId} no Supabase...`);
+    const { data: restaurantRow, error: fetchError } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('id', targetId)
+      .maybeSingle();
 
-  console.log(`📂 Carregados ${data.length} estabelecimentos do Supabase.`);
+    if (fetchError) {
+      console.error('❌ Erro ao buscar do Supabase:', fetchError.message);
+      process.exit(1);
+    }
 
-  // Filtra restaurantes que têm link de cardápio (other_url ou external_url)
-  let withMenu = data.filter(r => {
-    const menuUrl = r.other_url || r.external_url;
-    return menuUrl && menuUrl.startsWith('http');
-  }).map(r => ({
-    id: r.id, // Já é UUID
-    name: r.name,
-    category: r.category,
-    menuSourceUrl: r.other_url || r.external_url,
-    city: r.city || 'João Pessoa',
-    address: r.address || ''
-  }));
+    if (!restaurantRow) {
+      console.error(`❌ Restaurante com ID "${targetId}" não encontrado no Supabase.`);
+      process.exit(1);
+    }
 
-  if (targetId) {
-    withMenu = withMenu.filter(r => r.id === targetId);
-    if (withMenu.length === 0) {
-      console.log(`❌ O restaurante com ID "${targetId}" não possui link de cardápio válido cadastrado.`);
+    const menuUrl = restaurantRow.other_url || restaurantRow.external_url;
+    if (!menuUrl || !menuUrl.startsWith('http')) {
+      console.log(`❌ O restaurante "${restaurantRow.name}" não possui link de cardápio válido cadastrado.`);
       console.log(`RESULT:{"success":false,"error":"O restaurante não possui link de cardápio cadastrado no Supabase."}`);
       return;
     }
+
+    withMenu = [{
+      id: restaurantRow.id,
+      name: restaurantRow.name,
+      category: restaurantRow.category,
+      menuSourceUrl: menuUrl,
+      city: restaurantRow.city || 'João Pessoa',
+      address: restaurantRow.address || ''
+    }];
+  } else {
+    console.log('📡 Buscando estabelecimentos no Supabase...');
+    const { data, error: fetchError } = await supabase
+      .from('restaurants')
+      .select('*');
+
+    if (fetchError) {
+      console.error('❌ Erro ao buscar do Supabase:', fetchError.message);
+      process.exit(1);
+    }
+
+    console.log(`📂 Carregados ${data.length} estabelecimentos do Supabase.`);
+
+    // Filtra restaurantes que têm link de cardápio (other_url ou external_url)
+    withMenu = data.filter(r => {
+      const menuUrl = r.other_url || r.external_url;
+      return menuUrl && menuUrl.startsWith('http');
+    }).map(r => ({
+      id: r.id, // Já é UUID
+      name: r.name,
+      category: r.category,
+      menuSourceUrl: r.other_url || r.external_url,
+      city: r.city || 'João Pessoa',
+      address: r.address || ''
+    }));
   }
 
   console.log(`🔗 ${withMenu.length} estabelecimentos possuem link de cardápio no Supabase.`);

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Pizza, Heart, Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { useMenuItemFavorites } from '@/hooks/useMenuItemFavorites';
 import { useAuthData } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
@@ -71,6 +72,18 @@ const MenuItemDetails: React.FC = () => {
   const restaurantName = itemData.restaurant?.name || 'Restaurante Desconhecido';
   const restaurantId = itemData.restaurant?.id;
 
+  let descText = itemData.description || '';
+  let options: any[] = [];
+  try {
+    if (itemData.description && itemData.description.startsWith('{')) {
+      const parsed = JSON.parse(itemData.description);
+      descText = parsed.description || '';
+      options = parsed.options || [];
+    }
+  } catch (e) {
+    // ignore
+  }
+
   return (
     <div className="min-h-screen bg-background-light max-w-md mx-auto flex flex-col">
       <Header 
@@ -117,13 +130,45 @@ const MenuItemDetails: React.FC = () => {
               {formatPrice(itemData.price)}
             </p>
             
-            {itemData.description && (
-              <p className="text-slate-655 text-sm leading-relaxed">
-                {itemData.description}
+            {descText && (
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {descText}
               </p>
             )}
             
-            <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+            {options.length > 0 && (
+              <div className="space-y-4 pt-2">
+                <Separator className="bg-slate-100" />
+                {options.map((optGroup, gIdx) => (
+                  <div key={gIdx} className="space-y-2.5">
+                    <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider">
+                      {optGroup.title}
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      {optGroup.itens.map((opt: any, oIdx: number) => (
+                        <div 
+                          key={oIdx} 
+                          className="flex justify-between items-center bg-slate-50/50 hover:bg-slate-50 px-3 py-2.5 rounded-xl border border-slate-100/60 transition-colors"
+                        >
+                          <span className="text-sm font-semibold text-slate-700">{opt.name}</span>
+                          {opt.price > 0 ? (
+                            <span className="text-xs font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-2 py-0.5 rounded-md">
+                              +{formatPrice(opt.price)}
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">
+                              Incluso
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold pt-2">
               <Utensils className="w-4 h-4 text-highlight/70" />
               <p>Servido por: <span className="text-slate-700">{restaurantName}</span></p>
             </div>
