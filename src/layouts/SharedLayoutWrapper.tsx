@@ -37,7 +37,7 @@ const SharedLayoutWrapper: React.FC = () => {
 
   return (
     <div className={cn(
-      "min-h-screen flex flex-col transition-colors duration-200",
+      "min-h-screen w-full flex flex-col items-center justify-start transition-colors duration-200",
       isUpgradePage ? "bg-[#090D1A]" : "bg-[#f1f5f9]"
     )}>
       {/* Main content area */}

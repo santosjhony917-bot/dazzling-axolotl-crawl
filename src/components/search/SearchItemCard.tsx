@@ -16,6 +16,7 @@ interface SearchItem {
   city?: string | null;
   neighborhood?: string | null;
   restaurantName?: string | null;
+  itemCategoryName?: string | null;
 }
 
 interface SearchItemCardProps {
@@ -26,7 +27,9 @@ interface SearchItemCardProps {
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
   const formattedPrice = item.price ? formatPrice(item.price) : null;
-  const displayDescription = isDish ? item.restaurantName : item.category;
+  const displayDescription = isDish 
+    ? `${item.restaurantName}${item.itemCategoryName ? ` • ${item.itemCategoryName}` : ''}`
+    : item.category;
   const getBustedUrl = useImageCacheBuster();
 
   return (

@@ -497,9 +497,9 @@ export default function SearchUnifiedPage() {
   };
 
   return (
-    <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins']">
-      {/* Cabeçalho customizado */}
-      <div className="px-5 pt-6 pb-4 bg-white">
+    <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins'] relative">
+      {/* Cabeçalho customizado (Sticky no Topo) */}
+      <div className="px-5 pt-6 pb-4 bg-white sticky top-0 z-30 border-b border-slate-100 shadow-sm w-full">
         <div className="flex items-center gap-3 mb-1">
           <button
             onClick={handleBack}

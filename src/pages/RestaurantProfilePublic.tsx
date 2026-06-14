@@ -76,11 +76,11 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   }
 
   return (
-    <div className="relative min-h-screen bg-background-light">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-start bg-background-light">
       {/* Novo cabeçalho fixo no topo */}
       <RestaurantPageHeader />
 
-      <div className={cn("max-w-md mx-auto")}>
+      <div className={cn("max-w-md w-full mx-auto")}>
         {/* O conteúdo principal do perfil (PremiumProfileLayout ou FreeProfileLayout) */}
         {currentPlan === 'premium' || currentPlan === 'premium_gift' ? (
           <motion.div
