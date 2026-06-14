@@ -28,7 +28,9 @@ import {
   Image,
   Upload,
   Loader2,
-  Play
+  Play,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
 import {
@@ -445,6 +447,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [activeDialogTab, setActiveDialogTab] = useState<string>('preview');
   const [newGalleryUrl, setNewGalleryUrl] = useState('');
   const [aiModel, setAiModel] = useState<'gemini' | 'openai'>('gemini');
+  const [expandedPreviewItems, setExpandedPreviewItems] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (restaurant && isOpen) {
@@ -2208,30 +2211,89 @@ ${aiHoursPastedContent}
                           <div key={cat.id || cat.name} className="border border-gray-150 rounded-2xl p-4 bg-slate-50/50">
                             <h4 className="font-bold text-sm text-slate-800 mb-2 border-b border-gray-200 pb-1">{cat.name}</h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                              {(cat.items || cat.menu_items || []).map((item: any) => (
-                                <div key={item.id || item.name} className="flex gap-3 bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm items-start">
-                                  {item.image_url && (
-                                    <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-gray-150 border border-gray-100">
-                                      <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
+                              {(cat.items || cat.menu_items || []).map((item: any) => {
+                                let descText = item.description || '';
+                                let options: any[] = [];
+                                
+                                try {
+                                  if (item.description && item.description.startsWith('{')) {
+                                    const parsed = JSON.parse(item.description);
+                                    descText = parsed.description || '';
+                                    options = parsed.options || [];
+                                  }
+                                } catch (e) {
+                                  // ignore
+                                }
+
+                                const isExpanded = !!expandedPreviewItems[item.id];
+
+                                return (
+                                  <div key={item.id || item.name} className="flex flex-col bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm gap-2">
+                                    <div className="flex gap-3 items-start">
+                                      {item.image_url && (
+                                        <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-gray-150 border border-gray-100">
+                                          <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
+                                        </div>
+                                      )}
+                                      <div className="flex-1 min-w-0">
+                                        <div className="flex justify-between items-start gap-2">
+                                          <div className="flex items-center gap-1.5 min-w-0">
+                                            <h5 className="font-bold text-xs text-slate-800 truncate">{item.name}</h5>
+                                            {options.length > 0 && (
+                                              <button
+                                                onClick={() => setExpandedPreviewItems(prev => ({ ...prev, [item.id]: !prev[item.id] }))}
+                                                className="p-0.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors shrink-0"
+                                              >
+                                                {isExpanded ? (
+                                                  <ChevronUp className="w-3.5 h-3.5" />
+                                                ) : (
+                                                  <ChevronDown className="w-3.5 h-3.5" />
+                                                )}
+                                              </button>
+                                            )}
+                                          </div>
+                                          <span className="text-xs font-bold text-emerald-600 shrink-0">
+                                            {typeof item.price === 'number' && item.price > 0 
+                                              ? `R$ ${item.price.toFixed(2).replace('.', ',')}` 
+                                              : 'Sob consulta'}
+                                          </span>
+                                        </div>
+                                        {descText && (
+                                          <p className="text-[10px] text-gray-500 font-medium mt-1 leading-normal line-clamp-2">
+                                            {descText}
+                                          </p>
+                                        )}
+                                      </div>
                                     </div>
-                                  )}
-                                  <div className="flex-1 min-w-0">
-                                    <div className="flex justify-between items-start gap-2">
-                                      <h5 className="font-bold text-xs text-slate-800 truncate">{item.name}</h5>
-                                      <span className="text-xs font-bold text-emerald-600 shrink-0">
-                                        {typeof item.price === 'number' && item.price > 0 
-                                          ? `R$ ${item.price.toFixed(2).replace('.', ',')}` 
-                                          : 'Sob consulta'}
-                                      </span>
-                                    </div>
-                                    {item.description && (
-                                      <p className="text-[10px] text-gray-500 font-medium mt-1 leading-normal line-clamp-2">
-                                        {item.description}
-                                      </p>
+
+                                    {options.length > 0 && isExpanded && (
+                                      <div className="p-2 bg-slate-50 border border-slate-100 rounded-lg space-y-2 text-[10px]">
+                                        {options.map((optGroup, gIdx) => (
+                                          <div key={gIdx} className="space-y-1">
+                                            <p className="text-[8px] font-extrabold text-slate-400 uppercase tracking-wider">{optGroup.title}</p>
+                                            <div className="grid grid-cols-1 gap-1 text-[10px]">
+                                              {optGroup.itens.map((opt: any, oIdx: number) => (
+                                                <div key={oIdx} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-slate-150 shadow-sm">
+                                                  <span className="font-medium text-slate-700">{opt.name}</span>
+                                                  {opt.price > 0 ? (
+                                                    <span className="font-bold text-[#EF2A39]">
+                                                      +R$ {opt.price.toFixed(2).replace('.', ',')}
+                                                    </span>
+                                                  ) : (
+                                                    <span className="font-bold text-emerald-600 bg-emerald-50 px-1 rounded-[3px]">
+                                                      Incluso
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        ))}
+                                      </div>
                                     )}
                                   </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         ))}
