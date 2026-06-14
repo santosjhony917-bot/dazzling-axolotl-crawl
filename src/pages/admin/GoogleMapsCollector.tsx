@@ -1053,6 +1053,11 @@ export default function GoogleMapsCollector() {
         };
       });
       setResults(formatted);
+      setEditingRestaurant((prev: any) => {
+        if (!prev) return null;
+        const updated = formatted.find((r: any) => r.id === prev.id);
+        return updated || prev;
+      });
       setIsViewingDb(true);
     } catch (err: any) {
       console.error('Erro ao carregar do Supabase:', err);

@@ -294,6 +294,13 @@ export default function ExportedRestaurants() {
       const mappedList = allImported.map(mapSupabaseToLocal);
       setRestaurants(mappedList);
       
+      // Atualizar a referência de selectedRestaurant para refletir os novos dados
+      setSelectedRestaurant((prev: any) => {
+        if (!prev) return null;
+        const updated = mappedList.find(r => r.id === prev.id);
+        return updated || prev;
+      });
+      
       // Todos do Supabase são considerados sincronizados
       const syncedSet = new Set(allImported.map(item => item.id));
       setSyncedIds(syncedSet);

@@ -1198,6 +1198,72 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const data = await res.json();
         if (data.success) {
           showSuccess('Cardápio extraído com sucesso pelo robô!');
+          
+          // Buscar os dados atualizados do restaurante direto do Supabase
+          const { data: updatedRest, error: fetchError } = await supabase
+            .from('restaurants')
+            .select(`
+              *,
+              menu_categories (
+                *,
+                menu_items (*)
+              ),
+              restaurant_gallery (*)
+            `)
+            .eq('id', restaurant.id)
+            .maybeSingle();
+
+          if (!fetchError && updatedRest) {
+            // Mapear para o formato do frontend
+            const socialNetworks = updatedRest.social_networks || [];
+            const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
+            const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
+            
+            const menuCategories = (updatedRest.menu_categories || []).map((cat: any) => ({
+              id: cat.id,
+              name: cat.name,
+              items: (cat.menu_items || []).map((item: any) => ({
+                id: item.id,
+                name: item.name,
+                description: item.description || '',
+                price: item.price,
+                image_url: item.image_url || ''
+              }))
+            }));
+            
+            const galleryImages = (updatedRest.restaurant_gallery || []).map((img: any) => img.image_url);
+
+            const mapped = {
+              ...restaurant,
+              id: updatedRest.id,
+              name: updatedRest.name,
+              phone: updatedRest.phone || '',
+              cep: updatedRest.cep || '',
+              address: updatedRest.address || '',
+              number: updatedRest.number || '',
+              neighborhood: updatedRest.neighborhood || '',
+              city: updatedRest.city || '',
+              state: updatedRest.state || '',
+              description: updatedRest.description || '',
+              logo: updatedRest.image_url || '',
+              coverImage: updatedRest.cover_image_url || '',
+              cover_image_url: updatedRest.cover_image_url || '',
+              openingHours: updatedRest.opening_hours || null,
+              opening_hours: updatedRest.opening_hours || null,
+              social_networks: socialNetworks,
+              instagram,
+              facebook,
+              menuSourceUrl: updatedRest.other_url || updatedRest.external_url || '',
+              menuUrl: updatedRest.other_url || updatedRest.external_url || '',
+              menu_categories: menuCategories,
+              galleryImages
+            };
+
+            setEditedData(mapped);
+            setIsEditing(true); // Ativa o modo de edição para mostrar o cardápio
+            setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
+          }
+
           onSyncSuccess();
         } else {
           showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
