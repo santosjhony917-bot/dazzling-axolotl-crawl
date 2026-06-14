@@ -1162,8 +1162,51 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   };
 
   const handleAIExtraction = async () => {
-    if (!aiPastedContent.trim()) {
+    const content = aiPastedContent.trim();
+    if (!content) {
       showError('Cole o texto do cardápio bruto ou HTML antes de processar.');
+      return;
+    }
+
+    const isUrl = /^https?:\/\/[^\s]+$/i.test(content);
+    if (isUrl) {
+      setIsExtractingAI(true);
+      try {
+        showSuccess('Link detectado! Salvando o link e iniciando o robô extrator local...');
+        
+        // 1. Atualizar o link no Supabase
+        const { error: updateError } = await supabase
+          .from('restaurants')
+          .update({
+            menuSourceUrl: content,
+            other_url: content,
+            external_url: content
+          })
+          .eq('id', restaurant.id);
+
+        if (updateError) throw updateError;
+
+        // 2. Chamar o robô do servidor local
+        const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
+          method: 'POST'
+        });
+
+        if (!res.ok) {
+          throw new Error('Falha na comunicação com o servidor local.');
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          showSuccess('Cardápio extraído com sucesso pelo robô!');
+          onSyncSuccess();
+        } else {
+          showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
+        }
+      } catch (err: any) {
+        showError('Erro ao executar o robô: ' + err.message);
+      } finally {
+        setIsExtractingAI(false);
+      }
       return;
     }
 
