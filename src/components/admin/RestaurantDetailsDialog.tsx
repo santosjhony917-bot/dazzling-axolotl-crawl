@@ -619,13 +619,16 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               if (publicUrl) {
                 updateObj.image_url = publicUrl;
               }
+              let finalFollowers = null;
               if (response.followers !== undefined && response.followers !== null) {
-                updateObj.followers_override = response.followers;
+                const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
+                finalFollowers = Math.round((response.followers * pct) / 100);
+                updateObj.followers_override = finalFollowers;
               }
               
               if (Object.keys(updateObj).length > 0) {
                 const { error: dbUpdateError } = await supabase
-                  .from('restaurants')
+                   .from('restaurants')
                   .update(updateObj)
                   .eq('id', uuidId);
                   
@@ -640,7 +643,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                     ...prev,
                     logo: publicUrl || prev.logo,
                     image_url: publicUrl || prev.image_url,
-                    followers_override: response.followers !== undefined ? response.followers : prev.followers_override
+                    followers_override: response.followers !== undefined ? finalFollowers : prev.followers_override
                   }));
                   onSyncSuccess();
                 }
@@ -664,11 +667,18 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             setLogoTimestamp(Date.now());
             window.dispatchEvent(new Event('local-sync-restaurants'));
             localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+            
+            let finalFollowers = undefined;
+            if (result.followers !== undefined && result.followers !== null) {
+              const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
+              finalFollowers = Math.round((result.followers * pct) / 100);
+            }
+
             setEditedData((prev: any) => ({
               ...prev,
               logo: result.url || prev.logo,
               image_url: result.url || prev.image_url,
-              followers_override: result.followers !== undefined ? result.followers : prev.followers_override
+              followers_override: finalFollowers !== undefined ? finalFollowers : prev.followers_override
             }));
             
             onSyncSuccess();

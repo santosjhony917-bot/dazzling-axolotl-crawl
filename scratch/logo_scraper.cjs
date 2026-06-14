@@ -297,11 +297,17 @@ async function run() {
 
   // Parse command line arguments
   let targetId = null;
+  let pct = 10;
   const singleIdx = process.argv.indexOf('--single');
   const idIdx = process.argv.indexOf('--id');
   if (singleIdx !== -1 && idIdx !== -1 && idIdx + 1 < process.argv.length) {
     targetId = process.argv[idIdx + 1];
     console.log(`🎯 Modo Single ativado para o restaurante ID: ${targetId}`);
+  }
+  const pctIdx = process.argv.indexOf('--pct');
+  if (pctIdx !== -1 && pctIdx + 1 < process.argv.length) {
+    pct = parseFloat(process.argv[pctIdx + 1]) || 10;
+    console.log(`📈 Fator de Seguidores Iniciais ativado: ${pct}%`);
   }
 
   console.log('📡 Buscando estabelecimentos no Supabase...');
@@ -504,7 +510,9 @@ async function run() {
         updateData.image_url = publicUrl;
       }
       if (followersCount !== null) {
-        updateData.followers_override = followersCount;
+        const scaledFollowers = Math.round((followersCount * pct) / 100);
+        updateData.followers_override = scaledFollowers;
+        console.log(`   👥 Seguidores originais: ${followersCount} -> Calculados (${pct}%): ${scaledFollowers}`);
       }
 
       if (Object.keys(updateData).length > 0) {

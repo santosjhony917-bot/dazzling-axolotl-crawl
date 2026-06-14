@@ -578,7 +578,13 @@ export default function GoogleMapsCollector() {
       else if (field === 'scrape-logo') endpoint = '/api/local-collector/re-scrape-logo';
       else endpoint = '/api/local-collector/re-search-hours';
       
-      const res = await fetch(`${endpoint}?restaurantId=${restaurantId}`, { method: 'POST' });
+      let params = `?restaurantId=${restaurantId}`;
+      if (field === 'scrape-logo') {
+        const pct = localStorage.getItem('admin_followers_percentage') || '10';
+        params += `&pct=${pct}`;
+      }
+      
+      const res = await fetch(`${endpoint}${params}`, { method: 'POST' });
       
       if (res.ok) {
         const result = await res.json();
@@ -1107,6 +1113,7 @@ export default function GoogleMapsCollector() {
 
   const autoImportListToActiveDb = (list: ScrapedRestaurant[]) => {
     try {
+      const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
       const savedCompleted = localStorage.getItem('mock-completed-restaurants');
       const completedMap = savedCompleted ? JSON.parse(savedCompleted) : {};
 
@@ -1125,7 +1132,7 @@ export default function GoogleMapsCollector() {
           completedMap[restaurantId] = {
             id: restaurantId,
             name: restaurant.name,
-            plan: 'free',
+            plan: defaultPlan,
             phone: restaurant.phone || '',
             address: restaurant.address || '',
             city: restaurant.city || '',
@@ -1152,7 +1159,7 @@ export default function GoogleMapsCollector() {
           const newRestaurant = {
             id: restaurantId,
             name: restaurant.name,
-            plan: 'free' as const,
+            plan: defaultPlan as any,
             phone: restaurant.phone || '',
             category: restaurant.category || '',
             address: restaurant.address || '',
@@ -1991,9 +1998,13 @@ export default function GoogleMapsCollector() {
 
   const handleImport = async (restaurant: ScrapedRestaurant) => {
     try {
+      const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
       const { error } = await supabase
         .from('restaurants')
-        .update({ visit_status: 'Visitado' })
+        .update({ 
+          visit_status: 'Visitado',
+          plan: defaultPlan
+        })
         .eq('id', restaurant.id);
 
       if (error) throw error;
@@ -2029,9 +2040,13 @@ export default function GoogleMapsCollector() {
         return;
       }
 
+      const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
       const { error } = await supabase
         .from('restaurants')
-        .update({ visit_status: 'Visitado' })
+        .update({ 
+          visit_status: 'Visitado',
+          plan: defaultPlan
+        })
         .in('id', pendingIds);
 
       if (error) throw error;

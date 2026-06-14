@@ -366,14 +366,15 @@ export default defineConfig(() => ({
               }
               
               const restaurantId = urlParams.get("restaurantId");
+              const pct = urlParams.get("pct") || "10";
               if (!restaurantId) {
                 res.writeHead(400);
                 res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
                 return;
               }
 
-              logBuffer = `🚀 Iniciando extração de Logo (Fase 4) para o restaurante ID ${restaurantId}...\n`;
-              const proc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId], { shell: true });
+              logBuffer = `🚀 Iniciando extração de Logo (Fase 4) para o restaurante ID ${restaurantId} com fator ${pct}%...\n`;
+              const proc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId, "--pct", pct], { shell: true });
               activeProcess = proc;
               
               let resultJsonStr = "";

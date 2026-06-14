@@ -52,6 +52,7 @@ import AdminRestaurants from '@/pages/admin/AdminRestaurants';
 import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
 import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
 import AdminViewMenus from '@/pages/admin/AdminViewMenus';
+import AdminSettings from '@/pages/admin/AdminSettings';
 
 function App() {
   React.useEffect(() => {
@@ -119,6 +120,7 @@ function App() {
           <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
           <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
           <Route path="/admin/menus" element={<AdminViewMenus />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
         </Route>
         
         {/* Redirecionamento de Rotas Legadas da Área do Restaurante para as Rotas Unificadas */}
