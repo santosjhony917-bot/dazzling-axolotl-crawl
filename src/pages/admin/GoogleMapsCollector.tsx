@@ -451,7 +451,7 @@ export default function GoogleMapsCollector() {
   const [results, setResults] = useState<ScrapedRestaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [importedKeys, setImportedKeys] = useState<Set<string>>(new Set());
+  const [importedKeys, setImportedKeys] = useState<Map<string, string>>(new Map());
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
   const [isViewingDb, setIsViewingDb] = useState(true);
   const isViewingDbRef = useRef(isViewingDb);
@@ -842,7 +842,7 @@ export default function GoogleMapsCollector() {
 
           const { data, error } = await supabase
             .from('restaurants')
-            .select('name, address')
+            .select('name, address, visit_status')
             .or('is_deleted.eq.false,is_deleted.is.null')
             .range(from, to);
 
@@ -860,7 +860,10 @@ export default function GoogleMapsCollector() {
           }
         }
         
-        const keys = new Set(allMissions.map((r: any) => getRestaurantUniqueKey(r.name, r.address)));
+        const keys = new Map<string, string>();
+        allMissions.forEach((r: any) => {
+          keys.set(getRestaurantUniqueKey(r.name, r.address), r.visit_status || 'Pendente');
+        });
         setImportedKeys(keys);
       } catch (e) {
         console.error(e);
@@ -1111,12 +1114,12 @@ export default function GoogleMapsCollector() {
       const fallbackList = savedFallback ? JSON.parse(savedFallback) : [];
 
       let importedCount = 0;
-      const newImported = new Set(importedKeys);
+      const newImported = new Map(importedKeys);
 
       for (const restaurant of list) {
         if (dismissedIds.has(restaurant.id)) continue;
         const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-        if (!newImported.has(key)) {
+        if (newImported.get(key) !== 'Visitado') {
           const restaurantId = restaurant.id || `scraped-${key}`;
 
           completedMap[restaurantId] = {
@@ -1164,7 +1167,7 @@ export default function GoogleMapsCollector() {
           };
 
           fallbackList.unshift(newRestaurant);
-          newImported.add(key);
+          newImported.set(key, 'Visitado');
           importedCount++;
         }
       }
@@ -1948,7 +1951,7 @@ export default function GoogleMapsCollector() {
       showSuccess(`"${restaurant.name}" removido com sucesso!`);
       
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-      const newImported = new Set(importedKeys);
+      const newImported = new Map(importedKeys);
       newImported.delete(key);
       setImportedKeys(newImported);
 
@@ -1998,8 +2001,8 @@ export default function GoogleMapsCollector() {
       showSuccess(`"${restaurant.name}" importado e publicado com sucesso!`);
       
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
-      const newImported = new Set(importedKeys);
-      newImported.add(key);
+      const newImported = new Map(importedKeys);
+      newImported.set(key, 'Visitado');
       setImportedKeys(newImported);
 
       // Notifica as abas
@@ -2014,7 +2017,11 @@ export default function GoogleMapsCollector() {
   const handleImportAll = async () => {
     try {
       const pendingIds = results
-        .filter(r => !dismissedIds.has(r.id))
+        .filter(r => {
+          if (dismissedIds.has(r.id)) return false;
+          const status = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
+          return status !== 'Visitado';
+        })
         .map(r => r.id);
 
       if (pendingIds.length === 0) {
@@ -2031,8 +2038,8 @@ export default function GoogleMapsCollector() {
 
       showSuccess(`Sucesso! ${pendingIds.length} restaurantes importados e publicados!`);
       
-      const newImported = new Set(importedKeys);
-      results.forEach(r => newImported.add(getRestaurantUniqueKey(r.name, r.address)));
+      const newImported = new Map(importedKeys);
+      results.forEach(r => newImported.set(getRestaurantUniqueKey(r.name, r.address), 'Visitado'));
       setImportedKeys(newImported);
 
       // Notifica as abas
@@ -2584,7 +2591,10 @@ export default function GoogleMapsCollector() {
         const totalPages = Math.ceil(filteredResults.length / itemsPerPage);
         const startIndex = (currentPage - 1) * itemsPerPage;
         const paginatedResults = filteredResults.slice(startIndex, startIndex + itemsPerPage);
-        const pendingImportCount = filteredResults.filter(r => !importedKeys.has(getRestaurantUniqueKey(r.name, r.address))).length;
+        const pendingImportCount = filteredResults.filter(r => {
+          const status = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
+          return status !== 'Visitado';
+        }).length;
         
         return (
           <Card className="shadow-none border border-gray-100 rounded-2xl bg-white overflow-hidden">
@@ -2652,13 +2662,17 @@ export default function GoogleMapsCollector() {
                     </TableHeader>
                     <TableBody>
                       {paginatedResults.map((r) => {
-                        const isImported = importedKeys.has(getRestaurantUniqueKey(r.name, r.address));
+                        const dbStatus = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
+                        const isImported = dbStatus === 'Visitado';
+                        const isColetado = dbStatus === 'Pendente';
                         return (
                           <TableRow 
                             key={r.id} 
                             className={`transition-all duration-200 ${
                               isImported 
                                 ? 'bg-emerald-50/70 hover:bg-emerald-100/40 text-emerald-950 font-medium' 
+                                : isColetado
+                                ? 'bg-amber-50/40 hover:bg-amber-50/60'
                                 : 'hover:bg-gray-50/50'
                             }`}
                           >
@@ -2679,6 +2693,11 @@ export default function GoogleMapsCollector() {
                                 {isImported && (
                                   <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white border-none py-0 px-1.5 text-[9px] font-bold gap-0.5 rounded-full shrink-0">
                                     <Check className="w-2.5 h-2.5" /> Importado
+                                  </Badge>
+                                )}
+                                {isColetado && (
+                                  <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-none py-0 px-1.5 text-[9px] font-bold gap-0.5 rounded-full shrink-0">
+                                    Coletado
                                   </Badge>
                                 )}
                               </div>
