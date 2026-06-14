@@ -59,6 +59,110 @@ const cleanAddress = (address: string) => {
   return address.trim();
 };
 
+const toTitleCase = (str: string) => {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+const cleanPrefixes = (name: string) => {
+  if (!name) return '';
+  return name.replace(/^[\d\w\s]+:\s*/i, '').trim();
+};
+
+const enrichMenuItemsWithAI = async (
+  restaurantName: string,
+  categoryName: string,
+  items: any[],
+  apiKey: string,
+  isOpenAI: boolean
+) => {
+  if (!apiKey || items.length === 0) return;
+
+  try {
+    const listForPrompt = items.map(item => ({
+      id: item.id,
+      name: item.name,
+      description: item.description || ''
+    }));
+
+    const promptText = `Você receberá uma lista de pratos da categoria "${categoryName}" do restaurante "${restaurantName}" no formato JSON.
+Sua tarefa é analisar o contexto e sugerir um nome de exibição otimizado para a BUSCA GLOBAL (searchDisplayName) para cada um deles.
+Regras:
+1. Nomes genéricos como "Filé" em uma categoria "Saladas" devem ser transformados em "Salada com Filé".
+2. Nomes genéricos como "Frango" em uma categoria "Saladas" devem ser transformados em "Salada de Frango".
+3. Se o nome contiver prefixos redundantes como "011: Pizza", remova-os (retornando apenas "Pizza").
+4. Apenas corrija se necessário. Se o nome já for descritivo e claro, retorne-o exatamente como está (em Title Case).
+5. O nome deve ser curto (máximo 40 caracteres).
+6. Retorne APENAS um array JSON válido sem markdown ou blocos de código. Exemplo: {"results": [{"id": "...", "searchDisplayName": "..."}]}.
+
+JSON:
+${JSON.stringify(listForPrompt, null, 2)}`;
+
+    let jsonText = '';
+
+    if (isOpenAI) {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          response_format: { type: "json_object" },
+          messages: [
+            { role: 'user', content: promptText }
+          ]
+        })
+      });
+      if (!response.ok) throw new Error(`OpenAI HTTP ${response.status}`);
+      const data = await response.json();
+      jsonText = data.choices?.[0]?.message?.content || '';
+    } else {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          generationConfig: {
+            responseMimeType: "application/json"
+          }
+        })
+      });
+      if (!response.ok) throw new Error(`Gemini HTTP ${response.status}`);
+      const data = await response.json();
+      jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    }
+
+    if (!jsonText) return;
+
+    const cleanedJsonText = jsonText.replace(/^```json\s*/i, '').replace(/```$/, '').trim();
+    const parsed = JSON.parse(cleanedJsonText);
+    const results = parsed.results || parsed;
+
+    if (Array.isArray(results)) {
+      for (const res of results) {
+        if (res.id && res.searchDisplayName) {
+          await supabase
+            .from('menu_items')
+            .update({ search_display_name: res.searchDisplayName })
+            .eq('id', res.id);
+        }
+      }
+      console.log(`[IA 2º Plano] Sanitização de busca concluída para a categoria ${categoryName}.`);
+    }
+  } catch (err) {
+    console.warn("Erro ao enriquecer nomes de cardápio com IA em 2º plano:", err);
+  }
+};
+
+
 const extractCoordsFromUrl = (url: string) => {
   if (!url) return null;
   const match1 = url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
@@ -740,6 +844,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               finalImgUrl = await ensureSupabaseImageUrl(finalImgUrl, storagePath);
             }
 
+            const sanitizedName = toTitleCase(cleanPrefixes(item.name));
+
             itemsToInsert.push({
               id: itemId,
               category_id: catUuid,
@@ -748,7 +854,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               price: priceVal,
               image_url: finalImgUrl,
               order_index: itemIdx,
-              is_active: true
+              is_active: true,
+              search_display_name: sanitizedName
             });
           }
 
@@ -757,6 +864,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             .insert(itemsToInsert);
 
           if (itemsError) throw itemsError;
+
+          // Enriquecer nomes de cardápio com IA em segundo plano (fire-and-forget)
+          const apiKey = aiModel === 'gemini'
+            ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
+            : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
+
+          if (apiKey) {
+            enrichMenuItemsWithAI(
+              updatedRest.name || '',
+              cat.name || '',
+              itemsToInsert,
+              apiKey,
+              aiModel === 'openai'
+            );
+          }
         }
       }
 

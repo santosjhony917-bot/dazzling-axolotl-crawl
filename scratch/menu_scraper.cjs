@@ -725,11 +725,12 @@ Diretrizes CRÍTICAS de Precisão:
 1. Extraia APENAS itens de comida ou bebida comercializados pelo restaurante.
 2. NUNCA extraia informações de contato, endereços, telefones, depoimentos/reviews de clientes, estrelas de avaliação, ou nomes de pessoas como se fossem pratos ou preços do cardápio.
 3. Se um item no JSON não for um prato ou bebida vendida pelo restaurante, ignore-o completamente.
+4. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
 
 Regras de Extração de Dados:
 1. Agrupe os itens pelas categorias reais exibidas no JSON.
 2. Para cada item, extraia:
-   - "name": Nome exato do prato.
+   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
    - "price": Preço formatado (ex: "R$ 29,90" ou "R$ 15,00").
    - "description": Ingredientes ou descrição (se houver).
    - "image_url": A URL absoluta da imagem/foto do prato (se houver).
@@ -828,11 +829,12 @@ Diretrizes CRÍTICAS de Precisão:
 3. NUNCA extraia avaliações/depoimentos de clientes (reviews), pontuação de estrelas (ex: "★", "*****"), nomes de clientes que avaliaram (ex: "Rosimere", "Eduardo", "Daniel"), ou datas das avaliações como pratos.
 4. NUNCA extraia artigos de blog, posts, notícias ou páginas de ajuda.
 5. Se um elemento de texto não for um prato/bebida real do cardápio, ignore-o completamente.
+6. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
 
 Regras de Extração de Dados:
 1. Agrupe os itens pelas categorias reais exibidas no site (ex: "Entradas", "Pratos Principais", "Sobremesas", "Bebidas").
 2. Para cada item, extraia:
-   - "name": Nome exato do prato.
+   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
    - "price": Preço exato formatado (ex: "R$ 29,90" ou "R$ 15,00"). Se não houver preço visível, deixe em branco.
    - "description": Descrição ou ingredientes do prato (se houver).
    - "image_url": O valor absoluto do atributo "src" da tag <img> correspondente a este prato (se houver uma imagem associada ao prato no HTML).
@@ -1073,8 +1075,9 @@ async function extractMenuWithAIVision(images, restaurantName) {
 Sua tarefa é analisar a(s) imagem(ns) do cardápio do restaurante "${restaurantName}" e extrair todos os pratos, bebidas, categorias, preços e descrições.
 Diretrizes:
 1. Agrupe os itens pelas categorias exibidas visualmente na imagem (ex: "Entradas", "Pratos Principais", "Sobremesas", "Bebidas").
-2. Para cada item, extraia:
-   - "name": Nome exato do prato.
+2. DIVISÃO DE PREÇOS MÚLTIPLOS: Se encontrar variações de preço/tamanho descritas no mesmo item (ex: "Individual R$ 36,90 / Dupla R$ 60,90"), crie pratos independentes na lista de retorno (ex: "Nome do Prato (Individual)" com preço "R$ 36,90" e "Nome do Prato (Dupla)" com preço "R$ 60,90").
+3. Para cada item, extraia:
+   - "name": Nome exato do prato (incluindo o sufixo de tamanho como "(Individual)" ou "(Dupla)" se for dividido).
    - "price": Preço exato formatado (ex: "R$ 29,90" ou "R$ 15,00").
    - "description": Descrição ou ingredientes do prato (se houver escrito).
    - "image_url": Deixe sempre em branco ("").
