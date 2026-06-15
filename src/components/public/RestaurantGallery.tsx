@@ -92,102 +92,103 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
     };
   }, [currentIndex]);
 
-  const topImages = gallery.slice(0, 3);
-  const remainingCount = gallery.length > 3 ? gallery.length - 3 : 0;
-
-  // Array representando os 3 slots que queremos preencher
-  const slots = [0, 1, 2]; 
+  const totalImages = gallery.length;
 
   return (
     <div id="gallery" className="space-y-4">
       {/* Título da seção ajustado para 2xl */}
       <h2 className="text-2xl font-extrabold text-primary">Fotos</h2>
       
-      {/* Grid principal 3 colunas, altura fixa para 2 linhas de 156px + gap (320px total) */}
-      <div className="grid grid-cols-3 gap-2 h-[320px]"> 
-        {slots.map((slotIndex) => {
-          const image = topImages[slotIndex];
-          
-          let classes = "col-span-1 h-[156px]";
-          let content;
-          
-          if (slotIndex === 0) {
-            // Slot 1: Imagem grande (2x2)
-            classes = "col-span-2 row-span-2 h-full";
-          }
-          
-          // 1. Verifica se deve renderizar o placeholder "+X fotos" no terceiro slot
-          if (slotIndex === 2 && remainingCount > 0) {
-            content = (
-              <div className="text-center text-primary font-bold">
-                +{remainingCount} fotos
+      {totalImages === 1 && (
+        <Card 
+          className="overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer h-[200px] relative"
+          onClick={() => setCurrentIndex(0)}
+        >
+          {isVideoUrl(gallery[0].image_url) ? (
+            <div className="relative w-full h-full overflow-hidden">
+              <video
+                src={gallery[0].image_url}
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                <Play className="w-8 h-8 text-white fill-white" />
               </div>
-            );
-            classes = cn(classes, "bg-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors");
-          } else if (image) {
-            // 2. Renderiza a imagem/video real
-            const showCaption = slotIndex !== 0;
-            const isVideo = isVideoUrl(image.image_url);
-            content = (
-              <>
-                {isVideo ? (
-                  <div className="relative w-full h-full overflow-hidden">
-                    <video
-                      src={image.image_url}
-                      muted
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/25 transition-colors z-10">
-                      <div className="bg-white/90 backdrop-blur-sm p-2.5 rounded-full shadow-lg">
-                        <Play className="w-5 h-5 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <img
-                    src={image.image_url}
-                    alt={image.caption || 'Imagem da galeria'}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                )}
-                {showCaption && image.caption && (
-                  <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full z-10">
-                    <p className="text-white text-sm font-semibold drop-shadow-none truncate">{image.caption}</p>
-                  </div>
-                )}
-              </>
-            );
-          } else {
-            // 3. Renderiza placeholder genérico (se houver menos de 3 imagens e não for o slot de contagem)
-            content = <Image className="w-8 h-8 text-gray-500" />;
-            classes = cn(classes, "bg-gray-200 flex items-center justify-center");
-          }
+            </div>
+          ) : (
+            <img
+              src={gallery[0].image_url}
+              alt={gallery[0].caption || 'Imagem do local'}
+              className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300"
+            />
+          )}
+          {gallery[0].caption && (
+            <div className="absolute bottom-0 left-0 p-3 bg-gradient-to-t from-black/60 to-transparent w-full z-10">
+              <p className="text-white text-xs font-semibold truncate">{gallery[0].caption}</p>
+            </div>
+          )}
+        </Card>
+      )}
 
-          // Aplica Card wrapper e classes
-          return (
+      {totalImages === 2 && (
+        <div className="grid grid-cols-2 gap-2 h-[160px]">
+          {gallery.map((image, idx) => (
             <Card 
-              key={slotIndex} 
-              className={cn("relative overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer", classes)}
-              onClick={() => setCurrentIndex(slotIndex)}
+              key={image.id}
+              className="overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer h-full relative"
+              onClick={() => setCurrentIndex(idx)}
             >
-              {content}
+              {isVideoUrl(image.image_url) ? (
+                <div className="relative w-full h-full overflow-hidden">
+                  <video
+                    src={image.image_url}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                    <Play className="w-6 h-6 text-white fill-white" />
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src={image.image_url}
+                  alt={image.caption || 'Imagem do local'}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              )}
+              {image.caption && (
+                <div className="absolute bottom-0 left-0 p-2.5 bg-gradient-to-t from-black/60 to-transparent w-full z-10">
+                  <p className="text-white text-[11px] font-semibold truncate">{image.caption}</p>
+                </div>
+              )}
             </Card>
-          );
-        })}
-      </div>
-      
-      {/* Se houver mais de 3 imagens, listamos o restante em um grid simples abaixo */}
-      {remainingCount > 0 && (
-        <div className="grid grid-cols-3 gap-2 mt-4">
-          {gallery.slice(3).map((image, index) => {
+          ))}
+        </div>
+      )}
+
+      {totalImages >= 3 && (
+        <div className="grid grid-cols-3 gap-2 h-[320px]">
+          {[0, 1, 2].map((slotIndex) => {
+            const image = gallery[slotIndex];
             const isVideo = isVideoUrl(image.image_url);
+            const isLarge = slotIndex === 0;
+            const isLast = slotIndex === 2;
+            const remainingCount = totalImages - 3;
+            const hasMore = isLast && remainingCount > 0;
+
+            const cardClass = isLarge 
+              ? "col-span-2 row-span-2 h-full" 
+              : "col-span-1 h-[156px]";
+
             return (
-              <Card 
-                key={image.id} 
-                className="overflow-hidden rounded-2xl shadow-none border-none p-0 aspect-square cursor-pointer relative"
-                onClick={() => setCurrentIndex(index + 3)}
+              <Card
+                key={image.id}
+                className={cn("relative overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer", cardClass)}
+                onClick={() => setCurrentIndex(slotIndex)}
               >
                 {isVideo ? (
                   <div className="relative w-full h-full overflow-hidden">
@@ -198,9 +199,9 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                       preload="metadata"
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 z-10">
-                      <div className="bg-white/80 backdrop-blur-sm p-1.5 rounded-full shadow">
-                        <Play className="w-3.5 h-3.5 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/25 transition-colors z-10">
+                      <div className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md">
+                        <Play className="w-4 h-4 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
                       </div>
                     </div>
                   </div>
@@ -210,6 +211,23 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                     alt={image.caption || 'Imagem da galeria'}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
+                )}
+
+                {hasMore ? (
+                  <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex flex-col items-center justify-center z-20 transition-all duration-300 hover:bg-black/70">
+                    <span className="text-white font-extrabold text-sm tracking-wide">
+                      +{remainingCount} {remainingCount === 1 ? 'foto' : 'fotos'}
+                    </span>
+                    <span className="text-white/85 text-[9px] font-bold uppercase tracking-wider mt-1">
+                      Ver todas
+                    </span>
+                  </div>
+                ) : (
+                  !isLarge && image.caption && (
+                    <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/60 to-transparent w-full z-10">
+                      <p className="text-white text-[11px] font-semibold truncate">{image.caption}</p>
+                    </div>
+                  )
                 )}
               </Card>
             );

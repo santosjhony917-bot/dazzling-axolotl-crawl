@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
   { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
   { name: 'Gerenciar Restaurantes', icon: Utensils, pathKey: 'adminRestaurants' },
   { name: 'Cardápios Coletados', icon: BookOpen, pathKey: 'adminMenus' },
+  { name: 'CRM & Vendas IA', icon: Megaphone, pathKey: 'adminCrm' },
   { name: 'Estratégia e Regras', icon: Settings, pathKey: 'adminSettings' },
 ];
 

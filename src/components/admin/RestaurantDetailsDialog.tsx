@@ -1174,10 +1174,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     const isUrl = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/\S*)?$/i.test(content);
     if (isUrl) {
       const formattedUrl = /^https?:\/\//i.test(content) ? content : `https://${content}`;
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      
+      const extId = localStorage.getItem('chrome_extension_id')?.trim();
+      let useExtension = false;
+      
       setIsExtractingAI(true);
       try {
-        showSuccess('Link detectado! Salvando o link e iniciando o robô extrator local...');
-        
+        if (extId) {
+          useExtension = await checkExtensionInstalled(extId);
+        }
+
+        if (!isLocalhost && !useExtension) {
+          throw new Error('A extração direta por URL em nuvem (Vercel) precisa da Extensão do Chrome instalada e configurada com o ID correspondente no menu da extensão. Caso contrário, copie o texto do cardápio e cole aqui.');
+        }
+
         // 1. Atualizar o link no Supabase
         const { error: updateError } = await supabase
           .from('restaurants')
@@ -1189,90 +1200,246 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
         if (updateError) throw updateError;
 
-        // 2. Chamar o robô do servidor local
-        const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
-          method: 'POST'
-        });
-
-        if (!res.ok) {
-          throw new Error('Falha na comunicação com o servidor local.');
-        }
-
-        const data = await res.json();
-        if (data.success) {
-          showSuccess('Cardápio extraído com sucesso pelo robô!');
+        if (useExtension && extId) {
+          showSuccess('Link detectado! Coletando o cardápio através da extensão do Chrome...');
           
-          // Buscar os dados atualizados do restaurante direto do Supabase
-          const { data: updatedRest, error: fetchError } = await supabase
-            .from('restaurants')
-            .select(`
-              *,
-              menu_categories (
-                *,
-                menu_items (*)
-              ),
-              restaurant_gallery (*)
-            `)
-            .eq('id', restaurant.id)
-            .maybeSingle();
+          const chromeObj = (window as any).chrome;
+          const scrapeResult: any = await new Promise((resolve, reject) => {
+            chromeObj.runtime.sendMessage(
+              extId,
+              { action: "scrapeMenu", url: formattedUrl },
+              (response: any) => {
+                const lastError = chromeObj.runtime.lastError;
+                if (lastError) {
+                  reject(new Error("Erro na extensão: " + lastError.message));
+                } else if (response && response.success) {
+                  resolve(response);
+                } else {
+                  reject(new Error(response?.error || "Falha na extração pela extensão."));
+                }
+              }
+            );
+          });
 
-          if (!fetchError && updatedRest) {
-            // Mapear para o formato do frontend
-            const socialNetworks = updatedRest.social_networks || [];
-            const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
-            const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
-            
-            const menuCategories = (updatedRest.menu_categories || []).map((cat: any) => ({
-              id: cat.id,
-              name: cat.name,
-              items: (cat.menu_items || []).map((item: any) => ({
-                id: item.id,
-                name: item.name,
-                description: item.description || '',
-                price: item.price,
-                image_url: item.image_url || ''
-              }))
-            }));
-            
-            const galleryImages = (updatedRest.restaurant_gallery || []).map((img: any) => img.image_url);
-
-            const mapped = {
-              ...restaurant,
-              id: updatedRest.id,
-              name: updatedRest.name,
-              phone: updatedRest.phone || '',
-              cep: updatedRest.cep || '',
-              address: updatedRest.address || '',
-              number: updatedRest.number || '',
-              neighborhood: updatedRest.neighborhood || '',
-              city: updatedRest.city || '',
-              state: updatedRest.state || '',
-              description: updatedRest.description || '',
-              logo: updatedRest.image_url || '',
-              coverImage: updatedRest.cover_image_url || '',
-              cover_image_url: updatedRest.cover_image_url || '',
-              openingHours: updatedRest.opening_hours || null,
-              opening_hours: updatedRest.opening_hours || null,
-              social_networks: socialNetworks,
-              instagram,
-              facebook,
-              menuSourceUrl: updatedRest.other_url || updatedRest.external_url || '',
-              menuUrl: updatedRest.other_url || updatedRest.external_url || '',
-              menu_categories: menuCategories,
-              galleryImages
-            };
-
-            setEditedData(mapped);
-            setIsEditing(true); // Ativa o modo de edição para mostrar o cardápio
-            setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
+          const xmlContent = scrapeResult.xmlContent;
+          if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
+            throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
           }
 
-          onSyncSuccess();
+          showSuccess('Cardápio coletado pela extensão! Processando com IA do navegador...');
+
+          // Agora rodar a IA do navegador no xmlContent
+          const apiKey = aiModel === 'gemini' 
+            ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
+            : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
+
+          if (!apiKey) {
+            throw new Error(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não configurada.`);
+          }
+
+          const prompt = `Você é um assistente de IA especialista em cardápios de restaurantes.
+Analise a seguinte estrutura XML contendo elementos de categorias e itens de pratos extraídos do site de um cardápio. Organize tudo em categorias, itens, descrições, preços e imagens dos pratos.
+
+Regras importantes:
+1. Identifique as categorias de forma lógica (ex: "Entradas", "Pratos Principais", "Hambúrgueres", "Bebidas", "Sobremesas").
+2. Para cada item, extraia o nome, a descrição (ingredientes, detalhes de tamanho, acompanhamentos) e o preço.
+3. Se houver tags <image> associadas aos itens de prato, extraia a URL exata da imagem no campo "image_url". Se não houver, deixe como string vazia.
+4. Formate o preço estritamente como um número (ex: se for R$ 35,90 ou 35.90, retorne 35.90. Se for 12, retorne 12.00). Não inclua o símbolo "R$".
+5. Remova qualquer texto irrelevante ou de rodapé.
+6. Retorne a resposta estritamente no formato JSON, seguindo este esquema:
+[
+  {
+    "name": "Nome da Categoria",
+    "items": [
+      {
+        "name": "Nome do Prato",
+        "description": "Descrição detalhada ou ingredientes",
+        "price": 35.90,
+        "image_url": "URL da imagem ou string vazia"
+      }
+    ]
+  }
+]
+
+Estrutura XML do cardápio:
+${xmlContent}
+`;
+
+          let text = '';
+          if (aiModel === 'openai') {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+              },
+              body: JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [{ role: 'user', content: prompt }]
+              })
+            });
+
+            if (!response.ok) {
+              const errData = await response.json();
+              throw new Error(errData.error?.message || `Erro HTTP OpenAI: ${response.status}`);
+            }
+
+            const result = await response.json();
+            text = result.choices?.[0]?.message?.content || '';
+          } else {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{ text: prompt }]
+                }],
+                generationConfig: {
+                  responseMimeType: "application/json"
+                }
+              })
+            });
+
+            if (!response.ok) {
+              const errData = await response.json();
+              throw new Error(errData.error?.message || `Erro HTTP Gemini: ${response.status}`);
+            }
+
+            const result = await response.json();
+            text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          }
+
+          if (text.includes('```json')) {
+            text = text.split('```json')[1].split('```')[0].trim();
+          } else if (text.includes('```')) {
+            text = text.split('```')[1].split('```')[0].trim();
+          }
+
+          let parsed = JSON.parse(text);
+
+          if (!Array.isArray(parsed) && parsed && typeof parsed === 'object') {
+            const arrayKey = Object.keys(parsed).find(key => Array.isArray(parsed[key]));
+            if (arrayKey) {
+              parsed = parsed[arrayKey];
+            } else {
+              throw new Error('Formato retornado pela IA não é compatível com uma lista.');
+            }
+          }
+
+          if (!Array.isArray(parsed)) {
+            throw new Error('A resposta da IA não retornou uma lista.');
+          }
+
+          const formattedCategories = parsed.map((cat: any, cIdx: number) => ({
+            id: `cat-${Date.now()}-${cIdx}-${Math.random().toString(36).substring(2, 5)}`,
+            name: cat.name || 'Outros',
+            items: (cat.items || []).map((item: any, iIdx: number) => ({
+              id: `item-${Date.now()}-${cIdx}-${iIdx}-${Math.random().toString(36).substring(2, 5)}`,
+              name: item.name || '',
+              description: item.description || '',
+              price: item.price ? Number(item.price) : 0,
+              image_url: item.image_url || ''
+            }))
+          }));
+
+          setEditedData((prev: any) => ({
+            ...prev,
+            menu_categories: formattedCategories
+          }));
+
+          showSuccess(`Sucesso! Extensão + IA extraíram ${formattedCategories.length} categorias do cardápio.`);
+          setAiPastedContent('');
+          setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
+          setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
+
         } else {
-          showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
+          // Fallback para o robô do servidor local
+          showSuccess('Iniciando o robô extrator local...');
+          const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
+            method: 'POST'
+          });
+
+          if (!res.ok) {
+            throw new Error('Falha na comunicação com o servidor local.');
+          }
+
+          const data = await res.json();
+          if (data.success) {
+            showSuccess('Cardápio extraído com sucesso pelo robô local!');
+            
+            // Buscar os dados atualizados do restaurante direto do Supabase
+            const { data: updatedRest, error: fetchError } = await supabase
+              .from('restaurants')
+              .select(`
+                *,
+                menu_categories (
+                  *,
+                  menu_items (*)
+                ),
+                restaurant_gallery (*)
+              `)
+              .eq('id', restaurant.id)
+              .maybeSingle();
+
+            if (!fetchError && updatedRest) {
+              const socialNetworks = updatedRest.social_networks || [];
+              const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
+              const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
+              
+              const menuCategories = (updatedRest.menu_categories || []).map((cat: any) => ({
+                id: cat.id,
+                name: cat.name,
+                items: (cat.menu_items || []).map((item: any) => ({
+                  id: item.id,
+                  name: item.name,
+                  description: item.description || '',
+                  price: item.price,
+                  image_url: item.image_url || ''
+                }))
+              }));
+              
+              const galleryImages = (updatedRest.restaurant_gallery || []).map((img: any) => img.image_url);
+
+              const mapped = {
+                ...restaurant,
+                id: updatedRest.id,
+                name: updatedRest.name,
+                phone: updatedRest.phone || '',
+                cep: updatedRest.cep || '',
+                address: updatedRest.address || '',
+                number: updatedRest.number || '',
+                neighborhood: updatedRest.neighborhood || '',
+                city: updatedRest.city || '',
+                state: updatedRest.state || '',
+                description: updatedRest.description || '',
+                logo: updatedRest.image_url || '',
+                coverImage: updatedRest.cover_image_url || '',
+                cover_image_url: updatedRest.cover_image_url || '',
+                openingHours: updatedRest.opening_hours || null,
+                opening_hours: updatedRest.opening_hours || null,
+                social_networks: socialNetworks,
+                instagram,
+                facebook,
+                menuSourceUrl: updatedRest.other_url || updatedRest.external_url || '',
+                menuUrl: updatedRest.other_url || updatedRest.external_url || '',
+                menu_categories: menuCategories,
+                galleryImages
+              };
+
+              setEditedData(mapped);
+              setIsEditing(true);
+              setActiveDialogTab('edit');
+            }
+
+            onSyncSuccess();
+          } else {
+            showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
+          }
         }
       } catch (err: any) {
-        showError('Erro ao executar o robô: ' + err.message);
+        showError('Erro ao executar a extração: ' + err.message);
       } finally {
         setIsExtractingAI(false);
       }
@@ -2513,125 +2680,176 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <Label htmlFor="edit-logo" className="text-xs font-bold">Link Imagem da Logo</Label>
-                        <div className="flex gap-2 items-center">
-                          <div className="w-9 h-9 rounded-lg overflow-hidden border border-gray-250 shrink-0 bg-slate-100 flex items-center justify-center">
-                            {isScrapingLogo || isUploadingLogoFile ? (
-                              <span className="animate-spin inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full" />
-                            ) : editedData.logo && !logoError ? (
-                              <img 
-                                key={`${editedData.logo}_${logoTimestamp}`}
-                                src={getLogoSrc(editedData.logo)} 
-                                alt="Logo" 
-                                className="w-full h-full object-cover" 
-                                onError={() => setLogoError(true)}
+                    {/* Identidade Visual - Logo e Capa */}
+                    <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-6">
+                      <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Identidade Visual (Logo e Capa)</h4>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Seção da Logo */}
+                        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                          <Label className="text-xs font-bold text-slate-700 block">Logo do Restaurante</Label>
+                          
+                          <div className="flex gap-4 items-center">
+                            {/* Preview Circular */}
+                            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 shrink-0 bg-slate-100 flex items-center justify-center shadow-inner relative">
+                              {isScrapingLogo || isUploadingLogoFile ? (
+                                <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                                  <span className="animate-spin inline-block w-5 h-5 border-2 border-primary border-t-transparent rounded-full" />
+                                </div>
+                              ) : null}
+                              {editedData.logo && !logoError ? (
+                                <img 
+                                  key={`${editedData.logo}_${logoTimestamp}`}
+                                  src={getLogoSrc(editedData.logo)} 
+                                  alt="Logo" 
+                                  className="w-full h-full object-cover" 
+                                  onError={() => setLogoError(true)}
+                                />
+                              ) : (
+                                <div className={`w-full h-full flex items-center justify-center ${editedData.logo ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
+                                  <span className="text-[10px] font-bold text-center leading-none">
+                                    {editedData.logo ? "Inválida" : "Sem Logo"}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="flex-1 space-y-2">
+                              <input 
+                                type="file" 
+                                id="logo-file-upload" 
+                                accept="image/*" 
+                                className="hidden" 
+                                onChange={handleLogoUpload}
                               />
-                            ) : (
-                              <div className={`w-full h-full flex items-center justify-center ${editedData.logo ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
-                                <span className="text-[9px] font-bold text-center leading-none">
-                                  {editedData.logo ? "Inválida" : "Sem Logo"}
-                                </span>
-                              </div>
-                            )}
+                              <Button 
+                                type="button"
+                                size="sm"
+                                onClick={() => document.getElementById('logo-file-upload')?.click()}
+                                disabled={isUploadingLogoFile || isScrapingLogo}
+                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-9 gap-2 shadow-sm text-xs"
+                              >
+                                {isUploadingLogoFile ? (
+                                  <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                                ) : (
+                                  <Upload className="w-4 h-4" />
+                                )}
+                                Fazer Upload Manual
+                              </Button>
+
+                              <Button 
+                                type="button"
+                                size="sm"
+                                variant="outline"
+                                onClick={handleScrapeInstagramLogoAndFollowers}
+                                disabled={isScrapingLogo || isUploadingLogoFile}
+                                className="w-full border-gray-300 text-xs font-semibold h-9 gap-1.5"
+                                title="Buscar imagem do perfil do Instagram configurado acima"
+                              >
+                                {isScrapingLogo ? (
+                                  <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                                ) : (
+                                  <Sparkles className="w-3.5 h-3.5 text-pink-600" />
+                                )}
+                                Coletar via Robô (Instagram)
+                              </Button>
+                            </div>
                           </div>
-                          <Input 
-                            id="edit-logo"
-                            value={editedData.logo || ''}
-                            onChange={(e) => setEditedData({ ...editedData, logo: e.target.value })}
-                            onBlur={(e) => processLogoUrl(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                e.preventDefault();
-                                processLogoUrl((e.target as HTMLInputElement).value);
-                              }
-                            }}
-                            className="bg-white border-gray-300 text-xs h-9 flex-1"
-                            placeholder="Link da imagem da logo..."
-                          />
-                          <input 
-                            type="file" 
-                            id="logo-file-upload" 
-                            accept="image/*" 
-                            className="hidden" 
-                            onChange={handleLogoUpload}
-                          />
-                          <Button 
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            onClick={() => document.getElementById('logo-file-upload')?.click()}
-                            disabled={isUploadingLogoFile || isScrapingLogo}
-                            className="bg-slate-100 hover:bg-slate-200 border-gray-300 h-9 w-9 shrink-0 flex items-center justify-center p-0"
-                            title="Fazer upload de imagem de logo local"
-                          >
-                            {isUploadingLogoFile ? (
-                              <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
-                            ) : (
-                              <Upload className="w-4 h-4 text-gray-500" />
-                            )}
-                          </Button>
+
+                          <div className="space-y-1 pt-1">
+                            <span className="text-[10px] text-gray-500 font-bold block">Ou cole o link direto da imagem:</span>
+                            <Input 
+                              id="edit-logo"
+                              value={editedData.logo || ''}
+                              onChange={(e) => setEditedData({ ...editedData, logo: e.target.value })}
+                              onBlur={(e) => processLogoUrl(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  processLogoUrl((e.target as HTMLInputElement).value);
+                                }
+                              }}
+                              className="bg-white border-gray-300 text-[11px] h-8"
+                              placeholder="https://exemplo.com/logo.png"
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="space-y-1">
-                        <Label htmlFor="edit-cover" className="text-xs font-bold">Link Imagem de Capa</Label>
-                        <div className="flex gap-2 items-center">
-                          <div className="w-16 h-9 rounded-lg overflow-hidden border border-gray-250 shrink-0 bg-slate-100 flex items-center justify-center">
-                            {isUploadingCover ? (
-                              <span className="animate-spin inline-block w-4 h-4 border-2 border-primary border-t-transparent rounded-full" />
-                            ) : (editedData.coverImage || editedData.cover_image_url) && !coverError ? (
-                              <img 
-                                key={`${(editedData.coverImage || editedData.cover_image_url)}_${coverTimestamp}`}
-                                src={getCoverSrc(editedData.coverImage || editedData.cover_image_url)} 
-                                alt="Capa" 
-                                className="w-full h-full object-cover" 
-                                onError={() => setCoverError(true)}
+
+                        {/* Seção da Capa */}
+                        <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                          <Label className="text-xs font-bold text-slate-700 block">Imagem de Capa (Banner)</Label>
+                          
+                          <div className="flex gap-4 items-center">
+                            {/* Preview Retangular */}
+                            <div className="w-24 h-16 rounded-lg overflow-hidden border-2 border-primary/20 shrink-0 bg-slate-100 flex items-center justify-center shadow-inner relative">
+                              {isUploadingCover ? (
+                                <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                                  <span className="animate-spin inline-block w-5 h-5 border-2 border-primary border-t-transparent rounded-full" />
+                                </div>
+                              ) : null}
+                              {(editedData.coverImage || editedData.cover_image_url) && !coverError ? (
+                                <img 
+                                  key={`${(editedData.coverImage || editedData.cover_image_url)}_${coverTimestamp}`}
+                                  src={getCoverSrc(editedData.coverImage || editedData.cover_image_url)} 
+                                  alt="Capa" 
+                                  className="w-full h-full object-cover" 
+                                  onError={() => setCoverError(true)}
+                                />
+                              ) : (
+                                <div className={`w-full h-full flex items-center justify-center ${(editedData.coverImage || editedData.cover_image_url) ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
+                                  <span className="text-[10px] font-bold text-center leading-none">
+                                    {(editedData.coverImage || editedData.cover_image_url) ? "Inválida" : "Sem Capa"}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="flex-1 space-y-2">
+                              <input 
+                                type="file" 
+                                id="cover-file-upload" 
+                                accept="image/*" 
+                                className="hidden" 
+                                onChange={handleCoverUpload}
                               />
-                            ) : (
-                              <div className={`w-full h-full flex items-center justify-center ${(editedData.coverImage || editedData.cover_image_url) ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
-                                <span className="text-[9px] font-bold text-center leading-none">
-                                  {(editedData.coverImage || editedData.cover_image_url) ? "Inválida" : "Sem Capa"}
-                                </span>
+                              <Button 
+                                type="button"
+                                size="sm"
+                                onClick={() => document.getElementById('cover-file-upload')?.click()}
+                                disabled={isUploadingCover}
+                                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold h-9 gap-2 shadow-sm text-xs"
+                              >
+                                {isUploadingCover ? (
+                                  <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                                ) : (
+                                  <Upload className="w-4 h-4" />
+                                )}
+                                Fazer Upload Manual
+                              </Button>
+                              
+                              <div className="text-[10px] text-gray-400 text-center font-medium pt-1">
+                                Banner retangular widescreen (16:9) recomendado
                               </div>
-                            )}
+                            </div>
                           </div>
-                          <Input 
-                            id="edit-cover"
-                            value={editedData.coverImage || editedData.cover_image_url || ''}
-                            onChange={(e) => setEditedData({ ...editedData, coverImage: e.target.value, cover_image_url: e.target.value })}
-                            onBlur={(e) => processCoverUrl(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                e.preventDefault();
-                                processCoverUrl((e.target as HTMLInputElement).value);
-                              }
-                            }}
-                            className="bg-white border-gray-300 text-xs h-9 flex-1"
-                            placeholder="Link da imagem de capa..."
-                          />
-                          <input 
-                            type="file" 
-                            id="cover-file-upload" 
-                            accept="image/*" 
-                            className="hidden" 
-                            onChange={handleCoverUpload}
-                          />
-                          <Button 
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            onClick={() => document.getElementById('cover-file-upload')?.click()}
-                            disabled={isUploadingCover}
-                            className="bg-slate-100 hover:bg-slate-200 border-gray-300 h-9 w-9 shrink-0 flex items-center justify-center p-0"
-                            title="Fazer upload de imagem de capa local"
-                          >
-                            {isUploadingCover ? (
-                              <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
-                            ) : (
-                              <Upload className="w-4 h-4 text-gray-500" />
-                            )}
-                          </Button>
+
+                          <div className="space-y-1 pt-1">
+                            <span className="text-[10px] text-gray-500 font-bold block">Ou cole o link direto da capa:</span>
+                            <Input 
+                              id="edit-cover"
+                              value={editedData.coverImage || editedData.cover_image_url || ''}
+                              onChange={(e) => setEditedData({ ...editedData, coverImage: e.target.value, cover_image_url: e.target.value })}
+                              onBlur={(e) => processCoverUrl(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  processCoverUrl((e.target as HTMLInputElement).value);
+                                }
+                              }}
+                              className="bg-white border-gray-300 text-[11px] h-8"
+                              placeholder="https://exemplo.com/banner.png"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>

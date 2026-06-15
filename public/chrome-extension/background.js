@@ -54,6 +54,20 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       
     return true; // Mantém o canal de mensagem aberto para resposta assíncrona
   }
+  
+  if (message.action === "scrapeMenu") {
+    const { url } = message;
+    
+    handleMenuScrape(url, sender)
+      .then(result => {
+        sendResponse(result);
+      })
+      .catch(err => {
+        sendResponse({ success: false, error: err.message });
+      });
+      
+    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+  }
 });
 
 async function handleInstagramScrape(instagramUrl) {
@@ -566,4 +580,416 @@ function scrapePostPageLogic() {
   }
   
   return { success: false, error: "Nenhuma imagem do post encontrada no DOM." };
+}
+
+async function handleMenuScrape(url, sender) {
+  console.log("Iniciando raspagem de cardápio para:", url);
+  
+  const originalTabId = sender && sender.tab ? sender.tab.id : null;
+  
+  // 1. Cria a aba para carregar o cardápio
+  const tab = await chrome.tabs.create({ url: url, active: true });
+  const tabId = tab.id;
+  
+  // Restaura o foco na aba original para não perturbar o usuário
+  if (originalTabId) {
+    try {
+      await chrome.tabs.update(originalTabId, { active: true });
+    } catch (e) {
+      console.warn("Não foi possível restaurar o foco para a aba original:", e);
+    }
+  }
+  
+  try {
+    // 2. Aguarda o carregamento completo da aba
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba do cardápio foi fechada."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 60) { // 30 segundos de timeout
+              reject(new Error("Tempo limite esgotado esperando o cardápio carregar."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    // 3. Executa a lógica de scroll e expansão na página do cardápio
+    try {
+      await chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: expandAndLoadAllContentInPage
+      });
+    } catch (err) {
+      console.warn("Falha ao expandir conteúdo do cardápio:", err.message);
+    }
+
+    // Espera mais 1.5s após a expansão para garantir rendering final e imagens
+    await new Promise(r => setTimeout(r, 1500));
+
+    // 4. Extrai o HTML limpo/XML para a IA
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: getCleanedHtmlForAIInPage
+    });
+
+    if (!results || !results[0] || !results[0].result) {
+      throw new Error("Não foi possível extrair o conteúdo do cardápio.");
+    }
+
+    const xmlContent = results[0].result;
+
+    // 5. Fecha a aba temporária
+    await chrome.tabs.remove(tabId);
+
+    return {
+      success: true,
+      xmlContent: xmlContent
+    };
+
+  } catch (err) {
+    console.error("Erro no fluxo do scraper de cardápio:", err);
+    // Tenta limpar a aba em caso de erro
+    try {
+      chrome.tabs.get(tabId, (currentTab) => {
+        if (!chrome.runtime.lastError && currentTab) {
+          chrome.tabs.remove(tabId);
+        }
+      });
+    } catch (_) {}
+    
+    return {
+      success: false,
+      error: err.message
+    };
+  }
+}
+
+async function expandAndLoadAllContentInPage() {
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  
+  // 1. Rola a página progressivamente
+  await new Promise((resolve) => {
+    let totalHeight = 0;
+    const distance = 400;
+    const timer = setInterval(() => {
+      const scrollHeight = document.body.scrollHeight;
+      window.scrollBy(0, distance);
+      totalHeight += distance;
+      
+      if (totalHeight >= scrollHeight || totalHeight > 10000) {
+        clearInterval(timer);
+        resolve();
+      }
+    }, 200);
+  });
+  await delay(800);
+  
+  // 2. Clica em botões de "Carregar mais"
+  let clickedMore = true;
+  let clickLimit = 5;
+  while (clickedMore && clickLimit > 0) {
+    clickedMore = (() => {
+      const buttons = Array.from(document.querySelectorAll('button, a, span, div[role="button"]'));
+      const loadMoreBtn = buttons.find(b => {
+        const text = b.textContent.trim().toLowerCase();
+        return (
+          (text.includes('carregar') && text.includes('mais')) ||
+          (text.includes('ver') && text.includes('mais')) ||
+          (text.includes('mostrar') && text.includes('mais')) ||
+          (text.includes('load') && text.includes('more')) ||
+          (text.includes('show') && text.includes('more')) ||
+          text === 'ver mais' ||
+          text === 'carregar mais' ||
+          text === 'mostrar mais'
+        );
+      });
+      
+      if (loadMoreBtn && typeof loadMoreBtn.click === 'function') {
+        loadMoreBtn.click();
+        return true;
+      }
+      return false;
+    })();
+    
+    if (clickedMore) {
+      await delay(1500);
+      clickLimit--;
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }
+
+  // 3. Expande acordeões/abas colapsadas
+  const accordionCount = (() => {
+    document.querySelectorAll('[data-scraper-accordion]').forEach(el => {
+      el.removeAttribute('data-scraper-accordion');
+    });
+
+    const headers = Array.from(document.querySelectorAll([
+      '[class*="header"]', '[class*="heading"]', '[class*="toggle"]', '[class*="trigger"]',
+      '.panel-title', '[id*="heading"]', '[id*="toggle"]', '[aria-expanded]',
+      'h3', 'h4', 'h2', '.category-card'
+    ].join(', ')));
+    
+    let count = 0;
+    headers.forEach(header => {
+      if (header.closest('footer') || header.closest('header') || header.closest('nav')) return;
+
+      const ariaExpanded = header.getAttribute('aria-expanded');
+      let isCollapsed = false;
+      
+      if (ariaExpanded === 'false') {
+        isCollapsed = true;
+      } else if (ariaExpanded === 'true') {
+        return;
+      } else {
+        const parent = header.parentElement;
+        if (!parent) return;
+        
+        const siblings = Array.from(parent.children);
+        const headerIdx = siblings.indexOf(header);
+        const nextSibling = headerIdx !== -1 ? siblings[headerIdx + 1] : null;
+        
+        if (nextSibling) {
+          const style = window.getComputedStyle(nextSibling);
+          const isHidden = style.display === 'none' || style.visibility === 'hidden' || parseInt(style.height || '0') === 0;
+          const classNameStr = String(nextSibling.className || '');
+          const hasCollapseClass = classNameStr.includes('collapse') || classNameStr.includes('content') || classNameStr.includes('body');
+            
+          if (isHidden || (hasCollapseClass && nextSibling.clientHeight === 0)) {
+            isCollapsed = true;
+          }
+        }
+        
+        const headerClassStr = String(header.className || '');
+        if (headerClassStr.includes('collapsed') || headerClassStr.includes('close')) {
+          isCollapsed = true;
+        }
+      }
+      
+      if (isCollapsed) {
+        const target = header.querySelector('button, a, span') || header;
+        if (typeof target.click === 'function') {
+          target.setAttribute('data-scraper-accordion', String(count));
+          count++;
+        }
+      }
+    });
+    
+    return count;
+  })();
+  
+  if (accordionCount > 0) {
+    for (let i = 0; i < accordionCount; i++) {
+      try {
+        const el = document.querySelector(`[data-scraper-accordion="${i}"]`);
+        if (el) {
+          el.click();
+        }
+        await delay(500);
+      } catch (clickErr) {
+        console.warn("Erro ao clicar no acordeão:", clickErr);
+      }
+    }
+    
+    // Rola novamente
+    window.scrollTo(0, 0);
+    await delay(300);
+    window.scrollTo(0, document.body.scrollHeight / 2);
+    await delay(300);
+    window.scrollTo(0, document.body.scrollHeight);
+    await delay(500);
+  }
+}
+
+function getCleanedHtmlForAIInPage() {
+  function getAbsoluteUrl(url) {
+    if (!url) return '';
+    try {
+      return new URL(url, window.location.href).href;
+    } catch (e) {
+      return url;
+    }
+  }
+  
+  const imgs = document.querySelectorAll('img');
+  imgs.forEach(img => {
+    const lazyAttrs = ['data-src', 'data-lazy-src', 'data-lazy', 'lazy-src', 'data-original', 'data-srcset'];
+    for (const attrName of lazyAttrs) {
+      const val = img.getAttribute(attrName);
+      if (val && val.trim()) {
+        img.setAttribute('src', getAbsoluteUrl(val.trim()));
+        break;
+      }
+    }
+    const currentSrc = img.getAttribute('src');
+    if (currentSrc) {
+      img.setAttribute('src', getAbsoluteUrl(currentSrc));
+    }
+  });
+
+  const priceRegex = /(?:R\$\s*)?\d+[\.,]\d{2}/i;
+  const allElements = Array.from(document.querySelectorAll('*'));
+  
+  const candidates = [];
+  allElements.forEach(el => {
+    const tagName = el.tagName.toLowerCase();
+    if (['script', 'style', 'noscript', 'svg', 'iframe', 'canvas', 'header', 'footer', 'nav'].includes(tagName)) return;
+    
+    const text = el.textContent || '';
+    if (!priceRegex.test(text)) return;
+    
+    let isItemPattern = false;
+    const className = el.className && typeof el.className === 'string' ? el.className.toLowerCase() : '';
+    
+    if (tagName === 'li' || tagName === 'article') {
+      isItemPattern = true;
+    } else if (
+      className.includes('product') ||
+      className.includes('item') ||
+      className.includes('card') ||
+      className.includes('dish') ||
+      className.includes('prato') ||
+      className.includes('menu-') ||
+      className.includes('opcao') ||
+      className.includes('prato-') ||
+      className.includes('col-') ||
+      className.includes('row')
+    ) {
+      isItemPattern = true;
+    }
+    
+    if (isItemPattern) {
+      candidates.push(el);
+    }
+  });
+  
+  const allPriceEls = [];
+  allElements.forEach(el => {
+    const tagName = el.tagName.toLowerCase();
+    if (['script', 'style', 'noscript', 'svg', 'iframe', 'canvas', 'header', 'footer', 'nav'].includes(tagName)) return;
+    
+    let hasDirectPrice = false;
+    for (let node of el.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && priceRegex.test(node.textContent)) {
+        hasDirectPrice = true;
+        break;
+      }
+    }
+    if (hasDirectPrice) {
+      allPriceEls.push(el);
+    }
+  });
+  
+  allPriceEls.forEach(priceEl => {
+    const insideCandidate = candidates.some(c => c.contains(priceEl));
+    if (!insideCandidate) {
+      let current = priceEl;
+      for (let i = 0; i < 3; i++) {
+        if (!current.parentElement || ['BODY', 'HTML'].includes(current.parentElement.tagName)) {
+          break;
+        }
+        current = current.parentElement;
+      }
+      if (!candidates.includes(current)) {
+        candidates.push(current);
+      }
+    }
+  });
+  
+  let finalContainers = [];
+  candidates.forEach(c => {
+    const leafDescendants = candidates.filter(other => other !== c && c.contains(other) && !candidates.some(third => third !== other && other.contains(third)));
+    if (leafDescendants.length > 1) {
+    } else {
+      finalContainers.push(c);
+    }
+  });
+  
+  finalContainers = finalContainers.filter(c => {
+    const isDescendantOfAnother = finalContainers.some(other => other !== c && other.contains(c));
+    return !isDescendantOfAnother;
+  });
+  
+  const categoryElements = [];
+  allElements.forEach(el => {
+    const tagName = el.tagName.toLowerCase();
+    if (['script', 'style', 'noscript', 'svg', 'iframe', 'canvas', 'header', 'footer', 'nav'].includes(tagName)) return;
+    
+    const text = (el.textContent || '').trim();
+    if (text.length < 2 || text.length > 80) return;
+    if (priceRegex.test(text)) return;
+    
+    const insideItem = finalContainers.some(c => c.contains(el));
+    if (insideItem) return;
+    
+    let isCategory = false;
+    const className = el.className && typeof el.className === 'string' ? el.className.toLowerCase() : '';
+    
+    if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+      isCategory = true;
+    } else if (
+      className.includes('category-title') ||
+      className.includes('category-name') ||
+      className.includes('titulo-categoria') ||
+      className.includes('categoria-titulo') ||
+      className.includes('menu-category-title') ||
+      className.includes('menu-section-title') ||
+      className.includes('category-header')
+    ) {
+      isCategory = true;
+    }
+    
+    if (isCategory) {
+      categoryElements.push(el);
+    }
+  });
+  
+  const allNodes = [...finalContainers, ...categoryElements];
+  allNodes.sort((a, b) => {
+    if (a === b) return 0;
+    const position = a.compareDocumentPosition(b);
+    if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
+      return -1;
+    } else if (position & Node.DOCUMENT_POSITION_PRECEDING) {
+      return 1;
+    }
+    return 0;
+  });
+  
+  let xml = '<menu>\n';
+  allNodes.forEach(node => {
+    if (categoryElements.includes(node)) {
+      const catName = node.textContent.replace(/\s+/g, ' ').trim();
+      xml += `  <category name="${catName}" />\n`;
+    } else {
+      let imgUrl = '';
+      const imgEl = node.querySelector('img');
+      if (imgEl) {
+        imgUrl = imgEl.getAttribute('src') || '';
+      }
+      
+      const itemText = node.textContent.replace(/\s+/g, ' ').trim();
+      xml += `  <item>\n`;
+      xml += `    <text>${itemText}</text>\n`;
+      if (imgUrl) {
+        xml += `    <image>${imgUrl}</image>\n`;
+      }
+      xml += `  </item>\n`;
+    }
+  });
+  xml += '</menu>';
+  
+  return xml;
 }

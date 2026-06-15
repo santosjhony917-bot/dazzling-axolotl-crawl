@@ -23,6 +23,7 @@ import {
   PizzaIllustration,
   SaladIllustration
 } from '@/components/icons/CategoryDrawings';
+import { FeatureTour } from '@/components/onboarding/FeatureTour';
 
 const MACRO_REGIONS = [
   {
@@ -77,6 +78,18 @@ const Home: React.FC = () => {
   const { restaurant } = useAuthData();
   const isRestaurantOwner = !!restaurant;
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [showTour, setShowTour] = useState(false);
+
+  useEffect(() => {
+    const visto = localStorage.getItem('tutorial_visto');
+    if (!visto) {
+      // Pequeno delay para garantir que os elementos já foram renderizados no DOM
+      const timer = setTimeout(() => {
+        setShowTour(true);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const isRestaurantOpen = (r: any) => {
     if (r.opening_hours) {
@@ -351,7 +364,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Barra de Busca */}
-      <div className="px-5 mb-8 flex gap-4">
+      <div id="tour-search-bar" className="px-5 mb-8 flex gap-4">
         <SoftSearchInput
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -370,6 +383,7 @@ const Home: React.FC = () => {
       <div className="grid grid-cols-3 gap-4 px-5 mb-8">
         {/* Card Happy Hour Hub (2 colunas, 2 linhas) */}
         <div
+          id="tour-happy-hour-card"
           onClick={() => navigate('/happy-hours')}
           className="col-span-2 row-span-2 bg-gradient-to-br from-[#EF2A39] to-[#C41230] rounded-[24px] p-5 flex flex-col justify-between text-white shadow-[0_14px_32px_rgba(239,42,57,0.32)] relative overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer h-[184px]"
         >
@@ -603,7 +617,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Lista de Restaurantes (Cards Horizontais) */}
-      <div className="px-5 flex flex-col gap-4 pb-32">
+      <div id="tour-restaurants-list" className="px-5 flex flex-col gap-4 pb-32">
         {isRestaurantsLoading ? (
           <>
             {[1, 2, 3, 4].map((i) => (
@@ -843,6 +857,8 @@ const Home: React.FC = () => {
           </div>
         </div>
       )}
+
+      {showTour && <FeatureTour onClose={() => setShowTour(false)} />}
     </div>
   );
 };

@@ -15,6 +15,8 @@ import RestaurantPageHeader from "@/components/public/RestaurantPageHeader"; // 
 import RestaurantProfileHeader from "@/components/public/RestaurantProfileHeader"; // O componente de capa modificado
 import { PublicRestaurantData } from "@/types/restaurant";
 import { cn } from "@/lib/utils";
+import { useQuotaCheck } from "@/hooks/useQuotaCheck";
+import FreemiumPaywallModal from "@/components/public/FreemiumPaywallModal";
 
 interface RestaurantProfilePublicProps {
   initialRestaurantId?: string;
@@ -28,6 +30,8 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
   const { toast } = useToast();
   
   const id = initialRestaurantId || params.restaurantId;
+
+  const { showPaywall, quotaChecked, unlockQuota } = useQuotaCheck(id);
 
   const { restaurant, isLoading, error, refetch } = usePublicRestaurant(id);
   
@@ -71,6 +75,28 @@ const RestaurantProfilePublic = ({ initialRestaurantId, simulatedPlan, isCompact
             Voltar para a Home
           </Button>
         </div>
+      </div>
+    );
+  }
+
+  if (quotaChecked && showPaywall) {
+    return (
+      <div className="relative min-h-screen w-full flex flex-col items-center justify-start bg-background-light">
+        <RestaurantPageHeader />
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-md w-full mx-auto">
+          <div className="bg-white/80 backdrop-blur-md border border-slate-100 rounded-3xl p-8 shadow-sm space-y-4">
+            <span className="text-4xl animate-pulse inline-block">🔒</span>
+            <h2 className="text-xl font-bold text-slate-800">Visualização Limitada</h2>
+            <p className="text-sm text-slate-500">
+              Você atingiu o limite de 5 cardápios diários da sua conta gratuita.
+            </p>
+          </div>
+        </div>
+        <FreemiumPaywallModal
+          isOpen={showPaywall}
+          onClose={() => navigate("/home")}
+          onUnlock={unlockQuota}
+        />
       </div>
     );
   }

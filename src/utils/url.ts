@@ -43,6 +43,7 @@ export const PATH_MAP = {
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
   adminRestaurants: '/admin/restaurants',
+  adminCrm: '/admin/crm',
   adminPlans: '/admin/plans',
   adminUsers: '/admin/users',
   adminSettings: '/admin/settings',

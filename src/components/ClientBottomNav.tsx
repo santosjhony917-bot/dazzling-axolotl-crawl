@@ -95,6 +95,7 @@ const ClientBottomNav: React.FC<ClientBottomNavProps> = ({ isAiOpen = false, onT
         {/* Central Floating Button - Perfectly Centered and Elevated */}
         <div className="absolute left-1/2 top-[0px] -translate-x-1/2 -translate-y-1/2 z-20">
           <button 
+            id="tour-ai-button"
             type="button"
             onClick={onToggleAi}
             className={cn(

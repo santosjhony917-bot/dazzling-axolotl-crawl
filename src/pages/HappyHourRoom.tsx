@@ -19,7 +19,9 @@ import {
   Search,
   Check,
   Settings,
-  Crown
+  Crown,
+  Share2,
+  Copy
 } from 'lucide-react';
 import { 
   getHappyHourDetails, 
@@ -29,7 +31,9 @@ import {
   updateHappyHourSettings,
   addParticipantsToHappyHour,
   HappyHourDetails,
-  PollRestaurant
+  PollRestaurant,
+  voteForDate,
+  addDateToPoll
 } from '@/services/happyHourService';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, Profile } from '@/types/supabase';
@@ -108,7 +112,14 @@ export default function HappyHourRoom() {
   const [roomDescription, setRoomDescription] = useState('');
   const [allowInvites, setAllowInvites] = useState(true);
   const [allowSuggestions, setAllowSuggestions] = useState(true);
+  const [allowSuggestRestaurantsState, setAllowSuggestRestaurantsState] = useState(true);
+  const [allowSuggestDatesState, setAllowSuggestDatesState] = useState(true);
   const [savingSettings, setSavingSettings] = useState(false);
+
+  // Date Voting Suggestion States
+  const [isDateDialogOpen, setIsDateDialogOpen] = useState(false);
+  const [newSuggestedDate, setNewSuggestedDate] = useState('');
+  const [addingDate, setAddingDate] = useState(false);
 
   // Invite Dialog States
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
@@ -116,6 +127,16 @@ export default function HappyHourRoom() {
   const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
   const [loadingFriends, setLoadingFriends] = useState(false);
   const [inviting, setInviting] = useState(false);
+
+  // WhatsApp Share Dialog States
+  const [isShareRoomOpen, setIsShareRoomOpen] = useState(false);
+  const [copiedRoomLink, setCopiedRoomLink] = useState(false);
+
+  const handleCopyRoomLink = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedRoomLink(true);
+    setTimeout(() => setCopiedRoomLink(false), 2000);
+  };
 
   const loadRoomDetails = async (showSpinner = false) => {
     if (!id || !currentUserId) return;
@@ -349,6 +370,42 @@ export default function HappyHourRoom() {
     }
   };
 
+  const handleVoteDate = async (dateId: string) => {
+    if (!id || !currentUserId) return;
+    try {
+      const { error } = await voteForDate(id, dateId, currentUserId);
+      if (error) {
+        showError(error);
+      } else {
+        loadRoomDetails(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleAddDateSuggestion = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSuggestedDate || !id || !currentUserId) return;
+    setAddingDate(true);
+    try {
+      const { error } = await addDateToPoll(id, newSuggestedDate, currentUserId);
+      if (error) {
+        showError(error);
+      } else {
+        showSuccess('Data sugerida com sucesso!');
+        loadRoomDetails(false);
+        setIsDateDialogOpen(false);
+        setNewSuggestedDate('');
+      }
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao sugerir data.');
+    } finally {
+      setAddingDate(false);
+    }
+  };
+
   const handleSaveSettings = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!id || !currentUserId) return;
@@ -359,7 +416,8 @@ export default function HappyHourRoom() {
         currentUserId,
         roomDescription,
         allowInvites,
-        allowSuggestions
+        allowSuggestRestaurantsState,
+        allowSuggestDatesState
       );
       if (error) {
         showError(error);
@@ -420,14 +478,28 @@ export default function HappyHourRoom() {
   // Parse description JSON if applicable
   let descriptionText = '';
   let allowMemberInvites = true;
-  let allowMemberSuggestions = true;
+  let allowMemberSuggestRestaurants = true;
+  let allowMemberSuggestDates = true;
+  let isDateVoting = false;
+  let suggestedDates: any[] = [];
+  let dateVotes: Record<string, string[]> = {};
+
   if (details.happyHour.description) {
     try {
       const parsed = JSON.parse(details.happyHour.description);
       if (parsed && typeof parsed === 'object') {
         descriptionText = parsed.text || '';
         allowMemberInvites = parsed.allow_member_invites !== false;
-        allowMemberSuggestions = parsed.allow_member_suggestions !== false;
+        
+        // Suporte a compatibilidade caso a propriedade não esteja setada ainda
+        allowMemberSuggestRestaurants = parsed.allow_member_suggest_restaurants !== undefined
+          ? parsed.allow_member_suggest_restaurants
+          : (parsed.allow_member_suggestions !== false);
+          
+        allowMemberSuggestDates = parsed.allow_member_suggest_dates !== false;
+        isDateVoting = parsed.is_date_voting === true;
+        suggestedDates = parsed.suggested_dates || [];
+        dateVotes = parsed.date_votes || {};
       } else {
         descriptionText = details.happyHour.description;
       }
@@ -463,10 +535,11 @@ export default function HappyHourRoom() {
                     onClick={() => {
                       setRoomDescription(descriptionText);
                       setAllowInvites(allowMemberInvites);
-                      setAllowSuggestions(allowMemberSuggestions);
+                      setAllowSuggestRestaurantsState(allowMemberSuggestRestaurants);
+                      setAllowSuggestDatesState(allowMemberSuggestDates);
                       setIsSettingsDialogOpen(true);
                     }}
-                    className="text-slate-400 hover:text-slate-600 transition-colors p-0.5"
+                    className="text-slate-400 hover:text-slate-600 transition-colors p-0.5 border-none bg-transparent cursor-pointer"
                     title="Configurações do Grupo"
                   >
                     <Settings className="w-4 h-4" />
@@ -499,14 +572,24 @@ export default function HappyHourRoom() {
               </span>
             )}
             {(isCreator || allowMemberInvites) && (
-              <button
-                onClick={handleOpenInviteDialog}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 border-2 border-white flex items-center justify-center text-slate-600 shadow-none transition-colors ml-2 z-10"
-                title="Convidar amigos"
-                style={{ marginLeft: '8px' }}
-              >
-                <Plus className="w-4 h-4" />
-              </button>
+              <>
+                <button
+                  onClick={handleOpenInviteDialog}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 border-2 border-white flex items-center justify-center text-slate-650 shadow-none transition-colors ml-2 z-10"
+                  title="Convidar amigos"
+                  style={{ marginLeft: '8px' }}
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setIsShareRoomOpen(true)}
+                  className="w-8 h-8 rounded-full bg-green-500 hover:bg-green-600 border-2 border-white flex items-center justify-center text-white shadow-none transition-colors ml-2 z-10"
+                  title="Compartilhar no WhatsApp"
+                  style={{ marginLeft: '8px' }}
+                >
+                  <Share2 className="w-4 h-4 stroke-[2.5]" />
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -601,9 +684,31 @@ export default function HappyHourRoom() {
                   );
                 })
               ) : (
-                <div className="text-center py-20 text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
-                  <MessageSquare className="w-10 h-10 text-slate-200" />
-                  Envie uma mensagem para iniciar o papo do Happy Hour!
+                <div className="flex flex-col items-center gap-4 py-12 px-4 max-w-sm mx-auto">
+                  <div className="text-center text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
+                    <MessageSquare className="w-10 h-10 text-slate-200" />
+                    Envie uma mensagem para iniciar o papo do Happy Hour!
+                  </div>
+                  
+                  {(isCreator || allowMemberInvites) && (
+                    <motion.div 
+                      whileHover={{ y: -2 }}
+                      className="w-full mt-4 bg-gradient-to-br from-green-500/5 to-emerald-500/10 border border-green-500/20 rounded-2xl p-4 flex flex-col items-center text-center shadow-xs"
+                    >
+                      <span className="text-lg mb-1">📢</span>
+                      <h4 className="text-xs font-extrabold text-emerald-800">Convide a Galera!</h4>
+                      <p className="text-[10px] text-emerald-600 font-medium mt-1 mb-3 leading-relaxed">
+                        Compartilhe este Happy Hour no WhatsApp para trazer seus amigos para votar e decidir o melhor lugar.
+                      </p>
+                      <Button
+                        type="button"
+                        onClick={() => setIsShareRoomOpen(true)}
+                        className="bg-[#25D366] hover:bg-[#20ba56] text-white rounded-xl text-[10px] h-9 px-4 font-bold border-none shadow-sm flex items-center gap-1.5"
+                      >
+                        Compartilhar Link
+                      </Button>
+                    </motion.div>
+                  )}
                 </div>
               )}
               <div ref={chatBottomRef} />
@@ -657,10 +762,113 @@ export default function HappyHourRoom() {
               </div>
             )}
 
+            {/* Votação de Datas */}
+            {isDateVoting && (
+              <div className="space-y-3 pb-4 border-b border-slate-100">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <h3 className="text-xs font-extrabold text-slate-800">Votação de Datas</h3>
+                    <span className="text-[10px] text-slate-400 mt-0.5">Vote nas melhores datas para você</span>
+                  </div>
+                  {(isCreator || allowMemberSuggestDates) ? (
+                    <Button
+                      onClick={() => setIsDateDialogOpen(true)}
+                      size="sm"
+                      variant="outline"
+                      className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#EF2A39]/10 hover:text-[#EF2A39] hover:border-[#EF2A39]/20 gap-1.5 shadow-none transition-colors"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Sugerir Data
+                    </Button>
+                  ) : (
+                    <span className="text-[10px] text-slate-400 font-semibold italic">
+                      Apenas criador sugere datas
+                    </span>
+                  )}
+                </div>
+
+                <div className="space-y-2.5">
+                  {suggestedDates.length > 0 ? (
+                    suggestedDates.map((dObj) => {
+                      const voters = dateVotes[dObj.id] || [];
+                      const hasVoted = voters.includes(currentUserId);
+                      const formattedDate = new Date(dObj.date).toLocaleString('pt-BR', {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      });
+
+                      return (
+                        <Card 
+                          key={dObj.id} 
+                          className={cn(
+                            "border bg-white rounded-2xl overflow-hidden transition-all duration-200 shadow-none",
+                            hasVoted ? "border-[#EF2A39] ring-1 ring-[#EF2A39]/10" : "border-slate-100"
+                          )}
+                        >
+                          <CardContent className="p-3.5 flex items-center justify-between gap-3">
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-sm font-extrabold text-slate-800 capitalize leading-tight">
+                                {formattedDate}
+                              </h4>
+                              {voters.length > 0 && (
+                                <div className="flex items-center gap-1.5 mt-2">
+                                  <div className="flex -space-x-1.5 overflow-hidden">
+                                    {voters.slice(0, 4).map((vId) => {
+                                      const p = details.participants.find(part => part.id === vId);
+                                      const fallbackName = vId === currentUserId ? 'Você' : 'Amigo';
+                                      return (
+                                        <div key={vId} className="relative z-10 hover:z-25 transition-all">
+                                          {renderUserAvatar({
+                                            id: vId,
+                                            first_name: p?.first_name || fallbackName,
+                                            avatar_url: p?.avatar_url || null
+                                          }, "w-5 h-5 text-[8px] border border-white shadow-xs")}
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                  <span className="text-[9px] text-slate-400 font-bold ml-1">
+                                    {voters.length === 1 ? 'votou' : 'votaram'}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+
+                            <Button
+                              onClick={() => handleVoteDate(dObj.id)}
+                              className={cn(
+                                "h-10 rounded-[14px] px-3.5 flex flex-col items-center justify-center shrink-0 min-w-[60px] transition-all duration-200 active:scale-95 border",
+                                hasVoted 
+                                  ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-sm hover:bg-[#EF2A39]/95" 
+                                  : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+                              )}
+                            >
+                              <span className="text-sm font-black leading-none">{voters.length}</span>
+                              <span className="text-[8px] uppercase tracking-widest font-black mt-1 flex items-center gap-0.5">
+                                {hasVoted && <Check className="w-2.5 h-2.5 stroke-[3px]" />}
+                                Votar
+                              </span>
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      );
+                    })
+                  ) : (
+                    <div className="text-center py-6 text-slate-400 text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                      Nenhuma opção de data sugerida ainda.
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Header com botão de Adicionar */}
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-extrabold text-slate-800">Opções Indicadas</h3>
-              {(isCreator || allowMemberSuggestions) ? (
+              <h3 className="text-xs font-extrabold text-slate-800">Opções Indicadas (Lugares)</h3>
+              {(isCreator || allowMemberSuggestRestaurants) ? (
                 <Button
                   onClick={() => setIsPollDialogOpen(true)}
                   size="sm"
@@ -756,7 +964,7 @@ export default function HappyHourRoom() {
                 <div className="text-center py-12 text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
                   <Vote className="w-10 h-10 text-slate-200" />
                   Nenhum restaurante sugerido para votação ainda.
-                  {(isCreator || allowMemberSuggestions) ? (
+                  {(isCreator || allowMemberSuggestRestaurants) ? (
                     <Button
                       onClick={() => setIsPollDialogOpen(true)}
                       variant="link"
@@ -1002,11 +1210,23 @@ export default function HappyHourRoom() {
               <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-0.5 pr-2">
                   <span className="text-xs font-extrabold text-slate-800">Membros sugerem lugares</span>
-                  <span className="text-[10px] text-slate-400">Outros membros podem sugerir novos restaurantes para votação.</span>
+                  <span className="text-[10px] text-slate-400">Outros membros podem sugerir novos restaurantes.</span>
                 </div>
                 <Switch
-                  checked={allowSuggestions}
-                  onCheckedChange={setAllowSuggestions}
+                  checked={allowSuggestRestaurantsState}
+                  onCheckedChange={setAllowSuggestRestaurantsState}
+                  className="data-[state=checked]:bg-highlight"
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-0.5 pr-2">
+                  <span className="text-xs font-extrabold text-slate-800">Membros sugerem datas</span>
+                  <span className="text-[10px] text-slate-400">Outros membros podem sugerir novas datas.</span>
+                </div>
+                <Switch
+                  checked={allowSuggestDatesState}
+                  onCheckedChange={setAllowSuggestDatesState}
                   className="data-[state=checked]:bg-highlight"
                 />
               </div>
@@ -1030,6 +1250,115 @@ export default function HappyHourRoom() {
               </Button>
             </DialogFooter>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* SUGGEST DATE DIALOG MODAL */}
+      <Dialog open={isDateDialogOpen} onOpenChange={setIsDateDialogOpen}>
+        <DialogContent className="max-w-md w-[95%] p-5 rounded-2xl font-['Poppins']">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-extrabold text-primary flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-highlight" />
+              Sugerir Nova Data para Votar
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleAddDateSuggestion} className="space-y-4 pt-2">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500">Selecione a Data e Hora</label>
+              <Input
+                type="datetime-local"
+                value={newSuggestedDate}
+                onChange={(e) => setNewSuggestedDate(e.target.value)}
+                required
+                className="h-11 rounded-2xl border border-slate-200"
+              />
+            </div>
+
+            <DialogFooter className="flex gap-2 pt-2">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsDateDialogOpen(false)}
+                className="flex-1 rounded-2xl h-11 text-xs font-bold"
+              >
+                Voltar
+              </Button>
+              <Button
+                type="submit"
+                disabled={addingDate || !newSuggestedDate}
+                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
+              >
+                {addingDate ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Sugerir'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* DIÁLOGO DE COMPARTILHAMENTO DE SALA */}
+      <Dialog open={isShareRoomOpen} onOpenChange={setIsShareRoomOpen}>
+        <DialogContent className="max-w-md w-[95%] p-6 rounded-3xl border border-white/20 bg-white/95 backdrop-blur-md shadow-2xl flex flex-col items-center text-center font-['Poppins']">
+          <DialogHeader className="flex flex-col items-center space-y-3">
+            <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center animate-bounce">
+              <span className="text-3xl">🎉</span>
+            </div>
+            <DialogTitle className="text-xl font-extrabold text-slate-800 tracking-tight leading-tight">
+              Convidar via WhatsApp
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 leading-relaxed font-medium">
+              Envie o link do encontro para seus amigos no WhatsApp! Eles poderão entrar na sala, sugerir e votar na data e nos restaurantes!
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="w-full mt-4 space-y-4">
+            {/* Box de texto a ser compartilhado */}
+            <div className="bg-slate-50 border border-slate-150 rounded-2xl p-4 pr-12 text-[11px] text-left text-slate-600 font-medium leading-relaxed relative">
+              <span className="text-[9px] uppercase font-bold text-slate-400 block mb-1">Texto do Convite:</span>
+              <p className="italic">
+                "Galera, criei o grupo do nosso Happy Hour "{details.happyHour.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room={details.happyHour.id}"
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  const message = `Galera, criei o grupo do nosso Happy Hour "${details.happyHour.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room=${details.happyHour.id}`;
+                  handleCopyRoomLink(message);
+                }}
+                className="absolute top-4 right-4 text-slate-400 hover:text-highlight transition-colors bg-transparent border-none cursor-pointer p-1"
+                title="Copiar texto do convite"
+              >
+                {copiedRoomLink ? (
+                  <span className="flex items-center gap-1 text-[9px] font-bold text-green-600">
+                    <Check className="w-3.5 h-3.5" />
+                    Copiado!
+                  </span>
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
+              </button>
+            </div>
+
+            <Button
+              type="button"
+              onClick={() => {
+                const message = `Galera, criei o grupo do nosso Happy Hour "${details.happyHour.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room=${details.happyHour.id}`;
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                setIsShareRoomOpen(false);
+              }}
+              className="w-full h-12 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 transition-all border-none"
+            >
+              Compartilhar no WhatsApp
+            </Button>
+
+            <button
+              type="button"
+              onClick={() => setIsShareRoomOpen(false)}
+              className="w-full py-1 text-xs font-bold text-slate-400 hover:text-slate-655 transition-colors bg-transparent border-none cursor-pointer"
+            >
+              Fechar
+            </button>
+          </div>
         </DialogContent>
       </Dialog>
 

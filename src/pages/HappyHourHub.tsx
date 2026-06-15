@@ -15,7 +15,11 @@ import {
   Clock, 
   MessageSquare,
   Users,
-  Check
+  Check,
+  Search,
+  Utensils,
+  X,
+  Copy
 } from 'lucide-react';
 import { getHappyHours, createHappyHour } from '@/services/happyHourService';
 import { getFriendships } from '@/services/friendsService';
@@ -25,6 +29,9 @@ import { showError, showSuccess } from '@/utils/toast';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
+import { Switch } from '@/components/ui/switch';
+import { supabase } from '@/integrations/supabase/client';
+import { Restaurant } from '@/types/supabase';
 
 export default function HappyHourHub() {
   const navigate = useNavigate();
@@ -37,12 +44,37 @@ export default function HappyHourHub() {
   
   // Dialog de Criação
   const [isOpen, setIsOpen] = useState(false);
+  const [step, setStep] = useState(1);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dateTime, setDateTime] = useState('');
+  const [isDateVoting, setIsDateVoting] = useState(false);
+  const [dateSuggestions, setDateSuggestions] = useState<string[]>(['', '']);
+  const [allowMemberInvites, setAllowMemberInvites] = useState(true);
+  const [allowSuggestRestaurants, setAllowSuggestRestaurants] = useState(true);
+  const [allowSuggestDates, setAllowSuggestDates] = useState(true);
+  
+  // Estados para Seleção de Restaurantes Iniciais
+  const [selectedRestaurantIds, setSelectedRestaurantIds] = useState<string[]>([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState<Restaurant[]>([]);
+  const [restaurantSearchQuery, setRestaurantSearchQuery] = useState('');
+  const [restaurantSearchResults, setRestaurantSearchResults] = useState<Restaurant[]>([]);
+  const [searchingRestaurants, setSearchingRestaurants] = useState(false);
+
+  // Estados para Compartilhamento Pós-Criação
+  const [createdEventData, setCreatedEventData] = useState<HappyHour | null>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
   const [friends, setFriends] = useState<{ friendshipId: string; friendProfile: Profile }[]>([]);
   const [selectedFriendIds, setSelectedFriendIds] = useState<string[]>([]);
   const [creating, setCreating] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyInviteText = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const loadData = async () => {
     if (!currentUserId) return;
@@ -78,7 +110,17 @@ export default function HappyHourHub() {
     setTitle('');
     setDescription('');
     setDateTime('');
+    setIsDateVoting(false);
+    setDateSuggestions(['', '']);
+    setAllowMemberInvites(true);
+    setAllowSuggestRestaurants(true);
+    setAllowSuggestDates(true);
+    setSelectedRestaurantIds([]);
+    setSelectedRestaurants([]);
+    setRestaurantSearchQuery('');
+    setRestaurantSearchResults([]);
     setSelectedFriendIds([]);
+    setStep(1);
     setIsOpen(true);
   };
 
@@ -88,21 +130,175 @@ export default function HappyHourHub() {
     );
   };
 
+  const handleSearchRestaurants = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!restaurantSearchQuery.trim()) return;
+    setSearchingRestaurants(true);
+
+    if (currentUserId.startsWith('mock-')) {
+      const term = restaurantSearchQuery.toLowerCase().trim();
+      const mockList: Restaurant[] = [
+        {
+          id: 'mock-premium-restaurant-id',
+          name: 'Sabor Premium Gourmet',
+          description: 'Experiência gastronômica única com ingredientes selecionados e ambiente sofisticado.',
+          image_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500',
+          category: 'Italiana',
+          address: 'Avenida Paulista, 1000',
+          plan: 'premium',
+          created_at: '',
+          user_id: null,
+          cover_image_url: null,
+          phone: null,
+          email: null,
+          cnpj: null,
+          whatsapp_url: null,
+          ifood_url: null,
+          other_url: null,
+          number: null,
+          neighborhood: null,
+          city: null,
+          state: null,
+          cep: null,
+          latitude: null,
+          longitude: null,
+          opening_hours: null,
+          external_url: null,
+          followers_override: null,
+          payment_methods: null,
+          social_networks: null,
+          other_url_label: null,
+          claim_code: null,
+          visit_status: 'Visitado',
+          visit_notes: null
+        },
+        {
+          id: 'mock-free-restaurant-id',
+          name: 'Lancheira do Zé (Free)',
+          description: 'Lanches rápidos e saborosos com aquele tempero caseiro que você adora.',
+          image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500',
+          category: 'Lanches',
+          address: 'Avenida Paulista, 2000',
+          plan: 'free',
+          created_at: '',
+          user_id: null,
+          cover_image_url: null,
+          phone: null,
+          email: null,
+          cnpj: null,
+          whatsapp_url: null,
+          ifood_url: null,
+          other_url: null,
+          number: null,
+          neighborhood: null,
+          city: null,
+          state: null,
+          cep: null,
+          latitude: null,
+          longitude: null,
+          opening_hours: null,
+          external_url: null,
+          followers_override: null,
+          payment_methods: null,
+          social_networks: null,
+          other_url_label: null,
+          claim_code: null,
+          visit_status: 'Visitado',
+          visit_notes: null
+        }
+      ];
+      setRestaurantSearchResults(mockList.filter(r => r.name.toLowerCase().includes(term)));
+      setSearchingRestaurants(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('*')
+        .ilike('name', `%${restaurantSearchQuery}%`)
+        .limit(5);
+
+      if (error) throw error;
+      setRestaurantSearchResults(data || []);
+    } catch (e) {
+      console.error(e);
+      showError('Erro ao buscar restaurantes.');
+    } finally {
+      setSearchingRestaurants(false);
+    }
+  };
+
+  const handleToggleSelectRestaurant = (restaurant: Restaurant) => {
+    if (selectedRestaurantIds.includes(restaurant.id)) {
+      setSelectedRestaurantIds(prev => prev.filter(id => id !== restaurant.id));
+      setSelectedRestaurants(prev => prev.filter(r => r.id !== restaurant.id));
+    } else {
+      setSelectedRestaurantIds(prev => [...prev, restaurant.id]);
+      setSelectedRestaurants(prev => [...prev, restaurant]);
+    }
+  };
+
+  const handleGoToStep2 = () => {
+    if (!title.trim()) {
+      showError('Por favor, preencha o título.');
+      return;
+    }
+    if (isDateVoting) {
+      const validDates = dateSuggestions.filter(d => d.trim() !== '');
+      if (validDates.length < 2) {
+        showError('Por favor, adicione pelo menos 2 opções de datas válidas.');
+        return;
+      }
+    } else {
+      if (!dateTime) {
+        showError('Por favor, selecione a data e a hora.');
+        return;
+      }
+    }
+    setStep(2);
+  };
+
   const handleCreateEvent = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !dateTime || !currentUserId) {
-      showError('Por favor, preencha o título e a data do happy hour.');
+    if (!title.trim() || !currentUserId) {
+      showError('Por favor, preencha o título.');
       return;
+    }
+
+    if (isDateVoting) {
+      const validDates = dateSuggestions.filter(d => d.trim() !== '');
+      if (validDates.length < 2) {
+        showError('Por favor, defina pelo menos 2 opções de datas para votação.');
+        return;
+      }
+    } else {
+      if (!dateTime) {
+        showError('Por favor, defina a data do encontro.');
+        return;
+      }
     }
 
     setCreating(true);
     try {
+      const finalDateTime = isDateVoting 
+        ? dateSuggestions.filter(Boolean)[0] 
+        : dateTime;
+
       const { data, error } = await createHappyHour(
         title,
         description,
-        dateTime,
+        finalDateTime,
         selectedFriendIds,
-        currentUserId
+        currentUserId,
+        {
+          isDateVoting,
+          suggestedDates: isDateVoting ? dateSuggestions.filter(Boolean) : [],
+          allowMemberInvites,
+          allowMemberSuggestRestaurants: allowSuggestRestaurants,
+          allowMemberSuggestDates: allowSuggestDates,
+          initialRestaurantIds: selectedRestaurantIds
+        }
       );
 
       if (error) {
@@ -111,8 +307,8 @@ export default function HappyHourHub() {
         showSuccess('Happy Hour marcado com sucesso!');
         setIsOpen(false);
         loadData();
-        // Navega diretamente para a sala recém-criada
-        navigate(`/happy-hour/${data.id}`);
+        setCreatedEventData(data);
+        setIsShareModalOpen(true);
       }
     } catch (e) {
       console.error(e);
@@ -291,105 +487,477 @@ export default function HappyHourHub() {
             </DialogTitle>
           </DialogHeader>
 
-          <form onSubmit={handleCreateEvent} className="space-y-4 pt-2">
+          <form onSubmit={handleCreateEvent} className="space-y-4 pt-1 font-['Poppins']">
             
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500">Título do Encontro</label>
-              <Input
-                type="text"
-                placeholder="Ex: Pizza de Sexta, Aniversário..."
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                className="h-11 rounded-2xl border border-slate-200"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500">Data e Hora</label>
-              <Input
-                type="datetime-local"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-                required
-                className="h-11 rounded-2xl border border-slate-200"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500">Descrição (Opcional)</label>
-              <Textarea
-                placeholder="Detalhes ou recados sobre o encontro..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="rounded-2xl border border-slate-200 min-h-[70px] resize-none"
-              />
-            </div>
-
-            {/* Convidar Amigos Checkbox list */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                <Users className="w-4 h-4 text-slate-400" />
-                Convidar Amigos ({selectedFriendIds.length} selecionados)
-              </label>
-              <div className="border border-slate-100 rounded-2xl bg-background-light p-2 max-h-[140px] overflow-y-auto space-y-1 scrollbar-thin">
-                {friends.length > 0 ? (
-                  friends.map(({ friendshipId, friendProfile }) => {
-                    const isSelected = selectedFriendIds.includes(friendProfile.id);
-                    const name = `${friendProfile.first_name || ''} ${friendProfile.last_name || ''}`.trim() || 'Amigo';
-                    return (
-                      <div
-                        key={friendshipId}
-                        onClick={() => handleToggleFriend(friendProfile.id)}
-                        className={cn(
-                          "flex items-center justify-between p-2 rounded-2xl cursor-pointer transition-all",
-                          isSelected ? "bg-highlight/5 border border-highlight/20" : "bg-white border border-transparent hover:bg-slate-100"
-                        )}
-                      >
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={friendProfile.avatar_url || 'https://via.placeholder.com/80?text=Avatar'}
-                            alt={name}
-                            className="w-7 h-7 rounded-full object-cover border border-slate-100"
-                          />
-                          <span className="text-xs font-bold text-primary truncate max-w-[200px]">
-                            {name}
-                          </span>
-                        </div>
-                        <div className={cn(
-                          "w-5 h-5 rounded-full border flex items-center justify-center transition-all",
-                          isSelected ? "bg-highlight border-highlight text-white" : "border-slate-300 bg-white"
-                        )}>
-                          {isSelected && <Check className="w-3.5 h-3.5" />}
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p className="text-center text-xs text-slate-400 py-4">Você ainda não tem amigos para convidar.</p>
-                )}
+            {/* Step progress indicator */}
+            <div className="space-y-1 mb-2">
+              <div className="flex items-center justify-between text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">
+                <span>Passo {step} de 3</span>
+                <span className="text-highlight">
+                  {step === 1 && "Detalhes do Encontro"}
+                  {step === 2 && "Lugares & Convidados"}
+                  {step === 3 && "Configurações"}
+                </span>
+              </div>
+              <div className="flex gap-1 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div 
+                  className={cn(
+                    "h-full bg-highlight rounded-full transition-all duration-300", 
+                    step === 1 ? "w-1/3" : step === 2 ? "w-2/3" : "w-full"
+                  )} 
+                />
               </div>
             </div>
 
+            {/* STEP 1: INFO E DATA */}
+            {step === 1 && (
+              <div className="space-y-4 py-1 animate-fade-in">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-500">Título do Encontro</label>
+                  <Input
+                    type="text"
+                    placeholder="Ex: Pizza de Sexta, Aniversário..."
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    className="h-11 rounded-2xl border border-slate-200"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500">Definição da Data</label>
+                  <div className="flex p-1 bg-slate-100 rounded-xl">
+                    <button
+                      type="button"
+                      onClick={() => setIsDateVoting(false)}
+                      className={cn(
+                        "flex-1 py-1.5 text-xs font-bold rounded-lg transition-all border-none",
+                        !isDateVoting ? "bg-white text-primary shadow-xs" : "text-slate-500 hover:text-slate-700 bg-transparent"
+                      )}
+                    >
+                      Data Fixa
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsDateVoting(true)}
+                      className={cn(
+                        "flex-1 py-1.5 text-xs font-bold rounded-lg transition-all border-none",
+                        isDateVoting ? "bg-white text-primary shadow-xs" : "text-slate-500 hover:text-slate-700 bg-transparent"
+                      )}
+                    >
+                      Votação de Datas
+                    </button>
+                  </div>
+                </div>
+
+                {!isDateVoting ? (
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500">Data e Hora</label>
+                    <Input
+                      type="datetime-local"
+                      value={dateTime}
+                      onChange={(e) => setDateTime(e.target.value)}
+                      required={!isDateVoting}
+                      className="h-11 rounded-2xl border border-slate-200"
+                    />
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold text-slate-500">Opções de Datas</label>
+                      {dateSuggestions.length < 5 && (
+                        <button
+                          type="button"
+                          onClick={() => setDateSuggestions(prev => [...prev, ''])}
+                          className="text-highlight hover:underline font-bold text-[10px] bg-transparent border-none cursor-pointer p-0"
+                        >
+                          + Adicionar Opção
+                        </button>
+                      )}
+                    </div>
+                    <div className="space-y-2 max-h-[140px] overflow-y-auto pr-1">
+                      {dateSuggestions.map((suggestion, idx) => (
+                        <div key={idx} className="flex gap-2 items-center">
+                          <Input
+                            type="datetime-local"
+                            value={suggestion}
+                            onChange={(e) => {
+                              const updated = [...dateSuggestions];
+                              updated[idx] = e.target.value;
+                              setDateSuggestions(updated);
+                            }}
+                            required={isDateVoting}
+                            className="h-11 rounded-2xl border border-slate-200 flex-grow"
+                          />
+                          {dateSuggestions.length > 2 && (
+                            <button
+                              type="button"
+                              onClick={() => setDateSuggestions(prev => prev.filter((_, i) => i !== idx))}
+                              className="text-red-500 hover:text-red-700 text-xs font-bold px-1 bg-transparent border-none cursor-pointer"
+                            >
+                              Remover
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-500">Descrição (Opcional)</label>
+                  <Textarea
+                    placeholder="Detalhes ou recados sobre o encontro..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="rounded-2xl border border-slate-200 min-h-[70px] resize-none"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* STEP 2: LUGARES E AMIGOS */}
+            {step === 2 && (
+              <div className="space-y-4 py-1 animate-fade-in">
+                {/* Sugerir Restaurantes para Votação Inicial */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
+                    <Utensils className="w-4 h-4 text-slate-400" />
+                    Sugerir Restaurantes para Votação ({selectedRestaurantIds.length} selecionados)
+                  </label>
+
+                  {/* Lista de Restaurantes Selecionados */}
+                  {selectedRestaurants.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 p-2 border border-slate-100 bg-slate-50 rounded-2xl max-h-[85px] overflow-y-auto">
+                      {selectedRestaurants.map((r) => (
+                        <div 
+                          key={r.id} 
+                          className="bg-white border border-slate-200 text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-xs"
+                        >
+                          <span className="truncate max-w-[120px]">{r.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => handleToggleSelectRestaurant(r)}
+                            className="text-slate-400 hover:text-red-500 bg-transparent border-none cursor-pointer p-0 flex items-center"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Campo de Busca de Restaurantes */}
+                  <div className="flex gap-2">
+                    <div className="relative flex-grow">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                      <Input
+                        type="text"
+                        placeholder="Buscar restaurante por nome..."
+                        value={restaurantSearchQuery}
+                        onChange={(e) => setRestaurantSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleSearchRestaurants(e);
+                          }
+                        }}
+                        className="w-full pl-9 pr-3 h-10 text-xs rounded-2xl border border-slate-200 bg-white"
+                      />
+                    </div>
+                    <Button 
+                      type="button"
+                      onClick={handleSearchRestaurants}
+                      disabled={searchingRestaurants || !restaurantSearchQuery.trim()}
+                      className="bg-primary hover:bg-primary/95 text-white h-10 px-4 rounded-2xl text-[10px] font-bold shrink-0 shadow-none border-none"
+                    >
+                      {searchingRestaurants ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Buscar'}
+                    </Button>
+                  </div>
+
+                  {/* Resultados da Busca de Restaurantes */}
+                  {restaurantSearchResults.length > 0 && (
+                    <div className="border border-slate-100 rounded-2xl bg-white p-2 max-h-[120px] overflow-y-auto space-y-1 scrollbar-thin">
+                      {restaurantSearchResults.map((r) => {
+                        const isSelected = selectedRestaurantIds.includes(r.id);
+                        return (
+                          <div
+                            key={r.id}
+                            onClick={() => handleToggleSelectRestaurant(r)}
+                            className={cn(
+                              "flex items-center justify-between p-2 rounded-xl cursor-pointer transition-all",
+                              isSelected ? "bg-[#EF2A39]/5 border border-[#EF2A39]/10" : "bg-white border border-transparent hover:bg-slate-50"
+                            )}
+                          >
+                            <div className="flex items-center gap-2 min-w-0">
+                              <img
+                                src={r.image_url || 'https://via.placeholder.com/80?text=Restaurante'}
+                                alt={r.name}
+                                className="w-8 h-8 rounded-lg object-cover border border-slate-100 shrink-0"
+                              />
+                              <div className="min-w-0">
+                                <h4 className="text-xs font-bold text-primary truncate max-w-[180px]">{r.name}</h4>
+                                <p className="text-[9px] text-slate-400">{r.category || 'Alimentação'}</p>
+                              </div>
+                            </div>
+                            <div className={cn(
+                              "w-4 h-4 rounded-full border flex items-center justify-center transition-all",
+                              isSelected ? "bg-[#EF2A39] border-[#EF2A39] text-white" : "border-slate-350 bg-white"
+                            )}>
+                              {isSelected && <Check className="w-2.5 h-2.5 stroke-[3px]" />}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Convidar Amigos Checkbox list */}
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                    <Users className="w-4 h-4 text-slate-400" />
+                    Convidar Amigos ({selectedFriendIds.length} selecionados)
+                  </label>
+                  <div className="border border-slate-100 rounded-2xl bg-background-light p-2 max-h-[140px] overflow-y-auto space-y-1 scrollbar-thin">
+                    {friends.length > 0 ? (
+                      friends.map(({ friendshipId, friendProfile }) => {
+                        const isSelected = selectedFriendIds.includes(friendProfile.id);
+                        const name = `${friendProfile.first_name || ''} ${friendProfile.last_name || ''}`.trim() || 'Amigo';
+                        return (
+                          <div
+                            key={friendshipId}
+                            onClick={() => handleToggleFriend(friendProfile.id)}
+                            className={cn(
+                              "flex items-center justify-between p-2 rounded-2xl cursor-pointer transition-all",
+                              isSelected ? "bg-highlight/5 border border-highlight/20" : "bg-white border border-transparent hover:bg-slate-100"
+                            )}
+                          >
+                            <div className="flex items-center gap-2">
+                              <img
+                                src={friendProfile.avatar_url || 'https://via.placeholder.com/80?text=Avatar'}
+                                alt={name}
+                                className="w-7 h-7 rounded-full object-cover border border-slate-100"
+                              />
+                              <span className="text-xs font-bold text-primary truncate max-w-[200px]">
+                                {name}
+                              </span>
+                            </div>
+                            <div className={cn(
+                              "w-5 h-5 rounded-full border flex items-center justify-center transition-all",
+                              isSelected ? "bg-highlight border-highlight text-white" : "border-slate-300 bg-white"
+                            )}>
+                              {isSelected && <Check className="w-3.5 h-3.5" />}
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="text-center text-xs text-slate-400 py-4">Você ainda não tem amigos para convidar.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 3: PERMISSÕES E CONFIRMAÇÃO */}
+            {step === 3 && (
+              <div className="space-y-4 py-1 animate-fade-in">
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-150 space-y-3">
+                  <span className="text-xs font-extrabold text-slate-800 uppercase tracking-wide block">Resumo do Encontro</span>
+                  <div className="space-y-1 text-xs font-medium text-slate-650">
+                    <p>📌 <strong className="text-slate-800">Título:</strong> {title}</p>
+                    <p>📅 <strong className="text-slate-800">Data:</strong> {isDateVoting ? "Em Votação" : new Date(dateTime).toLocaleString('pt-BR')}</p>
+                    <p>🍔 <strong className="text-slate-800">Restaurantes indicados:</strong> {selectedRestaurantIds.length} selecionados</p>
+                    <p>👥 <strong className="text-slate-800">Convites enviados:</strong> {selectedFriendIds.length} amigos</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 pt-2">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Permissões dos Membros</span>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-xs font-extrabold text-slate-800">Convidar amigos</span>
+                      <span className="text-[10px] text-slate-400">Participantes podem convidar mais pessoas.</span>
+                    </div>
+                    <Switch
+                      checked={allowMemberInvites}
+                      onCheckedChange={setAllowMemberInvites}
+                      className="data-[state=checked]:bg-highlight"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-xs font-extrabold text-slate-800">Sugerir lugares</span>
+                      <span className="text-[10px] text-slate-400">Participantes podem sugerir restaurantes.</span>
+                    </div>
+                    <Switch
+                      checked={allowSuggestRestaurants}
+                      onCheckedChange={setAllowSuggestRestaurants}
+                      className="data-[state=checked]:bg-highlight"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-xs font-extrabold text-slate-800">Sugerir datas</span>
+                      <span className="text-[10px] text-slate-400">Participantes podem sugerir novas datas.</span>
+                    </div>
+                    <Switch
+                      checked={allowSuggestDates}
+                      onCheckedChange={setAllowSuggestDates}
+                      className="data-[state=checked]:bg-highlight"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* BUTTONS PANEL */}
             <DialogFooter className="flex gap-2 pt-2">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setIsOpen(false)}
-                className="flex-1 rounded-2xl h-11 text-xs font-bold"
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="submit"
-                disabled={creating}
-                className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
-              >
-                {creating ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Criar Encontro'}
-              </Button>
+              {step === 1 && (
+                <>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setIsOpen(false)}
+                    className="flex-1 rounded-2xl h-11 text-xs font-bold"
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleGoToStep2}
+                    className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
+                  >
+                    Avançar
+                  </Button>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setStep(1)}
+                    className="flex-1 rounded-2xl h-11 text-xs font-bold"
+                  >
+                    Voltar
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setStep(3)}
+                    className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none"
+                  >
+                    Avançar
+                  </Button>
+                </>
+              )}
+
+              {step === 3 && (
+                <>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setStep(2)}
+                    className="flex-1 rounded-2xl h-11 text-xs font-bold"
+                  >
+                    Voltar
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={creating}
+                    className="flex-1 bg-highlight hover:bg-highlight/90 text-white rounded-2xl h-11 text-xs font-bold shadow-none border-none"
+                  >
+                    {creating ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Criar Encontro'}
+                  </Button>
+                </>
+              )}
             </DialogFooter>
 
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* SUCCESS SHARE MODAL DIALOG */}
+      <Dialog open={isShareModalOpen} onOpenChange={(open) => {
+        if (!open && createdEventData) {
+          setIsShareModalOpen(false);
+          navigate(`/happy-hour/${createdEventData.id}`);
+        }
+      }}>
+        <DialogContent className="max-w-md w-[95%] p-6 rounded-3xl border border-white/20 bg-white/95 backdrop-blur-md shadow-2xl flex flex-col items-center text-center font-['Poppins']">
+          <DialogHeader className="flex flex-col items-center space-y-3">
+            <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center animate-bounce">
+              <span className="text-3xl">🎉</span>
+            </div>
+            <DialogTitle className="text-xl font-extrabold text-slate-800 tracking-tight leading-tight">
+              Happy Hour Marcado!
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 leading-relaxed font-medium">
+              Agora, compartilhe o convite no WhatsApp para que a galera possa entrar na sala, sugerir e votar na data e nos restaurantes!
+            </DialogDescription>
+          </DialogHeader>
+
+          {createdEventData && (
+            <div className="w-full mt-4 space-y-4">
+              {/* Box de texto a ser compartilhado */}
+              <div className="bg-slate-50 border border-slate-150 rounded-2xl p-4 pr-12 text-[11px] text-left text-slate-600 font-medium leading-relaxed relative">
+                <span className="text-[9px] uppercase font-bold text-slate-400 block mb-1">Texto do Convite:</span>
+                <p className="italic">
+                  "Galera, criei o grupo do nosso Happy Hour "{createdEventData.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room={createdEventData.id}"
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const message = `Galera, criei o grupo do nosso Happy Hour "${createdEventData.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room=${createdEventData.id}`;
+                    handleCopyInviteText(message);
+                  }}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-highlight transition-colors bg-transparent border-none cursor-pointer p-1"
+                  title="Copiar texto do convite"
+                >
+                  {copied ? (
+                    <span className="flex items-center gap-1 text-[9px] font-bold text-green-600">
+                      <Check className="w-3.5 h-3.5" />
+                      Copiado!
+                    </span>
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              </div>
+
+              <Button
+                type="button"
+                onClick={() => {
+                  const message = `Galera, criei o grupo do nosso Happy Hour "${createdEventData.title}" no FilterFood! Entrem na sala para votar na data e no local: filterfood.com.br/download?room=${createdEventData.id}`;
+                  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+                  window.open(whatsappUrl, '_blank');
+                  
+                  // Após abrir o WhatsApp, navega para a sala
+                  setIsShareModalOpen(false);
+                  navigate(`/happy-hour/${createdEventData.id}`);
+                }}
+                className="w-full h-12 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 transition-all border-none"
+              >
+                Compartilhar no WhatsApp
+              </Button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsShareModalOpen(false);
+                  navigate(`/happy-hour/${createdEventData.id}`);
+                }}
+                className="w-full py-1 text-xs font-bold text-slate-400 hover:text-slate-650 transition-colors bg-transparent border-none cursor-pointer"
+              >
+                Ir para a Sala Sem Compartilhar
+              </button>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
 

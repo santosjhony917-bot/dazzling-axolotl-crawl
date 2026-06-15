@@ -11,6 +11,61 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+      window.addEventListener('error', function(event) {
+        showErrorOverlay(event.error || { message: event.message, stack: 'No stack trace available.' });
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+        showErrorOverlay(event.reason || { message: 'Unhandled Promise Rejection', stack: 'No stack trace available.' });
+      });
+
+      function showErrorOverlay(err) {
+        console.error('Captured Global Error:', err);
+        var overlay = document.getElementById('debug-error-overlay');
+        if (!overlay) {
+          overlay = document.createElement('div');
+          overlay.id = 'debug-error-overlay';
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(255, 0, 0, 0.95)';
+          overlay.style.color = '#fff';
+          overlay.style.padding = '20px';
+          overlay.style.zIndex = '999999';
+          overlay.style.overflow = 'auto';
+          overlay.style.fontFamily = 'monospace';
+          overlay.style.fontSize = '14px';
+          overlay.style.boxSizing = 'border-box';
+          
+          var title = document.createElement('h1');
+          title.innerText = 'Runtime JavaScript Error';
+          title.style.margin = '0 0 10px 0';
+          title.style.borderBottom = '2px solid white';
+          title.style.paddingBottom = '10px';
+          overlay.appendChild(title);
+
+          var msg = document.createElement('p');
+          msg.id = 'debug-error-msg';
+          msg.style.fontWeight = 'bold';
+          overlay.appendChild(msg);
+
+          var stack = document.createElement('pre');
+          stack.id = 'debug-error-stack';
+          stack.style.whiteSpace = 'pre-wrap';
+          stack.style.backgroundColor = '#222';
+          stack.style.padding = '15px';
+          stack.style.borderRadius = '5px';
+          overlay.appendChild(stack);
+
+          document.body.appendChild(overlay);
+        }
+        
+        document.getElementById('debug-error-msg').innerText = err.message || err.toString();
+        document.getElementById('debug-error-stack').innerText = err.stack || 'No stack trace available.';
+      }
+    </script>
   </head>
 
   <body>

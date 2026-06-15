@@ -139,14 +139,37 @@ export async function createHappyHour(
   description: string,
   dateTime: string,
   participantIds: string[],
-  creatorId: string
+  creatorId: string,
+  options?: {
+    isDateVoting?: boolean;
+    suggestedDates?: string[];
+    allowMemberInvites?: boolean;
+    allowMemberSuggestRestaurants?: boolean;
+    allowMemberSuggestDates?: boolean;
+    initialRestaurantIds?: string[];
+  }
 ): Promise<{ data: HappyHour | null; error: string | null }> {
+  // Build description JSON
+  const settingsJson = JSON.stringify({
+    text: description || "",
+    allow_member_invites: options?.allowMemberInvites ?? true,
+    allow_member_suggest_restaurants: options?.allowMemberSuggestRestaurants ?? true,
+    allow_member_suggest_dates: options?.allowMemberSuggestDates ?? true,
+    is_date_voting: options?.isDateVoting ?? false,
+    suggested_dates: options?.suggestedDates ? options.suggestedDates.map((dStr, idx) => ({
+      id: `date-${Date.now()}-${idx}-${Math.floor(Math.random() * 1000)}`,
+      date: dStr,
+      suggested_by: creatorId
+    })) : [],
+    date_votes: {}
+  });
+
   if (creatorId.startsWith('mock-')) {
     const store = loadMockStore(creatorId);
     const newHh: HappyHour = {
       id: `mock-hh-${Date.now()}`,
       title,
-      description: description || null,
+      description: settingsJson,
       date_time: dateTime,
       created_by: creatorId,
       created_at: new Date().toISOString()
@@ -157,7 +180,7 @@ export async function createHappyHour(
     const uniqueParticipants = Array.from(new Set([creatorId, ...participantIds]));
     store.participants[newHh.id] = uniqueParticipants;
     store.messages[newHh.id] = [];
-    store.restaurants[newHh.id] = [];
+    store.restaurants[newHh.id] = options?.initialRestaurantIds || [];
     store.votes[newHh.id] = {};
 
     saveMockStore(creatorId, store);
@@ -170,7 +193,7 @@ export async function createHappyHour(
       .from('happy_hours')
       .insert({
         title,
-        description: description || null,
+        description: settingsJson,
         date_time: dateTime,
         created_by: creatorId
       })
@@ -190,6 +213,21 @@ export async function createHappyHour(
       .insert(participantsToInsert);
 
     if (partError) throw partError;
+
+    // Adiciona restaurantes iniciais
+    if (options?.initialRestaurantIds && options.initialRestaurantIds.length > 0) {
+      const restaurantsToInsert = options.initialRestaurantIds.map(rid => ({
+        happy_hour_id: happyHour.id,
+        restaurant_id: rid,
+        added_by: creatorId
+      }));
+
+      const { error: restError } = await supabase
+        .from('happy_hour_restaurants')
+        .insert(restaurantsToInsert);
+
+      if (restError) throw restError;
+    }
 
     return { data: happyHour, error: null };
   } catch (e) {
@@ -624,19 +662,33 @@ export async function updateHappyHourSettings(
   currentUserId: string,
   text: string | null,
   allowMemberInvites: boolean,
-  allowMemberSuggestions: boolean
+  allowMemberSuggestRestaurants: boolean,
+  allowMemberSuggestDates: boolean
 ): Promise<{ error: string | null }> {
-  const settingsJson = JSON.stringify({
-    text: text || "",
-    allow_member_invites: allowMemberInvites,
-    allow_member_suggestions: allowMemberSuggestions
-  });
+  let isDateVoting = false;
+  let suggestedDates: any[] = [];
+  let dateVotes: any = {};
 
   if (currentUserId.startsWith('mock-')) {
     const store = loadMockStore(currentUserId);
     const hh = store.happyHours.find(h => h.id === happyHourId);
     if (hh) {
-      hh.description = settingsJson;
+      try {
+        const parsed = JSON.parse(hh.description || '{}');
+        isDateVoting = parsed.is_date_voting === true;
+        suggestedDates = parsed.suggested_dates || [];
+        dateVotes = parsed.date_votes || {};
+      } catch (e) {}
+
+      hh.description = JSON.stringify({
+        text: text || "",
+        allow_member_invites: allowMemberInvites,
+        allow_member_suggest_restaurants: allowMemberSuggestRestaurants,
+        allow_member_suggest_dates: allowMemberSuggestDates,
+        is_date_voting: isDateVoting,
+        suggested_dates: suggestedDates,
+        date_votes: dateVotes
+      });
       saveMockStore(currentUserId, store);
     }
     return { error: null };
@@ -644,9 +696,34 @@ export async function updateHappyHourSettings(
 
   // Supabase real
   try {
+    const { data: hh, error: fetchErr } = await supabase
+      .from('happy_hours')
+      .select('description')
+      .eq('id', happyHourId)
+      .single();
+
+    if (!fetchErr && hh && hh.description) {
+      try {
+        const parsed = JSON.parse(hh.description);
+        isDateVoting = parsed.is_date_voting === true;
+        suggestedDates = parsed.suggested_dates || [];
+        dateVotes = parsed.date_votes || {};
+      } catch (e) {}
+    }
+
+    const newDescription = JSON.stringify({
+      text: text || "",
+      allow_member_invites: allowMemberInvites,
+      allow_member_suggest_restaurants: allowMemberSuggestRestaurants,
+      allow_member_suggest_dates: allowMemberSuggestDates,
+      is_date_voting: isDateVoting,
+      suggested_dates: suggestedDates,
+      date_votes: dateVotes
+    });
+
     const { error } = await supabase
       .from('happy_hours')
-      .update({ description: settingsJson })
+      .update({ description: newDescription })
       .eq('id', happyHourId);
 
     if (error) throw error;
@@ -689,6 +766,149 @@ export async function addParticipantsToHappyHour(
     return { error: null };
   } catch (e) {
     console.error('Error adding participants to happy hour:', e);
+    return { error: (e as Error).message };
+  }
+}
+
+/**
+ * Vota ou remove o voto de uma data específica.
+ */
+export async function voteForDate(
+  happyHourId: string,
+  dateId: string,
+  userId: string
+): Promise<{ error: string | null }> {
+  if (userId.startsWith('mock-')) {
+    const store = loadMockStore(userId);
+    const hh = store.happyHours.find(h => h.id === happyHourId);
+    if (hh) {
+      try {
+        const parsed = JSON.parse(hh.description || '{}');
+        const dateVotes = parsed.date_votes || {};
+        const voters = dateVotes[dateId] || [];
+
+        if (voters.includes(userId)) {
+          // Remover voto
+          dateVotes[dateId] = voters.filter((id: string) => id !== userId);
+        } else {
+          // Adicionar voto
+          dateVotes[dateId] = [...voters, userId];
+        }
+
+        parsed.date_votes = dateVotes;
+        hh.description = JSON.stringify(parsed);
+        saveMockStore(userId, store);
+      } catch (e) {
+        return { error: 'Erro ao processar votação mockada' };
+      }
+    }
+    return { error: null };
+  }
+
+  // Supabase real
+  try {
+    const { data: hh, error: fetchErr } = await supabase
+      .from('happy_hours')
+      .select('description')
+      .eq('id', happyHourId)
+      .single();
+
+    if (fetchErr) throw fetchErr;
+
+    const parsed = JSON.parse(hh.description || '{}');
+    const dateVotes = parsed.date_votes || {};
+    const voters = dateVotes[dateId] || [];
+
+    if (voters.includes(userId)) {
+      dateVotes[dateId] = voters.filter((id: string) => id !== userId);
+    } else {
+      dateVotes[dateId] = [...voters, userId];
+    }
+
+    parsed.date_votes = dateVotes;
+    
+    const { error: updateErr } = await supabase
+      .from('happy_hours')
+      .update({ description: JSON.stringify(parsed) })
+      .eq('id', happyHourId);
+
+    if (updateErr) throw updateErr;
+    return { error: null };
+  } catch (e) {
+    console.error('Error voting for date:', e);
+    return { error: (e as Error).message };
+  }
+}
+
+/**
+ * Adiciona uma nova data sugestiva para votação.
+ */
+export async function addDateToPoll(
+  happyHourId: string,
+  dateStr: string,
+  userId: string
+): Promise<{ error: string | null }> {
+  const newDateObj = {
+    id: `date-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    date: dateStr,
+    suggested_by: userId
+  };
+
+  if (userId.startsWith('mock-')) {
+    const store = loadMockStore(userId);
+    const hh = store.happyHours.find(h => h.id === happyHourId);
+    if (hh) {
+      try {
+        const parsed = JSON.parse(hh.description || '{}');
+        const suggestedDates = parsed.suggested_dates || [];
+        
+        // Evita duplicados
+        const exists = suggestedDates.some((d: any) => d.date === dateStr);
+        if (exists) {
+          return { error: 'Esta data já foi sugerida.' };
+        }
+
+        suggestedDates.push(newDateObj);
+        parsed.suggested_dates = suggestedDates;
+        hh.description = JSON.stringify(parsed);
+        saveMockStore(userId, store);
+      } catch (e) {
+        return { error: 'Erro ao sugerir data' };
+      }
+    }
+    return { error: null };
+  }
+
+  // Supabase real
+  try {
+    const { data: hh, error: fetchErr } = await supabase
+      .from('happy_hours')
+      .select('description')
+      .eq('id', happyHourId)
+      .single();
+
+    if (fetchErr) throw fetchErr;
+
+    const parsed = JSON.parse(hh.description || '{}');
+    const suggestedDates = parsed.suggested_dates || [];
+
+    const exists = suggestedDates.some((d: any) => d.date === dateStr);
+    if (exists) {
+      return { error: 'Esta data já foi sugerida.' };
+    }
+
+    suggestedDates.push(newDateObj);
+    parsed.suggested_dates = suggestedDates;
+
+    const { error: updateErr } = await supabase
+      .from('happy_hours')
+      .update({ description: JSON.stringify(parsed) })
+      .eq('id', happyHourId);
+
+    if (updateErr) throw updateErr;
+    return { error: null };
+  } catch (e) {
+    console.error('Error suggesting date:', e);
     return { error: (e as Error).message };
   }
 }
