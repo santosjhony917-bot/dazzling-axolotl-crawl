@@ -65,44 +65,44 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
       </CardHeader>
       <CardContent className="p-4 space-y-4">
         {contactItems.map((item, index) => (
-          <div key={index} className="flex items-start">
+          <div key={index} className="flex items-start w-full min-w-0">
             {item.icon}
-            <div className="ml-3 min-w-0">
+            <div className="ml-3 min-w-0 flex-1">
               <p className="text-sm font-semibold text-gray-700">{item.label}</p>
               {item.link ? (
                 <a 
                   href={item.link} 
                   target={item.isExternal ? "_blank" : "_self"} 
                   rel={item.isExternal ? "noopener noreferrer" : ""} 
-                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center"
+                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors flex items-center gap-1 w-full min-w-0"
                 >
-                  {item.value}
-                  {item.isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
+                  <span className="truncate">{item.value}</span>
+                  {item.isExternal && <ExternalLink className="w-4 h-4 flex-shrink-0" />}
                 </a>
               ) : (
-                <p className="text-base font-bold text-primary break-words">{item.value}</p>
+                <p className="text-base font-bold text-primary break-all">{item.value}</p>
               )}
             </div>
           </div>
         ))}
 
         {linkItems.map((item, index) => (
-          <div key={index} className="flex items-start">
+          <div key={index} className="flex items-start w-full min-w-0">
             {item.icon}
-            <div className="ml-3 min-w-0">
+            <div className="ml-3 min-w-0 flex-1">
               <p className="text-sm font-semibold text-gray-700">{item.label}</p>
               {item.link ? (
                 <a 
                   href={item.link} 
                   target={item.isExternal ? "_blank" : "_self"} 
                   rel={item.isExternal ? "noopener noreferrer" : ""} 
-                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors break-words flex items-center"
+                  className="text-base font-bold text-primary hover:text-primary/90 transition-colors flex items-center gap-1 w-full min-w-0"
                 >
-                  {item.value}
-                  {item.isExternal && <ExternalLink className="w-4 h-4 ml-1 flex-shrink-0" />}
+                  <span className="truncate">{item.value}</span>
+                  {item.isExternal && <ExternalLink className="w-4 h-4 flex-shrink-0" />}
                 </a>
               ) : (
-                <p className="text-base font-bold text-primary break-words">{item.value}</p>
+                <p className="text-base font-bold text-primary break-all">{item.value}</p>
               )}
             </div>
           </div>
