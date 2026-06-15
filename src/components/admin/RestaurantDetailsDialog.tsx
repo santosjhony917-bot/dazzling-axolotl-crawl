@@ -1198,7 +1198,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           })
           .eq('id', restaurant.id);
 
-        if (updateError) throw updateError;
+        if (updateError) {
+          // Se for erro de violação de restrição única (código 23505), ignoramos para não travar a raspagem
+          if (updateError.code === '23505') {
+            console.warn("A URL já está cadastrada em outro restaurante no banco de dados. Continuando extração de qualquer forma...");
+          } else {
+            throw updateError;
+          }
+        }
 
         if (useExtension && extId) {
           showSuccess('Link detectado! Coletando o cardápio através da extensão do Chrome...');
