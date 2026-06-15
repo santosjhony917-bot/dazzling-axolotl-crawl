@@ -1231,98 +1231,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
           }
 
-          showSuccess('Cardápio coletado pela extensão! Processando com IA do navegador...');
+          showSuccess('Cardápio coletado pela extensão! Processando com IA do servidor...');
 
-          // Agora rodar a IA do navegador no xmlContent
           const apiKey = aiModel === 'gemini' 
             ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
             : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
-          if (!apiKey) {
-            throw new Error(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não configurada.`);
-          }
-
-          const prompt = `Você é um assistente de IA especialista em cardápios de restaurantes.
-Analise a seguinte estrutura XML contendo elementos de categorias e itens de pratos extraídos do site de um cardápio. Organize tudo em categorias, itens, descrições, preços e imagens dos pratos.
-
-Regras importantes:
-1. Identifique as categorias de forma lógica (ex: "Entradas", "Pratos Principais", "Hambúrgueres", "Bebidas", "Sobremesas").
-2. Para cada item, extraia o nome, a descrição (ingredientes, detalhes de tamanho, acompanhamentos) e o preço.
-3. Se houver tags <image> associadas aos itens de prato, extraia a URL exata da imagem no campo "image_url". Se não houver, deixe como string vazia.
-4. Formate o preço estritamente como um número (ex: se for R$ 35,90 ou 35.90, retorne 35.90. Se for 12, retorne 12.00). Não inclua o símbolo "R$".
-5. Remova qualquer texto irrelevante ou de rodapé.
-6. Retorne a resposta estritamente no formato JSON, seguindo este esquema:
-[
-  {
-    "name": "Nome da Categoria",
-    "items": [
-      {
-        "name": "Nome do Prato",
-        "description": "Descrição detalhada ou ingredientes",
-        "price": 35.90,
-        "image_url": "URL da imagem ou string vazia"
-      }
-    ]
-  }
-]
-
-Estrutura XML do cardápio:
-${xmlContent}
-`;
-
-          let text = '';
-          if (aiModel === 'openai') {
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-              },
-              body: JSON.stringify({
-                model: 'gpt-4o-mini',
-                messages: [{ role: 'user', content: prompt }]
-              })
-            });
-
-            if (!response.ok) {
-              const errData = await response.json();
-              throw new Error(errData.error?.message || `Erro HTTP OpenAI: ${response.status}`);
+          const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
+            body: {
+              xmlContent,
+              aiModel,
+              userApiKey: apiKey
             }
+          });
 
-            const result = await response.json();
-            text = result.choices?.[0]?.message?.content || '';
-          } else {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                contents: [{
-                  parts: [{ text: prompt }]
-                }],
-                generationConfig: {
-                  responseMimeType: "application/json"
-                }
-              })
-            });
-
-            if (!response.ok) {
-              const errData = await response.json();
-              throw new Error(errData.error?.message || `Erro HTTP Gemini: ${response.status}`);
-            }
-
-            const result = await response.json();
-            text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          if (edgeError || !edgeData?.success) {
+            throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardápio com a IA do servidor.');
           }
 
-          if (text.includes('```json')) {
-            text = text.split('```json')[1].split('```')[0].trim();
-          } else if (text.includes('```')) {
-            text = text.split('```')[1].split('```')[0].trim();
-          }
-
-          let parsed = JSON.parse(text);
+          let parsed = edgeData.data;
 
           if (!Array.isArray(parsed) && parsed && typeof parsed === 'object') {
             const arrayKey = Object.keys(parsed).find(key => Array.isArray(parsed[key]));
@@ -1462,87 +1389,19 @@ ${xmlContent}
 
     setIsExtractingAI(true);
     try {
-      const prompt = `Você é um assistente de IA especialista em cardápios de restaurantes.
-Analise o seguinte texto bruto extraído de um cardápio (por exemplo, via transcrição ou OCR, ou o código fonte HTML/texto contendo links de imagens dos pratos) e organize-o em categorias, itens, descrições, preços e imagens dos pratos.
-
-Regras importantes:
-1. Identifique as categorias de forma lógica (ex: "Entradas", "Pratos Principais", "Hambúrgueres", "Bebidas", "Sobremesas").
-2. Para cada item, extraia o nome, a descrição (ingredientes, detalhes de tamanho, acompanhamentos) e o preço.
-3. Se houver links de imagem associados aos pratos no texto/código fonte colado (ex: URLs de imagem terminando em .png, .jpg, .jpeg, etc. ou atributos src de tags img), extraia-os exatamente no campo "image_url". Se não houver, deixe como string vazia.
-4. Formate o preço estritamente como um número (ex: se for R$ 35,90 ou 35.90, retorne 35.90. Se for 12, retorne 12.00). Não inclua o símbolo "R$".
-5. Remova qualquer texto irrelevante ou de rodapé.
-6. Retorne a resposta estritamente no formato JSON, seguindo este esquema:
-[
-  {
-    "name": "Nome da Categoria",
-    "items": [
-      {
-        "name": "Nome do Prato",
-        "description": "Descrição detalhada ou ingredientes",
-        "price": 35.90,
-        "image_url": "URL da imagem encontrada para o prato ou string vazia"
-      }
-    ]
-  }
-]
-
-Texto bruto do cardápio:
-${aiPastedContent}
-`;
-
-      let text = '';
-      if (aiModel === 'openai') {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [{ role: 'user', content: prompt }]
-          })
-        });
-
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error?.message || `Erro HTTP OpenAI: ${response.status}`);
+      const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
+        body: {
+          xmlContent: aiPastedContent,
+          aiModel,
+          userApiKey: apiKey
         }
+      });
 
-        const result = await response.json();
-        text = result.choices?.[0]?.message?.content || '';
-      } else {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{ text: prompt }]
-            }],
-            generationConfig: {
-              responseMimeType: "application/json"
-            }
-          })
-        });
-
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error?.message || `Erro HTTP Gemini: ${response.status}`);
-        }
-
-        const result = await response.json();
-        text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      if (edgeError || !edgeData?.success) {
+        throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardápio com a IA do servidor.');
       }
 
-      if (text.includes('```json')) {
-        text = text.split('```json')[1].split('```')[0].trim();
-      } else if (text.includes('```')) {
-        text = text.split('```')[1].split('```')[0].trim();
-      }
-
-      let parsed = JSON.parse(text);
+      let parsed = edgeData.data;
 
       if (!Array.isArray(parsed) && parsed && typeof parsed === 'object') {
         const arrayKey = Object.keys(parsed).find(key => Array.isArray(parsed[key]));
