@@ -11,7 +11,9 @@ serve(async (req) => {
   }
 
   try {
-    const { xmlContent, aiModel, userApiKey } = await req.json();
+    const body = await req.json();
+    const xmlContent = body.xmlContent;
+    const modelType = body.aiModel || body.provider || 'gemini';
 
     if (!xmlContent) {
       return new Response(JSON.stringify({ error: 'Falta o xmlContent.' }), {
@@ -20,10 +22,8 @@ serve(async (req) => {
       });
     }
 
-    const modelType = aiModel || 'gemini';
-
     // Obter chave da API
-    let apiKey = userApiKey || '';
+    let apiKey = body.userApiKey || body.apiKey || '';
     if (!apiKey) {
       if (modelType === 'gemini') {
         apiKey = Deno.env.get('GEMINI_API_KEY') || Deno.env.get('VITE_GEMINI_API_KEY') || '';

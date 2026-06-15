@@ -1255,38 +1255,45 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             );
           });
 
-          const xmlContent = scrapeResult.xmlContent;
-          addLog(`XML recebido da página: ${xmlContent ? xmlContent.length : 0} caracteres.`);
+          let parsed: any = null;
 
-          if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
-            addLog("Erro: XML extraído está vazio ou sem dados legíveis.");
-            throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
-          }
+          if (scrapeResult.isAnotaAi && scrapeResult.parsedMenu) {
+            addLog("Cardápio do Anota AI detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!");
+            parsed = scrapeResult.parsedMenu;
+          } else {
+            const xmlContent = scrapeResult.xmlContent;
+            addLog(`XML recebido da página: ${xmlContent ? xmlContent.length : 0} caracteres.`);
 
-          addLog(`Enviando conteúdo para IA do servidor (${aiModel}). Aguarde processamento...`);
-
-          const apiKey = aiModel === 'gemini' 
-            ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
-            : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
-
-          addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'Não (tentará chave global do servidor)'}`);
-
-          const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
-            body: {
-              xmlContent,
-              aiModel,
-              userApiKey: apiKey
+            if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
+              addLog("Erro: XML extraído está vazio ou sem dados legíveis.");
+              throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
             }
-          });
 
-          if (edgeError || !edgeData?.success) {
-            const errorMsg = edgeError?.message || edgeData?.error || 'Erro desconhecido.';
-            addLog(`Falha na IA do servidor: ${errorMsg}`);
-            throw new Error(errorMsg);
+            addLog(`Enviando conteúdo para IA do servidor (${aiModel}). Aguarde processamento...`);
+
+            const apiKey = aiModel === 'gemini' 
+              ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
+              : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
+
+            addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'Não (tentará chave global do servidor)'}`);
+
+            const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
+              body: {
+                xmlContent,
+                aiModel,
+                userApiKey: apiKey
+              }
+            });
+
+            if (edgeError || !edgeData?.success) {
+              const errorMsg = edgeError?.message || edgeData?.error || 'Erro desconhecido.';
+              addLog(`Falha na IA do servidor: ${errorMsg}`);
+              throw new Error(errorMsg);
+            }
+
+            parsed = edgeData.data;
+            addLog(`Dados estruturados recebidos com sucesso! Mapeando pratos e categorias...`);
           }
-
-          let parsed = edgeData.data;
-          addLog(`Dados estruturados recebidos com sucesso! Mapeando pratos e categorias...`);
 
           if (!Array.isArray(parsed) && parsed && typeof parsed === 'object') {
             const arrayKey = Object.keys(parsed).find(key => Array.isArray(parsed[key]));
@@ -1310,7 +1317,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               id: `item-${Date.now()}-${cIdx}-${iIdx}-${Math.random().toString(36).substring(2, 5)}`,
               name: item.name || '',
               description: item.description || '',
-              price: item.price ? Number(item.price) : 0,
+              price: item.price ? (typeof item.price === 'number' ? item.price : Number(String(item.price).replace(/[^\d.,]/g, '').replace(',', '.'))) : 0,
               image_url: item.image_url || ''
             }))
           }));

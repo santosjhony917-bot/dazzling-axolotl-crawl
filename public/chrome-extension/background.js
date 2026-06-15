@@ -631,6 +631,35 @@ async function handleMenuScrape(url, sender) {
       });
     });
 
+    // Verificação de Anota AI para extração estruturada direta pela API
+    const isAnotaAi = await detectAnotaAiInTab(tabId);
+    if (isAnotaAi) {
+      console.log("[Extension] Anota AI detectado! Tentando extrair diretamente da API...");
+      const slug = await getSlugFromTab(tabId);
+      if (slug) {
+        try {
+          const apiRes = await fetch(`https://api.anota.ai/v1/menu/merchant?slug=${slug}`);
+          if (apiRes.ok) {
+            const json = await apiRes.json();
+            const parsedMenu = parseAnotaAiMenu(json);
+            if (parsedMenu && parsedMenu.length > 0) {
+              console.log("[Extension] Sucesso ao extrair cardápio da API Anota AI!");
+              await chrome.tabs.remove(tabId);
+              return {
+                success: true,
+                isAnotaAi: true,
+                parsedMenu: parsedMenu
+              };
+            }
+          } else {
+            console.warn("[Extension] Falha ao chamar API do Anota AI, status:", apiRes.status);
+          }
+        } catch (apiErr) {
+          console.error("[Extension] Erro ao consumir API do Anota AI:", apiErr);
+        }
+      }
+    }
+
     // 3. Executa a lógica de scroll e expansão na página do cardápio
     try {
       await chrome.scripting.executeScript({
@@ -983,7 +1012,40 @@ function getCleanedHtmlForAIInPage() {
       let imgUrl = '';
       const imgEl = node.querySelector('img');
       if (imgEl) {
-        imgUrl = imgEl.getAttribute('src') || '';
+        const lazyAttrs = ['src', 'data-src', 'data-lazy-src', 'data-lazy', 'lazy-src', 'data-original', 'data-srcset'];
+        for (const attr of lazyAttrs) {
+          const val = imgEl.getAttribute(attr);
+          if (val && val.trim() && (val.startsWith('http') || val.startsWith('/') || val.startsWith('.'))) {
+            imgUrl = getAbsoluteUrl(val.trim());
+            break;
+          }
+        }
+      }
+      
+      // Fallback para background-image se não encontrou img ou o src do img está vazio
+      if (!imgUrl) {
+        const bgEls = [node, ...Array.from(node.querySelectorAll('*'))];
+        for (const el of bgEls) {
+          const style = el.getAttribute('style') || '';
+          if (style.includes('background-image')) {
+            const match = style.match(/url\(['"]?(https?:\/\/[^'"]+)['"]?\)/i) || style.match(/url\(['"]?([^'"]+)['"]?\)/i);
+            if (match && match[1]) {
+              imgUrl = getAbsoluteUrl(match[1]);
+              break;
+            }
+          }
+          try {
+            const compStyle = window.getComputedStyle(el);
+            const bgImg = compStyle.backgroundImage;
+            if (bgImg && bgImg !== 'none') {
+              const match = bgImg.match(/url\(['"]?(https?:\/\/[^'"]+)['"]?\)/i) || bgImg.match(/url\(['"]?([^'"]+)['"]?\)/i);
+              if (match && match[1]) {
+                imgUrl = getAbsoluteUrl(match[1]);
+                break;
+              }
+            }
+          } catch (_) {}
+        }
       }
       
       const itemText = node.textContent.replace(/\s+/g, ' ').trim();
@@ -998,4 +1060,171 @@ function getCleanedHtmlForAIInPage() {
   xml += '</menu>';
   
   return xml;
+}
+
+// Funções auxiliares para detecção e raspagem do Anota AI
+async function detectAnotaAiInTab(tabId) {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => {
+        const hasAnotaScript = !!document.querySelector('script[src*="anota.ai"]');
+        const hasAnotaLink = !!document.querySelector('link[href*="anota.ai"]');
+        const isAnotaHost = window.location.hostname.includes('anota.ai');
+        const hasAnotaDiv = !!document.querySelector('#anota-app') || !!document.querySelector('.anota-app') || !!document.querySelector('[id*="anota"]') || !!document.querySelector('[class*="anota"]');
+        return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv;
+      }
+    });
+    return !!(results && results[0] && results[0].result);
+  } catch (e) {
+    return false;
+  }
+}
+
+async function getSlugFromTab(tabId) {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => {
+        return window.location.pathname.split('/').filter(Boolean).pop() || '';
+      }
+    });
+    return results && results[0] ? results[0].result : '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function parseAnotaAiMenu(json) {
+  let menu = json;
+  if (json.data && json.data.menu) {
+    menu = json.data.menu;
+  }
+  
+  if (!menu || (!menu.menu && !menu.menu_aux)) {
+    return null;
+  }
+
+  const categories = [];
+  const menuAuxMap = new Map();
+  
+  if (Array.isArray(menu.menu_aux)) {
+    menu.menu_aux.forEach(cat => {
+      if (cat.category_id) {
+        menuAuxMap.set(cat.category_id, cat);
+      }
+    });
+  }
+  
+  const borderItemsMap = new Map();
+  
+  function formatAnotaImage(imagePath) {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) return imagePath;
+    return `https://client-assets.anota.ai/${imagePath}`;
+  }
+  
+  if (Array.isArray(menu.menu)) {
+    menu.menu.forEach(cat => {
+      const catName = cat.title || 'Geral';
+      const items = [];
+      
+      if (Array.isArray(cat.itens)) {
+        cat.itens.forEach(item => {
+          const itemName = item.title || '';
+          const itemPrice = item.price || item.minimal_price || 0;
+          const itemDesc = item.description || '';
+          const itemImage = formatAnotaImage(item.image || '');
+          
+          let flavorCategory = null;
+          let borderCategories = [];
+          
+          if (Array.isArray(item.next_steps)) {
+            item.next_steps.forEach(step => {
+              const auxCat = menuAuxMap.get(step.category);
+              if (auxCat) {
+                const auxTitle = (auxCat.title || '').toLowerCase();
+                if (auxTitle.includes('sabor') || auxTitle.includes('sabores')) {
+                  flavorCategory = auxCat;
+                } else if (auxTitle.includes('borda') || auxTitle.includes('massa') || auxTitle.includes('adicional')) {
+                  borderCategories.push(auxCat);
+                }
+              }
+            });
+          }
+          
+          const optionsList = [];
+          
+          if (flavorCategory && Array.isArray(flavorCategory.itens) && flavorCategory.itens.length > 0) {
+            optionsList.push({
+              title: flavorCategory.title || "Escolha o Sabor",
+              itens: flavorCategory.itens.map(fi => ({
+                name: fi.title || '',
+                price: fi.price || 0
+              }))
+            });
+          }
+          
+          borderCategories.forEach(bc => {
+            if (Array.isArray(bc.itens) && bc.itens.length > 0) {
+              optionsList.push({
+                title: bc.title || "Opcionais",
+                itens: bc.itens.map(bi => ({
+                  name: bi.title || '',
+                  price: bi.price || 0
+                }))
+              });
+            }
+          });
+          
+          let finalDesc = itemDesc;
+          if (optionsList.length > 0) {
+            finalDesc = JSON.stringify({
+              description: itemDesc,
+              options: optionsList
+            });
+          }
+          
+          items.push({
+            name: itemName,
+            price: itemPrice,
+            description: finalDesc,
+            image_url: itemImage
+          });
+          
+          borderCategories.forEach(bc => {
+            if (Array.isArray(bc.itens)) {
+              bc.itens.forEach(bi => {
+                if (bi.price > 0) {
+                  const key = `${bi.title}-${bi.price}`;
+                  borderItemsMap.set(key, {
+                    name: `Adicional: ${bi.title}`,
+                    price: bi.price,
+                    description: bi.description || '',
+                    image_url: formatAnotaImage(bi.image || '')
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
+      
+      if (items.length > 0) {
+        categories.push({
+          name: catName,
+          items: items
+        });
+      }
+    });
+  }
+  
+  if (borderItemsMap.size > 0) {
+    categories.push({
+      name: "Adicionais / Bordas",
+      items: Array.from(borderItemsMap.values())
+    });
+  }
+  
+  return categories;
 }
