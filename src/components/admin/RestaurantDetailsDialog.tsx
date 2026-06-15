@@ -1099,8 +1099,8 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       if (success) {
         showSuccess('Alterações salvas no Supabase!');
         setIsEditing(false);
-        window.dispatchEvent(new Event('local-sync-restaurants'));
-        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+        // Aguarda 800ms para evitar race condition entre o upsert e o reload da lista
+        await new Promise(resolve => setTimeout(resolve, 800));
         onSyncSuccess();
       } else {
         showError('Erro ao sincronizar com o banco de dados.');
@@ -1123,10 +1123,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       if (success) {
         showSuccess('Alterações salvas com sucesso no Supabase!');
         setIsEditing(false);
-        window.dispatchEvent(new Event('local-sync-restaurants'));
-        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
-        onSyncSuccess();
+        // Aguarda 800ms para garantir que o Supabase processou o upsert
+        // antes de fechar o dialog e recarregar a lista (evita race condition)
+        await new Promise(resolve => setTimeout(resolve, 800));
         onClose();
+        onSyncSuccess();
       } else {
         showError('Erro ao sincronizar com o banco de dados.');
       }
