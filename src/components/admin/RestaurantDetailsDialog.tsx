@@ -442,6 +442,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [editedData, setEditedData] = useState<any | null>(null);
   const [aiPastedContent, setAiPastedContent] = useState('');
   const [isExtractingAI, setIsExtractingAI] = useState(false);
+  const [extractionLogs, setExtractionLogs] = useState<string[]>([]);
   const [aiHoursPastedContent, setAiHoursPastedContent] = useState('');
   const [isExtractingHoursAI, setIsExtractingHoursAI] = useState(false);
   const [activeDialogTab, setActiveDialogTab] = useState<string>('preview');
@@ -1175,21 +1176,37 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     if (isUrl) {
       const formattedUrl = /^https?:\/\//i.test(content) ? content : `https://${content}`;
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      
       const extId = localStorage.getItem('chrome_extension_id')?.trim();
       let useExtension = false;
       
       setIsExtractingAI(true);
+      setExtractionLogs([]);
+      
+      const addLog = (msg: string) => {
+        const time = new Date().toLocaleTimeString();
+        setExtractionLogs(prev => [...prev, `[${time}] ${msg}`]);
+        console.log(`[IA Extrator] ${msg}`);
+      };
+
+      addLog("Iniciando extração do cardápio...");
+      addLog(`URL formatada: ${formattedUrl}`);
+      addLog(`ID da extensão configurada: ${extId || 'Nenhum'}`);
+      addLog(`Ambiente local? ${isLocalhost ? 'Sim' : 'Não'}`);
+
       try {
         if (extId) {
+          addLog("Verificando se a extensão está instalada e ativa...");
           useExtension = await checkExtensionInstalled(extId);
+          addLog(`Resultado da verificação: Extensão ativa? ${useExtension ? 'Sim' : 'Não'}`);
         }
 
         if (!isLocalhost && !useExtension) {
+          addLog("Erro: Extensão não detectada em produção (Vercel).");
           throw new Error('A extração direta por URL em nuvem (Vercel) precisa da Extensão do Chrome instalada e configurada com o ID correspondente no menu da extensão. Caso contrário, copie o texto do cardápio e cole aqui.');
         }
 
         // 1. Atualizar o link no Supabase
+        addLog("Sincronizando link do cardápio com o banco de dados...");
         const { error: updateError } = await supabase
           .from('restaurants')
           .update({
@@ -1199,20 +1216,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           .eq('id', restaurant.id);
 
         if (updateError) {
-          // Se for erro de violação de restrição única (código 23505), ignoramos para não travar a raspagem
           if (updateError.code === '23505') {
-            console.warn("A URL já está cadastrada em outro restaurante no banco de dados. Continuando extração de qualquer forma...");
+            addLog("Aviso: Link já cadastrado em outro restaurante (23505). Continuando mesmo assim...");
           } else {
+            addLog(`Erro ao atualizar URL no banco de dados: ${updateError.message}`);
             throw updateError;
           }
         }
 
         if (useExtension && extId) {
-          showSuccess('Link detectado! Coletando o cardápio através da extensão do Chrome...');
+          addLog("Enviando solicitação de leitura de página para a extensão...");
           
           const chromeObj = (window as any).chrome;
           const scrapeResult: any = await new Promise((resolve, reject) => {
             const timeoutId = setTimeout(() => {
+              addLog("Erro: Timeout de 35 segundos atingido esperando a extensão.");
               reject(new Error("Tempo limite excedido aguardando resposta da extensão. Certifique-se de que a extensão está ativada e atualizada no Chrome."));
             }, 35000); // 35 segundos de timeout
 
@@ -1222,11 +1240,15 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               (response: any) => {
                 clearTimeout(timeoutId);
                 const lastError = chromeObj.runtime.lastError;
+                
                 if (lastError) {
+                  addLog(`Erro de comunicação com a extensão: ${lastError.message}`);
                   reject(new Error("Erro na extensão: " + lastError.message));
                 } else if (response && response.success) {
+                  addLog("Página lida e estruturada com sucesso pela extensão!");
                   resolve(response);
                 } else {
+                  addLog(`Extensão retornou erro: ${response?.error || 'sem detalhes'}`);
                   reject(new Error(response?.error || "Falha na extração pela extensão."));
                 }
               }
@@ -1234,15 +1256,20 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           });
 
           const xmlContent = scrapeResult.xmlContent;
+          addLog(`XML recebido da página: ${xmlContent ? xmlContent.length : 0} caracteres.`);
+
           if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
+            addLog("Erro: XML extraído está vazio ou sem dados legíveis.");
             throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
           }
 
-          showSuccess('Cardápio coletado pela extensão! Processando com IA do servidor...');
+          addLog(`Enviando conteúdo para IA do servidor (${aiModel}). Aguarde processamento...`);
 
           const apiKey = aiModel === 'gemini' 
             ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
             : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
+
+          addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'Não (tentará chave global do servidor)'}`);
 
           const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
             body: {
@@ -1253,21 +1280,26 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           });
 
           if (edgeError || !edgeData?.success) {
-            throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardápio com a IA do servidor.');
+            const errorMsg = edgeError?.message || edgeData?.error || 'Erro desconhecido.';
+            addLog(`Falha na IA do servidor: ${errorMsg}`);
+            throw new Error(errorMsg);
           }
 
           let parsed = edgeData.data;
+          addLog(`Dados estruturados recebidos com sucesso! Mapeando pratos e categorias...`);
 
           if (!Array.isArray(parsed) && parsed && typeof parsed === 'object') {
             const arrayKey = Object.keys(parsed).find(key => Array.isArray(parsed[key]));
             if (arrayKey) {
               parsed = parsed[arrayKey];
             } else {
+              addLog("Erro: Formato retornado pela IA não é compatível com uma lista.");
               throw new Error('Formato retornado pela IA não é compatível com uma lista.');
             }
           }
 
           if (!Array.isArray(parsed)) {
+            addLog("Erro: A resposta da IA não retornou uma lista.");
             throw new Error('A resposta da IA não retornou uma lista.');
           }
 
@@ -1288,6 +1320,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             menu_categories: formattedCategories
           }));
 
+          addLog(`Extração concluída com sucesso! ${formattedCategories.length} categorias extraídas.`);
           showSuccess(`Sucesso! Extensão + IA extraíram ${formattedCategories.length} categorias do cardápio.`);
           setAiPastedContent('');
           setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
@@ -1295,18 +1328,22 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
         } else {
           // Fallback para o robô do servidor local
+          addLog("Iniciando fallback do robô local...");
           showSuccess('Iniciando o robô extrator local...');
           const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
             method: 'POST'
           });
 
           if (!res.ok) {
+            addLog("Falha na comunicação com o servidor local.");
             throw new Error('Falha na comunicação com o servidor local.');
           }
 
           const data = await res.json();
+          addLog(`Resposta do robô local: ${data.success ? 'Sucesso' : 'Falha'}`);
+
           if (data.success) {
-            showSuccess('Cardápio extraído com sucesso pelo robô local!');
+            addLog("Cardápio extraído com sucesso pelo robô local! Atualizando dados do restaurante...");
             
             // Buscar os dados atualizados do restaurante direto do Supabase
             const { data: updatedRest, error: fetchError } = await supabase
@@ -1370,17 +1407,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               setEditedData(mapped);
               setIsEditing(true);
               setActiveDialogTab('edit');
+              addLog("Dados atualizados com sucesso!");
             }
 
             onSyncSuccess();
           } else {
+            addLog(`O robô local falhou: ${data.error || 'Erro desconhecido.'}`);
             showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
           }
         }
       } catch (err: any) {
+        addLog(`EXCEPTION capturada no fluxo principal: ${err.message}`);
         showError('Erro ao executar a extração: ' + err.message);
       } finally {
         setIsExtractingAI(false);
+        addLog("Fluxo finalizado.");
       }
       return;
     }
@@ -3092,6 +3133,35 @@ ${aiHoursPastedContent}
                   )}
                 </Button>
               </div>
+
+              {extractionLogs.length > 0 && (
+                <div className="mt-4 p-3 bg-slate-900 text-slate-100 rounded-xl font-mono text-[10px] leading-relaxed max-h-[220px] overflow-y-auto space-y-1 select-text border border-slate-800 shadow-inner">
+                  <div className="text-[10px] text-slate-400 font-bold border-b border-slate-800 pb-1 mb-1.5 flex justify-between items-center">
+                    <span>CONSOLE DE RASPAGEM (IA)</span>
+                    <button 
+                      onClick={() => setExtractionLogs([])} 
+                      className="text-slate-500 hover:text-slate-300 transition-colors uppercase text-[9px] font-bold"
+                    >
+                      Limpar
+                    </button>
+                  </div>
+                  {extractionLogs.map((log, idx) => {
+                    let logColor = 'text-emerald-400';
+                    if (log.includes('Erro') || log.includes('Falha') || log.includes('EXCEPTION')) {
+                      logColor = 'text-rose-400 font-bold';
+                    } else if (log.includes('Aviso') || log.includes('Timeout')) {
+                      logColor = 'text-amber-400';
+                    } else if (log.includes('Iniciando') || log.includes('Sincronizando') || log.includes('Enviando')) {
+                      logColor = 'text-sky-300';
+                    }
+                    return (
+                      <div key={idx} className={`${logColor} break-all`}>
+                        {log}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </TabsContent>
           </ScrollArea>
 
