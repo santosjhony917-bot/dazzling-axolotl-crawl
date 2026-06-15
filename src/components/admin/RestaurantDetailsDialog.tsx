@@ -1205,10 +1205,15 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           
           const chromeObj = (window as any).chrome;
           const scrapeResult: any = await new Promise((resolve, reject) => {
+            const timeoutId = setTimeout(() => {
+              reject(new Error("Tempo limite excedido aguardando resposta da extensão. Certifique-se de que a extensão está ativada e atualizada no Chrome."));
+            }, 35000); // 35 segundos de timeout
+
             chromeObj.runtime.sendMessage(
               extId,
               { action: "scrapeMenu", url: formattedUrl },
               (response: any) => {
+                clearTimeout(timeoutId);
                 const lastError = chromeObj.runtime.lastError;
                 if (lastError) {
                   reject(new Error("Erro na extensão: " + lastError.message));

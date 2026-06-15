@@ -601,28 +601,34 @@ async function handleMenuScrape(url, sender) {
   }
   
   try {
-    // 2. Aguarda o carregamento completo da aba
+    // 2. Aguarda o carregamento completo da aba usando listeners (muito mais estável)
     await new Promise((resolve, reject) => {
-      let tries = 0;
-      const checkStatus = () => {
-        chrome.tabs.get(tabId, (currentTab) => {
-          if (chrome.runtime.lastError) {
-            reject(new Error("A aba do cardápio foi fechada."));
-            return;
-          }
-          if (currentTab.status === 'complete') {
+      // Verifica o status inicial
+      chrome.tabs.get(tabId, (currentTab) => {
+        if (chrome.runtime.lastError || !currentTab) {
+          reject(new Error("A aba do cardápio foi fechada ou não pôde ser lida."));
+          return;
+        }
+        if (currentTab.status === 'complete') {
+          resolve();
+          return;
+        }
+        
+        // Configura o listener de atualização
+        const listener = (changeTabId, changeInfo) => {
+          if (changeTabId === tabId && changeInfo.status === 'complete') {
+            chrome.tabs.onUpdated.removeListener(listener);
             resolve();
-          } else {
-            tries++;
-            if (tries > 60) { // 30 segundos de timeout
-              reject(new Error("Tempo limite esgotado esperando o cardápio carregar."));
-            } else {
-              setTimeout(checkStatus, 500);
-            }
           }
-        });
-      };
-      setTimeout(checkStatus, 1000);
+        };
+        chrome.tabs.onUpdated.addListener(listener);
+        
+        // Timeout de segurança de 15 segundos para prosseguir mesmo se travar o carregamento de imagens/assets lentos
+        setTimeout(() => {
+          chrome.tabs.onUpdated.removeListener(listener);
+          resolve(); // Resolve para tentar raspar o que já carregou
+        }, 15000);
+      });
     });
 
     // 3. Executa a lógica de scroll e expansão na página do cardápio
