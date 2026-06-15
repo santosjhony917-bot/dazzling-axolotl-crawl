@@ -631,6 +631,10 @@ async function handleMenuScrape(url, sender) {
       });
     });
 
+    // Aguarda a renderização dos pratos na página (Vite/React/Vue mount)
+    console.log("[Extension] Aguardando renderização do cardápio...");
+    await waitForMenuToLoad(tabId);
+
     // Verificação de Anota AI para extração estruturada direta pela API
     const isAnotaAi = await detectAnotaAiInTab(tabId);
     if (isAnotaAi) {
@@ -1063,6 +1067,29 @@ function getCleanedHtmlForAIInPage() {
 }
 
 // Funções auxiliares para detecção e raspagem do Anota AI
+async function waitForMenuToLoad(tabId) {
+  const maxAttempts = 30; // 15 segundos max (500ms * 30)
+  for (let i = 0; i < maxAttempts; i++) {
+    try {
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: () => {
+          const hasPrice = document.body.textContent.includes('R$') || document.body.textContent.includes('$');
+          const hasCards = document.querySelectorAll('button, a, div[class*="item"], div[class*="card"], div[class*="product"]').length > 10;
+          const loader = document.getElementById('initial-splash-screen-loader') || document.querySelector('[class*="loader"]');
+          const isLoaderHidden = !loader || window.getComputedStyle(loader).display === 'none' || window.getComputedStyle(loader).opacity === '0';
+          return hasPrice && hasCards && isLoaderHidden;
+        }
+      });
+      if (results && results[0] && results[0].result) {
+        return true;
+      }
+    } catch (_) {}
+    await new Promise(r => setTimeout(r, 500));
+  }
+  return false;
+}
+
 async function detectAnotaAiInTab(tabId) {
   try {
     const results = await chrome.scripting.executeScript({
@@ -1072,7 +1099,8 @@ async function detectAnotaAiInTab(tabId) {
         const hasAnotaLink = !!document.querySelector('link[href*="anota.ai"]');
         const isAnotaHost = window.location.hostname.includes('anota.ai');
         const hasAnotaDiv = !!document.querySelector('#anota-app') || !!document.querySelector('.anota-app') || !!document.querySelector('[id*="anota"]') || !!document.querySelector('[class*="anota"]');
-        return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv;
+        const hasAnotaWindow = !!window.companySlug || !!window.companyId;
+        return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv || hasAnotaWindow;
       }
     });
     return !!(results && results[0] && results[0].result);
@@ -1086,7 +1114,7 @@ async function getSlugFromTab(tabId) {
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: () => {
-        return window.location.pathname.split('/').filter(Boolean).pop() || '';
+        return window.companySlug || window.location.pathname.split('/').filter(Boolean).pop() || '';
       }
     });
     return results && results[0] ? results[0].result : '';
