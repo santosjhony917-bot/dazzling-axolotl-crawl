@@ -1094,12 +1094,13 @@ async function detectAnotaAiInTab(tabId) {
   try {
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
+      world: 'MAIN',
       func: () => {
         const hasAnotaScript = !!document.querySelector('script[src*="anota.ai"]');
         const hasAnotaLink = !!document.querySelector('link[href*="anota.ai"]');
         const isAnotaHost = window.location.hostname.includes('anota.ai');
         const hasAnotaDiv = !!document.querySelector('#anota-app') || !!document.querySelector('.anota-app') || !!document.querySelector('[id*="anota"]') || !!document.querySelector('[class*="anota"]');
-        const hasAnotaWindow = !!window.companySlug || !!window.companyId;
+        const hasAnotaWindow = !!window.companySlug || !!window.companyId || !!window.companyUuid;
         return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv || hasAnotaWindow;
       }
     });
@@ -1113,6 +1114,7 @@ async function getSlugFromTab(tabId) {
   try {
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
+      world: 'MAIN',
       func: () => {
         return window.companySlug || window.location.pathname.split('/').filter(Boolean).pop() || '';
       }
