@@ -1257,8 +1257,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
           let parsed: any = null;
 
-          if (scrapeResult.isAnotaAi && scrapeResult.parsedMenu) {
-            addLog("Cardápio do Anota AI detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!");
+          if ((scrapeResult.isAnotaAi || scrapeResult.isCardapioWeb) && scrapeResult.parsedMenu) {
+            const platformName = scrapeResult.isAnotaAi ? "Anota AI" : "Cardápio Web";
+            addLog(`Cardápio do ${platformName} detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!`);
             parsed = scrapeResult.parsedMenu;
           } else {
             const xmlContent = scrapeResult.xmlContent;

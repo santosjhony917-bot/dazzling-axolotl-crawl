@@ -664,6 +664,45 @@ async function handleMenuScrape(url, sender) {
       }
     }
 
+    // Verificação de Cardápio Web para extração estruturada direta pela API
+    const isCardapioWeb = await detectCardapioWebInTab(tabId);
+    if (isCardapioWeb) {
+      console.log("[Extension] Cardápio Web detectado! Tentando extrair diretamente da API...");
+      const details = await getCardapioWebDetailsFromTab(tabId);
+      if (details && details.companySlug && details.companyId) {
+        try {
+          const sessionid = "session_" + Math.random().toString(36).substring(2, 11);
+          const apiRes = await fetch(
+            `https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo`,
+            {
+              headers: {
+                'company': details.companySlug,
+                'company-id': String(details.companyId),
+                'sessionid': sessionid
+              }
+            }
+          );
+          if (apiRes.ok) {
+            const json = await apiRes.json();
+            const parsedMenu = parseCardapioWebMenu(json);
+            if (parsedMenu && parsedMenu.length > 0) {
+              console.log("[Extension] Sucesso ao extrair cardápio da API Cardápio Web!");
+              await chrome.tabs.remove(tabId);
+              return {
+                success: true,
+                isCardapioWeb: true,
+                parsedMenu: parsedMenu
+              };
+            }
+          } else {
+            console.warn("[Extension] Falha ao chamar API do Cardápio Web, status:", apiRes.status);
+          }
+        } catch (apiErr) {
+          console.error("[Extension] Erro ao consumir API do Cardápio Web:", apiErr);
+        }
+      }
+    }
+
     // 3. Executa a lógica de scroll e expansão na página do cardápio
     try {
       await chrome.scripting.executeScript({
@@ -1100,13 +1139,50 @@ async function detectAnotaAiInTab(tabId) {
         const hasAnotaLink = !!document.querySelector('link[href*="anota.ai"]');
         const isAnotaHost = window.location.hostname.includes('anota.ai');
         const hasAnotaDiv = !!document.querySelector('#anota-app') || !!document.querySelector('.anota-app') || !!document.querySelector('[id*="anota"]') || !!document.querySelector('[class*="anota"]');
-        const hasAnotaWindow = !!window.companySlug || !!window.companyId || !!window.companyUuid;
-        return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv || hasAnotaWindow;
+        return hasAnotaScript || hasAnotaLink || isAnotaHost || hasAnotaDiv;
       }
     });
     return !!(results && results[0] && results[0].result);
   } catch (e) {
     return false;
+  }
+}
+
+async function detectCardapioWebInTab(tabId) {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      world: 'MAIN',
+      func: () => {
+        const hasCwScript = !!document.querySelector('script[src*="cardapioweb"]') || !!document.querySelector('script[src*="cardapio-web"]');
+        const hasCwLink = !!document.querySelector('link[href*="cardapioweb"]') || !!document.querySelector('link[href*="cardapio-web"]');
+        const isCwHost = window.location.hostname.includes('cardapioweb');
+        const hasCwWindow = !!window.webpackJsonpcardapio_web_menu || !!window.webpackJsonpcardapio_web_menu_aux || !!window.webpackJsonpcardapio_web || !!Object.keys(window).find(k => k.includes('cardapio-web') || k.includes('cardapioweb'));
+        const hasCwStorage = localStorage.getItem('@cardapio-web-menu/session_id') !== null || !!Object.keys(localStorage).find(k => k.includes('cardapio-web') || k.includes('cardapioweb') || k.startsWith('cw.'));
+        return hasCwScript || hasCwLink || isCwHost || hasCwWindow || hasCwStorage;
+      }
+    });
+    return !!(results && results[0] && results[0].result);
+  } catch (e) {
+    return false;
+  }
+}
+
+async function getCardapioWebDetailsFromTab(tabId) {
+  try {
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      world: 'MAIN',
+      func: () => {
+        return {
+          companySlug: window.companySlug || window.location.pathname.split('/').filter(Boolean).pop() || '',
+          companyId: window.companyId || ''
+        };
+      }
+    });
+    return results && results[0] ? results[0].result : null;
+  } catch (e) {
+    return null;
   }
 }
 
@@ -1248,6 +1324,106 @@ function parseAnotaAiMenu(json) {
       }
     });
   }
+  
+  if (borderItemsMap.size > 0) {
+    categories.push({
+      name: "Adicionais / Bordas",
+      items: Array.from(borderItemsMap.values())
+    });
+  }
+  
+  return categories;
+}
+
+function parseCardapioWebMenu(json) {
+  if (!Array.isArray(json)) return null;
+  
+  const categories = [];
+  const borderItemsMap = new Map();
+  
+  json.forEach(cat => {
+    if (cat.status !== 'ACTIVE') return;
+    
+    const catName = cat.name || 'Geral';
+    const items = [];
+    
+    if (Array.isArray(cat.items)) {
+      cat.items.forEach(item => {
+        if (item.status !== 'ACTIVE') return;
+        
+        const itemName = item.name || '';
+        const itemDesc = item.description || '';
+        
+        // Calcular preço
+        let itemPrice = item.price || 0;
+        if (item.promotional_price_active && typeof item.promotional_price === 'number') {
+          itemPrice = item.promotional_price;
+        }
+        
+        // URL da imagem
+        const itemImage = item.image_url || item.thumbnail_url || '';
+        
+        // Adicionais / Opcionais
+        const optionsList = [];
+        if (Array.isArray(item.add_ons)) {
+          item.add_ons.forEach(addOn => {
+            if (addOn.status === 'ACTIVE' && Array.isArray(addOn.subitems) && addOn.subitems.length > 0) {
+              optionsList.push({
+                title: addOn.name || 'Opcionais',
+                itens: addOn.subitems
+                  .filter(sub => sub.status === 'ACTIVE')
+                  .map(sub => ({
+                    name: sub.name || '',
+                    price: sub.price || 0
+                  }))
+              });
+            }
+          });
+        }
+        
+        let finalDesc = itemDesc;
+        if (optionsList.length > 0) {
+          finalDesc = JSON.stringify({
+            description: itemDesc,
+            options: optionsList
+          });
+        }
+        
+        items.push({
+          name: itemName,
+          price: itemPrice,
+          description: finalDesc,
+          image_url: itemImage
+        });
+        
+        // Coletar adicionais globalmente
+        if (Array.isArray(item.add_ons)) {
+          item.add_ons.forEach(addOn => {
+            if (addOn.status === 'ACTIVE' && Array.isArray(addOn.subitems)) {
+              addOn.subitems.forEach(sub => {
+                if (sub.status === 'ACTIVE' && sub.price > 0) {
+                  const key = `${sub.name}-${sub.price}`;
+                  borderItemsMap.set(key, {
+                    name: `Adicional: ${sub.name}`,
+                    price: sub.price,
+                    description: sub.description || '',
+                    image_url: sub.image_url || sub.thumbnail_url || ''
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+    
+    if (items.length > 0) {
+      categories.push({
+        name: catName,
+        items: items
+      });
+    }
+  });
   
   if (borderItemsMap.size > 0) {
     categories.push({
