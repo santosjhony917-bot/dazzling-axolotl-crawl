@@ -332,9 +332,9 @@ const Home: React.FC = () => {
       {/* Cabeçalho */}
       <div className="px-5 mb-6 flex justify-between items-start">
         <div className="flex flex-col min-w-0 pr-2">
-          <h1 className="font-['Lobster'] text-[45px] text-[#3C2F2F] leading-tight">
-            FilterFood
-          </h1>
+          <div className="bg-gradient-to-r from-[#FF7E40] to-[#EF2A39] rounded-2xl px-4 py-1.5 inline-flex items-center mb-0.5">
+            <img src="/assets/filterfood-logo.png" alt="FilterFood" className="h-7 w-auto" />
+          </div>
           {/* Seletor de localização interativo */}
           <button
             onClick={() => setIsLocationModalOpen(true)}
