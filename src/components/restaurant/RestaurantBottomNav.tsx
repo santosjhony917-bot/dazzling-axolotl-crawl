@@ -94,8 +94,8 @@ const RestaurantBottomNav = memo(({ isFree, isAiOpen, onToggleAi }: { isFree: bo
               type="button"
               onClick={onToggleAi}
               className={cn(
-                "flex items-center justify-center w-[64px] h-[64px] rounded-full shadow-[0px_4px_12px_rgba(239,42,57,0.45)] hover:scale-105 transition-all duration-300 border-none cursor-pointer outline-none bg-gradient-to-tr from-[#FF7E40] to-[#EF2A39]",
-                isAiOpen && "rotate-45 scale-95"
+                "flex items-center justify-center w-[64px] h-[64px] bg-[#EF2A39] rounded-full shadow-[0px_4px_12px_rgba(0,0,0,0.25)] hover:scale-105 transition-all duration-300 border-none cursor-pointer outline-none",
+                isAiOpen && "rotate-45 scale-95 bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40]"
               )}
             >
               <Sparkles className="w-7 h-7 text-white stroke-[3]" />
