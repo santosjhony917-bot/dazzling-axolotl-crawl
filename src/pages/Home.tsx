@@ -13,7 +13,6 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { useAuthData } from '@/context/AuthContext';
 import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
-import FilterFoodLogo from '@/components/FilterFoodLogo';
 import { cn } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
 import {
@@ -333,8 +332,9 @@ const Home: React.FC = () => {
       {/* Cabeçalho */}
       <div className="px-5 mb-6 flex justify-between items-start">
         <div className="flex flex-col min-w-0 pr-2">
-          <FilterFoodLogo iconSize={30} fontSize={28} className="mb-0.5" />
-
+          <h1 className="font-['Lobster'] text-[45px] text-[#3C2F2F] leading-tight">
+            FilterFood
+          </h1>
           {/* Seletor de localização interativo */}
           <button
             onClick={() => setIsLocationModalOpen(true)}

@@ -6,8 +6,6 @@ import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import { base44 } from '@/api/base44Client';
 import { showError } from '@/utils/toast';
-import FilterFoodLogo from '@/components/FilterFoodLogo';
-
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -40,8 +38,14 @@ export default function Welcome() {
           <div className="w-full bg-[#FAFAFA] min-h-[58%] rounded-t-[36px] p-6 pt-8 flex flex-col items-center text-center border-t border-slate-100/50 shadow-[0_-12px_40px_rgba(0,0,0,0.05)]">
             
             {/* Logo */}
-            <FilterFoodLogo iconSize={36} fontSize={34} />
-
+            <motion.h1 
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="font-['Lobster'] text-[48px] text-[#EF2A39] leading-tight drop-shadow-[0_2px_5px_rgba(0,0,0,0.04)] mt-2"
+            >
+              FilterFood
+            </motion.h1>
 
             {/* Welcome Text */}
             <motion.div 
