@@ -4,7 +4,7 @@ import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { 
   ArrowLeft, 
   MessageSquare, 
@@ -21,7 +21,8 @@ import {
   Settings,
   Crown,
   Share2,
-  Copy
+  Copy,
+  Calendar
 } from 'lucide-react';
 import { 
   getHappyHourDetails, 
