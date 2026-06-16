@@ -238,7 +238,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
       {/* Lightbox Modal para visualização expandida com suporte a deslizar e limite de largura */}
       {currentIndex !== null && (
         <div 
-          className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 bg-black/95 flex flex-col justify-between items-center select-none"
+          className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full md:max-w-5xl max-w-md z-50 bg-black/95 flex flex-col justify-between items-center select-none"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
