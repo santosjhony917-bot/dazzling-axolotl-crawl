@@ -11,11 +11,11 @@ const NavItem = memo(({ icon: Icon, path, isSelected }: { icon: React.ElementTyp
       to={path}
       className="flex flex-col items-center justify-center gap-1 w-10 h-10 relative"
     >
-      <Icon className={cn("w-5.5 h-5.5 transition-all", isSelected ? "text-white fill-white" : "text-white/70 stroke-[2.5]")} />
+      <Icon className={cn("w-5.5 h-5.5 transition-all", isSelected ? "text-[#EF2A39] fill-[#EF2A39]" : "text-slate-400 stroke-[2.5]")} />
       {isSelected && (
         <motion.div 
           layoutId="nav-indicator"
-          className="w-1 h-1 bg-white rounded-full absolute -bottom-0.5"
+          className="w-1 h-1 bg-[#EF2A39] rounded-full absolute -bottom-0.5"
         />
       )}
     </Link>
@@ -37,7 +37,7 @@ const RestaurantBottomNav = memo(({ isFree, isAiOpen, onToggleAi }: { isFree: bo
       <div className="w-full max-w-md mx-auto h-[70px] pointer-events-auto bg-transparent relative">
         
         {/* SVG Background - Perfectly Symmetric and Clean */}
-        <div className="absolute inset-0 z-0 pointer-events-none translate-y-2">
+        <div className="absolute inset-0 z-0 pointer-events-none translate-y-2 backdrop-blur-md">
           <svg 
             width="100%" 
             height="70" 
@@ -45,11 +45,11 @@ const RestaurantBottomNav = memo(({ isFree, isAiOpen, onToggleAi }: { isFree: bo
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
             preserveAspectRatio="none" 
-            className="w-full h-full object-fill filter drop-shadow-[0px_-4px_8px_rgba(239,42,57,0.12)] overflow-visible"
+            className="w-full h-full object-fill filter drop-shadow-[0px_-4px_16px_rgba(0,0,0,0.06)] overflow-visible"
           >
             <path 
               d="M 0 0 L 170 0 C 177 0, 183 4, 186 10 C 193 25, 207 35, 225 35 C 243 35, 257 25, 264 10 C 267 4, 273 0, 280 0 L 450 0 L 450 70 L 0 70 Z" 
-              fill="#EF2A39"
+              fill="rgba(255, 255, 255, 0.85)"
             />
           </svg>
         </div>

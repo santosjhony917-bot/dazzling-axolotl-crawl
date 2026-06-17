@@ -38,15 +38,13 @@ const SharedLayoutWrapper: React.FC = () => {
   return (
     <div className={cn(
       "min-h-screen w-full flex flex-col items-center justify-start transition-colors duration-200",
-      isUpgradePage ? "bg-[#090D1A]" : "bg-[#f1f5f9]"
+      isUpgradePage ? "bg-[#090D1A]" : "" // Deixa vazio para usar o background do body
     )}>
       {/* Main content area */}
       <main
         className={cn(
-          "flex-grow mx-auto w-full min-h-screen flex flex-col shadow-none transition-colors duration-200 relative",
+          "mobile-viewport-container flex-grow mx-auto w-full flex flex-col transition-colors duration-200 relative",
           isUpgradePage ? "bg-[#090D1A]" : "bg-background-light",
-          !isPublicRestaurantProfile && "max-w-md border-x",
-          !isPublicRestaurantProfile && (isUpgradePage ? "border-white/5" : "border-slate-200/60"),
           !hideBottomNav && "pb-24"
         )}
       >

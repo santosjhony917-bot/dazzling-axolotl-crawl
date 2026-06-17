@@ -59,13 +59,9 @@ export default function Splash() {
           transition={{ duration: 1.5, ease: "easeInOut" }} 
           className="text-center px-8"
         >
-          <div className="mx-auto max-w-[520px]">
-            <img 
-              src={LOGO_URL} 
-              alt="FilterFood Logo" 
-              className="w-64 h-auto mx-auto drop-shadow-none" 
-            />
-          </div>
+          <h1 className="font-['Lobster'] text-[56px] text-white leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
+            FilterFood
+          </h1>
         </motion.div>
         
         {/* Indicador de carregamento enquanto isLoading ou isRestaurantLoading é true */}

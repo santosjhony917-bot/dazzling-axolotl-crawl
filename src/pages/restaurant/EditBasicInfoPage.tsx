@@ -13,7 +13,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PageHeader } from '@/components/PageHeader';
+import Header from '@/components/Header';
+import { ArrowLeft } from 'lucide-react';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -89,7 +90,7 @@ const EditBasicInfoPage = () => {
       <Helmet>
         <title>Editar Informações Básicas - {restaurant?.name}</title>
       </Helmet>
-      <PageHeader title="Nome e Categoria" backLink={`/restaurant/${id}/settings`} />
+      <Header title="Nome e Categoria" leftAction={{ icon: ArrowLeft, onClick: () => navigate(`/restaurant/${id}/settings`) }} />
       <div className="container mx-auto px-4 py-8">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

@@ -863,23 +863,12 @@ export default function SearchUnifiedPage() {
 
   return (
     <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins'] relative">
-      {/* Cabeçalho customizado (Sticky no Topo) */}
-      <div className="px-5 pt-6 pb-4 bg-white sticky top-0 z-30 border-b border-slate-100 shadow-sm w-full">
-        <div className="flex items-center gap-3 mb-1">
-          <button
-            onClick={handleBack}
-            className="w-9 h-9 rounded-full bg-[#F1F3F5] flex items-center justify-center text-[#3C2F2F] hover:bg-[#E5E7EB] active:scale-90 transition-all"
-          >
-            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-          </button>
-          <div>
-            <h1 className="text-[22px] font-bold text-[#3C2F2F] leading-tight">Buscar</h1>
-            <p className="text-[13px] text-[#9CA3AF] font-medium leading-none mt-0.5">Encontre pratos e restaurantes</p>
-          </div>
-        </div>
-
-        {/* Search input */}
-        <div className="mt-4 relative z-20">
+      <Header
+        title="Buscar"
+        subtitle="Encontre pratos e restaurantes"
+        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+      >
+        <div className="relative z-20">
           <SoftSearchInput
             placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
             value={searchQuery}
@@ -887,8 +876,7 @@ export default function SearchUnifiedPage() {
             onSubmitAction={handleSearchSubmit}
           />
         </div>
-      </div>
-
+      </Header>
       <div className="flex-grow w-full pb-8">
         {isSubmitted ? pageContent : renderSuggestions()}
       </div>

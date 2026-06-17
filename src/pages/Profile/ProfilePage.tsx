@@ -12,16 +12,19 @@ import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { PROFILES_BUCKET } from '@/integrations/supabase/storage';
 import { Settings, LogOut, ArrowLeft, Edit, FileText, MapPin, Clock, Utensils, ImageIcon as GalleryIcon, Globe, CreditCard, Briefcase, Phone } from 'lucide-react';
 import { Restaurant } from '@/types/supabase';
+import Header from '@/components/Header';
 
 const SettingsCard = ({ title, description, link, icon: Icon }) => (
-  <Link to={link} className="block p-4 bg-white rounded-xl shadow-none hover:shadow-none transition-shadow border border-gray-200">
+  <Link to={link} className="block p-4 bg-white rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 border border-slate-100">
     <div className="flex items-center">
-      <Icon className="w-6 h-6 mr-4 text-primary" />
-      <div>
-        <h3 className="font-semibold text-lg">{title}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
+      <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39] mr-4">
+        <Icon className="w-5 h-5" />
       </div>
-      <Edit className="w-5 h-5 ml-auto text-gray-400" />
+      <div>
+        <h3 className="font-semibold text-base text-[#3C2F2F] leading-tight">{title}</h3>
+        <p className="text-[13px] text-slate-500 mt-0.5">{description}</p>
+      </div>
+      <Edit className="w-4 h-4 ml-auto text-slate-300" />
     </div>
   </Link>
 );
@@ -100,22 +103,16 @@ const ProfilePage = () => {
       <Helmet>
         <title>Meu Perfil</title>
       </Helmet>
-      <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="p-2 -ml-2">
-              <ArrowLeft />
-            </Link>
-            <h1 className="text-lg font-semibold flex items-center gap-2">
-              <Settings className="w-5 h-5" />
-              Configurações do Perfil
-            </h1>
-            <Button variant="ghost" size="icon" onClick={handleLogout}>
-              <LogOut className="w-5 h-5" />
-            </Button>
+      <Header
+        title={
+          <div className="flex items-center gap-2">
+            <Settings className="w-5 h-5" />
+            Configurações do Perfil
           </div>
-        </div>
-      </div>
+        }
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate('/') }}
+        rightAction={{ icon: LogOut, onClick: handleLogout }}
+      />
 
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col items-center mb-8">

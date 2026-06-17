@@ -63,13 +63,11 @@ const FreeProfileLayout = ({
       )}>
         <div className="px-4 pb-2">
           {/* Card simples para agrupar as informações básicas do restaurante no plano Free */}
-          <Card className="p-5 border border-gray-100 bg-white rounded-2xl shadow-none text-center flex flex-col items-center w-full">
-            {/* Logo do Restaurante - Condicionalmente visível apenas para premium */}
-            {isPremium && (
-              <div className="mb-4">
-                <RestaurantLogo logoUrl={restaurant.image_url} size="lg" />
-              </div>
-            )}
+          <Card className="p-6 border border-slate-200 bg-white rounded-3xl shadow-sm text-center flex flex-col items-center w-full">
+            {/* Logo do Restaurante - Sempre visível, mas um pouco menor no free */}
+            <div className="mb-4">
+              <RestaurantLogo logoUrl={restaurant.image_url} size="md" />
+            </div>
 
             {/* Conteúdo do cabeçalho */}
             <div className="flex flex-col items-center">

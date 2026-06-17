@@ -14,6 +14,9 @@ import { toast } from 'sonner';
 import { supabase } from '../integrations/supabase/client';
 import { ImageUploadButton } from '../components/ImageUploadButton';
 import { USER_AVATAR_BUCKET } from '@/integrations/supabase/storage';
+import { useNavigate } from 'react-router-dom';
+import Header from '@/components/Header';
+import { ArrowLeft } from 'lucide-react';
 
 const profileSchema = z.object({
   first_name: z.string().min(1, 'Nome é obrigatório'),
@@ -24,6 +27,7 @@ const profileSchema = z.object({
 
 const ProfileSettings = () => {
   const { user, isLoading, mutate } = useUser();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -78,11 +82,11 @@ const ProfileSettings = () => {
       <Helmet>
         <title>Configurações do Perfil - Restaurantes</title>
       </Helmet>
+      <Header
+        title="Configurações do Perfil"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+      />
       <div className="container mx-auto px-4 py-8">
-        <div className="sticky top-0 z-[100] bg-white pb-4">
-          <h1 className="text-3xl font-bold">Configurações do Perfil</h1>
-        </div>
-
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="relative z-0 w-32 h-32 mx-auto mb-6">

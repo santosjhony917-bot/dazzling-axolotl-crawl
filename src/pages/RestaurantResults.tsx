@@ -8,6 +8,7 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { createPageUrl } from '@/utils/url';
 import { useAuthData } from '@/context/AuthContext'; // Importar useAuthData
+import Header from '@/components/Header';
 
 const RestaurantResults: React.FC = () => {
   const location = useLocation();
@@ -62,14 +63,10 @@ const RestaurantResults: React.FC = () => {
 
   return (
     <div className="bg-background-light min-h-screen">
-      <header className="bg-white p-4 shadow-none sticky top-0 z-10">
-        <div className="flex items-center gap-2 mb-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="text-xl font-extrabold text-primary tracking-tight">Resultados da Busca</h1>
-        </div>
-
+      <Header
+        title="Resultados da Busca"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
+      >
         <form onSubmit={handleSearchSubmit} className="flex gap-2">
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
@@ -90,7 +87,7 @@ const RestaurantResults: React.FC = () => {
             <Search className="w-5 h-5" />
           </Button>
         </form>
-      </header>
+      </Header>
 
       <main className="p-4 space-y-4">
         {isRestaurantsLoading ? (

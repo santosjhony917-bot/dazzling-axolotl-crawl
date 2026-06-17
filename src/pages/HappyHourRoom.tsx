@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import Header from '@/components/Header';
 import { 
   ArrowLeft, 
   MessageSquare, 
@@ -514,45 +515,32 @@ export default function HappyHourRoom() {
   return (
     <div className="bg-background-light h-screen flex flex-col w-full overflow-hidden font-['Poppins']">
       
-      {/* Header */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-slate-100 p-3 flex flex-col gap-2 shrink-0 shadow-none">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate('/happy-hours')}
-              className="text-slate-700 hover:bg-background-light dark:hover:bg-gray-700 h-9 w-9 rounded-full"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <h1 className="text-base font-extrabold text-slate-800 leading-tight truncate max-w-[220px]" title={details.happyHour.title}>
-                  {details.happyHour.title}
-                </h1>
-                {isCreator && (
-                  <button
-                    onClick={() => {
-                      setRoomDescription(descriptionText);
-                      setAllowInvites(allowMemberInvites);
-                      setAllowSuggestRestaurantsState(allowMemberSuggestRestaurants);
-                      setAllowSuggestDatesState(allowMemberSuggestDates);
-                      setIsSettingsDialogOpen(true);
-                    }}
-                    className="text-slate-400 hover:text-slate-600 transition-colors p-0.5 border-none bg-transparent cursor-pointer"
-                    title="Configurações do Grupo"
-                  >
-                    <Settings className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-              <p className="text-[10px] text-slate-400 font-semibold">
-                {new Date(details.happyHour.date_time).toLocaleString('pt-BR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-              </p>
-            </div>
+      <Header
+        title={
+          <div className="flex items-center gap-1.5">
+            <span className="truncate max-w-[220px]" title={details.happyHour.title}>
+              {details.happyHour.title}
+            </span>
+            {isCreator && (
+              <button
+                onClick={() => {
+                  setRoomDescription(descriptionText);
+                  setAllowInvites(allowMemberInvites);
+                  setAllowSuggestRestaurantsState(allowMemberSuggestRestaurants);
+                  setAllowSuggestDatesState(allowMemberSuggestDates);
+                  setIsSettingsDialogOpen(true);
+                }}
+                className="text-slate-400 hover:text-slate-600 transition-colors p-0.5 border-none bg-transparent cursor-pointer"
+                title="Configurações do Grupo"
+              >
+                <Settings className="w-4 h-4" />
+              </button>
+            )}
           </div>
-
+        }
+        subtitle={new Date(details.happyHour.date_time).toLocaleString('pt-BR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate('/happy-hours') }}
+        rightElement={
           <div className="flex items-center -space-x-2">
             {details.participants.slice(0, 3).map((p) => {
               const isParticipantCreator = p.id === details.happyHour.created_by;
@@ -593,47 +581,38 @@ export default function HappyHourRoom() {
               </>
             )}
           </div>
-        </div>
-
+        }
+      >
         {/* Tab Buttons - Segmented Control style */}
         <div className="px-4 mb-2 mt-1">
           <div className="relative flex w-full p-1 bg-slate-100 rounded-full border-none">
-            {/* Active slide pill background */}
-            <motion.div
-              layoutId="active-happyhour-tab-pill"
-              className="absolute top-1 bottom-1 bg-white rounded-full shadow-sm"
+            <div 
+              className="absolute inset-y-1 bg-white rounded-full shadow-sm transition-all duration-300 ease-out"
               style={{
-                left: activeTab === 'chat' ? '4px' : '50%',
                 width: 'calc(50% - 4px)',
+                left: activeTab === 'chat' ? '4px' : 'calc(50%)'
               }}
-              initial={false}
-              transition={{ type: "spring", stiffness: 450, damping: 32 }}
             />
-
+            
             <button
               onClick={() => setActiveTab('chat')}
-              className={cn(
-                "flex-grow flex items-center justify-center gap-1.5 h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
-                activeTab === 'chat' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
-              )}
+              className={`flex-1 py-2 text-xs font-bold rounded-full transition-colors relative z-10 border-none bg-transparent cursor-pointer flex items-center justify-center gap-1.5 ${
+                activeTab === 'chat' ? 'text-[#EF2A39]' : 'text-slate-500 hover:text-slate-700'
+              }`}
             >
-              <MessageSquare className="w-4 h-4" />
-              Conversa
+              <MessageSquare className="w-4 h-4" /> CONVERSA
             </button>
-
             <button
               onClick={() => setActiveTab('poll')}
-              className={cn(
-                "flex-grow flex items-center justify-center gap-1.5 h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
-                activeTab === 'poll' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
-              )}
+              className={`flex-1 py-2 text-xs font-bold rounded-full transition-colors relative z-10 border-none bg-transparent cursor-pointer flex items-center justify-center gap-1.5 ${
+                activeTab === 'poll' ? 'text-[#EF2A39]' : 'text-slate-500 hover:text-slate-700'
+              }`}
             >
-              <Vote className="w-4 h-4" />
-              Votação ({details.pollRestaurants.length})
+              <Vote className="w-4 h-4" /> VOTAÇÃO ({details.pollRestaurants.length})
             </button>
           </div>
         </div>
-      </header>
+      </Header>
 
       {/* Main Tab Area */}
       <div className="flex-1 overflow-y-auto w-full relative">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown, X, Play, ChevronLeft, ChevronRight, ExternalLink, Map, Waves, GraduationCap, Landmark } from 'lucide-react';
 import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
@@ -8,6 +9,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { showError } from '@/utils/toast';
 import SoftSearchInput from '@/components/search/SoftSearchInput';
+import ClientBottomNav from '@/components/ClientBottomNav';
 import { Button } from '@/components/ui/button';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useAuthData } from '@/context/AuthContext';
@@ -15,6 +17,7 @@ import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
 import UserLocationModal from '@/components/restaurant/UserLocationModal';
 import { cn } from '@/lib/utils';
 import { getRestaurantOpenStatus } from '@/lib/schedule';
+import Header from '@/components/Header';
 import {
   ChefPlatterIllustration,
   ComboIllustration,
@@ -110,8 +113,8 @@ const Home: React.FC = () => {
       restaurantId: '1',
       restaurantName: 'Sabor Premium',
       restaurantLogo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop',
-      type: 'video',
-      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-delicious-pizza-slice-lifted-with-cheese-stretch-41585-large.mp4',
+      type: 'photo',
+      mediaUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=600&fit=crop',
       caption: 'A verdadeira pizza artesanal com borda recheada e muuuito queijo! 🍕🤤',
       likes: 124
     },
@@ -120,8 +123,8 @@ const Home: React.FC = () => {
       restaurantId: '2',
       restaurantName: 'Lancheira do Zé',
       restaurantLogo: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=100&h=100&fit=crop',
-      type: 'video',
-      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-hamburger-on-a-plate-41618-large.mp4',
+      type: 'photo',
+      mediaUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=600&fit=crop',
       caption: 'Smash Burger duplo artesanal saindo quentinho na chapa! 🍔🔥',
       likes: 98
     },
@@ -130,8 +133,8 @@ const Home: React.FC = () => {
       restaurantId: '3',
       restaurantName: 'Doce Sonho Caffé',
       restaurantLogo: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=100&h=100&fit=crop',
-      type: 'video',
-      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-honey-on-pancakes-41613-large.mp4',
+      type: 'photo',
+      mediaUrl: 'https://images.unsplash.com/photo-1554520735-0a6b8b6ce8b7?w=400&h=600&fit=crop',
       caption: 'Melhor forma de começar o dia: panquecas fofinhas e muito mel! 🥞☕',
       likes: 85
     },
@@ -140,8 +143,8 @@ const Home: React.FC = () => {
       restaurantId: '4',
       restaurantName: 'Chefs Salad Bar',
       restaurantLogo: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop',
-      type: 'video',
-      mediaUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-preparing-a-fresh-vegetable-salad-41586-large.mp4',
+      type: 'photo',
+      mediaUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=600&fit=crop',
       caption: 'Ingredientes frescos e selecionados para a sua salada perfeita. 🥗💚',
       likes: 64
     }
@@ -327,41 +330,42 @@ const Home: React.FC = () => {
   }, [restaurants, selectedCategory, selectedRegion, isFavorite]);
 
   return (
-    <div className="bg-white w-full flex-grow pt-8 font-['Poppins']">
-
-      {/* Cabeçalho */}
-      <div className="px-5 mb-6 flex justify-between items-start">
-        <div className="flex flex-col min-w-0 pr-2">
-          <h1 className="font-['Lobster'] text-[45px] text-[#3C2F2F] leading-tight">
-            FilterFood
-          </h1>
-          {/* Seletor de localização interativo */}
-          <button
-            onClick={() => setIsLocationModalOpen(true)}
-            className="flex items-center gap-1.5 text-xs text-[#6A6A6A] hover:text-[#EF2A39] transition-colors mt-1 font-semibold active:scale-[0.98] cursor-pointer"
-          >
-            <MapPin className="w-3.5 h-3.5 text-[#EF2A39] shrink-0" />
-            <span className="truncate max-w-[180px]">
-              {isLocationLoading ? "Carregando..." : locationDisplayName}
-            </span>
-            <ChevronDown className="w-3 h-3 text-[#6A6A6A] shrink-0" />
-          </button>
-        </div>
-
-        {/* Avatar circular — foto de perfil */}
-        <div
-          onClick={() => navigate('/profile')}
-          className="shrink-0 mt-2 cursor-pointer active:scale-95 transition-transform"
-        >
-          <div className="w-[52px] h-[52px] rounded-full p-[2.5px] bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shadow-[0_6px_18px_rgba(239,42,57,0.30)]">
-            <img
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=FilterUser&backgroundColor=fef2f2"
-              alt="Meu perfil"
-              className="w-full h-full rounded-full object-cover bg-white"
-            />
+    <div className="bg-white/80 backdrop-blur-md w-full flex-grow pt-4 font-['Poppins']">
+      
+      {/* Cabeçalho Sticky Premium */}
+      <Header
+        title={
+          <div className="flex flex-col min-w-0 pr-2 pb-1">
+            <h1 className="font-['Lobster'] text-[38px] text-[#EF2A39] leading-tight drop-shadow-[0_2px_5px_rgba(239,42,57,0.15)]">
+              FilterFood
+            </h1>
+            <button
+              onClick={() => setIsLocationModalOpen(true)}
+              className="flex items-center gap-1.5 text-[13px] text-[#6A6A6A] hover:text-[#EF2A39] transition-colors mt-0 font-semibold active:scale-[0.98] cursor-pointer"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#EF2A39] shrink-0" />
+              <span className="truncate max-w-[180px]">
+                {isLocationLoading ? "Carregando..." : locationDisplayName}
+              </span>
+              <ChevronDown className="w-3 h-3 text-[#6A6A6A] shrink-0" />
+            </button>
           </div>
-        </div>
-      </div>
+        }
+        rightElement={
+          <div
+            onClick={() => navigate('/profile')}
+            className="shrink-0 cursor-pointer active:scale-95 transition-transform"
+          >
+            <div className="w-[50px] h-[50px] rounded-full p-[2.5px] bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.25)]">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=FilterUser&backgroundColor=fef2f2"
+                alt="Meu perfil"
+                className="w-full h-full rounded-full object-cover bg-white"
+              />
+            </div>
+          </div>
+        }
+      />
 
       {/* Barra de Busca */}
       <div id="tour-search-bar" className="px-5 mb-8 flex gap-4">
@@ -373,7 +377,7 @@ const Home: React.FC = () => {
         />
         <button
           onClick={() => handleSearchSubmit()}
-          className="shrink-0 h-[60px] w-[60px] bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-[20px] shadow-[0_12px_24px_rgba(239,42,57,0.28)] flex items-center justify-center transition-all duration-200 active:scale-95 border-none"
+          className="shrink-0 h-[60px] w-[60px] bg-white hover:bg-slate-50 text-[#EF2A39] rounded-[20px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-slate-100 flex items-center justify-center transition-all duration-200 active:scale-95"
         >
           <SlidersHorizontal className="w-6 h-6 stroke-[2.5]" />
         </button>
@@ -385,7 +389,7 @@ const Home: React.FC = () => {
         <div
           id="tour-happy-hour-card"
           onClick={() => navigate('/happy-hours')}
-          className="col-span-2 row-span-2 bg-gradient-to-br from-[#EF2A39] to-[#C41230] rounded-[24px] p-5 flex flex-col justify-between text-white shadow-[0_14px_32px_rgba(239,42,57,0.32)] relative overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer h-[184px]"
+          className="col-span-2 row-span-2 bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] rounded-[24px] p-5 flex flex-col justify-between text-white shadow-[0_8px_24px_rgba(239,42,57,0.20)] relative overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer h-[184px]"
         >
           {/* Círculos decorativos de fundo */}
           <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-white/10 pointer-events-none" />
@@ -435,7 +439,7 @@ const Home: React.FC = () => {
         {/* Card Atalho: Amigos */}
         <div
           onClick={() => navigate('/friends')}
-          className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_4px_16px_rgba(0,0,0,0.09)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.14)] hover:-translate-y-0.5"
+          className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
         >
           <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39]">
             <Users className="w-4 h-4 stroke-[2.5]" />
@@ -447,7 +451,7 @@ const Home: React.FC = () => {
         {isRestaurantOwner ? (
           <div
             onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-            className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_4px_16px_rgba(0,0,0,0.09)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.14)] hover:-translate-y-0.5"
+            className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
           >
             <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39]">
               <Eye className="w-4 h-4 stroke-[2.5]" />
@@ -459,8 +463,8 @@ const Home: React.FC = () => {
             onClick={() => setSelectedCategory('favorites')}
             className={`rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 ${
               selectedCategory === 'favorites'
-                ? 'bg-[#EF2A39] text-white shadow-[0_10px_24px_rgba(239,42,57,0.38)]'
-                : 'bg-white text-[#3C2F2F] shadow-[0_4px_16px_rgba(0,0,0,0.09)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.14)] hover:-translate-y-0.5'
+                ? 'bg-gradient-to-br from-[#EF2A39] to-[#D62230] text-white shadow-[0_6px_20px_rgba(239,42,57,0.25)]'
+                : 'bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5'
             }`}
           >
             <div className={`p-2 rounded-xl ${selectedCategory === 'favorites' ? 'bg-white/20 text-white' : 'bg-[#EF2A39]/10 text-[#EF2A39]'}`}>
@@ -488,7 +492,7 @@ const Home: React.FC = () => {
               <div
                 key={post.id}
                 onClick={() => setActiveStoryIndex(idx)}
-                className="inline-block w-[150px] h-[220px] rounded-[24px] overflow-hidden relative shadow-[0_8px_20px_rgba(0,0,0,0.12)] border border-slate-100 cursor-pointer active:scale-[0.97] transition-all duration-200 group"
+                className="inline-block w-[160px] h-[240px] rounded-[24px] overflow-hidden relative shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100 bg-slate-100 cursor-pointer active:scale-[0.97] transition-all duration-200 group"
               >
                 {/* Media */}
                 {post.type === 'video' ? (
@@ -509,7 +513,7 @@ const Home: React.FC = () => {
                 )}
 
                 {/* Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
                 {/* Top header with restaurant name & logo */}
                 <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center gap-1.5 z-10 max-w-full">
@@ -564,15 +568,13 @@ const Home: React.FC = () => {
                 >
                   {/* Círculo com ilustração vetorial */}
                   <div
-                    className={`w-[68px] h-[68px] rounded-full p-[2px] transition-all duration-200 ${
+                    className={`w-[68px] h-[68px] rounded-full transition-all duration-200 ${
                       isSelected
-                        ? 'bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shadow-[0_6px_18px_rgba(239,42,57,0.40)]'
-                        : 'bg-transparent shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
+                        ? 'bg-[#EF2A39]/10 shadow-[0_2px_8px_rgba(239,42,57,0.15)]'
+                        : 'bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/80'
                     }`}
                   >
-                    <div className={`w-full h-full rounded-full flex items-center justify-center transition-colors duration-200 ${
-                      isSelected ? 'bg-white' : 'bg-white border border-slate-100/80'
-                    }`}>
+                    <div className="w-full h-full rounded-full flex items-center justify-center transition-colors duration-200">
                       <IconComponent className="w-11 h-11" />
                     </div>
                   </div>
@@ -662,7 +664,7 @@ const Home: React.FC = () => {
               <div 
                 key={restaurant.id} 
                 onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                className="flex items-center gap-4 p-4 rounded-[20px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100/50 cursor-pointer hover:shadow-[0_10px_28px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-200"
+                className="flex items-center gap-4 p-4 rounded-[20px] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/50 cursor-pointer hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200"
               >
                 {/* Imagem do Restaurante */}
                 <div className="w-[84px] h-[84px] rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
@@ -737,8 +739,8 @@ const Home: React.FC = () => {
       />
 
       {/* Modal Visualizador de Destaques (Stories) */}
-      {activeStoryIndex !== null && (
-        <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-[60] bg-black/95 flex flex-col justify-between p-4 backdrop-blur-md">
+      {activeStoryIndex !== null && createPortal(
+        <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-md z-[100] bg-black/95 flex flex-col justify-between p-4 backdrop-blur-md">
           {/* Progress Bars */}
           <div className="flex gap-1.5 w-full mt-2">
             {recommendedPosts.map((_, idx) => (
@@ -855,7 +857,8 @@ const Home: React.FC = () => {
               Ver Restaurante e Cardápio
             </Button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {showTour && <FeatureTour onClose={() => setShowTour(false)} />}

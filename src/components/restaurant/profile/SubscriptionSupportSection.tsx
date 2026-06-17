@@ -1,32 +1,25 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HelpCircle, MessageSquare, Crown, LogOut } from 'lucide-react'; // CORRIGIDO: HelpCenter -> HelpCircle
+import { HelpCircle, MessageSquare, Trash2 } from 'lucide-react';
 import { createPageUrl } from '@/utils/url';
 import NavCardItem from '@/components/NavCardItem';
-import { useAuthData } from '@/context/AuthContext';
 
 interface SubscriptionSupportSectionProps {
   navigate: ReturnType<typeof useNavigate>;
   isPremium: boolean;
+  onDeleteAccount: () => void;
 }
 
-const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium }) => {
-  const { signOut } = useAuthData();
+const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({ navigate, isPremium, onDeleteAccount }) => {
   
   const handleNavigate = (path: string) => {
     navigate(path);
   };
   
-  const handleSignOut = async () => {
-    await signOut();
-    // Redireciona para a tela de boas-vindas após o logout
-    navigate(createPageUrl('welcome'), { replace: true });
-  };
-  
   return (
     <div className="w-full space-y-3">
       <NavCardItem 
-        icon={HelpCircle} // CORRIGIDO
+        icon={HelpCircle}
         title="Central de Ajuda"
         description="Encontre respostas rápidas e tutoriais."
         onClick={() => handleNavigate(createPageUrl('helpCenter'))}
@@ -37,21 +30,17 @@ const SubscriptionSupportSection: React.FC<SubscriptionSupportSectionProps> = ({
         title="Falar com Suporte"
         description="Entre em contato direto com nossa equipe."
         onClick={() => {
-          // Ação para abrir chat ou link de contato (ex: WhatsApp)
           alert("Abrindo chat de suporte...");
         }}
         isPremium={isPremium}
         premiumDescription="Suporte prioritário 24h"
       />
       
-      {/* REMOVIDO: Botão "Gerenciar Assinatura" */}
-      
-      {/* NOVO: Botão de Sair */}
       <NavCardItem 
-        icon={LogOut}
-        title="Sair da Conta"
-        description="Desconectar-se do painel do restaurante."
-        onClick={handleSignOut} // Usando o novo handler
+        icon={Trash2}
+        title="Excluir Conta"
+        description="Excluir sua conta e dados permanentemente."
+        onClick={onDeleteAccount}
       />
     </div>
   );

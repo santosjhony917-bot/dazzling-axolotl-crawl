@@ -70,9 +70,13 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
       isSwitchingRef.current = false;
     }, 800); // Cooldown de 800ms para evitar transição dupla indesejada
 
-    setTimeout(() => {
-      document.getElementById('profile-tabs-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+    const sectionId = `${tab}-section`;
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const headerOffset = 130; // Aproximadamente a altura do cabeçalho sticky
+      const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
   
   // Dados do Header (agora apenas para a capa)
@@ -197,36 +201,47 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
     return order;
   }, [hasGallery, hasMenu, hasInfo]);
 
-  // Efeito de escuta de scroll para avanço automático de aba ao chegar no fim da página
+  // Efeito de escuta de scroll para atualizar a aba ativa
   useEffect(() => {
-    if (isCompact) return; // Não adiciona scroll listener se for a pré-visualização espremida/compacta
-
-    lastScrollYRef.current = window.scrollY;
+    if (isCompact) return;
 
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const isScrollingDown = currentScrollY > lastScrollYRef.current;
-      lastScrollYRef.current = currentScrollY;
+      if (isSwitchingRef.current) return;
+      
+      const getTop = (id: string) => {
+        const el = document.getElementById(id);
+        return el ? el.getBoundingClientRect().top : Infinity;
+      };
 
-      // Se estiver rolando para cima ou no cooldown de transição, ignora
-      if (isSwitchingRef.current || !isScrollingDown) return;
+      const headerOffset = 180; // Margem para considerar a seção ativa
+      
+      const galleryTop = getTop('gallery-section');
+      const menuTop = getTop('menu-section');
+      const infoTop = getTop('info-section');
 
-      const threshold = 15; // Pixels do final da página
-      const totalHeight = document.documentElement.scrollHeight;
-      const scrollPosition = window.innerHeight + currentScrollY;
+      let newTab: 'gallery' | 'menu' | 'info' = activeTab;
 
-      if (totalHeight - scrollPosition <= threshold) {
-        const activeIndex = tabsOrder.indexOf(activeTab);
-        if (activeIndex !== -1 && activeIndex < tabsOrder.length - 1) {
-          const nextTab = tabsOrder[activeIndex + 1];
-          handleTabChange(nextTab);
-        }
+      // A seção que está mais ao topo mas ainda <= headerOffset é a ativa
+      if (hasInfo && infoTop <= headerOffset + 50) {
+        newTab = 'info';
+      } else if (hasMenu && menuTop <= headerOffset + 50) {
+        newTab = 'menu';
+      } else if (hasGallery && galleryTop <= headerOffset + 50) {
+        newTab = 'gallery';
+      } else if (hasGallery && galleryTop > headerOffset + 50) {
+        newTab = 'gallery'; // Padrão se rolado para cima do conteúdo
+      } else if (!hasGallery && hasMenu && menuTop > headerOffset + 50) {
+        newTab = 'menu';
+      }
+
+      if (newTab !== activeTab) {
+        setActiveTab(newTab);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeTab, tabsOrder, isCompact]);
+  }, [activeTab, isCompact, hasGallery, hasMenu, hasInfo]);
 
   const containerPxClass = isCompact ? "px-3" : "px-4";
 
@@ -335,24 +350,18 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
               </div>
             )}
 
-            {/* Animador de Transição de Conteúdo */}
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-              className="w-full"
-            >
+            {/* Conteúdo Sequencial Contínuo */}
+            <div className="w-full flex flex-col gap-8">
               {/* Galeria Section */}
-              {activeTab === 'gallery' && hasGallery && (
-                <div id="gallery-section" className="pb-6">
+              {hasGallery && (
+                <div id="gallery-section" className="scroll-mt-32">
                   <RestaurantGallery gallery={restaurant.gallery_images} />
                 </div>
               )}
 
               {/* Menu Section */}
-              {activeTab === 'menu' && hasMenu && (
-                <div id="menu-section" className="pt-2">
+              {hasMenu && (
+                <div id="menu-section" className="scroll-mt-32">
                   <RestaurantMenu 
                     menuCategories={restaurant.menu_categories} 
                     isFullMenuPage={false}
@@ -364,8 +373,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
               )}
               
               {/* Informações Detalhadas (Endereço, Horário, Contato) */}
-              {activeTab === 'info' && hasInfo && (
-                <div id="info-section" className="space-y-6 pt-2">
+              {hasInfo && (
+                <div id="info-section" className="space-y-6 scroll-mt-32">
                   {/* Sobre integrado e chique na aba de informações */}
                   {restaurant.description && (
                     <Card className="p-5 shadow-[0_4px_20px_rgba(0,0,0,0.07)] rounded-[20px] bg-white border border-slate-100/60">
@@ -398,7 +407,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                   )}
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

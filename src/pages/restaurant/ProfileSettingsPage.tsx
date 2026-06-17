@@ -346,22 +346,7 @@ export default function ProfileSettingsPage() {
               </AccordionContent>
             </AccordionItem>
 
-            {/* 4. Plano e Suporte */}
-            <AccordionItem value="subscription" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
-                    <Crown className="w-4 h-4 text-highlight" />
-                  </div>
-                  <span>Plano e Suporte</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="pt-2 pb-5">
-                <SubscriptionSupportSection navigate={navigate} isPremium={isPremium} />
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* 5. Social e Happy Hour */}
+            {/* 4. Social e Happy Hour (Movido para cima) */}
             <AccordionItem value="social" className="soft-card px-4 overflow-hidden">
               <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
@@ -389,11 +374,30 @@ export default function ProfileSettingsPage() {
               </AccordionContent>
             </AccordionItem>
 
+            {/* 5. Plano e Suporte */}
+            <AccordionItem value="subscription" className="soft-card px-4 overflow-hidden">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                    <Crown className="w-4 h-4 text-highlight" />
+                  </div>
+                  <span>Plano e Suporte</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pt-2 pb-5">
+                <SubscriptionSupportSection 
+                  navigate={navigate} 
+                  isPremium={isPremium} 
+                  onDeleteAccount={() => setIsDeleteModalOpen(true)}
+                />
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
         </div>
 
         {/* Botão Sair — separado e com área de respiro */}
-        <div className="pt-2 pb-6 space-y-3">
+        <div className="pt-2 pb-32 space-y-3">
           <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Conta</p>
           <button
             onClick={handleLogout}
@@ -401,13 +405,6 @@ export default function ProfileSettingsPage() {
           >
             <LogOut className="w-4 h-4" />
             Sair da Conta
-          </button>
-          <button
-            onClick={() => setIsDeleteModalOpen(true)}
-            className="w-full h-[50px] rounded-[18px] flex items-center justify-center gap-2 border border-red-200 text-red-600 font-semibold text-[15px] bg-red-50/50 hover:bg-red-50 active:scale-[0.98] transition-all duration-200 cursor-pointer"
-          >
-            <Trash2 className="w-4 h-4" />
-            Excluir Conta e Restaurante
           </button>
         </div>
 

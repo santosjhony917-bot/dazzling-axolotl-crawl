@@ -25,6 +25,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
+import Header from '@/components/Header';
 
 
 interface ChatMessage {
@@ -240,32 +241,29 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 40, scale: 0.96 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-          className="fixed top-4 bottom-[84px] left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-[416px] bg-white/95 backdrop-blur-md rounded-[28px] border border-slate-200/50 shadow-[0_20px_50px_rgba(239,42,57,0.15)] flex flex-col z-50 overflow-visible"
-        >
+        <div className="fixed inset-0 z-[100] flex justify-center pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="w-full max-w-[440px] h-full bg-[#FAFAFA] flex flex-col shadow-2xl overflow-hidden pointer-events-auto"
+          >
           {/* Cabeçalho */}
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100/80 bg-slate-50/50 rounded-t-[28px] shrink-0">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] flex items-center justify-center text-white shadow-[0_2px_8px_rgba(239,42,57,0.2)]">
-                <Sparkles className="w-4.5 h-4.5 text-white fill-white" />
+          <Header
+            title={
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] flex items-center justify-center text-white shadow-sm">
+                  <Sparkles className="w-4 h-4 text-white fill-white" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#EF2A39] leading-tight">Assistente Virtual</span>
+                  <span className="text-base font-black text-slate-800 leading-tight">Assistente Gourmet</span>
+                </div>
               </div>
-              <div>
-                <span className="text-xs uppercase tracking-wider font-extrabold text-[#EF2A39]">Assistente Virtual</span>
-                <h2 className="text-sm font-black text-slate-800 -mt-0.5">Assistente Gourmet IA</h2>
-              </div>
-            </div>
-            <button 
-              type="button" 
-              onClick={onClose}
-              className="p-1.5 hover:bg-slate-100 active:scale-90 rounded-full border-none bg-transparent cursor-pointer transition-all text-slate-400 hover:text-slate-600 outline-none"
-            >
-              <ChevronDown className="w-5.5 h-5.5" />
-            </button>
-          </div>
+            }
+            rightAction={{ icon: ChevronDown, onClick: onClose }}
+          />
 
           {/* Área de Mensagens do Chat */}
           <div className="flex-grow overflow-y-auto px-4 py-4 space-y-4 min-h-0 hide-scrollbar flex flex-col bg-gradient-to-b from-slate-50/40 to-slate-100/20">
@@ -297,7 +295,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                   {/* Balão de Mensagem */}
                   <div 
                     className={cn(
-                      "p-3.5 text-sm leading-relaxed font-sans font-medium",
+                      "p-3.5 text-base leading-relaxed font-sans font-medium",
                       m.sender === 'user' 
                         ? "bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] text-white rounded-[20px] rounded-tr-none shadow-[0_6px_15px_rgba(239,42,57,0.12)]" 
                         : "bg-white border border-slate-100 text-slate-700 rounded-[20px] rounded-tl-none shadow-[0_6px_15px_rgba(0,0,0,0.02)]"
@@ -454,23 +452,23 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             )}
 
             {/* Form de Input */}
-            <form onSubmit={handleSend} className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-full border border-slate-150/60 w-full group focus-within:border-[#EF2A39]/30 transition-all duration-300">
-              <Sparkles className="w-4 h-4 text-slate-400 group-focus-within:text-[#EF2A39] shrink-0 ml-3 transition-colors duration-200" />
+            <form onSubmit={handleSend} className="flex items-center gap-2 bg-slate-50 p-2 rounded-full border border-slate-150/60 w-full group focus-within:border-[#EF2A39]/30 transition-all duration-300 shadow-sm">
+              <Sparkles className="w-5 h-5 text-slate-400 group-focus-within:text-[#EF2A39] shrink-0 ml-3 transition-colors duration-200" />
               <Input
                 type="text"
                 placeholder="Ex: Lanche para 2 até R$ 120"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 disabled={loading}
-                className="flex-grow border-none shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2 text-sm text-[#3C2F2F] placeholder-slate-400 font-semibold h-9"
+                className="flex-grow border-none shadow-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-2 text-base text-[#3C2F2F] placeholder-slate-400 font-semibold h-11"
               />
               <Button
                 type="submit"
                 size="icon"
                 disabled={loading || !inputText.trim()}
-                className="h-8 w-8 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_2px_8px_rgba(239,42,57,0.2)] border-none"
+                className="h-10 w-10 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_2px_8px_rgba(239,42,57,0.2)] border-none"
               >
-                <Send className="w-3 h-3 text-white" />
+                <Send className="w-4 h-4 text-white" />
               </Button>
             </form>
           </div>
@@ -535,9 +533,8 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             </div>
           )}
 
-          {/* Seta indicadora (tail) do balão apontando para o botão */}
-          <div className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white drop-shadow-[0_4px_4px_rgba(239,42,57,0.04)] z-10" />
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

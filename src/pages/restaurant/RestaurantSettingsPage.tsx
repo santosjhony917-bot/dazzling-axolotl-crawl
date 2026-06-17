@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useRestaurant } from '@/hooks/useRestaurant';
+import Header from '@/components/Header';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Settings, Utensils, Image as ImageIcon, Clock, MapPin, Info, Edit, FileText, Briefcase, Phone, Mail, Percent, CreditCard, Globe } from 'lucide-react';
@@ -28,6 +29,7 @@ const SettingsCard = ({ title, description, link, icon: Icon }) => (
 
 const RestaurantSettingsPage = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { restaurant, isLoading, error, mutate } = useRestaurant(id);
 
   const handleCoverImageUpload = async (url: string) => {
@@ -72,17 +74,10 @@ const RestaurantSettingsPage = () => {
         <title>Configurações do Restaurante - {restaurant.name}</title>
       </Helmet>
       <div className="bg-gray-50 min-h-screen">
-        <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-50 border-b">
-            <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between h-16">
-                    <Link to={`/restaurant/${id}`} className="p-2 -ml-2">
-                        <ArrowLeft />
-                    </Link>
-                    <h1 className="text-lg font-semibold">Configurações</h1>
-                    <div className="w-6"></div>
-                </div>
-            </div>
-        </div>
+        <Header
+          title="Configurações"
+          leftAction={{ icon: ArrowLeft, onClick: () => navigate(`/restaurant/${id}`) }}
+        />
 
         <div className="container mx-auto px-4 py-6">
           <div className="relative z-0 w-full h-48 bg-gray-200 rounded-xl mb-6 group">

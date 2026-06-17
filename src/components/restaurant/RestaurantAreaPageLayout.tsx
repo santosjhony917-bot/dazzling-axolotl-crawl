@@ -32,7 +32,7 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
   return (
     <div className={cn(
       "flex flex-col w-full flex-grow font-['Poppins'] transition-colors duration-200",
-      dark ? "bg-[#090D1A]" : "bg-white"
+      dark ? "bg-[#090D1A]" : "bg-transparent"
     )}>
       <Header 
         title={title} 
@@ -41,7 +41,7 @@ const RestaurantAreaPageLayout: React.FC<RestaurantAreaPageLayoutProps> = ({
       />
       
       <main className={cn(
-        "px-4 pt-2 pb-6 space-y-6 max-w-md mx-auto w-full relative z-20 mt-1 transition-colors duration-200",
+        "px-4 pt-2 pb-6 space-y-6 w-full relative z-20 mt-1 transition-colors duration-200",
         dark ? "text-white" : "text-slate-800"
       )}>
         {children}
