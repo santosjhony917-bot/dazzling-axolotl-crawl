@@ -21,6 +21,7 @@ import HelpCenter from '@/pages/HelpCenter';
 import Legal from '@/pages/Legal';
 import RestaurantResultsPage from '@/pages/RestaurantResults';
 import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
+import PromoRedirect from '@/pages/PromoRedirect'; // ADICIONADO: Redirecionador do QR Code
 
 // Client Pages
 import ClientProfilePage from '@/pages/ClientProfilePage';
@@ -72,6 +73,7 @@ function App() {
       <Routes>
         {/* Rotas Públicas/Gerais */}
         <Route path="/" element={<Index />} />
+        <Route path="/c/:shortCode" element={<PromoRedirect />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/landing" element={<LandingPage />} />

@@ -199,11 +199,11 @@ export default function RemovedRestaurants() {
                     </TableCell>
                     <TableCell>
                       <Badge className={
-                        r.visit_status === 'Visitado' 
+                        r.is_published === true 
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-100 hover:bg-emerald-50'
                           : 'bg-blue-50 text-blue-700 border border-blue-100 hover:bg-blue-50'
                       }>
-                        {r.visit_status === 'Visitado' ? 'Importado/Visitado' : 'Coletado/Pendente'}
+                        {r.is_published === true ? 'Importado/Visitado' : 'Coletado/Pendente'}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">

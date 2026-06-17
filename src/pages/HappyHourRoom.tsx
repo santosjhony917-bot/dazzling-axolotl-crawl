@@ -237,7 +237,7 @@ export default function HappyHourRoom() {
           social_networks: null,
           other_url_label: null,
           claim_code: null,
-          visit_status: 'Visitado',
+          is_published: true,
           visit_notes: null
         },
         {
@@ -271,7 +271,7 @@ export default function HappyHourRoom() {
           social_networks: null,
           other_url_label: null,
           claim_code: null,
-          visit_status: 'Visitado',
+          is_published: true,
           visit_notes: null
         }
       ];

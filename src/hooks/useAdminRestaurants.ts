@@ -58,7 +58,7 @@ interface FetchRestaurantsFilters {
   state?: string;
   plan?: string;
   neighborhood?: string;
-  visit_status?: string;
+  is_published?: boolean;
   page?: number;
   pageSize?: number;
 }
@@ -86,7 +86,7 @@ const getLocalFallbackRestaurants = (): Restaurant[] => {
           city: r.city || '',
           state: r.state || '',
           claim_code: r.claim_code || 'CLAIM-' + r.id.substring(0, 5).toUpperCase(),
-          visit_status: r.visit_status || 'Pendente',
+          is_published: r.is_published || false,
           visit_notes: r.visit_notes || ''
         };
         
@@ -94,7 +94,7 @@ const getLocalFallbackRestaurants = (): Restaurant[] => {
           list[existingIdx] = {
             ...list[existingIdx],
             ...mappedRestaurant,
-            visit_status: list[existingIdx].visit_status || mappedRestaurant.visit_status,
+            is_published: list[existingIdx].is_published || mappedRestaurant.is_published,
             visit_notes: list[existingIdx].visit_notes || mappedRestaurant.visit_notes,
           };
         } else {
@@ -106,9 +106,9 @@ const getLocalFallbackRestaurants = (): Restaurant[] => {
     // If list is still empty, initialize with default list
     if (list.length === 0) {
       list.push(
-        { id: 'scraped-joao-pessoa-1', name: 'Mangai Cabo Branco', plan: 'premium', city: 'João Pessoa', state: 'PB', neighborhood: 'Cabo Branco', claim_code: 'CLAIM-MANGAI', visit_status: 'Interessado', visit_notes: 'Ficou de confirmar por e-mail.' },
-        { id: 'scraped-joao-pessoa-2', name: 'Tábua de Carne', plan: 'premium_gift', city: 'João Pessoa', state: 'PB', neighborhood: 'Tambaú', claim_code: 'CLAIM-TABUA', visit_status: 'Contatado', visit_notes: '' },
-        { id: 'scraped-joao-pessoa-3', name: 'Appétit Burger', plan: 'free', city: 'João Pessoa', state: 'PB', neighborhood: 'Manaíra', claim_code: 'CLAIM-APPETIT', visit_status: 'Pendente', visit_notes: '' }
+        { id: 'scraped-joao-pessoa-1', name: 'Mangai Cabo Branco', plan: 'premium', city: 'João Pessoa', state: 'PB', neighborhood: 'Cabo Branco', claim_code: 'CLAIM-MANGAI', is_published: false, visit_notes: 'Ficou de confirmar por e-mail.' },
+        { id: 'scraped-joao-pessoa-2', name: 'Tábua de Carne', plan: 'premium_gift', city: 'João Pessoa', state: 'PB', neighborhood: 'Tambaú', claim_code: 'CLAIM-TABUA', is_published: false, visit_notes: '' },
+        { id: 'scraped-joao-pessoa-3', name: 'Appétit Burger', plan: 'free', city: 'João Pessoa', state: 'PB', neighborhood: 'Manaíra', claim_code: 'CLAIM-APPETIT', is_published: false, visit_notes: '' }
       );
     }
     
@@ -136,7 +136,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
       let query = supabase
         .from('restaurants')
         .select('*', { count: 'exact' })
-        .neq('visit_status', 'Pendente')
+        .neq('is_published', false)
         .order('created_at', { ascending: false })
         .range(from, to);
 
@@ -155,8 +155,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
       if (queryFilters.plan && queryFilters.plan !== 'all') {
         query = query.eq('plan', queryFilters.plan);
       }
-      if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
-        query = query.eq('visit_status', queryFilters.visit_status);
+      if (queryFilters.is_published && queryFilters.is_published !== 'all') {
+        query = query.eq('is_published', queryFilters.is_published);
       }
 
       const { data, count, error } = await query;
@@ -186,7 +186,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
         let query = supabase
           .from('restaurants')
           .select('*')
-          .neq('visit_status', 'Pendente')
+          .neq('is_published', false)
           .order('created_at', { ascending: false })
           .range(fromVal, toVal);
 
@@ -205,8 +205,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
         if (queryFilters.plan && queryFilters.plan !== 'all') {
           query = query.eq('plan', queryFilters.plan);
         }
-        if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
-          query = query.eq('visit_status', queryFilters.visit_status);
+        if (queryFilters.is_published && queryFilters.is_published !== 'all') {
+          query = query.eq('is_published', queryFilters.is_published);
         }
 
         const { data, error } = await query;
@@ -243,8 +243,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
       if (queryFilters.plan && queryFilters.plan !== 'all') {
         filteredList = filteredList.filter(r => r.plan === queryFilters.plan);
       }
-      if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
-        filteredList = filteredList.filter(r => r.visit_status === queryFilters.visit_status);
+      if (queryFilters.is_published && queryFilters.is_published !== 'all') {
+        filteredList = filteredList.filter(r => r.is_published === queryFilters.is_published);
       }
 
       localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(filteredList));
@@ -255,7 +255,7 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
     }
   } catch (err) {
     console.warn("Supabase fetch failed, falling back to mock database:", err);
-    let list = getLocalFallbackRestaurants().filter(r => r.visit_status !== 'Pendente');
+    let list = getLocalFallbackRestaurants().filter(r => r.is_published !== false);
 
     if (queryFilters.name) {
       list = list.filter(r => r.name.toLowerCase().includes(queryFilters.name!.toLowerCase()));
@@ -272,8 +272,8 @@ const fetchAllRestaurants = async (filters: FetchRestaurantsFilters): Promise<{ 
     if (queryFilters.plan && queryFilters.plan !== 'all') {
       list = list.filter(r => r.plan === queryFilters.plan);
     }
-    if (queryFilters.visit_status && queryFilters.visit_status !== 'all') {
-      list = list.filter(r => r.visit_status === queryFilters.visit_status);
+    if (queryFilters.is_published && queryFilters.is_published !== 'all') {
+      list = list.filter(r => r.is_published === queryFilters.is_published);
     }
 
     if (usePagination) {
@@ -383,7 +383,7 @@ const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateSt
   // Always update locally first
   try {
     const list = getLocalFallbackRestaurants();
-    const updated = list.map(r => r.id === restaurantId ? { ...r, visit_status: newStatus } : r);
+    const updated = list.map(r => r.id === restaurantId ? { ...r, is_published: newStatus } : r);
     localStorage.setItem('mock-supabase-fallback-restaurants', JSON.stringify(updated));
   } catch (e) {
     console.error("Error updating fallback status locally:", e);
@@ -395,7 +395,7 @@ const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateSt
     try {
       const parsed = JSON.parse(mockCompleted);
       if (parsed[restaurantId]) {
-        parsed[restaurantId].visit_status = newStatus;
+        parsed[restaurantId].is_published = newStatus;
         localStorage.setItem('mock-completed-restaurants', JSON.stringify(parsed));
       }
     } catch (e) {
@@ -408,7 +408,7 @@ const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateSt
     const uuidId = getDeterministicUUID(restaurantId);
     const { error } = await supabase
       .from('restaurants')
-      .update({ visit_status: newStatus })
+      .update({ is_published: newStatus })
       .eq('id', uuidId);
 
     if (error) console.warn("Supabase update status failed:", error.message);

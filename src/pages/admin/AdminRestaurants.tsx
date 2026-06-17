@@ -18,7 +18,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import ConfirmationDialog from '@/components/ConfirmationDialog';
 
 const visitStatusOptions: VisitStatus[] = [
-  'Visitado',
+  true,
   'Agendado',
   'Contatado',
   'Interessado',
@@ -29,8 +29,8 @@ const visitStatusOptions: VisitStatus[] = [
 const allVisitStatusOptions: (VisitStatus | 'all')[] = ['all', ...visitStatusOptions];
 const visitStatusLabels: Record<VisitStatus | 'all', string> = {
   all: 'Todos os Status',
-  Pendente: 'Pendente',
-  Visitado: 'Visitado',
+  Pendente: false,
+  Visitado: true,
   Agendado: 'Agendado',
   Contatado: 'Contatado',
   Interessado: 'Interessado',
@@ -48,7 +48,7 @@ const planLabels: Record<string, string> = {
 
 export default function AdminRestaurants() {
   const navigate = useNavigate();
-  const [filters, setFilters] = useState({ name: '', city: '', neighborhood: '', state: '', plan: 'all', visit_status: 'all' });
+  const [filters, setFilters] = useState({ name: '', city: '', neighborhood: '', state: '', plan: 'all', is_published: 'all' });
   const [nameInput, setNameInput] = useState('');
   const [cityInput, setCityInput] = useState('');
   const [neighborhoodInput, setNeighborhoodInput] = useState('');
@@ -238,7 +238,7 @@ export default function AdminRestaurants() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={filters.visit_status} onValueChange={(value) => handleFilterChange('visit_status', value)}>
+            <Select value={filters.is_published} onValueChange={(value) => handleFilterChange('is_published', value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Filtrar por status" />
               </SelectTrigger>
@@ -336,7 +336,7 @@ export default function AdminRestaurants() {
                       </TableCell>
                       <TableCell>
                         <Select
-                          value={restaurant.visit_status || 'Pendente'}
+                          value={restaurant.is_published || false}
                           onValueChange={(value) => handleStatusChange(restaurant.id, value as VisitStatus)}
                           disabled={isUpdatingStatus}
                         >

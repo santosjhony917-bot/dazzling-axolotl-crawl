@@ -808,17 +808,17 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
       }
 
-      // Busca o visit_status atual do banco para não sobrescrever com valor errado
+      // Busca o is_published atual do banco para não sobrescrever com valor errado
       // (evita restaurante sumir da lista quando o editedData tem status desatualizado)
-      let currentVisitStatus = updatedRest.visit_status || 'Pendente';
+      let currentVisitStatus = updatedRest.is_published || 'Pendente';
       try {
         const { data: existingRest } = await supabase
           .from('restaurants')
-          .select('visit_status')
+          .select('is_published')
           .eq('id', uuidId)
           .maybeSingle();
-        if (existingRest?.visit_status) {
-          currentVisitStatus = existingRest.visit_status;
+        if (existingRest?.is_published) {
+          currentVisitStatus = existingRest.is_published;
         }
       } catch (_) {
         // Se falhar, usa o valor que temos
@@ -840,7 +840,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         category: updatedRest.category || '',
         image_url: updatedRest.logo || null,
         cover_image_url: updatedRest.coverImage || updatedRest.cover_image_url || null,
-        visit_status: currentVisitStatus, // Preserva o status atual do banco
+        is_published: currentVisitStatus, // Preserva o status atual do banco
         visit_notes: visitNotes,
         claim_code: updatedRest.claim_code || 'CLAIM-' + uuidId.substring(0, 5).toUpperCase(),
         opening_hours: updatedRest.openingHours || updatedRest.opening_hours || null,
@@ -2163,7 +2163,7 @@ ${aiHoursPastedContent}
 
   if (!restaurant) return null;
 
-  const isSynced = restaurant.visit_status === 'Visitado';
+  const isSynced = restaurant.is_published === true;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>

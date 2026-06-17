@@ -84,7 +84,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     return null;
   }
 
-  if (!data || data.visit_status !== 'Visitado') return null;
+  if (!data || data.is_published !== true) return null;
 
   // Simulação de addressSummary e logoUrl (que pode ser image_url)
   const addressSummary = data.city && data.state ? `${data.city}, ${data.state}` : data.address;

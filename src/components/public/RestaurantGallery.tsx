@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { GalleryImage } from '@/types/supabase';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -236,9 +237,9 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
       )}
 
       {/* Lightbox Modal para visualização expandida com suporte a deslizar e limite de largura */}
-      {currentIndex !== null && (
+      {currentIndex !== null && createPortal(
         <div 
-          className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full md:max-w-5xl max-w-md z-50 bg-black/95 flex flex-col justify-between items-center select-none"
+          className="fixed inset-0 z-[9999] bg-black flex flex-col justify-between items-center select-none"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -257,7 +258,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           </div>
 
           {/* Área Central: Imagem e Setas de Navegação */}
-          <div className="relative flex-grow w-full flex items-center justify-center p-4" onClick={handleClose}>
+          <div className="relative flex-grow w-full flex items-center justify-center p-4 overflow-hidden" onClick={handleClose}>
             {/* Seta Esquerda (Desktops/Tablets) */}
             <button 
               onClick={(e) => {
@@ -276,14 +277,14 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                 controls
                 autoPlay
                 playsInline
-                className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain z-10"
+                className="max-w-full max-h-full object-contain z-10"
                 onClick={(e) => e.stopPropagation()}
               />
             ) : (
               <img 
                 src={gallery[currentIndex].image_url} 
                 alt={gallery[currentIndex].caption || 'Imagem ampliada'} 
-                className="max-w-full max-h-[75vh] md:max-h-[80vh] object-contain transition-transform duration-300 pointer-events-none"
+                className="max-w-full max-h-full object-contain transition-transform duration-300 pointer-events-none"
               />
             )}
 
@@ -310,7 +311,8 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
               Arraste para o lado para navegar
             </p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

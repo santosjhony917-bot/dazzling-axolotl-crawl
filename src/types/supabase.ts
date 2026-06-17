@@ -49,7 +49,7 @@ export interface Restaurant {
   social_networks?: Json | null;
   other_url_label?: string | null;
   claim_code?: string | null;
-  visit_status?: VisitStatus | null;
+  is_published?: VisitStatus | null;
   visit_notes?: string | null;
 }
 
@@ -98,6 +98,55 @@ export interface FavoriteRestaurant {
     id: string;
     user_id: string;
     restaurant_id: string;
-    created_at?: string;
     restaurants: Restaurant;
+}
+
+export interface CommercialLead {
+  id: string;
+  restaurant_id: string;
+  score: number;
+  pipeline_stage: 'Uncontacted' | 'Qualified' | 'Negotiating' | 'Won' | 'Lost' | 'Nurturing';
+  sentiment: 'Positive' | 'Neutral' | 'Negative' | 'Objection' | 'Ready';
+  assigned_agent_id?: string | null;
+  is_ai_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface Campaign {
+  id: string;
+  name: string;
+  type: 'Physical_Letter' | 'WhatsApp' | 'Email';
+  status: 'Draft' | 'Active' | 'Completed';
+  budget_tracking?: Json;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CommercialEvent {
+  id: string;
+  lead_id: string;
+  campaign_id?: string | null;
+  event_type: string;
+  payload?: Json;
+  actor_type: 'System' | 'AI' | 'Human' | 'Lead';
+  created_at?: string;
+}
+
+export interface QRTracker {
+  id: string;
+  lead_id: string;
+  campaign_id: string;
+  short_code: string;
+  created_at?: string;
+}
+
+export interface AIInsightLog {
+  id: string;
+  lead_id: string;
+  insight_type: 'Objection_Identified' | 'Success_Pattern' | 'Risk_Identified';
+  description: string;
+  confidence_score?: number;
+  action_taken?: string | null;
+  created_at?: string;
 }

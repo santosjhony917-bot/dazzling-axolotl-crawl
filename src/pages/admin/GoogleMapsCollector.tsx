@@ -913,7 +913,7 @@ export default function GoogleMapsCollector() {
 
           const { data, error } = await supabase
             .from('restaurants')
-            .select('name, address, visit_status')
+            .select('name, address, is_published')
             .or('is_deleted.eq.false,is_deleted.is.null')
             .range(from, to);
 
@@ -933,7 +933,7 @@ export default function GoogleMapsCollector() {
         
         const keys = new Map<string, string>();
         allMissions.forEach((r: any) => {
-          keys.set(getRestaurantUniqueKey(r.name, r.address), r.visit_status || 'Pendente');
+          keys.set(getRestaurantUniqueKey(r.name, r.address), r.is_published === true ? 'true' : 'false');
         });
         setImportedKeys(keys);
       } catch (e) {
@@ -972,7 +972,7 @@ export default function GoogleMapsCollector() {
             ),
             restaurant_gallery (*)
           `)
-          .eq('visit_status', 'Pendente')
+          .eq('is_published', false)
           .or('is_deleted.eq.false,is_deleted.is.null')
           .order('name')
           .range(from, to);
@@ -1225,7 +1225,7 @@ export default function GoogleMapsCollector() {
               { platform: 'facebook', url: restaurant.facebook }
             ].filter(s => s.url),
             opening_hours: restaurant.openingHours || null,
-            visit_status: 'Visitado',
+            is_published: true,
             menuSourceUrl: restaurant.menuSourceUrl || '',
             googleMapsUrl: restaurant.googleMapsUrl || '',
             website: restaurant.website || ''
@@ -1241,7 +1241,7 @@ export default function GoogleMapsCollector() {
             city: restaurant.city || '',
             state: restaurant.state || '',
             claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
-            visit_status: 'Visitado' as const,
+            is_published: true as const,
             visit_notes: 'Importado diretamente do coletor Google Maps.',
             menuSourceUrl: restaurant.menuSourceUrl || '',
             googleMapsUrl: restaurant.googleMapsUrl || '',
@@ -2055,7 +2055,7 @@ export default function GoogleMapsCollector() {
       const { error } = await supabase
         .from('restaurants')
         .delete()
-        .eq('visit_status', 'Pendente');
+        .eq('is_published', false);
 
       if (error) {
         console.error('Erro ao limpar restaurantes pendentes:', error);
@@ -2083,7 +2083,7 @@ export default function GoogleMapsCollector() {
       const { error } = await supabase
         .from('restaurants')
         .update({ 
-          visit_status: 'Visitado',
+          is_published: true,
           plan: defaultPlan
         })
         .eq('id', restaurant.id);
@@ -2132,7 +2132,7 @@ export default function GoogleMapsCollector() {
       const { error } = await supabase
         .from('restaurants')
         .update({ 
-          visit_status: 'Visitado',
+          is_published: true,
           plan: defaultPlan
         })
         .in('id', pendingIds);
@@ -2770,8 +2770,8 @@ export default function GoogleMapsCollector() {
                     <TableBody>
                       {paginatedResults.map((r) => {
                         const dbStatus = importedKeys.get(getRestaurantUniqueKey(r.name, r.address));
-                        const isImported = dbStatus === 'Visitado';
-                        const isColetado = dbStatus === 'Pendente';
+                        const isImported = dbStatus === 'true';
+                        const isColetado = dbStatus === 'false';
                         const validationError = getImportValidationError(r);
                         return (
                           <TableRow 

@@ -230,7 +230,7 @@ export default function ExportedRestaurants() {
       coverImage: dbItem.cover_image_url || '',
       cover_image_url: dbItem.cover_image_url || '',
       followers_override: dbItem.followers_override || null,
-      visit_status: dbItem.visit_status || 'Pendente',
+      is_published: !!dbItem.is_published,
       visit_notes: visitNotes,
       claim_code: dbItem.claim_code || '',
       openingHours: dbItem.opening_hours || null,
@@ -272,7 +272,7 @@ export default function ExportedRestaurants() {
             ),
             restaurant_gallery (*)
           `)
-          .eq('visit_status', 'Visitado')
+          .eq('is_published', true)
           .or('is_deleted.eq.false,is_deleted.is.null')
           .order('name')
           .range(from, to);
@@ -420,7 +420,7 @@ export default function ExportedRestaurants() {
         category: restaurant.category || '',
         image_url: restaurant.logo || null,
         cover_image_url: restaurant.coverImage || restaurant.cover_image_url || null,
-        visit_status: 'Visitado',
+        is_published: true,
         visit_notes: visitNotes,
         claim_code: restaurant.claim_code || 'CLAIM-' + uuidId.substring(0, 5).toUpperCase(),
         opening_hours: restaurant.openingHours || restaurant.opening_hours || null,

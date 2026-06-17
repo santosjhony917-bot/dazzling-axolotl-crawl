@@ -72,7 +72,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       console.error('Erro ao ler mock em fetchPublicRestaurantById:', e);
     }
 
-    if (savedMockRestaurant && savedMockRestaurant.visit_status && savedMockRestaurant.visit_status !== 'Visitado') {
+    if (savedMockRestaurant && savedMockRestaurant.is_published && savedMockRestaurant.is_published !== true) {
       console.log(`[fetchPublicRestaurantById] Mock restaurant is not validated: ${restaurantId}`);
       return null;
     }
@@ -187,7 +187,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     return null;
   }
 
-  if (baseData.visit_status !== 'Visitado') {
+  if (baseData.is_published !== true) {
     console.log(`[fetchPublicRestaurantById] Restaurant is not validated: ${restaurantId}.`);
     return null;
   }

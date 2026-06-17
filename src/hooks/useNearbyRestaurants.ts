@@ -18,7 +18,7 @@ export interface RestaurantWithDistance {
   state: string | null;
   distance_km: number;
   neighborhood?: string | null;
-  visit_status?: string | null;
+  is_published?: boolean;
   opening_hours?: any;
 }
 
@@ -69,7 +69,7 @@ export const useNearbyRestaurants = ({
           state: 'SP',
           distance_km: 1.2,
           neighborhood: 'Bela Vista',
-          visit_status: 'Visitado'
+          is_published: true
         },
         {
           id: 'mock-free-restaurant-id',
@@ -87,7 +87,7 @@ export const useNearbyRestaurants = ({
           state: 'SP',
           distance_km: 2.5,
           neighborhood: 'Bela Vista',
-          visit_status: 'Visitado'
+          is_published: true
         }
       ];
 
@@ -115,7 +115,7 @@ export const useNearbyRestaurants = ({
         }
 
         const list = data && data.length > 0 ? data : mockRestaurants;
-        return list.filter((r: any) => (!r.visit_status || r.visit_status === 'Visitado') && !deletedIds.has(r.id));
+        return list.filter((r: any) => (!r.hasOwnProperty('is_published') || r.is_published === true) && !deletedIds.has(r.id));
       } catch (err) {
         console.warn("Error calling Supabase, returning mock restaurants.", err);
         return mockRestaurants;
