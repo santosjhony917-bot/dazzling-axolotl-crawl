@@ -1,0 +1,16 @@
+# Exclude Capacitor native build directories
+android/
+ios/
+
+# Exclude local dependency and build folders
+node_modules/
+dist/
+.vercel/
+
+# Exclude large local backups and agents
+src-backup-*/
+src-backup-checkpoint/
+.agents/
+scratch/
+.git/
+*.log

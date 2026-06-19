@@ -1,0 +1,1505 @@
+[
+  {
+    "category_name": "Entradas",
+    "items": [
+      {
+        "name": "Salada de folhas verdes",
+        "price": null,
+        "description": "Com milho verde,tomatinho cereja, queijo amassado, toque de azeite e shoyu.",
+        "image_url": null
+      },
+      {
+        "name": "Bolinho de camarão com milho",
+        "price": null,
+        "description": "Servido com molho aioli",
+        "image_url": null
+      },
+      {
+        "name": "Pastelzinho de 3 queijos",
+        "price": null,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/d75388c0-5dd1-11f1-9b31-2f1f48e14387.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "QUINTETINHO",
+        "price": 60,
+        "description": "Camarão marinado, salmão marinado com alcaparras, mix de queijos, marinada de azeitonas com tomate seco e caponata. Acompanha grissinis e torradas.",
+        "image_url": null
+      },
+      {
+        "name": "QUEIJO COALHO DA MARÉ",
+        "price": 37,
+        "description": "Queijo coalho na chapa com manteiga da terra, ervas e pimenta biquinho. Acompanha torradas e melaço.",
+        "image_url": null
+      },
+      {
+        "name": "PASTEL DE CAMARÃO",
+        "price": 29,
+        "description": "Pastel recheado com camarão, catupiry e ervas finas.",
+        "image_url": null
+      },
+      {
+        "name": "PASTEL DE BACALHAU",
+        "price": 29,
+        "description": "Pastel recheado com bacalhau desfiado, cebola, azeitonas e salsinha.",
+        "image_url": null
+      },
+      {
+        "name": "PASTEL DE CARNE DE SOL",
+        "price": 24,
+        "description": "6 unidades",
+        "image_url": null
+      },
+      {
+        "name": "PASTEL DE QUEIJO",
+        "price": 24,
+        "description": "6 unidades",
+        "image_url": null
+      },
+      {
+        "name": "BATATAS FRITAS COM MIX DE QUEIJOS E ERVAS",
+        "price": 32,
+        "description": "Batatas fritas com mix de queijos Provolone e Parmesão ralados e ervas finas frescas.",
+        "image_url": null
+      },
+      {
+        "name": "BATATAS FRITAS E CAMARÃO BORESTE",
+        "price": 65,
+        "description": "Batatas fritas cobertas com camarões empanados e molho especial, gratinadas com queijo mussarela e bacon.",
+        "image_url": null
+      },
+      {
+        "name": "TRIO MARÍTIMO",
+        "price": 62,
+        "description": "Camarão, lula e peixe frito empanados, acompanhados de molhos artesanais.",
+        "image_url": null
+      },
+      {
+        "name": "DADINHO DE TAPIOCA",
+        "price": 38,
+        "description": "Servido com melaço de rapadura",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO EMPANADO COM GERGELIM",
+        "price": 73,
+        "description": "Camarão empanado com gergelim, acompanhado de molho de queijo e azeite cítrico.",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO NA MANTEIGA ACEBOLADO",
+        "price": 73,
+        "description": "Camarão sem casca na manteiga e acebolado, servido com macaxeira ou batata frita.",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO NO ALHO E ÓLEO",
+        "price": 73,
+        "description": "Camarão sem casca no alho e óleo, servido com macaxeira frita.",
+        "image_url": null
+      },
+      {
+        "name": "BOLINHOS DE MACAXEIRA COM BACALHAU",
+        "price": 49,
+        "description": "Bolinhos de macaxeira, recheado com bacalhau, cebola, azeitonas e azeite.",
+        "image_url": null
+      },
+      {
+        "name": "BOLINHOS DE MACAXEIRA COM CAMARÃO",
+        "price": 48,
+        "description": "Bolinhos de macaxeira recheados com camarão, tomate seco, queijo mussarela e catupiry.",
+        "image_url": null
+      },
+      {
+        "name": "ISCA DE PEIXE À MILANESA",
+        "price": 65,
+        "description": "Isca de peixe crocante servida com molho Navete.",
+        "image_url": null
+      },
+      {
+        "name": "CARPACCIO DE CARNE",
+        "price": 64,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "PÃES ARTESANAIS",
+        "price": 36,
+        "description": "Pães e torradas artesanais servidos com dueto de patês e azeite.",
+        "image_url": null
+      },
+      {
+        "name": "POTINHO DE CAMARÃO",
+        "price": 36,
+        "description": "Escondidinho de macaxeira com camarão, ervas finas e queijo coalho gratinado com mussarela.",
+        "image_url": null
+      },
+      {
+        "name": "POLVO ALTO MAR",
+        "price": 75,
+        "description": "Polvo salteado no azeite aromatizado, com cubinhos de batata. Acompanha torradas e focaccia.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Pratos R$ 79,90",
+    "items": [
+      {
+        "name": "Peito de Frango na brasa/forno",
+        "price": 79.9,
+        "description": "Acompanhado de arroz cremoso com toque de mostarda e farofinha crocante.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/e29aa650-5dd1-11f1-986b-3d686e984632.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Pratos R$89,90",
+    "items": [
+      {
+        "name": "Camarão Nau",
+        "price": 89.9,
+        "description": "Camarões refogados na manteiga aromatizada, servido sobre arroz cremoso de manjericão, gratinado com queijo muçarela. Acompanha batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/f19ad440-5dd1-11f1-9b31-2f1f48e14387.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Camarão Jenipapeiro",
+        "price": 89.9,
+        "description": "Camarões refogados na manteiga da terra, com cebola, pimentões, tomate e creme de jerimum. Acompanha arroz branco e farofa",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/06c7aaa0-5dd2-11f1-9b31-2f1f48e14387.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Peixe Anarriê",
+        "price": 89.9,
+        "description": "Filé de peixe empanado no panko, crocante por fora e macio pór dentro, servido com arroz cremoso de milho.",
+        "image_url": null
+      },
+      {
+        "name": "Filé aos quatro queijo",
+        "price": 89.9,
+        "description": "Medalhões de filé mignon com molho de quatro queijos, servidos com arroz cremoso de quatro queijos e batatas coradas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/16a62aa0-5dd2-11f1-ae5f-e9f5e3a81275.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Pratos Premium",
+    "items": [
+      {
+        "name": "Lagosta Praiana",
+        "price": 149,
+        "description": "Risoto de lagosta gratinada com farofa de amêndoas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/65a259d0-5dd2-11f1-9b31-2f1f48e14387.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Camarão à Burrata",
+        "price": 109,
+        "description": "Fettucine com camarões salteados, regados ao molho trufado com burrata.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/b55555e0-5dd2-11f1-986b-3d686e984632.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Sobremesas",
+    "items": [
+      {
+        "name": "Pudim de rapadura",
+        "price": null,
+        "description": "Feito com rapadura de engenho e calda de cana caramelizada.",
+        "image_url": null
+      },
+      {
+        "name": "Torta de limão",
+        "price": null,
+        "description": "Base crocante, recheio cremoso de limão e cobertura de merengue dourado.",
+        "image_url": null
+      },
+      {
+        "name": "Abacaxi na brasa/forno",
+        "price": null,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "MOUSSE DE CHOCOLATE",
+        "price": 25,
+        "description": "Mousse de chocolate com merengue polvilhado de cacau em pó",
+        "image_url": null
+      },
+      {
+        "name": "ROSA DOS VENTOS",
+        "price": 33,
+        "description": "Creme de baunilha, geleia de morango fresco e sorvete de creme.",
+        "image_url": null
+      },
+      {
+        "name": "SEM-FIM",
+        "price": 35,
+        "description": "Creme de nutella, rodelas de banana, morangos frescos e farofa crocante, servido com bola de sorvete de creme.",
+        "image_url": null
+      },
+      {
+        "name": "TRILOGIA DEUSES DO MAR",
+        "price": 60,
+        "description": "Nossas 3 sobremesas mais famosas em versão degustação. Sobremesa Nau, Duo de Cocada e Banana Caramelizada.",
+        "image_url": null
+      },
+      {
+        "name": "CARTOLA",
+        "price": 30,
+        "description": "Banana na chapa, coberta com queijo manteiga derretido, açúcar, chocolate em po e canela.",
+        "image_url": null
+      },
+      {
+        "name": "BROWNIE SURPRESA",
+        "price": 36,
+        "description": "Brownie de chocolate com castanha, sorvete de creme e calda de chocolate.",
+        "image_url": null
+      },
+      {
+        "name": "TORTA TRUFADA",
+        "price": 30,
+        "description": "Torta trufada de chocolate branco e chocolate meio amargo.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/47b793a0-c736-11f0-9ef7-27208cfc79e1.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "DUO DE COCADA CREMOSA",
+        "price": 22,
+        "description": "Duo de cocada branca e cocada morena.",
+        "image_url": null
+      },
+      {
+        "name": "PUDIM",
+        "price": 22,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "BANANA CARAMELIZADA COM SORVETE",
+        "price": 30,
+        "description": "Banana caramelizada quente com sorvete de creme e castanhas caramelizadas.",
+        "image_url": null
+      },
+      {
+        "name": "COCADA CREMOSA COM SORVETE",
+        "price": null,
+        "description": "Cocada cremosa quente com sorvete artesanal.",
+        "image_url": null
+      },
+      {
+        "name": "ABACAXI COM RASPAS DE LIMÃO",
+        "price": 16,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "SORVETE ARTESANAL",
+        "price": 20,
+        "description": "Para encantar os pequenos: brigadeiro caseiro, sorvete, guloseima. Acompanha um brinde!",
+        "image_url": null
+      },
+      {
+        "name": "CREME DE PAPAYA",
+        "price": 36,
+        "description": "Mamão papaya batido com sorvete de creme, acompanhado de licor de cassis.",
+        "image_url": null
+      },
+      {
+        "name": "PETIT GATEAU DE CHOCOLATE",
+        "price": 43,
+        "description": "Delicioso cake de chocolate servido com calda de brigadeiro artesanal e sorvete de creme.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Saladas",
+    "items": [
+      {
+        "name": "SALADA FAROL",
+        "price": 30,
+        "description": "Rúcula, Alface americana, queijo branco, tomate seco, tomates-cereja, castanha e torradas crocantes, temperadas com aceto balsâmico, shoyu e azeite.",
+        "image_url": null
+      },
+      {
+        "name": "SALADA VENTANIA",
+        "price": 32,
+        "description": "Folhas verdes frescas, tomate, mussarela de búfala, palmito, azeitonas verdes e roxas (com caroço), nozes e manjericão, regada com molho caseiro e azeite.",
+        "image_url": null
+      },
+      {
+        "name": "SALADA DUNAS",
+        "price": null,
+        "description": "Camarões salteados, folhas mistas, tomate fresco, tomate seco, cenouras, azeitonas, mini cebolas, lascas de queijo parmesão e torradas, regadas com molho artesanal suave de mostarda e azeite.",
+        "image_url": null
+      },
+      {
+        "name": "SALADA FALÉSIAS",
+        "price": 36,
+        "description": "Frango em cubos, folhas verdes frescas, tomate, tomate seco, palmito, azeitonas verdes e roxas(com caroço), cenoura, queijo fresco, e torradas. regada com molho de queijo, azeite fresco torradas.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Fit Leves",
+    "items": [
+      {
+        "name": "CAMARÃO LEVE",
+        "price": 76,
+        "description": "Camarões levemente dourados no azeite, com tomate e manjericão. Acompanha purê de batata doce temperado com ervas (sem glúten e sem lactose).",
+        "image_url": null
+      },
+      {
+        "name": "CINCO MARES",
+        "price": null,
+        "description": "Camarões salteados no azeite,com cebola, tomate, alho poró, alcaparras, Champion e castanha de caju. Acompanha arroz de brócolis e batatas coradas",
+        "image_url": null
+      },
+      {
+        "name": "RISOTO AO MARÉ",
+        "price": 76,
+        "description": "Risoto de arroz integral, com camarões salteados levemente no azeite, cebola, brócolis, abobrinha, tomates-cereja, queijo minas frescal e castanha de cajú.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ DE DOURADO COM GERGELIM",
+        "price": 79,
+        "description": "Filé de peixe em crosta de gergelim, dourado na chapa, com tomates-cereja confitados e castanhas de caju em cama de purê de batata doce, acompanha arroz integral.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Camarões",
+    "items": [
+      {
+        "name": "NAU",
+        "price": null,
+        "description": "Camarões refogados na manteiga aromatizada, servido sobre arroz cremoso de manjericão, gratinado com queijo mussarela. Acompanha batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/571595d0-c732-11f0-8c95-4b85c3b4649f.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "MAR ABERTO",
+        "price": null,
+        "description": "Camarões salteados no azeite, envoltos em arroz cremoso de nata com tomates cereja, toque de vinho, pedacinhos de palmito e salsinha. Gratinado com queijo mussarela.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/e40bffb0-c66a-11f0-be32-f3dc733294e9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "POLDINA",
+        "price": null,
+        "description": "Camarões refogados na manteiga aromatizada, servido sobre arroz cremoso de nata, queijo coalho e salsinha, coberto com cubinhos de queijo coalho empanados. Acompanha batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/00fe7890-c66c-11f0-be32-f3dc733294e9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "FORTUNA DO MAR",
+        "price": null,
+        "description": "Camarões refogados na manteiga aromatizada com tomate seco, palmito, cebola, azeitonas verdes e roxas (com caroço), servidos sobre arroz cremoso de tomate seco. Acompanha batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/1d9113a0-c66c-11f0-be32-f3dc733294e9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "À GREGA",
+        "price": null,
+        "description": "Camarões empanados cobertos com molho de tomate, gratinados com queijo mussarela, servidos sobre arroz à grega e coberto com batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/3c2d8870-c66c-11f0-be32-f3dc733294e9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "SOFISTICADO",
+        "price": null,
+        "description": "Camarões salteados na manteiga, com molho cremoso de nata e mostarda, pedacinhos de palmito, cebola e cubos de queijo coalho. Acompanha arroz branco e batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/5ee3f250-c66c-11f0-a619-d76a9f68152a.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "CAMARÃO AOS 4 QUEIJOS",
+        "price": null,
+        "description": "Camarões salteados na manteiga com palmito ao molho quatro queijos. Acompanha arroz branco e batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/2e218c10-deb6-11f0-8f92-495cfdb47cbb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "NAVETA",
+        "price": 82,
+        "description": "Camarões salteados na manteiga da terra, cebola e cubos de queijo coalho, servidos com arroz de queijo coalho e batata palha.",
+        "image_url": null
+      },
+      {
+        "name": "LAGUNA",
+        "price": null,
+        "description": "Camarões salteados na manteiga com molho cremoso de queijo catupiry. Acompanha arroz branco e batata palha.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/9af3c540-c66c-11f0-be32-f3dc733294e9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "SOTAVENTO",
+        "price": 185,
+        "description": "Camarões refogados levemente no azeite, com cebola, tomate, pimentões coloridos, palmito, cogumelos e pedacinhos de queijo fresco. Acompanha legumes ao forno e arroz com brócolis.",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO VAPORETO",
+        "price": 195,
+        "description": "Camarões salteados no azeite com bacon, tomate em tiras, alho-poró e manjericão. Acompanha tomates na chapa, batatas ao forno com manteiga temperada e arroz branco.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/fa67d140-deb5-11f0-aebf-635ccb3326cc.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "BANANEIRAS",
+        "price": 79,
+        "description": "Camarões salteados no azeite de dendê com cebola, nata, toque de leite de coco, banana da terra e queijo coalho. Servido com farofinha crocante de castanhas, amêndoas e arroz branco a parte.",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO À PARMEGIANA",
+        "price": 185,
+        "description": "Camarões empanados, cobertos com molho branco e molho de tomate, gratinados com queijo mussarela. Acompanha arroz brancoe purê de batatas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/fca688b0-c732-11f0-8c95-4b85c3b4649f.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Moquecas",
+    "items": [
+      {
+        "name": "MOQUECA DE CAMARÃO",
+        "price": null,
+        "description": "Moqueca de camarão refogada com verduras, pimenta, leite de coco, azeite de dende e coentro. Acompanha arroz branco, pirão de camarão e farofa de manteiga da terra com dende.",
+        "image_url": null
+      },
+      {
+        "name": "MOQUECA DE PEIXE",
+        "price": null,
+        "description": "Moqueca de peixe refogada com verduras, pimenta, leite de coco, azeite de dende e coentro. Acompanha arroz branco, pirão e farofa de manteiga da terra com dende.",
+        "image_url": null
+      },
+      {
+        "name": "MOQUECA DE CAMARÃO E PEIXE",
+        "price": null,
+        "description": "Moqueca de camarão e peixe refogado com verduras, pimenta, leite de coco, azeite de dendê e coentro. Acompanha arroz branco, pirão e farofa de manteiga da terra com dendê.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/15886d40-c732-11f0-8c95-4b85c3b4649f.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Frutos do Mar",
+    "items": [
+      {
+        "name": "POLVO PONTA NEGRA",
+        "price": 96,
+        "description": "Tentáculos de polvo grelhados no azeite de ervas, acompanhado de arroz negro.",
+        "image_url": null
+      },
+      {
+        "name": "POLVO À LAGAREIRO",
+        "price": 92,
+        "description": "Tentáculos de polvo grelhados no azeite de ervas, acompanhado de batatas ao murro grelhadas na chapa, brócolis e tomates cereja confitados.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Massas",
+    "items": [
+      {
+        "name": "CAMARÃO AO MOLHO DE TOMATE",
+        "price": null,
+        "description": "Camarões salteados no azeite e alho, molho de tomate e manjericão fresco, servidos com spaghetti.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/9690c6d0-deb6-11f0-8f92-495cfdb47cbb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "CAMARÃO CREMOSO",
+        "price": null,
+        "description": "Camarões salteados no azeite, bacon, molho bechamel e ervilhas, servidos com spaghetti.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/6956e610-c663-11f0-b4bb-9b9f3c33a206.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "FRUTOS DO MAR",
+        "price": 189,
+        "description": "Camarões, polvo, lula e mexilhão salteados com azeite, alho, molho de tomate e manjericão, servidos com spaghetti.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/294a6a10-c663-11f0-b4bb-9b9f3c33a206.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "CAMARÃO E BURRATA NO AZEITE TRUFADO",
+        "price": 98,
+        "description": "Fettuccine com camarões salteados, regados ao molho trufado com burrata.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/87b20c20-c663-11f0-abf2-bf4f37dcdc33.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "CAMARÃO AL LIMONE",
+        "price": 82,
+        "description": "Fettuccine com camarões, creme de tomates frescos al limone.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Peixes",
+    "items": [
+      {
+        "name": "FILÉ DE PEIXE QUEBRA-MAR",
+        "price": null,
+        "description": "Filé de peixe na chapa, com pimentões coloridos, alcaparras e cogumelos, servido com arroz de brócolis e batatas coradas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/da2cf940-deb6-11f0-8f92-495cfdb47cbb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "FILÉ DE PEIXE COM CAMARÕES SALTEADOS",
+        "price": null,
+        "description": "Filé de peixe na chapa com camarões salteados no azeite aromatizado, alcaparras e cogumelos. Acompanha legumes no vapor e arroz de brócolis.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/62126700-deb7-11f0-8f92-495cfdb47cbb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "FILÉ DE PEIXE ESCOTILHA",
+        "price": null,
+        "description": "Filé de peixe empanado, coberto com molho de tomate e molho bechamel, gratinado com queijo mussarela, servido com arroz branco e purê.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/7825b7d0-c734-11f0-8c95-4b85c3b4649f.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "FILÉ DE PEIXE DOURADO",
+        "price": 76,
+        "description": "Filé de dourado grelhado no azeite, servido com arroz cremoso com amêndoas e queijo coalho, ao toque de molho de frutas vermelhas.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ DE PEIXE DA PROA",
+        "price": null,
+        "description": "Filé de peixe na chapa, coberto com ensopado de caranguejo. Acompanha arroz com caranguejo, batatas coradas e farofa de dendê.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ DE ATUM",
+        "price": 89,
+        "description": "Atum selado na crosta de gergelim com risoto de limão siciliano no toque de molho asiático ou com saladinha de folhas verdes temperadas com azeite no perfume oriental.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/09821700-c735-11f0-9ef7-27208cfc79e1.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "TILÁPIA NA CHAPA",
+        "price": null,
+        "description": "Filé de tilápia com molho de ervas. Acompanha arroz de brócolis e batatas ao murro.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8a6e8110-c734-11f0-8c95-4b85c3b4649f.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Salmão",
+    "items": [
+      {
+        "name": "SALMÃO COM JERIMUM",
+        "price": 79,
+        "description": "Salmão grelhado no azeite, servido com puré de jerimum, queijo coalho grelhado, tomates-cereja confitado e brócolis com toque de molho levemente agridoce.",
+        "image_url": null
+      },
+      {
+        "name": "SALMÃO NA CHAPA",
+        "price": null,
+        "description": "Salmão na chapa, com molho de maracujá e castanhas, servido com arroz de brócolis e batatas coradas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/ba51df80-c734-11f0-9ef7-27208cfc79e1.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Bacalhau",
+    "items": [
+      {
+        "name": "BACALHAU NÁUTICO",
+        "price": 132,
+        "description": "Bacalhau em posta, com cebolas caramelizadas, alho e azeitonas roxas (com caroço). Acompanha batatas ao murro e arroz branco.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/df290680-c734-11f0-9ef7-27208cfc79e1.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Carnes",
+    "items": [
+      {
+        "name": "FILÉ BARLAVENTO",
+        "price": null,
+        "description": "Medalhões de filé com molho funghi secchi, servidos com arroz cremoso de queijo coalho e batatas coradas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/5d389070-c665-11f0-abf2-bf4f37dcdc33.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "AOS QUATRO QUEIJOS",
+        "price": null,
+        "description": "Medalhões de filé mignon com molho de quatro queijos, servidos com arroz cremoso de quatro queijos e batatas coradas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/a8a22300-c665-11f0-abf2-bf4f37dcdc33.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "JANGADEIRO",
+        "price": 89,
+        "description": "Medalhões de filé mignon com molho de mostarda, servidos com arroz cremoso de queijo coalho, batatas coradas e farofa de banana.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ À PARMEGIANA",
+        "price": null,
+        "description": "Filé bovino à milanesa, coberto com molho de tomate, gratinado com queijo mussarela. Servido com spaghetti no molho de tomate.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ DE FRANGO À PARMEGIANA",
+        "price": null,
+        "description": "Filé de frango à milanesa, coberto com molho de tomate, gratinado com queijo mussarela. Servido com spaghetti no molho de tomate.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Kids",
+    "items": [
+      {
+        "name": "FILÉ DE FRANGO/ISCA DE PEIXE",
+        "price": 47,
+        "description": "Servido com arroz branco, purê ou batata frita; ou com spaghetti ao molho de tomate.",
+        "image_url": null
+      },
+      {
+        "name": "FILÉ MIGNON",
+        "price": 53,
+        "description": "Servido com arroz branco, purê ou batata frita; ou com spaghetti ao molho de tomate.",
+        "image_url": null
+      },
+      {
+        "name": "CAMARÃO",
+        "price": 51,
+        "description": "Servido com arroz branco, purê ou batata frita; ou com spaghetti ao molho de tomate.",
+        "image_url": null
+      },
+      {
+        "name": "KIDS PARMEGIANA",
+        "price": 59,
+        "description": "Filé bovino à milanesa, coberto com molho de tomate, gratinado com queijo mussarela. Servido com spaghetti ao molho de tomate.",
+        "image_url": null
+      },
+      {
+        "name": "STROGONOFF DE FILÉ",
+        "price": 57,
+        "description": "Cubos de filé mignon no molho de nata. Acompanha arroz branco e batata frita.",
+        "image_url": null
+      },
+      {
+        "name": "CHEESEBURGUER",
+        "price": 40,
+        "description": "Pão de hambúrguer de macaxeira, carne 100% bovina e queijo cheddar. Acompanha batata frita",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Prato principal",
+    "items": [
+      {
+        "name": "Picanha 300g",
+        "price": 89,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/61f4eec0-c65f-11f0-b157-19a4b2bdd005.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Ancho 400g",
+        "price": 95,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/755ce3a0-c65f-11f0-b157-19a4b2bdd005.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Chorizo 300g",
+        "price": 79,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Filé de Dourado 200g",
+        "price": 68,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "File De Peixe Sirigado 200g",
+        "price": 74,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/ccd06e90-c65f-11f0-b157-19a4b2bdd005.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Salmão 200g",
+        "price": 74,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Acompanhamentos",
+    "items": [
+      {
+        "name": "Arroz Biro-Biro",
+        "price": 20,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Arroz Branco",
+        "price": 16,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Arroz Cremoso de Queijo",
+        "price": 20,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Arroz com Brócolis",
+        "price": 24,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Batata Gratinada com Creme e Parmesão",
+        "price": 19,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/6e552800-c660-11f0-8851-676bddf18cc7.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Farofa de Ovos",
+        "price": 19,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Legumes na Brasa",
+        "price": 23,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Batata ao Forno Com Creme De Alho",
+        "price": 20,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Drinks",
+    "items": [
+      {
+        "name": "MOJITO",
+        "price": 26,
+        "description": "Rum Barcardi, limão, hortelã e água com gás.",
+        "image_url": null
+      },
+      {
+        "name": "COZUMEL",
+        "price": 23,
+        "description": "Cerveja, gelo, suco limão e borda com sal.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/ce953f00-e048-11f0-8d98-9d56092a1dfe.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "MOSCOW MULE",
+        "price": 32,
+        "description": "Vodka, limão, xarope de gengibre, água com gás e espuma de gengibre.",
+        "image_url": null
+      },
+      {
+        "name": "NEGRONI",
+        "price": 38,
+        "description": "Gin Tanqueray, Vermouth seco e azeitonas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/d9e2ec40-e048-11f0-8d98-9d56092a1dfe.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "SUNRISE",
+        "price": 25,
+        "description": "Tequila, suco de laranja e grenadine.",
+        "image_url": null
+      },
+      {
+        "name": "GIN TÔNICA",
+        "price": 35,
+        "description": "Limão siciliano, água tônica e gelo.",
+        "image_url": null
+      },
+      {
+        "name": "APEROL Spritz",
+        "price": 35,
+        "description": "Aperol, Espumante Brut, água com gás e laranja.",
+        "image_url": null
+      },
+      {
+        "name": "COQUETEL DE FRUTAS",
+        "price": 26,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "MARGUERITA",
+        "price": 37,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "CLARICOT",
+        "price": 34,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Limão",
+        "price": 26,
+        "description": "Vodca Nacional - Smirnoff",
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Morango",
+        "price": 35,
+        "description": "Vodka Importada - Absolut e Ketel One",
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Morango com Maracujá",
+        "price": 37,
+        "description": "Vodka Premium - Ciroc e Grey Goose",
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Frutas vermelhas",
+        "price": 30,
+        "description": "Vodka Nacional - Smirnoff",
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Frutas verdes",
+        "price": 36,
+        "description": "Vodka Importada - Absolut e Ketel One",
+        "image_url": null
+      },
+      {
+        "name": "Caipiroska Frutas amarelas",
+        "price": 37,
+        "description": "Vodka Premium - Ciroc e Grey Goose",
+        "image_url": null
+      },
+      {
+        "name": "Caipirinha Cajá",
+        "price": 26,
+        "description": "Nacional",
+        "image_url": null
+      },
+      {
+        "name": "Caipirinha Limão",
+        "price": 32,
+        "description": "Envelhecida",
+        "image_url": null
+      },
+      {
+        "name": "Caipirinha Frutas vermelhas",
+        "price": 30,
+        "description": "Nacional",
+        "image_url": null
+      },
+      {
+        "name": "Caipirinha Frutas verdes",
+        "price": 36,
+        "description": "Envelhecida",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Soft Drinks",
+    "items": [
+      {
+        "name": "SUCO DE FRUTAS",
+        "price": 13,
+        "description": "Laranja, Goiaba, Abacaxi, Abacaxi com Hortelã, Limão, Acerola, Caju..",
+        "image_url": null
+      },
+      {
+        "name": "SUCO DE FRUTAS ESPECIAIS",
+        "price": 15,
+        "description": "Morango, Morango com Abacaxi, Morango com laranja, Cajá, Frutas vermelhas, Maracujá, Graviola e Uva.",
+        "image_url": null
+      },
+      {
+        "name": "ÁGUA DE COCO",
+        "price": 9,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "ÁGUA MINERAL",
+        "price": 9,
+        "description": "com/sem gás",
+        "image_url": null
+      },
+      {
+        "name": "REFRIGERANTES",
+        "price": 10,
+        "description": "Coca-Cola, Coca-Cola Zero, Kuat, Kuat Zero, Fanta uva, Fanta laranja, Sprite e Aquarius fresh 500ml",
+        "image_url": null
+      },
+      {
+        "name": "ENERGÉTICO",
+        "price": 19,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Cafés clássicos e Chás",
+    "items": [
+      {
+        "name": "CAFÉ SANTA CLARA COM LEITE",
+        "price": 8,
+        "description": "Café filtrado com leite suavemente cremoso.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/0b760870-6ff9-11f0-8a40-05dbffbe4bf5.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "ESPRESSO MOGIANA PAULISTA",
+        "price": 7,
+        "description": "Intensidade: 6. Notas: Amêndoas e flor de café, com corpo e acidez",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/7fbf0e60-6ffa-11f0-b26a-e17ec80c7e1c.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "ESPRESSO DESCAFEINADO",
+        "price": 7,
+        "description": "Intensidade: 3. Notas: Amaro e tostado, com baixa acidez e 0,1% de cafeína.",
+        "image_url": null
+      },
+      {
+        "name": "CAPPUCINO CLASSIC",
+        "price": 8,
+        "description": "Cappuccino clássico Santa Clara com leite cremos e uma dose de espresso",
+        "image_url": null
+      },
+      {
+        "name": "CHÁ DE ERVA DOCE",
+        "price": 7,
+        "description": "O chá de erva doce é muito aromática e apresenta notas de anis e alcaçuz. Feito com ervas 100% naturais.",
+        "image_url": null
+      },
+      {
+        "name": "CHÁ DE CAPIM CIDREIRA",
+        "price": 7,
+        "description": "O chá de capim-cidreira possui sabor de limão e notas aromáticas refrescantes.",
+        "image_url": null
+      },
+      {
+        "name": "CHÁ DE HORTELÃ",
+        "price": 7,
+        "description": "O Chá de hortelã apresenta sabor marcante e notas mentoladas, oferecendo uma gostosa sensação refrescante.",
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Cervejas",
+    "items": [
+      {
+        "name": "Heineken",
+        "price": 16,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/6e673960-6408-11f0-9800-65e2ce51f337.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Amstel",
+        "price": 15,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Eisenbahn Long Neck",
+        "price": 15,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/23f24600-6ffb-11f0-8a40-05dbffbe4bf5.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Heineken Long Neck",
+        "price": 17,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/8aaf7310-640a-11f0-84e1-fde0ff81eaaa.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Blue Moon Long Neck",
+        "price": 19,
+        "description": null,
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/45a808c0-6ffb-11f0-b26a-e17ec80c7e1c.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Baden Baden IPA",
+        "price": 29,
+        "description": "600ml",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/3795d6f0-640b-11f0-84e1-fde0ff81eaaa.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Baden Baden Witbier",
+        "price": 29,
+        "description": "600ml",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/f098f7e0-640b-11f0-84e1-fde0ff81eaaa.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Baden Baden Golden",
+        "price": 29,
+        "description": "600ml",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/12680f00-640c-11f0-9800-65e2ce51f337.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  },
+  {
+    "category_name": "Cachaças",
+    "items": [
+      {
+        "name": "Volúpia Tradicional",
+        "price": 10,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Volúpia Diamante",
+        "price": 12,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Volúpia Premium",
+        "price": 15,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Volúpia Extra Premium",
+        "price": 19,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Vodkas",
+    "items": [
+      {
+        "name": "Vodka, Rum, Conhaque, Sake, Campari (dose) Nacional",
+        "price": 12,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Absolut, Ciroc ou Grey Goose",
+        "price": 27,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Rum, Tequila, Gin (dose) Importada",
+        "price": 28,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Licores",
+    "items": [
+      {
+        "name": "Amarula, Baileys, Cointreau, Frangelico, Licor 43 ou Peachtree",
+        "price": null,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Whiskies",
+    "items": [
+      {
+        "name": "Johnnie Walker Red Label",
+        "price": 21,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Old Parr",
+        "price": 27,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Johnnie Walker Black Label",
+        "price": 30,
+        "description": null,
+        "image_url": null
+      },
+      {
+        "name": "Johnnie Walker Gold Label Reserve",
+        "price": 41,
+        "description": null,
+        "image_url": null
+      }
+    ]
+  },
+  {
+    "category_name": "Espumantes e Champagnes",
+    "items": [
+      {
+        "name": "Casa Perini Moscatel",
+        "price": 98,
+        "description": "Elaborado somente com uvas Moscatéis, o espumante possui aroma intenso frutado e floral característico do varietal. Apresenta coloração citrina com reflexos esverdeados e paladar macio e delicado, com equilibrada doçura e frescor.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/51561E0C79B81-2F07-4EAA-BD0D-ABD41B5674B520131216093652.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerino BRUT",
+        "price": 98,
+        "description": "Coloração amarelo com reflexos esverdeados, com perlage (bolhinhas) bem fino. Possui aromas florais e frutados, tem pêssego, um cítrico marcante. Em boca é refrescante, equilibrado e cremoso, tem boa acidez.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/78010D5AA43D2-E52F-448D-A4E0-BFF5E61EEA4A20160524130303.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Garibaldi Rosé Prosecco Sweet",
+        "price": 100,
+        "description": "Visual rosa, Frutas cítricas olfativas, Frutas vermelhas, Morango, Framboesa Suave, Equilibrado, Leve, Cremoso.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/9601679CF5F8D-B82F-4CC0-9EF1-D32CE29C5E3920171219115545.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Garibaldi Prosecco Brut",
+        "price": 100,
+        "description": "Visual: Coloração amarelo palha com reflexos esverdeados, aspecto brilhante e ótima formação de perlage. Olfato: Aromas com notas de pera, marmelo e um toque de limão. Paladar: Delicado e cremoso, com uma acidez equilibrada e refrescante.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/29919ADF83A65-8B21-4FE0-9207-CD3A62863A3020150105124517.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Garibaldi Moscatel",
+        "price": 100,
+        "description": "Coloração clara com reflexos esverdeados e aspecto brilhante com ótima formação de perlage. Aromas com notas de melão, maçã verde, flores brancas e um toque de mel. Paladar suave e cremoso, com acidez equilibrada e refrescante.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/29919ADF83A65-8B21-4FE0-9207-CD3A62863A3020150105124517.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "DON GUERINO ESPUMANTE MOSCATEL",
+        "price": 98,
+        "description": "Cor: cítrica com reflexos esverdeados Aroma: floral e frutado Sabor: equilibrado frescor e doçura, perlage fino e persistente Harmonização: aperitivo e sobremesas",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/29919ADF83A65-8B21-4FE0-9207-CD3A62863A3020150105124517.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerino Moscatel Rosé",
+        "price": 98,
+        "description": "O Espumante Don Guerino Moscatel Rose é elaborado com dois tipos de moscatos, o Giallo e o Hamburgo. Apresenta aromas de cereja e framboesa. Tem uma perlage bastante fina. Um Espumante moscatel bastante exótico e com características marcantes do moscato hamburgo.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/1151553966EFEB-27A3-4DC2-BC5C-BAC5E5A82C7320190829095034.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Freixenet Cordón Negro Brut",
+        "price": 148,
+        "description": "Limpo e equilibrado. Tem o paladar fresco de maçã, pera madura e sabores cítricos, com um toque emocionante de gengibre. De aromas finos e delicados com leves matizes de fruta tropical madura.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/66840E5C101FF-A30D-4302-B12D-07592F9F172620150415021046.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Veuve Clicquot",
+        "price": 690,
+        "description": "Em 1805, Madame Clicquot, uma jovem viúva de 27 anos, assumiu as rédeas da Casa fundada em Reims em 1772 e tornou-se uma das primeiras empresárias da história. Ousada e visionária, ela tornou seu champanhe conhecido pelo mundo Know How & Craftsmanship: Por mais de 200 anos, a House manteve-se fiel ao seu lema: ‘Apenas uma qualidade, a melhor’.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/66840E5C101FF-A30D-4302-B12D-07592F9F172620150415021046.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Norton Porteno Chardonnay",
+        "price": 95,
+        "description": "Em boca, possui boa estrutura e equilíbrio, além de saboroso final.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/914cbb50-f1d0-11ed-8c89-5796b78425aa.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Vista Calma Chardonnay",
+        "price": 90,
+        "description": "Na boca é cremoso com um toque frutado. Aromas de abacaxi, banana, manteiga e torradas. Harmonização, Saladas, Queijos, Peixes, Frutos do Mar",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/37b701c0-cbcd-11f0-9e16-536c8c861b07.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Casa Valduga Naturelle Suave",
+        "price": 95,
+        "description": "Desfrute de um vinho branco suave delicioso com o Vinho Casa Valduga Naturelle Branco Suave, produzido na região da Serra Gaúcha. Com aromas frutados, florais e notas de pêssego e melão, esse vinho é perfeito para harmonizar com sobremesas. Experimente e surpreenda-se com a qualidade e tradição da Casa Valduga!",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/d1d94300-444a-11ef-a8d0-b709300d1d68.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Tarapacá Cosecha Tarapaca Sauvignon Blanc",
+        "price": 95,
+        "description": "Cor: Amarelo palha. Aroma: destacam que frutas cítricas e tropicais. Paladar: É um vinho leve e fresco com ótima acidez.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/d1d94300-444a-11ef-a8d0-b709300d1d68.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Osadia Sauvignon Blanc",
+        "price": 95,
+        "description": "Amarelo brilhante com tons esverdeados.Aroma de frutas citricas, minerais e tropicais.Na boca frutado e mineral.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/2712379CF5F8D-B82F-4CC0-9EF1-D32CE29C5E3920130125155534.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "MORANDÉ SAUVIGNON BLANC",
+        "price": 95,
+        "description": "Vinhedo As uvas para este vinho são provenientes do setor de Yerbas Buenas, localizada no sopé andino do Vale do Maule. Lá os solos são de origem aluvial e apresentam uma textura argilosa, textura argilosa e arenosa, com cascalhos. A proximidade com a Cordilheira gera um microclima particular que permite produzir uvas de alta expressão aromática e frescura. A colheita é feita mecanicamente, com selecção dos frutos, no seu ponto exacto de maturação. V i n i f i c a t i o n Após a prensagem das uvas, o sumo decanta a baixa temperatura para obter um mosto muito limpo. Depois disso, fermentação ocorre em tanques de aço inoxidável entre 10 e 12º C, utilizando leveduras selecionadas. Isso permite desenvolver todo o potencial da variedade com notas cítricas e frutadas. Cor: amarelo pálido com um tom esverdeado brilhante. Aroma: notas cítricas e frutadas que lembram o verde maçãs, pêssegos brancos e peras, agradavelmente combinados com toques selvagens e herbais. Sabor: este vinho fresco e frutado mostra uma acidez tensa, uma corpo equilibrado e um final longo na boca. Harmonização: aprecie como aperitivo ou com verde saladas. Também combina bem com rockfish, massas e frescos queijos.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/e3b6ca90-05cf-11ed-926a-1dad0867c5dd.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Foye Sauvignon Blanc Reserva",
+        "price": 110,
+        "description": "Visual: Amarelo palha. Olfativo: Pêssego com notas de frutas cítricas. Paladar: Fresco e frutado. 503.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/29eab750-0f19-11ec-a3d0-07d784a5ac5c.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Ventisqueiro Classico Chardonnay",
+        "price": 100,
+        "description": "O Ventisquero Clássico Chardonnay é um vinho branco seco chileno com coloração amarelo-claro com reflexos esverdeados, aromas de abacaxi, pêssego, pera e toques cítricos, e paladar leve com boa acidez e final refrescante. É recomendado para acompanhar peixes, saladas, frango grelhado, pratos com molhos brancos e queijos brancos.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/36f1a690-7c4b-11eb-a7f6-27af4874e074.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Ventisqueiro reserva chardonnay",
+        "price": 150,
+        "description": "Amarelo palha. Complexo e delicado, ressalta aromas de frutas como abacaxi, pêssego, papaia, lima e notas minerais. Paladar redondo e suave",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/2529837CFA67F-59E2-44B2-B4F3-11E2CC8B845320121213213341.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Esteban Martín Chardonnay/Macabeo Blanco",
+        "price": 95,
+        "description": "Vinho seco. Cariñena – Espanha. Uva Macabeo e Chardonnay. Coloração amarelo palha. No nariz, frutas tropicais e flores brancas. No paladar, fresco, intenso e persistente. Harmonização: Bolinho de risoto, crepes variados, bruschettas e canapés, espaguete com molho branco, quiche de espinafre e moqueca de camarão.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/5b266aa0-9262-11f0-8edc-4fad0b2e06c4.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Torre Oria Viura Sauvignon Blanc",
+        "price": 90,
+        "description": "Visual: Amarelo-palha com reflexos dourados Nariz: Frutas cítricas com toques florais Boca: Refrescante, frutado, saboroso e equilibrado",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/7f44ea70-483a-11ee-bdd0-a974d228d4cb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Freixenet Pinot Grigio Garda D.O.C.",
+        "price": 146,
+        "description": "Coloração branca com toques dourados. Notas florais e de frutas, com um delicado final cítrico.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/382439598247A-929E-40B0-AE29-BFD062A12B3E20151008103534.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "JP Azeitão",
+        "price": 90,
+        "description": "O JP Azeitão Branco Bacalhôa é um vinho português de cor citrina, com aromas florais (flor de laranjeira) e frutados (abacaxi, cítricos). É leve, fresco e equilibrado, com acidez presente e um final persistente. É elaborado com as uvas Moscatel e Fernão Pires e não passa por envelhecimento em madeira.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/7f44ea70-483a-11ee-bdd0-a974d228d4cb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Casal Miranda Verde DOC Branco",
+        "price": 90,
+        "description": "Aromas cítricos e florais intensos. Aromas cítricos e florais intensos. Fresco, com final frutado e seco. Termina com o caráter forte da casta a flores e frutos cítricos.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/83b73d40-f5d4-11ee-bca4-6b665f53f9f1.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "PE BRANCO",
+        "price": 90,
+        "description": "O Vinho Pé Branco Esporão é de perfil de fresco e frutado, obtido a partir de uma variedade de lotes de vinhos que permitem assegurar qualidade e consistência permanente. Dica de Harmonização: Pratos Leves, Carnes Brancas, Peixes, Ensopados, Saladas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/637cf850-e92c-11ec-82aa-c9b450bb3567.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Casal Mendes vinho verde",
+        "price": 90,
+        "description": "Descubra o Vinho Verde Casal Mendes DOC, uma escolha refrescante e leve. Feito com uvas Azal e Pedernã pela renomada Aliança Vinícola, este vinho verde oferece notas cítricas e florais. Ideal para acompanhar pratos leves e frutos do mar. Com classificação DOC, é um dos melhores vinhos verdes de Portugal. Experimente o Casal Mendes e veja por que é tão bem avaliado",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/1f46cdb0-658e-11ef-8b79-1d6149ef83bb.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Cartuxa Branco Évora",
+        "price": 310,
+        "description": "O vinho Cartuxa Évora Branco é mais um dos indiscutíveis vinhos DOC Alentejo, produzido pela Adega Cartuxa que faz parte da Fundação Eugénio de Almeida. Ele é elaborado a partir das uvas Antão e Arinto. Na cor amarelo com reflexos esverdeados, do seu fino aroma exalam delicadas notas de frutos cítricos e flores com nuances de minerais. Na boca, de corpo médio, nota-se o frescor que a acidez equilibrada lhe confere, com um final agradável e persistente.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/90c17180-354b-11ee-9a90-833d88294fa4.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "EA Cartuxa Branco",
+        "price": 155,
+        "description": "Harmonização: Este é um vinho que harmoniza com peixes, queijos de massa macia, frutos do mar e bacalhau.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/90c17180-354b-11ee-9a90-833d88294fa4.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Rose Polero",
+        "price": 90,
+        "description": "Macerado a frio sem as peles para obter uma cor mais clara e um vinho mais frutado. Fermentado em tanques de aço inoxidável sob temperatura controlada, para manter a frescura. Um rosé jovem e fresco com notas de jasmim e frutas como cerejas e morangos. O sabor suave oferece um agradável equilíbrio entre doçura e acidez. Agradável e fácil de beber.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/eed8e2c0-cbd1-11f0-9e16-536c8c861b07.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerino Sinais Rosé Malbec",
+        "price": 100,
+        "description": "Vinho brilhante, com uma coloração salmão, possui uma característica aromática varietal, como cereja e morango. Em boca apresenta-se agradável, equilibrado e com bom final de boca",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/91105B24E7B7F-1724-401B-9E32-B173F81F245520170810151637.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Esteban Martin Garnacha Rosé",
+        "price": 100,
+        "description": "Um vinho rosé delicado com notas de frutas e aromas de flores. Elaborado na renomada D.O.P Cariñena, na Espanha. As uvas são oriundas de vinhas com idade entre 20 e 65 anos, o que confere mais concentração ao vinho.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/5df5dcd0-cbd2-11f0-8f27-dd63f9f92c32.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "CEPA BONARDA MALBEC",
+        "price": 100,
+        "description": "Na boca é equilibrado com notas de frutas vermelhas. Aroma fresco e elegante.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/a1ff2eb0-35de-11ec-8e08-77b85b1f28ba.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Gran Bodega Bonarda",
+        "price": 100,
+        "description": "Vermelho Rubi. Aroma de frutas vermelhas. Corpo médio, tanino e acidez notável.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/30b3e840-71a6-11ed-b274-b9c3a90bab4b.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Norton Porteño Malbec",
+        "price": 135,
+        "description": "Cor rubi profundamente vermelha, com reflexos violáceos. Aromas doces, picantes e reminiscência de pimenta preta. Frutos vermelhos maduros no palato, com tanino longo e harmonioso.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/84987DE7AAE58-58B5-437A-8C9E-B96137266F5720170116170439.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Norton Porteno Cabernet",
+        "price": 95,
+        "description": "O Norton Porteño Cabernet é um vinho tinto argentino seco, 100% Cabernet Sauvignon, com cor vermelho rubi vívida. Apresenta aromas intensos de frutas vermelhas maduras como ameixa, amora e morango, além de notas de cassis. Em boca, é macio, intenso, com taninos equilibrados e final persistente.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/84987DE7AAE58-58B5-437A-8C9E-B96137266F5720170116170439.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Vista Calma CABERNET",
+        "price": 90,
+        "description": "Visual: Cor vermelho violáceo intenso e brilhante. Gustativo: Taninos doces e bem equilibrado, frutas vermelhas. Aroma: Aromas intensos e complexos de frutas vermelhas. Harmonização: Queijos, Massas, Carnes.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/1cfccb70-133f-11ed-9eea-f3e573e2f449.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Vista Calma Merlot",
+        "price": 90,
+        "description": "Encorpado com taninos sedosos e boa acidez. Aroma Notas sutis de pimenta e frutas negras. Harmonização Queijos, Petiscos, Massas, Carnes",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/1384a010-e026-11eb-80cb-511ffe145fc7.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerini Sinais Malbec",
+        "price": 100,
+        "description": "Elaborado com as uvas Malbec, o Vinho Don Guerino Sinais Malbec é um vinho brasileiro proveniente da região da Serra Gaúcha, produzido pela Vinícola Don Guerino. De coloração vermelho rubi com reflexos violáceos, esse vinho traz consigo aromas de frutas vermelhas, amora, cereja, ameixa e floral, com paladar equilibrado, taninos macios e corpo médio.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/36174d30-3af5-11ef-bc3b-47f0c8b092e1.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerino Sinais Merlot",
+        "price": 100,
+        "description": "Vinho jovem, frutado, de consumo rápido. Coloração vermelha rubi. Aromas típicos varietais com frutas vermelhas, ameixas e passas. Em boca apresenta-se medianamente encorpado, com taninos maduros, boa persistência e retrogosto agradável.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/36174d30-3af5-11ef-bc3b-47f0c8b092e1.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Casa Perini Cabernet Sauvignon",
+        "price": 125,
+        "description": "Vinho encorpado e macio, persistência longa e agradável. Apresenta coloração rubi intensa com reflexos violáceos que denotam excelente corpo e estrutura. Vinho com boa intensidade aromática e notas de frutas vermelhas como morangos e framboesas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/769b2ef0-3dc4-11ee-8984-d730cc9ab17a.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Don Guerino Sinais Cabernet Sauvignon",
+        "price": 125,
+        "description": "Estamos convictos que o tempo dedicado ao vinho é precioso e decisivo; deixa Sinais. Don Guerino Sinais marca a região de Alto Feliz na Serra Gaúcha, localizada no paralelo 29° Sul, Terroir caracterizado por uma constante exposição solar e ventilação, favorecendo a alta expressão varietal de nossas uvas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/7da11c00-0797-11ed-9d0a-83640f70d05d.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Naturelle (Suave)",
+        "price": 95,
+        "description": "Límpido e brilhante, com tons violáceos.Aromas de frutas frescas, primários das variedades.Leve, de agradável frescor e paladar adocicado.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/417f84a0-6d51-11f0-9949-a91042afbefe.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Morande Pioneiro Reserva Pinot Noir",
+        "price": 120,
+        "description": "Vinho tinto seco chileno, do Vale Central, com cor rubi intensa. Ele exibe aromas de frutas vermelhas maduras (como cereja e ameixa), toques de especiarias, pimenta preta, e notas sutis de baunilha e carvalho. Na boca, é equilibrado, com taninos macios e um final persistente.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/417f84a0-6d51-11f0-9949-a91042afbefe.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Morandé Visionario Cabernet Sauvignon",
+        "price": 95,
+        "description": "Gustativo: Frutas vermelhas, taninos macios e um final longo agradável. Olfativo: Morangos maduros, ameixas, toques comportados e um final picante. Visual: Coloração rubi intensa com reflexos violáceos.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/43983980-06cf-11ed-9d0a-83640f70d05d.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Morandé Visionario Carmenere",
+        "price": 95,
+        "description": "Visual: Coloração rubi intensa com reflexos violáceos. Aroma: Notas de frutas vermelhas e especiarias. Paladar: Frutado, taninos macios e saboroso.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/ae94fcf0-06cf-11ed-9ca6-cb0b7fb79b35.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Indomita Polero Cabernet Sauvignon",
+        "price": 90,
+        "description": "É um vinho de cor vermelho rubi intenso, com interessantes aromas de frutas vermelhas maduras. Muito frutado, de corpo complexo e agradável final.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/6db1aa40-84ae-11ee-b0f2-6fcf89ef853a.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Foye Gran Reserva Cabernet Sauvignon",
+        "price": 110,
+        "description": "Amadurecimento: 6 meses em barricas de carvalho. Harmoniza perfeitamente com diversos tipos de carne vermelha. Olfativo: Aromas de frutas vermelhas e leves toques picantes. Visual: Vermelho rubi com toques violáceos. Gustativo: Frutado e elegante, com notas de tosta e taninos macios.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/6db1aa40-84ae-11ee-b0f2-6fcf89ef853a.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Foye Gran Reserva Carmenere",
+        "price": 110,
+        "description": "Frutas vermelhas com notas de pimenta preta. Rubi com reflexos violáceos. Frutado, taninos macios e saboroso. Acompanha: Massas com molhos picantes, e diferentes tipos de comida apimentadas.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/940c7520-ebbf-11ef-847a-4d3b3c24fd1e.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "VENTISQUEIRO RESERVA CABERNET SAUVIGNON",
+        "price": 150,
+        "description": "Este vinho de cor rubi tem um nariz expressivo revelando aromas a morangos, framboesas, mirtilos e groselhas negras, juntamente com notas de pimenta preta, caramelo, tabaco e chocolate do envelhecimento em carvalho. Na boca, possui grande corpo e estrutura com acidez equilibrada e taninos maduros, além de um final grande e frutado.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/940c7520-ebbf-11ef-847a-4d3b3c24fd1e.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Ventisqueiro Reserva Carmenére",
+        "price": 95,
+        "description": "De cor vermelha intensa e profunda, com aromas de ameixas e especiarias, misturados com toques de chocolate e baunilha adquiridos durante o envelhecimento nos barris. Sua excelente estrutura faz deste vinho complemento com taninos suaves de boa estrutura.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/940c7520-ebbf-11ef-847a-4d3b3c24fd1e.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Portil de Lobos",
+        "price": 90,
+        "description": "No nariz é um pouco fechado no começo, mas logo vai se abrindo em lindos aromas de frutas vermelhas frescas. Em boca é muito gostoso! Leve e refrescante, traz notas de cerejas e framboesas frescas com uma ótima acidez e taninos leves com um sutil toque de chocolate amargo. É um vinho fácil de beber, perfeito para quem não dispensa um tinto mesmo nos dias um pouco mais quentes.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Cartuxa Colheita",
+        "price": 460,
+        "description": "12 meses em barricas de carvalho francês e mais 12 meses em garrafa Uva Alicante Bouschet Aragonês Castelão Trincadeira Teor Alcoólico 15%",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Monte Velho Esporão",
+        "price": 165,
+        "description": "Intenso, Estruturado, Notas de frutas negras, Taninos macios, Persistente, Retrogosto prolongado",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Monte De Pinheiros",
+        "price": 120,
+        "description": "Este vinho de cor vermelha granada possui um aroma amplo, com profundidade e elegância, num estilo arredondado e harmonioso. Na boca, apresenta notas de fruta em geleia e erva seca, sendo suave e apresentando um belo frescor.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "PE TINTO",
+        "price": 98,
+        "description": "ESTE VINHO TEM UMA COR PROFUNDA APRESENTA AROMAS A FRUTOS VERMELHOS E UM SABOR A FRUTA MADURA",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "JP Azeitão Tinto",
+        "price": 90,
+        "description": "O JP Azeitão Tinto é um vinho português de cor vermelha brilhante, com aromas de frutas vermelhas como morango e ginja, e notas apimentadas e defumadas. No paladar, é frutado, macio, com taninos suaves e um final persistente. É um vinho fácil de beber, sem passagem por madeira, ideal para acompanhar pratos leves de carne e bacalhau.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Mar Salgado",
+        "price": 90,
+        "description": "Frutas vermelhas maduras com nuances frutadas. Paladar: Boca Suave com taninos redondos e macios.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/8f678b40-e5d3-11eb-8131-2332147ddef9.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Taça de Vinho Tinto Cabernet Sauvignon",
+        "price": 28,
+        "description": "O Santa Loreto Cabernet Sauvignon é um vinho tinto seco chileno, do Vale Central, com cor rubi intensa. Ele exibe aromas de frutas vermelhas maduras (como cereja e ameixa), toques de especiarias, pimenta preta, e notas sutis de baunilha e carvalho. Na boca, é equilibrado, com taninos macios e um final persistente.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/47f63690-9164-11ef-bfd0-995c8d1e1094.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Taça de Vinho Branco Sauvignon Blanc",
+        "price": 28,
+        "description": "O Santa Loreto Sauvignon Blanc é um vinho branco chileno com coloração amarelo-palha com reflexos esverdeados e teor alcoólico de (12,5%). Ele apresenta aromas cítricos (limão, toranja) e de frutas tropicais, com notas herbáceas e florais, e no paladar é fresco, leve e equilibrado. É ideal para harmonizar com peixes, frutos do mar, saladas e pratos leves.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/47f63690-9164-11ef-bfd0-995c8d1e1094.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Taça Vinho do Porto - Ferreira Ruby",
+        "price": 18,
+        "description": "Cor rubi intensa e bem definida que demonstra a qualidade dos vinhos selecionados. Os seus aromas intensos lembram fruta muito madura, afinados pelo cuidado envelhecimento em madeira e pelos lotes que ocorrem durante o processo de envelhecimento natural. Encorpado e rico, apresenta um bom equilíbrio entre a sua doçura e a estrutura de taninos, o que lhe dá características únicas com final muito persistente, fino e atrativo.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/47f63690-9164-11ef-bfd0-995c8d1e1094.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "3107. Cartuxa Branco Évora",
+        "price": 310,
+        "description": "O vinho Cartuxa Évora Branco é mais um dos indiscutíveis vinhos DOC Alentejo, produzido pela Adega Cartuxa que faz parte da Fundação Eugénio de Almeida. Ele é elaborado a partir das uvas Antão e Arinto. Na cor amarelo com reflexos esverdeados, do seu fino aroma exalam delicadas notas de frutos cítricos e flores com nuances de minerais. Na boca, de corpo médio, nota-se o frescor que a acidez equilibrada lhe confere, com um final agradável e persistente.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/Product/2529837CFA67F-59E2-44B2-B4F3-11E2CC8B845320121213213341.jpg?ims=filters:quality(70):format(webp)"
+      },
+      {
+        "name": "Rose Polero Varietal",
+        "price": 90,
+        "description": "Macerado a frio sem as peles para obter uma cor mais clara e um vinho mais frutado. Fermentado em tanques de aço inoxidável sob temperatura controlada, para manter a frescura. Um rosé jovem e fresco com notas de jasmim e frutas como cerejas e morangos. O sabor suave oferece um agradável equilíbrio entre doçura e acidez. Agradável e fácil de beber.",
+        "image_url": "https://static.tagme.com.br/pubimg/thumbs/MenuItem/eed8e2c0-cbd1-11f0-9e16-536c8c861b07.jpg?ims=filters:quality(70):format(webp)"
+      }
+    ]
+  }
+]

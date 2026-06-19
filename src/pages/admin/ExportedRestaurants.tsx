@@ -29,6 +29,7 @@ import {
   Edit2
 } from 'lucide-react';
 import { showSuccess, showError } from '@/utils/toast';
+import { cleanRestaurantName } from '@/utils/formatters';
 /* Dialog import replaced */
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -90,6 +91,9 @@ const parseAddressString = (addressStr: string) => {
     cep = cepMatch[0];
     working = working.replace(cep, '').trim();
   }
+
+  // Clean trailing/leading punctuation right after removing CEP to avoid blocking state extraction
+  working = working.replace(/[\s,-]+$/, '').replace(/^[\s,-]+/, '').trim();
 
   // 2. Extract State (UF) (e.g. PB, SP...) near the end
   const stateMatch = working.match(/[\s,-]\b([A-Z]{2})\b\s*$/) || working.match(/\b([A-Z]{2})\b\s*$/);
@@ -216,7 +220,7 @@ export default function ExportedRestaurants() {
 
     return {
       id: dbItem.id,
-      name: dbItem.name,
+      name: cleanRestaurantName(dbItem.name),
       category: dbItem.category || '',
       phone: dbItem.phone || '',
       cep: dbItem.cep || '',

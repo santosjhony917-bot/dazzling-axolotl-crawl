@@ -1,10 +1,11 @@
-import { Restaurant as SupabaseRestaurant, MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem, Profile as SupabaseProfile } from '@/types/supabase';
+import { Restaurant as SupabaseRestaurant, MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem, Profile as SupabaseProfile, MenuSection as SupabaseMenuSection } from '@/types/supabase';
 
 // Utility types
 export type Restaurant = SupabaseRestaurant;
 export type MenuCategory = SupabaseMenuCategory;
 export type MenuItem = SupabaseMenuItem;
 export type Profile = SupabaseProfile; // Tipo Profile adicionado
+export type MenuSection = SupabaseMenuSection;
 
 // Form types
 export interface RestaurantFormValues {

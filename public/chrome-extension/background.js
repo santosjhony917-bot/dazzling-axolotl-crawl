@@ -68,7 +68,194 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       
     return true; // Mantém o canal de mensagem aberto para resposta assíncrona
   }
+  
+  if (message.action === "scrapeWebContext") {
+    const { url } = message;
+    handleWebContextScrape(url)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+  
+  if (message.action === "getAgentSnapshot") {
+    handleAgentSnapshot(message.url)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+  
+  if (message.action === "clickAgentElement") {
+    handleClickAgentElement(message.targetId)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
+  if (message.action === "closeAgentTab") {
+    handleAgentClose()
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
+  if (message.action === "searchGoogleForInstagram") {
+    const { query, blocklist } = message;
+    handleSearchGoogleForInstagram(query, blocklist || [])
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
+  if (message.action === "searchGoogleNative") {
+    const { query } = message;
+    handleSearchGoogleNative(query)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
 });
+
+async function handleSearchGoogleNative(query) {
+  console.log("Iniciando busca nativa no Google para:", query);
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  const tab = await chrome.tabs.create({ url: searchUrl, active: false });
+  const tabId = tab.id;
+  
+  try {
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba foi fechada prematuramente."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 30) {
+              reject(new Error("Tempo limite na busca do Google."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => {
+        // Extrai Título, Link e Snippet (resumo) dos resultados
+        const items = Array.from(document.querySelectorAll('.g'));
+        const scraped = [];
+        for (const item of items) {
+          const titleEl = item.querySelector('h3');
+          const linkEl = item.querySelector('a');
+          const snippetEl = item.querySelector('.VwiC3b, .IsZvec'); // Classes comuns de snippet no Google
+          
+          if (titleEl && linkEl) {
+            scraped.push({
+              title: titleEl.innerText || titleEl.textContent,
+              link: linkEl.href,
+              snippet: snippetEl ? (snippetEl.innerText || snippetEl.textContent) : ''
+            });
+          }
+        }
+        return scraped;
+      }
+    });
+
+    const foundResults = results && results[0] && results[0].result;
+    if (foundResults && foundResults.length > 0) {
+      return { success: true, results: foundResults };
+    } else {
+      return { success: false, error: "Nenhum resultado encontrado no Google." };
+    }
+  } catch (err) {
+    console.error("Erro na busca nativa do Google:", err);
+    return { success: false, error: err.message };
+  } finally {
+    try {
+      await chrome.tabs.remove(tabId);
+    } catch(e) {}
+  }
+}
+
+async function handleSearchGoogleForInstagram(query, blocklist) {
+  console.log("Iniciando busca por Instagram para:", query);
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent('site:instagram.com ' + query)}`;
+  const tab = await chrome.tabs.create({ url: searchUrl, active: false });
+  const tabId = tab.id;
+  
+  try {
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba foi fechada prematuramente."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 30) {
+              reject(new Error("Tempo limite na busca do Google."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: (blist) => {
+        // Extrai os links do Google
+        const anchors = Array.from(document.querySelectorAll('#search a'));
+        const links = [];
+        for (const a of anchors) {
+          if (a.href && a.href.includes('instagram.com')) links.push(a.href);
+        }
+        
+        // Regex para extrair só perfil
+        const validProfiles = [];
+        for (const link of links) {
+          const m = link.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/);
+          if (m && m[1] && m[1] !== 'p' && m[1] !== 'reel' && m[1] !== 'explore' && !m[1].includes('?')) {
+            const cleanUrl = `https://www.instagram.com/${m[1]}/`;
+            if (!blist.includes(cleanUrl)) {
+              validProfiles.push(cleanUrl);
+            }
+          }
+        }
+        return validProfiles.length > 0 ? validProfiles[0] : null;
+      },
+      args: [blocklist]
+    });
+
+    const foundUrl = results && results[0] && results[0].result;
+    if (foundUrl) {
+      return { success: true, url: foundUrl };
+    } else {
+      return { success: false, error: "Nenhum link encontrado." };
+    }
+  } catch (err) {
+    console.error("Erro na busca de Instagram:", err);
+    return { success: false, error: err.message };
+  } finally {
+    try {
+      await chrome.tabs.remove(tabId);
+    } catch(e) {}
+  }
+}
+
 
 async function handleInstagramScrape(instagramUrl) {
   console.log("Iniciando raspagem para:", instagramUrl);
@@ -1433,4 +1620,250 @@ function parseCardapioWebMenu(json) {
   }
   
   return categories;
+}
+
+async function handleWebContextScrape(url) {
+  console.log("Iniciando raspagem de contexto web para:", url);
+  // O Google Maps precisa estar ativo (active: true) para renderizar o DOM corretamente
+  const tab = await chrome.tabs.create({ url: url, active: true });
+  const tabId = tab.id;
+  
+  try {
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      let completeCount = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba foi fechada prematuramente."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            completeCount++;
+            if (completeCount > 6) { // Aguarda cerca de 3 segundos extras após 'complete'
+              resolve();
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          } else {
+            completeCount = 0; // reseta se não estiver mais complete
+            setTimeout(checkStatus, 1000);
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => {
+        return new Promise((resolve) => {
+          // Scroll page to ensure lazy-loaded elements are mounted
+          window.scrollBy(0, 500);
+          
+          try {
+            // Método super confiável para horários do Google Maps
+            const hoursContainer = document.querySelector('[data-item-id="oh"]');
+            if (hoursContainer) {
+              const expandBtn = hoursContainer.querySelector('[aria-expanded="false"]');
+              if (expandBtn) expandBtn.click();
+              // Fallback: clica na própria linha de horários
+              try { hoursContainer.click(); } catch(e) {}
+              const innerButtons = hoursContainer.querySelectorAll('button, div[role="button"]');
+              innerButtons.forEach(b => { try { b.click(); } catch(e) {} });
+            }
+
+            // Fallback genérico para outros botões importantes
+            const els = Array.from(document.querySelectorAll('*'));
+            els.forEach(b => {
+              const clickEl = (el) => {
+                try { el.click(); } catch(e) {}
+                try { el.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } catch(e) {}
+                try { el.dispatchEvent(new MouseEvent('mouseup', { bubbles: true })); } catch(e) {}
+                try { el.dispatchEvent(new MouseEvent('click', { bubbles: true })); } catch(e) {}
+              };
+
+              if (b.innerText && (b.innerText.toLowerCase() === 'mais' || b.innerText.toLowerCase() === 'more')) clickEl(b);
+              if (b.getAttribute('aria-expanded') === 'false' && (b.innerText && (b.innerText.includes('Abre') || b.innerText.includes('Fechado') || b.innerText.includes('horário')))) clickEl(b);
+              
+              const ariaLabel = b.getAttribute('aria-label') || '';
+              const lowerLabel = ariaLabel.toLowerCase();
+              if (lowerLabel && (lowerLabel.includes('horário') || lowerLabel.includes('horario') || lowerLabel.includes('hours') || lowerLabel.includes('abre às') || lowerLabel.includes('fechado'))) {
+                clickEl(b);
+              }
+            });
+          } catch(e) {}
+
+          setTimeout(() => {
+            let metaDesc = '';
+            try {
+              const meta = document.querySelector('meta[property="og:description"]');
+              if (meta) metaDesc = meta.content;
+            } catch(e) {}
+
+            let tablesText = '';
+            try {
+              const tables = document.querySelectorAll('table');
+              tables.forEach(t => {
+                tablesText += "\nTABLE: " + t.textContent;
+              });
+            } catch(e) {}
+            
+            resolve(document.body.innerText + "\n\nMETA DESCRIPTION:\n" + metaDesc + "\n\nHIDDEN TABLES:\n" + tablesText);
+          }, 1500); // Aguarda a tabela renderizar após o clique
+        });
+      }
+    });
+
+    if (results && results[0] && results[0].result) {
+      return { success: true, text: results[0].result };
+    } else {
+      return { success: false, error: "Nenhum texto extraído." };
+    }
+  } catch (err) {
+    console.error("Erro na raspagem de contexto:", err);
+    return { success: false, error: err.message };
+  } finally {
+    try {
+      await chrome.tabs.remove(tabId);
+    } catch(e) {}
+  }
+}
+
+// --- INTERACTIVE WEB AGENT FUNCTIONS ---
+
+let activeAgentTabId = null;
+
+async function handleAgentSnapshot(url) {
+  if (!activeAgentTabId && url) {
+    const tab = await chrome.tabs.create({ url: url, active: true });
+    activeAgentTabId = tab.id;
+    await new Promise((resolve) => {
+      let completeCount = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(activeAgentTabId, (currentTab) => {
+          if (chrome.runtime.lastError) return;
+          if (currentTab.status === 'complete') {
+            completeCount++;
+            if (completeCount > 4) { resolve(); }
+            else { setTimeout(checkStatus, 500); }
+          } else {
+            completeCount = 0;
+            setTimeout(checkStatus, 500);
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+  }
+
+  if (!activeAgentTabId) return { success: false, error: "Nenhuma aba ativa para snapshot." };
+
+  const results = await chrome.scripting.executeScript({
+    target: { tabId: activeAgentTabId },
+    func: () => {
+      window.scrollBy(0, 500);
+
+      // NOVO: Pre-emptive click para expandir horários como na Fase 1
+      try {
+          const expandBtns = document.querySelectorAll('div[role="button"][jsaction*="pane.openhours"], div.o0Svhf');
+          expandBtns.forEach(btn => {
+              try { btn.click(); } catch(e) {}
+              try { btn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } catch(e) {}
+              try { btn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true })); } catch(e) {}
+              try { btn.dispatchEvent(new MouseEvent('click', { bubbles: true })); } catch(e) {}
+          });
+      } catch(e) {}
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          let idCounter = 1;
+          const interactables = document.querySelectorAll('button, a, [role="button"], input, select, [aria-expanded], [data-item-id="oh"], [data-item-id="oh"] div, div[aria-label], span[aria-label], div.o0Svhf, div[jsaction*="pane.openhours"]');
+          interactables.forEach(el => {
+             const rect = el.getBoundingClientRect();
+             if (rect.width > 0 && rect.height > 0) {
+               el.setAttribute('data-ai-id', idCounter.toString());
+               idCounter++;
+             }
+          });
+          
+          const elementsData = [];
+          document.querySelectorAll('[data-ai-id]').forEach(el => {
+             const id = el.getAttribute('data-ai-id');
+             const text = el.innerText ? el.innerText.trim().substring(0, 100) : el.getAttribute('aria-label') || '';
+             if (text) {
+                elementsData.push(`[ID: ${id}] ${text.replace(/\n/g, ' ')}`);
+             }
+          });
+          
+          const hiddenTables = Array.from(document.querySelectorAll('table, .o0Svhf')).map(t => t.textContent.trim().replace(/\n/g, ' ')).join('\n---\n');
+          const bodyText = document.body.innerText;
+          const resultText = `PÁGINA TEXTO:\n${bodyText.substring(0, 8000)}\n\nHIDDEN TABLES (IMPORTANT: Check here for opening hours):\n${hiddenTables}\n\nELEMENTOS INTERATIVOS:\n${elementsData.join('\n')}`;
+          
+          resolve(resultText);
+        }, 1500);
+      });
+    }
+  });
+  
+  return { success: true, text: results[0].result };
+}
+
+async function handleClickAgentElement(targetId) {
+  if (!activeAgentTabId) throw new Error("Nenhuma aba ativa para clicar.");
+  
+  await chrome.scripting.executeScript({
+    target: { tabId: activeAgentTabId },
+    func: (id) => {
+       const el = document.querySelector(`[data-ai-id="${id}"]`);
+       
+       // ESTRATÉGIA DEFINITIVA: Clicar no novo seletor que o usuário encontrou (span com aria-label) e jsaction
+       const newArrow = document.querySelector('div[role="button"][jsaction*="pane.openhours"], span[aria-label*="Mostrar horário"], span[aria-label*="Mostrar horários"], div.o0Svhf');
+       if (newArrow) {
+          try { newArrow.click(); } catch(e) {}
+          try { newArrow.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } catch(e) {}
+          try { newArrow.dispatchEvent(new MouseEvent('mouseup', { bubbles: true })); } catch(e) {}
+          try { newArrow.dispatchEvent(new MouseEvent('click', { bubbles: true })); } catch(e) {}
+       }
+       
+       if (el) {
+          // Estratégia inspirada na Fase 1 (Robô Antigo Funcional)
+          const ohContainer = el.closest('[data-item-id="oh"]') || el.closest('.o0Svhf');
+          if (ohContainer) {
+              const expandBtn = ohContainer.querySelector('[aria-expanded="false"], span[role="img"]');
+              if (expandBtn) {
+                 try { expandBtn.click(); } catch(e) {}
+                 try { expandBtn.dispatchEvent(new MouseEvent('click', { bubbles: true })); } catch(e) {}
+              }
+              try { ohContainer.click(); } catch(e) {}
+              const innerButtons = ohContainer.querySelectorAll('button, div[role="button"], span[role="img"]');
+              innerButtons.forEach(b => { try { b.click(); } catch(e) {} });
+          } else {
+              // Fallback para elementos fora dos horários
+              let curr = el;
+              let depth = 0;
+              while (curr && depth < 5) {
+                 try { curr.click(); } catch(e) {}
+                 try { curr.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } catch(e) {}
+                 try { curr.dispatchEvent(new MouseEvent('mouseup', { bubbles: true })); } catch(e) {}
+                 try { curr.dispatchEvent(new MouseEvent('click', { bubbles: true })); } catch(e) {}
+                 curr = curr.parentElement;
+                 depth++;
+              }
+          }
+       }
+    },
+    args: [targetId]
+  });
+  
+  await new Promise(r => setTimeout(r, 2500));
+  return { success: true };
+}
+
+async function handleAgentClose() {
+  if (activeAgentTabId) {
+    try { await chrome.tabs.remove(activeAgentTabId); } catch(e) {}
+    activeAgentTabId = null;
+  }
+  return { success: true };
 }

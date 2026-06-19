@@ -226,6 +226,20 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     console.log(`[fetchPublicRestaurantById] Fetched ${galleryImages.length} gallery images for ${restaurantId}.`);
   }
   
+  // 3.5. Buscar seções de menu
+  const { data: sectionsData, error: sectionsError } = await supabase
+    .from('menu_sections')
+    .select('id, name, order_index, created_at')
+    .eq('restaurant_id', restaurantId)
+    .order('order_index', { ascending: true });
+
+  let menuSections: any[] = [];
+  if (sectionsError) {
+    console.warn(`[fetchPublicRestaurantById] Error fetching menu sections:`, sectionsError);
+  } else {
+    menuSections = sectionsData || [];
+  }
+  
   // 4. Buscar categorias e itens de menu separadamente
   const { data: menuData, error: menuError } = await supabase
     .from('menu_categories')
@@ -234,6 +248,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       name, 
       order_index, 
       is_active,
+      section_id,
       menu_items(
           id, 
           name, 
@@ -307,6 +322,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     logoUrl: baseData.image_url,
     followers_count: followersCount as number,
     menu_categories: filteredMenuCategories,
+    menu_sections: menuSections,
     gallery_images: sortedGalleryImages,
     payment_methods: paymentMethods,
     // Adicionando status de abertura

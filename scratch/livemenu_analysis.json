@@ -1,0 +1,50 @@
+{
+  "interactables": [
+    {
+      "text": "Aa",
+      "tag": "BUTTON",
+      "class": ""
+    },
+    {
+      "text": "Ir para o topo",
+      "tag": "BUTTON",
+      "class": "menu__gotop"
+    },
+    {
+      "text": "OK",
+      "tag": "BUTTON",
+      "class": "button button--main"
+    },
+    {
+      "text": "Fechar",
+      "tag": "BUTTON",
+      "class": "button button--main"
+    },
+    {
+      "text": "Voltar",
+      "tag": "BUTTON",
+      "class": "button button--outline-main"
+    },
+    {
+      "text": "Confirmar",
+      "tag": "BUTTON",
+      "class": "button button--main"
+    },
+    {
+      "text": "Voltar",
+      "tag": "BUTTON",
+      "class": "button"
+    },
+    {
+      "text": "OK",
+      "tag": "BUTTON",
+      "class": "button button--main"
+    },
+    {
+      "text": "OK",
+      "tag": "BUTTON",
+      "class": "button button--main"
+    }
+  ],
+  "tabsInfo": []
+}

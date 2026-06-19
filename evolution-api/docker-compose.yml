@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  evolution-api:
+    image: atendai/evolution-api:v2.1.1
+    container_name: evolution_api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_URL=http://localhost:8080
+      - DOCKER_ENV=true
+      - LOG_LEVEL=ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS
+      # Security
+      - AUTHENTICATION_TYPE=apikey
+      - AUTHENTICATION_API_KEY=sua_chave_secreta_global_aqui
+      - AUTHENTICATION_EXPOSE_IN_ENV=true
+      # Webhooks globais (Opcional, você pode definir por instância via API)
+      - WEBHOOK_GLOBAL_URL=https://gaawiewmlhorzbaixoqo.supabase.co/functions/v1/whatsapp-webhook
+      - WEBHOOK_GLOBAL_ENABLED=false # Deixe false e ative por instância no painel
+      - WEBHOOK_GLOBAL_EVENTS=APPLICATION_STARTUP,QRCODE_UPDATED,MESSAGES_UPSERT,MESSAGES_UPDATE,MESSAGES_DELETE,SEND_MESSAGE,CONNECTION_UPDATE,CALL
+      # Redis (Para escalabilidade - opcional, mas recomendado no enterprise)
+      - CACHE_REDIS_ENABLED=false
+      - CACHE_REDIS_URI=redis://redis:6379/6
+      - CACHE_REDIS_PREFIX_KEY=evolution
+    volumes:
+      - evolution_instances:/evolution/instances
+      - evolution_store:/evolution/store
+
+volumes:
+  evolution_instances:
+  evolution_store:

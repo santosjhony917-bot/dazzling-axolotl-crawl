@@ -61,6 +61,15 @@ export interface MenuCategory {
   is_active?: boolean | null;
   created_at?: string;
   is_popular?: boolean | null;
+  section_id?: string | null;
+}
+
+export interface MenuSection {
+  id: string;
+  restaurant_id: string;
+  name: string;
+  order_index?: number | null;
+  created_at?: string;
 }
 
 export interface MenuItem {

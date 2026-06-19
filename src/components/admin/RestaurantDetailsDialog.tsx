@@ -204,6 +204,9 @@ const parseAddressString = (addressStr: string) => {
     working = working.replace(cep, '').trim();
   }
 
+  // Clean trailing/leading punctuation right after removing CEP to avoid blocking state extraction
+  working = working.replace(/[\s,-]+$/, '').replace(/^[\s,-]+/, '').trim();
+
   // 2. Extract State (UF) (e.g. PB, SP...) near the end
   const stateMatch = working.match(/[\s,-]\b([A-Z]{2})\b\s*$/) || working.match(/\b([A-Z]{2})\b\s*$/);
   if (stateMatch) {
@@ -810,14 +813,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       // Busca o is_published atual do banco para não sobrescrever com valor errado
       // (evita restaurante sumir da lista quando o editedData tem status desatualizado)
-      let currentVisitStatus = updatedRest.is_published || 'Pendente';
+      let currentVisitStatus = updatedRest.is_published === true;
       try {
         const { data: existingRest } = await supabase
           .from('restaurants')
           .select('is_published')
           .eq('id', uuidId)
           .maybeSingle();
-        if (existingRest?.is_published) {
+        if (existingRest && existingRest.is_published !== undefined && existingRest.is_published !== null) {
           currentVisitStatus = existingRest.is_published;
         }
       } catch (_) {
@@ -2435,6 +2438,19 @@ ${aiHoursPastedContent}
                 </div>
               ) : editedData && (
                 <div className="space-y-6">
+                  {/* Log de Validação da IA */}
+                  {editedData.ai_log && (
+                    <div className="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-3">
+                      <h4 className="font-bold text-sm text-purple-700 uppercase tracking-wider mb-2 border-b border-purple-100 pb-1 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4" />
+                        Log de Validação da IA
+                      </h4>
+                      <div className="bg-white p-3 rounded-xl border border-purple-100/50 text-xs text-slate-600 whitespace-pre-wrap font-mono leading-relaxed shadow-inner overflow-y-auto max-h-[200px]">
+                        {editedData.ai_log}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Infos Gerais Formulário */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Cadastro Básico</h4>

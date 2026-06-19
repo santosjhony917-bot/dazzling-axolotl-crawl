@@ -1,4 +1,4 @@
-import { Restaurant, MenuCategory, MenuItem, GalleryImage } from './supabase';
+import { Restaurant, MenuCategory, MenuItem, GalleryImage, MenuSection } from './supabase';
 import { WeekSchedule } from './schedule'; // Import WeekSchedule
 import { Json } from './supabase'; // Import Json type for explicit casting if needed
 
@@ -17,6 +17,7 @@ export interface PublicRestaurantData extends Omit<Restaurant, 'opening_hours' |
   logoUrl: string | null;
   followers_count: number;
   menu_categories: (MenuCategory & { menu_items: MenuItem[] })[];
+  menu_sections?: MenuSection[];
   gallery_images: GalleryImage[];
   payment_methods: string[] | null; // Refined type
   isOpen: boolean;

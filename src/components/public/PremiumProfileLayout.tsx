@@ -364,6 +364,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                 <div id="menu-section" className="scroll-mt-32">
                   <RestaurantMenu 
                     menuCategories={restaurant.menu_categories} 
+                    menuSections={restaurant.menu_sections}
                     isFullMenuPage={false}
                     restaurantId={restaurant.id}
                     forceShowFullMenuButton={isCompact}

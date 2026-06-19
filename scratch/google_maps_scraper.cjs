@@ -112,8 +112,8 @@ async function saveToSupabase(scrapedItem) {
       phone: (scrapedItem.phone || '').replace(/[^\d+]/g, ''),
       address: scrapedItem.address || '',
       neighborhood: scrapedItem.neighborhood || '',
-      city: scrapedItem.city || 'João Pessoa',
-      state: scrapedItem.state || 'PB',
+      city: scrapedItem.city || CITY,
+      state: scrapedItem.state || STATE,
       category: scrapedItem.category || 'Restaurante',
       cover_image_url: scrapedItem.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800',
       image_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100',
@@ -148,66 +148,76 @@ async function saveToSupabase(scrapedItem) {
 
 
 // Configurações da Varredura
-const CITY = 'João Pessoa';
-const STATE = 'PB';
+const args = process.argv.slice(2);
+const cityArgIdx = args.indexOf('--city');
+const stateArgIdx = args.indexOf('--state');
 
-// Lista completa de todos os bairros urbanos de João Pessoa para cobertura geográfica total
-const NEIGHBORHOODS = [
-  'Tambaú',
-  'Manaíra',
-  'Cabo Branco',
-  'Bessa',
-  'Altiplano',
-  'Centro',
-  'Torre',
-  'Miramar',
-  'Bancários',
-  'Mangabeira',
-  'Bairro dos Estados',
-  'Jaguaribe',
-  'Geisel',
-  'Valentina de Figueiredo',
-  'Castelo Branco',
-  'Aeroclube',
-  'Água Fria',
-  'Alto do Céu',
-  'Alto do Mateus',
-  'Anatólia',
-  'Bairro das Indústrias',
-  'Bairro dos Ipês',
-  'Barra de Gramame',
-  'Brisamar',
-  'Cidade dos Colibris',
-  'Costa do Sol',
-  'Costa e Silva',
-  'Cristo Redentor',
-  'Cruz das Armas',
-  'Cuiá',
-  'Ernâni Sátiro',
-  'Expedicionários',
-  'Funcionários',
-  'Gramame',
-  'Grotão',
-  'Ilha do Bispo',
-  'Jardim Cidade Universitária',
-  'Jardim Oceania',
-  'Jardim São Paulo',
-  'Jardim Veneza',
-  'João Agripino',
-  'João Paulo II',
-  'José Américo',
-  'Mandacaru',
-  'Oitizeiro',
-  'Padre Zé',
-  'Paratibe',
-  'Penha',
-  'Portal do Sol',
-  'Róger',
-  'São José',
-  'Tambauzinho',
-  'Varadouro',
-  'Varjão'
-];
+const CITY = (cityArgIdx !== -1 && args[cityArgIdx + 1]) ? args[cityArgIdx + 1].replace(/"/g, '') : 'João Pessoa';
+const STATE = (stateArgIdx !== -1 && args[stateArgIdx + 1]) ? args[stateArgIdx + 1].replace(/"/g, '') : 'PB';
+
+// Lista completa de todos os bairros urbanos se for João Pessoa. Para outras cidades, faz busca geral.
+let NEIGHBORHOODS = [];
+if (CITY.toLowerCase() === 'joao pessoa' || CITY.toLowerCase() === 'joão pessoa') {
+  NEIGHBORHOODS = [
+    'Tambaú',
+    'Manaíra',
+    'Cabo Branco',
+    'Bessa',
+    'Altiplano',
+    'Centro',
+    'Torre',
+    'Miramar',
+    'Bancários',
+    'Mangabeira',
+    'Bairro dos Estados',
+    'Jaguaribe',
+    'Geisel',
+    'Valentina de Figueiredo',
+    'Castelo Branco',
+    'Aeroclube',
+    'Água Fria',
+    'Alto do Céu',
+    'Alto do Mateus',
+    'Anatólia',
+    'Bairro das Indústrias',
+    'Bairro dos Ipês',
+    'Barra de Gramame',
+    'Brisamar',
+    'Cidade dos Colibris',
+    'Costa do Sol',
+    'Costa e Silva',
+    'Cristo Redentor',
+    'Cruz das Armas',
+    'Cuiá',
+    'Ernâni Sátiro',
+    'Expedicionários',
+    'Funcionários',
+    'Gramame',
+    'Grotão',
+    'Ilha do Bispo',
+    'Jardim Cidade Universitária',
+    'Jardim Oceania',
+    'Jardim São Paulo',
+    'Jardim Veneza',
+    'João Agripino',
+    'João Paulo II',
+    'José Américo',
+    'Mandacaru',
+    'Oitizeiro',
+    'Padre Zé',
+    'Paratibe',
+    'Penha',
+    'Portal do Sol',
+    'Róger',
+    'São José',
+    'Tambauzinho',
+    'Varadouro',
+    'Varjão'
+  ];
+} else {
+  // Fallback geral (sem bairro específico)
+  NEIGHBORHOODS = [''];
+}
 
 // Categorias para mapear todos os nichos de alimentação
 const CATEGORIES = [
@@ -249,76 +259,11 @@ const defaultHours = {
   sunday: { isOpen: true, slots: [{ start: '11:00', end: '23:00' }] }
 };
 
-function formatRestaurantNameWithLocation(originalName, addressVal, cityVal = 'João Pessoa', neighborhoodVal = '') {
+function formatRestaurantNameWithLocation(originalName, addressVal, cityVal = CITY, neighborhoodVal = '') {
   if (!originalName) return originalName;
 
   // Clean strings from private use area characters like  and 
   let cleanName = originalName.replace(/[\uE000-\uF8FF]/g, '').trim();
-  let cleanAddress = (addressVal || '').replace(/[\uE000-\uF8FF]/g, '').trim();
-  let cleanCity = (cityVal || 'João Pessoa').replace(/[\uE000-\uF8FF]/g, '').trim();
-  let cleanNeighborhood = (neighborhoodVal || '').replace(/[\uE000-\uF8FF]/g, '').trim();
-
-  // If neighborhood is empty, try to extract it from address
-  if (!cleanNeighborhood && cleanAddress) {
-    const parts = cleanAddress.split(',');
-    if (parts.length > 1) {
-      const streetParts = parts[0].split('-');
-      if (streetParts.length > 1) {
-        cleanNeighborhood = streetParts[streetParts.length - 1].trim();
-      } else {
-        const secondPart = parts[1].split('-')[0].trim();
-        if (secondPart && !secondPart.toLowerCase().includes(cleanCity.toLowerCase())) {
-          cleanNeighborhood = secondPart;
-        }
-      }
-    }
-  }
-
-  // Normalize strings for comparison (remove accents, lowercase, remove non-alphanumeric)
-  const normalize = (str) => {
-    if (!str) return '';
-    return str.toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]/g, "");
-  };
-
-  const normName = normalize(cleanName);
-  const normCity = normalize(cleanCity);
-  const normNeighborhood = normalize(cleanNeighborhood);
-
-  // If neighborhood or city is already part of the name, return cleanName
-  if (normNeighborhood && normName.includes(normNeighborhood)) {
-    return cleanName;
-  }
-  if (normCity && normName.includes(normCity)) {
-    return cleanName;
-  }
-
-  // Check if any word from the neighborhood name or city is in the name
-  const isWordInName = (locStr) => {
-    if (!locStr) return false;
-    const words = locStr.toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .split(/[\s,.-]+/)
-      .filter(w => w.length > 3 && !['avenida', 'rua', 'bloco', 'apartamento', 'casa', 'numero', 'joao', 'pessoa', 'shopping', 'praia'].includes(w));
-    for (const w of words) {
-      if (normName.includes(w)) return true;
-    }
-    return false;
-  };
-
-  if (isWordInName(cleanNeighborhood) || isWordInName(cleanCity)) {
-    return cleanName;
-  }
-
-  // Choose the location qualifier to append
-  const location = cleanNeighborhood || cleanCity;
-  if (location) {
-    return `${cleanName} - ${location}`;
-  }
-
   return cleanName;
 }
 
@@ -388,7 +333,99 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
   return false;
 }
 
+async function fetchSuburbsFromOSM(cityName) {
+  const url = 'https://overpass-api.de/api/interpreter';
+  console.log(`📡 [ROBÔ] Consultando bairros de "${cityName}" via OpenStreetMap Overpass API...`);
+  
+  const query = `
+    [out:json][timeout:25];
+    area["name"="${cityName}"]->.searchArea;
+    (
+      node["place"~"suburb|quarter|neighbourhood"](area.searchArea);
+      way["place"~"suburb|quarter|neighbourhood"](area.searchArea);
+      relation["place"~"suburb|quarter|neighbourhood"](area.searchArea);
+    );
+    out tags;
+  `;
+
+  let attempt = 0;
+  const maxAttempts = 2;
+  
+  while (attempt < maxAttempts) {
+    attempt++;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        body: 'data=' + encodeURIComponent(query),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'FilterFoodScraper/1.0 (contact: support@filterfood.com.br)'
+        },
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          console.warn(`⚠️ [ROBÔ] Overpass API retornou 429 (Muitas requisições). Aguardando para tentar novamente...`);
+          await new Promise(r => setTimeout(r, 3000));
+          continue;
+        }
+        throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const suburbs = new Set();
+      
+      if (data.elements) {
+        for (const element of data.elements) {
+          if (element.tags && element.tags.name) {
+            const name = element.tags.name.trim();
+            if (name) suburbs.add(name);
+          }
+        }
+      }
+
+      const list = Array.from(suburbs).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+      if (list.length > 0) {
+        console.log(`✅ [ROBÔ] Sucesso! Encontrados ${list.length} bairros para "${cityName}":`);
+        console.log(`📍 Bairros: ${list.slice(0, 10).join(', ')}${list.length > 10 ? '...' : ''}`);
+        return list;
+      } else {
+        console.warn(`⚠️ [ROBÔ] Overpass API não encontrou nenhum bairro/distrito com a tag place=suburb para "${cityName}".`);
+        return [];
+      }
+    } catch (err) {
+      console.error(`⚠️ [ROBÔ] Tentativa ${attempt} de buscar bairros falhou:`, err.message);
+      if (attempt < maxAttempts) {
+        await new Promise(r => setTimeout(r, 2000));
+      }
+    }
+  }
+  return [];
+}
+
 (async () => {
+  // Se for outra cidade, busca bairros dinamicamente
+  if (CITY.toLowerCase() !== 'joao pessoa' && CITY.toLowerCase() !== 'joão pessoa') {
+    try {
+      const dynamicSuburbs = await fetchSuburbsFromOSM(CITY);
+      if (dynamicSuburbs && dynamicSuburbs.length > 0) {
+        NEIGHBORHOODS = dynamicSuburbs;
+      } else {
+        console.log(`⚠️ [ROBÔ] Usando fallback geral (sem bairros) para a cidade "${CITY}".`);
+        NEIGHBORHOODS = [''];
+      }
+    } catch (err) {
+      console.error(`❌ [ROBÔ] Erro ao buscar bairros dinâmicos. Usando fallback geral (sem bairros).`);
+      NEIGHBORHOODS = [''];
+    }
+  }
+
   // Carrega os links já existentes no Supabase para evitar recoletá-los
   console.log('📡 [Supabase] Carregando links do Google Maps já cadastrados para evitar recoleta...');
   const existingSupabaseUrls = new Set();
@@ -612,7 +649,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
           const searchItem = remainingSearches[i];
           const { neighborhood, category } = searchItem;
           const searchKey = `${category}|${neighborhood}`;
-          const query = `${category} em ${neighborhood}, ${CITY}, ${STATE}`;
+          const query = neighborhood ? `${category} em ${neighborhood}, ${CITY}, ${STATE}` : `${category} em ${CITY}, ${STATE}`;
           
           console.log(`[Aba ${workerId}] [${i + 1}/${totalToSearch}] 🔍 Pesquisando: "${query}"`);
           const url = `https://www.google.com/maps/search/${encodeURIComponent(query)}/`;
@@ -1248,7 +1285,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
 
             // Higienização e Capa
             category = category.replace('·', '').trim() || place.searchCategory || 'Restaurante';
-            if (!address) address = `${place.neighborhood}, João Pessoa - PB`;
+            if (!address) address = `${place.neighborhood}, ${CITY} - ${STATE}`;
 
             let cover = unsplashImages[category] || unsplashImages["Restaurante"];
             for (const [key, imgUrl] of Object.entries(unsplashImages)) {
@@ -1270,7 +1307,7 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
             const cleanPhone = (phone || '').replace(/[\uE000-\uF8FF]/g, '').trim();
             const cleanAddress = (address || '').replace(/[\uE000-\uF8FF]/g, '').trim();
 
-            const finalName = formatRestaurantNameWithLocation(cleanName, cleanAddress, 'João Pessoa', place.neighborhood);
+            const finalName = formatRestaurantNameWithLocation(cleanName, cleanAddress, CITY, place.neighborhood);
 
             const scrapedItem = {
               id: `scraped-google-local-${Date.now()}-${i}`,
@@ -1280,8 +1317,8 @@ async function navigateWithRetry(page, url, maxRetries = 2) {
               reviewsCount: reviewsCount,
               address: cleanAddress,
               phone: cleanPhone || undefined,
-              city: 'João Pessoa',
-              state: 'PB',
+              city: CITY,
+              state: STATE,
               instagram: instagram || undefined,
               facebook: facebook || undefined,
               coverImage: cover,

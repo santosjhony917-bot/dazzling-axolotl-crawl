@@ -10,7 +10,9 @@
  * node scratch/menu_scraper.cjs
  */
 
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin());
 const fs = require('fs');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
@@ -123,6 +125,170 @@ function parsePrice(text) {
     return isNaN(val) ? null : val;
   }
   return null;
+}
+
+/**
+ * Extrai cardápio de um arquivo PDF (download direto + pdf-parse + IA)
+ */
+async function extractMenuFromPDF(url, restaurantName) {
+  console.log(`   📄 [PDF] Detectado link de PDF. Baixando e extraindo texto...`);
+  
+  try {
+    const pdfParse = require('pdf-parse');
+    
+    // 1. Baixa o PDF
+    const response = await fetch(url, { 
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+      redirect: 'follow'
+    });
+    
+    if (!response.ok) {
+      console.log(`   ⚠️ [PDF] Falha ao baixar PDF: Status ${response.status}`);
+      return null;
+    }
+    
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('pdf') && !url.toLowerCase().endsWith('.pdf')) {
+      console.log(`   ⚠️ [PDF] URL não retornou PDF (content-type: ${contentType}). Ignorando...`);
+      return null;
+    }
+    
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    console.log(`   📄 [PDF] PDF baixado: ${(buffer.length / 1024).toFixed(1)} KB`);
+    
+    // 2. Extrai texto do PDF
+    const pdfData = await pdfParse(buffer);
+    const pdfText = pdfData.text;
+    
+    if (!pdfText || pdfText.trim().length < 50) {
+      console.log(`   ⚠️ [PDF] PDF sem texto extraível (provavelmente é uma imagem escaneada). Tentando Vision...`);
+      // Fallback: Converte primeira página em imagem e usa AI Vision
+      return await extractPdfWithVision(buffer, restaurantName);
+    }
+    
+    console.log(`   📄 [PDF] Texto extraído: ${pdfText.length} caracteres, ${pdfData.numpages} páginas`);
+    
+    // 3. Envia texto para IA estruturar
+    const geminiKey = process.env.VITE_GEMINI_API_KEY;
+    const openAiKey = process.env.VITE_OPENAI_API_KEY;
+    const isOpenAI = (openAiKey && openAiKey.startsWith('sk-proj-')) || (geminiKey && geminiKey.startsWith('sk-proj-'));
+    const isGemini = geminiKey && geminiKey.startsWith('AIzaSy');
+    const activeKey = isGemini ? geminiKey : (openAiKey || geminiKey);
+    
+    if (!activeKey) {
+      console.log(`   ⚠️ [PDF] Sem chave de IA configurada para processar o texto do PDF.`);
+      return null;
+    }
+    
+    const systemPrompt = `Você é um extrator de cardápios de restaurantes. Analise o texto extraído do PDF do cardápio do restaurante "${restaurantName}" e extraia TODOS os pratos, bebidas, categorias, preços e descrições.
+MUITO IMPORTANTE: O banco de dados suporta apenas 1 nível de categoria. Se o cardápio tiver seções e subseções (ex: "Pratos Principais" -> "Frango"), você DEVE mesclar os nomes e criar a categoria como "Pratos Principais - Frango".
+Regras CRÍTICAS:
+1. NÃO OMITA NENHUM ITEM. Leia o texto até o final e extraia 100% dos pratos e bebidas.
+2. Agrupe por categorias achatadas (ex: "Entradas", "Pratos - Camarão", "Sobremesas", "Bebidas").
+3. Para cada item: name, price ("R$ XX,XX" ou vazio), description, image_url (sempre vazio para PDF).
+4. NUNCA extraia endereços, telefones ou CNPJ.
+5. Retorne JSON: { "categories": [{ "name": "...", "items": [{ "name": "...", "price": "...", "description": "...", "image_url": "" }] }] }`;
+
+    // Trunca texto a 100K chars para caber nos limites
+    const truncatedText = pdfText.substring(0, 100000);
+    
+    if (isGemini) {
+      console.log(`   🤖 [PDF] Enviando texto do PDF para Gemini 1.5 Flash (Buscando 100% dos itens)...`);
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`;
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `${systemPrompt}\n\nTexto do PDF:\n${truncatedText}` }] }],
+          generationConfig: { responseMimeType: "application/json" }
+        })
+      });
+      if (!resp.ok) throw new Error(`Gemini Status ${resp.status}`);
+      const data = await resp.json();
+      const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!jsonText) return null;
+      return JSON.parse(jsonText).categories || [];
+    } else if (isOpenAI) {
+      console.log(`   🤖 [PDF] Enviando texto do PDF para GPT-4o-mini...`);
+      const endpoint = 'https://api.openai.com/v1/chat/completions';
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${activeKey}` },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          response_format: { type: "json_object" },
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: `Texto do PDF para analisar:\n${truncatedText}` }
+          ]
+        })
+      });
+      if (!resp.ok) throw new Error(`OpenAI Status ${resp.status}`);
+      const data = await resp.json();
+      const jsonText = data.choices?.[0]?.message?.content;
+      if (!jsonText) return null;
+      return JSON.parse(jsonText).categories || [];
+    }
+  } catch (err) {
+    console.log(`   ⚠️ [PDF] Erro ao processar PDF: ${err.message}`);
+    return null;
+  }
+  return null;
+}
+
+/**
+ * Fallback: Quando o PDF é uma imagem escaneada (sem texto extraível),
+ * converte para imagem e usa AI Vision para OCR.
+ */
+async function extractPdfWithVision(pdfBuffer, restaurantName) {
+  try {
+    // Usa o buffer do PDF diretamente como base64 para enviar ao Gemini (que aceita PDFs nativamente)
+    const geminiKey = process.env.VITE_GEMINI_API_KEY;
+    const openAiKey = process.env.VITE_OPENAI_API_KEY;
+    const isGemini = geminiKey && geminiKey.startsWith('AIzaSy');
+    const activeKey = isGemini ? geminiKey : null;
+    
+    if (isGemini && activeKey) {
+      console.log(`   📸 [PDF-Vision] Enviando PDF escaneado diretamente para Gemini Vision...`);
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`;
+      
+      const systemPrompt = `Você é um extrator de cardápios de restaurantes a partir de imagens. Analise este PDF escaneado do cardápio do restaurante "${restaurantName}".
+MUITO IMPORTANTE: O banco de dados suporta apenas 1 nível de categoria. Se o cardápio tiver seções e subseções (ex: "Pratos Principais" -> "Frango"), você DEVE mesclar os nomes e criar a categoria como "Pratos Principais - Frango".
+Regras CRÍTICAS:
+1. NÃO OMITA NENHUM ITEM. Leia as imagens até o final e extraia 100% dos pratos e bebidas visíveis.
+2. Agrupe por categorias achatadas (ex: "Entradas", "Pratos - Camarão", "Sobremesas", "Bebidas").
+3. Para cada item: extraia nome, preço e descrição. Retorne JSON estruturado: { "categories": [{ "name": "...", "items": [{ "name": "...", "price": "R$ XX,XX", "description": "...", "image_url": "" }] }] }`;
+      
+      const resp = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ 
+            parts: [
+              { text: systemPrompt },
+              { inlineData: { mimeType: 'application/pdf', data: pdfBuffer.toString('base64') } }
+            ] 
+          }],
+          generationConfig: { responseMimeType: "application/json" }
+        })
+      });
+      
+      if (!resp.ok) throw new Error(`Gemini Vision Status ${resp.status}`);
+      const data = await resp.json();
+      const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!jsonText) return null;
+      return JSON.parse(jsonText).categories || [];
+    }
+    
+    // Se não tem Gemini, tenta screenshot do PDF no browser (o OpenAI Vision não aceita PDF direto)
+    console.log(`   ⚠️ [PDF-Vision] Sem Gemini disponível para OCR de PDF escaneado. Pulando...`);
+    return null;
+  } catch (err) {
+    console.log(`   ⚠️ [PDF-Vision] Erro no OCR visual do PDF: ${err.message}`);
+    return null;
+  }
 }
 
 async function extractFromRestaurantGuru(page) {
@@ -1203,6 +1369,79 @@ Diretrizes:
   return null;
 }
 
+function parseLiveMenu(data) {
+  const categories = [];
+  
+  if (!Array.isArray(data)) {
+    return [];
+  }
+  
+  data.forEach((tab) => {
+    let tabName = 'Geral';
+    if (tab.name) {
+      tabName = typeof tab.name === 'object' ? (tab.name.pt || tab.name.en || Object.values(tab.name)[0]) : tab.name;
+    }
+    tabName = tabName.trim();
+    
+    if (Array.isArray(tab.menus)) {
+      tab.menus.forEach(cat => {
+        let catName = 'Outros';
+        if (cat.name) {
+          catName = typeof cat.name === 'object' ? (cat.name.pt || cat.name.en || Object.values(cat.name)[0]) : cat.name;
+        }
+        catName = catName.trim();
+        
+        const items = [];
+        
+        if (Array.isArray(cat.menuItems)) {
+          cat.menuItems.forEach(item => {
+            let itemName = '';
+            if (item.name) {
+              itemName = typeof item.name === 'object' ? (item.name.pt || item.name.en || Object.values(item.name)[0]) : item.name;
+            }
+            
+            let itemDesc = '';
+            if (item.descript) {
+              itemDesc = typeof item.descript === 'object' ? (item.descript.pt || item.descript.en || Object.values(item.descript)[0] || '') : item.descript;
+            }
+            
+            const price = item.price ? (item.price / 100) : 0;
+            const imageUrl = item.avatarUrl ? `https://static.tagme.com.br/pubimg/${item.avatarUrl}` : '';
+            
+            if (itemName) {
+              items.push({
+                name: itemName.trim(),
+                description: itemDesc.trim().replace(/\n+/g, ' '),
+                price: `R$ ${price.toFixed(2)}`,
+                image_url: imageUrl
+              });
+            }
+          });
+        }
+        
+        if (items.length > 0) {
+          let existingCat = categories.find(c => c.name === catName && c.section === tabName);
+          if (existingCat) {
+            items.forEach(newItem => {
+              if (!existingCat.items.some(item => item.name === newItem.name)) {
+                existingCat.items.push(newItem);
+              }
+            });
+          } else {
+            categories.push({
+              name: catName,
+              section: tabName,
+              items: items
+            });
+          }
+        }
+      });
+    }
+  });
+  
+  return categories;
+}
+
 function parseAnotaAiMenu(json) {
   let menu = json;
   if (json.data && json.data.menu) {
@@ -1336,6 +1575,45 @@ function parseAnotaAiMenu(json) {
 async function extractMenuItems(page, url, restaurant) {
   const urlLower = url.toLowerCase();
   
+  // 0. Detecta LiveMenu e busca o JSON da API diretamente
+  const isLiveMenu = urlLower.includes('livemenu.app') || urlLower.includes('tagme.com.br');
+  if (isLiveMenu) {
+    try {
+      console.log(`   🌐 [LIVEMENU] Detectado link LiveMenu. Buscando JSON da API diretamente...`);
+      const match = url.match(/(?:menu|dine-in)\/([a-f0-9]{24})/i);
+      if (match) {
+        const venueId = match[1];
+        const apiUrl = `https://customers.tagme.com.br/dine-in/menu/${venueId}/Dine-in?ignoreDisabled=1`;
+        console.log(`      🔗 Buscando de: ${apiUrl}`);
+        
+        const axios = require('axios');
+        const response = await axios.get(apiUrl, { timeout: 15000 });
+        
+        if (response.data) {
+          const parsed = parseLiveMenu(response.data);
+          if (parsed && parsed.length > 0 && parsed.some(c => c.items.length > 0)) {
+            console.log(`   ✨ Sucesso! Extrator nativo via API direta do LiveMenu mapeou o cardápio com perfeição.`);
+            return parsed;
+          }
+        }
+      }
+    } catch (e) {
+      console.log(`   ⚠️ Falha ao processar via requisição direta do LiveMenu: ${e.message}. Continuando via navegador...`);
+    }
+  }
+  
+  // 0. Detecta PDFs antes de qualquer processamento de página
+  const isPDF = urlLower.endsWith('.pdf') || urlLower.includes('.pdf?') || urlLower.includes('/pdf/');
+  if (isPDF) {
+    console.log(`   📄 [PDF] URL de PDF detectada! Processando diretamente sem navegação...`);
+    const pdfCategories = await extractMenuFromPDF(url, restaurant.name);
+    if (pdfCategories && pdfCategories.length > 0 && pdfCategories.some(c => c.items.length > 0)) {
+      console.log(`   ✨ Sucesso! Cardápio extraído do PDF com perfeição.`);
+      return pdfCategories;
+    }
+    console.log(`   ⚠️ [PDF] Extração do PDF falhou ou retornou vazio. Tentando via navegador...`);
+  }
+  
   // 1. Rola a página e clica em botões de expandir/ver mais para exibir todos os itens
   await expandAndLoadAllContent(page);
   
@@ -1350,6 +1628,20 @@ async function extractMenuItems(page, url, restaurant) {
       }
     } catch (e) {
       console.log(`   ⚠️ Falha ao processar via extrator especializado Anota.ai: ${e.message}. Tentando fallback...`);
+    }
+  }
+
+  isLiveMenu = urlLower.includes('livemenu.app') || urlLower.includes('tagme.com.br');
+  if (isLiveMenu && interceptedMenuData) {
+    try {
+      console.log(`   🌐 [LIVEMENU] Usando extrator especializado JavaScript para LiveMenu...`);
+      const parsed = parseLiveMenu(interceptedMenuData);
+      if (parsed && parsed.length > 0 && parsed.some(c => c.items.length > 0)) {
+        console.log(`   ✨ Sucesso! Extrator nativo JavaScript mapeou o cardápio com perfeição.`);
+        return parsed;
+      }
+    } catch (e) {
+      console.log(`   ⚠️ Falha ao processar via extrator especializado LiveMenu: ${e.message}. Tentando fallback...`);
     }
   }
   
@@ -1529,6 +1821,16 @@ async function saveMenuToSupabase(restaurantId, categories) {
 
     console.log(`📡 [Supabase] Salvando cardápio no Supabase para o restaurante ${restaurantId}...`);
     
+    // 0. Deleta seções antigas
+    const { error: deleteSecError } = await supabase
+      .from('menu_sections')
+      .delete()
+      .eq('restaurant_id', restaurantId);
+      
+    if (deleteSecError) {
+      console.warn(`⚠️ [Supabase] Erro ao deletar seções antigas:`, deleteSecError.message);
+    }
+
     // 1. Deleta categorias antigas (o cascade delete limpa pratos antigos)
     const { error: deleteError } = await supabase
       .from('menu_categories')
@@ -1539,11 +1841,36 @@ async function saveMenuToSupabase(restaurantId, categories) {
       console.warn(`⚠️ [Supabase] Erro ao deletar categorias antigas:`, deleteError.message);
     }
     
+    // 1.5. Extrai e insere seções únicas
+    const uniqueSections = [...new Set(categories.map(c => c.section).filter(Boolean))];
+    const sectionMap = new Map();
+    
+    for (let secIdx = 0; secIdx < uniqueSections.length; secIdx++) {
+      const secName = uniqueSections[secIdx];
+      const secUuid = uuidFrom(restaurantId + '-section-' + secName + '-' + secIdx);
+      
+      const { error: secError } = await supabase
+        .from('menu_sections')
+        .insert({
+          id: secUuid,
+          restaurant_id: restaurantId,
+          name: secName,
+          order_index: secIdx
+        });
+        
+      if (secError) {
+        console.error(`⚠️ [Supabase] Erro ao inserir seção "${secName}":`, secError.message);
+      } else {
+        sectionMap.set(secName, secUuid);
+      }
+    }
+    
     // 2. Inserir as novas categorias e pratos
     for (let catIdx = 0; catIdx < categories.length; catIdx++) {
       const cat = categories[catIdx];
       // Gera UUID determinístico para a categoria
       const catUuid = uuidFrom(restaurantId + '-' + cat.name + '-' + catIdx);
+      const sectionId = cat.section ? sectionMap.get(cat.section) : null;
       
       const { error: catError } = await supabase
         .from('menu_categories')
@@ -1552,7 +1879,8 @@ async function saveMenuToSupabase(restaurantId, categories) {
           restaurant_id: restaurantId,
           name: cat.name,
           order_index: catIdx,
-          is_active: true
+          is_active: true,
+          section_id: sectionId
         });
         
       if (catError) {

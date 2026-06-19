@@ -49,7 +49,13 @@ CREATE TABLE public.restaurants (
   claim_code text UNIQUE,
   visit_status public.visit_status_enum DEFAULT 'Pendente'::public.visit_status_enum,
   visit_notes text,
-  geom geography(Point, 4326)
+  geom geography(Point, 4326),
+  is_deleted boolean DEFAULT false,
+  rating numeric DEFAULT 0,
+  reviews_count integer DEFAULT 0,
+  is_published boolean DEFAULT false,
+  ai_validated boolean DEFAULT false,
+  ai_log text
 );
 
 -- Table menu_categories

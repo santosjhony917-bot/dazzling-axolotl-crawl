@@ -19,6 +19,111 @@ const http = require('http');
 const SUPABASE_URL = 'https://gaawiewmlhorzbaixoqo.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_1cZaKyo-HHldXBWLKtpKhw_nN7fMfQ3';
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+function getChromeLaunchOptions() {
+  const fs = require('fs');
+  const path = require('path');
+
+  // Carrega variáveis do arquivo .env
+  try {
+    const dotenvPath = path.join(__dirname, '..', '.env');
+    if (fs.existsSync(dotenvPath)) {
+      const lines = fs.readFileSync(dotenvPath, 'utf-8').split('\n');
+      lines.forEach(line => {
+        const match = line.match(/^\s*([\w.\-]+)\s*=\s*(.*)?\s*$/);
+        if (match) {
+          const key = match[1];
+          let value = match[2] || '';
+          if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+          if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+          process.env[key] = value.trim();
+        }
+      });
+    }
+  } catch (e) {}
+
+  const options = {
+    headless: false,
+    defaultViewport: null,
+    args: ['--start-maximized', '--disable-setuid-sandbox', '--no-sandbox', '--lang=pt-BR']
+  };
+
+  const useLocalChrome = false;
+
+  if (useLocalChrome) {
+    if (process.platform === 'win32') {
+      const localAppData = process.env.LOCALAPPDATA || '';
+      const programFiles = process.env.PROGRAMFILES || 'C:\\Program Files';
+      const programFilesX86 = process.env['PROGRAMFILES(X86)'] || 'C:\\Program Files (x86)';
+      
+      const possiblePaths = [
+        path.join(programFiles, 'Google\\Chrome\\Application\\chrome.exe'),
+        path.join(programFilesX86, 'Google\\Chrome\\Application\\chrome.exe'),
+        path.join(localAppData, 'Google\\Chrome\\Application\\chrome.exe'),
+      ];
+
+      for (const p of possiblePaths) {
+        if (fs.existsSync(p)) {
+          console.log(`💡 [Chrome Launcher] Usando executável local do Chrome (Forçado): ${p}`);
+          options.executablePath = p;
+          // Deixamos que o Puppeteer crie o perfil temporário por padrão, 
+          // evitando que a janela fique escondida em background por estar atrelada a uma instância presa.
+          break;
+        }
+      }
+    } else if (process.platform === 'darwin') {
+      const p = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+      if (fs.existsSync(p)) {
+        options.executablePath = p;
+      }
+    } else if (process.platform === 'linux') {
+      const paths = ['/usr/bin/google-chrome', '/usr/bin/chrome'];
+      for (const p of paths) {
+        if (fs.existsSync(p)) {
+          options.executablePath = p;
+          break;
+        }
+      }
+    }
+
+    if (!options.executablePath) {
+      console.log(`💡 [Chrome Launcher] Google Chrome não encontrado nos caminhos padrão. Tentando channel: 'chrome'...`);
+      options.channel = 'chrome';
+    }
+  } else {
+    console.log("💡 [Chrome Launcher] Usando Chromium integrado do Puppeteer (Mesmo comportamento do robô).");
+  }
+
+  return options;
+}
+
+async function loadInstagramCookies(page) {
+  const fs = require('fs');
+  const path = require('path');
+  const cookiesPath = path.join(__dirname, 'instagram_cookies.json');
+  if (fs.existsSync(cookiesPath)) {
+    try {
+      const cookiesStr = fs.readFileSync(cookiesPath, 'utf-8');
+      const cookies = JSON.parse(cookiesStr);
+      await page.setCookie(...cookies);
+      console.log(`🍪 [Instagram Session] Cookies carregados com sucesso.`);
+    } catch (cookieErr) {
+      console.warn(`⚠️ [Instagram Session] Falha ao carregar cookies: ${cookieErr.message}`);
+    }
+  }
+}
+
+async function saveInstagramCookies(page) {
+  const fs = require('fs');
+  const path = require('path');
+  try {
+    const cookies = await page.cookies();
+    const cookiesPath = path.join(__dirname, 'instagram_cookies.json');
+    fs.writeFileSync(cookiesPath, JSON.stringify(cookies, null, 2), 'utf-8');
+    console.log(`💾 [Instagram Session] Cookies salvos com sucesso.`);
+  } catch (cookieErr) {
+    console.warn(`⚠️ [Instagram Session] Erro ao salvar cookies: ${cookieErr.message}`);
+  }
+}
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -60,7 +165,9 @@ async function checkAndHandleLogin(page, url) {
       }
     }
     
-    console.log('✅ Login detectado! Retornando ao perfil...');
+    console.log('✅ Login detectado! Salvando cookies e retornando ao perfil...');
+    await saveInstagramCookies(page);
+    
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await delay(3000);
     return true;
@@ -368,19 +475,18 @@ async function run() {
     return;
   }
 
-  console.log(`🚀 Inicializando navegador Chrome com perfil persistente...`);
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    userDataDir: path.join(__dirname, 'puppeteer_chrome_profile'),
-    args: ['--start-maximized', '--lang=pt-BR']
-  });
+  console.log(`🚀 Inicializando navegador Chrome...`);
+  const launchOptions = getChromeLaunchOptions();
+  const browser = await puppeteer.launch(launchOptions);
 
   const page = await browser.newPage();
   await page.setBypassCSP(true);
   await page.setExtraHTTPHeaders({
     'Accept-Language': 'pt-BR,pt;q=0.9'
   });
+
+  // Carrega cookies do Instagram compartilhados
+  await loadInstagramCookies(page);
 
   let successCount = 0;
   let failedCount = 0;

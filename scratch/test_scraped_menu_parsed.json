@@ -1,0 +1,2181 @@
+[
+  {
+    "name": "Pizza coração",
+    "items": [
+      {
+        "name": "Pequena - Dois amores gratinado",
+        "price": "R$ 69.98",
+        "description": "Pizza com 1 sabor e 1 fatias",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1778383077364blob"
+      }
+    ]
+  },
+  {
+    "name": "PROMOS IMPERDÍVEIS ",
+    "items": [
+      {
+        "name": "Combo At Pizza - Vegetariana",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Sertaneja",
+        "price": "R$ 137.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Quatro queijos",
+        "price": "R$ 132.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Portuguesa",
+        "price": "R$ 129.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Pepperoni com Catupiry",
+        "price": "R$ 138.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Pepperoni",
+        "price": "R$ 138.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Peito de peru & cream cheese",
+        "price": "R$ 135.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Milho & bacon",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Mussarela",
+        "price": "R$ 129.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Lombo & Catupiry",
+        "price": "R$ 135.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Marguerita",
+        "price": "R$ 129.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Frango Catupiry e Barbecue",
+        "price": "R$ 131.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catuperi, Barbecue, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Frango Cheddar E Bacon",
+        "price": "R$ 135.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Frango aos Quatro Queijos",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Frango & Catupiry",
+        "price": "R$ 129.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Frango , Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 139.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cream Cheese, Peito de peru,Bacon, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Filé mignon & gorgonzola",
+        "price": "R$ 144.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Filé mignon & alho crocante",
+        "price": "R$ 142.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Doritos & bacon",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Charque & Catupiry",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, charque desfiada, Catupiry, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Carne de sol & Catupiry",
+        "price": "R$ 137.89",
+        "description": "Molho de tomate artesanal, gorgonzola, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Camarão & Quatro Queijos",
+        "price": "R$ 143.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Camarão At",
+        "price": "R$ 141.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - At Sushi",
+        "price": "R$ 149.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Atpizza",
+        "price": "R$ 134.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Brócolis",
+        "price": "R$ 137.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Atum",
+        "price": "R$ 145.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Calabresa AT",
+        "price": "R$ 132.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!\n. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Calabresa aos Quatro Queijos",
+        "price": "R$ 136.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Calabresa",
+        "price": "R$ 129.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Calabresa & cream cheese",
+        "price": "R$ 133.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Ninho com Morango",
+        "price": "R$ 135.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Nutella&Morango",
+        "price": "R$ 137.89",
+        "description": "Creme de leite, toque de mussarela, Nutella e pedaços de morango.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Nutella com Banana",
+        "price": "R$ 134.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Ovomaltine",
+        "price": "R$ 135.89",
+        "description": "1 Pizza Grande + 1 Pizza Média e Refrigerante de 1 litro.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Sonho de Valsa",
+        "price": "R$ 137.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Romeu & julieta",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Ouro Branco",
+        "price": "R$ 137.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Dois Amores gratinado",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Kinder Bueno",
+        "price": "R$ 145.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.\n. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Chocolate branco ao leite",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Chocolate Branco gratinado",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco ao forno.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Chocolate gratinado",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto ao forno.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Chocolate ao leite",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Doce de leite",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Banana Nevada",
+        "price": "R$ 132.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado, Catupiry e raspas de coco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Banana & Ninho",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo At Pizza - Banana & Canela",
+        "price": "R$ 129.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Calabresa",
+        "price": "R$ 139.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Frango & Catupiry",
+        "price": "R$ 139.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Lombo & Catupiry",
+        "price": "R$ 145.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Marguerita",
+        "price": "R$ 139.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Mussarela",
+        "price": "R$ 139.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Pacelli corn & bacon",
+        "price": "R$ 146.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Portuguesa",
+        "price": "R$ 139.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Rúcula & tomate seco",
+        "price": "R$ 145.90",
+        "description": "Molho de tomate artesanal, mussarela importada, rúcula e tomate seco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Atpizza",
+        "price": "R$ 144.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Atum",
+        "price": "R$ 155.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Brócolis",
+        "price": "R$ 147.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Calabresa & cream cheese",
+        "price": "R$ 143.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Carne de sol & Catupiry",
+        "price": "R$ 147.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Charque & Catupiry",
+        "price": "R$ 146.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Doritos & bacon",
+        "price": "R$ 145.90",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Frango & Catupiry e Barbecue",
+        "price": "R$ 141.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, molho Barbecue,  parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Frango Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 149.89",
+        "description": "Molho de tomate artesanal, frango desfiado, cream cheese, mussarela, peito de peru, bacon,  parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Frango Cheedar e Bacon",
+        "price": "R$ 145.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Peito de peru & cream cheese",
+        "price": "R$ 145.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Pepperoni",
+        "price": "R$ 148.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Quatro queijos",
+        "price": "R$ 142.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Vegetariana",
+        "price": "R$ 146.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Sertaneja",
+        "price": "R$ 147.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - At Sushi",
+        "price": "R$ 159.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Camarão At",
+        "price": "R$ 151.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Camarão & Quatro Queijos",
+        "price": "R$ 151.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Filé mignon & gorgonzola",
+        "price": "R$ 154.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Filé mignon & alho crocante",
+        "price": "R$ 152.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Banana & avelã",
+        "price": "R$ 144.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Banana com canela",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Banana & Ninho",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Chocolate ao leite",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Chocolate Bracno",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco .. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Chocolate Branco Gratinado",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Chocolate Gratinado",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto gratinado.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Dois amores gratinado",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco gratinados.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Dois amores ao leite",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Doce de leite",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Romeu & julieta",
+        "price": "R$ 139.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Ouro Branco",
+        "price": "R$ 147.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Banana Nevada",
+        "price": "R$ 142.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco, Catupiry e leve toque de coco gratinados.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Sonho de Valsa",
+        "price": "R$ 147.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Nutella&morango",
+        "price": "R$ 147.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Família - Ovomaltine",
+        "price": "R$ 145.89",
+        "description": "2 Pizzas Grandes Tradicionais + Refrigerante de 1 litro.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00] [Massas e bordas Pizza Grande - 1: Borda de avelã por +R$ 12.00, Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de chocolate por +R$ 12.00, Borda de Catupiry por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202102251657_0maO_"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Vegetariana",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Sertaneja",
+        "price": "R$ 69.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Quatro queijos",
+        "price": "R$ 64.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Portuguesa",
+        "price": "R$ 61.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Pepperoni com Catupiry",
+        "price": "R$ 70.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Pepperoni",
+        "price": "R$ 70.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Peito de peru & cream cheese",
+        "price": "R$ 67.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Milho & bacon",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Mussarela",
+        "price": "R$ 61.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Lombo & Catupiry",
+        "price": "R$ 67.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Marguerita",
+        "price": "R$ 61.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Frango Catupiry e Barbecue",
+        "price": "R$ 63.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catuperi, Barbecue, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Frango Cheddar E Bacon",
+        "price": "R$ 67.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Frango aos Quatro Queijos",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Frango & Catupiry",
+        "price": "R$ 61.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Frango , Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 71.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cream Cheese, Peito de peru,Bacon, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Filé mignon & gorgonzola",
+        "price": "R$ 76.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Filé mignon & alho crocante",
+        "price": "R$ 74.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Doritos & bacon",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Charque & Catupiry",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, charque desfiada, Catupiry, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Carne de sol & Catupiry",
+        "price": "R$ 69.89",
+        "description": "Molho de tomate artesanal, gorgonzola, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Camarão & Quatro Queijos",
+        "price": "R$ 75.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Camarão At",
+        "price": "R$ 73.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - At Sushi",
+        "price": "R$ 81.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Atpizza",
+        "price": "R$ 66.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Brócolis",
+        "price": "R$ 69.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Atum",
+        "price": "R$ 77.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Calabresa AT",
+        "price": "R$ 64.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!\n. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Calabresa aos Quatro Queijos",
+        "price": "R$ 68.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Calabresa",
+        "price": "R$ 61.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Calabresa & cream cheese",
+        "price": "R$ 65.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Ninho com Morango",
+        "price": "R$ 67.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Nutella&Morango",
+        "price": "R$ 69.89",
+        "description": "Creme de leite, toque de mussarela, Nutella e pedaços de morango.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Nutella com Banana",
+        "price": "R$ 66.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Ovomaltine",
+        "price": "R$ 67.89",
+        "description": "Combinação perfeita, pizza média e refrigerante lata !!!!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Sonho de Valsa",
+        "price": "R$ 69.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Romeu & julieta",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Ouro Branco",
+        "price": "R$ 69.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Dois Amores gratinado",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Kinder Bueno",
+        "price": "R$ 77.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.\n. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Chocolate branco ao leite",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Chocolate Branco gratinado",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco ao forno.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Chocolate gratinado",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto ao forno.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Chocolate ao leite",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Doce de leite",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Banana Nevada",
+        "price": "R$ 64.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado, Catupiry e raspas de coco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Banana & Ninho",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza média  + Refri Lata - Banana & Canela",
+        "price": "R$ 61.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_6XO1_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Calabresa",
+        "price": "R$ 45.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Lombo & Catupiry",
+        "price": "R$ 51.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Marguerita",
+        "price": "R$ 45.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Portuguesa",
+        "price": "R$ 45.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Atum",
+        "price": "R$ 61.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Carne de sol & Catupiry",
+        "price": "R$ 53.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Peito de peru & cream cheese",
+        "price": "R$ 51.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Pepperoni",
+        "price": "R$ 54.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Calabresa aos Quatro Queijos",
+        "price": "R$ 50.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Mussarela",
+        "price": "R$ 45.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Atpizza",
+        "price": "R$ 50.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Frango Cheddar E Bacon",
+        "price": "R$ 51.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Frango Catupiry e Barbecue",
+        "price": "R$ 47.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, molho Barbecue, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Sertaneja",
+        "price": "R$ 53.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - At Sushi",
+        "price": "R$ 65.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Camarão At",
+        "price": "R$ 57.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Camarão & Quatro Queijos",
+        "price": "R$ 59.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Doritos & bacon",
+        "price": "R$ 52.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Filé mignon & gorgonzola",
+        "price": "R$ 60.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Filé mignon & alho crocante",
+        "price": "R$ 58.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Milho & bacon",
+        "price": "R$ 52.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Brócolis",
+        "price": "R$ 53.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Quatro queijos",
+        "price": "R$ 48.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Calabresa AT",
+        "price": "R$ 48.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Frango & Catupiry",
+        "price": "R$ 45.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Frango, Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 55.89",
+        "description": "Molho de tomate artesanal, frango desfiado, cream cheese, mussarela, peito de peru, bacon, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Pepperoni ao Catupiry",
+        "price": "R$ 54.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Frango aos Quatro Queijos",
+        "price": "R$ 50.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Calabresa & cream cheese",
+        "price": "R$ 49.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Vegetariana",
+        "price": "R$ 52.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Charque & Catupiry",
+        "price": "R$ 52.89",
+        "description": "Molho de tomate artesanal, mussarela importada, charque desfiada, Catupiry, cebola e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Banana Nevada",
+        "price": "R$ 48.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco, Catupiry e leve toque de coco gratinados.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Chocolate Gratinado",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto gratinado.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Chocolate branco ao leite",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Doce de leite",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Sonho de Valsa",
+        "price": "R$ 53.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Dois amores gratinados",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco gratinados.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Chocolate ao leite",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Banana & Ninho",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Banana com canela",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Nutella com Banana",
+        "price": "R$ 50.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Kinder Bueno",
+        "price": "R$ 58.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Ouro Branco",
+        "price": "R$ 53.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Chocolate Branco Gratinado",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Ninho com Morango",
+        "price": "R$ 51.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Nutella & Morango",
+        "price": "R$ 55.89",
+        "description": "Creme de leite, toque de mussarela, Nutella e pedaços de morango.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Romeu & julieta",
+        "price": "R$ 45.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      },
+      {
+        "name": "Combo Pizza Pequena + Refri Lata - Ovomaltine",
+        "price": "R$ 51.89",
+        "description": "Combinação perfeita, pizza pequena e refrigerante lata !!!!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202309041807_0131_i"
+      }
+    ]
+  },
+  {
+    "name": "PIZZAS",
+    "items": [
+      {
+        "name": "Pizza grande - até 2 sabores - Calabresa",
+        "price": "R$ 69.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Mussarela",
+        "price": "R$ 69.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Milho & bacon",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Portuguesa",
+        "price": "R$ 69.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Carne de sol & Catupiry",
+        "price": "R$ 77.89",
+        "description": "Molho de tomate artesanal, gorgonzola, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Doritos & bacon",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Pepperoni Catupiry",
+        "price": "R$ 78.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Calabresa aos Quatro Queijos",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Lombo & Catupiry",
+        "price": "R$ 75.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Marguerita",
+        "price": "R$ 69.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Atpizza",
+        "price": "R$ 74.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Atum",
+        "price": "R$ 85.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - At Sushi",
+        "price": "R$ 89.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Filé Mignon & alho crocante",
+        "price": "R$ 82.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Filé Mignon & gorgonzola",
+        "price": "R$ 84.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Charque & Catupiry",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Vegetariana",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Frango Cheedar e Bacon",
+        "price": "R$ 75.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Frango, Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 79.89",
+        "description": "Molho de tomate artesanal, frango desfiado, cream cheese, mussarela, peito de peru, bacon,  parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Frango & Catupiry e Barbecue",
+        "price": "R$ 71.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, molho Barbecue,  parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Frango & Catupiry",
+        "price": "R$ 69.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Frango aos Quatro Queijos",
+        "price": "R$ 76.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Pepperoni",
+        "price": "R$ 78.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Camarão At",
+        "price": "R$ 81.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Camarão & Quatro Queijos",
+        "price": "R$ 83.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Sertaneja",
+        "price": "R$ 77.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Peito de peru & cream cheese",
+        "price": "R$ 75.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Calabresa com cebola caramelizada e mel",
+        "price": "R$ 72.90",
+        "description": "Pizza 35cm. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Calabresa AT",
+        "price": "R$ 72.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Calabresa & cream cheese",
+        "price": "R$ 73.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Quatro queijos",
+        "price": "R$ 72.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Chocolate Branco",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco .. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Chocolate Branco Gratinado",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Chocolate ao leite",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Dois amores gratinado",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco gratinados.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Chocolate Gratinado",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto gratinado.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Ouro Branco",
+        "price": "R$ 77.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Romeu & julieta",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Ninho com morango",
+        "price": "R$ 75.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Banana Nevada",
+        "price": "R$ 72.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco, Catupiry e leve toque de coco gratinados.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Banana & nutella",
+        "price": "R$ 74.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Banana & Ninho",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Banana com canela",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Doce de leite",
+        "price": "R$ 69.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Sonho de Valsa",
+        "price": "R$ 77.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Nutella&morango",
+        "price": "R$ 77.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Kinder Bueno",
+        "price": "R$ 85.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Ovomaltine",
+        "price": "R$ 75.89",
+        "description": "Pizza 35cm. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza grande - até 2 sabores - Brócolis",
+        "price": "R$ 77.89",
+        "description": "Pizza 35cm. [Massas e bordas Pizza Grande: Borda de Cream Cheese por +R$ 12.00, Borda de Cheedar por +R$ 12.00, Borda de Catupiry por +R$ 12.00, Borda de Chocolate por +R$ 12.00, Borda de Chocolate Branco por +R$ 12.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051349_HxV3_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Vegetariana",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Sertaneja",
+        "price": "R$ 63.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Quatro queijos",
+        "price": "R$ 58.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Portuguesa",
+        "price": "R$ 55.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Pepperoni com Catupiry",
+        "price": "R$ 64.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Pepperoni",
+        "price": "R$ 64.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Peito de peru & cream cheese",
+        "price": "R$ 61.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Milho & bacon",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Mussarela",
+        "price": "R$ 55.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Lombo & Catupiry",
+        "price": "R$ 61.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Marguerita",
+        "price": "R$ 55.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Frango Catupiry e Barbecue",
+        "price": "R$ 57.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catuperi, Barbecue, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Frango Cheddar E Bacon",
+        "price": "R$ 61.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Frango aos Quatro Queijos",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Frango & Catupiry",
+        "price": "R$ 55.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Frango , Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 65.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cream Cheese, Peito de peru,Bacon, mussarela, parmesão e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Filé mignon & gorgonzola",
+        "price": "R$ 70.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Filé mignon & alho crocante",
+        "price": "R$ 68.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Doritos & bacon",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Charque & Catupiry",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, charque desfiada, Catupiry, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Carne de sol & Catupiry",
+        "price": "R$ 63.89",
+        "description": "Molho de tomate artesanal, gorgonzola, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Camarão & Quatro Queijos",
+        "price": "R$ 69.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Camarão At",
+        "price": "R$ 67.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - At Sushi",
+        "price": "R$ 75.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Atpizza",
+        "price": "R$ 60.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Brócolis",
+        "price": "R$ 63.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Atum",
+        "price": "R$ 71.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Calabresa AT",
+        "price": "R$ 58.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!\n. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Calabresa aos Quatro Queijos",
+        "price": "R$ 62.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Calabresa",
+        "price": "R$ 55.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Calabresa & cream cheese",
+        "price": "R$ 59.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Ninho com Morango",
+        "price": "R$ 61.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Nutella&Morango",
+        "price": "R$ 63.89",
+        "description": "Creme de leite, toque de mussarela, Nutella e pedaços de morango.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Nutella com Banana",
+        "price": "R$ 60.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Ovomaltine",
+        "price": "R$ 61.89",
+        "description": "Pizza com 30cm. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Sonho de Valsa",
+        "price": "R$ 63.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Romeu & julieta",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Ouro Branco",
+        "price": "R$ 63.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Dois Amores gratinado",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Kinder Bueno",
+        "price": "R$ 71.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.\n. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Chocolate branco ao leite",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Chocolate Branco gratinado",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco ao forno.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Chocolate gratinado",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto ao forno.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Chocolate ao leite",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Doce de leite",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Banana Nevada",
+        "price": "R$ 58.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado, Catupiry e raspas de coco.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Banana & Ninho",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Média - até 2 Sabores - Banana & Canela",
+        "price": "R$ 55.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.. [Massa Pizza média: Borda de chocolate por +R$ 8.00, Borda de catupiry por +R$ 8.00, Borda de cream cheese por +R$ 8.00, Borda de cheddar por +R$ 8.00]",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202103051353_LBDr_"
+      },
+      {
+        "name": "Pizza Pequena - Calabresa",
+        "price": "R$ 39.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Lombo & Catupiry",
+        "price": "R$ 45.89",
+        "description": "Molho de tomate artesanal, mussarela importada, lombo canadense, Catupiry e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Marguerita",
+        "price": "R$ 39.90",
+        "description": "Molho de tomate artesanal, mussarela importada, tomate, manjericão, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Portuguesa",
+        "price": "R$ 39.90",
+        "description": "Molho de tomate artesanal, mussarela importada, presunto ralado, ovos, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Atum",
+        "price": "R$ 55.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Catupiry, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Carne de sol & Catupiry",
+        "price": "R$ 47.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Peito de peru & cream cheese",
+        "price": "R$ 45.89",
+        "description": "Molho de tomate artesanal, mussarela importada, rolinhos de peito de peru com cream cheese e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Pepperoni",
+        "price": "R$ 48.89",
+        "description": "Molho de tomate artesanal, mussarela importada, pepperoni e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Calabresa aos Quatro Queijos",
+        "price": "R$ 44.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa cortada bem fininha, cebola , e banhada aos quarto queijos!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Mussarela",
+        "price": "R$ 39.90",
+        "description": "Molho de tomate artesanal, mussarela importada e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Atpizza",
+        "price": "R$ 44.89",
+        "description": "Molho de tomate artesanal, mussarela importada, peito de peru ralado, provolone, bacon e Catupiry.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Frango Cheddar E Bacon",
+        "price": "R$ 45.89",
+        "description": "Molho de tomate artesanal, frango desfiado, Cheedar, Bacon, mussarela, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Frango Catupiry e Barbecue",
+        "price": "R$ 41.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, molho Barbecue, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Sertaneja",
+        "price": "R$ 47.89",
+        "description": "Molho de tomate artesanal, mussarela importada, carne de sol desfiada, Catupiry, cebola e tomate.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - At Sushi",
+        "price": "R$ 59.89",
+        "description": "Molho de tomate artesanal, mussarela importada, atum, Cream Cheese, Cebolinha , Camarão empanado , molho Teriyake e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Camarão At",
+        "price": "R$ 51.89",
+        "description": "Massa, molho de tomate artesanal, Catupiry, filé de camarão refogado no alho e óleo, bacon em cubos, tomate em cubo e cebolinha.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Camarão & Quatro Queijos",
+        "price": "R$ 53.89",
+        "description": "Molho de tomate artesanal, mussarela importada, camarões, provolone, Catupiry, gorgonzola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Doritos & bacon",
+        "price": "R$ 46.89",
+        "description": "Molho de tomate artesanal, mussarela importada, cheedar, bacon e Doritos.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Filé mignon & gorgonzola",
+        "price": "R$ 54.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, alho poró e gorgonzola.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Filé mignon & alho crocante",
+        "price": "R$ 52.80",
+        "description": "Molho de tomate artesanal, mussarela importada, cubos de filé mignon, champignon e alho crocante.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Milho & bacon",
+        "price": "R$ 46.89",
+        "description": "Molho de tomate artesanal, mussarela importada, milho e bacon.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Brócolis",
+        "price": "R$ 47.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, bacon, Catupiry e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Quatro queijos",
+        "price": "R$ 42.90",
+        "description": "Molho de tomate artesanal, mussarela importada,provolone, Catupiry, gorgonzola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Calabresa AT",
+        "price": "R$ 42.90",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa fatiado bem fininha, cebola caramelizada e um leve toque de mel de engenho!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Frango & Catupiry",
+        "price": "R$ 39.90",
+        "description": "Molho de tomate artesanal, frango desfiado, Catupiry, mussarela, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Frango, Cream Cheese, Peito de Peru e Bacon",
+        "price": "R$ 49.89",
+        "description": "Molho de tomate artesanal, frango desfiado, cream cheese, mussarela, peito de peru, bacon, parmesão e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Pepperoni ao Catupiry",
+        "price": "R$ 48.89",
+        "description": "Molho de tomate artesanal, mussarela importada, o Legitimo Pepperoni SADÍA e para finalizar, muito catupiry original!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Frango aos Quatro Queijos",
+        "price": "R$ 44.89",
+        "description": "Molho de tomate artesanal, mussarela importada, nosso delicioso frango bem temperado, catupiry original  e banhada aos quatro queijos!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Calabresa & cream cheese",
+        "price": "R$ 43.89",
+        "description": "Molho de tomate artesanal, mussarela importada, calabresa, cream cheese, cebola e orégano.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Vegetariana",
+        "price": "R$ 46.89",
+        "description": "Molho de tomate artesanal, mussarela importada, brócolis, palmito, cebola, tomate e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Charque & Catupiry",
+        "price": "R$ 46.89",
+        "description": "Molho de tomate artesanal, mussarela importada, charque desfiada, Catupiry, cebola e orégano",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Banana Nevada",
+        "price": "R$ 42.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco, Catupiry e leve toque de coco gratinados.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Chocolate Gratinado",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto gratinado.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Chocolate branco ao leite",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Doce de leite",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela e doce de leite.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Sonho de Valsa",
+        "price": "R$ 47.89",
+        "description": "Creme de leite, toque de mussarela, chocolate, e rapas de Sonho de Valsa.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Dois amores gratinados",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, chocolate e chocolate branco gratinados.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Chocolate ao leite",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela e chocolate preto.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Banana & Ninho",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, banana, chocolate branco e leite Ninho",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Banana com canela",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, banana, fio de leite condensado e canela.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Nutella com Banana",
+        "price": "R$ 44.89",
+        "description": "Creme de leite, toque de mussarela, banana e creme de avelã",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Kinder Bueno",
+        "price": "R$ 52.80",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, chocolate branco ao leite, Nutella e para finalizar pedaços de Kinder Bueno.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Ouro Branco",
+        "price": "R$ 47.89",
+        "description": "Creme de leite, toque de mussarela, chocolate branco com chocolate Ouro Branco.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Chocolate Branco Gratinado",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, chocolate branco gratinado.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Ninho com Morango",
+        "price": "R$ 45.89",
+        "description": "Massa tradicional com toque de creme de leite, leve quantidade de queijo, nosso cremosa calda de leite ninho com pedaços de morango e nosso cramble de ninho secreto!!!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Nutella & Morango",
+        "price": "R$ 49.89",
+        "description": "Creme de leite, toque de mussarela, Nutella e pedaços de morango.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Romeu & julieta",
+        "price": "R$ 39.90",
+        "description": "Creme de leite, toque de mussarela, goiabada e cream cheese.",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      },
+      {
+        "name": "Pizza Pequena - Ovomaltine",
+        "price": "R$ 45.89",
+        "description": "Diversos sabores!",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1738450443924blob"
+      }
+    ]
+  },
+  {
+    "name": "REFRIGERANTES",
+    "items": [
+      {
+        "name": "Coca zero 1 litro",
+        "price": "R$ 13.90",
+        "description": "Geladinha",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202101132122_RlRr_"
+      },
+      {
+        "name": "Coca-Cola 1l",
+        "price": "R$ 13.90",
+        "description": "Garrafa 1l",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202312051703_i9mf59ukfbl"
+      },
+      {
+        "name": "Coca-Cola sem Açúcar 350ml",
+        "price": "R$ 8.00",
+        "description": "Lata 350ml",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202210190248_njk6fgoixkl"
+      },
+      {
+        "name": "Coca-Cola Original 350ml",
+        "price": "R$ 8.00",
+        "description": "Lata 350ml",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202210190019_r4jtkr7rjzr"
+      },
+      {
+        "name": "Guaraná 1litro",
+        "price": "R$ 12.90",
+        "description": "Garrafa 1l",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202210181754_xsm9mrik64k"
+      },
+      {
+        "name": "Guaraná zero 1L",
+        "price": "R$ 12.90",
+        "description": "",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1780709774794blob"
+      },
+      {
+        "name": "Fanta Laranja - 1litro ",
+        "price": "R$ 12.90",
+        "description": "Garrafa 1l",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1732026463309blob"
+      },
+      {
+        "name": "Fanta laranja lata 350ml",
+        "price": "R$ 8.00",
+        "description": "Gelada",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202101132130_5uJ4_"
+      },
+      {
+        "name": "Fanta Uva 350ml",
+        "price": "R$ 8.00",
+        "description": "Lata 350ml",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/202210182322_zcsoh3sr71f"
+      },
+      {
+        "name": "Guaraná Antartica ",
+        "price": "R$ 8.00",
+        "description": "Gelada",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1746748340571blob"
+      },
+      {
+        "name": "Guaraná lata zero",
+        "price": "R$ 8.00",
+        "description": "",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1777390089270blob"
+      },
+      {
+        "name": "Sprite lata",
+        "price": "R$ 8.00",
+        "description": "limão",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1746748276148blob"
+      },
+      {
+        "name": "H2OH limoneto ",
+        "price": "R$ 9.99",
+        "description": "",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1778182405036blob"
+      },
+      {
+        "name": "Água ",
+        "price": "R$ 5.00",
+        "description": "Gelada",
+        "image_url": "https://client-assets.anota.ai/produtos/62acfd8e23567c00122c3264/-1734824581601blob"
+      }
+    ]
+  },
+  {
+    "name": "Adicionais / Bordas",
+    "items": [
+      {
+        "name": "Adicional: Borda de Cream Cheese",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de Cheedar",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de Catupiry",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de Chocolate",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de Chocolate Branco",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de chocolate",
+        "price": "R$ 8.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de catupiry",
+        "price": "R$ 8.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de cream cheese",
+        "price": "R$ 8.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de cheddar",
+        "price": "R$ 8.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de avelã",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      },
+      {
+        "name": "Adicional: Borda de chocolate",
+        "price": "R$ 12.00",
+        "description": "",
+        "image_url": ""
+      }
+    ]
+  }
+]

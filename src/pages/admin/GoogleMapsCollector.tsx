@@ -9,6 +9,7 @@ import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, Chevr
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { RestaurantDetailsDialog } from '@/components/admin/RestaurantDetailsDialog';
 import { showSuccess, showError } from '@/utils/toast';
+import { cleanRestaurantName } from '@/utils/formatters';
 import { WeekSchedule } from '@/types/schedule';
 import { supabase } from '@/integrations/supabase/client';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -498,6 +499,52 @@ const getImportValidationError = (r: ScrapedRestaurant): string | null => {
   return null;
 };
 
+const cleanCityName = (cityName?: string) => {
+  if (!cityName) return '';
+  return cityName.replace(/\s*-\s*[A-Z]{2}$/i, '').trim();
+};
+
+const cleanScrapedRestaurant = (p: any) => {
+  const name = cleanRestaurantName(p.name || 'Sem Nome');
+  const cityVal = cleanCityName(p.city || 'João Pessoa');
+
+  return {
+    ...p,
+    name,
+    city: cityVal
+  };
+};
+
+const ESTADOS_BRASIL = [
+  { sigla: 'AC', nome: 'Acre' },
+  { sigla: 'AL', nome: 'Alagoas' },
+  { sigla: 'AP', nome: 'Amapá' },
+  { sigla: 'AM', nome: 'Amazonas' },
+  { sigla: 'BA', nome: 'Bahia' },
+  { sigla: 'CE', nome: 'Ceará' },
+  { sigla: 'DF', nome: 'Distrito Federal' },
+  { sigla: 'ES', nome: 'Espírito Santo' },
+  { sigla: 'GO', nome: 'Goiás' },
+  { sigla: 'MA', nome: 'Maranhão' },
+  { sigla: 'MT', nome: 'Mato Grosso' },
+  { sigla: 'MS', nome: 'Mato Grosso do Sul' },
+  { sigla: 'MG', nome: 'Minas Gerais' },
+  { sigla: 'PA', nome: 'Pará' },
+  { sigla: 'PB', nome: 'Paraíba' },
+  { sigla: 'PR', nome: 'Paraná' },
+  { sigla: 'PE', nome: 'Pernambuco' },
+  { sigla: 'PI', nome: 'Piauí' },
+  { sigla: 'RJ', nome: 'Rio de Janeiro' },
+  { sigla: 'RN', nome: 'Rio Grande do Norte' },
+  { sigla: 'RS', nome: 'Rio Grande do Sul' },
+  { sigla: 'RO', nome: 'Rondônia' },
+  { sigla: 'RR', nome: 'Roraima' },
+  { sigla: 'SC', nome: 'Santa Catarina' },
+  { sigla: 'SP', nome: 'São Paulo' },
+  { sigla: 'SE', nome: 'Sergipe' },
+  { sigla: 'TO', nome: 'Tocantins' }
+];
+
 export default function GoogleMapsCollector() {
   const [city, setCity] = useState('João Pessoa');
   const [runnerConnected, setRunnerConnected] = useState(false);
@@ -516,6 +563,7 @@ export default function GoogleMapsCollector() {
   const [results, setResults] = useState<ScrapedRestaurant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterCity, setFilterCity] = useState('all');
   const [importedKeys, setImportedKeys] = useState<Map<string, string>>(new Map());
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
   const [isViewingDb, setIsViewingDb] = useState(true);
@@ -543,6 +591,45 @@ export default function GoogleMapsCollector() {
   const [hasSavedScan, setHasSavedScan] = useState(false);
   const [editingRestaurant, setEditingRestaurant] = useState<ScrapedRestaurant | null>(null);
   const [loadingRebusca, setLoadingRebusca] = useState<Record<string, boolean>>({});
+  const [isValidatingAll, setIsValidatingAll] = useState(false);
+  const cancelValidationAllRef = useRef(false);
+
+  const [citiesList, setCitiesList] = useState<string[]>([]);
+  const [loadingCities, setLoadingCities] = useState(false);
+
+  useEffect(() => {
+    if (!state) {
+      setCitiesList([]);
+      return;
+    }
+    
+    let isMounted = true;
+    const fetchCities = async () => {
+      setLoadingCities(true);
+      try {
+        const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${state}/municipios?orderBy=nome`);
+        if (response.ok && isMounted) {
+          const data = await response.json();
+          const names = data.map((c: any) => c.nome);
+          setCitiesList(names);
+          
+          // Se a cidade atual não estiver na lista de cidades do novo estado, seleciona a primeira da lista
+          if (names.length > 0 && !names.includes(city)) {
+            setCity(names[0]);
+          }
+        }
+      } catch (err) {
+        console.error("Erro ao carregar cidades do IBGE:", err);
+      } finally {
+        if (isMounted) setLoadingCities(false);
+      }
+    };
+
+    fetchCities();
+    return () => {
+      isMounted = false;
+    };
+  }, [state]);
 
   const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || '');
   const [isExtensionActive, setIsExtensionActive] = useState(false);
@@ -627,20 +714,161 @@ export default function GoogleMapsCollector() {
     showSuccess("Download da extensão iniciado!");
   };
 
-  const handleRebusca = async (restaurantId: string, field: 'instagram' | 'menu' | 'hours' | 'scrape-menu' | 'scrape-logo') => {
+  const handleRebusca = async (restaurantId: string, field: 'instagram' | 'menu' | 'hours' | 'scrape-menu' | 'scrape-logo' | 'ai-validation'): Promise<boolean> => {
     const key = `${restaurantId}-${field}`;
-    if (loadingRebusca[key]) return;
+    if (loadingRebusca[key]) return false;
     
     setLoadingRebusca(prev => ({ ...prev, [key]: true }));
-    const fieldLabel = field === 'instagram' ? 'Instagram' : field === 'menu' ? 'Cardápio' : field === 'scrape-menu' ? 'Coleta de Cardápio' : field === 'scrape-logo' ? 'Coleta de Logo' : 'Horários';
+    const fieldLabel = field === 'instagram' ? 'Instagram' : field === 'menu' ? 'Cardápio' : field === 'scrape-menu' ? 'Coleta de Cardápio' : field === 'scrape-logo' ? 'Coleta de Logo' : field === 'ai-validation' ? 'Filtro IA' : 'Horários';
     showSuccess(`Iniciando rebusca de ${fieldLabel} no servidor...`);
     
     try {
+      if (field === 'ai-validation' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        let mapUrl = '';
+        if (rest) {
+          if (rest.googleMapsUrl) mapUrl = rest.googleMapsUrl;
+          else if (rest.visit_notes) {
+            const match = rest.visit_notes.match(/https:\/\/[^\s\n]*google[^\s\n]*\/maps[^\s\n]*/i) || rest.visit_notes.match(/https:\/\/[^\s\n]*maps\.app\.goo\.gl[^\s\n]*/i) || rest.visit_notes.match(/Google Maps:\s*(https:\/\/[^\s\n]*)/i);
+            if (match && match[0]) mapUrl = match[1] || match[0];
+          }
+        }
+        
+        // PASSO 1: Extrair Maps usando o Agente Web Interativo (Interactive Web Agent)
+        if (mapUrl) {
+          showSuccess('Iniciando Agente de Navegação IA no Maps...');
+          let agentDone = false;
+          let stepCount = 0;
+          const maxSteps = 5;
+          let lastUrl = mapUrl;
+          
+          try {
+            while (!agentDone && stepCount < maxSteps) {
+              stepCount++;
+              showSuccess(`Agente IA mapeando a tela (Passo ${stepCount})...`);
+              
+              let snapshot = await new Promise<string>((resolve) => {
+                const chromeObj = (window as any).chrome;
+                if (chromeObj && chromeObj.runtime) {
+                  // Na primeira iteração, passa a URL. Nas subsequentes, passa nulo para não recarregar.
+                  chromeObj.runtime.sendMessage(extensionId, { action: "getAgentSnapshot", url: stepCount === 1 ? mapUrl : null }, (response: any) => {
+                    if (response && response.success && response.text) resolve(response.text);
+                    else resolve('');
+                  });
+                } else resolve('');
+              });
+              
+              if (!snapshot) {
+                showError('Falha ao tirar raio-x da tela pelo Agente.');
+                break;
+              }
+              
+              showSuccess(`Agente IA tomando decisão...`);
+              const stepRes = await fetch(`/api/local-collector/agentic-step?restaurantId=${restaurantId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ snapshot })
+              });
+              
+              if (!stepRes.ok) {
+                 showError('Erro na resposta do Agente IA.');
+                 break;
+              }
+              
+              const stepData = await stepRes.json();
+              if (stepData.success && stepData.aiResponse) {
+                 const action = stepData.aiResponse.action;
+                 if (action === 'done') {
+                    showSuccess('Agente IA finalizou a extração com sucesso!');
+                    agentDone = true;
+                    loadScrapedFromSupabase();
+                    window.dispatchEvent(new Event('local-sync-restaurants'));
+                 } else if (action === 'click' && stepData.aiResponse.targetId) {
+                    showSuccess(`Agente IA clicando no elemento [ID: ${stepData.aiResponse.targetId}]...`);
+                    await new Promise<boolean>((resolve) => {
+                      const chromeObj = (window as any).chrome;
+                      if (chromeObj && chromeObj.runtime) {
+                        chromeObj.runtime.sendMessage(extensionId, { action: "clickAgentElement", targetId: stepData.aiResponse.targetId }, (response: any) => {
+                          resolve(response?.success || false);
+                        });
+                      } else resolve(false);
+                    });
+                 } else {
+                    agentDone = true; // Fallback se a IA errar formato
+                 }
+              } else {
+                 showError('Erro no processamento do Agente IA.');
+                 break;
+              }
+            }
+          } finally {
+            // Garante o fechamento da aba do Agente
+            try {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "closeAgentTab" }, () => {});
+              }
+            } catch(e) {}
+          }
+        }
+
+        // PASSO 2: Busca Google Nativa via Extensão
+        showSuccess('Buscando contexto no Google Nativo via Extensão...');
+        const query = `${rest?.name} ${rest?.city || ''} ${rest?.state || ''} cardapio instagram telefone`;
+        
+        let googleSearchResults = null;
+        try {
+          googleSearchResults = await new Promise((resolve) => {
+            const chromeObj = (window as any).chrome;
+            if (chromeObj && chromeObj.runtime) {
+              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleNative", query }, (response: any) => {
+                if (response && response.success && response.results) resolve(response.results);
+                else resolve(null);
+              });
+            } else resolve(null);
+          });
+        } catch(e) {}
+
+        if (!googleSearchResults || googleSearchResults.length === 0) {
+           showError('Busca nativa no Google falhou. Prosseguindo sem contexto extra...');
+        } else {
+           showSuccess(`Coletados ${googleSearchResults.length} resultados do Google Nativo.`);
+        }
+
+        // PASSO 3: Envia contexto pro Backend (Phase 5) e aguarda validação
+        showSuccess('Enviando contexto do Google para Validação IA no Servidor...');
+        const fetchOptions: RequestInit = { 
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ googleSearchResults })
+        };
+        
+        const valRes = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${restaurantId}`, fetchOptions);
+        
+        if (valRes.ok) {
+          const valData = await valRes.json();
+          if (valData.success) {
+            showSuccess(`Validação IA (Fase 5) concluída com Sucesso!`);
+            loadScrapedFromSupabase();
+            window.dispatchEvent(new Event('local-sync-restaurants'));
+            return true;
+          } else {
+            showError(`Erro na Validação IA: ${valData.error || 'Divergência de dados.'}`);
+            return false;
+          }
+        } else {
+          showError('Erro no servidor ao executar Validação IA.');
+          return false;
+        }
+      }
+
+      // LÓGICA ANTIGA PARA OS DEMAIS BOTÕES
       let endpoint = '';
       if (field === 'instagram') endpoint = '/api/local-collector/re-search-social';
       else if (field === 'menu') endpoint = '/api/local-collector/re-search-menu';
       else if (field === 'scrape-menu') endpoint = '/api/local-collector/re-scrape-menu';
       else if (field === 'scrape-logo') endpoint = '/api/local-collector/re-scrape-logo';
+      else if (field === 'ai-validation') endpoint = '/api/local-collector/re-ai-validation'; // Fallback se extensão não ativa
       else endpoint = '/api/local-collector/re-search-hours';
       
       let params = `?restaurantId=${restaurantId}`;
@@ -649,7 +877,8 @@ export default function GoogleMapsCollector() {
         params += `&pct=${pct}`;
       }
       
-      const res = await fetch(`${endpoint}${params}`, { method: 'POST' });
+      const fetchOptions: RequestInit = { method: 'POST' };
+      const res = await fetch(`${endpoint}${params}`, fetchOptions);
       
       if (res.ok) {
         const result = await res.json();
@@ -657,17 +886,73 @@ export default function GoogleMapsCollector() {
           showSuccess(`Rebusca concluída! ${fieldLabel} atualizado(s).`);
           loadScrapedFromSupabase();
           window.dispatchEvent(new Event('local-sync-restaurants'));
+          return true;
         } else {
           showError(result.error || `Não foi possível encontrar ${fieldLabel} para este restaurante.`);
+          return false;
         }
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao executar rebusca no servidor.');
+        return false;
       }
     } catch (err) {
       showError('Servidor local offline ou erro de rede.');
+      return false;
     } finally {
       setLoadingRebusca(prev => ({ ...prev, [key]: false }));
+    }
+  };
+
+  const handleValidateAllIA = async () => {
+    if (isValidatingAll) {
+      cancelValidationAllRef.current = true;
+      showSuccess("Cancelando validação em massa após a finalização do item atual...");
+      return;
+    }
+
+    // Processa os não validados por padrão. Se todos estiverem validados, processa todos para re-validação.
+    let targets = results.filter(r => !r.ai_validated);
+    if (targets.length === 0) {
+      targets = [...results];
+    }
+
+    if (targets.length === 0) {
+      showError("Nenhum restaurante cadastrado na lista para validar.");
+      return;
+    }
+
+    setIsValidatingAll(true);
+    cancelValidationAllRef.current = false;
+    showSuccess(`Iniciando validação sequencial de ${targets.length} restaurantes...`);
+
+    try {
+      for (let i = 0; i < targets.length; i++) {
+        if (cancelValidationAllRef.current) {
+          showSuccess("Validação em massa interrompida pelo usuário.");
+          break;
+        }
+
+        const r = targets[i];
+        showSuccess(`[${i + 1}/${targets.length}] Processando "${r.name}"...`);
+        
+        const success = await handleRebusca(r.id, 'ai-validation');
+        if (!success) {
+          console.warn(`[Validação em Massa] Falha na validação de "${r.name}". Continuando...`);
+        }
+
+        // Aguarda 1.5s entre requisições
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+      
+      if (!cancelValidationAllRef.current) {
+        showSuccess("Validação em massa concluída com sucesso!");
+      }
+    } catch (err: any) {
+      showError(`Erro inesperado na validação em massa: ${err.message || err}`);
+    } finally {
+      setIsValidatingAll(false);
+      cancelValidationAllRef.current = false;
     }
   };
 
@@ -741,13 +1026,13 @@ export default function GoogleMapsCollector() {
 
             return {
               id: item.id || `scraped-json-${Date.now()}-${idx}`,
-              name: item.name || item.nome || 'Sem Nome',
+              name: cleanRestaurantName(item.name || item.nome || 'Sem Nome'),
               category: item.category || item.categoria || 'Restaurante',
               rating: typeof item.rating === 'number' ? item.rating : (typeof item.nota === 'number' ? item.nota : 4.0),
               reviewsCount: typeof item.reviewsCount === 'number' ? item.reviewsCount : (typeof item.contagem_de_avaliacoes === 'number' ? item.contagem_de_avaliacoes : 10),
               address: item.address || item.endereco_completo || '',
               phone,
-              city: item.city || item.cidade || 'João Pessoa',
+              city: cleanCityName(item.city || item.cidade || 'João Pessoa'),
               state: item.state || item.estado || 'PB',
               instagram: item.instagram || item.midias_sociais?.instagram || '',
               facebook: item.facebook || item.midias_sociais?.facebook || '',
@@ -778,10 +1063,13 @@ export default function GoogleMapsCollector() {
   // O filtro de "mínimo de avaliações" é aplicado apenas na exibição da tabela (ver displayedResults abaixo).
   const processAndSetResults = (rawList: Omit<ScrapedRestaurant, 'id'>[], _reviewsLimit: number) => {
     // Mapeia IDs sem nenhum filtro de avaliações — coleta TUDO
-    const formatted = rawList.map((p, idx) => ({
-      ...p,
-      id: `scraped-${city.replace(/\s+/g, '-').toLowerCase()}-${idx + 1}`
-    }));
+    const formatted = rawList.map((p, idx) => {
+      const cleaned = cleanScrapedRestaurant(p);
+      return {
+        ...cleaned,
+        id: `scraped-${city.replace(/\s+/g, '-').toLowerCase()}-${idx + 1}`
+      };
+    });
 
     // Injeta Deda Lanches se João Pessoa for a cidade e ele não estiver no resultado
     const isJampa = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes("joao pessoa");
@@ -820,6 +1108,13 @@ export default function GoogleMapsCollector() {
     setResults(formatted);
     setIsViewingDb(false);
   };
+
+  // Reseta o filtro de cidade caso a cidade selecionada não exista nos resultados atuais
+  useEffect(() => {
+    if (filterCity !== 'all' && !results.some(r => r.city === filterCity)) {
+      setFilterCity('all');
+    }
+  }, [results, filterCity]);
   
   // Carrega varredura interrompida ao iniciar
   useEffect(() => {
@@ -1025,14 +1320,15 @@ export default function GoogleMapsCollector() {
 
         return {
           id: item.id,
-          name: item.name,
+          name: cleanRestaurantName(item.name),
           category: item.category || 'Restaurante',
           rating: typeof item.rating === 'number' ? item.rating : 4.0,
           reviewsCount: typeof item.reviews_count === 'number' ? item.reviews_count : 10,
           address: item.address || '',
           phone: item.phone || '',
-          city: item.city || 'João Pessoa',
+          city: cleanCityName(item.city || 'João Pessoa'),
           state: item.state || 'PB',
+          description: item.description || '',
           instagram,
           facebook,
           logo: item.image_url || '',
@@ -1049,7 +1345,9 @@ export default function GoogleMapsCollector() {
           latitude: item.latitude || null,
           longitude: item.longitude || null,
           number: item.number || '',
-          neighborhood: item.neighborhood || ''
+          neighborhood: item.neighborhood || '',
+          ai_validated: item.ai_validated || false,
+          ai_log: item.ai_log || ''
         };
       });
       setResults(formatted);
@@ -1154,7 +1452,7 @@ export default function GoogleMapsCollector() {
             }
           }
 
-          return {
+          const rawData = {
             id: item.id || `scraped-json-${Date.now()}-${idx}`,
             name: item.name || item.nome || 'Sem Nome',
             category: item.category || item.categoria || 'Restaurante',
@@ -1162,7 +1460,7 @@ export default function GoogleMapsCollector() {
             reviewsCount: typeof item.reviewsCount === 'number' ? item.reviewsCount : (typeof item.contagem_de_avaliacoes === 'number' ? item.contagem_de_avaliacoes : 10),
             address: item.address || item.endereco_completo || '',
             phone,
-            city: item.city || item.cidade || 'João Pessoa',
+            city: cleanCityName(item.city || item.cidade || 'João Pessoa'),
             state: item.state || item.estado || 'PB',
             instagram: item.instagram || item.midias_sociais?.instagram || '',
             facebook: item.facebook || item.midias_sociais?.facebook || '',
@@ -1175,6 +1473,7 @@ export default function GoogleMapsCollector() {
             menu_categories: item.menu_categories || item.categories || [],
             isClosed: item.isClosed || false
           };
+          return cleanScrapedRestaurant(rawData);
         });
         setResults(formatted);
         setCurrentPage(1);
@@ -1333,7 +1632,7 @@ export default function GoogleMapsCollector() {
 
   const startFase1 = async () => {
     try {
-      let url = '/api/local-collector/run-maps';
+      let url = `/api/local-collector/run-maps?city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}`;
       if (serverHasSavedState) {
         const discard = window.confirm(
           "Detectamos uma coleta anterior incompleta no servidor.\n\n" +
@@ -1341,7 +1640,7 @@ export default function GoogleMapsCollector() {
           "Clique em [Cancelar] para RETOMAR a coleta anterior de onde parou."
         );
         if (discard) {
-          url += '?fresh=true';
+          url += '&fresh=true';
         }
       }
 
@@ -2258,6 +2557,43 @@ export default function GoogleMapsCollector() {
                 </div>
                 
                 <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-2 gap-2 mb-1">
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 block mb-0.5">Estado (UF)</label>
+                      <Select value={state} onValueChange={setState} disabled={runnerRunning}>
+                        <SelectTrigger className="h-8 text-xs bg-white dark:bg-zinc-900 border-gray-300 dark:border-zinc-700">
+                          <SelectValue placeholder="Selecione" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[250px] overflow-y-auto">
+                          {ESTADOS_BRASIL.map(uf => (
+                            <SelectItem key={uf.sigla} value={uf.sigla}>
+                              {uf.sigla} - {uf.nome}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-gray-500 block mb-0.5">Cidade da Coleta</label>
+                      <Select value={city} onValueChange={setCity} disabled={runnerRunning || loadingCities}>
+                        <SelectTrigger className="h-8 text-xs bg-white dark:bg-zinc-900 border-gray-300 dark:border-zinc-700">
+                          <SelectValue placeholder={loadingCities ? "Carregando..." : "Selecione"} />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[250px] overflow-y-auto">
+                          {citiesList.length === 0 ? (
+                            <SelectItem value={city || "João Pessoa"}>{city || "João Pessoa"}</SelectItem>
+                          ) : (
+                            citiesList.map(cityName => (
+                              <SelectItem key={cityName} value={cityName}>
+                                {cityName}
+                              </SelectItem>
+                            ))
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
                   <Button 
                     onClick={startFase1} 
                     disabled={runnerRunning || !runnerConnected}
@@ -2528,23 +2864,46 @@ export default function GoogleMapsCollector() {
       <div className="space-y-4 p-5 bg-white shadow-none rounded-2xl border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <div>
-            <label className="text-xs font-bold text-gray-500 block mb-1">Cidade</label>
-            <Input 
-              value={city} 
-              onChange={(e) => setCity(e.target.value)} 
-              placeholder="Ex: João Pessoa, São Paulo"
+            <label className="text-xs font-bold text-gray-500 block mb-1">UF (Estado)</label>
+            <Select 
+              value={state} 
+              onValueChange={setState} 
               disabled={isLoading || (activeScan !== null && !activeScan.isPaused)}
-            />
+            >
+              <SelectTrigger className="bg-white border-gray-300">
+                <SelectValue placeholder="Selecione o estado" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[250px] overflow-y-auto">
+                {ESTADOS_BRASIL.map(uf => (
+                  <SelectItem key={uf.sigla} value={uf.sigla}>
+                    {uf.sigla} - {uf.nome}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div>
-            <label className="text-xs font-bold text-gray-500 block mb-1">UF (Estado)</label>
-            <Input 
-              value={state} 
-              onChange={(e) => setState(e.target.value)} 
-              placeholder="Ex: PB, SP"
-              maxLength={2}
-              disabled={isLoading || (activeScan !== null && !activeScan.isPaused)}
-            />
+            <label className="text-xs font-bold text-gray-500 block mb-1">Cidade</label>
+            <Select 
+              value={city} 
+              onValueChange={setCity} 
+              disabled={isLoading || (activeScan !== null && !activeScan.isPaused) || loadingCities}
+            >
+              <SelectTrigger className="bg-white border-gray-300">
+                <SelectValue placeholder={loadingCities ? "Carregando..." : "Selecione a cidade"} />
+              </SelectTrigger>
+              <SelectContent className="max-h-[250px] overflow-y-auto">
+                {citiesList.length === 0 ? (
+                  <SelectItem value={city || "João Pessoa"}>{city || "João Pessoa"}</SelectItem>
+                ) : (
+                  citiesList.map(cityName => (
+                    <SelectItem key={cityName} value={cityName}>
+                      {cityName}
+                    </SelectItem>
+                  ))
+                )}
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <label className="text-xs font-bold text-gray-500 block mb-1">Termo de Busca (Opcional)</label>
@@ -2684,10 +3043,12 @@ export default function GoogleMapsCollector() {
       {/* Resultados da Busca */}
       {results.length > 0 && (() => {
         const reviewsThreshold = parseInt(minReviews, 10) || 0;
+        const uniqueCitiesInResults = Array.from(new Set(results.map(r => cleanCityName(r.city)).filter(Boolean))).sort();
         const filteredResults = results.filter(r => {
           if (dismissedIds.has(r.id)) return false;
           // Aplica o filtro de avaliações APENAS na exibição — não descarta da coleta
           if (reviewsThreshold > 0 && r.reviewsCount < reviewsThreshold) return false;
+          if (filterCity !== 'all' && cleanCityName(r.city) !== filterCity) return false;
           return (
             r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             r.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -2716,7 +3077,7 @@ export default function GoogleMapsCollector() {
                 </CardDescription>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-center">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 w-full md:w-auto items-center">
                 {/* Caixa de Busca */}
                 <div className="relative w-full sm:w-64">
                   <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -2730,10 +3091,56 @@ export default function GoogleMapsCollector() {
                     className="pl-9 h-9 bg-white border-gray-300 text-sm focus-visible:ring-highlight focus-visible:ring-1"
                   />
                 </div>
+
+                {/* Filtro por Cidade */}
+                {uniqueCitiesInResults.length > 0 && (
+                  <div className="w-full sm:w-48">
+                    <Select value={filterCity} onValueChange={(val) => { setFilterCity(val); setCurrentPage(1); }}>
+                      <SelectTrigger className="h-9 bg-white border-gray-300 text-sm focus-visible:ring-highlight focus-visible:ring-1">
+                        <SelectValue placeholder="Filtrar por cidade" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px] overflow-y-auto">
+                        <SelectItem value="all">Todas as cidades ({results.length})</SelectItem>
+                        {uniqueCitiesInResults.map((cityName) => {
+                          const count = results.filter(r => cleanCityName(r.city) === cityName).length;
+                          return (
+                            <SelectItem key={cityName} value={cityName}>
+                              {cityName} ({count})
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
                 
                 <Button size="sm" variant="outline" className="font-bold gap-1 border-gray-300 bg-white w-full sm:w-auto h-9" onClick={handleImportAll}>
                   <PlusCircle className="w-4 h-4 text-highlight" /> Importar Novos ({pendingImportCount}) para Fila Global
                 </Button>
+                {results.length > 0 && (
+                  <Button 
+                    size="sm" 
+                    variant={isValidatingAll ? "destructive" : "outline"} 
+                    className={`font-bold gap-1 h-9 w-full sm:w-auto ${
+                      isValidatingAll 
+                        ? "bg-red-600 hover:bg-red-700 text-white" 
+                        : "text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 border-emerald-200"
+                    }`} 
+                    onClick={handleValidateAllIA}
+                  >
+                    {isValidatingAll ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Parar Validação IA
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4 text-emerald-600" />
+                        Validar Todos com IA
+                      </>
+                    )}
+                  </Button>
+                )}
                 {results.length > 0 && (
                   <Button 
                     size="sm" 
@@ -2916,7 +3323,17 @@ export default function GoogleMapsCollector() {
                                     className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 hover:underline flex items-center gap-1 max-w-[100px] truncate"
                                   >
                                     <Globe className="w-3 h-3 shrink-0" />
-                                    <span>{new URL(r.menuSourceUrl).hostname.replace('www.','')}</span>
+                                    <span>{(() => {
+                                      try {
+                                        let cleanUrl = r.menuSourceUrl.trim();
+                                        if (!/^https?:\/\//i.test(cleanUrl)) {
+                                          cleanUrl = 'https://' + cleanUrl;
+                                        }
+                                        return new URL(cleanUrl).hostname.replace('www.','');
+                                      } catch (err) {
+                                        return r.menuSourceUrl;
+                                      }
+                                    })()}</span>
                                   </a>
                                   
                                   <button
@@ -2995,6 +3412,20 @@ export default function GoogleMapsCollector() {
                             <TableCell className="max-w-[150px] truncate text-gray-600">{r.address}</TableCell>
                             <TableCell className="text-right">
                               <div className="flex justify-end items-center gap-1.5">
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 font-bold gap-1 h-8 px-2"
+                                  onClick={() => handleRebusca(r.id, 'ai-validation')}
+                                  disabled={!!loadingRebusca[`${r.id}-ai-validation`]}
+                                >
+                                  {loadingRebusca[`${r.id}-ai-validation`] ? (
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                  ) : (
+                                    <Sparkles className="w-3.5 h-3.5" /> 
+                                  )}
+                                  Validar IA
+                                </Button>
                                 <Button 
                                   size="sm" 
                                   variant="ghost" 

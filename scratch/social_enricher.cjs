@@ -4,6 +4,112 @@ const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
 
 const SUPABASE_URL = 'https://gaawiewmlhorzbaixoqo.supabase.co';
+function getChromeLaunchOptions() {
+  const fs = require('fs');
+  const path = require('path');
+
+  // Carrega variáveis do arquivo .env
+  try {
+    const dotenvPath = path.join(__dirname, '..', '.env');
+    if (fs.existsSync(dotenvPath)) {
+      const lines = fs.readFileSync(dotenvPath, 'utf-8').split('\n');
+      lines.forEach(line => {
+        const match = line.match(/^\s*([\w.\-]+)\s*=\s*(.*)?\s*$/);
+        if (match) {
+          const key = match[1];
+          let value = match[2] || '';
+          if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+          if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+          process.env[key] = value.trim();
+        }
+      });
+    }
+  } catch (e) {}
+
+  const options = {
+    headless: false,
+    defaultViewport: null,
+    args: ['--start-maximized', '--disable-setuid-sandbox', '--no-sandbox', '--lang=pt-BR']
+  };
+
+  const useLocalChrome = false;
+
+  if (useLocalChrome) {
+    if (process.platform === 'win32') {
+      const localAppData = process.env.LOCALAPPDATA || '';
+      const programFiles = process.env.PROGRAMFILES || 'C:\\Program Files';
+      const programFilesX86 = process.env['PROGRAMFILES(X86)'] || 'C:\\Program Files (x86)';
+      
+      const possiblePaths = [
+        path.join(programFiles, 'Google\\Chrome\\Application\\chrome.exe'),
+        path.join(programFilesX86, 'Google\\Chrome\\Application\\chrome.exe'),
+        path.join(localAppData, 'Google\\Chrome\\Application\\chrome.exe'),
+      ];
+
+      for (const p of possiblePaths) {
+        if (fs.existsSync(p)) {
+          console.log(`💡 [Chrome Launcher] Usando executável local do Chrome (Forçado): ${p}`);
+          options.executablePath = p;
+          // Deixamos que o Puppeteer crie o perfil temporário por padrão, 
+          // evitando que a janela fique escondida em background por estar atrelada a uma instância presa.
+          break;
+        }
+      }
+    } else if (process.platform === 'darwin') {
+      const p = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+      if (fs.existsSync(p)) {
+        options.executablePath = p;
+      }
+    } else if (process.platform === 'linux') {
+      const paths = ['/usr/bin/google-chrome', '/usr/bin/chrome'];
+      for (const p of paths) {
+        if (fs.existsSync(p)) {
+          options.executablePath = p;
+          break;
+        }
+      }
+    }
+
+    if (!options.executablePath) {
+      console.log(`💡 [Chrome Launcher] Google Chrome não encontrado nos caminhos padrão. Tentando channel: 'chrome'...`);
+      options.channel = 'chrome';
+    }
+  } else {
+    console.log("💡 [Chrome Launcher] Usando Chromium integrado do Puppeteer (Mesmo comportamento do robô).");
+  }
+
+  return options;
+}
+
+async function loadInstagramCookies(page) {
+  const fs = require('fs');
+  const path = require('path');
+  const cookiesPath = path.join(__dirname, 'instagram_cookies.json');
+  if (fs.existsSync(cookiesPath)) {
+    try {
+      const cookiesStr = fs.readFileSync(cookiesPath, 'utf-8');
+      const cookies = JSON.parse(cookiesStr);
+      await page.setCookie(...cookies);
+      console.log(`🍪 [Instagram Session] Cookies carregados com sucesso.`);
+    } catch (cookieErr) {
+      console.warn(`⚠️ [Instagram Session] Falha ao carregar cookies: ${cookieErr.message}`);
+    }
+  }
+}
+
+async function saveInstagramCookies(page) {
+  const fs = require('fs');
+  const path = require('path');
+  try {
+    const cookies = await page.cookies();
+    const cookiesPath = path.join(__dirname, 'instagram_cookies.json');
+    fs.writeFileSync(cookiesPath, JSON.stringify(cookies, null, 2), 'utf-8');
+    console.log(`💾 [Instagram Session] Cookies salvos com sucesso.`);
+  } catch (cookieErr) {
+    console.warn(`⚠️ [Instagram Session] Erro ao salvar cookies: ${cookieErr.message}`);
+  }
+}
+
 const SUPABASE_ANON_KEY = 'sb_publishable_1cZaKyo-HHldXBWLKtpKhw_nN7fMfQ3';
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -803,6 +909,9 @@ async function extractBioLinkFromInstagram(page, instagramUrl, restaurantCity = 
   console.log(`📸 Acessando Instagram oficial: "${targetUrl}"...`);
   
   try {
+    // Carrega cookies salvos se existirem
+    await loadInstagramCookies(page);
+    
     await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await delay(3500); // Wait for JS rendering
     
@@ -833,6 +942,9 @@ async function extractBioLinkFromInstagram(page, instagramUrl, restaurantCity = 
       }
       
       console.log(`✅ Login concluído com sucesso! Recarregando o perfil de "${handle}"...`);
+      // Salva os novos cookies da sessão logada
+      await saveInstagramCookies(page);
+      
       await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
       await delay(3500);
     }
@@ -1004,12 +1116,18 @@ async function run() {
 
   console.log(`🚀 Inicializando o navegador Chrome...`);
   const userDataDir = path.join(__dirname, 'puppeteer_user_data');
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    userDataDir,
-    args: ['--start-maximized', '--lang=pt-BR']
-  });
+  // Remove SingletonLock anterior do Chrome para garantir que abra visível
+  const lockPath = path.join(userDataDir, 'SingletonLock');
+  if (fs.existsSync(lockPath)) {
+    try {
+      fs.unlinkSync(lockPath);
+      console.log(`🧹 [Enriquecedor Social] Removido lock de perfil anterior.`);
+    } catch (lockErr) {
+      console.warn(`⚠️ [Enriquecedor Social] Não foi possível remover SingletonLock: ${lockErr.message}`);
+    }
+  }
+  const launchOptions = getChromeLaunchOptions();
+  const browser = await puppeteer.launch(launchOptions);
 
   let enrichedInstaCount = 0;
   let enrichedMenuCount = 0;
@@ -1218,12 +1336,18 @@ async function runSingle(restaurantId, field) {
   
   console.log(`🚀 Inicializando o navegador Chrome...`);
   const userDataDir = path.join(__dirname, 'puppeteer_user_data_single');
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    userDataDir,
-    args: ['--start-maximized', '--lang=pt-BR']
-  });
+  // Remove SingletonLock anterior do Chrome para garantir que abra visível
+  const lockPath = path.join(userDataDir, 'SingletonLock');
+  if (fs.existsSync(lockPath)) {
+    try {
+      fs.unlinkSync(lockPath);
+      console.log(`🧹 [Enriquecedor Social Single] Removido lock de perfil anterior.`);
+    } catch (lockErr) {
+      console.warn(`⚠️ [Enriquecedor Social Single] Não foi possível remover SingletonLock: ${lockErr.message}`);
+    }
+  }
+  const launchOptions = getChromeLaunchOptions();
+  const browser = await puppeteer.launch(launchOptions);
 
   const page = await browser.newPage();
   await page.setExtraHTTPHeaders({
@@ -1339,24 +1463,77 @@ async function runSingle(restaurantId, field) {
       
       await delay(2000);
 
+      // SCROLL no painel lateral para revelar a seção de horários (que fica abaixo da dobra)
+      console.log('📜 Fazendo scroll no painel lateral para revelar horários...');
+      for (let scrollStep = 0; scrollStep < 5; scrollStep++) {
+        await page.evaluate(() => {
+          const selectors = [
+            'div[role="main"]',
+            '.m6QErb.DxyBCb',
+            '.m6QErb',
+            '.DxyBCb',
+            'div.m6QErb.WNBkOb',
+            'div[tabindex="-1"]'
+          ];
+          for (const sel of selectors) {
+            const panel = document.querySelector(sel);
+            if (panel && panel.scrollHeight > panel.clientHeight) {
+              panel.scrollTop += 400;
+              return;
+            }
+          }
+          window.scrollBy(0, 400);
+        });
+        await delay(600);
+      }
+      await delay(1000);
+
       const clicked = await page.evaluate(() => {
-        const btn = document.querySelector('button[data-item-id="oh"]') || document.querySelector('button.CsEnBe');
-        if (btn) {
+        // Strategy 1: data-item-id="oh" (método oficial do Google Maps)
+        const ohEl = document.querySelector('[data-item-id="oh"]') || document.querySelector('[data-item-id^="oh"]');
+        if (ohEl) {
+          const btn = ohEl.closest('button') || ohEl;
           btn.click();
-          return true;
+          return 'data-item-id=oh';
         }
-        const candidates = Array.from(document.querySelectorAll('button'));
-        const ohBtn = candidates.find(b => b.getAttribute('data-item-id') === 'oh' || b.className.includes('CsEnBe') || b.textContent.includes('horários') || b.textContent.includes('fechado') || b.textContent.includes('aberto'));
+
+        // Strategy 2: aria-label contendo horário/aberto/fechado
+        const ariaEls = document.querySelectorAll('[aria-label]');
+        for (const el of ariaEls) {
+          const label = (el.getAttribute('aria-label') || '').toLowerCase();
+          if (label.includes('fechar')) continue;
+          if ((label.includes('horário') || label.includes('aberto') || label.includes('fechado') || label.includes('abre') || label.includes('fecha')) &&
+              (el.tagName === 'BUTTON' || el.closest('button') || el.getAttribute('role') === 'button')) {
+            const clickable = el.closest('button') || el;
+            clickable.click();
+            return 'aria-label: ' + label.substring(0, 60);
+          }
+        }
+
+        // Strategy 3: Busca por classe CsEnBe ou texto direto
+        const btn = document.querySelector('button.CsEnBe');
+        if (btn) { btn.click(); return 'CsEnBe class'; }
+
+        const candidates = Array.from(document.querySelectorAll('button, div[role="button"], span'));
+        const ohBtn = candidates.find(b => {
+          const text = b.textContent.trim().toLowerCase();
+          return (text.includes('horários') || text.includes('fechado') || text.includes('aberto') || 
+                  text.includes('fecha às') || text.includes('abre às')) && text.length < 120;
+        });
         if (ohBtn) {
-          ohBtn.click();
-          return true;
+          const clickable = ohBtn.closest('button') || ohBtn;
+          clickable.click();
+          return 'text match';
         }
+
         return false;
       });
 
       if (clicked) {
-        console.log('👉 Botão de horários clicado, aguardando 2s para expansão...');
+        console.log(`👉 Botão de horários clicado via [${clicked}], aguardando 2s para expansão...`);
         await delay(2000);
+      } else {
+        console.log('⚠️ Botão de horários NÃO encontrado. Tentando extrair tabela parcial...');
       }
       
       const details = await extractOpeningHoursFromPage(page, dayMapping);

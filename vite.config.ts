@@ -58,6 +58,8 @@ export default defineConfig(() => ({
 
               const hasState = fs.existsSync(stateFilePath);
               const fresh = urlParams.get("fresh") === "true" || !hasState;
+              const city = urlParams.get("city") || "João Pessoa";
+              const state = urlParams.get("state") || "PB";
               let freshLog = "";
               if (fresh) {
                 // Deleta arquivo de estado
@@ -95,8 +97,8 @@ export default defineConfig(() => ({
                 }
               }
               
-              logBuffer = freshLog + "🚀 Iniciando Coleta do Google Maps (Fase 1)...\n";
-              const proc = spawn("node", ["scratch/google_maps_scraper.cjs"], { shell: true });
+              logBuffer = freshLog + `🚀 Iniciando Coleta do Google Maps (Fase 1) em ${city} - ${state}...\n`;
+              const proc = spawn("node", ["scratch/google_maps_scraper.cjs", "--city", city, "--state", state]);
               activeProcess = proc;
               
               proc.stdout.on("data", (data) => {
@@ -126,7 +128,7 @@ export default defineConfig(() => ({
               }
               
               logBuffer = "🚀 Iniciando Enriquecimento de Redes Sociais (Fase 2)...\n";
-              const proc = spawn("node", ["scratch/social_enricher.cjs"], { shell: true });
+              const proc = spawn("node", ["scratch/social_enricher.cjs"]);
               activeProcess = proc;
               
               proc.stdout.on("data", (data) => {
@@ -156,7 +158,7 @@ export default defineConfig(() => ({
               }
               
               logBuffer = "🚀 Iniciando Coleta de Cardápios (Fase 2)...\n";
-              const proc = spawn("node", ["scratch/menu_scraper.cjs"], { shell: true });
+              const proc = spawn("node", ["scratch/menu_scraper.cjs"]);
               activeProcess = proc;
               
               proc.stdout.on("data", (data) => {
@@ -186,7 +188,7 @@ export default defineConfig(() => ({
               }
               
               logBuffer = "🚀 Iniciando Coleta de Logos (Fase 4)...\n";
-              const proc = spawn("node", ["scratch/logo_scraper.cjs"], { shell: true });
+              const proc = spawn("node", ["scratch/logo_scraper.cjs"]);
               activeProcess = proc;
               
               proc.stdout.on("data", (data) => {
@@ -223,7 +225,7 @@ export default defineConfig(() => ({
               }
 
               logBuffer = `🚀 Iniciando rebusca de Instagram para o restaurante ID ${restaurantId}...\n`;
-              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "instagram"], { shell: true });
+              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "instagram"]);
               activeProcess = proc;
               
               let resultJsonStr = "";
@@ -273,7 +275,7 @@ export default defineConfig(() => ({
               }
 
               logBuffer = `🚀 Iniciando rebusca de Cardápio para o restaurante ID ${restaurantId}...\n`;
-              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "menu"], { shell: true });
+              const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "menu"]);
               activeProcess = proc;
               
               let resultJsonStr = "";
@@ -323,7 +325,7 @@ export default defineConfig(() => ({
               }
 
               logBuffer = `🚀 Iniciando extração de Cardápio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
-              const proc = spawn("node", ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId], { shell: true });
+              const proc = spawn("node", ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId]);
               activeProcess = proc;
               
               let resultJsonStr = "";
@@ -405,6 +407,311 @@ export default defineConfig(() => ({
                   res.writeHead(500);
                   res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
                 }
+              });
+              return;
+            }
+            if (urlPath === "/api/local-collector/extract-maps" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', () => {
+                let browserContext = '';
+                try {
+                  if (bodyData) {
+                    const parsed = JSON.parse(bodyData);
+                    browserContext = parsed.browserContext || '';
+                  }
+                } catch(e) {}
+              
+                logBuffer += `\n🚀 Iniciando Extração Maps via IA para ID: ${restaurantId}...\n`;
+                const valArgs = ["scratch/extract_maps_data.cjs", "--id", restaurantId];
+                if (browserContext) {
+                  const tempFile = path.join(process.cwd(), 'scratch', `temp_maps_${restaurantId}.txt`);
+                  fs.writeFileSync(tempFile, browserContext);
+                  valArgs.push("--browser-context-file", tempFile);
+                }
+                
+                const valProc = spawn("node", valArgs);
+                activeProcess = valProc;
+                let jsonResult = null;
+
+                valProc.stdout.on("data", (data) => {
+                  const str = data.toString();
+                  const match = str.match(/RESULT:(.+)/);
+                  if (match) {
+                    try { jsonResult = JSON.parse(match[1]); } catch(e) {}
+                  } else {
+                    logBuffer += str;
+                  }
+                });
+
+                valProc.stderr.on("data", (data) => { logBuffer += data.toString(); });
+
+                valProc.on("close", (code) => {
+                  activeProcess = null;
+                  logBuffer += `\n🏁 Extração Maps concluída.\n`;
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
+                });
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/agentic-step" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+              const restaurantId = urlParams.get("restaurantId");
+              
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', () => {
+                let snapshot = '';
+                try {
+                  const parsed = JSON.parse(bodyData);
+                  snapshot = parsed.snapshot || '';
+                } catch(e) {}
+              
+                logBuffer += `\n🤖 Agente IA analisando tela...\n`;
+                const valArgs = ["scratch/agentic_step.cjs"];
+                if (restaurantId) valArgs.push("--id", restaurantId);
+                
+                if (snapshot) {
+                  const tempFile = path.join(process.cwd(), 'scratch', `temp_agent_${Date.now()}.txt`);
+                  fs.writeFileSync(tempFile, snapshot);
+                  valArgs.push("--snapshot-file", tempFile);
+                }
+                
+                const valProc = spawn("node", valArgs);
+                activeProcess = valProc;
+                let jsonResult = null;
+
+                valProc.stdout.on("data", (data) => {
+                  const str = data.toString();
+                  const match = str.match(/RESULT:(.+)/);
+                  if (match) {
+                    try { jsonResult = JSON.parse(match[1]); } catch(e) {}
+                  } else {
+                    logBuffer += str;
+                  }
+                });
+
+                valProc.stderr.on("data", (data) => { logBuffer += data.toString(); });
+
+                valProc.on("close", (code) => {
+                  activeProcess = null;
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
+                });
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/validate-instagram" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', () => {
+                let instagramContext = '';
+                let instagramUrl = '';
+                try {
+                  if (bodyData) {
+                    const parsed = JSON.parse(bodyData);
+                    instagramContext = parsed.instagramContext || '';
+                    instagramUrl = parsed.instagramUrl || '';
+                  }
+                } catch(e) {}
+              
+                logBuffer += `\n🤖 Iniciando Validação rigorosa de Instagram para ID: ${restaurantId}...\n`;
+                const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--instagram-url", instagramUrl];
+                if (instagramContext) {
+                  const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_${restaurantId}.txt`);
+                  fs.writeFileSync(tempInstaFile, instagramContext);
+                  valArgs.push("--instagram-context-file", tempInstaFile);
+                }
+                
+                const valProc = spawn("node", valArgs);
+                activeProcess = valProc;
+                let jsonResult = null;
+
+                valProc.stdout.on("data", (data) => {
+                  const str = data.toString();
+                  const match = str.match(/RESULT:(.+)/);
+                  if (match) {
+                    try { jsonResult = JSON.parse(match[1]); } catch(e) {}
+                  } else {
+                    logBuffer += str;
+                  }
+                });
+
+                valProc.stderr.on("data", (data) => { logBuffer += data.toString(); });
+
+                valProc.on("close", (code) => {
+                  activeProcess = null;
+                  logBuffer += `\n🏁 Validação Instagram concluída.\n`;
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
+                });
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/re-ai-validation" && req.method === "POST") {
+              if (activeProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                return;
+              }
+              
+              const restaurantId = urlParams.get("restaurantId");
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                return;
+              }
+              
+              let bodyData = '';
+              req.on('data', chunk => {
+                bodyData += chunk.toString();
+              });
+              
+              req.on('end', () => {
+                let browserContext = '';
+                let instagramContext = '';
+                let googleSearchResults = null;
+                try {
+                  if (bodyData) {
+                    const parsed = JSON.parse(bodyData);
+                    if (parsed.browserContext) {
+                      browserContext = parsed.browserContext;
+                    }
+                    if (parsed.instagramContext) {
+                      instagramContext = parsed.instagramContext;
+                    }
+                    if (parsed.googleSearchResults) {
+                      googleSearchResults = parsed.googleSearchResults;
+                    }
+                  }
+                } catch(e) {}
+              
+                logBuffer += `\n🚀 Iniciando Raspagem de Horários para ID: ${restaurantId}...\n`;
+                const hoursProc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "hours"]);
+                activeProcess = hoursProc;
+
+                hoursProc.stdout.on("data", (data) => {
+                  logBuffer += data.toString();
+                });
+                
+                hoursProc.stderr.on("data", (data) => {
+                  logBuffer += data.toString();
+                });
+
+                hoursProc.on("close", (code) => {
+                  logBuffer += `\n🏁 Coleta de Horários concluída com código: ${code}\n`;
+                  
+                  if (!activeProcess) {
+                    res.writeHead(200);
+                    res.end(JSON.stringify({ success: false, error: "Processo interrompido." }));
+                    return;
+                  }
+
+                  logBuffer += `\n🤖 Iniciando Validação IA (Fase 5) para ID: ${restaurantId}...\n`;
+                  
+                  const valArgs = ["scratch/phase5_ai_validation.cjs", "--single", "--id", restaurantId];
+                  if (browserContext) {
+                    const tempFile = path.join(process.cwd(), 'scratch', `temp_context_${restaurantId}.txt`);
+                    fs.writeFileSync(tempFile, browserContext);
+                    valArgs.push("--browser-context-file", tempFile);
+                  }
+                  if (instagramContext) {
+                    const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_context_${restaurantId}.txt`);
+                    fs.writeFileSync(tempInstaFile, instagramContext);
+                    valArgs.push("--instagram-context-file", tempInstaFile);
+                  }
+                  if (googleSearchResults && googleSearchResults.length > 0) {
+                    const tempGoogleFile = path.join(process.cwd(), 'scratch', `temp_google_${restaurantId}.json`);
+                    fs.writeFileSync(tempGoogleFile, JSON.stringify(googleSearchResults));
+                    valArgs.push("--google-context-file", tempGoogleFile);
+                  }
+                  
+                  const valProc = spawn("node", valArgs);
+                  activeProcess = valProc;
+
+                  let resultJsonStr = "";
+                  valProc.stdout.on("data", (data) => {
+                    const str = data.toString();
+                    logBuffer += str;
+                    const match = str.match(/RESULT:(.+)/);
+                    if (match) resultJsonStr = match[1].trim();
+                  });
+                  
+                  valProc.stderr.on("data", (data) => {
+                    logBuffer += data.toString();
+                  });
+
+                  valProc.on("close", (valCode) => {
+                    logBuffer += `\n🏁 Validação IA concluída com código de saída: ${valCode}\n`;
+                    
+                    if (!activeProcess) {
+                      res.writeHead(200);
+                      res.end(JSON.stringify({ success: false, error: "Processo interrompido." }));
+                      return;
+                    }
+
+                    logBuffer += `\n📸 Iniciando Curadoria de Galeria de Fotos (Fase 6) para ID: ${restaurantId}...\n`;
+                    const galleryProc = spawn("node", ["scratch/gallery_enricher.cjs", "--single", "--id", restaurantId]);
+                    activeProcess = galleryProc;
+
+                    galleryProc.stdout.on("data", (data) => {
+                      logBuffer += data.toString();
+                    });
+
+                    galleryProc.stderr.on("data", (data) => {
+                      logBuffer += data.toString();
+                    });
+
+                    galleryProc.on("close", (galleryCode) => {
+                      logBuffer += `\n🏁 Curadoria de Galeria concluída com código: ${galleryCode}\n`;
+                      activeProcess = null;
+
+                      try {
+                        const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                        res.writeHead(200);
+                        res.end(JSON.stringify(result));
+                      } catch (err) {
+                        res.writeHead(500);
+                        res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                      }
+                    });
+                  });
+                });
               });
               return;
             }

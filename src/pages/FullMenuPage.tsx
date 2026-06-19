@@ -92,6 +92,7 @@ export default function FullMenuPage() {
         {hasMenu ? (
           <RestaurantMenu 
             menuCategories={restaurant.menu_categories} 
+            menuSections={restaurant.menu_sections}
             isFullMenuPage={true} // Nova prop para indicar que é a página completa
           />
         ) : (
