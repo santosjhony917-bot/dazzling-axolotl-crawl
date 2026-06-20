@@ -312,9 +312,11 @@ const metadataSchema = {
       logo_url: { type: ["string", "null"] },
       cover_url: { type: ["string", "null"] },
       confianca_confirmada: { type: "boolean" },
+      confidence_score: { type: "number" },
+      bairro_match: { type: "boolean" },
       motivo_divergencia: { type: ["string", "null"] }
     },
-    required: ["nome_validado", "instagram_url", "telefone", "site_oficial", "categoria_correta", "about", "working_hours", "logo_url", "cover_url", "confianca_confirmada", "motivo_divergencia"],
+    required: ["nome_validado", "instagram_url", "telefone", "site_oficial", "categoria_correta", "about", "working_hours", "logo_url", "cover_url", "confianca_confirmada", "confidence_score", "bairro_match", "motivo_divergencia"],
     additionalProperties: false
   }
 };
@@ -866,7 +868,8 @@ MUITO IMPORTANTE:
 
   [Dados Coletados pelo Robô]
   Instagram: ${dadosColetados.instagram || 'Nenhum'}
-  Site/Cardápio: ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
+  Site/Cardápio (Menu Source URL): ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
+  Link na Bio do Instagram (bioLinkUrl): ${dadosColetados.bioLinkUrl || 'Nenhum'}
   Telefone: ${dadosColetados.phone || dadosColetados.telefone || 'Nenhum'}
   Conteúdo Extraído da Página:
   ${dadosColetados.pageContent ? dadosColetados.pageContent.substring(0, 3000) : 'Nenhum conteúdo bruto'}
@@ -886,6 +889,9 @@ MUITO IMPORTANTE:
      - **NÃO CONFUNDA NOMES (CRÍTICO)**: Motores de busca frequentemente trazem concorrentes com nomes parecidos (Ex: "A Casa Café" vs "La Casa Café"). Você está ESTRITAMENTE PROIBIDO de substituir o Instagram original por um perfil de nome parecido mas diferente. Se o perfil exato não for encontrado, mantenha o original ou retorne NULL.
   6. Confirme ou corrija telefone e site_oficial com base no cruzamento de dados.
   7. Preencha categoria_correta (ex: "Frutos do Mar", "Pizzaria", "Hambúrgueria").
+  8. ESTRATÉGIA DE CARDÁPIO (WhatsApp): Se o "Link na Bio do Instagram (bioLinkUrl)" for um link de WhatsApp (contiver wa.me, api.whatsapp.com, ou whatsapp.com/send), você deve retornar o campo \`motivo_divergencia\` contendo a mensagem exata: "Cardápio via WhatsApp (Pronto para Vendedor de IA)". Além disso, se possível, extraia o número do telefone do link e preencha no campo telefone.
+  9. confidence_score: Atribua um score numérico de 0.0 a 1.0 indicando sua confiança de que os dados coletados realmente pertencem a este estabelecimento.
+  10. bairro_match: Atribua true se houver qualquer menção na web ou instagram que confirme que o bairro coletado corresponde ao Bairro/Endereço físico.
   `;
 
   let metadataPayload;

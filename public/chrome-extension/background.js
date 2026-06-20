@@ -78,75 +78,60 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
 
 });
 
+async function waitTabComplete(tabId, timeoutSec = 30) {
+  return new Promise((resolve, reject) => {
+    let tries = 0;
+    const check = () => {
+      chrome.tabs.get(tabId, (tab) => {
+        if (chrome.runtime.lastError) return reject(new Error("Aba fechada."));
+        if (tab.status === 'complete') return resolve();
+        if (++tries > timeoutSec * 2) return reject(new Error("Timeout carregamento."));
+        setTimeout(check, 500);
+      });
+    };
+    check();
+  });
+}
+
+// 1. BUSCA DE INSTAGRAM MULTI-CANDIDATO (SUBSTITUIR A FUNÇÃO handleSearchGoogleForInstagram)
 async function handleSearchGoogleForInstagram(query, blocklist) {
-  console.log("Iniciando busca por Instagram para:", query);
+  console.log("Iniciando busca inteligente por Instagram para:", query);
   const searchUrl = `https://www.google.com/search?q=${encodeURIComponent('site:instagram.com ' + query)}`;
   const tab = await chrome.tabs.create({ url: searchUrl, active: false });
   const tabId = tab.id;
   
   try {
-    await new Promise((resolve, reject) => {
-      let tries = 0;
-      const checkStatus = () => {
-        chrome.tabs.get(tabId, (currentTab) => {
-          if (chrome.runtime.lastError) {
-            reject(new Error("A aba foi fechada prematuramente."));
-            return;
-          }
-          if (currentTab.status === 'complete') {
-            resolve();
-          } else {
-            tries++;
-            if (tries > 30) {
-              reject(new Error("Tempo limite na busca do Google."));
-            } else {
-              setTimeout(checkStatus, 500);
-            }
-          }
-        });
-      };
-      setTimeout(checkStatus, 1000);
-    });
+    await waitTabComplete(tabId);
 
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: (blist) => {
-        // Extrai os links do Google
         const anchors = Array.from(document.querySelectorAll('#search a'));
-        const links = [];
-        for (const a of anchors) {
-          if (a.href && a.href.includes('instagram.com')) links.push(a.href);
-        }
-        
-        // Regex para extrair só perfil
         const validProfiles = [];
-        for (const link of links) {
-          const m = link.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/);
-          if (m && m[1] && m[1] !== 'p' && m[1] !== 'reel' && m[1] !== 'explore' && !m[1].includes('?')) {
-            const cleanUrl = `https://www.instagram.com/${m[1]}/`;
-            if (!blist.includes(cleanUrl)) {
-              validProfiles.push(cleanUrl);
+        
+        for (const a of anchors) {
+          if (a.href && a.href.includes('instagram.com')) {
+            const m = a.href.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/);
+            if (m && m[1] && !['p', 'reel', 'explore', 'stories'].includes(m[1]) && !m[1].includes('?')) {
+              const cleanUrl = `https://www.instagram.com/${m[1]}/`;
+              if (!blist.includes(cleanUrl) && !validProfiles.includes(cleanUrl)) {
+                validProfiles.push(cleanUrl);
+              }
             }
           }
+          if (validProfiles.length >= 5) break; // Retorna os 5 melhores candidatos para a IA julgar
         }
-        return validProfiles.slice(0, 3);
+        return validProfiles;
       },
       args: [blocklist]
     });
 
-    const foundUrls = results && results[0] && results[0].result;
-    if (foundUrls && foundUrls.length > 0) {
-      return { success: true, urls: foundUrls, url: foundUrls[0] };
-    } else {
-      return { success: false, error: "Nenhum link encontrado." };
-    }
+    const profiles = results && results[0] && results[0].result;
+    return { success: !!profiles, profiles: profiles || [], error: profiles ? null : "Nenhum link encontrado." };
   } catch (err) {
-    console.error("Erro na busca de Instagram:", err);
     return { success: false, error: err.message };
   } finally {
-    try {
-      await chrome.tabs.remove(tabId);
-    } catch(e) {}
+    await chrome.tabs.remove(tabId).catch(() => {});
   }
 }
 
@@ -519,79 +504,25 @@ async function scrapePageLogic() {
   // 3. Raspagem de Destaques (Highlights) do Instagram
   const highlightImages = [];
   try {
-    let menuHighlight = null;
-    const highlightLinks = Array.from(document.querySelectorAll('a[href*="/stories/highlights/"]'));
-    menuHighlight = highlightLinks.find(link => {
-      const text = link.textContent.trim().toLowerCase();
-      return text.includes('cardapio') || text.includes('cardápio') || text.includes('menu') || text.includes('preço') || text.includes('preco') || text.includes('valores') || text.includes('prato');
+    const menuKeywords = ['cardapio', 'cardápio', 'menu', 'preço', 'valores', 'nossas opções'];
+    
+    const highlights = Array.from(document.querySelectorAll('a[href*="/stories/highlights/"]'));
+    const targetHighlight = highlights.find(h => {
+      const text = h.innerText.toLowerCase();
+      return menuKeywords.some(kw => text.includes(kw));
     });
 
-    if (!menuHighlight) {
-      const keywords = ['cardapio', 'cardápio', 'menu', 'preço', 'preco', 'valores', 'prato'];
-      const allElements = Array.from(document.querySelectorAll('*'));
-      for (const el of allElements) {
-        if (el.children.length === 0) {
-          const text = el.textContent.trim().toLowerCase();
-          if (keywords.some(kw => text.includes(kw))) {
-            const link = el.closest('a[href*="/stories/highlights/"]');
-            if (link) {
-              menuHighlight = link;
-              break;
-            }
-          }
+    if (targetHighlight) {
+      targetHighlight.click();
+      // O robô deve esperar e capturar as imagens dos stories (máximo 12 slides)
+      for (let i = 0; i < 12; i++) {
+        await new Promise(r => setTimeout(r, 1500));
+        const img = document.querySelector('img[decoding="sync"], section img');
+        if (img && img.src && !highlightImages.includes(img.src)) {
+          highlightImages.push(img.src);
         }
-      }
-    }
-
-    if (menuHighlight) {
-      menuHighlight.click();
-      
-      const getActiveStoryImg = () => {
-        const section = document.querySelector('section');
-        if (section) {
-          const imgs = Array.from(section.querySelectorAll('img'));
-          for (const img of imgs) {
-            const rect = img.getBoundingClientRect();
-            const isAvatar = img.closest('header') || rect.width < 100 || rect.height < 100;
-            if (!isAvatar && img.src && img.src.startsWith('http')) {
-              return img.src;
-            }
-          }
-          const img = section.querySelector('img[decoding="sync"]') || section.querySelector('img');
-          if (img && img.src && img.src.startsWith('http')) return img.src;
-        }
-        return null;
-      };
-
-      for (let slide = 0; slide < 8; slide++) {
-        // Aguarda carregar o slide
-        await new Promise(r => setTimeout(r, 2000));
-        
-        if (!document.querySelector('section')) {
-          break;
-        }
-        
-        const imgUrl = getActiveStoryImg();
-        if (imgUrl && !highlightImages.includes(imgUrl)) {
-          highlightImages.push(imgUrl);
-        }
-        
-        // Clica para ir ao próximo slide
         const nextBtn = document.querySelector('button[aria-label="Avançar"], button[aria-label="Next"], .coreSpriteRightChevron');
-        if (nextBtn) {
-          nextBtn.click();
-        } else {
-          const sec = document.querySelector('section');
-          if (sec) {
-            const rect = sec.getBoundingClientRect();
-            const clickX = rect.left + rect.width * 0.75;
-            const clickY = rect.top + rect.height * 0.5;
-            const evt = new MouseEvent('click', { clientX: clickX, clientY: clickY, bubbles: true });
-            sec.dispatchEvent(evt);
-          } else {
-            break;
-          }
-        }
+        if (nextBtn) nextBtn.click(); else break;
       }
     }
   } catch (highlightErr) {
@@ -678,182 +609,48 @@ function scrapePostPageLogic() {
   return { success: false, error: "Nenhuma imagem do post encontrada no DOM." };
 }
 
-async function handleMenuScrape(url, sender) {
-  console.log("Iniciando raspagem de cardápio para:", url);
+// 2. RASPAGEM DE CARDÁPIO COM BLACKLIST E DUMP DE TEXTO (SUBSTITUIR handleMenuScrape)
+async function handleMenuScrape(url) {
+  const blackList = ['ifood.com.br', 'rappi.com.br', 'ubereats.com', 'deliverymuch.com.br'];
   
-  // Instinto de Desistência: Fast fail para WhatsApp
-  const lowerUrl = url.toLowerCase();
-  if (lowerUrl.includes('wa.me') || lowerUrl.includes('api.whatsapp.com') || lowerUrl.includes('whatsapp.com/send')) {
-    console.log("[Circuit Breaker] URL de WhatsApp detectada. Abortando.");
-    return { success: false, error: "Cardápio Protegido ou via WhatsApp", isProtected: true };
+  if (blackList.some(domain => url.includes(domain))) {
+    return { success: false, error: "Link de plataforma de terceiros ignorado (Blacklist)." };
   }
-  
-  const originalTabId = sender && sender.tab ? sender.tab.id : null;
-  
-  // 1. Cria a aba para carregar o cardápio
+
+  console.log("Iniciando raspagem oficial de cardápio para:", url);
   const tab = await chrome.tabs.create({ url: url, active: true });
   const tabId = tab.id;
   
-  // Restaura o foco na aba original para não perturbar o usuário
-  if (originalTabId) {
-    try {
-      await chrome.tabs.update(originalTabId, { active: true });
-    } catch (e) {
-      console.warn("Não foi possível restaurar o foco para a aba original:", e);
-    }
-  }
-  
   try {
-    // 2. Aguarda o carregamento completo da aba usando listeners (muito mais estável)
-    await new Promise((resolve, reject) => {
-      // Verifica o status inicial
-      chrome.tabs.get(tabId, (currentTab) => {
-        if (chrome.runtime.lastError || !currentTab) {
-          reject(new Error("A aba do cardápio foi fechada ou não pôde ser lida."));
-          return;
-        }
-        if (currentTab.status === 'complete') {
-          resolve();
-          return;
-        }
-        
-        // Configura o listener de atualização
-        const listener = (changeTabId, changeInfo) => {
-          if (changeTabId === tabId && changeInfo.status === 'complete') {
-            chrome.tabs.onUpdated.removeListener(listener);
-            resolve();
-          }
-        };
-        chrome.tabs.onUpdated.addListener(listener);
-        
-        // Timeout de segurança de 15 segundos para prosseguir mesmo se travar o carregamento de imagens/assets lentos
-        setTimeout(() => {
-          chrome.tabs.onUpdated.removeListener(listener);
-          resolve(); // Resolve para tentar raspar o que já carregou
-        }, 15000);
-      });
-    });
+    await waitTabComplete(tabId, 20); // Timeout maior para sites pesados
 
-    // Aguarda a renderização dos pratos na página (Vite/React/Vue mount)
-    console.log("[Extension] Aguardando renderização do cardápio...");
-    await waitForMenuToLoad(tabId);
-
-    // Verificação de Anota AI para extração estruturada direta pela API
-    const isAnotaAi = await detectAnotaAiInTab(tabId);
-    if (isAnotaAi) {
-      console.log("[Extension] Anota AI detectado! Tentando extrair diretamente da API...");
-      const slug = await getSlugFromTab(tabId);
-      if (slug) {
-        try {
-          const apiRes = await fetch(`https://api.anota.ai/v1/menu/merchant?slug=${slug}`);
-          if (apiRes.ok) {
-            const json = await apiRes.json();
-            const parsedMenu = parseAnotaAiMenu(json);
-            if (parsedMenu && parsedMenu.length > 0) {
-              console.log("[Extension] Sucesso ao extrair cardápio da API Anota AI!");
-              await chrome.tabs.remove(tabId);
-              return {
-                success: true,
-                isAnotaAi: true,
-                parsedMenu: parsedMenu
-              };
-            }
-          } else {
-            console.warn("[Extension] Falha ao chamar API do Anota AI, status:", apiRes.status);
-          }
-        } catch (apiErr) {
-          console.error("[Extension] Erro ao consumir API do Anota AI:", apiErr);
-        }
-      }
-    }
-
-    // Verificação de Cardápio Web para extração estruturada direta pela API
-    const isCardapioWeb = await detectCardapioWebInTab(tabId);
-    if (isCardapioWeb) {
-      console.log("[Extension] Cardápio Web detectado! Tentando extrair diretamente da API...");
-      const details = await getCardapioWebDetailsFromTab(tabId);
-      if (details && details.companySlug && details.companyId) {
-        try {
-          const sessionid = "session_" + Math.random().toString(36).substring(2, 11);
-          const apiRes = await fetch(
-            `https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo`,
-            {
-              headers: {
-                'company': details.companySlug,
-                'company-id': String(details.companyId),
-                'sessionid': sessionid
-              }
-            }
-          );
-          if (apiRes.ok) {
-            const json = await apiRes.json();
-            const parsedMenu = parseCardapioWebMenu(json);
-            if (parsedMenu && parsedMenu.length > 0) {
-              console.log("[Extension] Sucesso ao extrair cardápio da API Cardápio Web!");
-              await chrome.tabs.remove(tabId);
-              return {
-                success: true,
-                isCardapioWeb: true,
-                parsedMenu: parsedMenu
-              };
-            }
-          } else {
-            console.warn("[Extension] Falha ao chamar API do Cardápio Web, status:", apiRes.status);
-          }
-        } catch (apiErr) {
-          console.error("[Extension] Erro ao consumir API do Cardápio Web:", apiErr);
-        }
-      }
-    }
-
-    // 3. Executa a lógica de scroll e expansão na página do cardápio
-    try {
-      await chrome.scripting.executeScript({
-        target: { tabId: tabId },
-        func: expandAndLoadAllContentInPage
-      });
-    } catch (err) {
-      console.warn("Falha ao expandir conteúdo do cardápio:", err.message);
-    }
-
-    // Espera mais 1.5s após a expansão para garantir rendering final e imagens
-    await new Promise(r => setTimeout(r, 1500));
-
-    // 4. Extrai o HTML limpo/XML para a IA
-    const results = await chrome.scripting.executeScript({
+    const scrapeResult = await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: getCleanedHtmlForAIInPage
+      func: () => {
+        // Remove scripts, styles e modais de login para limpar o texto
+        const junk = document.querySelectorAll('script, style, iframe, nav, footer, .modal, #login-modal');
+        junk.forEach(el => el.remove());
+
+        const bodyText = document.body.innerText || "";
+        const images = Array.from(document.querySelectorAll('img'))
+          .map(img => ({
+            src: img.src,
+            alt: img.alt,
+            area: img.width * img.height
+          }))
+          .filter(img => img.area > 50000 && img.src.startsWith('http')) // Apenas imagens grandes (prováveis fotos de cardápio)
+          .sort((a, b) => b.area - a.area)
+          .slice(0, 5);
+
+        return { text: bodyText.substring(0, 10000), images: images };
+      }
     });
 
-    if (!results || !results[0] || !results[0].result) {
-      throw new Error("Não foi possível extrair o conteúdo do cardápio.");
-    }
-
-    const xmlContent = results[0].result;
-
-    // 5. Fecha a aba temporária
-    await chrome.tabs.remove(tabId);
-
-    return {
-      success: true,
-      xmlContent: xmlContent
-    };
-
+    return { success: true, data: scrapeResult[0].result };
   } catch (err) {
-    console.error("Erro no fluxo do scraper de cardápio:", err);
-    // Tenta limpar a aba em caso de erro
-    try {
-      chrome.tabs.get(tabId, (currentTab) => {
-        if (!chrome.runtime.lastError && currentTab) {
-          chrome.tabs.remove(tabId);
-        }
-      });
-    } catch (_) {}
-    
-    return {
-      success: false,
-      error: err.message
-    };
+    return { success: false, error: err.message };
+  } finally {
+    await chrome.tabs.remove(tabId).catch(() => {});
   }
 }
 
@@ -1782,15 +1579,39 @@ async function handleGoogleHoursScrape(query, mapUrl) {
                     };
                   }
                 }
-              }
-            }
-          }
         }
 
-        if (foundAny) {
-          return { success: true, schedule };
+        // 4. Extração da Âncora da Verdade (Endereço, Telefone, Site)
+        let address = null;
+        let phone = null;
+        let website = null;
+        
+        try {
+          // Endereço
+          const addrBtn = document.querySelector('button[data-item-id="address"]');
+          if (addrBtn) {
+            const addrDiv = addrBtn.querySelector('.fontBodyMedium') || addrBtn;
+            if (addrDiv) address = addrDiv.textContent.trim();
+          }
+
+          // Telefone
+          const phoneBtn = document.querySelector('button[data-item-id*="phone:tel:"]');
+          if (phoneBtn) {
+            const phoneDiv = phoneBtn.querySelector('.fontBodyMedium') || phoneBtn;
+            if (phoneDiv) phone = phoneDiv.textContent.trim();
+          }
+
+          // Site
+          const webBtn = document.querySelector('a[data-item-id="authority"]');
+          if (webBtn) {
+            website = webBtn.href;
+          }
+        } catch(e) {}
+
+        if (foundAny || address || phone || website) {
+          return { success: true, schedule: foundAny ? schedule : null, anchorData: { address, phone, website } };
         } else {
-          return { success: false, error: "Tabela de horários não encontrada na página do Google Maps." };
+          return { success: false, error: "Nenhum dado encontrado na página do Google Maps." };
         }
       }
     });

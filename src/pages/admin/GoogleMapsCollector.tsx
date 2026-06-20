@@ -743,6 +743,28 @@ export default function GoogleMapsCollector() {
           chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: hoursQuery, mapUrl }, resolve);
         } else resolve({ success: false });
       });
+      // Âncora da Verdade: Sobrescrever dados vitais com os dados oficiais do Maps
+      if (extRes && extRes.success && extRes.anchorData) {
+        console.log(`[Circuit Breaker] Atualizando dados da Âncora do Maps para ${rest?.id}`);
+        const updates: any = {};
+        if (extRes.anchorData.address) {
+          updates.address = extRes.anchorData.address;
+          rest.address = extRes.anchorData.address;
+        }
+        if (extRes.anchorData.phone) {
+          updates.phone = extRes.anchorData.phone;
+          rest.phone = extRes.anchorData.phone;
+        }
+        if (extRes.anchorData.website) {
+          updates.other_url = extRes.anchorData.website;
+          updates.other_url_label = 'Site Oficial';
+          rest.other_url = extRes.anchorData.website;
+        }
+        if (Object.keys(updates).length > 0) {
+          await supabase.from('restaurants').update(updates).eq('id', rest?.id);
+        }
+      }
+
       if (extRes && extRes.success && extRes.schedule) {
         await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', rest?.id);
       } else {

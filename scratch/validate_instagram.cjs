@@ -53,21 +53,25 @@ DADOS OFICIAIS DO RESTAURANTE (Verdade Absoluta extraída do Google Maps):
 - Endereço Oficial: ${rest.address || 'Não cadastrado'}
 - Bairro Oficial: ${rest.neighborhood || 'Não cadastrado'}
 - Cidade Oficial: ${rest.city || 'Não cadastrado'}
+- Telefone: ${rest.phone || 'Não cadastrado'}
 
 DADOS EXTRAÍDOS DA PÁGINA DO INSTAGRAM A SER AVALIADO (${instagramUrl}):
 ${instagramContextStr.substring(0, 10000)}
 
-INSTRUÇÕES DE AVALIAÇÃO INTELIGENTE:
-1. NÃO seja um robô estático que apenas compara textos. É perfeitamente normal e muito comum que a bio do Instagram NÃO contenha o endereço completo ou sequer o bairro.
-2. Se o nome do restaurante bater com o perfil, e o perfil parecer ser da mesma marca, VALIDE o perfil, a não ser que haja uma CONTRADIÇÃO CLARA.
-3. O que é uma contradição clara? Se a bio citar um bairro/cidade diferente (ex: bio diz "Manaíra" e o endereço oficial é "Bancários") ou o nome indicar outra unidade (ex: "Restaurante X - Unidade Bancários"). Nesses casos, a resposta deve ser INVALID.
-4. Se a bio tiver informações genéricas, o mesmo nome, ou mesmo se o endereço estiver ausente na bio, você DEVE considerar como VÁLIDO (isValid: true), assumindo que é o perfil genérico oficial do restaurante.
-5. Retorne um JSON.
+INSTRUÇÕES DE AVALIAÇÃO INTELIGENTE (Busca Multi-Sinais):
+1. **AIA (Avaliação Integrada de Âncora)**: Compare o bairro e a cidade da Bio com o Endereço Oficial do Maps. Se bater, o match é de 100% (confidenceScore = 1.0).
+2. **Fallback por Telefone**: Se o endereço na Bio for divergente (ex: mudou de bairro) ou não existir, mas o telefone na Bio bater com o Telefone Oficial, a chance do perfil ser correto é altíssima. Nesse caso, defina \`hasDivergentAddress\` como \`true\` e aprove o perfil.
+3. Se houver contradição EXPLICITA de cidade ou estado (ex: Bio diz "Recife" e o restaurante é em "João Pessoa") e o telefone NÃO bater, a confiança cai drasticamente e o perfil deve ser reprovado.
+4. Se a bio for genérica, mas o nome e o estilo baterem e não houver contradição, atribua uma confiança moderada-alta (ex: 0.7 a 0.8).
+5. Retorne obrigatoriamente um "confidenceScore" de 0.0 a 1.0. Consideramos >= 0.7 como válido.
+6. Retorne um JSON estrito.
 
 Formato esperado:
 {
-  "isValid": true ou false,
-  "reason": "Explicação detalhada de por que validou ou invalidou. Se invalidou, destaque a discrepância de endereço ou unidade.",
+  "isValid": true ou false (true se confidenceScore >= 0.7),
+  "confidenceScore": número decimal entre 0.0 e 1.0,
+  "hasDivergentAddress": true ou false (true se o telefone validou o perfil mas o endereço está diferente/desatualizado),
+  "reason": "Explicação detalhada dos sinais que levaram ao score (match de bairro, telefone, etc.)",
   "instagram": "${instagramUrl}"
 }
 `;
@@ -93,7 +97,13 @@ Formato esperado:
         social_networks.push({ platform: 'instagram', url: instagramUrl });
       }
       
-      const { error: updateErr } = await supabase.from('restaurants').update({ social_networks, ai_validated: true }).eq('id', targetId);
+      const updates: any = { social_networks, ai_validated: true };
+      
+      if (result.hasDivergentAddress) {
+        updates.coleta_logs = (rest.coleta_logs ? rest.coleta_logs + ' | ' : '') + 'Endereço Divergente, mas Perfil Confirmado';
+      }
+
+      const { error: updateErr } = await supabase.from('restaurants').update(updates).eq('id', targetId);
       if (updateErr) console.error("Erro ao atualizar banco:", updateErr);
       else console.log(`Instagram oficial atualizado no banco.`);
     }
