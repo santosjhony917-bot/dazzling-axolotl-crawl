@@ -643,6 +643,9 @@ export default defineConfig(() => ({
                 let instagramContext = '';
                 let googleSearchResults = null;
                 let instagramHighlights = null;
+                let instagramLogoUrl = '';
+                let instagramFeedPhotoUrl = '';
+                let bioLinkUrl = '';
                 try {
                   if (bodyData) {
                     const parsed = JSON.parse(bodyData);
@@ -657,6 +660,15 @@ export default defineConfig(() => ({
                     }
                     if (parsed.instagramHighlights) {
                       instagramHighlights = parsed.instagramHighlights;
+                    }
+                    if (parsed.instagramLogoUrl) {
+                      instagramLogoUrl = parsed.instagramLogoUrl;
+                    }
+                    if (parsed.instagramFeedPhotoUrl) {
+                      instagramFeedPhotoUrl = parsed.instagramFeedPhotoUrl;
+                    }
+                    if (parsed.bioLinkUrl) {
+                      bioLinkUrl = parsed.bioLinkUrl;
                     }
                   }
                 } catch(e) {}
@@ -699,6 +711,15 @@ export default defineConfig(() => ({
                     const tempGoogleFile = path.join(process.cwd(), 'scratch', `temp_google_${restaurantId}.json`);
                     fs.writeFileSync(tempGoogleFile, JSON.stringify(googleSearchResults));
                     valArgs.push("--google-context-file", tempGoogleFile);
+                  }
+                  if (instagramLogoUrl) {
+                    valArgs.push("--instagram-logo-url", instagramLogoUrl);
+                  }
+                  if (instagramFeedPhotoUrl) {
+                    valArgs.push("--instagram-feed-photo-url", instagramFeedPhotoUrl);
+                  }
+                  if (bioLinkUrl) {
+                    valArgs.push("--bio-link-url", bioLinkUrl);
                   }
                   
                   const valProc = spawn("node", valArgs);
