@@ -84,7 +84,6 @@ Formato esperado:
     console.log(`Decisão: ${result.isValid ? 'VALIDADO' : 'REPROVADO'} - ${result.reason}`);
 
     if (result.isValid) {
-      // Se validou, atualiza o instagram oficial no supabase e marca como validado
       let social_networks = rest.social_networks || [];
       const idx = social_networks.findIndex(s => s.platform === 'instagram');
       if (idx !== -1) {
