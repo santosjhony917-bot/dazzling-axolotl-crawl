@@ -69,6 +69,22 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
     return true; // Mantém o canal de mensagem aberto para resposta assíncrona
   }
   
+  if (message.action === "scrapeGoogleHours") {
+    const { query, mapUrl } = message;
+    handleGoogleHoursScrape(query, mapUrl)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+  
+  if (message.action === "searchGoogleForMenu") {
+    const { query } = message;
+    handleSearchGoogleForMenu(query)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+  
   if (message.action === "scrapeWebContext") {
     const { url } = message;
     handleWebContextScrape(url)
@@ -365,6 +381,22 @@ async function handleInstagramScrape(instagramUrl) {
         console.error("Falha ao baixar imagem no service worker:", err);
       }
     }
+
+    let base64Highlights = [];
+    if (scrapeData.highlightImages && scrapeData.highlightImages.length > 0) {
+      for (const imgUrl of scrapeData.highlightImages) {
+        try {
+          const fetchRes = await fetch(imgUrl);
+          if (fetchRes.ok) {
+            const blob = await fetchRes.blob();
+            const b64 = await blobToBase64(blob);
+            base64Highlights.push(`data:${blob.type || 'image/jpeg'};base64,${b64}`);
+          }
+        } catch (e) {
+          console.error("Erro ao baixar imagem de destaque:", e);
+        }
+      }
+    }
     
     // 5. Fecha a aba temporária (pois a raspagem deu certo)
     await chrome.tabs.remove(tabId);
@@ -372,8 +404,10 @@ async function handleInstagramScrape(instagramUrl) {
     return {
       success: true,
       followers: scrapeData.followers,
+      bio: scrapeData.bio,
       logoDataUrl: base64 ? `data:${contentType};base64,${base64}` : null,
-      rawLogoUrl: scrapeData.profilePicUrl
+      rawLogoUrl: scrapeData.profilePicUrl,
+      highlightImages: base64Highlights
     };
     
   } catch (err) {
@@ -407,7 +441,7 @@ async function blobToBase64(blob) {
 }
 
 // Esta função roda diretamente no contexto da página do Instagram
-function scrapePageLogic() {
+async function scrapePageLogic() {
   const isLogin = window.location.href.includes('accounts/login') || !!document.querySelector('input[name="username"]');
   if (isLogin) {
     return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
@@ -489,7 +523,7 @@ function scrapePageLogic() {
       const mult = multiplierStr.toLowerCase().trim();
       if (mult === 'k' || mult === 'mil') {
         val = val * 1000;
-      } else if (mult === 'm' || mult === 'mi' || mult === 'milões' || mult === 'milões' || mult === 'mili') {
+      } else if (mult === 'm' || mult === 'mi' || mult === 'milões' || mult === 'mili') {
         val = val * 1000000;
       }
       return Math.round(val);
@@ -555,11 +589,97 @@ function scrapePageLogic() {
       }
     }
   }
+  // C. Extrai a BIO da tag meta
+  let bioText = metaContent || '';
+
+  // 3. Raspagem de Destaques (Highlights) do Instagram
+  const highlightImages = [];
+  try {
+    let menuHighlight = null;
+    const highlightLinks = Array.from(document.querySelectorAll('a[href*="/stories/highlights/"]'));
+    menuHighlight = highlightLinks.find(link => {
+      const text = link.textContent.trim().toLowerCase();
+      return text.includes('cardapio') || text.includes('cardápio') || text.includes('menu') || text.includes('preço') || text.includes('preco') || text.includes('valores') || text.includes('prato');
+    });
+
+    if (!menuHighlight) {
+      const keywords = ['cardapio', 'cardápio', 'menu', 'preço', 'preco', 'valores', 'prato'];
+      const allElements = Array.from(document.querySelectorAll('*'));
+      for (const el of allElements) {
+        if (el.children.length === 0) {
+          const text = el.textContent.trim().toLowerCase();
+          if (keywords.some(kw => text.includes(kw))) {
+            const link = el.closest('a[href*="/stories/highlights/"]');
+            if (link) {
+              menuHighlight = link;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if (menuHighlight) {
+      menuHighlight.click();
+      
+      const getActiveStoryImg = () => {
+        const section = document.querySelector('section');
+        if (section) {
+          const imgs = Array.from(section.querySelectorAll('img'));
+          for (const img of imgs) {
+            const rect = img.getBoundingClientRect();
+            const isAvatar = img.closest('header') || rect.width < 100 || rect.height < 100;
+            if (!isAvatar && img.src && img.src.startsWith('http')) {
+              return img.src;
+            }
+          }
+          const img = section.querySelector('img[decoding="sync"]') || section.querySelector('img');
+          if (img && img.src && img.src.startsWith('http')) return img.src;
+        }
+        return null;
+      };
+
+      for (let slide = 0; slide < 8; slide++) {
+        // Aguarda carregar o slide
+        await new Promise(r => setTimeout(r, 2000));
+        
+        if (!document.querySelector('section')) {
+          break;
+        }
+        
+        const imgUrl = getActiveStoryImg();
+        if (imgUrl && !highlightImages.includes(imgUrl)) {
+          highlightImages.push(imgUrl);
+        }
+        
+        // Clica para ir ao próximo slide
+        const nextBtn = document.querySelector('button[aria-label="Avançar"], button[aria-label="Next"], .coreSpriteRightChevron');
+        if (nextBtn) {
+          nextBtn.click();
+        } else {
+          const sec = document.querySelector('section');
+          if (sec) {
+            const rect = sec.getBoundingClientRect();
+            const clickX = rect.left + rect.width * 0.75;
+            const clickY = rect.top + rect.height * 0.5;
+            const evt = new MouseEvent('click', { clientX: clickX, clientY: clickY, bubbles: true });
+            sec.dispatchEvent(evt);
+          } else {
+            break;
+          }
+        }
+      }
+    }
+  } catch (highlightErr) {
+    console.error("Erro ao raspar destaques:", highlightErr);
+  }
   
   return {
     success: true,
     profilePicUrl: profilePicUrl,
-    followers: followersCount
+    followers: followersCount,
+    bio: bioText,
+    highlightImages: highlightImages
   };
 }
 
@@ -1867,3 +1987,354 @@ async function handleAgentClose() {
   }
   return { success: true };
 }
+
+// ============================================================================
+// NOVO FLUXO: Extração de Horários via Google Maps (Aba Física)
+// ============================================================================
+async function handleGoogleHoursScrape(query, mapUrl) {
+  console.log("Iniciando busca de horários no Google Maps para:", query, mapUrl);
+  
+  // Se tivermos a URL direta do Maps, usamos ela. Caso contrário, usamos a busca de locais do Maps
+  const searchUrl = mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  
+  // Cria aba ativa para garantir que os scripts de interação do Google rodem
+  const tab = await chrome.tabs.create({ url: searchUrl, active: true });
+  const tabId = tab.id;
+  
+  try {
+    // Aguarda a aba carregar completamente
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba do Google Maps foi fechada."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 60) {
+              reject(new Error("Tempo limite ao carregar o Google Maps (30s)."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    // Aguarda mais 3 segundos para garantir a renderização inicial do painel lateral
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: async () => {
+        const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+        
+        // 1. Rola o painel lateral para trazer os detalhes para o viewport se necessário
+        const panel = document.querySelector('div[role="main"]') || document.querySelector('.m6ZQ1b') || document.querySelector('.DxyBCb');
+        if (panel) panel.scrollTop = 500;
+        await sleep(800);
+
+        // 2. Tenta expandir a tabela de horários
+        const isAlreadyExpanded = (() => {
+          const tbl = document.querySelector('table.e25n6b') || document.querySelector('table[class*="hours"]');
+          if (!tbl) return false;
+          return tbl.querySelectorAll('tr').length > 2;
+        })();
+
+        if (!isAlreadyExpanded) {
+          // Encontra o botão de expandir horários no Google Maps
+          const ohElement = document.querySelector('*[data-item-id="oh"]') || 
+                            document.querySelector('*[data-item-id^="oh"]');
+          
+          let expandBtn = null;
+          if (ohElement) {
+            expandBtn = ohElement.querySelector('[aria-expanded="false"]') || ohElement;
+          } else {
+            expandBtn = Array.from(document.querySelectorAll('*')).find(el => {
+              const label = el.getAttribute('aria-label') || '';
+              return label.toLowerCase().includes('horário de funcionamento da semana') ||
+                     label.toLowerCase().includes('mostrar horário') ||
+                     label.toLowerCase().includes('ocultar horário') ||
+                     (el.textContent.trim() === '' && el.className.includes('OazX1c'));
+            });
+          }
+
+          if (expandBtn) {
+            try { expandBtn.click(); } catch(e) {}
+            try {
+              expandBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+              expandBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+              expandBtn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+            } catch(e) {}
+            await sleep(1500); // Aguarda animação de dropdown
+          }
+        }
+
+        // 3. Extrai a tabela de horários
+        const findHoursTable = () => {
+          const tables = Array.from(document.querySelectorAll('table'));
+          const dayMappingKeys = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'sabado', 'domingo', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+          for (const tbl of tables) {
+            const text = tbl.textContent.toLowerCase();
+            const hasDay = dayMappingKeys.some(day => text.includes(day));
+            if (hasDay) return tbl;
+          }
+          return null;
+        };
+
+        const hoursTable = findHoursTable();
+        const schedule = {};
+        const dayMap = {
+          'segunda': 'monday', 'terça': 'tuesday', 'quarta': 'wednesday', 'quinta': 'thursday',
+          'sexta': 'friday', 'sábado': 'saturday', 'sabado': 'saturday', 'domingo': 'sunday',
+          'monday': 'monday', 'tuesday': 'tuesday', 'wednesday': 'wednesday', 'thursday': 'thursday',
+          'friday': 'friday', 'saturday': 'saturday', 'sunday': 'sunday'
+        };
+
+        // Inicializa dias
+        Object.values(dayMap).forEach(d => {
+          schedule[d] = { isOpen: false, slots: [] };
+        });
+
+        let foundAny = false;
+
+        if (hoursTable) {
+          const rows = Array.from(hoursTable.querySelectorAll('tr'));
+          rows.forEach(tr => {
+            const cells = Array.from(tr.querySelectorAll('td, th'));
+            let dayCell = null;
+            let timeCell = null;
+
+            cells.forEach(cell => {
+              const text = cell.textContent.trim().toLowerCase();
+              let isDay = false;
+              for (const key of Object.keys(dayMap)) {
+                if (text.startsWith(key)) {
+                  isDay = true;
+                  break;
+                }
+              }
+              if (isDay) {
+                dayCell = cell;
+              } else if (text.match(/\d/) || text.includes('fechado') || text.includes('closed') || text.includes('24')) {
+                timeCell = cell;
+              }
+            });
+
+            if (dayCell && timeCell) {
+              const dayRaw = dayCell.textContent.toLowerCase().trim();
+              const timeRaw = timeCell.textContent.trim();
+
+              let targetDay = null;
+              for (const [key, val] of Object.entries(dayMap)) {
+                if (dayRaw.startsWith(key)) {
+                  targetDay = val;
+                  break;
+                }
+              }
+
+              if (targetDay) {
+                foundAny = true;
+                if (timeRaw.toLowerCase().includes('fechado') || timeRaw.toLowerCase().includes('closed')) {
+                  schedule[targetDay] = { isOpen: false, slots: [] };
+                } else if (timeRaw.toLowerCase().includes('24 horas') || 
+                           timeRaw.toLowerCase().includes('24h') || 
+                           timeRaw.toLowerCase().includes('open 24 hours') ||
+                           timeRaw.toLowerCase().includes('24 hours')) {
+                  schedule[targetDay] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
+                } else {
+                  const slots = timeRaw.split(/[,;]/).map(s => {
+                    const times = s.match(/\d{1,2}:\d{2}\s*(?:AM|PM)?/gi) || s.match(/\d{1,2}(?::\d{2})?\s*(?:AM|PM|am|pm)?/gi);
+                    if (times && times.length === 2) {
+                      const formatTime = (t) => {
+                        let cleanT = t.trim().toUpperCase();
+                        const isPM = cleanT.includes('PM');
+                        const isAM = cleanT.includes('AM');
+                        cleanT = cleanT.replace('AM', '').replace('PM', '').trim();
+                        if (!cleanT.includes(':')) cleanT += ':00';
+                        const parts = cleanT.split(':');
+                        let hours = parseInt(parts[0], 10);
+                        let minutes = parseInt(parts[1], 10);
+                        if (isPM && hours < 12) hours += 12;
+                        if (isAM && hours === 12) hours = 0;
+                        const pad = (num) => String(num).padStart(2, '0');
+                        return `${pad(hours)}:${pad(minutes)}`;
+                      };
+                      return { start: formatTime(times[0]), end: formatTime(times[1]) };
+                    }
+                    return null;
+                  }).filter(Boolean);
+
+                  schedule[targetDay] = {
+                    isOpen: slots.length > 0,
+                    slots: slots
+                  };
+                }
+              }
+            }
+          });
+        }
+
+        // Fallback se não encontrou tabela estruturada
+        if (!foundAny) {
+          const allElements = Array.from(document.querySelectorAll('div, span, p, tr, li'));
+          for (const el of allElements) {
+            const text = el.textContent.trim();
+            if (!text || text.length > 150) continue;
+            const lowerText = text.toLowerCase();
+            for (const [key, val] of Object.entries(dayMap)) {
+              if (lowerText.startsWith(key) && (lowerText.includes(':') || lowerText.includes('–') || lowerText.includes('-') || lowerText.includes('fechado') || lowerText.includes('closed'))) {
+                let timePart = text.substring(key.length).replace(/^[:\s\-–—]+/, '').trim();
+                if (timePart && timePart.length > 2) {
+                  foundAny = true;
+                  if (timePart.toLowerCase().includes('fechado') || timePart.toLowerCase().includes('closed')) {
+                    schedule[val] = { isOpen: false, slots: [] };
+                  } else if (timePart.toLowerCase().includes('24 horas') || 
+                             timePart.toLowerCase().includes('24h') || 
+                             timePart.toLowerCase().includes('open 24 hours') ||
+                             timePart.toLowerCase().includes('24 hours')) {
+                    schedule[val] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
+                  } else {
+                    const slots = timePart.split(/[,;]/).map(s => {
+                      const times = s.match(/\d{1,2}:\d{2}\s*(?:AM|PM)?/gi) || s.match(/\d{1,2}(?::\d{2})?\s*(?:AM|PM|am|pm)?/gi);
+                      if (times && times.length === 2) {
+                        const formatTime = (t) => {
+                          let cleanT = t.trim().toUpperCase();
+                          const isPM = cleanT.includes('PM');
+                          const isAM = cleanT.includes('AM');
+                          cleanT = cleanT.replace('AM', '').replace('PM', '').trim();
+                          if (!cleanT.includes(':')) cleanT += ':00';
+                          const parts = cleanT.split(':');
+                          let hours = parseInt(parts[0], 10);
+                          let minutes = parseInt(parts[1], 10);
+                          if (isPM && hours < 12) hours += 12;
+                          if (isAM && hours === 12) hours = 0;
+                          const pad = (num) => String(num).padStart(2, '0');
+                          return `${pad(hours)}:${pad(minutes)}`;
+                        };
+                        return { start: formatTime(times[0]), end: formatTime(times[1]) };
+                      }
+                      return null;
+                    }).filter(Boolean);
+
+                    schedule[val] = {
+                      isOpen: slots.length > 0,
+                      slots: slots
+                    };
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        if (foundAny) {
+          return { success: true, schedule };
+        } else {
+          return { success: false, error: "Tabela de horários não encontrada na página do Google Maps." };
+        }
+      }
+    });
+
+    // Remove a aba logo em seguida
+    await chrome.tabs.remove(tabId);
+    
+    if (results && results[0] && results[0].result) {
+      return results[0].result;
+    }
+    
+    return { success: false, error: "Nenhum resultado retornado do script do Google Maps." };
+
+  } catch (err) {
+    console.error("Erro na captura de horários do Google Maps:", err);
+    try { await chrome.tabs.remove(tabId); } catch (_) {}
+    return { success: false, error: err.message };
+  }
+}
+
+async function handleSearchGoogleForMenu(query) {
+  console.log("Iniciando busca por Cardápio para:", query);
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  const tab = await chrome.tabs.create({ url: searchUrl, active: false });
+  const tabId = tab.id;
+  
+  try {
+    await new Promise((resolve, reject) => {
+      let tries = 0;
+      const checkStatus = () => {
+        chrome.tabs.get(tabId, (currentTab) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error("A aba foi fechada prematuramente."));
+            return;
+          }
+          if (currentTab.status === 'complete') {
+            resolve();
+          } else {
+            tries++;
+            if (tries > 30) {
+              reject(new Error("Tempo limite na busca do Google."));
+            } else {
+              setTimeout(checkStatus, 500);
+            }
+          }
+        });
+      };
+      setTimeout(checkStatus, 1000);
+    });
+
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: () => {
+        const anchors = Array.from(document.querySelectorAll('#search a'));
+        const menuKeywords = [
+          'goomer.app', 'pedir.to', 'ola.click', 'cardapio.menu', 'delivery',
+          'menudigital', 'instamenu', 'abrahahot', 'tagme.com.br', 'wa.me',
+          'api.whatsapp', 'cardapiomenu', 'comutat', 'cardapio', 'menu'
+        ];
+        
+        for (const a of anchors) {
+          if (!a.href) continue;
+          const href = a.href.toLowerCase();
+          const text = (a.innerText || a.textContent || '').toLowerCase();
+          
+          if (href.includes('google.com')) continue;
+          
+          for (const kw of menuKeywords) {
+            if (href.includes(kw) || text.includes(kw)) {
+              return a.href;
+            }
+          }
+        }
+        
+        for (const a of anchors) {
+          if (!a.href) continue;
+          const href = a.href.toLowerCase();
+          if (!href.includes('google.com') && !href.includes('instagram.com') && !href.includes('facebook.com')) {
+            return a.href;
+          }
+        }
+        return null;
+      }
+    });
+
+    const foundUrl = results && results[0] && results[0].result;
+    if (foundUrl) {
+      return { success: true, url: foundUrl };
+    } else {
+      return { success: false, error: "Nenhum link de cardápio encontrado." };
+    }
+  } catch (err) {
+    console.error("Erro na busca de cardápio:", err);
+    return { success: false, error: err.message };
+  } finally {
+    try {
+      await chrome.tabs.remove(tabId);
+    } catch(e) {}
+  }
+}
+

@@ -1944,6 +1944,58 @@ async function run() {
   if (singleIdx !== -1 && idIdx !== -1 && idIdx + 1 < process.argv.length) {
     targetId = process.argv[idIdx + 1];
     console.log(`🎯 Modo Single ativado para o restaurante ID: ${targetId}`);
+
+    // Interceptação para processar JSON ou contexto direto da extensão Chrome
+    const jsonFileIdx = process.argv.indexOf('--menu-json-file');
+    const contextFileIdx = process.argv.indexOf('--menu-context-file');
+
+    if (jsonFileIdx !== -1 && jsonFileIdx + 1 < process.argv.length) {
+      const jsonFilePath = process.argv[jsonFileIdx + 1];
+      console.log(`🎯 Modo JSON Direto ativado: carregando do arquivo ${jsonFilePath}`);
+      try {
+        const fileData = fs.readFileSync(jsonFilePath, 'utf-8');
+        const parsedMenu = JSON.parse(fileData);
+        console.log(`💾 Salvando cardápio JSON diretamente no Supabase para ID: ${targetId}...`);
+        await saveMenuToSupabase(targetId, parsedMenu);
+        console.log(`RESULT:{"success":true}`);
+      } catch (err) {
+        console.error(`❌ Erro no processamento de JSON:`, err.message);
+        console.log(`RESULT:{"success":false,"error":${JSON.stringify(err.message)}}`);
+      }
+      return;
+    }
+
+    if (contextFileIdx !== -1 && contextFileIdx + 1 < process.argv.length) {
+      const contextFilePath = process.argv[contextFileIdx + 1];
+      console.log(`🎯 Modo Contexto XML/HTML ativado: carregando do arquivo ${contextFilePath}`);
+      try {
+        const fileContent = fs.readFileSync(contextFilePath, 'utf-8');
+        
+        // Carrega informações do restaurante para o nome
+        const { data: restaurantRow, error: fetchError } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('id', targetId)
+          .maybeSingle();
+
+        if (fetchError || !restaurantRow) {
+          throw new Error(fetchError ? fetchError.message : "Restaurante não encontrado.");
+        }
+
+        console.log(`🤖 Iniciando extração de texto com IA para "${restaurantRow.name}"...`);
+        const categories = await extractMenuWithAI(fileContent, restaurantRow.name);
+        const normalized = normalizeCategories(categories);
+
+        console.log(`💾 Salvando cardápio estruturado no Supabase...`);
+        await saveMenuToSupabase(targetId, normalized);
+        console.log(`RESULT:{"success":true}`);
+      } catch (err) {
+        console.error(`❌ Erro no processamento do contexto:`, err.message);
+        console.log(`RESULT:{"success":false,"error":${JSON.stringify(err.message)}}`);
+      }
+      return;
+    }
+
   } else if (urlIdx !== -1 && urlIdx + 1 < process.argv.length) {
     targetUrl = process.argv[urlIdx + 1];
     if (nameIdx !== -1 && nameIdx + 1 < process.argv.length) {

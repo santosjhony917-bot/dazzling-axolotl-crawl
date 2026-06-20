@@ -1134,7 +1134,121 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     if (!editedData) return;
 
     try {
-      const validatedData = await runGeocodingAndValidate(editedData);
+      let dataToSave = { ...editedData };
+
+      // Automatização da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
+      const rawInstagram = dataToSave.instagram || getSocialUrl(dataToSave, 'instagram') || '';
+      if (rawInstagram.trim()) {
+        let useExtension = false;
+        const extId = localStorage.getItem('chrome_extension_id')?.trim();
+        if (extId) {
+          const isInstalled = await checkExtensionInstalled(extId);
+          if (isInstalled) {
+            useExtension = true;
+          }
+        }
+
+        if (useExtension && extId) {
+          showSuccess("Coletando logo e seguidores do Instagram automaticamente via Extensão...");
+          const uuidId = getDeterministicUUID(dataToSave.id);
+          
+          try {
+            const chromeObj = (window as any).chrome;
+            const response = await new Promise<any>((resolve) => {
+              chromeObj.runtime.sendMessage(
+                extId, 
+                { action: "scrapeInstagram", instagramUrl: rawInstagram.trim() },
+                (res: any) => resolve(res)
+              );
+            });
+
+            if (response && response.success) {
+              let publicUrl = dataToSave.logo;
+              
+              if (response.logoDataUrl) {
+                try {
+                  const blob = base64ToBlob(response.logoDataUrl);
+                  const mime = blob.type;
+                  let ext = 'jpg';
+                  if (mime.includes('png')) ext = 'png';
+                  else if (mime.includes('webp')) ext = 'webp';
+                  else if (mime.includes('gif')) ext = 'gif';
+                  
+                  const storagePath = `logos/${uuidId}_logo.${ext}`;
+                  
+                  const { error: uploadError } = await supabase.storage
+                    .from('restaurant-images')
+                    .upload(storagePath, blob, {
+                      contentType: mime,
+                      upsert: true
+                    });
+                    
+                  if (!uploadError) {
+                    const { data: { publicUrl: newUrl } } = supabase.storage
+                      .from('restaurant-images')
+                      .getPublicUrl(storagePath);
+                    publicUrl = newUrl;
+                  }
+                } catch (uploadErr) {
+                  console.error("Erro ao subir imagem no Supabase automaticamente:", uploadErr);
+                }
+              }
+
+              let finalFollowers = null;
+              if (response.followers !== undefined && response.followers !== null) {
+                const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
+                finalFollowers = Math.round((response.followers * pct) / 100);
+              }
+
+              // Atualiza o objeto de dados com a logo e seguidores coletados
+              dataToSave = {
+                ...dataToSave,
+                logo: publicUrl || dataToSave.logo,
+                image_url: publicUrl || dataToSave.image_url,
+                followers_override: finalFollowers !== null ? finalFollowers : dataToSave.followers_override
+              };
+              
+              showSuccess("Logo e seguidores coletados com sucesso via Extensão!");
+            } else if (response && response.isLoginRequired) {
+              showError("A extensão necessita de login no Instagram. Faça login e clique novamente.");
+              return;
+            }
+          } catch (scrapeErr) {
+            console.error("Erro ao coletar Instagram automaticamente via Extensão:", scrapeErr);
+          }
+        } else {
+          // Fallback para o robô local /api/local-collector/re-scrape-logo
+          showSuccess("Iniciando coleta automática de logo e seguidores via servidor local...");
+          try {
+            const pct = localStorage.getItem('admin_followers_percentage') || '10';
+            const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${dataToSave.id}&pct=${pct}`, { method: 'POST' });
+            if (res.ok) {
+              const result = await res.json();
+              if (result.success) {
+                let finalFollowers = null;
+                if (result.followers !== undefined && result.followers !== null) {
+                  const pctVal = parseFloat(pct);
+                  finalFollowers = Math.round((result.followers * pctVal) / 100);
+                }
+                
+                dataToSave = {
+                  ...dataToSave,
+                  logo: result.url || dataToSave.logo,
+                  image_url: result.url || dataToSave.image_url,
+                  followers_override: finalFollowers !== null ? finalFollowers : dataToSave.followers_override
+                };
+                showSuccess("Logo e seguidores coletados com sucesso via servidor local!");
+              } else {
+                console.warn("Aviso na coleta automática via servidor:", result.error);
+              }
+            }
+          } catch (apiErr) {
+            console.error("Erro na coleta de Instagram automática via API local:", apiErr);
+          }
+        }
+      }
+
+      const validatedData = await runGeocodingAndValidate(dataToSave);
       if (!validatedData) return;
 
       const success = await syncSingleToSupabase(validatedData);

@@ -380,175 +380,174 @@ async function fetchPhotosViaPuppeteer(name, city, fetchMenu = false) {
       });
       
       if (menuTabClicked) {
+        console.log(`   ✅ Alternado para aba 'Menu'/'Cardápio'.`);
         await delay(4000);
+      } else {
+        console.log(`   ⚠️ Não foi possível encontrar a aba 'Menu'/'Cardápio'. Usando fotos da galeria geral.`);
+      }
+
+      // Clica na primeira foto do grid para abrir o visualizador em tela cheia (slideshow)
+      console.log("   📸 Clicando na primeira foto para abrir visualizador...");
+      const firstPhotoClicked = await page.evaluate(() => {
+        const link = document.querySelector('a.Wry4Ob');
+        if (link) {
+          link.click();
+          return true;
+        }
+        const img = document.querySelector('img[src*="googleusercontent.com/p/"]');
+        if (img) {
+          img.click();
+          return true;
+        }
+        return false;
+      });
+      
+      if (firstPhotoClicked) {
+        await delay(5000); // Aguarda carregar o visualizador
         
-        // Clica na primeira foto do grid de cardápio para abrir o visualizador em tela cheia (slideshow)
-        console.log("   📸 Clicando na primeira foto de cardápio para abrir visualizador...");
-        const firstPhotoClicked = await page.evaluate(() => {
-          const link = document.querySelector('a.Wry4Ob');
-          if (link) {
-            link.click();
-            return true;
-          }
-          const img = document.querySelector('img[src*="googleusercontent.com/p/"]');
-          if (img) {
-            img.click();
-            return true;
-          }
-          return false;
-        });
+        console.log("   🔄 Iniciando loop no visualizador de fotos para filtrar por data (limite de 12 meses)...");
+        const recentMenuUrls = [];
+        let previousUrl = null;
+        let consecutiveDuplicatedUrls = 0;
         
-        if (firstPhotoClicked) {
-          await delay(5000); // Aguarda carregar o visualizador
-          
-          console.log("   🔄 Iniciando loop no visualizador de fotos para filtrar por data (limite de 12 meses)...");
-          const recentMenuUrls = [];
-          let previousUrl = null;
-          let consecutiveDuplicatedUrls = 0;
-          
-          // Escaneia até 20 fotos no total, ou até achar 4 fotos válidas recentes, ou se o botão Next não funcionar
-          for (let i = 0; i < 20; i++) {
-            const data = await page.evaluate(() => {
-              // 1. Encontra a imagem principal no visualizador
-              let imgUrl = null;
-              const viewerImages = Array.from(document.querySelectorAll('img[src*="googleusercontent.com"]'));
-              const mainImg = viewerImages.find(img => img.offsetWidth > 300 || img.offsetHeight > 300);
-              if (mainImg) {
-                imgUrl = mainImg.src;
-              } else if (viewerImages.length > 0) {
-                imgUrl = viewerImages[0].src;
-              }
-              
-              // 2. Encontra a data da foto
-              let dateText = null;
-              const lg5SpSpans = Array.from(document.querySelectorAll('span.lg5Sp'));
-              if (lg5SpSpans.length > 0) {
-                dateText = lg5SpSpans[0].textContent.trim();
-              }
-              
-              if (!dateText) {
-                const candidates = Array.from(document.querySelectorAll('span, div'));
-                for (const el of candidates) {
-                  const txt = el.textContent.trim();
-                  if (txt.length > 0 && txt.length < 50) {
-                    const lower = txt.toLowerCase();
-                    if (
-                      (lower.includes('há') && (lower.includes('ano') || lower.includes('mês') || lower.includes('mes') || lower.includes('dia') || lower.includes('semana') || lower.includes('hora') || lower.includes('minuto'))) ||
-                      (lower.includes('ago') && (lower.includes('year') || lower.includes('month') || lower.includes('day') || lower.includes('week') || lower.includes('hour') || lower.includes('minute')))
-                    ) {
-                      dateText = txt;
-                      break;
-                    }
+        // Escaneia até 20 fotos no total, ou até achar 4 fotos válidas recentes, ou se o botão Next não funcionar
+        for (let i = 0; i < 20; i++) {
+          const data = await page.evaluate(() => {
+            // 1. Encontra a imagem principal no visualizador
+            let imgUrl = null;
+            const viewerImages = Array.from(document.querySelectorAll('img[src*="googleusercontent.com"]'));
+            const mainImg = viewerImages.find(img => img.offsetWidth > 300 || img.offsetHeight > 300);
+            if (mainImg) {
+              imgUrl = mainImg.src;
+            } else if (viewerImages.length > 0) {
+              imgUrl = viewerImages[0].src;
+            }
+            
+            // 2. Encontra a data da foto
+            let dateText = null;
+            const lg5SpSpans = Array.from(document.querySelectorAll('span.lg5Sp'));
+            if (lg5SpSpans.length > 0) {
+              dateText = lg5SpSpans[0].textContent.trim();
+            }
+            
+            if (!dateText) {
+              const candidates = Array.from(document.querySelectorAll('span, div'));
+              for (const el of candidates) {
+                const txt = el.textContent.trim();
+                if (txt.length > 0 && txt.length < 50) {
+                  const lower = txt.toLowerCase();
+                  if (
+                    (lower.includes('há') && (lower.includes('ano') || lower.includes('mês') || lower.includes('mes') || lower.includes('dia') || lower.includes('semana') || lower.includes('hora') || lower.includes('minuto'))) ||
+                    (lower.includes('ago') && (lower.includes('year') || lower.includes('month') || lower.includes('day') || lower.includes('week') || lower.includes('hour') || lower.includes('minute')))
+                  ) {
+                    dateText = txt;
+                    break;
                   }
                 }
               }
-              
-              // 3. Clica no botão Seguinte para a próxima iteração
-              const nextBtn = document.querySelector('button[jsaction*="next"]') || 
-                              document.querySelector('button[aria-label="Seguinte"]') || 
-                              document.querySelector('button[aria-label*="next"]') ||
-                              document.querySelector('button[aria-label*="Next"]') ||
-                              document.querySelector('button.w6728d[aria-label*="Seguinte"]') ||
-                              document.querySelector('button.w6728d[aria-label*="next"]');
-                              
-              let clickedNext = false;
-              if (nextBtn) {
-                nextBtn.click();
-                clickedNext = true;
-              }
-              
-              return { imgUrl, dateText, clickedNext };
-            });
-            
-            if (!data.imgUrl) {
-              console.log(`      ⚠️ [Foto ${i+1}] Não foi possível obter URL da imagem. Pulando...`);
-              if (!data.clickedNext) break;
-              await delay(2500);
-              continue;
             }
             
-            // Verifica se a URL da imagem é a mesma da anterior (fim da lista de fotos)
-            if (data.imgUrl === previousUrl) {
-              consecutiveDuplicatedUrls++;
-              if (consecutiveDuplicatedUrls >= 3) {
-                console.log(`      🏁 Chegou ao final das fotos (URL repetida 3 vezes). Parando.`);
-                break;
-              }
-            } else {
-              consecutiveDuplicatedUrls = 0;
-            }
-            previousUrl = data.imgUrl;
-            
-            // Limpa e normaliza a URL
-            let cleanUrl = data.imgUrl.trim();
-            if (cleanUrl.includes('googleusercontent.com')) {
-              if (cleanUrl.includes('=')) {
-                cleanUrl = cleanUrl.split('=')[0] + '=w1000-h1000-k-no';
-              } else {
-                cleanUrl = cleanUrl + '=w1000-h1000-k-no';
-              }
+            // 3. Clica no botão Seguinte para a próxima iteração
+            const nextBtn = document.querySelector('button[jsaction*="next"]') || 
+                            document.querySelector('button[aria-label="Seguinte"]') || 
+                            document.querySelector('button[aria-label*="next"]') ||
+                            document.querySelector('button[aria-label*="Next"]') ||
+                            document.querySelector('button.w6728d[aria-label*="Seguinte"]') ||
+                            document.querySelector('button.w6728d[aria-label*="next"]');
+                            
+            let clickedNext = false;
+            if (nextBtn) {
+              nextBtn.click();
+              clickedNext = true;
             }
             
-            // Verifica se é recente (dentro dos 12 meses)
-            const isRecent = (() => {
-              if (!data.dateText) return false; // Descarte se a data for desconhecida
-              const lower = data.dateText.toLowerCase();
-              
-              // Rejeita anos
-              if (lower.includes('ano') || lower.includes('year')) {
-                return false;
-              }
-              
-              const recentKeywords = [
-                'dia', 'semana', 'mês', 'mes', 'hora', 'minuto', 'segundo',
-                'day', 'week', 'month', 'hour', 'minute', 'second',
-                'ontem', 'yesterday', 'agora', 'now'
-              ];
-              
-              const hasKeyword = recentKeywords.some(kw => lower.includes(kw));
-              if (!hasKeyword) return false;
-              
-              const match = lower.match(/(\d+)\s*(mes|mês|month)/);
-              if (match) {
-                const num = parseInt(match[1], 10);
-                if (num > 12) return false;
-              }
-              
-              return true;
-            })();
-            
-            if (isRecent) {
-              if (!recentMenuUrls.includes(cleanUrl)) {
-                recentMenuUrls.push(cleanUrl);
-                console.log(`      ✅ [Foto ${i+1}] Aceita (Recente: "${data.dateText}"): ${cleanUrl.substring(0, 70)}...`);
-              }
-            } else {
-              console.log(`      ❌ [Foto ${i+1}] Descartada (Antiga ou Desconhecida: "${data.dateText}"): ${cleanUrl.substring(0, 70)}...`);
-            }
-            
-            // Se já coletamos 4 fotos recentes válidas, podemos parar
-            if (recentMenuUrls.length >= 4) {
-              console.log(`      🎯 Coletou as 4 fotos válidas necessárias.`);
-              break;
-            }
-            
-            if (!data.clickedNext) {
-              console.log(`      ⚠️ Botão Seguinte não disponível. Parando.`);
-              break;
-            }
-            
+            return { imgUrl, dateText, clickedNext };
+          });
+          
+          if (!data.imgUrl) {
+            console.log(`      ⚠️ [Foto ${i+1}] Não foi possível obter URL da imagem. Pulando...`);
+            if (!data.clickedNext) break;
             await delay(2500);
+            continue;
           }
           
-          menuUrls = recentMenuUrls;
-          console.log(`   ✅ Encontradas ${menuUrls.length} fotos do cardápio físico recentes (últimos 12 meses) no Google Maps.`);
-        } else {
-          console.log(`   ⚠️ Não foi possível abrir o visualizador clicando na primeira foto de cardápio.`);
+          // Verifica se a URL da imagem é a mesma da anterior (fim da lista de fotos)
+          if (data.imgUrl === previousUrl) {
+            consecutiveDuplicatedUrls++;
+            if (consecutiveDuplicatedUrls >= 3) {
+              console.log(`      🏁 Chegou ao final das fotos (URL repetida 3 vezes). Parando.`);
+              break;
+            }
+          } else {
+            consecutiveDuplicatedUrls = 0;
+          }
+          previousUrl = data.imgUrl;
+          
+          // Limpa e normaliza a URL
+          let cleanUrl = data.imgUrl.trim();
+          if (cleanUrl.includes('googleusercontent.com')) {
+            if (cleanUrl.includes('=')) {
+              cleanUrl = cleanUrl.split('=')[0] + '=w1000-h1000-k-no';
+            } else {
+              cleanUrl = cleanUrl + '=w1000-h1000-k-no';
+            }
+          }
+          
+          // Verifica se é recente (dentro dos 12 meses)
+          const isRecent = (() => {
+            if (!data.dateText) return false; // Descarte se a data for desconhecida
+            const lower = data.dateText.toLowerCase();
+            
+            // Rejeita anos
+            if (lower.includes('ano') || lower.includes('year')) {
+              return false;
+            }
+            
+            const recentKeywords = [
+              'dia', 'semana', 'mês', 'mes', 'hora', 'minuto', 'segundo',
+              'day', 'week', 'month', 'hour', 'minute', 'second',
+              'ontem', 'yesterday', 'agora', 'now'
+            ];
+            
+            const hasKeyword = recentKeywords.some(kw => lower.includes(kw));
+            if (!hasKeyword) return false;
+            
+            const match = lower.match(/(\d+)\s*(mes|mês|month)/);
+            if (match) {
+              const num = parseInt(match[1], 10);
+              if (num > 12) return false;
+            }
+            
+            return true;
+          })();
+          
+          if (isRecent) {
+            if (!recentMenuUrls.includes(cleanUrl)) {
+              recentMenuUrls.push(cleanUrl);
+              console.log(`      ✅ [Foto ${i+1}] Aceita (Recente: "${data.dateText}"): ${cleanUrl.substring(0, 70)}...`);
+            }
+          } else {
+            console.log(`      ❌ [Foto ${i+1}] Descartada (Antiga ou Desconhecida: "${data.dateText}"): ${cleanUrl.substring(0, 70)}...`);
+          }
+          
+          // Se já coletamos 4 fotos recentes válidas, podemos parar
+          if (recentMenuUrls.length >= 4) {
+            console.log(`      🎯 Coletou as 4 fotos válidas necessárias.`);
+            break;
+          }
+          
+          if (!data.clickedNext) {
+            console.log(`      ⚠️ Botão Seguinte não disponível. Parando.`);
+            break;
+          }
+          
+          await delay(2500);
         }
+        
+        menuUrls = recentMenuUrls;
+        console.log(`   ✅ Encontradas ${menuUrls.length} fotos do cardápio físico recentes (últimos 12 meses) no Google Maps.`);
       } else {
-        console.log(`   ⚠️ Não foi possível encontrar a aba 'Menu'/'Cardápio' nas fotos.`);
-        console.log(`   🔄 Fallback: Usando fotos da galeria geral para tentar extrair cardápio...`);
-        menuUrls = highResUrls.slice(0, 5);
+        console.log(`   ⚠️ Não foi possível abrir o visualizador de fotos.`);
       }
     }
     
@@ -830,6 +829,21 @@ async function run() {
     process.exit(1);
   }
 
+  const highlightsIdx = process.argv.indexOf('--instagram-highlights-file');
+  let highlightUrls = [];
+  if (highlightsIdx !== -1 && highlightsIdx + 1 < process.argv.length) {
+    const highlightsFile = process.argv[highlightsIdx + 1];
+    if (fs.existsSync(highlightsFile)) {
+      try {
+        highlightUrls = JSON.parse(fs.readFileSync(highlightsFile, 'utf-8'));
+        console.log(`   📸 [Destaques Instagram] Carregados ${highlightUrls.length} links de destaques do arquivo temporário.`);
+        try { fs.unlinkSync(highlightsFile); } catch(e){}
+      } catch (err) {
+        console.error('   ⚠️ Erro ao carregar arquivo de destaques:', err.message);
+      }
+    }
+  }
+
   console.log(`📡 Carregando restaurante ID ${targetId} do Supabase...`);
   const { data: rest, error } = await supabase.from('restaurants').select('*').eq('id', targetId).single();
   
@@ -899,9 +913,10 @@ async function run() {
   }
 
   // Se coletou fotos do cardápio e precisa processar
-  if (menuPhotoUrls && menuPhotoUrls.length > 0) {
-    console.log(`✨ Fotos do cardápio prontas. Iniciando OCR e extração...`);
-    const extractedCategories = await extractMenuFromPhotosWithAI(rest.id, menuPhotoUrls);
+  const allMenuUrls = [...menuPhotoUrls, ...highlightUrls];
+  if (allMenuUrls.length > 0) {
+    console.log(`✨ Fotos do cardápio prontas (${menuPhotoUrls.length} do Google, ${highlightUrls.length} do Instagram). Iniciando OCR e extração...`);
+    const extractedCategories = await extractMenuFromPhotosWithAI(rest.id, allMenuUrls);
     if (extractedCategories && extractedCategories.length > 0) {
       await saveMenuToSupabase(rest.id, extractedCategories);
     }

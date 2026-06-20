@@ -170,8 +170,8 @@ async function extractOpeningHoursFromPage(page, dayMap) {
       for (const el of candidates) {
         const text = el.textContent.trim().toLowerCase();
         if ((text.includes('aberto') || text.includes('fechado') || text.includes('fecha às') || text.includes('horários') || text.includes('expediente') || text.includes('schedule')) &&
-            (el.querySelector('img[src*="clock"]') || el.className?.includes('hours') || el.closest('[data-item-id="oh"]'))) {
-          const clickable = el.closest('button') || el.closest('div[role="button"]') || el.querySelector('button') || el;
+            (el.querySelector('img[src*="clock"]') || el.className?.includes('hours') || el.closest('[data-item-id="oh"]') || el.innerHTML.includes('svg'))) {
+          const clickable = el.closest('[role="button"]') || el.closest('button') || el.closest('div[role="button"]') || el.querySelector('button') || el;
           clickable.click();
           break;
         }
@@ -1446,12 +1446,12 @@ async function runSingle(restaurantId, field) {
       }
     } else if (field === 'hours' || field === 'openingHours') {
       const searchName = cleanRestaurantNameForSearch(item.name);
-      const url = `https://www.google.com/maps/search/${encodeURIComponent(searchName + ' ' + (item.city || ''))}`;
+      const url = `https://www.google.com/search?q=${encodeURIComponent(searchName + ' ' + (item.city || ''))}`;
       
-      console.log(`🧭 Acessando busca do Google Maps: "${url}"...`);
+      console.log(`🧭 Acessando busca nativa do Google (Knowledge Panel): "${url}"...`);
       const navSuccess = await navigateWithRetry(page, url);
       if (!navSuccess) {
-        throw new Error("Não foi possível carregar a página de busca do Google Maps.");
+        throw new Error("Não foi possível carregar a página de busca do Google.");
       }
       
       const dayMapping = {
@@ -1488,13 +1488,13 @@ async function runSingle(restaurantId, field) {
       }
       await delay(1000);
 
-      const clicked = await page.evaluate(() => {
+      const clickCoords = await page.evaluate(() => {
         // Strategy 1: data-item-id="oh" (método oficial do Google Maps)
         const ohEl = document.querySelector('[data-item-id="oh"]') || document.querySelector('[data-item-id^="oh"]');
         if (ohEl) {
           const btn = ohEl.closest('button') || ohEl;
-          btn.click();
-          return 'data-item-id=oh';
+          const rect = btn.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, reason: 'data-item-id=oh' };
         }
 
         // Strategy 2: aria-label contendo horário/aberto/fechado
@@ -1502,35 +1502,39 @@ async function runSingle(restaurantId, field) {
         for (const el of ariaEls) {
           const label = (el.getAttribute('aria-label') || '').toLowerCase();
           if (label.includes('fechar')) continue;
-          if ((label.includes('horário') || label.includes('aberto') || label.includes('fechado') || label.includes('abre') || label.includes('fecha')) &&
+          if ((label.includes('horário') || label.includes('aberto') || label.includes('fechado') || label.includes('abre') || label.includes('fecha') || label.includes('hours') || label.includes('closed') || label.includes('opens')) &&
               (el.tagName === 'BUTTON' || el.closest('button') || el.getAttribute('role') === 'button')) {
             const clickable = el.closest('button') || el;
-            clickable.click();
-            return 'aria-label: ' + label.substring(0, 60);
+            const rect = clickable.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, reason: 'aria-label match' };
           }
         }
 
-        // Strategy 3: Busca por classe CsEnBe ou texto direto
-        const btn = document.querySelector('button.CsEnBe');
-        if (btn) { btn.click(); return 'CsEnBe class'; }
-
-        const candidates = Array.from(document.querySelectorAll('button, div[role="button"], span'));
+        // Strategy 3: Busca por texto (Google Search Nativo - Knowledge Graph)
+        const candidates = Array.from(document.querySelectorAll('button, div[role="button"], span, div'));
         const ohBtn = candidates.find(b => {
           const text = b.textContent.trim().toLowerCase();
-          return (text.includes('horários') || text.includes('fechado') || text.includes('aberto') || 
-                  text.includes('fecha às') || text.includes('abre às')) && text.length < 120;
+          const hasHoursWord = text.includes('horários') || text.includes('fechado') || text.includes('aberto') || 
+                               text.includes('fecha às') || text.includes('abre às') || text.includes('hours:') || text.includes('opens') || text.includes('closed');
+          return hasHoursWord && text.length < 80 && (b.innerHTML.includes('svg') || !!b.closest('[role="button"]') || !!b.querySelector('svg'));
         });
+        
         if (ohBtn) {
-          const clickable = ohBtn.closest('button') || ohBtn;
-          clickable.click();
-          return 'text match';
+          // Pega o elemento ou o pai que tenha a SVG para clicar
+          const svg = ohBtn.querySelector('svg') || ohBtn;
+          const clickable = ohBtn.closest('button') || ohBtn.closest('[role="button"]') || svg;
+          const rect = clickable.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2, reason: 'Knowledge Graph / Text + SVG' };
         }
 
-        return false;
+        return null;
       });
 
-      if (clicked) {
-        console.log(`👉 Botão de horários clicado via [${clicked}], aguardando 2s para expansão...`);
+      if (clickCoords) {
+        console.log(`👉 Simulando clique REAL do mouse no botão de horários (x: ${clickCoords.x}, y: ${clickCoords.y}) [Motivo: ${clickCoords.reason}]...`);
+        await page.mouse.move(clickCoords.x, clickCoords.y);
+        await page.mouse.down();
+        await page.mouse.up();
         await delay(2000);
       } else {
         console.log('⚠️ Botão de horários NÃO encontrado. Tentando extrair tabela parcial...');

@@ -19,18 +19,21 @@ import ConfirmationDialog from '@/components/ConfirmationDialog';
 
 const visitStatusOptions: VisitStatus[] = [
   true,
+  false,
   'Agendado',
   'Contatado',
   'Interessado',
   'Não Interessado',
   'Não Localizado',
-];
+] as any[];
 
 const allVisitStatusOptions: (VisitStatus | 'all')[] = ['all', ...visitStatusOptions];
-const visitStatusLabels: Record<VisitStatus | 'all', string> = {
+const visitStatusLabels: Record<string, string> = {
   all: 'Todos os Status',
-  Pendente: false,
-  Visitado: true,
+  true: 'Publicado',
+  false: 'Pendente',
+  Pendente: 'Pendente',
+  Visitado: 'Publicado',
   Agendado: 'Agendado',
   Contatado: 'Contatado',
   Interessado: 'Interessado',
@@ -244,7 +247,7 @@ export default function AdminRestaurants() {
               </SelectTrigger>
               <SelectContent>
                 {allVisitStatusOptions.map(status => (
-                  <SelectItem key={status} value={status}>{visitStatusLabels[status]}</SelectItem>
+                  <SelectItem key={String(status)} value={String(status)}>{visitStatusLabels[String(status)] || String(status)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -336,8 +339,8 @@ export default function AdminRestaurants() {
                       </TableCell>
                       <TableCell>
                         <Select
-                          value={restaurant.is_published || false}
-                          onValueChange={(value) => handleStatusChange(restaurant.id, value as VisitStatus)}
+                          value={typeof restaurant.is_published === 'boolean' ? String(restaurant.is_published) : (restaurant.is_published || 'false')}
+                          onValueChange={(value) => handleStatusChange(restaurant.id, (value === 'true' ? true : (value === 'false' ? false : value)) as VisitStatus)}
                           disabled={isUpdatingStatus}
                         >
                           <SelectTrigger className="w-[150px]">
@@ -345,7 +348,7 @@ export default function AdminRestaurants() {
                           </SelectTrigger>
                           <SelectContent>
                             {visitStatusOptions.map(status => (
-                              <SelectItem key={status} value={status}>{status}</SelectItem>
+                              <SelectItem key={String(status)} value={String(status)}>{visitStatusLabels[String(status)] || String(status)}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>

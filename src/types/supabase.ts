@@ -49,7 +49,7 @@ export interface Restaurant {
   social_networks?: Json | null;
   other_url_label?: string | null;
   claim_code?: string | null;
-  is_published?: VisitStatus | null;
+  is_published?: VisitStatus | boolean | null;
   visit_notes?: string | null;
 }
 

@@ -55,6 +55,7 @@ import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar
 import AdminViewMenus from '@/pages/admin/AdminViewMenus';
 import AdminSettings from '@/pages/admin/AdminSettings';
 import AdminCrm from '@/pages/admin/AdminCrm';
+import AdminPlans from '@/pages/admin/AdminPlans';
 
 function App() {
   React.useEffect(() => {
@@ -123,6 +124,7 @@ function App() {
           <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
           <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
           <Route path="/admin/menus" element={<AdminViewMenus />} />
+          <Route path="/admin/plans" element={<AdminPlans />} />
           <Route path="/admin/crm" element={<AdminCrm />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
         </Route>

@@ -763,7 +763,7 @@ REGRAS CRÍTICAS:
 1. CONFERÊNCIA DE ENDEREÇO DA BIO (CRÍTICO): Verifique o endereço/cidade na Bio do Instagram. O sistema DEVE conferir se a localização da Bio tem relação com o Endereço do Alvo. Se houver um "Link do Alvo no Google Maps" fornecido e pela URL der para notar que aponta para outra rua/bairro/cidade divergente da Bio (ou vice-versa), ou se a pesquisa web desmentir o local, assuma que o Instagram é falso/impostor. Descarte-o.
 2. Se o "Site/Menu" suspeito já for o site oficial da marca (ex: naufrutosdomar.com.br), MANTENHA-O, mesmo que não cite a cidade.
 3. NUNCA substitua ou defina um "Site/Menu" com links de: TripAdvisor, iFood, Facebook, Instagram, Google Maps, Yelp, GuiaMais. Estes NÃO SÃO sites/menus.
-4. Se o "Site/Menu" estiver vazio ou errado, e você encontrar um link de Cardápio (ex: Linktree, Goomer, LiveMenu, site próprio) na Bio do Instagram ou no Google, use-o como "Site/Menu".
+4. Se o "Site/Menu" estiver vazio ou errado, e você encontrar um link de Cardápio (ex: Linktree, Goomer, LiveMenu, site próprio) na Bio do Instagram (ou seus derivados), use-o como "Site/Menu". NÃO utilize links de cardápio vindos de resultados do Google que não sejam derivados do Instagram. A busca por links de cardápio deve se restringir exclusivamente aos derivados dos links de Instagram.
 5. Se não achar o certo, e o suspeito for fraude, retorne null. Se o suspeito for verdadeiro, mantenha-o.
 
 Retorne um JSON rigoroso no formato: {"instagram": "novo_ou_mesmo", "menuSourceUrl": "novo_ou_mesmo", "modificado": true_ou_false}`;

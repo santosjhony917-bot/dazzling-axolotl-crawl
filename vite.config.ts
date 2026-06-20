@@ -324,38 +324,74 @@ export default defineConfig(() => ({
                 return;
               }
 
-              logBuffer = `🚀 Iniciando extração de Cardápio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
-              const proc = spawn("node", ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId]);
-              activeProcess = proc;
-              
-              let resultJsonStr = "";
-              proc.stdout.on("data", (data) => {
-                const text = data.toString("utf-8");
-                logBuffer += text;
-                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
-                
-                const match = text.match(/RESULT:(.+)/);
-                if (match) {
-                  resultJsonStr = match[1].trim();
-                }
-              });
-              
-              proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
-              });
-              
-              proc.on("close", (code) => {
-                logBuffer += `\n🏁 Coleta de Cardápio concluída com código de saída: ${code}\n`;
-                activeProcess = null;
-                
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', () => {
+                let xmlContent = '';
+                let parsedMenu = null;
                 try {
-                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
-                  res.writeHead(200);
-                  res.end(JSON.stringify(result));
-                } catch (err) {
-                  res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                  if (bodyData) {
+                    const parsedBody = JSON.parse(bodyData);
+                    xmlContent = parsedBody.xmlContent || '';
+                    parsedMenu = parsedBody.parsedMenu || null;
+                  }
+                } catch(e) {}
+
+                logBuffer = `🚀 Iniciando extração de Cardápio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
+                
+                const valArgs = ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId];
+                
+                if (parsedMenu) {
+                  const tempJsonFile = path.join(process.cwd(), 'scratch', `temp_menu_json_${restaurantId}.json`);
+                  fs.writeFileSync(tempJsonFile, JSON.stringify(parsedMenu));
+                  valArgs.push("--menu-json-file", tempJsonFile);
+                } else if (xmlContent) {
+                  const tempXmlFile = path.join(process.cwd(), 'scratch', `temp_menu_xml_${restaurantId}.txt`);
+                  fs.writeFileSync(tempXmlFile, xmlContent);
+                  valArgs.push("--menu-context-file", tempXmlFile);
                 }
+
+                const proc = spawn("node", valArgs);
+                activeProcess = proc;
+                
+                let resultJsonStr = "";
+                proc.stdout.on("data", (data) => {
+                  const text = data.toString("utf-8");
+                  logBuffer += text;
+                  if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                  
+                  const match = text.match(/RESULT:(.+)/);
+                  if (match) {
+                    resultJsonStr = match[1].trim();
+                  }
+                });
+                
+                proc.stderr.on("data", (data) => {
+                  logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                });
+                
+                proc.on("close", (code) => {
+                  logBuffer += `\n🏁 Coleta de Cardápio concluída com código de saída: ${code}\n`;
+                  activeProcess = null;
+                  
+                  // Limpa arquivos temporários
+                  if (parsedMenu) {
+                    const tempJsonFile = path.join(process.cwd(), 'scratch', `temp_menu_json_${restaurantId}.json`);
+                    try { fs.unlinkSync(tempJsonFile); } catch(e) {}
+                  } else if (xmlContent) {
+                    const tempXmlFile = path.join(process.cwd(), 'scratch', `temp_menu_xml_${restaurantId}.txt`);
+                    try { fs.unlinkSync(tempXmlFile); } catch(e) {}
+                  }
+
+                  try {
+                    const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                    res.writeHead(200);
+                    res.end(JSON.stringify(result));
+                  } catch (err) {
+                    res.writeHead(500);
+                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                  }
+                });
               });
               return;
             }
@@ -606,6 +642,7 @@ export default defineConfig(() => ({
                 let browserContext = '';
                 let instagramContext = '';
                 let googleSearchResults = null;
+                let instagramHighlights = null;
                 try {
                   if (bodyData) {
                     const parsed = JSON.parse(bodyData);
@@ -617,6 +654,9 @@ export default defineConfig(() => ({
                     }
                     if (parsed.googleSearchResults) {
                       googleSearchResults = parsed.googleSearchResults;
+                    }
+                    if (parsed.instagramHighlights) {
+                      instagramHighlights = parsed.instagramHighlights;
                     }
                   }
                 } catch(e) {}
@@ -686,7 +726,13 @@ export default defineConfig(() => ({
                     }
 
                     logBuffer += `\n📸 Iniciando Curadoria de Galeria de Fotos (Fase 6) para ID: ${restaurantId}...\n`;
-                    const galleryProc = spawn("node", ["scratch/gallery_enricher.cjs", "--single", "--id", restaurantId]);
+                    const galleryArgs = ["scratch/gallery_enricher.cjs", "--single", "--id", restaurantId];
+                    if (instagramHighlights && instagramHighlights.length > 0) {
+                      const tempHighlightsFile = path.join(process.cwd(), 'scratch', `temp_highlights_${restaurantId}.json`);
+                      fs.writeFileSync(tempHighlightsFile, JSON.stringify(instagramHighlights));
+                      galleryArgs.push("--instagram-highlights-file", tempHighlightsFile);
+                    }
+                    const galleryProc = spawn("node", galleryArgs);
                     activeProcess = galleryProc;
 
                     galleryProc.stdout.on("data", (data) => {
@@ -699,16 +745,65 @@ export default defineConfig(() => ({
 
                     galleryProc.on("close", (galleryCode) => {
                       logBuffer += `\n🏁 Curadoria de Galeria concluída com código: ${galleryCode}\n`;
-                      activeProcess = null;
-
-                      try {
-                        const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
-                        res.writeHead(200);
-                        res.end(JSON.stringify(result));
-                      } catch (err) {
-                        res.writeHead(500);
-                        res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                      
+                      if (galleryCode !== 0) {
+                        logBuffer += `\n⚠️ Curadoria de Galeria falhou ou foi abortada. Pulando Coleta de Logo.\n`;
+                        activeProcess = null;
+                        try {
+                          const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                          res.writeHead(200);
+                          res.end(JSON.stringify(result));
+                        } catch (err) {
+                          res.writeHead(500);
+                          res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                        }
+                        return;
                       }
+
+                      logBuffer += `\n📸 Iniciando Coleta de Logo e Seguidores do Instagram (Fase 4) para ID: ${restaurantId}...\n`;
+                      const pct = urlParams.get("pct") || "10";
+                      const logoProc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId, "--pct", pct], { shell: true });
+                      activeProcess = logoProc;
+
+                      logoProc.stdout.on("data", (data) => {
+                        logBuffer += data.toString();
+                      });
+
+                      logoProc.stderr.on("data", (data) => {
+                        logBuffer += data.toString();
+                      });
+
+                      logoProc.on("close", (logoCode) => {
+                        logBuffer += `\n🏁 Coleta de Logo concluída com código: ${logoCode}\n`;
+                        
+                        logBuffer += `\n📸 Gerando Print do Perfil Público para ID: ${restaurantId}...\n`;
+                        const origin = urlParams.get("origin") || "http://localhost:8080";
+                        const screenshotProc = spawn("node", ["scratch/capture_screenshot.cjs", "--id", restaurantId, "--origin", origin], { shell: true });
+                        activeProcess = screenshotProc;
+
+                        screenshotProc.stdout.on("data", (data) => {
+                          logBuffer += data.toString();
+                        });
+
+                        screenshotProc.stderr.on("data", (data) => {
+                          logBuffer += data.toString();
+                        });
+
+                        screenshotProc.on("close", (screenshotCode) => {
+                          logBuffer += `\n🏁 Geração de Print concluída com código: ${screenshotCode}\n`;
+                          activeProcess = null;
+
+                          try {
+                            const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                            result.screenshotSuccess = (screenshotCode === 0);
+                            res.writeHead(200);
+                            res.end(JSON.stringify(result));
+                          } catch (err) {
+                            res.writeHead(500);
+                            res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                          }
+                        });
+                      });
                     });
                   });
                 });
@@ -880,6 +975,54 @@ export default defineConfig(() => ({
                 res.writeHead(500);
                 res.end(JSON.stringify({ error: err.message }));
               }
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/screenshot" && (req.method === "POST" || req.method === "GET")) {
+              const restaurantId = urlParams.get("id");
+              const origin = urlParams.get("origin") || "http://localhost:8080";
+              
+              if (!restaurantId) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "O parâmetro 'id' (Restaurant ID) é obrigatório." }));
+                return;
+              }
+
+              console.log(`[API] Solicitando screenshot em tempo real para restaurante: ${restaurantId}`);
+              
+              const screenshotProc = spawn("node", ["scratch/capture_screenshot.cjs", "--id", restaurantId, "--origin", origin], { shell: true });
+              let stdoutData = "";
+              let stderrData = "";
+
+              screenshotProc.stdout.on("data", (data) => {
+                stdoutData += data.toString();
+              });
+
+              screenshotProc.stderr.on("data", (data) => {
+                stderrData += data.toString();
+              });
+
+              screenshotProc.on("close", (code) => {
+                if (code === 0) {
+                  const resultMatch = stdoutData.match(/RESULT:(\{.*\})/);
+                  if (resultMatch) {
+                    try {
+                      const result = JSON.parse(resultMatch[1]);
+                      res.writeHead(200);
+                      res.end(JSON.stringify(result));
+                      return;
+                    } catch (e) {
+                      // ignore parse err
+                    }
+                  }
+                  res.writeHead(200);
+                  res.end(JSON.stringify({ success: true, message: "Print gerado com sucesso.", stdout: stdoutData }));
+                } else {
+                  console.error(`[API] Erro ao gerar print. Código: ${code}. Stderr: ${stderrData}`);
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ success: false, error: `Processo finalizou com código ${code}`, stderr: stderrData }));
+                }
+              });
               return;
             }
           }

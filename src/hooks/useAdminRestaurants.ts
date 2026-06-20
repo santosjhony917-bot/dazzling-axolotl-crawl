@@ -58,7 +58,7 @@ interface FetchRestaurantsFilters {
   state?: string;
   plan?: string;
   neighborhood?: string;
-  is_published?: boolean;
+  is_published?: string | boolean;
   page?: number;
   pageSize?: number;
 }
