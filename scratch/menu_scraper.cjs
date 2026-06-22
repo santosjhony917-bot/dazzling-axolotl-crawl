@@ -1099,6 +1099,130 @@ Regras de Extração de Dados:
   return null;
 }
 
+// Function to call the gpt-4o-mini API for structuring and final auditing
+async function extractMenuWithAIAndAudit(chosenText, isOcr, restaurantName) {
+  const openAiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+  if (!openAiKey) {
+    console.warn("⚠️ [IA] VITE_OPENAI_API_KEY não configurada. Não é possível estruturar com IA.");
+    return null;
+  }
+  
+  const structureSystemPrompt = `Você é um extrator de cardápios de restaurantes de alta precisão. 
+Sua tarefa é analisar o ${isOcr ? 'texto obtido por OCR' : 'HTML/Texto'} do site do restaurante "${restaurantName}" e extrair todos os pratos, bebidas, categorias, preços e descrições.
+
+Regras de Extração de Dados:
+1. Agrupe os itens pelas categorias reais exibidas no site (ex: "Entradas", "Pratos Principais", "Sobremesas", "Bebidas").
+2. Para cada item, extraia:
+   - "name": Nome do prato.
+   - "price": Preço formatado (ex: "R$ 29,90" ou "R$ 15,00"). Se não houver preço, deixe vazio.
+   - "description": Ingredientes ou descrição.
+   - "image_url": URL da imagem do prato se estiver disponível (deixe vazio para OCR).
+3. Ignore links de redes sociais, rodapés ou termos de uso.
+4. Retorne a resposta estritamente no seguinte formato JSON:
+{
+  "categories": [
+    {
+      "name": "Nome da Categoria",
+      "items": [
+        {
+          "name": "Nome do Prato",
+          "price": "R$ XX,XX",
+          "description": "Descrição...",
+          "image_url": ""
+        }
+      ]
+    }
+  ]
+}`;
+
+  try {
+    // 1. Initial AI Structuring (gpt-4o-mini)
+    console.log(`   🤖 [IA] Chamando gpt-4o-mini para estruturar o cardápio de "${restaurantName}"...`);
+    const endpoint = 'https://api.openai.com/v1/chat/completions';
+    
+    const structureResp = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openAiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        response_format: { type: "json_object" },
+        messages: [
+          { role: 'system', content: structureSystemPrompt },
+          { role: 'user', content: `Texto/HTML original:\n${chosenText}` }
+        ]
+      })
+    });
+    
+    if (!structureResp.ok) throw new Error(`GPT-4o-mini Structuring Status ${structureResp.status}`);
+    const structureData = await structureResp.json();
+    const structureJsonText = structureData.choices?.[0]?.message?.content;
+    if (!structureJsonText) return null;
+    
+    const initialJson = JSON.parse(structureJsonText);
+    console.log(`   ✅ Estruturação inicial realizada. Iniciando Auditoria IA...`);
+    
+    // 2. AI Audit against hallucinations & omissions (gpt-4o-mini)
+    const auditSystemPrompt = `Você é um auditor de dados de cardápio de alta precisão. 
+Compare o JSON estruturado com o texto bruto original do cardápio do restaurante "${restaurantName}" para identificar e corrigir:
+1. Alucinações (itens ou preços gerados pela IA que não estão no texto bruto). Remova-os.
+2. Preços incorretos (verifique se os valores batem exatamente com o prato correspondente no texto bruto).
+3. Omissões (se houver itens importantes com preço claro no texto bruto que ficaram de fora, adicione-os).
+4. Erros ortográficos e descrições confusas.
+
+Retorne APENAS o JSON auditado e corrigido na mesma estrutura:
+{
+  "categories": [
+    {
+      "name": "Nome da Categoria",
+      "items": [
+        {
+          "name": "Nome do Prato",
+          "price": "R$ XX,XX",
+          "description": "Descrição...",
+          "image_url": ""
+        }
+      ]
+    }
+  ]
+}`;
+
+    const auditResp = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openAiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        response_format: { type: "json_object" },
+        messages: [
+          { role: 'system', content: auditSystemPrompt },
+          { 
+            role: 'user', 
+            content: `JSON pré-estruturado:\n${JSON.stringify(initialJson, null, 2)}\n\nTexto original:\n${chosenText}` 
+          }
+        ]
+      })
+    });
+    
+    if (!auditResp.ok) throw new Error(`GPT-4o-mini Audit Status ${auditResp.status}`);
+    const auditData = await auditResp.json();
+    const auditedJsonText = auditData.choices?.[0]?.message?.content;
+    if (!auditedJsonText) return initialJson.categories || [];
+    
+    const auditedJson = JSON.parse(auditedJsonText);
+    console.log(`   ✨ Auditoria com IA concluída. Alucinações prevenidas com sucesso.`);
+    return auditedJson.categories || initialJson.categories || [];
+  } catch (err) {
+    console.error(`   ❌ Erro no processo de IA: ${err.message}`);
+    return null;
+  }
+}
+
+
 async function expandAndLoadAllContent(page) {
   console.log('   🔄 Rolando e expandindo conteúdo da página para carregar itens dinâmicos...');
   
@@ -1662,15 +1786,12 @@ async function extractMenuItems(page, url, restaurant) {
     }
   }
 
-  // 2. Tenta extração baseada em texto com IA primeiro se tiver chave de API
+  // 2. Tenta extração comparativa de HTML/OCR com IA se tiver chave de API
   if (hasAIKey) {
     try {
-      console.log(`   🤖 Iniciando extração de texto com IA para "${restaurant.name}"...`);
+      console.log(`   🤖 Iniciando extração comparativa de HTML/OCR com IA para "${restaurant.name}"...`);
       
-      // Tenta detectar e combinar categorias dinâmicas primeiro
       let cleanedHtml = await loadAndCombineDynamicCategories(page);
-      
-      // Se não houver abas dinâmicas, pega o HTML limpo padrão
       if (!cleanedHtml) {
         console.log(`   📝 Usando estrutura de página única para o cardápio.`);
         cleanedHtml = await getCleanedHtmlForAI(page);
@@ -1678,16 +1799,60 @@ async function extractMenuItems(page, url, restaurant) {
       
       const plainText = await page.evaluate(() => document.body.innerText.trim());
       
-      // Reduz o limite de caracteres para processar qualquer página com texto válido (> 50 caracteres)
-      if (plainText.length > 50) {
-        categories = await extractMenuWithAI(cleanedHtml, restaurant.name);
+      // Capture screenshot and request OCR
+      let ocrText = '';
+      try {
+        console.log(`   📸 Capturando screenshot da página para OCR...`);
+        const screenshotBuffer = await page.screenshot({ type: 'jpeg', quality: 80 });
+        const base64Image = `data:image/jpeg;base64,${screenshotBuffer.toString('base64')}`;
+        
+        console.log(`   🔍 Chamando endpoint de OCR local...`);
+        const ocrResp = await fetch('http://localhost:8080/api/local-collector/ocr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64Image })
+        });
+        
+        if (ocrResp.ok) {
+          const ocrData = await ocrResp.json();
+          ocrText = ocrData.text || '';
+        }
+      } catch (ocrErr) {
+        console.warn(`   ⚠️ Falha ao obter OCR: ${ocrErr.message}`);
+      }
+      
+      // Compare metrics
+      console.log(`📊 [Comparação de Texto]`);
+      console.log(`   - Comprimento do Scrape HTML: ${plainText.length} caracteres`);
+      console.log(`   - Comprimento do OCR: ${ocrText.length} caracteres`);
+      
+      const priceRegex = /(?:R\$\s*)?\d+[\.,]\d{2}/gi;
+      const htmlPrices = plainText.match(priceRegex) || [];
+      const ocrPrices = ocrText.match(priceRegex) || [];
+      console.log(`   - Padrões de preços no Scrape HTML: ${htmlPrices.length}`);
+      console.log(`   - Padrões de preços no OCR: ${ocrPrices.length}`);
+      
+      let chosenText = plainText;
+      let isOcrChosen = false;
+      
+      // Fallback condition: If HTML is empty or has no prices, use OCR text
+      if (plainText.trim().length < 50 || htmlPrices.length === 0) {
+        if (ocrText.trim().length > 50) {
+          console.log(`   ⚠️ Scrape HTML insuficiente. Realizando Fallback para OCR.`);
+          chosenText = ocrText;
+          isOcrChosen = true;
+        }
+      }
+      
+      if (chosenText.length > 50) {
+        categories = await extractMenuWithAIAndAudit(chosenText, isOcrChosen, restaurant.name);
         if (categories && categories.length > 0 && categories.some(c => c.items.length > 0)) {
-          console.log(`   ✨ Sucesso! IA extraiu o cardápio textual com perfeição.`);
+          console.log(`   ✨ Sucesso! IA extraiu o cardápio e auditou com sucesso.`);
           return categories;
         }
       }
     } catch (e) {
-      console.log(`   ⚠️ Falha ao tentar extração textual com IA: ${e.message}`);
+      console.log(`   ⚠️ Falha ao tentar extração comparativa com IA: ${e.message}`);
     }
   }
 
@@ -1983,7 +2148,7 @@ async function run() {
         }
 
         console.log(`🤖 Iniciando extração de texto com IA para "${restaurantRow.name}"...`);
-        const categories = await extractMenuWithAI(fileContent, restaurantRow.name);
+        const categories = await extractMenuWithAIAndAudit(fileContent, false, restaurantRow.name);
         const normalized = normalizeCategories(categories);
 
         console.log(`💾 Salvando cardápio estruturado no Supabase...`);

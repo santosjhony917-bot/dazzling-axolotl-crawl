@@ -248,7 +248,7 @@ export default function CityValidation() {
           const extRes = await new Promise<any>((resolve) => {
             const chromeObj = (window as any).chrome;
             if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: restaurant.name || '', mapUrl }, (response: any) => {
+              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: restaurant.name || '', mapUrl, restaurantId: restaurant.id }, (response: any) => {
                 resolve(response);
               });
             } else {
@@ -349,7 +349,7 @@ export default function CityValidation() {
           const extRes = await new Promise<any>((resolve) => {
             const chromeObj = (window as any).chrome;
             if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query }, (response: any) => {
+              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id }, (response: any) => {
                 resolve(response);
               });
             } else {
@@ -373,7 +373,7 @@ export default function CityValidation() {
           const scrapeRes = await new Promise<any>((resolve) => {
             const chromeObj = (window as any).chrome;
             if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl }, (response: any) => {
+              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl, restaurantId: restaurant.id }, (response: any) => {
                 resolve(response);
               });
             } else {
@@ -621,7 +621,8 @@ export default function CityValidation() {
                     instagramUrl: activeInstagramUrl, 
                     restaurantName: restaurant.name,
                     city: restaurant.city || '',
-                    neighborhood: restaurant.neighborhood || ''
+                    neighborhood: restaurant.neighborhood || '',
+                    restaurantId: restaurant.id
                   });
                 } catch (e: any) {
                   addLog(`[DEBUG] Falha ao conectar/enviar via port: ${e.message}`);

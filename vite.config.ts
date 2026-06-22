@@ -1080,6 +1080,34 @@ export default defineConfig(() => ({
               return;
             }
 
+            if (urlPath === "/api/local-collector/ocr" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData);
+                  const image = parsed.image;
+                  if (!image) {
+                    res.writeHead(400);
+                    res.end(JSON.stringify({ error: "O parâmetro 'image' (base64) é obrigatório." }));
+                    return;
+                  }
+                  
+                  const { createWorker } = await import('tesseract.js');
+                  const worker = await createWorker('por');
+                  const { data: { text } } = await worker.recognize(image);
+                  await worker.terminate();
+                  
+                  res.writeHead(200);
+                  res.end(JSON.stringify({ success: true, text }));
+                } catch (err: any) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ error: err.message }));
+                }
+              });
+              return;
+            }
+
             if (urlPath === "/api/local-collector/screenshot" && (req.method === "POST" || req.method === "GET")) {
               const restaurantId = urlParams.get("id");
               const origin = urlParams.get("origin") || "http://localhost:8080";
