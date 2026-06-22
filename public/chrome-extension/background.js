@@ -1435,14 +1435,16 @@ async function expandAndLoadAllContentInPage() {
 
   // 4. Clika em itens individuais (produtos) para abrir modais de opções (ex: Saipos) e extrair os adicionais
   try {
-    let clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, .item-content, [class*="item-content"], [class*="ItemContent"], .item-title, [class*="item-title"], [class*="ItemTitle"], [data-qa*="item"], [data-qa*="product"], [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"], [class*="product_card"], [class*="item_card"], [class*="card_item"], [class*="menu_item"], [data-testid*="product"], [data-testid*="item"], [data-qa*="card"], [data-testid*="card"]')).filter(el => {
+    let clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, .item-content, [class*="item-content"], [class*="ItemContent"], .item-title, [class*="item-title"], [class*="ItemTitle"], [data-qa*="item"], [data-qa*="product"], [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"], [class*="product_card"], [class*="item_card"], [class*="card_item"], [class*="menu_item"], [data-testid*="product"], [data-testid*="item"], [data-qa*="card"], [data-testid*="card"], [data-qa="item-desc"]')).filter(el => {
       // Ignora elementos que são claramente links externos ou de navegação
       if (el.tagName === 'A' && el.href && !el.href.includes('#') && !el.href.startsWith('javascript')) return false;
       const a = el.querySelector('a');
       if (a && a.href && !a.href.includes('#') && !a.href.startsWith('javascript')) return false;
       
       // Somente elementos com tamanho razoável (ignora mini-botões)
-      if (el.clientHeight < 40) return false;
+      // Permite elementos menores que 40px se forem seletores Saipos/plataforma específicos
+      const isSpecificSaiposElement = el.matches && el.matches('.item-content, [class*="item-content"], .item-title, [data-qa="item-desc"]');
+      if (!isSpecificSaiposElement && el.clientHeight < 40) return false;
       
       // Evita o cabeçalho/menu principal
       if (el.closest('header') || el.closest('nav') || el.closest('footer')) return false;
@@ -1464,7 +1466,17 @@ async function expandAndLoadAllContentInPage() {
       return true;
     });
 
-    // Remove elementos aninhados redundantes (se A contém B, e A é um card pequeno de produto, clica apenas no card A e não nos seus filhos individuais)
+    // Se o elemento pai possui um filho que é um seletor Saipos específico, removemos o pai da lista para priorizar o clique no filho específico
+    clickables = clickables.filter((el, idx) => {
+      const hasSpecificSaiposDescendant = clickables.some((other, otherIdx) => {
+        if (otherIdx === idx) return false;
+        const isSpecific = other.matches && other.matches('.item-content, [class*="item-content"], .item-title, [data-qa="item-desc"]');
+        return isSpecific && el.contains(other);
+      });
+      return !hasSpecificSaiposDescendant;
+    });
+
+    // Remove elementos aninhados redundantes (se A contém B, clica apenas no card A e não nos seus filhos individuais)
     clickables = clickables.filter((el, idx) => {
       const hasParentInList = clickables.some((other, otherIdx) => otherIdx !== idx && other.contains(el));
       return !hasParentInList;
@@ -1475,6 +1487,15 @@ async function expandAndLoadAllContentInPage() {
       if (clickedCount >= 60) break; // Limite para não travar a extensão
       
       const el = clickables[i];
+      
+      // Encontra o contêiner original do item para verificar se já possui extração e para injeção posterior
+      const container = el.closest('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"]') || el;
+      
+      // Evita duplo clique se o mesmo contêiner original já foi enriquecido
+      if (container.querySelector('.scraper-extracted-modal-text')) {
+        continue;
+      }
+      
       const btn = el.querySelector('button') || el;
       
       try { 
@@ -1493,13 +1514,13 @@ async function expandAndLoadAllContentInPage() {
         const modal = modals[modals.length - 1]; // Pega o modal mais no topo
         const modalText = modal.innerText || '';
         
-        // Injeta o texto do modal dentro do elemento original (escondido) para ser capturado depois
+        // Injeta o texto do modal dentro do contêiner original do item (escondido) para ser capturado depois
         if (modalText && modalText.length > 20) {
           const hiddenDiv = document.createElement('div');
           hiddenDiv.style.display = 'none';
           hiddenDiv.className = 'scraper-extracted-modal-text';
           hiddenDiv.innerText = '\\n[OPÇÕES DA IA: ' + modalText.replace(/\\n/g, ' ') + ']\\n';
-          el.appendChild(hiddenDiv);
+          container.appendChild(hiddenDiv);
         }
         
         // Fecha o modal
