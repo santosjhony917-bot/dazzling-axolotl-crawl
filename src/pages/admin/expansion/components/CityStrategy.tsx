@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
@@ -8,8 +9,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 export default function CityStrategy() {
+  const { cityId } = useParams();
+  const [city, setCity] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [premiumPercent, setPremiumPercent] = useState([20]); // % de estabelecimentos premium
-  const [ticketMedio, setTicketMedio] = useState([149]); // Mensalidade R$
+  const [ticketMedio, setTicketMedio] = useState([49]); // Mensalidade R$
   const [totalRestaurants, setTotalRestaurants] = useState<number>(0); 
   const [distributionMethod, setDistributionMethod] = useState('bairros');
   const [messageTemplate, setMessageTemplate] = useState('Olá! Vimos o cardápio do {restaurante} e achamos incrível. Gostaríamos de oferecer 30 dias de destaque gratuito na vitrine FilterFood. O que acha?');
@@ -17,25 +21,42 @@ export default function CityStrategy() {
 
   useEffect(() => {
     const fetchStats = async () => {
+      if (!cityId) return;
+      setLoading(true);
       try {
+        // 1. Fetch city info
+        const { data: cityData, error: cityError } = await supabase
+          .from('expansion_projects')
+          .select('*')
+          .eq('slug', cityId)
+          .single();
+
+        if (cityError) throw cityError;
+        setCity(cityData);
+
+        // 2. Fetch count for this city
         const { count, error } = await supabase
           .from('restaurants')
-          .select('*', { count: 'exact', head: true });
+          .select('*', { count: 'exact', head: true })
+          .eq('city', cityData.name)
+          .eq('state', cityData.state);
         
         if (error) throw error;
         setTotalRestaurants(count || 0);
       } catch (error: any) {
         toast.error('Erro ao buscar dados do Supabase: ' + error.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchStats();
-  }, []);
+  }, [cityId]);
 
   // Calcula projeções
   const totalPremium = Math.floor(totalRestaurants * (premiumPercent[0] / 100));
   const totalFree = totalRestaurants - totalPremium;
   const projectedMRR = totalPremium * ticketMedio[0];
-  const coveragePercent = Math.min(100, Math.floor((totalPremium / totalRestaurants) * 100));
+  const coveragePercent = totalRestaurants > 0 ? Math.min(100, Math.floor((totalPremium / totalRestaurants) * 100)) : 0;
 
   // Risk logic
   let riskLevel = 'Baixo';
@@ -53,19 +74,22 @@ export default function CityStrategy() {
   }
 
   const handleApplyStrategy = async () => {
+    if (!city) return;
     try {
       setIsApplying(true);
       toast.loading('Distribuindo estratégia e atualizando banco...');
 
-      // Buscar todos validados
+      // Buscar todos validados na cidade/estado específicos
       const { data: restaurants, error } = await supabase
         .from('restaurants')
         .select('id, neighborhood, rating')
+        .eq('city', city.name)
+        .eq('state', city.state)
         .eq('ai_validated', true);
 
       if (error) throw error;
       if (!restaurants || restaurants.length === 0) {
-        toast.error('Nenhum restaurante validado encontrado.');
+        toast.error('Nenhum restaurante validado por IA encontrado nesta cidade.');
         return;
       }
 
@@ -90,7 +114,7 @@ export default function CityStrategy() {
         const { error: errP } = await supabase
           .from('restaurants')
           .update({ 
-            plan: 'premium_cortesia', 
+            plan: 'premium', 
             visit_status: 'won' // Marca como won (ativo) direto
           })
           .in('id', premiumIds);
@@ -109,11 +133,19 @@ export default function CityStrategy() {
         if (errF) throw errF;
       }
 
-      toast.success(`Estratégia aplicada! ${premiumIds.length} Cortesias ativadas e ${freeIds.length} enviados ao CRM.`);
+      toast.success(`Estratégia aplicada! ${premiumIds.length} Assinaturas Premium ativadas e ${freeIds.length} enviados ao CRM.`);
       
       // Save the default message template to localStorage so CityCrm can use it
       localStorage.setItem('crm_message_template', messageTemplate);
       
+      // Recarrega counts
+      const { count } = await supabase
+        .from('restaurants')
+        .select('*', { count: 'exact', head: true })
+        .eq('city', city.name)
+        .eq('state', city.state);
+      setTotalRestaurants(count || 0);
+
     } catch (err: any) {
       toast.error('Erro ao aplicar estratégia: ' + err.message);
     } finally {
@@ -122,19 +154,30 @@ export default function CityStrategy() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[300px]">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <span className="ml-2 text-sm text-slate-500 font-medium">Carregando painel de simulação...</span>
+      </div>
+    );
+  }
+
+  if (!city) return null;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">War Room (Simulador Estratégico)</h2>
+          <h2 className="text-xl font-bold text-slate-900">War Room (Simulador Estratégico - {city.name})</h2>
           <p className="text-sm text-slate-500">Projete cenários financeiros e de saturação de mercado para esta cidade.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Painel de Controle (Sliders) */}
+        {/* Control Panel (Sliders) */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="border-slate-200 shadow-sm rounded-xl">
+          <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
             <div className="p-4 border-b border-slate-100 bg-slate-50/50">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
                 <Target className="w-4 h-4 text-slate-500" /> Variáveis do Simulador
@@ -190,7 +233,7 @@ export default function CityStrategy() {
           </div>
 
           {/* Execution Form */}
-          <Card className="border-indigo-200 shadow-sm rounded-xl overflow-hidden">
+          <Card className="border-indigo-200 shadow-sm rounded-xl overflow-hidden bg-white">
             <div className="p-4 border-b border-indigo-100 bg-indigo-50/50">
               <h3 className="font-bold text-indigo-900 flex items-center gap-2 text-sm">
                 <Send className="w-4 h-4 text-indigo-500" /> Execução da Estratégia
@@ -254,7 +297,7 @@ export default function CityStrategy() {
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 shadow-sm rounded-xl">
+            <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
               <CardContent className="p-6">
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Distribuição da Base</p>
                 <div className="flex items-end gap-3 mb-4">
@@ -278,7 +321,7 @@ export default function CityStrategy() {
             </Card>
           </div>
 
-          <Card className="border-slate-200 shadow-sm rounded-xl">
+          <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
             <div className="p-4 border-b border-slate-100 bg-slate-50/50">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
                 <BarChart className="w-4 h-4 text-slate-500" /> Impacto Financeiro

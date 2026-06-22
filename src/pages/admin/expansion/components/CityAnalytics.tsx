@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +15,7 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 export default function CityAnalytics() {
+  const { cityId } = useParams();
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -33,16 +35,33 @@ export default function CityAnalytics() {
     setIsTyping(true);
 
     try {
+      if (!cityId) throw new Error('Cidade inválida');
+
+      // 1. Fetch city info
+      const { data: cityData } = await supabase
+        .from('expansion_projects')
+        .select('name, state')
+        .eq('slug', cityId)
+        .single();
+
+      const cityName = cityData?.name || 'Desconhecida';
+      const stateName = cityData?.state || '';
+
       // Coleta contexto rápido para a IA
-      const { data: stats } = await supabase.from('restaurants').select('category, visit_status');
+      const { data: stats } = await supabase
+        .from('restaurants')
+        .select('category, visit_status')
+        .eq('city', cityName)
+        .eq('state', stateName);
+
       const total = stats?.length || 0;
       const leads = stats?.filter(r => r.visit_status === 'lead' || r.visit_status === 'Pendente').length || 0;
       const won = stats?.filter(r => r.visit_status === 'won' || r.visit_status === 'Visitado').length || 0;
 
       const systemContext = `
         Você é um Assistente de IA de nível Executivo chamado "Copiloto de Expansão B2B".
-        Sua missão é ajudar o usuário a analisar os dados de CRM da plataforma "FilterFood".
-        Métricas Atuais do Banco de Dados:
+        Sua missão é ajudar o usuário a analisar os dados de CRM da plataforma "FilterFood" para a cidade de ${cityName} - ${stateName}.
+        Métricas Atuais do Banco de Dados para ${cityName}:
         - Total de Estabelecimentos: ${total}
         - Leads Frios: ${leads}
         - Clientes Fechados/Ativos: ${won}

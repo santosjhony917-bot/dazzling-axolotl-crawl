@@ -12,18 +12,39 @@ export default function CityCollection() {
   const [isRunning, setIsRunning] = useState(false);
   const [logs, setLogs] = useState<string>('');
   const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [city, setCity] = useState<any>(null);
   const logEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    async function fetchRestaurants() {
-      const { data } = await supabase
-        .from('restaurants')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(100);
-      setRestaurants(data || []);
+    async function loadCityAndRestaurants() {
+      if (!cityId) return;
+      try {
+        // 1. Fetch city info to filter restaurants
+        const { data: cityData, error: cityError } = await supabase
+          .from('expansion_projects')
+          .select('*')
+          .eq('slug', cityId)
+          .single();
+
+        if (cityError) throw cityError;
+        setCity(cityData);
+
+        // 2. Fetch restaurants in this city
+        const { data: restData, error: restError } = await supabase
+          .from('restaurants')
+          .select('*')
+          .eq('city', cityData.name)
+          .eq('state', cityData.state)
+          .order('created_at', { ascending: false })
+          .limit(100);
+
+        if (restError) throw restError;
+        setRestaurants(restData || []);
+      } catch (err) {
+        console.error("Erro ao carregar dados da coleta da cidade:", err);
+      }
     }
-    fetchRestaurants();
+    loadCityAndRestaurants();
   }, [cityId]);
 
   useEffect(() => {
@@ -53,11 +74,11 @@ export default function CityCollection() {
   }, [isRunning]);
 
   const handleStartScraping = async () => {
-    if (isRunning) return;
+    if (isRunning || !city) return;
     try {
       setIsRunning(true);
       setLogs('🚀 Inicializando robô de coleta para a cidade...\n');
-      const res = await fetch(`/api/local-collector/run-maps?cityId=${cityId}&fresh=true`, { method: 'POST' });
+      const res = await fetch(`/api/local-collector/run-maps?cityId=${cityId}&city=${encodeURIComponent(city.name)}&state=${encodeURIComponent(city.state)}&fresh=true`, { method: 'POST' });
       const data = await res.json();
       if (data.error) {
         showError(data.error);

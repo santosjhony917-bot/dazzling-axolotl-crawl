@@ -75,11 +75,23 @@ export default function CityCrm() {
   const fetchRestaurants = async () => {
     try {
       setLoading(true);
-      const query = supabase
+      if (!cityId) return;
+
+      // 1. Fetch city info
+      const { data: cityData, error: cityError } = await supabase
+        .from('expansion_projects')
+        .select('name, state')
+        .eq('slug', cityId)
+        .single();
+
+      if (cityError) throw cityError;
+
+      // 2. Fetch restaurants in this city
+      const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name, category, phone, created_at, visit_status, city_id');
-      
-      const { data, error } = await query;
+        .select('id, name, category, phone, created_at, visit_status')
+        .eq('city', cityData.name)
+        .eq('state', cityData.state);
       
       if (error) throw error;
       
