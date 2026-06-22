@@ -278,6 +278,26 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       .catch(err => sendResponse({ success: false, error: err.message }));
     return true;
   }
+
+  if (message.action === "captureVisibleTab") {
+    const { tabId } = message;
+    if (!tabId) {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs && tabs[0]) {
+          handleCaptureTab(tabs[0].id)
+            .then(result => sendResponse(result))
+            .catch(err => sendResponse({ success: false, error: err.message }));
+        } else {
+          sendResponse({ success: false, error: "Nenhuma aba ativa encontrada." });
+        }
+      });
+    } else {
+      handleCaptureTab(tabId)
+        .then(result => sendResponse(result))
+        .catch(err => sendResponse({ success: false, error: err.message }));
+    }
+    return true;
+  }
 });
 
 chrome.runtime.onConnectExternal.addListener((port) => {
@@ -1415,7 +1435,7 @@ async function expandAndLoadAllContentInPage() {
 
   // 4. Clika em itens individuais (produtos) para abrir modais de opções (ex: Saipos) e extrair os adicionais
   try {
-    const clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li')).filter(el => {
+    let clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, .item-content, [class*="item-content"], [class*="ItemContent"], .item-title, [class*="item-title"], [class*="ItemTitle"], [data-qa*="item"], [data-qa*="product"], [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"], [class*="product_card"], [class*="item_card"], [class*="card_item"], [class*="menu_item"], [data-testid*="product"], [data-testid*="item"], [data-qa*="card"], [data-testid*="card"]')).filter(el => {
       // Ignora elementos que são claramente links externos ou de navegação
       if (el.tagName === 'A' && el.href && !el.href.includes('#') && !el.href.startsWith('javascript')) return false;
       const a = el.querySelector('a');
@@ -1427,7 +1447,27 @@ async function expandAndLoadAllContentInPage() {
       // Evita o cabeçalho/menu principal
       if (el.closest('header') || el.closest('nav') || el.closest('footer')) return false;
       
+      // Evita checkout e carrinho de compras
+      if (el.closest('[class*="cart"]') || el.closest('[class*="checkout"]') || el.closest('[id*="cart"]') || el.closest('[id*="checkout"]')) return false;
+      
+      // Evita elementos que já estão dentro de modais de diálogo
+      if (el.closest('[role="dialog"]') || el.closest('.modal') || el.closest('.dialog') || el.closest('[class*="modal"]') || el.closest('[class*="Dialog"]')) return false;
+      
       return true;
+    });
+
+    // Remove contêineres que possuem muitos filhos candidatos (evita clicar no grid de produtos como se fosse um único produto)
+    clickables = clickables.filter((el, idx) => {
+      const descendants = clickables.filter((other, otherIdx) => otherIdx !== idx && el.contains(other));
+      // Se contiver mais do que 2 outros candidatos, consideramos que é um container de lista de produtos, não o produto em si
+      if (descendants.length > 2) return false;
+      return true;
+    });
+
+    // Remove elementos aninhados redundantes (se A contém B, e A é um card pequeno de produto, clica apenas no card A e não nos seus filhos individuais)
+    clickables = clickables.filter((el, idx) => {
+      const hasParentInList = clickables.some((other, otherIdx) => otherIdx !== idx && other.contains(el));
+      return !hasParentInList;
     });
 
     let clickedCount = 0;
@@ -3045,4 +3085,98 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
     }
     return { success: false, error: err.message };
   }
+}
+
+// Function injected into target tab page context to clean cookie popups and overlays
+function closeCookiePopupsAndOverlays() {
+  const keywords = ['cookie', 'consent', 'lgpd', 'gdpr', 'privacy', 'privacidade', 'banner', 'popup', 'modal', 'overlay', 'dialog'];
+  const allElements = Array.from(document.querySelectorAll('*'));
+  const candidates = [];
+  
+  for (const el of allElements) {
+    if (!el.tagName || ['HTML', 'BODY', 'SCRIPT', 'STYLE', 'NOSCRIPT'].includes(el.tagName)) continue;
+    
+    const idStr = (el.id || '').toLowerCase();
+    const classStr = el.className || '';
+    const classNameStr = (typeof classStr === 'string' ? classStr : '').toLowerCase();
+    const roleStr = (el.getAttribute('role') || '').toLowerCase();
+    
+    const matchesKeyword = keywords.some(kw => 
+      idStr.includes(kw) || 
+      classNameStr.includes(kw) || 
+      roleStr.includes(kw)
+    );
+    
+    let isFixedOrAbsolute = false;
+    let hasHighZ = false;
+    try {
+      const style = window.getComputedStyle(el);
+      isFixedOrAbsolute = style.position === 'fixed' || style.position === 'absolute';
+      const zIndex = parseInt(style.zIndex, 10);
+      hasHighZ = !isNaN(zIndex) && zIndex > 50;
+    } catch (e) {}
+    
+    if (matchesKeyword || (isFixedOrAbsolute && hasHighZ)) {
+      const buttons = Array.from(el.querySelectorAll('button, [role="button"], a'));
+      let clicked = false;
+      const acceptTextKeywords = ['aceitar', 'accept', 'permitir', 'entendi', 'close', 'fechar', 'agree', 'ok', 'okay', 'concordo'];
+      
+      for (const btn of buttons) {
+        const btnText = (btn.textContent || '').trim().toLowerCase();
+        if (acceptTextKeywords.some(kw => btnText.includes(kw))) {
+          btn.click();
+          clicked = true;
+          break;
+        }
+      }
+      
+      if (!clicked) {
+        el.style.setProperty('display', 'none', 'important');
+      } else {
+        candidates.push(el);
+      }
+    }
+  }
+  
+  document.body.style.setProperty('overflow', 'auto', 'important');
+  document.documentElement.style.setProperty('overflow', 'auto', 'important');
+}
+
+// Function to handle tab activation and screenshot capture
+async function handleCaptureTab(tabId) {
+  console.log(`[Extension] Iniciando captura de tela para a aba ${tabId}...`);
+  
+  // Force tab focus/activity to enable tab capture
+  await chrome.tabs.update(tabId, { active: true });
+  await new Promise(r => setTimeout(r, 800)); // wait for layout paint
+  
+  // Clean popups/banners
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId: tabId },
+      func: closeCookiePopupsAndOverlays
+    });
+  } catch (err) {
+    console.warn(`[Extension] Erro ao remover overlays:`, err.message);
+  }
+  
+  await new Promise(r => setTimeout(r, 400));
+  
+  // Get active window
+  const tab = await new Promise((resolve) => {
+    chrome.tabs.get(tabId, resolve);
+  });
+  const windowId = tab ? tab.windowId : chrome.windows.WINDOW_ID_CURRENT;
+  
+  return new Promise((resolve, reject) => {
+    chrome.tabs.captureVisibleTab(windowId, { format: 'jpeg', quality: 80 }, (dataUrl) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+      } else if (!dataUrl) {
+        reject(new Error("Falha ao capturar a aba."));
+      } else {
+        resolve({ success: true, dataUrl });
+      }
+    });
+  });
 }
