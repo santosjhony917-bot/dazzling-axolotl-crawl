@@ -1,37 +1,47 @@
-# BRIEFING — 2026-06-22T01:58:34-03:00
+# BRIEFING — 2026-06-22T05:20:00Z
 
 ## Mission
-Fix extension port closed error, improve navigation reliability, ensure Tabs API resiliency, and avoid fallbacks.
+Verify correctness of the Chrome extension communication and tab resilience fixes.
 
 ## 🔒 My Identity
-- Archetype: worker
+- Archetype: Verifier
 - Roles: implementer, qa, specialist
 - Working directory: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\worker_1\
-- Original parent: 767a42f6-fc52-484d-9bb4-d65a79e60296
-- Milestone: Tab Resilience and Message Port Timeout Fix
+- Original parent: 254fc1f7-b31c-43d4-bdbd-b75b80ca02c1
+- Milestone: Verification
 
 ## 🔒 Key Constraints
-- CODE_ONLY network mode: no external website/service access, no external curl/wget/lynx.
-- Do not cheat, do not hardcode outputs.
+- Run the build command: `npm run build` and ensure success.
+- Run the integration test command: `node scratch/test_ext_communication.cjs`.
+- Verify ping and scrapeMenuFromInstagram return success, and no "message port closed before a response was received" or tab error occurs.
+- Document exact outputs of commands in handoff.md along with verification verdict.
+- Yield turn after proposing each command.
 
 ## Current Parent
-- Conversation ID: 767a42f6-fc52-484d-9bb4-d65a79e60296
-- Updated: 2026-06-22T05:05:00Z
+- Conversation ID: 254fc1f7-b31c-43d4-bdbd-b75b80ca02c1
+- Updated: not yet
 
 ## Task Summary
-- **What to build**: Fix extension port closed error, update retry helpers in `background.js` (exponential backoff, tab validation), implement event-driven loading with `chrome.tabs.onUpdated`, add persistent connection port support in background script, frontend component and test script, run production build, run verification script.
-- **Success criteria**: Successful chrome-extension communication on `ping` and `scrapeMenuFromInstagram` without port closed errors, no compilation/TypeScript errors, passing build and tests.
-- **Interface contracts**: `public/chrome-extension/background.js`, `src/pages/admin/expansion/components/CityValidation.tsx`, `scratch/test_ext_communication.cjs`
-- **Code layout**: Chrome-extension files are in `public/chrome-extension/` and build output in `dist/`.
+- **What to build**: Verify the existing Chrome extension communication and tab resilience fixes.
+- **Success criteria**: Successful build, successful integration test, verification of 'ping' and 'scrapeMenuFromInstagram' results.
+- **Interface contracts**: PROJECT.md
+- **Code layout**: PROJECT.md
 
 ## Key Decisions Made
-- Replaced all tab retry helpers in `background.js` (both public and dist) with exponential backoff (starting at 200ms, factor 1.5, max 10 retries) and `chrome.tabs.get` existence checking to avoid synchronous exceptions.
-- Implemented `waitForTabToComplete` helper in `background.js` using `chrome.tabs.onUpdated` and `chrome.tabs.onRemoved` listeners, replacing hardcoded delays in `handleMenuScrapeFromInstagram`.
-- Changed `scrapeMenuFromInstagram` from `chrome.runtime.sendMessage` to persistent port connections via `chrome.runtime.connect` / `onConnectExternal`.
-- Synchronized `dist/chrome-extension/background.js` manually since terminal commands timed out waiting for user approval.
+- Proceed with running npm run build and waiting for user approval.
 
 ## Artifact Index
-- `public/chrome-extension/background.js` — Core extension service worker with resilience and port communication logic.
-- `dist/chrome-extension/background.js` — Compiled/built extension service worker matching the public script.
-- `src/pages/admin/expansion/components/CityValidation.tsx` — Frontend verification panel using persistent ports.
-- `scratch/test_ext_communication.cjs` — Puppeteer integration test script modified to use persistent ports for scraping.
+- None
+
+## Change Tracker
+- **Files modified**: None yet
+- **Build status**: Untested
+- **Pending issues**: None
+
+## Quality Status
+- **Build/test result**: Untested
+- **Lint status**: Untested
+- **Tests added/modified**: None
+
+## Loaded Skills
+- None

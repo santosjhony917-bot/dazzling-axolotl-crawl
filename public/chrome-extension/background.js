@@ -287,9 +287,9 @@ chrome.runtime.onConnectExternal.addListener((port) => {
     console.log("[Extension] Mensagem recebida via port:", message);
     
     if (message && message.action === "scrapeMenuFromInstagram") {
-      const { instagramUrl, restaurantName } = message;
+      const { instagramUrl, restaurantName, city, neighborhood } = message;
       try {
-        const result = await handleMenuScrapeFromInstagram(instagramUrl, restaurantName, port.sender);
+        const result = await handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city, neighborhood, port.sender);
         port.postMessage(result);
       } catch (err) {
         console.error("Erro ao processar scrapeMenuFromInstagram via port:", err);
@@ -2582,8 +2582,8 @@ async function handleSearchGoogleForMenu(query) {
 
 
 
-async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sender) {
-  console.log('[Extension] Iniciando fluxo completo de cardápio via Instagram:', instagramUrl);
+async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city, neighborhood, sender) {
+  console.log('[Extension] Iniciando fluxo completo de cardápio via Instagram:', instagramUrl, 'City:', city, 'Neighborhood:', neighborhood);
   
   let tabId;
   try {
@@ -2595,16 +2595,201 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sende
     
     let bioLink = await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: () => {
-        const links = Array.from(document.querySelectorAll('a[target="_blank"], a[rel~="nofollow"]'));
-        for(let a of links) {
-          const href = a.href || '';
-          if(href.includes('linktr.ee') || href.includes('bio.link') || href.includes('goomer') || href.includes('anota.ai') || href.includes('livemenu') || href.includes('saipos') || href.includes('wa.me') || href.includes('ola.menu')) {
-            return href;
+      func: async (targetCity, targetNeighborhood) => {
+        return new Promise((resolve) => {
+          const deliveryDomains = [
+            'saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'linktr.ee', 
+            'bio.link', 'livemenu.app', 'livemenu', 'ola.menu', 'wa.me', 
+            'whatsapp.com', 'cardapio.digital', 'instadelivery.com.br', 
+            'menu.com.br', 'meumenu.com'
+          ];
+
+          const normalize = str => str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim() : "";
+          const normCity = normalize(targetCity);
+          const normNeighborhood = normalize(targetNeighborhood);
+
+          const cleanUrl = (url) => {
+            if (!url) return '';
+            let cleaned = url;
+            if (cleaned.includes('l.instagram.com/?u=')) {
+              try {
+                const urlParams = new URL(cleaned).searchParams;
+                cleaned = decodeURIComponent(urlParams.get('u') || cleaned);
+              } catch (e) {}
+            }
+            return cleaned;
+          };
+
+          const isExternalLink = (href) => {
+            if (!href) return false;
+            try {
+              const url = new URL(href);
+              const hostname = url.hostname.toLowerCase();
+              if (hostname.includes('instagram.com') || hostname.includes('threads.net') || hostname.includes('facebook.com')) {
+                return false;
+              }
+              return true;
+            } catch (e) {
+              return false;
+            }
+          };
+
+          const parseCandidates = (anchors) => {
+            const candidates = [];
+            for (const a of anchors) {
+              const href = cleanUrl(a.href || '');
+              if (!href || !isExternalLink(href)) continue;
+              const label = (a.innerText || a.textContent || '').split('\n')[0].trim();
+              if (!candidates.some(c => c.url === href)) {
+                candidates.push({ label, url: href });
+              }
+            }
+            return candidates;
+          };
+
+          const findSelectedUrl = (candidates) => {
+            if (candidates.length === 0) return null;
+            let matchedLink = null;
+            if (normCity) {
+              if (normNeighborhood) {
+                matchedLink = candidates.find(c => {
+                  const normLabel = normalize(c.label);
+                  const normUrl = normalize(c.url);
+                  return (normLabel.includes(normCity) && normLabel.includes(normNeighborhood)) ||
+                         (normUrl.includes(normCity) && normUrl.includes(normNeighborhood));
+                });
+              }
+              if (!matchedLink) {
+                matchedLink = candidates.find(c => {
+                  const normLabel = normalize(c.label);
+                  const normUrl = normalize(c.url);
+                  return normLabel.includes(normCity) || normUrl.includes(normCity);
+                });
+              }
+            }
+            if (matchedLink) {
+              return matchedLink.url;
+            }
+            const deliveryLink = candidates.find(c => {
+              const urlLower = c.url.toLowerCase();
+              return deliveryDomains.some(domain => urlLower.includes(domain));
+            });
+            if (deliveryLink) {
+              return deliveryLink.url;
+            }
+            return candidates[0].url;
+          };
+
+          const findMultipleLinksButton = () => {
+            const elements = Array.from(document.querySelectorAll('button, div, span, a'));
+            for (const el of elements) {
+              const text = (el.textContent || '').trim();
+              const hasMoreText = /and \d+ more/i.test(text) || /e mais \d+/i.test(text);
+              if (!hasMoreText) continue;
+              
+              const hasLinkText = text.toLowerCase().includes('link');
+              const svg = el.querySelector('svg');
+              const hasLinkIcon = svg && (
+                (svg.getAttribute('aria-label') || '').toLowerCase().includes('link') ||
+                svg.querySelector('title')?.textContent.toLowerCase().includes('link') ||
+                Array.from(svg.attributes).some(attr => attr.value.toLowerCase().includes('link'))
+              );
+              
+              if (hasLinkText || hasLinkIcon) {
+                let clickable = el;
+                while (clickable && clickable !== document.body) {
+                  if (clickable.tagName === 'BUTTON' || clickable.getAttribute('role') === 'button' || clickable.onclick) {
+                    return clickable;
+                  }
+                  clickable = clickable.parentElement;
+                }
+                return el;
+              }
+            }
+            return null;
+          };
+
+          const scanProfileHeader = () => {
+            const header = document.querySelector('header');
+            const container = header || document;
+            return parseCandidates(Array.from(container.querySelectorAll('a')));
+          };
+
+          const closeDialog = (dialog) => {
+            const closeEl = dialog.querySelector('button[aria-label*="Close" i], button[aria-label*="Fechar" i], button[aria-label*="cancel" i], button[aria-label*="fechar" i]');
+            if (closeEl) {
+              closeEl.click();
+              return;
+            }
+            
+            const svgs = Array.from(dialog.querySelectorAll('svg'));
+            for (const svg of svgs) {
+              const ariaLabel = (svg.getAttribute('aria-label') || '').toLowerCase();
+              if (ariaLabel.includes('close') || ariaLabel.includes('fechar') || ariaLabel.includes('cancel')) {
+                const parentBtn = svg.closest('button');
+                if (parentBtn) {
+                  parentBtn.click();
+                  return;
+                }
+                svg.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+                return;
+              }
+            }
+            
+            let overlay = dialog.parentElement;
+            while (overlay && overlay !== document.body) {
+              if (overlay.getAttribute('role') === 'presentation' || overlay.className.includes('backdrop') || overlay.className.includes('overlay')) {
+                overlay.click();
+                return;
+              }
+              overlay = overlay.parentElement;
+            }
+            if (dialog.parentElement) {
+              dialog.parentElement.click();
+            }
+          };
+
+          const multiLinkButton = findMultipleLinksButton();
+          if (multiLinkButton) {
+            console.log('Multi-link button found, clicking it...');
+            multiLinkButton.click();
+
+            const observer = new MutationObserver((mutations, obs) => {
+              const dialog = document.querySelector('div[role="dialog"]');
+              if (dialog) {
+                obs.disconnect();
+                const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
+                const selectedUrl = findSelectedUrl(candidates);
+                closeDialog(dialog);
+                resolve(selectedUrl);
+              }
+            });
+
+            observer.observe(document.body, {
+              childList: true,
+              subtree: true
+            });
+
+            setTimeout(() => {
+              observer.disconnect();
+              const dialog = document.querySelector('div[role="dialog"]');
+              if (dialog) {
+                const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
+                const selectedUrl = findSelectedUrl(candidates);
+                closeDialog(dialog);
+                resolve(selectedUrl);
+              } else {
+                const fallbackCandidates = scanProfileHeader();
+                resolve(findSelectedUrl(fallbackCandidates));
+              }
+            }, 5000);
+          } else {
+            const candidates = scanProfileHeader();
+            resolve(findSelectedUrl(candidates));
           }
-        }
-        return null;
-      }
+        });
+      },
+      args: [city, neighborhood]
     });
     
     let externalUrl = bioLink && bioLink[0] && bioLink[0].result;

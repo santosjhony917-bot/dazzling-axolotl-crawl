@@ -1,29 +1,10 @@
-## 2026-06-22T04:58:34Z
+## 2026-06-22T05:20:07Z
+You are the Verifier. Your working directory is c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\worker_1\.
 
-Please perform the following implementation steps to fix the extension port closed error, improve navigation reliability, ensure Tabs API resiliency, and avoid fallbacks:
+Please verify the correctness of the Chrome extension communication and tab resilience fixes:
+1. Run the build command: `npm run build` using the run_command tool. Ensure it completes successfully with exit code 0.
+2. Run the integration test command: `node scratch/test_ext_communication.cjs` using the run_command tool.
+3. Verify that both the 'ping' (sendMessage) and 'scrapeMenuFromInstagram' (connect port) actions return success, and no "message port closed before a response was received" or tab error is shown.
+4. Document the exact outputs of both commands in your handoff.md file, along with your verification verdict.
 
-1. **Tabs API Resilience**: In `public/chrome-extension/background.js`, update the retry helpers `createTabWithRetry`, `removeTabWithRetry`, and `updateTabWithRetry` to:
-   - Use case-insensitive and broad substring matching to detect tab locks:
-     ```javascript
-     const isTabLockError = e => e && e.message && (
-       e.message.toLowerCase().includes('cannot be edited') ||
-       e.message.toLowerCase().includes('locked') ||
-       e.message.toLowerCase().includes('dragging')
-     );
-     ```
-   - Implement exponential backoff (starting at 200ms, multiplying by 1.5, up to 10 retries).
-   - Ensure parameter types are verified (e.g. `tabId` must be a number) and check if the tab exists using `chrome.tabs.get` in remove/update wrappers to prevent synchronous/early API exceptions.
-
-2. **Event-Driven Loading**: Implement a helper `waitForTabToComplete(tabId, timeoutMs)` in `background.js` using `chrome.tabs.onUpdated` matching status `'complete'`. Replace the hardcoded `setTimeout` delays (e.g. 4s, 5s, 6s, 4s) inside `handleMenuScrapeFromInstagram` with calls to `waitForTabToComplete(tabId)` followed by a brief 1-second delay for client-side dynamic rendering.
-
-3. **Message Port Timeout Fix**:
-   - In `public/chrome-extension/background.js`, add support for persistent connections using `chrome.runtime.onConnectExternal.addListener` to handle the `scrapeMenuFromInstagram` action. Ensure any exceptions within `handleMenuScrapeFromInstagram` are fully caught.
-   - In `src/pages/admin/expansion/components/CityValidation.tsx` and `scratch/test_ext_communication.cjs`, change the communication interface for `scrapeMenuFromInstagram` from `chrome.runtime.sendMessage` to persistent ports via `chrome.runtime.connect`.
-   - Keep the `ping` and other lightweight actions on `sendMessage` / `onMessageExternal` since they are instantaneous and do trigger timeouts.
-
-4. **Compile and Verify**:
-   - Run the production build command (`npm run build`) to ensure there are no compilation/TypeScript errors and the public chrome-extension files are copied to `dist/chrome-extension`.
-   - Run the test script `node scratch/test_ext_communication.cjs` and verify both the ping and scrapeMenuFromInstagram actions succeed without throwing port closed errors.
-
-MANDATORY INTEGRITY WARNING:
-DO NOT CHEAT. All implementations must be genuine. DO NOT hardcode test results, create dummy/facade implementations, or circumvent the intended task. A Forensic Auditor will independently verify your work. Integrity violations WILL be detected and your work WILL be rejected.
+Please yield your turn after proposing each command so they can be approved and executed by the user.

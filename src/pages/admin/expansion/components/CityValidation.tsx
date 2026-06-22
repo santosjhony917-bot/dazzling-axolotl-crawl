@@ -496,7 +496,13 @@ export default function CityValidation() {
                     }
                     resolve({ success: false, error: err ? err.message : "Port disconnected" });
                   });
-                  port.postMessage({ action: "scrapeMenuFromInstagram", instagramUrl: activeInstagramUrl, restaurantName: restaurant.name });
+                  port.postMessage({ 
+                    action: "scrapeMenuFromInstagram", 
+                    instagramUrl: activeInstagramUrl, 
+                    restaurantName: restaurant.name,
+                    city: restaurant.city || '',
+                    neighborhood: restaurant.neighborhood || ''
+                  });
                 } catch (e: any) {
                   addLog(`[DEBUG] Falha ao conectar/enviar via port: ${e.message}`);
                   resolve({ success: false, error: e.message });

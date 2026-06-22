@@ -1,21 +1,21 @@
-# BRIEFING — 2026-06-22T01:54:30-03:00
+# BRIEFING — 2026-06-22T05:32:00Z
 
 ## Mission
-Fix the Chrome Extension's communication issue, validate Instagram -> Linktree -> Anota AI menu extraction, and ensure resiliency to Tabs API blocking, with zero fallbacks.
+Fix the Instagram bio link extraction logic in background.js to work with the updated Instagram DOM structures, verifying it against real profiles.
 
 ## 🔒 My Identity
 - Archetype: sub_orch
 - Roles: orchestrator, user_liaison, human_reporter, successor
 - Working directory: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator
 - Original parent: main agent
-- Original parent conversation ID: 46b74978-b4be-4f2a-a14b-df638106be4a
+- Original parent conversation ID: 12beea67-bcbf-43a6-b7b8-762f9f4ed33d
 
 ## 🔒 My Workflow
 - **Pattern**: Project Pattern
 - **Scope document**: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\PROJECT.md
-1. **Decompose**: Decompose scope into: Exploration & Analysis, Code Correction, Verification & Review, and Forensic Audit Gating.
+1. **Decompose**: Decomposed the scope into four distinct sequential phases: Exploration & Analysis (DOM structures), Implementation of Fixes (regex/selector adjustments), Review & Challenger Validation (testing with Puppeteer), and Forensic Integrity Audit (no hardcoding or facades).
 2. **Dispatch & Execute**:
-   - **Direct (iteration loop)**: Explorer → Worker → Reviewer → gate
+   - **Direct (iteration loop)**: Explorer → Worker → Reviewer / Challenger → Forensic Auditor → gate
 3. **On failure** (in this order):
    - Retry: nudge stuck agent or re-send task
    - Replace: spawn fresh agent with partial progress
@@ -26,11 +26,11 @@ Fix the Chrome Extension's communication issue, validate Instagram -> Linktree -
 4. **Succession**: at 16 spawns, write handoff.md, spawn successor.
 - **Work items**:
   1. Exploration & Analysis [done]
-  2. Code Correction [done]
-  3. Verification & Review [in-progress]
-  4. Forensic Audit Gating [pending]
-- **Current phase**: 3
-- **Current focus**: Verification & Review
+  2. Implementation of Fixes [done]
+  3. Review and Challenger Validation [done]
+  4. Forensic Integrity Audit [in-progress]
+- **Current phase**: 4
+- **Current focus**: Forensic Integrity Audit
 
 ## 🔒 Key Constraints
 - Never write, modify, or create source code files directly.
@@ -39,28 +39,32 @@ Fix the Chrome Extension's communication issue, validate Instagram -> Linktree -
 - Never reuse a subagent after it has delivered its handoff — always spawn fresh.
 
 ## Current Parent
-- Conversation ID: 46b74978-b4be-4f2a-a14b-df638106be4a
+- Conversation ID: 12beea67-bcbf-43a6-b7b8-762f9f4ed33d
 - Updated: not yet
 
 ## Key Decisions Made
-- Overwrote FilterFood design system metadata files with the current Chrome Extension fixes project scope.
+- Pivot project focus entirely to the Instagram bio link extraction fix as requested in the latest user follow-up.
 
 ## Team Roster
 | Agent | Type | Work Item | Status | Conv ID |
 |-------|------|-----------|--------|---------|
-| Explorer | teamwork_preview_explorer | Explore communication and navigation issues | completed | 7922fdac-fd9e-4afe-9ba9-183fd9b6704e |
-| Worker | teamwork_preview_worker | Implement extension fixes & verify | completed | 4d1b457f-203c-491b-90d4-e955bb719839 |
-| Challenger | teamwork_preview_challenger | Validate build and run integration tests | in-progress | bb2e9ba1-1d92-4c01-b5d0-049d5f754836 |
+| Explorer 1 | teamwork_preview_explorer | Explore Instagram bio link extraction issues | completed | be71eb17-45b9-43dc-917a-171e4ccb756d |
+| Explorer 2 | teamwork_preview_explorer | Explore Instagram bio link extraction issues | completed | 3fdbc766-a592-4019-b14d-b5547c63d765 |
+| Explorer 3 | teamwork_preview_explorer | Explore Instagram bio link extraction issues | completed | 5b9bb3c0-3527-4fc3-af87-cd7f8b581758 |
+| Worker 1 | teamwork_preview_worker | Implement background and component fixes | completed | 1ce83567-c44a-443e-aeb1-8c0c611aafec |
+| Verifier 1 | teamwork_preview_worker | Validate build and run integration tests | completed | 4dc6ebd7-cadf-4373-9187-5ef16f602ca7 |
+| Reviewer 1 | teamwork_preview_reviewer | Review code correctness and robustness | completed | b4d76d83-c833-498d-872e-0b8e76e91384 |
+| Auditor 1 | teamwork_preview_auditor | Perform forensic integrity audit | in-progress | 7a2204ce-67dc-4868-bb36-6b1f24dd6344 |
 
 ## Succession Status
 - Succession required: no
-- Spawn count: 3 / 16
-- Pending subagents: none
+- Spawn count: 7 / 16
+- Pending subagents: 7a2204ce-67dc-4868-bb36-6b1f24dd6344
 - Predecessor: none
 - Successor: not yet spawned
 
 ## Active Timers
-- Heartbeat cron: 767a42f6-fc52-484d-9bb4-d65a79e60296/task-59
+- Heartbeat cron: 3beb8976-bab8-40b7-901c-c59917d810e6/task-27
 - Safety timer: none
 - On succession: kill all timers before spawning successor
 - On context truncation: run manage_task(Action="list") — re-create if missing

@@ -1,12 +1,12 @@
-# BRIEFING — 2026-06-22T04:51:55Z
+# BRIEFING — 2026-06-22T05:32:00Z
 
 ## Mission
-Solve Chrome Extension port communication errors and ensure Linktree/Instagram/Anota AI menu scraping works end-to-end.
+Fix Instagram bio link extraction logic in Chrome Extension (background.js) under the new Instagram DOM structure.
 
 ## 🔒 My Identity
 - Archetype: sentinel
 - Working directory: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\sentinel
-- Orchestrator: ed7b38ab-8ac7-4eb2-bb9d-c053c8972c73
+- Orchestrator: 02f760f3-be0a-48e5-86bc-c5a048f72e27
 - Victory Auditor: to be spawned on victory claim
 
 ## 🔒 Key Constraints
@@ -14,7 +14,7 @@ Solve Chrome Extension port communication errors and ensure Linktree/Instagram/A
 - Victory Audit is MANDATORY before reporting completion
 
 ## User Context
-- **Last user request**: Resolve communication error (port closed) and ensure menu scraping works perfectly via Chrome Extension without fallbacks.
+- **Last user request**: Fix Instagram bio link extraction logic in background.js for the new DOM structure (such as obfuscated tags, spans, or classes like x1i10hfl), validating using a real profile (e.g. https://www.instagram.com/alainesfiharia/).
 - **Pending clarifications**: none
 - **Delivered results**: none
 
@@ -27,4 +27,4 @@ Solve Chrome Extension port communication errors and ensure Linktree/Instagram/A
 - **Retry count**: 0
 
 ## Artifact Index
-- c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\ORIGINAL_REQUEST.md — Verbatim user request.
+- c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\ORIGINAL_REQUEST.md — Verbatim user request log.
