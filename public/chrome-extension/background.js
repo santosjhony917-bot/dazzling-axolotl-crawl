@@ -1397,7 +1397,7 @@ async function expandAndLoadAllContentInPage() {
             isCollapsed = true;
           }
         }
-        
+      }
       
       if (isCollapsed) {
         const target = header.querySelector('button, a, span') || header;
