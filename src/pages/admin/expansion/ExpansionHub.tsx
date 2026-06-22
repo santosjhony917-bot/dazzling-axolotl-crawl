@@ -12,6 +12,66 @@ import { supabase } from '@/integrations/supabase/client';
 import { ExpansionProject } from '@/types/supabase';
 import { showSuccess, showError } from '@/utils/toast';
 
+const STATE_NAMES: Record<string, string> = {
+  AC: 'Acre',
+  AL: 'Alagoas',
+  AP: 'Amapá',
+  AM: 'Amazonas',
+  BA: 'Bahia',
+  CE: 'Ceará',
+  DF: 'Distrito Federal',
+  ES: 'Espírito Santo',
+  GO: 'Goiás',
+  MA: 'Maranhão',
+  MT: 'Mato Grosso',
+  MS: 'Mato Grosso do Sul',
+  MG: 'Minas Gerais',
+  PA: 'Pará',
+  PB: 'Paraíba',
+  PR: 'Paraná',
+  PE: 'Pernambuco',
+  PI: 'Piauí',
+  RJ: 'Rio de Janeiro',
+  RN: 'Rio Grande do Norte',
+  RS: 'Rio Grande do Sul',
+  RO: 'Rondônia',
+  RR: 'Roraima',
+  SC: 'Santa Catarina',
+  SP: 'São Paulo',
+  SE: 'Sergipe',
+  TO: 'Tocantins'
+};
+
+const STATE_CITIES: Record<string, string[]> = {
+  AC: ['Rio Branco', 'Cruzeiro do Sul', 'Sena Madureira', 'Tarauacá', 'Feijó', 'Brasiléia', 'Senador Guiomard'],
+  AL: ['Maceió', 'Arapiraca', 'Rio Largo', 'Palmeira dos Índios', 'União dos Palmares', 'Penedo', 'Delmiro Gouveia'],
+  AP: ['Macapá', 'Santana', 'Laranjal do Jari', 'Oiapoque', 'Porto Grande', 'Mazagão', 'Tartarugalzinho'],
+  AM: ['Manaus', 'Parintins', 'Itacoatiara', 'Manacapuru', 'Coari', 'Tabatinga', 'Tefé'],
+  BA: ['Salvador', 'Feira de Santana', 'Vitória da Conquista', 'Camaçari', 'Juazeiro', 'Itabuna', 'Lauro de Freitas'],
+  CE: ['Fortaleza', 'Caucaia', 'Juazeiro do Norte', 'Maracanaú', 'Sobral', 'Crato', 'Itapipoca'],
+  DF: ['Brasília', 'Taguatinga', 'Ceilândia', 'Samambaia', 'Planaltina', 'Guará', 'Gama'],
+  ES: ['Vitória', 'Vila Velha', 'Serra', 'Cariacica', 'Cachoeiro de Itapemirim', 'Linhares', 'Colatina'],
+  GO: ['Goiânia', 'Aparecida de Goiânia', 'Anápolis', 'Rio Verde', 'Luziânia', 'Águas Lindas de Goiás', 'Valparaíso de Goiás'],
+  MA: ['São Luís', 'Imperatriz', 'São José de Ribamar', 'Timon', 'Caxias', 'Codó', 'Paço do Lumiar'],
+  MT: ['Cuiabá', 'Várzea Grande', 'Rondonópolis', 'Sinop', 'Tangará da Serra', 'Sorriso', 'Lucas do Rio Verde'],
+  MS: ['Campo Grande', 'Dourados', 'Três Lagoas', 'Corumbá', 'Ponta Porã', 'Sidrolândia', 'Naviraí'],
+  MG: ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora', 'Betim', 'Montes Claros', 'Ribeirão das Neves'],
+  PA: ['Belém', 'Ananindeua', 'Santarém', 'Marabá', 'Castanhal', 'Parauapebas', 'Abaetetuba'],
+  PB: ['João Pessoa', 'Campina Grande', 'Santa Rita', 'Patos', 'Bayeux', 'Sousa', 'Cabedelo'],
+  PR: ['Curitiba', 'Londrina', 'Maringá', 'Ponta Grossa', 'Cascavel', 'São José dos Pinhais', 'Foz do Iguaçu'],
+  PE: ['Recife', 'Jaboatão dos Guararapes', 'Olinda', 'Caruaru', 'Petrolina', 'Paulista', 'Cabo de Santo Agostinho'],
+  PI: ['Teresina', 'Parnaíba', 'Picos', 'Floriano', 'Piripiri', 'Campo Maior', 'Barras'],
+  RJ: ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu', 'Niterói', 'Campos dos Goytacazes', 'Belford Roxo'],
+  RN: ['Natal', 'Mossoró', 'Parnamirim', 'São Gonçalo do Amarante', 'Macaíba', 'Caicó', 'Assu'],
+  RS: ['Porto Alegre', 'Caxias do Sul', 'Canoas', 'Pelotas', 'Santa Maria', 'Gravataí', 'Viamão'],
+  RO: ['Porto Velho', 'Ji-Paraná', 'Ariquemes', 'Cacoal', 'Vilhena', 'Jaru', 'Rolim de Moura'],
+  RR: ['Boa Vista', 'Rorainópolis', 'Caracaraí', 'Pacaraima', 'Mucajaí', 'Cantá', 'Alto Alegre'],
+  SC: ['Florianópolis', 'Joinville', 'Blumenau', 'São José', 'Chapecó', 'Criciúma', 'Itajaí'],
+  SP: ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo', 'Santo André', 'São José dos Campos', 'Ribeirão Preto'],
+  SE: ['Aracaju', 'Nossa Senhora do Socorro', 'Lagarto', 'Itabaiana', 'Estância', 'Tobias Barreto', 'Simão Dias'],
+  TO: ['Palmas', 'Araguaína', 'Gurupi', 'Porto Nacional', 'Paraíso do Tocantins', 'Araguatins', 'Colinas do Tocantins']
+};
+
 export default function ExpansionHub() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<ExpansionProject[]>([]);
@@ -241,6 +301,11 @@ export default function ExpansionHub() {
     }, {} as Record<string, ExpansionProject[]>);
   }, [projects]);
 
+  const inactiveStates = useMemo(() => {
+    const activeStates = new Set(projects.map(p => p.state.toUpperCase()));
+    return Object.keys(STATE_NAMES).filter(abbr => !activeStates.has(abbr)).sort();
+  }, [projects]);
+
   const nationalConversion = metrics.totalLeads > 0 ? ((metrics.totalPremium / metrics.totalLeads) * 100).toFixed(1) + '%' : '0%';
 
   if (loading) {
@@ -329,25 +394,37 @@ export default function ExpansionHub() {
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">Cidade</Label>
-                  <Input 
-                    id="name" 
-                    value={newCity.name} 
-                    onChange={e => setNewCity({...newCity, name: e.target.value})} 
-                    className="col-span-3" 
-                    placeholder="Ex: São Paulo" 
-                  />
+                  <Label htmlFor="state" className="text-right">Estado (UF)</Label>
+                  <select 
+                    id="state" 
+                    className="col-span-3 flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
+                    value={newCity.state}
+                    onChange={e => {
+                      const stateAbbr = e.target.value;
+                      const defaultCity = STATE_CITIES[stateAbbr]?.[0] || '';
+                      setNewCity({ ...newCity, state: stateAbbr, name: defaultCity });
+                    }}
+                  >
+                    <option value="">Selecione o estado...</option>
+                    {Object.entries(STATE_NAMES).map(([abbr, name]) => (
+                      <option key={abbr} value={abbr}>{name} ({abbr})</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="state" className="text-right">Estado (UF)</Label>
-                  <Input 
-                    id="state" 
-                    value={newCity.state} 
-                    onChange={e => setNewCity({...newCity, state: e.target.value})} 
-                    className="col-span-3" 
-                    placeholder="Ex: SP" 
-                    maxLength={2} 
-                  />
+                  <Label htmlFor="name" className="text-right">Cidade</Label>
+                  <select 
+                    id="name" 
+                    className="col-span-3 flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    value={newCity.name}
+                    onChange={e => setNewCity({...newCity, name: e.target.value})}
+                    disabled={!newCity.state}
+                  >
+                    <option value="">Selecione a cidade...</option>
+                    {newCity.state && STATE_CITIES[newCity.state]?.map(cityName => (
+                      <option key={cityName} value={cityName}>{cityName}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="manager" className="text-right">Líder</Label>
@@ -554,6 +631,36 @@ export default function ExpansionHub() {
             </div>
           </div>
         ))}
+
+        {/* Inactive States Expansion Grid */}
+        {inactiveStates.length > 0 && (
+          <div className="pt-8 border-t border-slate-200 space-y-4">
+            <h2 className="text-xl font-bold text-slate-800">Estados Disponíveis para Expansão</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3">
+              {inactiveStates.map(stateAbbr => (
+                <Card 
+                  key={stateAbbr} 
+                  className="border-slate-200 shadow-sm rounded-xl bg-slate-50 hover:bg-white hover:shadow-md hover:border-indigo-200 transition-all duration-200 cursor-pointer p-4 flex flex-col justify-between items-center text-center group"
+                  onClick={() => {
+                    const defaultCity = STATE_CITIES[stateAbbr]?.[0] || '';
+                    setNewCity({ name: defaultCity, state: stateAbbr, manager_name: '', status: 'Planejamento' });
+                    setIsModalOpen(true);
+                  }}
+                >
+                  <div className="font-bold text-slate-800 text-sm group-hover:text-indigo-600 transition-colors">
+                    {STATE_NAMES[stateAbbr]}
+                  </div>
+                  <Badge variant="secondary" className="mt-1.5 text-[10px] font-extrabold bg-slate-200/60 text-slate-600 border-none group-hover:bg-indigo-50 group-hover:text-indigo-600">
+                    {stateAbbr}
+                  </Badge>
+                  <span className="mt-3 text-xs font-bold text-indigo-600 group-hover:text-indigo-700">
+                    + Iniciar
+                  </span>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
