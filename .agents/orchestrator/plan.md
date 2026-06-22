@@ -1,23 +1,26 @@
-# Execution Plan
+# Execution Plan - Chrome Extension Communication & Scraper Fixes
 
-This plan details the phased approach to auditing and correcting GrubGo Design System deviations.
+This plan details the phased approach to fixing the Chrome Extension port-closed error, validating menu extraction, ensuring resiliency to Tabs API blocking, and preventing fallbacks.
 
-## Phase 1: Exploration and Deviation Discovery
-- **Objective**: Scan files in `src/` to identify all design system deviations.
-- **Verification**: Produce a detailed report listing all file paths, line numbers, current style/markup, and the required GrubGo standard.
-- **Agent Assigned**: `teamwork_preview_explorer` (Spawn 3 parallel/sub-agents or 1 detailed investigator).
+## Phase 1: Exploration and Root Cause Analysis
+- **Objective**: Explore the extension codebase and background scripts. Locate the source of the crash/port-closed issue when `scrapeMenuFromInstagram` is sent. Investigate Instagram -> Linktree -> Anota AI navigation flow and how the Tabs API error 'Tabs cannot be edited right now' is handled.
+- **Verification**: Explorer handoff report with detailed code locations, root cause explanation, and proposed fix strategies.
+- **Agent Assigned**: `teamwork_preview_explorer`.
 
 ## Phase 2: Implementation of Fixes
-- **Objective**: Fix the discovered deviations in `src/` files.
-- **Verification**: Clean diff of modified files; verify no residual design system violations.
+- **Objective**: Apply changes to the extension service worker (`public/chrome-extension/background.js`) to:
+  1. Fix the message port closure error.
+  2. Implement robust Tabs API retry and recovery mechanics.
+  3. Validate autonomous menu extraction (Instagram -> Linktree -> Anota AI) without falling back.
+- **Verification**: Clean diff of modified files; code compiling and building successfully (`npm run build`).
 - **Agent Assigned**: `teamwork_preview_worker`.
-- **Integrity Check**: Ensure no hardcoded/cheated test code, dummy facades, or build breakage.
 
-## Phase 3: Review and Verification
-- **Objective**: Independently review modifications and check production build success.
-- **Verification**: Run `npm run build` and ensure exit code is 0 with no TypeScript errors.
-- **Agent Assigned**: `teamwork_preview_reviewer` (Spawn 2 parallel reviewers).
+## Phase 3: Review and Challenger Validation
+- **Objective**: Run automated Puppeteer tests and verify the extension behaves correctly without throwing port closed errors or triggering local Puppeteer API fallbacks.
+- **Verification**: Execute `scratch/test_ext_communication.cjs` and verify it logs successful ping and menu scrape results. Review the code quality and robustness.
+- **Agents Assigned**: `teamwork_preview_reviewer` (independent code review) and `teamwork_preview_challenger` (executing and validating tests).
 
-## Phase 4: Forensic Audit Gating
-- **Objective**: Perform automated and structured integrity checks of the final codebase.
-- **Verification**: Run a `teamwork_preview_auditor` to check for cheating, compliance with the GrubGo theme, and ensure all tests pass.
+## Phase 4: Forensic Integrity Audit
+- **Objective**: Perform forensic audit checks on the implementation to verify no cheating (no hardcoding, fake responses, or bypassing checks).
+- **Verification**: CLEAN audit verdict from the Forensic Auditor.
+- **Agent Assigned**: `teamwork_preview_auditor`.

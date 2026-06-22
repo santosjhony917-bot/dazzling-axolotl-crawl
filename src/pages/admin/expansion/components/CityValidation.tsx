@@ -480,15 +480,27 @@ export default function CityValidation() {
             addLog(`Usando Extensão do Chrome para navegar Linktree/Cardápio...`);
             extensionRes = await new Promise((resolve) => {
               const chromeObj = (window as any).chrome;
-              if (chromeObj && chromeObj.runtime) {
-                chromeObj.runtime.sendMessage(extensionId, { action: "scrapeMenuFromInstagram", instagramUrl: activeInstagramUrl, restaurantName: restaurant.name }, (response: any) => {
-                  if (chromeObj.runtime.lastError) {
-                    addLog(`[DEBUG] chrome.runtime.lastError: ${chromeObj.runtime.lastError.message}`);
-                    console.error("Extension Error:", chromeObj.runtime.lastError);
-                  }
-                  addLog(`[DEBUG] Resposta da extensão: ${JSON.stringify(response)}`);
-                  resolve(response);
-                });
+              if (chromeObj && chromeObj.runtime && chromeObj.runtime.connect) {
+                try {
+                  const port = chromeObj.runtime.connect(extensionId, { name: "scrapeMenuFromInstagramPort" });
+                  port.onMessage.addListener((response: any) => {
+                    addLog(`[DEBUG] Resposta da extensão via port: ${JSON.stringify(response)}`);
+                    resolve(response);
+                    port.disconnect();
+                  });
+                  port.onDisconnect.addListener(() => {
+                    const err = chromeObj.runtime.lastError;
+                    if (err) {
+                      addLog(`[DEBUG] Port disconnected with error: ${err.message}`);
+                      console.error("Port Disconnect Error:", err);
+                    }
+                    resolve({ success: false, error: err ? err.message : "Port disconnected" });
+                  });
+                  port.postMessage({ action: "scrapeMenuFromInstagram", instagramUrl: activeInstagramUrl, restaurantName: restaurant.name });
+                } catch (e: any) {
+                  addLog(`[DEBUG] Falha ao conectar/enviar via port: ${e.message}`);
+                  resolve({ success: false, error: e.message });
+                }
               } else { resolve({ success: false }); }
             });
           }

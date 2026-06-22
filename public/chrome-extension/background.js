@@ -1,12 +1,22 @@
 
-async function createTabWithRetry(options, maxRetries = 5) {
+const isTabLockError = e => e && e.message && (
+  e.message.toLowerCase().includes('cannot be edited') ||
+  e.message.toLowerCase().includes('locked') ||
+  e.message.toLowerCase().includes('dragging')
+);
+
+async function createTabWithRetry(options, maxRetries = 10) {
+  if (typeof options !== 'object' || options === null) {
+    throw new TypeError('options must be an object');
+  }
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await chrome.tabs.create(options);
     } catch (e) {
-      if (e.message && e.message.includes('Tabs cannot be edited right now')) {
-        console.warn('Chrome is locked (user dragging tab). Retrying tab creation...', i);
-        await new Promise(r => setTimeout(r, 1000));
+      if (isTabLockError(e)) {
+        console.warn('Chrome is locked. Retrying tab creation...', i);
+        const delay = 200 * Math.pow(1.5, i);
+        await new Promise(r => setTimeout(r, delay));
       } else {
         throw e;
       }
@@ -15,36 +25,123 @@ async function createTabWithRetry(options, maxRetries = 5) {
   throw new Error('Timeout: Chrome tabs locked for too long.');
 }
 
-async function removeTabWithRetry(tabId, maxRetries = 5) {
+async function removeTabWithRetry(tabId, maxRetries = 10) {
+  if (typeof tabId !== 'number') {
+    throw new TypeError('tabId must be a number');
+  }
+  try {
+    await new Promise((resolve, reject) => {
+      chrome.tabs.get(tabId, (tab) => {
+        if (chrome.runtime.lastError || !tab) {
+          reject(new Error('Tab does not exist'));
+        } else {
+          resolve();
+        }
+      });
+    });
+  } catch (e) {
+    return;
+  }
   for (let i = 0; i < maxRetries; i++) {
     try {
       await chrome.tabs.remove(tabId);
       return;
     } catch (e) {
-      if (e.message && e.message.includes('Tabs cannot be edited right now')) {
-        console.warn('Chrome is locked (user dragging tab). Retrying tab remove...', i);
-        await new Promise(r => setTimeout(r, 1000));
+      if (isTabLockError(e)) {
+        console.warn('Chrome is locked. Retrying tab remove...', i);
+        const delay = 200 * Math.pow(1.5, i);
+        await new Promise(r => setTimeout(r, delay));
       } else {
-        return; // Ignore other remove errors
+        return;
       }
     }
   }
 }
 
-async function updateTabWithRetry(tabId, options, maxRetries = 5) {
+async function updateTabWithRetry(tabId, options, maxRetries = 10) {
+  if (typeof tabId !== 'number') {
+    throw new TypeError('tabId must be a number');
+  }
+  if (typeof options !== 'object' || options === null) {
+    throw new TypeError('options must be an object');
+  }
+  try {
+    await new Promise((resolve, reject) => {
+      chrome.tabs.get(tabId, (tab) => {
+        if (chrome.runtime.lastError || !tab) {
+          reject(new Error('Tab does not exist'));
+        } else {
+          resolve();
+        }
+      });
+    });
+  } catch (e) {
+    throw new Error(`Tab ${tabId} does not exist: ${e.message}`);
+  }
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await chrome.tabs.update(tabId, options);
     } catch (e) {
-      if (e.message && e.message.includes('Tabs cannot be edited right now')) {
-        console.warn('Chrome is locked (user dragging tab). Retrying tab update...', i);
-        await new Promise(r => setTimeout(r, 1000));
+      if (isTabLockError(e)) {
+        console.warn('Chrome is locked. Retrying tab update...', i);
+        const delay = 200 * Math.pow(1.5, i);
+        await new Promise(r => setTimeout(r, delay));
       } else {
         throw e;
       }
     }
   }
   throw new Error('Timeout: Chrome tabs locked for too long.');
+}
+
+async function waitForTabToComplete(tabId, timeoutMs = 30000) {
+  if (typeof tabId !== 'number') {
+    throw new TypeError('tabId must be a number');
+  }
+  try {
+    const tab = await new Promise((resolve, reject) => {
+      chrome.tabs.get(tabId, (t) => {
+        if (chrome.runtime.lastError || !t) {
+          reject(new Error('Tab does not exist'));
+        } else {
+          resolve(t);
+        }
+      });
+    });
+    if (tab.status === 'complete') {
+      return;
+    }
+  } catch (e) {
+    throw new Error(`Tab ${tabId} does not exist: ${e.message}`);
+  }
+  return new Promise((resolve, reject) => {
+    let timer = null;
+    const cleanUp = () => {
+      chrome.tabs.onUpdated.removeListener(listener);
+      chrome.tabs.onRemoved.removeListener(removedListener);
+      if (timer) clearTimeout(timer);
+    };
+    const listener = (updatedTabId, changeInfo, tab) => {
+      if (updatedTabId === tabId && changeInfo.status === 'complete') {
+        cleanUp();
+        resolve();
+      }
+    };
+    const removedListener = (removedTabId) => {
+      if (removedTabId === tabId) {
+        cleanUp();
+        reject(new Error(`Tab ${tabId} was closed while waiting to load.`));
+      }
+    };
+    chrome.tabs.onUpdated.addListener(listener);
+    chrome.tabs.onRemoved.addListener(removedListener);
+    if (timeoutMs > 0) {
+      timer = setTimeout(() => {
+        cleanUp();
+        reject(new Error(`Timeout waiting for tab ${tabId} to complete loading.`));
+      }, timeoutMs);
+    }
+  });
 }
 
 
@@ -105,13 +202,7 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
     return true; // Mantém o canal de mensagem aberto para resposta assíncrona
   }
   
-  if (message.action === "scrapeMenuFromInstagram") {
-    const { instagramUrl, restaurantName } = message;
-    handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sender)
-      .then(result => sendResponse(result))
-      .catch(err => sendResponse({ success: false, error: err.message }));
-    return true;
-  }
+  // scrapeMenuFromInstagram is now handled via persistent connections onConnectExternal
 
   if (message.action === "scrapeMenu") {
     const { url } = message;
@@ -187,6 +278,25 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       .catch(err => sendResponse({ success: false, error: err.message }));
     return true;
   }
+});
+
+chrome.runtime.onConnectExternal.addListener((port) => {
+  console.log("[Extension] Conexão externa via port estabelecida:", port.name);
+  
+  port.onMessage.addListener(async (message) => {
+    console.log("[Extension] Mensagem recebida via port:", message);
+    
+    if (message && message.action === "scrapeMenuFromInstagram") {
+      const { instagramUrl, restaurantName } = message;
+      try {
+        const result = await handleMenuScrapeFromInstagram(instagramUrl, restaurantName, port.sender);
+        port.postMessage(result);
+      } catch (err) {
+        console.error("Erro ao processar scrapeMenuFromInstagram via port:", err);
+        port.postMessage({ success: false, error: err.message });
+      }
+    }
+  });
 });
 
 async function handleSearchGoogleNative(query) {
@@ -2475,11 +2585,13 @@ async function handleSearchGoogleForMenu(query) {
 async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sender) {
   console.log('[Extension] Iniciando fluxo completo de cardápio via Instagram:', instagramUrl);
   
-  const tab = await createTabWithRetry({ url: instagramUrl, active: false });
-  const tabId = tab.id;
-  
+  let tabId;
   try {
-    await new Promise(r => setTimeout(r, 4000));
+    const tab = await createTabWithRetry({ url: instagramUrl, active: false });
+    tabId = tab.id;
+    
+    await waitForTabToComplete(tabId);
+    await new Promise(r => setTimeout(r, 1000));
     
     let bioLink = await chrome.scripting.executeScript({
       target: { tabId: tabId },
@@ -2512,7 +2624,8 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sende
     }
     
     await updateTabWithRetry(tabId, { url: externalUrl });
-    await new Promise(r => setTimeout(r, 5000));
+    await waitForTabToComplete(tabId);
+    await new Promise(r => setTimeout(r, 1000));
     
     if (externalUrl.includes('linktr.ee') || externalUrl.includes('bio.link') || externalUrl.includes('linktree')) {
       console.log('[Extension] Linktree detectado. Procurando botão...');
@@ -2533,7 +2646,8 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sende
       if (targetUrl) {
         console.log('[Extension] Botão de delivery encontrado no Linktree:', targetUrl);
         await updateTabWithRetry(tabId, { url: targetUrl });
-        await new Promise(r => setTimeout(r, 6000));
+        await waitForTabToComplete(tabId);
+        await new Promise(r => setTimeout(r, 1000));
       } else {
         await removeTabWithRetry(tabId);
         return { success: false, error: 'Nenhum botão de cardápio encontrado no Linktree.' };
@@ -2561,7 +2675,8 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sende
       }
     });
     
-    await new Promise(r => setTimeout(r, 4000));
+    await waitForTabToComplete(tabId);
+    await new Promise(r => setTimeout(r, 1000));
     
     try {
       const isAnotaAi = await detectAnotaAiInTab(tabId);
@@ -2592,7 +2707,9 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, sende
     
   } catch (err) {
     console.error('Erro no handleMenuScrapeFromInstagram:', err);
-    try { await removeTabWithRetry(tabId); } catch(e){}
+    if (tabId !== undefined) {
+      try { await removeTabWithRetry(tabId); } catch(e){}
+    }
     return { success: false, error: err.message };
   }
 }

@@ -1,22 +1,21 @@
-# BRIEFING — 2026-06-06T18:07:08-03:00
+# BRIEFING — 2026-06-22T01:54:30-03:00
 
 ## Mission
-Orchestrate the auditing and correction of GrubGo Design System deviations in src/ while ensuring build integrity.
+Fix the Chrome Extension's communication issue, validate Instagram -> Linktree -> Anota AI menu extraction, and ensure resiliency to Tabs API blocking, with zero fallbacks.
 
 ## 🔒 My Identity
 - Archetype: sub_orch
 - Roles: orchestrator, user_liaison, human_reporter, successor
 - Working directory: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator
 - Original parent: main agent
-- Original parent conversation ID: 5e578e33-ff56-48af-adf3-8ef6a232c095
+- Original parent conversation ID: 46b74978-b4be-4f2a-a14b-df638106be4a
 
 ## 🔒 My Workflow
 - **Pattern**: Project Pattern
-- **Scope document**: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator\PROJECT.md
-1. **Decompose**: Decompose the codebase inspection and remediation into clear, incremental milestones.
+- **Scope document**: c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\PROJECT.md
+1. **Decompose**: Decompose scope into: Exploration & Analysis, Code Correction, Verification & Review, and Forensic Audit Gating.
 2. **Dispatch & Execute**:
    - **Direct (iteration loop)**: Explorer → Worker → Reviewer → gate
-   - **Delegate (sub-orchestrator)**: N/A for this scope, or delegate milestones to subagents/sub-orchestrators if large.
 3. **On failure** (in this order):
    - Retry: nudge stuck agent or re-send task
    - Replace: spawn fresh agent with partial progress
@@ -26,41 +25,42 @@ Orchestrate the auditing and correction of GrubGo Design System deviations in sr
    - Escalate: report to parent (sub-orchestrators only, last resort)
 4. **Succession**: at 16 spawns, write handoff.md, spawn successor.
 - **Work items**:
-  1. Initial Audit & Plan [pending]
-  2. Implement Design System fixes [pending]
-  3. Verify Build & Styles [pending]
-- **Current phase**: 1
-- **Current focus**: Initial Audit & Plan
+  1. Exploration & Analysis [done]
+  2. Code Correction [done]
+  3. Verification & Review [in-progress]
+  4. Forensic Audit Gating [pending]
+- **Current phase**: 3
+- **Current focus**: Verification & Review
 
 ## 🔒 Key Constraints
 - Never write, modify, or create source code files directly.
 - Never run build/test commands directly — require workers to do so.
-- Ensure production build command `npm run build` succeeds (returns code 0, no TS errors).
-- All cards and botões modified utilize soft shadows, Poppins font (Lobster for logos), rounded-[20px] / rounded-xl, and Fire-Red colors.
+- Avoid fallbacks.
 - Never reuse a subagent after it has delivered its handoff — always spawn fresh.
 
 ## Current Parent
-- Conversation ID: 5e578e33-ff56-48af-adf3-8ef6a232c095
+- Conversation ID: 46b74978-b4be-4f2a-a14b-df638106be4a
 - Updated: not yet
 
 ## Key Decisions Made
-- [TBD]
+- Overwrote FilterFood design system metadata files with the current Chrome Extension fixes project scope.
 
 ## Team Roster
 | Agent | Type | Work Item | Status | Conv ID |
 |-------|------|-----------|--------|---------|
-| Client Area Explorer | teamwork_preview_explorer | Audit Client Area | completed | e7954a24-5523-4c58-b7e1-a2a040d579ee |
-| Remediation Worker | teamwork_preview_worker | Apply GrubGo design system fixes | completed | ee8bc3a4-491b-4df0-b23d-17df4dbdecb9 |
+| Explorer | teamwork_preview_explorer | Explore communication and navigation issues | completed | 7922fdac-fd9e-4afe-9ba9-183fd9b6704e |
+| Worker | teamwork_preview_worker | Implement extension fixes & verify | completed | 4d1b457f-203c-491b-90d4-e955bb719839 |
+| Challenger | teamwork_preview_challenger | Validate build and run integration tests | in-progress | bb2e9ba1-1d92-4c01-b5d0-049d5f754836 |
 
 ## Succession Status
 - Succession required: no
-- Spawn count: 12 / 16
+- Spawn count: 3 / 16
 - Pending subagents: none
 - Predecessor: none
 - Successor: not yet spawned
 
 ## Active Timers
-- Heartbeat cron: 9bee8803-300d-4124-8765-88a90ccf3da8/task-43
+- Heartbeat cron: 767a42f6-fc52-484d-9bb4-d65a79e60296/task-59
 - Safety timer: none
 - On succession: kill all timers before spawning successor
 - On context truncation: run manage_task(Action="list") — re-create if missing
@@ -68,5 +68,4 @@ Orchestrate the auditing and correction of GrubGo Design System deviations in sr
 ## Artifact Index
 - c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator\plan.md — Project execution plan
 - c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator\progress.md — Heartbeat and step tracking
-- c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator\context.md — Context and environment state
-- c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\.agents\orchestrator\PROJECT.md — Global project scope and interface contracts
+- c:\Users\meuno\Downloads\dazzling-axolotl-crawl-main\dazzling-axolotl-crawl-main\PROJECT.md — Global project scope and interface contracts
