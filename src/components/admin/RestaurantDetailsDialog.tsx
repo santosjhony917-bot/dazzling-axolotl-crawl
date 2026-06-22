@@ -510,7 +510,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           city: parsedAddress.city,
           state: parsedAddress.state,
           cep: parsedAddress.cep,
-          category: normalizeCategory(fullRestaurant.category)
+          category: normalizeCategory(fullRestaurant.category),
+          logo: fullRestaurant.image_url || fullRestaurant.logo,
+          coverImage: fullRestaurant.cover_image_url || fullRestaurant.coverImage
         };
 
         setEditedData(JSON.parse(JSON.stringify(formattedRestaurant)));
@@ -1163,7 +1165,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       // Automatização da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
       const rawInstagram = dataToSave.instagram || getSocialUrl(dataToSave, 'instagram') || '';
-      if (rawInstagram.trim()) {
+      const hasLogo = !!(dataToSave.logo || dataToSave.image_url);
+      
+      if (rawInstagram.trim() && !hasLogo) {
         let useExtension = false;
         const extId = localStorage.getItem('chrome_extension_id')?.trim();
         if (extId) {
@@ -1247,8 +1251,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               if (result.success) {
                 let finalFollowers = null;
                 if (result.followers !== undefined && result.followers !== null) {
-                  const pctVal = parseFloat(pct);
-                  finalFollowers = Math.round((result.followers * pctVal) / 100);
+                  finalFollowers = result.followers;
                 }
                 
                 dataToSave = {

@@ -298,6 +298,30 @@ export default function CityValidation() {
               await supabase.from('restaurants').update({ phone: extRes.phone }).eq('id', restaurant.id);
             }
             
+            if (extRes.coverImage || (extRes.galleryImages && extRes.galleryImages.length > 0)) {
+              toast.success(`✅ Imagens encontradas via extensão no Google Maps!`);
+              addLog(`Fotos do Google Maps extraídas via extensão.`);
+              
+              const imgUpdates: any = {};
+              if (extRes.coverImage) {
+                imgUpdates.image_url = extRes.coverImage;
+                addLog(`Capa definida a partir do Google Maps.`);
+              }
+              await supabase.from('restaurants').update(imgUpdates).eq('id', restaurant.id);
+              
+              if (extRes.galleryImages && extRes.galleryImages.length > 0) {
+                addLog(`Salvando ${extRes.galleryImages.length} fotos na galeria...`);
+                for (let i = 0; i < extRes.galleryImages.length; i++) {
+                  await supabase.from('restaurant_gallery').insert({
+                    restaurant_id: restaurant.id,
+                    image_url: extRes.galleryImages[i],
+                    caption: 'Google Maps',
+                    order_index: i
+                  });
+                }
+              }
+            }
+
             if (extRes.website) {
               toast.success(`✅ Site oficial encontrado: ${extRes.website}`);
               addLog(`Website salvo: ${extRes.website}`);
@@ -380,26 +404,35 @@ export default function CityValidation() {
               if (valData.isValid) {
                 toast.success(`🎯 Instagram validado pela IA! (${valData.reason})`);
                 addLog(`Instagram VALIDADO pela IA: ${valData.reason}`);
-                
-                toast.success(`🖼️ PASSO 4/5: Baixando foto de perfil (Logo)...`);
-                addLog(`PASSO 4/5: Coleta de Logo...`);
+                toast.success(`🖼️ Baixando foto de perfil (Logo)...`);
+                addLog(`Baixando foto de perfil (Logo)...`);
                 if (scrapeRes.rawLogoUrl) {
                   const storagePath = `restaurants/${restaurant.id}/logo_${Date.now()}.jpg`;
-                  const logoRes = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(scrapeRes.rawLogoUrl)}&path=${encodeURIComponent(storagePath)}`, {
-                    method: 'POST'
-                  });
-                  if (logoRes.ok) {
-                    const logoData = await logoRes.json();
-                    if (logoData.success && logoData.url) {
-                      logoPublicUrl = logoData.url;
-                      toast.success(`✅ Logo salva com sucesso!`);
-                      addLog(`Logo salva com sucesso.`);
+                  try {
+                    const logoRes = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(scrapeRes.rawLogoUrl)}&path=${encodeURIComponent(storagePath)}`, {
+                      method: 'POST'
+                    });
+                    if (logoRes.ok) {
+                      const logoData = await logoRes.json();
+                      if (logoData.success && logoData.url) {
+                        logoPublicUrl = logoData.url;
+                        toast.success(`✅ Logo salva com sucesso!`);
+                        addLog(`Logo salva com sucesso.`);
+                      } else {
+                        addLog(`Erro ao salvar logo: ${logoData.error || 'sem URL'}`);
+                      }
+                    } else {
+                      addLog(`Falha na requisição de logo: HTTP ${logoRes.status}`);
                     }
+                  } catch (logoErr: any) {
+                    addLog(`Erro ao baixar logo: ${logoErr.message}`);
                   }
                 }
-                
+
+                // Coleta e Upload de Highlights (Destaques)
                 if (scrapeRes.highlightImages && scrapeRes.highlightImages.length > 0) {
                   toast.success(`Coletando ${scrapeRes.highlightImages.length} imagens de destaque...`);
+                  addLog(`Fazendo upload de ${scrapeRes.highlightImages.length} imagens de destaque...`);
                   for (let i = 0; i < Math.min(scrapeRes.highlightImages.length, 3); i++) {
                     try {
                       const base64Str = scrapeRes.highlightImages[i];
@@ -415,18 +448,105 @@ export default function CityValidation() {
                         }
                         const blob = new Blob([ab], { type: contentType });
                         
-                        const storagePath = `restaurants/${restaurant.id}/gallery_${Date.now()}_${i}.jpg`;
-                        const { error } = await supabase.storage.from('restaurants_assets').upload(storagePath, blob, { upsert: true, contentType });
+                        const storagePath = `gallery/${restaurant.id}/gallery_highlight_${Date.now()}_${i}.jpg`;
+                        const { error } = await supabase.storage
+                          .from('restaurant-images')
+                          .upload(storagePath, blob, { upsert: true, contentType });
                         if (!error) {
-                          const { data } = supabase.storage.from('restaurants_assets').getPublicUrl(storagePath);
+                          const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
                           highlightPublicUrls.push(data.publicUrl);
+                        } else {
+                          console.error('Erro ao fazer upload do destaque no Supabase Storage:', error);
+                          addLog(`Erro no upload do destaque ${i}: ${error.message}`);
                         }
                       }
-                    } catch (err) {
-                      console.error('Erro ao fazer upload da imagem de destaque', err);
+                    } catch (err: any) {
+                      console.error('Erro ao processar imagem de destaque:', err);
+                      addLog(`Erro ao processar imagem de destaque ${i}: ${err.message}`);
                     }
                   }
                 }
+
+                // Coleta, Filtragem por IA e Upload de Feed
+                if (scrapeRes.feedImages && scrapeRes.feedImages.length > 0) {
+                  toast.success(`🤖 Filtrando ${scrapeRes.feedImages.length} fotos do feed com IA...`);
+                  addLog(`Enviando ${scrapeRes.feedImages.length} imagens do feed para filtragem por IA...`);
+                  
+                  try {
+                    const filterResponse = await fetch('/api/local-collector/filter-instagram-gallery', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({ images: scrapeRes.feedImages })
+                    });
+                    
+                    if (filterResponse.ok) {
+                      const filterData = await filterResponse.json();
+                      if (filterData.success && filterData.filteredImages && filterData.filteredImages.length > 0) {
+                        toast.success(`✅ IA aprovou ${filterData.filteredImages.length} de ${scrapeRes.feedImages.length} fotos!`);
+                        addLog(`IA aprovou ${filterData.filteredImages.length} fotos de comida do feed.`);
+                        
+                        const feedPublicUrls: string[] = [];
+                        for (let i = 0; i < filterData.filteredImages.length; i++) {
+                          try {
+                            const base64Str = filterData.filteredImages[i];
+                            const match = base64Str.match(/^data:([^;]+);base64,(.+)$/);
+                            if (match) {
+                              const contentType = match[1];
+                              const b64Data = match[2];
+                              const byteString = atob(b64Data);
+                              const ab = new ArrayBuffer(byteString.length);
+                              const ia = new Uint8Array(ab);
+                              for (let j = 0; j < byteString.length; j++) {
+                                ia[j] = byteString.charCodeAt(j);
+                              }
+                              const blob = new Blob([ab], { type: contentType });
+                              
+                              const storagePath = `gallery/${restaurant.id}/gallery_feed_${Date.now()}_${i}.jpg`;
+                              
+                              const { error } = await supabase.storage
+                                .from('restaurant-images')
+                                .upload(storagePath, blob, { upsert: true, contentType });
+                                
+                              if (!error) {
+                                const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                                feedPublicUrls.push(data.publicUrl);
+                              } else {
+                                console.error('Erro ao fazer upload da imagem do feed no Supabase Storage:', error);
+                                addLog(`Erro no upload da foto feed ${i}: ${error.message}`);
+                              }
+                            }
+                          } catch (uploadErr: any) {
+                            console.error(`Erro no processamento da imagem do feed index ${i}:`, uploadErr);
+                            addLog(`Erro ao processar foto feed ${i}: ${uploadErr.message}`);
+                          }
+                        }
+                        
+                        // Insere as fotos aprovadas na tabela do banco
+                        if (feedPublicUrls.length > 0) {
+                          addLog(`Salvando ${feedPublicUrls.length} fotos aprovadas na galeria...`);
+                          for (let i = 0; i < feedPublicUrls.length; i++) {
+                            await supabase.from('restaurant_gallery').insert({
+                              restaurant_id: restaurant.id,
+                              image_url: feedPublicUrls[i],
+                              caption: 'Feed do Instagram (Filtrado por IA)',
+                              order_index: i + 10
+                            });
+                          }
+                        }
+                      } else {
+                        addLog(`IA não aprovou nenhuma foto do feed ou erro no filtro.`);
+                      }
+                    } else {
+                      addLog(`Erro HTTP ao chamar o endpoint de filtro de imagens: HTTP ${filterResponse.status}`);
+                    }
+                  } catch (filterErr: any) {
+                    console.error('Erro ao filtrar/upload da galeria:', filterErr);
+                    addLog(`Erro ao processar galeria do Instagram: ${filterErr.message}`);
+                  }
+                }
+
 
                 toast.success(`💾 Salvando Instagram e ativando flag 'ai_validated'...`);
                 addLog(`Salvando flag ai_validated no banco...`);

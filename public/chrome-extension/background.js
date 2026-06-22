@@ -567,6 +567,22 @@ async function handleInstagramScrape(instagramUrl) {
         }
       }
     }
+
+    let base64Feed = [];
+    if (scrapeData.feedImages && scrapeData.feedImages.length > 0) {
+      for (const imgUrl of scrapeData.feedImages) {
+        try {
+          const fetchRes = await fetch(imgUrl);
+          if (fetchRes.ok) {
+            const blob = await fetchRes.blob();
+            const b64 = await blobToBase64(blob);
+            base64Feed.push(`data:${blob.type || 'image/jpeg'};base64,${b64}`);
+          }
+        } catch (e) {
+          console.error("Erro ao baixar imagem do feed:", e);
+        }
+      }
+    }
     
     // 5. Fecha a aba temporária (pois a raspagem deu certo)
     await removeTabWithRetry(tabId);
@@ -577,7 +593,9 @@ async function handleInstagramScrape(instagramUrl) {
       bio: scrapeData.bio,
       logoDataUrl: base64 ? `data:${contentType};base64,${base64}` : null,
       rawLogoUrl: scrapeData.profilePicUrl,
-      highlightImages: base64Highlights
+      highlightImages: base64Highlights,
+      feedImages: base64Feed,
+      rawFeedImages: scrapeData.feedImages || []
     };
     
   } catch (err) {
@@ -843,13 +861,53 @@ async function scrapePageLogic() {
   } catch (highlightErr) {
     console.error("Erro ao raspar destaques:", highlightErr);
   }
+
+  // 4. Raspagem de até 12 imagens do feed do Instagram
+  const feedImages = [];
+  try {
+    const isInvalidImage = (img) => {
+      if (!img.src || !img.src.startsWith('http')) return true;
+      if (profilePicUrl && img.src === profilePicUrl) return true;
+      
+      // Filter out small icons < 150px
+      const rect = img.getBoundingClientRect ? img.getBoundingClientRect() : null;
+      const width = img.naturalWidth || img.width || (rect ? rect.width : 0);
+      const height = img.naturalHeight || img.height || (rect ? rect.height : 0);
+      
+      if ((width > 0 && width < 150) || (height > 0 && height < 150)) {
+        return true;
+      }
+      return false;
+    };
+
+    const feedImgs = Array.from(document.querySelectorAll('a[href*="/p/"] img, a[href*="/reel/"] img'));
+    for (const img of feedImgs) {
+      if (!isInvalidImage(img) && !feedImages.includes(img.src)) {
+        feedImages.push(img.src);
+        if (feedImages.length >= 12) break;
+      }
+    }
+
+    if (feedImages.length < 12) {
+      const articleImgs = Array.from(document.querySelectorAll('article img'));
+      for (const img of articleImgs) {
+        if (!isInvalidImage(img) && !feedImages.includes(img.src)) {
+          feedImages.push(img.src);
+          if (feedImages.length >= 12) break;
+        }
+      }
+    }
+  } catch (feedErr) {
+    console.error("Erro ao raspar feed:", feedErr);
+  }
   
   return {
     success: true,
     profilePicUrl: profilePicUrl,
     followers: followersCount,
     bio: bioText,
-    highlightImages: highlightImages
+    highlightImages: highlightImages,
+    feedImages: feedImages
   };
 }
 
@@ -1320,11 +1378,6 @@ async function expandAndLoadAllContentInPage() {
           }
         }
         
-        const headerClassStr = String(header.className || '');
-        if (headerClassStr.includes('collapsed') || headerClassStr.includes('close')) {
-          isCollapsed = true;
-        }
-      }
       
       if (isCollapsed) {
         const target = header.querySelector('button, a, span') || header;
@@ -1358,6 +1411,77 @@ async function expandAndLoadAllContentInPage() {
     await delay(300);
     window.scrollTo(0, document.body.scrollHeight);
     await delay(500);
+  }
+
+  // 4. Clika em itens individuais (produtos) para abrir modais de opções (ex: Saipos) e extrair os adicionais
+  try {
+    const clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li')).filter(el => {
+      // Ignora elementos que são claramente links externos ou de navegação
+      if (el.tagName === 'A' && el.href && !el.href.includes('#') && !el.href.startsWith('javascript')) return false;
+      const a = el.querySelector('a');
+      if (a && a.href && !a.href.includes('#') && !a.href.startsWith('javascript')) return false;
+      
+      // Somente elementos com tamanho razoável (ignora mini-botões)
+      if (el.clientHeight < 40) return false;
+      
+      // Evita o cabeçalho/menu principal
+      if (el.closest('header') || el.closest('nav') || el.closest('footer')) return false;
+      
+      return true;
+    });
+
+    let clickedCount = 0;
+    for (let i = 0; i < clickables.length; i++) {
+      if (clickedCount >= 60) break; // Limite para não travar a extensão
+      
+      const el = clickables[i];
+      const btn = el.querySelector('button') || el;
+      
+      try { 
+        btn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+        btn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+        btn.click(); 
+      } catch(e) {}
+      
+      const delayPromise = new Promise(resolve => setTimeout(resolve, 500));
+      await delayPromise; // aguarda modal ou expansão abrir
+      
+      // Procura por modal visível
+      const modals = Array.from(document.querySelectorAll('[role="dialog"], .modal, .dialog, [class*="modal"], [class*="Dialog"], [class*="Drawer"]')).filter(m => m.offsetParent !== null);
+      
+      if (modals.length > 0) {
+        const modal = modals[modals.length - 1]; // Pega o modal mais no topo
+        const modalText = modal.innerText || '';
+        
+        // Injeta o texto do modal dentro do elemento original (escondido) para ser capturado depois
+        if (modalText && modalText.length > 20) {
+          const hiddenDiv = document.createElement('div');
+          hiddenDiv.style.display = 'none';
+          hiddenDiv.className = 'scraper-extracted-modal-text';
+          hiddenDiv.innerText = '\\n[OPÇÕES DA IA: ' + modalText.replace(/\\n/g, ' ') + ']\\n';
+          el.appendChild(hiddenDiv);
+        }
+        
+        // Fecha o modal
+        const closeBtn = modal.querySelector('button[aria-label*="close"], button[aria-label*="Fechar"], .close, [class*="close"], [class*="CloseButton"]');
+        if (closeBtn) {
+          try { closeBtn.click(); } catch(e) {}
+        } else {
+          // Tenta ESCAPE
+          document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', keyCode: 27, bubbles: true }));
+          document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape', keyCode: 27, bubbles: true }));
+          
+          // Fallback brutal: clica fora do modal
+          const overlay = document.querySelector('.overlay, [class*="overlay"], [class*="backdrop"]');
+          if (overlay) try { overlay.click(); } catch(e) {}
+        }
+        clickedCount++;
+        const closePromise = new Promise(resolve => setTimeout(resolve, 300));
+        await closePromise; // Aguarda fechar
+      }
+    }
+  } catch(e) {
+    console.warn("Erro ao tentar extrair modais de produtos:", e);
   }
 }
 
@@ -2469,11 +2593,35 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         });
         if (socialLinks.length > 0) extractedInfo.socialLinks = socialLinks;
 
+        // Extrai fotos da galeria / capa
+        const photos = [];
+        const imgElements = Array.from(document.querySelectorAll('button[aria-label^="Foto"] img, div[aria-label^="Foto"] img, img[decoding="async"], .gallery-image, img.gallery-image, div[role="img"], img[src*="googleusercontent.com/p/AF1Qip"]'));
+        
+        imgElements.forEach(img => {
+          let src = img.getAttribute('src') || '';
+          if (img.tagName.toLowerCase() === 'div') {
+            const style = img.getAttribute('style') || '';
+            const match = style.match(/url\(['"]?(.*?)['"]?\)/);
+            if (match) src = match[1];
+          }
+          
+          if (src && src.includes('googleusercontent.com/p/AF1Qip') && !src.includes('w50-h50') && !src.includes('w24-h24') && !src.includes('w36-h36')) {
+            // Aumenta a resolução da imagem do google
+            const cleanSrc = src.replace(/=w\d+-h\d+.*$/, '=s800');
+            if (!photos.includes(cleanSrc)) photos.push(cleanSrc);
+          }
+        });
+        
+        if (photos.length > 0) {
+          extractedInfo.coverImage = photos[0];
+          extractedInfo.galleryImages = photos.slice(1, 13);
+        }
+
         if (foundAny) {
           return { success: true, schedule, ...extractedInfo };
         } else {
           // Mesmo sem horários, retorna os outros dados se encontrou algo
-          const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0);
+          const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0) || extractedInfo.coverImage;
           if (hasOtherData) {
             return { success: true, schedule: null, ...extractedInfo };
           }

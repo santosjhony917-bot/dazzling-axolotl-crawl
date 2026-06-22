@@ -2954,6 +2954,11 @@ export default function GoogleMapsCollector() {
           
           let coverUrl = '';
           let galleryUrls: string[] = [];
+          
+          if (p.photos && p.photos.length > 0) {
+            coverUrl = getGooglePhotoUrl(p.photos[0].name, apiKey);
+            galleryUrls = p.photos.slice(1, 13).map((photo: any) => getGooglePhotoUrl(photo.name, apiKey));
+          }
 
           const nameKey = cleanName.replace(/[^a-z0-9]/g, '');
           const instagram = `https://instagram.com/${nameKey}`;

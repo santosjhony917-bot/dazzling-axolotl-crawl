@@ -54,6 +54,18 @@ export interface Restaurant {
   coleta_logs?: string | null;
 }
 
+export interface ExpansionProject {
+  id: string;
+  name: string;
+  state: string;
+  slug: string;
+  status: string;
+  manager_name?: string | null;
+  progress?: number | null;
+  health_score?: number | null;
+  created_at?: string;
+}
+
 export interface MenuCategory {
   id: string;
   restaurant_id: string;

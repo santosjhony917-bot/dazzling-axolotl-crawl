@@ -281,6 +281,82 @@ export default defineConfig(() => ({
               return;
             }
 
+            if (urlPath === "/api/local-collector/filter-instagram-gallery" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData);
+                  const images: string[] = parsed.images || [];
+                  
+                  if (images.length === 0) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: true, filteredImages: [] }));
+                    return;
+                  }
+                  
+                  const { OpenAI } = await import('openai');
+                  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+                  const openRouterKey = process.env.VITE_OPENROUTER_API_KEY || '';
+                  
+                  let openai;
+                  let model = 'gpt-4o-mini';
+                  if (openRouterKey) {
+                    openai = new OpenAI({
+                      baseURL: "https://openrouter.ai/api/v1",
+                      apiKey: openRouterKey,
+                      defaultHeaders: { "HTTP-Referer": "http://localhost:8080", "X-Title": "Admin Dashboard" }
+                    });
+                    model = 'openrouter/free';
+                  } else if (apiKey) {
+                    openai = new OpenAI({ apiKey });
+                  } else {
+                    throw new Error('Chave de API não configurada no .env');
+                  }
+
+                  // Executar a IA Vision em paralelo para cada imagem
+                  const promises = images.map(async (img) => {
+                    try {
+                      const response = await openai.chat.completions.create({
+                        model: model,
+                        messages: [
+                          {
+                            role: 'system',
+                            content: 'Você é um assistente de IA que analisa imagens de redes sociais para um guia gastronômico. Responda apenas com a palavra "APROVADO" ou "REJEITADO". Classifique como APROVADO se a imagem for claramente de comida, bebida ou prato real servido (prato de comida pronto, sobremesa, drink, café, ingredientes de cozinha). Classifique como REJEITADO se a imagem contiver pessoas (mesmo parcialmente), rostos, cadeiras/mesas vazias (sem comida/bebida em foco), ambiente geral sem destaque para comida, cardápios impressos, panfletos, promoções de texto, memes, logotipos ou flyers promocionais.'
+                          },
+                          {
+                            role: 'user',
+                            content: [
+                              { type: 'text', text: 'Analise esta imagem e responda apenas com a palavra APROVADO ou REJEITADO:' },
+                              { type: 'image_url', image_url: { url: img } }
+                            ]
+                          }
+                        ],
+                        temperature: 0.1
+                      });
+                      
+                      const classification = response.choices[0].message.content?.trim().toUpperCase() || '';
+                      const isApproved = classification.includes('APROVADO') && !classification.includes('REJEITADO');
+                      return { img, isApproved };
+                    } catch (err: any) {
+                      console.error('Erro na classificação de imagem via IA:', err.message);
+                      return { img, isApproved: false };
+                    }
+                  });
+
+                  const results = await Promise.all(promises);
+                  const approvedImages = results.filter(r => r.isApproved).map(r => r.img);
+
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: true, filteredImages: approvedImages }));
+                } catch (err: any) {
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: false, error: err.message }));
+                }
+              });
+              return;
+            }
+
             if (urlPath === "/api/local-collector/re-search-menu" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);

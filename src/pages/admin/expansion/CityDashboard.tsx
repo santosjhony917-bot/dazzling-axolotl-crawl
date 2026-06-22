@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronLeft, Activity, Database, CheckCircle, Target, Briefcase, CreditCard, Sparkles, MapPin } from 'lucide-react';
+import { ChevronLeft, Activity, Database, CheckCircle, Target, Briefcase, CreditCard, Sparkles, MapPin, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { supabase } from '@/integrations/supabase/client';
+import { ExpansionProject } from '@/types/supabase';
 
 // Módulos
 import CitySettings from './components/CitySettings';
@@ -21,13 +23,45 @@ export default function CityDashboard() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTab = searchParams.get('tab') || 'operations';
 
+  const [city, setCity] = useState<ExpansionProject | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadCity() {
+      if (!cityId) return;
+      try {
+        const { data, error } = await supabase.from('expansion_projects').select('*').eq('slug', cityId).single();
+        if (error) throw error;
+        setCity(data);
+      } catch (err) {
+        console.error("Erro ao carregar cidade:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadCity();
+  }, [cityId]);
+
   const handleTabChange = (val: string) => {
     setSearchParams({ tab: val });
   };
 
-  const cityName = cityId === 'joao-pessoa-pb' ? 'João Pessoa' : 
-                   cityId === 'campina-grande-pb' ? 'Campina Grande' : 
-                   'Nova Cidade';
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+      </div>
+    );
+  }
+
+  if (!city) {
+    return (
+      <div className="p-8 text-center space-y-4">
+        <h2 className="text-xl font-bold text-slate-700">Projeto de Expansão não encontrado</h2>
+        <Button onClick={() => navigate('/admin/expansion')}>Voltar para a Visão Executiva</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 pb-12 font-sans bg-slate-50 min-h-[calc(100vh-2rem)] -m-8 p-8">
@@ -46,17 +80,22 @@ export default function CityDashboard() {
           
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">{cityName}</h1>
-              <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-none font-bold uppercase tracking-wider text-[10px] px-2 py-0.5">
-                Em Operação
+              <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">{city.name}</h1>
+              <Badge className={
+                city.status === 'Operação' ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-none font-bold uppercase tracking-wider text-[10px] px-2 py-0.5' :
+                city.status === 'Campanha' ? 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200 border-none font-bold uppercase tracking-wider text-[10px] px-2 py-0.5' :
+                'bg-slate-100 text-slate-700 hover:bg-slate-200 border-none font-bold uppercase tracking-wider text-[10px] px-2 py-0.5'
+              }>
+                {city.status}
               </Badge>
             </div>
             <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
               <div className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5" /> Paraíba (PB)
+                <MapPin className="w-3.5 h-3.5" /> Estado: {city.state}
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" /> Saúde: 92/100
+                <div className={`w-2 h-2 rounded-full ${city.health_score && city.health_score > 80 ? 'bg-emerald-500' : city.health_score && city.health_score > 60 ? 'bg-amber-500' : 'bg-red-500'}`} /> 
+                Saúde: {city.health_score}/100
               </div>
             </div>
           </div>
@@ -65,9 +104,9 @@ export default function CityDashboard() {
         <div className="w-full md:w-64 space-y-2">
           <div className="flex justify-between text-xs font-bold text-slate-600">
             <span>Progresso do Projeto</span>
-            <span>85%</span>
+            <span>{city.progress || 0}%</span>
           </div>
-          <Progress value={85} className="h-2 bg-slate-100" />
+          <Progress value={city.progress || 0} className="h-2 bg-slate-100" />
         </div>
       </div>
 

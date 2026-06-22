@@ -1,76 +1,255 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Building, TrendingUp, Plus, BarChart3, Users, CreditCard, ChevronRight, Map, LineChart, Star } from 'lucide-react';
+import { Building, TrendingUp, Plus, BarChart3, Users, CreditCard, ChevronRight, Map, LineChart, Star, Loader2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-
-// Mock data for the National Executive view
-const NATIONAL_METRICS = {
-  mrr: 'R$ 124.500',
-  arr: 'R$ 1.49M',
-  activeCities: 3,
-  planningCities: 2,
-  nationalConversion: '18.4%',
-  totalPremium: 1250,
-  totalFree: 4500,
-  expectedRevenue: 'R$ 180.000',
-};
-
-const MOCK_CITIES = [
-  {
-    id: 'joao-pessoa-pb',
-    name: 'João Pessoa',
-    state: 'PB',
-    status: 'Operação',
-    healthScore: 92,
-    progress: 85,
-    restaurants: 1387,
-    imported: 1230,
-    premiumCortesia: 700,
-    premiumPago: 264,
-    free: 266,
-    conversion: '32%',
-    revenue: 'R$ 9.800',
-    manager: 'Carlos Silva'
-  },
-  {
-    id: 'campina-grande-pb',
-    name: 'Campina Grande',
-    state: 'PB',
-    status: 'Campanha',
-    healthScore: 78,
-    progress: 60,
-    restaurants: 850,
-    imported: 300,
-    premiumCortesia: 50,
-    premiumPago: 10,
-    free: 240,
-    conversion: '12%',
-    revenue: 'R$ 450',
-    manager: 'Ana Paula'
-  },
-  {
-    id: 'recife-pe',
-    name: 'Recife',
-    state: 'PE',
-    status: 'Planejamento',
-    healthScore: 100,
-    progress: 10,
-    restaurants: 0,
-    imported: 0,
-    premiumCortesia: 0,
-    premiumPago: 0,
-    free: 0,
-    conversion: '0%',
-    revenue: 'R$ 0',
-    manager: 'Pendente'
-  }
-];
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { supabase } from '@/integrations/supabase/client';
+import { ExpansionProject } from '@/types/supabase';
+import { showSuccess, showError } from '@/utils/toast';
 
 export default function ExpansionHub() {
   const navigate = useNavigate();
+  const [projects, setProjects] = useState<ExpansionProject[]>([]);
+  const [metrics, setMetrics] = useState({
+    mrr: 0,
+    activeCities: 0,
+    planningCities: 0,
+    totalPremium: 0,
+    totalFree: 0,
+    totalLeads: 0,
+  });
+  
+  const [cityStats, setCityStats] = useState<Record<string, { leads: number, premium: number, revenue: number, healthScore: number }>>({});
+  const [loading, setLoading] = useState(true);
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newCity, setNewCity] = useState({ name: '', state: '', manager_name: '', status: 'Planejamento' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Merge Modal State
+  const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
+  const [mergeSourceId, setMergeSourceId] = useState('');
+  const [mergeTargetId, setMergeTargetId] = useState('');
+  const [isMerging, setIsMerging] = useState(false);
+
+  const fetchDashboardData = async () => {
+    setLoading(true);
+    try {
+      // 1. Fetch Projects
+      let { data: projData, error: projError } = await supabase
+        .from('expansion_projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+        
+      if (projError) throw projError;
+
+      // 2. Fetch Restaurants for Metrics
+      const { data: restData, error: restError } = await supabase
+        .from('restaurants')
+        .select('plan, city, state');
+        
+      if (restError) throw restError;
+
+      // Auto-sync missing projects based on existing restaurants
+      if (restData && restData.length > 0) {
+        const uniqueCities: Record<string, {name: string, state: string}> = {};
+        restData.forEach(r => {
+          if (r.city && r.state) {
+            const cleanedCity = r.city.trim().replace(/\s*-\s*[A-Z]{2}$/i, '');
+            const cleanedState = r.state.trim().toUpperCase();
+            
+            // Skip dirty/short name data (e.g. state abbreviation as city)
+            if (!cleanedCity || cleanedCity.toUpperCase() === cleanedState || cleanedCity.length <= 2) {
+              return;
+            }
+
+            const key = `${cleanedCity.toLowerCase()}-${cleanedState}`;
+            if (!uniqueCities[key]) {
+               uniqueCities[key] = { name: cleanedCity, state: cleanedState };
+            }
+          }
+        });
+
+        const existingProjectKeys = new Set((projData || []).map(p => `${p.name.trim().toLowerCase()}-${p.state.trim().toUpperCase()}`));
+        const missingProjects = Object.values(uniqueCities).filter(c => !existingProjectKeys.has(`${c.name.toLowerCase()}-${c.state}`));
+
+        if (missingProjects.length > 0) {
+          const inserts = missingProjects.map(c => ({
+            name: c.name,
+            state: c.state,
+            slug: `${c.name}-${c.state}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-'),
+            status: 'Operação',
+            progress: 80,
+            health_score: 100
+          }));
+          
+          const { error: insertError } = await supabase.from('expansion_projects').insert(inserts);
+          if (!insertError) {
+             const { data: updatedProj } = await supabase.from('expansion_projects').select('*').order('created_at', { ascending: false });
+             if (updatedProj) projData = updatedProj;
+          }
+        }
+      }
+
+      setProjects(projData || []);
+
+      let totalPremium = 0;
+      let totalFree = 0;
+      let totalLeads = (restData || []).length;
+      let mrr = 0;
+      
+      const stats: Record<string, { leads: number, premium: number, revenue: number, healthScore: number }> = {};
+
+      (restData || []).forEach(r => {
+        if (r.plan === 'premium' || r.plan === 'premium_gift') {
+           totalPremium++;
+           if (r.plan === 'premium') mrr += 49.90; // Default estimate
+        } else {
+           totalFree++;
+        }
+        
+        if (r.city && r.state) {
+          const cleanedCity = r.city.trim().replace(/\s*-\s*[A-Z]{2}$/i, '');
+          const cleanedState = r.state.trim().toUpperCase();
+          const key = `${cleanedCity.toLowerCase()}-${cleanedState}`;
+          if (!stats[key]) stats[key] = { leads: 0, premium: 0, revenue: 0, healthScore: 100 };
+          stats[key].leads++;
+          if (r.plan === 'premium') {
+             stats[key].premium++;
+             stats[key].revenue += 49.90;
+          }
+        }
+      });
+
+      const activeCities = (projData || []).filter(p => p.status === 'Operação').length;
+      const planningCities = (projData || []).filter(p => p.status === 'Planejamento' || p.status === 'Campanha').length;
+
+      setMetrics({ mrr, activeCities, planningCities, totalPremium, totalFree, totalLeads });
+      setCityStats(stats);
+    } catch (err: any) {
+      console.error(err);
+      showError('Erro ao carregar dados do hub de expansão');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMergeProjects = async () => {
+    if (!mergeSourceId || !mergeTargetId) {
+      showError("Selecione os projetos de origem e destino");
+      return;
+    }
+
+    const sourceProj = projects.find(p => p.id === mergeSourceId);
+    const targetProj = projects.find(p => p.id === mergeTargetId);
+
+    if (!sourceProj || !targetProj) {
+      showError("Projeto inválido");
+      return;
+    }
+
+    if (!window.confirm(`Tem certeza que deseja mesclar os dados de "${sourceProj.name} (${sourceProj.state})" para "${targetProj.name} (${targetProj.state})"? Isso alterará os restaurantes no banco de dados e apagará o projeto de origem permanentemente.`)) {
+      return;
+    }
+
+    setIsMerging(true);
+    try {
+      // 1. Update restaurants associated with source to target city/state
+      const { error: updateError } = await supabase
+        .from('restaurants')
+        .update({
+          city: targetProj.name,
+          state: targetProj.state
+        })
+        .eq('city', sourceProj.name)
+        .eq('state', sourceProj.state);
+
+      if (updateError) throw updateError;
+
+      // 2. Delete source project
+      const { error: deleteError } = await supabase
+        .from('expansion_projects')
+        .delete()
+        .eq('id', sourceProj.id);
+
+      if (deleteError) throw deleteError;
+
+      showSuccess("Projetos mesclados com sucesso!");
+      setIsMergeModalOpen(false);
+      setMergeSourceId('');
+      setMergeTargetId('');
+      await fetchDashboardData();
+    } catch (err: any) {
+      console.error(err);
+      showError(err.message || 'Erro ao mesclar projetos');
+    } finally {
+      setIsMerging(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const handleCreateProject = async () => {
+    if (!newCity.name || !newCity.state) {
+      showError("Nome e Estado são obrigatórios");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      const slug = `${newCity.name}-${newCity.state}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+      
+      const { error } = await supabase.from('expansion_projects').insert([{
+        name: newCity.name.trim(),
+        state: newCity.state.trim().toUpperCase(),
+        slug,
+        status: newCity.status,
+        manager_name: newCity.manager_name,
+        progress: newCity.status === 'Operação' ? 80 : newCity.status === 'Campanha' ? 40 : 10,
+        health_score: 100
+      }]);
+      
+      if (error) throw error;
+      
+      showSuccess("Projeto de cidade criado com sucesso!");
+      setIsModalOpen(false);
+      setNewCity({ name: '', state: '', manager_name: '', status: 'Planejamento' });
+      await fetchDashboardData();
+    } catch (err: any) {
+      console.error(err);
+      showError(err.message || 'Erro ao criar projeto');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Group projects by state
+  const groupedProjects = useMemo(() => {
+    return projects.reduce((acc, proj) => {
+      const st = proj.state.toUpperCase();
+      if (!acc[st]) acc[st] = [];
+      acc[st].push(proj);
+      return acc;
+    }, {} as Record<string, ExpansionProject[]>);
+  }, [projects]);
+
+  const nationalConversion = metrics.totalLeads > 0 ? ((metrics.totalPremium / metrics.totalLeads) * 100).toFixed(1) + '%' : '0%';
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-12 font-sans">
@@ -81,9 +260,129 @@ export default function ExpansionHub() {
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Visão Executiva</h1>
           <p className="text-slate-500 mt-1 text-sm font-medium">Controle nacional de implantações e expansão de mercado.</p>
         </div>
-        <Button className="bg-slate-900 hover:bg-slate-800 text-white shadow-sm rounded-lg font-medium">
-          <Plus className="w-4 h-4 mr-2" /> Novo Projeto de Cidade
-        </Button>
+        
+        <div className="flex flex-wrap gap-2">
+          {/* Merge Projects Dialog */}
+          <Dialog open={isMergeModalOpen} onOpenChange={setIsMergeModalOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="border-slate-300 hover:bg-slate-50 text-slate-700 shadow-sm rounded-lg font-medium">
+                Mesclar Cidades
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Mesclar Projetos / Cidades</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="space-y-2">
+                  <Label htmlFor="sourceProject">Projeto Duplicado (Origem)</Label>
+                  <select 
+                    id="sourceProject"
+                    className="flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
+                    value={mergeSourceId}
+                    onChange={e => setMergeSourceId(e.target.value)}
+                  >
+                    <option value="">Selecione o projeto com dados sujos...</option>
+                    {projects.map(p => (
+                      <option key={p.id} value={p.id}>{p.name} ({p.state})</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="targetProject">Projeto Oficial (Destino)</Label>
+                  <select 
+                    id="targetProject"
+                    className="flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
+                    value={mergeTargetId}
+                    onChange={e => setMergeTargetId(e.target.value)}
+                  >
+                    <option value="">Selecione o projeto oficial...</option>
+                    {projects.filter(p => p.id !== mergeSourceId).map(p => (
+                      <option key={p.id} value={p.id}>{p.name} ({p.state})</option>
+                    ))}
+                  </select>
+                </div>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                  Esta ação moverá todos os leads/restaurantes cadastrados na cidade de origem para a cidade de destino, e apagará o projeto de origem permanentemente.
+                </p>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsMergeModalOpen(false)}>Cancelar</Button>
+                <Button onClick={handleMergeProjects} disabled={isMerging} className="bg-red-600 hover:bg-red-700 text-white">
+                  {isMerging ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Confirmar Mesclagem
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {/* New Project Dialog */}
+          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-slate-900 hover:bg-slate-800 text-white shadow-sm rounded-lg font-medium">
+                <Plus className="w-4 h-4 mr-2" /> Novo Projeto de Cidade
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Novo Projeto de Expansão</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">Cidade</Label>
+                  <Input 
+                    id="name" 
+                    value={newCity.name} 
+                    onChange={e => setNewCity({...newCity, name: e.target.value})} 
+                    className="col-span-3" 
+                    placeholder="Ex: São Paulo" 
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="state" className="text-right">Estado (UF)</Label>
+                  <Input 
+                    id="state" 
+                    value={newCity.state} 
+                    onChange={e => setNewCity({...newCity, state: e.target.value})} 
+                    className="col-span-3" 
+                    placeholder="Ex: SP" 
+                    maxLength={2} 
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="manager" className="text-right">Líder</Label>
+                  <Input 
+                    id="manager" 
+                    value={newCity.manager_name} 
+                    onChange={e => setNewCity({...newCity, manager_name: e.target.value})} 
+                    className="col-span-3" 
+                    placeholder="Nome do responsável" 
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="status" className="text-right">Status</Label>
+                  <select 
+                    id="status" 
+                    className="col-span-3 flex h-10 w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={newCity.status}
+                    onChange={e => setNewCity({...newCity, status: e.target.value})}
+                  >
+                    <option value="Planejamento">Planejamento</option>
+                    <option value="Campanha">Campanha</option>
+                    <option value="Operação">Operação</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancelar</Button>
+                <Button onClick={handleCreateProject} disabled={isSubmitting}>
+                  {isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Criar Projeto
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {/* Global Executive Dashboard */}
@@ -93,15 +392,13 @@ export default function ExpansionHub() {
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <p className="text-sm font-medium text-slate-500">MRR Nacional</p>
-                <p className="text-2xl font-bold text-slate-900">{NATIONAL_METRICS.mrr}</p>
+                <p className="text-2xl font-bold text-slate-900">
+                  {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(metrics.mrr)}
+                </p>
               </div>
               <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
                 <TrendingUp className="w-4 h-4" />
               </div>
-            </div>
-            <div className="mt-4 flex items-center text-xs text-emerald-600 font-medium">
-              <TrendingUp className="w-3 h-3 mr-1" />
-              <span>+12.5% vs último mês</span>
             </div>
           </CardContent>
         </Card>
@@ -112,8 +409,8 @@ export default function ExpansionHub() {
               <div className="space-y-1">
                 <p className="text-sm font-medium text-slate-500">Cidades Ativas</p>
                 <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-slate-900">{NATIONAL_METRICS.activeCities}</p>
-                  <p className="text-sm font-medium text-slate-500">/ {NATIONAL_METRICS.activeCities + NATIONAL_METRICS.planningCities} total</p>
+                  <p className="text-2xl font-bold text-slate-900">{metrics.activeCities}</p>
+                  <p className="text-sm font-medium text-slate-500">/ {metrics.activeCities + metrics.planningCities} total</p>
                 </div>
               </div>
               <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
@@ -121,7 +418,7 @@ export default function ExpansionHub() {
               </div>
             </div>
             <div className="mt-4 flex items-center text-xs text-slate-500 font-medium">
-              <span>{NATIONAL_METRICS.planningCities} cidades em planejamento</span>
+              <span>{metrics.planningCities} cidades em planejamento</span>
             </div>
           </CardContent>
         </Card>
@@ -131,14 +428,14 @@ export default function ExpansionHub() {
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <p className="text-sm font-medium text-slate-500">Assinaturas Premium</p>
-                <p className="text-2xl font-bold text-slate-900">{NATIONAL_METRICS.totalPremium.toLocaleString('pt-BR')}</p>
+                <p className="text-2xl font-bold text-slate-900">{metrics.totalPremium.toLocaleString('pt-BR')}</p>
               </div>
               <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
                 <Star className="w-4 h-4" />
               </div>
             </div>
             <div className="mt-4 flex items-center text-xs text-slate-500 font-medium">
-              <span className="text-slate-900 font-bold">{NATIONAL_METRICS.totalFree.toLocaleString('pt-BR')}</span> <span className="ml-1">contas Free ativas</span>
+              <span className="text-slate-900 font-bold">{metrics.totalFree.toLocaleString('pt-BR')}</span> <span className="ml-1">contas Free ativas</span>
             </div>
           </CardContent>
         </Card>
@@ -148,7 +445,7 @@ export default function ExpansionHub() {
             <div className="flex justify-between items-start">
               <div className="space-y-1">
                 <p className="text-sm font-medium text-slate-500">Taxa de Conversão</p>
-                <p className="text-2xl font-bold text-slate-900">{NATIONAL_METRICS.nationalConversion}</p>
+                <p className="text-2xl font-bold text-slate-900">{nationalConversion}</p>
               </div>
               <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                 <LineChart className="w-4 h-4" />
@@ -161,85 +458,102 @@ export default function ExpansionHub() {
         </Card>
       </div>
 
-      <div className="pt-6 border-t border-slate-200">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-slate-900">Projetos de Expansão (Cidades)</h2>
-          <Button variant="outline" size="sm" className="text-slate-600 border-slate-200">
-            Filtrar por Status
-          </Button>
-        </div>
+      <div className="pt-6 border-t border-slate-200 space-y-10">
+        
+        {Object.keys(groupedProjects).length === 0 && (
+          <div className="text-center py-10 bg-slate-50 rounded-xl border border-slate-200">
+            <p className="text-slate-500 font-medium mb-4">Nenhum projeto de cidade encontrado.</p>
+            <Button onClick={() => setIsModalOpen(true)}>Criar primeiro projeto</Button>
+          </div>
+        )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {MOCK_CITIES.map((city) => (
-            <div 
-              key={city.id} 
-              onClick={() => navigate(`/admin/expansion/${city.id}`)}
-              className="group cursor-pointer bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 rounded-xl transition-all duration-200 overflow-hidden relative"
-            >
-              {/* Highlight bar for active cities */}
-              {city.status === 'Operação' && (
-                <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
-              )}
-              {city.status === 'Campanha' && (
-                <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
-              )}
+        {Object.keys(groupedProjects).sort().map(stateAbbr => (
+          <div key={stateAbbr} className="space-y-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-bold text-slate-900 bg-slate-100 px-3 py-1 rounded-md">Estado: {stateAbbr}</h2>
+              <div className="h-px bg-slate-200 flex-1"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              {groupedProjects[stateAbbr].map((city) => {
+                const key = `${city.name.toLowerCase()}-${city.state.toUpperCase()}`;
+                const stat = cityStats[key] || { leads: 0, premium: 0, revenue: 0, healthScore: city.health_score || 100 };
+                
+                return (
+                  <div 
+                    key={city.id} 
+                    onClick={() => navigate(`/admin/expansion/${city.slug}`)}
+                    className="group cursor-pointer bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-200 rounded-xl transition-all duration-200 overflow-hidden relative"
+                  >
+                    {/* Highlight bar for active cities */}
+                    {city.status === 'Operação' && (
+                      <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
+                    )}
+                    {city.status === 'Campanha' && (
+                      <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500" />
+                    )}
 
-              <div className="p-5">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                      {city.name} <span className="text-xs text-slate-500 font-medium bg-slate-100 px-1.5 py-0.5 rounded">{city.state}</span>
-                    </h3>
-                    <p className="text-xs text-slate-500 mt-1">Líder: {city.manager}</p>
-                  </div>
-                  <Badge variant="outline" className={
-                    city.status === 'Operação' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 font-semibold' : 
-                    city.status === 'Campanha' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-semibold' : 
-                    'bg-slate-50 text-slate-600 border-slate-200 font-semibold'
-                  }>
-                    {city.status}
-                  </Badge>
-                </div>
+                    <div className="p-5">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            {city.name} <span className="text-xs text-slate-500 font-medium bg-slate-100 px-1.5 py-0.5 rounded">{city.state}</span>
+                          </h3>
+                          <p className="text-xs text-slate-500 mt-1">Líder: {city.manager_name || 'Não definido'}</p>
+                        </div>
+                        <Badge variant="outline" className={
+                          city.status === 'Operação' ? 'bg-emerald-50 text-emerald-700 border-emerald-200 font-semibold' : 
+                          city.status === 'Campanha' ? 'bg-indigo-50 text-indigo-700 border-indigo-200 font-semibold' : 
+                          'bg-slate-50 text-slate-600 border-slate-200 font-semibold'
+                        }>
+                          {city.status}
+                        </Badge>
+                      </div>
 
-                {/* Progress / Health */}
-                <div className="mb-5 space-y-2">
-                  <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-slate-500">Progresso do Projeto</span>
-                    <span className={city.progress > 80 ? 'text-emerald-600' : 'text-slate-700'}>{city.progress}%</span>
-                  </div>
-                  <Progress value={city.progress} className="h-1.5 bg-slate-100" />
-                </div>
+                      {/* Progress / Health */}
+                      <div className="mb-5 space-y-2">
+                        <div className="flex justify-between text-xs font-semibold">
+                          <span className="text-slate-500">Progresso do Projeto</span>
+                          <span className={(city.progress || 0) > 80 ? 'text-emerald-600' : 'text-slate-700'}>{city.progress || 0}%</span>
+                        </div>
+                        <Progress value={city.progress || 0} className="h-1.5 bg-slate-100" />
+                      </div>
 
-                <div className="grid grid-cols-2 gap-y-4 gap-x-4 mb-4">
-                  <div>
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Leads Mapeados</p>
-                    <p className="text-sm font-bold text-slate-900">{city.restaurants.toLocaleString('pt-BR')}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Assinantes</p>
-                    <p className="text-sm font-bold text-indigo-600">{city.premiumPago}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Receita Atual</p>
-                    <p className="text-sm font-bold text-emerald-600">{city.revenue}</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Saúde (IA)</p>
-                    <div className="flex items-center gap-1.5">
-                      <div className={`w-2 h-2 rounded-full ${city.healthScore > 80 ? 'bg-emerald-500' : city.healthScore > 60 ? 'bg-amber-500' : 'bg-red-500'}`} />
-                      <p className="text-sm font-bold text-slate-900">{city.healthScore}/100</p>
+                      <div className="grid grid-cols-2 gap-y-4 gap-x-4 mb-4">
+                        <div>
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Leads Mapeados</p>
+                          <p className="text-sm font-bold text-slate-900">{stat.leads.toLocaleString('pt-BR')}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Assinantes</p>
+                          <p className="text-sm font-bold text-indigo-600">{stat.premium}</p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Receita Atual</p>
+                          <p className="text-sm font-bold text-emerald-600">
+                            {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(stat.revenue)}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-0.5">Saúde (IA)</p>
+                          <div className="flex items-center gap-1.5">
+                            <div className={`w-2 h-2 rounded-full ${stat.healthScore > 80 ? 'bg-emerald-500' : stat.healthScore > 60 ? 'bg-amber-500' : 'bg-red-500'}`} />
+                            <p className="text-sm font-bold text-slate-900">{stat.healthScore}/100</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between group-hover:bg-indigo-50 transition-colors">
+                      <span className="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Acessar Centro de Operações</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between group-hover:bg-indigo-50 transition-colors">
-                <span className="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Acessar Centro de Operações</span>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-transform group-hover:translate-x-1" />
-              </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
