@@ -6,6 +6,7 @@ import { spawn } from "child_process";
 import fs from "fs";
 
 let activeProcess: any = null;
+let validationProcess: any = null;
 let logBuffer = "";
 
 export default defineConfig(() => ({
@@ -60,6 +61,7 @@ export default defineConfig(() => ({
               const fresh = urlParams.get("fresh") === "true" || !hasState;
               const city = urlParams.get("city") || "João Pessoa";
               const state = urlParams.get("state") || "PB";
+              const cityId = urlParams.get("cityId") || "";
               let freshLog = "";
               if (fresh) {
                 // Deleta arquivo de estado
@@ -98,7 +100,7 @@ export default defineConfig(() => ({
               }
               
               logBuffer = freshLog + `🚀 Iniciando Coleta do Google Maps (Fase 1) em ${city} - ${state}...\n`;
-              const proc = spawn("node", ["scratch/google_maps_scraper.cjs", "--city", city, "--state", state]);
+              const proc = spawn("node", ["scratch/google_maps_scraper.cjs", "--city", city, "--state", state, "--cityId", cityId]);
               activeProcess = proc;
               
               proc.stdout.on("data", (data) => {
@@ -180,35 +182,7 @@ export default defineConfig(() => ({
               return;
             }
 
-            if (urlPath === "/api/local-collector/run-logos" && req.method === "POST") {
-              if (activeProcess) {
-                res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
-                return;
-              }
-              
-              logBuffer = "🚀 Iniciando Coleta de Logos (Fase 4)...\n";
-              const proc = spawn("node", ["scratch/logo_scraper.cjs"]);
-              activeProcess = proc;
-              
-              proc.stdout.on("data", (data) => {
-                logBuffer += data.toString("utf-8");
-                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
-              });
-              
-              proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
-              });
-              
-              proc.on("close", (code) => {
-                logBuffer += `\n🏁 Coleta de Logos concluída com código de saída: ${code}\n`;
-                activeProcess = null;
-              });
-              
-              res.writeHead(200);
-              res.end(JSON.stringify({ message: "Coleta de Logos iniciada." }));
-              return;
-            }
+
             
             if (urlPath === "/api/local-collector/re-search-social" && req.method === "POST") {
               if (activeProcess) {
@@ -255,6 +229,53 @@ export default defineConfig(() => ({
                 } catch (err) {
                   res.writeHead(500);
                   res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/ai-chat" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData);
+                  const message = parsed.message || '';
+                  const systemContext = parsed.systemContext || '';
+                  
+                  // Chamar OpenAI diretamente daqui do servidor node local
+                  const { OpenAI } = await import('openai');
+                  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+                  const openRouterKey = process.env.VITE_OPENROUTER_API_KEY || '';
+                  
+                  let openai;
+                  let model = 'gpt-4o-mini';
+                  if (openRouterKey) {
+                    openai = new OpenAI({
+                      baseURL: "https://openrouter.ai/api/v1",
+                      apiKey: openRouterKey,
+                      defaultHeaders: { "HTTP-Referer": "http://localhost:8080", "X-Title": "Admin Dashboard" }
+                    });
+                    model = 'openrouter/free';
+                  } else if (apiKey) {
+                    openai = new OpenAI({ apiKey });
+                  } else {
+                    throw new Error('Chave de API não configurada no .env');
+                  }
+
+                  const response = await openai.chat.completions.create({
+                    model: model,
+                    messages: [
+                      { role: 'system', content: systemContext },
+                      { role: 'user', content: message }
+                    ]
+                  });
+
+                  res.writeHead(200);
+                  res.end(JSON.stringify({ reply: response.choices[0].message.content }));
+                } catch (err: any) {
+                  res.writeHead(500);
+                  res.end(JSON.stringify({ error: err.message }));
                 }
               });
               return;
@@ -396,56 +417,7 @@ export default defineConfig(() => ({
               return;
             }
 
-            if (urlPath === "/api/local-collector/re-scrape-logo" && req.method === "POST") {
-              if (activeProcess) {
-                res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
-                return;
-              }
-              
-              const restaurantId = urlParams.get("restaurantId");
-              const pct = urlParams.get("pct") || "10";
-              if (!restaurantId) {
-                res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
-                return;
-              }
 
-              logBuffer = `🚀 Iniciando extração de Logo (Fase 4) para o restaurante ID ${restaurantId} com fator ${pct}%...\n`;
-              const proc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId, "--pct", pct], { shell: true });
-              activeProcess = proc;
-              
-              let resultJsonStr = "";
-              proc.stdout.on("data", (data) => {
-                const text = data.toString("utf-8");
-                logBuffer += text;
-                if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
-                
-                const match = text.match(/RESULT:(.+)/);
-                if (match) {
-                  resultJsonStr = match[1].trim();
-                }
-              });
-              
-              proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
-              });
-              
-              proc.on("close", (code) => {
-                logBuffer += `\n🏁 Coleta de Logo concluída com código de saída: ${code}\n`;
-                activeProcess = null;
-                
-                try {
-                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
-                  res.writeHead(200);
-                  res.end(JSON.stringify(result));
-                } catch (err) {
-                  res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
-                }
-              });
-              return;
-            }
             if (urlPath === "/api/local-collector/extract-maps" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
@@ -559,9 +531,9 @@ export default defineConfig(() => ({
             }
 
             if (urlPath === "/api/local-collector/validate-instagram" && req.method === "POST") {
-              if (activeProcess) {
+              if (validationProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "Já existe uma validação em execução." }));
                 return;
               }
               const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
@@ -577,52 +549,103 @@ export default defineConfig(() => ({
               req.on('end', () => {
                 let instagramContext = '';
                 let instagramUrl = '';
+                let candidates: any[] = [];
+                let restaurantName = '';
+                let restaurantCity = '';
+                let restaurantAddress = '';
                 try {
                   if (bodyData) {
                     const parsed = JSON.parse(bodyData);
                     instagramContext = parsed.instagramContext || '';
                     instagramUrl = parsed.instagramUrl || '';
+                    candidates = parsed.candidates || [];
+                    restaurantName = parsed.restaurantName || '';
+                    restaurantCity = parsed.restaurantCity || '';
+                    restaurantAddress = parsed.restaurantAddress || '';
                   }
                 } catch(e) {}
               
-                logBuffer += `\n🤖 Iniciando Validação rigorosa de Instagram para ID: ${restaurantId}...\n`;
-                const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--instagram-url", instagramUrl];
-                if (instagramContext) {
-                  const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_${restaurantId}.txt`);
-                  fs.writeFileSync(tempInstaFile, instagramContext);
-                  valArgs.push("--instagram-context-file", tempInstaFile);
-                }
+                logBuffer += `\n🤖 Iniciando Validação de Instagram para ID: ${restaurantId}...\n`;
                 
-                const valProc = spawn("node", valArgs);
-                activeProcess = valProc;
-                let jsonResult = null;
+                // Se recebeu múltiplos candidatos, usa o novo script de seleção
+                if (candidates.length > 0) {
+                  logBuffer += `📋 ${candidates.length} candidato(s) recebido(s) para validação:\n`;
+                  candidates.forEach((c: any, i: number) => {
+                    logBuffer += `  ${i+1}. ${c.url} (${c.followers} seguidores) - Bio: ${(c.bio || '').substring(0, 80)}...\n`;
+                  });
+                  
+                  // Salva candidatos em arquivo temporário para o script processar
+                  const tempCandidatesFile = path.join(process.cwd(), 'scratch', `temp_candidates_${restaurantId}.json`);
+                  fs.writeFileSync(tempCandidatesFile, JSON.stringify({
+                    candidates,
+                    restaurantName,
+                    restaurantCity,
+                    restaurantAddress
+                  }));
+                  
+                  const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--candidates-file", tempCandidatesFile];
+                  const valProc = spawn("node", valArgs);
+                  validationProcess = valProc;
+                  let jsonResult: any = null;
 
-                valProc.stdout.on("data", (data) => {
-                  const str = data.toString();
-                  const match = str.match(/RESULT:(.+)/);
-                  if (match) {
-                    try { jsonResult = JSON.parse(match[1]); } catch(e) {}
-                  } else {
-                    logBuffer += str;
+                  valProc.stdout.on("data", (data: any) => {
+                    const str = data.toString();
+                    const match = str.match(/RESULT:(.+)/);
+                    if (match) {
+                      try { jsonResult = JSON.parse(match[1]); } catch(e) {}
+                    } else {
+                      logBuffer += str;
+                    }
+                  });
+
+                  valProc.stderr.on("data", (data: any) => { logBuffer += data.toString(); });
+
+                  valProc.on("close", (code: any) => {
+                    validationProcess = null;
+                    logBuffer += `\n🏁 Validação Instagram concluída.\n`;
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
+                  });
+                } else {
+                  // Modo legado: um único candidato
+                  const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--instagram-url", instagramUrl];
+                  if (instagramContext) {
+                    const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_${restaurantId}.txt`);
+                    fs.writeFileSync(tempInstaFile, instagramContext);
+                    valArgs.push("--instagram-context-file", tempInstaFile);
                   }
-                });
+                  
+                  const valProc = spawn("node", valArgs);
+                  validationProcess = valProc;
+                  let jsonResult: any = null;
 
-                valProc.stderr.on("data", (data) => { logBuffer += data.toString(); });
+                  valProc.stdout.on("data", (data: any) => {
+                    const str = data.toString();
+                    const match = str.match(/RESULT:(.+)/);
+                    if (match) {
+                      try { jsonResult = JSON.parse(match[1]); } catch(e) {}
+                    } else {
+                      logBuffer += str;
+                    }
+                  });
 
-                valProc.on("close", (code) => {
-                  activeProcess = null;
-                  logBuffer += `\n🏁 Validação Instagram concluída.\n`;
-                  res.writeHead(200, { 'Content-Type': 'application/json' });
-                  res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
-                });
+                  valProc.stderr.on("data", (data: any) => { logBuffer += data.toString(); });
+
+                  valProc.on("close", (code: any) => {
+                    validationProcess = null;
+                    logBuffer += `\n🏁 Validação Instagram concluída.\n`;
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
+                  });
+                }
               });
               return;
             }
 
             if (urlPath === "/api/local-collector/re-ai-validation" && req.method === "POST") {
-              if (activeProcess) {
+              if (validationProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "Já existe uma validação individual em execução. Aguarde." }));
                 return;
               }
               
@@ -643,9 +666,7 @@ export default defineConfig(() => ({
                 let instagramContext = '';
                 let googleSearchResults = null;
                 let instagramHighlights = null;
-                let instagramLogoUrl = '';
-                let instagramFeedPhotoUrl = '';
-                let bioLinkUrl = '';
+                let mapsData = null;
                 try {
                   if (bodyData) {
                     const parsed = JSON.parse(bodyData);
@@ -661,69 +682,43 @@ export default defineConfig(() => ({
                     if (parsed.instagramHighlights) {
                       instagramHighlights = parsed.instagramHighlights;
                     }
-                    if (parsed.instagramLogoUrl) {
-                      instagramLogoUrl = parsed.instagramLogoUrl;
-                    }
-                    if (parsed.instagramFeedPhotoUrl) {
-                      instagramFeedPhotoUrl = parsed.instagramFeedPhotoUrl;
-                    }
-                    if (parsed.bioLinkUrl) {
-                      bioLinkUrl = parsed.bioLinkUrl;
+                    if (parsed.mapsData) {
+                      mapsData = parsed.mapsData;
                     }
                   }
                 } catch(e) {}
               
-                logBuffer += `\n🚀 Iniciando Raspagem de Horários para ID: ${restaurantId}...\n`;
-                const hoursProc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "hours"]);
-                activeProcess = hoursProc;
-
-                hoursProc.stdout.on("data", (data) => {
-                  logBuffer += data.toString();
-                });
+                // Horários já foram coletados pelo frontend via extensão Chrome.
+                // Vamos direto para a Validação IA (Fase 5).
+                logBuffer += `\n🤖 Iniciando Validação IA (Fase 5) para ID: ${restaurantId}...\n`;
                 
-                hoursProc.stderr.on("data", (data) => {
-                  logBuffer += data.toString();
-                });
-
-                hoursProc.on("close", (code) => {
-                  logBuffer += `\n🏁 Coleta de Horários concluída com código: ${code}\n`;
-                  
-                  if (!activeProcess) {
-                    res.writeHead(200);
-                    res.end(JSON.stringify({ success: false, error: "Processo interrompido." }));
-                    return;
-                  }
-
-                  logBuffer += `\n🤖 Iniciando Validação IA (Fase 5) para ID: ${restaurantId}...\n`;
-                  
-                  const valArgs = ["scratch/phase5_ai_validation.cjs", "--single", "--id", restaurantId];
-                  if (browserContext) {
-                    const tempFile = path.join(process.cwd(), 'scratch', `temp_context_${restaurantId}.txt`);
-                    fs.writeFileSync(tempFile, browserContext);
-                    valArgs.push("--browser-context-file", tempFile);
-                  }
-                  if (instagramContext) {
-                    const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_context_${restaurantId}.txt`);
-                    fs.writeFileSync(tempInstaFile, instagramContext);
-                    valArgs.push("--instagram-context-file", tempInstaFile);
-                  }
-                  if (googleSearchResults && googleSearchResults.length > 0) {
-                    const tempGoogleFile = path.join(process.cwd(), 'scratch', `temp_google_${restaurantId}.json`);
-                    fs.writeFileSync(tempGoogleFile, JSON.stringify(googleSearchResults));
-                    valArgs.push("--google-context-file", tempGoogleFile);
-                  }
-                  if (instagramLogoUrl) {
-                    valArgs.push("--instagram-logo-url", instagramLogoUrl);
-                  }
-                  if (instagramFeedPhotoUrl) {
-                    valArgs.push("--instagram-feed-photo-url", instagramFeedPhotoUrl);
-                  }
-                  if (bioLinkUrl) {
-                    valArgs.push("--bio-link-url", bioLinkUrl);
-                  }
+                const valArgs = ["scratch/phase5_ai_validation.cjs", "--single", "--id", restaurantId];
+                if (browserContext) {
+                  const tempFile = path.join(process.cwd(), 'scratch', `temp_context_${restaurantId}.txt`);
+                  fs.writeFileSync(tempFile, browserContext);
+                  valArgs.push("--browser-context-file", tempFile);
+                }
+                if (instagramContext) {
+                  const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_context_${restaurantId}.txt`);
+                  fs.writeFileSync(tempInstaFile, instagramContext);
+                  valArgs.push("--instagram-context-file", tempInstaFile);
+                }
+                if (googleSearchResults && googleSearchResults.length > 0) {
+                  const tempGoogleFile = path.join(process.cwd(), 'scratch', `temp_google_${restaurantId}.json`);
+                  fs.writeFileSync(tempGoogleFile, JSON.stringify(googleSearchResults));
+                  valArgs.push("--google-context-file", tempGoogleFile);
+                }
+                if (mapsData) {
+                  const tempMapsFile = path.join(process.cwd(), 'scratch', `temp_maps_${restaurantId}.json`);
+                  fs.writeFileSync(tempMapsFile, JSON.stringify(mapsData));
+                  valArgs.push("--maps-data-file", tempMapsFile);
+                }
+                
+                {
+                // Bloco de escopo para evitar conflito de variáveis
                   
                   const valProc = spawn("node", valArgs);
-                  activeProcess = valProc;
+                  validationProcess = valProc;
 
                   let resultJsonStr = "";
                   valProc.stdout.on("data", (data) => {
@@ -740,7 +735,7 @@ export default defineConfig(() => ({
                   valProc.on("close", (valCode) => {
                     logBuffer += `\n🏁 Validação IA concluída com código de saída: ${valCode}\n`;
                     
-                    if (!activeProcess) {
+                    if (!validationProcess) {
                       res.writeHead(200);
                       res.end(JSON.stringify({ success: false, error: "Processo interrompido." }));
                       return;
@@ -754,7 +749,7 @@ export default defineConfig(() => ({
                       galleryArgs.push("--instagram-highlights-file", tempHighlightsFile);
                     }
                     const galleryProc = spawn("node", galleryArgs);
-                    activeProcess = galleryProc;
+                    validationProcess = galleryProc;
 
                     galleryProc.stdout.on("data", (data) => {
                       logBuffer += data.toString();
@@ -767,67 +762,22 @@ export default defineConfig(() => ({
                     galleryProc.on("close", (galleryCode) => {
                       logBuffer += `\n🏁 Curadoria de Galeria concluída com código: ${galleryCode}\n`;
                       
-                      if (galleryCode !== 0) {
-                        logBuffer += `\n⚠️ Curadoria de Galeria falhou ou foi abortada. Pulando Coleta de Logo.\n`;
-                        activeProcess = null;
-                        try {
-                          const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
-                          res.writeHead(200);
-                          res.end(JSON.stringify(result));
-                        } catch (err) {
-                          res.writeHead(500);
-                          res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
-                        }
-                        return;
+                      // Logo Scraper e Screenshot removidos daqui
+                      // Logo é feita pelo frontend no PASSO 4 via extensão
+                      // Screenshot pode ser gerado manualmente se necessário
+                      validationProcess = null;
+
+                      try {
+                        const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
+                        res.writeHead(200);
+                        res.end(JSON.stringify(result));
+                      } catch (err) {
+                        res.writeHead(500);
+                        res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
                       }
-
-                      logBuffer += `\n📸 Iniciando Coleta de Logo e Seguidores do Instagram (Fase 4) para ID: ${restaurantId}...\n`;
-                      const pct = urlParams.get("pct") || "10";
-                      const logoProc = spawn("node", ["scratch/logo_scraper.cjs", "--single", "--id", restaurantId, "--pct", pct], { shell: true });
-                      activeProcess = logoProc;
-
-                      logoProc.stdout.on("data", (data) => {
-                        logBuffer += data.toString();
-                      });
-
-                      logoProc.stderr.on("data", (data) => {
-                        logBuffer += data.toString();
-                      });
-
-                      logoProc.on("close", (logoCode) => {
-                        logBuffer += `\n🏁 Coleta de Logo concluída com código: ${logoCode}\n`;
-                        
-                        logBuffer += `\n📸 Gerando Print do Perfil Público para ID: ${restaurantId}...\n`;
-                        const origin = urlParams.get("origin") || "http://localhost:8080";
-                        const screenshotProc = spawn("node", ["scratch/capture_screenshot.cjs", "--id", restaurantId, "--origin", origin], { shell: true });
-                        activeProcess = screenshotProc;
-
-                        screenshotProc.stdout.on("data", (data) => {
-                          logBuffer += data.toString();
-                        });
-
-                        screenshotProc.stderr.on("data", (data) => {
-                          logBuffer += data.toString();
-                        });
-
-                        screenshotProc.on("close", (screenshotCode) => {
-                          logBuffer += `\n🏁 Geração de Print concluída com código: ${screenshotCode}\n`;
-                          activeProcess = null;
-
-                          try {
-                            const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false };
-                            result.screenshotSuccess = (screenshotCode === 0);
-                            res.writeHead(200);
-                            res.end(JSON.stringify(result));
-                          } catch (err) {
-                            res.writeHead(500);
-                            res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
-                          }
-                        });
-                      });
                     });
                   });
-                });
+                }
               });
               return;
             }
@@ -878,6 +828,61 @@ export default defineConfig(() => ({
                   res.writeHead(500);
                   res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
                 }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/extract-menu" && req.method === "POST") {
+              if (validationProcess) {
+                res.writeHead(400);
+                res.end(JSON.stringify({ error: "Já existe um processo de validação em execução." }));
+                return;
+              }
+
+              let body = "";
+              req.on("data", (chunk) => { body += chunk.toString(); });
+              req.on("end", () => {
+                let parsed: any = {};
+                try { parsed = JSON.parse(body); } catch (e) {}
+
+                const restaurantId = parsed.restaurantId;
+                if (!restaurantId) {
+                  res.writeHead(400);
+                  res.end(JSON.stringify({ error: "restaurantId não fornecido." }));
+                  return;
+                }
+
+                logBuffer += `\n🍽️ Iniciando extração de cardápio para restaurante ID ${restaurantId}...\n`;
+
+                const args = ["scratch/menu_extractor.cjs", "--id", restaurantId];
+                const proc = spawn("node", args, { shell: true });
+                validationProcess = proc;
+
+                let resultJsonStr = "";
+                proc.stdout.on("data", (data) => {
+                  const text = data.toString("utf-8");
+                  logBuffer += text;
+                  if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
+                  const match = text.match(/RESULT:(.+)/);
+                  if (match) resultJsonStr = match[1].trim();
+                });
+
+                proc.stderr.on("data", (data) => {
+                  logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                });
+
+                proc.on("close", (code) => {
+                  logBuffer += `\n🏁 Extração de cardápio concluída com código: ${code}\n`;
+                  validationProcess = null;
+                  try {
+                    const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false, message: "Nenhum resultado retornado." };
+                    res.writeHead(200);
+                    res.end(JSON.stringify(result));
+                  } catch (err) {
+                    res.writeHead(500);
+                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado da extração de cardápio." }));
+                  }
+                });
               });
               return;
             }

@@ -49,13 +49,10 @@ import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsP
 import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
-import AdminRestaurants from '@/pages/admin/AdminRestaurants';
-import AdminEditRestaurant from '@/pages/admin/AdminEditRestaurant'; // Importar o novo componente
-import AdminRestaurantMenu from '@/pages/admin/AdminRestaurantMenu'; // Importar o novo componente
-import AdminViewMenus from '@/pages/admin/AdminViewMenus';
-import AdminSettings from '@/pages/admin/AdminSettings';
-import AdminCrm from '@/pages/admin/AdminCrm';
-import AdminPlans from '@/pages/admin/AdminPlans';
+
+// Novas Rotas de Expansão (City-Centric)
+import ExpansionHub from '@/pages/admin/expansion/ExpansionHub';
+import CityDashboard from '@/pages/admin/expansion/CityDashboard';
 
 function App() {
   React.useEffect(() => {
@@ -120,15 +117,9 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/restaurants" element={<AdminRestaurants />} />
-          <Route path="/admin/restaurants/:restaurantId" element={<AdminEditRestaurant />} />
-          <Route path="/admin/restaurants/:restaurantId/menu" element={<AdminRestaurantMenu />} />
-          <Route path="/admin/menus" element={<AdminViewMenus />} />
-          <Route path="/admin/plans" element={<AdminPlans />} />
-          <Route path="/admin/crm" element={<AdminCrm />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/expansion" element={<ExpansionHub />} />
+          <Route path="/admin/expansion/:cityId" element={<CityDashboard />} />
         </Route>
-        
         {/* Redirecionamento de Rotas Legadas da Área do Restaurante para as Rotas Unificadas */}
         <Route path="/restaurant-area/search" element={<Navigate to="/search" replace />} />
         <Route path="/restaurant-area/home" element={<Navigate to="/home" replace />} />

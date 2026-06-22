@@ -127,7 +127,8 @@ async function saveToSupabase(scrapedItem) {
       latitude,
       longitude,
       rating: typeof scrapedItem.rating === 'number' ? scrapedItem.rating : null,
-      reviews_count: typeof scrapedItem.reviewsCount === 'number' ? scrapedItem.reviewsCount : null
+      reviews_count: typeof scrapedItem.reviewsCount === 'number' ? scrapedItem.reviewsCount : null,
+      city_id: CITY_ID || null
     };
 
     console.log(`📡 [Supabase] Salvando "${scrapedItem.name}"...`);
@@ -151,9 +152,11 @@ async function saveToSupabase(scrapedItem) {
 const args = process.argv.slice(2);
 const cityArgIdx = args.indexOf('--city');
 const stateArgIdx = args.indexOf('--state');
+const cityIdArgIdx = args.indexOf('--cityId');
 
 const CITY = (cityArgIdx !== -1 && args[cityArgIdx + 1]) ? args[cityArgIdx + 1].replace(/"/g, '') : 'João Pessoa';
 const STATE = (stateArgIdx !== -1 && args[stateArgIdx + 1]) ? args[stateArgIdx + 1].replace(/"/g, '') : 'PB';
+const CITY_ID = (cityIdArgIdx !== -1 && args[cityIdArgIdx + 1]) ? args[cityIdArgIdx + 1].replace(/"/g, '') : null;
 
 // Lista completa de todos os bairros urbanos se for João Pessoa. Para outras cidades, faz busca geral.
 let NEIGHBORHOODS = [];
@@ -513,11 +516,18 @@ async function fetchSuburbsFromOSM(cityName) {
     console.log(`=============================================================\n`);
   }
 
+  // Variável global para o browser no escopo para shutdown seguro
+  let browser = null;
+
   // Intercepta Ctrl+C e salva o estado
-  process.on('SIGINT', () => {
+  process.on('SIGINT', async () => {
     console.log('\n🛑 [ROBÔ] Interrupção manual (Ctrl+C) detectada! Salvando progresso...');
     if (state) {
       saveProgress(state);
+    }
+    if (browser) {
+      console.log('🛑 Fechando instâncias do navegador de forma segura...');
+      await browser.close().catch(() => {});
     }
     process.exit(0);
   });
@@ -529,10 +539,10 @@ async function fetchSuburbsFromOSM(cityName) {
   console.log(`=============================================================\n`);
 
   // Inicializa o navegador Chrome visível
-  const browser = await puppeteer.launch({
+  browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
-    args: ['--start-maximized', '--lang=pt-BR']
+    args: ['--start-maximized', '--lang=pt-BR', '--disable-dev-shm-usage'] // Previne crash de memória
   });
 
   const page = await browser.newPage();

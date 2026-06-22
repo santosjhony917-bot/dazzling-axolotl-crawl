@@ -445,6 +445,120 @@ export const getRestaurantUniqueKey = (name: string, address: string) => {
   return `${cleanName}_${cleanAddress}`;
 };
 
+/**
+ * Faz parsing de um endereço completo do Google Maps e divide nos campos separados.
+ * Formato típico: "R. Tertuliano Crispiniano da Mata, 28 - Ernesto Geisel, João Pessoa - PB, 58075-070"
+ */
+const parseGoogleMapsAddress = (fullAddress: string) => {
+  let street = '';
+  let number = '';
+  let neighborhood = '';
+  let city = '';
+  let state = '';
+  let cep = '';
+
+  if (!fullAddress) return { street, number, neighborhood, city, state, cep };
+
+  let working = fullAddress.trim();
+
+  // 1. Extrai CEP (ex: 58075-070 ou 58075070)
+  const cepMatch = working.match(/\b(\d{5}-\d{3})\b/) || working.match(/\b(\d{8})\b/);
+  if (cepMatch) {
+    cep = cepMatch[1];
+    working = working.replace(cepMatch[0], '').trim();
+  }
+
+  // Limpa pontuação residual
+  working = working.replace(/[\s,]+$/, '').replace(/^[\s,]+/, '').trim();
+
+  // 2. Extrai Estado (UF) - 2 letras maiúsculas no final ou após hífen
+  const stateMatch = working.match(/[\s,-]\s*([A-Z]{2})\s*$/);
+  if (stateMatch) {
+    state = stateMatch[1];
+    working = working.substring(0, working.lastIndexOf(stateMatch[0])).trim();
+  }
+
+  // Limpa pontuação residual
+  working = working.replace(/[\s,-]+$/, '').replace(/^[\s,-]+/, '').trim();
+
+  // 3. Divide por vírgulas para identificar as partes
+  // Formato esperado: "Rua, Número - Bairro, Cidade" ou "Rua, Número - Bairro"
+  const parts = working.split(',').map(p => p.trim());
+
+  if (parts.length >= 3) {
+    // Ex: ["R. Tertuliano Crispiniano da Mata", "28 - Ernesto Geisel", "João Pessoa"]
+    street = parts[0];
+    
+    // Segunda parte pode ter "Número - Bairro"
+    const secondPart = parts[1];
+    const hyphenIdx = secondPart.indexOf(' - ');
+    if (hyphenIdx !== -1) {
+      const numPart = secondPart.substring(0, hyphenIdx).trim();
+      const bairroPart = secondPart.substring(hyphenIdx + 3).trim();
+      if (/\d/.test(numPart) || numPart.toLowerCase() === 's/n') {
+        number = numPart;
+        neighborhood = bairroPart;
+      } else {
+        // Se não é número, tudo é parte do endereço
+        street += ', ' + secondPart;
+      }
+    } else {
+      // Sem hífen, provavelmente é só o número
+      if (/^\d+/.test(secondPart) || secondPart.toLowerCase() === 's/n') {
+        number = secondPart;
+      } else {
+        neighborhood = secondPart;
+      }
+    }
+    
+    // Terceira parte é a cidade (pode ter bairro se não foi encontrado antes)
+    if (parts.length >= 3) {
+      const thirdPart = parts.slice(2).join(', ').trim();
+      const thirdHyphen = thirdPart.indexOf(' - ');
+      if (thirdHyphen !== -1 && !neighborhood) {
+        neighborhood = thirdPart.substring(0, thirdHyphen).trim();
+        city = thirdPart.substring(thirdHyphen + 3).trim();
+      } else {
+        city = thirdPart;
+      }
+    }
+  } else if (parts.length === 2) {
+    // Ex: ["R. Tertuliano Crispiniano da Mata, 28", "Ernesto Geisel"]
+    street = parts[0];
+    const secondPart = parts[1];
+    const hyphenIdx = secondPart.indexOf(' - ');
+    if (hyphenIdx !== -1) {
+      neighborhood = secondPart.substring(0, hyphenIdx).trim();
+      city = secondPart.substring(hyphenIdx + 3).trim();
+    } else {
+      city = secondPart;
+    }
+    // Tenta extrair número do street
+    const numInStreet = street.match(/,\s*(\d+[A-Za-z]?)\s*$/);
+    if (numInStreet) {
+      number = numInStreet[1];
+      street = street.substring(0, street.lastIndexOf(numInStreet[0])).trim();
+    }
+  } else {
+    // Só uma parte - tenta dividir por hífen
+    const hyphenIdx = working.indexOf(' - ');
+    if (hyphenIdx !== -1) {
+      street = working.substring(0, hyphenIdx).trim();
+      neighborhood = working.substring(hyphenIdx + 3).trim();
+    } else {
+      street = working;
+    }
+  }
+
+  // Limpa vírgulas e hífens residuais dos campos
+  street = street.replace(/^[\s,-]+|[\s,-]+$/g, '').trim();
+  number = number.replace(/^[\s,-]+|[\s,-]+$/g, '').trim();
+  neighborhood = neighborhood.replace(/^[\s,-]+|[\s,-]+$/g, '').trim();
+  city = city.replace(/^[\s,-]+|[\s,-]+$/g, '').trim();
+
+  return { street, number, neighborhood, city, state, cep };
+};
+
 const extractCoordsFromUrl = (url: string) => {
   if (!url) return null;
   const match1 = url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
@@ -731,227 +845,813 @@ export default function GoogleMapsCollector() {
     showSuccess("Download da extensão iniciado!");
   };
 
-  
-  // --- SUBFUNÇÕES MODULARES PARA AI-VALIDATION ---
-  const runPhaseA_Context = async (rest: any, mapUrl: string) => {
-    // Fase A: Horários
-    const hoursQuery = `${rest?.name} ${rest?.city || ''} João Pessoa`;
-    try {
-      const extRes = await new Promise<any>((resolve) => {
-        const chromeObj = (window as any).chrome;
-        if (chromeObj && chromeObj.runtime) {
-          chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: hoursQuery, mapUrl }, resolve);
-        } else resolve({ success: false });
-      });
-      // Âncora da Verdade: Sobrescrever dados vitais com os dados oficiais do Maps
-      if (extRes && extRes.success && extRes.anchorData) {
-        console.log(`[Circuit Breaker] Atualizando dados da Âncora do Maps para ${rest?.id}`);
-        const updates: any = {};
-        if (extRes.anchorData.address) {
-          updates.address = extRes.anchorData.address;
-          rest.address = extRes.anchorData.address;
-        }
-        if (extRes.anchorData.phone) {
-          updates.phone = extRes.anchorData.phone;
-          rest.phone = extRes.anchorData.phone;
-        }
-        if (extRes.anchorData.website) {
-          updates.other_url = extRes.anchorData.website;
-          updates.other_url_label = 'Site Oficial';
-          rest.other_url = extRes.anchorData.website;
-        }
-        if (Object.keys(updates).length > 0) {
-          await supabase.from('restaurants').update(updates).eq('id', rest?.id);
-        }
-      }
-
-      if (extRes && extRes.success && extRes.schedule) {
-        await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', rest?.id);
-      } else {
-        // Instinto de Desistência: Regra de Horários
-        console.log(`[Circuit Breaker] Horários não encontrados no Google Maps para o restaurante ${rest?.id}.`);
-        await supabase.from('restaurants').update({
-          coleta_logs: (rest?.coleta_logs ? rest.coleta_logs + ' | ' : '') + 'Horários não informados pelo estabelecimento no Maps'
-        }).eq('id', rest?.id);
-      }
-    } catch (err) { }
-    
-    // Fase A: Nativo
-    const queryNative = `${rest?.name} ${rest?.city || ''} ${rest?.state || ''} cardapio instagram telefone`;
-    let googleSearchResults = null;
-    try {
-      googleSearchResults = await new Promise((resolve) => {
-        const chromeObj = (window as any).chrome;
-        if (chromeObj && chromeObj.runtime) {
-          chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleNative", query: queryNative }, (res: any) => resolve(res?.success ? res.results : null));
-        } else resolve(null);
-      });
-    } catch(e) {}
-    return googleSearchResults;
-  };
-
-  const runPhaseB_Candidates = async (rest: any) => {
-    let candidateUrls: string[] = [];
-    const existingInsta = rest?.social_networks?.find((s: any) => s && s.platform === 'instagram' && s.url)?.url || rest?.instagram;
-    if (existingInsta && existingInsta.trim() !== '') candidateUrls.push(existingInsta);
-    
-    const query1 = `${rest?.name} ${rest?.city || ''} instagram`;
-    try {
-      const res1 = await new Promise<any>((resolve) => {
-        const chromeObj = (window as any).chrome;
-        chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query: query1, blocklist: [] }, resolve);
-      });
-      if (res1 && res1.urls) res1.urls.forEach((u: string) => { if (!candidateUrls.includes(u)) candidateUrls.push(u); });
-      else if (res1 && res1.url && !candidateUrls.includes(res1.url)) candidateUrls.push(res1.url);
-    } catch (e) {}
-
-    const cleanPhone = rest?.phone ? rest.phone.replace(/\D/g, '') : '';
-    if (cleanPhone.length >= 8) {
-      const query2 = `${cleanPhone} instagram`;
-      try {
-        const res2 = await new Promise<any>((resolve) => {
-          const chromeObj = (window as any).chrome;
-          chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query: query2, blocklist: [] }, resolve);
-        });
-        if (res2 && res2.urls) res2.urls.forEach((u: string) => { if (!candidateUrls.includes(u)) candidateUrls.push(u); });
-        else if (res2 && res2.url && !candidateUrls.includes(res2.url)) candidateUrls.push(res2.url);
-      } catch (e) {}
-    }
-    return candidateUrls.slice(0, 3);
-  };
-
-  const runPhaseC_Validation = async (restaurantId: string, rest: any, candidateUrls: string[], googleSearchResults: any) => {
-    let activeInstagramUrl = '';
-    let instagramBio = '';
-    let bioLinkUrl = '';
-    let instagramFollowers = 0;
-    let logoPublicUrl = '';
-    let highlightPublicUrls: string[] = [];
-    let firstFeedPhotoUrl = '';
-    let isInactiveProfile = false;
-
-    for (const candidateUrl of candidateUrls) {
-      const scrapeRes = await new Promise<any>((resolve) => {
-        const chromeObj = (window as any).chrome;
-        chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: candidateUrl }, resolve);
-      });
-
-      if (!scrapeRes || !scrapeRes.success || scrapeRes.isLoginRequired) continue;
-
-      try {
-        const valCheckRes = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurantId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            instagramUrl: candidateUrl, 
-            instagramContext: scrapeRes.bio || 'Sem bio.',
-            restaurantName: rest?.name,
-            restaurantAddress: rest?.address,
-            restaurantPhone: rest?.phone,
-            restaurantCity: rest?.city
-          })
-        });
-        if (valCheckRes.ok) {
-          const valCheckData = await valCheckRes.json();
-          if (valCheckData.success && valCheckData.isValid && (valCheckData.confidenceScore || 0) >= 0.7) {
-            activeInstagramUrl = candidateUrl;
-            instagramBio = scrapeRes.bio || '';
-            bioLinkUrl = scrapeRes.bioLink || '';
-            instagramFollowers = scrapeRes.followers || 0;
-            isInactiveProfile = scrapeRes.isInactiveProfile || false;
-            if (scrapeRes.firstFeedPhotoUrl) firstFeedPhotoUrl = scrapeRes.firstFeedPhotoUrl;
-            
-            if (scrapeRes.logoDataUrl) {
-              try {
-                const blob = base64ToBlob(scrapeRes.logoDataUrl);
-                const storagePath = `logos/${restaurantId}_logo.jpg`;
-                const { error: uploadError } = await supabase.storage.from('restaurant-images').upload(storagePath, blob, { contentType: 'image/jpeg', upsert: true });
-                if (!uploadError) logoPublicUrl = supabase.storage.from('restaurant-images').getPublicUrl(storagePath).data.publicUrl;
-              } catch(e) {}
-            }
-            if (scrapeRes.highlightImages && scrapeRes.highlightImages.length > 0) {
-              for (let idx = 0; idx < scrapeRes.highlightImages.length; idx++) {
-                try {
-                  const blob = base64ToBlob(scrapeRes.highlightImages[idx]);
-                  const storagePath = `highlights/${restaurantId}/highlight_${idx}_${Date.now()}.jpg`;
-                  const { error } = await supabase.storage.from('restaurant-images').upload(storagePath, blob, { contentType: 'image/jpeg', upsert: true });
-                  if (!error) highlightPublicUrls.push(supabase.storage.from('restaurant-images').getPublicUrl(storagePath).data.publicUrl);
-                } catch(e) {}
-              }
-            }
-            break;
-          }
-        }
-      } catch(e) {}
-    }
-
-    if (activeInstagramUrl) {
-      const updates: any = {};
-      if (logoPublicUrl) updates.image_url = logoPublicUrl;
-      if (rest) {
-        const cleanSocials = (rest.social_networks || []).filter((s: any) => s && s.platform !== 'instagram');
-        const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
-        cleanSocials.push({ platform: 'instagram', url: activeInstagramUrl, followers: instagramFollowers, followers_override: Math.round((instagramFollowers * pct) / 100) });
-        updates.social_networks = cleanSocials;
-        updates.instagram = activeInstagramUrl;
-      }
-      if (isInactiveProfile) {
-        updates.coleta_logs = (rest?.coleta_logs ? rest.coleta_logs + ' | ' : '') + 'Baixa Qualidade Visual (Menos de 5 posts)';
-      }
-      await supabase.from('restaurants').update(updates).eq('id', restaurantId);
-    } else {
-      // Instinto de Desistência: Regra do 3x3
-      // Nenhum candidato passou na validação da IA ou todos falharam no scrape
-      console.log(`[Circuit Breaker] Nenhum candidato de Instagram aprovado para o restaurante ${restaurantId}.`);
-      await supabase.from('restaurants').update({ 
-        instagram: 'Não localizado',
-        coleta_logs: (rest?.coleta_logs ? rest.coleta_logs + ' | ' : '') + 'Divergência crítica de endereço/telefone em todos os candidatos'
-      }).eq('id', restaurantId);
-      
-      return false; // Interrompe a re-validação AI
-    }
-
-    const valRes = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${restaurantId}&origin=${encodeURIComponent(window.location.origin)}`, { 
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ googleSearchResults, instagramContext: instagramBio, instagramHighlights: highlightPublicUrls, instagramLogoUrl: logoPublicUrl, instagramFeedPhotoUrl: firstFeedPhotoUrl, bioLinkUrl })
-    });
-    
-    return valRes.ok ? (await valRes.json()).success : false;
-  };
-
   const handleRebusca = async (restaurantId: string, field: 'instagram' | 'menu' | 'hours' | 'scrape-menu' | 'scrape-logo' | 'ai-validation'): Promise<boolean> => {
     const key = `${restaurantId}-${field}`;
     if (loadingRebusca[key]) return false;
     
     setLoadingRebusca(prev => ({ ...prev, [key]: true }));
+    const fieldLabel = field === 'instagram' ? 'Instagram' : field === 'menu' ? 'Cardápio' : field === 'scrape-menu' ? 'Coleta de Cardápio' : field === 'scrape-logo' ? 'Coleta de Logo' : field === 'ai-validation' ? 'Filtro IA' : 'Horários';
+    showSuccess(`Iniciando rebusca de ${fieldLabel} no servidor...`);
     
     try {
-      const rest = results.find(r => r.id === restaurantId);
-      if (!rest) return false;
-
       if (field === 'ai-validation' && isExtensionActive && extensionId) {
-        let mapUrl = rest.googleMapsUrl || '';
-        const googleSearchResults = await runPhaseA_Context(rest, mapUrl);
-        const candidateUrls = await runPhaseB_Candidates(rest);
-        const success = await runPhaseC_Validation(restaurantId, rest, candidateUrls, googleSearchResults);
+        const rest = results.find(r => r.id === restaurantId);
+        let mapUrl = '';
+        if (rest) {
+          if (rest.googleMapsUrl) mapUrl = rest.googleMapsUrl;
+          else if (rest.visit_notes) {
+            const match = rest.visit_notes.match(/https:\/\/[^\s\n]*google[^\s\n]*\/maps[^\s\n]*/i) || rest.visit_notes.match(/https:\/\/[^\s\n]*maps\.app\.goo\.gl[^\s\n]*/i) || rest.visit_notes.match(/Google Maps:\s*(https:\/\/[^\s\n]*)/i);
+            if (match && match[0]) mapUrl = match[1] || match[0];
+          }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 1: Extrair dados do Google Maps (usando o link já salvo)
+        // ═══════════════════════════════════════════════════════════════
+        let mapsData: any = null;
+        let activeInstagramUrl = '';
+        let instagramBio = '';
+        let instagramFollowers = 0;
+        let logoPublicUrl = '';
+        let highlightPublicUrls: string[] = [];
+
+        if (mapUrl) {
+          showSuccess(`📍 PASSO 1/5: Acessando Google Maps para extrair dados oficiais...`);
+          try {
+            const extRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: rest?.name || '', mapUrl }, (response: any) => {
+                  resolve(response);
+                });
+              } else {
+                resolve({ success: false });
+              }
+            });
+            
+            if (extRes && extRes.success) {
+              mapsData = extRes;
+              
+              // Salva horários no banco imediatamente
+              if (extRes.schedule) {
+                showSuccess('✅ Horários encontrados no Google Maps! Salvando...');
+                await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', restaurantId);
+              }
+              
+              // Salva endereço oficial se encontrado (com parsing em campos separados + coordenadas)
+              if (extRes.address) {
+                showSuccess(`✅ Endereço oficial encontrado: ${extRes.address}`);
+                const parsedAddr = parseGoogleMapsAddress(extRes.address);
+                const addrUpdate: any = { address: parsedAddr.street };
+                if (parsedAddr.number) addrUpdate.number = parsedAddr.number;
+                if (parsedAddr.neighborhood) addrUpdate.neighborhood = parsedAddr.neighborhood;
+                if (parsedAddr.city) addrUpdate.city = parsedAddr.city;
+                if (parsedAddr.state) addrUpdate.state = parsedAddr.state;
+                if (parsedAddr.cep) addrUpdate.cep = parsedAddr.cep;
+                
+                // Extrai coordenadas da URL do Google Maps
+                let coords = extractCoordsFromUrl(mapUrl);
+                if (coords) {
+                  addrUpdate.latitude = coords.lat;
+                  addrUpdate.longitude = coords.lng;
+                  showSuccess(`📍 Coordenadas extraídas do Maps: ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`);
+                } else {
+                  // Fallback: geocoding via Nominatim usando o endereço completo
+                  try {
+                    const geocoded = await geocodeAddress(extRes.address);
+                    if (geocoded) {
+                      addrUpdate.latitude = geocoded.lat;
+                      addrUpdate.longitude = geocoded.lon;
+                      showSuccess(`📍 Coordenadas obtidas via geocoding: ${geocoded.lat.toFixed(6)}, ${geocoded.lon.toFixed(6)}`);
+                    }
+                  } catch (geoErr) {
+                    console.error('Erro no geocoding:', geoErr);
+                  }
+                }
+                
+                await supabase.from('restaurants').update(addrUpdate).eq('id', restaurantId);
+              }
+              
+              // Salva telefone se encontrado
+              if (extRes.phone) {
+                showSuccess(`✅ Telefone encontrado: ${extRes.phone}`);
+                await supabase.from('restaurants').update({ phone: extRes.phone }).eq('id', restaurantId);
+              }
+              
+              // Salva site oficial se encontrado
+              if (extRes.website) {
+                showSuccess(`✅ Site oficial encontrado: ${extRes.website}`);
+                await supabase.from('restaurants').update({ website: extRes.website }).eq('id', restaurantId);
+              }
+              
+              // Se encontrou Instagram no Maps, salva
+              if (extRes.socialLinks && extRes.socialLinks.length > 0) {
+                const instaFromMaps = extRes.socialLinks.find((s: any) => s.platform === 'instagram');
+                if (instaFromMaps) {
+                  showSuccess(`✅ Instagram encontrado no Google Maps: ${instaFromMaps.url}`);
+                  activeInstagramUrl = instaFromMaps.url;
+                  // Salva no social_networks
+                  const currentSocials = rest?.social_networks || [];
+                  const cleanSocials = currentSocials.filter((s: any) => s && s.platform !== 'instagram');
+                  cleanSocials.push({ platform: 'instagram', url: instaFromMaps.url });
+                  await supabase.from('restaurants').update({ social_networks: cleanSocials, instagram: instaFromMaps.url }).eq('id', restaurantId);
+                }
+              }
+            } else {
+              showError('⚠️ Não foi possível extrair dados do Google Maps. Continuando...');
+            }
+          } catch (err) {
+            console.error('Erro ao extrair dados do Maps:', err);
+            showError('⚠️ Erro ao acessar Google Maps. Continuando...');
+          }
+        } else {
+          showError('⚠️ Link do Google Maps não encontrado no cadastro. Pulando PASSO 1.');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 2: Busca contexto complementar no Google
+        // ═══════════════════════════════════════════════════════════════
+        showSuccess('🔍 PASSO 2/5: Buscando contexto complementar no Google...');
+        const query = `${rest?.name} ${rest?.city || ''} ${rest?.state || ''} cardapio instagram telefone`;
         
-        if (success) {
+        let googleSearchResults = null;
+        try {
+          googleSearchResults = await new Promise((resolve) => {
+            const chromeObj = (window as any).chrome;
+            if (chromeObj && chromeObj.runtime) {
+              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleNative", query }, (response: any) => {
+                if (response && response.success && response.results) resolve(response.results);
+                else resolve(null);
+              });
+            } else resolve(null);
+          });
+        } catch(e) {}
+
+        if (!googleSearchResults || (googleSearchResults as any[])?.length === 0) {
+           showError('Busca nativa no Google falhou. Prosseguindo sem contexto extra...');
+        } else {
+           showSuccess(`✅ Coletados ${(googleSearchResults as any[]).length} resultados do Google Nativo.`);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 3: Envia para IA (Fase 5) validar e corrigir dados
+        // ═══════════════════════════════════════════════════════════════
+        showSuccess('🤖 PASSO 3/5: Enviando para Validação IA no Servidor...');
+        const fetchOptions: RequestInit = { 
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            googleSearchResults,
+            instagramContext: instagramBio,
+            instagramHighlights: highlightPublicUrls,
+            mapsData: mapsData ? { address: mapsData.address, phone: mapsData.phone, website: mapsData.website, socialLinks: mapsData.socialLinks } : null
+          })
+        };
+        
+        const valRes = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${restaurantId}&origin=${encodeURIComponent(window.location.origin)}`, fetchOptions);
+        
+        if (valRes.ok) {
+          const valData = await valRes.json();
+          if (valData.success) {
+            showSuccess(`✅ Validação IA concluída com Sucesso!`);
+          } else {
+            showError(`⚠️ Validação IA: ${valData.error || 'Divergência de dados.'}`);
+          }
+        } else {
+          showError('⚠️ Erro no servidor ao executar Validação IA. Continuando...');
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 4: Buscar e Validar Instagram
+        // ═══════════════════════════════════════════════════════════════
+        // Recarrega os dados do restaurante do Supabase (pode ter sido atualizado pela IA)
+        const { data: updatedRest } = await supabase.from('restaurants').select('*').eq('id', restaurantId).single();
+        const currentInsta = updatedRest?.social_networks?.find((s: any) => s && s.platform === 'instagram' && s.url)?.url || updatedRest?.instagram || activeInstagramUrl;
+        
+        // Valida se o Instagram é realmente uma URL válida (não "Não localizado", "ausente", etc.)
+        const isValidInstagramUrl = (url: string | null | undefined): boolean => {
+          if (!url || url.trim() === '') return false;
+          const lower = url.toLowerCase().trim();
+          const invalidValues = ['não localizado', 'nao localizado', 'não encontrado', 'nao encontrado', 'ausente', 'n/a', 'null', 'undefined', 'none', 'sem instagram', 'indisponível', 'indisponivel'];
+          if (invalidValues.some(inv => lower.includes(inv))) return false;
+          if (!lower.includes('instagram.com/')) return false;
+          if (lower.includes('instagram.com/undefined')) return false;
+          if (lower.includes('instagram.com/null')) return false;
+          // Verifica se tem um username real após instagram.com/
+          const match = lower.match(/instagram\.com\/([a-z0-9._]+)/);
+          if (!match || match[1].length < 2) return false;
+          return true;
+        };
+        
+        if (isValidInstagramUrl(currentInsta)) {
+          // Já tem Instagram cadastrado — raspa diretamente
+          showSuccess(`📸 PASSO 4/5: Raspando Instagram já cadastrado: ${currentInsta}...`);
+          try {
+            const scrapeRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: currentInsta }, (res: any) => resolve(res));
+            });
+            if (scrapeRes && scrapeRes.success) {
+              activeInstagramUrl = currentInsta;
+              instagramBio = scrapeRes.bio || '';
+              instagramFollowers = scrapeRes.followers || 0;
+              
+              // Upload Logo
+              if (scrapeRes.logoDataUrl) {
+                try {
+                  const blob = base64ToBlob(scrapeRes.logoDataUrl);
+                  const mime = blob.type;
+                  let ext = 'jpg';
+                  if (mime.includes('png')) ext = 'png';
+                  else if (mime.includes('webp')) ext = 'webp';
+                  
+                  const storagePath = `logos/${restaurantId}_logo.${ext}`;
+                  const { error: uploadError } = await supabase.storage
+                    .from('restaurant-images')
+                    .upload(storagePath, blob, { contentType: mime, upsert: true });
+                  
+                  if (!uploadError) {
+                    const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                    logoPublicUrl = publicUrl;
+                  }
+                } catch(e) {
+                  console.error('Erro ao fazer upload da logo:', e);
+                }
+              }
+
+              // Upload Highlights
+              if (scrapeRes.highlightImages && scrapeRes.highlightImages.length > 0) {
+                showSuccess(`Coletados ${scrapeRes.highlightImages.length} destaques de cardápio! Fazendo upload...`);
+                for (let idx = 0; idx < scrapeRes.highlightImages.length; idx++) {
+                  try {
+                    const base64Str = scrapeRes.highlightImages[idx];
+                    const blob = base64ToBlob(base64Str);
+                    const storagePath = `highlights/${restaurantId}/highlight_${idx}_${Date.now()}.jpg`;
+                    const { error: uploadError } = await supabase.storage
+                      .from('restaurant-images')
+                      .upload(storagePath, blob, { contentType: 'image/jpeg', upsert: true });
+                    
+                    if (!uploadError) {
+                      const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                      highlightPublicUrls.push(publicUrl);
+                    }
+                  } catch(e) {
+                    console.error('Erro ao subir destaque:', e);
+                  }
+                }
+              }
+              
+              // Salva logo e seguidores no banco
+              const updates: any = {};
+              if (logoPublicUrl) updates.image_url = logoPublicUrl;
+              const currentSocials = updatedRest?.social_networks || [];
+              const cleanSocials = currentSocials.filter((s: any) => s && s.platform !== 'instagram');
+              cleanSocials.push({ platform: 'instagram', url: activeInstagramUrl, followers: instagramFollowers });
+              updates.social_networks = cleanSocials;
+              updates.instagram = activeInstagramUrl;
+              await supabase.from('restaurants').update(updates).eq('id', restaurantId);
+              showSuccess(`✅ Instagram coletado! Logo e ${instagramFollowers} seguidores salvos.`);
+            } else {
+              showError('⚠️ Falha ao raspar perfil do Instagram.');
+            }
+          } catch(e) {
+            console.error('Erro ao raspar Instagram:', e);
+          }
+        } else {
+          // Sem Instagram: busca 3 candidatos no Google e envia para IA validar
+          showSuccess('📸 PASSO 4/5: Sem Instagram cadastrado. Buscando 3 candidatos no Google...');
+          const instaQuery = `${rest?.name} ${rest?.city || 'João Pessoa'} instagram`;
+          
+          // Busca 3 candidatos de uma vez
+          const searchResult = await new Promise<any>((resolve) => {
+            const chromeObj = (window as any).chrome;
+            chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query: instaQuery, blocklist: [] }, (res: any) => resolve(res));
+          });
+
+          if (!searchResult || !searchResult.success || !searchResult.candidates || searchResult.candidates.length === 0) {
+            showError('⚠️ Nenhum candidato de Instagram encontrado no Google.');
+          } else {
+            const candidates = searchResult.candidates;
+            showSuccess(`🔍 ${candidates.length} candidato(s) encontrado(s): ${candidates.join(', ')}`);
+            
+            // Raspa a bio de cada candidato
+            const candidatesWithBio: Array<{ url: string; bio: string; followers: number; logoDataUrl?: string; highlightImages?: string[] }> = [];
+            for (const candidateUrl of candidates) {
+              showSuccess(`Raspando perfil: ${candidateUrl}...`);
+              try {
+                const scrapeRes = await new Promise<any>((resolve) => {
+                  const chromeObj = (window as any).chrome;
+                  chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: candidateUrl }, (res: any) => resolve(res));
+                });
+                if (scrapeRes && scrapeRes.success && !scrapeRes.isLoginRequired) {
+                  candidatesWithBio.push({
+                    url: candidateUrl,
+                    bio: scrapeRes.bio || 'Sem bio',
+                    followers: scrapeRes.followers || 0,
+                    logoDataUrl: scrapeRes.logoDataUrl,
+                    highlightImages: scrapeRes.highlightImages
+                  });
+                } else {
+                  showError(`Falha ao raspar ${candidateUrl}. Pulando...`);
+                }
+              } catch(e) {
+                console.error('Erro ao raspar candidato:', e);
+              }
+            }
+
+            if (candidatesWithBio.length === 0) {
+              showError('⚠️ Nenhum candidato pôde ser raspado com sucesso.');
+            } else {
+              // Envia todos os candidatos para a IA validar qual é o correto
+              showSuccess(`🧠 Enviando ${candidatesWithBio.length} candidato(s) para IA validar...`);
+              const valCheckOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  candidates: candidatesWithBio.map(c => ({ url: c.url, bio: c.bio, followers: c.followers })),
+                  restaurantName: rest?.name || '',
+                  restaurantCity: rest?.city || 'João Pessoa',
+                  restaurantAddress: updatedRest?.address || rest?.address || ''
+                })
+              };
+              const valCheckRes = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurantId}`, valCheckOptions);
+              
+              if (valCheckRes.ok) {
+                const valCheckData = await valCheckRes.json();
+                if (valCheckData.success && valCheckData.isValid && valCheckData.selectedUrl) {
+                  const selectedCandidate = candidatesWithBio.find(c => c.url === valCheckData.selectedUrl) || candidatesWithBio[0];
+                  showSuccess(`🎉 Instagram Confirmado pela IA: ${valCheckData.selectedUrl}`);
+                  activeInstagramUrl = valCheckData.selectedUrl;
+                  instagramBio = selectedCandidate.bio || '';
+                  instagramFollowers = selectedCandidate.followers || 0;
+                  
+                  // Upload Logo
+                  if (selectedCandidate.logoDataUrl) {
+                    try {
+                      const blob = base64ToBlob(selectedCandidate.logoDataUrl);
+                      const mime = blob.type;
+                      let ext = 'jpg';
+                      if (mime.includes('png')) ext = 'png';
+                      else if (mime.includes('webp')) ext = 'webp';
+                      
+                      const storagePath = `logos/${restaurantId}_logo.${ext}`;
+                      const { error: uploadError } = await supabase.storage
+                        .from('restaurant-images')
+                        .upload(storagePath, blob, { contentType: mime, upsert: true });
+                      
+                      if (!uploadError) {
+                        const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                        logoPublicUrl = publicUrl;
+                      }
+                    } catch(e) {
+                      console.error('Erro ao fazer upload da logo:', e);
+                    }
+                  }
+
+                  // Upload Highlights
+                  if (selectedCandidate.highlightImages && selectedCandidate.highlightImages.length > 0) {
+                    showSuccess(`Coletados ${selectedCandidate.highlightImages.length} destaques! Fazendo upload...`);
+                    for (let idx = 0; idx < selectedCandidate.highlightImages.length; idx++) {
+                      try {
+                        const base64Str = selectedCandidate.highlightImages[idx];
+                        const blob = base64ToBlob(base64Str);
+                        const storagePath = `highlights/${restaurantId}/highlight_${idx}_${Date.now()}.jpg`;
+                        const { error: uploadError } = await supabase.storage
+                          .from('restaurant-images')
+                          .upload(storagePath, blob, { contentType: 'image/jpeg', upsert: true });
+                        
+                        if (!uploadError) {
+                          const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                          highlightPublicUrls.push(publicUrl);
+                        }
+                      } catch(e) {}
+                    }
+                  }
+
+                  // Salva no banco
+                  const updates: any = {};
+                  if (logoPublicUrl) updates.image_url = logoPublicUrl;
+                  const currentSocials2 = updatedRest?.social_networks || [];
+                  const cleanSocials2 = currentSocials2.filter((s: any) => s && s.platform !== 'instagram');
+                  cleanSocials2.push({ platform: 'instagram', url: activeInstagramUrl, followers: instagramFollowers });
+                  updates.social_networks = cleanSocials2;
+                  updates.instagram = activeInstagramUrl;
+                  await supabase.from('restaurants').update(updates).eq('id', restaurantId);
+                  showSuccess(`✅ Instagram salvo com sucesso! Logo e ${instagramFollowers} seguidores.`);
+                } else {
+                  showError(`⚠️ IA não confirmou nenhum dos candidatos como Instagram oficial.`);
+                }
+              } else {
+                showError('⚠️ Erro ao validar candidatos no servidor.');
+              }
+            }
+          }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 5: Extração de Cardápio (Instagram bio/destaques → Google Maps)
+        // ═══════════════════════════════════════════════════════════════
+        showSuccess('🍽️ PASSO 5/5: Extraindo cardápio (Instagram → Google Maps)...');
+        try {
+          const menuResp = await fetch('/api/local-collector/extract-menu', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ restaurantId })
+          });
+          const menuResult = await menuResp.json();
+          if (menuResult.success) {
+            showSuccess(`✅ Cardápio extraído com sucesso! ${menuResult.message || ''}`);
+          } else {
+            showError(`⚠️ Cardápio: ${menuResult.message || 'Nenhum item encontrado nas fontes disponíveis.'}`);
+          }
+        } catch (menuErr: any) {
+          showError(`⚠️ Erro ao extrair cardápio: ${menuErr.message}`);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // PASSO 6: Finalização - Recarrega dados e notifica interface
+        // ═══════════════════════════════════════════════════════════════
+        showSuccess('🏁 Processo concluído! Atualizando interface...');
+        loadScrapedFromSupabase();
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+        return true;
+      } else if (field === 'hours' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        if (rest) {
+          showSuccess(`Buscando horários via Extensão Chrome para: ${rest.name}...`);
+          const query = `${rest.name} ${rest.city || ''} João Pessoa`;
+          let mapUrl = '';
+          if (rest.googleMapsUrl) mapUrl = rest.googleMapsUrl;
+          else if (rest.visit_notes) {
+            const match = rest.visit_notes.match(/https:\/\/[^\s\n]*google[^\s\n]*\/maps[^\s\n]*/i) || rest.visit_notes.match(/https:\/\/[^\s\n]*maps\.app\.goo\.gl[^\s\n]*/i) || rest.visit_notes.match(/Google Maps:\s*(https:\/\/[^\s\n]*)/i);
+            if (match && match[0]) mapUrl = match[1] || match[0];
+          }
+          
+          try {
+            const extRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query, mapUrl }, (response: any) => {
+                  resolve(response);
+                });
+              } else {
+                resolve({ success: false, error: "Extensão não disponível." });
+              }
+            });
+            
+            if (extRes && extRes.success && extRes.schedule) {
+              showSuccess(`Horários encontrados no Maps! Salvando no banco de dados...`);
+              const { error: updateError } = await supabase
+                .from('restaurants')
+                .update({ opening_hours: extRes.schedule })
+                .eq('id', rest.id);
+              
+              if (!updateError) {
+                showSuccess(`Horários atualizados com sucesso!`);
+                loadScrapedFromSupabase();
+                window.dispatchEvent(new Event('local-sync-restaurants'));
+                return true;
+              } else {
+                showError("Erro ao salvar os horários no banco de dados: " + updateError.message);
+                return false;
+              }
+            } else {
+              showError(`Extensão não encontrou horários no Google Maps: ${extRes?.error || 'Tente novamente.'}`);
+              return false;
+            }
+          } catch (err) {
+            console.error('Erro ao acionar extensão para horários:', err);
+          }
+        }
+      } else if (field === 'instagram' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        if (rest) {
+          showSuccess(`Buscando Instagram para: ${rest.name}...`);
+          let instagramUrl = '';
+          const instaObj = rest.social_networks?.find((s: any) => s && s.platform === 'instagram' && s.url);
+          if (instaObj) instagramUrl = instaObj.url;
+          
+          const chromeObj = (window as any).chrome;
+          if (!instagramUrl) {
+            const query = `${rest.name} ${rest.city || ''} instagram`;
+            const searchRes = await new Promise<any>((resolve) => {
+              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query }, (res) => resolve(res));
+            });
+            if (searchRes && searchRes.success && searchRes.url) {
+              instagramUrl = searchRes.url;
+            }
+          }
+          
+          if (instagramUrl) {
+            showSuccess(`Instagram encontrado: ${instagramUrl}. Raspando bio...`);
+            const scrapeRes = await new Promise<any>((resolve) => {
+              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl }, (res) => resolve(res));
+            });
+            
+            if (scrapeRes && scrapeRes.success) {
+              showSuccess(`Instagram raspado! Validando...`);
+              const valRes = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurantId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ instagramUrl, instagramContext: scrapeRes.bio || '' })
+              });
+              
+              if (valRes.ok) {
+                const valData = await valRes.json();
+                if (valData.success && valData.isValid) {
+                  showSuccess(`Instagram validado! Gravando no banco...`);
+                  let finalLogoUrl = null;
+                  if (scrapeRes.logoDataUrl) {
+                    try {
+                      const base64Response = await fetch(scrapeRes.logoDataUrl);
+                      const blob = await base64Response.blob();
+                      const fileName = `logo_${Date.now()}.jpg`;
+                      const filePath = `brands/${restaurantId}/${fileName}`;
+                      const { error: uploadError } = await supabase.storage.from('restaurant-images').upload(filePath, blob, { contentType: 'image/jpeg', upsert: true });
+                      if (!uploadError) {
+                        const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(filePath);
+                        finalLogoUrl = publicUrl;
+                      }
+                    } catch(e) {}
+                  }
+                  
+                  const updates: any = {};
+                  if (finalLogoUrl) updates.image_url = finalLogoUrl;
+                  
+                  const newSocials = rest.social_networks ? [...rest.social_networks] : [];
+                  const cleanSocials = newSocials.filter((s: any) => s && s.platform !== 'instagram');
+                  cleanSocials.push({ platform: 'instagram', url: instagramUrl, followers: scrapeRes.followers });
+                  updates.social_networks = cleanSocials;
+                  
+                  await supabase.from('restaurants').update(updates).eq('id', restaurantId);
+                  showSuccess('Instagram e Logo gravados com sucesso!');
+                  loadScrapedFromSupabase();
+                  window.dispatchEvent(new Event('local-sync-restaurants'));
+                  return true;
+                } else {
+                  showError(`Instagram rejeitado pela IA: ${valData.reason || 'Divergência.'}`);
+                }
+              } else {
+                showError('Erro ao validar Instagram no servidor.');
+              }
+            } else {
+              showError(`Falha ao raspar perfil do Instagram: ${scrapeRes?.error || 'Tente novamente.'}`);
+            }
+          } else {
+            showError('Nenhum link de Instagram encontrado para este restaurante.');
+          }
+        }
+        return false;
+      } else if (field === 'menu' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        if (rest) {
+          showSuccess(`Buscando link do cardápio via Extensão Chrome para: ${rest.name}...`);
+          const query = `${rest.name} ${rest.city || ''} cardapio menu`;
+          
+          try {
+            const extRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForMenu", query }, (response: any) => {
+                  resolve(response);
+                });
+              } else {
+                resolve({ success: false, error: "Extensão não disponível." });
+              }
+            });
+            
+            if (extRes && extRes.success && extRes.url) {
+              showSuccess(`Link do cardápio encontrado: ${extRes.url}. Gravando no banco...`);
+              
+              const updatePayload: any = {
+                other_url: extRes.url,
+                external_url: extRes.url
+              };
+              
+              if (extRes.url.includes('wa.me/') || extRes.url.includes('whatsapp.com/send')) {
+                const cleanUrl = extRes.url.replace(/[^\d+]/g, '');
+                const match = cleanUrl.match(/(\d{10,})/);
+                if (match && (!rest.phone || rest.phone.toLowerCase().includes('sem telefone') || rest.phone.trim() === '')) {
+                  updatePayload.phone = match[0];
+                }
+              }
+              
+              const { error: updateError } = await supabase
+                .from('restaurants')
+                .update(updatePayload)
+                .eq('id', rest.id);
+              
+              if (!updateError) {
+                showSuccess(`Cardápio atualizado com sucesso!`);
+                loadScrapedFromSupabase();
+                window.dispatchEvent(new Event('local-sync-restaurants'));
+                return true;
+              } else {
+                showError("Erro ao salvar cardápio no banco: " + updateError.message);
+                return false;
+              }
+            } else {
+              showError(`Nenhum link de cardápio encontrado: ${extRes?.error || 'Tente outra busca.'}`);
+              return false;
+            }
+          } catch (err) {
+            console.error('Erro na extensão ao buscar cardápio:', err);
+            return false;
+          }
+        }
+      } else if (field === 'scrape-menu' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        if (rest) {
+          const menuUrl = rest.other_url || rest.external_url;
+          if (!menuUrl || !menuUrl.startsWith('http')) {
+            showError("O restaurante não possui link de cardápio válido cadastrado.");
+            return false;
+          }
+          
+          showSuccess(`Carregando cardápio via Extensão Chrome: ${menuUrl}...`);
+          try {
+            const extRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "scrapeMenu", url: menuUrl }, (response: any) => {
+                  resolve(response);
+                });
+              } else {
+                resolve({ success: false, error: "Extensão não disponível." });
+              }
+            });
+            
+            if (extRes && extRes.success) {
+              showSuccess("Página do cardápio lida com sucesso! Enviando para processamento no servidor...");
+              
+              const fetchPayload: any = {};
+              if (extRes.parsedMenu) fetchPayload.parsedMenu = extRes.parsedMenu;
+              if (extRes.xmlContent) fetchPayload.xmlContent = extRes.xmlContent;
+              
+              const fetchOptions: RequestInit = { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fetchPayload)
+              };
+              
+              const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurantId}`, fetchOptions);
+              if (res.ok) {
+                const result = await res.json();
+                if (result.success) {
+                  showSuccess(`Cardápio coletado e processado com sucesso!`);
+                  loadScrapedFromSupabase();
+                  window.dispatchEvent(new Event('local-sync-restaurants'));
+                  return true;
+                } else {
+                  showError(result.error || `Erro ao processar cardápio.`);
+                  return false;
+                }
+              } else {
+                showError('Erro ao comunicar com o servidor para processar cardápio.');
+                return false;
+              }
+            } else {
+              showError(`Extensão falhou ao ler página do cardápio: ${extRes?.error || 'Tente novamente.'}`);
+              return false;
+            }
+          } catch (err) {
+            console.error('Erro ao acionar extensão para cardápio:', err);
+            showError('Erro ao acionar extensão para cardápio.');
+            return false;
+          }
+        }
+      } else if (field === 'scrape-logo' && isExtensionActive && extensionId) {
+        const rest = results.find(r => r.id === restaurantId);
+        if (rest) {
+          const instaObj = rest.social_networks?.find((s: any) => s && s.platform === 'instagram' && s.url);
+          const instagramUrl = instaObj?.url;
+          
+          if (!instagramUrl) {
+            showError("O restaurante não possui link de Instagram cadastrado. Busque o Instagram primeiro.");
+            return false;
+          }
+          
+          showSuccess(`Coletando logo e seguidores do Instagram via Extensão: ${instagramUrl}...`);
+          try {
+            const extRes = await new Promise<any>((resolve) => {
+              const chromeObj = (window as any).chrome;
+              if (chromeObj && chromeObj.runtime) {
+                chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl }, (response: any) => {
+                  resolve(response);
+                });
+              } else {
+                resolve({ success: false, error: "Extensão não disponível." });
+              }
+            });
+            
+            if (extRes && extRes.success) {
+              showSuccess(`Perfil raspado! Enviando para o banco de dados...`);
+              
+              let finalLogoUrl = null;
+              if (extRes.logoDataUrl) {
+                try {
+                  const base64Response = await fetch(extRes.logoDataUrl);
+                  const blob = await base64Response.blob();
+                  const fileName = `logo_${Date.now()}.jpg`;
+                  const filePath = `brands/${restaurantId}/${fileName}`;
+                  
+                  const { error: uploadError } = await supabase.storage
+                    .from('restaurant-images')
+                    .upload(filePath, blob, { contentType: 'image/jpeg', upsert: true });
+                  
+                  if (!uploadError) {
+                    const { data: { publicUrl } } = supabase.storage.from('restaurant-images').getPublicUrl(filePath);
+                    finalLogoUrl = publicUrl;
+                  }
+                } catch(e) {
+                  console.error('Erro no upload da logo:', e);
+                }
+              }
+              
+              const updates: any = {};
+              if (finalLogoUrl) updates.image_url = finalLogoUrl;
+              
+              if (extRes.followers) {
+                const newSocials = rest.social_networks.map((s: any) => {
+                  if (s && s.platform === 'instagram') {
+                    return { ...s, followers: extRes.followers };
+                  }
+                  return s;
+                });
+                updates.social_networks = newSocials;
+              }
+              
+              if (Object.keys(updates).length > 0) {
+                const { error: updateError } = await supabase
+                  .from('restaurants')
+                  .update(updates)
+                  .eq('id', restaurantId);
+                
+                if (!updateError) {
+                  showSuccess('Logo e seguidores gravados com sucesso!');
+                  loadScrapedFromSupabase();
+                  window.dispatchEvent(new Event('local-sync-restaurants'));
+                  return true;
+                } else {
+                  showError('Erro ao gravar dados no Supabase: ' + updateError.message);
+                  return false;
+                }
+              } else {
+                showSuccess('Nenhuma informação nova para salvar.');
+                return true;
+              }
+            } else {
+              showError(`Erro ao raspar Instagram: ${extRes?.error || 'Tente novamente.'}`);
+              return false;
+            }
+          } catch (err) {
+            console.error('Erro na extensão ao coletar logo:', err);
+            return false;
+          }
+        }
+      }
+
+      // LÓGICA ANTIGA PARA OS DEMAIS BOTÕES
+      let endpoint = '';
+      if (field === 'instagram') endpoint = '/api/local-collector/re-search-social';
+      else if (field === 'menu') endpoint = '/api/local-collector/re-search-menu';
+      else if (field === 'scrape-menu') endpoint = '/api/local-collector/re-scrape-menu';
+      else if (field === 'scrape-logo') endpoint = '/api/local-collector/re-scrape-logo';
+      else if (field === 'ai-validation') endpoint = '/api/local-collector/re-ai-validation'; // Fallback se extensão não ativa
+      else endpoint = '/api/local-collector/re-search-hours';
+      
+      let params = `?restaurantId=${restaurantId}`;
+      if (field === 'scrape-logo') {
+        const pct = localStorage.getItem('admin_followers_percentage') || '10';
+        params += `&pct=${pct}`;
+      }
+      
+      const fetchOptions: RequestInit = { method: 'POST' };
+      const res = await fetch(`${endpoint}${params}`, fetchOptions);
+      
+      if (res.ok) {
+        const result = await res.json();
+        if (result.success) {
+          showSuccess(`Rebusca concluída! ${fieldLabel} atualizado(s).`);
           loadScrapedFromSupabase();
           window.dispatchEvent(new Event('local-sync-restaurants'));
           return true;
+        } else {
+          showError(result.error || `Não foi possível encontrar ${fieldLabel} para este restaurante.`);
+          return false;
         }
+      } else {
+        const err = await res.json();
+        showError(err.error || 'Erro ao executar rebusca no servidor.');
         return false;
       }
-      // Outros fields podem ser ignorados ou mantidos caso a extensão não esteja ativa
-      return false;
     } catch (err) {
+      showError('Servidor local offline ou erro de rede.');
       return false;
     } finally {
       setLoadingRebusca(prev => ({ ...prev, [key]: false }));
     }
   };
-;
 
   const handleValidateAllIA = async () => {
     if (isValidatingAll) {
@@ -983,6 +1683,7 @@ export default function GoogleMapsCollector() {
         }
 
         const r = targets[i];
+        showSuccess(`[${i + 1}/${targets.length}] Processando "${r.name}"...`);
         
         const success = await handleRebusca(r.id, 'ai-validation');
         if (!success) {
@@ -1106,7 +1807,8 @@ export default function GoogleMapsCollector() {
     reader.readAsText(file);
   };
 
-  // Formata os resultados da busca sem filtrar por avaliações aqui — todos os estabelecimentos reais coletados são armazenados.
+  // Formata os resultados da busca e garante que o restaurante do colega "Deda Lanches" esteja sempre presente para João Pessoa.
+  // IMPORTANTE: NÃO filtra por avaliações aqui — todos os estabelecimentos reais coletados são armazenados.
   // O filtro de "mínimo de avaliações" é aplicado apenas na exibição da tabela (ver displayedResults abaixo).
   const processAndSetResults = (rawList: Omit<ScrapedRestaurant, 'id'>[], _reviewsLimit: number) => {
     // Mapeia IDs sem nenhum filtro de avaliações — coleta TUDO
@@ -1118,7 +1820,41 @@ export default function GoogleMapsCollector() {
       };
     });
 
-        setResults(formatted);
+    // Injeta Deda Lanches se João Pessoa for a cidade e ele não estiver no resultado
+    const isJampa = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes("joao pessoa");
+    const hasDeda = formatted.some(r => r.name.toLowerCase().includes("deda lanches") || r.name.toLowerCase().includes("deda"));
+    
+    if (isJampa && !hasDeda) {
+      formatted.unshift({
+        id: 'scraped-joao-pessoa-deda-lanches',
+        name: 'Deda Lanches',
+        category: 'Lanches',
+        rating: 4.8,
+        reviewsCount: 220,
+        address: 'Av. Epitácio Pessoa, 1020 - Tambaú',
+        phone: '(83) 99822-1010',
+        city: 'João Pessoa',
+        state: 'PB',
+        instagram: 'https://instagram.com/deda_lanchesoficial',
+        facebook: 'https://facebook.com/dedalanches',
+        coverImage: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800',
+        galleryImages: [
+          'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600',
+          'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600'
+        ],
+        openingHours: {
+          monday: { isOpen: false, slots: [] },
+          tuesday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] },
+          wednesday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] },
+          thursday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] },
+          friday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] },
+          saturday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] },
+          sunday: { isOpen: true, slots: [{ start: '16:00', end: '23:00' }] }
+        }
+      });
+    }
+
+    setResults(formatted);
     setIsViewingDb(false);
   };
 
@@ -1210,7 +1946,7 @@ export default function GoogleMapsCollector() {
   useEffect(() => {
     const loadImportedMissions = async () => {
       try {
-        const PAGE_SIZE = 999;
+        const PAGE_SIZE = 500;
         const allMissions: any[] = [];
         let page = 0;
         let hasMore = true;
@@ -1261,7 +1997,7 @@ export default function GoogleMapsCollector() {
 
   const loadScrapedFromSupabase = async () => {
     try {
-      const PAGE_SIZE = 999;
+      const PAGE_SIZE = 500;
       const allScraped: any[] = [];
       let page = 0;
       let hasMore = true;
@@ -1270,6 +2006,7 @@ export default function GoogleMapsCollector() {
         const from = page * PAGE_SIZE;
         const to = from + PAGE_SIZE - 1;
 
+        // Filtra por cidade diretamente no Supabase (usa o valor com acento)
         const { data, error } = await supabase
           .from('restaurants')
           .select(`
@@ -1282,6 +2019,7 @@ export default function GoogleMapsCollector() {
           `)
           .eq('is_published', false)
           .or('is_deleted.eq.false,is_deleted.is.null')
+          .ilike('city', `%${city.trim()}%`)
           .order('name')
           .range(from, to);
 
@@ -1370,9 +2108,11 @@ export default function GoogleMapsCollector() {
         return updated || prev;
       });
       setIsViewingDb(true);
+      return formatted;
     } catch (err: any) {
       console.error('Erro ao carregar do Supabase:', err);
       showError(`Erro ao carregar estabelecimentos do Supabase: ${err.message || err}`);
+      return null;
     }
   };
 
@@ -1659,6 +2399,7 @@ export default function GoogleMapsCollector() {
 
       const res = await fetch(url, { method: 'POST' });
       if (res.ok) {
+        showSuccess('Coleta do Google Maps (Fase 1) iniciada!');
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao iniciar.');
@@ -1672,6 +2413,7 @@ export default function GoogleMapsCollector() {
     try {
       const res = await fetch('/api/local-collector/run-social', { method: 'POST' });
       if (res.ok) {
+        showSuccess('Enriquecimento de Redes (Fase 2) iniciado!');
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao iniciar.');
@@ -1685,6 +2427,7 @@ export default function GoogleMapsCollector() {
     try {
       const res = await fetch('/api/local-collector/run-menu', { method: 'POST' });
       if (res.ok) {
+        showSuccess('Coleta de Cardápios (Fase 3) iniciada!');
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao iniciar.');
@@ -1698,6 +2441,7 @@ export default function GoogleMapsCollector() {
     try {
       const res = await fetch('/api/local-collector/run-logos', { method: 'POST' });
       if (res.ok) {
+        showSuccess('Coleta de Logos (Fase 4) iniciada!');
       } else {
         const err = await res.json();
         showError(err.error || 'Erro ao iniciar.');
@@ -2610,27 +3354,7 @@ export default function GoogleMapsCollector() {
                   >
                     Iniciar Fase 1 (Google Maps)
                   </Button>
-                  <Button 
-                    onClick={startFase2} 
-                    disabled={runnerRunning || !runnerConnected}
-                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-700 hover:to-indigo-600 text-white font-bold transition-all shadow-md hover:shadow-purple-500/20 disabled:opacity-50"
-                  >
-                    Iniciar Fase 2 (Redes Sociais)
-                  </Button>
-                  <Button 
-                    onClick={startFase3} 
-                    disabled={runnerRunning || !runnerConnected}
-                    className="w-full bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold transition-all shadow-md hover:shadow-pink-500/20 disabled:opacity-50"
-                  >
-                    Iniciar Fase 3 (Cardápios)
-                  </Button>
-                  <Button 
-                    onClick={startFase4} 
-                    disabled={runnerRunning || !runnerConnected}
-                    className="w-full bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 text-white font-bold transition-all shadow-md hover:shadow-orange-500/20 disabled:opacity-50"
-                  >
-                    Iniciar Fase 4 (Logos)
-                  </Button>
+
                   {runnerRunning && (
                     <Button 
                       onClick={stopCollector} 
@@ -2838,6 +3562,36 @@ export default function GoogleMapsCollector() {
         </CardContent>
       </Card>
 
+      <Card className="border-none shadow-none bg-transparent">
+        <CardHeader className="px-0 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <CardTitle className="text-2xl text-primary font-bold">Coleta Oficial via Google Places API</CardTitle>
+            <CardDescription>
+              Varra estabelecimentos de qualquer cidade traçando coordenadas e exporte-os diretamente para o catálogo de restaurantes da plataforma.
+            </CardDescription>
+          </div>
+          <div className="flex gap-2">
+            <div>
+              <input 
+                type="file" 
+                accept=".json" 
+                onChange={handleJsonUpload} 
+                className="hidden" 
+                id="json-file-upload-input" 
+              />
+              <Button 
+                type="button"
+                variant="outline" 
+                size="sm"
+                className="gap-1.5 border-primary text-primary hover:bg-background-light font-bold"
+                onClick={() => document.getElementById('json-file-upload-input')?.click()}
+              >
+                Importar JSON
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
 
       {/* Barra de Filtros / Busca */}
       <div className="space-y-4 p-5 bg-white shadow-none rounded-2xl border border-gray-100">
@@ -3515,10 +4269,9 @@ export default function GoogleMapsCollector() {
         restaurant={editingRestaurant}
         isOpen={editingRestaurant !== null}
         onClose={() => setEditingRestaurant(null)}
-        onSyncSuccess={() => {
-          if (isViewingDbRef.current) {
-            loadScrapedFromSupabase();
-          }
+        onSyncSuccess={async () => {
+          // Recarrega a lista do banco e atualiza o restaurante selecionado no modal
+          await loadScrapedFromSupabase();
         }}
       />
     </div>

@@ -47,6 +47,32 @@ if (OPENROUTER_API_KEY) {
 
 const MODEL_NAME = process.env.VITE_AI_MODEL || (isOpenRouter ? "openrouter/free" : "gpt-4o-mini");
 
+// ═══════════════════════════════════════════════════════════════
+// Função de retry com espera automática para rate limits (429)
+// ═══════════════════════════════════════════════════════════════
+async function callOpenAIWithRetry(params, maxRetries = 5) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await openai.chat.completions.create(params);
+      return response;
+    } catch (err) {
+      if (err.status === 429) {
+        const retryAfterMs = err.headers?.get?.('retry-after-ms') || null;
+        const retryAfterSec = err.headers?.get?.('retry-after') || null;
+        let waitMs = 2000 * attempt;
+        if (retryAfterMs) waitMs = parseInt(retryAfterMs) + 500;
+        else if (retryAfterSec) waitMs = (parseInt(retryAfterSec) * 1000) + 500;
+        waitMs = Math.min(waitMs, 60000);
+        console.log(`[IA Validadora] ⏳ Rate limit atingido (tentativa ${attempt}/${maxRetries}). Aguardando ${(waitMs/1000).toFixed(1)}s...`);
+        await new Promise(resolve => setTimeout(resolve, waitMs));
+      } else {
+        throw err;
+      }
+    }
+  }
+  throw new Error(`Rate limit persistente após ${maxRetries} tentativas.`);
+}
+
 function parseJSONFromAI(content) {
   if (!content) return null;
   let clean = content.trim();
@@ -64,7 +90,7 @@ function parseJSONFromAI(content) {
 async function parseWorkingHoursStringToJSON(hoursString) {
   if (!hoursString) return null;
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await callOpenAIWithRetry({
       model: MODEL_NAME,
       messages: [
         { role: "system", content: "Você é um formatador de horários de funcionamento de restaurantes. Sua tarefa é converter um texto livre contendo horários em um JSON estruturado para toda a semana (monday a sunday). Para cada dia, defina 'isOpen' como true (se houver funcionamento) ou false (se fechado). Em 'slots', adicione objetos contendo 'start' e 'end' no formato 'HH:MM'. Se o local fechar para almoço e reabrir, adicione múltiplos slots. Se não houver horário disponível para um dia ou se ele for fechado, defina 'isOpen': false e 'slots': []." },
@@ -306,17 +332,20 @@ const metadataSchema = {
       instagram_url: { type: ["string", "null"] },
       telefone: { type: ["string", "null"] },
       site_oficial: { type: ["string", "null"] },
+      endereco_oficial: { type: ["string", "null"] },
+      bairro_oficial: { type: ["string", "null"] },
+      cidade_oficial: { type: ["string", "null"] },
+      estado_oficial: { type: ["string", "null"] },
+      cep_oficial: { type: ["string", "null"] },
       categoria_correta: { type: "string" },
       about: { type: "string" },
       working_hours: { type: ["string", "null"] },
       logo_url: { type: ["string", "null"] },
       cover_url: { type: ["string", "null"] },
       confianca_confirmada: { type: "boolean" },
-      confidence_score: { type: "number" },
-      bairro_match: { type: "boolean" },
       motivo_divergencia: { type: ["string", "null"] }
     },
-    required: ["nome_validado", "instagram_url", "telefone", "site_oficial", "categoria_correta", "about", "working_hours", "logo_url", "cover_url", "confianca_confirmada", "confidence_score", "bairro_match", "motivo_divergencia"],
+    required: ["nome_validado", "instagram_url", "telefone", "site_oficial", "endereco_oficial", "bairro_oficial", "cidade_oficial", "estado_oficial", "cep_oficial", "categoria_correta", "about", "working_hours", "logo_url", "cover_url", "confianca_confirmada", "motivo_divergencia"],
     additionalProperties: false
   }
 };
@@ -357,6 +386,113 @@ const menuChunkSchema = {
     additionalProperties: false
   }
 };
+
+/**
+ * Normaliza texto removendo acentos e convertendo para minúsculas.
+ */
+function normalizeText(text) {
+  if (!text) return '';
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
+/**
+ * Seleciona os links corretos de uma lista baseado na cidade/bairro/endereço do restaurante.
+ * Usado quando há múltiplos links na bio (ex: redes com várias unidades) ou em Linktrees.
+ * 
+ * Lógica:
+ * 1. Se algum link menciona EXATAMENTE a cidade ou bairro do alvo → seleciona esse
+ * 2. Se algum link menciona outra cidade/bairro conhecida → REJEITA esse
+ * 3. Se nenhum link menciona localização → retorna todos (são genéricos)
+ * 4. Se só sobrar links genéricos (sem cidade no nome/URL) → retorna esses
+ * 
+ * @param {Array<{text: string, href: string, url?: string}>} links - Lista de links
+ * @param {string} city - Cidade do restaurante (ex: "João Pessoa")
+ * @param {string} neighborhood - Bairro do restaurante (ex: "Manaíra")
+ * @param {string} address - Endereço do restaurante
+ * @returns {Array} Links filtrados
+ */
+function selectLinksByLocation(links, city, neighborhood, address) {
+  if (!links || links.length <= 1) return links || [];
+  
+  const cityNorm = normalizeText(city);
+  const neighborhoodNorm = normalizeText(neighborhood);
+  const addressNorm = normalizeText(address);
+  
+  // Palavras-chave de localização extraídas do endereço completo
+  const locationKeywords = [cityNorm, neighborhoodNorm].filter(k => k.length > 2);
+  
+  // Também extrai partes do endereço que possam ser nomes de bairro/região
+  if (addressNorm) {
+    const parts = addressNorm.split(/[,\-\/]/).map(p => p.trim()).filter(p => p.length > 3);
+    locationKeywords.push(...parts);
+  }
+  
+  console.log(`[selectLinksByLocation] Cidade: "${city}", Bairro: "${neighborhood}", Keywords: [${locationKeywords.join(', ')}]`);
+  console.log(`[selectLinksByLocation] Links disponíveis: ${links.map(l => `"${l.text || ''}" → ${l.href || l.url || ''}`).join(' | ')}`);
+  
+  // Classifica cada link: match_city, match_neighborhood, other_city, generic
+  const classified = links.map(link => {
+    const linkText = normalizeText(link.text || '');
+    const linkUrl = normalizeText(link.href || link.url || '');
+    const combined = linkText + ' ' + linkUrl;
+    
+    let matchType = 'generic';
+    
+    // Verifica se menciona a cidade do alvo
+    if (cityNorm && (combined.includes(cityNorm) || combined.includes(cityNorm.replace(/\s+/g, '')))) {
+      matchType = 'match_city';
+    }
+    // Verifica se menciona o bairro do alvo
+    else if (neighborhoodNorm && neighborhoodNorm.length > 3 && combined.includes(neighborhoodNorm)) {
+      matchType = 'match_neighborhood';
+    }
+    // Verifica se menciona OUTRA cidade conhecida (indica que é de outra unidade)
+    else {
+      // Lista de cidades comuns da Paraíba e estados vizinhos para detectar "outra unidade"
+      const knownCities = ['patos', 'sousa', 'campina grande', 'cajazeiras', 'guarabira', 'bayeux',
+        'santa rita', 'cabedelo', 'recife', 'natal', 'caruaru', 'mossoró', 'petrolina',
+        'juazeiro', 'garanhuns', 'parnamirim', 'olinda', 'jaboatao', 'paulista',
+        'joao pessoa', 'maceio', 'aracaju', 'teresina', 'fortaleza', 'salvador',
+        'manaira', 'tambau', 'bessa', 'altiplano', 'bancarios', 'mangabeira',
+        'valentina', 'cristo', 'jaguaribe', 'torre', 'centro', 'tambia',
+        'cabo branco', 'intermares', 'jardim oceania', 'aeroclube', 'pedro gondim'];
+      
+      for (const otherCity of knownCities) {
+        // Só marca como "outra cidade" se NÃO for a cidade/bairro do alvo
+        if (otherCity === cityNorm || otherCity === neighborhoodNorm) continue;
+        if (combined.includes(otherCity) || combined.includes(otherCity.replace(/\s+/g, ''))) {
+          matchType = 'other_city';
+          console.log(`[selectLinksByLocation] Link "${link.text}" rejeitado: menciona "${otherCity}" (não é a cidade/bairro alvo)`);
+          break;
+        }
+      }
+    }
+    
+    return { ...link, matchType };
+  });
+  
+  // Prioridade: match_city > match_neighborhood > generic > other_city
+  const matchCity = classified.filter(l => l.matchType === 'match_city');
+  const matchNeighborhood = classified.filter(l => l.matchType === 'match_neighborhood');
+  const generic = classified.filter(l => l.matchType === 'generic');
+  
+  if (matchCity.length > 0) {
+    console.log(`[selectLinksByLocation] ✅ Encontrado(s) ${matchCity.length} link(s) que mencionam a cidade "${city}".`);
+    return matchCity;
+  }
+  if (matchNeighborhood.length > 0) {
+    console.log(`[selectLinksByLocation] ✅ Encontrado(s) ${matchNeighborhood.length} link(s) que mencionam o bairro "${neighborhood}".`);
+    return matchNeighborhood;
+  }
+  if (generic.length > 0) {
+    console.log(`[selectLinksByLocation] ℹ️ Nenhum link específico da cidade/bairro. Usando ${generic.length} link(s) genérico(s).`);
+    return generic;
+  }
+  
+  // Se só sobrou links de outras cidades, retorna vazio (melhor nada do que errado)
+  console.log(`[selectLinksByLocation] ⚠️ Todos os links são de outras cidades/unidades. Nenhum selecionado.`);
+  return [];
+}
 
 /**
  * Limpa o texto bruto extraído pelo scraper: remove cabeçalhos/rodapés repetidos,
@@ -645,19 +781,51 @@ async function fetchInstagramProfileText(instagramUrl) {
       const header = document.querySelector('header');
       const text = header ? header.textContent.trim() : '';
       
-      let bioLink = null;
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      const logoUrl = ogImage ? ogImage.getAttribute('content') : null;
+      
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      let followers = null;
+      if (ogDesc) {
+        const content = ogDesc.getAttribute('content');
+        const match = content.match(/^([\d\.,MKmk]+)\s*[Ff]ollowers?/);
+        if (match) followers = match[1];
+      }
+      
+      // Extrai TODOS os links externos da bio (não apenas o primeiro)
+      const bioLinks = [];
       const anchors = Array.from(document.querySelectorAll('a'));
       for (const a of anchors) {
         const href = a.getAttribute('href') || '';
+        const linkText = a.textContent.trim();
         if (href.includes('l.instagram.com/?u=') || href.includes('l.instagram.com/')) {
           try {
             const urlObj = new URL(href);
             const u = urlObj.searchParams.get('u');
-            if (u) { bioLink = decodeURIComponent(u); break; }
+            if (u) {
+              const decoded = decodeURIComponent(u);
+              if (!bioLinks.some(l => l.url === decoded)) {
+                bioLinks.push({ url: decoded, text: linkText || decoded });
+              }
+            }
           } catch (e) {}
         }
       }
-      return { text, bioLink };
+      
+      // Fallback: se não encontrou via l.instagram.com, busca links diretos
+      if (bioLinks.length === 0) {
+        for (const a of anchors) {
+          const href = a.getAttribute('href') || '';
+          const linkText = a.textContent.trim();
+          if (href.startsWith('http') && !href.includes('instagram.com') && !href.includes('facebook.com')) {
+            if (!bioLinks.some(l => l.url === href)) {
+              bioLinks.push({ url: href, text: linkText || href });
+            }
+          }
+        }
+      }
+      
+      return { text, bioLinks, logoUrl, followers };
     });
     
     let info = `[Perfil Instagram: @${handle}]\n`;
@@ -665,12 +833,15 @@ async function fetchInstagramProfileText(instagramUrl) {
     if (profileData.text) {
       info += `Conteúdo do Cabeçalho/Bio: ${profileData.text}\n`;
     }
-    if (profileData.bioLink) {
-      info += `Link na Bio: ${profileData.bioLink}\n`;
+    if (profileData.bioLinks && profileData.bioLinks.length > 0) {
+      info += `Links na Bio (${profileData.bioLinks.length} encontrados):\n`;
+      for (const link of profileData.bioLinks) {
+        info += `  - [${link.text}]: ${link.url}\n`;
+      }
     }
     
-    console.log(`   ✅ [IA Validadora] Dados do Instagram de @${handle} obtidos.`);
-    return info;
+    console.log(`   ✅ [IA Validadora] Dados do Instagram de @${handle} obtidos. Logo: ${profileData.logoUrl ? 'Sim' : 'Não'}, Seguidores: ${profileData.followers || 'Desconhecido'}`);
+    return { info, logoUrl: profileData.logoUrl, followers: profileData.followers };
   } catch (err) {
     console.error(`   ⚠️ [IA Validadora] Erro ao extrair dados do Instagram:`, err.message);
     return null;
@@ -731,10 +902,12 @@ async function validarECompletarDados(estabelecimento, dadosColetados) {
   
   // 1.2 Tenta coletar o Instagram via Puppeteer ANTES da Cura, para usar a Bio na Cura (Apenas se a extensão não o fez)
   if (dadosColetados.instagram && !dadosColetados.instagramContext) {
-    const instaCtx = await fetchInstagramProfileText(dadosColetados.instagram);
-    if (instaCtx) {
-      jinaContext = (jinaContext || '') + `\n\n[Contexto da Bio do Instagram (${dadosColetados.instagram})]:\n${instaCtx}`;
-      contextoWeb += `\n[Contexto Instagram]:\n${instaCtx}\n`;
+    const instaResult = await fetchInstagramProfileText(dadosColetados.instagram);
+    if (instaResult && instaResult.info) {
+      jinaContext = (jinaContext || '') + `\n\n[Contexto da Bio do Instagram (${dadosColetados.instagram})]:\n${instaResult.info}`;
+      contextoWeb += `\n[Contexto Instagram]:\n${instaResult.info}\n`;
+      if (instaResult.logoUrl) dadosColetados.logoUrl = instaResult.logoUrl;
+      if (instaResult.followers) dadosColetados.followers = instaResult.followers;
     }
   }
 
@@ -747,30 +920,33 @@ async function validarECompletarDados(estabelecimento, dadosColetados) {
   // 1.5. FASE DE DETETIVE (Auto-Cura de Links Falsos)
   if (jinaContext) {
     console.log(`[IA Validadora] Verificando se os links coletados são verdadeiros...`);
-    const healPrompt = `Você é um detetive de dados. Seu objetivo é consertar links errados coletados num mapa.
-Alvo real: ${name}
-Endereço do Alvo (Cadastro Google): ${address || 'Não informado'} - ${neighborhood || ''} - ${city || 'Sem Cidade'}/${state || 'Sem Estado'}
-Link do Alvo no Google Maps: ${googleMapsUrl || 'Não fornecido'}
+    const healPrompt = `Você é um detetive de dados. Seu objetivo é consertar links e endereços errados coletados num mapa.
+	Alvo real: ${name}
+	Endereço do Alvo (Cadastro Google): ${estabelecimento.address || 'Não informado'} - ${estabelecimento.neighborhood || ''} - ${estabelecimento.city || 'Sem Cidade'}/${estabelecimento.state || 'Sem Estado'}
+	Link do Alvo no Google Maps: ${googleMapsUrl || 'Não fornecido'}
 
-Links Suspeitos Coletados:
-- Instagram: ${dadosColetados.instagram || 'Nenhum'}
-- Site/Menu: ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
+	Links e Dados Suspeitos Coletados:
+	- Instagram: ${dadosColetados.instagram || 'Nenhum'}
+	- Site/Menu: ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
+	- Endereço: ${estabelecimento.address || 'Nenhum'}
 
-Resultados reais do Google e da Bio do Instagram sobre a marca:
-${jinaContext.substring(0, 5000)}
+	Resultados reais do Google e da Bio do Instagram sobre a marca:
+	${jinaContext.substring(0, 5000)}
 
-Tarefa: Verifique se os links suspeitos estão errados/falsos.
-Se estiverem errados, procure nos resultados acima os links VERDADEIROS e substitua-os.
-REGRAS CRÍTICAS:
-1. CONFERÊNCIA DE ENDEREÇO DA BIO (CRÍTICO): Verifique o endereço/cidade na Bio do Instagram. O sistema DEVE conferir se a localização da Bio tem relação com o Endereço do Alvo. Se houver um "Link do Alvo no Google Maps" fornecido e pela URL der para notar que aponta para outra rua/bairro/cidade divergente da Bio (ou vice-versa), ou se a pesquisa web desmentir o local, assuma que o Instagram é falso/impostor. Descarte-o.
-2. Se o "Site/Menu" suspeito já for o site oficial da marca (ex: naufrutosdomar.com.br), MANTENHA-O, mesmo que não cite a cidade.
-3. NUNCA substitua ou defina um "Site/Menu" com links de: TripAdvisor, iFood, Facebook, Instagram, Google Maps, Yelp, GuiaMais. Estes NÃO SÃO sites/menus.
-4. Se o "Site/Menu" estiver vazio ou errado, e você encontrar um link de Cardápio (ex: Linktree, Goomer, LiveMenu, site próprio) na Bio do Instagram (ou seus derivados), use-o como "Site/Menu". NÃO utilize links de cardápio vindos de resultados do Google que não sejam derivados do Instagram. A busca por links de cardápio deve se restringir exclusivamente aos derivados dos links de Instagram.
-5. Se não achar o certo, e o suspeito for fraude, retorne null. Se o suspeito for verdadeiro, mantenha-o.
+	Tarefa: Verifique se os links suspeitos e os dados de endereço estão errados/falsos.
+	Se estiverem errados, procure nos resultados acima os dados VERDADEIROS e substitua-os.
+	REGRAS CRÍTICAS:
+	1. CONFERÊNCIA DE ENDEREÇO DA BIO (CRÍTICO): Verifique o endereço/cidade na Bio do Instagram. O sistema DEVE conferir se a localização da Bio tem relação com o Endereço do Alvo. Se houver um "Link do Alvo no Google Maps" fornecido e pela URL der para notar que aponta para outra rua/bairro/cidade divergente da Bio (ou vice-versa), ou se a pesquisa web desmentir o local, assuma que o Instagram é falso/impostor. Descarte-o.
+	2. Se o "Site/Menu" suspeito já for o site oficial da marca (ex: naufrutosdomar.com.br), MANTENHA-O, mesmo que não cite a cidade.
+	3. NUNCA substitua ou defina um "Site/Menu" com links de: TripAdvisor, iFood, Facebook, Instagram, Google Maps, Yelp, GuiaMais. Estes NÃO SÃO sites/menus.
+		4. Se o "Site/Menu" estiver vazio ou errado, e você encontrar um link de Cardápio (ex: Linktree, Goomer, LiveMenu, site próprio) na Bio do Instagram (ou seus derivados), use-o como "Site/Menu". NÃO utilize links de cardápio vindos de resultados do Google que não sejam derivados do Instagram. A busca por links de cardápio deve se restringir exclusivamente aos derivados dos links de Instagram.
+		5. Se não achar o certo, e o suspeito for fraude, retorne null. Se o suspeito for verdadeiro, mantenha o original ou retorne NULL.
+		6. ENDEREÇO OFICIAL: Extraia dos resultados reais o endereço completo, bairro, cidade, estado e CEP.
+		7. SELEÇÃO DE LINK POR UNIDADE/CIDADE/BAIRRO (CRÍTICO): Se houver MÚLTIPLOS links na Bio do Instagram (ex: "CARDÁPIO PATOS", "CARDÁPIO SOUSA", "CARDÁPIO JOÃO PESSOA"), você DEVE selecionar APENAS o link que corresponde à cidade/bairro/unidade do Alvo. Compare o texto/label de cada link com a cidade ("${city}"), bairro ("${neighborhood}") e endereço do Alvo. Se nenhum link mencionar explicitamente a cidade/bairro, analise também a URL (ex: "alainesfihariapatos" → Patos, "alainesfiharia.saipos.com" sem cidade → pode ser genérico). NUNCA selecione o link de outra cidade/unidade. Se houver dúvida, prefira o link mais genérico (sem cidade no nome).
 
-Retorne um JSON rigoroso no formato: {"instagram": "novo_ou_mesmo", "menuSourceUrl": "novo_ou_mesmo", "modificado": true_ou_false}`;
+	Retorne um JSON rigoroso no formato: {"instagram": "novo_ou_mesmo", "menuSourceUrl": "novo_ou_mesmo", "endereco": "rua_ou_mesmo", "bairro": "bairro_ou_mesmo", "cidade": "cidade_ou_mesmo", "estado": "estado_ou_mesmo", "cep": "cep_ou_mesmo", "modificado": true_ou_false}`;
     try {
-      const healResponse = await openai.chat.completions.create({
+      const healResponse = await callOpenAIWithRetry({
         model: MODEL_NAME,
         messages: [{ role: "user", content: healPrompt }],
         response_format: { type: "json_object" },
@@ -779,16 +955,26 @@ Retorne um JSON rigoroso no formato: {"instagram": "novo_ou_mesmo", "menuSourceU
       const healedData = parseJSONFromAI(healResponse.choices[0].message.content);
       if (!healedData) throw new Error('Retorno vazio ou JSON inválido da IA de Cura.');
       if (healedData.modificado) {
-        console.log(`[IA Validadora] 🚨 LINKS CORRIGIDOS! A IA substituiu os links falsos/errados pelos corretos encontrados no Google.`);
+        console.log(`[IA Validadora] 🚨 DADOS CORRIGIDOS! A IA substituiu os links ou endereços falsos/errados pelos corretos encontrados no Google.`);
         const oldInsta = dadosColetados.instagram;
         if (healedData.instagram !== undefined) dadosColetados.instagram = healedData.instagram;
         if (healedData.menuSourceUrl !== undefined) dadosColetados.menuSourceUrl = healedData.menuSourceUrl;
         
-        // Se o Instagram mudou e não está vazio, vamos obter a bio do novo Instagram também
+        // Atualiza endereço se corrigido
+        if (healedData.endereco) estabelecimento.address = healedData.endereco;
+        if (healedData.bairro) estabelecimento.neighborhood = healedData.bairro;
+        if (healedData.cidade) estabelecimento.city = healedData.cidade;
+        if (healedData.estado) estabelecimento.state = healedData.estado;
+        if (healedData.cep) estabelecimento.cep = healedData.cep;
+        
         if (dadosColetados.instagram && dadosColetados.instagram !== oldInsta) {
-          const newInstaCtx = await fetchInstagramProfileText(dadosColetados.instagram);
-          if (newInstaCtx) {
-            contextoWeb += `\n[Contexto do Novo Instagram Corrigido]:\n${newInstaCtx}\n`;
+          console.log(`[IA Validadora] Buscando Bio do NOVO Instagram corrigido (${dadosColetados.instagram})...`);
+          const newInstaResult = await fetchInstagramProfileText(dadosColetados.instagram);
+          if (newInstaResult && newInstaResult.info) {
+            jinaContext += `\n[NOVO Instagram Bio (${dadosColetados.instagram})]:\n${newInstaResult.info}`;
+            contextoWeb += `\n[NOVO Instagram Bio]:\n${newInstaResult.info}\n`;
+            if (newInstaResult.logoUrl) dadosColetados.logoUrl = newInstaResult.logoUrl;
+            if (newInstaResult.followers) dadosColetados.followers = newInstaResult.followers;
           }
         }
       } else {
@@ -799,104 +985,51 @@ Retorne um JSON rigoroso no formato: {"instagram": "novo_ou_mesmo", "menuSourceU
     }
   }
 
-  // Tenta extrair do site oficial ou menu usando o novo Agente Puppeteer
-  if (dadosColetados.menuSourceUrl && !dadosColetados.menuSourceUrl.includes('tripadvisor') && !dadosColetados.menuSourceUrl.includes('facebook')) {
-    const menuUrl = dadosColetados.menuSourceUrl.toLowerCase();
-    const isPDF = menuUrl.endsWith('.pdf') || menuUrl.includes('.pdf?') || menuUrl.includes('/pdf/');
-    
-    if (isPDF) {
-      // PDF: Baixa e extrai texto diretamente, sem Puppeteer
-      console.log(`[IA Validadora] 📄 URL de PDF detectada! Extraindo texto do PDF diretamente...`);
-      try {
-        const pdfParse = require('pdf-parse');
-        const pdfResponse = await fetch(dadosColetados.menuSourceUrl, {
-          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
-          redirect: 'follow'
-        });
-        if (pdfResponse.ok) {
-          const pdfBuffer = Buffer.from(await pdfResponse.arrayBuffer());
-          const pdfData = await pdfParse(pdfBuffer);
-          if (pdfData.text && pdfData.text.trim().length > 50) {
-            rawMenuDump = pdfData.text;
-            contextoWeb += `\n[Texto do Cardápio PDF (${pdfData.numpages} páginas)]:\n${pdfData.text.substring(0, 5000)}\n`;
-            console.log(`[IA Validadora] ✅ PDF processado: ${pdfData.text.length} chars, ${pdfData.numpages} páginas`);
-          } else {
-            console.log(`[IA Validadora] ⚠️ PDF sem texto extraível (imagem escaneada). Sem fallback disponível.`);
-          }
-        }
-      } catch (pdfErr) {
-        console.log(`[IA Validadora] ⚠️ Erro ao processar PDF: ${pdfErr.message}. Sem fallback disponível.`);
-      }
-    } else if (dadosColetados.menuSourceUrl && dadosColetados.menuSourceUrl !== 'null' && dadosColetados.menuSourceUrl !== 'undefined') {
-      // Não é PDF e a URL existe: usa o Agente Puppeteer normal
-      console.log(`[IA Validadora] Acionando Robô de Navegação Autônoma para vasculhar: ${dadosColetados.menuSourceUrl}...`);
-      const { agenticFetch } = require('./agentic_scraper.cjs');
-      
-      const objective = `Encontrar o cardápio COMPLETO e informações vitais do restaurante "${name}". 
-MUITO IMPORTANTE:
-1. Se for um Linktree, clique na opção da unidade de ${city} / ${state}.
-2. Se você entrar no Cardápio e houver ABAS/CATEGORIAS de navegação (ex: "Menu à La Carte", "Sobremesas", "Bebidas"), você DEVE usar a ação 'extract_and_click' para clicar em CADA UMA DELAS iterativamente e extrair o conteúdo. 
-3. NÃO responda com 'found' na primeira tela se houver outras abas visíveis que ainda não foram exploradas. Varre todas as abas principais antes de finalizar!`;
-      
-      const ctx = await agenticFetch(dadosColetados.menuSourceUrl, objective);
-      if (ctx) {
-        rawMenuDump = ctx;
-        contextoWeb += `\n[Contexto do Site via Agente Autônomo]:\n${ctx}\n`;
-      } else {
-        console.log(`[⚠️ ALERTA] Agente não encontrou nada na URL. Sem fallback Jina disponível.`);
-      }
-    } else {
-       console.log(`[IA Validadora] Nenhuma URL válida fornecida para extração de cardápio.`);
-    }
-  }
-
   // ============================================================
   // PASSO 1: Validação de METADADOS (chamada leve — sem cardápio)
   // ============================================================
   console.log(`[IA Validadora] PASSO 1/2: Validando identidade e metadados...`);
   
   const metadataPrompt = `
-  Sua tarefa é VALIDAR a identidade e extrair METADADOS do "Estabelecimento Alvo".
-  NÃO extraia cardápio aqui — apenas valide a identidade e preencha os campos de metadados.
+	  Sua tarefa é VALIDAR a identidade e extrair METADADOS do "Estabelecimento Alvo".
+	  NÃO extraia cardápio aqui — apenas valide a identidade e preencha os campos de metadados.
 
-  [Estabelecimento Alvo]
-  Nome: ${name}
-  Endereço Físico: ${address || 'Não informado'}
-  Bairro: ${neighborhood || 'Não informado'}
-  Cidade/Estado: ${city || 'Não informada'} / ${state || 'Não informado'}
-  Link do Google Maps Original: ${googleMapsUrl || 'Não fornecido'}
+	  [Estabelecimento Alvo]
+	  Nome: ${name}
+	  Endereço Físico Atual: ${estabelecimento.address || 'Não informado'}
+	  Bairro Atual: ${estabelecimento.neighborhood || 'Não informado'}
+	  Cidade/Estado Atual: ${estabelecimento.city || 'Não informada'} / ${estabelecimento.state || 'Não informado'}
+	  Link do Google Maps Original: ${googleMapsUrl || 'Não fornecido'}
 
-  [Dados Coletados pelo Robô]
-  Instagram: ${dadosColetados.instagram || 'Nenhum'}
-  Site/Cardápio (Menu Source URL): ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
-  Link na Bio do Instagram (bioLinkUrl): ${dadosColetados.bioLinkUrl || 'Nenhum'}
-  Telefone: ${dadosColetados.phone || dadosColetados.telefone || 'Nenhum'}
-  Conteúdo Extraído da Página:
-  ${dadosColetados.pageContent ? dadosColetados.pageContent.substring(0, 3000) : 'Nenhum conteúdo bruto'}
+	  [Dados Coletados pelo Robô]
+	  Instagram: ${dadosColetados.instagram || 'Nenhum'}
+	  Site/Cardápio: ${dadosColetados.menuSourceUrl || dadosColetados.website || 'Nenhum'}
+	  Telefone: ${dadosColetados.phone || dadosColetados.telefone || 'Nenhum'}
+	  Conteúdo Extraído da Página:
+	  ${dadosColetados.pageContent ? dadosColetados.pageContent.substring(0, 3000) : 'Nenhum conteúdo bruto'}
 
-  [Resultados Reais da Web]
-  ${contextoWeb ? contextoWeb.substring(0, 8000) : 'Nenhum contexto web disponível'}
+	  [Resultados Reais da Web]
+	  ${contextoWeb ? contextoWeb.substring(0, 8000) : 'Nenhum contexto web disponível'}
 
-  [Regras]
-  1. CRUZAMENTO DE IDENTIDADE DO ESTABELECIMENTO E ENDEREÇO (CRÍTICO): Avalie se o restaurante "Alvo" realmente existe. Se houver "Link do Google Maps Original" disponível, utilize a URL ou os resultados de busca para garantir a localização. Você DEVE conferir se o endereço/cidade que está na Bio do Instagram tem relação com a localização real do Alvo. Se a Bio mencionar um endereço completamente diferente sem relação com a localização oficial do Alvo (exemplo: Alvo é no Bessa, Bio é no Jaguaribe), trata-se de um homônimo e o Instagram é falso.
-  2. EXTRAIA OS HORÁRIOS (working_hours): Identifique e descreva resumidamente por extenso os horários de funcionamento do estabelecimento nos resultados de busca ou na página.
-  3. DESCRIÇÃO DO RESTAURANTE (about): Você DEVE SEMPRE gerar ou extrair uma descrição em português extremamente curta, direta e atraente (com no MÁXIMO 10 palavras).
-  4. Extraia logo_url e cover_url apenas se forem URLs reais no texto.
-  5. VALIDAÇÃO E CORREÇÃO DO INSTAGRAM (instagram_url): Analise CUIDADOSAMENTE o Instagram fornecido em "Dados Coletados".
-     - **Verificação de Impostores**: Conforme a regra 1, confira expressamente a correspondência de endereço da Bio do Instagram com a real localização do Google. Se o bairro, cidade ou endereço não bater com o Alvo original, é FALSO/IMPOSTOR.
-     - **Ação em caso de Falso**: Se o Instagram fornecido for falso, NÃO reprove o restaurante inteiro (mantenha confianca_confirmada=true para a entidade em si, se as outras fontes forem válidas). Ao invés disso, procure nos "Resultados Reais da Web" se existe um link do Instagram que seja o VERDADEIRO.
-     - **Regra de Ouro**: Se o link for falso, você JAMAIS deve retorná-lo. Retorne NULL para a propriedade instagram_url se não achar o verdadeiro. Melhor vazio do que outra empresa.
-     - **NÃO CONFUNDA NOMES (CRÍTICO)**: Motores de busca frequentemente trazem concorrentes com nomes parecidos (Ex: "A Casa Café" vs "La Casa Café"). Você está ESTRITAMENTE PROIBIDO de substituir o Instagram original por um perfil de nome parecido mas diferente. Se o perfil exato não for encontrado, mantenha o original ou retorne NULL.
-  6. Confirme ou corrija telefone e site_oficial com base no cruzamento de dados.
-  7. Preencha categoria_correta (ex: "Frutos do Mar", "Pizzaria", "Hambúrgueria").
-  8. ESTRATÉGIA DE CARDÁPIO (WhatsApp): Se o "Link na Bio do Instagram (bioLinkUrl)" for um link de WhatsApp (contiver wa.me, api.whatsapp.com, ou whatsapp.com/send), você deve retornar o campo \`motivo_divergencia\` contendo a mensagem exata: "Cardápio via WhatsApp (Pronto para Vendedor de IA)". Além disso, se possível, extraia o número do telefone do link e preencha no campo telefone.
-  9. confidence_score: Atribua um score numérico de 0.0 a 1.0 indicando sua confiança de que os dados coletados realmente pertencem a este estabelecimento.
-  10. bairro_match: Atribua true se houver qualquer menção na web ou instagram que confirme que o bairro coletado corresponde ao Bairro/Endereço físico.
-  `;
+	  [Regras]
+	  1. CRUZAMENTO DE IDENTIDADE DO ESTABELECIMENTO E ENDEREÇO (CRÍTICO): Avalie se o restaurante "Alvo" realmente existe. Se houver "Link do Google Maps Original" disponível, utilize a URL ou os resultados de busca para garantir a localização. Você DEVE conferir se o endereço/cidade que está na Bio do Instagram tem relação com a localização real do Alvo. Se a Bio mencionar um endereço completamente diferente sem relação com a localização oficial do Alvo (exemplo: Alvo é no Bessa, Bio é no Jaguaribe), trata-se de um homônimo e o Instagram é falso.
+	  2. EXTRAIA OS HORÁRIOS (working_hours): Identifique e descreva resumidamente por extenso os horários de funcionamento do estabelecimento nos resultados de busca ou na página.
+	  3. DESCRIÇÃO DO RESTAURANTE (about): Você DEVE SEMPRE gerar ou extrair uma descrição em português extremamente curta, direta e atraente (com no MÁXIMO 10 palavras).
+	  4. Extraia logo_url e cover_url apenas se forem URLs reais no texto.
+	  5. VALIDAÇÃO E CORREÇÃO DO INSTAGRAM (instagram_url): Analise CUIDADOSAMENTE o Instagram fornecido em "Dados Coletados".
+	     - **Verificação de Impostores**: Conforme a regra 1, confira expressamente a correspondência de endereço da Bio do Instagram com a real localização do Google. Se o bairro, cidade ou endereço não bater com o Alvo original, é FALSO/IMPOSTOR.
+	     - **Verificação de DDD (MUITO CRÍTICO)**: Se houver um link de WhatsApp na Bio (ou em um agregador de links na Bio), analise o DDD do número. Se o DDD do número NÃO CORRESPONDER ao DDD da cidade/estado do "Estabelecimento Alvo" (ex: o restaurante é em João Pessoa-PB onde o DDD é 83, e o WhatsApp na bio tem DDD 11, 18, 21, etc), então este Instagram DEFINITIVAMENTE NÃO pertence a este restaurante. Rejeite-o imediatamente como falso/impostor.
+	     - **Ação em caso de Falso**: Se o Instagram fornecido for falso, NÃO reprove o restaurante inteiro (mantenha confianca_confirmada=true para a entidade em si, se as outras fontes forem válidas). Ao invés disso, procure nos "Resultados Reais da Web" se existe um link do Instagram que seja o VERDADEIRO.
+	     - **Regra de Ouro**: Se o link for falso, você JAMAIS deve retorná-lo. Retorne NULL para a propriedade instagram_url se não achar o verdadeiro. Melhor vazio do que outra empresa.
+	     - **NÃO CONFUNDA NOMES (CRÍTICO)**: Motores de busca frequentemente trazem concorrentes com nomes parecidos (Ex: "A Casa Café" vs "La Casa Café"). Você está ESTRITAMENTE PROIBIDO de substituir o Instagram original por um perfil de nome parecido mas diferente. Se o perfil exato não for encontrado, mantenha o original ou retorne NULL.
+	  6. CRITÉRIO RESTRITO PARA SITE/CARDÁPIO (site_oficial): Você SÓ pode preencher o \`site_oficial\` com links que foram encontrados EXPLICITAMENTE na Bio do Instagram ou nos dados diretos do Google Maps original. É ESTRITAMENTE PROIBIDO capturar links de agregadores (como ola.click, ifood, goomer, menudino, etc) que apareçam soltos nos resultados de pesquisa do Google. Se o link não estiver na Bio do Insta ou no Maps, deixe o \`site_oficial\` como null. Confirme ou corrija apenas o telefone com base no cruzamento de dados.
+	  7. ENDEREÇO OFICIAL (endereco_oficial, bairro_oficial, cidade_oficial, estado_oficial, cep_oficial): Extraia dos resultados reais o endereço completo oficial.
+	  8. Preencha categoria_correta (ex: "Frutos do Mar", "Pizzaria", "Hambúrgueria").
+	  `;
 
   let metadataPayload;
   try {
-    const metaCompletion = await openai.chat.completions.create({
+    const metaCompletion = await callOpenAIWithRetry({
       model: MODEL_NAME,
       messages: [
         { role: "system", content: "Você é um especialista em validação de dados de restaurantes. Foque APENAS em metadados (identidade, links, descrição, horários). NÃO extraia cardápio." },
@@ -936,6 +1069,86 @@ MUITO IMPORTANTE:
   }
   console.log(`[IA Validadora] ✅ Identidade confirmada! Instagram e marca validados.`);
 
+  // Tenta extrair do site oficial ou menu usando o novo Agente Puppeteer
+  // Usamos o site_oficial limpo retornado pela IA no Passo 1!
+  const menuTargetUrl = metadataPayload.site_oficial;
+
+  if (menuTargetUrl && menuTargetUrl !== 'null' && !menuTargetUrl.includes('tripadvisor') && !menuTargetUrl.includes('facebook')) {
+    const menuUrl = menuTargetUrl.toLowerCase();
+    const isPDF = menuUrl.endsWith('.pdf') || menuUrl.includes('.pdf?') || menuUrl.includes('/pdf/');
+    
+    if (isPDF) {
+      // PDF: Baixa e extrai texto diretamente, sem Puppeteer
+      console.log(`[IA Validadora] 📄 URL de PDF detectada! Extraindo texto do PDF diretamente...`);
+      try {
+        const pdfParse = require('pdf-parse');
+        const pdfResponse = await fetch(menuTargetUrl, {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' },
+          redirect: 'follow'
+        });
+        if (pdfResponse.ok) {
+          const pdfBuffer = Buffer.from(await pdfResponse.arrayBuffer());
+          const pdfData = await pdfParse(pdfBuffer);
+          if (pdfData.text && pdfData.text.trim().length > 50) {
+            rawMenuDump = pdfData.text;
+            contextoWeb += `\n[Texto do Cardápio PDF (${pdfData.numpages} páginas)]:\n${pdfData.text.substring(0, 5000)}\n`;
+            console.log(`[IA Validadora] ✅ PDF processado: ${pdfData.text.length} chars, ${pdfData.numpages} páginas`);
+          } else {
+            console.log(`[IA Validadora] ⚠️ PDF sem texto extraível (imagem escaneada). Sem fallback disponível.`);
+          }
+        }
+      } catch (pdfErr) {
+        console.log(`[IA Validadora] ⚠️ Erro ao processar PDF: ${pdfErr.message}. Sem fallback disponível.`);
+      }
+    } else {
+      // Não é PDF e a URL existe: usa o Agente Puppeteer normal
+      console.log(`[IA Validadora] Acionando Robô de Navegação Autônoma para vasculhar: ${menuTargetUrl}...`);
+      const { agenticFetch } = require('./agentic_scraper.cjs');
+      
+      const objective = `Encontrar o cardápio COMPLETO e informações vitais do restaurante "${name}". 
+MUITO IMPORTANTE:
+1. Se for um Linktree, clique na opção da unidade de ${city} / ${state}.
+2. Se você entrar no Cardápio e houver ABAS/CATEGORIAS de navegação (ex: "Menu à La Carte", "Sobremesas", "Bebidas"), você DEVE usar a ação 'extract_and_click' para clicar em CADA UMA DELAS iterativamente e extrair o conteúdo. 
+3. NÃO responda com 'found' na primeira tela se houver outras abas visíveis que ainda não foram exploradas. Varre todas as abas principais antes de finalizar!`;
+      
+      const ctx = await agenticFetch(menuTargetUrl, objective);
+      if (ctx) {
+        // Tratamento especial para Linktree: segue os links encontrados
+        if (ctx.startsWith('LINKTREE_LINKS:')) {
+          try {
+            const linktreeLinks = JSON.parse(ctx.replace('LINKTREE_LINKS:', ''));
+            console.log(`[IA Validadora] 🔗 Linktree detectado. ${linktreeLinks.length} link(s) encontrado(s). Filtrando pela unidade correta...`);
+            
+            // ═══ FILTRO INTELIGENTE POR CIDADE/BAIRRO/UNIDADE ═══
+            const filteredLinks = selectLinksByLocation(linktreeLinks, city, neighborhood, address);
+            console.log(`[IA Validadora] 🔗 Após filtro por localização: ${filteredLinks.length} link(s) selecionado(s).`);
+            
+            let linktreeContent = '';
+            for (const link of filteredLinks.slice(0, 3)) { // Máximo 3 links
+              console.log(`[IA Validadora] 🔗 Acessando link do Linktree: ${link.text} → ${link.href}`);
+              const linkCtx = await agenticFetch(link.href, objective);
+              if (linkCtx && !linkCtx.startsWith('LINKTREE_LINKS:')) {
+                linktreeContent += `\n\n--- CONTEÚDO DE: ${link.href} ---\n${linkCtx}`;
+              }
+            }
+            rawMenuDump = linktreeContent || ctx;
+            contextoWeb += `\n[Contexto do Linktree via Agente Autônomo]:\n${linktreeContent || ctx}\n`;
+          } catch (e) {
+            rawMenuDump = ctx;
+            contextoWeb += `\n[Contexto do Site via Agente Autônomo]:\n${ctx}\n`;
+          }
+        } else {
+          rawMenuDump = ctx;
+          contextoWeb += `\n[Contexto do Site via Agente Autônomo]:\n${ctx}\n`;
+        }
+      } else {
+        console.log(`[⚠️ ALERTA] Agente não encontrou nada na URL. Sem fallback Jina disponível.`);
+      }
+    }
+  } else {
+     console.log(`[IA Validadora] Nenhuma URL válida confirmada pela IA para extração de cardápio.`);
+  }
+
   const isErrorOrDeactivatedPage = (() => {
     if (!rawMenuDump) return true;
     const cleanDump = rawMenuDump.trim();
@@ -962,42 +1175,7 @@ MUITO IMPORTANTE:
   })();
 
   if (isErrorOrDeactivatedPage) {
-    console.log(`[IA Validadora] Sem texto de cardápio válido ou página de erro/desativada detectada.`);
-    console.log(`[IA Validadora] Tentando gerar um Cardápio Básico de Fallback usando Resultados da Web...`);
-    
-    if (contextoWeb && contextoWeb.length > 500) {
-      const fallbackPrompt = `Extraia pratos, bebidas ou especialidades mencionadas nestes resultados de busca para montar um cardápio resumido.
-      
-REGRAS:
-1. Retorne apenas pratos REAIS citados nos textos. Se não houver nenhum, retorne categories: [].
-2. Agrupe em "Especialidades da Casa" ou categorias lógicas.
-3. Preços e imagens serão null.
-
-[TEXTO DOS RESULTADOS DA BUSCA]
-${contextoWeb}`;
-
-      try {
-        const fallbackCompletion = await openai.chat.completions.create({
-          model: MODEL_NAME,
-          messages: [
-            { role: "system", content: "Você é um extrator de cardápio de fallback. Gere JSON estruturado com os pratos mencionados em reviews/textos." },
-            { role: "user", content: fallbackPrompt }
-          ],
-          response_format: { type: "json_schema", json_schema: menuChunkSchema },
-          temperature: 0.1,
-          max_tokens: 2000
-        });
-        const fallbackResult = parseJSONFromAI(fallbackCompletion.choices[0].message.content);
-        if (fallbackResult && fallbackResult.categories && fallbackResult.categories.length > 0) {
-          metadataPayload.menu_categories = fallbackResult.categories;
-          console.log(`[IA Validadora] Fallback: Gerado cardápio resumido com ${fallbackResult.categories.length} categoria(s) a partir de buscas.`);
-          return metadataPayload;
-        }
-      } catch (e) {
-        console.error(`[⚠️ ALERTA] Falha ao gerar cardápio de fallback: ${e.message}`);
-      }
-    }
-    
+    console.log(`[IA Validadora] Sem texto de cardápio válido ou página de erro/desativada detectada. Nenhum cardápio será gerado.`);
     metadataPayload.menu_categories = [];
     return metadataPayload;
   }
@@ -1042,7 +1220,7 @@ REGRAS OBRIGATÓRIAS:
 ${chunk}`;
 
     try {
-      const completion = await openai.chat.completions.create({
+      const completion = await callOpenAIWithRetry({
         model: MODEL_NAME,
         messages: [
           { role: "system", content: "Você é um extrator de dados de cardápio de restaurante. Sua única tarefa é converter texto bruto em JSON estruturado. Extraia TODOS os itens, sem exceção. Se o texto fornecido não contiver itens de cardápio reais, você DEVE retornar a lista de categorias vazia (categories: []). Jamais invente ou alucine dados." },

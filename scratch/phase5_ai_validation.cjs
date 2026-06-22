@@ -220,15 +220,6 @@ async function runValidation() {
     }
   }
 
-  const logoUrlIndex = args.indexOf('--instagram-logo-url');
-  const instagramLogoUrlArg = logoUrlIndex !== -1 ? args[logoUrlIndex + 1] : null;
-  
-  const feedPhotoUrlIndex = args.indexOf('--instagram-feed-photo-url');
-  const instagramFeedPhotoUrlArg = feedPhotoUrlIndex !== -1 ? args[feedPhotoUrlIndex + 1] : null;
-
-  const bioLinkUrlIndex = args.indexOf('--bio-link-url');
-  const bioLinkUrlArg = bioLinkUrlIndex !== -1 ? args[bioLinkUrlIndex + 1] : null;
-
   console.log('🚀 Iniciando Fase 5: Validação de Qualidade via IA...\n');
 
   let toProcess = [];
@@ -312,8 +303,7 @@ async function runValidation() {
       visit_notes: r.visit_notes || (r.googleMapsUrl ? 'Google Maps: ' + r.googleMapsUrl : null) || (r.link_google_maps ? 'Google Maps: ' + r.link_google_maps : null),
       browserContext: browserContextStr,
       instagramContext: instagramContextStr,
-      googleSearchResults: googleSearchResultsStr,
-      bioLinkUrl: bioLinkUrlArg
+      googleSearchResults: googleSearchResultsStr
     };
 
     try {
@@ -322,6 +312,14 @@ async function runValidation() {
       // Normalização de links literais de redes sociais da resposta da IA
       if (payload.instagram_url === 'null' || payload.instagram_url === 'undefined' || (payload.instagram_url && payload.instagram_url.trim() === '')) {
         payload.instagram_url = null;
+      }
+      // Rejeita valores inválidos como "Não localizado", "ausente", etc.
+      if (payload.instagram_url) {
+        const lowerInsta = payload.instagram_url.toLowerCase().trim();
+        const invalidInstaValues = ['não localizado', 'nao localizado', 'não encontrado', 'nao encontrado', 'ausente', 'n/a', 'none', 'sem instagram', 'indisponível', 'indisponivel'];
+        if (invalidInstaValues.some(inv => lowerInsta.includes(inv)) || !lowerInsta.includes('instagram.com/')) {
+          payload.instagram_url = null;
+        }
       }
       if (payload.telefone === 'null' || payload.telefone === 'undefined' || (payload.telefone && payload.telefone.trim() === '')) {
         payload.telefone = null;
@@ -332,11 +330,7 @@ async function runValidation() {
       
       let ai_logs = [];
       const dataHoraAtual = new Date().toLocaleString('pt-BR');
-      ai_logs.push(`[${dataHoraAtual}] Validação IA iniciada. Score de Confiança: ${payload.confidence_score || 'N/A'}`);
-
-      if (payload.bairro_match) {
-        ai_logs.push(`✅ Match de Bairro confirmado cruzando bio/web e base.`);
-      }
+      ai_logs.push(`[${dataHoraAtual}] Validação IA iniciada.`);
       
       // Atualiza os dados de acordo com a validação rigorosa
       if (payload.confianca_confirmada) {
@@ -356,9 +350,36 @@ async function runValidation() {
           ai_logs.push(`[Incluído/Alterado] Telefone: ${payload.telefone}`);
           r.phone = payload.telefone;
         }
+        
         if (payload.site_oficial && payload.site_oficial !== r.menuSourceUrl) {
           ai_logs.push(`[Incluído/Alterado] Site/Cardápio: ${payload.site_oficial}`);
           r.menuSourceUrl = payload.site_oficial;
+        } else if (!payload.site_oficial) {
+          if (r.menuSourceUrl) {
+             ai_logs.push(`[Removido] Link/Site falso bloqueado pela IA: ${r.menuSourceUrl}`);
+             r.menuSourceUrl = null;
+          }
+        }
+        
+        if (payload.endereco_oficial && payload.endereco_oficial !== r.address) {
+          ai_logs.push(`[Incluído/Alterado] Endereço: ${payload.endereco_oficial}`);
+          r.address = payload.endereco_oficial;
+        }
+        if (payload.bairro_oficial && payload.bairro_oficial !== r.neighborhood) {
+          ai_logs.push(`[Incluído/Alterado] Bairro: ${payload.bairro_oficial}`);
+          r.neighborhood = payload.bairro_oficial;
+        }
+        if (payload.cidade_oficial && payload.cidade_oficial !== r.city) {
+          ai_logs.push(`[Incluído/Alterado] Cidade: ${payload.cidade_oficial}`);
+          r.city = payload.cidade_oficial;
+        }
+        if (payload.estado_oficial && payload.estado_oficial !== r.state) {
+          ai_logs.push(`[Incluído/Alterado] Estado: ${payload.estado_oficial}`);
+          r.state = payload.estado_oficial;
+        }
+        if (payload.cep_oficial && payload.cep_oficial !== r.cep) {
+          ai_logs.push(`[Incluído/Alterado] CEP: ${payload.cep_oficial}`);
+          r.cep = payload.cep_oficial;
         }
         if (payload.categoria_correta && payload.categoria_correta !== r.category) {
           ai_logs.push(`[Alterado] Categoria corrigida para: ${payload.categoria_correta}`);
@@ -372,18 +393,9 @@ async function runValidation() {
           ai_logs.push(`[Incluído] Horários de funcionamento preenchidos.`);
           r.working_hours = payload.working_hours;
         }
-        if (payload.logo_url) {
-           r.logoUrl = payload.logo_url;
-        } else if (instagramLogoUrlArg) {
-           r.logoUrl = instagramLogoUrlArg;
-           ai_logs.push(`[Incluído] Logo do Instagram aplicada como fallback de qualidade.`);
-        }
-
+        if (payload.logo_url) r.logoUrl = payload.logo_url;
         if (payload.cover_url) {
           r.coverUrl = payload.cover_url;
-        } else if (instagramFeedPhotoUrlArg) {
-          r.coverUrl = instagramFeedPhotoUrlArg;
-          ai_logs.push(`[Incluído] Primeira foto não-vídeo do feed aplicada como Capa de Destaque.`);
         } else if (!r.coverUrl) {
           r.coverUrl = getThemeCoverImage(r.category || payload.categoria_correta);
           ai_logs.push(`[Incluído] Capa temática bonita gerada aleatoriamente baseada na categoria.`);
@@ -445,8 +457,6 @@ async function runValidation() {
             updatedSocialNetworks = (dbRest && dbRest.social_networks) ? dbRest.social_networks : [];
           }
 
-          let existingLogs = (dbRest && dbRest.coleta_logs) ? dbRest.coleta_logs : null;
-
           const existingLogo = (dbRest && dbRest.image_url) ? dbRest.image_url : null;
           const existingCover = (dbRest && dbRest.cover_image_url) ? dbRest.cover_image_url : null;
           const existingHours = (dbRest && dbRest.opening_hours) ? dbRest.opening_hours : null;
@@ -458,9 +468,15 @@ async function runValidation() {
           }
 
           // 1. Atualiza restaurante
-          const updateObj: any = {
+          const updateRes = await supabase.from('restaurants').update({
             social_networks: updatedSocialNetworks,
+            instagram: r.instagram, // Garante que a coluna instagram seja limpa ou atualizada
             phone: r.phone,
+            address: r.address,
+            neighborhood: r.neighborhood,
+            city: r.city,
+            state: r.state,
+            cep: r.cep,
             other_url: r.menuSourceUrl,
             external_url: r.menuSourceUrl,
             ifood_url: r.menuSourceUrl,
@@ -470,14 +486,8 @@ async function runValidation() {
             image_url: r.logoUrl !== undefined ? r.logoUrl : existingLogo,
             cover_image_url: r.coverUrl !== undefined ? r.coverUrl : existingCover,
             ai_validated: r.ai_validated,
-            ai_log: r.ai_log,
-            ai_confidence_score: payload.confidence_score !== undefined ? payload.confidence_score : null
-          };
-          if (payload.motivo_divergencia) {
-            updateObj.coleta_logs = (existingLogs ? existingLogs + ' | ' : '') + payload.motivo_divergencia;
-          }
-
-          const updateRes = await supabase.from('restaurants').update(updateObj).eq('id', r.id);
+            ai_log: r.ai_log
+          }).eq('id', r.id);
           if (updateRes.error) {
             console.error(`❌ Erro ao atualizar no Supabase:`, updateRes.error);
           }

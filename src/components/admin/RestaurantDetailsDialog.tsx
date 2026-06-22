@@ -52,6 +52,7 @@ import {
 import { getDeterministicUUID } from '@/hooks/useAdminRestaurants';
 import { geocodeAddress } from '@/services/geocoding';
 
+
 // Utility functions copied from ExportedRestaurants.tsx
 const cleanPhone = (phone: string) => {
   if (!phone) return '';
@@ -159,12 +160,13 @@ ${JSON.stringify(listForPrompt, null, 2)}`;
             .eq('id', res.id);
         }
       }
-
+      console.log(`[IA 2º Plano] Sanitização de busca concluída para a categoria ${categoryName}.`);
     }
   } catch (err) {
     console.warn("Erro ao enriquecer nomes de cardápio com IA em 2º plano:", err);
   }
 };
+
 
 const extractCoordsFromUrl = (url: string) => {
   if (!url) return null;
@@ -183,7 +185,83 @@ const extractCoordsFromUrl = (url: string) => {
   return null;
 };
 
-;
+const parseAddressString = (addressStr: string) => {
+  let street = '';
+  let number = 'S/N';
+  let neighborhood = '';
+  let city = '';
+  let state = '';
+  let cep = '';
+
+  if (!addressStr) return { street, number, neighborhood, city, state, cep };
+
+  let working = addressStr.trim();
+
+  // 1. Extract CEP (e.g. 58039-021 or 58039021)
+  const cepMatch = working.match(/\b\d{5}-\d{3}\b|\b\d{8}\b/);
+  if (cepMatch) {
+    cep = cepMatch[0];
+    working = working.replace(cep, '').trim();
+  }
+
+  // Clean trailing/leading punctuation right after removing CEP to avoid blocking state extraction
+  working = working.replace(/[\s,-]+$/, '').replace(/^[\s,-]+/, '').trim();
+
+  // 2. Extract State (UF) (e.g. PB, SP...) near the end
+  const stateMatch = working.match(/[\s,-]\b([A-Z]{2})\b\s*$/) || working.match(/\b([A-Z]{2})\b\s*$/);
+  if (stateMatch) {
+    state = stateMatch[1];
+    working = working.substring(0, working.lastIndexOf(stateMatch[0])).trim();
+  }
+
+  // Remove trailing/leading punctuation
+  working = working.replace(/[\s,-]+$/, '').replace(/^[\s,-]+/, '').trim();
+
+  // 3. Extract Street and Number
+  const firstCommaIdx = working.indexOf(',');
+  if (firstCommaIdx !== -1) {
+    street = working.substring(0, firstCommaIdx).trim();
+    const rest = working.substring(firstCommaIdx + 1).trim();
+    
+    const numMatch = rest.match(/^([^,-]+)/);
+    if (numMatch) {
+      const possibleNum = numMatch[1].trim();
+      if (/\d/.test(possibleNum) || possibleNum.toLowerCase() === 's/n') {
+        number = possibleNum;
+        working = rest.substring(possibleNum.length).trim();
+      } else {
+        number = 'S/N';
+        working = rest;
+      }
+    } else {
+      working = rest;
+    }
+  } else {
+    const firstHyphenIdx = working.indexOf('-');
+    if (firstHyphenIdx !== -1) {
+      street = working.substring(0, firstHyphenIdx).trim();
+      working = working.substring(firstHyphenIdx).trim();
+    } else {
+      street = working;
+      working = '';
+    }
+  }
+
+  working = working.replace(/^[\s,-]+/, '').replace(/[\s,-]+$/, '').trim();
+
+  // 4. Extract Neighborhood (Bairro) and City
+  if (working) {
+    const splitIdx = working.indexOf(',') !== -1 ? working.indexOf(',') : working.indexOf('-');
+    if (splitIdx !== -1) {
+      neighborhood = working.substring(0, splitIdx).trim();
+      city = working.substring(splitIdx + 1).replace(/^[\s,-]+/, '').trim();
+    } else {
+      city = working;
+    }
+  }
+
+  return { street, number, neighborhood, city, state, cep };
+};
 
 const daysTranslation: Record<string, string> = {
   monday: 'Segunda-feira',
@@ -291,7 +369,7 @@ const downloadExternalImage = async (url: string): Promise<string> => {
 
   if (useExtension && extId) {
     const isInstagramPost = /instagram\.com\/(p|reel)\//i.test(url) || /instagr\.am\/(p|reel)\//i.test(url);
-
+    console.log("Baixando imagem via extensão:", url, "Insta Post?", isInstagramPost);
     const chromeObj = (window as any).chrome;
     return new Promise((resolve, reject) => {
       chromeObj.runtime.sendMessage(
@@ -376,37 +454,77 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [expandedPreviewItems, setExpandedPreviewItems] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    if (restaurant && isOpen) {
-      let parsedAddress = {
-        street: restaurant.address || '',
-        number: restaurant.number || '',
-        neighborhood: restaurant.neighborhood || '',
-        city: restaurant.city || '',
-        state: restaurant.state || '',
-        cep: restaurant.cep || ''
-      };
-      
-      const formattedRestaurant = {
-        ...restaurant,
-        address: parsedAddress.street,
-        number: parsedAddress.number,
-        neighborhood: parsedAddress.neighborhood,
-        city: parsedAddress.city,
-        state: parsedAddress.state,
-        cep: parsedAddress.cep,
-        category: normalizeCategory(restaurant.category)
-      };
+    const fetchFullData = async () => {
+      if (!restaurant?.id) return null;
+      try {
+        const { data, error } = await supabase
+          .from('restaurants')
+          .select(`
+            *,
+            menu_categories (
+              *,
+              menu_items (*)
+            ),
+            restaurant_gallery (*)
+          `)
+          .eq('id', restaurant.id)
+          .maybeSingle();
+        
+        if (error) console.error("Error fetching full restaurant data:", error);
+        return data || restaurant;
+      } catch (err) {
+        console.error("Failed to fetch full data:", err);
+        return restaurant;
+      }
+    };
 
-      setEditedData(JSON.parse(JSON.stringify(formattedRestaurant)));
-      setIsEditing(false);
-      setActiveDialogTab('preview');
-      setAiPastedContent('');
-      setAiHoursPastedContent('');
-      setNewGalleryUrl('');
-      setLogoTimestamp(Date.now());
-      setCoverTimestamp(Date.now());
+    if (restaurant && isOpen) {
+      fetchFullData().then((fullRestaurant) => {
+        let parsedAddress = {
+          street: fullRestaurant.address || '',
+          number: fullRestaurant.number || '',
+          neighborhood: fullRestaurant.neighborhood || '',
+          city: fullRestaurant.city || '',
+          state: fullRestaurant.state || '',
+          cep: fullRestaurant.cep || ''
+        };
+        
+        // Auto-parse se cep/number/neighborhood estiverem vazios mas address contém a string completa
+        if (!fullRestaurant.cep && fullRestaurant.address && (fullRestaurant.address.includes(',') || fullRestaurant.address.includes('-'))) {
+          const parsed = parseAddressString(fullRestaurant.address);
+          parsedAddress = {
+            street: parsed.street || fullRestaurant.address || '',
+            number: parsed.number || fullRestaurant.number || 'S/N',
+            neighborhood: parsed.neighborhood || fullRestaurant.neighborhood || '',
+            city: parsed.city || fullRestaurant.city || '',
+            state: parsed.state || fullRestaurant.state || '',
+            cep: parsed.cep || fullRestaurant.cep || ''
+          };
+        }
+        
+        const formattedRestaurant = {
+          ...fullRestaurant,
+          address: parsedAddress.street,
+          number: parsedAddress.number,
+          neighborhood: parsedAddress.neighborhood,
+          city: parsedAddress.city,
+          state: parsedAddress.state,
+          cep: parsedAddress.cep,
+          category: normalizeCategory(fullRestaurant.category)
+        };
+
+        setEditedData(JSON.parse(JSON.stringify(formattedRestaurant)));
+        setIsEditing(false);
+        setActiveDialogTab('preview');
+        setAiPastedContent('');
+        setAiHoursPastedContent('');
+        setNewGalleryUrl('');
+        setLogoTimestamp(Date.now());
+        setCoverTimestamp(Date.now());
+      });
     } else {
       setEditedData(null);
+      setIsEditing(false);
     }
   }, [restaurant, isOpen]);
 
@@ -499,7 +617,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
 
       if (useExtension && extId) {
-
+        console.log("Usando extensão do Chrome para raspagem:", extId);
         const chromeObj = (window as any).chrome;
         
         chromeObj.runtime.sendMessage(
@@ -554,8 +672,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
               }
               let finalFollowers = null;
               if (response.followers !== undefined && response.followers !== null) {
-                const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
-                finalFollowers = Math.round((response.followers * pct) / 100);
+                finalFollowers = response.followers;
                 updateObj.followers_override = finalFollowers;
               }
               
@@ -568,6 +685,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 if (dbUpdateError) {
                   showError("Erro ao salvar no banco: " + dbUpdateError.message);
                 } else {
+                  showSuccess("Coleta de logo e seguidores concluída via Extensão!");
                   setLogoTimestamp(Date.now());
                   window.dispatchEvent(new Event('local-sync-restaurants'));
                   localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
@@ -589,11 +707,45 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           }
         );
       } else {
-        showError("A extensão não está ativa. A coleta local foi desativada.");
+        // Fallback para o robô local /api
+        const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${restaurantId}`, { method: 'POST' });
+        
+        if (res.ok) {
+          const result = await res.json();
+          if (result.success) {
+            showSuccess("Coleta de logo e seguidores concluída com sucesso!");
+            setLogoTimestamp(Date.now());
+            window.dispatchEvent(new Event('local-sync-restaurants'));
+            localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+            
+            let finalFollowers = undefined;
+            if (result.followers !== undefined && result.followers !== null) {
+              finalFollowers = result.followers;
+            }
+
+            setEditedData((prev: any) => ({
+              ...prev,
+              logo: result.url || prev.logo,
+              image_url: result.url || prev.image_url,
+              followers_override: finalFollowers !== undefined ? finalFollowers : prev.followers_override
+            }));
+            
+            onSyncSuccess();
+          } else {
+            showError(result.error || "Não foi possível coletar os dados do Instagram.");
+          }
+        } else {
+          const err = await res.json();
+          showError(err.error || "Erro ao executar coleta no servidor.");
+        }
         setIsScrapingLogo(false);
       }
     } catch (err: any) {
-      showError(err.message || "Erro desconhecido ao tentar coletar.");
+      if (err.message && err.message.includes('fetch')) {
+        showError("Servidor local offline. Para coletar direto do seu navegador, instale a Extensão do Chrome e insira o ID no painel.");
+      } else {
+        showError(err.message || "Erro desconhecido ao tentar coletar.");
+      }
       setIsScrapingLogo(false);
     }
   };
@@ -654,7 +806,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const fullAddress = addrParts.join(', ');
         if (fullAddress.trim()) {
           try {
-
+            console.log(`[syncSingleToSupabase] Tentando geocodificar endereço completo: "${fullAddress}"`);
             const coords = await geocodeAddress(fullAddress);
             if (coords) {
               latitude = coords.lat;
@@ -954,12 +1106,12 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       const fullAddress = addrParts.join(', ');
       if (fullAddress.trim()) {
         try {
-
+          console.log(`[Validation] Tentando geocodificar: "${fullAddress}"`);
           const coords = await geocodeAddress(fullAddress);
           if (coords) {
             latitude = coords.lat;
             longitude = coords.lon;
-
+            console.log(`[Validation] Geocodificação bem-sucedida: lat=${latitude}, lon=${longitude}`);
           }
         } catch (e) {
           console.warn('Erro ao geocodificar no validador:', e);
@@ -1067,11 +1219,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 }
               }
 
-              let finalFollowers = null;
-              if (response.followers !== undefined && response.followers !== null) {
-                const pct = parseFloat(localStorage.getItem('admin_followers_percentage') || '10');
-                finalFollowers = Math.round((response.followers * pct) / 100);
-              }
+              let finalFollowers = response.followers !== undefined && response.followers !== null ? response.followers : null;
 
               // Atualiza o objeto de dados com a logo e seguidores coletados
               dataToSave = {
@@ -1090,7 +1238,33 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             console.error("Erro ao coletar Instagram automaticamente via Extensão:", scrapeErr);
           }
         } else {
-          
+          // Fallback para o robô local /api/local-collector/re-scrape-logo
+          showSuccess("Iniciando coleta automática de logo e seguidores via servidor local...");
+          try {
+            const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${dataToSave.id}`, { method: 'POST' });
+            if (res.ok) {
+              const result = await res.json();
+              if (result.success) {
+                let finalFollowers = null;
+                if (result.followers !== undefined && result.followers !== null) {
+                  const pctVal = parseFloat(pct);
+                  finalFollowers = Math.round((result.followers * pctVal) / 100);
+                }
+                
+                dataToSave = {
+                  ...dataToSave,
+                  logo: result.url || dataToSave.logo,
+                  image_url: result.url || dataToSave.image_url,
+                  followers_override: finalFollowers !== null ? finalFollowers : dataToSave.followers_override
+                };
+                showSuccess("Logo e seguidores coletados com sucesso via servidor local!");
+              } else {
+                console.warn("Aviso na coleta automática via servidor:", result.error);
+              }
+            }
+          } catch (apiErr) {
+            console.error("Erro na coleta de Instagram automática via API local:", apiErr);
+          }
         }
       }
 
@@ -1101,11 +1275,20 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       if (success) {
         showSuccess('Alterações salvas com sucesso no Supabase!');
+        
+        // Atualiza os dados locais para refletir na aba de Visualização imediatamente
+        setEditedData(validatedData);
+        setLogoTimestamp(Date.now());
+        setCoverTimestamp(Date.now());
+        
+        // Dispara evento global para atualizar a tabela de fundo
+        window.dispatchEvent(new Event('local-sync-restaurants'));
+        localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
+
         setIsEditing(false);
         // Aguarda 800ms para garantir que o Supabase processou o upsert
         // antes de fechar o dialog e recarregar a lista (evita race condition)
         await new Promise(resolve => setTimeout(resolve, 800));
-        onClose();
         onSyncSuccess();
       } else {
         showError('Erro ao sincronizar com o banco de dados.');
@@ -1165,7 +1348,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       const addLog = (msg: string) => {
         const time = new Date().toLocaleTimeString();
         setExtractionLogs(prev => [...prev, `[${time}] ${msg}`]);
-
+        console.log(`[IA Extrator] ${msg}`);
       };
 
       addLog("Iniciando extração do cardápio...");
@@ -1315,8 +1498,94 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
 
         } else {
-          addLog("Cardápio não pôde ser extraído via texto puro/IA ou a IA falhou. (O fallback local foi desativado).");
-          showError('Falha ao processar cardápio via IA. Extração local desativada no ambiente de produção.');
+          // Fallback para o robô do servidor local
+          addLog("Iniciando fallback do robô local...");
+          showSuccess('Iniciando o robô extrator local...');
+          const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
+            method: 'POST'
+          });
+
+          if (!res.ok) {
+            addLog("Falha na comunicação com o servidor local.");
+            throw new Error('Falha na comunicação com o servidor local.');
+          }
+
+          const data = await res.json();
+          addLog(`Resposta do robô local: ${data.success ? 'Sucesso' : 'Falha'}`);
+
+          if (data.success) {
+            addLog("Cardápio extraído com sucesso pelo robô local! Atualizando dados do restaurante...");
+            
+            // Buscar os dados atualizados do restaurante direto do Supabase
+            const { data: updatedRest, error: fetchError } = await supabase
+              .from('restaurants')
+              .select(`
+                *,
+                menu_categories (
+                  *,
+                  menu_items (*)
+                ),
+                restaurant_gallery (*)
+              `)
+              .eq('id', restaurant.id)
+              .maybeSingle();
+
+            if (!fetchError && updatedRest) {
+              const socialNetworks = updatedRest.social_networks || [];
+              const instagram = socialNetworks.find((sn: any) => sn && sn.platform === 'instagram')?.url || '';
+              const facebook = socialNetworks.find((sn: any) => sn && sn.platform === 'facebook')?.url || '';
+              
+              const menuCategories = (updatedRest.menu_categories || []).map((cat: any) => ({
+                id: cat.id,
+                name: cat.name,
+                items: (cat.menu_items || []).map((item: any) => ({
+                  id: item.id,
+                  name: item.name,
+                  description: item.description || '',
+                  price: item.price,
+                  image_url: item.image_url || ''
+                }))
+              }));
+              
+              const galleryImages = (updatedRest.restaurant_gallery || []).map((img: any) => img.image_url);
+
+              const mapped = {
+                ...restaurant,
+                id: updatedRest.id,
+                name: updatedRest.name,
+                phone: updatedRest.phone || '',
+                cep: updatedRest.cep || '',
+                address: updatedRest.address || '',
+                number: updatedRest.number || '',
+                neighborhood: updatedRest.neighborhood || '',
+                city: updatedRest.city || '',
+                state: updatedRest.state || '',
+                description: updatedRest.description || '',
+                logo: updatedRest.image_url || '',
+                coverImage: updatedRest.cover_image_url || '',
+                cover_image_url: updatedRest.cover_image_url || '',
+                openingHours: updatedRest.opening_hours || null,
+                opening_hours: updatedRest.opening_hours || null,
+                social_networks: socialNetworks,
+                instagram,
+                facebook,
+                menuSourceUrl: updatedRest.other_url || updatedRest.external_url || '',
+                menuUrl: updatedRest.other_url || updatedRest.external_url || '',
+                menu_categories: menuCategories,
+                galleryImages
+              };
+
+              setEditedData(mapped);
+              setIsEditing(true);
+              setActiveDialogTab('edit');
+              addLog("Dados atualizados com sucesso!");
+            }
+
+            onSyncSuccess();
+          } else {
+            addLog(`O robô local falhou: ${data.error || 'Erro desconhecido.'}`);
+            showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
+          }
         }
       } catch (err: any) {
         addLog(`EXCEPTION capturada no fluxo principal: ${err.message}`);

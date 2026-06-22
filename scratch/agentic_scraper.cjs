@@ -53,12 +53,30 @@ async function getPageContext(page) {
   try {
     // 1. Auto-Expansão de Categorias (Auto-Clicker)
     await page.evaluate(() => {
-      const expandables = document.querySelectorAll('.accordion, .category-header, [aria-expanded="false"], [data-toggle="collapse"], .MuiAccordionSummary-root');
+      const selectors = [
+        '.accordion', '.category-header', '[aria-expanded="false"]', '[data-toggle="collapse"]', 
+        '.MuiAccordionSummary-root', 
+        '[class*="category"]', '[class*="Category"]', '[class*="accordion"]', 
+        '[class*="group-header"]', '[class*="MenuHeader"]'
+      ].join(', ');
+      
+      const expandables = document.querySelectorAll(selectors);
       expandables.forEach(el => {
         try { 
           if(el.getAttribute('aria-expanded') !== 'true') el.click(); 
         } catch(e){}
       });
+
+      // Expansor agressivo genérico (clica em tudo que é clicável mas não é link)
+      const clickables = document.querySelectorAll('div, span, li, button');
+      for (let el of clickables) {
+        try {
+          const style = window.getComputedStyle(el);
+          if (style.cursor === 'pointer' && !el.closest('a') && !el.closest('button[type="submit"]')) {
+             el.click();
+          }
+        } catch(e) {}
+      }
     });
     
     // Aguarda animações de expansão e imagens lazy load
@@ -186,9 +204,21 @@ function cleanAndParseJSON(text) {
   }
 }
 
+// Detecta o tipo de página para aplicar a estratégia correta
+function detectPageType(url) {
+  const u = url.toLowerCase();
+  if (u.endsWith('.pdf') || u.includes('/pdf') || u.includes('cardapio.pdf') || u.includes('menu.pdf')) return 'pdf';
+  if (u.includes('linktr.ee') || u.includes('linktree') || u.includes('bio.link') || u.includes('beacons.ai') || u.includes('taplink')) return 'linktree';
+  if (u.includes('livemenu.app') || u.includes('ifood.com.br') || u.includes('rappi.com') || u.includes('aiqfome.com') || u.includes('anota.ai') || u.includes('goomer.app') || u.includes('saipos.com') || u.includes('abrahao.app') || u.includes('delivery.') || u.includes('cardapio.') || u.includes('menu.') || u.includes('pedido.') || u.includes('pedidos.') || u.includes('pedir.') || u.includes('menudigital') || u.includes('ola.menu') || u.includes('instadelivery')) return 'delivery_spa';
+  return 'generic';
+}
+
 async function agenticFetch(url, objective) {
   console.log(`[Agente] Iniciando navegação autônoma em: ${url}`);
   
+  const pageType = detectPageType(url);
+  console.log(`[Agente] 🔍 Tipo de página detectado: ${pageType}`);
+
   const browser = await puppeteer.launch({ 
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1280,800']
@@ -200,18 +230,113 @@ async function agenticFetch(url, objective) {
   
   let globalAccumulatedContent = "";
   let clickedElements = [];
+  let lastUrl = '';
+  let sameUrlCount = 0;
 
   try {
     console.log(`[Agente] Carregando a página inicial...`);
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 }).catch(()=>console.log(`[Agente] Aviso: Timeout no carregamento inicial, tentando continuar...`));
+
+    // ── Estratégia: Linktree / Agregador de links ──
+    // Extrai todos os links da página e retorna para o chamador decidir qual seguir
+    if (pageType === 'linktree') {
+      console.log(`[Agente] 🔗 Estratégia Linktree: extraindo todos os links da página...`);
+      await new Promise(r => setTimeout(r, 3000));
+      const links = await page.evaluate(() => {
+        const anchors = Array.from(document.querySelectorAll('a[href]'));
+        return anchors.map(a => ({ text: a.textContent.trim(), href: a.href })).filter(l => l.text && l.href && !l.href.includes('linktr.ee') && !l.href.includes('instagram.com') && !l.href.includes('facebook.com') && !l.href.includes('twitter.com') && !l.href.includes('whatsapp'));
+      });
+      const menuKeywords = ['cardapio', 'cardápio', 'menu', 'delivery', 'pedido', 'pedir', 'ifood', 'rappi', 'aiqfome', 'saipos', 'goomer', 'anota', 'abrahao'];
+      const menuLinks = links.filter(l => menuKeywords.some(k => l.text.toLowerCase().includes(k) || l.href.toLowerCase().includes(k)));
+      const targetLinks = menuLinks.length > 0 ? menuLinks : links.slice(0, 5);
+      console.log(`[Agente] 🔗 Links encontrados: ${targetLinks.map(l => l.text + ' → ' + l.href).join(' | ')}`);
+      await browser.close();
+      // Retorna os links para que o chamador possa navegar neles recursivamente
+      return `LINKTREE_LINKS:${JSON.stringify(targetLinks)}`;
+    }
+
+    // ── Estratégia: SPA / Delivery (URL não muda) ──
+    // Extrai o conteúdo completo do DOM de uma vez após scroll total
+    if (pageType === 'delivery_spa') {
+      console.log(`[Agente] 🍔 Estratégia SPA/Delivery: extraindo conteúdo completo do DOM...`);
+      await new Promise(r => setTimeout(r, 4000));
+      // Scroll completo para disparar lazy loading
+      await page.evaluate(async () => {
+        await new Promise((resolve) => {
+          let totalHeight = 0;
+          const distance = 500;
+          const timer = setInterval(() => {
+            window.scrollBy(0, distance);
+            totalHeight += distance;
+            if (totalHeight >= document.body.scrollHeight || totalHeight > 30000) {
+              clearInterval(timer);
+              window.scrollTo(0, 0);
+              resolve();
+            }
+          }, 150);
+        });
+      });
+      // Espera extra (aumentado para garantir carregamento de SPAs como Anota.AI)
+      await new Promise(r => setTimeout(r, 8000));
+      const fullContext = await getPageContext(page);
+      await browser.close();
+      return fullContext.text;
+    }
     
     // Aumentado o limite de passos para 30
     for (let step = 0; step < 30; step++) {
       const currentUrl = page.url();
       console.log(`\n[Agente] --- Passo ${step+1}/30 ---`);
       console.log(`[Agente] URL Atual: ${currentUrl}`);
-      
-      await new Promise(r => setTimeout(r, 2000));
+
+      // Avaliação dinâmica de SPA durante a navegação
+      if (step > 0 && detectPageType(currentUrl) === 'delivery_spa') {
+        console.log(`[Agente] 🍔 Detectou URL de cardápio SPA dinamicamente: ${currentUrl}. Alterando estratégia para extração completa!`);
+        await new Promise(r => setTimeout(r, 8000)); // Aguarda carregar
+        
+        // Scroll completo para disparar lazy loading
+        await page.evaluate(async () => {
+          await new Promise((resolve) => {
+            let totalHeight = 0;
+            const distance = 500;
+            const timer = setInterval(() => {
+              window.scrollBy(0, distance);
+              totalHeight += distance;
+              if (totalHeight >= document.body.scrollHeight || totalHeight > 30000) {
+                clearInterval(timer);
+                window.scrollTo(0, 0);
+                resolve();
+              }
+            }, 150);
+          });
+        });
+        
+        await new Promise(r => setTimeout(r, 4000)); // Aguarda imagens
+        
+        const fullContext = await getPageContext(page);
+        globalAccumulatedContent += "\n\n--- CONTEÚDO COMPLETO DA PÁGINA DE CARDÁPIO ---\n" + fullContext.text;
+        await browser.close();
+        return globalAccumulatedContent;
+      }
+
+      // Detecta URL estacionária (SPA que não muda de URL)
+      if (currentUrl === lastUrl) {
+        sameUrlCount++;
+      } else {
+        sameUrlCount = 0;
+        lastUrl = currentUrl;
+      }
+
+      // Se a URL não mudou por 3 passos, extrai o conteúdo completo e finaliza
+      if (sameUrlCount >= 3) {
+        console.log(`[Agente] 🔄 URL não mudou por ${sameUrlCount} passos consecutivos. Detectado SPA — extraindo conteúdo completo e finalizando.`);
+        const fullContext = await getPageContext(page);
+        globalAccumulatedContent += "\n\n--- CONTEÚDO COMPLETO DA PÁGINA ---\n" + fullContext.text;
+        await browser.close();
+        return globalAccumulatedContent;
+      }
+
+      await new Promise(r => setTimeout(r, 6000));
       
       // Auto-scroll para carregar imagens com lazy loading
       await page.evaluate(async () => {
@@ -265,13 +390,18 @@ async function agenticFetch(url, objective) {
         }
       });
       
+      if (!response || !response.choices || !response.choices[0]) {
+        console.log(`[Agente] 🚨 Resposta vazia da IA. Extraindo conteúdo atual e finalizando.`);
+        await browser.close();
+        return globalAccumulatedContent + "\n\n--- TELA EXTRAÍDA ---\n" + pageContext.text || null;
+      }
       const decisionText = response.choices[0].message.content;
       const decision = cleanAndParseJSON(decisionText);
       
       if (decision.action === 'fail') {
-        console.log(`[Agente] ❌ IA não encontrou o objetivo e desistiu.`);
+        console.log(`[Agente] ❌ IA não encontrou o objetivo e desistiu, mas retornaremos o conteúdo da última tela por precaução.`);
         await browser.close();
-        return globalAccumulatedContent || null;
+        return (globalAccumulatedContent || "") + "\n\n--- TELA EXTRAÍDA (ÚLTIMA) ---\n" + pageContext.text;
       } 
       else if (decision.action === 'found') {
         console.log(`[Agente] ✅ IA encontrou todas as informações necessárias.`);

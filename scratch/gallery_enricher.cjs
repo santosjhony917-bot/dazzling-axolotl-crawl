@@ -575,12 +575,12 @@ async function selectBestPhotosWithAI(urls) {
     const messages = [
       {
         role: "system",
-        content: "Você é um assistente especializado em curadoria visual de alta qualidade para restaurantes premium. Sua tarefa é analisar as imagens fornecidas e selecionar as 4 melhores imagens que representam pratos de comida, bebidas ou o ambiente físico do local (fachada, salão interno, decoração). REGRAS RÍGIDAS:\n1. Não escolha de forma alguma fotos que tenham pessoas visíveis (clientes, garçons, rostos, corpos, selfies, grupos de pessoas, etc.).\n2. Não escolha fotos desfocadas, escuras, capturas de tela (screenshots) ou panfletos promocionais/logos com texto.\n3. Priorize fotos profissionais ou esteticamente agradáveis de pratos de comida e do salão do restaurante.\n4. Retorne APENAS um objeto JSON válido contendo a lista dos índices das imagens selecionadas (0-indexed). Exemplo de retorno: {\"selectedIndices\": [0, 2, 5, 7]}"
+        content: "Você é um assistente especializado em curadoria visual de alta qualidade para restaurantes premium. Sua tarefa é analisar as imagens fornecidas e selecionar as 4 melhores e mais belas imagens que representam pratos de comida, bebidas ou o ambiente físico do local (fachada, salão interno, decoração). REGRAS RÍGIDAS DE ESTÉTICA E SELEÇÃO:\n1. Não escolha de forma alguma fotos que tenham pessoas visíveis (clientes, garçons, rostos, corpos, selfies, grupos de pessoas, etc.).\n2. Não escolha fotos desfocadas, escuras, com reflexos ruins, capturas de tela (screenshots), cardápios, ou panfletos promocionais/logos com texto.\n3. Priorize o maior apelo visual possível (fotos 'instagramáveis'): iluminação excelente, cores vibrantes, pratos bem montados e apetitosos, sem comida mordida ou mesas bagunçadas.\n4. Para ambientes, prefira ângulos amplos, limpos e bem iluminados que transmitam uma atmosfera aconchegante ou moderna.\n5. Evite fotos amadoras; escolha aquelas que pareçam ter sido tiradas por um fotógrafo profissional.\n6. Retorne APENAS um objeto JSON válido contendo a lista dos índices das imagens selecionadas (0-indexed). Exemplo de retorno: {\"selectedIndices\": [0, 2, 5, 7]}"
       },
       {
         role: "user",
         content: [
-          { type: "text", text: "Analise as seguintes imagens e retorne os índices das 4 melhores que cumprem as regras no formato JSON." },
+          { type: "text", text: "Analise rigorosamente as seguintes imagens e retorne os índices das 4 fotos mais esteticamente atraentes e de maior qualidade que cumprem as regras no formato JSON." },
           ...urls.flatMap((url, idx) => [
             { type: "text", text: `Imagem índice ${idx}:` },
             { type: "image_url", image_url: { url } }

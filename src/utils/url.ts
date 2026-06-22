@@ -42,20 +42,8 @@ export const PATH_MAP = {
   // Rotas Admin
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
-  adminRestaurants: '/admin/restaurants',
-  adminCrm: '/admin/crm',
-  adminPlans: '/admin/plans',
-  adminUsers: '/admin/users',
-  adminSettings: '/admin/settings',
-  adminCategories: '/admin/categories', // Adicionado para consistência
-  adminFiles: '/admin/files', // Adicionado para consistência
-  adminImport: '/admin/import', // Adicionado para consistência
-  adminBanners: '/admin/banners', // NOVO: Adicionado para a página de banners
-  adminPopularCategories: '/admin/popular-categories', // NOVO: Adicionado para categorias populares
-  adminEditRestaurant: '/admin/restaurants/:restaurantId', // NOVO: Rota para editar restaurante
-  adminRestaurantMenu: '/admin/restaurants/:restaurantId/menu', // NOVO: Rota para gerenciar cardápio do restaurante
-  adminMenus: '/admin/menus', // Rota para visualizar cardápios coletados
-  
+  adminExpansion: '/admin/expansion',
+  adminCityDashboard: '/admin/expansion/:cityId',  
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',
 } as const;
@@ -72,10 +60,8 @@ type PathParams<K extends PathKey> =
     ? { categoryId: string }
   : K extends 'fullMenuPage' // NOVO
     ? { restaurantId: string }
-  : K extends 'adminEditRestaurant' // NOVO
-    ? { restaurantId: string }
-  : K extends 'adminRestaurantMenu' // NOVO
-    ? { restaurantId: string }
+  : K extends 'adminCityDashboard' // NOVO
+    ? { cityId: string }
   : undefined;
 
 // Tipos de parâmetros de consulta (query params)
@@ -113,9 +99,7 @@ export function getSelectablePagePaths(): { key: PathKey; label: string }[] {
     // 'restaurant-area/metrics', // Removido da exclusão
     // 'restaurant-area/search', // Removido da exclusão
     // 'restaurant-area/favorites', // Removido da exclusão
-    'adminLogin', 'adminDashboard', 'adminRestaurants', 'adminPlans', 'adminUsers',
-    'adminSettings', 'adminCategories', 'adminFiles', 'adminImport', 'adminBanners', // Rotas de admin
-    'adminPopularCategories', 'adminEditRestaurant', 'adminRestaurantMenu', // Excluído, pois é uma rota de admin e exige parâmetro
+    'adminLogin', 'adminDashboard'
   ];
 
   const selectablePaths: { key: PathKey; label: string }[] = [];
