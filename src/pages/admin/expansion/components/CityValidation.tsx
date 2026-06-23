@@ -249,6 +249,42 @@ export default function CityValidation() {
     .replace(/\s+/g, ' ')
     .trim();
 
+  const updateRestaurantWithSchemaFallback = async (restaurantId: string, payload: Record<string, any>) => {
+    let currentPayload = { ...payload };
+    const optionalColumns = [
+      'google_maps_name',
+      'ai_normalized_name',
+      'name_cleanup_notes',
+      'google_maps_url',
+      'menu_status',
+      'menu_status_reason',
+      'menu_last_checked_at',
+    ];
+
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+      const { error } = await supabase
+        .from('restaurants')
+        .update(currentPayload)
+        .eq('id', restaurantId);
+
+      if (!error) return;
+
+      const message = error.message || '';
+      const missingColumn = message.match(/'([^']+)'\s+column/i)?.[1] || message.match(/column\s+"([^"]+)"/i)?.[1];
+      const removable = missingColumn && Object.prototype.hasOwnProperty.call(currentPayload, missingColumn)
+        ? missingColumn
+        : optionalColumns.find(column => Object.prototype.hasOwnProperty.call(currentPayload, column) && /schema cache|column/i.test(message));
+
+      if (removable) {
+        const { [removable]: _removed, ...nextPayload } = currentPayload;
+        currentPayload = nextPayload;
+        continue;
+      }
+
+      throw error;
+    }
+  };
+
   const classifyRestaurantEligibilityLocal = (restaurant: any, extra: Record<string, any> = {}) => {
     const text = normalizeText([
       restaurant?.name,
@@ -316,6 +352,60 @@ export default function CityValidation() {
       };
     } catch (error: any) {
       return { status: 'unknown' as const, confidence: 0, reason: `Falha ao classificar elegibilidade: ${error.message || error}`, source: 'ai_error' };
+    }
+  };
+
+  const decideRestaurantOfficialNameAI = async (restaurant: any, context: Record<string, any> = {}) => {
+    const googleMapsName = String(context.googleMapsName || restaurant?.google_maps_name || restaurant?.name || '').trim();
+    if (!googleMapsName) return null;
+
+    try {
+      const response = await fetch('/api/local-collector/ai-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemContext: [
+            'Você é o árbitro de nome comercial de restaurantes para um app público.',
+            'Sua tarefa é escolher o nome que o dono provavelmente cadastraria no perfil dele.',
+            'Remova slogans, textos de SEO, cidade/bairro e descrições genéricas vindas do Google Maps.',
+            "Exemplos: \"La Migliore - O melhor rodízio de Campina Grande\" => \"La Migliore\"; \"Brazile Pizzaria - Delivery de Pizza em Campina Grande\" => \"Brazile Pizzaria\"; \"Domino's Pizza - Campina Grande\" => \"Domino's Pizza\".",
+            'Preserve palavras que façam parte do nome real. Não invente nome novo. Se estiver em dúvida, mantenha o nome do Google com confiança menor.',
+            'Responda SOMENTE JSON no formato {"official_name":"...","raw_google_name":"...","confidence":0_a_1,"reason":"curto","changed":true|false}.'
+          ].join(' '),
+          message: JSON.stringify({
+            currentName: restaurant?.name || '',
+            googleMapsName,
+            googleMapsTitle: context.title || '',
+            googleMapsCategory: context.category || restaurant?.category || '',
+            city: restaurant?.city || context.city || '',
+            state: restaurant?.state || context.state || '',
+            neighborhood: restaurant?.neighborhood || context.neighborhood || '',
+            address: context.address || restaurant?.address || '',
+            website: context.website || restaurant?.website || '',
+            instagramBio: context.bio || '',
+          })
+        })
+      });
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const json = String(payload.reply || '').match(/{[\s\S]*}/)?.[0] || '{}';
+      const decision = JSON.parse(json);
+      const officialName = String(decision.official_name || decision.nome_oficial || '').replace(/\s+/g, ' ').trim();
+      const confidence = Math.max(0, Math.min(1, Number(decision.confidence || 0)));
+
+      if (!officialName || officialName.length < 2 || confidence < 0.55) return null;
+
+      return {
+        officialName,
+        rawGoogleName: String(decision.raw_google_name || googleMapsName).trim() || googleMapsName,
+        confidence,
+        reason: String(decision.reason || 'Nome decidido pela IA a partir do Google Maps.').trim(),
+        changed: Boolean(decision.changed) || normalizeText(officialName) !== normalizeText(googleMapsName),
+      };
+    } catch (error: any) {
+      addLog(`IA de nome oficial falhou: ${error.message || error}`);
+      return null;
     }
   };
 
@@ -526,29 +616,50 @@ export default function CityValidation() {
             const identityUpdate: any = {};
             const mapsName = extRes.name || extRes.title || extRes.restaurantName || '';
             const mapsCategory = extRes.category || extRes.type || '';
-            if (mapsName && (!restaurant.name || /pendente|google maps|sem nome/i.test(String(restaurant.name)))) {
-              identityUpdate.name = mapsName;
+            if (mapsName) {
+              identityUpdate.google_maps_name = mapsName;
             }
             if (mapsCategory && (!restaurant.category || /restaurante|outros|pendente/i.test(String(restaurant.category)))) {
               identityUpdate.category = mapsCategory;
             }
+            const officialNameDecision = await decideRestaurantOfficialNameAI(effectiveRestaurant, {
+              googleMapsName: mapsName,
+              title: extRes.title || mapsName,
+              category: mapsCategory,
+              address: extRes.address || restaurant.address || '',
+              website: extRes.website || restaurant.website || '',
+              city: restaurant.city,
+              state: restaurant.state,
+              neighborhood: restaurant.neighborhood,
+            });
+            if (officialNameDecision?.officialName) {
+              identityUpdate.name = officialNameDecision.officialName;
+              identityUpdate.ai_normalized_name = officialNameDecision.officialName;
+              identityUpdate.name_cleanup_notes = `IA definiu nome oficial a partir do Google Maps: ${officialNameDecision.reason} (confiança ${Math.round(officialNameDecision.confidence * 100)}%).`;
+            } else if (mapsName && (!restaurant.name || /pendente|google maps|sem nome/i.test(String(restaurant.name)))) {
+              identityUpdate.name = mapsName;
+              identityUpdate.name_cleanup_notes = 'IA não retornou confiança suficiente; nome do Google Maps mantido provisoriamente.';
+            }
             identityUpdate.visit_notes = String(restaurant.visit_notes || '').includes(mapUrl)
               ? restaurant.visit_notes
               : `${restaurant.visit_notes || ''}\nGoogle Maps: ${mapUrl}`.trim();
-            try {
-              await supabase.from('restaurants').update({ ...identityUpdate, google_maps_url: mapUrl }).eq('id', restaurant.id);
-            } catch (_) {
-              await supabase.from('restaurants').update(identityUpdate).eq('id', restaurant.id);
+            if (officialNameDecision?.changed) {
+              identityUpdate.visit_notes = `${identityUpdate.visit_notes}\nNome original no Google Maps: ${officialNameDecision.rawGoogleName}\n${identityUpdate.name_cleanup_notes}`.trim();
             }
+            await updateRestaurantWithSchemaFallback(restaurant.id, { ...identityUpdate, google_maps_url: mapUrl });
             effectiveRestaurant = {
               ...effectiveRestaurant,
               ...identityUpdate,
-              name: mapsName || effectiveRestaurant.name,
+              name: identityUpdate.name || mapsName || effectiveRestaurant.name,
               category: mapsCategory || effectiveRestaurant.category,
               googleMapsUrl: mapUrl,
               google_maps_url: mapUrl
             };
-            if (mapsName) addLog(`Nome oficial do Maps: ${mapsName}`);
+            if (officialNameDecision?.officialName) {
+              addLog(`IA definiu nome oficial: ${mapsName || officialNameDecision.rawGoogleName} → ${officialNameDecision.officialName} (${Math.round(officialNameDecision.confidence * 100)}%).`);
+            } else if (mapsName) {
+              addLog(`Nome do Maps mantido provisoriamente: ${mapsName}`);
+            }
             if (mapsCategory) addLog(`Categoria oficial do Maps: ${mapsCategory}`);
             
             if (extRes.schedule) {
@@ -687,6 +798,23 @@ export default function CityValidation() {
               addLog(`Links candidatos coletados no Instagram sem navegação externa: ${instagramMenuCandidates.length}.`);
             }
             
+            const socialNameDecision = await decideRestaurantOfficialNameAI(effectiveRestaurant, {
+              ...(mapsData || {}),
+              googleMapsName: mapsData?.name || mapsData?.title || effectiveRestaurant.google_maps_name || effectiveRestaurant.name,
+              bio: instagramBio,
+              website: mapsData?.website || effectiveRestaurant.website || '',
+            });
+            if (socialNameDecision?.officialName && normalizeText(socialNameDecision.officialName) !== normalizeText(effectiveRestaurant.name)) {
+              await updateRestaurantWithSchemaFallback(restaurant.id, {
+                name: socialNameDecision.officialName,
+                ai_normalized_name: socialNameDecision.officialName,
+                google_maps_name: socialNameDecision.rawGoogleName,
+                name_cleanup_notes: `IA revisou nome oficial com Instagram: ${socialNameDecision.reason} (confiança ${Math.round(socialNameDecision.confidence * 100)}%).`,
+              });
+              addLog(`IA revisou nome com Instagram: ${effectiveRestaurant.name} → ${socialNameDecision.officialName} (${Math.round(socialNameDecision.confidence * 100)}%).`);
+              effectiveRestaurant = { ...effectiveRestaurant, name: socialNameDecision.officialName };
+            }
+
             toast.success(`🧠 Validando Instagram com IA (Nome: ${effectiveRestaurant.name || initialName}, Bio: ${instagramBio})...`);
             addLog(`Validando Instagram com IA (Bio: ${instagramBio})...`);
             

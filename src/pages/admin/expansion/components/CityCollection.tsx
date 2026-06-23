@@ -6,6 +6,7 @@ import { Search, Map, StopCircle, Terminal, Activity, Store, MapPin, ShieldCheck
 import { Progress } from '@/components/ui/progress';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
+import { normalizeRestaurantDisplayName } from '@/utils/formatters';
 import {
   getCommercialPoleNeighborhoodCount,
   MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
@@ -49,14 +50,22 @@ function buildMapsUrlFromLead(lead: MapsLead) {
 
 function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: string) {
   const googleMapsUrl = buildMapsUrlFromLead(lead);
-  const name = safeText(lead.name) || 'Restaurante sem nome';
+  const rawName = safeText(lead.name);
   const address = safeText(lead.address);
   const category = safeText(lead.category) || 'Restaurante';
   const neighborhood = safeText(lead.neighborhood) || safeText(plannedNeighborhood);
+  const nameCleanup = normalizeRestaurantDisplayName(rawName || 'Restaurante sem nome', {
+    city: city.name,
+    state: city.state,
+    neighborhood,
+  });
+  const name = nameCleanup.displayName || 'Restaurante sem nome';
 
   return {
     id: crypto.randomUUID(),
     name,
+    google_maps_name: rawName || name,
+    name_cleanup_notes: nameCleanup.cleanupReason,
     category,
     address: address || null,
     neighborhood: neighborhood || null,
@@ -68,6 +77,8 @@ function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: str
     ai_validated: false,
     visit_notes: [
       googleMapsUrl ? `Google Maps: ${googleMapsUrl}` : '',
+      nameCleanup.changed ? `Nome original no Google Maps: ${nameCleanup.rawName}` : '',
+      nameCleanup.cleanupReason || '',
       'Fase 1: lead mínimo coletado pela extensão. Validar IA deve descobrir telefone, Instagram, cardápio, elegibilidade e rejeitar falsos restaurantes.',
     ].filter(Boolean).join('\n'),
     other_url: null,
@@ -142,6 +153,58 @@ function sendExtensionMessage(extensionId: string, message: any, timeoutMs = 450
   });
 }
 
+function sendExtensionMessageBridge(extensionId: string, message: any, timeoutMs = 45000): Promise<any> {
+  return new Promise((resolve) => {
+    const chromeObj = (window as any).chrome;
+    let done = false;
+    let bridgePosted = false;
+    const requestId = 'phase1-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+
+    const finish = (value: any) => {
+      if (done) return;
+      done = true;
+      window.clearTimeout(timeout);
+      window.removeEventListener('message', bridgeListener);
+      resolve(value);
+    };
+
+    function bridgeListener(event: MessageEvent) {
+      if (event.source !== window) return;
+      const data = event.data || {};
+      if (data.source !== 'filterfood-extension-bridge' || data.requestId !== requestId) return;
+      if (data.error) finish({ success: false, error: data.error });
+      else finish(data.response || { success: false, error: 'Extensão não respondeu.' });
+    }
+
+    const postViaBridge = () => {
+      if (bridgePosted || done) return;
+      bridgePosted = true;
+      window.postMessage({ source: 'filterfood-admin-bridge', requestId, message }, '*');
+    };
+
+    const timeout = window.setTimeout(() => {
+      finish({ success: false, error: 'Tempo limite ao falar com a extensão.' });
+    }, timeoutMs);
+
+    try {
+      window.addEventListener('message', bridgeListener);
+
+      if (extensionId && chromeObj?.runtime?.sendMessage) {
+        chromeObj.runtime.sendMessage(extensionId, message, (response: any) => {
+          const runtimeError = chromeObj.runtime?.lastError?.message;
+          if (runtimeError) postViaBridge();
+          else finish(response || { success: false, error: 'Extensão não respondeu.' });
+        });
+        return;
+      }
+
+      postViaBridge();
+    } catch (error: any) {
+      finish({ success: false, error: error?.message || 'Falha ao enviar comando para extensão.' });
+    }
+  });
+}
+
 export default function CityCollection() {
   const { cityId } = useParams();
   const [, setSearchParams] = useSearchParams();
@@ -193,12 +256,8 @@ export default function CityCollection() {
   useEffect(() => {
     const id = localStorage.getItem('chrome_extension_id') || extensionId;
     setExtensionId(id);
-    if (!id) {
-      setIsExtensionActive(false);
-      return;
-    }
 
-    sendExtensionMessage(id, { action: 'ping' }, 3000).then((res) => {
+    sendExtensionMessageBridge(id, { action: 'ping' }, 3000).then((res) => {
       setIsExtensionActive(!!res?.success);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -232,6 +291,9 @@ export default function CityCollection() {
           'ai_validated',
           'visit_notes',
           'google_maps_url',
+          'google_maps_name',
+          'ai_normalized_name',
+          'name_cleanup_notes',
           'menu_status',
           'is_published',
           'other_url',
@@ -257,12 +319,7 @@ export default function CityCollection() {
     if (isRunning || !city) return;
     const id = (localStorage.getItem('chrome_extension_id') || extensionId || '').trim();
 
-    if (!id) {
-      showError('Configure o ID da extensão antes de iniciar a Fase 1.');
-      return;
-    }
-
-    const ping = await sendExtensionMessage(id, { action: 'ping' }, 3000);
+    const ping = await sendExtensionMessageBridge(id, { action: 'ping' }, 3000);
     if (!ping?.success) {
       setIsExtensionActive(false);
       showError(`Extensão inativa: ${ping?.error || 'sem resposta'}`);
@@ -271,7 +328,7 @@ export default function CityCollection() {
 
     setExtensionId(id);
     setIsExtensionActive(true);
-    localStorage.setItem('chrome_extension_id', id);
+    if (id) localStorage.setItem('chrome_extension_id', id);
     setIsRunning(true);
     setAbortRequested(false);
     abortRef.current = false;
@@ -307,7 +364,7 @@ export default function CityCollection() {
         const layer = searchPlan.coverage === 'commercial_poles' ? 'polo' : 'cidade';
         addLog(`[BUSCA ${i + 1}/${queries.length}] ${searchPlan.label} • ${layer} • ${searchPlan.neighborhood} → ${searchPlan.query}`);
 
-        const response = await sendExtensionMessage(id, {
+        const response = await sendExtensionMessageBridge(id, {
           action: 'searchGoogleMapsLeads',
           query: searchPlan.query,
           city: city.name,
@@ -337,7 +394,9 @@ export default function CityCollection() {
           const payload = buildPhase1Payload(lead, city, searchPlan.neighborhood);
           await persistLead(payload);
           saved += 1;
-          addLog(`[SALVO] ${payload.name} ${mapsUrl ? `(${mapsUrl})` : ''}`);
+          const rawName = safeText((payload as any).google_maps_name);
+          const savedName = rawName && rawName !== payload.name ? `${rawName} → ${payload.name}` : payload.name;
+          addLog(`[SALVO] ${savedName} ${mapsUrl ? `(${mapsUrl})` : ''}`);
         }
       }
 

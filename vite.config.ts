@@ -37,7 +37,13 @@ export default defineConfig(() => ({
     host: "::",
     port: 8080,
     watch: {
-      ignored: ["**/scratch/**"]
+      ignored: [
+        "**/.tmp/**",
+        "**/.agents/**",
+        "**/scratch/**",
+        "**/dist/**",
+        "**/node_modules/**"
+      ]
     },
     proxy: {
       "/google-places": {

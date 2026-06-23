@@ -35,6 +35,9 @@ export interface Restaurant {
   other_url?: string | null;
   google_maps_url?: string | null;
   google_place_id?: string | null;
+  google_maps_name?: string | null;
+  ai_normalized_name?: string | null;
+  name_cleanup_notes?: string | null;
   address?: string | null;
   number?: string | null;
   neighborhood?: string | null;

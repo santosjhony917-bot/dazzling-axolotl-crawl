@@ -2679,14 +2679,31 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           .sort((a, b) => (b.scrollHeight - b.clientHeight) - (a.scrollHeight - a.clientHeight))[0] || document.scrollingElement;
       };
       const forceScrollResults = async (limit) => {
-        let leads = getResults();
-        let previousLeadCount = -1;
+        const collected = new Map();
+        const leadKey = (lead) => {
+          const urlKey = String(lead?.googleMapsUrl || '').replace(/[?#].*$/, '');
+          return urlKey || normalize(`${lead?.name || ''} ${lead?.address || ''}`);
+        };
+        const mergeVisibleLeads = (visibleLeads = []) => {
+          let added = 0;
+          for (const lead of visibleLeads) {
+            const key = leadKey(lead);
+            if (!key || collected.has(key)) continue;
+            collected.set(key, lead);
+            added += 1;
+            if (collected.size >= limit) break;
+          }
+          return added;
+        };
+
+        mergeVisibleLeads(getResults());
+        let leads = Array.from(collected.values()).slice(0, limit);
         let previousCardCount = -1;
         let previousScrollTop = -1;
         let previousScrollHeight = -1;
         let stableRounds = 0;
 
-        for (let i = 0; i < 50 && leads.length < limit && stableRounds < 7; i++) {
+        for (let i = 0; i < 60 && collected.size < limit && stableRounds < 8; i++) {
           const panel = findScrollableResultsPanel();
           const cards = getResultCards();
           const lastCard = cards[cards.length - 1];
@@ -2709,7 +2726,9 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           window.scrollBy(0, Math.max(900, window.innerHeight * 1.5));
 
           await sleep(1400);
-          leads = getResults();
+          const visibleLeads = getResults();
+          const added = mergeVisibleLeads(visibleLeads);
+          leads = Array.from(collected.values()).slice(0, limit);
 
           const nextPanel = findScrollableResultsPanel();
           const cardCount = getResultCards().length;
@@ -2717,25 +2736,70 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           const scrollHeight = nextPanel?.scrollHeight || 0;
           const pageText = normalize(document.body.innerText || '');
           const reachedEnd = /you'?ve reached the end|fim da lista|final da lista|nao ha mais resultados|não há mais resultados|sem mais resultados/i.test(pageText);
-          const didProgress = leads.length !== previousLeadCount ||
+          const didProgress = added > 0 ||
             cardCount !== previousCardCount ||
             scrollTop !== previousScrollTop ||
             scrollHeight !== previousScrollHeight;
 
           stableRounds = didProgress && !reachedEnd ? 0 : stableRounds + 1;
-          previousLeadCount = leads.length;
           previousCardCount = cardCount;
           previousScrollTop = scrollTop;
           previousScrollHeight = scrollHeight;
           if (reachedEnd && stableRounds >= 2) break;
         }
 
-        return leads;
+        return Array.from(collected.values()).slice(0, limit);
       };
       const getResults = () => {
         const anchors = Array.from(document.querySelectorAll('a[href]'));
         const leads = [];
         const seen = new Set();
+        const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|lanche|sandu[ií]che|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|padaria|bistr[oô]|cantina|frutos do mar|peixaria|comida/i;
+        const addressPattern = /\b(r\.|rua|av\.|avenida|pra[cç]a|rod\.|rodovia|br-\d|travessa|tv\.|alameda|estrada|shopping|loja|bairro|centro|catol[eé]|campina grande|pb)\b|\d{2,}/i;
+        const isRatingOrPriceLine = (line) => {
+          const text = String(line || '').trim();
+          return /^\d(?:[,.]\d)?\s*\(/.test(text) ||
+            /^R\$\s*\d/i.test(text) ||
+            (/R\$\s*\d+\s*[–-]\s*\d+/i.test(text) && !categoryPattern.test(text));
+        };
+        const isNoiseLine = (line) => {
+          const text = String(line || '').trim();
+          if (!text) return true;
+          if (isRatingOrPriceLine(text)) return true;
+          if (/^(aberto|fechado|fecha|abre|hor[aá]rio|pedir|pedido|delivery|retirada|no local|compartilhar|resultados)$/i.test(text)) return true;
+          if (/^["“”].*["“”]$/.test(text)) return true;
+          return false;
+        };
+        const cleanSegment = (segment) => String(segment || '')
+          .replace(/[]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const resolveCategoryAndAddress = (lines) => {
+          let category = '';
+          let address = '';
+          const detailLines = lines.slice(1).map(cleanSegment).filter(line => line && !isNoiseLine(line));
+
+          for (const line of detailLines) {
+            const segments = line
+              .split(/\s*·\s*/)
+              .map(cleanSegment)
+              .filter(segment => segment && !isNoiseLine(segment));
+
+            for (const segment of segments) {
+              if (!category && categoryPattern.test(segment) && !addressPattern.test(segment)) category = segment;
+              if (!address && addressPattern.test(segment) && !isRatingOrPriceLine(segment)) address = segment;
+            }
+
+            if (!category && categoryPattern.test(line) && !addressPattern.test(line)) category = line;
+            if (!address && addressPattern.test(line) && !isRatingOrPriceLine(line)) address = line;
+            if (category && address) break;
+          }
+
+          return {
+            category: category || 'Pendente validação',
+            address: address || '',
+          };
+        };
         for (const anchor of anchors) {
           const href = cleanUrl(anchor.href || '');
           if (!isPlaceUrl(href)) continue;
@@ -2745,7 +2809,7 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           const aria = anchor.getAttribute('aria-label') || '';
           const name = (lines[0] || aria || '').replace(/^Ver\s+/i, '').trim();
           if (!name || name.length < 2) continue;
-          const category = lines.find(line => /restaurante|pizzaria|hamburgueria|lanchonete|bar|cafe|cafeteria|sorveteria|doceria|churrascaria|esfiharia|sushi|aça[ií]|acai/i.test(line)) || 'Pendente validação';
+          const { category, address } = resolveCategoryAndAddress(lines);
           if (isBadLead(name, category)) continue;
           const key = href.replace(/[?#].*$/, '') || normalize(name);
           if (seen.has(key)) continue;
@@ -2753,7 +2817,7 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           leads.push({
             name,
             category,
-            address: lines.find(line => /\d|rua|avenida|av\.|r\.|bairro|centro/i.test(line)) || '',
+            address,
             phone: '',
             city: expectedCity || '',
             state: expectedState || '',

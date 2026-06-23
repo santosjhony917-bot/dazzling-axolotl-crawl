@@ -194,7 +194,9 @@ export interface Database {
           description: string | null
           email: string | null
           external_url: string | null
+          ai_normalized_name: string | null
           google_maps_url: string | null
+          google_maps_name: string | null
           google_place_id: string | null
           id: string
           ifood_url: string | null
@@ -202,6 +204,7 @@ export interface Database {
           latitude: number | null
           longitude: number | null
           name: string
+          name_cleanup_notes: string | null
           neighborhood: string | null
           number: string | null
           opening_hours: Json | null
@@ -223,7 +226,9 @@ export interface Database {
           description?: string | null
           email?: string | null
           external_url?: string | null
+          ai_normalized_name?: string | null
           google_maps_url?: string | null
+          google_maps_name?: string | null
           google_place_id?: string | null
           id?: string
           ifood_url?: string | null
@@ -231,6 +236,7 @@ export interface Database {
           latitude?: number | null
           longitude?: number | null
           name: string
+          name_cleanup_notes?: string | null
           neighborhood?: string | null
           number?: string | null
           opening_hours?: Json | null
@@ -252,7 +258,9 @@ export interface Database {
           description?: string | null
           email?: string | null
           external_url?: string | null
+          ai_normalized_name?: string | null
           google_maps_url?: string | null
+          google_maps_name?: string | null
           google_place_id?: string | null
           id?: string
           ifood_url?: string | null
@@ -260,6 +268,7 @@ export interface Database {
           latitude?: number | null
           longitude?: number | null
           name?: string
+          name_cleanup_notes?: string | null
           neighborhood?: string | null
           number?: string | null
           opening_hours?: Json | null

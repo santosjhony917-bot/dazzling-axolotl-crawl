@@ -198,6 +198,71 @@ export const KNOWN_CITY_NEIGHBORHOODS: Record<string, string[]> = {
     'Centro',
     'Catolé',
     'Liberdade',
+    'Malvinas',
+    'Bodocongó',
+    'Alto Branco',
+    'Prata',
+    'José Pinheiro',
+    'Dinamérica',
+    'Cruzeiro',
+    'Itararé',
+    'São José',
+    'Santo Antônio',
+    'Monte Castelo',
+    'Mirante',
+    'Tambor',
+    'Três Irmãs',
+    'Santa Rosa',
+    'Sandra Cavalcante',
+    'Presidente Médici',
+    'Universitário',
+    'Centenário',
+    'Palmeira',
+    'Quarenta',
+    'Bela Vista',
+    'Monte Santo',
+    'Pedregal',
+    'Ramadinha',
+    'Serrotão',
+    'Santa Cruz',
+    'Novo Bodocongó',
+    'Estação Velha',
+    'Distrito Industrial',
+    'Jardim Paulistano',
+    'Jardim Quarenta',
+    'Jardim Tavares',
+    'Jardim Continental',
+    'Jardim Itararé',
+    'Palmeira Imperial',
+    'Araxá',
+    'Cuités',
+    'Conceição',
+    'Jeremias',
+    'Lauritzen',
+    'Louzeiro',
+    'Nações',
+    'Castelo Branco',
+    'Nova Brasília',
+    'Lagoa de Dentro',
+    'Catirina',
+    'Cidades',
+    'Conjunto dos Professores',
+    'Bento Figueiredo',
+    'Acácio Figueiredo',
+    'Aluízio Afonso Campos',
+    'Ronaldo Cunha Lima',
+    'Santa Teresinha',
+    'São Januário',
+    'Tropeiros da Borborema',
+    'Velame',
+    'Vila Cabral',
+    'Galante',
+    'São José da Mata',
+  ],
+  'campina-grande-pb-legacy': [
+    'Centro',
+    'Catolé',
+    'Liberdade',
     'Bodocongó',
     'Malvinas',
     'Prata',
@@ -282,10 +347,14 @@ function parseNeighborhoodsReply(reply: string) {
   return [];
 }
 
-async function fetchAiNeighborhoods(cityName: string, state?: string) {
+async function fetchAiNeighborhoods(cityName: string, state?: string, timeoutMs = 18000) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+
   const response = await fetch('/api/local-collector/ai-chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    signal: controller.signal,
     body: JSON.stringify({
       systemContext: [
         'Você planeja coleta de restaurantes no Google Maps para expansão comercial.',
@@ -302,7 +371,7 @@ async function fetchAiNeighborhoods(cityName: string, state?: string) {
         mustInclude: ['Centro'],
       }),
     }),
-  });
+  }).finally(() => window.clearTimeout(timer));
 
   if (!response.ok) throw new Error(`IA de bairros retornou HTTP ${response.status}`);
 
@@ -317,6 +386,19 @@ export async function resolveExpansionNeighborhoods(
 ) {
   const cacheKey = getNeighborhoodCacheKey(cityName, state);
   const known = normalizeNeighborhoodList(getKnownCityNeighborhoods(cityName, state));
+
+  if (known.length >= 40) {
+    localStorage.setItem(cacheKey, JSON.stringify({
+      version: NEIGHBORHOOD_CACHE_VERSION,
+      city: cityName,
+      state,
+      source: 'known_city_wide_list',
+      neighborhoods: known,
+      updatedAt: new Date().toISOString(),
+    }));
+    addLog?.(`[BAIRROS] Lista local ampla carregada: ${known.length} bairros/distritos para ${cityName}/${state}.`);
+    return known;
+  }
 
   try {
     const cachedRaw = localStorage.getItem(cacheKey);
