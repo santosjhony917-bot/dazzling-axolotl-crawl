@@ -13,8 +13,8 @@ export const formatNumber = (num: number): string => {
  * @param price The price to format.
  * @returns The formatted currency string.
  */
-export const formatPrice = (price: number): string => {
-  if (price === undefined || price === null) return 'R$ 0,00';
+export const formatPrice = (price: number | null | undefined): string => {
+  if (price === undefined || price === null) return 'Preço sob consulta';
   return price.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',

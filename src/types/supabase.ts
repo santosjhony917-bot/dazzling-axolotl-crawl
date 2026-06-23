@@ -33,6 +33,8 @@ export interface Restaurant {
   whatsapp_url?: string | null;
   ifood_url?: string | null;
   other_url?: string | null;
+  google_maps_url?: string | null;
+  google_place_id?: string | null;
   address?: string | null;
   number?: string | null;
   neighborhood?: string | null;
@@ -52,6 +54,12 @@ export interface Restaurant {
   is_published?: VisitStatus | boolean | null;
   visit_notes?: string | null;
   coleta_logs?: string | null;
+  ai_validated?: boolean | null;
+  ai_log?: string | null;
+  is_deleted?: boolean | null;
+  menu_status?: 'unknown' | 'found' | 'not_found' | 'unavailable' | 'manual_required' | 'blocked' | 'invalid_source' | 'failed' | null;
+  menu_status_reason?: string | null;
+  menu_last_checked_at?: string | null;
 }
 
 export interface ExpansionProject {
@@ -89,8 +97,16 @@ export interface MenuItem {
   id: string;
   category_id: string;
   name: string;
+  display_name?: string | null;
   description?: string | null;
   price: number;
+  display_price?: number | null;
+  price_min?: number | null;
+  price_max?: number | null;
+  price_type?: string | null;
+  commercial_type?: string | null;
+  is_configurable?: boolean | null;
+  search_keywords?: string | null;
   image_url?: string | null;
   order_index?: number | null;
   is_active?: boolean | null;

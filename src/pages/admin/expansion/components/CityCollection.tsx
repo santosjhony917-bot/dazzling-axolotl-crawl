@@ -1,178 +1,449 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Database, Search, Map, Globe, Server, CheckCircle2, Loader2, StopCircle, Terminal, Activity, Store, MapPin } from 'lucide-react';
+import { Search, Map, StopCircle, Terminal, Activity, Store, MapPin, ShieldCheck, Sparkles } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
+import {
+  getCommercialPoleNeighborhoodCount,
+  MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
+  MAPS_COLLECTION_COMMERCIAL_POLE_TERMS,
+  MAPS_RESULTS_PER_SEARCH,
+  normalizeExpansionKey,
+  resolveExpansionNeighborhoods,
+} from '@/utils/expansionCollection';
+
+type MapsLead = {
+  name?: string;
+  category?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  neighborhood?: string;
+  googleMapsUrl?: string;
+};
+
+type SearchQueryPlan = {
+  query: string;
+  neighborhood: string;
+  term: string;
+  label: string;
+  coverage: 'all_neighborhoods' | 'commercial_poles';
+};
+
+function normalizeKey(value: string) {
+  return normalizeExpansionKey(value);
+}
+
+function safeText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function buildMapsUrlFromLead(lead: MapsLead) {
+  const direct = safeText(lead.googleMapsUrl);
+  if (/^https?:\/\/(www\.)?(google\.[^/]+\/maps|maps\.app\.goo\.gl)\//i.test(direct)) return direct;
+  return '';
+}
+
+function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: string) {
+  const googleMapsUrl = buildMapsUrlFromLead(lead);
+  const name = safeText(lead.name) || 'Restaurante sem nome';
+  const address = safeText(lead.address);
+  const category = safeText(lead.category) || 'Restaurante';
+  const neighborhood = safeText(lead.neighborhood) || safeText(plannedNeighborhood);
+
+  return {
+    id: crypto.randomUUID(),
+    name,
+    category,
+    address: address || null,
+    neighborhood: neighborhood || null,
+    city: city.name,
+    state: city.state,
+    phone: null,
+    plan: 'free',
+    is_published: false,
+    ai_validated: false,
+    visit_notes: [
+      googleMapsUrl ? `Google Maps: ${googleMapsUrl}` : '',
+      'Fase 1: lead mínimo coletado pela extensão. Validar IA deve descobrir telefone, Instagram, cardápio, elegibilidade e rejeitar falsos restaurantes.',
+    ].filter(Boolean).join('\n'),
+    other_url: null,
+    external_url: null,
+    ifood_url: null,
+    google_maps_url: googleMapsUrl || null,
+    menu_status: 'unknown',
+  };
+}
+
+function buildSearchQueries(city: any, neighborhoods: string[]): SearchQueryPlan[] {
+  const queries: SearchQueryPlan[] = [];
+  const seen = new Set<string>();
+  const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
+  const commercialPoleKeys = new Set(neighborhoods.slice(0, commercialPoleCount).map(normalizeKey));
+
+  for (const neighborhood of neighborhoods) {
+    const terms = [
+      ...MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
+      ...(commercialPoleKeys.has(normalizeKey(neighborhood)) ? MAPS_COLLECTION_COMMERCIAL_POLE_TERMS : []),
+    ];
+
+    for (const entry of terms) {
+      const query = `${entry.term} ${neighborhood} ${city.name} ${city.state}`;
+      const key = normalizeKey(query);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      queries.push({
+        query,
+        neighborhood,
+        term: entry.term,
+        label: entry.label,
+        coverage: entry.coverage,
+      });
+    }
+  }
+
+  return queries;
+}
+
+function sendExtensionMessage(extensionId: string, message: any, timeoutMs = 45000): Promise<any> {
+  return new Promise((resolve) => {
+    const chromeObj = (window as any).chrome;
+    if (!extensionId || !chromeObj?.runtime?.sendMessage) {
+      resolve({ success: false, error: 'Extensão indisponível neste navegador.' });
+      return;
+    }
+
+    let done = false;
+    const timeout = window.setTimeout(() => {
+      if (!done) {
+        done = true;
+        resolve({ success: false, error: 'Tempo limite ao falar com a extensão.' });
+      }
+    }, timeoutMs);
+
+    try {
+      chromeObj.runtime.sendMessage(extensionId, message, (response: any) => {
+        if (done) return;
+        done = true;
+        window.clearTimeout(timeout);
+        const runtimeError = chromeObj.runtime?.lastError?.message;
+        if (runtimeError) resolve({ success: false, error: runtimeError });
+        else resolve(response || { success: false, error: 'Extensão não respondeu.' });
+      });
+    } catch (error: any) {
+      if (done) return;
+      done = true;
+      window.clearTimeout(timeout);
+      resolve({ success: false, error: error?.message || 'Falha ao enviar comando para extensão.' });
+    }
+  });
+}
 
 export default function CityCollection() {
   const { cityId } = useParams();
+  const [, setSearchParams] = useSearchParams();
   const [isRunning, setIsRunning] = useState(false);
-  const [logs, setLogs] = useState<string>('');
+  const [abortRequested, setAbortRequested] = useState(false);
+  const [logs, setLogs] = useState('');
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [city, setCity] = useState<any>(null);
+  const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || '');
+  const [isExtensionActive, setIsExtensionActive] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const abortRef = useRef(false);
   const logEndRef = useRef<HTMLDivElement>(null);
 
+  const addLog = (line: string) => setLogs(prev => `${prev}${line}\n`);
+
+  const loadCityAndRestaurants = async () => {
+    if (!cityId) return;
+    const { data: cityData, error: cityError } = await supabase
+      .from('expansion_projects')
+      .select('*')
+      .eq('slug', cityId)
+      .single();
+
+    if (cityError) throw cityError;
+    setCity(cityData);
+
+    const { data: restData, error: restError } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('city', cityData.name)
+      .eq('state', cityData.state)
+      .order('created_at', { ascending: false })
+      .limit(150);
+
+    if (restError) throw restError;
+    setRestaurants(restData || []);
+  };
+
   useEffect(() => {
-    async function loadCityAndRestaurants() {
-      if (!cityId) return;
-      try {
-        // 1. Fetch city info to filter restaurants
-        const { data: cityData, error: cityError } = await supabase
-          .from('expansion_projects')
-          .select('*')
-          .eq('slug', cityId)
-          .single();
-
-        if (cityError) throw cityError;
-        setCity(cityData);
-
-        // 2. Fetch restaurants in this city
-        const { data: restData, error: restError } = await supabase
-          .from('restaurants')
-          .select('*')
-          .eq('city', cityData.name)
-          .eq('state', cityData.state)
-          .order('created_at', { ascending: false })
-          .limit(100);
-
-        if (restError) throw restError;
-        setRestaurants(restData || []);
-      } catch (err) {
-        console.error("Erro ao carregar dados da coleta da cidade:", err);
-      }
-    }
-    loadCityAndRestaurants();
+    loadCityAndRestaurants().catch((err) => console.error('Erro ao carregar dados da coleta da cidade:', err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityId]);
 
   useEffect(() => {
-    if (logEndRef.current) {
-      logEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [logs]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isRunning) {
-      interval = setInterval(async () => {
-        try {
-          const res = await fetch('/api/local-collector/status');
-          const data = await res.json();
-          setLogs(data.logs || '');
-          if (!data.running && isRunning) {
-            setIsRunning(false);
-            showSuccess('Coleta finalizada!');
-          }
-        } catch (e) {
-          // ignore
-        }
-      }, 2000);
+    const id = localStorage.getItem('chrome_extension_id') || extensionId;
+    setExtensionId(id);
+    if (!id) {
+      setIsExtensionActive(false);
+      return;
     }
-    return () => clearInterval(interval);
-  }, [isRunning]);
+
+    sendExtensionMessage(id, { action: 'ping' }, 3000).then((res) => {
+      setIsExtensionActive(!!res?.success);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const persistLead = async (payload: any) => {
+    let currentPayload = { ...payload };
+    const removedColumns: string[] = [];
+
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      const { error } = await supabase.from('restaurants').insert(currentPayload);
+      if (!error) {
+        if (removedColumns.length) {
+          addLog(`[WARN] Lead salvo sem colunas opcionais ausentes no schema: ${removedColumns.join(', ')}.`);
+        }
+        return;
+      }
+
+      const message = error.message || '';
+      const missingColumn = message.match(/'([^']+)'\s+column/i)?.[1] || message.match(/column\s+"([^"]+)"/i)?.[1];
+      if (missingColumn && Object.prototype.hasOwnProperty.call(currentPayload, missingColumn)) {
+        const { [missingColumn]: _removed, ...nextPayload } = currentPayload;
+        currentPayload = nextPayload;
+        removedColumns.push(missingColumn);
+        continue;
+      }
+
+      if (/schema cache|column/i.test(message)) {
+        const optionalColumns = [
+          'visit_status',
+          'ai_validated',
+          'visit_notes',
+          'google_maps_url',
+          'menu_status',
+          'is_published',
+          'other_url',
+          'external_url',
+          'ifood_url',
+        ];
+        const removable = optionalColumns.find(column => Object.prototype.hasOwnProperty.call(currentPayload, column));
+        if (removable) {
+          const { [removable]: _removed, ...nextPayload } = currentPayload;
+          currentPayload = nextPayload;
+          removedColumns.push(removable);
+          continue;
+        }
+      }
+
+      throw error;
+    }
+
+    throw new Error('Não foi possível salvar o lead após remover colunas opcionais incompatíveis.');
+  };
 
   const handleStartScraping = async () => {
     if (isRunning || !city) return;
+    const id = (localStorage.getItem('chrome_extension_id') || extensionId || '').trim();
+
+    if (!id) {
+      showError('Configure o ID da extensão antes de iniciar a Fase 1.');
+      return;
+    }
+
+    const ping = await sendExtensionMessage(id, { action: 'ping' }, 3000);
+    if (!ping?.success) {
+      setIsExtensionActive(false);
+      showError(`Extensão inativa: ${ping?.error || 'sem resposta'}`);
+      return;
+    }
+
+    setExtensionId(id);
+    setIsExtensionActive(true);
+    localStorage.setItem('chrome_extension_id', id);
+    setIsRunning(true);
+    setAbortRequested(false);
+    abortRef.current = false;
+    setProgress(0);
+    setLogs('');
+
     try {
-      setIsRunning(true);
-      setLogs('🚀 Inicializando robô de coleta para a cidade...\n');
-      const res = await fetch(`/api/local-collector/run-maps?cityId=${cityId}&city=${encodeURIComponent(city.name)}&state=${encodeURIComponent(city.state)}&fresh=true`, { method: 'POST' });
-      const data = await res.json();
-      if (data.error) {
-        showError(data.error);
-        setIsRunning(false);
-      } else {
-        showSuccess('Coleta iniciada com sucesso no backend!');
+      addLog(`[SYSTEM] Fase 1 iniciada pela extensão. Cidade: ${city.name}/${city.state}`);
+      addLog('[SYSTEM] Regra: coletar somente leads mínimos do Google Maps. Nada será validado aqui.');
+
+      const existing = new Set(
+        restaurants
+          .map(r => safeText(r.google_maps_url) || safeText((r.visit_notes || '').match(/Google Maps:\s*(https?:\/\/\S+)/i)?.[1]))
+          .filter(Boolean)
+      );
+
+      const neighborhoods = await resolveExpansionNeighborhoods(city.name, city.state, addLog);
+      const queries = buildSearchQueries(city, neighborhoods);
+      const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
+      addLog(`[PLANO] ${queries.length} buscas: ${MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais em ${neighborhoods.length} bairros + ${MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos extras nos ${commercialPoleCount} principais polos.`);
+      addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar e rejeitar inválidos.`);
+      let saved = 0;
+      let skipped = 0;
+
+      for (let i = 0; i < queries.length; i += 1) {
+        if (abortRef.current) {
+          addLog('[STOP] Coleta interrompida pelo usuário.');
+          break;
+        }
+
+        const searchPlan = queries[i];
+        setProgress(Math.round((i / queries.length) * 100));
+        const layer = searchPlan.coverage === 'commercial_poles' ? 'polo' : 'cidade';
+        addLog(`[BUSCA ${i + 1}/${queries.length}] ${searchPlan.label} • ${layer} • ${searchPlan.neighborhood} → ${searchPlan.query}`);
+
+        const response = await sendExtensionMessage(id, {
+          action: 'searchGoogleMapsLeads',
+          query: searchPlan.query,
+          city: city.name,
+          state: city.state,
+          neighborhood: searchPlan.neighborhood,
+          categoryTerm: searchPlan.term,
+          maxResults: MAPS_RESULTS_PER_SEARCH,
+        }, 180000);
+
+        if (!response?.success) {
+          addLog(`[WARN] Extensão não retornou leads: ${response?.error || 'erro desconhecido'}`);
+          continue;
+        }
+
+        const leads: MapsLead[] = Array.isArray(response.leads) ? response.leads : [];
+        addLog(`[OK] ${leads.length} candidatos encontrados nessa busca.`);
+
+        for (const lead of leads) {
+          const mapsUrl = buildMapsUrlFromLead(lead);
+          const leadKey = mapsUrl || `${normalizeKey(safeText(lead.name))}-${normalizeKey(safeText(lead.address))}`;
+          if (!leadKey || existing.has(leadKey)) {
+            skipped += 1;
+            continue;
+          }
+
+          existing.add(leadKey);
+          const payload = buildPhase1Payload(lead, city, searchPlan.neighborhood);
+          await persistLead(payload);
+          saved += 1;
+          addLog(`[SALVO] ${payload.name} ${mapsUrl ? `(${mapsUrl})` : ''}`);
+        }
       }
-    } catch (e) {
-      showError('Falha ao iniciar a coleta.');
+
+      setProgress(100);
+      await loadCityAndRestaurants();
+      addLog(`[DONE] Fase 1 encerrada. Novos leads: ${saved}. Duplicados ignorados: ${skipped}.`);
+      addLog('[NEXT] Próximo passo obrigatório: QA & Validação → Auto-Validar IA.');
+      showSuccess(`Fase 1 concluída: ${saved} novos leads enviados para validação IA.`);
+    } catch (error: any) {
+      console.error(error);
+      addLog(`[ERRO] ${error?.message || 'Falha inesperada na Fase 1.'}`);
+      showError(error?.message || 'Falha ao executar Fase 1 pela extensão.');
+    } finally {
       setIsRunning(false);
     }
   };
 
-  const handleStopScraping = async () => {
-    try {
-      await fetch('/api/local-collector/stop', { method: 'POST' });
-      setIsRunning(false);
-      showSuccess('Comando de parada enviado.');
-    } catch (e) {
-      showError('Erro ao parar coleta.');
-    }
+  const handleStopScraping = () => {
+    abortRef.current = true;
+    setAbortRequested(true);
+    addLog('[SYSTEM] Parada solicitada. Vou encerrar após a busca atual.');
   };
+
+  const goToValidation = () => setSearchParams({ tab: 'validation' });
+
+  const pendingCount = restaurants.filter(r => r.ai_validated !== true && r.is_deleted !== true).length;
+  const validatedCount = restaurants.filter(r => r.ai_validated === true && r.is_deleted !== true).length;
 
   return (
     <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-black tracking-tight text-slate-900">Motor de Coleta de Dados</h2>
-          <p className="text-sm font-medium text-slate-500 mt-1">Integração nativa com Google Places e Varredura Social profunda.</p>
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">Motor de Coleta — Fase 1</h2>
+          <p className="text-sm font-medium text-slate-500 mt-1">Google Maps pela extensão: IA carrega bairros, monta buscas por categoria e coleta só a base mínima.</p>
         </div>
         <div className="flex gap-3">
           {isRunning ? (
-            <Button 
-              variant="destructive" 
-              onClick={handleStopScraping} 
-              className="shadow-sm font-bold shadow-rose-500/20 hover:shadow-rose-500/40 transition-all duration-300"
-            >
-              <StopCircle className="w-4 h-4 mr-2" /> Abortar Operação
+            <Button variant="destructive" onClick={handleStopScraping} disabled={abortRequested} className="shadow-sm font-bold">
+              <StopCircle className="w-4 h-4 mr-2" /> {abortRequested ? 'Encerrando...' : 'Parar Fase 1'}
             </Button>
           ) : (
-            <Button 
-              onClick={handleStartScraping} 
-              className="bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-bold px-6"
-            >
-              <Search className="w-4 h-4 mr-2" /> Iniciar Varredura Profunda
+            <Button onClick={handleStartScraping} className="bg-slate-900 hover:bg-slate-800 text-white shadow-md font-bold px-6">
+              <Search className="w-4 h-4 mr-2" /> Iniciar Fase 1 pela Extensão
             </Button>
           )}
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left Column */}
         <div className="space-y-6">
-          <Card className="border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden group cursor-pointer bg-white">
-            <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 flex items-center gap-4 group-hover:from-blue-50 group-hover:to-indigo-50 transition-colors">
-              <div className="p-2.5 bg-white shadow-sm ring-1 ring-slate-900/5 text-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+          <Card className="border-slate-200 shadow-sm rounded-2xl overflow-hidden bg-white">
+            <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-blue-50/60 to-indigo-50/60 flex items-center gap-4">
+              <div className="p-2.5 bg-white shadow-sm ring-1 ring-slate-900/5 text-blue-600 rounded-xl">
                 <Map className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-sm tracking-tight">Google Places Scraper</h3>
-                <p className="text-[13px] text-slate-500 font-medium">Mapeamento multicêntrico por coordenadas.</p>
+                <h3 className="font-bold text-slate-900 text-sm tracking-tight">Maps pela Extensão</h3>
+                <p className="text-[13px] text-slate-500 font-medium">Navegação visível, sem API do Google e sem validação prematura.</p>
               </div>
             </div>
             <CardContent className="p-6 space-y-5">
               <div className="space-y-2.5">
                 <div className="flex justify-between text-xs font-bold">
-                  <span className="text-slate-600 uppercase tracking-wider">Progresso da varredura</span>
-                  <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">100%</span>
+                  <span className="text-slate-600 uppercase tracking-wider">Progresso da Fase 1</span>
+                  <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">{progress}%</span>
                 </div>
-                <Progress value={100} className="h-2 bg-slate-100 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:to-indigo-500" />
+                <Progress value={progress} className="h-2 bg-slate-100 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:to-indigo-500" />
+              </div>
+              <div className="grid grid-cols-3 gap-3 text-xs">
+                <div className="rounded-xl border border-slate-100 p-3">
+                  <p className="font-black text-slate-900 text-lg">{restaurants.length}</p>
+                  <p className="text-slate-500 font-semibold">Base total</p>
+                </div>
+                <div className="rounded-xl border border-amber-100 bg-amber-50/50 p-3">
+                  <p className="font-black text-amber-700 text-lg">{pendingCount}</p>
+                  <p className="text-amber-700 font-semibold">A validar</p>
+                </div>
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-3">
+                  <p className="font-black text-emerald-700 text-lg">{validatedCount}</p>
+                  <p className="text-emerald-700 font-semibold">Validados</p>
+                </div>
               </div>
               <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                {restaurants.length > 0 ? `${restaurants.length} estabelecimentos mapeados localmente.` : '0 estabelecimentos mapeados.'}
+                <div className={`w-2 h-2 rounded-full ${isExtensionActive ? 'bg-emerald-500' : 'bg-rose-500'}`} />
+                {isExtensionActive ? 'Extensão ativa e pronta para navegar.' : 'Extensão inativa: carregue/atualize a extensão e salve o ID.'}
+              </div>
+              <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-800 font-semibold leading-relaxed">
+                Ao iniciar, a Fase 1 descobre/cacheia bairros da cidade e executa buscas como “pizzaria Centro Campina Grande PB”, “comida japonesa Catolé Campina Grande PB” e similares.
               </div>
             </CardContent>
           </Card>
 
-          {/* Modern MacOS-style Terminal */}
           <Card className="border-slate-800 shadow-xl shadow-slate-900/20 rounded-2xl overflow-hidden bg-slate-950 text-slate-300 flex flex-col h-[400px]">
             <div className="p-3 border-b border-slate-800/60 bg-[#0A0D14] flex justify-between items-center px-4 shrink-0">
               <div className="flex items-center gap-3">
-                {/* Mac OS window buttons */}
                 <div className="flex gap-1.5 mr-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                 </div>
                 <Terminal className="w-4 h-4 text-slate-500" />
-                <h3 className="font-mono text-xs font-bold text-slate-400 tracking-wide">bash / output</h3>
+                <h3 className="font-mono text-xs font-bold text-slate-400 tracking-wide">extension / maps-leads</h3>
               </div>
               {isRunning ? (
                 <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono bg-emerald-400/10 px-2 py-1 rounded-md">
-                  <Activity className="w-3 h-3 animate-pulse" /> Em Execução...
+                  <Activity className="w-3 h-3 animate-pulse" /> Em execução...
                 </div>
               ) : (
                 <div className="flex items-center gap-2 text-slate-500 text-xs font-mono">
@@ -180,7 +451,7 @@ export default function CityCollection() {
                 </div>
               )}
             </div>
-            <CardContent className="p-5 font-mono text-[12px] flex-1 overflow-y-auto custom-scrollbar bg-[#0f111a] relative">
+            <CardContent className="p-5 font-mono text-[12px] flex-1 overflow-y-auto custom-scrollbar bg-[#0f111a]">
               {logs ? (
                 <pre className="whitespace-pre-wrap text-emerald-400/90 font-mono text-[11px] leading-relaxed">
                   {logs}
@@ -189,56 +460,54 @@ export default function CityCollection() {
               ) : (
                 <div className="h-full flex flex-col items-center justify-center opacity-40 select-none text-slate-400">
                   <Terminal className="w-12 h-12 mb-3 opacity-20" />
-                  <p>Nenhum processo de coleta ativo.</p>
-                  <p className="text-[10px] mt-1">Aguardando comando de inicialização.</p>
+                  <p>Nenhum processo ativo.</p>
+                  <p className="text-[10px] mt-1">Aguardando início da Fase 1 pela extensão.</p>
                 </div>
               )}
             </CardContent>
           </Card>
         </div>
 
-        {/* Right Column */}
         <div className="space-y-6">
-          <Card className="border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-2xl overflow-hidden group cursor-pointer bg-white">
-            <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-pink-50/50 to-purple-50/50 flex items-center gap-4 group-hover:from-pink-50 group-hover:to-purple-50 transition-colors">
-              <div className="p-2.5 bg-white shadow-sm ring-1 ring-slate-900/5 text-pink-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                <Globe className="w-5 h-5" />
+          <Card className="border-slate-200 shadow-sm rounded-2xl overflow-hidden bg-white">
+            <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-violet-50/60 to-purple-50/60 flex items-center gap-4">
+              <div className="p-2.5 bg-white shadow-sm ring-1 ring-slate-900/5 text-violet-600 rounded-xl">
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 text-sm tracking-tight">Enriquecimento IA (Fase 5)</h3>
-                <p className="text-[13px] text-slate-500 font-medium">Captura de logos e contatos via Social Graph.</p>
+                <h3 className="font-bold text-slate-900 text-sm tracking-tight">Próxima etapa obrigatória</h3>
+                <p className="text-[13px] text-slate-500 font-medium">Validar IA abre Maps/Instagram/cardápio, rejeita inválidos e só então libera CRM.</p>
               </div>
             </div>
             <CardContent className="p-6 space-y-5">
               <div className="space-y-2.5">
                 <div className="flex justify-between text-xs font-bold">
-                  <span className="text-slate-600 uppercase tracking-wider">Status do pipeline</span>
-                  <span className="text-pink-600 bg-pink-50 px-2 py-0.5 rounded-full">Pendente</span>
+                  <span className="text-slate-600 uppercase tracking-wider">Fila para QA</span>
+                  <span className="text-violet-600 bg-violet-50 px-2 py-0.5 rounded-full">{pendingCount} pendentes</span>
                 </div>
-                <Progress value={0} className="h-2 bg-slate-100 [&>div]:bg-gradient-to-r [&>div]:from-pink-500 [&>div]:to-purple-500" />
+                <Progress value={restaurants.length ? Math.round((validatedCount / restaurants.length) * 100) : 0} className="h-2 bg-slate-100 [&>div]:bg-gradient-to-r [&>div]:from-violet-500 [&>div]:to-purple-500" />
               </div>
-              <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium flex items-center gap-2">
-                <Server className="w-4 h-4 text-slate-400" /> Servidor Chrome remoto conectado.
-              </div>
+              <Button onClick={goToValidation} variant="outline" className="w-full font-bold border-violet-200 text-violet-700 hover:bg-violet-50">
+                <Sparkles className="w-4 h-4 mr-2" /> Ir para Auto-Validar IA
+              </Button>
             </CardContent>
           </Card>
 
-          {/* Lista de Restaurantes Mapeados */}
           <Card className="border-slate-200 shadow-sm rounded-2xl overflow-hidden bg-white flex flex-col h-[400px]">
             <div className="p-4 border-b border-slate-100 bg-slate-50/80 flex justify-between items-center shrink-0">
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
-                <Store className="w-4 h-4 text-slate-500" /> Restaurantes Encontrados
+                <Store className="w-4 h-4 text-slate-500" /> Leads da Cidade
               </h3>
               <span className="text-xs font-bold text-slate-500 bg-white px-2 py-1 rounded-md border border-slate-200 shadow-sm">
-                {restaurants.length} {restaurants.length === 100 ? '+' : ''}
+                {restaurants.length} {restaurants.length === 150 ? '+' : ''}
               </span>
             </div>
             <CardContent className="p-0 flex-1 overflow-y-auto custom-scrollbar">
               {restaurants.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center p-6 text-center">
                   <Store className="w-10 h-10 text-slate-200 mb-3" />
-                  <p className="text-sm font-medium text-slate-600">Nenhum restaurante encontrado ainda.</p>
-                  <p className="text-xs text-slate-400 mt-1">Inicie a varredura para popular a lista.</p>
+                  <p className="text-sm font-medium text-slate-600">Nenhum lead coletado ainda.</p>
+                  <p className="text-xs text-slate-400 mt-1">Inicie a Fase 1 para criar a fila do Validar IA.</p>
                 </div>
               ) : (
                 <div className="divide-y divide-slate-100">
@@ -246,15 +515,19 @@ export default function CityCollection() {
                     <div key={r.id || i} className="p-4 hover:bg-slate-50 transition-colors flex flex-col gap-1">
                       <div className="flex justify-between items-start gap-2">
                         <span className="font-bold text-sm text-slate-900 line-clamp-1">{r.name}</span>
-                        {r.rating && (
-                          <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded flex-shrink-0">
-                            ★ {r.rating}
+                        {r.ai_validated ? (
+                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded flex-shrink-0">
+                            Validado
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded flex-shrink-0">
+                            QA pendente
                           </span>
                         )}
                       </div>
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
                         <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
-                        <span className="line-clamp-1">{r.address || 'Endereço não disponível'}</span>
+                        <span className="line-clamp-1">{r.address || r.google_maps_url || 'Google Maps aguardando validação'}</span>
                       </div>
                     </div>
                   ))}

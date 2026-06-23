@@ -1,3 +1,4 @@
+import { formatMenuPrice } from '@/utils/menuPricing';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Pizza, Heart, Loader2, ArrowLeft, Utensils, AlertTriangle } from 'lucide-react';
@@ -127,7 +128,7 @@ const MenuItemDetails: React.FC = () => {
             <h1 className="text-xl font-extrabold text-slate-800">{itemData.name}</h1>
             
             <p className="text-2xl font-black text-highlight">
-              {formatPrice(itemData.price)}
+              {formatMenuPrice(itemData)}
             </p>
             
             {descText && (

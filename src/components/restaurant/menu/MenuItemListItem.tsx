@@ -1,3 +1,4 @@
+import { formatMenuPrice } from '@/utils/menuPricing';
 "use client";
 
 import React from 'react';
@@ -28,7 +29,7 @@ const MenuItemListItem: React.FC<MenuItemListItemProps> = ({ item, onEdit, onDel
           <h3 className="text-xl font-semibold text-text-primary">{item.name}</h3>
           {item.description && <p className="text-sm text-text-secondary mt-1 line-clamp-2">{item.description}</p>}
           <div className="flex items-center text-primary font-medium mt-2">
-            <span className="font-bold text-highlight text-xl">{formatPrice(item.price)}</span>
+            <span className="font-bold text-highlight text-xl">{formatMenuPrice(item)}</span>
           </div>
         </div>
       </div>

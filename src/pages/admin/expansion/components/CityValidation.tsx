@@ -69,6 +69,56 @@ const extractCoordsFromUrl = (url: string) => {
   return null;
 };
 
+const isGoogleMapsUrl = (value: string) => {
+  if (!value || !/^https?:\/\//i.test(value)) return false;
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.toLowerCase();
+    const pathAndQuery = `${parsed.pathname}${parsed.search}`.toLowerCase();
+    return (
+      host === 'maps.app.goo.gl' ||
+      host === 'goo.gl' ||
+      host.endsWith('google.com') && (
+        pathAndQuery.includes('/maps') ||
+        pathAndQuery.includes('place_id:') ||
+        pathAndQuery.includes('query=') ||
+        pathAndQuery.includes('search/')
+      )
+    );
+  } catch (_) {
+    return false;
+  }
+};
+
+const extractGoogleMapsUrlFromRestaurant = (restaurant: any) => {
+  const directCandidates = [
+    restaurant?.googleMapsUrl,
+    restaurant?.google_maps_url,
+    restaurant?.maps_url,
+    restaurant?.map_url,
+    restaurant?.place_url,
+    restaurant?.google_url,
+    restaurant?.link_google_maps,
+    restaurant?.external_url,
+    restaurant?.other_url,
+    restaurant?.ifood_url
+  ].filter(Boolean).map(String);
+
+  for (const candidate of directCandidates) {
+    if (isGoogleMapsUrl(candidate)) return candidate;
+  }
+
+  const notes = String(restaurant?.visit_notes || '');
+  const matches = notes.match(/https?:\/\/[^\s\n\r"'<>]+/gi) || [];
+  const found = matches.find(isGoogleMapsUrl);
+  if (found) return found;
+
+  const labeled = notes.match(/Google Maps:\s*(https?:\/\/[^\s\n\r"'<>]+)/i);
+  if (labeled?.[1] && isGoogleMapsUrl(labeled[1])) return labeled[1];
+
+  return '';
+};
+
 export default function CityValidation() {
   const { cityId } = useParams();
   const [restaurants, setRestaurants] = useState<any[]>([]);
@@ -90,6 +140,42 @@ export default function CityValidation() {
   const [isExtensionActive, setIsExtensionActive] = useState(false);
   const [extensionId, setExtensionId] = useState<string | null>(() => localStorage.getItem('chrome_extension_id') || null);
 
+  const sendExtensionMessage = (id: string, message: Record<string, any>, timeoutMs = 30000) => new Promise<any>((resolve) => {
+    const chromeObj = (window as any).chrome;
+    if (chromeObj?.runtime?.sendMessage) {
+      try {
+        chromeObj.runtime.sendMessage(id, message, (response: any) => {
+          if (chromeObj.runtime.lastError) resolve({ success: false, error: chromeObj.runtime.lastError.message });
+          else resolve(response || { success: false, error: 'A extensão não respondeu.' });
+        });
+        return;
+      } catch (error: any) {
+        resolve({ success: false, error: error.message });
+        return;
+      }
+    }
+
+    const requestId = 'ff-page-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+    let settled = false;
+    const finish = (value: any) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      window.removeEventListener('message', listener);
+      resolve(value);
+    };
+    const listener = (event: MessageEvent) => {
+      if (event.source !== window) return;
+      const data = event.data || {};
+      if (data.source !== 'filterfood-extension-bridge' || data.requestId !== requestId) return;
+      if (data.error) finish({ success: false, error: data.error });
+      else finish(data.response || { success: false, error: 'A extensão não respondeu.' });
+    };
+    const timer = window.setTimeout(() => finish({ success: false, error: 'Ponte da extensão não respondeu.' }), timeoutMs);
+    window.addEventListener('message', listener);
+    window.postMessage({ source: 'filterfood-admin-bridge', requestId, message }, '*');
+  });
+
   useEffect(() => {
     const checkConnection = async () => {
       const id = localStorage.getItem('chrome_extension_id') || '';
@@ -97,22 +183,8 @@ export default function CityValidation() {
         setIsExtensionActive(false);
         return;
       }
-      const chromeObj = (window as any).chrome;
-      if (!chromeObj || !chromeObj.runtime || !chromeObj.runtime.sendMessage) {
-        setIsExtensionActive(false);
-        return;
-      }
-      try {
-        chromeObj.runtime.sendMessage(id, { action: "ping" }, (response: any) => {
-          if (chromeObj.runtime.lastError) {
-            setIsExtensionActive(false);
-          } else {
-            setIsExtensionActive(!!(response && response.success));
-          }
-        });
-      } catch (e) {
-        setIsExtensionActive(false);
-      }
+      const response = await sendExtensionMessage(id, { action: "ping" }, 5000);
+      setIsExtensionActive(!!(response && response.success));
     };
     checkConnection();
     const interval = setInterval(checkConnection, 3000);
@@ -139,6 +211,177 @@ export default function CityValidation() {
   const addLog = (msg: string) => {
     const time = new Date().toLocaleTimeString();
     setLogs(prev => [...prev, `[${time}] ${msg}`]);
+  };
+
+  const persistValidationFailure = async (restaurant: any, error: any, phase = 'validar_ia') => {
+    if (!restaurant?.id) return;
+    try {
+      const payload = {
+        pipeline: 'validar-ia-extension',
+        status: 'failed',
+        phase,
+        error: error?.message || String(error || 'Erro desconhecido'),
+        restaurant: {
+          id: restaurant.id,
+          name: restaurant.name,
+          city: restaurant.city,
+          neighborhood: restaurant.neighborhood,
+        },
+        recentLogs: logs.slice(-80),
+        failedAt: new Date().toISOString(),
+      };
+      await supabase
+        .from('restaurants')
+        .update({
+          ai_validated: false,
+          ai_log: JSON.stringify(payload),
+        })
+        .eq('id', restaurant.id);
+    } catch (logError) {
+      console.warn('[Validar IA] Falha ao persistir diagnóstico:', logError);
+    }
+  };
+
+  const normalizeText = (value: any) => String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const classifyRestaurantEligibilityLocal = (restaurant: any, extra: Record<string, any> = {}) => {
+    const text = normalizeText([
+      restaurant?.name,
+      restaurant?.category,
+      restaurant?.description,
+      restaurant?.address,
+      extra.category,
+      extra.placeType,
+      extra.bio,
+      extra.website,
+    ].filter(Boolean).join(' | '));
+
+    const positive = /\b(restaurante|pizzaria|hamburgueria|lanchonete|pastelaria|sorveteria|gelateria|acai|açaí|churrascaria|bar e restaurante|bar\/restaurante|petiscaria|cafeteria|bistro|bistr[oô]|cantina|cozinha|esfiharia|temakeria|sushi|japones|italiana|regional|self service|self-service|marmitaria|food truck|frutos do mar|doceria|confeitaria)\b/;
+    const hardNegative = /\b(cooperativa|motoboy|moto boy|entregador|entregadores|delivery de entregas|logistica|logistica|transportadora|supermercado|hipermercado|atacadao|atacarejo|mercado publico|mercearia|conveniencia|posto de gasolina|farmacia|drogaria|barbearia|salao de beleza|hotel|pousada|academia|igreja|clinica|hospital|escola|oficina|lava jato|pet shop|agropecuaria|material de construcao|deposito|distribuidora|bebidas e conveniencia|cesta basica)\b/;
+    const bakeryMarket = /\b(padaria|panificadora|panificacao|super market|supermercado|mercadinho|hortifruti|sacolao|açougue|acougue|peixaria)\b/;
+    const restaurantContext = positive.test(text);
+
+    if (hardNegative.test(text)) {
+      return { status: 'ineligible' as const, confidence: 0.98, reason: 'Tipo de estabelecimento incompatível com restaurante/cardápio público.', source: 'local_rules' };
+    }
+    if (bakeryMarket.test(text) && !restaurantContext) {
+      return { status: 'ineligible' as const, confidence: 0.93, reason: 'Padaria/mercado/similar não deve entrar na base de restaurantes.', source: 'local_rules' };
+    }
+    if (restaurantContext) {
+      return { status: 'eligible' as const, confidence: 0.9, reason: 'Categoria/nome indica restaurante ou food service elegível.', source: 'local_rules' };
+    }
+    return { status: 'unknown' as const, confidence: 0.45, reason: 'Categoria insuficiente; precisa de avaliação por IA.', source: 'local_rules' };
+  };
+
+  const classifyRestaurantEligibilityAI = async (restaurant: any, context: Record<string, any> = {}) => {
+    const local = classifyRestaurantEligibilityLocal(restaurant, context);
+    if (local.status !== 'unknown') return local;
+    try {
+      const response = await fetch('/api/local-collector/ai-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemContext: 'Você decide se um lugar deve entrar em um app de busca de restaurantes/cardápios. Responda SOMENTE JSON: {"status":"eligible|ineligible|unknown","confidence":0_a_1,"reason":"curto"}. Elegível: restaurante, lanchonete, pizzaria, bar com comida, cafeteria, doceria/confeitaria, food truck, marmitaria. Inelegível: cooperativa de motoboy, supermercado, padaria/panificadora sem restaurante, mercado, posto, farmácia, loja, serviço, hotel, academia, distribuidora.',
+          message: JSON.stringify({
+            name: restaurant?.name,
+            category: restaurant?.category,
+            city: restaurant?.city,
+            address: restaurant?.address,
+            phone: restaurant?.phone,
+            website: restaurant?.website || context.website || '',
+            instagramBio: context.bio || '',
+            googleMaps: {
+              category: context.category || '',
+              title: context.title || '',
+              website: context.website || '',
+            }
+          })
+        })
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const json = String(payload.reply || '').match(/{[\s\S]*}/)?.[0] || '{}';
+      const decision = JSON.parse(json);
+      const status = ['eligible', 'ineligible', 'unknown'].includes(decision.status) ? decision.status : 'unknown';
+      return {
+        status,
+        confidence: Math.max(0, Math.min(1, Number(decision.confidence || 0))),
+        reason: String(decision.reason || 'Avaliação IA sem motivo.'),
+        source: 'ai'
+      };
+    } catch (error: any) {
+      return { status: 'unknown' as const, confidence: 0, reason: `Falha ao classificar elegibilidade: ${error.message || error}`, source: 'ai_error' };
+    }
+  };
+
+  const markRestaurantIneligible = async (restaurant: any, decision: any, phase = 'eligibility_gate') => {
+    const payload = {
+      pipeline: 'validar-ia-extension',
+      status: 'ineligible_removed',
+      phase,
+      decision,
+      restaurant: {
+        id: restaurant.id,
+        name: restaurant.name,
+        category: restaurant.category,
+        city: restaurant.city,
+        neighborhood: restaurant.neighborhood,
+      },
+      recentLogs: logs.slice(-80),
+      removedAt: new Date().toISOString(),
+    };
+    await supabase
+      .from('restaurants')
+      .update({
+        is_deleted: true,
+        is_published: false,
+        ai_validated: false,
+        ai_log: JSON.stringify(payload),
+      } as any)
+      .eq('id', restaurant.id);
+    addLog(`Estabelecimento removido da validação: ${restaurant.name}. Motivo: ${decision.reason}`);
+  };
+
+  const persistMenuStatus = async (
+    restaurant: any,
+    status: 'found' | 'not_found' | 'unavailable' | 'manual_required' | 'blocked' | 'invalid_source' | 'failed',
+    reason: string,
+    extra: Record<string, any> = {}
+  ) => {
+    const payload = {
+      pipeline: 'validar-ia-extension',
+      status: status === 'found' ? 'menu_found' : 'menu_not_collected',
+      menu_status: status,
+      reason,
+      extra,
+      restaurant: {
+        id: restaurant.id,
+        name: restaurant.name,
+        city: restaurant.city,
+        neighborhood: restaurant.neighborhood,
+      },
+      recentLogs: logs.slice(-80),
+      checkedAt: new Date().toISOString(),
+    };
+    const updateWithColumns: any = {
+      ai_validated: true,
+      ai_log: JSON.stringify(payload),
+      menu_status: status,
+      menu_status_reason: reason,
+      menu_last_checked_at: new Date().toISOString(),
+    };
+    const result = await supabase.from('restaurants').update(updateWithColumns).eq('id', restaurant.id);
+    if (!result.error) return;
+    if (!/menu_status|menu_status_reason|menu_last_checked_at|schema cache|column/i.test(result.error.message || '')) throw result.error;
+    await supabase
+      .from('restaurants')
+      .update({ ai_validated: true, ai_log: JSON.stringify(payload) })
+      .eq('id', restaurant.id);
   };
 
   useEffect(() => {
@@ -168,6 +411,7 @@ export default function CityValidation() {
   }, [cityId]);
 
   const filteredRestaurants = restaurants.filter(r => {
+    if (r.is_deleted === true) return false;
     const matchesSearch = (r.name && r.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (r.address && r.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (r.category && r.category.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -192,19 +436,36 @@ export default function CityValidation() {
     addLog(`Iniciando validação em lote de ${pendings.length} restaurantes pendentes...`);
     toast.loading(`Iniciando validação de ${pendings.length} restaurantes com IA...`);
 
-    // Valida apenas os 3 primeiros para evitar overload em dev
-    const toValidate = pendings.slice(0, 3);
-    
     try {
-      for (const r of toValidate) {
+      let successCount = 0;
+      let failureCount = 0;
+      for (const r of pendings) {
         addLog(`Enriquecendo ${r.name} via IA...`);
         toast.loading(`Validando ${r.name}...`);
-        await fetch(`/api/local-collector/re-ai-validation?restaurantId=${r.id}`, {
-          method: 'POST'
-        });
+        try {
+          const eligibility = classifyRestaurantEligibilityLocal(r);
+          if (eligibility.status === 'ineligible' && eligibility.confidence >= 0.9) {
+            await markRestaurantIneligible(r, eligibility, 'batch_pre_validation_local_rules');
+            successCount++;
+            continue;
+          }
+          const response = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${r.id}`, {
+            method: 'POST'
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || data?.success === false) {
+            throw new Error(data?.error || data?.message || `HTTP ${response.status}`);
+          }
+          successCount++;
+          addLog(`Validação em lote concluída para ${r.name}.`);
+        } catch (rowErr: any) {
+          failureCount++;
+          addLog(`Validação em lote falhou para ${r.name}: ${rowErr.message || rowErr}`);
+          await persistValidationFailure(r, rowErr, 'validacao_lote');
+        }
       }
-      toast.success('Lote de validação concluído! Atualizando tela...');
-      addLog(`Lote de validação IA concluído com sucesso.`);
+      toast.success(`Lote concluído: ${successCount} sucesso(s), ${failureCount} falha(s). Atualizando tela...`);
+      addLog(`Lote de validação IA concluído: ${successCount} sucesso(s), ${failureCount} falha(s).`);
       // Refresh
       fetchRestaurants();
     } catch (err: any) {
@@ -218,46 +479,77 @@ export default function CityValidation() {
   const handleSingleValidate = async (e: React.MouseEvent, restaurant: any) => {
     e.stopPropagation();
     if (validatingId) return;
+    const initialName = restaurant.name || 'registro vindo do Google Maps';
+    let effectiveRestaurant: any = { ...restaurant };
     
     try {
       setValidatingId(restaurant.id);
-      addLog(`Iniciando validação IA individual para: ${restaurant.name}`);
-      const toastId = toast.loading(`Validando ${restaurant.name} com IA...`);
+      addLog(`Iniciando validação IA individual para: ${initialName}`);
+      const toastId = toast.loading(`Validando ${initialName} com IA...`);
       
+      const initialEligibility = classifyRestaurantEligibilityLocal(restaurant);
+      if (initialEligibility.status === 'ineligible' && initialEligibility.confidence >= 0.9) {
+        await markRestaurantIneligible(restaurant, initialEligibility, 'pre_validation_local_rules');
+        toast.error(`${initialName} removido: não é restaurante elegível.`, { id: toastId });
+        fetchRestaurants();
+        return;
+      }
+
       if (isExtensionActive && extensionId) {
-        // Usa a lógica de extensão original da Manus
-        addLog(`Iniciando fluxo completo da extensão para: ${restaurant.name}`);
+        // A Fase 1 agora fornece apenas o link do Google Maps; o Validar IA descobre todo o resto.
+        addLog(`Iniciando fluxo autônomo a partir do Google Maps para: ${initialName}`);
         
-        let mapUrl = '';
-        if (restaurant.googleMapsUrl) mapUrl = restaurant.googleMapsUrl;
-        else if (restaurant.visit_notes) {
-          const match = restaurant.visit_notes.match(/https:\/\/[^\s\n]*google[^\s\n]*\/maps[^\s\n]*/i) || restaurant.visit_notes.match(/https:\/\/[^\s\n]*maps\.app\.goo\.gl[^\s\n]*/i) || restaurant.visit_notes.match(/Google Maps:\s*(https:\/\/[^\s\n]*)/i);
-          if (match && match[0]) mapUrl = match[1] || match[0];
+        const mapUrl = extractGoogleMapsUrlFromRestaurant(restaurant);
+        if (!mapUrl) {
+          await persistMenuStatus(restaurant, 'manual_required', 'Validar IA precisa de um link do Google Maps como entrada da Fase 1.');
+          throw new Error('Link do Google Maps ausente. A nova Fase 1 deve salvar pelo menos o link do Maps no registro.');
         }
 
         let mapsData: any = null;
-        let activeInstagramUrl = '';
+        const savedInstagram = restaurant.instagram || (Array.isArray(restaurant.social_networks) ? restaurant.social_networks.find((item: any) => item?.platform === 'instagram' && item?.url)?.url : '');
+        let activeInstagramUrl = /^https?:\/\/(?:www\.)?instagram\.com\//i.test(savedInstagram || '') ? savedInstagram : '';
         let instagramBio = '';
         let instagramFollowers = 0;
+        let instagramMenuCandidates: any[] = [];
+        let instagramMenuImageCandidates: string[] = [];
+        let googleMenuImageCandidates: any[] = [];
         let logoPublicUrl = '';
         let highlightPublicUrls: string[] = [];
 
         if (mapUrl) {
           toast.success(`📍 PASSO 1/5: Acessando Google Maps para extrair dados oficiais...`);
           addLog(`PASSO 1/5: Acessando Google Maps...`);
-          const extRes = await new Promise<any>((resolve) => {
-            const chromeObj = (window as any).chrome;
-            if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeGoogleHours", query: restaurant.name || '', mapUrl, restaurantId: restaurant.id }, (response: any) => {
-                resolve(response);
-              });
-            } else {
-              resolve({ success: false });
-            }
-          });
+          const extRes = await sendExtensionMessage(extensionId, { action: "scrapeGoogleHours", query: effectiveRestaurant.name || '', mapUrl, restaurantId: restaurant.id });
           
           if (extRes && extRes.success) {
             mapsData = extRes;
+            const identityUpdate: any = {};
+            const mapsName = extRes.name || extRes.title || extRes.restaurantName || '';
+            const mapsCategory = extRes.category || extRes.type || '';
+            if (mapsName && (!restaurant.name || /pendente|google maps|sem nome/i.test(String(restaurant.name)))) {
+              identityUpdate.name = mapsName;
+            }
+            if (mapsCategory && (!restaurant.category || /restaurante|outros|pendente/i.test(String(restaurant.category)))) {
+              identityUpdate.category = mapsCategory;
+            }
+            identityUpdate.visit_notes = String(restaurant.visit_notes || '').includes(mapUrl)
+              ? restaurant.visit_notes
+              : `${restaurant.visit_notes || ''}\nGoogle Maps: ${mapUrl}`.trim();
+            try {
+              await supabase.from('restaurants').update({ ...identityUpdate, google_maps_url: mapUrl }).eq('id', restaurant.id);
+            } catch (_) {
+              await supabase.from('restaurants').update(identityUpdate).eq('id', restaurant.id);
+            }
+            effectiveRestaurant = {
+              ...effectiveRestaurant,
+              ...identityUpdate,
+              name: mapsName || effectiveRestaurant.name,
+              category: mapsCategory || effectiveRestaurant.category,
+              googleMapsUrl: mapUrl,
+              google_maps_url: mapUrl
+            };
+            if (mapsName) addLog(`Nome oficial do Maps: ${mapsName}`);
+            if (mapsCategory) addLog(`Categoria oficial do Maps: ${mapsCategory}`);
             
             if (extRes.schedule) {
               toast.success('✅ Horários encontrados no Google Maps! Salvando...');
@@ -290,17 +582,27 @@ export default function CityValidation() {
                 } catch (geoErr) {}
               }
               await supabase.from('restaurants').update(addrUpdate).eq('id', restaurant.id);
+              effectiveRestaurant = { ...effectiveRestaurant, ...addrUpdate };
             }
             
             if (extRes.phone) {
               toast.success(`✅ Telefone encontrado: ${extRes.phone}`);
               addLog(`Telefone salvo: ${extRes.phone}`);
               await supabase.from('restaurants').update({ phone: extRes.phone }).eq('id', restaurant.id);
+              effectiveRestaurant.phone = extRes.phone;
             }
             
             if (extRes.coverImage || (extRes.galleryImages && extRes.galleryImages.length > 0)) {
               toast.success(`✅ Imagens encontradas via extensão no Google Maps!`);
               addLog(`Fotos do Google Maps extraídas via extensão.`);
+              googleMenuImageCandidates = [
+                ...(extRes.coverImage ? [{ image: extRes.coverImage, source: 'google_cover', dateText: extRes.coverImageDateText || '' }] : []),
+                ...((extRes.galleryImages || []).map((image: string, index: number) => ({
+                  image,
+                  source: 'google_gallery',
+                  dateText: extRes.galleryImageDates?.[index] || extRes.galleryImageMeta?.[index]?.dateText || ''
+                })))
+              ];
               
               const imgUpdates: any = {};
               if (extRes.coverImage) {
@@ -326,6 +628,7 @@ export default function CityValidation() {
               toast.success(`✅ Site oficial encontrado: ${extRes.website}`);
               addLog(`Website salvo: ${extRes.website}`);
               await supabase.from('restaurants').update({ website: extRes.website }).eq('id', restaurant.id);
+              effectiveRestaurant.website = extRes.website;
             }
             
             if (extRes.socialLinks && extRes.socialLinks.length > 0) {
@@ -342,20 +645,22 @@ export default function CityValidation() {
           }
         }
 
+        const enrichedEligibility = await classifyRestaurantEligibilityAI(effectiveRestaurant, {
+          ...(mapsData || {}),
+          website: mapsData?.website || effectiveRestaurant.website || '',
+        });
+        if (enrichedEligibility.status === 'ineligible' && enrichedEligibility.confidence >= 0.8) {
+          await markRestaurantIneligible(restaurant, enrichedEligibility, 'post_maps_eligibility_gate');
+          toast.error(`${effectiveRestaurant.name || initialName} removido: não é restaurante elegível.`, { id: toastId });
+          fetchRestaurants();
+          return;
+        }
+
         if (!activeInstagramUrl) {
           toast.success(`🔍 PASSO 2/5: Buscando Instagram no Google usando nome e endereço...`);
           addLog(`PASSO 2/5: Buscando Instagram no Google...`);
-          const query = `${restaurant.name} ${restaurant.city || ''} instagram`;
-          const extRes = await new Promise<any>((resolve) => {
-            const chromeObj = (window as any).chrome;
-            if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id }, (response: any) => {
-                resolve(response);
-              });
-            } else {
-              resolve({ success: false });
-            }
-          });
+          const query = `${effectiveRestaurant.name || ''} ${effectiveRestaurant.city || ''} instagram`;
+          const extRes = await sendExtensionMessage(extensionId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id });
           
           if (extRes && extRes.success && extRes.url) {
             activeInstagramUrl = extRes.url;
@@ -370,29 +675,34 @@ export default function CityValidation() {
         if (activeInstagramUrl) {
           toast.success(`📸 PASSO 3/5: Coletando perfil e verificando relevância do Instagram...`);
           addLog(`PASSO 3/5: Verificando Instagram: ${activeInstagramUrl}`);
-          const scrapeRes = await new Promise<any>((resolve) => {
-            const chromeObj = (window as any).chrome;
-            if (chromeObj && chromeObj.runtime) {
-              chromeObj.runtime.sendMessage(extensionId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl, restaurantId: restaurant.id }, (response: any) => {
-                resolve(response);
-              });
-            } else {
-              resolve({ success: false });
-            }
-          });
+          const scrapeRes = await sendExtensionMessage(extensionId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl, restaurantId: restaurant.id });
 
           if (scrapeRes && scrapeRes.success) {
             instagramBio = scrapeRes.bio || '';
             instagramFollowers = scrapeRes.followers || 0;
+            instagramMenuCandidates = Array.isArray(scrapeRes.linkCandidates)
+              ? scrapeRes.linkCandidates
+              : (Array.isArray(scrapeRes.bioLinks) ? scrapeRes.bioLinks : []);
+            if (instagramMenuCandidates.length > 0) {
+              addLog(`Links candidatos coletados no Instagram sem navegação externa: ${instagramMenuCandidates.length}.`);
+            }
             
-            toast.success(`🧠 Validando Instagram com IA (Nome: ${restaurant.name}, Bio: ${instagramBio})...`);
+            toast.success(`🧠 Validando Instagram com IA (Nome: ${effectiveRestaurant.name || initialName}, Bio: ${instagramBio})...`);
             addLog(`Validando Instagram com IA (Bio: ${instagramBio})...`);
             
+            const socialEligibility = await classifyRestaurantEligibilityAI(effectiveRestaurant, { ...(mapsData || {}), bio: instagramBio });
+            if (socialEligibility.status === 'ineligible' && socialEligibility.confidence >= 0.8) {
+              await markRestaurantIneligible(restaurant, socialEligibility, 'instagram_bio_eligibility_gate');
+              toast.error(`${effectiveRestaurant.name || initialName} removido: não é restaurante elegível.`, { id: toastId });
+              fetchRestaurants();
+              return;
+            }
+
             const payload = {
               candidates: [{ url: activeInstagramUrl, bio: instagramBio, followers: instagramFollowers }],
-              restaurantName: restaurant.name,
-              restaurantCity: restaurant.city || '',
-              restaurantAddress: restaurant.address || ''
+              restaurantName: effectiveRestaurant.name || '',
+              restaurantCity: effectiveRestaurant.city || '',
+              restaurantAddress: effectiveRestaurant.address || ''
             };
 
             const validateRes = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurant.id}`, {
@@ -431,6 +741,7 @@ export default function CityValidation() {
 
                 // Coleta e Upload de Highlights (Destaques)
                 if (scrapeRes.highlightImages && scrapeRes.highlightImages.length > 0) {
+                  instagramMenuImageCandidates = [...instagramMenuImageCandidates, ...scrapeRes.highlightImages];
                   toast.success(`Coletando ${scrapeRes.highlightImages.length} imagens de destaque...`);
                   addLog(`Fazendo upload de ${scrapeRes.highlightImages.length} imagens de destaque...`);
                   for (let i = 0; i < Math.min(scrapeRes.highlightImages.length, 3); i++) {
@@ -469,6 +780,7 @@ export default function CityValidation() {
 
                 // Coleta, Filtragem por IA e Upload de Feed
                 if (scrapeRes.feedImages && scrapeRes.feedImages.length > 0) {
+                  instagramMenuImageCandidates = [...instagramMenuImageCandidates, ...scrapeRes.feedImages];
                   toast.success(`🤖 Filtrando ${scrapeRes.feedImages.length} fotos do feed com IA...`);
                   addLog(`Enviando ${scrapeRes.feedImages.length} imagens do feed para filtragem por IA...`);
                   
@@ -595,93 +907,467 @@ export default function CityValidation() {
         toast.success(`🔎 PASSO 5/5: Extraindo cardápio (Instagram → Google Maps)...`);
         addLog(`PASSO 5/5: Iniciando extração de cardápio...`);
         try {
-          let extensionRes: any = null;
-          if (isExtensionActive && extensionId && activeInstagramUrl) {
-            addLog(`Usando Extensão do Chrome para navegar Linktree/Cardápio...`);
-            extensionRes = await new Promise((resolve) => {
-              const chromeObj = (window as any).chrome;
-              if (chromeObj && chromeObj.runtime && chromeObj.runtime.connect) {
-                try {
-                  const port = chromeObj.runtime.connect(extensionId, { name: "scrapeMenuFromInstagramPort" });
-                  port.onMessage.addListener((response: any) => {
-                    addLog(`[DEBUG] Resposta da extensão via port: ${JSON.stringify(response)}`);
-                    resolve(response);
-                    port.disconnect();
-                  });
-                  port.onDisconnect.addListener(() => {
-                    const err = chromeObj.runtime.lastError;
-                    if (err) {
-                      addLog(`[DEBUG] Port disconnected with error: ${err.message}`);
-                      console.error("Port Disconnect Error:", err);
-                    }
-                    resolve({ success: false, error: err ? err.message : "Port disconnected" });
-                  });
-                  port.postMessage({ 
-                    action: "scrapeMenuFromInstagram", 
-                    instagramUrl: activeInstagramUrl, 
-                    restaurantName: restaurant.name,
-                    city: restaurant.city || '',
-                    neighborhood: restaurant.neighborhood || '',
-                    restaurantId: restaurant.id
-                  });
-                } catch (e: any) {
-                  addLog(`[DEBUG] Falha ao conectar/enviar via port: ${e.message}`);
-                  resolve({ success: false, error: e.message });
+          const normalizeKey = (value: string) => String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+          const baseName = effectiveRestaurant.name || restaurant.name || '';
+          const baseCity = effectiveRestaurant.city || restaurant.city || '';
+          const baseNeighborhood = effectiveRestaurant.neighborhood || restaurant.neighborhood || '';
+          const baseAddress = effectiveRestaurant.address || restaurant.address || '';
+          const baseWebsite = effectiveRestaurant.website || restaurant.website || mapsData?.website || '';
+          const cityKey = normalizeKey(baseCity || '');
+          const isSafeMenuUrl = (value: string) => {
+            try {
+              const host = new URL(value).hostname.toLowerCase();
+              return !isGoogleMapsUrl(value) && !['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com'].some(domain => host === domain || host.endsWith('.' + domain));
+            } catch (_) { return false; }
+          };
+          const legacyClues = [
+            { url: restaurant.other_url, label: restaurant.other_url_label || 'URL antiga do cadastro', learned: false, legacy: true },
+            { url: restaurant.external_url, label: 'URL externa antiga do cadastro', learned: false, legacy: true },
+            { url: restaurant.ifood_url, label: 'iFood antigo do cadastro', learned: false, legacy: true },
+            { url: baseWebsite, label: 'site oficial encontrado/antigo', learned: false, legacy: false }
+          ].filter(candidate => /^https?:\/\//i.test(candidate.url || '') && isSafeMenuUrl(candidate.url));
+          let knownCandidates: any[] = [...legacyClues];
+          try {
+            const websiteBase = baseWebsite ? new URL(baseWebsite).origin : '';
+            if (websiteBase && isSafeMenuUrl(websiteBase)) {
+              const websiteInferred = ['cardapio', 'menu', 'pedido', 'delivery', 'loja'].map(path => ({
+                url: `${websiteBase}/${path}`,
+                label: `Possível cardápio no site oficial: /${path}`,
+                learned: false
+              }));
+              knownCandidates = [...knownCandidates, ...websiteInferred]
+                .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index);
+            }
+          } catch (_) {}
+          try {
+            const instagramUsername = activeInstagramUrl ? new URL(activeInstagramUrl).pathname.split('/').filter(Boolean)[0] : '';
+            if (instagramUsername && /^[a-z0-9._-]{3,40}$/i.test(instagramUsername)) {
+              const inferred = [
+                { url: `https://${instagramUsername}.saipos.com/home`, label: `Cardápio ${baseCity || 'oficial'} inferido do Instagram`, learned: false },
+                { url: `https://${instagramUsername}.saipos.com/`, label: `Cardápio ${baseCity || 'oficial'} inferido do Instagram`, learned: false }
+              ].filter(candidate => isSafeMenuUrl(candidate.url));
+              knownCandidates = [...inferred, ...knownCandidates]
+                .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index);
+            }
+          } catch (_) {}
+          const trustedSource = knownCandidates.find(candidate => {
+            const haystack = normalizeKey(`${candidate.label} ${candidate.url}`);
+            return candidate.learned && cityKey && haystack.includes(cityKey);
+          });
+
+          const sendExtensionAction = (action: string, url: string, extra: Record<string, any> = {}, timeoutMs = 120000) => {
+            if (!extensionId) return Promise.resolve({ success: false, error: 'ID da extensão ausente.' });
+            return sendExtensionMessage(extensionId, { action, url, ...extra }, timeoutMs);
+          };
+
+          const validateCandidateUrl = async (sourceUrl: string, sourceLabel = '', discoveryMethod = 'textual_ai_url_selection') => {
+            if (!sourceUrl || !isSafeMenuUrl(sourceUrl)) return false;
+            learnedSourceUrl = sourceUrl;
+            learnedSourceLabel = sourceLabel || `Cardápio ${baseCity || 'oficial'}`;
+            const nativeResult = await sendExtensionAction('extractMenuPlatform', learnedSourceUrl, {}, 90000);
+            menuEvidence = nativeResult?.success ? nativeResult : await sendExtensionAction('auditMenuHybrid', learnedSourceUrl, {}, 90000);
+            if (menuEvidence?.success) {
+              menuEvidence = { ...menuEvidence, sourceUrl: learnedSourceUrl, discoveryMethod };
+              const confirmedItems = Array.isArray(menuEvidence.categories)
+                ? menuEvidence.categories.reduce((total: number, category: any) => total + (category.items?.length || 0), 0)
+                : Number(menuEvidence.metrics?.itemCandidates || 0);
+              if (!confirmedItems || confirmedItems < 1) {
+                addLog(`Fonte rejeitada: nenhum item real encontrado em ${learnedSourceUrl}.`);
+                menuEvidence = null;
+                return false;
+              }
+              addLog(`Fonte validada: ${confirmedItems} itens candidatos em ${learnedSourceUrl}.`);
+              return true;
+            }
+            return false;
+          };
+
+          const runTextualMenuArbiter = async (candidates: any[], reason: string) => {
+            const normalizeCandidateUrl = (value: string) => {
+              try {
+                const parsed = new URL(value);
+                if (parsed.hostname.toLowerCase() === 'l.instagram.com') {
+                  const target = parsed.searchParams.get('u');
+                  if (target) return decodeURIComponent(target);
                 }
-              } else { resolve({ success: false }); }
-            });
+                return parsed.href;
+              } catch (_) {
+                return '';
+              }
+            };
+            const menuDomainScore = (value: string) => /saipos|livemenu|ola\.click|olaclick|anota|ifood|menudino|deliverymuch|goomer|aiqfome|cardapio|menu/i.test(value) ? 35 : 0;
+            const cityTokenHit = (candidate: any) => {
+              if (!cityKey) return false;
+              return normalizeKey(`${candidate.label || ''} ${candidate.url || ''}`).includes(cityKey);
+            };
+            const cleanCandidates = (Array.isArray(candidates) ? candidates : [])
+              .map((candidate: any) => {
+                const url = normalizeCandidateUrl(String(candidate.url || candidate.sourceUrl || ''));
+                const label = String(candidate.label || candidate.sourceLabel || candidate.title || '');
+                return {
+                  url,
+                  label,
+                  score: Number(candidate.score || 0) + menuDomainScore(`${url} ${label}`) + (cityTokenHit({ url, label }) ? 100 : 0),
+                  reasons: candidate.reasons || []
+                };
+              })
+              .filter((candidate: any) => /^https?:\/\//i.test(candidate.url) && isSafeMenuUrl(candidate.url));
+            const merged = [...cleanCandidates, ...knownCandidates.map((candidate) => ({
+              url: normalizeCandidateUrl(candidate.url),
+              label: candidate.label || 'fonte conhecida',
+              score: (candidate.learned ? 80 : 30) + menuDomainScore(`${candidate.url} ${candidate.label || ''}`) + (cityTokenHit(candidate) ? 100 : 0),
+              reasons: ['known_candidate']
+            }))]
+              .filter((candidate, index, list) => candidate.url && list.findIndex(other => other.url === candidate.url) === index)
+              .sort((a, b) => Number(b.score || 0) - Number(a.score || 0))
+              .map((candidate, index) => ({ ...candidate, index }));
+            if (!merged.length) return false;
+            const deterministic = merged.find(candidate => cityTokenHit(candidate) && Number(candidate.score || 0) >= 100)
+              || (merged.length === 1 && Number(merged[0].score || 0) >= 35 ? merged[0] : null);
+            if (deterministic) {
+              addLog(`Fonte candidata forte encontrada sem clicar em mÃºltiplas abas: ${deterministic.label || deterministic.url}.`);
+              const ok = await validateCandidateUrl(deterministic.url, deterministic.label, 'deterministic_text_link_selection');
+              if (ok) return true;
+              addLog(`Fonte candidata forte nÃ£o passou na validaÃ§Ã£o: ${deterministic.url}.`);
+            }
+            addLog(`IA textual avaliando ${merged.length} candidato(s) de cardápio: ${reason}.`);
+            try {
+              const response = await fetch('/api/local-collector/ai-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  systemContext: 'Você escolhe a URL de cardápio correta para um restaurante. Responda SOMENTE JSON: {"selected_index":numero,"confidence":0_a_1,"reason":"curto"}. Nunca escolha redes sociais. Prefira cidade/unidade correta e domínios de cardápio/delivery.',
+                  message: JSON.stringify({
+                    restaurantName: baseName,
+                    city: baseCity || '',
+                    neighborhood: baseNeighborhood || '',
+                    address: baseAddress || '',
+                    instagramBio,
+                    candidates: merged
+                  })
+                })
+              });
+              if (!response.ok) throw new Error('HTTP ' + response.status);
+              const payload = await response.json();
+              const json = String(payload.reply || '').match(/{[\s\S]*}/)?.[0] || '{}';
+              const decision = JSON.parse(json);
+              const selected = merged.find(candidate => candidate.index === Number(decision.selected_index));
+              const confidence = Number(decision.confidence || 0);
+              if (selected && confidence >= 0.5) {
+                addLog(`IA textual escolheu fonte: ${selected.label || selected.url} (confiança ${Math.round(confidence * 100)}%). Motivo: ${decision.reason || 'sem motivo'}.`);
+                if (await validateCandidateUrl(selected.url, selected.label, 'textual_ai_url_selection')) return true;
+                const alternates = merged.filter(candidate => candidate.url !== selected.url).slice(0, 3);
+                for (const alternate of alternates) {
+                  addLog(`Tentando fonte alternativa apÃ³s falha da escolhida: ${alternate.label || alternate.url}.`);
+                  if (await validateCandidateUrl(alternate.url, alternate.label, 'textual_ai_url_selection_alternate')) return true;
+                }
+              }
+              addLog('IA textual não teve confiança suficiente para escolher fonte.');
+            } catch (error: any) {
+              addLog(`IA textual falhou ao arbitrar fonte: ${error.message || error}.`);
+            }
+            return false;
+          };
+
+          const runGptNavigationDiscovery = async (startUrl: string, sourceLabel: string) => {
+            if (!startUrl || !/^https?:\/\//i.test(startUrl) || !extensionId) return false;
+            addLog(`GPT navegador tentando descobrir cardápio a partir de ${sourceLabel}...`);
+            try {
+              const startHost = new URL(startUrl).hostname.toLowerCase();
+              const navResult = await sendExtensionAction('navigateWithAI', startUrl, {
+                goal: [
+                  `Encontrar a URL pública de cardápio/delivery do restaurante "${baseName}".`,
+                  baseCity ? `A unidade/cidade correta é ${baseCity}.` : '',
+                  baseNeighborhood ? `Bairro/endereço de referência: ${baseNeighborhood}.` : '',
+                  'Se houver vários links, escolha o cardápio da unidade correta.',
+                  'Se encontrar login, captcha ou bloqueio, peça intervenção humana.',
+                  'Não clique em compra, pedido, pagamento, checkout ou ações destrutivas.'
+                ].filter(Boolean).join(' '),
+                context: {
+                  restaurantName: baseName,
+                  city: baseCity || '',
+                  neighborhood: baseNeighborhood || '',
+                  address: baseAddress || '',
+                  expectedExternalDestination: true,
+                  ignoredDestinationHosts: [startHost]
+                },
+                maxSteps: 7
+              }, 150000);
+
+              if (navResult?.requiresHuman) {
+                requiresHuman = navResult;
+                addLog(`GPT navegador pediu intervenção humana: ${navResult.error || navResult.blocker || 'sem motivo informado'}.`);
+                return false;
+              }
+
+              const finalUrl = String(navResult?.finalUrl || '');
+              if (!navResult?.success || !finalUrl || !isSafeMenuUrl(finalUrl)) {
+                addLog(`GPT navegador não confirmou uma URL segura de cardápio: ${navResult?.error || finalUrl || 'sem resultado'}.`);
+                return false;
+              }
+
+              addLog(`GPT navegador encontrou possível fonte: ${finalUrl}. Validando com adaptador/auditoria...`);
+              const ok = await validateCandidateUrl(finalUrl, `GPT navegador: ${sourceLabel}`, 'gpt_navigation_discovery');
+              if (ok) return true;
+
+              addLog(`Fonte encontrada pelo GPT navegador não passou na validação de cardápio: ${finalUrl}.`);
+              return false;
+            } catch (error: any) {
+              addLog(`GPT navegador falhou em ${sourceLabel}: ${error.message || error}.`);
+              return false;
+            }
+          };
+
+          const googlePhotoIsRecentEnough = (dateText: string) => {
+            const normalized = String(dateText || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            if (!normalized.trim()) return false;
+            if (/hoje|ontem|semana|semanas|dia|dias|mes|meses/.test(normalized) && !/\b1\s+ano|\banos\b/.test(normalized)) return true;
+            const yearMatch = normalized.match(/\b(20\d{2})\b/);
+            if (yearMatch) {
+              const year = Number(yearMatch[1]);
+              return year >= new Date().getFullYear() - 1;
+            }
+            return /\b1\s+ano\b/.test(normalized);
+          };
+
+          const runMenuImageExtraction = async (images: any[], source: string, discoveryMethod: string) => {
+            const cleanImages = (images || [])
+              .map((item: any) => typeof item === 'string' ? item : item?.image || item?.url)
+              .filter((value: string, index: number, list: string[]) => /^data:image\/|^https?:\/\//i.test(value || '') && list.indexOf(value) === index)
+              .slice(0, 10);
+            if (!cleanImages.length) return false;
+
+            addLog(`IA Vision analisando ${cleanImages.length} imagem(ns) candidata(s) de cardápio (${source}).`);
+            try {
+              const response = await fetch('/api/local-collector/extract-menu-from-images', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  images: cleanImages,
+                  source,
+                  sourceUrl: source === 'instagram_menu_image' ? activeInstagramUrl : mapUrl,
+                  discoveryMethod
+                })
+              });
+              const data = await response.json().catch(() => ({}));
+              if (!response.ok || !data?.success || !data?.menuEvidence) {
+                addLog(`IA Vision não confirmou cardápio em imagens (${source}): ${data?.error || `HTTP ${response.status}`}`);
+                return false;
+              }
+              menuEvidence = data.menuEvidence;
+              addLog(`Cardápio encontrado por imagem (${source}); enviando para OCR/estruturação.`);
+              return true;
+            } catch (error: any) {
+              addLog(`Falha ao analisar imagens de cardápio (${source}): ${error.message || error}.`);
+              return false;
+            }
+          };
+
+          let menuEvidence: any = null;
+          let learnedSourceUrl = '';
+          let learnedSourceLabel = '';
+          let requiresHuman: any = null;
+
+          if (trustedSource) {
+            addLog(`Usando fonte aprendida para ${baseCity || 'cidade não informada'}: ${trustedSource.url}`);
+            const platformResult = await sendExtensionAction('extractMenuPlatform', trustedSource.url);
+            menuEvidence = platformResult?.success ? platformResult : await sendExtensionAction('auditMenuHybrid', trustedSource.url);
+            if (menuEvidence?.success) learnedSourceUrl = trustedSource.url;
           }
 
-          if (extensionRes && extensionRes.success && (extensionRes.parsedMenu || extensionRes.rawText)) {
-            addLog(`Extensão obteve os dados brutos. Estruturando com OpenAI via API Local...`);
-            const fetchPayload: any = { restaurantId: restaurant.id };
-            if (extensionRes.parsedMenu) fetchPayload.parsedMenu = extensionRes.parsedMenu;
-            if (extensionRes.rawText) fetchPayload.rawText = extensionRes.rawText;
-            
-            const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
-              method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(fetchPayload)
-            });
-            const menuResult = await res.json();
-            if (menuResult.success) {
-              toast.success(`✅ Cardápio extraído com sucesso!`);
-              addLog(`Cardápio extraído com sucesso via Extensão e OpenAI.`);
-            } else {
-               addLog(`Aviso (Cardápio): Falha na estruturação final: ${menuResult.error || 'Nenhum item.'}`);
+          if (!menuEvidence?.success && activeInstagramUrl && instagramMenuCandidates.length > 0) {
+            addLog('Modo seguro anti-abas: escolhendo cardÃ¡pio a partir dos links jÃ¡ coletados do Instagram.');
+            await runTextualMenuArbiter(instagramMenuCandidates, 'links coletados no scrape do Instagram');
+          }
+
+          if (!menuEvidence?.success && activeInstagramUrl && instagramMenuCandidates.length === 0) {
+            addLog('Modo seguro anti-abas ativo: descoberta por clique/navegaÃ§Ã£o livre foi bloqueada para evitar abrir mÃºltiplas abas.');
+          }
+
+          // Prioridade: descoberta nativa da bio por cidade/domínio antes de gastar GPT navegador.
+          if (false && !menuEvidence?.success && activeInstagramUrl && !requiresHuman) {
+            addLog(`Descobrindo na bio o cardápio correspondente a ${baseCity || 'cidade cadastrada'}...`);
+            const discoveryResult = await sendExtensionAction('scrapeMenuFromInstagram', activeInstagramUrl, {
+              instagramUrl: activeInstagramUrl,
+              restaurantName: baseName,
+              city: baseCity || '',
+              neighborhood: baseNeighborhood || '',
+              restaurantId: restaurant.id
+            }, 180000);
+
+            if (discoveryResult?.success && (discoveryResult.parsedMenu || discoveryResult.rawText)) {
+              learnedSourceUrl = discoveryResult.sourceUrl || '';
+              learnedSourceLabel = discoveryResult.sourceLabel || '';
+              if (!isSafeMenuUrl(learnedSourceUrl)) {
+                throw new Error(`A fonte descoberta não é um destino seguro de cardápio: ${learnedSourceUrl || 'URL ausente'}`);
+              }
+              addLog(`Cardápio de ${baseCity || 'cidade'} selecionado na bio: ${learnedSourceLabel || learnedSourceUrl}`);
+              const nativeResult = await sendExtensionAction('extractMenuPlatform', learnedSourceUrl);
+              if (nativeResult?.success && Array.isArray(nativeResult.categories) && nativeResult.categories.length > 0) {
+                menuEvidence = { ...nativeResult, sourceUrl: learnedSourceUrl, discoveryMethod: discoveryResult.discoveryMethod || 'instagram_bio_city_match' };
+                const nativeItems = nativeResult.categories.reduce((total: number, category: any) => total + (category.items?.length || 0), 0);
+                addLog(`Adaptador nativo ${nativeResult.platform} confirmou ${nativeItems} itens.`);
+              } else {
+                menuEvidence = {
+                  success: true,
+                  platform: discoveryResult.parsedMenu ? 'instagram_bio_structured' : 'instagram_bio_dom',
+                  categories: discoveryResult.parsedMenu || [],
+                  rawText: discoveryResult.rawText || '',
+                  sourceUrl: learnedSourceUrl,
+                  discoveryMethod: discoveryResult.discoveryMethod || 'instagram_bio_city_match'
+                };
+              }
+            } else if (discoveryResult?.requiresHuman) {
+              requiresHuman = discoveryResult;
+              addLog(`Descoberta nativa solicitou intervenção: ${discoveryResult.error || discoveryResult.blocker || 'sem motivo informado'}.`);
+            } else if (!discoveryResult?.success) {
+              addLog(`Descoberta nativa não encontrou cardápio: ${discoveryResult?.error || 'sem motivo informado'}.`);
             }
-          } else {
-            addLog(`Fallback: Buscando cardápio via API local (Puppeteer)...`);
-            const menuResp = await fetch('/api/local-collector/extract-menu', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ restaurantId: restaurant.id })
-            });
-            const menuResult = await menuResp.json();
-            if (menuResult.success) {
-              toast.success(`✅ Cardápio extraído com sucesso! ${menuResult.message || ''}`);
-              addLog(`Cardápio extraído com sucesso: ${menuResult.message || ''}`);
+          }
+
+          if (false && !menuEvidence?.success && activeInstagramUrl) {
+            addLog('Descoberta nativa completa não confirmou o cardápio; tentando descoberta rápida de links da bio...');
+            const linkDiscovery = await sendExtensionAction('discoverInstagramMenuLinks', activeInstagramUrl, {
+              instagramUrl: activeInstagramUrl,
+              restaurantName: baseName,
+              city: baseCity || '',
+              neighborhood: baseNeighborhood || '',
+              restaurantId: restaurant.id
+            }, 45000);
+
+            if (linkDiscovery?.success && isSafeMenuUrl(linkDiscovery.sourceUrl)) {
+              learnedSourceUrl = linkDiscovery.sourceUrl;
+              learnedSourceLabel = linkDiscovery.sourceLabel || `Cardápio ${baseCity || 'oficial'}`;
+              addLog(`Descoberta rápida selecionou fonte: ${learnedSourceLabel || learnedSourceUrl} (confiança ${Math.round(Number(linkDiscovery.confidence || 0) * 100)}%).`);
+              const nativeResult = await sendExtensionAction('extractMenuPlatform', learnedSourceUrl, {}, 90000);
+              menuEvidence = nativeResult?.success ? nativeResult : await sendExtensionAction('auditMenuHybrid', learnedSourceUrl, {}, 90000);
+              if (menuEvidence?.success) {
+                menuEvidence = { ...menuEvidence, sourceUrl: learnedSourceUrl, discoveryMethod: 'instagram_bio_fast_link_discovery' };
+                const confirmedItems = Array.isArray(menuEvidence.categories)
+                  ? menuEvidence.categories.reduce((total: number, category: any) => total + (category.items?.length || 0), 0)
+                  : Number(menuEvidence.metrics?.itemCandidates || 0);
+                addLog(`Fonte rápida validada por adaptador/auditoria: ${confirmedItems} itens candidatos.`);
+              }
             } else {
-              toast.error(`⚠️ Cardápio: ${menuResult.message || 'Nenhum item encontrado.'}`);
-              addLog(`Aviso (Cardápio): ${menuResult.message || 'Nenhum item encontrado.'}`);
+              addLog(`Descoberta rápida não confirmou fonte: ${linkDiscovery?.error || 'sem motivo informado'}.`);
+              await runTextualMenuArbiter(linkDiscovery?.candidates || [], 'descoberta rápida com baixa confiança ou falha');
             }
+          }
+
+          if (!menuEvidence?.success) {
+            addLog('Buscando candidatos de cardápio no Google em modo seguro (sem navegação livre).');
+            const googleQuery = `${baseName || ''} ${baseCity || ''} ${baseNeighborhood || ''} cardápio delivery pedido`;
+            const googleMenu = await sendExtensionAction('searchGoogleForMenu', '', { query: googleQuery, restaurantId: restaurant.id }, 60000);
+            if (googleMenu?.success && Array.isArray(googleMenu.candidates) && googleMenu.candidates.length > 0) {
+              addLog(`Google retornou ${googleMenu.candidates.length} candidato(s) de cardápio para avaliação.`);
+              await runTextualMenuArbiter(googleMenu.candidates, 'candidatos encontrados no Google');
+            } else {
+              addLog(`Google não retornou candidatos úteis de cardápio: ${googleMenu?.error || 'sem motivo informado'}.`);
+            }
+          }
+
+          if (!menuEvidence?.success && !requiresHuman) {
+            const navigationStarts = [
+              activeInstagramUrl ? { url: activeInstagramUrl, label: 'Instagram oficial' } : null,
+              baseWebsite && isSafeMenuUrl(baseWebsite) ? { url: baseWebsite, label: 'site oficial' } : null,
+              { url: `https://www.google.com/search?q=${encodeURIComponent(`${baseName || ''} ${baseCity || ''} ${baseNeighborhood || ''} cardápio delivery pedido`)}`, label: 'Google' }
+            ].filter(Boolean) as Array<{ url: string; label: string }>;
+
+            const triedStarts = new Set<string>();
+            for (const start of navigationStarts) {
+              if (triedStarts.has(start.url)) continue;
+              triedStarts.add(start.url);
+              if (await runGptNavigationDiscovery(start.url, start.label)) break;
+              if (requiresHuman) break;
+            }
+          }
+
+          if (!menuEvidence?.success && instagramMenuImageCandidates.length > 0 && !requiresHuman) {
+            addLog('Nenhum link de cardápio confirmado; tentando cardápio em imagens de destaques/feed do Instagram.');
+            await runMenuImageExtraction(instagramMenuImageCandidates, 'instagram_menu_image', 'instagram_highlights_or_feed_menu_image');
+          }
+
+          if (!menuEvidence?.success && googleMenuImageCandidates.length > 0 && !requiresHuman) {
+            const recentGoogleImages = googleMenuImageCandidates
+              .filter((item: any) => googlePhotoIsRecentEnough(item.dateText || item.date || item.age || ''))
+              .map((item: any) => item.image || item.url)
+              .filter(Boolean);
+
+            if (recentGoogleImages.length > 0) {
+              addLog(`Tentando cardápio em ${recentGoogleImages.length} foto(s) recente(s) do Google Maps (até 1 ano).`);
+              await runMenuImageExtraction(recentGoogleImages, 'google_recent_menu_image', 'google_recent_user_photo_menu_image');
+            } else {
+              addLog('Fotos do Google Maps ignoradas para cardápio: nenhuma tinha data comprovada de até 1 ano.');
+            }
+          }
+
+          if (!menuEvidence?.success && activeInstagramUrl && !requiresHuman) {
+            const textualResolved = await runTextualMenuArbiter([], 'fontes conhecidas do restaurante');
+            if (!textualResolved && !menuEvidence?.success) {
+              requiresHuman = {
+                error: 'Cardápio não confirmado por descoberta nativa/rápida nem por IA textual. Próximo fallback seguro deve coletar mais candidatos sem navegação livre.',
+                blocker: 'safe_menu_discovery_failed'
+              };
+            }
+          }
+
+          if (!menuEvidence?.success) {
+            if (requiresHuman) {
+              await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria: ${requiresHuman.error || requiresHuman.blocker || 'bloqueio/login/captcha'}`, { requiresHuman });
+              addLog(`Cardapio nao coletado automaticamente: intervencao humana necessaria (${requiresHuman.error || requiresHuman.blocker || 'bloqueio'}).`);
+              toast.warning('Restaurante validado, mas o cardapio exige intervencao humana.');
+            } else {
+              await persistMenuStatus(restaurant, 'not_found', 'Nenhuma fonte confiavel de cardapio foi encontrada apos bio, Google, GPT navegador e imagens recentes.');
+              addLog('Restaurante validado, mas nenhum cardapio online confiavel foi encontrado.');
+              toast.warning('Restaurante validado, mas sem cardapio online confiavel.');
+            }
+          }
+          if (false && !menuEvidence?.success) {
+            if (requiresHuman) {
+              throw new Error(`Intervenção necessária: ${requiresHuman.error} Após o login, execute Validar IA novamente; a aba foi mantida aberta.`);
+            }
+            throw new Error('Nenhuma fonte confiável de cardápio foi encontrada para a cidade correta.');
+          }
+
+          if (menuEvidence?.success) {
+          const response = await fetch('/api/local-collector/extract-menu', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ restaurantId: restaurant.id, menuEvidence })
+          });
+          const menuResult = await response.json();
+          if (!response.ok || !menuResult.success) {
+            await persistMenuStatus(restaurant, 'failed', menuResult.message || menuResult.error || 'Falha ao persistir o cardapio coletado.', { menuEvidence });
+            throw new Error(menuResult.message || menuResult.error || 'Falha ao persistir o cardápio coletado.');
+          }
+
+          if (learnedSourceUrl && isSafeMenuUrl(learnedSourceUrl)) {
+            await supabase.from('restaurants').update({
+              other_url: learnedSourceUrl,
+              other_url_label: learnedSourceLabel || `Cardápio ${baseCity || 'oficial'}`
+            }).eq('id', restaurant.id);
+            addLog(`Fonte aprendida e salva para as próximas execuções: ${learnedSourceUrl}`);
+          }
+
+          toast.success('✅ Cardápio extraído com sucesso!');
+          addLog(`Cardápio persistido com sucesso: ${menuResult.message || 'concluído'}.`);
           }
         } catch (menuErr: any) {
           toast.error(`⚠️ Erro ao extrair cardápio: ${menuErr.message}`);
           addLog(`Erro ao extrair cardápio: ${menuErr.message}`);
+          throw menuErr;
         }
       } else {
-        // Fallback for API
-        const response = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${restaurant.id}`, {
-          method: 'POST'
-        });
-        
-        if (!response.ok) throw new Error('Falha na resposta do servidor');
+        throw new Error('Extensão inativa. Informe o ID e confirme o status Extensão Ativa antes de validar.');
       }
       
-      toast.success(`${restaurant.name} validado com sucesso!`, { id: toastId });
-      addLog(`Validação de ${restaurant.name} concluída com sucesso.`);
+      toast.success(`${effectiveRestaurant.name || initialName} validado com sucesso!`, { id: toastId });
+      addLog(`Validação de ${effectiveRestaurant.name || initialName} concluída com sucesso.`);
       fetchRestaurants();
     } catch (err: any) {
       toast.error('Erro na validação: ' + err.message);
+      addLog(`Validação falhou para ${initialName}: ${err.message || err}`);
+      await persistValidationFailure(restaurant, err);
     } finally {
       setValidatingId(null);
     }
@@ -689,7 +1375,20 @@ export default function CityValidation() {
 
   const handleApproveBatch = async () => {
     // Aprova todos os pendentes filtrados atualmente na tela (para não aprovar cidades erradas acidentalmente)
-    const toApprove = filteredRestaurants.filter(r => r.is_published !== true);
+    const ineligibleToRemove = filteredRestaurants
+      .filter(r => r.is_published !== true && r.is_deleted !== true)
+      .map(r => ({ restaurant: r, decision: classifyRestaurantEligibilityLocal(r) }))
+      .filter(item => item.decision.status === 'ineligible' && item.decision.confidence >= 0.9);
+
+    for (const item of ineligibleToRemove) {
+      await markRestaurantIneligible(item.restaurant, item.decision, 'approve_batch_local_rules');
+    }
+
+    const toApprove = filteredRestaurants.filter(r => {
+      if (r.is_published === true || r.is_deleted === true || r.ai_validated !== true) return false;
+      const eligibility = classifyRestaurantEligibilityLocal(r);
+      return !(eligibility.status === 'ineligible' && eligibility.confidence >= 0.9);
+    });
     
     if (toApprove.length === 0) {
       toast.info('Não há restaurantes na lista atual para aprovar.');
@@ -709,8 +1408,8 @@ export default function CityValidation() {
 
       if (error) throw error;
       
-      addLog(`Lote aprovado com sucesso. ${toApprove.length} restaurantes publicados.`);
-      toast.success(`${toApprove.length} restaurantes aprovados e importados!`);
+      addLog(`Lote aprovado com sucesso. ${toApprove.length} restaurantes publicados. ${ineligibleToRemove.length} inelegiveis removidos.`);
+      toast.success(`${toApprove.length} restaurantes aprovados. ${ineligibleToRemove.length} inelegiveis removidos.`);
       
       // Refresh
       const { data } = await supabase.from('restaurants').select('*').order('created_at', { ascending: false }).limit(5000);

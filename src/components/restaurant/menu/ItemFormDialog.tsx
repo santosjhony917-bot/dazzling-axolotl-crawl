@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { MenuCategory, MenuItem } from '@/types/supabase';
@@ -19,7 +19,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { showError, showSuccess } from '@/utils/toast';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { RESTAURANT_IMAGES_BUCKET } from '@/integrations/supabase/storage';
-import { Camera, Utensils, Loader2 } from 'lucide-react';
+import { Camera, Loader2, Plus, Trash2 } from 'lucide-react';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { cn } from '@/lib/utils';
 
@@ -31,6 +31,12 @@ const itemSchema = z.object({
   image_url: z.string().url('URL de imagem inválida.').optional().or(z.literal('')),
   is_active: z.boolean(),
   is_illustrative: z.boolean().optional(),
+  options: z.array(z.object({
+    group_name: z.string().min(1, 'Informe o grupo.'),
+    name: z.string().min(1, 'Informe o nome.'),
+    price_delta: z.number().min(0, 'O valor nao pode ser negativo.').optional().nullable(),
+    is_required: z.boolean().optional(),
+  })).optional(),
 });
 
 export type MenuItemFormValues = z.infer<typeof itemSchema>;
@@ -71,7 +77,13 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
       image_url: '',
       is_active: true,
       is_illustrative: false,
+      options: [],
     },
+  });
+
+  const { fields: optionFields, append: appendOption, remove: removeOption } = useFieldArray({
+    control,
+    name: 'options',
   });
 
   useEffect(() => {
@@ -84,7 +96,29 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
           image_url: itemToEdit.image_url || '',
           is_active: itemToEdit.is_active,
           is_illustrative: !!itemToEdit.is_illustrative,
+          options: [],
         });
+        supabase
+          .from('menu_item_options' as any)
+          .select('group_name,name,price_delta,price,is_required,order_index')
+          .eq('menu_item_id', itemToEdit.id)
+          .order('order_index')
+          .then(({ data }) => {
+            reset({
+              name: itemToEdit.name,
+              description: itemToEdit.description || '',
+              price: itemToEdit.price,
+              image_url: itemToEdit.image_url || '',
+              is_active: itemToEdit.is_active,
+              is_illustrative: !!itemToEdit.is_illustrative,
+              options: (data || []).map((option: any) => ({
+                group_name: option.group_name || 'Adicionais',
+                name: option.name || '',
+                price_delta: Number(option.price_delta ?? option.price ?? 0),
+                is_required: !!option.is_required,
+              })),
+            });
+          });
       } else {
         reset({
           name: '',
@@ -93,6 +127,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
           image_url: '',
           is_active: true,
           is_illustrative: false,
+          options: [],
         });
       }
     }
@@ -115,7 +150,7 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[720px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isEditing ? 'Editar Item' : 'Novo Item'}</DialogTitle>
         </DialogHeader>
@@ -244,6 +279,72 @@ const ItemFormDialog: React.FC<ItemFormDialogProps> = ({
                 />
               )}
             />
+          </div>
+
+          <div className="space-y-3 rounded-xl border border-dashed border-gray-200 p-3">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <Label>Adicionais e opcoes</Label>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Use para sabores, bordas, acompanhamentos, tamanhos ou complementos com valor extra.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => appendOption({ group_name: 'Adicionais', name: '', price_delta: 0, is_required: false })}
+              >
+                <Plus className="h-4 w-4 mr-1" /> Adicionar
+              </Button>
+            </div>
+
+            {optionFields.length > 0 && (
+              <div className="space-y-3">
+                {optionFields.map((field, index) => (
+                  <div key={field.id} className="grid grid-cols-12 gap-2 rounded-lg bg-gray-50 p-2">
+                    <div className="col-span-12 sm:col-span-4">
+                      <Input placeholder="Grupo: Sabores" {...register(`options.${index}.group_name` as const)} />
+                    </div>
+                    <div className="col-span-12 sm:col-span-4">
+                      <Input placeholder="Nome: Calabresa" {...register(`options.${index}.name` as const)} />
+                    </div>
+                    <div className="col-span-8 sm:col-span-3">
+                      <Controller
+                        name={`options.${index}.price_delta` as const}
+                        control={control}
+                        render={({ field }) => (
+                          <Input
+                            type="number"
+                            step="0.01"
+                            placeholder="+ R$"
+                            value={field.value ?? 0}
+                            onChange={(e) => field.onChange(Number(e.target.value || 0))}
+                          />
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-4 sm:col-span-1 flex justify-end">
+                      <Button type="button" variant="ghost" size="icon" onClick={() => removeOption(index)}>
+                        <Trash2 className="h-4 w-4 text-red-500" />
+                      </Button>
+                    </div>
+                    <div className="col-span-12 flex items-center justify-between">
+                      <Label htmlFor={`option-required-${index}`} className="text-xs text-muted-foreground">
+                        Obrigatorio para montar o item
+                      </Label>
+                      <Controller
+                        name={`options.${index}.is_required` as const}
+                        control={control}
+                        render={({ field }) => (
+                          <Switch id={`option-required-${index}`} checked={!!field.value} onCheckedChange={field.onChange} />
+                        )}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <DialogFooter>

@@ -17,7 +17,7 @@ interface HighlightCardProps {
 }
 
 const HighlightCard: React.FC<HighlightCardProps> = ({ item, className }) => {
-  const formattedPrice = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
+  const formattedPrice = item.price != null ? `R$ ${item.price.toFixed(2).replace('.', ',')}` : 'Preço sob consulta';
   
   return (
     <motion.div

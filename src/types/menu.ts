@@ -13,6 +13,7 @@ interface CategoryBase {
   is_active: boolean;
   order_index?: number;
   is_popular?: boolean;
+  section_id?: string | null;
 }
 
 export type CreateCategoryPayload = CategoryBase & {

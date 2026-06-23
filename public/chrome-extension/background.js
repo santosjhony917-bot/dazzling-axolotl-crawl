@@ -5,24 +5,89 @@ const isTabLockError = e => e && e.message && (
   e.message.toLowerCase().includes('dragging')
 );
 
+const ffRecentTabKeys = new Map();
+const ffTabCreationLocks = new Map();
+let ffMapsLeadSearchTabId = null;
+
+function normalizeTabUrlForDedupe(rawUrl) {
+  try {
+    let current = String(rawUrl || '');
+    for (let i = 0; i < 4; i++) {
+      const parsed = new URL(current);
+      const wrapped = parsed.searchParams.get('u') || parsed.searchParams.get('url') || parsed.searchParams.get('redirect_uri');
+      const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+      if (!wrapped || !/(instagram\.com|facebook\.com|l\.instagram\.com)$/i.test(host)) break;
+      current = decodeURIComponent(wrapped);
+    }
+    const parsed = new URL(current);
+    parsed.hash = '';
+    for (const key of Array.from(parsed.searchParams.keys())) {
+      if (/^(utm_|fbclid|gclid|igsh|mc_|ref$|source$)/i.test(key)) parsed.searchParams.delete(key);
+    }
+    parsed.hostname = parsed.hostname.replace(/^www\./, '').toLowerCase();
+    return parsed.toString();
+  } catch (_) {
+    return String(rawUrl || '').replace(/[#?].*$/, '').toLowerCase();
+  }
+}
+async function findExistingTabByDedupeKey(key) {
+  if (!key) return null;
+  const tabs = await chrome.tabs.query({});
+  return tabs.find(tab => normalizeTabUrlForDedupe(tab.pendingUrl || tab.url || '') === key) || null;
+}
+
 async function createTabWithRetry(options, maxRetries = 10) {
   if (typeof options !== 'object' || options === null) {
     throw new TypeError('options must be an object');
   }
+  const dedupeKey = normalizeTabUrlForDedupe(options.url || '');
+  if (dedupeKey && /^https?:\/\//i.test(dedupeKey)) {
+    const existingLock = ffTabCreationLocks.get(dedupeKey);
+    if (existingLock) {
+      try {
+        const existing = await existingLock;
+        if (existing?.id) return existing;
+      } catch (_) {}
+    }
+    const recent = ffRecentTabKeys.get(dedupeKey);
+    if (recent && Date.now() - recent.createdAt < 45000) {
+      const existing = await findExistingTabByDedupeKey(dedupeKey);
+      if (existing?.id) {
+        try { await chrome.tabs.update(existing.id, { active: options.active === true }); } catch (_) {}
+        return existing;
+      }
+    }
+  }
+  let creationResolve;
+  let creationReject;
+  const creationPromise = dedupeKey ? new Promise((resolve, reject) => { creationResolve = resolve; creationReject = reject; }) : null;
+  if (dedupeKey && creationPromise) ffTabCreationLocks.set(dedupeKey, creationPromise);
   for (let i = 0; i < maxRetries; i++) {
     try {
-      return await chrome.tabs.create(options);
+      const created = await chrome.tabs.create(options);
+      if (dedupeKey) {
+        ffRecentTabKeys.set(dedupeKey, { tabId: created.id, createdAt: Date.now() });
+        creationResolve?.(created);
+        ffTabCreationLocks.delete(dedupeKey);
+        setTimeout(() => ffRecentTabKeys.delete(dedupeKey), 90000);
+      }
+      return created;
     } catch (e) {
       if (isTabLockError(e)) {
         console.warn('Chrome is locked. Retrying tab creation...', i);
         const delay = 200 * Math.pow(1.5, i);
         await new Promise(r => setTimeout(r, delay));
       } else {
+        creationReject?.(e);
+        if (dedupeKey) ffTabCreationLocks.delete(dedupeKey);
         throw e;
       }
     }
   }
-  throw new Error('Timeout: Chrome tabs locked for too long.');
+  const timeoutError = new Error('Timeout: Chrome tabs locked for too long.');
+  creationReject?.(timeoutError);
+  if (dedupeKey) ffTabCreationLocks.delete(dedupeKey);
+  throw timeoutError;
 }
 
 async function removeTabWithRetry(tabId, maxRetries = 10) {
@@ -94,6 +159,25 @@ async function updateTabWithRetry(tabId, options, maxRetries = 10) {
   throw new Error('Timeout: Chrome tabs locked for too long.');
 }
 
+async function getOrCreateMapsLeadSearchTab(url) {
+  if (typeof url !== 'string' || !/^https?:\/\//i.test(url)) {
+    throw new Error('URL inválida para busca no Maps.');
+  }
+
+  if (typeof ffMapsLeadSearchTabId === 'number') {
+    try {
+      const updated = await updateTabWithRetry(ffMapsLeadSearchTabId, { url, active: true });
+      return updated || { id: ffMapsLeadSearchTabId };
+    } catch (error) {
+      ffMapsLeadSearchTabId = null;
+    }
+  }
+
+  const tab = await createTabWithRetry({ url, active: true });
+  ffMapsLeadSearchTabId = tab.id;
+  return tab;
+}
+
 async function waitForTabToComplete(tabId, timeoutMs = 30000) {
   if (typeof tabId !== 'number') {
     throw new TypeError('tabId must be a number');
@@ -147,11 +231,24 @@ async function waitForTabToComplete(tabId, timeoutMs = 30000) {
 
 // Service worker for the Chrome Extension
 
-chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
-  console.log("Recebida mensagem externa:", message, sender);
+function handleExtensionMessage(message, sender, sendResponse) {
+  console.log("Recebida mensagem da extensÃ£o:", message, sender);
   
+  if (message.action === "navigateWithAI") {
+    let origin = '';
+    try { origin = new URL(sender.url).origin; } catch (_) {}
+    if (!globalThis.FilterFoodUniversalAgent) {
+      sendResponse({ success: false, error: 'Navegador GPT nÃ£o carregado.' });
+      return true;
+    }
+    globalThis.FilterFoodUniversalAgent.run({ url: message.url, goal: message.goal, context: message.context || {}, origin, maxSteps: message.maxSteps || 8 })
+      .then(sendResponse)
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
+
   if (message.action === "ping") {
-    sendResponse({ success: true, version: "1.0.0" });
+    sendResponse({ success: true, version: chrome.runtime.getManifest().version });
     return true;
   }
   
@@ -171,7 +268,7 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
       .catch(err => {
         sendResponse({ success: false, error: err.message });
       });
-    return true; // Mantém o canal aberto para resposta assíncrona
+    return true; // MantÃ©m o canal aberto para resposta assÃ­ncrona
   }
   
   if (message.action === "scrapeInstagram") {
@@ -185,7 +282,7 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
         sendResponse({ success: false, error: err.message });
       });
       
-    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+    return true; // MantÃ©m o canal de mensagem aberto para resposta assÃ­ncrona
   }
   
   if (message.action === "scrapeInstagramPost") {
@@ -199,10 +296,34 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
         sendResponse({ success: false, error: err.message });
       });
       
-    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+    return true; // MantÃ©m o canal de mensagem aberto para resposta assÃ­ncrona
   }
   
-  // scrapeMenuFromInstagram is now handled via persistent connections onConnectExternal
+  if (message.action === "discoverInstagramMenuLinks") {
+    const { instagramUrl, url, restaurantName, city, neighborhood } = message;
+    let responded = false;
+    const safeSend = payload => { if (!responded) { responded = true; try { sendResponse(payload); } catch (error) { console.error('[Extension] Falha ao responder discoverInstagramMenuLinks:', error); } } };
+    handleInstagramMenuLinkDiscovery(instagramUrl || url, restaurantName || '', city || '', neighborhood || '')
+      .then(result => safeSend(result || { success: false, error: 'Descoberta sem resultado.' }))
+      .catch(err => safeSend({ success: false, error: err?.message || String(err) }));
+    return true;
+  }
+
+  if (message.action === "scrapeMenuFromInstagram") {
+    const { instagramUrl, url, restaurantName, city, neighborhood } = message;
+    let responded = false;
+    const safeSend = (payload) => {
+      if (responded) return;
+      responded = true;
+      try { sendResponse(payload); } catch (error) { console.error('[Extension] Falha ao responder scrapeMenuFromInstagram:', error); }
+    };
+    const timer = setTimeout(() => safeSend({ success: false, error: 'Timeout interno na descoberta de cardÃ¡pio via Instagram.' }), 170000);
+    Promise.resolve()
+      .then(() => handleMenuScrapeFromInstagram(instagramUrl || url, restaurantName || '', city || '', neighborhood || '', sender))
+      .then(result => { clearTimeout(timer); safeSend(result || { success: false, error: 'Descoberta de cardÃ¡pio sem resultado.' }); })
+      .catch(err => { clearTimeout(timer); safeSend({ success: false, error: err?.message || String(err) }); });
+    return true;
+  }
 
   if (message.action === "scrapeMenu") {
     const { url } = message;
@@ -215,7 +336,7 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
         sendResponse({ success: false, error: err.message });
       });
       
-    return true; // Mantém o canal de mensagem aberto para resposta assíncrona
+    return true; // MantÃ©m o canal de mensagem aberto para resposta assÃ­ncrona
   }
   
   if (message.action === "scrapeGoogleHours") {
@@ -279,6 +400,14 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
     return true;
   }
 
+  if (message.action === "searchGoogleMapsLeads") {
+    const { query, city, state, maxResults } = message;
+    handleSearchGoogleMapsLeads(query, city, state, maxResults || 80)
+      .then(result => sendResponse(result))
+      .catch(err => sendResponse({ success: false, error: err.message }));
+    return true;
+  }
+
   if (message.action === "captureVisibleTab") {
     const { tabId } = message;
     if (!tabId) {
@@ -298,10 +427,13 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
     }
     return true;
   }
-});
+}
+
+chrome.runtime.onMessageExternal.addListener(handleExtensionMessage);
+chrome.runtime.onMessage.addListener(handleExtensionMessage);
 
 chrome.runtime.onConnectExternal.addListener((port) => {
-  console.log("[Extension] Conexão externa via port estabelecida:", port.name);
+  console.log("[Extension] ConexÃ£o externa via port estabelecida:", port.name);
   
   port.onMessage.addListener(async (message) => {
     console.log("[Extension] Mensagem recebida via port:", message);
@@ -352,7 +484,7 @@ async function handleSearchGoogleNative(query) {
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: () => {
-        // Extrai Título, Link e Snippet (resumo) dos resultados
+        // Extrai TÃ­tulo, Link e Snippet (resumo) dos resultados
         const items = Array.from(document.querySelectorAll('.g'));
         const scraped = [];
         for (const item of items) {
@@ -428,7 +560,7 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
           if (a.href && a.href.includes('instagram.com')) links.push(a.href);
         }
         
-        // Regex para extrair só perfil
+        // Regex para extrair sÃ³ perfil
         const validProfiles = [];
         for (const link of links) {
           const m = link.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/);
@@ -439,7 +571,7 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
             }
           }
         }
-        // Retorna até 3 candidatos únicos
+        // Retorna atÃ© 3 candidatos Ãºnicos
         const unique = [...new Set(validProfiles)];
         return unique.length > 0 ? unique.slice(0, 3) : null;
       },
@@ -494,7 +626,7 @@ async function handleInstagramScrape(instagramUrl) {
       setTimeout(checkStatus, 1000);
     });
 
-    // Executa a lógica de raspagem na página em um loop com tentativas (máx 6 segundos)
+    // Executa a lÃ³gica de raspagem na pÃ¡gina em um loop com tentativas (mÃ¡x 6 segundos)
     // para lidar de forma robusta com computadores lentos ou carregamentos demorados do JS
     let scrapeData = null;
     let attempts = 0;
@@ -514,37 +646,38 @@ async function handleInstagramScrape(instagramUrl) {
         if (results && results[0] && results[0].result) {
           const res = results[0].result;
           
-          // Se for login obrigatório, interrompe imediatamente
+          // Se for login obrigatÃ³rio, interrompe imediatamente
           if (res.isLoginRequired) {
             scrapeData = res;
             break;
           }
           
-          // Se encontrou a URL da foto de perfil, consideramos sucesso e interrompemos
-          if (res.profilePicUrl) {
+          // Se encontrou a URL da foto de perfil, consideramos sucesso,
+          // mas aguardamos alguns ciclos para permitir que os links da bio/modal carreguem.
+          if (res.profilePicUrl && ((Array.isArray(res.linkCandidates) && res.linkCandidates.length > 0) || attempts >= 6)) {
             scrapeData = res;
             break;
           }
           
-          // Caso contrário, guarda o último resultado para fallback
+          // Caso contrÃ¡rio, guarda o Ãºltimo resultado para fallback
           scrapeData = res;
         }
       } catch (err) {
-        console.warn(`Tentativa ${attempts} de execução de script falhou:`, err.message);
+        console.warn(`Tentativa ${attempts} de execuÃ§Ã£o de script falhou:`, err.message);
       }
     }
     
     if (!scrapeData) {
-      throw new Error("Não foi possível ler os dados da aba do Instagram após várias tentativas.");
+      throw new Error("NÃ£o foi possÃ­vel ler os dados da aba do Instagram apÃ³s vÃ¡rias tentativas.");
     }
     
     if (scrapeData.isLoginRequired) {
-      // Abre a aba em foco para o usuário fazer login
+      // Abre a aba em foco para o usuÃ¡rio fazer login
       await updateTabWithRetry(tabId, { active: true });
       return {
         success: false,
         isLoginRequired: true,
-        error: "Login do Instagram necessário. A aba foi aberta para você fazer login manualmente."
+        error: "Login do Instagram necessÃ¡rio. A aba foi aberta para vocÃª fazer login manualmente."
       };
     }
     
@@ -563,7 +696,7 @@ async function handleInstagramScrape(instagramUrl) {
           const blob = await fetchRes.blob();
           contentType = blob.type || 'image/jpeg';
           base64 = await blobToBase64(blob);
-          console.log("Download e conversão base64 bem-sucedidos!");
+          console.log("Download e conversÃ£o base64 bem-sucedidos!");
         } else {
           console.warn("Falha no download da imagem. Status HTTP:", fetchRes.status);
         }
@@ -604,7 +737,7 @@ async function handleInstagramScrape(instagramUrl) {
       }
     }
     
-    // 5. Fecha a aba temporária (pois a raspagem deu certo)
+    // 5. Fecha a aba temporÃ¡ria (pois a raspagem deu certo)
     await removeTabWithRetry(tabId);
     
     return {
@@ -613,6 +746,8 @@ async function handleInstagramScrape(instagramUrl) {
       bio: scrapeData.bio,
       logoDataUrl: base64 ? `data:${contentType};base64,${base64}` : null,
       rawLogoUrl: scrapeData.profilePicUrl,
+      linkCandidates: scrapeData.linkCandidates || [],
+      bioLinks: scrapeData.linkCandidates || [],
       highlightImages: base64Highlights,
       feedImages: base64Feed,
       rawFeedImages: scrapeData.feedImages || []
@@ -636,7 +771,7 @@ async function handleInstagramScrape(instagramUrl) {
   }
 }
 
-// Converte Blob para Base64 em ambiente de Service Worker (onde não existe FileReader)
+// Converte Blob para Base64 em ambiente de Service Worker (onde nÃ£o existe FileReader)
 async function blobToBase64(blob) {
   const buffer = await blob.arrayBuffer();
   const bytes = new Uint8Array(buffer);
@@ -648,11 +783,11 @@ async function blobToBase64(blob) {
   return btoa(binary);
 }
 
-// Esta função roda diretamente no contexto da página do Instagram
+// Esta funÃ§Ã£o roda diretamente no contexto da pÃ¡gina do Instagram
 async function scrapePageLogic() {
   const isLogin = window.location.href.includes('accounts/login') || !!document.querySelector('input[name="username"]');
   if (isLogin) {
-    return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
+    return { success: false, isLoginRequired: true, error: "Login do Instagram necessÃ¡rio." };
   }
   
   // 1. Localiza a URL da imagem de perfil de forma robusta e inteligente
@@ -678,7 +813,7 @@ async function scrapePageLogic() {
     }
   }
 
-  // Passo B: Fallback seletor clássico restringindo a elementos do header
+  // Passo B: Fallback seletor clÃ¡ssico restringindo a elementos do header
   if (!profilePicUrl) {
     const imgSelectors = [
       'header img[src*="cdninstagram"]',
@@ -701,7 +836,7 @@ async function scrapePageLogic() {
     }
   }
   
-  // Passo C: Fallback programático geral excluindo links de stories/highlights
+  // Passo C: Fallback programÃ¡tico geral excluindo links de stories/highlights
   if (!profilePicUrl) {
     for (const img of allImgs) {
       const alt = (img.alt || '').toLowerCase();
@@ -720,7 +855,7 @@ async function scrapePageLogic() {
   // 2. Extrai seguidores
   let followersCount = null;
   
-  // Função auxiliar para interpretar os valores (ex: 10k -> 10000, 1,2mil -> 1200)
+  // FunÃ§Ã£o auxiliar para interpretar os valores (ex: 10k -> 10000, 1,2mil -> 1200)
   function parseFollowersValue(numberStr, multiplierStr) {
     let clean = numberStr.trim();
     if (multiplierStr) {
@@ -731,7 +866,7 @@ async function scrapePageLogic() {
       const mult = multiplierStr.toLowerCase().trim();
       if (mult === 'k' || mult === 'mil') {
         val = val * 1000;
-      } else if (mult === 'm' || mult === 'mi' || mult === 'milões' || mult === 'mili') {
+      } else if (mult === 'm' || mult === 'mi' || mult === 'milÃµes' || mult === 'mili') {
         val = val * 1000000;
       }
       return Math.round(val);
@@ -763,7 +898,7 @@ async function scrapePageLogic() {
   const metaContent = meta ? meta.getAttribute('content') : null;
   
   if (metaContent) {
-    const regexPt = /([\d\.,]+)\s*(mil|mi|milões|m|k)?\s*seguidores/i;
+    const regexPt = /([\d\.,]+)\s*(mil|mi|milÃµes|m|k)?\s*seguidores/i;
     const regexEn = /([\d\.,]+)\s*(mil|mi|m|k)?\s*followers/i;
     const match = metaContent.match(regexPt) || metaContent.match(regexEn);
     if (match) {
@@ -800,6 +935,123 @@ async function scrapePageLogic() {
   // C. Extrai a BIO da tag meta
   let bioText = metaContent || '';
 
+  // C.1. Extrai links de cardÃ¡pio/bio sem navegar para fora do Instagram.
+  // Importante: isto sÃ³ lÃª anchors e abre, no mÃ¡ximo, o modal interno de "Links".
+  // NÃ£o clica em URLs externas, entÃ£o nÃ£o cria enxurrada de abas.
+  const linkCandidates = [];
+  const seenLinks = new Set();
+
+  function normalizeInstagramOutgoingUrl(rawUrl) {
+    try {
+      const url = new URL(rawUrl, window.location.href);
+      if (url.hostname === 'l.instagram.com' || url.hostname.endsWith('.l.instagram.com')) {
+        const target = url.searchParams.get('u');
+        if (target) return decodeURIComponent(target);
+      }
+      return url.href;
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function isUsefulExternalLink(rawUrl) {
+    try {
+      const url = new URL(rawUrl);
+      const host = url.hostname.toLowerCase().replace(/^www\./, '');
+      if (!/^https?:$/.test(url.protocol)) return false;
+      if (
+        host === 'instagram.com' || host.endsWith('.instagram.com') ||
+        host === 'facebook.com' || host.endsWith('.facebook.com') ||
+        host === 'threads.net' || host.endsWith('.threads.net') ||
+        host === 'tiktok.com' || host.endsWith('.tiktok.com') ||
+        host === 'youtube.com' || host.endsWith('.youtube.com')
+      ) return false;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function scoreExternalLink(url, label) {
+    const text = `${url || ''} ${label || ''}`.toLowerCase();
+    let score = 0;
+    if (/card[aÃ¡]pio|menu|pedido|pe[Ã§c]a|delivery|loja|comprar|order/.test(text)) score += 45;
+    if (/saipos|livemenu|ola\.click|olaclick|anota|ifood|menudino|deliverymuch|goomer|aiqfome|linklist|linktr\.ee|bio\.link/.test(text)) score += 35;
+    if (/jo[aÃ£]o\s*pessoa|pessoa|patos|sousa|campina|recife|fortaleza|natal/.test(text)) score += 15;
+    return score;
+  }
+
+  function collectExternalLinksFromDom(reason) {
+    const anchors = Array.from(document.querySelectorAll('a[href]'));
+    for (const anchor of anchors) {
+      const rawHref = anchor.getAttribute('href') || anchor.href || '';
+      const url = normalizeInstagramOutgoingUrl(rawHref);
+      if (!url || !isUsefulExternalLink(url)) continue;
+
+      const label =
+        (anchor.innerText || anchor.textContent || anchor.getAttribute('aria-label') || anchor.title || '').trim().replace(/\s+/g, ' ') ||
+        url;
+      const key = url.replace(/#.*$/, '');
+      if (seenLinks.has(key)) continue;
+      seenLinks.add(key);
+      linkCandidates.push({
+        url,
+        label,
+        score: scoreExternalLink(url, label),
+        reasons: [reason]
+      });
+    }
+  }
+
+  function collectExternalLinksFromText(rawText, reason) {
+    if (!rawText) return;
+    const decodedText = String(rawText)
+      .replace(/&amp;/g, '&')
+      .replace(/\\u0026/g, '&')
+      .replace(/\\\//g, '/')
+      .replace(/%3A/gi, ':')
+      .replace(/%2F/gi, '/');
+    const matches = decodedText.match(/https?:\/\/[^"'<>\s)]+/gi) || [];
+    for (const raw of matches) {
+      const trimmed = raw.replace(/[\\),.;]+$/g, '');
+      const url = normalizeInstagramOutgoingUrl(trimmed);
+      if (!url || !isUsefulExternalLink(url)) continue;
+      const key = url.replace(/#.*$/, '');
+      if (seenLinks.has(key)) continue;
+      seenLinks.add(key);
+      linkCandidates.push({
+        url,
+        label: url,
+        score: scoreExternalLink(url, url),
+        reasons: [reason]
+      });
+    }
+  }
+
+  collectExternalLinksFromDom('instagram_profile_dom');
+  collectExternalLinksFromText(document.documentElement ? document.documentElement.innerHTML : '', 'instagram_profile_html');
+
+  try {
+    const clickableElements = Array.from(document.querySelectorAll('button, [role="button"], a, div, span'))
+      .filter((el) => {
+        const text = `${el.textContent || ''} ${el.getAttribute?.('aria-label') || ''}`.trim().toLowerCase();
+        const rect = el.getBoundingClientRect?.();
+        const visible = rect && rect.width > 0 && rect.height > 0;
+        return visible && /links?|link na bio|ver links|bio/.test(text) && text.length <= 120;
+      });
+    const linkOpener = clickableElements[0];
+    if (linkOpener) {
+      linkOpener.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+      await new Promise(r => setTimeout(r, 1200));
+      collectExternalLinksFromDom('instagram_links_modal');
+      collectExternalLinksFromText(document.documentElement ? document.documentElement.innerHTML : '', 'instagram_links_modal_html');
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      await new Promise(r => setTimeout(r, 200));
+    }
+  } catch (linkErr) {
+    console.warn('Falha ao coletar links da bio/modal:', linkErr);
+  }
+
   // 3. Raspagem de Destaques (Highlights) do Instagram
   const highlightImages = [];
   try {
@@ -807,11 +1059,11 @@ async function scrapePageLogic() {
     const highlightLinks = Array.from(document.querySelectorAll('a[href*="/stories/highlights/"]'));
     menuHighlight = highlightLinks.find(link => {
       const text = link.textContent.trim().toLowerCase();
-      return text.includes('cardapio') || text.includes('cardápio') || text.includes('menu') || text.includes('preço') || text.includes('preco') || text.includes('valores') || text.includes('prato');
+      return text.includes('cardapio') || text.includes('cardÃ¡pio') || text.includes('menu') || text.includes('preÃ§o') || text.includes('preco') || text.includes('valores') || text.includes('prato');
     });
 
     if (!menuHighlight) {
-      const keywords = ['cardapio', 'cardápio', 'menu', 'preço', 'preco', 'valores', 'prato'];
+      const keywords = ['cardapio', 'cardÃ¡pio', 'menu', 'preÃ§o', 'preco', 'valores', 'prato'];
       const allElements = Array.from(document.querySelectorAll('*'));
       for (const el of allElements) {
         if (el.children.length === 0) {
@@ -860,8 +1112,8 @@ async function scrapePageLogic() {
           highlightImages.push(imgUrl);
         }
         
-        // Clica para ir ao próximo slide
-        const nextBtn = document.querySelector('button[aria-label="Avançar"], button[aria-label="Next"], .coreSpriteRightChevron');
+        // Clica para ir ao prÃ³ximo slide
+        const nextBtn = document.querySelector('button[aria-label="AvanÃ§ar"], button[aria-label="Next"], .coreSpriteRightChevron');
         if (nextBtn) {
           nextBtn.click();
         } else {
@@ -882,7 +1134,7 @@ async function scrapePageLogic() {
     console.error("Erro ao raspar destaques:", highlightErr);
   }
 
-  // 4. Raspagem de até 12 imagens do feed do Instagram
+  // 4. Raspagem de atÃ© 12 imagens do feed do Instagram
   const feedImages = [];
   try {
     const isInvalidImage = (img) => {
@@ -926,6 +1178,7 @@ async function scrapePageLogic() {
     profilePicUrl: profilePicUrl,
     followers: followersCount,
     bio: bioText,
+    linkCandidates: linkCandidates.sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 20),
     highlightImages: highlightImages,
     feedImages: feedImages
   };
@@ -962,7 +1215,7 @@ async function handleInstagramPostScrape(url) {
       setTimeout(checkStatus, 1000);
     });
 
-    // Executa a lógica de raspagem na página em um loop com tentativas (máx 6 segundos)
+    // Executa a lÃ³gica de raspagem na pÃ¡gina em um loop com tentativas (mÃ¡x 6 segundos)
     // para lidar de forma robusta com computadores lentos ou carregamentos demorados do JS
     let scrapeData = null;
     let attempts = 0;
@@ -982,7 +1235,7 @@ async function handleInstagramPostScrape(url) {
         if (results && results[0] && results[0].result) {
           const res = results[0].result;
           
-          // Se for login obrigatório, interrompe imediatamente
+          // Se for login obrigatÃ³rio, interrompe imediatamente
           if (res.isLoginRequired) {
             scrapeData = res;
             break;
@@ -994,25 +1247,25 @@ async function handleInstagramPostScrape(url) {
             break;
           }
           
-          // Caso contrário, guarda o último resultado para fallback
+          // Caso contrÃ¡rio, guarda o Ãºltimo resultado para fallback
           scrapeData = res;
         }
       } catch (err) {
-        console.warn(`Tentativa ${attempts} de execução de script de post falhou:`, err.message);
+        console.warn(`Tentativa ${attempts} de execuÃ§Ã£o de script de post falhou:`, err.message);
       }
     }
     
     if (!scrapeData) {
-      throw new Error("Não foi possível ler os dados da aba do post do Instagram após várias tentativas.");
+      throw new Error("NÃ£o foi possÃ­vel ler os dados da aba do post do Instagram apÃ³s vÃ¡rias tentativas.");
     }
     
     if (scrapeData.isLoginRequired) {
-      // Abre a aba em foco para o usuário fazer login
+      // Abre a aba em foco para o usuÃ¡rio fazer login
       await updateTabWithRetry(tabId, { active: true });
       return {
         success: false,
         isLoginRequired: true,
-        error: "Login do Instagram necessário. A aba foi aberta para você fazer login manualmente."
+        error: "Login do Instagram necessÃ¡rio. A aba foi aberta para vocÃª fazer login manualmente."
       };
     }
     
@@ -1031,7 +1284,7 @@ async function handleInstagramPostScrape(url) {
           const blob = await fetchRes.blob();
           contentType = blob.type || 'image/jpeg';
           base64 = await blobToBase64(blob);
-          console.log("Download e conversão base64 do post bem-sucedidos!");
+          console.log("Download e conversÃ£o base64 do post bem-sucedidos!");
         } else {
           console.warn("Falha no download da imagem do post. Status HTTP:", fetchRes.status);
         }
@@ -1040,11 +1293,11 @@ async function handleInstagramPostScrape(url) {
       }
     }
     
-    // 5. Fecha a aba temporária (pois a raspagem deu certo)
+    // 5. Fecha a aba temporÃ¡ria (pois a raspagem deu certo)
     await removeTabWithRetry(tabId);
     
     if (!base64) {
-      throw new Error("Não foi possível fazer download da imagem extraída do post.");
+      throw new Error("NÃ£o foi possÃ­vel fazer download da imagem extraÃ­da do post.");
     }
     
     return {
@@ -1073,7 +1326,7 @@ async function handleInstagramPostScrape(url) {
 function scrapePostPageLogic() {
   const isLogin = window.location.href.includes('accounts/login') || !!document.querySelector('input[name="username"]');
   if (isLogin) {
-    return { success: false, isLoginRequired: true, error: "Login do Instagram necessário." };
+    return { success: false, isLoginRequired: true, error: "Login do Instagram necessÃ¡rio." };
   }
   
   // 1. Tenta pelas tags meta (OpenGraph)
@@ -1084,7 +1337,7 @@ function scrapePostPageLogic() {
   }
   
   // 2. Fallback para as tags img no DOM
-  // Busca imagens que pareçam ser do post
+  // Busca imagens que pareÃ§am ser do post
   const imgs = Array.from(document.querySelectorAll('img'));
   const candidates = [];
   
@@ -1092,7 +1345,7 @@ function scrapePostPageLogic() {
     const src = img.src;
     if (!src || !src.startsWith('http')) continue;
     
-    // Ignora fotos de perfil ou ícones comuns do Instagram
+    // Ignora fotos de perfil ou Ã­cones comuns do Instagram
     const alt = (img.alt || '').toLowerCase();
     if (alt.includes('foto do perfil') || alt.includes('profile picture') || alt.includes('avatar')) {
       continue;
@@ -1103,12 +1356,12 @@ function scrapePostPageLogic() {
       continue;
     }
     
-    // Verifica dimensões
+    // Verifica dimensÃµes
     const rect = img.getBoundingClientRect();
     const width = rect.width || img.naturalWidth || 0;
     const height = rect.height || img.naturalHeight || 0;
     
-    // Se a imagem for muito pequena (ex: ícone de curtir ou foto de comentário), ignora
+    // Se a imagem for muito pequena (ex: Ã­cone de curtir ou foto de comentÃ¡rio), ignora
     if (width > 0 && width < 150) continue;
     
     // Prioriza imagens dentro de tags <article>
@@ -1124,7 +1377,7 @@ function scrapePostPageLogic() {
   }
   
   if (candidates.length > 0) {
-    // Ordena de forma a priorizar imagens dentro de article e depois por área (tamanho)
+    // Ordena de forma a priorizar imagens dentro de article e depois por Ã¡rea (tamanho)
     candidates.sort((a, b) => {
       if (a.isInsideArticle && !b.isInsideArticle) return -1;
       if (!a.isInsideArticle && b.isInsideArticle) return 1;
@@ -1138,23 +1391,23 @@ function scrapePostPageLogic() {
 }
 
 async function handleMenuScrape(url, sender) {
-  console.log("Iniciando raspagem de cardápio para:", url);
+  console.log("Iniciando raspagem de cardÃ¡pio para:", url);
   
   const originalTabId = sender && sender.tab ? sender.tab.id : null;
   
-  // 1. Cria a aba para carregar o cardápio
+  // 1. Cria a aba para carregar o cardÃ¡pio
   const tab = await createTabWithRetry({ url: url, active: false });
   const tabId = tab.id;
   
 
   
   try {
-    // 2. Aguarda o carregamento completo da aba usando listeners (muito mais estável)
+    // 2. Aguarda o carregamento completo da aba usando listeners (muito mais estÃ¡vel)
     await new Promise((resolve, reject) => {
       // Verifica o status inicial
       chrome.tabs.get(tabId, (currentTab) => {
         if (chrome.runtime.lastError || !currentTab) {
-          reject(new Error("A aba do cardápio foi fechada ou não pôde ser lida."));
+          reject(new Error("A aba do cardÃ¡pio foi fechada ou nÃ£o pÃ´de ser lida."));
           return;
         }
         if (currentTab.status === 'complete') {
@@ -1162,7 +1415,7 @@ async function handleMenuScrape(url, sender) {
           return;
         }
         
-        // Configura o listener de atualização
+        // Configura o listener de atualizaÃ§Ã£o
         const listener = (changeTabId, changeInfo) => {
           if (changeTabId === tabId && changeInfo.status === 'complete') {
             chrome.tabs.onUpdated.removeListener(listener);
@@ -1171,19 +1424,19 @@ async function handleMenuScrape(url, sender) {
         };
         chrome.tabs.onUpdated.addListener(listener);
         
-        // Timeout de segurança de 15 segundos para prosseguir mesmo se travar o carregamento de imagens/assets lentos
+        // Timeout de seguranÃ§a de 15 segundos para prosseguir mesmo se travar o carregamento de imagens/assets lentos
         setTimeout(() => {
           chrome.tabs.onUpdated.removeListener(listener);
-          resolve(); // Resolve para tentar raspar o que já carregou
+          resolve(); // Resolve para tentar raspar o que jÃ¡ carregou
         }, 15000);
       });
     });
 
-    // Aguarda a renderização dos pratos na página (Vite/React/Vue mount)
-    console.log("[Extension] Aguardando renderização do cardápio...");
+    // Aguarda a renderizaÃ§Ã£o dos pratos na pÃ¡gina (Vite/React/Vue mount)
+    console.log("[Extension] Aguardando renderizaÃ§Ã£o do cardÃ¡pio...");
     await waitForMenuToLoad(tabId);
 
-    // Verificação de Anota AI para extração estruturada direta pela API
+    // VerificaÃ§Ã£o de Anota AI para extraÃ§Ã£o estruturada direta pela API
     const isAnotaAi = await detectAnotaAiInTab(tabId);
     if (isAnotaAi) {
       console.log("[Extension] Anota AI detectado! Tentando extrair diretamente da API...");
@@ -1195,7 +1448,7 @@ async function handleMenuScrape(url, sender) {
             const json = await apiRes.json();
             const parsedMenu = parseAnotaAiMenu(json);
             if (parsedMenu && parsedMenu.length > 0) {
-              console.log("[Extension] Sucesso ao extrair cardápio da API Anota AI!");
+              console.log("[Extension] Sucesso ao extrair cardÃ¡pio da API Anota AI!");
               await removeTabWithRetry(tabId);
               return {
                 success: true,
@@ -1212,10 +1465,10 @@ async function handleMenuScrape(url, sender) {
       }
     }
 
-    // Verificação de Cardápio Web para extração estruturada direta pela API
+    // VerificaÃ§Ã£o de CardÃ¡pio Web para extraÃ§Ã£o estruturada direta pela API
     const isCardapioWeb = await detectCardapioWebInTab(tabId);
     if (isCardapioWeb) {
-      console.log("[Extension] Cardápio Web detectado! Tentando extrair diretamente da API...");
+      console.log("[Extension] CardÃ¡pio Web detectado! Tentando extrair diretamente da API...");
       const details = await getCardapioWebDetailsFromTab(tabId);
       if (details && details.companySlug && details.companyId) {
         try {
@@ -1234,7 +1487,7 @@ async function handleMenuScrape(url, sender) {
             const json = await apiRes.json();
             const parsedMenu = parseCardapioWebMenu(json);
             if (parsedMenu && parsedMenu.length > 0) {
-              console.log("[Extension] Sucesso ao extrair cardápio da API Cardápio Web!");
+              console.log("[Extension] Sucesso ao extrair cardÃ¡pio da API CardÃ¡pio Web!");
               await removeTabWithRetry(tabId);
               return {
                 success: true,
@@ -1243,25 +1496,25 @@ async function handleMenuScrape(url, sender) {
               };
             }
           } else {
-            console.warn("[Extension] Falha ao chamar API do Cardápio Web, status:", apiRes.status);
+            console.warn("[Extension] Falha ao chamar API do CardÃ¡pio Web, status:", apiRes.status);
           }
         } catch (apiErr) {
-          console.error("[Extension] Erro ao consumir API do Cardápio Web:", apiErr);
+          console.error("[Extension] Erro ao consumir API do CardÃ¡pio Web:", apiErr);
         }
       }
     }
 
-    // 3. Executa a lógica de scroll e expansão na página do cardápio
+    // 3. Executa a lÃ³gica de scroll e expansÃ£o na pÃ¡gina do cardÃ¡pio
     try {
       await chrome.scripting.executeScript({
         target: { tabId: tabId },
         func: expandAndLoadAllContentInPage
       });
     } catch (err) {
-      console.warn("Falha ao expandir conteúdo do cardápio:", err.message);
+      console.warn("Falha ao expandir conteÃºdo do cardÃ¡pio:", err.message);
     }
 
-    // Espera mais 1.5s após a expansão para garantir rendering final e imagens
+    // Espera mais 1.5s apÃ³s a expansÃ£o para garantir rendering final e imagens
     await new Promise(r => setTimeout(r, 1500));
 
     // 4. Extrai o HTML limpo/XML para a IA
@@ -1271,12 +1524,12 @@ async function handleMenuScrape(url, sender) {
     });
 
     if (!results || !results[0] || !results[0].result) {
-      throw new Error("Não foi possível extrair o conteúdo do cardápio.");
+      throw new Error("NÃ£o foi possÃ­vel extrair o conteÃºdo do cardÃ¡pio.");
     }
 
     const xmlContent = results[0].result;
 
-    // 5. Fecha a aba temporária
+    // 5. Fecha a aba temporÃ¡ria
     await removeTabWithRetry(tabId);
 
     return {
@@ -1285,7 +1538,7 @@ async function handleMenuScrape(url, sender) {
     };
 
   } catch (err) {
-    console.error("Erro no fluxo do scraper de cardápio:", err);
+    console.error("Erro no fluxo do scraper de cardÃ¡pio:", err);
     // Tenta limpar a aba em caso de erro
     try {
       chrome.tabs.get(tabId, (currentTab) => {
@@ -1305,7 +1558,7 @@ async function handleMenuScrape(url, sender) {
 async function expandAndLoadAllContentInPage() {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   
-  // 1. Rola a página progressivamente
+  // 1. Rola a pÃ¡gina progressivamente
   await new Promise((resolve) => {
     let totalHeight = 0;
     const distance = 400;
@@ -1322,7 +1575,7 @@ async function expandAndLoadAllContentInPage() {
   });
   await delay(800);
   
-  // 2. Clica em botões de "Carregar mais"
+  // 2. Clica em botÃµes de "Carregar mais"
   let clickedMore = true;
   let clickLimit = 5;
   while (clickedMore && clickLimit > 0) {
@@ -1356,7 +1609,7 @@ async function expandAndLoadAllContentInPage() {
     }
   }
 
-  // 3. Expande acordeões/abas colapsadas
+  // 3. Expande acordeÃµes/abas colapsadas
   const accordionCount = (() => {
     document.querySelectorAll('[data-scraper-accordion]').forEach(el => {
       el.removeAttribute('data-scraper-accordion');
@@ -1420,7 +1673,7 @@ async function expandAndLoadAllContentInPage() {
         }
         await delay(500);
       } catch (clickErr) {
-        console.warn("Erro ao clicar no acordeão:", clickErr);
+        console.warn("Erro ao clicar no acordeÃ£o:", clickErr);
       }
     }
     
@@ -1433,40 +1686,40 @@ async function expandAndLoadAllContentInPage() {
     await delay(500);
   }
 
-  // 4. Clika em itens individuais (produtos) para abrir modais de opções (ex: Saipos) e extrair os adicionais
+  // 4. Clika em itens individuais (produtos) para abrir modais de opÃ§Ãµes (ex: Saipos) e extrair os adicionais
   try {
     let clickables = Array.from(document.querySelectorAll('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, .item-content, [class*="item-content"], [class*="ItemContent"], .item-title, [class*="item-title"], [class*="ItemTitle"], [data-qa*="item"], [data-qa*="product"], [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"], [class*="product_card"], [class*="item_card"], [class*="card_item"], [class*="menu_item"], [data-testid*="product"], [data-testid*="item"], [data-qa*="card"], [data-testid*="card"], [data-qa="item-desc"]')).filter(el => {
-      // Ignora elementos que são claramente links externos ou de navegação
+      // Ignora elementos que sÃ£o claramente links externos ou de navegaÃ§Ã£o
       if (el.tagName === 'A' && el.href && !el.href.includes('#') && !el.href.startsWith('javascript')) return false;
       const a = el.querySelector('a');
       if (a && a.href && !a.href.includes('#') && !a.href.startsWith('javascript')) return false;
       
-      // Somente elementos com tamanho razoável (ignora mini-botões)
-      // Permite elementos menores que 40px se forem seletores Saipos/plataforma específicos
+      // Somente elementos com tamanho razoÃ¡vel (ignora mini-botÃµes)
+      // Permite elementos menores que 40px se forem seletores Saipos/plataforma especÃ­ficos
       const isSpecificSaiposElement = el.matches && el.matches('.item-content, [class*="item-content"], .item-title, [data-qa="item-desc"]');
       if (!isSpecificSaiposElement && el.clientHeight < 40) return false;
       
-      // Evita o cabeçalho/menu principal
+      // Evita o cabeÃ§alho/menu principal
       if (el.closest('header') || el.closest('nav') || el.closest('footer')) return false;
       
       // Evita checkout e carrinho de compras
       if (el.closest('[class*="cart"]') || el.closest('[class*="checkout"]') || el.closest('[id*="cart"]') || el.closest('[id*="checkout"]')) return false;
       
-      // Evita elementos que já estão dentro de modais de diálogo
+      // Evita elementos que jÃ¡ estÃ£o dentro de modais de diÃ¡logo
       if (el.closest('[role="dialog"]') || el.closest('.modal') || el.closest('.dialog') || el.closest('[class*="modal"]') || el.closest('[class*="Dialog"]')) return false;
       
       return true;
     });
 
-    // Remove contêineres que possuem muitos filhos candidatos (evita clicar no grid de produtos como se fosse um único produto)
+    // Remove contÃªineres que possuem muitos filhos candidatos (evita clicar no grid de produtos como se fosse um Ãºnico produto)
     clickables = clickables.filter((el, idx) => {
       const descendants = clickables.filter((other, otherIdx) => otherIdx !== idx && el.contains(other));
-      // Se contiver mais do que 2 outros candidatos, consideramos que é um container de lista de produtos, não o produto em si
+      // Se contiver mais do que 2 outros candidatos, consideramos que Ã© um container de lista de produtos, nÃ£o o produto em si
       if (descendants.length > 2) return false;
       return true;
     });
 
-    // Se o elemento pai possui um filho que é um seletor Saipos específico, removemos o pai da lista para priorizar o clique no filho específico
+    // Se o elemento pai possui um filho que Ã© um seletor Saipos especÃ­fico, removemos o pai da lista para priorizar o clique no filho especÃ­fico
     clickables = clickables.filter((el, idx) => {
       const hasSpecificSaiposDescendant = clickables.some((other, otherIdx) => {
         if (otherIdx === idx) return false;
@@ -1476,7 +1729,7 @@ async function expandAndLoadAllContentInPage() {
       return !hasSpecificSaiposDescendant;
     });
 
-    // Remove elementos aninhados redundantes (se A contém B, clica apenas no card A e não nos seus filhos individuais)
+    // Remove elementos aninhados redundantes (se A contÃ©m B, clica apenas no card A e nÃ£o nos seus filhos individuais)
     clickables = clickables.filter((el, idx) => {
       const hasParentInList = clickables.some((other, otherIdx) => otherIdx !== idx && other.contains(el));
       return !hasParentInList;
@@ -1484,14 +1737,14 @@ async function expandAndLoadAllContentInPage() {
 
     let clickedCount = 0;
     for (let i = 0; i < clickables.length; i++) {
-      if (clickedCount >= 60) break; // Limite para não travar a extensão
+      if (clickedCount >= 60) break; // Limite para nÃ£o travar a extensÃ£o
       
       const el = clickables[i];
       
-      // Encontra o contêiner original do item para verificar se já possui extração e para injeção posterior
-      const container = el.closest('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"]') || el;
+      // Encontra o contÃªiner original do item para verificar se jÃ¡ possui extraÃ§Ã£o e para injeÃ§Ã£o posterior
+      const container = el.closest('article, .product-card, [class*="product-item"], [class*="ItemCard"], li, [class*="product-card"], [class*="ProductCard"], [class*="menu-item"], [class*="MenuItem"], [class*="card-item"], [class*="CardItem"], .item-container, [class*="item-container"], [class*="itemContainer"], .item-wrapper, [class*="item-wrapper"], [class*="itemWrapper"], .item-content, [class*="item-content"], .item-title, [data-qa="item-desc"]') || el;
       
-      // Evita duplo clique se o mesmo contêiner original já foi enriquecido
+      // Evita duplo clique se o mesmo contÃªiner original jÃ¡ foi enriquecido
       if (container.querySelector('.scraper-extracted-modal-text')) {
         continue;
       }
@@ -1505,21 +1758,21 @@ async function expandAndLoadAllContentInPage() {
       } catch(e) {}
       
       const delayPromise = new Promise(resolve => setTimeout(resolve, 500));
-      await delayPromise; // aguarda modal ou expansão abrir
+      await delayPromise; // aguarda modal ou expansÃ£o abrir
       
-      // Procura por modal visível
+      // Procura por modal visÃ­vel
       const modals = Array.from(document.querySelectorAll('[role="dialog"], .modal, .dialog, [class*="modal"], [class*="Dialog"], [class*="Drawer"]')).filter(m => m.offsetParent !== null);
       
       if (modals.length > 0) {
         const modal = modals[modals.length - 1]; // Pega o modal mais no topo
         const modalText = modal.innerText || '';
         
-        // Injeta o texto do modal dentro do contêiner original do item (escondido) para ser capturado depois
+        // Injeta o texto do modal dentro do contÃªiner original do item (escondido) para ser capturado depois
         if (modalText && modalText.length > 20) {
           const hiddenDiv = document.createElement('div');
           hiddenDiv.style.display = 'none';
           hiddenDiv.className = 'scraper-extracted-modal-text';
-          hiddenDiv.innerText = '\\n[OPÇÕES DA IA: ' + modalText.replace(/\\n/g, ' ') + ']\\n';
+          hiddenDiv.innerText = '\\n[OPÃ‡Ã•ES DA IA: ' + modalText.replace(/\\n/g, ' ') + ']\\n';
           container.appendChild(hiddenDiv);
         }
         
@@ -1720,7 +1973,7 @@ function getCleanedHtmlForAIInPage() {
         }
       }
       
-      // Fallback para background-image se não encontrou img ou o src do img está vazio
+      // Fallback para background-image se nÃ£o encontrou img ou o src do img estÃ¡ vazio
       if (!imgUrl) {
         const bgEls = [node, ...Array.from(node.querySelectorAll('*'))];
         for (const el of bgEls) {
@@ -1760,7 +2013,7 @@ function getCleanedHtmlForAIInPage() {
   return xml;
 }
 
-// Funções auxiliares para detecção e raspagem do Anota AI
+// FunÃ§Ãµes auxiliares para detecÃ§Ã£o e raspagem do Anota AI
 async function waitForMenuToLoad(tabId) {
   const maxAttempts = 30; // 15 segundos max (500ms * 30)
   for (let i = 0; i < maxAttempts; i++) {
@@ -2009,7 +2262,7 @@ function parseCardapioWebMenu(json) {
         const itemName = item.name || '';
         const itemDesc = item.description || '';
         
-        // Calcular preço
+        // Calcular preÃ§o
         let itemPrice = item.price || 0;
         if (item.promotional_price_active && typeof item.promotional_price === 'number') {
           itemPrice = item.promotional_price;
@@ -2108,13 +2361,13 @@ async function handleWebContextScrape(url) {
           }
           if (currentTab.status === 'complete') {
             completeCount++;
-            if (completeCount > 6) { // Aguarda cerca de 3 segundos extras após 'complete'
+            if (completeCount > 6) { // Aguarda cerca de 3 segundos extras apÃ³s 'complete'
               resolve();
             } else {
               setTimeout(checkStatus, 500);
             }
           } else {
-            completeCount = 0; // reseta se não estiver mais complete
+            completeCount = 0; // reseta se nÃ£o estiver mais complete
             setTimeout(checkStatus, 1000);
           }
         });
@@ -2130,18 +2383,18 @@ async function handleWebContextScrape(url) {
           window.scrollBy(0, 500);
           
           try {
-            // Método super confiável para horários do Google Maps
+            // MÃ©todo super confiÃ¡vel para horÃ¡rios do Google Maps
             const hoursContainer = document.querySelector('[data-item-id="oh"]');
             if (hoursContainer) {
               const expandBtn = hoursContainer.querySelector('[aria-expanded="false"]');
               if (expandBtn) expandBtn.click();
-              // Fallback: clica na própria linha de horários
+              // Fallback: clica na prÃ³pria linha de horÃ¡rios
               try { hoursContainer.click(); } catch(e) {}
               const innerButtons = hoursContainer.querySelectorAll('button, div[role="button"]');
               innerButtons.forEach(b => { try { b.click(); } catch(e) {} });
             }
 
-            // Fallback genérico para outros botões importantes
+            // Fallback genÃ©rico para outros botÃµes importantes
             const els = Array.from(document.querySelectorAll('*'));
             els.forEach(b => {
               const clickEl = (el) => {
@@ -2152,11 +2405,11 @@ async function handleWebContextScrape(url) {
               };
 
               if (b.innerText && (b.innerText.toLowerCase() === 'mais' || b.innerText.toLowerCase() === 'more')) clickEl(b);
-              if (b.getAttribute('aria-expanded') === 'false' && (b.innerText && (b.innerText.includes('Abre') || b.innerText.includes('Fechado') || b.innerText.includes('horário')))) clickEl(b);
+              if (b.getAttribute('aria-expanded') === 'false' && (b.innerText && (b.innerText.includes('Abre') || b.innerText.includes('Fechado') || b.innerText.includes('horÃ¡rio')))) clickEl(b);
               
               const ariaLabel = b.getAttribute('aria-label') || '';
               const lowerLabel = ariaLabel.toLowerCase();
-              if (lowerLabel && (lowerLabel.includes('horário') || lowerLabel.includes('horario') || lowerLabel.includes('hours') || lowerLabel.includes('abre às') || lowerLabel.includes('fechado'))) {
+              if (lowerLabel && (lowerLabel.includes('horÃ¡rio') || lowerLabel.includes('horario') || lowerLabel.includes('hours') || lowerLabel.includes('abre Ã s') || lowerLabel.includes('fechado'))) {
                 clickEl(b);
               }
             });
@@ -2178,7 +2431,7 @@ async function handleWebContextScrape(url) {
             } catch(e) {}
             
             resolve(document.body.innerText + "\n\nMETA DESCRIPTION:\n" + metaDesc + "\n\nHIDDEN TABLES:\n" + tablesText);
-          }, 1500); // Aguarda a tabela renderizar após o clique
+          }, 1500); // Aguarda a tabela renderizar apÃ³s o clique
         });
       }
     });
@@ -2186,7 +2439,7 @@ async function handleWebContextScrape(url) {
     if (results && results[0] && results[0].result) {
       return { success: true, text: results[0].result };
     } else {
-      return { success: false, error: "Nenhum texto extraído." };
+      return { success: false, error: "Nenhum texto extraÃ­do." };
     }
   } catch (err) {
     console.error("Erro na raspagem de contexto:", err);
@@ -2232,7 +2485,7 @@ async function handleAgentSnapshot(url) {
     func: () => {
       window.scrollBy(0, 500);
 
-      // NOVO: Pre-emptive click para expandir horários como na Fase 1
+      // NOVO: Pre-emptive click para expandir horÃ¡rios como na Fase 1
       try {
           const expandBtns = document.querySelectorAll('div[role="button"][jsaction*="pane.openhours"], div.o0Svhf');
           expandBtns.forEach(btn => {
@@ -2266,7 +2519,7 @@ async function handleAgentSnapshot(url) {
           
           const hiddenTables = Array.from(document.querySelectorAll('table, .o0Svhf')).map(t => t.textContent.trim().replace(/\n/g, ' ')).join('\n---\n');
           const bodyText = document.body.innerText;
-          const resultText = `PÁGINA TEXTO:\n${bodyText.substring(0, 8000)}\n\nHIDDEN TABLES (IMPORTANT: Check here for opening hours):\n${hiddenTables}\n\nELEMENTOS INTERATIVOS:\n${elementsData.join('\n')}`;
+          const resultText = `PÃGINA TEXTO:\n${bodyText.substring(0, 8000)}\n\nHIDDEN TABLES (IMPORTANT: Check here for opening hours):\n${hiddenTables}\n\nELEMENTOS INTERATIVOS:\n${elementsData.join('\n')}`;
           
           resolve(resultText);
         }, 1500);
@@ -2285,8 +2538,8 @@ async function handleClickAgentElement(targetId) {
     func: (id) => {
        const el = document.querySelector(`[data-ai-id="${id}"]`);
        
-       // ESTRATÉGIA DEFINITIVA: Clicar no novo seletor que o usuário encontrou (span com aria-label) e jsaction
-       const newArrow = document.querySelector('div[role="button"][jsaction*="pane.openhours"], span[aria-label*="Mostrar horário"], span[aria-label*="Mostrar horários"], div.o0Svhf');
+       // ESTRATÃ‰GIA DEFINITIVA: Clicar no novo seletor que o usuÃ¡rio encontrou (span com aria-label) e jsaction
+       const newArrow = document.querySelector('div[role="button"][jsaction*="pane.openhours"], span[aria-label*="Mostrar horÃ¡rio"], span[aria-label*="Mostrar horÃ¡rios"], div.o0Svhf');
        if (newArrow) {
           try { newArrow.click(); } catch(e) {}
           try { newArrow.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } catch(e) {}
@@ -2295,7 +2548,7 @@ async function handleClickAgentElement(targetId) {
        }
        
        if (el) {
-          // Estratégia inspirada na Fase 1 (Robô Antigo Funcional)
+          // EstratÃ©gia inspirada na Fase 1 (RobÃ´ Antigo Funcional)
           const ohContainer = el.closest('[data-item-id="oh"]') || el.closest('.o0Svhf');
           if (ohContainer) {
               const expandBtn = ohContainer.querySelector('[aria-expanded="false"], span[role="img"]');
@@ -2307,7 +2560,7 @@ async function handleClickAgentElement(targetId) {
               const innerButtons = ohContainer.querySelectorAll('button, div[role="button"], span[role="img"]');
               innerButtons.forEach(b => { try { b.click(); } catch(e) {} });
           } else {
-              // Fallback para elementos fora dos horários
+              // Fallback para elementos fora dos horÃ¡rios
               let curr = el;
               let depth = 0;
               while (curr && depth < 5) {
@@ -2336,16 +2589,210 @@ async function handleAgentClose() {
   return { success: true };
 }
 
+async function waitForTabComplete(tabId, timeoutMs = 45000) {
+  const start = Date.now();
+  return new Promise((resolve, reject) => {
+    const checkStatus = () => {
+      chrome.tabs.get(tabId, (currentTab) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error("A aba foi fechada prematuramente."));
+          return;
+        }
+        if (currentTab.status === 'complete') {
+          resolve();
+          return;
+        }
+        if (Date.now() - start > timeoutMs) {
+          reject(new Error("Tempo limite ao carregar a aba."));
+          return;
+        }
+        setTimeout(checkStatus, 500);
+      });
+    };
+    setTimeout(checkStatus, 500);
+  });
+}
+
+async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) {
+  const cleanQuery = String(query || '').trim();
+  const cleanCity = String(city || '').trim();
+  const cleanState = String(state || '').trim();
+  const finalQuery = cleanQuery || `restaurantes em ${cleanCity}${cleanState ? ', ' + cleanState : ''}`;
+  const searchUrl = `https://www.google.com/maps/search/${encodeURIComponent(finalQuery)}`;
+  const tab = await getOrCreateMapsLeadSearchTab(searchUrl);
+  const tabId = tab.id;
+
+  await waitForTabComplete(tabId, 45000);
+  await new Promise(resolve => setTimeout(resolve, 3500));
+
+  const [result] = await chrome.scripting.executeScript({
+    target: { tabId },
+    args: [Number(maxResults || 80), cleanCity, cleanState],
+    func: async (limit, expectedCity, expectedState) => {
+      const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+      const normalize = (value) => String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const cleanUrl = (href) => {
+        try {
+          const url = new URL(href);
+          url.hash = '';
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid', 'entry'].forEach(key => url.searchParams.delete(key));
+          return url.href;
+        } catch (_) {
+          return href || '';
+        }
+      };
+      const isPlaceUrl = (href) => /google\.[^/]+\/maps\/place|\/maps\/place\/|place_id:|!1s0x/i.test(href || '');
+      const isBadLead = (name, category) => {
+        const text = normalize(`${name} ${category}`);
+        return /\b(posto|gasolina|farmacia|drogaria|supermercado|hipermercado|mercado|conveniencia|banco|academia|hotel|pousada|hospital|clinica|escola|igreja|oficina|lava jato|barbearia|salao)\b/.test(text);
+      };
+      const getResultCards = () => Array.from(document.querySelectorAll('[role="article"], .Nv2PK, .bfdHYd, div[data-result-index]'))
+        .filter(el => (el.innerText || '').trim().length > 10);
+      const findScrollableResultsPanel = () => {
+        const cards = getResultCards();
+        for (const card of cards) {
+          let node = card.parentElement;
+          while (node && node !== document.body && node !== document.documentElement) {
+            const style = window.getComputedStyle(node);
+            const canScroll = node.scrollHeight > node.clientHeight + 80;
+            const overflowScroll = /(auto|scroll)/i.test(`${style.overflowY} ${style.overflow}`);
+            if (canScroll && (overflowScroll || node.getAttribute('role') === 'feed' || node.className?.toString().includes('m6QErb'))) {
+              return node;
+            }
+            node = node.parentElement;
+          }
+        }
+
+        const candidates = [
+          document.querySelector('div[role="feed"]'),
+          ...Array.from(document.querySelectorAll('.m6QErb, .DxyBCb, [aria-label]')),
+          document.scrollingElement,
+        ].filter(Boolean);
+
+        return candidates
+          .filter(el => el.scrollHeight > el.clientHeight + 80)
+          .sort((a, b) => (b.scrollHeight - b.clientHeight) - (a.scrollHeight - a.clientHeight))[0] || document.scrollingElement;
+      };
+      const forceScrollResults = async (limit) => {
+        let leads = getResults();
+        let previousLeadCount = -1;
+        let previousCardCount = -1;
+        let previousScrollTop = -1;
+        let previousScrollHeight = -1;
+        let stableRounds = 0;
+
+        for (let i = 0; i < 50 && leads.length < limit && stableRounds < 7; i++) {
+          const panel = findScrollableResultsPanel();
+          const cards = getResultCards();
+          const lastCard = cards[cards.length - 1];
+
+          if (panel) {
+            try { panel.focus?.(); } catch (_) {}
+            try {
+              panel.dispatchEvent(new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 2400, deltaMode: 0 }));
+            } catch (_) {}
+            panel.scrollTop = Math.min(panel.scrollHeight, panel.scrollTop + Math.max(900, panel.clientHeight * 1.8));
+          }
+
+          if (lastCard) {
+            try { lastCard.scrollIntoView({ block: 'end', behavior: 'instant' }); } catch (_) { lastCard.scrollIntoView(false); }
+          }
+
+          try {
+            document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'PageDown', code: 'PageDown' }));
+          } catch (_) {}
+          window.scrollBy(0, Math.max(900, window.innerHeight * 1.5));
+
+          await sleep(1400);
+          leads = getResults();
+
+          const nextPanel = findScrollableResultsPanel();
+          const cardCount = getResultCards().length;
+          const scrollTop = nextPanel?.scrollTop || 0;
+          const scrollHeight = nextPanel?.scrollHeight || 0;
+          const pageText = normalize(document.body.innerText || '');
+          const reachedEnd = /you'?ve reached the end|fim da lista|final da lista|nao ha mais resultados|não há mais resultados|sem mais resultados/i.test(pageText);
+          const didProgress = leads.length !== previousLeadCount ||
+            cardCount !== previousCardCount ||
+            scrollTop !== previousScrollTop ||
+            scrollHeight !== previousScrollHeight;
+
+          stableRounds = didProgress && !reachedEnd ? 0 : stableRounds + 1;
+          previousLeadCount = leads.length;
+          previousCardCount = cardCount;
+          previousScrollTop = scrollTop;
+          previousScrollHeight = scrollHeight;
+          if (reachedEnd && stableRounds >= 2) break;
+        }
+
+        return leads;
+      };
+      const getResults = () => {
+        const anchors = Array.from(document.querySelectorAll('a[href]'));
+        const leads = [];
+        const seen = new Set();
+        for (const anchor of anchors) {
+          const href = cleanUrl(anchor.href || '');
+          if (!isPlaceUrl(href)) continue;
+          const card = anchor.closest('[role="article"], .Nv2PK, .bfdHYd, div[jsaction], div[data-result-index]') || anchor.parentElement;
+          const rawText = (card?.innerText || anchor.getAttribute('aria-label') || anchor.textContent || '').trim();
+          const lines = rawText.split(/\n+/).map(line => line.trim()).filter(Boolean);
+          const aria = anchor.getAttribute('aria-label') || '';
+          const name = (lines[0] || aria || '').replace(/^Ver\s+/i, '').trim();
+          if (!name || name.length < 2) continue;
+          const category = lines.find(line => /restaurante|pizzaria|hamburgueria|lanchonete|bar|cafe|cafeteria|sorveteria|doceria|churrascaria|esfiharia|sushi|aça[ií]|acai/i.test(line)) || 'Pendente validação';
+          if (isBadLead(name, category)) continue;
+          const key = href.replace(/[?#].*$/, '') || normalize(name);
+          if (seen.has(key)) continue;
+          seen.add(key);
+          leads.push({
+            name,
+            category,
+            address: lines.find(line => /\d|rua|avenida|av\.|r\.|bairro|centro/i.test(line)) || '',
+            phone: '',
+            city: expectedCity || '',
+            state: expectedState || '',
+            googleMapsUrl: href,
+            rating: 0,
+            reviewsCount: 0
+          });
+          if (leads.length >= limit) break;
+        }
+        return leads;
+      };
+
+      let leads = await forceScrollResults(limit);
+      return { leads, pageTitle: document.title, url: location.href };
+    }
+  });
+
+  const value = result?.result || {};
+  const leads = Array.isArray(value.leads) ? value.leads : [];
+  return {
+    success: leads.length > 0,
+    leads,
+    count: leads.length,
+    query: finalQuery,
+    sourceUrl: value.url || searchUrl,
+    error: leads.length ? undefined : 'Nenhum lead de restaurante encontrado na página visível do Google Maps.'
+  };
+}
+
 // ============================================================================
-// NOVO FLUXO: Extração de Horários via Google Maps (Aba Física)
+// NOVO FLUXO: ExtraÃ§Ã£o de HorÃ¡rios via Google Maps (Aba FÃ­sica)
 // ============================================================================
 async function handleGoogleHoursScrape(query, mapUrl) {
-  console.log("Iniciando busca de horários no Google Maps para:", query, mapUrl);
+  console.log("Iniciando busca de horÃ¡rios no Google Maps para:", query, mapUrl);
   
-  // Se tivermos a URL direta do Maps, usamos ela. Caso contrário, usamos a busca de locais do Maps
+  // Se tivermos a URL direta do Maps, usamos ela. Caso contrÃ¡rio, usamos a busca de locais do Maps
   const searchUrl = mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
   
-  // Cria aba ativa para garantir que os scripts de interação do Google rodem
+  // Cria aba ativa para garantir que os scripts de interaÃ§Ã£o do Google rodem
   const tab = await createTabWithRetry({ url: searchUrl, active: false });
   const tabId = tab.id;
   
@@ -2374,7 +2821,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
       setTimeout(checkStatus, 1000);
     });
 
-    // Aguarda mais 3 segundos para garantir a renderização inicial do painel lateral
+    // Aguarda mais 3 segundos para garantir a renderizaÃ§Ã£o inicial do painel lateral
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     const results = await chrome.scripting.executeScript({
@@ -2382,12 +2829,12 @@ async function handleGoogleHoursScrape(query, mapUrl) {
       func: async () => {
         const sleep = (ms) => new Promise(r => setTimeout(r, ms));
         
-        // 1. Rola o painel lateral para trazer os detalhes para o viewport se necessário
+        // 1. Rola o painel lateral para trazer os detalhes para o viewport se necessÃ¡rio
         const panel = document.querySelector('div[role="main"]') || document.querySelector('.m6ZQ1b') || document.querySelector('.DxyBCb');
         if (panel) panel.scrollTop = 500;
         await sleep(800);
 
-        // 2. Tenta expandir a tabela de horários
+        // 2. Tenta expandir a tabela de horÃ¡rios
         const isAlreadyExpanded = (() => {
           const tbl = document.querySelector('table.e25n6b') || document.querySelector('table[class*="hours"]');
           if (!tbl) return false;
@@ -2395,7 +2842,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         })();
 
         if (!isAlreadyExpanded) {
-          // Encontra o botão de expandir horários no Google Maps
+          // Encontra o botÃ£o de expandir horÃ¡rios no Google Maps
           const ohElement = document.querySelector('*[data-item-id="oh"]') || 
                             document.querySelector('*[data-item-id^="oh"]');
           
@@ -2405,10 +2852,10 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           } else {
             expandBtn = Array.from(document.querySelectorAll('*')).find(el => {
               const label = el.getAttribute('aria-label') || '';
-              return label.toLowerCase().includes('horário de funcionamento da semana') ||
-                     label.toLowerCase().includes('mostrar horário') ||
-                     label.toLowerCase().includes('ocultar horário') ||
-                     (el.textContent.trim() === '' && el.className.includes('OazX1c'));
+              return label.toLowerCase().includes('horÃ¡rio de funcionamento da semana') ||
+                     label.toLowerCase().includes('mostrar horÃ¡rio') ||
+                     label.toLowerCase().includes('ocultar horÃ¡rio') ||
+                     (el.textContent.trim() === 'î—' && el.className.includes('OazX1c'));
             });
           }
 
@@ -2419,14 +2866,14 @@ async function handleGoogleHoursScrape(query, mapUrl) {
               expandBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
               expandBtn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
             } catch(e) {}
-            await sleep(1500); // Aguarda animação de dropdown
+            await sleep(1500); // Aguarda animaÃ§Ã£o de dropdown
           }
         }
 
-        // 3. Extrai a tabela de horários
+        // 3. Extrai a tabela de horÃ¡rios
         const findHoursTable = () => {
           const tables = Array.from(document.querySelectorAll('table'));
-          const dayMappingKeys = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'sabado', 'domingo', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+          const dayMappingKeys = ['segunda', 'terÃ§a', 'quarta', 'quinta', 'sexta', 'sÃ¡bado', 'sabado', 'domingo', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
           for (const tbl of tables) {
             const text = tbl.textContent.toLowerCase();
             const hasDay = dayMappingKeys.some(day => text.includes(day));
@@ -2438,8 +2885,8 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         const hoursTable = findHoursTable();
         const schedule = {};
         const dayMap = {
-          'segunda': 'monday', 'terça': 'tuesday', 'quarta': 'wednesday', 'quinta': 'thursday',
-          'sexta': 'friday', 'sábado': 'saturday', 'sabado': 'saturday', 'domingo': 'sunday',
+          'segunda': 'monday', 'terÃ§a': 'tuesday', 'quarta': 'wednesday', 'quinta': 'thursday',
+          'sexta': 'friday', 'sÃ¡bado': 'saturday', 'sabado': 'saturday', 'domingo': 'sunday',
           'monday': 'monday', 'tuesday': 'tuesday', 'wednesday': 'wednesday', 'thursday': 'thursday',
           'friday': 'friday', 'saturday': 'saturday', 'sunday': 'sunday'
         };
@@ -2528,7 +2975,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           });
         }
 
-        // Fallback se não encontrou tabela estruturada
+        // Fallback se nÃ£o encontrou tabela estruturada
         if (!foundAny) {
           const allElements = Array.from(document.querySelectorAll('div, span, p, tr, li'));
           for (const el of allElements) {
@@ -2536,8 +2983,8 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             if (!text || text.length > 150) continue;
             const lowerText = text.toLowerCase();
             for (const [key, val] of Object.entries(dayMap)) {
-              if (lowerText.startsWith(key) && (lowerText.includes(':') || lowerText.includes('–') || lowerText.includes('-') || lowerText.includes('fechado') || lowerText.includes('closed'))) {
-                let timePart = text.substring(key.length).replace(/^[:\s\-–—]+/, '').trim();
+              if (lowerText.startsWith(key) && (lowerText.includes(':') || lowerText.includes('â€“') || lowerText.includes('-') || lowerText.includes('fechado') || lowerText.includes('closed'))) {
+                let timePart = text.substring(key.length).replace(/^[:\s\-â€“â€”]+/, '').trim();
                 if (timePart && timePart.length > 2) {
                   foundAny = true;
                   if (timePart.toLowerCase().includes('fechado') || timePart.toLowerCase().includes('closed')) {
@@ -2581,25 +3028,25 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           }
         }
 
-        // 4. Extrai endereço, telefone, site e Instagram da página do Maps
+        // 4. Extrai endereÃ§o, telefone, site e Instagram da pÃ¡gina do Maps
         const extractedInfo = {};
         
-        // Endereço - busca pelo botão/link com data-item-id="address"
+        // EndereÃ§o - busca pelo botÃ£o/link com data-item-id="address"
         const addressEl = document.querySelector('*[data-item-id="address"]') || 
-                          document.querySelector('button[data-tooltip="Copiar endereço"]');
+                          document.querySelector('button[data-tooltip="Copiar endereÃ§o"]');
         if (addressEl) {
           const addrText = addressEl.textContent.trim();
           if (addrText && addrText.length > 5) extractedInfo.address = addrText;
         }
         if (!extractedInfo.address) {
-          // Fallback: busca por aria-label com endereço
+          // Fallback: busca por aria-label com endereÃ§o
           const addrBtn = Array.from(document.querySelectorAll('button[aria-label], a[aria-label]')).find(el => {
             const label = (el.getAttribute('aria-label') || '').toLowerCase();
-            return label.includes('endereço:') || label.includes('address:');
+            return label.includes('endereÃ§o:') || label.includes('address:');
           });
           if (addrBtn) {
             const label = addrBtn.getAttribute('aria-label') || '';
-            const addrMatch = label.match(/(?:endereço|address):\s*(.+)/i);
+            const addrMatch = label.match(/(?:endereÃ§o|address):\s*(.+)/i);
             if (addrMatch) extractedInfo.address = addrMatch[1].trim();
           }
         }
@@ -2612,9 +3059,9 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           }
         }
         
-        // Telefone - busca pelo botão/link com data-item-id="phone"
+        // Telefone - busca pelo botÃ£o/link com data-item-id="phone"
         const phoneEl = document.querySelector('*[data-item-id^="phone"]') ||
-                        document.querySelector('button[data-tooltip="Copiar número de telefone"]');
+                        document.querySelector('button[data-tooltip="Copiar nÃºmero de telefone"]');
         if (phoneEl) {
           const phoneText = phoneEl.textContent.trim().replace(/[^\d\s\(\)\+\-]/g, '').trim();
           if (phoneText && phoneText.length >= 8) extractedInfo.phone = phoneText;
@@ -2656,6 +3103,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
 
         // Extrai fotos da galeria / capa
         const photos = [];
+        const photoMeta = [];
         const imgElements = Array.from(document.querySelectorAll('button[aria-label^="Foto"] img, div[aria-label^="Foto"] img, img[decoding="async"], .gallery-image, img.gallery-image, div[role="img"], img[src*="googleusercontent.com/p/AF1Qip"]'));
         
         imgElements.forEach(img => {
@@ -2667,26 +3115,37 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           }
           
           if (src && src.includes('googleusercontent.com/p/AF1Qip') && !src.includes('w50-h50') && !src.includes('w24-h24') && !src.includes('w36-h36')) {
-            // Aumenta a resolução da imagem do google
+            // Aumenta a resoluÃ§Ã£o da imagem do google
             const cleanSrc = src.replace(/=w\d+-h\d+.*$/, '=s800');
-            if (!photos.includes(cleanSrc)) photos.push(cleanSrc);
+            if (!photos.includes(cleanSrc)) {
+              const container = img.closest('button, a, div[role="button"], div') || img.parentElement;
+              const localText = (container?.innerText || container?.getAttribute?.('aria-label') || '').replace(/\s+/g, ' ').trim();
+              const pageText = document.body?.innerText || '';
+              const dateMatch = localText.match(/(?:hoje|ontem|h[áa]\s+\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|20\d{2})/i)
+                || pageText.slice(Math.max(0, pageText.indexOf(localText) - 500), pageText.indexOf(localText) + 500).match(/(?:hoje|ontem|h[áa]\s+\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|20\d{2})/i);
+              photos.push(cleanSrc);
+              photoMeta.push({ image: cleanSrc, dateText: dateMatch ? dateMatch[0] : '', context: localText.slice(0, 180) });
+            }
           }
         });
         
         if (photos.length > 0) {
           extractedInfo.coverImage = photos[0];
+          extractedInfo.coverImageDateText = photoMeta[0]?.dateText || '';
           extractedInfo.galleryImages = photos.slice(1, 13);
+          extractedInfo.galleryImageMeta = photoMeta.slice(1, 13);
+          extractedInfo.galleryImageDates = photoMeta.slice(1, 13).map(item => item.dateText || '');
         }
 
         if (foundAny) {
           return { success: true, schedule, ...extractedInfo };
         } else {
-          // Mesmo sem horários, retorna os outros dados se encontrou algo
+          // Mesmo sem horÃ¡rios, retorna os outros dados se encontrou algo
           const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0) || extractedInfo.coverImage;
           if (hasOtherData) {
             return { success: true, schedule: null, ...extractedInfo };
           }
-          return { success: false, error: "Tabela de horários não encontrada na página do Google Maps." };
+          return { success: false, error: "Tabela de horÃ¡rios nÃ£o encontrada na pÃ¡gina do Google Maps." };
         }
       }
     });
@@ -2701,7 +3160,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
     return { success: false, error: "Nenhum resultado retornado do script do Google Maps." };
 
   } catch (err) {
-    console.error("Erro na captura de horários do Google Maps:", err);
+    console.error("Erro na captura de horÃ¡rios do Google Maps:", err);
     try { await removeTabWithRetry(tabId); } catch (_) {}
     return { success: false, error: err.message };
   }
@@ -2714,89 +3173,172 @@ async function handleSearchGoogleForMenu(query) {
   const tabId = tab.id;
   
   try {
-    await new Promise((resolve, reject) => {
-      let tries = 0;
-      const checkStatus = () => {
-        chrome.tabs.get(tabId, (currentTab) => {
-          if (chrome.runtime.lastError) {
-            reject(new Error("A aba foi fechada prematuramente."));
-            return;
-          }
-          if (currentTab.status === 'complete') {
-            resolve();
-          } else {
-            tries++;
-            if (tries > 30) {
-              reject(new Error("Tempo limite na busca do Google."));
-            } else {
-              setTimeout(checkStatus, 500);
-            }
-          }
-        });
-      };
-      setTimeout(checkStatus, 1000);
-    });
+    await waitForTabToComplete(tabId, 45000).catch(() => {});
+    await new Promise(resolve => setTimeout(resolve, 1200));
 
     const results = await chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      func: () => {
-        const anchors = Array.from(document.querySelectorAll('#search a'));
+      target: { tabId },
+      func: (searchQuery) => {
+        const anchors = Array.from(document.querySelectorAll('#search a, a[href]'));
         const menuKeywords = [
           'goomer.app', 'pedir.to', 'ola.click', 'cardapio.menu', 'delivery',
           'menudigital', 'instamenu', 'abrahahot', 'tagme.com.br', 'wa.me',
-          'api.whatsapp', 'cardapiomenu', 'comutat', 'cardapio', 'menu'
+          'api.whatsapp', 'cardapiomenu', 'comutat', 'cardapio', 'menu',
+          'saipos.com', 'livemenu.app', 'anota.ai', 'ifood.com.br', 'aiqfome',
+          'deliverymuch', 'menudino', 'olaclick'
         ];
-        
+        const blocked = ['google.com', 'instagram.com', 'facebook.com', 'youtube.com', 'tiktok.com', 'tripadvisor.', 'reclameaqui.', 'wikipedia.org'];
+        const normalize = value => String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ' ');
+        const queryTokens = normalize(searchQuery).split(/[^a-z0-9]+/).filter(token => token.length >= 4 && !['cardapio','menu','restaurante','delivery','pedido','oficial'].includes(token));
+        const candidates = [];
+
         for (const a of anchors) {
           if (!a.href) continue;
-          const href = a.href.toLowerCase();
-          const text = (a.innerText || a.textContent || '').toLowerCase();
-          
-          if (href.includes('google.com')) continue;
-          
+          let url = a.href;
+          try {
+            const parsed = new URL(url);
+            const wrapped = parsed.searchParams.get('url') || parsed.searchParams.get('q');
+            if (parsed.hostname.includes('google.') && wrapped && /^https?:\/\//i.test(wrapped)) url = wrapped;
+          } catch (_) {}
+          const href = url.toLowerCase();
+          if (blocked.some(domain => href.includes(domain))) continue;
+          const label = (a.innerText || a.textContent || '').replace(/\s+/g, ' ').trim();
+          const haystack = normalize(`${href} ${label}`);
+
+          let score = 0;
+          const reasons = ['google_search'];
           for (const kw of menuKeywords) {
-            if (href.includes(kw) || text.includes(kw)) {
-              return a.href;
-            }
+            if (haystack.includes(normalize(kw))) { score += 35; reasons.push(`kw:${kw}`); }
           }
-        }
-        
-        for (const a of anchors) {
-          if (!a.href) continue;
-          const href = a.href.toLowerCase();
-          if (!href.includes('google.com') && !href.includes('instagram.com') && !href.includes('facebook.com')) {
-            return a.href;
+          for (const token of queryTokens) {
+            if (haystack.includes(token)) score += 8;
           }
+          if (/card[aá]pio|menu|pedido|delivery|pe[çc]a|comprar|loja/.test(haystack)) score += 25;
+          if (score <= 0 && candidates.length < 5) score = 3;
+          if (score > 0) candidates.push({ url, label: label || url, score, reasons });
         }
-        return null;
-      }
+
+        return candidates
+          .filter((candidate, index, list) => list.findIndex(other => other.url === candidate.url) === index)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
+      },
+      args: [query]
     });
 
-    const foundUrl = results && results[0] && results[0].result;
-    if (foundUrl) {
-      return { success: true, url: foundUrl };
-    } else {
-      return { success: false, error: "Nenhum link de cardápio encontrado." };
+    const candidates = results?.[0]?.result || [];
+    if (candidates.length > 0) {
+      return { success: true, url: candidates[0].url, candidates };
     }
+    return { success: false, error: "Nenhum link de cardápio encontrado.", candidates: [] };
   } catch (err) {
     console.error("Erro na busca de cardápio:", err);
     return { success: false, error: err.message };
   } finally {
-    try {
-      await removeTabWithRetry(tabId);
-    } catch(e) {}
+    try { await removeTabWithRetry(tabId); } catch(e) {}
   }
 }
 
 
-
+async function handleInstagramMenuLinkDiscovery(instagramUrl, restaurantName, city, neighborhood) {
+  let tabId;
+  const normalize = value => String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+  const compactCity = normalize(city).replace(/\s+/g, '');
+  const targetCity = normalize(city);
+  const targetNeighborhood = normalize(neighborhood);
+  const cleanUrl = raw => {
+    let current = String(raw || '');
+    try {
+      for (let i = 0; i < 4; i++) {
+        const parsed = new URL(current);
+        const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+        const wrapped = parsed.searchParams.get('u') || parsed.searchParams.get('url') || parsed.searchParams.get('redirect_uri');
+        if (!wrapped || !/(instagram\.com|facebook\.com|l\.instagram\.com)$/i.test(host)) break;
+        current = decodeURIComponent(wrapped);
+      }
+    } catch (_) {}
+    return current;
+  };
+  const isSafeCandidate = raw => {
+    try {
+      const parsed = new URL(raw);
+      const host = parsed.hostname.toLowerCase();
+      if (['instagram.com','facebook.com','threads.net','threads.com','tiktok.com','x.com','twitter.com','youtube.com'].some(domain => host === domain || host.endsWith('.' + domain))) return false;
+      return /^https?:$/.test(parsed.protocol);
+    } catch (_) { return false; }
+  };
+  const rank = candidates => {
+    const menuWords = ['cardapio','cardÃ¡pio','menu','pedido','pedir','delivery','comprar'];
+    const domains = ['saipos.com','anota.ai','goomer.app','goomer.com.br','livemenu.app','ola.click','ola.menu','cardapio','menu'];
+    const dedup = [];
+    for (const candidate of candidates) {
+      const url = cleanUrl(candidate.url);
+      if (!url || !isSafeCandidate(url)) continue;
+      if (!dedup.some(item => item.url === url)) dedup.push({ ...candidate, url });
+    }
+    const ranked = dedup.map((candidate, index) => {
+      const label = normalize(candidate.label);
+      const url = normalize(candidate.url);
+      let score = 0;
+      const reasons = [];
+      if (targetCity && label.includes(targetCity)) { score += 120; reasons.push('label_city'); }
+      if (compactCity && url.includes(compactCity)) { score += 90; reasons.push('url_city'); }
+      if (targetNeighborhood && (label.includes(targetNeighborhood) || url.includes(targetNeighborhood.replace(/\s+/g, '')))) { score += 35; reasons.push('neighborhood'); }
+      if (menuWords.some(word => label.includes(normalize(word)))) { score += 25; reasons.push('menu_label'); }
+      if (domains.some(domain => url.includes(domain))) { score += 25; reasons.push('delivery_domain'); }
+      return { ...candidate, index, score, reasons };
+    }).sort((a,b) => b.score - a.score);
+    const top = ranked[0];
+    if (!top) return { success: false, error: 'Nenhum candidato de cardÃ¡pio encontrado.', candidates: [] };
+    const confidence = top.score >= 100 ? 0.95 : top.score >= 60 ? 0.82 : 0.55;
+    return { success: confidence >= 0.8, sourceUrl: top.url, sourceLabel: top.label, confidence, candidates: ranked.slice(0, 8), error: confidence >= 0.8 ? undefined : 'Candidato com baixa confianÃ§a.' };
+  };
+  try {
+    const tab = await createTabWithRetry({ url: instagramUrl, active: true });
+    tabId = tab.id;
+    await waitForTabToComplete(tabId, 45000).catch(() => {});
+    await new Promise(resolve => setTimeout(resolve, 1800));
+    const injected = await chrome.scripting.executeScript({
+      target: { tabId },
+      func: targetCity => {
+        const textOf = node => String(node?.innerText || node?.textContent || node?.getAttribute?.('aria-label') || node?.title || '').replace(/\s+/g, ' ').trim();
+        const bestLabel = a => {
+          const parts = [];
+          const push = value => { const text = String(value || '').replace(/\s+/g, ' ').trim(); if (text && text.length <= 280 && !parts.includes(text)) parts.push(text); };
+          push(textOf(a));
+          let node = a.parentElement;
+          for (let depth = 0; node && node !== document.body && depth < 6; depth++, node = node.parentElement) {
+            push(textOf(node));
+            for (const sibling of Array.from(node.parentElement?.children || []).slice(0, 8)) push(textOf(sibling));
+          }
+          const city = String(targetCity || '').toLowerCase();
+          return parts.sort((x,y) => (y.toLowerCase().includes(city) ? 1 : 0) - (x.toLowerCase().includes(city) ? 1 : 0))[0] || '';
+        };
+        const collect = root => Array.from(root.querySelectorAll('a[href]')).map(a => ({ url: a.href, label: bestLabel(a) }));
+        let candidates = collect(document);
+        const buttons = Array.from(document.querySelectorAll('button,[role="button"],a,div,span')).filter(el => /links?|e mais|and \d+ more/i.test(textOf(el))).slice(0, 5);
+        for (const btn of buttons) { try { btn.click(); } catch (_) {} }
+        return new Promise(resolve => setTimeout(() => {
+          const dialogs = Array.from(document.querySelectorAll('div[role="dialog"], [aria-modal="true"]'));
+          for (const dialog of dialogs) candidates = candidates.concat(collect(dialog));
+          resolve(candidates);
+        }, 1400));
+      },
+      args: [city || '']
+    });
+    const candidates = injected?.[0]?.result || [];
+    return rank(candidates);
+  } finally {
+    if (tabId !== undefined) try { await removeTabWithRetry(tabId); } catch (_) {}
+  }
+}
 
 async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city, neighborhood, sender) {
-  console.log('[Extension] Iniciando fluxo completo de cardápio via Instagram:', instagramUrl, 'City:', city, 'Neighborhood:', neighborhood);
+  console.log('[Extension] Iniciando fluxo completo de cardÃ¡pio via Instagram:', instagramUrl, 'City:', city, 'Neighborhood:', neighborhood);
   
   let tabId;
   try {
-    const tab = await createTabWithRetry({ url: instagramUrl, active: false });
+    const tab = await createTabWithRetry({ url: instagramUrl, active: true });
     tabId = tab.id;
     
     await waitForTabToComplete(tabId);
@@ -2805,6 +3347,9 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
     let bioLink = await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: async (targetCity, targetNeighborhood) => {
+        const pageText = (document.body?.innerText || '').toLowerCase();
+        const loginRequired = !!document.querySelector('input[name="username"], input[name="password"]') || /log in|entrar no instagram|faÃ§a login|entre para continuar/i.test(pageText.slice(0, 5000));
+        if (loginRequired) return { requiresHuman: true, blocker: 'instagram_login', message: 'FaÃ§a login no Instagram na aba aberta para liberar os links da bio.' };
         return new Promise((resolve) => {
           const deliveryDomains = [
             'saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'linktr.ee', 
@@ -2820,12 +3365,14 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
           const cleanUrl = (url) => {
             if (!url) return '';
             let cleaned = url;
-            if (cleaned.includes('l.instagram.com/?u=')) {
-              try {
-                const urlParams = new URL(cleaned).searchParams;
-                cleaned = decodeURIComponent(urlParams.get('u') || cleaned);
-              } catch (e) {}
-            }
+            try {
+              for (let pass = 0; pass < 3; pass++) {
+                const parsed = new URL(cleaned);
+                const redirect = parsed.searchParams.get('u') || parsed.searchParams.get('url') || parsed.searchParams.get('redirect_uri');
+                if (!redirect || !/(?:instagram\.com|facebook\.com)$/i.test(parsed.hostname.replace(/^www\./, ''))) break;
+                cleaned = decodeURIComponent(redirect);
+              }
+            } catch (e) {}
             return cleaned;
           };
 
@@ -2834,7 +3381,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
             try {
               const url = new URL(href);
               const hostname = url.hostname.toLowerCase();
-              if (hostname.includes('instagram.com') || hostname.includes('threads.net') || hostname.includes('facebook.com')) {
+              if (['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com'].some(domain => hostname === domain || hostname.endsWith('.' + domain))) {
                 return false;
               }
               return true;
@@ -2845,10 +3392,28 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
 
           const parseCandidates = (anchors) => {
             const candidates = [];
+            const bestLabelFor = (a) => {
+              const parts = [];
+              const push = value => {
+                const text = String(value || '').replace(/\s+/g, ' ').trim();
+                if (text && text.length <= 260 && !parts.includes(text)) parts.push(text);
+              };
+              push(a.innerText || a.textContent || a.getAttribute('aria-label') || a.title);
+              let node = a.parentElement;
+              for (let depth = 0; node && node !== document.body && depth < 6; depth++, node = node.parentElement) {
+                push(node.innerText || node.textContent || node.getAttribute?.('aria-label'));
+                const siblings = Array.from(node.parentElement?.children || []).slice(0, 8);
+                for (const sibling of siblings) push(sibling.innerText || sibling.textContent || sibling.getAttribute?.('aria-label'));
+              }
+              return parts.sort((left, right) => {
+                const score = text => (normCity && normalize(text).includes(normCity) ? 100 : 0) + (/card[aÃ¡]pio|menu|pedido|delivery/i.test(text) ? 30 : 0) - Math.min(text.length, 180) / 1000;
+                return score(right) - score(left);
+              })[0] || '';
+            };
             for (const a of anchors) {
               const href = cleanUrl(a.href || '');
               if (!href || !isExternalLink(href)) continue;
-              const label = (a.innerText || a.textContent || '').split('\n')[0].trim();
+              const label = bestLabelFor(a);
               if (!candidates.some(c => c.url === href)) {
                 candidates.push({ label, url: href });
               }
@@ -2858,42 +3423,33 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
 
           const findSelectedUrl = (candidates) => {
             if (candidates.length === 0) return null;
-            let matchedLink = null;
-            if (normCity) {
-              if (normNeighborhood) {
-                matchedLink = candidates.find(c => {
-                  const normLabel = normalize(c.label);
-                  const normUrl = normalize(c.url);
-                  return (normLabel.includes(normCity) && normLabel.includes(normNeighborhood)) ||
-                         (normUrl.includes(normCity) && normUrl.includes(normNeighborhood));
-                });
-              }
-              if (!matchedLink) {
-                matchedLink = candidates.find(c => {
-                  const normLabel = normalize(c.label);
-                  const normUrl = normalize(c.url);
-                  return normLabel.includes(normCity) || normUrl.includes(normCity);
-                });
-              }
-            }
-            if (matchedLink) {
-              return matchedLink.url;
-            }
-            const deliveryLink = candidates.find(c => {
-              const urlLower = c.url.toLowerCase();
-              return deliveryDomains.some(domain => urlLower.includes(domain));
-            });
-            if (deliveryLink) {
-              return deliveryLink.url;
-            }
-            return candidates[0].url;
+            const menuWords = ['cardapio', 'cardÃ¡pio', 'menu', 'pedido', 'pedir', 'delivery', 'comprar'];
+            const deliveryDomains = ['saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'livemenu.app', 'ola.click', 'ola.menu', 'cardapio', 'menu'];
+            const ranked = candidates.map((candidate, index) => {
+              const label = normalize(candidate.label);
+              const url = normalize(candidate.url);
+              let score = 0;
+              const reasons = [];
+              if (normCity && label.includes(normCity)) { score += 100; reasons.push('label_city'); }
+              else if (normCity && url.includes(normCity.replace(/\s+/g, ''))) { score += 75; reasons.push('url_city'); }
+              if (normNeighborhood && (label.includes(normNeighborhood) || url.includes(normNeighborhood.replace(/\s+/g, '')))) { score += 30; reasons.push('neighborhood'); }
+              if (menuWords.some(word => label.includes(normalize(word)))) { score += 25; reasons.push('menu_label'); }
+              if (deliveryDomains.some(domain => url.includes(domain))) { score += 20; reasons.push('delivery_domain'); }
+              return { ...candidate, index, score, reasons };
+            }).sort((a, b) => b.score - a.score);
+            const top = ranked[0];
+            const gap = top.score - (ranked[1]?.score || 0);
+            const confidence = top.score >= 100 && gap >= 30 ? 0.99 : top.score >= 70 && gap >= 20 ? 0.9 : top.score >= 45 && gap >= 15 ? 0.85 : 0.5;
+            const compactCandidates = ranked.map(({ index, label, url, score, reasons }) => ({ index, label, url, score, reasons }));
+            return { url: top.url, label: top.label, confidence, requiresAi: compactCandidates.length > 1 && confidence < 0.85, candidates: compactCandidates, profileContext: (document.querySelector('header')?.innerText || '').slice(0, 2000) };
           };
 
           const findMultipleLinksButton = () => {
-            const elements = Array.from(document.querySelectorAll('button, div, span, a'));
+            const elements = [...document.querySelectorAll('button, [role="button"], a'), ...document.querySelectorAll('div, span')];
             for (const el of elements) {
               const text = (el.textContent || '').trim();
-              const hasMoreText = /and \d+ more/i.test(text) || /e mais \d+/i.test(text);
+              if (!text || text.length > 220) continue;
+              const hasMoreText = /and \d+ more/i.test(text) || /e mais \d+/i.test(text) || /^links?$/i.test(text);
               if (!hasMoreText) continue;
               
               const hasLinkText = text.toLowerCase().includes('link');
@@ -2967,10 +3523,12 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               const dialog = document.querySelector('div[role="dialog"]');
               if (dialog) {
                 obs.disconnect();
-                const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
-                const selectedUrl = findSelectedUrl(candidates);
-                closeDialog(dialog);
-                resolve(selectedUrl);
+                setTimeout(() => {
+                  const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
+                  const selectedUrl = findSelectedUrl(candidates);
+                  closeDialog(dialog);
+                  resolve(selectedUrl);
+                }, 800);
               }
             });
 
@@ -3001,13 +3559,46 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
       args: [city, neighborhood]
     });
     
-    let externalUrl = bioLink && bioLink[0] && bioLink[0].result;
-    
-    if (!externalUrl) {
-      await removeTabWithRetry(tabId);
-      return { success: false, error: 'Nenhum link de cardápio encontrado na Bio do Instagram.' };
+    const discovery = bioLink && bioLink[0] && bioLink[0].result;
+    if (discovery?.requiresHuman) {
+      await updateTabWithRetry(tabId, { active: true });
+      return { success: false, requiresHuman: true, blocker: discovery.blocker, error: discovery.message, tabId };
     }
-    
+    if (!discovery) {
+      await updateTabWithRetry(tabId, { active: true });
+      return { success: false, requiresHuman: true, blocker: 'instagram_links_unavailable', error: 'Links da bio indisponÃ­veis. Verifique a sessÃ£o do Instagram na aba aberta.', tabId };
+    }
+
+    let decision = discovery;
+    if (decision.requiresAi && decision.candidates?.length) {
+      try {
+        const origin = sender?.url ? new URL(sender.url).origin : '';
+        if (origin && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) {
+          const response = await fetch(origin + '/api/local-collector/ai-chat', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              systemContext: 'Escolha o link de cardÃ¡pio correspondente Ã  cidade. Nunca escolha redes sociais. Responda SOMENTE JSON: {"selected_index":numero,"confidence":0_a_1,"reason":"curto"}.',
+              message: JSON.stringify({ restaurantName, city, neighborhood, profileContext: decision.profileContext || '', candidates: decision.candidates })
+            })
+          });
+          const payload = await response.json();
+          const jsonMatch = String(payload.reply || '').match(/\{[\s\S]*\}/);
+          const parsed = JSON.parse(jsonMatch?.[0] || '{}');
+          const selected = decision.candidates.find(candidate => candidate.index === Number(parsed.selected_index));
+          if (selected && Number(parsed.confidence) >= 0.8) decision = { ...selected, confidence: Number(parsed.confidence), reason: parsed.reason, requiresAi: false };
+        }
+      } catch (error) {
+        console.warn('[Extension] Ãrbitro textual indisponÃ­vel:', error.message);
+      }
+    }
+    if (decision.requiresAi || !decision.url) {
+      await updateTabWithRetry(tabId, { active: true });
+      return { success: false, requiresHuman: true, blocker: 'ambiguous_menu_links', candidates: decision.candidates, error: 'NÃ£o foi possÃ­vel escolher o cardÃ¡pio com confianÃ§a suficiente.', tabId };
+    }
+    let externalUrl = decision.url;
+    const sourceLabel = decision.label || '';
+    const selectionConfidence = Number(decision.confidence || 0);
+
     console.log('[Extension] Link encontrado na bio:', externalUrl);
     
     if (externalUrl.includes('l.instagram.com/?u=')) {
@@ -3020,14 +3611,18 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
     await updateTabWithRetry(tabId, { url: externalUrl });
     await waitForTabToComplete(tabId);
     await new Promise(r => setTimeout(r, 1000));
+    try {
+      const resolvedTab = await chrome.tabs.get(tabId);
+      if (resolvedTab?.url && /^https?:\/\//i.test(resolvedTab.url)) externalUrl = resolvedTab.url;
+    } catch (_) {}
     
     if (externalUrl.includes('linktr.ee') || externalUrl.includes('bio.link') || externalUrl.includes('linktree')) {
-      console.log('[Extension] Linktree detectado. Procurando botão...');
+      console.log('[Extension] Linktree detectado. Procurando botÃ£o...');
       let nextLink = await chrome.scripting.executeScript({
         target: { tabId: tabId },
         func: () => {
           const anchors = Array.from(document.querySelectorAll('a'));
-          const keywords = ['cardapio', 'cardápio', 'menu', 'pedido', 'pedir', 'ifood', 'delivery', 'comprar'];
+          const keywords = ['cardapio', 'cardÃ¡pio', 'menu', 'pedido', 'pedir', 'ifood', 'delivery', 'comprar'];
           for (const a of anchors) {
             const text = (a.innerText || a.textContent || '').toLowerCase();
             const href = (a.href || '').toLowerCase();
@@ -3038,17 +3633,17 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
       });
       let targetUrl = nextLink && nextLink[0] && nextLink[0].result;
       if (targetUrl) {
-        console.log('[Extension] Botão de delivery encontrado no Linktree:', targetUrl);
+        console.log('[Extension] BotÃ£o de delivery encontrado no Linktree:', targetUrl);
         await updateTabWithRetry(tabId, { url: targetUrl });
         await waitForTabToComplete(tabId);
         await new Promise(r => setTimeout(r, 1000));
       } else {
         await removeTabWithRetry(tabId);
-        return { success: false, error: 'Nenhum botão de cardápio encontrado no Linktree.' };
+        return { success: false, error: 'Nenhum botÃ£o de cardÃ¡pio encontrado no Linktree.' };
       }
     }
     
-    console.log('[Extension] Na página do cardápio. Aplicando auto-clicker agressivo...');
+    console.log('[Extension] Na pÃ¡gina do cardÃ¡pio. Expandindo categorias de forma conservadora...');
     await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: () => {
@@ -3058,13 +3653,6 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
           '[class*="group-header"]', '[class*="MenuHeader"]'
         ].join(', ');
         document.querySelectorAll(selectors).forEach(el => { try { if(el.getAttribute('aria-expanded') !== 'true') el.click(); } catch(e){} });
-        const clickables = document.querySelectorAll('div, span, li, button');
-        for (let el of clickables) {
-          try {
-            const style = window.getComputedStyle(el);
-            if (style.cursor === 'pointer' && !el.closest('a') && !el.closest('button[type="submit"]')) el.click();
-          } catch(e) {}
-        }
         window.scrollTo(0, document.body.scrollHeight);
       }
     });
@@ -3084,7 +3672,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
             const parsedMenu = parseAnotaAiMenu(json);
             if (parsedMenu) {
               await removeTabWithRetry(tabId);
-              return { success: true, parsedMenu };
+              return { success: true, parsedMenu, sourceUrl: externalUrl, sourceLabel, selectionConfidence, discoveryMethod: 'instagram_bio_city_match' };
             }
           }
         }
@@ -3096,8 +3684,15 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
       func: () => document.body.innerText
     });
     
+    const rawText = domText && domText[0] && domText[0].result || '';
+    const priceMatches = rawText.match(/(?:R\$\s*)?\d{1,4}[.,]\d{2}/g) || [];
+    const socialDestination = /(?:instagram|threads|facebook|tiktok|twitter|youtube)\.com/i.test(externalUrl);
+    if (socialDestination || rawText.length < 200 || priceMatches.length < 3) {
+      await updateTabWithRetry(tabId, { active: true });
+      return { success: false, requiresHuman: true, blocker: 'invalid_menu_destination', sourceUrl: externalUrl, error: 'O destino escolhido nÃ£o foi confirmado como cardÃ¡pio.', tabId };
+    }
     await removeTabWithRetry(tabId);
-    return { success: true, rawText: domText && domText[0] && domText[0].result };
+    return { success: true, rawText, sourceUrl: externalUrl, sourceLabel, selectionConfidence, discoveryMethod: 'instagram_bio_city_match' };
     
   } catch (err) {
     console.error('Erro no handleMenuScrapeFromInstagram:', err);

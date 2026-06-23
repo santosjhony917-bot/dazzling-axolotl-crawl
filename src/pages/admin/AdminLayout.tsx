@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Home, Utensils, BookOpen, Users, LogOut, Settings, Crown, Loader2, Megaphone, MapPin } from 'lucide-react';
+import { Home, LogOut, Settings, Crown, Loader2, Megaphone, MapPin, Search } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -18,6 +18,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { name: 'Dashboard', icon: Home, pathKey: 'adminDashboard' },
   { name: 'Projetos de Expansão', icon: MapPin, pathKey: 'adminExpansion' },
+  { name: 'Coletor e Validação IA', icon: Search, pathKey: 'adminCollector' },
   { name: 'Gerenciar Planos', icon: Crown, pathKey: 'adminPlans' },
   { name: 'CRM & Vendas IA', icon: Megaphone, pathKey: 'adminCrm' },
   { name: 'Estratégia e Regras', icon: Settings, pathKey: 'adminSettings' },

@@ -29,7 +29,7 @@ const HighlightCard: React.FC<HighlightCardProps> = ({ item }) => {
           {item.restaurantName}
         </p>
         <p className="text-accent text-lg font-bold leading-tight mt-2">
-          R$ {item.price.toFixed(2).replace('.', ',')}
+          {item.price != null ? `R$ ${item.price.toFixed(2).replace('.', ',')}` : 'Preço sob consulta'}
         </p>
       </div>
     </div>

@@ -49,6 +49,7 @@ import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsP
 import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
+import GoogleMapsCollector from '@/pages/admin/GoogleMapsCollector';
 
 // Novas Rotas de Expansão (City-Centric)
 import ExpansionHub from '@/pages/admin/expansion/ExpansionHub';
@@ -118,6 +119,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRole="admin" element={<AdminLayout />} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/expansion" element={<ExpansionHub />} />
+          <Route path="/admin/collector" element={<GoogleMapsCollector />} />
           <Route path="/admin/expansion/:cityId" element={<CityDashboard />} />
         </Route>
         {/* Redirecionamento de Rotas Legadas da Área do Restaurante para as Rotas Unificadas */}

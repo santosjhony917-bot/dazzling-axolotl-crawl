@@ -43,6 +43,7 @@ export const PATH_MAP = {
   adminLogin: '/admin/login',
   adminDashboard: '/admin/dashboard',
   adminExpansion: '/admin/expansion',
+  adminCollector: '/admin/collector',
   adminCityDashboard: '/admin/expansion/:cityId',  
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',

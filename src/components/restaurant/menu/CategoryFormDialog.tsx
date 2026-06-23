@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 // Define the schema for form validation
 const categorySchema = z.object({
@@ -16,6 +17,7 @@ const categorySchema = z.object({
   is_active: z.boolean().default(true),
   is_popular: z.boolean().default(false), // Adicionado is_popular
   order_index: z.number().optional(),
+  section_name: z.string().optional(),
 });
 
 export type CategoryFormValues = z.infer<typeof categorySchema>;
@@ -30,6 +32,7 @@ interface CategoryFormDialogProps {
 }
 
 export default function CategoryFormDialog({ isOpen, onClose, initialData, onSave, isLoading }: CategoryFormDialogProps) {
+  const [sections, setSections] = React.useState<{ id: string; name: string }[]>([]);
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
@@ -37,19 +40,33 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
       is_active: initialData?.is_active ?? true,
       is_popular: initialData?.is_popular ?? false, // Definindo valor padrão para is_popular
       order_index: initialData?.order_index ?? 0,
+      section_name: '',
     },
   });
 
   React.useEffect(() => {
     if (isOpen) {
+      supabase
+        .from('menu_sections')
+        .select('id,name')
+        .eq('restaurant_id', restaurantId)
+        .order('order_index')
+        .then(({ data }) => setSections((data || []) as { id: string; name: string }[]));
       form.reset({
         name: initialData?.name || '',
         is_active: initialData?.is_active ?? true,
         is_popular: initialData?.is_popular ?? false, // Resetando is_popular
         order_index: initialData?.order_index ?? 0,
+        section_name: '',
       });
     }
-  }, [isOpen, initialData, form]);
+  }, [isOpen, initialData, form, restaurantId]);
+
+  React.useEffect(() => {
+    if (!isOpen || !initialData?.section_id || !sections.length) return;
+    const section = sections.find(item => item.id === initialData.section_id);
+    if (section) form.setValue('section_name', section.name);
+  }, [isOpen, initialData?.section_id, sections, form]);
 
   const onSubmit = async (data: CategoryFormValues) => {
     await onSave(data);
@@ -74,6 +91,24 @@ export default function CategoryFormDialog({ isOpen, onClose, initialData, onSav
               className="h-10 rounded-lg"
             />
             {form.formState.errors.name && <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>}
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="section_name">Menu principal / Seção (opcional)</Label>
+            <Input
+              id="section_name"
+              list="menu-section-options"
+              placeholder="Ex: Menu do Chefe, Menu à La Carte, Sobremesas"
+              {...form.register('section_name')}
+              disabled={isSubmitting}
+              className="h-10 rounded-lg"
+            />
+            <datalist id="menu-section-options">
+              {sections.map(section => <option key={section.id} value={section.name} />)}
+            </datalist>
+            <p className="text-xs text-muted-foreground">
+              Use quando o cardápio tem abas principais e subcategorias. Ex: Menu do Chefe &gt; NA BRASA.
+            </p>
           </div>
 
           <div className="flex items-center justify-between space-x-2 rounded-lg border p-3">

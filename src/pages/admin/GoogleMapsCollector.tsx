@@ -8,12 +8,14 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Search, PlusCircle, Check, Loader2, Compass, AlertCircle, ChevronLeft, ChevronRight, Trash2, Pencil, Globe, Clock, Instagram as InstagramIcon, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { RestaurantDetailsDialog } from '@/components/admin/RestaurantDetailsDialog';
+import { MenuImportReview } from '@/components/admin/MenuImportReview';
 import { showSuccess, showError } from '@/utils/toast';
 import { cleanRestaurantName } from '@/utils/formatters';
 import { WeekSchedule } from '@/types/schedule';
 import { supabase } from '@/integrations/supabase/client';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { geocodeAddress } from '@/services/geocoding';
+import { MAPS_COLLECTION_SCAN_ROUNDS } from '@/utils/expansionCollection';
 
 interface ScrapedRestaurant {
   id: string;
@@ -577,46 +579,33 @@ const extractCoordsFromUrl = (url: string) => {
 };
 
 const getImportValidationError = (r: ScrapedRestaurant): string | null => {
-  const phone = r.phone || '';
-  const cleanPhone = phone.replace(/\D/g, '');
-  if (!phone.trim() || phone.toLowerCase().includes('sem telefone') || phone.toLowerCase().includes('nao informado') || cleanPhone.length < 8) {
-    return 'Número de telefone inválido ou ausente.';
+  if (!r.googleMapsUrl || !/^https?:\/\//i.test(r.googleMapsUrl)) {
+    return 'Link do Google Maps ausente. A Fase 1 deve salvar pelo menos esse link.';
   }
-  
-  const cep = r.cep || '';
-  const cleanCep = cep.replace(/\D/g, '');
-  if (!cep.trim() || cleanCep.length !== 8) {
-    return 'CEP inválido ou ausente (deve conter 8 dígitos).';
-  }
-
-  const address = r.address || '';
-  const neighborhood = r.neighborhood || '';
-  if (!address.trim()) {
-    return 'O endereço (rua) é obrigatório.';
-  }
-  if (address.toLowerCase() === 's/n' || address.toLowerCase() === 'sem numero') {
-    return 'O nome da rua é inválido.';
-  }
-  if (neighborhood.trim() && address.trim().toLowerCase() === neighborhood.trim().toLowerCase()) {
-    return 'O endereço não pode ser idêntico ao bairro.';
-  }
-
-  let lat = r.latitude;
-  let lng = r.longitude;
-  if ((lat === null || lat === undefined || lat === 0) && r.googleMapsUrl) {
-    const coords = extractCoordsFromUrl(r.googleMapsUrl);
-    if (coords) {
-      lat = coords.lat;
-      lng = coords.lng;
-    }
-  }
-
-  if (!lat || !lng || lat === 0 || lng === 0) {
-    return 'Coordenadas geográficas inválidas ou não encontradas.';
-  }
-
   return null;
 };
+
+const buildPhase1MapsLeadPayload = (restaurant: ScrapedRestaurant, defaultPlan: string) => ({
+  id: restaurant.id,
+  name: restaurant.name || 'Pendente Google Maps',
+  plan: defaultPlan as any,
+  phone: null,
+  category: restaurant.category || 'Pendente validação',
+  address: null,
+  number: null,
+  neighborhood: restaurant.neighborhood || null,
+  city: restaurant.city || null,
+  state: restaurant.state || null,
+  claim_code: 'CLAIM-' + String(restaurant.id || Date.now()).substring(0, 5).toUpperCase(),
+  is_published: false,
+  ai_validated: false,
+  visit_notes: `Google Maps: ${restaurant.googleMapsUrl}\nFase 1: somente link do Maps. Validar IA deve enriquecer dados, classificar elegibilidade e coletar cardápio.`,
+  other_url: null,
+  external_url: null,
+  ifood_url: null,
+  google_maps_url: restaurant.googleMapsUrl || null,
+  menu_status: 'unknown'
+});
 
 const cleanCityName = (cityName?: string) => {
   if (!cityName) return '';
@@ -721,6 +710,7 @@ export default function GoogleMapsCollector() {
   } | null>(null);
   const [hasSavedScan, setHasSavedScan] = useState(false);
   const [editingRestaurant, setEditingRestaurant] = useState<ScrapedRestaurant | null>(null);
+  const [menuReviewRestaurant, setMenuReviewRestaurant] = useState<ScrapedRestaurant | null>(null);
   const [loadingRebusca, setLoadingRebusca] = useState<Record<string, boolean>>({});
   const [isValidatingAll, setIsValidatingAll] = useState(false);
   const cancelValidationAllRef = useRef(false);
@@ -766,6 +756,34 @@ export default function GoogleMapsCollector() {
   const [isExtensionActive, setIsExtensionActive] = useState(false);
   const [userGeminiKey, setUserGeminiKey] = useState(() => localStorage.getItem('user_gemini_key') || '');
   const [userOpenaiKey, setUserOpenaiKey] = useState(() => localStorage.getItem('user_openai_key') || '');
+
+  const sendExtensionMessage = (message: Record<string, any>, timeoutMs = 120000) => new Promise<any>((resolve) => {
+    const chromeObj = (window as any).chrome;
+    if (!extensionId || !chromeObj?.runtime?.sendMessage) {
+      resolve({ success: false, error: 'Extensão não configurada ou API do Chrome indisponível.' });
+      return;
+    }
+    let settled = false;
+    const timer = window.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      resolve({ success: false, error: 'Tempo limite aguardando resposta da extensão.' });
+    }, timeoutMs);
+    try {
+      chromeObj.runtime.sendMessage(extensionId, message, (response: any) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timer);
+        if (chromeObj.runtime.lastError) resolve({ success: false, error: chromeObj.runtime.lastError.message });
+        else resolve(response || { success: false, error: 'A extensão não respondeu.' });
+      });
+    } catch (error: any) {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      resolve({ success: false, error: error.message });
+    }
+  });
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -1253,19 +1271,47 @@ export default function GoogleMapsCollector() {
         // ═══════════════════════════════════════════════════════════════
         showSuccess('🍽️ PASSO 5/5: Extraindo cardápio (Instagram → Google Maps)...');
         try {
+          let menuEvidence: any = null;
+          const menuAuditUrl = updatedRest?.other_url || updatedRest?.external_url || rest?.menuSourceUrl || rest?.website;
+          if (isExtensionActive && extensionId && menuAuditUrl) {
+            showSuccess('🔎 Auditando cardápio com scraper local antes da IA...');
+            try {
+              const sendExtensionAction = (action: string) => new Promise<any>((resolve) => {
+                const chromeObj = (window as any).chrome;
+                chromeObj.runtime.sendMessage(extensionId, { action, url: menuAuditUrl }, (response: any) => {
+                  if (chromeObj.runtime.lastError) resolve(null);
+                  else resolve(response || null);
+                });
+              });
+              const platformResult = await sendExtensionAction('extractMenuPlatform');
+              menuEvidence = platformResult?.success ? platformResult : await sendExtensionAction('auditMenuHybrid');
+              if (platformResult?.success) {
+                showSuccess(`⚡ Cardápio estruturado coletado diretamente da plataforma ${platformResult.platform}.`);
+              }
+            } catch (auditError) {
+              console.warn('Auditoria híbrida da extensão indisponível:', auditError);
+            }
+          }
+          if (!menuAuditUrl) {
+            throw new Error('Nenhuma URL de cardápio foi encontrada para auditoria pela extensão.');
+          }
+          if (!menuEvidence?.success) {
+            throw new Error(menuEvidence?.error || 'A extensão não retornou evidência válida do cardápio. A aba foi mantida aberta para inspeção.');
+          }
           const menuResp = await fetch('/api/local-collector/extract-menu', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ restaurantId })
+            body: JSON.stringify({ restaurantId, menuEvidence })
           });
           const menuResult = await menuResp.json();
           if (menuResult.success) {
             showSuccess(`✅ Cardápio extraído com sucesso! ${menuResult.message || ''}`);
           } else {
-            showError(`⚠️ Cardápio: ${menuResult.message || 'Nenhum item encontrado nas fontes disponíveis.'}`);
+            throw new Error(menuResult.message || 'Nenhum item encontrado nas fontes disponíveis.');
           }
         } catch (menuErr: any) {
           showError(`⚠️ Erro ao extrair cardápio: ${menuErr.message}`);
+          return false;
         }
 
         // ═══════════════════════════════════════════════════════════════
@@ -1611,13 +1657,17 @@ export default function GoogleMapsCollector() {
         }
       }
 
+      if (field === 'ai-validation') {
+        showError('Extensão inativa. Informe o ID e confirme a conexão antes de usar Validar IA.');
+        return false;
+      }
+
       // LÓGICA ANTIGA PARA OS DEMAIS BOTÕES
       let endpoint = '';
       if (field === 'instagram') endpoint = '/api/local-collector/re-search-social';
       else if (field === 'menu') endpoint = '/api/local-collector/re-search-menu';
       else if (field === 'scrape-menu') endpoint = '/api/local-collector/re-scrape-menu';
       else if (field === 'scrape-logo') endpoint = '/api/local-collector/re-scrape-logo';
-      else if (field === 'ai-validation') endpoint = '/api/local-collector/re-ai-validation'; // Fallback se extensão não ativa
       else endpoint = '/api/local-collector/re-search-hours';
       
       let params = `?restaurantId=${restaurantId}`;
@@ -1824,7 +1874,7 @@ export default function GoogleMapsCollector() {
     const isJampa = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes("joao pessoa");
     const hasDeda = formatted.some(r => r.name.toLowerCase().includes("deda lanches") || r.name.toLowerCase().includes("deda"));
     
-    if (isJampa && !hasDeda) {
+    if (false && isJampa && !hasDeda) {
       formatted.unshift({
         id: 'scraped-joao-pessoa-deda-lanches',
         name: 'Deda Lanches',
@@ -2255,49 +2305,50 @@ export default function GoogleMapsCollector() {
         const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
         if (newImported.get(key) !== 'Visitado') {
           const restaurantId = restaurant.id || `scraped-${key}`;
+          const mapsNotes = restaurant.googleMapsUrl
+            ? `Google Maps: ${restaurant.googleMapsUrl}\nFase 1: somente link do Maps. Validar IA deve enriquecer dados e cardápio.`
+            : 'Fase 1: registro pendente sem link do Google Maps.';
 
           completedMap[restaurantId] = {
             id: restaurantId,
-            name: restaurant.name,
+            name: restaurant.name || 'Pendente Google Maps',
             plan: defaultPlan,
-            phone: restaurant.phone || '',
-            address: restaurant.address || '',
+            phone: '',
+            address: '',
             city: restaurant.city || '',
             state: restaurant.state || '',
-            description: restaurant.category ? `Especialidade em ${restaurant.category}` : '',
-            category: restaurant.category || 'Outros',
-            image_url: restaurant.logo || null,
-            cover_image_url: restaurant.coverImage || null,
-            menu_categories: restaurant.menu_categories || [],
-            gallery_images: restaurant.galleryImages && restaurant.galleryImages.length > 0 
-              ? restaurant.galleryImages.map((url, idx) => ({ id: `mg-${idx}`, image_url: url, caption: 'Foto do Local', order_index: idx }))
-              : [],
-            social_networks: [
-              { platform: 'instagram', url: restaurant.instagram },
-              { platform: 'facebook', url: restaurant.facebook }
-            ].filter(s => s.url),
-            opening_hours: restaurant.openingHours || null,
-            is_published: true,
-            menuSourceUrl: restaurant.menuSourceUrl || '',
+            description: 'Lead importado da Fase 1. Dados oficiais serão preenchidos pelo Validar IA.',
+            category: restaurant.category || 'Pendente validação',
+            image_url: null,
+            cover_image_url: null,
+            menu_categories: [],
+            gallery_images: [],
+            social_networks: [],
+            opening_hours: null,
+            is_published: false,
+            visit_notes: mapsNotes,
+            menuSourceUrl: '',
             googleMapsUrl: restaurant.googleMapsUrl || '',
-            website: restaurant.website || ''
+            google_maps_url: restaurant.googleMapsUrl || '',
+            website: ''
           };
 
           const newRestaurant = {
             id: restaurantId,
-            name: restaurant.name,
+            name: restaurant.name || 'Pendente Google Maps',
             plan: defaultPlan as any,
-            phone: restaurant.phone || '',
-            category: restaurant.category || '',
-            address: restaurant.address || '',
+            phone: '',
+            category: restaurant.category || 'Pendente validação',
+            address: '',
             city: restaurant.city || '',
             state: restaurant.state || '',
             claim_code: 'CLAIM-' + restaurantId.substring(0, 5).toUpperCase(),
-            is_published: true as const,
-            visit_notes: 'Importado diretamente do coletor Google Maps.',
-            menuSourceUrl: restaurant.menuSourceUrl || '',
+            is_published: false as const,
+            visit_notes: mapsNotes,
+            menuSourceUrl: '',
             googleMapsUrl: restaurant.googleMapsUrl || '',
-            website: restaurant.website || ''
+            google_maps_url: restaurant.googleMapsUrl || '',
+            website: ''
           };
 
           fallbackList.unshift(newRestaurant);
@@ -2384,29 +2435,7 @@ export default function GoogleMapsCollector() {
   };
 
   const startFase1 = async () => {
-    try {
-      let url = `/api/local-collector/run-maps?city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}`;
-      if (serverHasSavedState) {
-        const discard = window.confirm(
-          "Detectamos uma coleta anterior incompleta no servidor.\n\n" +
-          "Clique em [OK] para DESCARTAR o progresso antigo e começar uma NOVA busca do zero.\n" +
-          "Clique em [Cancelar] para RETOMAR a coleta anterior de onde parou."
-        );
-        if (discard) {
-          url += '&fresh=true';
-        }
-      }
-
-      const res = await fetch(url, { method: 'POST' });
-      if (res.ok) {
-        showSuccess('Coleta do Google Maps (Fase 1) iniciada!');
-      } else {
-        const err = await res.json();
-        showError(err.error || 'Erro ao iniciar.');
-      }
-    } catch (err) {
-      showError('Servidor local offline.');
-    }
+    await handleSearch();
   };
 
   const startFase2 = async () => {
@@ -2549,19 +2578,9 @@ export default function GoogleMapsCollector() {
     initialLogs: string[]
   ) => {
     setIsLoading(true);
-    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyCR6msFpwGeRVDXt-z2_LxeYiqULJuFfiA';
+    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || '';
     const reviewsLimit = parseInt(minReviews, 10);
-    const SCAN_ROUNDS = [
-      { label: 'Nearby Types', isNearby: true, query: '' },
-      { label: 'Lanches/Fast Food', isNearby: false,
-        query: 'food truck OR hamburgueria OR lanches OR trailer OR pastelaria OR pizzaria OR cachorro quente OR sanduicheria OR burguer OR salgadaria OR creperia OR tapiocaria OR shawarma OR esfiha OR petiscaria OR batata frita OR caldos OR lanchonete OR chapa OR panificiadora' },
-      { label: 'Refeições/Restaurantes', isNearby: false,
-        query: 'restaurante OR comida caseira OR self-service OR prato feito OR almoço OR jantar OR marmita OR buffet OR churrascaria OR carne na brasa OR frango assado OR peixaria OR frutos do mar OR comida nordestina OR cozinha regional OR comida brasileira OR bar e restaurante OR bistrô OR cantina OR tasca' },
-      { label: 'Café/Sobremesas/Açaí', isNearby: false,
-        query: 'açaí OR sorvete OR café OR cafeteria OR confeitaria OR doceria OR bolos OR brigadeiro OR gelato OR milkshake OR suco OR vitamina OR sucos naturais OR caldo de cana OR tapioca OR crepe doce OR waffle OR frozen OR sorveteria OR ponto de café' },
-      { label: 'Japonesa/Oriental', isNearby: false,
-        query: 'sushi OR temaki OR japonesa OR comida japonesa OR temakeria OR oriental OR comida oriental OR chinesa OR comida chinesa OR yakisoba OR asiática OR comida asiática OR hot roll OR sashimi OR ramen OR lamen OR sushi bar' }
-    ];
+    const SCAN_ROUNDS = MAPS_COLLECTION_SCAN_ROUNDS;
 
     let currentPointIdx = startIndex;
     const seenPlaceIds = new Set(initialSeenIds);
@@ -2895,7 +2914,92 @@ export default function GoogleMapsCollector() {
     setSearchTerm('');
     setDismissedIds(new Set());
 
-    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyCR6msFpwGeRVDXt-z2_LxeYiqULJuFfiA';
+    const runExtensionPhase1 = async () => {
+      if (!isExtensionActive || !extensionId) {
+        throw new Error('Extensão inativa. Configure o ID e confirme conexão antes de iniciar a Fase 1.');
+      }
+      const reviewsLimit = parseInt(minReviews, 10);
+      const cityInfo = getCityInfo(city);
+      const neighborhoods = searchMethod === 'grid'
+        ? cityInfo.neighborhoods.slice(0, gridDensity === 'low' ? 6 : gridDensity === 'medium' ? 10 : gridDensity === 'high' ? 14 : 20)
+        : [''];
+      const baseTerm = customQuery.trim() || 'restaurantes';
+      const gathered: Omit<ScrapedRestaurant, 'id'>[] = [];
+      const seen = new Set<string>();
+      const logs: string[] = [
+        `[SISTEMA] Fase 1 via extensão iniciada em ${city} - ${state}.`,
+        `[SISTEMA] A extensão pesquisará no Google Maps e salvará somente o link do Maps como entrada do Validar IA.`,
+      ];
+      setScanLogs([...logs]);
+
+      for (let idx = 0; idx < neighborhoods.length; idx++) {
+        const neighborhood = neighborhoods[idx];
+        const query = neighborhood
+          ? `${baseTerm} ${neighborhood} ${city} ${state}`
+          : `${baseTerm} em ${city} ${state}`;
+        logs.push(`[BUSCA ${idx + 1}/${neighborhoods.length}] ${query}`);
+        setScanLogs([...logs]);
+
+        const response = await sendExtensionMessage({
+          action: 'searchGoogleMapsLeads',
+          query,
+          city,
+          state,
+          maxResults: searchMethod === 'grid' ? 45 : 80
+        }, 180000);
+
+        if (!response?.success || !Array.isArray(response.leads)) {
+          logs.push(`[WARN] Busca sem resultados úteis: ${response?.error || 'sem motivo informado'}.`);
+          setScanLogs([...logs]);
+          continue;
+        }
+
+        for (const lead of response.leads) {
+          const key = String(lead.googleMapsUrl || lead.name || '').replace(/[?#].*$/, '').toLowerCase();
+          if (!key || seen.has(key)) continue;
+          seen.add(key);
+          gathered.push({
+            name: lead.name || 'Pendente Google Maps',
+            category: lead.category || 'Pendente validação',
+            rating: Number(lead.rating || 0),
+            reviewsCount: Number(lead.reviewsCount || 0),
+            address: lead.address || '',
+            phone: '',
+            city: lead.city || city,
+            state: lead.state || state,
+            googleMapsUrl: lead.googleMapsUrl || '',
+            menuSourceUrl: '',
+            website: '',
+            instagram: '',
+            facebook: '',
+            galleryImages: [],
+            openingHours: undefined
+          });
+        }
+        logs.push(`[OK] ${response.leads.length} candidato(s), ${gathered.length} único(s) acumulado(s).`);
+        setScanLogs([...logs]);
+        processAndSetResults(gathered, reviewsLimit);
+        await new Promise(resolve => setTimeout(resolve, 900));
+      }
+
+      processAndSetResults(gathered, reviewsLimit);
+      setCurrentPage(1);
+      logs.push(`[SUCCESS] Fase 1 via extensão concluída: ${gathered.length} lead(s) com link do Maps.`);
+      setScanLogs([...logs]);
+      showSuccess(`Fase 1 concluída via extensão: ${gathered.length} leads com link do Maps.`);
+    };
+
+    try {
+      await runExtensionPhase1();
+    } catch (err: any) {
+      showError(err.message || 'Falha na Fase 1 via extensão.');
+      setScanLogs(prev => [...prev, `[ERRO] ${err.message || err}`]);
+    } finally {
+      setIsLoading(false);
+    }
+    return;
+
+    const apiKey = import.meta.env.VITE_GOOGLE_PLACES_API_KEY || '';
     const reviewsLimit = parseInt(minReviews, 10);
 
     if (searchMethod === 'simple') {
@@ -3036,17 +3140,7 @@ export default function GoogleMapsCollector() {
       }
       const tracePoints = generatedPoints;
       
-      const SCAN_ROUNDS = [
-        { label: 'Nearby Types', isNearby: true, query: '' },
-        { label: 'Lanches/Fast Food', isNearby: false,
-          query: 'food truck OR hamburgueria OR lanches OR trailer OR pastelaria OR pizzaria OR cachorro quente OR sanduicheria OR burguer OR salgadaria OR creperia OR tapiocaria OR shawarma OR esfiha OR petiscaria OR batata frita OR caldos OR lanchonete OR chapa OR panificiadora' },
-        { label: 'Refeições/Restaurantes', isNearby: false,
-          query: 'restaurante OR comida caseira OR self-service OR prato feito OR almoço OR jantar OR marmita OR buffet OR churrascaria OR carne na brasa OR frango assado OR peixaria OR frutos do mar OR comida nordestina OR cozinha regional OR comida brasileira OR bar e restaurante OR bistrô OR cantina OR tasca' },
-        { label: 'Café/Sobremesas/Açaí', isNearby: false,
-          query: 'açaí OR sorvete OR café OR cafeteria OR confeitaria OR doceria OR bolos OR brigadeiro OR gelato OR milkshake OR suco OR vitamina OR sucos naturais OR caldo de cana OR tapioca OR crepe doce OR waffle OR frozen OR sorveteria OR ponto de café' },
-        { label: 'Japonesa/Oriental', isNearby: false,
-          query: 'sushi OR temaki OR japonesa OR comida japonesa OR temakeria OR oriental OR comida oriental OR chinesa OR comida chinesa OR yakisoba OR asiática OR comida asiática OR hot roll OR sashimi OR ramen OR lamen OR sushi bar' }
-      ];
+      const SCAN_ROUNDS = MAPS_COLLECTION_SCAN_ROUNDS;
 
       const startLogs = [
         `[SISTEMA] 🚀 VARREDURA IMPLACÁVEL INICIADA em ${city} - ${state}`,
@@ -3137,17 +3231,21 @@ export default function GoogleMapsCollector() {
 
     try {
       const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
-      const { error } = await supabase
+      const payload = buildPhase1MapsLeadPayload(restaurant, defaultPlan);
+      let { error } = await supabase
         .from('restaurants')
-        .update({ 
-          is_published: true,
-          plan: defaultPlan
-        })
-        .eq('id', restaurant.id);
+        .upsert(payload, { onConflict: 'id' });
+      if (error && /google_maps_url|menu_status/i.test(error.message || '')) {
+        const { google_maps_url, menu_status, ...fallbackPayload } = payload as any;
+        const fallback = await supabase
+          .from('restaurants')
+          .upsert(fallbackPayload, { onConflict: 'id' });
+        error = fallback.error;
+      }
 
       if (error) throw error;
 
-      showSuccess(`"${restaurant.name}" importado e publicado com sucesso!`);
+      showSuccess(`"${restaurant.name}" importado como lead pendente para o Validar IA.`);
       
       const key = getRestaurantUniqueKey(restaurant.name, restaurant.address);
       const newImported = new Map(importedKeys);
@@ -3184,22 +3282,28 @@ export default function GoogleMapsCollector() {
         return;
       }
 
-      const pendingIds = validPending.map(r => r.id);
       const defaultPlan = localStorage.getItem('admin_default_plan_on_import') || 'premium_gift';
-      const { error } = await supabase
+      const payloads = validPending.map(r => buildPhase1MapsLeadPayload(r, defaultPlan));
+      let { error } = await supabase
         .from('restaurants')
-        .update({ 
-          is_published: true,
-          plan: defaultPlan
-        })
-        .in('id', pendingIds);
+        .upsert(payloads, { onConflict: 'id' });
+      if (error && /google_maps_url|menu_status/i.test(error.message || '')) {
+        const fallbackPayloads = payloads.map((payload: any) => {
+          const { google_maps_url, menu_status, ...fallbackPayload } = payload;
+          return fallbackPayload;
+        });
+        const fallback = await supabase
+          .from('restaurants')
+          .upsert(fallbackPayloads, { onConflict: 'id' });
+        error = fallback.error;
+      }
 
       if (error) throw error;
 
       if (invalidCount > 0) {
-        showSuccess(`Sucesso! ${validPending.length} restaurantes importados e publicados! ${invalidCount} restaurante(s) foram ignorados por estarem com endereço, CEP ou telefone incompleto. Edite-os para importar.`);
+        showSuccess(`Sucesso! ${validPending.length} leads importados para o Validar IA. ${invalidCount} item(ns) ignorado(s) por falta de link do Maps.`);
       } else {
-        showSuccess(`Sucesso! ${pendingIds.length} restaurantes importados e publicados!`);
+        showSuccess(`Sucesso! ${validPending.length} leads importados para o Validar IA.`);
       }
       
       const newImported = new Map(importedKeys);
@@ -3354,10 +3458,10 @@ export default function GoogleMapsCollector() {
 
                   <Button 
                     onClick={startFase1} 
-                    disabled={runnerRunning || !runnerConnected}
+                    disabled={isLoading || !isExtensionActive}
                     className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold transition-all shadow-md hover:shadow-indigo-500/20 disabled:opacity-50"
                   >
-                    Iniciar Fase 1 (Google Maps)
+                    Iniciar Fase 1 pela Extensão
                   </Button>
 
                   {runnerRunning && (
@@ -3570,9 +3674,9 @@ export default function GoogleMapsCollector() {
       <Card className="border-none shadow-none bg-transparent">
         <CardHeader className="px-0 pt-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <CardTitle className="text-2xl text-primary font-bold">Coleta Oficial via Google Places API</CardTitle>
+            <CardTitle className="text-2xl text-primary font-bold">Coleta Oficial via Extensão + Google Maps</CardTitle>
             <CardDescription>
-              Varra estabelecimentos de qualquer cidade traçando coordenadas e exporte-os diretamente para o catálogo de restaurantes da plataforma.
+              Varra estabelecimentos por cidade/bairro no navegador visível e envie ao Validar IA somente leads com link do Google Maps.
             </CardDescription>
           </div>
           <div className="flex gap-2">
@@ -3672,14 +3776,14 @@ export default function GoogleMapsCollector() {
             <Button 
               className="w-full h-10 font-bold gap-2 bg-primary hover:bg-primary/90 text-white" 
               onClick={handleSearch}
-              disabled={isLoading || !city || !state || (activeScan !== null && !activeScan.isPaused)}
+              disabled={isLoading || !city || !state || !isExtensionActive || (activeScan !== null && !activeScan.isPaused)}
             >
               {isLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Search className="w-4 h-4" />
               )}
-              Buscar no Google Maps
+              Buscar no Google Maps pela Extensão
             </Button>
           </div>
         </div>
@@ -3810,7 +3914,7 @@ export default function GoogleMapsCollector() {
                 <CardDescription>
                   {searchMethod === 'grid' 
                     ? `Mapeamento multicêntrico com ${gridDensity === 'low' ? '36' : gridDensity === 'medium' ? '81' : '144'} pontos de coordenadas concluído.`
-                    : 'Varredura de texto simples do Google Places API.'
+                    : 'Varredura de texto simples pela extensão no Google Maps.'
                   }
                 </CardDescription>
               </div>
@@ -4164,6 +4268,14 @@ export default function GoogleMapsCollector() {
                                   )}
                                   Validar IA
                                 </Button>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 font-bold gap-1 h-8 px-2"
+                                  onClick={() => setMenuReviewRestaurant(r)}
+                                >
+                                  <AlertCircle className="w-3.5 h-3.5" /> Revisar preços
+                                </Button>
                                 <Button 
                                   size="sm" 
                                   variant="ghost" 
@@ -4268,6 +4380,12 @@ export default function GoogleMapsCollector() {
           </p>
         </div>
       )}
+
+      <MenuImportReview
+        restaurantId={menuReviewRestaurant?.id || null}
+        restaurantName={menuReviewRestaurant?.name}
+        onClose={() => setMenuReviewRestaurant(null)}
+      />
 
       {/* Modal de Detalhes / Edicao / IA Compartilhado */}
       <RestaurantDetailsDialog

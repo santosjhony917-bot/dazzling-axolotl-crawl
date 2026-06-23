@@ -359,7 +359,7 @@ export default function ComboFinderPage() {
                                 <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[9px] font-black h-5 w-5 rounded-md flex items-center justify-center shrink-0">1x</span>
                                 <span className="font-bold truncate max-w-[150px]">{item.name}</span>
                               </div>
-                              <span className="font-extrabold text-slate-700">R$ {item.price.toFixed(2)}</span>
+                              <span className="font-extrabold text-slate-700">{item.price != null ? `R$ ${item.price.toFixed(2)}` : 'Preço sob consulta'}</span>
                             </div>
                           ))}
                           

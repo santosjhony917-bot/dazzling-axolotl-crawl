@@ -1,3 +1,4 @@
+import { formatMenuPrice } from '@/utils/menuPricing';
 import React from 'react';
 import { PublicMenuItem } from '@/types/menu';
 import { cn } from '@/lib/utils';
@@ -10,6 +11,7 @@ interface MenuItemCardProps {
 }
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
+  const itemDisplayName = item.display_name || item.name;
   // TODO: Implementar lógica de favoritar item se necessário
   const handleFavoriteToggle = () => {
     console.log(`Toggle favorite for item: ${item.name}`);
@@ -24,9 +26,9 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
       {/* Imagem do Item (se existir) */}
       {item.image_url && (
         <div className="relative flex-shrink-0 w-20 h-20 rounded-md overflow-hidden shadow-none bg-gray-50">
-          <img 
-            src={item.image_url} 
-            alt={item.name} 
+          <img
+            src={item.image_url}
+            alt={itemDisplayName}
             className="w-full h-full object-cover"
           />
           {item.is_illustrative && (
@@ -40,12 +42,12 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
       {/* Detalhes do Item */}
       <div className="flex-grow min-w-0">
         <div className="flex justify-between items-start">
-          <h4 className="text-base font-semibold text-gray-900 truncate pr-2">{item.name}</h4>
+          <h4 className="text-base font-semibold text-gray-900 truncate pr-2">{itemDisplayName}</h4>
           {isPremium && (
             <button 
               onClick={handleFavoriteToggle}
               className="flex-shrink-0 p-1 text-gray-400 hover:text-red-500 transition-colors"
-              aria-label={`Favoritar ${item.name}`}
+              aria-label={`Favoritar ${itemDisplayName}`}
             >
               <Heart className={cn("w-4 h-4", item.is_favorite && "fill-red-500 text-red-500")} />
             </button>
@@ -57,7 +59,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, isPremium }) => {
         )}
         
         <p className="text-base font-bold text-primary mt-1">
-          {formatPrice(item.price)}
+          {formatMenuPrice(item)}
         </p>
       </div>
     </div>

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
-import { Sparkles, TrendingUp, DollarSign, Target, ShieldAlert, BarChart, Send, Loader2 } from 'lucide-react';
+import { Sparkles, TrendingUp, DollarSign, Target, BarChart, Send, Loader2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -12,142 +12,118 @@ export default function CityStrategy() {
   const { cityId } = useParams();
   const [city, setCity] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [premiumPercent, setPremiumPercent] = useState([20]); // % de estabelecimentos premium
-  const [ticketMedio, setTicketMedio] = useState([49]); // Mensalidade R$
-  const [totalRestaurants, setTotalRestaurants] = useState<number>(0); 
+  const [premiumPercent, setPremiumPercent] = useState([20]);
+  const [ticketMedio, setTicketMedio] = useState([49]);
+  const [validatedRestaurants, setValidatedRestaurants] = useState<number>(0);
+  const [premiumActive, setPremiumActive] = useState<number>(0);
   const [distributionMethod, setDistributionMethod] = useState('bairros');
-  const [messageTemplate, setMessageTemplate] = useState('Olá! Vimos o cardápio do {restaurante} e achamos incrível. Gostaríamos de oferecer 30 dias de destaque gratuito na vitrine FilterFood. O que acha?');
+  const [messageTemplate, setMessageTemplate] = useState('Olá! Vimos o perfil do {restaurante} e percebemos uma oportunidade de destacar o cardápio de vocês no FilterFood. Posso te mostrar?');
   const [isApplying, setIsApplying] = useState(false);
 
+  const fetchStats = async () => {
+    if (!cityId) return;
+    setLoading(true);
+    try {
+      const { data: cityData, error: cityError } = await supabase
+        .from('expansion_projects')
+        .select('*')
+        .eq('slug', cityId)
+        .single();
+
+      if (cityError) throw cityError;
+      setCity(cityData);
+
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('id, plan, is_deleted, menu_status')
+        .eq('city', cityData.name)
+        .eq('state', cityData.state)
+        .eq('ai_validated', true);
+
+      if (error) throw error;
+
+      const rows = (data || []).filter(r => r.is_deleted !== true && !['manual_required', 'blocked', 'failed', 'invalid_source'].includes(r.menu_status || ''));
+      setValidatedRestaurants(rows.length);
+      setPremiumActive(rows.filter(r => r.plan === 'premium').length);
+    } catch (error: any) {
+      toast.error(`Erro ao buscar dados do Supabase: ${error?.message || 'erro desconhecido'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStats = async () => {
-      if (!cityId) return;
-      setLoading(true);
-      try {
-        // 1. Fetch city info
-        const { data: cityData, error: cityError } = await supabase
-          .from('expansion_projects')
-          .select('*')
-          .eq('slug', cityId)
-          .single();
-
-        if (cityError) throw cityError;
-        setCity(cityData);
-
-        // 2. Fetch count for this city
-        const { count, error } = await supabase
-          .from('restaurants')
-          .select('*', { count: 'exact', head: true })
-          .eq('city', cityData.name)
-          .eq('state', cityData.state);
-        
-        if (error) throw error;
-        setTotalRestaurants(count || 0);
-      } catch (error: any) {
-        toast.error('Erro ao buscar dados do Supabase: ' + error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityId]);
 
-  // Calcula projeções
-  const totalPremium = Math.floor(totalRestaurants * (premiumPercent[0] / 100));
-  const totalFree = totalRestaurants - totalPremium;
-  const projectedMRR = totalPremium * ticketMedio[0];
-  const coveragePercent = totalRestaurants > 0 ? Math.min(100, Math.floor((totalPremium / totalRestaurants) * 100)) : 0;
+  const targetPremium = Math.floor(validatedRestaurants * (premiumPercent[0] / 100));
+  const availableSlots = Math.max(0, targetPremium - premiumActive);
+  const projectedMRR = targetPremium * ticketMedio[0];
+  const saturationPercent = validatedRestaurants > 0 ? Math.round((targetPremium / validatedRestaurants) * 100) : 0;
 
-  // Risk logic
   let riskLevel = 'Baixo';
   let riskColor = 'text-emerald-600 bg-emerald-50 border-emerald-200';
-  let aiRecommendation = 'A proporção atual garante percepção de escassez e alto valor agregado para os assinantes Premium.';
+  let aiRecommendation = 'A meta mantém escassez e deixa espaço para converter bons restaurantes sem inflar o Premium.';
 
   if (premiumPercent[0] > 65) {
     riskLevel = 'Alto';
     riskColor = 'text-rose-600 bg-rose-50 border-rose-200';
-    aiRecommendation = 'Atenção: A densidade de contas Premium está excessivamente alta. Isso destrói a percepção de exclusividade e pode gerar cancelamentos em massa.';
+    aiRecommendation = 'Meta alta demais: perde exclusividade. Use isso só se a cidade tiver poucos restaurantes validados ou plano de entrada barato.';
   } else if (premiumPercent[0] > 40) {
     riskLevel = 'Moderado';
     riskColor = 'text-amber-600 bg-amber-50 border-amber-200';
-    aiRecommendation = 'Densidade Premium atingindo limite de saturação. Recomendo pausar campanhas de upgrade e focar na retenção dos clientes atuais.';
+    aiRecommendation = 'Meta possível, mas exige régua clara de valor. Evite prometer destaque para todo mundo.';
   }
 
   const handleApplyStrategy = async () => {
     if (!city) return;
     try {
       setIsApplying(true);
-      toast.loading('Distribuindo estratégia e atualizando banco...');
+      toast.loading('Salvando estratégia e preparando CRM...');
 
-      // Buscar todos validados na cidade/estado específicos
       const { data: restaurants, error } = await supabase
         .from('restaurants')
-        .select('id, neighborhood, rating')
+        .select('id, plan, is_deleted, menu_status')
         .eq('city', city.name)
         .eq('state', city.state)
         .eq('ai_validated', true);
 
       if (error) throw error;
-      if (!restaurants || restaurants.length === 0) {
-        toast.error('Nenhum restaurante validado por IA encontrado nesta cidade.');
+
+      const eligible = (restaurants || []).filter(r => (
+        r.is_deleted !== true
+        && r.plan !== 'premium'
+        && !['manual_required', 'blocked', 'failed', 'invalid_source'].includes(r.menu_status || '')
+      ));
+
+      if (eligible.length === 0) {
+        toast.error('Nenhum restaurante validado disponível para preparar no CRM.');
         return;
       }
 
-      // Separa premium vs free
-      const targetPremiumCount = Math.floor(restaurants.length * (premiumPercent[0] / 100));
-      
-      let sorted = [...restaurants];
-      if (distributionMethod === 'aleatorio') {
-        sorted.sort(() => Math.random() - 0.5);
-      } else if (distributionMethod === 'notas') {
-        sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-      } else {
-        // fragmentado por bairros: tenta pegar os melhores espalhados
-        sorted.sort((a, b) => (a.neighborhood || '').localeCompare(b.neighborhood || ''));
-      }
-
-      const premiumIds = sorted.slice(0, targetPremiumCount).map(r => r.id);
-      const freeIds = sorted.slice(targetPremiumCount).map(r => r.id);
-
-      // Atualiza Premium
-      if (premiumIds.length > 0) {
-        const { error: errP } = await supabase
-          .from('restaurants')
-          .update({ 
-            plan: 'premium', 
-            visit_status: 'won' // Marca como won (ativo) direto
-          })
-          .in('id', premiumIds);
-        if (errP) throw errP;
-      }
-
-      // Atualiza CRM (Leads) com a mensagem configurada em mente
-      if (freeIds.length > 0) {
-        const { error: errF } = await supabase
-          .from('restaurants')
-          .update({ 
-            plan: 'free', 
-            visit_status: 'lead'
-          })
-          .in('id', freeIds);
-        if (errF) throw errF;
-      }
-
-      toast.success(`Estratégia aplicada! ${premiumIds.length} Assinaturas Premium ativadas e ${freeIds.length} enviados ao CRM.`);
-      
-      // Save the default message template to localStorage so CityCrm can use it
-      localStorage.setItem('crm_message_template', messageTemplate);
-      
-      // Recarrega counts
-      const { count } = await supabase
+      const ids = eligible.map(r => r.id);
+      const { error: updateError } = await supabase
         .from('restaurants')
-        .select('*', { count: 'exact', head: true })
-        .eq('city', city.name)
-        .eq('state', city.state);
-      setTotalRestaurants(count || 0);
+        .update({ plan: 'free', visit_status: 'Pendente' } as any)
+        .in('id', ids);
 
+      if (updateError) throw updateError;
+
+      localStorage.setItem('crm_message_template', messageTemplate);
+      localStorage.setItem('crm_strategy_config', JSON.stringify({
+        city: city.name,
+        state: city.state,
+        premiumPercent: premiumPercent[0],
+        ticketMedio: ticketMedio[0],
+        distributionMethod,
+        savedAt: new Date().toISOString(),
+      }));
+
+      toast.success(`Estratégia salva. ${ids.length} restaurantes validados preparados no CRM. Nenhum Premium foi ativado automaticamente.`);
+      await fetchStats();
     } catch (err: any) {
-      toast.error('Erro ao aplicar estratégia: ' + err.message);
+      toast.error(`Erro ao aplicar estratégia: ${err?.message || 'erro desconhecido'}`);
     } finally {
       setIsApplying(false);
       toast.dismiss();
@@ -158,7 +134,7 @@ export default function CityStrategy() {
     return (
       <div className="flex items-center justify-center min-h-[300px]">
         <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
-        <span className="ml-2 text-sm text-slate-500 font-medium">Carregando painel de simulação...</span>
+        <span className="ml-2 text-sm text-slate-500 font-medium">Carregando simulador comercial...</span>
       </div>
     );
   }
@@ -169,116 +145,90 @@ export default function CityStrategy() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">War Room (Simulador Estratégico - {city.name})</h2>
-          <p className="text-sm text-slate-500">Projete cenários financeiros e de saturação de mercado para esta cidade.</p>
+          <h2 className="text-xl font-bold text-slate-900">Estratégia Comercial — {city.name}</h2>
+          <p className="text-sm text-slate-500">Simula meta, prepara CRM e mantém assinatura Premium dependente de fechamento real.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Control Panel (Sliders) */}
         <div className="lg:col-span-1 space-y-6">
           <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
             <div className="p-4 border-b border-slate-100 bg-slate-50/50">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
-                <Target className="w-4 h-4 text-slate-500" /> Variáveis do Simulador
+                <Target className="w-4 h-4 text-slate-500" /> Variáveis do simulador
               </h3>
             </div>
             <CardContent className="p-5 space-y-8">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <label className="text-sm font-bold text-slate-700">Meta de Cobertura Premium</label>
+                  <label className="text-sm font-bold text-slate-700">Meta máxima de Premium</label>
                   <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">{premiumPercent[0]}%</span>
                 </div>
-                <Slider 
-                  value={premiumPercent} 
-                  onValueChange={setPremiumPercent} 
-                  max={100} 
-                  step={1} 
-                  className="[&>span:first-child]:bg-indigo-100 [&_[role=slider]]:bg-indigo-600 [&_[role=slider]]:border-indigo-600"
-                />
-                <p className="text-xs text-slate-500">Define o teto máximo de estabelecimentos que poderão ter plano pago/cortesia.</p>
+                <Slider value={premiumPercent} onValueChange={setPremiumPercent} max={100} step={1} />
+                <p className="text-xs text-slate-500">É uma meta de conversão, não uma ativação automática.</p>
               </div>
 
               <div className="space-y-4 pt-4 border-t border-slate-100">
                 <div className="flex justify-between items-center">
-                  <label className="text-sm font-bold text-slate-700">Ticket Médio (Mensalidade)</label>
+                  <label className="text-sm font-bold text-slate-700">Ticket médio mensal</label>
                   <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">R$ {ticketMedio[0]}</span>
                 </div>
-                <Slider 
-                  value={ticketMedio} 
-                  onValueChange={setTicketMedio} 
-                  min={49} 
-                  max={499} 
-                  step={10} 
-                  className="[&>span:first-child]:bg-emerald-100 [&_[role=slider]]:bg-emerald-600 [&_[role=slider]]:border-emerald-600"
-                />
-                <p className="text-xs text-slate-500">Preço simulado do plano Premium para cálculo de receita.</p>
+                <Slider value={ticketMedio} onValueChange={setTicketMedio} min={49} max={499} step={10} />
+                <p className="text-xs text-slate-500">Usado apenas para projeção financeira.</p>
               </div>
             </CardContent>
           </Card>
 
-          {/* AI Recommendation Panel */}
           <div className={`p-5 rounded-xl border ${riskColor} flex flex-col gap-3 shadow-sm`}>
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5" />
               <h4 className="font-bold">Análise da IA</h4>
             </div>
             <div className="flex justify-between items-center bg-white/50 p-2 rounded-lg border border-white/20">
-              <span className="text-sm font-semibold">Risco de Saturação:</span>
+              <span className="text-sm font-semibold">Risco de saturação:</span>
               <span className="text-sm font-black uppercase tracking-wider">{riskLevel}</span>
             </div>
-            <p className="text-sm leading-relaxed mt-1">
-              {aiRecommendation}
-            </p>
+            <p className="text-sm leading-relaxed mt-1">{aiRecommendation}</p>
           </div>
 
-          {/* Execution Form */}
           <Card className="border-indigo-200 shadow-sm rounded-xl overflow-hidden bg-white">
             <div className="p-4 border-b border-indigo-100 bg-indigo-50/50">
               <h3 className="font-bold text-indigo-900 flex items-center gap-2 text-sm">
-                <Send className="w-4 h-4 text-indigo-500" /> Execução da Estratégia
+                <Send className="w-4 h-4 text-indigo-500" /> Preparar CRM
               </h3>
             </div>
             <CardContent className="p-5 space-y-4">
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700">Como distribuir as Cortesias ({premiumPercent[0]}%)?</label>
-                <select 
-                  className="w-full h-9 rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
+                <label className="text-xs font-bold text-slate-700">Prioridade comercial</label>
+                <select
+                  className="w-full h-9 rounded-md border border-slate-200 bg-white px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500"
                   value={distributionMethod}
                   onChange={(e) => setDistributionMethod(e.target.value)}
                 >
-                  <option value="bairros">Fragmentado por Bairros (Homogêneo)</option>
-                  <option value="aleatorio">Aleatório na Cidade Inteira</option>
-                  <option value="notas">Focar nas Melhores Avaliações (&gt; 4.5)</option>
+                  <option value="bairros">Distribuir por bairros</option>
+                  <option value="aleatorio">Fila geral da cidade</option>
+                  <option value="notas">Priorizar melhores avaliações</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700">Mensagem de Prospecção (Para os {100 - premiumPercent[0]}% do CRM)</label>
-                <textarea 
-                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500 min-h-[80px]"
+                <label className="text-xs font-bold text-slate-700">Mensagem de prospecção</label>
+                <textarea
+                  className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-500 min-h-[90px]"
                   value={messageTemplate}
                   onChange={(e) => setMessageTemplate(e.target.value)}
-                  placeholder="Olá! Vimos o cardápio do {restaurante}..."
                 />
-                <p className="text-[10px] text-slate-500 leading-tight">
-                  Os não sorteados irão para o CRM com esta mensagem no botão do WhatsApp. Use <strong>{'{restaurante}'}</strong> para inserir o nome do local.
-                </p>
+                <p className="text-[10px] text-slate-500 leading-tight">Use <strong>{'{restaurante}'}</strong> para inserir o nome no WhatsApp.</p>
               </div>
 
-              <Button 
-                onClick={handleApplyStrategy}
-                disabled={isApplying || totalRestaurants === 0}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md h-10 mt-2"
-              >
-                {isApplying ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
-                {isApplying ? 'Processando Banco...' : 'Aplicar Estratégia na Base'}
+              <Button onClick={handleApplyStrategy} disabled={isApplying || validatedRestaurants === 0} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-md h-10 mt-2">
+                {isApplying ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <ShieldCheck className="w-4 h-4 mr-2" />}
+                {isApplying ? 'Preparando...' : 'Salvar estratégia e preparar CRM'}
               </Button>
             </CardContent>
           </Card>
         </div>
 
-        {/* Dashboard de Resultados */}
         <div className="lg:col-span-2 space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Card className="border-slate-200 shadow-sm rounded-xl bg-slate-900 text-white overflow-hidden relative">
@@ -286,34 +236,32 @@ export default function CityStrategy() {
                 <DollarSign className="w-24 h-24" />
               </div>
               <CardContent className="p-6 relative z-10">
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Projeção de Receita (MRR Máximo)</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">MRR potencial se bater a meta</p>
                 <p className="text-4xl font-black text-emerald-400">
                   {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(projectedMRR)}
                 </p>
                 <div className="mt-6 flex items-center text-sm font-medium text-slate-300">
                   <TrendingUp className="w-4 h-4 mr-2 text-emerald-400" />
-                  Potencial de faturamento recorrente mensal
+                  Projeção, não receita confirmada
                 </div>
               </CardContent>
             </Card>
 
             <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
               <CardContent className="p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Distribuição da Base</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Base comercial validada</p>
                 <div className="flex items-end gap-3 mb-4">
-                  <p className="text-3xl font-black text-slate-900">{totalRestaurants.toLocaleString('pt-BR')}</p>
-                  <p className="text-sm font-semibold text-slate-500 mb-1">Total de Leads</p>
+                  <p className="text-3xl font-black text-slate-900">{validatedRestaurants.toLocaleString('pt-BR')}</p>
+                  <p className="text-sm font-semibold text-slate-500 mb-1">Restaurantes</p>
                 </div>
-                
                 <div className="space-y-4">
                   <div>
                     <div className="flex justify-between text-xs font-bold mb-1">
-                      <span className="text-indigo-600">Premium ({totalPremium})</span>
-                      <span className="text-slate-400">Free ({totalFree})</span>
+                      <span className="text-indigo-600">Meta Premium ({targetPremium})</span>
+                      <span className="text-slate-400">Slots livres ({availableSlots})</span>
                     </div>
-                    <div className="w-full flex h-3 rounded-full overflow-hidden">
-                      <div style={{ width: `${premiumPercent[0]}%` }} className="bg-indigo-500 transition-all duration-300" />
-                      <div style={{ width: `${100 - premiumPercent[0]}%` }} className="bg-slate-200 transition-all duration-300" />
+                    <div className="w-full flex h-3 rounded-full overflow-hidden bg-slate-200">
+                      <div style={{ width: `${saturationPercent}%` }} className="bg-indigo-500 transition-all duration-300" />
                     </div>
                   </div>
                 </div>
@@ -324,38 +272,33 @@ export default function CityStrategy() {
           <Card className="border-slate-200 shadow-sm rounded-xl bg-white">
             <div className="p-4 border-b border-slate-100 bg-slate-50/50">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
-                <BarChart className="w-4 h-4 text-slate-500" /> Impacto Financeiro
+                <BarChart className="w-4 h-4 text-slate-500" /> Impacto financeiro simulado
               </h3>
             </div>
             <CardContent className="p-6">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">LTV Estimado (12m)</p>
-                  <p className="text-lg font-black text-slate-900">
-                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ticketMedio[0] * 12)}
-                  </p>
+                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">Premium ativos</p>
+                  <p className="text-lg font-black text-slate-900">{premiumActive}</p>
                 </div>
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">ARR Projetado</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">Meta Premium</p>
+                  <p className="text-lg font-black text-indigo-600">{targetPremium}</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">ARR projetado</p>
                   <p className="text-lg font-black text-emerald-600">
                     {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(projectedMRR * 12)}
                   </p>
                 </div>
-                <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">Custo Plataforma (Fixo)</p>
-                  <p className="text-lg font-black text-rose-600">R$ 1.200</p>
-                </div>
                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                  <p className="text-[10px] uppercase font-bold text-emerald-700 mb-1">Lucro Operacional</p>
-                  <p className="text-lg font-black text-emerald-700">
-                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(projectedMRR - 1200)}
-                  </p>
+                  <p className="text-[10px] uppercase font-bold text-emerald-700 mb-1">Ticket mensal</p>
+                  <p className="text-lg font-black text-emerald-700">R$ {ticketMedio[0]}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
-
       </div>
     </div>
   );

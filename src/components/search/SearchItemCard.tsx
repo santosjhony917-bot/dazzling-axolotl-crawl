@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPrice } from '@/utils/formatters';
+import { formatMenuPrice } from '@/utils/menuPricing';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import { MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,6 +10,12 @@ interface SearchItem {
   name: string;
   description: string | null;
   price?: number;
+  priceType?: string | null;
+  displayPrice?: number | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
+  commercialType?: string | null;
+  isConfigurable?: boolean | null;
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
   category?: string | null;
@@ -26,7 +32,17 @@ interface SearchItemCardProps {
 
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
-  const formattedPrice = item.price ? formatPrice(item.price) : null;
+  const formattedPrice = isDish
+    ? formatMenuPrice({
+        price: item.price,
+        display_price: item.displayPrice,
+        price_min: item.priceMin,
+        price_max: item.priceMax,
+        price_type: item.priceType,
+        commercial_type: item.commercialType,
+        is_configurable: item.isConfigurable,
+      })
+    : null;
   const displayDescription = isDish 
     ? `${item.restaurantName}${item.itemCategoryName ? ` • ${item.itemCategoryName}` : ''}${item.neighborhood ? ` • ${item.neighborhood}` : ''}`
     : item.category;

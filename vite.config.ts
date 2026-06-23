@@ -9,6 +9,29 @@ let activeProcess: any = null;
 let validationProcess: any = null;
 let logBuffer = "";
 
+function loadLocalDotEnv() {
+  try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (!fs.existsSync(envPath)) return;
+    const envText = fs.readFileSync(envPath, 'utf8');
+    for (const rawLine of envText.split(/\n/)) {
+      const line = rawLine.replace(/\r$/, '');
+      const match = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+      if (!match) continue;
+      const key = match[1];
+      let value = match[2] || '';
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      if (!process.env[key]) process.env[key] = value;
+    }
+  } catch (err: any) {
+    console.warn('[local-collector] Não foi possível carregar .env:', err?.message || err);
+  }
+}
+
+loadLocalDotEnv();
+
 export default defineConfig(() => ({
   server: {
     host: "::",
@@ -243,39 +266,65 @@ export default defineConfig(() => ({
                   const message = parsed.message || '';
                   const systemContext = parsed.systemContext || '';
                   
-                  // Chamar OpenAI diretamente daqui do servidor node local
+                  // Chamar OpenAI diretamente daqui do servidor node local.
+                  // Preferimos a chave OpenAI/GPT do projeto; OpenRouter fica como fallback
+                  // configurável. O modelo "openrouter/free" quebrava a navegação com HTTP 500.
                   const { OpenAI } = await import('openai');
                   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
                   const openRouterKey = process.env.VITE_OPENROUTER_API_KEY || '';
                   
                   let openai;
-                  let model = 'gpt-4o-mini';
-                  if (openRouterKey) {
+                  let model = process.env.VITE_OPENAI_MODEL || process.env.OPENAI_MODEL || 'gpt-4o-mini';
+                  if (apiKey) {
+                    openai = new OpenAI({ apiKey });
+                  } else if (openRouterKey) {
                     openai = new OpenAI({
                       baseURL: "https://openrouter.ai/api/v1",
                       apiKey: openRouterKey,
                       defaultHeaders: { "HTTP-Referer": "http://localhost:8080", "X-Title": "Admin Dashboard" }
                     });
-                    model = 'openrouter/free';
-                  } else if (apiKey) {
-                    openai = new OpenAI({ apiKey });
+                    model = process.env.VITE_OPENROUTER_MODEL || process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
                   } else {
                     throw new Error('Chave de API não configurada no .env');
                   }
 
-                  const response = await openai.chat.completions.create({
-                    model: model,
-                    messages: [
-                      { role: 'system', content: systemContext },
-                      { role: 'user', content: message }
-                    ]
-                  });
+                  const createChatCompletionWithRetry = async () => {
+                    let lastError: any = null;
+                    for (let attempt = 0; attempt < 8; attempt++) {
+                      try {
+                        return await openai.chat.completions.create({
+                          model: model,
+                          messages: [
+                            { role: 'system', content: systemContext },
+                            { role: 'user', content: message }
+                          ],
+                          temperature: 0.1
+                        });
+                      } catch (retryErr: any) {
+                        lastError = retryErr;
+                        const status = retryErr?.status || retryErr?.code;
+                        const text = String(retryErr?.message || retryErr || '');
+                        const isRateLimit = status === 429 || text.includes('429') || /rate limit/i.test(text);
+                        if (!isRateLimit || attempt === 7) break;
+                        const secondsMatch = text.match(/try again in ([0-9.]+)s/i);
+                        const hintedMs = secondsMatch ? Math.ceil(Number(secondsMatch[1]) * 1000) : 0;
+                        const usedAtLimit = /Used\s+\d+/.test(text) && /Limit\s+\d+/.test(text);
+                        const delayMs = Math.min(60000, Math.max(hintedMs, usedAtLimit ? 12000 + attempt * 6000 : 1000 * Math.pow(2, attempt)) + 500);
+                        console.warn('[local-collector/ai-chat] Rate limit; tentando novamente em', delayMs, 'ms');
+                        await new Promise(resolve => setTimeout(resolve, delayMs));
+                      }
+                    }
+                    throw lastError;
+                  };
 
-                  res.writeHead(200);
-                  res.end(JSON.stringify({ reply: response.choices[0].message.content }));
+                  const response = await createChatCompletionWithRetry();
+
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ reply: response.choices[0].message.content || '' }));
                 } catch (err: any) {
-                  res.writeHead(500);
-                  res.end(JSON.stringify({ error: err.message }));
+                  console.error('[local-collector/ai-chat] Erro:', err?.message || err);
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ error: err?.message || 'Erro desconhecido na IA' }));
                 }
               });
               return;
@@ -349,6 +398,100 @@ export default defineConfig(() => ({
 
                   res.writeHead(200, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify({ success: true, filteredImages: approvedImages }));
+                } catch (err: any) {
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: false, error: err.message }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/extract-menu-from-images" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData || '{}');
+                  const images: string[] = (parsed.images || [])
+                    .map((item: any) => typeof item === 'string' ? item : item?.image || item?.url)
+                    .filter(Boolean)
+                    .slice(0, 10);
+
+                  if (images.length === 0) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, error: 'Nenhuma imagem candidata enviada.' }));
+                    return;
+                  }
+
+                  const { OpenAI } = await import('openai');
+                  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  const openai = new OpenAI({ apiKey, timeout: 20000, maxRetries: 1 });
+
+                  const accepted: any[] = [];
+                  for (const image of images) {
+                    try {
+                      const response = await openai.chat.completions.create({
+                        model: process.env.MENU_IMAGE_MODEL || 'gpt-4o-mini',
+                        temperature: 0,
+                        response_format: { type: 'json_object' },
+                        messages: [
+                          {
+                            role: 'system',
+                            content: [
+                              'Você analisa imagens públicas de restaurante.',
+                              'Determine se a imagem contém cardápio, tabela de preços, lista de pratos, placa de menu ou print legível de delivery.',
+                              'Extraia somente texto visível relacionado a itens/preços; não invente.',
+                              'Responda JSON: {"is_menu":true|false,"confidence":0_a_1,"raw_text":"texto extraído","reason":"curto"}.'
+                            ].join(' ')
+                          },
+                          {
+                            role: 'user',
+                            content: [
+                              { type: 'text', text: 'Esta imagem contém cardápio/preços? Extraia o texto se houver.' },
+                              { type: 'image_url', image_url: { url: image } }
+                            ]
+                          }
+                        ]
+                      });
+                      const content = response.choices[0]?.message?.content || '{}';
+                      const result = JSON.parse(String(content).match(/\{[\s\S]*\}/)?.[0] || '{}');
+                      if (result.is_menu === true && Number(result.confidence || 0) >= 0.55 && String(result.raw_text || '').trim().length >= 20) {
+                        accepted.push({
+                          image,
+                          confidence: Number(result.confidence || 0),
+                          rawText: String(result.raw_text || ''),
+                          reason: String(result.reason || '')
+                        });
+                      }
+                    } catch (imageError: any) {
+                      console.warn('[extract-menu-from-images] Falha em imagem:', imageError?.message || imageError);
+                    }
+                  }
+
+                  if (!accepted.length) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, error: 'Nenhuma imagem foi classificada como cardápio com confiança suficiente.' }));
+                    return;
+                  }
+
+                  const rawText = accepted.map((item, index) => `--- IMAGEM ${index + 1} (${Math.round(item.confidence * 100)}%) ---\n${item.rawText}`).join('\n\n');
+                  const avgConfidence = accepted.reduce((sum, item) => sum + item.confidence, 0) / accepted.length;
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({
+                    success: true,
+                    menuEvidence: {
+                      success: true,
+                      platform: parsed.source || 'image_menu',
+                      sourceUrl: parsed.sourceUrl || '',
+                      discoveryMethod: parsed.discoveryMethod || 'menu_image_vision',
+                      confidence: Math.min(0.88, Math.max(0.62, avgConfidence)),
+                      rawText,
+                      textBlocks: accepted.map(item => item.rawText),
+                      screenshots: accepted.map(item => item.image),
+                      imageMenuCandidates: accepted
+                    }
+                  }));
                 } catch (err: any) {
                   res.writeHead(500, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify({ success: false, error: err.message }));
@@ -768,7 +911,7 @@ export default defineConfig(() => ({
                 // Vamos direto para a Validação IA (Fase 5).
                 logBuffer += `\n🤖 Iniciando Validação IA (Fase 5) para ID: ${restaurantId}...\n`;
                 
-                const valArgs = ["scratch/phase5_ai_validation.cjs", "--single", "--id", restaurantId];
+                const valArgs = ["scratch/hybrid_restaurant_validator.cjs", "--single", "--id", restaurantId];
                 if (browserContext) {
                   const tempFile = path.join(process.cwd(), 'scratch', `temp_context_${restaurantId}.txt`);
                   fs.writeFileSync(tempFile, browserContext);
@@ -930,7 +1073,12 @@ export default defineConfig(() => ({
 
                 logBuffer += `\n🍽️ Iniciando extração de cardápio para restaurante ID ${restaurantId}...\n`;
 
-                const args = ["scratch/menu_extractor.cjs", "--id", restaurantId];
+                const args = ["scratch/hybrid_menu_extractor_v2.cjs", "--id", restaurantId];
+                if (parsed.menuEvidence) {
+                  const evidenceFile = path.join(process.cwd(), "scratch", `temp_menu_evidence_${restaurantId}.json`);
+                  fs.writeFileSync(evidenceFile, JSON.stringify(parsed.menuEvidence));
+                  args.push("--evidence-file", evidenceFile);
+                }
                 const proc = spawn("node", args, { shell: true });
                 validationProcess = proc;
 
@@ -1038,7 +1186,7 @@ export default defineConfig(() => ({
                 return;
               }
               
-              const proc = spawn("node", ["scratch/download_upload_helper.cjs", url, storagePath], { shell: true });
+              const proc = spawn("node", ["scratch/download_upload_helper.cjs", url, storagePath], { shell: false });
               let resultJsonStr = "";
               
               proc.stdout.on("data", (data) => {

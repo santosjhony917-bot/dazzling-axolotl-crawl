@@ -12,7 +12,7 @@ interface PublicMenuItemCardProps {
 }
 
 const PublicMenuItemCard: React.FC<PublicMenuItemCardProps> = ({ item }) => {
-  const formattedPrice = `R$ ${item.price.toFixed(2).replace('.', ',')}`;
+  const formattedPrice = item.price != null ? `R$ ${item.price.toFixed(2).replace('.', ',')}` : 'Preço sob consulta';
 
   return (
     <div className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-xl p-2 shadow-none border border-gray-100 dark:border-gray-700">

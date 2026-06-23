@@ -49,34 +49,61 @@ export interface Database {
           category_id: string
           created_at: string | null
           description: string | null
+          display_name: string | null
+          display_price: number | null
           id: string
           image_url: string | null
           is_active: boolean | null
+          is_configurable: boolean | null
           name: string
           order_index: number | null
           price: number
+          price_max: number | null
+          price_min: number | null
+          price_type: string | null
+          commercial_type: string | null
+          search_display_name: string | null
+          search_keywords: string | null
         }
         Insert: {
           category_id: string
           created_at?: string | null
           description?: string | null
+          display_name?: string | null
+          display_price?: number | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          is_configurable?: boolean | null
           name: string
           order_index?: number | null
           price: number
+          price_max?: number | null
+          price_min?: number | null
+          price_type?: string | null
+          commercial_type?: string | null
+          search_display_name?: string | null
+          search_keywords?: string | null
         }
         Update: {
           category_id?: string
           created_at?: string | null
           description?: string | null
+          display_name?: string | null
+          display_price?: number | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          is_configurable?: boolean | null
           name?: string
           order_index?: number | null
           price?: number
+          price_max?: number | null
+          price_min?: number | null
+          price_type?: string | null
+          commercial_type?: string | null
+          search_display_name?: string | null
+          search_keywords?: string | null
         }
         Relationships: [
           {
@@ -167,6 +194,8 @@ export interface Database {
           description: string | null
           email: string | null
           external_url: string | null
+          google_maps_url: string | null
+          google_place_id: string | null
           id: string
           ifood_url: string | null
           image_url: string | null
@@ -194,6 +223,8 @@ export interface Database {
           description?: string | null
           email?: string | null
           external_url?: string | null
+          google_maps_url?: string | null
+          google_place_id?: string | null
           id?: string
           ifood_url?: string | null
           image_url?: string | null
@@ -221,6 +252,8 @@ export interface Database {
           description?: string | null
           email?: string | null
           external_url?: string | null
+          google_maps_url?: string | null
+          google_place_id?: string | null
           id?: string
           ifood_url?: string | null
           image_url?: string | null
@@ -381,6 +414,12 @@ export interface Database {
           item_name: string
           item_description: string
           item_price: number
+          item_price_type: string
+          item_display_price: number
+          item_price_min: number
+          item_price_max: number
+          item_commercial_type: string
+          item_is_configurable: boolean
           item_image_url: string
           restaurant_id: string
           restaurant_name: string

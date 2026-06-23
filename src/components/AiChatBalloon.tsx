@@ -373,7 +373,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                                     <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[8px] font-black h-4.5 w-4.5 rounded-md flex items-center justify-center shrink-0">1x</span>
                                     <span className="truncate max-w-[140px]">{item.name}</span>
                                   </div>
-                                  <span className="font-extrabold">R$ {item.price.toFixed(2)}</span>
+                                  <span className="font-extrabold">{item.price != null ? `R$ ${item.price.toFixed(2)}` : 'Preço sob consulta'}</span>
                                 </div>
                               ))}
                               

@@ -168,6 +168,18 @@ const CategoryDetails: React.FC = () => {
     };
 
     const sanitizedName = toTitleCase(cleanPrefixes(values.name));
+    const optionRows = (values.options || [])
+      .filter(option => option.name?.trim())
+      .map((option, index) => ({
+        group_name: option.group_name?.trim() || 'Adicionais',
+        name: option.name.trim(),
+        price: Number(option.price_delta || 0),
+        price_delta: Number(option.price_delta || 0),
+        is_required: !!option.is_required,
+        min_quantity: option.is_required ? 1 : 0,
+        max_quantity: 1,
+        order_index: index,
+      }));
 
     const itemData = {
       category_id: category.id,
@@ -189,6 +201,16 @@ const CategoryDetails: React.FC = () => {
       if (error) {
         showError(`Erro ao atualizar item: ${error.message}`);
       } else {
+        await supabase.from('menu_item_options' as any).delete().eq('menu_item_id', editingItem.id);
+        if (optionRows.length) {
+          const { error: optionsError } = await supabase
+            .from('menu_item_options' as any)
+            .insert(optionRows.map(option => ({ ...option, menu_item_id: editingItem.id })));
+          if (optionsError) {
+            showError(`Item salvo, mas houve erro ao salvar adicionais: ${optionsError.message}`);
+            return;
+          }
+        }
         showSuccess('Item atualizado com sucesso!');
         setIsItemFormDialogOpen(false);
         fetchCategoryAndItems();
@@ -203,6 +225,15 @@ const CategoryDetails: React.FC = () => {
       if (error) {
         showError(`Erro ao adicionar item: ${error.message}`);
       } else {
+        if (optionRows.length && data?.id) {
+          const { error: optionsError } = await supabase
+            .from('menu_item_options' as any)
+            .insert(optionRows.map(option => ({ ...option, menu_item_id: data.id })));
+          if (optionsError) {
+            showError(`Item criado, mas houve erro ao salvar adicionais: ${optionsError.message}`);
+            return;
+          }
+        }
         showSuccess('Item adicionado com sucesso!');
         setIsItemFormDialogOpen(false);
         fetchCategoryAndItems();

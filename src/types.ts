@@ -1,10 +1,18 @@
-import { Restaurant as SupabaseRestaurant, MenuCategory as SupabaseMenuCategory, MenuItem as SupabaseMenuItem, Profile as SupabaseProfile, MenuSection as SupabaseMenuSection } from '@/types/supabase';
+import {
+  Restaurant as SupabaseRestaurant,
+  MenuCategory as SupabaseMenuCategory,
+  MenuItem as SupabaseMenuItem,
+  Profile as SupabaseProfile,
+  MenuSection as SupabaseMenuSection
+} from '@/types/supabase';
+
+export * from './types/menu';
 
 // Utility types
 export type Restaurant = SupabaseRestaurant;
 export type MenuCategory = SupabaseMenuCategory;
 export type MenuItem = SupabaseMenuItem;
-export type Profile = SupabaseProfile; // Tipo Profile adicionado
+export type Profile = SupabaseProfile;
 export type MenuSection = SupabaseMenuSection;
 
 // Form types
@@ -26,6 +34,6 @@ export interface RestaurantFormValues {
   cep?: string;
   latitude?: number;
   longitude?: number;
-  opening_hours?: any; // Use a more specific type if known, e.g., Jsonb
+  opening_hours?: any;
   external_url?: string;
 }

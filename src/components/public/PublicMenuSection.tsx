@@ -1,3 +1,4 @@
+import { formatMenuPrice } from '@/utils/menuPricing';
 import React, { useState } from 'react';
 import { MenuCategory, MenuItem } from '@/types';
 import { formatPrice } from '@/utils/formatters';
@@ -47,6 +48,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
             {category.menu_items.map(item => {
               let descText = item.description || '';
               let options: any[] = [];
+              const itemDisplayName = item.display_name || item.name;
               
               try {
                 if (item.description && item.description.startsWith('{')) {
@@ -65,7 +67,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-grow min-w-0">
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-semibold text-gray-800">{item.name}</h4>
+                        <h4 className="text-sm font-semibold text-gray-800">{itemDisplayName}</h4>
                         {options.length > 0 && (
                           <button
                             onClick={() => toggleExpand(item.id)}
@@ -84,7 +86,7 @@ const PublicMenuSection: React.FC<PublicMenuSectionProps> = ({ categories, resta
                       )}
                     </div>
                     <div className="text-sm font-bold text-gray-600 shrink-0">
-                      {formatPrice(item.price)}
+                      {formatMenuPrice(item)}
                     </div>
                   </div>
 

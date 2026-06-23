@@ -32,6 +32,12 @@ interface SearchItem {
   name: string;
   description: string | null;
   price?: number;
+  priceType?: string | null;
+  displayPrice?: number | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
+  commercialType?: string | null;
+  isConfigurable?: boolean | null;
   imageUrl: string | null;
   type: 'dish' | 'restaurant';
   category?: string | null;
@@ -126,6 +132,7 @@ export default function SearchUnifiedPage() {
     hasMore: dishesHasMore, // Get hasMore from hook
   } = useSearchItems({
     searchQuery: dbSearchQuery,
+    rawSearchQuery: searchQuery,
     enabled: activeSearchType === 'dish' && isSearchEnabled,
     limit: pageSize, // Fetch only one page at a time
     offset: (page - 1) * pageSize, // Calculate offset based on current page
@@ -265,6 +272,12 @@ export default function SearchUnifiedPage() {
           name: item.item_name,
           description: item.item_description,
           price: item.item_price,
+          priceType: item.item_price_type,
+          displayPrice: item.item_display_price,
+          priceMin: item.item_price_min,
+          priceMax: item.item_price_max,
+          commercialType: item.item_commercial_type,
+          isConfigurable: item.item_is_configurable,
           imageUrl: item.item_image_url,
           type: 'dish',
           category: item.restaurant_category,

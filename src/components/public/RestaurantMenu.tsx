@@ -1,3 +1,4 @@
+import { formatMenuPrice } from '@/utils/menuPricing';
 import React, { useState } from 'react';
 import { MenuCategory, MenuItem, MenuSection } from '@/types/supabase'; // Importando MenuCategory, MenuItem e MenuSection do tipo estendido
 import { Card, CardContent } from '@/components/ui/card';
@@ -174,6 +175,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, menuSec
                 {category.items.map((item) => {
                   let descText = item.description || '';
                   let options: any[] = [];
+                  const itemDisplayName = item.display_name || item.name;
                   
                   try {
                     if (item.description && item.description.startsWith('{')) {
@@ -197,7 +199,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, menuSec
                           <div className="relative w-[72px] h-[72px] flex-shrink-0 rounded-[16px] overflow-hidden border border-slate-100/60 bg-gray-50">
                             <img
                               src={item.image_url}
-                              alt={item.name}
+                              alt={itemDisplayName}
                               className="w-full h-full object-cover"
                             />
                             {item.is_illustrative && (
@@ -209,9 +211,9 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ menuCategories, menuSec
                         )}
                         <div className="flex-grow min-w-0">
                           <div className="flex justify-between items-start gap-2">
-                            <h4 className="font-semibold text-[15px] text-[#3C2F2F] truncate flex-1 min-w-0 pr-1">{item.name}</h4>
+                            <h4 className="font-semibold text-[15px] text-[#3C2F2F] truncate flex-1 min-w-0 pr-1">{itemDisplayName}</h4>
                             <span className="shrink-0 text-[13px] font-bold text-[#EF2A39] bg-[#EF2A39]/8 px-2 py-0.5 rounded-lg">
-                              {formatPrice(item.price)}
+                              {formatMenuPrice(item)}
                             </span>
                           </div>
                           {descText && (

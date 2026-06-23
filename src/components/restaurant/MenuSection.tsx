@@ -29,7 +29,7 @@ const MenuItemCard: React.FC<{ item: MenuItem }> = memo(({ item }) => (
       </div>
       <p className="text-sm text-gray-700 mt-1 line-clamp-2">{item.description}</p>
       <div className="flex justify-between items-center mt-2">
-        <p className="font-bold text-primary">R$ {item.price.toFixed(2).replace('.', ',')}</p>
+        <p className="font-bold text-primary">{item.price != null ? `R$ ${item.price.toFixed(2).replace('.', ',')}` : 'Preço sob consulta'}</p>
         <Button variant="outline" className="rounded-full px-4 py-1 h-7 text-xs font-semibold border-highlight text-highlight hover:bg-highlight/5">Detalhes</Button>
       </div>
     </div>

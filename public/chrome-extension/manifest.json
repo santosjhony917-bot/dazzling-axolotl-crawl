@@ -1,8 +1,8 @@
 {
   "name": "Coletor Auxiliar - Dazzling Axolotl",
-  "version": "1.0.0",
+  "version": "1.7.3",
   "manifest_version": 3,
-  "description": "Extensão auxiliar para realizar download de logos e quantidade de seguidores diretamente do Instagram sem problemas de CORS ou bloqueios.",
+  "description": "Coletor API-first com navegação visível pela extensão, OCR e IA progressivos somente quando necessários.",
   "permissions": [
     "tabs",
     "scripting"
@@ -11,18 +11,45 @@
     "<all_urls>",
     "*://*.instagram.com/*",
     "*://*.cdninstagram.com/*",
-    "*://*.fbcdn.net/*"
+    "*://*.fbcdn.net/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "hybrid-background.js"
   },
   "externally_connectable": {
     "matches": [
       "http://localhost/*",
       "http://127.0.0.1/*",
-      "http://localhost:*/*",
-      "http://127.0.0.1:*/*",
       "https://*.vercel.app/*"
     ]
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
+      "js": [
+        "admin-bridge-v2.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://*.saipos.com/*",
+        "https://livemenu.app/*",
+        "https://*.anota.ai/*",
+        "https://*.goomer.app/*",
+        "https://*.goomer.com.br/*",
+        "https://*.ola.click/*"
+      ],
+      "js": [
+        "network-capture.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
 }

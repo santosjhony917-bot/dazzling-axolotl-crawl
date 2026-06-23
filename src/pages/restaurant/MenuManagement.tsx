@@ -14,6 +14,7 @@ import CategoryList from '@/components/restaurant/menu/CategoryList';
 import { Card, CardContent } from '@/components/ui/card';
 import { showError } from '@/utils/toast';
 import { useAuthData } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 const MenuManagement: React.FC = () => {
   const { toast } = useToast();
@@ -55,6 +56,35 @@ const MenuManagement: React.FC = () => {
       return;
     }
     
+    const resolveSectionId = async (sectionName?: string | null) => {
+      const cleanName = sectionName?.trim();
+      if (!cleanName) return null;
+      const { data: existing, error: existingError } = await supabase
+        .from('menu_sections')
+        .select('id')
+        .eq('restaurant_id', restaurantId)
+        .ilike('name', cleanName)
+        .maybeSingle();
+      if (existingError) throw existingError;
+      if (existing?.id) return existing.id;
+
+      const { data: created, error: createError } = await supabase
+        .from('menu_sections')
+        .insert({ restaurant_id: restaurantId, name: cleanName, order_index: 0 })
+        .select('id')
+        .single();
+      if (createError) throw createError;
+      return created.id;
+    };
+
+    let sectionId: string | null = null;
+    try {
+      sectionId = await resolveSectionId(data.section_name);
+    } catch (error: any) {
+      showError(`Erro ao preparar secao do menu: ${error.message}`);
+      return;
+    }
+
     if (editingCategory) {
       await updateCategoryMutation.mutateAsync({ 
         id: editingCategory.id,
@@ -62,6 +92,7 @@ const MenuManagement: React.FC = () => {
           name: data.name,
           is_active: data.is_active,
           order_index: data.order_index,
+          section_id: sectionId,
         }
       });
     } else {
@@ -70,6 +101,7 @@ const MenuManagement: React.FC = () => {
         name: data.name,
         is_active: data.is_active,
         order_index: data.order_index,
+        section_id: sectionId,
       });
     }
   }, [editingCategory, updateCategoryMutation, createCategoryMutation, restaurantId]);
