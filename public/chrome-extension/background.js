@@ -2754,8 +2754,8 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
         const anchors = Array.from(document.querySelectorAll('a[href]'));
         const leads = [];
         const seen = new Set();
-        const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|lanche|sandu[ií]che|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|padaria|bistr[oô]|cantina|frutos do mar|peixaria|comida/i;
-        const addressPattern = /\b(r\.|rua|av\.|avenida|pra[cç]a|rod\.|rodovia|br-\d|travessa|tv\.|alameda|estrada|shopping|loja|bairro|centro|catol[eé]|campina grande|pb)\b|\d{2,}/i;
+        const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|lanche|sandu[ií]che|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|loja de a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|past[eé]is|pastel\b|padaria|bistr[oô]|cantina|frutos do mar|peixaria|comida/i;
+        const addressPattern = /\b(r\.|rua|av\.|avenida|pra[cç]a|rod\.|rodovia|br-\d|travessa|tv\.|alameda|estrada|shopping|bairro|centro|catol[eé]|campina grande|pb)\b/i;
         const isRatingOrPriceLine = (line) => {
           const text = String(line || '').trim();
           return /^\d(?:[,.]\d)?\s*\(/.test(text) ||
@@ -2766,7 +2766,8 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           const text = String(line || '').trim();
           if (!text) return true;
           if (isRatingOrPriceLine(text)) return true;
-          if (/^(aberto|fechado|fecha|abre|hor[aá]rio|pedir|pedido|delivery|retirada|no local|compartilhar|resultados)$/i.test(text)) return true;
+          if (/^(aberto|fechado|fecha|abre)\b/i.test(text)) return true;
+          if (/^(hor[aá]rio|pedir|pedido|delivery|retirada|no local|compartilhar|resultados)$/i.test(text)) return true;
           if (/^["“”].*["“”]$/.test(text)) return true;
           return false;
         };

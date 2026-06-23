@@ -49,4 +49,4 @@ Esse é o service worker correto da extensão `Coletor Auxiliar - Dazzling Axolo
 
 - Não usar perfil de Chrome dentro de `.tmp` do projeto enquanto o Vite estiver rodando, porque o watcher pode tentar observar arquivos travados do Chrome e derrubar o dev server.
 - Se `chrome://extensions` aparecer vazio, esse perfil não está com a extensão carregada e o teste não é válido.
-- Login local de desenvolvimento do painel admin: `admin@restaurante.com` / `password`.
+- Login do painel admin: se o Chrome já preencher email e senha salvos, não digitar por cima. Apenas clicar em Entrar. Se o campo ficar contaminado por teste anterior, limpar/recarregar a tela antes de usar o autofill novamente.
