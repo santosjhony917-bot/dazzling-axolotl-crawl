@@ -2830,6 +2830,8 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
   let lastSnapshot = null;
   let lastFingerprint = '';
   let stableRounds = 0;
+  let noNewLeadRounds = 0;
+  let loadingStallRounds = 0;
   const snapshotFingerprint = (snapshot, collectedSize = collected.size) => {
     const feed = snapshot?.feed || {};
     return [
@@ -2842,8 +2844,8 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
   const waitForMapsFeedProgress = async (beforeFingerprint, deadlineAt) => {
     let latest = null;
     const waitStartedAt = Date.now();
-    while (Date.now() < deadlineAt && Date.now() - waitStartedAt < 6500) {
-      await ffSleep(650);
+    while (Date.now() < deadlineAt && Date.now() - waitStartedAt < 3600) {
+      await ffSleep(450);
       const snapshot = await readVisibleGoogleMapsLeads(tabId, limit, expectedCity, expectedState);
       latest = snapshot;
       const added = mergeLeads(snapshot.leads);
@@ -2860,8 +2862,8 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
     attached = true;
 
     const startedAt = Date.now();
-    const maxDurationMs = 55000;
-    const maxScrollRounds = 18;
+    const maxDurationMs = 34000;
+    const maxScrollRounds = 12;
     const deadlineAt = startedAt + maxDurationMs;
 
     for (let step = 0; step < maxScrollRounds && collected.size < limit && stableRounds < 4 && Date.now() < deadlineAt; step += 1) {
@@ -2872,29 +2874,34 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
       const fingerprint = snapshotFingerprint(snapshot);
 
       if (/\/maps\/place\//i.test(snapshot.url || '') && collected.size > 0) break;
+      if (added === 0) noNewLeadRounds += 1;
+      else noNewLeadRounds = 0;
+
       if (step > 0 && added === 0 && fingerprint === lastFingerprint) stableRounds += 1;
       else stableRounds = 0;
       lastFingerprint = fingerprint;
 
       if (collected.size >= limit) break;
       if (snapshot.reachedEnd && stableRounds >= 1) break;
-      if (step >= 5 && collected.size >= 35 && stableRounds >= 2) break;
+      if (step >= 4 && collected.size >= 30 && noNewLeadRounds >= 2) break;
+      if (step >= 3 && collected.size >= 8 && noNewLeadRounds >= 3 && !snapshot.loadingVisible) break;
+      if (step >= 5 && noNewLeadRounds >= 4 && !snapshot.loadingVisible) break;
 
       const rect = feed.rect || { x: 72, y: 72, width: 408, height: 565 };
       const x = Math.max(20, Math.round(rect.x + Math.min(rect.width - 20, Math.max(40, rect.width * 0.52))));
       const y = Math.max(20, Math.round(rect.y + Math.min(rect.height - 20, Math.max(80, rect.height * 0.62))));
 
       await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, modifiers: 0 });
-      for (let wheel = 0; wheel < 2; wheel += 1) {
+      for (let wheel = 0; wheel < 3; wheel += 1) {
         await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', {
           type: 'mouseWheel',
           x,
           y,
           deltaX: 0,
-          deltaY: 900,
+          deltaY: 1350,
           modifiers: 0,
         });
-        await ffSleep(360);
+        await ffSleep(220);
       }
       const afterScroll = await waitForMapsFeedProgress(fingerprint, deadlineAt);
       if (afterScroll.snapshot) {
@@ -2903,8 +2910,12 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
       }
       if (/\/maps\/place\//i.test(afterScroll.snapshot?.url || '') && collected.size > 0) break;
       if (!afterScroll.progressed && (snapshot.loadingVisible || afterScroll.snapshot?.loadingVisible)) {
+        loadingStallRounds += 1;
         stableRounds += 1;
+      } else {
+        loadingStallRounds = 0;
       }
+      if (loadingStallRounds >= 2 && collected.size > 0) break;
     }
 
     const finalSnapshot = await readVisibleGoogleMapsLeads(tabId, limit, expectedCity, expectedState);
