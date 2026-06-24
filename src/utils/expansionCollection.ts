@@ -105,7 +105,15 @@ export const MAPS_COLLECTION_COMMERCIAL_POLE_TERMS = MAPS_COLLECTION_EXTENSION_T
 
 export function getCommercialPoleNeighborhoodCount(neighborhoodCount: number) {
   if (neighborhoodCount <= 0) return 0;
-  return Math.min(neighborhoodCount, Math.min(10, Math.max(8, Math.ceil(neighborhoodCount * 0.15))));
+
+  // A cauda longa deve crescer com o porte da cidade, mas sem repetir
+  // dezenas de buscas de baixo retorno em bairros onde os termos essenciais
+  // já cobrem bem. Campina Grande (63 bairros) fica com 6 polos, enquanto
+  // capitais/metrópoles recebem mais polos comerciais.
+  if (neighborhoodCount <= 80) return Math.min(neighborhoodCount, 6);
+  if (neighborhoodCount <= 140) return Math.min(neighborhoodCount, 12);
+  if (neighborhoodCount <= 220) return Math.min(neighborhoodCount, 18);
+  return Math.min(neighborhoodCount, 24);
 }
 
 export function estimateMapsCollectionQueryCount(neighborhoodCount: number) {
