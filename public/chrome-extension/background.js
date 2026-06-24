@@ -15,6 +15,48 @@ const ffRecentTabKeys = new Map();
 const ffTabCreationLocks = new Map();
 let ffMapsLeadSearchTabId = null;
 
+function isMapsLeadSearchTab(tab) {
+  const rawUrl = String(tab?.pendingUrl || tab?.url || '');
+  if (!/^https?:\/\//i.test(rawUrl)) return false;
+  try {
+    const parsed = new URL(rawUrl);
+    const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+    return /^google\./i.test(host) && /^\/maps\/(search|place)\b/i.test(parsed.pathname);
+  } catch (_) {
+    return /google\.[^/]+\/maps\/(search|place)\b/i.test(rawUrl);
+  }
+}
+
+async function findReusableMapsLeadSearchTab() {
+  const tabs = await chrome.tabs.query({});
+  const mapsTabs = tabs.filter(isMapsLeadSearchTab);
+  if (mapsTabs.length === 0) return null;
+  return mapsTabs
+    .sort((a, b) => {
+      const activeScore = Number(Boolean(b.active)) - Number(Boolean(a.active));
+      if (activeScore) return activeScore;
+      return Number(b.lastAccessed || 0) - Number(a.lastAccessed || 0);
+    })[0] || null;
+}
+
+async function closeStaleMapsLeadSearchTabs(keepTabId) {
+  if (typeof keepTabId !== 'number') return;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const tabs = await chrome.tabs.query({});
+    const staleIds = tabs
+      .filter(tab => tab.id !== keepTabId && isMapsLeadSearchTab(tab))
+      .map(tab => tab.id)
+      .filter(id => typeof id === 'number');
+    if (staleIds.length === 0) return;
+    try {
+      await chrome.tabs.remove(staleIds);
+    } catch (_) {
+      await Promise.all(staleIds.map(tabId => removeTabWithRetry(tabId).catch(() => {})));
+    }
+    await new Promise(resolve => setTimeout(resolve, 350));
+  }
+}
+
 function normalizeTabUrlForDedupe(rawUrl) {
   try {
     let current = String(rawUrl || '');
@@ -173,14 +215,24 @@ async function getOrCreateMapsLeadSearchTab(url) {
   if (typeof ffMapsLeadSearchTabId === 'number') {
     try {
       const updated = await updateTabWithRetry(ffMapsLeadSearchTabId, { url, active: true });
+      await closeStaleMapsLeadSearchTabs(ffMapsLeadSearchTabId);
       return updated || { id: ffMapsLeadSearchTabId };
     } catch (error) {
       ffMapsLeadSearchTabId = null;
     }
   }
 
+  const reusableTab = await findReusableMapsLeadSearchTab();
+  if (reusableTab?.id) {
+    ffMapsLeadSearchTabId = reusableTab.id;
+    const updated = await updateTabWithRetry(reusableTab.id, { url, active: true });
+    await closeStaleMapsLeadSearchTabs(reusableTab.id);
+    return updated || { id: reusableTab.id };
+  }
+
   const tab = await createTabWithRetry({ url, active: true });
   ffMapsLeadSearchTabId = tab.id;
+  await closeStaleMapsLeadSearchTabs(tab.id);
   return tab;
 }
 
@@ -2945,6 +2997,7 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
 
   await waitForTabComplete(tabId, 45000);
   await new Promise(resolve => setTimeout(resolve, 3500));
+  await closeStaleMapsLeadSearchTabs(tabId);
 
   const initialSnapshot = await readVisibleGoogleMapsLeads(tabId, maxResults, cleanCity, cleanState);
   const initialLeads = Array.isArray(initialSnapshot?.leads) ? initialSnapshot.leads : [];

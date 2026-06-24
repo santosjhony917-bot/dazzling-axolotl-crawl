@@ -8,7 +8,10 @@ import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
 import {
   getCommercialPoleNeighborhoodCount,
+  getExpansionSearchZones,
+  getCityZoneCount,
   MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
+  MAPS_COLLECTION_CITY_ZONE_TERMS,
   MAPS_COLLECTION_COMMERCIAL_POLE_TERMS,
   MAPS_RESULTS_PER_SEARCH,
   normalizeExpansionKey,
@@ -30,7 +33,7 @@ type SearchQueryPlan = {
   neighborhood: string;
   term: string;
   label: string;
-  coverage: 'all_neighborhoods' | 'commercial_poles';
+  coverage: 'all_neighborhoods' | 'commercial_poles' | 'city_zones';
 };
 
 const learnedMissingRestaurantColumns = new Set<string>();
@@ -88,6 +91,7 @@ function buildSearchQueries(city: any, neighborhoods: string[]): SearchQueryPlan
   const seen = new Set<string>();
   const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
   const commercialPoleKeys = new Set(neighborhoods.slice(0, commercialPoleCount).map(normalizeKey));
+  const cityZones = getExpansionSearchZones(city.name, city.state, neighborhoods);
 
   for (const neighborhood of neighborhoods) {
     const terms = [
@@ -110,10 +114,27 @@ function buildSearchQueries(city: any, neighborhoods: string[]): SearchQueryPlan
     }
   }
 
+  for (const zone of cityZones) {
+    for (const entry of MAPS_COLLECTION_CITY_ZONE_TERMS) {
+      const query = `${entry.term} ${zone} ${city.name} ${city.state}`;
+      const key = normalizeKey(query);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      queries.push({
+        query,
+        neighborhood: zone,
+        term: entry.term,
+        label: entry.label,
+        coverage: 'city_zones',
+      });
+    }
+  }
+
   return queries;
 }
 
 function getMapsResultsLimit(searchPlan: SearchQueryPlan) {
+  if (searchPlan.coverage === 'city_zones') return MAPS_RESULTS_PER_SEARCH;
   if (searchPlan.coverage === 'commercial_poles') return 32;
   if (normalizeKey(searchPlan.term) === 'restaurantes') return MAPS_RESULTS_PER_SEARCH;
   return 55;
@@ -410,7 +431,12 @@ export default function CityCollection() {
       const completedSearchesStorageKey = getCompletedSearchesStorageKey(city, cityId);
       const completedSearches = loadCompletedSearches(completedSearchesStorageKey);
       const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
-      addLog(`[PLANO] ${queries.length} buscas: ${MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais em ${neighborhoods.length} bairros + ${MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos extras nos ${commercialPoleCount} principais polos.`);
+      const cityZones = getExpansionSearchZones(city.name, city.state, neighborhoods);
+      const cityZoneCount = getCityZoneCount(neighborhoods.length, city.name, city.state);
+      addLog(`[PLANO] ${queries.length} buscas: ${MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais em ${neighborhoods.length} bairros + ${MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos extras nos ${commercialPoleCount} principais polos + ${MAPS_COLLECTION_CITY_ZONE_TERMS.length} termos compactos em ${cityZoneCount} zonas/polos macro.`);
+      if (cityZones.length) {
+        addLog(`[PLANO] Zonas/polos macro: ${cityZones.join(', ')}.`);
+      }
       addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar por link do Google Maps.`);
       addLog('[CONTRATO] Fase 1 salva apenas nome candidato + link do Google Maps. Endereço, telefone, categoria, Instagram, cardápio e elegibilidade ficam para o Validar IA.');
       if (completedSearches.size) {
@@ -434,7 +460,7 @@ export default function CityCollection() {
         }
 
         setProgress(Math.round((i / queries.length) * 100));
-        const layer = searchPlan.coverage === 'commercial_poles' ? 'polo' : 'cidade';
+        const layer = searchPlan.coverage === 'city_zones' ? 'zona/polo' : searchPlan.coverage === 'commercial_poles' ? 'polo' : 'bairro';
         addLog(`[BUSCA ${i + 1}/${queries.length}] ${searchPlan.label} • ${layer} • ${searchPlan.neighborhood} → ${searchPlan.query}`);
 
         let response: any = null;
@@ -501,7 +527,7 @@ export default function CityCollection() {
           }
 
           existing.add(leadKey);
-          const payload = buildPhase1Payload(lead, city, searchPlan.neighborhood);
+          const payload = buildPhase1Payload(lead, city, searchPlan.coverage === 'city_zones' ? undefined : searchPlan.neighborhood);
           await persistLead(payload);
           saved += 1;
           const rawName = safeText((payload as any).google_maps_name);
@@ -597,7 +623,7 @@ export default function CityCollection() {
                 {isExtensionActive ? 'Extensão ativa e pronta para navegar.' : 'Extensão inativa: carregue/atualize a extensão e salve o ID.'}
               </div>
               <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-800 font-semibold leading-relaxed">
-                Ao iniciar, a Fase 1 descobre/cacheia bairros da cidade e executa buscas como “pizzaria Centro Campina Grande PB”, “comida japonesa Catolé Campina Grande PB” e similares.
+                Ao iniciar, a Fase 1 descobre/cacheia bairros e monta uma cobertura adaptativa: bairros para termos essenciais, polos comerciais para cauda longa e, em cidades grandes, zonas/polos macro como “Zona Sul” ou “Centro Comercial” para ampliar cobertura sem explodir tempo.
               </div>
             </CardContent>
           </Card>

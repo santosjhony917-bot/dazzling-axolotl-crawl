@@ -10,7 +10,7 @@ export type MapsCollectionRound = {
   mapsSearchTerms: string[];
 };
 
-export type MapsCollectionTermCoverage = 'all_neighborhoods' | 'commercial_poles';
+export type MapsCollectionTermCoverage = 'all_neighborhoods' | 'commercial_poles' | 'city_zones';
 
 export const MAPS_COLLECTION_SCAN_ROUNDS: MapsCollectionRound[] = [
   {
@@ -103,6 +103,95 @@ export const MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS = MAPS_COLLECTION_EXTENSION_
 export const MAPS_COLLECTION_COMMERCIAL_POLE_TERMS = MAPS_COLLECTION_EXTENSION_TERMS
   .filter(entry => entry.coverage === 'commercial_poles');
 
+const MAPS_COLLECTION_CITY_ZONE_TERM_KEYS = new Set([
+  'restaurantes',
+  'pizzaria',
+  'lanchonete',
+  'hamburgueria',
+  'açaí',
+  'comida japonesa',
+  'bar',
+  'churrascaria',
+].map(normalizeExpansionKey));
+
+export const MAPS_COLLECTION_CITY_ZONE_TERMS: MapsCollectionExtensionTerm[] = MAPS_COLLECTION_EXTENSION_TERMS
+  .filter(entry => MAPS_COLLECTION_CITY_ZONE_TERM_KEYS.has(normalizeExpansionKey(entry.term)))
+  .map(entry => ({ ...entry, coverage: 'city_zones' }));
+
+export const KNOWN_CITY_SEARCH_ZONES: Record<string, string[]> = {
+  'sao-paulo-sp': [
+    'Centro',
+    'Zona Sul',
+    'Zona Oeste',
+    'Zona Norte',
+    'Zona Leste',
+    'Avenida Paulista',
+    'Faria Lima',
+    'Vila Olímpia',
+    'Berrini',
+    'Marginal Tietê',
+  ],
+  'rio-de-janeiro-rj': [
+    'Centro',
+    'Zona Sul',
+    'Zona Norte',
+    'Barra da Tijuca',
+    'Recreio',
+    'Tijuca',
+    'Jacarepaguá',
+    'Madureira',
+    'Méier',
+    'Ilha do Governador',
+  ],
+  'belo-horizonte-mg': [
+    'Centro',
+    'Savassi',
+    'Lourdes',
+    'Pampulha',
+    'Barreiro',
+    'Venda Nova',
+    'Buritis',
+    'Região Hospitalar',
+  ],
+  'recife-pe': [
+    'Centro',
+    'Boa Viagem',
+    'Zona Norte',
+    'Zona Sul',
+    'Recife Antigo',
+    'Casa Forte',
+    'Graças',
+    'Madalena',
+  ],
+};
+
+function getKnownCitySearchZones(cityName: string, state?: string) {
+  const cityKey = normalizeExpansionKey(cityName || '');
+  const stateKey = normalizeExpansionKey(state || '');
+  const keys = stateKey ? [`${cityKey}-${stateKey}`, cityKey] : [cityKey];
+
+  for (const key of keys) {
+    const zones = KNOWN_CITY_SEARCH_ZONES[key];
+    if (zones?.length) return zones;
+  }
+
+  return [];
+}
+
+export function getCityZoneCount(neighborhoodCount: number, cityName?: string, state?: string) {
+  const presetZones = getKnownCitySearchZones(cityName || '', state);
+  if (presetZones.length) {
+    if (neighborhoodCount <= 80) return Math.min(presetZones.length, 6);
+    if (neighborhoodCount <= 140) return Math.min(presetZones.length, 8);
+    return Math.min(presetZones.length, 10);
+  }
+
+  if (neighborhoodCount <= 80) return 0;
+  if (neighborhoodCount <= 140) return 4;
+  if (neighborhoodCount <= 220) return 6;
+  return 10;
+}
+
 export function getCommercialPoleNeighborhoodCount(neighborhoodCount: number) {
   if (neighborhoodCount <= 0) return 0;
 
@@ -116,10 +205,11 @@ export function getCommercialPoleNeighborhoodCount(neighborhoodCount: number) {
   return Math.min(neighborhoodCount, 24);
 }
 
-export function estimateMapsCollectionQueryCount(neighborhoodCount: number) {
+export function estimateMapsCollectionQueryCount(neighborhoodCount: number, cityName?: string, state?: string) {
   const allNeighborhoodQueries = neighborhoodCount * MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length;
   const commercialPoleQueries = getCommercialPoleNeighborhoodCount(neighborhoodCount) * MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length;
-  return allNeighborhoodQueries + commercialPoleQueries;
+  const cityZoneQueries = getCityZoneCount(neighborhoodCount, cityName, state) * MAPS_COLLECTION_CITY_ZONE_TERMS.length;
+  return allNeighborhoodQueries + commercialPoleQueries + cityZoneQueries;
 }
 
 export function normalizeExpansionKey(value: string) {
@@ -329,6 +419,30 @@ export function getKnownCityNeighborhoods(cityName: string, state?: string) {
   }
 
   return [];
+}
+
+export function getExpansionSearchZones(cityName: string, state: string | undefined, neighborhoods: string[]) {
+  const zoneCount = getCityZoneCount(neighborhoods.length, cityName, state);
+  if (!zoneCount) return [];
+
+  const presetZones = getKnownCitySearchZones(cityName, state);
+  const genericZones = [
+    'Centro',
+    'Zona Norte',
+    'Zona Sul',
+    'Zona Leste',
+    'Zona Oeste',
+    'Região Central',
+    'Centro Comercial',
+    'Shopping',
+    'Distrito Industrial',
+    'Rodoviária',
+  ];
+
+  return normalizeNeighborhoodList([
+    ...(presetZones.length ? presetZones : genericZones),
+    ...neighborhoods.slice(0, Math.min(6, neighborhoods.length)),
+  ], zoneCount);
 }
 
 export function normalizeNeighborhoodList(values: unknown[], limit = 200) {

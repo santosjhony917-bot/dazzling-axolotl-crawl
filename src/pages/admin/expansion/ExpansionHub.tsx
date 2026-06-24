@@ -15,6 +15,7 @@ import { showSuccess, showError } from '@/utils/toast';
 import {
   estimateMapsCollectionQueryCount,
   MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
+  MAPS_COLLECTION_CITY_ZONE_TERMS,
   MAPS_COLLECTION_COMMERCIAL_POLE_TERMS,
   MAPS_RESULTS_PER_SEARCH,
   resolveExpansionNeighborhoods,
@@ -661,19 +662,19 @@ export default function ExpansionHub() {
                         </span>
                       ) : (
                         <span className="font-semibold text-blue-700">
-                          {estimateMapsCollectionQueryCount(neighborhoodPreview.length)} buscas estimadas
+                          {estimateMapsCollectionQueryCount(neighborhoodPreview.length, newCity.name, newCity.state)} buscas estimadas
                         </span>
                       )}
                     </div>
                     <p className="mt-1.5 leading-relaxed text-blue-800">
-                      Ao iniciar a Fase 1, a extensão cobre todos os bairros com {MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais e aprofunda os polos comerciais com mais {MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos. Ex:
+                      Ao iniciar a Fase 1, a extensão cobre bairros com {MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais, aprofunda polos comerciais com mais {MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos e, em cidades grandes/metrópoles, adiciona {MAPS_COLLECTION_CITY_ZONE_TERMS.length} termos compactos em zonas/polos macro. Ex:
                       {' '}
                       <span className="font-semibold">
                         pizzaria {neighborhoodPreview[0] || 'Centro'} {newCity.name} {newCity.state}
                       </span>.
                     </p>
                     <p className="mt-2 rounded-lg bg-white/70 px-2.5 py-2 text-blue-800">
-                      Potencial bruto: até {estimateMapsCollectionQueryCount(neighborhoodPreview.length) * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de remover duplicados e inválidos.
+                      Potencial bruto: até {estimateMapsCollectionQueryCount(neighborhoodPreview.length, newCity.name, newCity.state) * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de remover duplicados e inválidos.
                     </p>
                     {neighborhoodPreview.length > 0 && (
                       <p className="mt-2 line-clamp-2 text-blue-700">
