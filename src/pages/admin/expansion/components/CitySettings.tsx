@@ -8,6 +8,23 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 
 const BLOCKED_STATUSES = ['manual_required', 'blocked', 'failed', 'invalid_source'];
+const NO_MENU_STATUSES = ['not_found', 'unavailable'];
+
+const readAiLog = (restaurant: any) => {
+  const raw = restaurant?.ai_log;
+  if (!raw) return {};
+  if (typeof raw === 'object') return raw;
+  try {
+    return JSON.parse(String(raw));
+  } catch (_) {
+    return {};
+  }
+};
+
+const getMenuStatus = (restaurant: any) => {
+  const log = readAiLog(restaurant);
+  return restaurant?.menu_status || log?.menu_status || (log?.status === 'menu_found' ? 'found' : '');
+};
 
 export default function CitySettings() {
   const { cityId } = useParams();
@@ -42,7 +59,7 @@ export default function CitySettings() {
 
         const { data: restData, error: restError } = await supabase
           .from('restaurants')
-          .select('id, name, phone, plan, ai_validated, created_at, is_deleted, menu_status, visit_status')
+          .select('id, name, phone, plan, ai_validated, created_at, is_deleted, ai_log, visit_status')
           .eq('city', cityData.name)
           .eq('state', cityData.state);
 
@@ -52,9 +69,9 @@ export default function CitySettings() {
         const activeRows = allRows.filter(r => r.is_deleted !== true);
         const validatedRows = activeRows.filter(r => r.ai_validated === true);
         const rejectedLeads = allRows.filter(r => r.is_deleted === true).length;
-        const blockedLeads = activeRows.filter(r => BLOCKED_STATUSES.includes(r.menu_status || '')).length;
-        const noMenuLeads = activeRows.filter(r => r.menu_status === 'not_found').length;
-        const crmReadyLeads = validatedRows.filter(r => !!r.phone && !BLOCKED_STATUSES.includes(r.menu_status || '')).length;
+        const blockedLeads = activeRows.filter(r => BLOCKED_STATUSES.includes(getMenuStatus(r) || '')).length;
+        const noMenuLeads = activeRows.filter(r => NO_MENU_STATUSES.includes(getMenuStatus(r) || '')).length;
+        const crmReadyLeads = validatedRows.filter(r => !!r.phone && !BLOCKED_STATUSES.includes(getMenuStatus(r) || '')).length;
         const premiumLeads = activeRows.filter(r => r.plan === 'premium').length;
         const noPhoneLeads = activeRows.filter(r => !r.phone || r.phone.trim() === '').length;
 

@@ -20,6 +20,22 @@ interface RestaurantCard {
 
 const BLOCKED_STATUSES = ['manual_required', 'blocked', 'failed', 'invalid_source'];
 
+const readAiLog = (restaurant: any) => {
+  const raw = restaurant?.ai_log;
+  if (!raw) return {};
+  if (typeof raw === 'object') return raw;
+  try {
+    return JSON.parse(String(raw));
+  } catch (_) {
+    return {};
+  }
+};
+
+const getMenuStatus = (restaurant: any) => {
+  const log = readAiLog(restaurant);
+  return restaurant?.menu_status || log?.menu_status || (log?.status === 'menu_found' ? 'found' : '');
+};
+
 const DB_TO_COLUMN: Record<string, string> = {
   Pendente: 'lead',
   lead: 'lead',
@@ -89,7 +105,7 @@ export default function CityCrm() {
 
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name, category, phone, created_at, visit_status, ai_validated, is_deleted, menu_status')
+        .select('id, name, category, phone, created_at, visit_status, ai_validated, is_deleted, ai_log')
         .eq('city', cityData.name)
         .eq('state', cityData.state)
         .eq('ai_validated', true);
@@ -97,11 +113,14 @@ export default function CityCrm() {
       if (error) throw error;
 
       const rows = data || [];
-      const eligible = rows.filter(r => (
-        r.is_deleted !== true
-        && !BLOCKED_STATUSES.includes(r.menu_status || '')
-        && !!r.phone
-      ));
+      const eligible = rows.filter(r => {
+        const menuStatus = getMenuStatus(r);
+        return (
+          r.is_deleted !== true
+          && !BLOCKED_STATUSES.includes(menuStatus || '')
+          && !!r.phone
+        );
+      });
       setBlockedCount(rows.length - eligible.length);
 
       const mappedCards: RestaurantCard[] = eligible.map((r) => ({
@@ -111,7 +130,7 @@ export default function CityCrm() {
         category: r.category || 'Restaurante validado',
         contact: r.phone || 'Sem telefone',
         lastAction: r.created_at ? new Date(r.created_at).toLocaleDateString('pt-BR') : 'Desconhecido',
-        menuStatus: r.menu_status || 'unknown',
+        menuStatus: getMenuStatus(r) || 'unknown',
       }));
 
       setCards(mappedCards);

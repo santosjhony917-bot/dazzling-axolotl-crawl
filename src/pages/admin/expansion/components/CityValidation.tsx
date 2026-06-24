@@ -10,6 +10,11 @@ import { toast } from 'sonner';
 import { RestaurantDetailsDialog } from '@/components/admin/RestaurantDetailsDialog';
 import { geocodeAddress } from '@/services/geocoding';
 
+type ValidationTab = 'pendentes' | 'prontos' | 'sem_cardapio' | 'revisao' | 'importados';
+
+const MENU_REVIEW_STATUSES = ['manual_required', 'blocked', 'failed', 'invalid_source'];
+const MENU_NO_CARDAPIO_STATUSES = ['not_found', 'unavailable'];
+
 const parseGoogleMapsAddress = (fullAddress: string) => {
   let street = ''; let number = ''; let neighborhood = ''; let city = ''; let state = ''; let cep = '';
   if (!fullAddress) return { street, number, neighborhood, city, state, cep };
@@ -90,6 +95,41 @@ const isGoogleMapsUrl = (value: string) => {
   }
 };
 
+const normalizeDedupeKey = (value: string) => String(value || '')
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+const safeDecodeUrl = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch (_) {
+    return value;
+  }
+};
+
+const extractMapsCanonicalKey = (value: string) => {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  const decoded = safeDecodeUrl(raw);
+  const entityId =
+    decoded.match(/!1s([^!/?&#]+)/i)?.[1] ||
+    decoded.match(/\/place_id:([^/?&#]+)/i)?.[1] ||
+    decoded.match(/[?&]query=place_id:([^&]+)/i)?.[1];
+  if (entityId) return `maps:${normalizeDedupeKey(entityId)}`;
+
+  const placeSlug = decoded.match(/\/maps\/place\/([^/@?]+)/i)?.[1] || '';
+  const coords = decoded.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/i)
+    || decoded.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/i);
+  if (placeSlug && coords) {
+    return `maps:${normalizeDedupeKey(placeSlug)}:${Number(coords[1]).toFixed(5)}:${Number(coords[2]).toFixed(5)}`;
+  }
+
+  return `url:${normalizeDedupeKey(decoded.split('?')[0] || decoded)}`;
+};
+
 const extractGoogleMapsUrlFromRestaurant = (restaurant: any) => {
   const directCandidates = [
     restaurant?.googleMapsUrl,
@@ -119,17 +159,30 @@ const extractGoogleMapsUrlFromRestaurant = (restaurant: any) => {
   return '';
 };
 
+const buildRestaurantDedupeKeys = (restaurant: any) => {
+  const mapsUrl = extractGoogleMapsUrlFromRestaurant(restaurant);
+  const name = String(restaurant?.name || '').trim();
+  const address = String(restaurant?.address || '').trim();
+  const keys = [
+    extractMapsCanonicalKey(mapsUrl),
+    mapsUrl ? `raw-url:${normalizeDedupeKey(mapsUrl)}` : '',
+    name || address ? `name-address:${normalizeDedupeKey(name)}-${normalizeDedupeKey(address)}` : '',
+  ].filter(Boolean);
+  return Array.from(new Set(keys));
+};
+
 export default function CityValidation() {
   const { cityId } = useParams();
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isValidating, setIsValidating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState<'pendentes' | 'importados'>('pendentes');
+  const [activeTab, setActiveTab] = useState<ValidationTab>('pendentes');
   const [isApproving, setIsApproving] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [validatingId, setValidatingId] = useState<string | null>(null);
+  const [cityScope, setCityScope] = useState<{ name: string; state: string } | null>(null);
   
   const [logs, setLogs] = useState<string[]>([
     '[SYSTEM] Módulo de Validação e Enriquecimento IA iniciado.',
@@ -139,10 +192,11 @@ export default function CityValidation() {
 
   const [isExtensionActive, setIsExtensionActive] = useState(false);
   const [extensionId, setExtensionId] = useState<string | null>(() => localStorage.getItem('chrome_extension_id') || null);
+  const extensionTargetId = extensionId || 'content-bridge';
 
   const sendExtensionMessage = (id: string, message: Record<string, any>, timeoutMs = 30000) => new Promise<any>((resolve) => {
     const chromeObj = (window as any).chrome;
-    if (chromeObj?.runtime?.sendMessage) {
+    if (id !== 'content-bridge' && chromeObj?.runtime?.sendMessage) {
       try {
         chromeObj.runtime.sendMessage(id, message, (response: any) => {
           if (chromeObj.runtime.lastError) resolve({ success: false, error: chromeObj.runtime.lastError.message });
@@ -179,11 +233,7 @@ export default function CityValidation() {
   useEffect(() => {
     const checkConnection = async () => {
       const id = localStorage.getItem('chrome_extension_id') || '';
-      if (!id) {
-        setIsExtensionActive(false);
-        return;
-      }
-      const response = await sendExtensionMessage(id, { action: "ping" }, 5000);
+      const response = await sendExtensionMessage(id || 'content-bridge', { action: "ping" }, 5000);
       setIsExtensionActive(!!(response && response.success));
     };
     checkConnection();
@@ -310,6 +360,11 @@ export default function CityValidation() {
       return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`).test(text);
     });
 
+    const hasMapsStatusEvidence = Boolean(
+      extra.isPermanentlyClosed === true ||
+      extra.businessStatus ||
+      extra.statusText
+    );
     const mapsStatusText = normalizeText([
       extra.businessStatus,
       extra.statusText,
@@ -317,10 +372,12 @@ export default function CityValidation() {
     ].filter(Boolean).join(' | '));
 
     if (
+      hasMapsStatusEvidence && (
       extra.isPermanentlyClosed === true ||
       mapsStatusText.includes('permanently closed') ||
       mapsStatusText.includes('permanentemente fechado') ||
       mapsStatusText.includes('fechado permanentemente')
+      )
     ) {
       return { status: 'ineligible' as const, confidence: 0.99, reason: 'Estabelecimento aparece como permanentemente fechado no Google Maps.', source: 'local_rules' };
     }
@@ -501,7 +558,56 @@ export default function CityValidation() {
         ai_log: JSON.stringify(payload),
       } as any)
       .eq('id', restaurant.id);
+    await markDuplicateRestaurantsIneligible(restaurant, decision, phase, payload);
     addLog(`Estabelecimento removido da validação: ${restaurant.name}. Motivo: ${decision.reason}`);
+  };
+
+  const markDuplicateRestaurantsIneligible = async (restaurant: any, decision: any, phase: string, basePayload: any) => {
+    const keys = buildRestaurantDedupeKeys(restaurant);
+    if (!restaurant?.id || !restaurant?.city || !restaurant?.state || keys.length === 0) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('id, name, google_maps_url, visit_notes, address, is_deleted')
+        .eq('city', restaurant.city)
+        .eq('state', restaurant.state)
+        .eq('name', restaurant.name)
+        .neq('id', restaurant.id)
+        .limit(50);
+
+      if (error) throw error;
+
+      const duplicateIds = (data || [])
+        .filter(row => row.is_deleted !== true)
+        .filter(row => {
+          const rowKeys = buildRestaurantDedupeKeys(row);
+          return rowKeys.some(key => keys.includes(key));
+        })
+        .map(row => row.id);
+
+      if (duplicateIds.length === 0) return;
+
+      await supabase
+        .from('restaurants')
+        .update({
+          is_deleted: true,
+          is_published: false,
+          ai_validated: false,
+          ai_log: JSON.stringify({
+            ...basePayload,
+            phase: `${phase}_duplicate`,
+            duplicateOf: restaurant.id,
+            decision,
+            removedAt: new Date().toISOString(),
+          }),
+        } as any)
+        .in('id', duplicateIds);
+
+      addLog(`Duplicados canÃ´nicos removidos junto com ${restaurant.name}: ${duplicateIds.length}.`);
+    } catch (error: any) {
+      addLog(`NÃ£o consegui remover duplicados automaticamente: ${error?.message || error}`);
+    }
   };
 
   const persistMenuStatus = async (
@@ -548,14 +654,40 @@ export default function CityValidation() {
   const fetchRestaurants = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5000);
-      
-      if (error) throw error;
-      setRestaurants(data || []);
+      let projectCity: { name: string; state: string } | null = null;
+      if (cityId) {
+        const { data: cityData, error: cityError } = await supabase
+          .from('expansion_projects')
+          .select('name, state')
+          .eq('slug', cityId)
+          .single();
+        if (cityError) throw cityError;
+        projectCity = cityData;
+        setCityScope(cityData);
+      }
+
+      const pageSize = 1000;
+      const rows: any[] = [];
+
+      for (let from = 0; from < 20000; from += pageSize) {
+        let query = supabase
+          .from('restaurants')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .range(from, from + pageSize - 1);
+
+        if (projectCity?.name && projectCity?.state) {
+          query = query.eq('city', projectCity.name).eq('state', projectCity.state);
+        }
+
+        const { data, error } = await query;
+        if (error) throw error;
+
+        rows.push(...(data || []));
+        if (!data || data.length < pageSize) break;
+      }
+
+      setRestaurants(rows);
     } catch (err) {
       console.error('Error fetching restaurants:', err);
     } finally {
@@ -563,9 +695,111 @@ export default function CityValidation() {
     }
   };
 
+  const readAiLog = (restaurant: any) => {
+    const raw = restaurant?.ai_log;
+    if (!raw) return {};
+    if (typeof raw === 'object') return raw;
+    try {
+      return JSON.parse(String(raw));
+    } catch (_) {
+      return {};
+    }
+  };
+
+  const getMenuStatus = (restaurant: any) => {
+    const log = readAiLog(restaurant);
+    return restaurant?.menu_status || log?.menu_status || (log?.status === 'menu_found' ? 'found' : '');
+  };
+
+  const getMenuStatusReason = (restaurant: any) => {
+    const log = readAiLog(restaurant);
+    return restaurant?.menu_status_reason || log?.reason || '';
+  };
+
   useEffect(() => {
     fetchRestaurants();
   }, [cityId]);
+
+  const hasStructuredMenu = (restaurant: any) => {
+    if (getMenuStatus(restaurant) === 'found') return true;
+    const legacyMenuUrl = restaurant?.ifood_url || restaurant?.other_url || restaurant?.external_url;
+    return restaurant?.ai_validated === true && !getMenuStatus(restaurant) && Boolean(legacyMenuUrl);
+  };
+
+  const getQaState = (restaurant: any) => {
+    if (restaurant?.is_deleted === true) {
+      return {
+        key: 'rejeitado',
+        label: 'Rejeitado',
+        action: 'Fora do app',
+        className: 'bg-rose-50 text-rose-700 border-rose-200',
+      };
+    }
+    if (restaurant?.is_published === true) {
+      return {
+        key: 'publicado',
+        label: 'Publicado',
+        action: 'Visível no app',
+        className: 'bg-slate-900 text-white border-slate-900',
+      };
+    }
+    if (restaurant?.ai_validated !== true) {
+      return {
+        key: 'pendente',
+        label: 'Pendente',
+        action: 'Rodar Validar IA',
+        className: 'bg-amber-50 text-amber-700 border-amber-200',
+      };
+    }
+    if (hasStructuredMenu(restaurant)) {
+      return {
+        key: 'pronto',
+        label: 'Pronto p/ app',
+        action: 'Pode aprovar lote',
+        className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      };
+    }
+    const menuStatus = getMenuStatus(restaurant);
+    if (MENU_REVIEW_STATUSES.includes(menuStatus || '')) {
+      return {
+        key: 'revisao',
+        label: 'Revisão humana',
+        action: 'Resolver bloqueio/login/captcha',
+        className: 'bg-violet-50 text-violet-700 border-violet-200',
+      };
+    }
+    if (MENU_NO_CARDAPIO_STATUSES.includes(menuStatus || '')) {
+      return {
+        key: 'sem_cardapio',
+        label: 'Sem cardápio',
+        action: 'Não publicar; possível CRM',
+        className: 'bg-orange-50 text-orange-700 border-orange-200',
+      };
+    }
+    return {
+      key: 'revisao',
+      label: 'QA incompleto',
+      action: 'Revalidar com extensão',
+      className: 'bg-blue-50 text-blue-700 border-blue-200',
+    };
+  };
+
+  const activeRestaurants = restaurants.filter(r => r.is_deleted !== true);
+  const qaStats = {
+    pendentes: activeRestaurants.filter(r => getQaState(r).key === 'pendente').length,
+    prontos: activeRestaurants.filter(r => getQaState(r).key === 'pronto').length,
+    sem_cardapio: activeRestaurants.filter(r => getQaState(r).key === 'sem_cardapio').length,
+    revisao: activeRestaurants.filter(r => getQaState(r).key === 'revisao').length,
+    importados: activeRestaurants.filter(r => getQaState(r).key === 'publicado').length,
+  };
+
+  const qaTabs: { key: ValidationTab; label: string; count: number; hint: string }[] = [
+    { key: 'pendentes', label: 'Pendentes Validar IA', count: qaStats.pendentes, hint: 'Coletados na Fase 1 e ainda não auditados.' },
+    { key: 'prontos', label: 'Prontos p/ App', count: qaStats.prontos, hint: 'Validar IA encontrou cardápio estruturado.' },
+    { key: 'sem_cardapio', label: 'Sem Cardápio', count: qaStats.sem_cardapio, hint: 'Existe no Maps, mas não achou cardápio público confiável.' },
+    { key: 'revisao', label: 'Revisão Humana', count: qaStats.revisao, hint: 'Bloqueio, captcha, login, fonte inválida ou QA incompleto.' },
+    { key: 'importados', label: 'Base Publicada', count: qaStats.importados, hint: 'Já visíveis no app público.' },
+  ];
 
   const filteredRestaurants = restaurants.filter(r => {
     if (r.is_deleted === true) return false;
@@ -574,12 +808,14 @@ export default function CityValidation() {
       (r.category && r.category.toLowerCase().includes(searchTerm.toLowerCase()));
       
     if (!matchesSearch) return false;
-    
-    if (activeTab === 'importados') {
-      return r.is_published === true;
-    } else {
-      return r.is_published !== true;
-    }
+
+    const qaState = getQaState(r).key;
+    if (activeTab === 'pendentes') return qaState === 'pendente';
+    if (activeTab === 'prontos') return qaState === 'pronto';
+    if (activeTab === 'sem_cardapio') return qaState === 'sem_cardapio';
+    if (activeTab === 'revisao') return qaState === 'revisao';
+    if (activeTab === 'importados') return qaState === 'publicado';
+    return false;
   });
 
   const handleAutoValidate = async () => {
@@ -608,9 +844,9 @@ export default function CityValidation() {
           }
           let mapsData: any = null;
           const mapUrl = extractGoogleMapsUrlFromRestaurant(r);
-          if (isExtensionActive && extensionId && mapUrl) {
+          if (isExtensionActive && mapUrl) {
             addLog(`Lote: abrindo Google Maps pela extensão para checar status/categoria de ${r.name}.`);
-            const mapsResponse = await sendExtensionMessage(extensionId, {
+            const mapsResponse = await sendExtensionMessage(extensionTargetId, {
               action: 'scrapeGoogleHours',
               query: r.name || '',
               mapUrl,
@@ -662,6 +898,7 @@ export default function CityValidation() {
     if (validatingId) return;
     const initialName = restaurant.name || 'registro vindo do Google Maps';
     let effectiveRestaurant: any = { ...restaurant };
+    let finalMenuStatus: 'unknown' | 'found' | 'not_found' | 'manual_required' | 'failed' = 'unknown';
     
     try {
       setValidatingId(restaurant.id);
@@ -676,7 +913,7 @@ export default function CityValidation() {
         return;
       }
 
-      if (isExtensionActive && extensionId) {
+      if (isExtensionActive) {
         // A Fase 1 agora fornece apenas o link do Google Maps; o Validar IA descobre todo o resto.
         addLog(`Iniciando fluxo autônomo a partir do Google Maps para: ${initialName}`);
         
@@ -700,7 +937,7 @@ export default function CityValidation() {
         if (mapUrl) {
           toast.success(`📍 PASSO 1/5: Acessando Google Maps para extrair dados oficiais...`);
           addLog(`PASSO 1/5: Acessando Google Maps...`);
-          const extRes = await sendExtensionMessage(extensionId, { action: "scrapeGoogleHours", query: effectiveRestaurant.name || '', mapUrl, restaurantId: restaurant.id });
+          const extRes = await sendExtensionMessage(extensionTargetId, { action: "scrapeGoogleHours", query: effectiveRestaurant.name || '', mapUrl, restaurantId: restaurant.id });
           
           if (extRes && extRes.success) {
             mapsData = extRes;
@@ -753,10 +990,12 @@ export default function CityValidation() {
             }
             if (mapsCategory) addLog(`Categoria oficial do Maps: ${mapsCategory}`);
             
-            if (extRes.schedule) {
+            if (extRes.schedule && extRes.scheduleIsWeekly === true) {
               toast.success('✅ Horários encontrados no Google Maps! Salvando...');
               addLog(`Horários salvos.`);
               await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', restaurant.id);
+            } else if (extRes.schedule) {
+              addLog(`HorÃ¡rios parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). NÃ£o vou salvar para nÃ£o marcar dias ausentes como fechados.`);
             }
             
             if (extRes.address) {
@@ -862,7 +1101,7 @@ export default function CityValidation() {
           toast.success(`🔍 PASSO 2/5: Buscando Instagram no Google usando nome e endereço...`);
           addLog(`PASSO 2/5: Buscando Instagram no Google...`);
           const query = `${effectiveRestaurant.name || ''} ${effectiveRestaurant.city || ''} instagram`;
-          const extRes = await sendExtensionMessage(extensionId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id });
+          const extRes = await sendExtensionMessage(extensionTargetId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id });
           
           if (extRes && extRes.success && extRes.url) {
             activeInstagramUrl = extRes.url;
@@ -877,7 +1116,7 @@ export default function CityValidation() {
         if (activeInstagramUrl) {
           toast.success(`📸 PASSO 3/5: Coletando perfil e verificando relevância do Instagram...`);
           addLog(`PASSO 3/5: Verificando Instagram: ${activeInstagramUrl}`);
-          const scrapeRes = await sendExtensionMessage(extensionId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl, restaurantId: restaurant.id });
+          const scrapeRes = await sendExtensionMessage(extensionTargetId, { action: "scrapeInstagram", instagramUrl: activeInstagramUrl, restaurantId: restaurant.id });
 
           if (scrapeRes && scrapeRes.success) {
             instagramBio = scrapeRes.bio || '';
@@ -1175,8 +1414,7 @@ export default function CityValidation() {
           });
 
           const sendExtensionAction = (action: string, url: string, extra: Record<string, any> = {}, timeoutMs = 120000) => {
-            if (!extensionId) return Promise.resolve({ success: false, error: 'ID da extensão ausente.' });
-            return sendExtensionMessage(extensionId, { action, url, ...extra }, timeoutMs);
+            return sendExtensionMessage(extensionTargetId, { action, url, ...extra }, timeoutMs);
           };
 
           const validateCandidateUrl = async (sourceUrl: string, sourceLabel = '', discoveryMethod = 'textual_ai_url_selection') => {
@@ -1289,7 +1527,7 @@ export default function CityValidation() {
           };
 
           const runGptNavigationDiscovery = async (startUrl: string, sourceLabel: string) => {
-            if (!startUrl || !/^https?:\/\//i.test(startUrl) || !extensionId) return false;
+            if (!startUrl || !/^https?:\/\//i.test(startUrl)) return false;
             addLog(`GPT navegador tentando descobrir cardápio a partir de ${sourceLabel}...`);
             try {
               const startHost = new URL(startUrl).hostname.toLowerCase();
@@ -1533,10 +1771,12 @@ export default function CityValidation() {
           if (!menuEvidence?.success) {
             if (requiresHuman) {
               await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria: ${requiresHuman.error || requiresHuman.blocker || 'bloqueio/login/captcha'}`, { requiresHuman });
+              finalMenuStatus = 'manual_required';
               addLog(`Cardapio nao coletado automaticamente: intervencao humana necessaria (${requiresHuman.error || requiresHuman.blocker || 'bloqueio'}).`);
               toast.warning('Restaurante validado, mas o cardapio exige intervencao humana.');
             } else {
               await persistMenuStatus(restaurant, 'not_found', 'Nenhuma fonte confiavel de cardapio foi encontrada apos bio, Google, GPT navegador e imagens recentes.');
+              finalMenuStatus = 'not_found';
               addLog('Restaurante validado, mas nenhum cardapio online confiavel foi encontrado.');
               toast.warning('Restaurante validado, mas sem cardapio online confiavel.');
             }
@@ -1560,6 +1800,19 @@ export default function CityValidation() {
             throw new Error(menuResult.message || menuResult.error || 'Falha ao persistir o cardápio coletado.');
           }
 
+          await persistMenuStatus(
+            restaurant,
+            'found',
+            menuResult.message || 'Cardápio estruturado e persistido pelo Validar IA.',
+            {
+              sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
+              discoveryMethod: menuEvidence?.discoveryMethod || '',
+              platform: menuEvidence?.platform || '',
+              audit: menuResult.audit || null,
+            }
+          );
+          finalMenuStatus = 'found';
+
           if (learnedSourceUrl && isSafeMenuUrl(learnedSourceUrl)) {
             await supabase.from('restaurants').update({
               other_url: learnedSourceUrl,
@@ -1580,8 +1833,16 @@ export default function CityValidation() {
         throw new Error('Extensão inativa. Informe o ID e confirme o status Extensão Ativa antes de validar.');
       }
       
-      toast.success(`${effectiveRestaurant.name || initialName} validado com sucesso!`, { id: toastId });
-      addLog(`Validação de ${effectiveRestaurant.name || initialName} concluída com sucesso.`);
+      if (finalMenuStatus === 'found') {
+        toast.success(`${effectiveRestaurant.name || initialName} pronto para app: cardápio estruturado.`, { id: toastId });
+        addLog(`Validação de ${effectiveRestaurant.name || initialName} concluída: pronto para app.`);
+      } else if (finalMenuStatus === 'not_found' || finalMenuStatus === 'manual_required') {
+        toast.warning(`${effectiveRestaurant.name || initialName} processado, mas ainda não publicável no app.`, { id: toastId });
+        addLog(`Validação de ${effectiveRestaurant.name || initialName} concluída sem cardápio publicável (${finalMenuStatus}).`);
+      } else {
+        toast.success(`${effectiveRestaurant.name || initialName} validado com sucesso!`, { id: toastId });
+        addLog(`Validação de ${effectiveRestaurant.name || initialName} concluída com sucesso.`);
+      }
       fetchRestaurants();
     } catch (err: any) {
       toast.error('Erro na validação: ' + err.message);
@@ -1593,6 +1854,10 @@ export default function CityValidation() {
   };
 
   const handleApproveBatch = async () => {
+    if (activeTab !== 'prontos') {
+      toast.info('Abra a aba "Prontos p/ App" para publicar restaurantes.');
+      return;
+    }
     // Aprova todos os pendentes filtrados atualmente na tela (para não aprovar cidades erradas acidentalmente)
     const ineligibleToRemove = filteredRestaurants
       .filter(r => r.is_published !== true && r.is_deleted !== true)
@@ -1605,12 +1870,13 @@ export default function CityValidation() {
 
     const toApprove = filteredRestaurants.filter(r => {
       if (r.is_published === true || r.is_deleted === true || r.ai_validated !== true) return false;
+      if (!hasStructuredMenu(r)) return false;
       const eligibility = classifyRestaurantEligibilityLocal(r);
       return !(eligibility.status === 'ineligible' && eligibility.confidence >= 0.9);
     });
     
     if (toApprove.length === 0) {
-      toast.info('Não há restaurantes na lista atual para aprovar.');
+      toast.info('Não há restaurantes prontos para publicar. O lote agora exige Validar IA + cardápio estruturado.');
       return;
     }
 
@@ -1688,28 +1954,57 @@ export default function CityValidation() {
           </Button>
           <Button 
             onClick={handleApproveBatch}
-            disabled={isApproving || activeTab === 'importados' || filteredRestaurants.length === 0}
+            disabled={isApproving || activeTab !== 'prontos' || filteredRestaurants.length === 0}
             className="bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-md hover:-translate-y-0.5 transition-all"
           >
             {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />} 
-            Lote Aprovado
+            Publicar Prontos
           </Button>
         </div>
       </div>
 
-      <div className="flex bg-slate-100 p-1 rounded-lg w-fit">
-        <button 
-          onClick={() => setActiveTab('pendentes')}
-          className={`px-4 py-2 text-sm font-bold rounded-md transition-all ${activeTab === 'pendentes' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-        >
-          Novos Encontrados (Pendentes)
-        </button>
-        <button 
-          onClick={() => setActiveTab('importados')}
-          className={`px-4 py-2 text-sm font-bold rounded-md transition-all ${activeTab === 'importados' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
-        >
-          Base Importada (Lote Aprovado)
-        </button>
+      <div className="grid grid-cols-1 lg:grid-cols-6 gap-3">
+        <div className="lg:col-span-2 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-4">
+          <p className="text-[11px] font-black uppercase tracking-wider text-indigo-500">Régua do Validar IA</p>
+          <h3 className="text-lg font-black text-slate-900 mt-1">
+            {cityScope ? `${cityScope.name}/${cityScope.state}` : 'Cidade atual'}
+          </h3>
+          <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+            Fase 1 só cria candidatos do Maps. O Validar IA decide elegibilidade, status do Maps,
+            cardápio e se o restaurante pode ir para o app.
+          </p>
+        </div>
+        {qaTabs.filter(tab => tab.key !== 'importados').map(tab => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`text-left rounded-2xl border p-4 transition-all ${
+              activeTab === tab.key
+                ? 'border-indigo-300 bg-indigo-50 shadow-sm'
+                : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+            }`}
+            title={tab.hint}
+          >
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">{tab.label}</p>
+            <p className="text-2xl font-black text-slate-900 mt-1">{tab.count}</p>
+            <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">{tab.hint}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap bg-slate-100 p-1 rounded-lg w-fit gap-1">
+        {qaTabs.map(tab => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`px-4 py-2 text-sm font-bold rounded-md transition-all ${
+              activeTab === tab.key ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            }`}
+            title={tab.hint}
+          >
+            {tab.label} <span className="ml-1 text-[11px] text-slate-400">{tab.count}</span>
+          </button>
+        ))}
       </div>
 
       {/* Terminal de Logs */}
@@ -1770,9 +2065,9 @@ export default function CityValidation() {
             <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
               <AlertCircle className="h-8 w-8 text-slate-300" />
             </div>
-            <h3 className="font-bold text-slate-900 text-lg mb-1">Nenhum dado pendente</h3>
+            <h3 className="font-bold text-slate-900 text-lg mb-1">Nenhum registro nesta fila</h3>
             <p className="text-sm text-slate-500 max-w-sm">
-              Volte ao Motor de Coleta para varrer novos estabelecimentos para esta cidade.
+              {qaTabs.find(tab => tab.key === activeTab)?.hint || 'Use o Motor de Coleta ou o Validar IA para avançar esta cidade.'}
             </p>
           </div>
         ) : (
@@ -1781,6 +2076,7 @@ export default function CityValidation() {
               <TableHeader>
                 <TableRow className="bg-slate-50/50 hover:bg-slate-50/50">
                   <TableHead className="font-bold text-slate-900 text-[13px]">Restaurante</TableHead>
+                  <TableHead className="font-bold text-slate-900 text-[13px]">Decisão QA</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Telefone</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Instagram</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Cardápio</TableHead>
@@ -1791,9 +2087,11 @@ export default function CityValidation() {
               </TableHeader>
               <TableBody>
                 {filteredRestaurants.map((r) => {
+                  const qaState = getQaState(r);
+                  const menuReason = getMenuStatusReason(r);
                   const hasPhone = !!r.phone && r.ai_validated;
                   const hasInsta = (!!r.instagram || !!r.social_networks) && r.ai_validated;
-                  const hasMenu = (!!r.ifood_url || !!r.other_url || !!r.external_url) && r.ai_validated;
+                  const hasMenu = hasStructuredMenu(r);
                   const hasGallery = (!!r.image_url || !!r.cover_image_url) && r.ai_validated;
                   const hasHours = !!r.opening_hours && r.ai_validated;
                   
@@ -1807,6 +2105,14 @@ export default function CityValidation() {
                         <div className="font-medium text-slate-900 text-[14px] group-hover:text-indigo-600 transition-colors">{r.name}</div>
                         <div className="flex items-center text-[12px] text-slate-500 mt-1">
                           <span className="truncate max-w-[280px]">{r.address || 'Endereço não disponível'}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="align-middle min-w-[170px]">
+                        <Badge variant="outline" className={`${qaState.className} font-black`}>
+                          {qaState.label}
+                        </Badge>
+                        <div className="text-[11px] text-slate-500 mt-1 max-w-[220px] truncate" title={menuReason || qaState.action}>
+                          {menuReason || qaState.action}
                         </div>
                       </TableCell>
                       <TableCell className="text-center align-middle">

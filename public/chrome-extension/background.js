@@ -3412,6 +3412,12 @@ async function handleGoogleHoursScrape(query, mapUrl) {
       target: { tabId: tabId },
       func: async () => {
         const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+        const normalizeHoursText = (value) => String(value || '')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
         
         // 1. Rola o painel lateral para trazer os detalhes para o viewport se necessÃ¡rio
         const panel = document.querySelector('div[role="main"]') || document.querySelector('.m6ZQ1b') || document.querySelector('.DxyBCb');
@@ -3457,9 +3463,9 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         // 3. Extrai a tabela de horÃ¡rios
         const findHoursTable = () => {
           const tables = Array.from(document.querySelectorAll('table'));
-          const dayMappingKeys = ['segunda', 'terÃ§a', 'quarta', 'quinta', 'sexta', 'sÃ¡bado', 'sabado', 'domingo', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+          const dayMappingKeys = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
           for (const tbl of tables) {
-            const text = tbl.textContent.toLowerCase();
+            const text = normalizeHoursText(tbl.textContent);
             const hasDay = dayMappingKeys.some(day => text.includes(day));
             if (hasDay) return tbl;
           }
@@ -3469,6 +3475,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         const hoursTable = findHoursTable();
         const schedule = {};
         const dayMap = {
+          'terca': 'tuesday',
           'segunda': 'monday', 'terÃ§a': 'tuesday', 'quarta': 'wednesday', 'quinta': 'thursday',
           'sexta': 'friday', 'sÃ¡bado': 'saturday', 'sabado': 'saturday', 'domingo': 'sunday',
           'monday': 'monday', 'tuesday': 'tuesday', 'wednesday': 'wednesday', 'thursday': 'thursday',
@@ -3481,6 +3488,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         });
 
         let foundAny = false;
+        const parsedDays = new Set();
 
         if (hoursTable) {
           const rows = Array.from(hoursTable.querySelectorAll('tr'));
@@ -3490,7 +3498,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             let timeCell = null;
 
             cells.forEach(cell => {
-              const text = cell.textContent.trim().toLowerCase();
+              const text = normalizeHoursText(cell.textContent);
               let isDay = false;
               for (const key of Object.keys(dayMap)) {
                 if (text.startsWith(key)) {
@@ -3506,8 +3514,9 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             });
 
             if (dayCell && timeCell) {
-              const dayRaw = dayCell.textContent.toLowerCase().trim();
+              const dayRaw = normalizeHoursText(dayCell.textContent);
               const timeRaw = timeCell.textContent.trim();
+              const normalizedTimeRaw = normalizeHoursText(timeRaw);
 
               let targetDay = null;
               for (const [key, val] of Object.entries(dayMap)) {
@@ -3519,12 +3528,13 @@ async function handleGoogleHoursScrape(query, mapUrl) {
 
               if (targetDay) {
                 foundAny = true;
-                if (timeRaw.toLowerCase().includes('fechado') || timeRaw.toLowerCase().includes('closed')) {
+                parsedDays.add(targetDay);
+                if (normalizedTimeRaw.includes('fechado') || normalizedTimeRaw.includes('closed')) {
                   schedule[targetDay] = { isOpen: false, slots: [] };
-                } else if (timeRaw.toLowerCase().includes('24 horas') || 
-                           timeRaw.toLowerCase().includes('24h') || 
-                           timeRaw.toLowerCase().includes('open 24 hours') ||
-                           timeRaw.toLowerCase().includes('24 hours')) {
+                } else if (normalizedTimeRaw.includes('24 horas') || 
+                           normalizedTimeRaw.includes('24h') || 
+                           normalizedTimeRaw.includes('open 24 hours') ||
+                           normalizedTimeRaw.includes('24 hours')) {
                   schedule[targetDay] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
                 } else {
                   const slots = timeRaw.split(/[,;]/).map(s => {
@@ -3565,18 +3575,20 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           for (const el of allElements) {
             const text = el.textContent.trim();
             if (!text || text.length > 150) continue;
-            const lowerText = text.toLowerCase();
+            const lowerText = normalizeHoursText(text);
             for (const [key, val] of Object.entries(dayMap)) {
               if (lowerText.startsWith(key) && (lowerText.includes(':') || lowerText.includes('â€“') || lowerText.includes('-') || lowerText.includes('fechado') || lowerText.includes('closed'))) {
-                let timePart = text.substring(key.length).replace(/^[:\s\-â€“â€”]+/, '').trim();
+                let timePart = text.substring(key.length).replace(/^[:\s\-–—â€“â€”]+/, '').trim();
+                const normalizedTimePart = normalizeHoursText(timePart);
                 if (timePart && timePart.length > 2) {
                   foundAny = true;
-                  if (timePart.toLowerCase().includes('fechado') || timePart.toLowerCase().includes('closed')) {
+                  parsedDays.add(val);
+                  if (normalizedTimePart.includes('fechado') || normalizedTimePart.includes('closed')) {
                     schedule[val] = { isOpen: false, slots: [] };
-                  } else if (timePart.toLowerCase().includes('24 horas') || 
-                             timePart.toLowerCase().includes('24h') || 
-                             timePart.toLowerCase().includes('open 24 hours') ||
-                             timePart.toLowerCase().includes('24 hours')) {
+                  } else if (normalizedTimePart.includes('24 horas') || 
+                             normalizedTimePart.includes('24h') || 
+                             normalizedTimePart.includes('open 24 hours') ||
+                             normalizedTimePart.includes('24 hours')) {
                     schedule[val] = { isOpen: true, slots: [{ start: '00:00', end: '23:59' }] };
                   } else {
                     const slots = timePart.split(/[,;]/).map(s => {
@@ -3747,7 +3759,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         }
 
         if (foundAny) {
-          return { success: true, schedule, ...extractedInfo };
+          return { success: true, schedule, scheduleDaysFound: parsedDays.size, scheduleIsWeekly: parsedDays.size >= 7, ...extractedInfo };
         } else {
           // Mesmo sem horÃ¡rios, retorna os outros dados se encontrou algo
           const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0) || extractedInfo.coverImage;

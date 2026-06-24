@@ -47,6 +47,46 @@ function safeText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+function safeDecode(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch (_) {
+    return value;
+  }
+}
+
+function extractMapsCanonicalKey(value: string) {
+  const raw = safeText(value);
+  if (!raw) return '';
+  const decoded = safeDecode(raw);
+  const entityId =
+    decoded.match(/!1s([^!/?&#]+)/i)?.[1] ||
+    decoded.match(/\/place_id:([^/?&#]+)/i)?.[1] ||
+    decoded.match(/[?&]query=place_id:([^&]+)/i)?.[1];
+  if (entityId) return `maps:${normalizeKey(entityId)}`;
+
+  const placeSlug = decoded.match(/\/maps\/place\/([^/@?]+)/i)?.[1] || '';
+  const coords = decoded.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/i)
+    || decoded.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/i);
+  if (placeSlug && coords) {
+    return `maps:${normalizeKey(placeSlug)}:${Number(coords[1]).toFixed(5)}:${Number(coords[2]).toFixed(5)}`;
+  }
+
+  return `url:${normalizeKey(decoded.split('?')[0] || decoded)}`;
+}
+
+function buildLeadDedupeKeys(params: { mapsUrl?: string; name?: string; address?: string }) {
+  const mapsUrl = safeText(params.mapsUrl);
+  const name = safeText(params.name);
+  const address = safeText(params.address);
+  const keys = [
+    extractMapsCanonicalKey(mapsUrl),
+    mapsUrl ? `raw-url:${normalizeKey(mapsUrl)}` : '',
+    name || address ? `name-address:${normalizeKey(name)}-${normalizeKey(address)}` : '',
+  ].filter(Boolean);
+  return Array.from(new Set(keys));
+}
+
 function buildMapsUrlFromLead(lead: MapsLead) {
   const direct = safeText(lead.googleMapsUrl);
   if (/^https?:\/\/(www\.)?(google\.[^/]+\/maps|maps\.app\.goo\.gl)\//i.test(direct)) return direct;
@@ -157,9 +197,12 @@ async function fetchExistingLeadKeys(city: any) {
     for (const restaurant of data || []) {
       const mapsUrl = safeText((restaurant as any).google_maps_url)
         || safeText(((restaurant as any).visit_notes || '').match(/Google Maps:\s*(https?:\/\/\S+)/i)?.[1]);
-      const fallbackKey = `${normalizeKey(safeText((restaurant as any).name))}-${normalizeKey(safeText((restaurant as any).address))}`;
-      const key = mapsUrl || fallbackKey;
-      if (key && key !== '-') keys.add(key);
+      const dedupeKeys = buildLeadDedupeKeys({
+        mapsUrl,
+        name: safeText((restaurant as any).name),
+        address: safeText((restaurant as any).address),
+      });
+      dedupeKeys.forEach(key => keys.add(key));
     }
 
     if (!data || data.length < pageSize) break;
@@ -520,13 +563,17 @@ export default function CityCollection() {
 
         for (const lead of leads) {
           const mapsUrl = buildMapsUrlFromLead(lead);
-          const leadKey = mapsUrl || `${normalizeKey(safeText(lead.name))}-${normalizeKey(safeText(lead.address))}`;
-          if (!leadKey || existing.has(leadKey)) {
+          const leadKeys = buildLeadDedupeKeys({
+            mapsUrl,
+            name: safeText(lead.name),
+            address: safeText(lead.address),
+          });
+          if (leadKeys.length === 0 || leadKeys.some(key => existing.has(key))) {
             skipped += 1;
             continue;
           }
 
-          existing.add(leadKey);
+          leadKeys.forEach(key => existing.add(key));
           const payload = buildPhase1Payload(lead, city, searchPlan.coverage === 'city_zones' ? undefined : searchPlan.neighborhood);
           await persistLead(payload);
           saved += 1;

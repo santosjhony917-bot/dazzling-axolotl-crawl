@@ -20,6 +20,22 @@ export default function CityStrategy() {
   const [messageTemplate, setMessageTemplate] = useState('Olá! Vimos o perfil do {restaurante} e percebemos uma oportunidade de destacar o cardápio de vocês no FilterFood. Posso te mostrar?');
   const [isApplying, setIsApplying] = useState(false);
 
+  const readAiLog = (restaurant: any) => {
+    const raw = restaurant?.ai_log;
+    if (!raw) return {};
+    if (typeof raw === 'object') return raw;
+    try {
+      return JSON.parse(String(raw));
+    } catch (_) {
+      return {};
+    }
+  };
+
+  const getMenuStatus = (restaurant: any) => {
+    const log = readAiLog(restaurant);
+    return restaurant?.menu_status || log?.menu_status || (log?.status === 'menu_found' ? 'found' : '');
+  };
+
   const fetchStats = async () => {
     if (!cityId) return;
     setLoading(true);
@@ -35,14 +51,14 @@ export default function CityStrategy() {
 
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, plan, is_deleted, menu_status')
+        .select('id, plan, is_deleted, ai_log')
         .eq('city', cityData.name)
         .eq('state', cityData.state)
         .eq('ai_validated', true);
 
       if (error) throw error;
 
-      const rows = (data || []).filter(r => r.is_deleted !== true && !['manual_required', 'blocked', 'failed', 'invalid_source'].includes(r.menu_status || ''));
+      const rows = (data || []).filter(r => r.is_deleted !== true && getMenuStatus(r) === 'found');
       setValidatedRestaurants(rows.length);
       setPremiumActive(rows.filter(r => r.plan === 'premium').length);
     } catch (error: any) {
@@ -84,7 +100,7 @@ export default function CityStrategy() {
 
       const { data: restaurants, error } = await supabase
         .from('restaurants')
-        .select('id, plan, is_deleted, menu_status')
+        .select('id, plan, is_deleted, ai_log')
         .eq('city', city.name)
         .eq('state', city.state)
         .eq('ai_validated', true);
@@ -94,7 +110,7 @@ export default function CityStrategy() {
       const eligible = (restaurants || []).filter(r => (
         r.is_deleted !== true
         && r.plan !== 'premium'
-        && !['manual_required', 'blocked', 'failed', 'invalid_source'].includes(r.menu_status || '')
+        && getMenuStatus(r) === 'found'
       ));
 
       if (eligible.length === 0) {
