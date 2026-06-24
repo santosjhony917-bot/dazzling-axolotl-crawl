@@ -11,6 +11,23 @@ import { RestaurantDetailsDialog } from '@/components/admin/RestaurantDetailsDia
 import { geocodeAddress } from '@/services/geocoding';
 
 type ValidationTab = 'pendentes' | 'prontos' | 'sem_cardapio' | 'revisao' | 'importados';
+type LeadTriageKey =
+  | 'likely_food_service'
+  | 'likely_reject_service'
+  | 'likely_reject_retail'
+  | 'bakery_or_confectionery_needs_menu'
+  | 'mixed_needs_maps_menu'
+  | 'unknown_need_maps_ai'
+  | 'maps_status_closed';
+
+type LeadTriage = {
+  key: LeadTriageKey;
+  label: string;
+  action: string;
+  reason: string;
+  confidence: number;
+  className: string;
+};
 
 const MENU_REVIEW_STATUSES = ['manual_required', 'blocked', 'failed', 'invalid_source'];
 const MENU_NO_CARDAPIO_STATUSES = ['not_found', 'unavailable'];
@@ -299,6 +316,163 @@ export default function CityValidation() {
     .replace(/\s+/g, ' ')
     .trim();
 
+  const getLeadTriage = (restaurant: any, extra: Record<string, any> = {}): LeadTriage => {
+    const cleanCategory = normalizeText(restaurant?.category);
+    const categoryIsPlaceholder = !cleanCategory || /pendente validacao|pendente|outros|unknown|nao classificado/.test(cleanCategory);
+    const text = normalizeText([
+      restaurant?.name,
+      categoryIsPlaceholder ? '' : restaurant?.category,
+      restaurant?.description,
+      restaurant?.address,
+      extra.title,
+      extra.name,
+      extra.category,
+      extra.placeType,
+      extra.businessStatus,
+      extra.statusText,
+      extra.bio,
+      extra.website,
+    ].filter(Boolean).join(' | '));
+
+    const normalizedTerm = (term: string) => normalizeText(term);
+    const hasTerm = (terms: string[]) => terms.some(term => text.includes(normalizedTerm(term)));
+    const hasWord = (terms: string[]) => terms.some(term => {
+      const escaped = normalizedTerm(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp('(^|[^a-z0-9])' + escaped + '([^a-z0-9]|$)').test(text);
+    });
+
+    const mapsStatusText = normalizeText([
+      extra.businessStatus,
+      extra.statusText,
+      extra.isPermanentlyClosed === true ? 'permanentemente fechado' : '',
+    ].filter(Boolean).join(' | '));
+
+    if (
+      extra.isPermanentlyClosed === true ||
+      mapsStatusText.includes('permanently closed') ||
+      mapsStatusText.includes('permanentemente fechado') ||
+      mapsStatusText.includes('fechado permanentemente')
+    ) {
+      return {
+        key: 'maps_status_closed',
+        label: 'Fechado no Maps',
+        action: 'Remover no Validar IA',
+        reason: 'O Google Maps indica fechamento permanente; essa decisão depende de evidência do Maps.',
+        confidence: 0.99,
+        className: 'bg-rose-50 text-rose-700 border-rose-200',
+      };
+    }
+
+    const strongFood = hasTerm([
+      'restaurante', 'pizzaria', 'hamburgueria', 'lanchonete', 'pastelaria', 'sorveteria',
+      'gelateria', 'acai', 'açaí', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
+      'petiscaria', 'cafeteria', 'bistro', 'bistrô', 'cantina', 'cozinha', 'esfiharia',
+      'temakeria', 'sushi', 'japones', 'japonês', 'italiana', 'self service', 'self-service',
+      'marmitaria', 'food truck', 'frutos do mar', 'doceria', 'confeitaria', 'buffet',
+      'espetinho', 'espetos', 'lanche', 'lanches', 'burger', 'burguer', 'pizza', 'crepe',
+      'tapioca', 'yakisoba', 'chinesa', 'asiatica', 'asiática', 'oriental', 'delivery de comida'
+    ]);
+
+    const serviceOnly = hasTerm([
+      'cooperativa', 'motoboy', 'moto boy', 'entregador', 'entregadores', 'delivery de entregas',
+      'logistica', 'logística', 'transportadora', 'farmacia', 'farmácia', 'drogaria',
+      'barbearia', 'salao de beleza', 'salão de beleza', 'academia', 'igreja', 'clinica',
+      'clínica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
+      'agropecuária', 'material de construcao', 'material de construção', 'deposito', 'depósito',
+      'hotel', 'pousada', 'posto de gasolina', 'posto petrobras', 'posto ipiranga'
+    ]);
+
+    const retail = hasTerm([
+      'supermercado', 'hipermercado', 'atacadao', 'atacadão', 'atacarejo', 'mercado publico',
+      'mercado público', 'mercearia', 'mercadinho', 'hortifruti', 'sacolao', 'sacolão',
+      'açougue', 'acougue', 'peixaria', 'distribuidora', 'bebidas e conveniencia',
+      'bebidas e conveniência', 'conveniencia', 'conveniência', 'br mania'
+    ]);
+
+    const bakery = hasTerm([
+      'padaria', 'panificadora', 'panificacao', 'panificação', 'panificadora e confeitaria',
+      'bolos', 'tortas'
+    ]);
+
+    const weakBar = hasWord(['bar']) || hasTerm(['boteco', 'pub']);
+    const hasFoodInsideRetail = hasTerm(['marmitaria', 'quentinha', 'espetinho', 'espetos', 'assados', 'lanches', 'pizza', 'cafeteria', 'restaurante']);
+
+    if (serviceOnly && !strongFood && !weakBar) {
+      return {
+        key: 'likely_reject_service',
+        label: 'Serviço / não restaurante',
+        action: 'Descartar se Maps confirmar',
+        reason: 'Parece serviço, hotel, posto, clínica, barbearia ou logística; não deve entrar no app.',
+        confidence: 0.96,
+        className: 'bg-rose-50 text-rose-700 border-rose-200',
+      };
+    }
+
+    if (retail && !strongFood && !hasFoodInsideRetail) {
+      return {
+        key: 'likely_reject_retail',
+        label: 'Varejo / mercado',
+        action: 'Descartar se não houver cardápio',
+        reason: 'Parece mercado, supermercado, conveniência, distribuidora, açougue ou peixaria sem operação de restaurante.',
+        confidence: 0.92,
+        className: 'bg-orange-50 text-orange-700 border-orange-200',
+      };
+    }
+
+    if (bakery && !strongFood) {
+      return {
+        key: 'bakery_or_confectionery_needs_menu',
+        label: 'Padaria / confeitaria',
+        action: 'Exigir cardápio antes de validar',
+        reason: 'Padaria/panificadora não deve ser publicada automaticamente; só entra se o Validar IA achar cardápio publicável.',
+        confidence: 0.88,
+        className: 'bg-amber-50 text-amber-700 border-amber-200',
+      };
+    }
+
+    if ((strongFood || hasFoodInsideRetail || weakBar) && (serviceOnly || retail || bakery)) {
+      return {
+        key: 'mixed_needs_maps_menu',
+        label: 'Negócio misto',
+        action: 'Maps + cardápio obrigatórios',
+        reason: 'Tem sinal gastronômico, mas também sinal de varejo/serviço. O Validar IA precisa confirmar se existe cardápio real.',
+        confidence: 0.68,
+        className: 'bg-violet-50 text-violet-700 border-violet-200',
+      };
+    }
+
+    if (strongFood) {
+      return {
+        key: 'likely_food_service',
+        label: 'Provável restaurante',
+        action: 'Rodar Validar IA',
+        reason: 'Nome/categoria indica operação gastronômica elegível, mas ainda precisa de cardápio para publicar.',
+        confidence: 0.86,
+        className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      };
+    }
+
+    if (weakBar) {
+      return {
+        key: 'unknown_need_maps_ai',
+        label: 'Bar ambíguo',
+        action: 'IA decide pelo cardápio',
+        reason: 'Bar/boteco pode ou não ter comida organizada. Precisa de evidência de cardápio.',
+        confidence: 0.55,
+        className: 'bg-blue-50 text-blue-700 border-blue-200',
+      };
+    }
+
+    return {
+      key: 'unknown_need_maps_ai',
+      label: 'IA/Maps obrigatório',
+      action: 'Não decidir só pelo nome',
+      reason: 'Dados da Fase 1 não bastam para decidir. O Validar IA deve abrir Maps, redes e cardápio.',
+      confidence: 0.45,
+      className: 'bg-blue-50 text-blue-700 border-blue-200',
+    };
+  };
+
   const updateRestaurantWithSchemaFallback = async (restaurantId: string, payload: Record<string, any>) => {
     let currentPayload = { ...payload };
     const optionalColumns = [
@@ -336,6 +510,28 @@ export default function CityValidation() {
   };
 
   const classifyRestaurantEligibilityLocal = (restaurant: any, extra: Record<string, any> = {}) => {
+    const triage = getLeadTriage(restaurant, extra);
+    if (triage.key === 'maps_status_closed') {
+      return { status: 'ineligible' as const, confidence: 0.99, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'likely_reject_service') {
+      return { status: 'ineligible' as const, confidence: 0.96, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'likely_reject_retail') {
+      return { status: 'ineligible' as const, confidence: 0.92, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'bakery_or_confectionery_needs_menu') {
+      return { status: 'ineligible' as const, confidence: 0.9, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'mixed_needs_maps_menu') {
+      return { status: 'unknown' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'likely_food_service') {
+      return { status: 'eligible' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'unknown_need_maps_ai') {
+      return { status: 'unknown' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
     const cleanCategory = normalizeText(restaurant?.category);
     const categoryIsPlaceholder = !cleanCategory || /pendente validacao|pendente|outros|unknown|nao classificado/.test(cleanCategory);
     const text = normalizeText([
@@ -792,6 +988,22 @@ export default function CityValidation() {
     revisao: activeRestaurants.filter(r => getQaState(r).key === 'revisao').length,
     importados: activeRestaurants.filter(r => getQaState(r).key === 'publicado').length,
   };
+
+  const triageStats = activeRestaurants.reduce((acc, restaurant) => {
+    const key = getLeadTriage(restaurant).key;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {} as Record<LeadTriageKey, number>);
+
+  const triageCards: { key: LeadTriageKey; label: string; hint: string; className: string }[] = [
+    { key: 'likely_food_service', label: 'Prováveis restaurantes', hint: 'Bons candidatos, mas ainda exigem Validar IA e cardápio.', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+    { key: 'unknown_need_maps_ai', label: 'IA/Maps obrigatório', hint: 'Nome/categoria não bastam; a IA deve abrir fontes antes de decidir.', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+    { key: 'bakery_or_confectionery_needs_menu', label: 'Padarias/confeitarias', hint: 'Não publicar sem cardápio publicável comprovado.', className: 'bg-amber-50 text-amber-700 border-amber-200' },
+    { key: 'mixed_needs_maps_menu', label: 'Negócios mistos', hint: 'Conveniência/hotel/varejo com comida: exige Maps + cardápio.', className: 'bg-violet-50 text-violet-700 border-violet-200' },
+    { key: 'likely_reject_retail', label: 'Varejo/mercado', hint: 'Supermercados, mercearias, distribuidoras e similares.', className: 'bg-orange-50 text-orange-700 border-orange-200' },
+    { key: 'likely_reject_service', label: 'Serviços/não food', hint: 'Posto, hotel, barbearia, logística, clínica e similares.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
+    { key: 'maps_status_closed', label: 'Fechado no Maps', hint: 'Remover somente com evidência oficial do Maps.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
+  ];
 
   const qaTabs: { key: ValidationTab; label: string; count: number; hint: string }[] = [
     { key: 'pendentes', label: 'Pendentes Validar IA', count: qaStats.pendentes, hint: 'Coletados na Fase 1 e ainda não auditados.' },
@@ -1992,6 +2204,27 @@ export default function CityValidation() {
         ))}
       </div>
 
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">Triagem pré-Validar IA</p>
+            <h3 className="text-base font-black text-slate-900">O que a Fase 1 trouxe para a fila</h3>
+          </div>
+          <p className="text-xs text-slate-500 max-w-2xl">
+            Esta leitura não publica restaurantes: ela prioriza a fila e evita que padarias, mercados, serviços e negócios fechados avancem sem evidência forte.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-2">
+          {triageCards.map(card => (
+            <div key={card.key} className={`rounded-xl border p-3 ${card.className}`} title={card.hint}>
+              <p className="text-[10px] font-black uppercase tracking-wider opacity-80 line-clamp-2">{card.label}</p>
+              <p className="text-xl font-black mt-1">{triageStats[card.key] || 0}</p>
+              <p className="text-[10px] mt-1 opacity-80 line-clamp-2">{card.hint}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-wrap bg-slate-100 p-1 rounded-lg w-fit gap-1">
         {qaTabs.map(tab => (
           <button
@@ -2076,6 +2309,7 @@ export default function CityValidation() {
               <TableHeader>
                 <TableRow className="bg-slate-50/50 hover:bg-slate-50/50">
                   <TableHead className="font-bold text-slate-900 text-[13px]">Restaurante</TableHead>
+                  <TableHead className="font-bold text-slate-900 text-[13px]">Triagem</TableHead>
                   <TableHead className="font-bold text-slate-900 text-[13px]">Decisão QA</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Telefone</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Instagram</TableHead>
@@ -2088,6 +2322,7 @@ export default function CityValidation() {
               <TableBody>
                 {filteredRestaurants.map((r) => {
                   const qaState = getQaState(r);
+                  const triage = getLeadTriage(r);
                   const menuReason = getMenuStatusReason(r);
                   const hasPhone = !!r.phone && r.ai_validated;
                   const hasInsta = (!!r.instagram || !!r.social_networks) && r.ai_validated;
@@ -2105,6 +2340,14 @@ export default function CityValidation() {
                         <div className="font-medium text-slate-900 text-[14px] group-hover:text-indigo-600 transition-colors">{r.name}</div>
                         <div className="flex items-center text-[12px] text-slate-500 mt-1">
                           <span className="truncate max-w-[280px]">{r.address || 'Endereço não disponível'}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="align-middle min-w-[190px]">
+                        <Badge variant="outline" className={`${triage.className} font-black`} title={triage.reason}>
+                          {triage.label}
+                        </Badge>
+                        <div className="text-[11px] text-slate-500 mt-1 max-w-[230px] truncate" title={triage.reason}>
+                          {triage.action}
                         </div>
                       </TableCell>
                       <TableCell className="align-middle min-w-[170px]">

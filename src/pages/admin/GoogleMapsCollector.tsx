@@ -910,10 +910,14 @@ export default function GoogleMapsCollector() {
             if (extRes && extRes.success) {
               mapsData = extRes;
               
-              // Salva horários no banco imediatamente
-              if (extRes.schedule) {
-                showSuccess('✅ Horários encontrados no Google Maps! Salvando...');
+              // Salva horários apenas quando a extensão conseguiu ler a semana inteira.
+              // O Google Maps às vezes expõe só o dia atual; gravar isso faria os outros dias
+              // parecerem fechados indevidamente no perfil público.
+              if (extRes.schedule && extRes.scheduleIsWeekly === true) {
+                showSuccess('✅ Horários semanais encontrados no Google Maps! Salvando...');
                 await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', restaurantId);
+              } else if (extRes.schedule) {
+                showSuccess(`Horários parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). Não serão salvos automaticamente.`);
               }
               
               // Salva endereço oficial se encontrado (com parsing em campos separados + coordenadas)
@@ -1345,8 +1349,8 @@ export default function GoogleMapsCollector() {
               }
             });
             
-            if (extRes && extRes.success && extRes.schedule) {
-              showSuccess(`Horários encontrados no Maps! Salvando no banco de dados...`);
+            if (extRes && extRes.success && extRes.schedule && extRes.scheduleIsWeekly === true) {
+              showSuccess(`Horários semanais encontrados no Maps! Salvando no banco de dados...`);
               const { error: updateError } = await supabase
                 .from('restaurants')
                 .update({ opening_hours: extRes.schedule })
@@ -1361,6 +1365,9 @@ export default function GoogleMapsCollector() {
                 showError("Erro ao salvar os horários no banco de dados: " + updateError.message);
                 return false;
               }
+            } else if (extRes && extRes.success && extRes.schedule) {
+              showError(`Horários parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). Não vou salvar para não marcar dias ausentes como fechados.`);
+              return false;
             } else {
               showError(`Extensão não encontrou horários no Google Maps: ${extRes?.error || 'Tente novamente.'}`);
               return false;
