@@ -2871,6 +2871,7 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
       const feed = snapshot.feed || {};
       const fingerprint = snapshotFingerprint(snapshot);
 
+      if (/\/maps\/place\//i.test(snapshot.url || '') && collected.size > 0) break;
       if (step > 0 && added === 0 && fingerprint === lastFingerprint) stableRounds += 1;
       else stableRounds = 0;
       lastFingerprint = fingerprint;
@@ -2900,6 +2901,7 @@ async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCi
         lastSnapshot = afterScroll.snapshot;
         lastFingerprint = snapshotFingerprint(afterScroll.snapshot);
       }
+      if (/\/maps\/place\//i.test(afterScroll.snapshot?.url || '') && collected.size > 0) break;
       if (!afterScroll.progressed && (snapshot.loadingVisible || afterScroll.snapshot?.loadingVisible)) {
         stableRounds += 1;
       }
@@ -2933,6 +2935,19 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
   await waitForTabComplete(tabId, 45000);
   await new Promise(resolve => setTimeout(resolve, 3500));
 
+  const initialSnapshot = await readVisibleGoogleMapsLeads(tabId, maxResults, cleanCity, cleanState);
+  const initialLeads = Array.isArray(initialSnapshot?.leads) ? initialSnapshot.leads : [];
+  if (/\/maps\/place\//i.test(initialSnapshot?.url || '') && initialLeads.length > 0) {
+    return {
+      success: true,
+      leads: initialLeads,
+      count: initialLeads.length,
+      query: finalQuery,
+      sourceUrl: initialSnapshot.url || searchUrl,
+      usedPlaceFastPath: true,
+    };
+  }
+
   let bestRealWheelResult = null;
   let realWheelError = null;
   let realWheelAttempts = 0;
@@ -2943,6 +2958,7 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
       const realWheelLeads = Array.isArray(realWheelResult.leads) ? realWheelResult.leads : [];
       const bestCount = Array.isArray(bestRealWheelResult?.leads) ? bestRealWheelResult.leads.length : 0;
       if (realWheelLeads.length > bestCount) bestRealWheelResult = realWheelResult;
+      if (/\/maps\/place\//i.test(realWheelResult.sourceUrl || '') && realWheelLeads.length > 0) break;
       if (realWheelLeads.length >= 8 || attempt === 2) break;
       await ffSleep(2200);
     } catch (error) {
