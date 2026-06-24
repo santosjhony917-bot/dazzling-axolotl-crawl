@@ -141,6 +141,28 @@ async function fetchExistingLeadKeys(city: any) {
   return keys;
 }
 
+function getCompletedSearchesStorageKey(city: any, fallbackCityId?: string) {
+  const cityKey = safeText(city?.slug) || safeText(fallbackCityId) || `${safeText(city?.name)}-${safeText(city?.state)}`;
+  return `filterfood:phase1:completed-searches:${normalizeKey(cityKey)}`;
+}
+
+function loadCompletedSearches(storageKey: string) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    return new Set<string>(Array.isArray(parsed) ? parsed.filter(Boolean).map(String) : []);
+  } catch (_) {
+    return new Set<string>();
+  }
+}
+
+function saveCompletedSearches(storageKey: string, completed: Set<string>) {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(Array.from(completed)));
+  } catch (_) {
+    // Se o localStorage estiver indisponível/cheio, a coleta continua normalmente.
+  }
+}
+
 function sendExtensionMessage(extensionId: string, message: any, timeoutMs = 45000): Promise<any> {
   return new Promise((resolve) => {
     const chromeObj = (window as any).chrome;
@@ -379,10 +401,15 @@ export default function CityCollection() {
 
       const neighborhoods = await resolveExpansionNeighborhoods(city.name, city.state, addLog);
       const queries = buildSearchQueries(city, neighborhoods);
+      const completedSearchesStorageKey = getCompletedSearchesStorageKey(city, cityId);
+      const completedSearches = loadCompletedSearches(completedSearchesStorageKey);
       const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
       addLog(`[PLANO] ${queries.length} buscas: ${MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais em ${neighborhoods.length} bairros + ${MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos extras nos ${commercialPoleCount} principais polos.`);
       addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar por link do Google Maps.`);
       addLog('[CONTRATO] Fase 1 salva apenas nome candidato + link do Google Maps. Endereço, telefone, categoria, Instagram, cardápio e elegibilidade ficam para o Validar IA.');
+      if (completedSearches.size) {
+        addLog(`[RESUME] ${completedSearches.size} buscas jÃ¡ concluÃ­das neste navegador serÃ£o puladas nesta retomada.`);
+      }
       let saved = 0;
       let skipped = 0;
 
@@ -393,6 +420,13 @@ export default function CityCollection() {
         }
 
         const searchPlan = queries[i];
+        const searchKey = normalizeKey(searchPlan.query);
+        if (completedSearches.has(searchKey)) {
+          setProgress(Math.round(((i + 1) / queries.length) * 100));
+          addLog(`[SKIP ${i + 1}/${queries.length}] Busca jÃ¡ concluÃ­da anteriormente â†’ ${searchPlan.query}`);
+          continue;
+        }
+
         setProgress(Math.round((i / queries.length) * 100));
         const layer = searchPlan.coverage === 'commercial_poles' ? 'polo' : 'cidade';
         addLog(`[BUSCA ${i + 1}/${queries.length}] ${searchPlan.label} • ${layer} • ${searchPlan.neighborhood} → ${searchPlan.query}`);
@@ -459,6 +493,9 @@ export default function CityCollection() {
           const savedName = rawName && rawName !== payload.name ? `${rawName} → ${payload.name}` : payload.name;
           addLog(`[SALVO] ${savedName} ${mapsUrl ? `(${mapsUrl})` : ''}`);
         }
+
+        completedSearches.add(searchKey);
+        saveCompletedSearches(completedSearchesStorageKey, completedSearches);
       }
 
       setProgress(100);
