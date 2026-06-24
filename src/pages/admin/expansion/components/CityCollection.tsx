@@ -113,6 +113,12 @@ function buildSearchQueries(city: any, neighborhoods: string[]): SearchQueryPlan
   return queries;
 }
 
+function getMapsResultsLimit(searchPlan: SearchQueryPlan) {
+  if (searchPlan.coverage === 'commercial_poles') return 32;
+  if (normalizeKey(searchPlan.term) === 'restaurantes') return MAPS_RESULTS_PER_SEARCH;
+  return 55;
+}
+
 async function fetchExistingLeadKeys(city: any) {
   const keys = new Set<string>();
   const pageSize = 1000;
@@ -445,7 +451,7 @@ export default function CityCollection() {
             state: city.state,
             neighborhood: searchPlan.neighborhood,
             categoryTerm: searchPlan.term,
-            maxResults: MAPS_RESULTS_PER_SEARCH,
+            maxResults: getMapsResultsLimit(searchPlan),
           }, 240000);
 
           leads = Array.isArray(response?.leads) ? response.leads : [];

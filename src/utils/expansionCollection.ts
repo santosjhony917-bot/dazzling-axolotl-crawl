@@ -105,7 +105,7 @@ export const MAPS_COLLECTION_COMMERCIAL_POLE_TERMS = MAPS_COLLECTION_EXTENSION_T
 
 export function getCommercialPoleNeighborhoodCount(neighborhoodCount: number) {
   if (neighborhoodCount <= 0) return 0;
-  return Math.min(neighborhoodCount, Math.max(8, Math.ceil(neighborhoodCount * 0.35)));
+  return Math.min(neighborhoodCount, Math.min(10, Math.max(8, Math.ceil(neighborhoodCount * 0.15))));
 }
 
 export function estimateMapsCollectionQueryCount(neighborhoodCount: number) {
