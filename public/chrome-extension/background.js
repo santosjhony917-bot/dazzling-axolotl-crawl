@@ -3645,11 +3645,21 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           extractedInfo.isPermanentlyClosed = closedPermanently;
         }
 
-        const categoryCandidates = Array.from(document.querySelectorAll('button[jsaction*="category"], button[aria-label], a[aria-label], .DkEaL, .fontBodyMedium'))
+        const isBadCategoryCandidate = (text) => {
+          const normalized = normalizeHoursText(text);
+          return (
+            !normalized ||
+            normalized.length > 80 ||
+            /^(foto|photos?|imagem|image|ver fotos?|adicionar foto|photo of|foto de|fotos de)\b/i.test(normalized) ||
+            /^(rotas|directions|salvar|save|compartilhar|share|ligar|call|website|site|copiar|copy)\b/i.test(normalized) ||
+            /google maps|comentarios?|avalia[cç][oõ]es?|reviews?|estrelas?|classifica[cç][aã]o/i.test(normalized)
+          );
+        };
+        const categoryCandidates = Array.from(document.querySelectorAll('button[jsaction*="category"], .DkEaL, button[aria-label], a[aria-label], .fontBodyMedium'))
           .map(el => compactText(el.textContent || el.getAttribute('aria-label') || ''))
-          .filter(Boolean);
+          .filter(text => Boolean(text) && !isBadCategoryCandidate(text));
         const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|padaria|bistr[oô]|cantina|frutos do mar|peixaria|mercado|supermercado|hotel|pousada|conveni[eê]ncia|barbearia|posto/i;
-        const category = categoryCandidates.find(text => categoryPattern.test(text) && text.length <= 80);
+        const category = categoryCandidates.find(text => categoryPattern.test(text));
         if (category) extractedInfo.category = category;
         
         // EndereÃ§o - busca pelo botÃ£o/link com data-item-id="address"
@@ -3704,8 +3714,10 @@ async function handleGoogleHoursScrape(query, mapUrl) {
                        document.querySelector('a[data-item-id="authority"]');
         if (siteEl) {
           const href = siteEl.getAttribute('href') || siteEl.textContent.trim();
-          if (href && href.startsWith('http')) extractedInfo.website = href;
-          else if (siteEl.textContent.trim().includes('.')) extractedInfo.website = siteEl.textContent.trim();
+          const siteText = siteEl.textContent.trim();
+          const isSocialOrChat = (value) => /instagram\.com|facebook\.com|wa\.me|whatsapp\.com/i.test(String(value || ''));
+          if (href && href.startsWith('http') && !isSocialOrChat(href)) extractedInfo.website = href;
+          else if (siteText.includes('.') && !isSocialOrChat(siteText)) extractedInfo.website = siteText;
         }
         
         // Links sociais (Instagram, Facebook, etc.)
@@ -3720,7 +3732,15 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             socialLinks.push({ platform: 'facebook', url: href });
           }
         });
-        if (socialLinks.length > 0) extractedInfo.socialLinks = socialLinks;
+        if (socialLinks.length > 0) {
+          const seenSocial = new Set();
+          extractedInfo.socialLinks = socialLinks.filter(item => {
+            const key = String(item.platform || '') + ':' + String(item.url || '').toLowerCase().replace(/\/$/, '');
+            if (seenSocial.has(key)) return false;
+            seenSocial.add(key);
+            return true;
+          });
+        }
 
         // Extrai fotos da galeria / capa
         const photos = [];
@@ -3759,7 +3779,16 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         }
 
         if (foundAny) {
-          return { success: true, schedule, scheduleDaysFound: parsedDays.size, scheduleIsWeekly: parsedDays.size >= 7, ...extractedInfo };
+          const canonicalDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+          const scheduleMissingDays = canonicalDays.filter(day => !parsedDays.has(day));
+          return {
+            success: true,
+            schedule,
+            scheduleDaysFound: parsedDays.size,
+            scheduleMissingDays,
+            scheduleIsWeekly: scheduleMissingDays.length === 0,
+            ...extractedInfo
+          };
         } else {
           // Mesmo sem horÃ¡rios, retorna os outros dados se encontrou algo
           const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0) || extractedInfo.coverImage;

@@ -1207,7 +1207,8 @@ export default function CityValidation() {
               addLog(`Horários salvos.`);
               await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', restaurant.id);
             } else if (extRes.schedule) {
-              addLog(`HorÃ¡rios parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). NÃ£o vou salvar para nÃ£o marcar dias ausentes como fechados.`);
+              const missingDays = Array.isArray(extRes.scheduleMissingDays) && extRes.scheduleMissingDays.length ? ` Dias faltantes: ${extRes.scheduleMissingDays.join(', ')}.` : '';
+              addLog(`HorÃ¡rios parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). NÃ£o vou salvar para nÃ£o marcar dias ausentes como fechados.${missingDays}`);
             }
             
             if (extRes.address) {
