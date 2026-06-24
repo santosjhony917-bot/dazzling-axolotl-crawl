@@ -1,11 +1,12 @@
 {
   "name": "Coletor Auxiliar - Dazzling Axolotl",
-  "version": "1.7.3",
+  "version": "1.8.5",
   "manifest_version": 3,
   "description": "Coletor API-first com navegação visível pela extensão, OCR e IA progressivos somente quando necessários.",
   "permissions": [
     "tabs",
-    "scripting"
+    "scripting",
+    "debugger"
   ],
   "host_permissions": [
     "<all_urls>",
@@ -16,7 +17,7 @@
     "http://127.0.0.1/*"
   ],
   "background": {
-    "service_worker": "hybrid-background.js"
+    "service_worker": "background-loader-1-8-5.js"
   },
   "externally_connectable": {
     "matches": [

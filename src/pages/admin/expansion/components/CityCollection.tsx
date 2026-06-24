@@ -6,7 +6,6 @@ import { Search, Map, StopCircle, Terminal, Activity, Store, MapPin, ShieldCheck
 import { Progress } from '@/components/ui/progress';
 import { showSuccess, showError } from '@/utils/toast';
 import { supabase } from '@/integrations/supabase/client';
-import { normalizeRestaurantDisplayName } from '@/utils/formatters';
 import {
   getCommercialPoleNeighborhoodCount,
   MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS,
@@ -34,6 +33,9 @@ type SearchQueryPlan = {
   coverage: 'all_neighborhoods' | 'commercial_poles';
 };
 
+const learnedMissingRestaurantColumns = new Set<string>();
+const warnedMissingRestaurantColumns = new Set<string>();
+
 function normalizeKey(value: string) {
   return normalizeExpansionKey(value);
 }
@@ -51,23 +53,16 @@ function buildMapsUrlFromLead(lead: MapsLead) {
 function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: string) {
   const googleMapsUrl = buildMapsUrlFromLead(lead);
   const rawName = safeText(lead.name);
-  const address = safeText(lead.address);
-  const category = safeText(lead.category) || 'Restaurante';
   const neighborhood = safeText(lead.neighborhood) || safeText(plannedNeighborhood);
-  const nameCleanup = normalizeRestaurantDisplayName(rawName || 'Restaurante sem nome', {
-    city: city.name,
-    state: city.state,
-    neighborhood,
-  });
-  const name = nameCleanup.displayName || 'Restaurante sem nome';
+  const name = rawName || 'Lead Google Maps sem nome';
 
   return {
     id: crypto.randomUUID(),
     name,
     google_maps_name: rawName || name,
-    name_cleanup_notes: nameCleanup.cleanupReason,
-    category,
-    address: address || null,
+    name_cleanup_notes: 'Fase 1 preservou o nome bruto do Google Maps; Validar IA deve decidir o nome comercial final.',
+    category: 'Pendente validação',
+    address: null,
     neighborhood: neighborhood || null,
     city: city.name,
     state: city.state,
@@ -77,9 +72,8 @@ function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: str
     ai_validated: false,
     visit_notes: [
       googleMapsUrl ? `Google Maps: ${googleMapsUrl}` : '',
-      nameCleanup.changed ? `Nome original no Google Maps: ${nameCleanup.rawName}` : '',
-      nameCleanup.cleanupReason || '',
-      'Fase 1: lead mínimo coletado pela extensão. Validar IA deve descobrir telefone, Instagram, cardápio, elegibilidade e rejeitar falsos restaurantes.',
+      rawName ? `Nome candidato no Google Maps: ${rawName}` : '',
+      'Fase 1: lead mínimo coletado pela extensão. Somente o link do Google Maps e o nome candidato foram capturados. Validar IA deve descobrir endereço, telefone, Instagram, cardápio, elegibilidade, nome final e rejeitar falsos restaurantes.',
     ].filter(Boolean).join('\n'),
     other_url: null,
     external_url: null,
@@ -267,11 +261,20 @@ export default function CityCollection() {
     let currentPayload = { ...payload };
     const removedColumns: string[] = [];
 
+    for (const missingColumn of learnedMissingRestaurantColumns) {
+      if (Object.prototype.hasOwnProperty.call(currentPayload, missingColumn)) {
+        const { [missingColumn]: _removed, ...nextPayload } = currentPayload;
+        currentPayload = nextPayload;
+      }
+    }
+
     for (let attempt = 0; attempt < 8; attempt += 1) {
       const { error } = await supabase.from('restaurants').insert(currentPayload);
       if (!error) {
-        if (removedColumns.length) {
-          addLog(`[WARN] Lead salvo sem colunas opcionais ausentes no schema: ${removedColumns.join(', ')}.`);
+        const newWarnings = removedColumns.filter(column => !warnedMissingRestaurantColumns.has(column));
+        if (newWarnings.length) {
+          newWarnings.forEach(column => warnedMissingRestaurantColumns.add(column));
+          addLog(`[WARN] Schema atual sem colunas opcionais (${newWarnings.join(', ')}). Vou ignorá-las nos próximos leads desta sessão.`);
         }
         return;
       }
@@ -281,6 +284,7 @@ export default function CityCollection() {
       if (missingColumn && Object.prototype.hasOwnProperty.call(currentPayload, missingColumn)) {
         const { [missingColumn]: _removed, ...nextPayload } = currentPayload;
         currentPayload = nextPayload;
+        learnedMissingRestaurantColumns.add(missingColumn);
         removedColumns.push(missingColumn);
         continue;
       }
@@ -304,6 +308,7 @@ export default function CityCollection() {
         if (removable) {
           const { [removable]: _removed, ...nextPayload } = currentPayload;
           currentPayload = nextPayload;
+          learnedMissingRestaurantColumns.add(removable);
           removedColumns.push(removable);
           continue;
         }
@@ -349,7 +354,8 @@ export default function CityCollection() {
       const queries = buildSearchQueries(city, neighborhoods);
       const commercialPoleCount = getCommercialPoleNeighborhoodCount(neighborhoods.length);
       addLog(`[PLANO] ${queries.length} buscas: ${MAPS_COLLECTION_ALL_NEIGHBORHOOD_TERMS.length} termos essenciais em ${neighborhoods.length} bairros + ${MAPS_COLLECTION_COMMERCIAL_POLE_TERMS.length} termos extras nos ${commercialPoleCount} principais polos.`);
-      addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar e rejeitar inválidos.`);
+      addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar por link do Google Maps.`);
+      addLog('[CONTRATO] Fase 1 salva apenas nome candidato + link do Google Maps. Endereço, telefone, categoria, Instagram, cardápio e elegibilidade ficam para o Validar IA.');
       let saved = 0;
       let skipped = 0;
 

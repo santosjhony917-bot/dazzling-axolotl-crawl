@@ -1,4 +1,10 @@
 
+try {
+  importScripts('universal-agent.js', 'platform-adapters.js', 'hybrid-audit.js');
+} catch (error) {
+  console.warn('[FilterFood Extension] optional helper scripts failed to load', error);
+}
+
 const isTabLockError = e => e && e.message && (
   e.message.toLowerCase().includes('cannot be edited') ||
   e.message.toLowerCase().includes('locked') ||
@@ -2613,6 +2619,298 @@ async function waitForTabComplete(tabId, timeoutMs = 45000) {
   });
 }
 
+const ffSleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function attachDebuggerToTab(tabId) {
+  if (!chrome.debugger?.attach) {
+    throw new Error('chrome.debugger API indisponível; não consigo mandar wheel real no Maps.');
+  }
+  await new Promise((resolve, reject) => {
+    chrome.debugger.attach({ tabId }, '1.3', () => {
+      const error = chrome.runtime.lastError;
+      if (error) reject(new Error(error.message));
+      else resolve();
+    });
+  });
+}
+
+async function detachDebuggerFromTab(tabId) {
+  if (!chrome.debugger?.detach) return;
+  await new Promise(resolve => {
+    try {
+      chrome.debugger.detach({ tabId }, () => resolve());
+    } catch (_) {
+      resolve();
+    }
+  });
+}
+
+async function sendDebuggerCommand(tabId, method, params = {}) {
+  return await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`Timeout no debugger.${method}`)), 6000);
+    chrome.debugger.sendCommand({ tabId }, method, params, (result) => {
+      clearTimeout(timer);
+      const error = chrome.runtime.lastError;
+      if (error) reject(new Error(error.message));
+      else resolve(result);
+    });
+  });
+}
+
+async function readVisibleGoogleMapsLeads(tabId, maxResults, expectedCity, expectedState) {
+  const [snapshot] = await chrome.scripting.executeScript({
+    target: { tabId },
+    args: [Number(maxResults || 80), expectedCity || '', expectedState || ''],
+    func: (limit, city, state) => {
+      const normalize = (value) => String(value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const compact = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+      const cleanUrl = (href) => {
+        try {
+          const url = new URL(href);
+          url.hash = '';
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid', 'entry'].forEach(key => url.searchParams.delete(key));
+          return url.href;
+        } catch (_) {
+          return href || '';
+        }
+      };
+      const isPlaceUrl = (href) => /google\.[^/]+\/maps\/place|\/maps\/place\/|place_id:|!1s0x/i.test(href || '');
+      const placeNameFromUrl = (href) => {
+        try {
+          const match = String(href || '').match(/\/maps\/place\/([^/?#]+)/i) || String(href || '').match(/\/place\/([^/?#]+)/i);
+          if (!match) return '';
+          const decoded = decodeURIComponent(match[1]).replace(/\+/g, ' ').replace(/\s+/g, ' ').trim();
+          if (!decoded || /^(data=|!|0x|@|search\b|maps\b|place\b)/i.test(decoded) || /![0-9a-z]/i.test(decoded)) return '';
+          return decoded;
+        } catch (_) {
+          return '';
+        }
+      };
+      const isNameNoise = (value) => {
+        const sponsoredRaw = String(value || '')
+          .replace(/[\uE000-\uF8FF]/g, ' ')
+          .replace(/^Ver\s+/i, '')
+          .replace(/^[^\p{L}\p{N}]+/gu, '')
+          .replace(/[^\p{L}\p{N}\s&'.`´-]/gu, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (/^(data=|!|0x|@|https?:|www\.|google maps|maps|place|search)\b/i.test(sponsoredRaw) || /![0-9a-z]/i.test(sponsoredRaw)) return true;
+        if (/^(patrocinado|sponsored|an[úu]ncio|anuncio pago|ad)\b/i.test(sponsoredRaw)) return true;
+        const text = normalize(sponsoredRaw);
+        if (!text) return true;
+        return /^(data|patrocinado|sponsored|anuncio|anuncio pago|ad|resultados|direcoes|rotas|salvar|compartilhar|google maps|maps|place|search)\b/.test(text) ||
+          /^\d(?:[,.]\d)?\s*\(/.test(text) ||
+          /^R\$\s*\d/i.test(text);
+      };
+      const pickCandidateName = (card, anchor, lines, href) => {
+        const heading = compact(card?.querySelector?.('h1,h2,h3,[role="heading"],.qBF1Pd,.fontHeadlineSmall')?.textContent || '');
+        const aria = compact(anchor?.getAttribute?.('aria-label') || '');
+        const urlName = compact(placeNameFromUrl(href));
+        const candidates = [heading, aria, urlName, ...(lines || [])]
+          .map(value => compact(String(value || '').replace(/[\uE000-\uF8FF]/g, ' ').replace(/^Ver\s+/i, '')))
+          .filter(value => value && value.length >= 2 && !isNameNoise(value));
+        return candidates[0] || '';
+      };
+      const pushLead = (leads, seen, name, href) => {
+        const cleanHref = cleanUrl(href || '');
+        if (!name || !cleanHref || !isPlaceUrl(cleanHref) || isNameNoise(name)) return;
+        if (/\/maps\/place\/(?:data=|!|0x|@)/i.test(cleanHref)) return;
+        const key = cleanHref.replace(/[?#].*$/, '') || normalize(name);
+        if (!key || seen.has(key)) return;
+        seen.add(key);
+        leads.push({
+          name,
+          category: 'Pendente validação',
+          address: '',
+          phone: '',
+          city: city || '',
+          state: state || '',
+          googleMapsUrl: cleanHref,
+          rating: 0,
+          reviewsCount: 0,
+        });
+      };
+
+      const cards = Array.from(document.querySelectorAll('[role="article"], .Nv2PK, .bfdHYd, div[data-result-index]'))
+        .filter(el => compact(el.innerText).length > 10);
+      const leads = [];
+      const seen = new Set();
+
+      for (const card of cards) {
+        const anchors = Array.from(card.querySelectorAll('a[href]'));
+        const placeAnchor = anchors.find(anchor => isPlaceUrl(anchor.href || ''));
+        const href = placeAnchor?.href || '';
+        const lines = compact(card.innerText || '').split(/\n+/).map(line => compact(line)).filter(Boolean);
+        const name = pickCandidateName(card, placeAnchor, lines, href);
+        pushLead(leads, seen, name, href);
+        if (leads.length >= limit) break;
+      }
+
+      if (leads.length < limit) {
+        const anchors = Array.from(document.querySelectorAll('a[href]'));
+        for (const anchor of anchors) {
+          const href = anchor.href || '';
+          if (!isPlaceUrl(href)) continue;
+          const card = anchor.closest('[role="article"], .Nv2PK, .bfdHYd, div[jsaction], div[data-result-index]') || anchor.parentElement;
+          const rawText = compact(card?.innerText || anchor.getAttribute('aria-label') || anchor.textContent || '');
+          const lines = rawText.split(/\n+/).map(line => compact(line)).filter(Boolean);
+          const name = pickCandidateName(card, anchor, lines, href);
+          pushLead(leads, seen, name, href);
+          if (leads.length >= limit) break;
+        }
+      }
+
+      const feed = document.querySelector('div[role="feed"]');
+      const rect = feed?.getBoundingClientRect?.();
+      const pageText = normalize(document.body.innerText || '');
+      const loadingVisible = Array.from(document.querySelectorAll('[role="progressbar"], [aria-label*="Carregando"], [aria-label*="Loading"], .loading, .spinner, .HlvSq, .qjESne'))
+        .some(el => {
+          const box = el.getBoundingClientRect?.();
+          if (!box) return false;
+          return box.width > 4 && box.height > 4 && box.bottom > 0 && box.top < window.innerHeight;
+        });
+      const reachedEnd = /you'?ve reached the end|fim da lista|final da lista|nao ha mais resultados|não há mais resultados|sem mais resultados/i.test(pageText);
+
+      return {
+        leads,
+        count: leads.length,
+        cardCount: cards.length,
+        url: location.href,
+        title: document.title,
+        reachedEnd,
+        loadingVisible,
+        feed: feed ? {
+          scrollTop: feed.scrollTop,
+          scrollHeight: feed.scrollHeight,
+          clientHeight: feed.clientHeight,
+          rect: rect ? {
+            x: rect.x,
+            y: rect.y,
+            width: rect.width,
+            height: rect.height,
+          } : null,
+        } : null,
+      };
+    },
+  });
+  return snapshot?.result || { leads: [], count: 0 };
+}
+
+async function collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, expectedCity, expectedState) {
+  const limit = Number(maxResults || 80);
+  const collected = new Map();
+  const mergeLeads = (leads = []) => {
+    let added = 0;
+    for (const lead of leads) {
+      const key = String(lead?.googleMapsUrl || '').replace(/[?#].*$/, '') || String(lead?.name || '').toLowerCase();
+      if (!key || collected.has(key)) continue;
+      collected.set(key, lead);
+      added += 1;
+      if (collected.size >= limit) break;
+    }
+    return added;
+  };
+
+  let attached = false;
+  let lastSnapshot = null;
+  let lastFingerprint = '';
+  let stableRounds = 0;
+  const snapshotFingerprint = (snapshot, collectedSize = collected.size) => {
+    const feed = snapshot?.feed || {};
+    return [
+      collectedSize,
+      snapshot?.cardCount || 0,
+      Math.round(feed.scrollTop || 0),
+      Math.round(feed.scrollHeight || 0),
+    ].join(':');
+  };
+  const waitForMapsFeedProgress = async (beforeFingerprint, deadlineAt) => {
+    let latest = null;
+    const waitStartedAt = Date.now();
+    while (Date.now() < deadlineAt && Date.now() - waitStartedAt < 6500) {
+      await ffSleep(650);
+      const snapshot = await readVisibleGoogleMapsLeads(tabId, limit, expectedCity, expectedState);
+      latest = snapshot;
+      const added = mergeLeads(snapshot.leads);
+      const fingerprint = snapshotFingerprint(snapshot);
+      if (added > 0 || fingerprint !== beforeFingerprint || snapshot.reachedEnd) {
+        return { snapshot, progressed: added > 0 || fingerprint !== beforeFingerprint };
+      }
+    }
+    return { snapshot: latest, progressed: false };
+  };
+
+  try {
+    await attachDebuggerToTab(tabId);
+    attached = true;
+
+    const startedAt = Date.now();
+    const maxDurationMs = 55000;
+    const maxScrollRounds = 18;
+    const deadlineAt = startedAt + maxDurationMs;
+
+    for (let step = 0; step < maxScrollRounds && collected.size < limit && stableRounds < 4 && Date.now() < deadlineAt; step += 1) {
+      const snapshot = await readVisibleGoogleMapsLeads(tabId, limit, expectedCity, expectedState);
+      lastSnapshot = snapshot;
+      const added = mergeLeads(snapshot.leads);
+      const feed = snapshot.feed || {};
+      const fingerprint = snapshotFingerprint(snapshot);
+
+      if (step > 0 && added === 0 && fingerprint === lastFingerprint) stableRounds += 1;
+      else stableRounds = 0;
+      lastFingerprint = fingerprint;
+
+      if (collected.size >= limit) break;
+      if (snapshot.reachedEnd && stableRounds >= 1) break;
+      if (step >= 5 && collected.size >= 35 && stableRounds >= 2) break;
+
+      const rect = feed.rect || { x: 72, y: 72, width: 408, height: 565 };
+      const x = Math.max(20, Math.round(rect.x + Math.min(rect.width - 20, Math.max(40, rect.width * 0.52))));
+      const y = Math.max(20, Math.round(rect.y + Math.min(rect.height - 20, Math.max(80, rect.height * 0.62))));
+
+      await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, modifiers: 0 });
+      for (let wheel = 0; wheel < 2; wheel += 1) {
+        await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', {
+          type: 'mouseWheel',
+          x,
+          y,
+          deltaX: 0,
+          deltaY: 900,
+          modifiers: 0,
+        });
+        await ffSleep(360);
+      }
+      const afterScroll = await waitForMapsFeedProgress(fingerprint, deadlineAt);
+      if (afterScroll.snapshot) {
+        lastSnapshot = afterScroll.snapshot;
+        lastFingerprint = snapshotFingerprint(afterScroll.snapshot);
+      }
+      if (!afterScroll.progressed && (snapshot.loadingVisible || afterScroll.snapshot?.loadingVisible)) {
+        stableRounds += 1;
+      }
+    }
+
+    const finalSnapshot = await readVisibleGoogleMapsLeads(tabId, limit, expectedCity, expectedState);
+    lastSnapshot = finalSnapshot;
+    mergeLeads(finalSnapshot.leads);
+
+    return {
+      leads: Array.from(collected.values()).slice(0, limit),
+      count: collected.size,
+      sourceUrl: finalSnapshot?.url || lastSnapshot?.url || '',
+      pageTitle: finalSnapshot?.title || lastSnapshot?.title || '',
+      usedRealWheel: true,
+    };
+  } finally {
+    if (attached) await detachDebuggerFromTab(tabId);
+  }
+}
+
 async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) {
   const cleanQuery = String(query || '').trim();
   const cleanCity = String(city || '').trim();
@@ -2624,6 +2922,40 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
 
   await waitForTabComplete(tabId, 45000);
   await new Promise(resolve => setTimeout(resolve, 3500));
+
+  let bestRealWheelResult = null;
+  let realWheelError = null;
+  let realWheelAttempts = 0;
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    realWheelAttempts = attempt;
+    try {
+      const realWheelResult = await collectGoogleMapsLeadsWithRealWheel(tabId, maxResults, cleanCity, cleanState);
+      const realWheelLeads = Array.isArray(realWheelResult.leads) ? realWheelResult.leads : [];
+      const bestCount = Array.isArray(bestRealWheelResult?.leads) ? bestRealWheelResult.leads.length : 0;
+      if (realWheelLeads.length > bestCount) bestRealWheelResult = realWheelResult;
+      if (realWheelLeads.length >= 8 || attempt === 2) break;
+      await ffSleep(2200);
+    } catch (error) {
+      realWheelError = error;
+      if (attempt < 2) await ffSleep(2200);
+    }
+  }
+
+  const realWheelLeads = Array.isArray(bestRealWheelResult?.leads) ? bestRealWheelResult.leads : [];
+  if (realWheelLeads.length > 0) {
+    return {
+      success: true,
+      leads: realWheelLeads,
+      count: realWheelLeads.length,
+      query: finalQuery,
+      sourceUrl: bestRealWheelResult.sourceUrl || searchUrl,
+      usedRealWheel: true,
+      realWheelAttempts,
+    };
+  }
+  if (realWheelError) {
+    console.warn('[FilterFood Maps] Real wheel scroll failed after retry; falling back to DOM scroll.', realWheelError);
+  }
 
   const [result] = await chrome.scripting.executeScript({
     target: { tabId },
@@ -2654,6 +2986,11 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
       const getResultCards = () => Array.from(document.querySelectorAll('[role="article"], .Nv2PK, .bfdHYd, div[data-result-index]'))
         .filter(el => (el.innerText || '').trim().length > 10);
       const findScrollableResultsPanel = () => {
+        const preferredFeed = document.querySelector('div[role="feed"]');
+        if (preferredFeed && preferredFeed.scrollHeight > preferredFeed.clientHeight + 80) {
+          return preferredFeed;
+        }
+
         const cards = getResultCards();
         for (const card of cards) {
           let node = card.parentElement;
@@ -2678,6 +3015,51 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           .filter(el => el.scrollHeight > el.clientHeight + 80)
           .sort((a, b) => (b.scrollHeight - b.clientHeight) - (a.scrollHeight - a.clientHeight))[0] || document.scrollingElement;
       };
+      const pushResultsPanelDown = (panel, lastCard) => {
+        const targets = [
+          panel,
+          document.querySelector('div[role="feed"]'),
+          document.scrollingElement,
+          document.body,
+        ].filter(Boolean);
+
+        for (const target of targets) {
+          try { target.focus?.(); } catch (_) {}
+          try {
+            target.dispatchEvent(new WheelEvent('wheel', {
+              bubbles: true,
+              cancelable: true,
+              deltaY: 6500,
+              deltaMode: 0,
+            }));
+          } catch (_) {}
+        }
+
+        if (panel) {
+          const nextTop = Math.max(
+            panel.scrollTop + Math.max(1800, panel.clientHeight * 2.6),
+            panel.scrollHeight - panel.clientHeight - 20,
+          );
+          panel.scrollTop = Math.min(panel.scrollHeight, nextTop);
+        }
+
+        if (lastCard) {
+          try {
+            lastCard.scrollIntoView({ block: 'end', behavior: 'instant' });
+          } catch (_) {
+            try { lastCard.scrollIntoView(false); } catch (__) {}
+          }
+        }
+
+        try {
+          document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'End', code: 'End' }));
+          document.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'End', code: 'End' }));
+        } catch (_) {}
+
+        try {
+          window.scrollBy(0, Math.max(1400, window.innerHeight * 2));
+        } catch (_) {}
+      };
       const forceScrollResults = async (limit) => {
         const collected = new Map();
         const leadKey = (lead) => {
@@ -2696,6 +3078,10 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           return added;
         };
 
+        for (let warmup = 0; warmup < 14 && getResultCards().length === 0; warmup += 1) {
+          await sleep(750);
+        }
+
         mergeVisibleLeads(getResults());
         let leads = Array.from(collected.values()).slice(0, limit);
         let previousCardCount = -1;
@@ -2703,29 +3089,17 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
         let previousScrollHeight = -1;
         let stableRounds = 0;
 
-        for (let i = 0; i < 60 && collected.size < limit && stableRounds < 8; i++) {
+        for (let i = 0; i < 90 && collected.size < limit && stableRounds < 11; i++) {
           const panel = findScrollableResultsPanel();
           const cards = getResultCards();
           const lastCard = cards[cards.length - 1];
-
-          if (panel) {
-            try { panel.focus?.(); } catch (_) {}
-            try {
-              panel.dispatchEvent(new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 2400, deltaMode: 0 }));
-            } catch (_) {}
-            panel.scrollTop = Math.min(panel.scrollHeight, panel.scrollTop + Math.max(900, panel.clientHeight * 1.8));
-          }
-
-          if (lastCard) {
-            try { lastCard.scrollIntoView({ block: 'end', behavior: 'instant' }); } catch (_) { lastCard.scrollIntoView(false); }
-          }
+          pushResultsPanelDown(panel, lastCard);
 
           try {
             document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'PageDown', code: 'PageDown' }));
           } catch (_) {}
-          window.scrollBy(0, Math.max(900, window.innerHeight * 1.5));
 
-          await sleep(1400);
+          await sleep(1800);
           const visibleLeads = getResults();
           const added = mergeVisibleLeads(visibleLeads);
           leads = Array.from(collected.values()).slice(0, limit);
@@ -2754,6 +3128,44 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
         const anchors = Array.from(document.querySelectorAll('a[href]'));
         const leads = [];
         const seen = new Set();
+        const placeNameFromUrl = (href) => {
+          try {
+            const match = String(href || '').match(/\/maps\/place\/([^/?#]+)/i) || String(href || '').match(/\/place\/([^/?#]+)/i);
+            if (!match) return '';
+            const decoded = decodeURIComponent(match[1]).replace(/\+/g, ' ').replace(/\s+/g, ' ').trim();
+            if (!decoded || /^(data=|!|0x|@|search\b|maps\b|place\b)/i.test(decoded) || /![0-9a-z]/i.test(decoded)) return '';
+            return decoded;
+          } catch (_) {
+            return '';
+          }
+        };
+        const isNameNoise = (value) => {
+          const sponsoredRaw = String(value || '')
+            .replace(/[\uE000-\uF8FF]/g, ' ')
+            .replace(/^Ver\s+/i, '')
+            .replace(/^[^\p{L}\p{N}]+/gu, '')
+            .replace(/[^\p{L}\p{N}\s&'.`´-]/gu, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          if (/^(data=|!|0x|@|https?:|www\.|google maps|maps|place|search)\b/i.test(sponsoredRaw) || /![0-9a-z]/i.test(sponsoredRaw)) return true;
+          if (/^(patrocinado|sponsored|an[úu]ncio|anuncio pago|ad)\b/i.test(sponsoredRaw)) return true;
+          const text = normalize(String(value || '')
+            .replace(/^Ver\s+/i, '')
+            .replace(/[^\p{L}\p{N}\s&'.`´-]/gu, ' '));
+          if (!text) return true;
+          return /^(data|patrocinado|sponsored|anuncio|anuncio pago|ad|resultados|direcoes|rotas|salvar|compartilhar|google maps|maps|place|search)\b/.test(text) ||
+            /^\d(?:[,.]\d)?\s*\(/.test(text) ||
+            /^R\$\s*\d/i.test(text);
+        };
+        const pickCandidateName = (card, anchor, lines, href) => {
+          const heading = card?.querySelector?.('h1,h2,h3,[role="heading"],.qBF1Pd,.fontHeadlineSmall')?.textContent || '';
+          const aria = anchor.getAttribute('aria-label') || '';
+          const urlName = placeNameFromUrl(href);
+          const candidates = [heading, aria, urlName, ...(lines || [])]
+            .map(value => String(value || '').replace(/^Ver\s+/i, '').trim())
+            .filter(value => value && value.length >= 2 && !isNameNoise(value));
+          return candidates[0] || '';
+        };
         const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|lanche|sandu[ií]che|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|loja de a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|past[eé]is|pastel\b|padaria|bistr[oô]|cantina|frutos do mar|peixaria|comida/i;
         const addressPattern = /\b(r\.|rua|av\.|avenida|pra[cç]a|rod\.|rodovia|br-\d|travessa|tv\.|alameda|estrada|shopping|bairro|centro|catol[eé]|campina grande|pb)\b/i;
         const isRatingOrPriceLine = (line) => {
@@ -2807,11 +3219,11 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           const card = anchor.closest('[role="article"], .Nv2PK, .bfdHYd, div[jsaction], div[data-result-index]') || anchor.parentElement;
           const rawText = (card?.innerText || anchor.getAttribute('aria-label') || anchor.textContent || '').trim();
           const lines = rawText.split(/\n+/).map(line => line.trim()).filter(Boolean);
-          const aria = anchor.getAttribute('aria-label') || '';
-          const name = (lines[0] || aria || '').replace(/^Ver\s+/i, '').trim();
+          const name = pickCandidateName(card, anchor, lines, href);
           if (!name || name.length < 2) continue;
-          const { category, address } = resolveCategoryAndAddress(lines);
-          if (isBadLead(name, category)) continue;
+          if (isNameNoise(name) || /\/maps\/place\/(?:data=|!|0x|@)/i.test(href)) continue;
+          const category = 'Pendente validação';
+          const address = '';
           const key = href.replace(/[?#].*$/, '') || normalize(name);
           if (seen.has(key)) continue;
           seen.add(key);
