@@ -17,6 +17,9 @@ type LeadTriageKey =
   | 'likely_reject_retail'
   | 'bakery_or_confectionery_needs_menu'
   | 'mixed_needs_maps_menu'
+  | 'venue_or_event_needs_menu'
+  | 'maps_result_noise'
+  | 'generic_low_signal'
   | 'unknown_need_maps_ai'
   | 'maps_status_closed';
 
@@ -195,6 +198,7 @@ export default function CityValidation() {
   const [isValidating, setIsValidating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState<ValidationTab>('pendentes');
+  const [activeTriageFilter, setActiveTriageFilter] = useState<LeadTriageKey | 'all'>('all');
   const [isApproving, setIsApproving] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -340,6 +344,22 @@ export default function CityValidation() {
       const escaped = normalizedTerm(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       return new RegExp('(^|[^a-z0-9])' + escaped + '([^a-z0-9]|$)').test(text);
     });
+    const cleanName = normalizeText(restaurant?.name);
+    const cleanNeighborhood = normalizeText(restaurant?.neighborhood);
+    const cleanCity = normalizeText(restaurant?.city);
+    const nameWordCount = cleanName ? cleanName.split(/\s+/).filter(Boolean).length : 0;
+    const originalName = String(restaurant?.name || '');
+    const nameLooksLikeMapsSnippet =
+      /^\s*[a-z]?\s*\d+(?:[,.]\d+)?\s*\(\d+\)/i.test(originalName) ||
+      /[·•]\s*(r\.|rua|av\.|avenida|travessa|rod\.|rodovia)\b/i.test(originalName) ||
+      /\btemporariamente fechado\b|\bpermanentemente fechado\b/i.test(originalName);
+    const nameLooksLikeAddress =
+      /^(r\.|rua|av\.|avenida|travessa|rod\.|rodovia|bairro|loteamento|condominio|condom[ií]nio)\b/.test(cleanName) ||
+      (/\b(campina grande|pb)\b/.test(cleanName) && /\b(r\.|rua|av\.|avenida|travessa|rod\.|rodovia)\b/.test(cleanName));
+    const nameLooksLikeArea = Boolean(cleanName && (
+      cleanName === cleanNeighborhood ||
+      cleanName === cleanCity
+    ));
 
     const mapsStatusText = normalizeText([
       extra.businessStatus,
@@ -360,6 +380,17 @@ export default function CityValidation() {
         reason: 'O Google Maps indica fechamento permanente; essa decisão depende de evidência do Maps.',
         confidence: 0.99,
         className: 'bg-rose-50 text-rose-700 border-rose-200',
+      };
+    }
+
+    if (nameLooksLikeMapsSnippet || nameLooksLikeAddress || nameLooksLikeArea) {
+      return {
+        key: 'maps_result_noise',
+        label: 'Ruído do Maps',
+        action: 'Descartar se Maps confirmar',
+        reason: 'Parece endereço, bairro, ponto do mapa ou snippet do Google, não um estabelecimento publicável.',
+        confidence: 0.94,
+        className: 'bg-slate-50 text-slate-700 border-slate-200',
       };
     }
 
@@ -396,6 +427,15 @@ export default function CityValidation() {
 
     const weakBar = hasWord(['bar']) || hasTerm(['boteco', 'pub']);
     const hasFoodInsideRetail = hasTerm(['marmitaria', 'quentinha', 'espetinho', 'espetos', 'assados', 'lanches', 'pizza', 'cafeteria', 'restaurante']);
+    const venueOrEvent = hasTerm([
+      'sitio', 'sítio', 'chacara', 'chácara', 'fazenda', 'resort', 'area de lazer', 'área de lazer',
+      'recepcoes', 'recepções', 'espaco de eventos', 'espaço de eventos', 'casa de festas',
+      'buffet de eventos', 'clube', 'campestre', 'balneario', 'balneário', 'food park'
+    ]);
+    const genericLowSignal =
+      nameWordCount <= 2 &&
+      hasTerm(['bar', 'lanchonete', 'restaurante', 'acai', 'açaí', 'cafe', 'café', 'pizzaria', 'pastelaria']) &&
+      !/[a-z0-9]{4,}/.test(cleanName.replace(/\b(bar|lanchonete|restaurante|acai|açaí|cafe|café|pizzaria|pastelaria|do|da|de|o|a)\b/g, '').trim());
 
     if (serviceOnly && !strongFood && !weakBar) {
       return {
@@ -430,6 +470,17 @@ export default function CityValidation() {
       };
     }
 
+    if (venueOrEvent && !strongFood && !weakBar) {
+      return {
+        key: 'venue_or_event_needs_menu',
+        label: 'Sítio/eventos/hospedagem',
+        action: 'Validar só com cardápio',
+        reason: 'Parece espaço de eventos, lazer, sítio, resort ou hospedagem. Só deve entrar se houver restaurante/cardápio claro.',
+        confidence: 0.72,
+        className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200',
+      };
+    }
+
     if ((strongFood || hasFoodInsideRetail || weakBar) && (serviceOnly || retail || bakery)) {
       return {
         key: 'mixed_needs_maps_menu',
@@ -438,6 +489,17 @@ export default function CityValidation() {
         reason: 'Tem sinal gastronômico, mas também sinal de varejo/serviço. O Validar IA precisa confirmar se existe cardápio real.',
         confidence: 0.68,
         className: 'bg-violet-50 text-violet-700 border-violet-200',
+      };
+    }
+
+    if (genericLowSignal) {
+      return {
+        key: 'generic_low_signal',
+        label: 'Nome genérico fraco',
+        action: 'Baixa prioridade até Maps/cardápio',
+        reason: 'Nome muito genérico ou sem marca. O Maps/cardápio precisa provar que existe operação real.',
+        confidence: 0.6,
+        className: 'bg-sky-50 text-sky-700 border-sky-200',
       };
     }
 
@@ -514,6 +576,9 @@ export default function CityValidation() {
     if (triage.key === 'maps_status_closed') {
       return { status: 'ineligible' as const, confidence: 0.99, reason: triage.reason, source: 'local_rules' };
     }
+    if (triage.key === 'maps_result_noise') {
+      return { status: 'ineligible' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
     if (triage.key === 'likely_reject_service') {
       return { status: 'ineligible' as const, confidence: 0.96, reason: triage.reason, source: 'local_rules' };
     }
@@ -524,6 +589,12 @@ export default function CityValidation() {
       return { status: 'ineligible' as const, confidence: 0.9, reason: triage.reason, source: 'local_rules' };
     }
     if (triage.key === 'mixed_needs_maps_menu') {
+      return { status: 'unknown' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'venue_or_event_needs_menu') {
+      return { status: 'unknown' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
+    }
+    if (triage.key === 'generic_low_signal') {
       return { status: 'unknown' as const, confidence: triage.confidence, reason: triage.reason, source: 'local_rules' };
     }
     if (triage.key === 'likely_food_service') {
@@ -998,8 +1069,11 @@ export default function CityValidation() {
   const triageCards: { key: LeadTriageKey; label: string; hint: string; className: string }[] = [
     { key: 'likely_food_service', label: 'Prováveis restaurantes', hint: 'Bons candidatos, mas ainda exigem Validar IA e cardápio.', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
     { key: 'unknown_need_maps_ai', label: 'IA/Maps obrigatório', hint: 'Nome/categoria não bastam; a IA deve abrir fontes antes de decidir.', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+    { key: 'generic_low_signal', label: 'Nome genérico fraco', hint: 'Bar, açaí, lanchonete etc. sem marca clara. Baixa prioridade até haver prova.', className: 'bg-sky-50 text-sky-700 border-sky-200' },
+    { key: 'maps_result_noise', label: 'Ruído do Maps', hint: 'Ruas, bairros, snippets e pontos do mapa que não parecem estabelecimentos.', className: 'bg-slate-50 text-slate-700 border-slate-200' },
     { key: 'bakery_or_confectionery_needs_menu', label: 'Padarias/confeitarias', hint: 'Não publicar sem cardápio publicável comprovado.', className: 'bg-amber-50 text-amber-700 border-amber-200' },
     { key: 'mixed_needs_maps_menu', label: 'Negócios mistos', hint: 'Conveniência/hotel/varejo com comida: exige Maps + cardápio.', className: 'bg-violet-50 text-violet-700 border-violet-200' },
+    { key: 'venue_or_event_needs_menu', label: 'Sítio/eventos', hint: 'Sítio, resort, área de lazer ou evento. Só entra com cardápio claro.', className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
     { key: 'likely_reject_retail', label: 'Varejo/mercado', hint: 'Supermercados, mercearias, distribuidoras e similares.', className: 'bg-orange-50 text-orange-700 border-orange-200' },
     { key: 'likely_reject_service', label: 'Serviços/não food', hint: 'Posto, hotel, barbearia, logística, clínica e similares.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
     { key: 'maps_status_closed', label: 'Fechado no Maps', hint: 'Remover somente com evidência oficial do Maps.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
@@ -1020,6 +1094,9 @@ export default function CityValidation() {
       (r.category && r.category.toLowerCase().includes(searchTerm.toLowerCase()));
       
     if (!matchesSearch) return false;
+
+    const triage = getLeadTriage(r);
+    if (activeTriageFilter !== 'all' && triage.key !== activeTriageFilter) return false;
 
     const qaState = getQaState(r).key;
     if (activeTab === 'pendentes') return qaState === 'pendente';
@@ -2215,13 +2292,35 @@ export default function CityValidation() {
             Esta leitura não publica restaurantes: ela prioriza a fila e evita que padarias, mercados, serviços e negócios fechados avancem sem evidência forte.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTriageFilter('all')}
+            className={`rounded-xl border p-3 text-left transition-all ${
+              activeTriageFilter === 'all'
+                ? 'border-slate-900 bg-slate-900 text-white shadow-sm'
+                : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white'
+            }`}
+            title="Mostrar todas as triagens desta fila de QA."
+          >
+            <p className="text-[10px] font-black uppercase tracking-wider opacity-80 line-clamp-2">Todas triagens</p>
+            <p className="text-xl font-black mt-1">{activeRestaurants.length}</p>
+            <p className="text-[10px] mt-1 opacity-80 line-clamp-2">Remove o filtro de triagem.</p>
+          </button>
           {triageCards.map(card => (
-            <div key={card.key} className={`rounded-xl border p-3 ${card.className}`} title={card.hint}>
+            <button
+              key={card.key}
+              type="button"
+              onClick={() => setActiveTriageFilter(activeTriageFilter === card.key ? 'all' : card.key)}
+              className={`rounded-xl border p-3 text-left transition-all ${card.className} ${
+                activeTriageFilter === card.key ? 'ring-2 ring-slate-900/20 shadow-sm scale-[1.01]' : 'hover:shadow-sm hover:-translate-y-0.5'
+              }`}
+              title={`${card.hint} Clique para filtrar.`}
+            >
               <p className="text-[10px] font-black uppercase tracking-wider opacity-80 line-clamp-2">{card.label}</p>
               <p className="text-xl font-black mt-1">{triageStats[card.key] || 0}</p>
-              <p className="text-[10px] mt-1 opacity-80 line-clamp-2">{card.hint}</p>
-            </div>
+              <p className="text-[10px] mt-1 opacity-80 line-clamp-2">{activeTriageFilter === card.key ? 'Filtro ativo' : card.hint}</p>
+            </button>
           ))}
         </div>
       </div>
