@@ -3115,18 +3115,31 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
           return added;
         };
 
-        for (let warmup = 0; warmup < 14 && getResultCards().length === 0; warmup += 1) {
-          await sleep(750);
+        const hasNoResultsMessage = () => {
+          const pageText = normalize(document.body.innerText || '');
+          const noResults = hasNoResultsMessage();
+          return /nenhum resultado|sem resultados|n[aã]o encontramos|não encontramos|no results|couldn'?t find|não há resultados|nao ha resultados/i.test(pageText);
+        };
+        const startedAt = Date.now();
+        const maxDomFallbackMs = 26000;
+
+        for (let warmup = 0; warmup < 8 && getResultCards().length === 0 && !hasNoResultsMessage(); warmup += 1) {
+          await sleep(500);
         }
 
         mergeVisibleLeads(getResults());
+        if (collected.size === 0 && getResultCards().length === 0 && hasNoResultsMessage()) {
+          return [];
+        }
+
         let leads = Array.from(collected.values()).slice(0, limit);
         let previousCardCount = -1;
         let previousScrollTop = -1;
         let previousScrollHeight = -1;
         let stableRounds = 0;
+        let noNewLeadRounds = 0;
 
-        for (let i = 0; i < 90 && collected.size < limit && stableRounds < 11; i++) {
+        for (let i = 0; i < 18 && collected.size < limit && stableRounds < 5 && Date.now() - startedAt < maxDomFallbackMs; i++) {
           const panel = findScrollableResultsPanel();
           const cards = getResultCards();
           const lastCard = cards[cards.length - 1];
@@ -3136,9 +3149,10 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
             document.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'PageDown', code: 'PageDown' }));
           } catch (_) {}
 
-          await sleep(1800);
+          await sleep(900);
           const visibleLeads = getResults();
           const added = mergeVisibleLeads(visibleLeads);
+          noNewLeadRounds = added > 0 ? 0 : noNewLeadRounds + 1;
           leads = Array.from(collected.values()).slice(0, limit);
 
           const nextPanel = findScrollableResultsPanel();
@@ -3152,11 +3166,14 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
             scrollTop !== previousScrollTop ||
             scrollHeight !== previousScrollHeight;
 
-          stableRounds = didProgress && !reachedEnd ? 0 : stableRounds + 1;
+          stableRounds = didProgress && !reachedEnd && !noResults ? 0 : stableRounds + 1;
           previousCardCount = cardCount;
           previousScrollTop = scrollTop;
           previousScrollHeight = scrollHeight;
           if (reachedEnd && stableRounds >= 2) break;
+          if (noResults && collected.size === 0) break;
+          if (i >= 3 && collected.size > 0 && noNewLeadRounds >= 3) break;
+          if (i >= 5 && noNewLeadRounds >= 4) break;
         }
 
         return Array.from(collected.values()).slice(0, limit);
