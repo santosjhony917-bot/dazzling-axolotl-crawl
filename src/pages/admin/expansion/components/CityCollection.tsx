@@ -449,11 +449,12 @@ export default function CityCollection() {
           }, 240000);
 
           leads = Array.isArray(response?.leads) ? response.leads : [];
-          if (response?.success && leads.length > 0) break;
-
           const errorText = safeText(response?.error);
+          const emptyMapsResult = !response?.success && /nenhum lead|nenhum resultado|sem resultados/i.test(errorText);
+          if (response?.success || emptyMapsResult) break;
+
           const retryable = !response?.success
-            ? /tempo limite|timeout|sem resposta|n[aã]o respondeu|nenhum lead|target|closed|carregar|google/i.test(errorText)
+            ? /tempo limite|timeout|sem resposta|n[aã]o respondeu|target|closed|carregar|google/i.test(errorText)
             : leads.length === 0;
 
           if (!retryable || attempt >= maxSearchAttempts) break;
@@ -468,6 +469,14 @@ export default function CityCollection() {
         if (abortRef.current) {
           addLog('[STOP] Coleta interrompida pelo usuário.');
           break;
+        }
+
+        const emptyMapsResult = !response?.success && /nenhum lead|nenhum resultado|sem resultados/i.test(safeText(response?.error));
+        if (emptyMapsResult) {
+          addLog('[OK] 0 candidatos encontrados nessa busca. Vou seguir sem retry.');
+          completedSearches.add(searchKey);
+          saveCompletedSearches(completedSearchesStorageKey, completedSearches);
+          continue;
         }
 
         if (!response?.success) {
