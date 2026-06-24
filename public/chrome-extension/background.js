@@ -3614,6 +3614,31 @@ async function handleGoogleHoursScrape(query, mapUrl) {
 
         // 4. Extrai endereÃ§o, telefone, site e Instagram da pÃ¡gina do Maps
         const extractedInfo = {};
+
+        const compactText = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+        const pageText = compactText(document.body?.innerText || '');
+        const headingText = compactText(document.querySelector('h1, [role="heading"], .DUwDvf, .fontHeadlineLarge')?.textContent || '');
+        const titleName = compactText((document.title || '').replace(/\s*[-–]\s*Google Maps\s*$/i, ''));
+        const placeName = headingText || titleName;
+        if (placeName) {
+          extractedInfo.name = placeName;
+          extractedInfo.title = placeName;
+        }
+
+        const closedPermanently = /permanentemente fechado|fechado permanentemente|permanently closed/i.test(pageText);
+        const temporarilyClosed = /temporariamente fechado|fechado temporariamente|temporarily closed/i.test(pageText);
+        if (closedPermanently || temporarilyClosed) {
+          extractedInfo.businessStatus = closedPermanently ? 'permanently_closed' : 'temporarily_closed';
+          extractedInfo.statusText = closedPermanently ? 'Permanentemente fechado' : 'Temporariamente fechado';
+          extractedInfo.isPermanentlyClosed = closedPermanently;
+        }
+
+        const categoryCandidates = Array.from(document.querySelectorAll('button[jsaction*="category"], button[aria-label], a[aria-label], .DkEaL, .fontBodyMedium'))
+          .map(el => compactText(el.textContent || el.getAttribute('aria-label') || ''))
+          .filter(Boolean);
+        const categoryPattern = /restaurante|pizzaria|hamburgueria|burger|burguer|lanchonete|bar\b|caf[eé]|cafeteria|sorveteria|doceria|confeitaria|a[cç]a[ií]|churrascaria|esfiharia|sushi|japonesa|chinesa|asi[aá]tica|oriental|marmitaria|self service|buffet|pastelaria|padaria|bistr[oô]|cantina|frutos do mar|peixaria|mercado|supermercado|hotel|pousada|conveni[eê]ncia|barbearia|posto/i;
+        const category = categoryCandidates.find(text => categoryPattern.test(text) && text.length <= 80);
+        if (category) extractedInfo.category = category;
         
         // EndereÃ§o - busca pelo botÃ£o/link com data-item-id="address"
         const addressEl = document.querySelector('*[data-item-id="address"]') || 

@@ -286,32 +286,96 @@ export default function CityValidation() {
   };
 
   const classifyRestaurantEligibilityLocal = (restaurant: any, extra: Record<string, any> = {}) => {
+    const cleanCategory = normalizeText(restaurant?.category);
+    const categoryIsPlaceholder = !cleanCategory || /pendente validacao|pendente|outros|unknown|nao classificado/.test(cleanCategory);
     const text = normalizeText([
       restaurant?.name,
-      restaurant?.category,
+      categoryIsPlaceholder ? '' : restaurant?.category,
       restaurant?.description,
       restaurant?.address,
+      extra.title,
+      extra.name,
       extra.category,
       extra.placeType,
+      extra.businessStatus,
+      extra.statusText,
       extra.bio,
       extra.website,
     ].filter(Boolean).join(' | '));
 
-    const positive = /\b(restaurante|pizzaria|hamburgueria|lanchonete|pastelaria|sorveteria|gelateria|acai|açaí|churrascaria|bar e restaurante|bar\/restaurante|petiscaria|cafeteria|bistro|bistr[oô]|cantina|cozinha|esfiharia|temakeria|sushi|japones|italiana|regional|self service|self-service|marmitaria|food truck|frutos do mar|doceria|confeitaria)\b/;
-    const hardNegative = /\b(cooperativa|motoboy|moto boy|entregador|entregadores|delivery de entregas|logistica|logistica|transportadora|supermercado|hipermercado|atacadao|atacarejo|mercado publico|mercearia|conveniencia|posto de gasolina|farmacia|drogaria|barbearia|salao de beleza|hotel|pousada|academia|igreja|clinica|hospital|escola|oficina|lava jato|pet shop|agropecuaria|material de construcao|deposito|distribuidora|bebidas e conveniencia|cesta basica)\b/;
-    const bakeryMarket = /\b(padaria|panificadora|panificacao|super market|supermercado|mercadinho|hortifruti|sacolao|açougue|acougue|peixaria)\b/;
-    const restaurantContext = positive.test(text);
+    const normalizedTerm = (term: string) => normalizeText(term);
+    const hasTerm = (terms: string[]) => terms.some(term => text.includes(normalizedTerm(term)));
+    const hasWord = (terms: string[]) => terms.some(term => {
+      const escaped = normalizedTerm(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`).test(text);
+    });
 
-    if (hardNegative.test(text)) {
+    const mapsStatusText = normalizeText([
+      extra.businessStatus,
+      extra.statusText,
+      extra.isPermanentlyClosed === true ? 'permanentemente fechado' : '',
+    ].filter(Boolean).join(' | '));
+
+    if (
+      extra.isPermanentlyClosed === true ||
+      mapsStatusText.includes('permanently closed') ||
+      mapsStatusText.includes('permanentemente fechado') ||
+      mapsStatusText.includes('fechado permanentemente')
+    ) {
+      return { status: 'ineligible' as const, confidence: 0.99, reason: 'Estabelecimento aparece como permanentemente fechado no Google Maps.', source: 'local_rules' };
+    }
+
+    const strongPositive = hasTerm([
+      'restaurante', 'pizzaria', 'hamburgueria', 'lanchonete', 'pastelaria', 'sorveteria',
+      'gelateria', 'acai', 'açaí', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
+      'petiscaria', 'cafeteria', 'bistro', 'bistrô', 'cantina', 'cozinha', 'esfiharia',
+      'temakeria', 'sushi', 'japones', 'japonês', 'italiana', 'self service', 'self-service',
+      'marmitaria', 'food truck', 'frutos do mar', 'doceria', 'confeitaria', 'buffet',
+      'espetinho', 'espetos', 'lanche', 'lanches', 'burger', 'burguer', 'pizza',
+    ]);
+
+    const hardNegative = hasTerm([
+      'cooperativa', 'motoboy', 'moto boy', 'entregador', 'entregadores', 'delivery de entregas',
+      'logistica', 'logística', 'transportadora', 'farmacia', 'farmácia', 'drogaria',
+      'barbearia', 'salao de beleza', 'salão de beleza', 'academia', 'igreja', 'clinica',
+      'clínica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
+      'agropecuária', 'material de construcao', 'material de construção', 'deposito',
+      'depósito', 'cesta basica', 'cesta básica',
+    ]);
+
+    const retailOrLodging = hasTerm([
+      'supermercado', 'hipermercado', 'atacadao', 'atacadão', 'atacarejo', 'mercado publico',
+      'mercado público', 'mercearia', 'conveniencia', 'conveniência', 'posto de gasolina',
+      'hotel', 'pousada', 'distribuidora', 'bebidas e conveniencia', 'bebidas e conveniência',
+    ]);
+
+    const bakeryMarket = hasTerm([
+      'padaria', 'panificadora', 'panificacao', 'panificação', 'super market', 'mercadinho',
+      'hortifruti', 'sacolao', 'sacolão', 'açougue', 'acougue', 'peixaria',
+    ]);
+
+    const mixedFoodBusiness = strongPositive && (retailOrLodging || bakeryMarket);
+    const weakFoodCue = hasWord(['bar']) || hasTerm(['boteco', 'pub']);
+
+    if (hardNegative && !strongPositive && !weakFoodCue) {
       return { status: 'ineligible' as const, confidence: 0.98, reason: 'Tipo de estabelecimento incompatível com restaurante/cardápio público.', source: 'local_rules' };
     }
-    if (bakeryMarket.test(text) && !restaurantContext) {
-      return { status: 'ineligible' as const, confidence: 0.93, reason: 'Padaria/mercado/similar não deve entrar na base de restaurantes.', source: 'local_rules' };
+    if ((retailOrLodging || bakeryMarket) && !strongPositive) {
+      return { status: 'ineligible' as const, confidence: 0.93, reason: 'Mercado/padaria/hotel/conveniência sem sinal claro de cardápio de restaurante.', source: 'local_rules' };
     }
-    if (restaurantContext) {
-      return { status: 'eligible' as const, confidence: 0.9, reason: 'Categoria/nome indica restaurante ou food service elegível.', source: 'local_rules' };
+    if (hardNegative && weakFoodCue) {
+      return { status: 'unknown' as const, confidence: 0.6, reason: 'Negócio misto com bar/pub e serviço não gastronômico; precisa confirmar no Maps/IA.', source: 'local_rules' };
     }
-    return { status: 'unknown' as const, confidence: 0.45, reason: 'Categoria insuficiente; precisa de avaliação por IA.', source: 'local_rules' };
+    if (mixedFoodBusiness) {
+      return { status: 'unknown' as const, confidence: 0.62, reason: 'Negócio misto: tem comida, mas também varejo/hotel/conveniência. Precisa confirmar cardápio no Maps/IA.', source: 'local_rules' };
+    }
+    if (strongPositive) {
+      return { status: 'eligible' as const, confidence: 0.88, reason: 'Nome/categoria indica food service elegível.', source: 'local_rules' };
+    }
+    if (weakFoodCue) {
+      return { status: 'unknown' as const, confidence: 0.58, reason: 'Bar/boteco precisa confirmar se serve comida ou tem cardápio útil.', source: 'local_rules' };
+    }
+    return { status: 'unknown' as const, confidence: 0.45, reason: 'Categoria insuficiente; precisa de avaliação por IA/Google Maps.', source: 'local_rules' };
   };
 
   const classifyRestaurantEligibilityAI = async (restaurant: any, context: Record<string, any> = {}) => {
@@ -322,7 +386,7 @@ export default function CityValidation() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          systemContext: 'Você decide se um lugar deve entrar em um app de busca de restaurantes/cardápios. Responda SOMENTE JSON: {"status":"eligible|ineligible|unknown","confidence":0_a_1,"reason":"curto"}. Elegível: restaurante, lanchonete, pizzaria, bar com comida, cafeteria, doceria/confeitaria, food truck, marmitaria. Inelegível: cooperativa de motoboy, supermercado, padaria/panificadora sem restaurante, mercado, posto, farmácia, loja, serviço, hotel, academia, distribuidora.',
+          systemContext: 'Você decide se um lugar deve entrar em um app de busca de restaurantes/cardápios. Responda SOMENTE JSON: {"status":"eligible|ineligible|unknown","confidence":0_a_1,"reason":"curto"}. Elegível: restaurante, lanchonete, pizzaria, bar com comida, cafeteria, doceria/confeitaria, food truck, marmitaria. Inelegível: cooperativa de motoboy, supermercado, padaria/panificadora sem restaurante, mercado, posto, farmácia, loja, serviço, hotel, academia, distribuidora e estabelecimento permanentemente fechado no Google Maps.',
           message: JSON.stringify({
             name: restaurant?.name,
             category: restaurant?.category,
@@ -335,6 +399,9 @@ export default function CityValidation() {
               category: context.category || '',
               title: context.title || '',
               website: context.website || '',
+              businessStatus: context.businessStatus || '',
+              statusText: context.statusText || '',
+              isPermanentlyClosed: context.isPermanentlyClosed === true,
             }
           })
         })
@@ -539,8 +606,32 @@ export default function CityValidation() {
             successCount++;
             continue;
           }
+          let mapsData: any = null;
+          const mapUrl = extractGoogleMapsUrlFromRestaurant(r);
+          if (isExtensionActive && extensionId && mapUrl) {
+            addLog(`Lote: abrindo Google Maps pela extensão para checar status/categoria de ${r.name}.`);
+            const mapsResponse = await sendExtensionMessage(extensionId, {
+              action: 'scrapeGoogleHours',
+              query: r.name || '',
+              mapUrl,
+              restaurantId: r.id,
+            }, 90000);
+            if (mapsResponse?.success) {
+              mapsData = mapsResponse;
+              const mapsEligibility = await classifyRestaurantEligibilityAI(r, mapsData);
+              if (mapsEligibility.status === 'ineligible' && mapsEligibility.confidence >= 0.8) {
+                await markRestaurantIneligible(r, mapsEligibility, 'batch_maps_eligibility_gate');
+                successCount++;
+                continue;
+              }
+            } else {
+              addLog(`Lote: Maps não retornou dados úteis para ${r.name}: ${mapsResponse?.error || 'sem detalhe'}.`);
+            }
+          }
           const response = await fetch(`/api/local-collector/re-ai-validation?restaurantId=${r.id}`, {
-            method: 'POST'
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mapsData ? { mapsData } : {})
           });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || data?.success === false) {
