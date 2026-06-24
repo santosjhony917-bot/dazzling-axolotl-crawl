@@ -2765,6 +2765,16 @@ async function readVisibleGoogleMapsLeads(tabId, maxResults, expectedCity, expec
         }
       }
 
+      if (leads.length < limit && /\/maps\/place\//i.test(location.href)) {
+        const heading = compact(document.querySelector('h1, [role="heading"], .DUwDvf, .fontHeadlineLarge')?.textContent || '');
+        const titleName = compact((document.title || '').replace(/\s*[-–]\s*Google Maps\s*$/i, ''));
+        const queryName = compact(document.querySelector('input[aria-label], input[role="combobox"]')?.value || '');
+        const placeName = [heading, titleName, queryName].find(value => value && !isNameNoise(value));
+        if (placeName) {
+          pushLead(leads, seen, placeName, location.href);
+        }
+      }
+
       const feed = document.querySelector('div[role="feed"]');
       const rect = feed?.getBoundingClientRect?.();
       const pageText = normalize(document.body.innerText || '');

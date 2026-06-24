@@ -113,6 +113,34 @@ function buildSearchQueries(city: any, neighborhoods: string[]): SearchQueryPlan
   return queries;
 }
 
+async function fetchExistingLeadKeys(city: any) {
+  const keys = new Set<string>();
+  const pageSize = 1000;
+
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select('google_maps_url, visit_notes, name, address')
+      .eq('city', city.name)
+      .eq('state', city.state)
+      .range(from, from + pageSize - 1);
+
+    if (error) throw error;
+
+    for (const restaurant of data || []) {
+      const mapsUrl = safeText((restaurant as any).google_maps_url)
+        || safeText(((restaurant as any).visit_notes || '').match(/Google Maps:\s*(https?:\/\/\S+)/i)?.[1]);
+      const fallbackKey = `${normalizeKey(safeText((restaurant as any).name))}-${normalizeKey(safeText((restaurant as any).address))}`;
+      const key = mapsUrl || fallbackKey;
+      if (key && key !== '-') keys.add(key);
+    }
+
+    if (!data || data.length < pageSize) break;
+  }
+
+  return keys;
+}
+
 function sendExtensionMessage(extensionId: string, message: any, timeoutMs = 45000): Promise<any> {
   return new Promise((resolve) => {
     const chromeObj = (window as any).chrome;
@@ -198,6 +226,8 @@ function sendExtensionMessageBridge(extensionId: string, message: any, timeoutMs
     }
   });
 }
+
+const wait = (ms: number) => new Promise(resolve => window.setTimeout(resolve, ms));
 
 export default function CityCollection() {
   const { cityId } = useParams();
@@ -344,11 +374,8 @@ export default function CityCollection() {
       addLog(`[SYSTEM] Fase 1 iniciada pela extensão. Cidade: ${city.name}/${city.state}`);
       addLog('[SYSTEM] Regra: coletar somente leads mínimos do Google Maps. Nada será validado aqui.');
 
-      const existing = new Set(
-        restaurants
-          .map(r => safeText(r.google_maps_url) || safeText((r.visit_notes || '').match(/Google Maps:\s*(https?:\/\/\S+)/i)?.[1]))
-          .filter(Boolean)
-      );
+      const existing = await fetchExistingLeadKeys(city);
+      addLog(`[SYSTEM] Deduplicação carregada com ${existing.size} links/chaves já salvos para ${city.name}/${city.state}.`);
 
       const neighborhoods = await resolveExpansionNeighborhoods(city.name, city.state, addLog);
       const queries = buildSearchQueries(city, neighborhoods);
@@ -370,22 +397,50 @@ export default function CityCollection() {
         const layer = searchPlan.coverage === 'commercial_poles' ? 'polo' : 'cidade';
         addLog(`[BUSCA ${i + 1}/${queries.length}] ${searchPlan.label} • ${layer} • ${searchPlan.neighborhood} → ${searchPlan.query}`);
 
-        const response = await sendExtensionMessageBridge(id, {
-          action: 'searchGoogleMapsLeads',
-          query: searchPlan.query,
-          city: city.name,
-          state: city.state,
-          neighborhood: searchPlan.neighborhood,
-          categoryTerm: searchPlan.term,
-          maxResults: MAPS_RESULTS_PER_SEARCH,
-        }, 180000);
+        let response: any = null;
+        let leads: MapsLead[] = [];
+        const maxSearchAttempts = 3;
+
+        for (let attempt = 1; attempt <= maxSearchAttempts; attempt += 1) {
+          if (abortRef.current) break;
+
+          response = await sendExtensionMessageBridge(id, {
+            action: 'searchGoogleMapsLeads',
+            query: searchPlan.query,
+            city: city.name,
+            state: city.state,
+            neighborhood: searchPlan.neighborhood,
+            categoryTerm: searchPlan.term,
+            maxResults: MAPS_RESULTS_PER_SEARCH,
+          }, 240000);
+
+          leads = Array.isArray(response?.leads) ? response.leads : [];
+          if (response?.success && leads.length > 0) break;
+
+          const errorText = safeText(response?.error);
+          const retryable = !response?.success
+            ? /tempo limite|timeout|sem resposta|n[aã]o respondeu|nenhum lead|target|closed|carregar|google/i.test(errorText)
+            : leads.length === 0;
+
+          if (!retryable || attempt >= maxSearchAttempts) break;
+
+          const reason = response?.success
+            ? '0 candidatos retornados'
+            : (errorText || 'falha sem detalhe');
+          addLog(`[RETRY ${attempt + 1}/${maxSearchAttempts}] ${reason}. Vou repetir a mesma busca antes de seguir.`);
+          await wait(3500 * attempt);
+        }
+
+        if (abortRef.current) {
+          addLog('[STOP] Coleta interrompida pelo usuário.');
+          break;
+        }
 
         if (!response?.success) {
           addLog(`[WARN] Extensão não retornou leads: ${response?.error || 'erro desconhecido'}`);
           continue;
         }
 
-        const leads: MapsLead[] = Array.isArray(response.leads) ? response.leads : [];
         addLog(`[OK] ${leads.length} candidatos encontrados nessa busca.`);
 
         for (const lead of leads) {
