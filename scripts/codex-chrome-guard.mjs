@@ -114,6 +114,27 @@ function isVite(process) {
   return commandLine.includes('vite') && commandLine.includes('--port 8080');
 }
 
+function isCollectorWatcher(process) {
+  const commandLine = String(process.CommandLine || '').toLowerCase();
+  return (
+    commandLine.includes('watch-extension.mjs') ||
+    commandLine.includes('dev-reload-server.mjs') ||
+    commandLine.includes('dev:extension') ||
+    commandLine.includes('watch:extension')
+  );
+}
+
+function isValidatorWorker(process) {
+  const commandLine = String(process.CommandLine || '').toLowerCase();
+  return (
+    commandLine.includes('hybrid_restaurant_validator') ||
+    commandLine.includes('gallery_enricher') ||
+    commandLine.includes('validate_instagram') ||
+    commandLine.includes('universal-agent') ||
+    commandLine.includes('scratch')
+  );
+}
+
 function mb(value) {
   return Math.round((Number(value || 0) / 1024 / 1024) * 10) / 10;
 }
@@ -136,7 +157,10 @@ async function collectState() {
   const chromeProcesses = processes.filter(process => String(process.Name || '').toLowerCase() === 'chrome.exe');
   const nodeProcesses = processes.filter(process => String(process.Name || '').toLowerCase() === 'node.exe');
   const viteProcesses = processes.filter(isVite);
+  const collectorWatchers = processes.filter(isCollectorWatcher);
+  const validatorWorkers = processes.filter(isValidatorWorker);
   const chromeMemoryMb = chromeProcesses.reduce((sum, process) => sum + mb(process.WorkingSetSize), 0);
+  const nodeMemoryMb = nodeProcesses.reduce((sum, process) => sum + mb(process.WorkingSetSize), 0);
 
   const nativeOk =
     nativeManifest?.name === nativeHostName &&
@@ -176,7 +200,10 @@ async function collectState() {
     chromeProcesses,
     nodeProcesses,
     viteProcesses,
+    collectorWatchers,
+    validatorWorkers,
     chromeMemoryMb,
+    nodeMemoryMb,
     registryValue
   };
 }
@@ -190,8 +217,10 @@ function printState(state) {
   log(`Coletor extension id: ${collectorExtensionId}`);
   log(`Coletor project extension: ${state.collectorOk ? 'OK' : 'BROKEN'} v${state.collectorVersion} worker=${state.collectorWorker}`);
   log(`Chrome processes: ${state.chromeProcesses.length}, approx memory ${state.chromeMemoryMb.toFixed(1)} MB`);
-  log(`Node processes seen: ${state.nodeProcesses.length}`);
+  log(`Node processes seen: ${state.nodeProcesses.length}, approx memory ${state.nodeMemoryMb.toFixed(1)} MB`);
   log(`Vite 8080: ${state.viteProcesses.length > 0 ? 'running' : 'not detected'}`);
+  log(`Coletor dev watchers: ${state.collectorWatchers.length}`);
+  log(`Validator/collector workers: ${state.validatorWorkers.length}`);
 
   if (state.missingFiles.length > 0) {
     log('Missing plugin files:');
@@ -222,6 +251,18 @@ function printState(state) {
   if (state.chromeMemoryMb > 4500) {
     log('Warning: Chrome memory is high. Close non-test tabs before running Validar IA.');
   }
+  if (state.chromeProcesses.length > 35) {
+    log('Warning: many Chrome processes are open. Use fewer tabs for Validar IA or the page may appear disconnected.');
+  }
+  if (state.nodeProcesses.length > 40) {
+    log('Warning: many Node processes are running. Stop duplicate watchers/old validators before long tests.');
+  }
+  if (state.collectorWatchers.length > 1) {
+    log('Warning: more than one extension dev watcher was detected. Keep only one dev:extension/watch:extension session active.');
+  }
+  if (state.validatorWorkers.length > 0) {
+    log('Warning: validator/collector worker processes are already running. Avoid starting another Validar IA test until they finish.');
+  }
 }
 
 async function runOnce() {
@@ -243,7 +284,10 @@ async function runWatch() {
       nativeOk: state.nativeOk,
       registryOk: state.registryOk,
       chromeProcesses: state.chromeProcesses.length,
-      chromeMemoryMb: Math.round(state.chromeMemoryMb / 250) * 250
+      chromeMemoryMb: Math.round(state.chromeMemoryMb / 250) * 250,
+      nodeProcesses: state.nodeProcesses.length,
+      collectorWatchers: state.collectorWatchers.length,
+      validatorWorkers: state.validatorWorkers.length
     });
     if (signature !== lastSignature) {
       log('--- state changed ---');

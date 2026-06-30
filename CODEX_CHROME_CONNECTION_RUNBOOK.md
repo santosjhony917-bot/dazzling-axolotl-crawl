@@ -55,6 +55,17 @@ npm run watch:codex-chrome
 
 Esse comando nao apaga cache e nao reinicia o Chrome. Ele so avisa quando a conexao mudou de estado.
 
+Se o guard mostrar `CONNECTED`, a conexao Codex Chrome esta boa. Nesse estado, `Falha ao desinstalar plugin` e esperada se voce tentar remover/reinstalar, porque o host nativo esta em uso. Nao corrija uma conexao saudavel reinstalando o plugin.
+
+O guard tambem avisa quando o problema parece ser carga do ambiente, e nao plugin:
+
+- muitos processos Chrome;
+- muitos processos Node;
+- mais de um watcher da extensao Coletor;
+- validadores/coletores ja rodando.
+
+Se esses avisos aparecerem, reduza abas/processos antes de culpar a conexao do Codex Chrome.
+
 ## Antes de testar Validar IA com conexao visual
 
 Rode sempre:
@@ -118,6 +129,10 @@ npm run repair:codex-chrome
 - Manter poucas abas abertas durante Validar IA.
 - Fechar abas de chrome://extensions, Instagram, Google e Anota AI que nao estejam em uso.
 - Nao misturar reload da extensao Coletor com reinstalacao do plugin Codex.
+- Manter somente um `npm run dev:extension` ou `npm run watch:extension` ativo.
+- Evitar abrir o Monitor da extensao durante validacao longa, salvo para investigacao.
+- Nao iniciar outro Validar IA se o guard avisar que ja existem validadores/coletores rodando.
+- Usar lotes de 20 no maximo; se a pagina ficar pesada, reduzir operacionalmente para 10.
 - Usar a pasta fixa do Coletor Auxiliar no Chrome: public/chrome-extension.
 - Nao apagar arquivos dentro de .codex/plugins/cache manualmente.
 - Nao rodar comandos que encerram o host enquanto a faixa "Codex iniciou a depuracao deste navegador" estiver ativa, exceto se for reinstalar de proposito.
