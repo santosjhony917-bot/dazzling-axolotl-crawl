@@ -11,21 +11,7 @@
     "watch:extension": "node scripts/watch-extension.mjs",
     "prepare:extension-dev": "node scripts/watch-extension.mjs --prepare-only",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "dev:chrome": "node scripts/dev-chrome-harness.mjs",
-    "check:chrome": "node scripts/dev-chrome-harness.mjs --mode check",
-    "preflight:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs --preflight",
-    "check:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs",
-    "guard:codex-chrome": "node scripts/codex-chrome-guard.mjs",
-    "watch:codex-chrome": "node scripts/codex-chrome-guard.mjs --watch",
-    "check:codex-chrome-reinstall": "node scripts/diagnose-codex-chrome-plugin.mjs --preinstall",
-    "fix:codex-chrome-lock": "node scripts/diagnose-codex-chrome-plugin.mjs --fix",
-    "stop:codex-chrome-host": "node scripts/diagnose-codex-chrome-plugin.mjs --fix --force-stop-host",
-    "reset:codex-chrome": "npm run repair:codex-chrome",
-    "doctor:codex-chrome": "npm run check:codex-chrome",
-    "hold:codex-chrome-reinstall": "powershell -ExecutionPolicy Bypass -File scripts/hold-codex-chrome-reinstall.ps1",
-    "repair:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs --fix --repair-corrupt",
-    "snapshot:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs --snapshot-good"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",

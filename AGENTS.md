@@ -23,5 +23,4 @@ OpenAI/API key handling:
 Chrome notes:
 
 - The project extension is at `public\chrome-extension`.
-- Existing notes for real Chrome testing are in `EXTENSION_REAL_CHROME_TESTING.md`.
 - Prefer a Chrome profile outside the watched project tree when running Vite, to avoid watcher issues with locked Chrome profile files.
