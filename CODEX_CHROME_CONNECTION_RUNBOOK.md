@@ -31,6 +31,28 @@ npm run check:codex-chrome
 
 Se tudo estiver OK, nao rode comandos de fix durante uma sessao boa.
 
+## Guardiao de conexao
+
+Use quando quiser uma decisao rapida antes de mexer no Chrome:
+
+```powershell
+npm run guard:codex-chrome
+```
+
+Interpretacao principal:
+
+- `CONNECTED`: o plugin do Codex esta integro e o `extension-host.exe` esta ativo. Use a conexao visual. Nao desinstale/reinstale o plugin agora.
+- `READY_TO_CONNECT`: o plugin esta integro, mas o host visual nao esta ativo. Abra/conecte o Chrome pelo plugin do Codex.
+- `BROKEN_INSTALL`: cache, manifesto ou registro estao quebrados. Repare antes de testar Validar IA.
+
+Para monitorar enquanto trabalha:
+
+```powershell
+npm run watch:codex-chrome
+```
+
+Esse comando nao apaga cache e nao reinicia o Chrome. Ele so avisa quando a conexao mudou de estado.
+
 ## Antes de testar Validar IA com conexao visual
 
 Rode sempre:

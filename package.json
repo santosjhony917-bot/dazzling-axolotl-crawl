@@ -16,6 +16,8 @@
     "check:chrome": "node scripts/dev-chrome-harness.mjs --mode check",
     "preflight:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs --preflight",
     "check:codex-chrome": "node scripts/diagnose-codex-chrome-plugin.mjs",
+    "guard:codex-chrome": "node scripts/codex-chrome-guard.mjs",
+    "watch:codex-chrome": "node scripts/codex-chrome-guard.mjs --watch",
     "check:codex-chrome-reinstall": "node scripts/diagnose-codex-chrome-plugin.mjs --preinstall",
     "fix:codex-chrome-lock": "node scripts/diagnose-codex-chrome-plugin.mjs --fix",
     "reset:codex-chrome": "npm run repair:codex-chrome",
