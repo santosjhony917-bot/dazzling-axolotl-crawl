@@ -20,6 +20,7 @@
     "watch:codex-chrome": "node scripts/codex-chrome-guard.mjs --watch",
     "check:codex-chrome-reinstall": "node scripts/diagnose-codex-chrome-plugin.mjs --preinstall",
     "fix:codex-chrome-lock": "node scripts/diagnose-codex-chrome-plugin.mjs --fix",
+    "stop:codex-chrome-host": "node scripts/diagnose-codex-chrome-plugin.mjs --fix --force-stop-host",
     "reset:codex-chrome": "npm run repair:codex-chrome",
     "doctor:codex-chrome": "npm run check:codex-chrome",
     "hold:codex-chrome-reinstall": "powershell -ExecutionPolicy Bypass -File scripts/hold-codex-chrome-reinstall.ps1",

@@ -8,6 +8,7 @@ const shouldCheckPreinstall = args.has('--preinstall');
 const shouldPreflight = args.has('--preflight');
 const shouldRepairCorruptCache = args.has('--repair-corrupt');
 const shouldSnapshotGoodInstall = args.has('--snapshot-good');
+const shouldForceStopHost = args.has('--force-stop-host');
 
 const userProfile = process.env.USERPROFILE || '';
 const localAppData = process.env.LOCALAPPDATA || join(userProfile, 'AppData', 'Local');
@@ -363,6 +364,19 @@ async function main() {
   }
 
   if (shouldFix) {
+    const healthyConnected = relevant.length > 0 && !installInconsistent && !shouldRepairCorruptCache && !shouldForceStopHost;
+    if (healthyConnected) {
+      log('CONEXAO SAUDAVEL: host nativo ativo e instalacao integra.');
+      log('Nao vou encerrar extension-host.exe/cmd.exe, porque isso derrubaria a conexao visual que voce quer usar.');
+      log('Se a intencao for reinstalar o plugin, rode npm run hold:codex-chrome-reinstall.');
+      log('Se a intencao for realmente desligar o host ativo, rode npm run stop:codex-chrome-host.');
+      process.exit(0);
+    }
+
+    if (shouldForceStopHost) {
+      log('FORCE STOP solicitado: vou encerrar o host nativo mesmo que a instalacao pareca saudavel.');
+    }
+
     await killRelevantHostProcesses(relevant);
     if (shouldRepairCorruptCache && cacheIncomplete) {
       const latestTarget = findLatestTarget();
@@ -393,8 +407,9 @@ async function main() {
   log('  npm run check:codex-chrome           # diagnostico normal');
   log('  npm run check:codex-chrome-reinstall # verifica se pode reinstalar/desinstalar agora');
   log('  npm run hold:codex-chrome-reinstall  # segura o host desligado enquanto voce reinstala no Codex');
+  log('  npm run stop:codex-chrome-host        # encerra host ativo de proposito; derruba a conexao visual');
   log('  npm run repair:codex-chrome          # isola cache incompleto/quebrado');
-  log('  npm run fix:codex-chrome-lock        # mata host/cmd preso; use quando for recuperar ou reinstalar');
+  log('  npm run fix:codex-chrome-lock        # reparo seguro; nao mata host saudavel ativo');
 }
 
 main().catch(error => {

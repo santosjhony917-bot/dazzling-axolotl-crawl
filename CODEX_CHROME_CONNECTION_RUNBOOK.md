@@ -21,6 +21,8 @@ Nao tente desinstalar ou reinstalar o plugin Chrome do Codex enquanto a conexao 
 
 Quando a conexao esta ativa, o extension-host.exe pode ficar segurando arquivos do plugin. Isso causa "Falha ao desinstalar plugin".
 
+Se aparecer "Falha ao desinstalar plugin", trate primeiro como host ativo segurando o cache, nao como cache quebrado. Rode `npm run guard:codex-chrome` antes de tentar reinstalar.
+
 ## Diagnostico normal
 
 Use quando quiser saber se a instalacao esta saudavel:
@@ -91,10 +93,18 @@ Enquanto esse comando estiver segurando o host desligado, faca a desinstalacao/r
 
 ## Recuperacao
 
-Use somente se a conexao ja caiu, se o plugin ficou preso, ou antes de reinstalar:
+Use quando quiser uma recuperacao segura:
 
 ```powershell
 npm run fix:codex-chrome-lock
+```
+
+Esse comando nao encerra um host saudavel ativo. Se ele disser `CONEXAO SAUDAVEL`, nao reinstale o plugin; a conexao visual deve ser preservada.
+
+Use somente quando voce realmente quiser derrubar a conexao visual ativa:
+
+```powershell
+npm run stop:codex-chrome-host
 ```
 
 Se o cache do plugin estiver incompleto/quebrado:
@@ -110,3 +120,4 @@ npm run repair:codex-chrome
 - Nao misturar reload da extensao Coletor com reinstalacao do plugin Codex.
 - Usar a pasta fixa do Coletor Auxiliar no Chrome: public/chrome-extension.
 - Nao apagar arquivos dentro de .codex/plugins/cache manualmente.
+- Nao rodar comandos que encerram o host enquanto a faixa "Codex iniciou a depuracao deste navegador" estiver ativa, exceto se for reinstalar de proposito.
